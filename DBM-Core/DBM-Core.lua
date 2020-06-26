@@ -38,14 +38,30 @@
 --
 
 
+----------------------
+--  Combat log Fix  --
+----------------------
+local tCLFix = 0
+
+local function fCLFix(self,elapsed)
+    tCLFix = tCLFix + elapsed
+    if tCLFix >= 2 then --time (in seconds) it takes before it executes the command on line 6
+		CombatLogClearEntries()
+        tCLFix = 0 --resets the timer
+    end
+end
+
+local f = CreateFrame("frame")
+f:SetScript("OnUpdate", fCLFix)
+
 -------------------------------
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 4442 $"):sub(12, -3),
-	Version = "4.52",
-	DisplayVersion = "4.52", -- the string that is shown as version
-	ReleaseRevision = 4442 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 5000 $"):sub(12, -3),
+	Version = "5.00",
+	DisplayVersion = "5.00 Warmane-Frostmourne by Celeste, fixed by Bti", -- the string that is shown as version
+	ReleaseRevision = 5000 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -134,7 +150,7 @@ local chatPrefix = "<Deadly Boss Mods> "
 local chatPrefixShort = "<DBM> "
 local ver = ("%s (r%d)"):format(DBM.DisplayVersion, DBM.Revision)
 local mainFrame = CreateFrame("Frame")
-local showedUpdateReminder = false
+local showedUpdateReminder = true
 local combatInitialized = false
 local schedule
 local unschedule
@@ -482,7 +498,6 @@ do
 	end
 end
 
-
 --------------------------
 --  OnUpdate/Scheduler  --
 --------------------------
@@ -682,6 +697,8 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM:ShowVersions(false)
 	elseif cmd == "ver2" or cmd == "version2" then
 		DBM:ShowVersions(true)
+	elseif cmd == "rel" or cmd == "release" then  -- Added to broadcast the version check to raid chat
+		DBM:ShowRelease(true)
 	elseif cmd == "unlock" or cmd == "move" then
 		DBM.Bars:ShowMovableBar()
 	elseif cmd == "help" then
@@ -835,54 +852,36 @@ do
 			sortMe[i] = nil
 		end
 	end
-	--[[ hmm don't think that this is realy good, so disabled for the moment
-	function DBM:ElectMaster()
-		-- FIXME: Add Zonecheck for raidmates
-		local elect_player = nil
-		local elect_revision = tonumber(DBM.Revision)
-		local electd_raidlead = false
-
-		-- first of all, we only import the ranked mates
+	function DBM:ShowRelease(notify)
+			if DBM:GetRaidRank() == 0 then
+			DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
+			return
+		end
 		for i, v in pairs(raid) do
-			if v.rank >= 1 then
-				table.insert(sortMe, v)
+			table.insert(sortMe, v)
+		end
+		table.sort(sortMe, sort)
+		SendChatMessage(DBM_CORE_VERSIONCHECK_HEADER, "RAID")
+		for i, v in ipairs(sortMe) do
+			if v.displayVersion then
+				SendChatMessage(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.displayVersion, v.revision), "RAID")
+				--[[if notify and v.displayVersion ~= DBM.Version and v.revision < DBM.ReleaseRevision then
+					SendChatMessage(chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
+				end]]--
+			else
+				SendChatMessage(DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM:format(v.name), "RAID")
 			end
 		end
-		table.sort(sortMe, sort)		
-		if not #sortMe then return nil end	-- no raid, no election
-
-		local p = sortMe[1]
-		if p.revision >= tonumber(DBM.Revision) then	-- first we check the latest revision
-			DBM:AddMsg("Newest Version seems to be Revision of "..p.name.." r"..p.revision.." - local revision = r"..DBM.Revision)
-			elect_revision = tonumber(p.revision)
-		end
-		for i, v in ipairs(sortMe) do	-- now we kick all assists with a revision lower than the hightest
-			if tonumber(v.revision) < elect_revision then
+		for i = #sortMe, 1, -1 do
+			if not sortMe[i].revision then
 				table.remove(sortMe, i)
 			end
-		end		
-		for i, v in ipairs(sortMe) do	-- we prefere to elect the Raidleader so we try this
-			if v.rank >= 2 then
-				DBM:AddMsg("Revision of "..v.name.." is "..v.revision.." and thats the RaidLeader")
-				elect_player = v.name
-				elect_revision = tonumber(v.revision)
-				elect_raidlead = true
-			end
 		end
-		if not elect_raidlead then
-			table.sort(sortMe, function(v1, v2) return v1.name > v2.name end)	-- order by Name
-			if sortMe[#sortMe] then
-				p = sortMe[#sortMe]
-				DBM:AddMsg("Elected "..p.name.." is assist and best name")
-				elect_player = p.name
-				elect_revision = tonumber(p.revision)
-			end
+		SendChatMessage(DBM_CORE_VERSIONCHECK_FOOTER:format(#sortMe), "RAID")
+		for i = #sortMe, 1, -1 do
+			sortMe[i] = nil
 		end
-
-		table.wipe(sortMe)
-		return elect_player, elect_revision, elect_raidlead
 	end
-	--]]
 end
 
 -------------------
@@ -1074,30 +1073,34 @@ do
 	
 	function DBM:RAID_ROSTER_UPDATE()
 		if GetNumRaidMembers() >= 1 then
-			local playerWithHigherVersionPromoted = false
-			for i = 1, GetNumRaidMembers() do
-				local name, rank, subgroup, _, _, fileName = GetRaidRosterInfo(i)
-				if (not raid[name]) and inRaid then
-					fireEvent("raidJoin", name)
-				end
-				raid[name] = raid[name] or {}
-				raid[name].name = name
-				raid[name].rank = rank
-				raid[name].subgroup = subgroup
-				raid[name].class = fileName
-				raid[name].id = "raid"..i
-				raid[name].updated = true
-				if not playerWithHigherVersionPromoted and rank >= 1 and raid[name].version and raid[name].version > tonumber(DBM.Version) then
-					playerWithHigherVersionPromoted = true
-				end
-			end
-			enableIcons = not playerWithHigherVersionPromoted
 			if not inRaid then
 				inRaid = true
 				sendSync("DBMv4-Ver", "Hi!")
 				self:Schedule(2, DBM.RequestTimers, DBM)
 				fireEvent("raidJoin", UnitName("player"))
 			end
+			local playerWithHigherVersionPromoted = false
+			for i = 1, GetNumRaidMembers() do
+				local name, rank, subgroup, _, _, fileName = GetRaidRosterInfo(i)
+				if name and inRaid then
+
+					if (not raid[name]) then
+						fireEvent("raidJoin", name)
+					end
+					
+					raid[name] = raid[name] or {}
+					raid[name].name = name
+					raid[name].rank = rank
+					raid[name].subgroup = subgroup
+					raid[name].class = fileName
+					raid[name].id = "raid"..i
+					raid[name].updated = true
+				end
+				if not playerWithHigherVersionPromoted and rank >= 1 and raid[name].version and raid[name].version > tonumber(DBM.Version) then
+					playerWithHigherVersionPromoted = true
+				end
+			end
+			enableIcons = not playerWithHigherVersionPromoted
 			for i, v in pairs(raid) do
 				if not v.updated then
 					raid[i] = nil
@@ -1228,13 +1231,15 @@ do
 					end
 				end
 				v.Options = savedOptions[v.id] or {}
-				savedStats[v.id] = savedStats[v.id] or {
-					kills = 0,
-					pulls = 0,
-					heroicKills = 0,
-					heroicPulls = 0,
-				}
+				savedStats[v.id] = savedStats[v.id] or {}
 				v.stats = savedStats[v.id]
+
+				-- for some reason some people have 0 kills as nil instead of 0.
+				v.stats.kills = v.stats.kills or 0
+				v.stats.pulls = v.stats.pulls or 0
+				v.stats.heroicKills = v.stats.heroicKills or 0
+				v.stats.heroicPulls = v.stats.heroicPulls or 0
+
 				if v.OnInitialize then v:OnInitialize() end
 				for i, cat in ipairs(v.categorySort) do -- temporary hack
 					if cat == "misc" then
@@ -1500,7 +1505,7 @@ do
 							else 
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[http://deadlybossmods.com]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/ajseward/DBM-Frostmourne]"):format(displayVersion, revision))
 							end
 						end
 					end
@@ -1603,10 +1608,10 @@ function DBM:ShowUpdateReminder(newVersion, newRevision)
 	editBox:SetFontObject("GameFontHighlight")
 	editBox:SetTextInsets(0, 0, 0, 1)
 	editBox:SetFocus()
-	editBox:SetText("http://www.deadlybossmods.com")
+	editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
 	editBox:HighlightText()
 	editBox:SetScript("OnTextChanged", function(self)
-		editBox:SetText("http://www.deadlybossmods.com")
+		editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
 		editBox:HighlightText()
 	end)
 	local fontstring = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -2317,6 +2322,7 @@ do
 				id = name,
 				announces = {},
 				specwarns = {},
+				vb = {}, -- variables table, used by details to check phase
 				timers = {},
 				modId = modId,
 				revision = 0,
@@ -2353,16 +2359,16 @@ bossModPrototype.AddMsg = DBM.AddMsg
 
 function bossModPrototype:SetZone(...)
 	if select("#", ...) == 0 then
-		if self.addon.zone and #self.addon.zone > 0 and self.addon.zoneId and #self.addon.zoneId > 0 then
+		if self.addon and self.addon.zone then
 			self.zones = {}
 			for i, v in ipairs(self.addon.zone) do
 				self.zones[#self.zones + 1] = v
 			end
+		end
+		if self.addon and self.addon.zoneId then
 			for i, v in ipairs(self.addon.zoneId) do
 				self.zones[#self.zones + 1] = v
 			end
-		else
-			self.zones = self.addon.zone and #self.addon.zone > 0 and self.addon.zone or self.addon.zoneId and #self.addon.zoneId > 0 and self.addon.zoneId or {}
 		end
 	elseif select(1, ...) ~= DBM_DISABLE_ZONE_DETECTION then
 		self.zones = {...}
@@ -2632,6 +2638,7 @@ do
 				end
 			end
 			PlaySoundFile(DBM.Options.RaidWarningSound)
+			fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		end
 	end
 
@@ -2824,6 +2831,7 @@ do
 			if self.sound then
 				PlaySoundFile(DBM.Options.SpecialWarningSound)
 			end
+			fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		end
 	end
 
@@ -3065,13 +3073,19 @@ do
 		local bar = DBM.Bars:GetBar(id)
 		return bar and (bar.totalTime - bar.timer) or 0, (bar and bar.totalTime) or 0
 	end
-	
+
+	function timerPrototype:Time(...)
+		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local bar = DBM.Bars:GetBar(id)
+		return bar.totalTime or 0
+	end
+
 	function timerPrototype:IsStarted(...)
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBM.Bars:GetBar(id)
 		return bar and true
 	end
-	
+
 	function timerPrototype:SetTimer(timer)
 		self.timer = timer
 	end
@@ -3082,6 +3096,14 @@ do
 		end
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		return DBM.Bars:UpdateBar(id, elapsed, totalTime)
+	end
+
+	function timerPrototype:AddTime(time, ...)
+		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local timer = self:GetTime(...) - time -- GetTime() = elapsed time on timer
+		if timer then
+			return DBM.Bars:UpdateBar(id, timer)
+		end
 	end
 
 	function timerPrototype:UpdateIcon(icon, ...)
