@@ -1,0 +1,197 @@
+Added Features
+
+- Integrated the addon CL_Fix made by Gmad (Gjeneth @ Warmane - Outland)
+  This stops the combatlog from bugging out so often.
+  Also means that you don't need to load that addon seperately
+  
+  
+General Modifications
+
+- Changed update download link to https://wow.ayaro.eu/addons/wotlk/
+- Added the "/dbm rel" command to broadcast version check results to raid chat instead of self
+  This function requires you to be promoted in raid to avoid spam
+  This does not (yet) work for party chat
+  - Removed the whisper part of this function to avoid the Warmane chat silence and make it less "spammy"
+- Set the update notification to enabled by default
+  This does not appear to override settings with the notification disabled but works for fresh installs of this edited DBM
+- Added the ElvUI main texture to DBM and set it to default
+  If you have ElvUI installed, you might see this texture twice in the dropdown list when choosing another texture
+- Set the default size of the small bars to 207
+- Removed some code that was edited out to reduce file size
+
+
+Bosstimer Fixes
+
+Raids
+
+- Icecrown Citadel
+
+ - Lord Marrowgar Heroic
+  - Fixed Bone Spike timers
+  - Fixed Bone Storm timer
+  - Fixed Bone Storm cooldown timer
+  - Added "Spikes up in..." timer for when Bone Spikes is being cast
+    This acts as a secondary timer next to the cooldown timer
+  - Added "Whirlwind starts in..." timer for when Bone Storm is being cast
+    This acts as a secondary timer next to the cooldown timer
+
+ - Lady Deathwhisper Heroic
+  - Fixed heroic mode timers by breaking normal mode
+  - Adjusted adds spawn timers to be more accurate
+  - Adjusted the first dominate mind timer to be more accurate
+    Ability is being used anywhere between 40 and 48 seconds so use it as a cooldown reset timer
+  - Added the option to enable automatic removal of Mark/Gift of the Wild after 24 seconds of combat
+    The 24 second delay is so that the buff is still active during first trinket uptime
+    This option is enabled by default for dps and healers
+
+ - Gunship Battle Heroic
+  - Fixed combat start timer
+  - Fixed the Battle Mage timer on Alliance side
+    Alliance and Horde have seperate code
+    I don't play Horde side so that's not getting fixed anytime soon unless someone is willing to provide data
+
+ - Deathbringer Saurfang Heroic
+  - Fixed combat start timer for the first pull on Alliance side
+    Alliance and Horde have seperate code
+    I don't play Horde side so that's not getting fixed anytime soon unless someone is willing to provide data
+  - Fixed the timer for the first set of Bloodbeasts
+
+ - Rotface Heroic
+  - Fixed Vile Gas timer
+  - Fixed Poison Slime Pipes timer
+  - Adjusted the Range Check from 8 to 10 to better reflect the aoe range of Vile Gas on Warmane
+  - Cleaned up code that was edited out to reduce file size and RAM load
+
+ - Festergut Heroic
+  - Fixed Range Check to auto show
+  - Adjusted the Range Check from 8 to 10 to better reflect the aoe range of Vile Gas on Warmane
+
+ - Blood-Queen Lana'thel Heroic
+  - Adjusted the enrage timer to be more accurate
+  
+ - Valithria Dreamwalker Heroic
+  - Fixed the starting trigger for the bossmod, portal timers are showing again
+  - Fixed Berserk timer for heroic difficulty (420 seconds)
+  - Fixed Abom timers
+  - Fixed Blazing Skeleton timers
+  - Added timers and special warnings for Suppressors
+
+ - Sindragosa Heroic
+  - Set the Range Check to always use Heroic Mode values (20) regardless of difficulty (20 yards on Heroic, 12 yards on Normal)
+  - Added a raidchat notification "Gained_Instability" when casters/healers gain a stack of Instability (Unchained Magic)
+  - Added a raidchat notification "Instability_Reset" when casters/healers drop their stacks of Instability (Unchained Magic)
+
+ - The Lich King Heroic
+  - Fixed combat start timer
+  - Fixed the first phase 2 Soul Reaper timer - Thanks to Arrj @ Warmane - Icecrown
+  - Fixed Harvest Souls timers for Heroic mode
+    Timer for this can sometimes finish 1-3 seconds before the abilty is used cause Warmane
+
+
+- Ruby Sanctum
+ - General Zarithrian
+  - Adjusted Fear timer to be more accurate
+    First fear seems to be a bit random
+  - Adjusted timer for first adds to be more accurate
+    First summon adds seems to be a bit random
+  - Added "Adds arrive in..." timer
+
+- Trial of the Crusader
+
+ - Northrend Beasts
+  - Gormok the Impaler
+   - Fixed combat start timer
+
+  - Acidmaw & Dreadscale
+   - Fixed combat start timer
+   - Adjusted submerge timer to be more accurate, improvements still needed
+     Hard cooldown for submerge is 45 seconds, but new timer doesn't trigger untill after worms come up and use a special ability
+     Special abilities are being used between 3-5 seconds after the worm comes up again
+   - Adjusted emerge timer to be more accurate
+     This seems random at best and may as well be removed completely so it stops being annoying
+
+  - Icehowl
+   - Fixed timer for Icehowls first Massive Crash
+   - Added a seperate timer for the second Massive Crash in case the original timer from DBM doesn't trigger
+     It's possible to have two timers up for the second Massive Crash if and when the original timer triggers but that's better than having none
+	 
+ - Lord Jaraxxus
+  - Fixed combat start timer for the first pull
+  - Nether Power timers fix and warnings by Nimloth/Lothe @ Warmane Icecrown
+  - Fixed timers for Nether Volcano's
+  - Fixed timer for the first Nether Portal
+  - Added a seperate timer with warning for the second Nether Portal since the original timer does not activate after the first portal spawns
+
+ - Anub'Arak
+  - Added a seperate timer, warning and special warning for the second submerge since the original does not reactivate after the first burrow
+
+
+- Ulduar
+
+ - Razorscale
+  - Fixed enrage timer
+
+
+Dungeons
+
+- Trial of the Champion
+ - The Black Knight
+  - Fixed combat start timer
+
+- Pit of Saron
+ - Scourgelord Tyrannus
+  - Fixed combat start timer for the first pull
+  - Fixed Forcefull Smash timer
+
+
+
+To do
+
+General
+
+- Fix version check result broadcast on party chat
+- Create ingame option to enable/disable flashing of the DBM timer bars
+
+Raids
+
+- Icecrown Citadel
+
+ - Festergut
+  - Malleable Goo timer
+
+ - Blood Prince Council
+  - Add timer for role play on the first pull
+  - Fix Empowered Shockwave timers
+
+  
+- Trial of the Crusader
+
+ - Northrend Beasts
+  - Acidmaw & Dreadscale
+   - Attempt to fix timers for Submerge and Emerge
+
+  
+- Ulduar
+ 
+ - Yogg-Saron
+  - Attempt to fix Brain Portal timers for phase 2
+    This is gonna be a challenge and possibly impossible
+
+
+_REMOVED_
+
+- Integrated the backport of Lombra's DBM-Profiles done by freix1
+  https://github.com/freix1/DBM-Profiles_WotLK
+  Thank you DeadlyImpact @ Warmane - Icecrown for pointing me towards this.
+  This addon implements AceDB profiles for Deadly Boss Mods, allowing you to share settings among characters.
+  Dual spec profiling is supported.
+  To manage profiles, open the Deadly Boss Mods configuration window using '/dbm', and select the Profiles category in the Options tab.
+  - Updating from version 4.58 or lower will reset your DBM settings!
+   !- When you first log in to the game after updating from 4.58 or lower, go to the new DBM Profiles page in the options tab
+      Select your current characters name and than adjust settings.
+      Log over to your next char, select either the profile from your previous char or select your currently logged char and than use the "copy from" option.
+      For some reason it's NOT able to store data in the "Default" profile.
+  The Default profile not working properly kinda defeated the point of having this
+  It also bugged out some of the options like the color of the DBM Warmings and Special Warnings
+  Profiles folder is still included in the zip file with a dummy file for easier installation of this DBM edited
+  !- It may be required to delete your DBM SavedVariables if you had version 4.60 with profiles included before updating to anything newer

@@ -1,0 +1,17 @@
+## Interface: 30100
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFData Broker|r
+## RequiredDeps: DBM-Core
+## DefaultState: enabled
+## Author: Tandanu and Nitram
+## URL: http://www.deadlybossmods.com
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+localization.kr.lua
+LibStub.lua
+CallbackHandler-1.0.lua
+LibDataBroker-1.1.lua
+DBM-LDB.lua
+
+
+

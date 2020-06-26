@@ -1,0 +1,104 @@
+General Notes
+
+- This DBM version (4.93) is fully compatible with the previous Warmane version, as well as the latest 3.3.5 release available elsewhere
+- Timings are based on my own experience and vods of other guilds on Frostmourne; please send me corrections if a timer is inaccurate.
+- Due to what I believe is spell queuing, a lot of abilities have a small amount of randomness. I try to address this by marking these as CD.
+  - Frost Blast on Kel'Thuzad, Locust Swarm (cast, not duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random from what I've seen.'
+
+- no longer contains malicious code from zbruennig.
+
+Bosstimer Additions
+
+- Naxxramas
+
+  - Noth the Plaguebringer
+    - Added timer for Blink on 25 man
+    
+  - Instructor Razuvious
+    - Added duration timer for Mind Controls (from your raid team)
+    
+  - Gothik the Harvester
+    - Adjusted Phase 2 timer
+    - Added timer for the gate opening
+    
+  - Four Horsemen
+    - Added timer for Sir Zeliek's Holy Wrath
+
+  - Grobbulus
+    - Added a chat message when you get Mutating Injection
+    
+  - Anub'rekhan
+    - Adjust timer for Locust Swarm ending (not when he casts it, that's somewhat random)
+    
+  - Grand Widow Faerlina
+    - Added duration timer for Mind Controls (from your raid team)
+    
+  - Kel'Thuzad
+    - Adjusted Phase 2 timer
+    - Adjusted the Range Check from 10 to 12 to better reflect the Frost Blast range on Warmane
+    - Added timer for Mind Control on 25 man
+    - Added timer for Frost Blast
+    - Added warning timer for Mind Control
+    - Added a bunch of warnings for Detonate Mana. You can't miss it now.
+
+- The Obsidian Sanctum
+
+  - Sartharion
+    - Adjusted timers for Tenebron / Vesperon / Shadron landing
+    - Added a timer for Whelps spawning (from Tenebron's portal, as most groups don't kill his acolyte)
+    - Added timers for portals activating for Vesperon and Shadron
+
+- The Eye of Eternity
+
+  - Malygos
+    - Added a timer for the first Vortex
+    - Added a timer for the first intermission, when Malygos is attackable
+    - Added a timer for the second intermission, when Malygos wipes his debuffs and starts casting Surge of Powers
+
+- Ulduar
+
+  - Iron Council
+    - Fixed an issue where engaging the boss isn't detected
+    - Add timers for first ability in each phase
+    - Add timer for Rune of Death cooldown
+    - Add timer for Rune of Summoning cooldown
+    - Adjust Overload warning to always show by default
+
+  - Hodir
+    - Adjust timer for Flash Freeze
+
+  - Thorim
+    - Added Chain Lightning timer
+    - Added timer for Frostbolt Volley
+    - Added timer for Frost Nova
+
+  - Freya
+    - Added timer for Sunbeam
+    - Added timer for Strengthened Iron Roots
+    - Added timer for Allies of Nature (add spawns)
+
+  - General Vezax
+    - Added timer for Mark of the Faceless CD
+
+  - Algalon
+    - Big Bang now shows its alert even in a Black Hole
+
+  - Mimiron
+    - Adjust timers between phases
+    - Adjust Flame Suppressant timer
+    - Adjust hard mode detection trigger
+
+To do (when more information is available)
+
+General
+
+  - Add and adjust more timers for unreleased bosses (Ulduar, ToC) when they deviate on Frostmourne
+  - Fix the options for newly added timers to be synchronous with other DBM timers (via i18n)
+  - Add translations
+  - See original changelog for additional todos
+
+Ulduar
+
+  - Yogg-Saron
+    - Add Lunatic Gaze timer
+    - Add Deafening Roar timer
