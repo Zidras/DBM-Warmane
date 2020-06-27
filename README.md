@@ -3,7 +3,7 @@
 A version of WotLK DBM with accurate timers for Warmane servers. Please see the Release tab to find the latest stable version.
 
 ### Version bumped to 5.00 to avoid realmwide ban of old version.
-[Frostmourne Changelog](https://github.com/zbruennig/DBM-Frostmourne/blob/master/DBM-Core/DBM%20Warmane-Frostmourne%20Changelog.txt)<br>
+[Frostmourne Changelog](https://github.com/ajseward/DBM-Frostmourne/blob/master/DBM-Core/DBM%20Warmane-Frostmourne%20Changelog.txt)<br>
 
 
 
