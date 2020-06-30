@@ -62,7 +62,6 @@ mod:AddBoolOption("SetIconOnFervorTarget")
 mod:AddBoolOption("SetIconOnBrainLinkTarget")
 mod:AddBoolOption("MaladyArrow")
 
-local phase							= 1
 local targetWarningsShown			= {}
 local brainLinkTargets = {}
 local brainLinkIcon = 7
@@ -70,7 +69,7 @@ local Guardians = 0
 
 function mod:OnCombatStart(delay)
 	Guardians = 0
-	phase = 1
+	self.vb.phase = 1
 	enrageTimer:Start()
 	timerAchieve:Start()
 	if self.Options.ShowSaraHealth and not self.Options.HealthFrame then
@@ -175,7 +174,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFervor:Show()
 		end
 	elseif args:IsSpellID(63894) then	-- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts)
-		phase = 2
+		self.vb.phase = 2
 		brainportal:Start(60)
 		warnBrainPortalSoon:Schedule(57)
 		specWarnBrainPortalSoon:Schedule(57)
@@ -200,6 +199,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		if mod:LatencyCheck() then
 			self:SendSync("Phase3")			-- Sync this because you don't get it in your combat log if you are in brain room.
 		end
+		self.vb.phase = 3
 	elseif args:IsSpellID(64167, 64163) then	-- Lunatic Gaze
 		timerNextLunaricGaze:Start()
 	end
@@ -217,7 +217,7 @@ function mod:SPELL_AURA_REMOVED_DOSE(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if phase == 1 and uId == "target" and self:GetUnitCreatureId(uId) == 33136 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.3 and not targetWarningsShown[UnitGUID(uId)] then
+	if self.vb.phase == 1 and uId == "target" and self:GetUnitCreatureId(uId) == 33136 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.3 and not targetWarningsShown[UnitGUID(uId)] then
 		targetWarningsShown[UnitGUID(uId)] = true
 		specWarnGuardianLow:Show()
 	end
@@ -226,7 +226,7 @@ end
 function mod:OnSync(msg)
 	if msg == "Phase3" then
 		warnP3:Show()
-		phase = 3
+		self.vb.phase = 3
 		brainportal:Stop()
         timerEmpower:Start()
         warnEmpowerSoon:Schedule(40)	

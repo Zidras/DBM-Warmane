@@ -53,6 +53,7 @@ local warned_star = false
 local phase2Warning = 105
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	warned_preP2 = false
 	warned_star = false
 	local text = select(3, GetWorldStateUIInfo(1))
@@ -123,6 +124,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		timerNextCollapsingStar:Cancel()
 		warnPhase2:Show()
+		self.vb.phase = 2
 	end
 end
 

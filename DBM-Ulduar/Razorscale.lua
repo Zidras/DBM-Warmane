@@ -38,6 +38,7 @@ local castFlames
 local combattime = 0
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	enrageTimer:Start(-delay)
 	combattime = GetTime()
 	if mod:IsDifficulty("heroic10") then
@@ -73,6 +74,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 		timerTurret3:Stop()
 		timerTurret4:Stop()
 		timerGrounded:Stop()
+		self.vb.phase = 2
 	end
 end
 

@@ -37,9 +37,8 @@ local sndFunny				= mod:NewSound(nil, "SoundWTF", false)
 
 local warned_preP2 = false
 local warned_preP3 = false
-local phase = 0
 function mod:OnCombatStart(delay)
-	phase = 1
+	self.vb.phase = 1
     warned_preP2 = false
 	warned_preP3 = false
 	timerAchieve:Start(-delay)
@@ -61,7 +60,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellP2 or msg:find(L.YellP2) then
-		phase = 2
+		self.vb.phase = 2
 		warnPhase2:Show()
 --		preWarnDeepBreath:Schedule(72)	-- Pre-Warn Deep Breath
 		timerNextDeepBreath:Start(77)
@@ -71,7 +70,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		sndFunny:Schedule(10, "Interface\\AddOns\\DBM-Onyxia\\sounds\\throw-more-dots.mp3")
 		sndFunny:Schedule(17, "Interface\\AddOns\\DBM-Onyxia\\sounds\\whelps-left-side-even-side-handle-it.mp3")
 	elseif msg == L.YellP3 or msg:find(L.YellP3) then
-		phase = 3
+		self.vb.phase = 3
 		warnPhase3:Show()
 		self:UnscheduleMethod("Whelps")
 		timerWhelps:Stop()
@@ -113,10 +112,10 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 10184 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.67 then
+	if self.vb.phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 10184 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.67 then
 		warned_preP2 = true
 		warnPhase2Soon:Show()	
-	elseif phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 10184 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.41 then
+	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 10184 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.41 then
 		warned_preP3 = true
 		warnPhase3Soon:Show()	
 	end

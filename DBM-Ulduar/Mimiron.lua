@@ -60,7 +60,6 @@ mod:AddBoolOption("SetIconOnPlasmaBlast", true)
 mod:AddBoolOption("RangeFrame")
 
 local hardmode = false
-local phase						= 0
 local lootmethod, masterlooterRaidID
 
 local spinningUp				= GetSpellInfo(63414)
@@ -76,9 +75,9 @@ local function warnNapalmShellTargets()
 end
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 0
     hardmode = false
 	enrage:Start(-delay)
-	phase = 0
 	is_spinningUp = false
 	napalmShellIcon = 7
 	table.wipe(napalmShellTargets)
@@ -107,7 +106,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:Flames()
-	if phase == 4 then
+	if self.vb.phase == 4 then
 		timerNextFlames:Start(18)
 		self:ScheduleMethod(18, "Flames")
 	else
@@ -140,7 +139,7 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(63631) then
-		if phase == 1 and self.Options.ShockBlastWarningInP1 or phase == 4 and self.Options.ShockBlastWarningInP4 then
+		if self.vb.phase == 1 and self.Options.ShockBlastWarningInP1 or self.vb.phase == 4 and self.Options.ShockBlastWarningInP4 then
 			warnShockBlast:Show()
 		end
 		timerShockBlast:Start()
@@ -207,14 +206,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:NextPhase()
-	phase = phase + 1
-	if phase == 1 then
+	self.vb.phase = self.vb.phase + 1
+	if self.vb.phase == 1 then
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()
 			DBM.BossHealth:AddBoss(33432, L.MobPhase1)
 		end
 
-	elseif phase == 2 then
+	elseif self.vb.phase == 2 then
 		timerNextShockblast:Stop()
 		timerProximityMines:Stop()
 		timerFlameSuppressant:Stop()
@@ -230,7 +229,7 @@ function mod:NextPhase()
             timerNextFrostBomb:Start(114)
         end
 
-	elseif phase == 3 then
+	elseif self.vb.phase == 3 then
 		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 			SetLootMethod("freeforall")
 		end
@@ -243,7 +242,7 @@ function mod:NextPhase()
 			DBM.BossHealth:AddBoss(33670, L.MobPhase3)
 		end
 
-	elseif phase == 4 then
+	elseif self.vb.phase == 4 then
 		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 			if masterlooterRaidID then
 				SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
@@ -322,11 +321,11 @@ function mod:OnSync(event, args)
 		timerLaserBarrageCast:Cancel()
 		timerNextLaserBarrage:Cancel()
 		warnLaserBarrage:Cancel()
-	elseif event == "Phase2" and phase == 1 then -- alternate localized-dependent detection
+	elseif event == "Phase2" and self.vb.phase == 1 then -- alternate localized-dependent detection
 		self:NextPhase()
-	elseif event == "Phase3" and phase == 2 then
+	elseif event == "Phase3" and self.vb.phase == 2 then
 		self:NextPhase()
-	elseif event == "Phase4" and phase == 3 then
+	elseif event == "Phase4" and self.vb.phase == 3 then
 		self:NextPhase()
 	end
 end
