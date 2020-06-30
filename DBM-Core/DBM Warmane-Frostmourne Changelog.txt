@@ -3,10 +3,18 @@ General Notes
 - This DBM version (4.93) is fully compatible with the previous Warmane version, as well as the latest 3.3.5 release available elsewhere
 - Timings are based on my own experience and vods of other guilds on Frostmourne; please send me corrections if a timer is inaccurate.
 - Due to what I believe is spell queuing, a lot of abilities have a small amount of randomness. I try to address this by marking these as CD.
-  - Frost Blast on Kel'Thuzad, Locust Swarm (cast, not duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random from what I've seen.'
+- Frost Blast on Kel'Thuzad, Locust Swarm (cast, not duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random from what I've seen.'
 
+5.01
+---------
+- Added phase tracking in ulduar for details 8.3 backport.
+
+5.00
+---------
 - no longer contains malicious code from zbruennig.
 
+4.98
+---------
 Bosstimer Additions
 
 - Naxxramas
