@@ -1,4 +1,5 @@
 # DBM-Frostmourne
+Originally based on [DBM for Warmane - Icecrown](https://github.com/Ayaro1/DBM_Warmane_Icecrown). Most edits done by Sariyo, Gjeneth, Arrj, Nimloth, Zbruennig and anyone else mentioned in the [Warmane Icecrown Changelog](https://github.com/ajseward/DBM-Frostmourne/blob/master/DBM-Core/DBM%20Warmane%20Changelog.txt)
 
 A version of WotLK DBM with accurate timers for Warmane servers. Please see the Release tab to find the latest stable version.
 
@@ -9,5 +10,3 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 [Frostmourne Changelog](https://github.com/ajseward/DBM-Frostmourne/blob/master/DBM-Core/DBM%20Warmane-Frostmourne%20Changelog.txt)
 
 
-
-Edits mostly done by Celeste(warmane discord) / zbruennig. Sadly he decided to include a malicious payload in his version. This is technically a fork, but to avoid any issue or having anyone try and download older versions it is no longer attached to his.
