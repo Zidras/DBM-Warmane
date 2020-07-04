@@ -32,6 +32,15 @@ local markCounter = 0
 
 function mod:OnCombatStart(delay)
 	markCounter = 0
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(10)
+	end
+end
+
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
 end
 
 local markSpam = 0
