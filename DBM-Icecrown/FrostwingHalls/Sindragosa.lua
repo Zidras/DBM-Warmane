@@ -64,7 +64,6 @@ local beaconIconTargets	= {}
 local unchainedTargets	= {}
 local warned_P2 = false
 local warnedfailed = false
-local phase = 0
 local unchainedIcons = 7
 local activeBeacons	= false
 
@@ -110,7 +109,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(beaconIconTargets)
 	table.wipe(unchainedTargets)
 	unchainedIcons = 7
-	phase = 1
+	self.vb.phase = 1
 	activeBeacons = false
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(20, GetRaidTargetIndex) -- Edit to fix auto showing range check with heroic mode values
@@ -159,13 +158,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnFrostBeacon:Show()
 		end
-		if phase == 1 and self.Options.SetIconOnFrostBeacon then
+		if self.vb.phase == 1 and self.Options.SetIconOnFrostBeacon then
 			table.insert(beaconIconTargets, DBM:GetRaidUnitId(args.destName))
 			if (mod:IsDifficulty("normal25") and #beaconIconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconIconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconIconTargets >= 2) then
 				self:SetBeaconIcons()--Sort and fire as early as possible once we have all targets.
 			end
 		end
-		if phase == 2 then--Phase 2 there is only one icon/beacon, don't use sorting method if we don't have to.
+		if self.vb.phase == 2 then--Phase 2 there is only one icon/beacon, don't use sorting method if we don't have to.
 			timerNextBeacon:Start()
 			if self.Options.SetIconOnFrostBeacon then
 				self:SetIcon(args.destName, 8)
@@ -175,7 +174,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		self:Unschedule(warnBeaconTargets)
-		if phase == 2 or (mod:IsDifficulty("normal25") and #beaconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconTargets >= 2) then
+		if self.vb.phase == 2 or (mod:IsDifficulty("normal25") and #beaconTargets >= 5) or (mod:IsDifficulty("heroic25") and #beaconTargets >= 6) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #beaconTargets >= 2) then
 			warnBeaconTargets()
 		else
 			self:Schedule(0.3, warnBeaconTargets)
@@ -321,7 +320,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnGroundphaseSoon:Schedule(40)
 		activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
-		phase = phase + 1
+		self.vb.phase = self.vb.phase + 1
 		warnPhase2:Show()
 		timerNextBeacon:Start(7)
 		timerNextAirphase:Cancel()

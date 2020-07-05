@@ -104,7 +104,6 @@ mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 mod:AddBoolOption("TrapArrow")
 mod:AddBoolOption("LKBugWorkaround", true)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
-local phase	= 0
 local lastPlagueCast = 0
 local warned_preP2 = false
 local warned_preP3 = false
@@ -112,7 +111,7 @@ local warnedValkyrGUIDs = {}
 local LKTank
 
 function mod:OnCombatStart(delay)
-	phase = 0
+	self.vb.phase = 0	
 	lastPlagueCast = 0
 	warned_preP2 = false
 	warned_preP3 = false
@@ -355,7 +354,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if args:IsPlayer() then
 			specWarnRagingSpirit:Show()
 		end
-		if phase == 1 then
+		if self.vb.phase == 1 then
 			timerRagingSpiritCD:Start()
 		else
 			timerRagingSpiritCD:Start(17)
@@ -520,18 +519,18 @@ function mod:UNIT_HEALTH(uId)
 		warnedValkyrGUIDs[UnitGUID(uId)] = true
 		specWarnValkyrLow:Show()
 	end
-	if phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.73 then
+	if self.vb.phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.73 then
 		warned_preP2 = true
 		warnPhase2Soon:Show()
-	elseif phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.43 then
+	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.43 then
 		warned_preP3 = true
 		warnPhase3Soon:Show()
 	end
 end
 
 function mod:NextPhase()
-	phase = phase + 1
-	if phase == 1 then
+	self.vb.phase = self.vb.phase + 1
+	if self.vb.phase == 1 then
 		berserkTimer:Start()
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
@@ -540,13 +539,13 @@ function mod:NextPhase()
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerTrapCD:Start()
 		end
-	elseif phase == 2 then
+	elseif self.vb.phase == 2 then
 		timerSummonValkyr:Start(20)
 		timerSoulreaperCD:Start(32)
 		timerDefileCD:Start(38)
 		timerInfestCD:Start(14)
 		warnDefileSoon:Schedule(33)
-	elseif phase == 3 then
+	elseif self.vb.phase == 3 then
 		timerVileSpirit:Start(20)
 		timerSoulreaperCD:Start(40)
 		timerDefileCD:Start(38)
