@@ -147,4 +147,3 @@ function mod:SPELL_SUMMON(args)
 		end
 	end
 end
-

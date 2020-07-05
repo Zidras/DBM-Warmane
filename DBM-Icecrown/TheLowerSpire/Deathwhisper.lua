@@ -67,6 +67,7 @@ local deformedFanatic
 local empoweredAdherent
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	if self.Options.ShieldHealthFrame then
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(36855, L.name)
@@ -210,6 +211,7 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(70842) then
+		self.vb.phase = 2
 		warnPhase2:Show()
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 			timerAdds:Cancel()
