@@ -377,7 +377,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
 	--[[elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)]]--
 		specWarnHarvestSouls:Show()
-		timerHarvestSoulCD:Start(105) -- Custom edit to make Harvest Souls timers work again
+		timerHarvestSoulCD:Start(107) -- Custom edit to make Harvest Souls timers work again
 		timerVileSpirit:Cancel()
 		timerSoulreaperCD:Cancel()
 		timerDefileCD:Cancel()
@@ -549,7 +549,7 @@ function mod:NextPhase()
 	elseif phase == 3 then
 		timerVileSpirit:Start(20)
 		timerSoulreaperCD:Start(40)
-		timerDefileCD:Start(38)
+		timerDefileCD:Start(33)
 		timerHarvestSoulCD:Start(14)
 		warnDefileSoon:Schedule(33)
 	end
