@@ -1,3 +1,6 @@
+# Grab the [latest version here](https://github.com/ajseward/DBM-Frostmourne/releases)
+The master branch is used for development
+
 # DBM-Frostmourne
 Originally based on [DBM for Warmane - Icecrown](https://github.com/Ayaro1/DBM_Warmane_Icecrown). Most edits done by Sariyo, Gjeneth, Arrj, Nimloth, Zbruennig and anyone else mentioned in the [Warmane Icecrown Changelog](https://github.com/ajseward/DBM-Frostmourne/blob/master/DBM-Core/DBM%20Warmane%20Changelog.txt)
 
