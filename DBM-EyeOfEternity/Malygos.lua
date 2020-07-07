@@ -98,6 +98,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == "ENOUGH! If you intend to reclaim Azeroth's magic, then you shall have it!" then
 		timerBreath:Stop()
 		timerAttackable:Start()
+		timerStaticFieldCD:Start(24+15.5)
 	end
 end
 
