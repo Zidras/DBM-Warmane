@@ -2359,16 +2359,16 @@ bossModPrototype.AddMsg = DBM.AddMsg
 
 function bossModPrototype:SetZone(...)
 	if select("#", ...) == 0 then
-		if self.addon and self.addon.zone then
+		if self.addon.zone and #self.addon.zone > 0 and self.addon.zoneId and #self.addon.zoneId > 0 then
 			self.zones = {}
 			for i, v in ipairs(self.addon.zone) do
 				self.zones[#self.zones + 1] = v
 			end
-		end
-		if self.addon and self.addon.zoneId then
 			for i, v in ipairs(self.addon.zoneId) do
 				self.zones[#self.zones + 1] = v
 			end
+		else
+			self.zones = self.addon.zone and #self.addon.zone > 0 and self.addon.zone or self.addon.zoneId and #self.addon.zoneId > 0 and self.addon.zoneId or {}
 		end
 	elseif select(1, ...) ~= DBM_DISABLE_ZONE_DETECTION then
 		self.zones = {...}
@@ -3750,4 +3750,3 @@ do
 		return modLocalizations[name] or self:CreateModLocalization(name)
 	end
 end
-
