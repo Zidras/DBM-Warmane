@@ -49,6 +49,10 @@ local warnSubmergeTwoSoon		= mod:NewAnnounce("WarnSubmergeSoon", 1, "Interface\\
 local specWarnSubmergeTwoSoon	= mod:NewSpecialWarning("specWarnSubmergeSoon", mod:IsTank())
 local timerSubmergeTwo			= mod:NewTimer(145, "2nd Submerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 
+-- Extra Emerge timers
+local timerEmergeOne			= mod:NewTimer(65, "1st Emerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerEmergeTwo			= mod:NewTimer(65, "2nd Emerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+
 -- Phases
 local warnPhase3			= mod:NewPhaseAnnounce(3)
 local enrageTimer			= mod:NewBerserkTimer(570)	-- 9:30 ? hmpf (no enrage while submerged... this sucks)
@@ -78,11 +82,13 @@ function mod:OnCombatStart(delay)
 	warnSubmergeSoon:Schedule(70-delay)
 	specWarnSubmergeSoon:Schedule(70-delay)
 	timerSubmerge:Start(80-delay)
+	timerEmergeOne:Schedule(80)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(-delay)
 	warnSubmergeTwoSoon:Schedule(215)
 	specWarnSubmergeTwoSoon:Schedule(215)
 	timerSubmergeTwo:Schedule(80)
+	timerEmergeTwo:Schedule(225)
 	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
