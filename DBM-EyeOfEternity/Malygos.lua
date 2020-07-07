@@ -119,13 +119,13 @@ function mod:StaticFieldTarget()
 		if uId2 then
 			local inRange = DBM.RangeCheck:GetDistance("player", uId2)
 			if inRange and inRange < 13 then
-				specWarnStaticFieldNear:Show(announcetarget)
+				specWarnStaticFieldNear:Show(targetname)
 				specWarnStaticFieldNear:Play("runaway")
 			else
-				warnStaticField:Show(announcetarget)
+				warnStaticField:Show(targetname)
 			end
 		else
-			warnStaticField:Show(announcetarget)
+			warnStaticField:Show(targetname)
 		end
 	end
 end
