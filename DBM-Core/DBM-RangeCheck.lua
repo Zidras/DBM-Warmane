@@ -423,6 +423,14 @@ function createRadarFrame()
 	local radarFrame = CreateFrame("Frame", "DBMRangeCheckRadar", UIParent)
 	radarFrame:SetFrameStrata("DIALOG")
 	
+	
+	if (not DBM.Options.RangeFrameRadarPoint) then 
+		-- probably upgrading from an older version
+		DBM.Options.RangeFrameRadarPoint = DBM.DefaultOptions.RangeFrameRadarPoint
+		DBM.Options.RangeFrameRadarX = DBM.DefaultOptions.RangeFrameRadarX
+		DBM.Options.RangeFrameRadarY = DBM.DefaultOptions.RangeFrameRadarY
+		DBM.Options.RangeFrameFrames = DBM.DefaultOptions.RangeFrameFrames
+	end
 	radarFrame:SetPoint(DBM.Options.RangeFrameRadarPoint, UIParent, DBM.Options.RangeFrameRadarPoint, DBM.Options.RangeFrameRadarX, DBM.Options.RangeFrameRadarY)
 	radarFrame:SetHeight(128)
 	radarFrame:SetWidth(128)
@@ -445,7 +453,7 @@ function createRadarFrame()
 	end)
 	radarFrame:SetScript("OnUpdate", function(self, e)
 		elapsed = elapsed + e
-		if elapsed >= 0.05 then
+		if elapsed >= 0.02 then
 			onUpdateRadar(self, elapsed)
 			elapsed = 0
 		end
