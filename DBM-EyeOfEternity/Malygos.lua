@@ -117,7 +117,7 @@ function mod:StaticFieldTarget()
 	else
 		local uId2 = DBM:GetRaidUnitId(targetname)
 		if uId2 then
-			local inRange = DBM.RangeCheck:GetDistance("player", uId2)
+			local inRange = DBM.RangeCheck:GetDistance("player", GetPlayerMapPosition(uId2))
 			if inRange and inRange < 13 then
 				specWarnStaticFieldNear:Show(targetname)
 				specWarnStaticFieldNear:Play("runaway")
