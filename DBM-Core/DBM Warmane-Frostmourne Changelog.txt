@@ -4,6 +4,45 @@ General Notes
 - Timings are based on my own experience and vods of other guilds on Frostmourne; please send me corrections if a timer is inaccurate.
 - Due to what I believe is spell queuing, a lot of abilities have a small amount of randomness. I try to address this by marking these as CD.
 - Frost Blast on Kel'Thuzad, Locust Swarm (cast, not duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random from what I've seen.'
+5.02
+---------
+- Added Range Radar from later expansions
+
+- Naxxramas
+
+  - The Four Horsemen 
+    - Added a timer for when marks will be cast.
+    - Added a 10 yard range check
+  
+  - Sapphirion
+    - Added a 10 yard range check for the air phase.
+
+
+- The Eye of Eternity 
+
+  - Added a timer for Static Field cooldown in phase 3
+  - Announce when targeted by Static Field, or when Static Field is near.
+
+- Trial of the Crusader  
+
+  - Faction Champions
+    - Major overhaul of the fight. Adds many more useful timers. -- Thanks Ayaro1
+
+  - Anub'arak
+    - Added extra timers for emerges
+
+
+- Icecrown Citadel
+  - Added phases for Details 8.3 backport.
+
+  - Sindragosa
+    - Removed chat spam from instability.
+
+  - The Lich King
+    - Improved harvest soul and defile timers
+
+  
+
 
 5.01
 ---------
