@@ -38,7 +38,7 @@ function mod:OnCombatStart(delay)
 	isFlying = false
 	warnAirPhaseSoon:Schedule(38.5 - delay)
 	timerAirPhase:Start(48.5 - delay)
-	self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 10)
+	self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
 
 function mod:OnCombatEnd()
@@ -85,7 +85,7 @@ function mod:Landing()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	self:Schedule(65, DBM.RangeCheck.Show, DBM.RangeCheck, 10)
+	self:Schedule(65, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
 
 local function resetIsFlying()
