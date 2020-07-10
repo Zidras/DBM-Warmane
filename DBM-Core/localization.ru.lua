@@ -70,6 +70,15 @@ DBM_CORE_RANGECHECK_SOUND_2			= "Раздражающий звуковой си�
 DBM_CORE_RANGECHECK_HIDE			= "Скрыть"
 DBM_CORE_RANGECHECK_SETRANGE_TO		= "%d м"
 DBM_CORE_RANGECHECK_LOCK			= "Закрепить полосу"
+DBM_CORE_RANGECHECK_OPTION_FRAMES	= "Frames"
+DBM_CORE_RANGECHECK_OPTION_RADAR	= "Show radar frame"
+DBM_CORE_RANGECHECK_OPTION_TEXT		= "Show text frame"
+DBM_CORE_RANGECHECK_OPTION_BOTH		= "Show both frames"
+DBM_CORE_RANGECHECK_OPTION_SPEED	= "Update Rate (Reload Req.)"
+DBM_CORE_RANGECHECK_OPTION_SLOW		= "Slow (lowest CPU)"
+DBM_CORE_RANGECHECK_OPTION_AVERAGE	= "Medium"
+DBM_CORE_RANGECHECK_OPTION_FAST		= "Fast (Most real-time)"
+DBM_CORE_RANGERADAR_HEADER			= "Range Radar (%d yd)"
 
 DBM_LFG_INVITE						= "Приглашение в подземелье"
 
