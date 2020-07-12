@@ -110,22 +110,29 @@ end
 function mod:StaticFieldTarget()
 	local targetname, uId = self:GetBossTarget(28859)
 	if not targetname or not uId then return end
-	if targetname == UnitName("player") then
+	local targetGuid = UnitGUID(uId)
+
+	if #buildGuidTable < 1 then
+		buildGuidTable()
+	end
+
+	local announcetarget = guids[targetGuid]
+	if announcetarget == UnitName("player") then
 		specWarnStaticField:Show()
 		specWarnStaticField:Play("runaway")
 		SendChatMessage("Static Field on me!", "YELL")
 	else
-		local uId2 = DBM:GetRaidUnitId(targetname)
+		local uId2 = DBM:GetRaidUnitId(announcetarget)
 		if uId2 then
 			local inRange = DBM.RangeCheck:GetDistance("player", GetPlayerMapPosition(uId2))
 			if inRange and inRange < 13 then
-				specWarnStaticFieldNear:Show(targetname)
+				specWarnStaticFieldNear:Show(announcetarget)
 				specWarnStaticFieldNear:Play("runaway")
 			else
-				warnStaticField:Show(targetname)
+				warnStaticField:Show(announcetarget)
 			end
 		else
-			warnStaticField:Show(targetname)
+			warnStaticField:Show(announcetarget)
 		end
 	end
 end
