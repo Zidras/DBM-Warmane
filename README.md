@@ -30,7 +30,7 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
   * Added a 10 yard range check
   
   #### Sapphirion
-  * Added a 10 yard range check for the air phase.
+  * Added a 12 yard range check for the air phase.
 
 
 ### The Eye of Eternity 
@@ -38,6 +38,11 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
   #### Malygos
   * Added a timer for Static Field cooldown in phase 3
   * Announce when targeted by Static Field, or when Static Field is near.
+
+### Ulduar 
+
+  #### XT-0002
+  * Added 12 yard range check.
 
 # Trial of the Crusader  
 
