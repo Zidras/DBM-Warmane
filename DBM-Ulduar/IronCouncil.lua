@@ -86,6 +86,12 @@ function mod:OnCombatStart(delay)
 	steelbreakerAlive = true
 end
 
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
+end
+
 function mod:RuneOfPower()
 	timerRuneofPower:Start()
 	self:ScheduleMethod(60, "RuneOfPower")
@@ -152,6 +158,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
 		warnOverwhelmingPower:Show(args.destName)
+		if args:IsPlayer() then 
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Show(15)
+			end
+		end
 		if mod:IsDifficulty("heroic10") then
 			timerOverwhelmingPower:Start(60, args.destName)
 		else
