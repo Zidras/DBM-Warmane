@@ -44,6 +44,9 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
   #### XT-0002
   * Added 12 yard range check.
 
+  #### Thorim
+  * Fixed some typos causing lua errors
+
 # Trial of the Crusader  
 
   #### Faction Champions
