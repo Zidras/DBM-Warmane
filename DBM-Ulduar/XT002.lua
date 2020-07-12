@@ -41,6 +41,16 @@ function mod:OnCombatStart(delay)
 	else
 		timerTympanicTantrumCD:Start(50-delay)
 	end
+
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(12)
+	end
+end
+
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
 end
 
 function mod:SPELL_CAST_START(args)
