@@ -33,13 +33,13 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
   * Added a 12 yard range check for the air phase.
 
 
-### The Eye of Eternity 
+# The Eye of Eternity 
 
   #### Malygos
   * Added a timer for Static Field cooldown in phase 3
   * Announce when targeted by Static Field, or when Static Field is near.
 
-### Ulduar 
+# Ulduar 
 
   #### XT-0002
   * Added 12 yard range check.
