@@ -27,7 +27,7 @@ local specWarnOrb				= mod:NewSpecialWarningMove(62017)
 mod:AddBoolOption("AnnounceFails", false, "announce")
 
 local enrageTimer				= mod:NewBerserkTimer(369)
-local timerStormhammer			= mod:NewCastTimer(16, 62042)
+local timerStormhammerCD		= mod:NewCDTimer(16, 62042)
 local timerLightningCharge	 	= mod:NewCDTimer(16, 62466)
 local timerUnbalancingStrike	= mod:NewCastTimer(26, 62130)
 local TimerHardmodeThorim		= mod:NewTimer(175, "TimerHardmodeThorim", 62042)
@@ -43,7 +43,7 @@ local lastcharge				= {}
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 	enrageTimer:Start()
-	timerHardmode:Start()
+	TimerHardmodeThorim:Start()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end
@@ -91,7 +91,6 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(62042) then 		-- Storm Hammer
 		timerStormhammerCD:Start()
-		timerStormhammer:Schedule(2)
 	elseif args:IsSpellID(62130) then	-- Unbalancing Strike
 		timerUnbalancingStrike:Start()
 	elseif args:IsSpellID(62604) then	-- Frostbolt Volley by Sif
@@ -102,14 +101,14 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then		-- Bossfight (tank and spank)
 		warnPhase2:Show()
-		enrageTimerThorim:Stop()
+		enrageTimer:Stop()
 		if (timerHardmodeThorim ~= nil) then
 			timerHardmodeThorim:Stop()
 		end
 		self.vb.phase = 2
-		enrageTimerThorim:Start(300)
+		enrageTimer:Start(300)
 	elseif msg == L.YellKill or msg:find(L.YellKill) then
-		enrageTimerThorim:Stop()
+		enrageTimer:Stop()
 	end
 end
 
