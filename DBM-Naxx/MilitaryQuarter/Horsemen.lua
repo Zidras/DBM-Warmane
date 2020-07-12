@@ -24,10 +24,10 @@ local ZELIEK_MARK = 28835
 local BARON_MARK = 28834
 local THANE_MARK = 28832
 
-local NextLadyMark			= mod:NewNextTimer(33, LADY_MARK)
-local NextZeliekMark		= mod:NewNextTimer(33, ZELIEK_MARK)
-local NextBaronMark			= mod:NewNextTimer(33, BARON_MARK)
-local NextThaneMark			= mod:NewNextTimer(33, THANE_MARK)
+local NextLadyMark			= mod:NewNextTimer(16, LADY_MARK)
+local NextZeliekMark		= mod:NewNextTimer(16, ZELIEK_MARK)
+local NextBaronMark			= mod:NewNextTimer(15, BARON_MARK)
+local NextThaneMark			= mod:NewNextTimer(15, THANE_MARK)
 
 local specWarnMarkOnPlayer	= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer", nil, false, true)
 
@@ -77,10 +77,10 @@ function mod:DoMarks(args)
 		NextZeliekMark:Start(15)
 	elseif args:IsSpellID(BARON_MARK) then
 		wasMark = true
-		NextBaronMark:Start(12)
+		NextBaronMark:Start(15)
 	elseif args:IsSpellID(THANE_MARK) then
 		wasMark = true
-		NextThaneMark:Start(12)
+		NextThaneMark:Start(15)
 	end
 
 	if wasMark and (GetTime() - markSpam) > 5 then
