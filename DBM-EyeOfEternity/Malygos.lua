@@ -112,7 +112,7 @@ function mod:StaticFieldTarget()
 	if not targetname or not uId then return end
 	local targetGuid = UnitGUID(uId)
 
-	if #buildGuidTable < 1 then
+	if #guids < 1 then
 		buildGuidTable()
 	end
 

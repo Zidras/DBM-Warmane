@@ -47,6 +47,9 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
   #### Thorim
   * Fixed some typos causing lua errors
 
+  #### Iron Council 
+  * Added 20 yard range check if targeted by overwhelming power.
+
 # Trial of the Crusader  
 
   #### Faction Champions
