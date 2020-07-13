@@ -34,7 +34,7 @@ local timerBreath				= mod:NewTimer(59, "TimerBreath", 60072)
 local timerAchieve      		= mod:NewAchievementTimer(360, 1875, "TimerSpeedKill")
 local timerIntermission 		= mod:NewTimer(22, "Malygos Unattackable")
 local timerAttackable 			= mod:NewTimer(24, "Malygos Wipes Debuffs")
-local timerStaticFieldCD		= mod:NewNextTimer(15.5, 57430)
+local timerStaticFieldCD		= mod:NewNextTimer(12.5, 57430)
 
 local guids = {}
 local surgeTargets = {}
