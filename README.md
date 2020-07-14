@@ -1,4 +1,4 @@
-# Grab the latest version [here](https://github.com/ajseward/DBM-Frostmourne/releases)
+# Grab the latest version (5.02) [here](https://github.com/ajseward/DBM-Frostmourne/releases)
 The master branch is used for development
 
 # DBM-Frostmourne
@@ -18,7 +18,7 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 * * Most of these are marked as CDs
 * For example: Frost Blast on Kel'Thuzad, Locust Swarm (Cast, not the duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random.
 
-# 5.02 [PENDING RELEASE]
+# 5.02
 #### General
 * Added Range Radar from later expansions
 
