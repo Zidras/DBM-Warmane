@@ -57,7 +57,7 @@ mod:AddBoolOption("HealthFramePhase4", true)
 mod:AddBoolOption("AutoChangeLootToFFA", true)
 mod:AddBoolOption("SetIconOnNapalm", true)
 mod:AddBoolOption("SetIconOnPlasmaBlast", true)
-mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("RangeFrame", true)
 
 local hardmode = false
 local lootmethod, masterlooterRaidID

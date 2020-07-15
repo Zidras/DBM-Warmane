@@ -32,6 +32,7 @@ local timerAchieve					= mod:NewAchievementTimer(205, 2937, "TimerSpeedKill")
 
 mod:AddBoolOption("SetIconOnLightBombTarget", true)
 mod:AddBoolOption("SetIconOnGravityBombTarget", true)
+mod:AddBoolOption("RangeFrame", true)
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
@@ -40,10 +41,6 @@ function mod:OnCombatStart(delay)
 		timerTympanicTantrumCD:Start(35-delay)
 	else
 		timerTympanicTantrumCD:Start(50-delay)
-	end
-
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(12)
 	end
 end
 
@@ -68,6 +65,9 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(63018, 65121) then 	-- Light Bomb
 		if args:IsPlayer() then
 			specWarnLightBomb:Show()
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Show(12)
+			end
 		end
 		if self.Options.SetIconOnLightBombTarget then
 			self:SetIcon(args.destName, 7, 9)
@@ -76,6 +76,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerLightBomb:Start(args.destName)
 	elseif args:IsSpellID(63024, 64234) then		-- Gravity Bomb
 		if args:IsPlayer() then
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Show(12)
+			end
 			specWarnGravityBomb:Show()
 		end
 		if self.Options.SetIconOnGravityBombTarget then
@@ -90,10 +93,16 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(63018, 65121) then 	-- Light Bomb
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
 		if self.Options.SetIconOnLightBombTarget then
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(63024, 64234) then		-- Gravity Bomb
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
 		if self.Options.SetIconOnGravityBombTarget then
 			self:SetIcon(args.destName, 0)
 		end

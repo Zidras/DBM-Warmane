@@ -33,6 +33,8 @@ local timerIceBlast		= mod:NewTimer(9.3, "TimerIceBlast", 15876)
 local noTargetTime = 0
 local isFlying = false
 
+mod:AddBoolOption("RangeFrame", true)
+
 function mod:OnCombatStart(delay)
 	noTargetTime = 0
 	isFlying = false

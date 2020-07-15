@@ -68,6 +68,8 @@ mod:AddBoolOption("PlaySoundDeathRune", true, "announce")
 
 local enrageTimer				= mod:NewBerserkTimer(900)
 
+mod:AddBoolOption("RangeFrame", true)
+
 local disruptTargets = {}
 local disruptIcon = 7
 local runemasterAlive = true

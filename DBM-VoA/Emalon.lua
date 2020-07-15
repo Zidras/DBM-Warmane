@@ -28,7 +28,7 @@ local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217)
 local timerEmalonEnrage		= mod:NewTimer(360, "EmalonEnrage", 26662)
 
 mod:AddBoolOption("NovaSound")
-mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("RangeFrame", true)
 
 
 local overchargedMob
