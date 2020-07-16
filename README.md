@@ -18,6 +18,33 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 * * Most of these are marked as CDs
 * For example: Frost Blast on Kel'Thuzad, Locust Swarm (Cast, not the duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random.
 
+# 5.03 [IN DEVELOPMENT]
+### General
+* Cleaned up enable range frame calls. Should work now.
+
+# Raids
+# Ulduar
+
+  #### Razorscale
+  * Adjusted Turret Timers and warnings
+
+  #### XT-002 
+  * Adjusted tantrum timer to match server a bit better. 
+
+  #### Assembly of Iron 
+  * Warn rune of death soon when timer is complete since it seems to vary by ~1 second
+  * Increased lightning tendril duration by 8.
+  * Added timer for lightning whirl
+  
+  #### Kologarn
+  * split eyebeam warnings to warn NEAR YOU when it damages you, and ON YOU when its targeting you.
+  * Drastically reduced respawn time of arms. 
+  
+# Vault of Archavon
+
+  #### Emalon 
+  * Reduced nova CD to match server. 
+
 # 5.02
 #### General
 * Added Range Radar from later expansions
