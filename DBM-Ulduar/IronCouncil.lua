@@ -34,7 +34,7 @@ local timerOverload				= mod:NewCastTimer(6, 63481)
 local timerOverloadCooldown		= mod:NewCDTimer(60, 63481)
 local timerLightningWhirl		= mod:NewCastTimer(5, 63483)
 local specwarnLightningTendrils	= mod:NewSpecialWarningRun(63486)
-local timerLightningTendrils	= mod:NewBuffActiveTimer(27, 63486)
+local timerLightningTendrils	= mod:NewBuffActiveTimer(35, 63486)
 local specwarnOverload			= mod:NewSpecialWarningRun(63481)
 mod:AddBoolOption("AlwaysWarnOnOverload", true, "announce")
 mod:AddBoolOption("PlaySoundOnOverload", true)
@@ -56,6 +56,7 @@ mod:AddBoolOption("SetIconOnStaticDisruption")
 local timerShieldofRunes		= mod:NewBuffActiveTimer(15, 63967)
 local warnRuneofPower			= mod:NewTargetAnnounce(64320, 2)
 local warnRuneofDeath			= mod:NewSpellAnnounce(63490, 2)
+local warnRuneofDeathSoon 		= mod:NewSoonAnnounce(63490, 3)
 local warnShieldofRunes			= mod:NewSpellAnnounce(63489, 2)
 local warnRuneofSummoning		= mod:NewSpellAnnounce(62273, 3)
 local timerRuneofSummoning  = mod:NewCDTimer(30, 62273)
@@ -154,7 +155,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 			end
 		end
-		timerRuneofDeathDura:Start(31)
+		timerRuneofDeathDura:Start(30)
+		warnRuneofDeathSoon:Schedule(30)
 	elseif args:IsSpellID(62277, 63967) and not args:IsDestTypePlayer() then		-- Shield of Runes
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
@@ -204,6 +206,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		steelbreakerAlive = false
 		if runemasterAlive and brundirAlive then
 			timerRuneofDeathDura:Start()
+			warnRuneofDeathSoon:Schedule(30)
 			warnRuneofDeathIn10Sec:Schedule(20)
 		end
 	-- Brundir dies
@@ -211,12 +214,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		brundirAlive = false
 		if runemasterAlive and steelbreakerAlive then
 			timerRuneofDeathDura:Start()
+			warnRuneofDeathSoon:Schedule(30)
 			warnRuneofDeathIn10Sec:Schedule(20)
 		end
 	-- Runemaster dies
 	elseif (msg == L.YellRunemasterMolgeimDied or msg:find(L.YellRunemasterMolgeimDied) or msg == L.YellRunemasterMolgeimDied2 or msg:find(L.YellRunemasterMolgeimDied2)) then
 		runemasterAlive = false
 		timerRuneofDeathDura:Stop()
+		warnRuneofDeathSoon:Cancel()
 		warnRuneofDeathIn10Sec:Cancel()
 		timerRuneofPower:Stop()
 		self:UnscheduleMethod("RuneOfPower")
