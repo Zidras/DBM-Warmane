@@ -220,14 +220,18 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			warnRuneofDeathSoon:Schedule(30)
 			warnRuneofDeathIn10Sec:Schedule(20)
 		end
+		nextLightningWhirl:Stop()
 	-- Runemaster dies
 	elseif (msg == L.YellRunemasterMolgeimDied or msg:find(L.YellRunemasterMolgeimDied) or msg == L.YellRunemasterMolgeimDied2 or msg:find(L.YellRunemasterMolgeimDied2)) then
 		runemasterAlive = false
+		if brundirAlive and steelbreakerAlive then 
+			nextLightningWhirl:Start()
+		end
 		timerRuneofDeathDura:Stop()
 		warnRuneofDeathSoon:Cancel()
 		warnRuneofDeathIn10Sec:Cancel()
 		timerRuneofPower:Stop()
-		nextLightningWhirl:Start()
+		
 		self:UnscheduleMethod("RuneOfPower")
 	end
 end
