@@ -40,7 +40,7 @@ function mod:OnCombatStart(delay)
 	if mod:IsDifficulty("heroic10") then
 		timerTympanicTantrumCD:Start(35-delay)
 	else
-		timerTympanicTantrumCD:Start(50-delay)
+		timerTympanicTantrumCD:Start(60-delay)
 	end
 end
 
@@ -87,7 +87,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnGravityBomb:Show(args.destName)
 		timerGravityBomb:Start(args.destName)
 	elseif args:IsSpellID(63849) then
+		timerTympanicTantrumCD:Stop()
 		timerHeart:Start()
+		timerTympanicTantrumCD:Start(65) -- maybe?
 	end
 end
 
