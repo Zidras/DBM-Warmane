@@ -62,7 +62,6 @@ local timerRuneofSummoning  = mod:NewCDTimer(30, 62273)
 local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490)
 local timerRuneofDeathDura		= mod:NewNextTimer(30, 63490)
 local timerRuneofPower			= mod:NewCDTimer(30, 61974)
-local timerRuneofDeath			= mod:NewCDTimer(30, 63490)
 local warnRuneofDeathIn10Sec	= mod:NewSpecialWarning("WarningRuneofDeathIn10Sec", 3)
 mod:AddBoolOption("PlaySoundDeathRune", true, "announce")
 
@@ -155,7 +154,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 			end
 		end
-		timerRuneofDeathDura:Start()
+		timerRuneofDeathDura:Start(31)
 	elseif args:IsSpellID(62277, 63967) and not args:IsDestTypePlayer() then		-- Shield of Runes
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
