@@ -26,13 +26,14 @@ mod:SetBossHealthInfo(
 )
 
 local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
-
+231 323 416
 -- Stormcaller Brundir
 -- High Voltage ... 63498
 local warnChainlight			= mod:NewSpellAnnounce(64215, 1)
 local timerOverload				= mod:NewCastTimer(6, 63481)
 local timerOverloadCooldown		= mod:NewCDTimer(60, 63481)
 local timerLightningWhirl		= mod:NewCastTimer(5, 63483)
+local nextLightningWhirl		= mod:NewNextTimer(52, 63483)
 local specwarnLightningTendrils	= mod:NewSpecialWarningRun(63486)
 local timerLightningTendrils	= mod:NewBuffActiveTimer(35, 63486)
 local specwarnOverload			= mod:NewSpecialWarningRun(63481)
@@ -186,6 +187,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(63483, 61915) then	-- Lightning Whirl
 		timerLightningWhirl:Start()
+		nextLightningWhirl:Start()
 	elseif args:IsSpellID(61912, 63494) then	-- Static Disruption (Hard Mode)
 		disruptTargets[#disruptTargets + 1] = args.destName
 		if self.Options.SetIconOnStaticDisruption then
@@ -208,6 +210,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerRuneofDeathDura:Start()
 			warnRuneofDeathSoon:Schedule(30)
 			warnRuneofDeathIn10Sec:Schedule(20)
+			nextLightningWhirl:Start()
 		end
 	-- Brundir dies
 	elseif (msg == L.YellStormcallerBrundirDied or msg:find(L.YellStormcallerBrundirDied) or msg == L.YellStormcallerBrundirDied2 or msg:find(L.YellStormcallerBrundirDied2)) then --register first RoD timer
@@ -224,6 +227,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnRuneofDeathSoon:Cancel()
 		warnRuneofDeathIn10Sec:Cancel()
 		timerRuneofPower:Stop()
+		nextLightningWhirl:Start()
 		self:UnscheduleMethod("RuneOfPower")
 	end
 end
