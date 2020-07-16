@@ -26,7 +26,6 @@ mod:SetBossHealthInfo(
 )
 
 local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
-231 323 416
 -- Stormcaller Brundir
 -- High Voltage ... 63498
 local warnChainlight			= mod:NewSpellAnnounce(64215, 1)
