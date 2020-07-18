@@ -39,6 +39,15 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
   #### Kologarn
   * split eyebeam warnings to warn NEAR YOU when it damages you, and ON YOU when its targeting you.
   * Drastically reduced respawn time of arms. 
+
+  #### Auriaya
+  * Fixed guardian respawn timer
+
+  #### Mimiron
+  * Fixed phase timers being slightly off
+  * Tagged proxmimity mines as a CD
+
+
   
 # Vault of Archavon
 
