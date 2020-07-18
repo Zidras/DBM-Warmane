@@ -12,13 +12,13 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS"
 )
-
+29 77 121
 local announceSlagPot			= mod:NewTargetAnnounce(63477, 3)
 
 local warnFlameJetsCast			= mod:NewSpecialWarningCast(63472)
 
 local timerFlameJetsCast		= mod:NewCastTimer(2.7, 63472)
-local timerFlameJetsCooldown	= mod:NewCDTimer(35, 63472)
+local timerFlameJetsCooldown	= mod:NewCDTimer(42, 63472)
 local timerScorchCooldown		= mod:NewNextTimer(25, 63473)
 local timerScorchCast			= mod:NewCastTimer(3, 63473)
 local timerSlagPot				= mod:NewTargetTimer(10, 63477)
@@ -35,7 +35,7 @@ mod:AddBoolOption("SlagPotIcon")
 function mod:OnCombatStart(delay)
 	timerAchieve:Start()
 	timerScorchCooldown:Start(12-delay)
-	timerFlameJetsCast:Start()
+	timerFlameJetsCooldown:Start(29)
 	activateConstructCooldown:Start()
 end
 
