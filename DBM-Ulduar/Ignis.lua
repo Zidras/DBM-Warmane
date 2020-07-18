@@ -12,7 +12,6 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS"
 )
-29 77 121
 local announceSlagPot			= mod:NewTargetAnnounce(63477, 3)
 
 local warnFlameJetsCast			= mod:NewSpecialWarningCast(63472)
