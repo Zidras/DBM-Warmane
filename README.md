@@ -18,7 +18,7 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 * * Most of these are marked as CDs
 * For example: Frost Blast on Kel'Thuzad, Locust Swarm (Cast, not the duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random.
 
-# 5.03 [IN DEVELOPMENT]
+# 5.03
 ### General
 * Cleaned up enable range frame calls. Should work now.
 
