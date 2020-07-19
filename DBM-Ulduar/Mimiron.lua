@@ -34,10 +34,10 @@ local warnLaserBarrage				= mod:NewSpecialWarningSpell(63293)
 
 local enrage 					= mod:NewBerserkTimer(900)
 local timerHardmode				= mod:NewTimer(610, "TimerHardmode", 64582)
-local timerP1toP2				= mod:NewTimer(46, "TimeToPhase2")
+local timerP1toP2				= mod:NewTimer(49, "TimeToPhase2")
 local timerP2toP3				= mod:NewTimer(30, "TimeToPhase3")
-local timerP3toP4				= mod:NewTimer(31, "TimeToPhase4")
-local timerProximityMines		= mod:NewNextTimer(35, 63027)
+local timerP3toP4				= mod:NewTimer(30, "TimeToPhase4")
+local timerProximityMines		= mod:NewCDTimer(30, 63027)
 local timerShockBlast			= mod:NewCastTimer(63631)
 local timerSpinUp				= mod:NewCastTimer(4, 63414)
 local timerLaserBarrageCast		= mod:NewCastTimer(10, 63274)
@@ -57,7 +57,7 @@ mod:AddBoolOption("HealthFramePhase4", true)
 mod:AddBoolOption("AutoChangeLootToFFA", true)
 mod:AddBoolOption("SetIconOnNapalm", true)
 mod:AddBoolOption("SetIconOnPlasmaBlast", true)
-mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("RangeFrame", true)
 
 local hardmode = false
 local lootmethod, masterlooterRaidID

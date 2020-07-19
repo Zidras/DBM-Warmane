@@ -14,7 +14,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS",
-	"CHAT_MSG_MONSTER_YELL"
+	"UNIT_DIED"
 )
 
 mod:AddBoolOption("HealthFrame", true)
@@ -26,15 +26,15 @@ mod:SetBossHealthInfo(
 )
 
 local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
-
 -- Stormcaller Brundir
 -- High Voltage ... 63498
 local warnChainlight			= mod:NewSpellAnnounce(64215, 1)
 local timerOverload				= mod:NewCastTimer(6, 63481)
 local timerOverloadCooldown		= mod:NewCDTimer(60, 63481)
 local timerLightningWhirl		= mod:NewCastTimer(5, 63483)
+local lightningWhirlCD			= mod:NewCDTimer(32, 63483)
 local specwarnLightningTendrils	= mod:NewSpecialWarningRun(63486)
-local timerLightningTendrils	= mod:NewBuffActiveTimer(27, 63486)
+local timerLightningTendrils	= mod:NewBuffActiveTimer(35, 63486)
 local specwarnOverload			= mod:NewSpecialWarningRun(63481)
 mod:AddBoolOption("AlwaysWarnOnOverload", true, "announce")
 mod:AddBoolOption("PlaySoundOnOverload", true)
@@ -62,11 +62,12 @@ local timerRuneofSummoning  = mod:NewCDTimer(30, 62273)
 local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490)
 local timerRuneofDeathDura		= mod:NewNextTimer(30, 63490)
 local timerRuneofPower			= mod:NewCDTimer(30, 61974)
-local timerRuneofDeath			= mod:NewCDTimer(30, 63490)
 local warnRuneofDeathIn10Sec	= mod:NewSpecialWarning("WarningRuneofDeathIn10Sec", 3)
 mod:AddBoolOption("PlaySoundDeathRune", true, "announce")
 
 local enrageTimer				= mod:NewBerserkTimer(900)
+
+mod:AddBoolOption("RangeFrame", true)
 
 local disruptTargets = {}
 local disruptIcon = 7
@@ -153,7 +154,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 			end
 		end
-		timerRuneofDeathDura:Start()
+		timerRuneofDeathDura:Start(30)
+		warnRuneofDeathIn10Sec:Schedule(20)
 	elseif args:IsSpellID(62277, 63967) and not args:IsDestTypePlayer() then		-- Shield of Runes
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
@@ -183,6 +185,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(63483, 61915) then	-- Lightning Whirl
 		timerLightningWhirl:Start()
+		lightningWhirlCD:Start()
 	elseif args:IsSpellID(61912, 63494) then	-- Static Disruption (Hard Mode)
 		disruptTargets[#disruptTargets + 1] = args.destName
 		if self.Options.SetIconOnStaticDisruption then
@@ -204,6 +207,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		if runemasterAlive and brundirAlive then
 			timerRuneofDeathDura:Start()
 			warnRuneofDeathIn10Sec:Schedule(20)
+			lightningWhirlCD:Start()
 		end
 	-- Brundir dies
 	elseif (msg == L.YellStormcallerBrundirDied or msg:find(L.YellStormcallerBrundirDied) or msg == L.YellStormcallerBrundirDied2 or msg:find(L.YellStormcallerBrundirDied2)) then --register first RoD timer
@@ -212,12 +216,44 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerRuneofDeathDura:Start()
 			warnRuneofDeathIn10Sec:Schedule(20)
 		end
+		lightningWhirlCD:Stop()
 	-- Runemaster dies
 	elseif (msg == L.YellRunemasterMolgeimDied or msg:find(L.YellRunemasterMolgeimDied) or msg == L.YellRunemasterMolgeimDied2 or msg:find(L.YellRunemasterMolgeimDied2)) then
 		runemasterAlive = false
+		if brundirAlive and steelbreakerAlive then 
+			lightningWhirlCD:Start()
+		end
+		timerRuneofDeathDura:Stop()
+		warnRuneofDeathIn10Sec:Cancel()
+		timerRuneofPower:Stop()
+		
+		self:UnscheduleMethod("RuneOfPower")
+	end
+end
+
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 32857 then -- brundir 
+		brundirAlive = false
+		if runemasterAlive and steelbreakerAlive then
+			timerRuneofDeathDura:Start()
+			warnRuneofDeathIn10Sec:Schedule(20)
+		end
+	elseif cid == 32927 then -- runemaster
+		runemasterAlive = false
+		if brundirAlive and steelbreakerAlive then 
+			lightningWhirlCD:Start()
+		end
 		timerRuneofDeathDura:Stop()
 		warnRuneofDeathIn10Sec:Cancel()
 		timerRuneofPower:Stop()
 		self:UnscheduleMethod("RuneOfPower")
+	elseif cid == 32867 then -- steelbreaker
+		steelbreakerAlive = false
+		if runemasterAlive and brundirAlive then
+			timerRuneofDeathDura:Start()
+			warnRuneofDeathIn10Sec:Schedule(20)
+			lightningWhirlCD:Start()
+		end
 	end
 end

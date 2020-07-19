@@ -28,11 +28,12 @@ local warnCrunchArmor			= mod:NewTargetAnnounce(64002, 2)
 
 local specWarnCrunchArmor2		= mod:NewSpecialWarningStack(64002, false, 2)
 local specWarnEyebeam			= mod:NewSpecialWarningYou(63346)
+local specWarnEyebeamNear		= mod:NewSpecialWarningClose(63346, nil, nil, nil, 1, 2)
 
 local timerCrunch10             = mod:NewTargetTimer(6, 63355)
 local timerNextShockwave		= mod:NewCDTimer(18, 63982)
-local timerRespawnLeftArm		= mod:NewTimer(48, "timerLeftArm")
-local timerRespawnRightArm		= mod:NewTimer(48, "timerRightArm")
+local timerRespawnLeftArm		= mod:NewTimer(30, "timerLeftArm")
+local timerRespawnRightArm		= mod:NewTimer(30, "timerRightArm")
 local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
 
 local enrageTimer				= mod:NewBerserkTimer(600)
@@ -72,7 +73,7 @@ function mod:SPELL_DAMAGE(args)
 	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
 		timerNextShockwave:Start()
 	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
-		specWarnEyebeam:Show()
+		specWarnEyebeamNear:Show()
 	end
 end
 

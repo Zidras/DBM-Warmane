@@ -36,7 +36,7 @@ local timerFrostNovaCast		= mod:NewCastTimer(2.5, 62605)
 local timerChainLightning		= mod:NewNextTimer(15, 64390)
 local timerFBVolley				= mod:NewCDTimer(13, 62604)
 
-mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("RangeFrame", true)
 
 local lastcharge				= {}
 

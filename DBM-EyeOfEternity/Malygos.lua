@@ -34,7 +34,7 @@ local timerBreath				= mod:NewTimer(59, "TimerBreath", 60072)
 local timerAchieve      		= mod:NewAchievementTimer(360, 1875, "TimerSpeedKill")
 local timerIntermission 		= mod:NewTimer(22, "Malygos Unattackable")
 local timerAttackable 			= mod:NewTimer(24, "Malygos Wipes Debuffs")
-local timerStaticFieldCD		= mod:NewNextTimer(15.5, 57430)
+local timerStaticFieldCD		= mod:NewNextTimer(12.5, 57430)
 
 local guids = {}
 local surgeTargets = {}
@@ -119,7 +119,6 @@ function mod:StaticFieldTarget()
 	local announcetarget = guids[targetGuid]
 	if announcetarget == UnitName("player") then
 		specWarnStaticField:Show()
-		specWarnStaticField:Play("runaway")
 		SendChatMessage("Static Field on me!", "YELL")
 	else
 		local uId2 = DBM:GetRaidUnitId(announcetarget)
@@ -127,7 +126,6 @@ function mod:StaticFieldTarget()
 			local inRange = DBM.RangeCheck:GetDistance("player", GetPlayerMapPosition(uId2))
 			if inRange and inRange < 13 then
 				specWarnStaticFieldNear:Show(announcetarget)
-				specWarnStaticFieldNear:Play("runaway")
 			else
 				warnStaticField:Show(announcetarget)
 			end

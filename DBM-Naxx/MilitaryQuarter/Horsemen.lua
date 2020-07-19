@@ -32,6 +32,7 @@ local NextThaneMark			= mod:NewNextTimer(15, THANE_MARK)
 local specWarnMarkOnPlayer	= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer", nil, false, true)
 
 mod:AddBoolOption("HealthFrame", true)
+mod:AddBoolOption("RangeFrame", mod:IsRanged())
 
 mod:SetBossHealthInfo(
 	16064, L.Korthazz,
@@ -51,7 +52,7 @@ function mod:OnCombatStart(delay)
 	NextThaneMark:Start()
 	
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10)
+		DBM.RangeCheck:Show(12)
 	end
 end
 

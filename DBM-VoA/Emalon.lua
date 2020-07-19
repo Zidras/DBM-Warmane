@@ -21,14 +21,14 @@ local warnOverCharge		= mod:NewSpellAnnounce(64218, 2)
 local specWarnNova			= mod:NewSpecialWarningRun(65279)
 
 local timerNova				= mod:NewCastTimer(65279)
-local timerNovaCD			= mod:NewCDTimer(45, 65279)--Varies, 45-60seconds in between nova's
+local timerNovaCD			= mod:NewCDTimer(40, 65279)--Varies, 45-60seconds in between nova's
 local timerOvercharge		= mod:NewNextTimer(45, 64218)
 local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217)
 
 local timerEmalonEnrage		= mod:NewTimer(360, "EmalonEnrage", 26662)
 
 mod:AddBoolOption("NovaSound")
-mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("RangeFrame", true)
 
 
 local overchargedMob
