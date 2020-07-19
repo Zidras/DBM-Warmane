@@ -14,7 +14,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS",
-	"CHAT_MSG_MONSTER_YELL"
+	"UNIT_DIED"
 )
 
 mod:AddBoolOption("HealthFrame", true)
@@ -155,6 +155,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		timerRuneofDeathDura:Start(30)
+		warnRuneofDeathIn10Sec:Schedule(20)
 	elseif args:IsSpellID(62277, 63967) and not args:IsDestTypePlayer() then		-- Shield of Runes
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
@@ -229,3 +230,29 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:UnscheduleMethod("RuneOfPower")
 	end
 end
+
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 32857 then -- brundir 
+		brundirAlive = false
+		if runemasterAlive and steelbreakerAlive then
+			timerRuneofDeathDura:Start()
+			warnRuneofDeathIn10Sec:Schedule(20)
+		end
+	elseif cid == 32927 then -- runemaster
+		runemasterAlive = false
+		if brundirAlive and steelbreakerAlive then 
+			lightningWhirlCD:Start()
+		end
+		timerRuneofDeathDura:Stop()
+		warnRuneofDeathIn10Sec:Cancel()
+		timerRuneofPower:Stop()
+		self:UnscheduleMethod("RuneOfPower")
+	elseif cid == 32867 then -- steelbreaker
+		steelbreakerAlive = false
+		if runemasterAlive and brundirAlive then
+			timerRuneofDeathDura:Start()
+			warnRuneofDeathIn10Sec:Schedule(20)
+			lightningWhirlCD:Start()
+		end
+	end
