@@ -256,3 +256,4 @@ function mod:UNIT_DIED(args)
 			lightningWhirlCD:Start()
 		end
 	end
+end
