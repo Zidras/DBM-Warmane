@@ -34,7 +34,7 @@ local warnLaserBarrage				= mod:NewSpecialWarningSpell(63293)
 
 local enrage 					= mod:NewBerserkTimer(900)
 local timerHardmode				= mod:NewTimer(610, "TimerHardmode", 64582)
-local timerP1toP2				= mod:NewTimer(50, "TimeToPhase2")
+local timerP1toP2				= mod:NewTimer(49, "TimeToPhase2")
 local timerP2toP3				= mod:NewTimer(30, "TimeToPhase3")
 local timerP3toP4				= mod:NewTimer(30, "TimeToPhase4")
 local timerProximityMines		= mod:NewCDTimer(30, 63027)
