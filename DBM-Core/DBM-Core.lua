@@ -695,6 +695,7 @@ end
 --  Slash Commands  --
 ----------------------
 SLASH_DEADLYBOSSMODS1 = "/dbm"
+SLASH_PULL1 = "/pull"
 SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	local cmd = msg:lower()
 	if cmd == "ver" or cmd == "version" then
@@ -809,7 +810,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM:LoadGUI()
 	end
 end
-
+SlashCmdList["PULL"] = function(msg) SlashCmdList["DEADLYBOSSMODS"]("pull "..msg) end
 SLASH_DBMRANGE1 = "/range"
 SLASH_DBMRANGE2 = "/distance"
 SlashCmdList["DBMRANGE"] = function(msg)
