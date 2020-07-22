@@ -1,4 +1,4 @@
-# Grab the latest version (5.02) [here](https://github.com/ajseward/DBM-Frostmourne/releases)
+# Grab the latest version (5.03) [here](https://github.com/ajseward/DBM-Frostmourne/releases)
 The master branch is used for development
 
 # DBM-Frostmourne
@@ -30,6 +30,9 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 
   #### Mimiron 
   * Slightly reduced p1 to p2 timer
+
+  #### Thorim
+  * Reduced Sif's timer
 
 # 5.03
 ### General
