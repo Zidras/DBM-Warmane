@@ -120,8 +120,8 @@ DBM.DefaultOptions = {
 	HealthFrameLocked = false,
 	HealthFrameWidth = 200,
 	ArrowPosX = 0,
-	ArrowPosY = -150,
-	ArrowPoint = "TOP",
+	ArrowPosY = 0,
+	ArrowPoint = "CENTER",
 	-- global boss mod settings (overrides mod-specific settings for some options)
 	DontShowBossAnnounces = false,
 	DontSendBossAnnounces = false,
