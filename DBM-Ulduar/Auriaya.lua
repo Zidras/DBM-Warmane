@@ -34,7 +34,7 @@ local specWarnBlast		= mod:NewSpecialWarning("SpecWarnBlast", canInterrupt)
 local specWarnVoid 		= mod:NewSpecialWarningMove(64675)
 
 local enrageTimer		= mod:NewBerserkTimer(600)
-local timerDefender 	= mod:NewTimer(50, "timerDefender")
+local timerDefender 	= mod:NewTimer(30, "timerDefender")
 local timerFear			= mod:NewCastTimer(64386)
 local timerNextFear 	= mod:NewCDTimer(30, 64386)
 local timerNextSwarm 	= mod:NewNextTimer(36, 64396)
