@@ -129,6 +129,8 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(63490, 62269) then		-- Rune of Death
 		warnRuneofDeath:Show()
+		timerRuneofDeathDura:Start(30)
+		warnRuneofDeathIn10Sec:Schedule(20)
 	elseif args:IsSpellID(64321, 61974) then	-- Rune of Power
 		self:ScheduleMethod(0.1, "RuneTarget")
 		timerRuneofPower:Start()
@@ -154,8 +156,6 @@ function mod:SPELL_AURA_APPLIED(args)
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 			end
 		end
-		timerRuneofDeathDura:Start(30)
-		warnRuneofDeathIn10Sec:Schedule(20)
 	elseif args:IsSpellID(62277, 63967) and not args:IsDestTypePlayer() then		-- Shield of Runes
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
