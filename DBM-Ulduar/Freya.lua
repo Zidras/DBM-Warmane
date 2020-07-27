@@ -42,7 +42,7 @@ local timerTremorCD 		= mod:NewCDTimer(26, 62859)
 local timerEonarsGiftCD     = mod:NewCDTimer(40, 62584)
 local timerRootsCD      = mod:NewCDTimer(14, 62439)
 
-local timerSunBeamCD		= mod:NewCDTimer(14, 62872) -- Hard mode Sun Beam
+local timerSunBeamCD		= mod:NewCDTimer(18, 62872) -- Hard mode Sun Beam
 local specWarnBeamsSoon		= mod:NewSpecialWarning("WarningBeamsSoon", 3) -- Hard mode Sun Beam
 
 
@@ -63,8 +63,8 @@ function mod:OnCombatStart(delay)
 	table.wipe(adds)
 	timerEonarsGiftCD:Start(25)
 	self:ScheduleMethod(25, "EonarsGift")
-	timerSunBeamCD:Start(28)
-	-- specWarnBeamsSoon:Schedule(37)
+	timerSunBeamCD:Start()
+	specWarnBeamsSoon:Schedule(15)
 end
 
 function mod:OnCombatEnd(wipe)
@@ -112,6 +112,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnFury:Show()
 		end
 		timerFury:Start(args.destName)
+	elseif args:IsSpellID(62211) and args.sourceName == "Sun Beam" and GetTime() - (self.vb.lastBeam or 0) > 10 then 
+		self.vb.lastBeam = GetTime() 
+		timerSunBeamCD:Start()
+		specWarnBeamsSoon:Schedule(15)
 	end
 end
 
