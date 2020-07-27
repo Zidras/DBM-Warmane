@@ -14,7 +14,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"UNIT_DIED",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
 )
 
 -- Trash: 33430 Guardian Lasher (flower)
@@ -33,6 +33,7 @@ local warnRoots				= mod:NewTargetAnnounce(62438, 2)
 local specWarnFury			= mod:NewSpecialWarningYou(63571)
 local specWarnTremor		= mod:NewSpecialWarningCast(62859)	-- Hard mode
 local specWarnBeam			= mod:NewSpecialWarningMove(62865)	-- Hard mode
+local specWarnBeamsSoon		= mod:NewSpecialWarning("WarningBeamsSoon", 3) -- Hard mode Sun Beam
 
 local enrage 				= mod:NewBerserkTimer(600)
 local timerAlliesOfNature	= mod:NewNextTimer(60, 62678)
@@ -40,21 +41,19 @@ local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill")
 local timerFury				= mod:NewTargetTimer(10, 63571)
 local timerTremorCD 		= mod:NewCDTimer(26, 62859)
 local timerEonarsGiftCD     = mod:NewCDTimer(40, 62584)
-local timerRootsCD      = mod:NewCDTimer(14, 62439)
-
+local timerRootsCD      	= mod:NewCDTimer(14, 62439)
 local timerSunBeamCD		= mod:NewCDTimer(18, 62872) -- Hard mode Sun Beam
-local specWarnBeamsSoon		= mod:NewSpecialWarning("WarningBeamsSoon", 3) -- Hard mode Sun Beam
 
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("PlaySoundOnFury")
+mod:AddBoolOption("RangeFrame", true)
 
 local adds		= {}
 local rootedPlayers 	= {}
 local altIcon 		= true
 local killTime		= 0
 local iconId		= 6
-local lastBeam		= 0
 local waves = 0
 
 function mod:OnCombatStart(delay)
@@ -62,7 +61,6 @@ function mod:OnCombatStart(delay)
 	enrage:Start()
 	table.wipe(adds)
 	timerEonarsGiftCD:Start(25)
-	self:ScheduleMethod(25, "EonarsGift")
 	timerSunBeamCD:Start()
 	specWarnBeamsSoon:Schedule(15)
 end
@@ -79,11 +77,6 @@ end
 local function showRootWarning()
 	warnRoots:Show(table.concat(rootedPlayers, "< >"))
 	table.wipe(rootedPlayers)
-end
-
-function mod:EonarsGift()
-    timerEonarsGiftCD:Start()
-    -- self:ScheduleMethod(40, "EonarsGift") -- Not consistent
 end
 
 function mod:SPELL_CAST_START(args)
@@ -110,12 +103,18 @@ function mod:SPELL_CAST_SUCCESS(args)
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 			end
 			specWarnFury:Show()
+			SendChatMessage("Nature's Fury on me!", "RAID")
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Show(8)
+			end
 		end
 		timerFury:Start(args.destName)
 	elseif args:IsSpellID(62211) and args.sourceName == "Sun Beam" and GetTime() - (self.vb.lastBeam or 0) > 10 then 
 		self.vb.lastBeam = GetTime() 
 		timerSunBeamCD:Start()
 		specWarnBeamsSoon:Schedule(15)
+	elseif args:IsSpellID(62619) and self:GetCIDFromGUID(args.sourceGUID) == 33228 then -- Pheromones spell, cast by newly spawned Eonar's Gift second they spawn to allow melee to dps them while protector is up.
+		timerEonarsGiftCD:Start()
 	end
 end
 
@@ -144,7 +143,9 @@ function mod:SPELL_AURA_REMOVED(args)
         self:RemoveIcon(args.destName)
         iconId = iconId + 1
     elseif args:IsSpellID(63571, 62589) then
-        self:RemoveIcon(args.destName)
+		self:RemoveIcon(args.destName)
+		if args:IsPlayer() and self.Options.RangeFrame then 
+			DBM.RangeCheck:Hide()
     end
 end
 
