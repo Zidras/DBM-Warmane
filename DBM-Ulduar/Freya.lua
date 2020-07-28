@@ -146,6 +146,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:RemoveIcon(args.destName)
 		if args:IsPlayer() and self.Options.RangeFrame then 
 			DBM.RangeCheck:Hide()
+		end
     end
 end
 
