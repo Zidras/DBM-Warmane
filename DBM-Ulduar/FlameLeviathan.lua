@@ -23,7 +23,11 @@ local warnWardofLife		= mod:NewSpecialWarning("warnWardofLife")
 
 local timerSystemOverload	= mod:NewBuffActiveTimer(20, 62475)
 local timerFlameVents		= mod:NewCastTimer(10, 62396)
-local timerNextFlameVents	= mod:NewNextTimer(30, 62396)
+if mod:IsDifficulty("heroic10") then
+	local timerNextFlameVents	= mod:NewNextTimer(30, 62396)
+else 
+	local timerNextFlameVents	= mod:NewNextTimer(20, 62396)
+end
 local timerPursued			= mod:NewTargetTimer(30, 62374)
 
 local soundPursued = mod:NewSound(62374)
@@ -38,7 +42,11 @@ end
 
 function mod:OnCombatStart(delay)
 	buildGuidTable()
-	timerNextFlameVents:Start(40)
+	if mod:IsDifficulty("heroic10") then
+		timerNextFlameVents:Start(20)
+	else
+		timerNextFlameVents:Start(40)
+	end
 end
 
 function mod:SPELL_SUMMON(args)
@@ -55,7 +63,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(62475) then	-- Systems Shutdown / Overload
 		timerSystemOverload:Start()
 		timerNextFlameVents:Stop()
-		timerNextFlameVents:Start(50)
+		if mod:IsDifficulty("heroic10") then
+			timerNextFlameVents:Start(40)
+		else
+			timerNextFlameVents:Start(50)
+		end
 		warnSystemOverload:Show()
 
 	elseif args:IsSpellID(62374) then	-- Pursued
