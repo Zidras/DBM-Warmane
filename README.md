@@ -19,20 +19,50 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 * For example: Frost Blast on Kel'Thuzad, Locust Swarm (Cast, not the duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random.
 
 # 5.04 [IN DEVELOPMENT]
+### General
+* Arrow (mostly used by shadow crash on vezax) is now default centered, and can be moved with /dbm arrow move.
+* * Note: this seems to not work sometimes? Reload ui will fix it usually. Unsure why.
+* added `/pull x` alias for `/dbm pull x`
 
 # Raids
 # Ulduar
+  #### Flame Leviathan
+  * Added a timer for Flame Vents
+
+  #### Razorscale
+  * Adjusted turret timers again. 
+  * Improved turret tracking so it won't reset the timers 
+
+  #### Ignis
+  * Improved flame jets CD tracking.
+  
+  #### XT-002
+  * Changed range frame to 15 yards and always on rather than 12 and only when you have the debuff.
 
   #### Assembly of Iron 
   * Improved rune of death timer
   * Changed death tracking. 
   * Reduced lightning whirl cd by a lot.
+  * Fixed spam on rune of death 
+
+  #### Kologarn
+  * Added enrage timer
+
+  #### Auriaya
+  * Improved feral defender spawn timer
 
   #### Mimiron 
   * Slightly reduced p1 to p2 timer
+  * Added a countdown for flame spawns. Improved timer.
+  * Changed p1 timers to be more accurate.
 
   #### Thorim
   * Reduced Sif's timer
+
+  #### Freya
+  * Improved Eonar's Gift spawn tracking.
+  * Added yell for nature's fury and a range check.
+  * Fixed sunbeam timer for hardmode
 
 # 5.03
 ### General
