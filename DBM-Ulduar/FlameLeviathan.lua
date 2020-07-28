@@ -23,10 +23,12 @@ local warnWardofLife		= mod:NewSpecialWarning("warnWardofLife")
 
 local timerSystemOverload	= mod:NewBuffActiveTimer(20, 62475)
 local timerFlameVents		= mod:NewCastTimer(10, 62396)
+
+local timerNextFlameVents = nil
 if mod:IsDifficulty("heroic10") then
-	local timerNextFlameVents	= mod:NewNextTimer(30, 62396)
+	timerNextFlameVents	= mod:NewNextTimer(20, 62396)
 else 
-	local timerNextFlameVents	= mod:NewNextTimer(20, 62396)
+	timerNextFlameVents	= mod:NewNextTimer(30, 62396)
 end
 local timerPursued			= mod:NewTargetTimer(30, 62374)
 
