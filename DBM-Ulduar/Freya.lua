@@ -61,8 +61,6 @@ function mod:OnCombatStart(delay)
 	enrage:Start()
 	table.wipe(adds)
 	timerEonarsGiftCD:Start(25)
-	timerSunBeamCD:Start()
-	specWarnBeamsSoon:Schedule(15)
 end
 
 function mod:OnCombatEnd(wipe)
@@ -83,8 +81,6 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(62437, 62859) then
 		specWarnTremor:Show()
 		timerTremorCD:Start()
-	elseif args:IsSpellID(62211, 62623, 62872, 64201) then
-		timerSunBeamCD:Start()
 	end
 end
 
@@ -109,7 +105,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			end
 		end
 		timerFury:Start(args.destName)
-	elseif args:IsSpellID(62211) and args.sourceName == "Sun Beam" and GetTime() - (self.vb.lastBeam or 0) > 10 then 
+	elseif args:IsSpellID(62211, 62623, 62872, 64201) and args.sourceName == "Sun Beam" and GetTime() - (self.vb.lastBeam or 0) > 10 then 
 		self.vb.lastBeam = GetTime() 
 		timerSunBeamCD:Start()
 		specWarnBeamsSoon:Schedule(15)
