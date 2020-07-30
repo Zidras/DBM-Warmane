@@ -14,7 +14,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"UNIT_DIED",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+	"SPELL_SUMMON"
 )
 
 -- Trash: 33430 Guardian Lasher (flower)
@@ -109,8 +110,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.lastBeam = GetTime() 
 		timerSunBeamCD:Start()
 		specWarnBeamsSoon:Schedule(15)
-	elseif args:IsSpellID(62619) and self:GetCIDFromGUID(args.sourceGUID) == 33228 then -- Pheromones spell, cast by newly spawned Eonar's Gift second they spawn to allow melee to dps them while protector is up.
-		timerEonarsGiftCD:Start()
 	end
 end
 
@@ -184,5 +183,11 @@ function mod:UNIT_DIED(args)
 			timerSimulKill:Stop()
 		end
 	end
+end
 
+function mod:SPELL_SUMMON(args)
+	if self.GetCIDFromGUID(args.destGUID) == 33228 or self.GetCIDFromGUID(args.sourceGUID) == 33228 then 
+		timerEonarsGiftCD:Stop()
+		timerEonarsGiftCD:Start()
+	end
 end
