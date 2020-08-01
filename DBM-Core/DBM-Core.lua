@@ -1796,6 +1796,7 @@ function checkWipe(confirm)
 end
 
 function DBM:StartCombat(mod, delay, synced)
+	fireEvent("pull", mod, delay, synced)
 	if not checkEntry(inCombat, mod) then
 		if not mod.combatInfo then return end
 		if mod.combatInfo.noCombatInVehicle and UnitInVehicle("player") then -- HACK
@@ -1826,7 +1827,6 @@ function DBM:StartCombat(mod, delay, synced)
 		if not synced then
 			sendSync("DBMv4-Pull", (delay or 0).."\t"..mod.id.."\t"..(mod.revision or 0))
 		end
-		fireEvent("pull", mod, delay, synced)
 		-- http://www.deadlybossmods.com/forum/viewtopic.php?t=1464
 		if DBM.Options.ShowBigBrotherOnCombatStart and BigBrother and type(BigBrother.ConsumableCheck) == "function" then
 			if DBM.Options.BigBrotherAnnounceToRaid then
@@ -3032,6 +3032,7 @@ do
 			table.insert(self.startedTimers, id)
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
+			self.mod:Schedule(timer, fireEvent, "DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 			return bar
 		else
 			return false, "disabled"
@@ -3048,6 +3049,7 @@ do
 	end
 
 	function timerPrototype:Stop(...)
+		fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		if select("#", ...) == 0 then
 			for i = #self.startedTimers, 1, -1 do
 				DBM.Bars:CancelBar(self.startedTimers[i])
