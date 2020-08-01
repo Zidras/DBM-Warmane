@@ -28,7 +28,7 @@ local timerNextFlameVents = nil
 if mod:IsDifficulty("heroic10") then
 	timerNextFlameVents	= mod:NewNextTimer(20, 62396)
 else 
-	timerNextFlameVents	= mod:NewNextTimer(30, 62396)
+	timerNextFlameVents	= mod:NewNextTimer(20, 62396) -- im leaving this split because it keeps changing every week
 end
 local timerPursued			= mod:NewTargetTimer(30, 62374)
 
@@ -47,7 +47,7 @@ function mod:OnCombatStart(delay)
 	if mod:IsDifficulty("heroic10") then
 		timerNextFlameVents:Start(20)
 	else
-		timerNextFlameVents:Start(40)
+		timerNextFlameVents:Start(30)
 	end
 end
 
