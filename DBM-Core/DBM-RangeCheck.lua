@@ -584,6 +584,10 @@ do
 	end
 
 	local function setDotColor(id, class)
+		if not class then -- set to white color, dont set .class so we can try again later when class returns properly i guess?
+			dots[id].dot:SetVertexColor(unpack(vertexColors["PRIEST"]))
+			return 
+		end
 		if class and class == dots[id].class then return end
 		
 		dots[id].dot:SetVertexColor(unpack(vertexColors[class]))
