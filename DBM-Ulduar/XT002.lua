@@ -45,7 +45,7 @@ function mod:OnCombatStart(delay)
 
 	
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(15)
+		DBM.RangeCheck:Show(12)
 	end
 end
 
