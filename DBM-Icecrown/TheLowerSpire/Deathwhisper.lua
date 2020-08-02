@@ -31,7 +31,7 @@ local warnDarkTransformation		= mod:NewSpellAnnounce(70900, 4)
 local warnDarkEmpowerment			= mod:NewSpellAnnounce(70901, 4)
 local warnPhase2					= mod:NewPhaseAnnounce(2, 1)	
 local warnFrostbolt					= mod:NewCastAnnounce(72007, 2)
-local warnTouchInsignificance		= mod:NewAnnounce("WarnTouchInsignificance", 2, 71204, mod:IsTank() or mod:IsHealer())
+local warnTouchInsignificance		= mod:NewAnnounce("WarnTouchInsignificance", 2, 71204, true)
 local warnDarkMartyrdom				= mod:NewSpellAnnounce(72499, 4)
 
 local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237)
@@ -46,13 +46,12 @@ local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", n
 local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289)
-local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, false)
+local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true)
 local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
-local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, mod:IsTank() or mod:IsHealer())
+local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, true)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
-mod:AddBoolOption("RemoveDruidBuff", true, not mod:IsTank())
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
@@ -79,10 +78,6 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(7, "addsTimer")
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
-	end
-	timerDominateMindCD:Start(-13-delay)  -- Custom adjustment to Heroic25
-	if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
-		mod:ScheduleMethod(24, "RemoveBuffs")
 	end
 	table.wipe(dominateMindTargets)
 	dominateMindIcon = 6
@@ -276,9 +271,4 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
 	end
-end
-
-function mod:RemoveBuffs()
-	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild
-	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild
 end

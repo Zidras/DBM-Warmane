@@ -16,10 +16,10 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warnFrenzySoon		= mod:NewAnnounce("WarnFrenzySoon", 2, 72737, mod:IsTank() or mod:IsHealer())
+local warnFrenzySoon		= mod:NewAnnounce("WarnFrenzySoon", 2, 72737, true)
 local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
-local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, mod:IsTank() or mod:IsHealer())
+local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, true)
 local warnBloodNova			= mod:NewSpellAnnounce(73058, 2)
 local warnMark				= mod:NewTargetAnnounce(72444, 4)
 local warnBoilingBlood		= mod:NewTargetAnnounce(72441, 2, nil, mod:IsHealer())
@@ -64,10 +64,10 @@ function mod:OnCombatStart(delay)
 	else
 		enrageTimer:Start(360-delay)
 	end
-	timerCallBloodBeast:Start(-10-delay)
+	timerCallBloodBeast:Start(40-delay)
 	warnAddsSoon:Schedule(30-delay)
 	timerBloodNova:Start(-delay)
-	timerRuneofBlood:Start(-delay)
+	timerRuneofBlood:Start(19.5-delay)
 	timerBoilingBlood:Start(19-delay)
 	table.wipe(boilingBloodTargets)
 	warned_preFrenzy = false

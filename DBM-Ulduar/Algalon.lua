@@ -1,4 +1,4 @@
-﻿local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
+local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
 --[[
@@ -85,6 +85,7 @@ function mod:SPELL_CAST_START(args)
 		timerNextBigBang:Start()
 		announceBigBang:Show()
 		announcePreBigBang:Schedule(80)
+		specWarnBigBang:Show()
 	end
 end
 

@@ -26,8 +26,8 @@ local warnChilledtotheBone		= mod:NewAnnounce("WarnChilledtotheBone", 2, 70106, 
 local warnMysticBuffet			= mod:NewAnnounce("WarnMysticBuffet", 2, 70128, false)
 local warnFrostBeacon			= mod:NewTargetAnnounce(70126, 4)
 local warnBlisteringCold		= mod:NewSpellAnnounce(70123, 3)
-local warnFrostBreath			= mod:NewSpellAnnounce(71056, 2, nil, mod:IsTank() or mod:IsHealer())
-local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, not mod:IsMelee())
+local warnFrostBreath			= mod:NewSpellAnnounce(71056, 2, nil, true)
+local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, true)
 
 local specWarnUnchainedMagic	= mod:NewSpecialWarningYou(69762)
 local specWarnFrostBeacon		= mod:NewSpecialWarningYou(70126)
@@ -36,9 +36,9 @@ local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, 4)
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123)
 
-local timerNextAirphase			= mod:NewTimer(110, "TimerNextAirphase", 43810)
-local timerNextGroundphase		= mod:NewTimer(45, "TimerNextGroundphase", 43810)
-local timerNextFrostBreath		= mod:NewNextTimer(22, 71056, nil, mod:IsTank() or mod:IsHealer())
+local timerNextAirphase			= mod:NewTimer(120, "TimerNextAirphase", 43810)
+local timerNextGroundphase		= mod:NewTimer(42.5, "TimerNextGroundphase", 43810)
+local timerNextFrostBreath		= mod:NewNextTimer(22, 71056, nil, true)
 local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123)
 local timerNextBeacon			= mod:NewNextTimer(16, 70126)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123)
@@ -309,11 +309,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		warnAirphase:Show()
 		timerNextFrostBreath:Cancel()
-		timerUnchainedMagic:Start(55)
-		timerNextBlisteringCold:Start(80)--Not exact anywhere from 80-110seconds after airphase begin
+		timerUnchainedMagic:Start(56)
+		timerNextBlisteringCold:Start(78.5)--Not exact anywhere from 80-110seconds after airphase begin
 		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
-		warnGroundphaseSoon:Schedule(40)
+		warnGroundphaseSoon:Schedule(37.5)
 		activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
 		self.vb.phase = self.vb.phase + 1

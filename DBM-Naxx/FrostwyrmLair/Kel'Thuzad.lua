@@ -30,8 +30,8 @@ local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808)
 local timerPhase2			= mod:NewTimer(227, "TimerPhase2")
-local mindControlCD = mod:NewNextTimer(90, 28410)
-local frostBlastCD    = mod:NewCDTimer(30, 27808)
+local mindControlCD = mod:NewNextTimer(60, 28410)
+local frostBlastCD    = mod:NewCDTimer(25, 27808)
 
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
@@ -50,8 +50,8 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(226, "StartPhase2")
 	self.vb.phase = 1
 	if mod:IsDifficulty("heroic25") then
-		mindControlCD:Start(257)
-		warnMindControl:Schedule(252)
+		mindControlCD:Start(287)
+		warnMindControl:Schedule(282)
 	end
 	self:Schedule(227, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
@@ -82,7 +82,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		self:SetIcon(args.destName, 8, 5.5)
 		if self:GetDetonateRange(args.destName) < 15 then
 			if UnitName("player") == args.destName then
-				PlaySoundFile("Sound\\Creature\\MekgineerThermaplug\\MekgineerThermaplugBomb01.wav")
 				warnManaOnYou:Show()
 				SendChatMessage("Detonate Mana on me!","SAY")
 			else
@@ -93,7 +92,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(28410) then -- Chains of Kel'Thuzad
 		table.insert(chainsTargets, args.destName)
 		mindControlCD:Start()
-		warnMindControl:Schedule(85)
+		warnMindControl:Schedule(60)
 		self:UnscheduleMethod("AnnounceChainsTargets")
 		if #chainsTargets >= 3 then
 			self:AnnounceChainsTargets()

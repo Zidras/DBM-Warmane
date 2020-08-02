@@ -397,7 +397,7 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "Self-destruct",
+	TimerHardmode	= "Hard mode - Self-destruct",
 	TimeToPhase2	= "Phase 2",
 	TimeToPhase3	= "Phase 3",
 	TimeToPhase4	= "Phase 4"
@@ -527,3 +527,4 @@ L:SetOptionLocalization{
 	SetIconOnBrainLinkTarget		= "Set icons on $spell:63802 targets",
 	MaladyArrow						= "Show DBM arrow when $spell:63881 is near you"
 }
+

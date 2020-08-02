@@ -14,7 +14,7 @@ mod:RegisterEvents(
 )
 
 local warnInhaledBlight		= mod:NewAnnounce("InhaledBlight", 3, 71912)
-local warnGastricBloat		= mod:NewAnnounce("WarnGastricBloat", 2, 72551, mod:IsTank() or mod:IsHealer())
+local warnGastricBloat		= mod:NewAnnounce("WarnGastricBloat", 2, 72551, true)
 local warnGasSpore			= mod:NewTargetAnnounce(69279, 4)
 local warnVileGas			= mod:NewTargetAnnounce(73020, 3)
 
@@ -30,8 +30,8 @@ local timerVileGas			= mod:NewBuffActiveTimer(6, 71218, nil, mod:IsRanged())
 local timerGasSporeCD		= mod:NewNextTimer(40, 69279)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
 local timerPungentBlight	= mod:NewNextTimer(33, 71219)		-- 33 seconds after 3rd stack of inhaled
 local timerInhaledBlight	= mod:NewNextTimer(34, 71912)		-- 34 seconds'ish
-local timerGastricBloat		= mod:NewTargetTimer(100, 72551, nil, mod:IsTank() or mod:IsHealer())	-- 100 Seconds until expired
-local timerGastricBloatCD	= mod:NewCDTimer(11, 72551, nil, mod:IsTank() or mod:IsHealer()) 		-- 10 to 14 seconds
+local timerGastricBloat		= mod:NewTargetTimer(100, 72551, nil, true)	-- 100 Seconds until expired
+local timerGastricBloatCD	= mod:NewCDTimer(11, 72551, nil, true) 		-- 10 to 14 seconds
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
@@ -142,7 +142,7 @@ function mod:OnSync(event, arg)
 		if time() - lastGoo > 5 then
 			warnGoo:Show()
 			specWarnGoo:Show()
-			if mod:IsDifficulty("normal25") then
+			if mod:IsDifficulty("heroic25") then
 				timerGooCD:Start()
 			else
 				timerGooCD:Start(30)--30 seconds in between goos on 10 man heroic

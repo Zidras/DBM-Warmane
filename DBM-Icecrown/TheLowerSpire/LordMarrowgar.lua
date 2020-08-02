@@ -23,10 +23,10 @@ local specWarnColdflame		= mod:NewSpecialWarningMove(70825)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076)
 
 local timerBoneSpike		= mod:NewCDTimer(18, 69057)
-local timerBoneSpikeUp		= mod:NewTimer(3, "Spikes up in...")
+local timerBoneSpikeUp		= mod:NewTimer(3, "Шипы через...")
 local timerWhirlwindCD		= mod:NewCDTimer(90, 69076)
 local timerWhirlwind		= mod:NewBuffActiveTimer(31, 69076)
-local timerWhirlwindStart	= mod:NewTimer(3, "Whirlwind starts in...")
+local timerWhirlwindStart	= mod:NewTimer(3, "Вихрь через...")
 local timerBoned			= mod:NewAchievementTimer(8, 4610, "AchievementBoned")
 
 local berserkTimer			= mod:NewBerserkTimer(600)

@@ -20,7 +20,7 @@ local warningLocustFaded	= mod:NewAnnounce("WarningLocustFaded", 1, 28785)
 
 local specialWarningLocust	= mod:NewSpecialWarning("SpecialLocust")
 
-local timerLocustIn			= mod:NewCDTimer(80, 28785)
+local timerLocustIn			= mod:NewCDTimer(55, 28785)
 local timerLocustFade 		= mod:NewBuffActiveTimer(23, 28785)
 
 mod:AddBoolOption("ArachnophobiaTimer", true, "timer")
@@ -28,8 +28,8 @@ mod:AddBoolOption("ArachnophobiaTimer", true, "timer")
 
 function mod:OnCombatStart(delay)
 	if mod:IsDifficulty("heroic25") then
-		timerLocustIn:Start(90 - delay)
-		warningLocustSoon:Schedule(80 - delay)
+		timerLocustIn:Start(65 - delay)
+		warningLocustSoon:Schedule(55 - delay)
 	else
 		timerLocustIn:Start(91 - delay)
 		warningLocustSoon:Schedule(76 - delay)
@@ -54,7 +54,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	and args.auraType == "BUFF" then
 		warningLocustFaded:Show()
 		timerLocustIn:Start()
-		warningLocustSoon:Schedule(62)
+		warningLocustSoon:Schedule(42)
 	end
 end
 

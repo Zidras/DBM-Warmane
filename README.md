@@ -1,5 +1,19 @@
-# Grab the latest version (5.03) [here](https://github.com/ajseward/DBM-Frostmourne/releases)
-The master branch is used for development
+# Форк для WoWCircle logon1
+Форк DBM-Frostmourne для wowcircle от меня  [Arsum/Maveth Eternal Souls x5/ Barsoom x25->x10->x100 Born in Fire](https://forum.wowcircle.net/member.php?u=261041)
+
+По мере возможностей и желания буду дополнять таймеры, можете открывать пулреквесты и issues, будем смотреть чо делать
+
+В силу неработающей в почти полном смысле ульды, от таймеров там мало толку, но я буду стараться следить чтобы они не оставали от того что у нас
+
+Таймеры в наксе по дефолту подкручены под хардмод потому что GetInstanceInfo() и GetInstanceDifficulty() для него не работают, буду править если что только под хм накс
+
+ребейзы буду делать когда не влом
+
+коммит с readme от 2020-08-02 будем считать базовым тк вроде всё как раз подстроено чтобы нормально работать
+
+Связаться можно со мной либо в [дискорде](https://discord.com/invite/QhV3Jfz) либо в [ВК](https://vk.com/filipp_balakin)
+
+Большое спасибо [asjeward](https://github.com/ajseward) и контрибьютором оригинального [DBM-Frostmourne](https://github.com/ajseward/DBM-Frostmourne)  за его версию DBM которую я отдедачил под циркуль
 
 # DBM-Frostmourne
 Originally based on [DBM for Warmane - Icecrown](https://github.com/Ayaro1/DBM_Warmane_Icecrown). Most edits done by Sariyo, Gjeneth, Arrj, Nimloth, Zbruennig and anyone else mentioned in the changelog below.

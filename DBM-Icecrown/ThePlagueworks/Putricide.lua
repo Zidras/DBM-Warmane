@@ -28,7 +28,7 @@ local warnVolatileExperiment		= mod:NewSpellAnnounce(72840, 4)		-- Phase transit
 local warnMalleableGoo				= mod:NewSpellAnnounce(72295, 2)		-- Phase 2 ability
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3)		-- Phase 2 ability
 local warnPhase3Soon				= mod:NewAnnounce("WarnPhase3Soon", 2)
-local warnMutatedPlague				= mod:NewAnnounce("WarnMutatedPlague", 2, 72451, mod:IsTank() or mod:IsHealer()) -- Phase 3 ability
+local warnMutatedPlague				= mod:NewAnnounce("WarnMutatedPlague", 2, 72451, true) -- Phase 3 ability
 local warnUnboundPlague				= mod:NewTargetAnnounce(72856, 3)			-- Heroic Ability
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447)
@@ -37,7 +37,7 @@ local specWarnVolatileOozeOther		= mod:NewSpecialWarningTarget(70447, false)
 local specWarnGaseousBloatOther		= mod:NewSpecialWarningTarget(70672, false)
 local specWarnMalleableGoo			= mod:NewSpecialWarning("SpecWarnMalleableGoo")
 local specWarnMalleableGooNear		= mod:NewSpecialWarning("SpecWarnMalleableGooNear")
-local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, mod:IsTank())
+local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, true)
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, false)
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
@@ -172,14 +172,14 @@ function mod:NextPhase()
 		timerUnstableExperimentCD:Start(20)
 		timerSlimePuddleCD:Start(10)
 		timerMalleableGooCD:Start(5)
-		timerChokingGasBombCD:Start(15)
+		timerChokingGasBombCD:Start(10)
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
 	elseif self.vb.phase == 3 then
 		timerSlimePuddleCD:Start(15)
 		timerMalleableGooCD:Start(9)
-		timerChokingGasBombCD:Start(12)
+		timerChokingGasBombCD:Start(10)
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end

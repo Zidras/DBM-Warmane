@@ -46,9 +46,7 @@
 --  Globals  --
 ---------------
 DBM.RangeCheck = {}
---[[ DBM:RegisterMapSize("Stormwind",
-	0, 1737.499958992, 1158.3330078125
-)]]
+
 
 --------------
 --  Locals  --

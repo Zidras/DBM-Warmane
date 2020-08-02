@@ -17,7 +17,7 @@ local warnCurse			= mod:NewSpellAnnounce(29213, 2)
 
 local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573)
 local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573)
-local timerBlink = mod:NewNextTimer(30, 29208)
+local timerBlink = mod:NewNextTimer(25, 29208)
 local warnBlink = mod:NewAnnounce("Blink Soon", 1)
 local announceBlink = mod:NewSpellAnnounce(29208, 4)
 

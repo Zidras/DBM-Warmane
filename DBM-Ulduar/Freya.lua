@@ -160,9 +160,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		adds[33202] = true
 		adds[32916] = true
 		adds[32919] = true
-	elseif msg == "Eonar, your servant requires aid!" then
+	elseif msg == "Eonar, your servant requires aid!" or msg == "Эонар, твоей прислужнице нужна помощь!" then
 		timerAlliesOfNature:Start()
-	elseif msg == "The swarm of the elements shall overtake you!" then
+	elseif msg == "The swarm of the elements shall overtake you!" or msg == "Вас захлестнет сила стихий!" then
 		timerAlliesOfNature:Start()
 	end
 end

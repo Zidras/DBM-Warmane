@@ -45,11 +45,11 @@ local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- ever
 local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false)	-- usually every 10 seconds but sometimes more
 local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718)				-- every 20-30 seconds but never more often than every 20sec
 local timerGlitteringSparksCD	= mod:NewCDTimer(20, 72798)				-- This is pretty nasty on heroic
-local timerShockVortex			= mod:NewCDTimer(16.5, 72037)			-- Seen a range from 16,8 - 21,6
+local timerShockVortex			= mod:NewCDTimer(15.0, 72037)			-- Seen a range from 16,8 - 21,6
+local timerShockVortexMax		= mod:NewCDTimer(20.0, 72037)			-- Seen a range from 16,8 - 21,6
 local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, mod:IsRanged())				-- Might need tweaking
 local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)		-- Hard mode debuff
 
-local timerCombatStart			= mod:NewTimer(29, "Combat starts in...", 2457) -- Roleplay for first pull
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
@@ -72,6 +72,8 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	warnTargetSwitchSoon:Schedule(42-delay)
 	timerTargetSwitch:Start(-delay)
+	timerShockVortex:Start(-delay)
+	timerShockVortexMax:Start(-delay)
 	activePrince = nil
 	table.wipe(glitteringSparksTargets)
 	if self.Options.RangeFrame then
@@ -147,7 +149,7 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
 		warnEmpoweredShockVortex:Show()
 		specWarnEmpoweredShockV:Show()
-		timerShockVortex:Start()
+		timerShockVortex:Start(30)
 	elseif args:IsSpellID(71718) then	-- Conjure Flames
 		warnConjureFlames:Show()
 		timerConjureFlamesCD:Start()
@@ -261,11 +263,5 @@ function mod:OnSync(msg, target)
 				end
 			end
 		end
-	end
-end
-
-function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.FirstPull or msg:find(L.FirstPull) then
-		timerCombatStart:Start()
 	end
 end

@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "ruRU" then return end
+if GetLocale() ~= "ruRU" then return end
 
 local L
 
@@ -371,7 +371,7 @@ L:SetMiscLocalization{
 	Keleseth			= "Принц Келесет",
 	Taldaram			= "Принц Талдарам",
 	Valanar				= "Принц Валанар",
-	EmpoweredFlames		= "Жаркое пламя тянется к (%S+)!"
+	EmpoweredFlames		= "Огни Инферно движутся к (%S+)!"
 }
 
 -----------------------------

@@ -62,6 +62,7 @@ local timerRuneofSummoning  = mod:NewCDTimer(30, 62273)
 local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490)
 local timerRuneofDeathDura		= mod:NewNextTimer(30, 63490)
 local timerRuneofPower			= mod:NewCDTimer(30, 61974)
+local timerRuneofDeath			= mod:NewCDTimer(30, 63490)
 local warnRuneofDeathIn10Sec	= mod:NewSpecialWarning("WarningRuneofDeathIn10Sec", 3)
 mod:AddBoolOption("PlaySoundDeathRune", true, "announce")
 

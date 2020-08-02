@@ -31,14 +31,14 @@ local warnRagingSpirit		= mod:NewTargetAnnounce(69200, 3) --Transition Add
 local warnShamblingSoon		= mod:NewSoonAnnounce(70372, 2) --Phase 1 Add
 local warnShamblingHorror	= mod:NewSpellAnnounce(70372, 3) --Phase 1 Add
 local warnDrudgeGhouls		= mod:NewSpellAnnounce(70358, 2) --Phase 1 Add
-local warnShamblingEnrage	= mod:NewTargetAnnounce(72143, 3, nil, mod:IsHealer() or mod:IsTank() or mod:CanRemoveEnrage()) --Phase 1 Add Ability
+local warnShamblingEnrage	= mod:NewTargetAnnounce(72143, 3, nil, true) --Phase 1 Add Ability
 local warnNecroticPlague	= mod:NewTargetAnnounce(73912, 4) --Phase 1+ Ability
 local warnNecroticPlagueJump= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 73912) --Phase 1+ Ability
-local warnInfest			= mod:NewSpellAnnounce(73779, 3, nil, mod:IsHealer()) --Phase 1 & 2 Ability
+local warnInfest			= mod:NewSpellAnnounce(73779, 3, nil, true) --Phase 1 & 2 Ability
 local warnPhase2Soon		= mod:NewAnnounce("WarnPhase2Soon", 1)
 local valkyrWarning			= mod:NewAnnounce("ValkyrWarning", 3, 71844)--Phase 2 Ability
 local warnDefileSoon		= mod:NewSoonAnnounce(73708, 3)	--Phase 2+ Ability
-local warnSoulreaper		= mod:NewSpellAnnounce(73797, 4, nil, mod:IsTank() or mod:IsHealer()) --Phase 2+ Ability
+local warnSoulreaper		= mod:NewSpellAnnounce(73797, 4) --Phase 2+ Ability
 local warnDefileCast		= mod:NewTargetAnnounce(72762, 4) --Phase 2+ Ability
 local warnSummonValkyr		= mod:NewSpellAnnounce(69037, 3, 71844) --Phase 2 Add
 local warnPhase3Soon		= mod:NewAnnounce("WarnPhase3Soon", 1)
@@ -59,23 +59,24 @@ local specWarnDefile		= mod:NewSpecialWarningMove(73708) --Phase 2+ Ability
 local specWarnWinter		= mod:NewSpecialWarningMove(73791) --Transition Ability
 local specWarnHarvestSoul	= mod:NewSpecialWarningYou(74325) --Phase 3+ Ability
 local specWarnInfest		= mod:NewSpecialWarningSpell(73779, false) --Phase 1+ Ability
-local specwarnSoulreaper	= mod:NewSpecialWarningTarget(73797, mod:IsTank()) --phase 2+
+local specwarnSoulreaper	= mod:NewSpecialWarningTarget(73797, true) --phase 2+
 local specWarnTrap			= mod:NewSpecialWarningYou(73539) --Heroic Ability
 local specWarnTrapNear		= mod:NewSpecialWarning("SpecWarnTrapNear") --Heroic Ability
 local specWarnHarvestSouls	= mod:NewSpecialWarningSpell(74297) --Heroic Ability
 local specWarnValkyrLow		= mod:NewSpecialWarning("SpecWarnValkyrLow")
 
-local timerCombatStart		= mod:NewTimer(55, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(53.5, "TimerCombatStart", 2457)
 local timerPhaseTransition	= mod:NewTimer(62, "PhaseTransition", 72262)
-local timerSoulreaper	 	= mod:NewTargetTimer(5.1, 73797, nil, mod:IsTank() or mod:IsHealer())
-local timerSoulreaperCD	 	= mod:NewCDTimer(30.5, 73797, nil, mod:IsTank() or mod:IsHealer())
+local timerSoulreaper	 	= mod:NewTargetTimer(5.1, 73797, nil, true)
+local timerSoulreaperCD	 	= mod:NewCDTimer(34.0, 73797, nil, true)
 local timerHarvestSoul	 	= mod:NewTargetTimer(6, 74325)
 local timerHarvestSoulCD	= mod:NewCDTimer(75, 74325)
 local timerInfestCD			= mod:NewCDTimer(22.5, 73779, nil, mod:IsHealer())
 local timerNecroticPlagueCleanse = mod:NewTimer(5, "TimerNecroticPlagueCleanse", 73912, false)
 local timerNecroticPlagueCD	= mod:NewCDTimer(30, 73912)
 local timerDefileCD			= mod:NewCDTimer(32.5, 72762)
-local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, mod:IsTank() or mod:CanRemoveEnrage())
+local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, true)
+local timerEnrageCDnext		= mod:NewCDTimer(41, 72143, nil, true)
 local timerShamblingHorror 	= mod:NewNextTimer(60, 70372)
 local timerDrudgeGhouls 	= mod:NewNextTimer(20, 70358)
 local timerRagingSpiritCD	= mod:NewCDTimer(22, 69200)
@@ -261,6 +262,10 @@ function mod:SPELL_CAST_START(args)
 		timerTrapCD:Cancel()
 		timerDefileCD:Cancel()
 		warnDefileSoon:Cancel()
+	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
+		warnShamblingEnrage:Show(args.destName)
+		timerEnrageCD:Start()
+		timerEnrageCDnext:Start()
 	elseif args:IsSpellID(72262) then -- Quake (phase transition end)
 		warnQuake:Show()
 		timerRagingSpiritCD:Cancel()
@@ -317,8 +322,10 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(73650) then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
 		timerRestoreSoul:Start()
-		timerDefileCD:Start(42.5)
-		warnDefileSoon:Schedule(36)
+		timerSoulreaperCD:Cancel()
+		timerDefileCD:Cancel()
+		timerSoulreaperCD:Start(49.5)
+		timerDefileCD:Start(41.3)
 	elseif args:IsSpellID(72350) then -- Fury of Frostmourne
 		mod:SetWipeTime(160)--Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
 		timerRoleplay:Start()
@@ -365,7 +372,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 			self:SetIcon(args.destName, 7, 5)
 		end
 	elseif args:IsSpellID(68980, 74325, 74326, 74327) then -- Harvest Soul
-	--[[elseif args:IsSpellID(68980, 74325, 74326, 74327) then -- Harvest Soul]]--
 		warnHarvestSoul:Show(args.destName)
 		timerHarvestSoul:Start(args.destName)
 		timerHarvestSoulCD:Start()
@@ -376,13 +382,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 			self:SetIcon(args.destName, 6, 6)
 		end
 	elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
-	--[[elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)]]--
 		specWarnHarvestSouls:Show()
 		timerHarvestSoulCD:Start(107) -- Custom edit to make Harvest Souls timers work again
 		timerVileSpirit:Cancel()
-		timerSoulreaperCD:Cancel()
-		timerDefileCD:Cancel()
-		warnDefileSoon:Cancel()
+		-- wowcircle fix
+		--timerSoulreaperCD:Cancel()
+		--timerDefileCD:Cancel()
+		--warnDefileSoon:Cancel()
 	end
 end
 
@@ -549,8 +555,7 @@ function mod:NextPhase()
 		warnDefileSoon:Schedule(33)
 	elseif self.vb.phase == 3 then
 		timerVileSpirit:Start(20)
-		timerSoulreaperCD:Start(40)
-		timerDefileCD:Start(33)
+		timerDefileCD:Start(50)
 		timerHarvestSoulCD:Start(14)
 		warnDefileSoon:Schedule(33)
 	end
