@@ -15,6 +15,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_YELL",
+	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"SPELL_SUMMON"
 )
 
@@ -188,9 +189,9 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:SPELL_SUMMON(args)
-	if self.GetCIDFromGUID(args.destGUID) == 33228 or self.GetCIDFromGUID(args.sourceGUID) == 33228 then 
-		timerEonarsGiftCD:Stop()
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, mob)
+	-- localize this 
+	if strmatch(msg, "begins to grow!") then
 		timerEonarsGiftCD:Start()
 	end
 end
