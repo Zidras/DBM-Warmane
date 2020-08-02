@@ -1,5 +1,7 @@
 # Форк для WoWCircle logon1
-Форк DBM-Frostmourne для wowcircle от меня  [Arsum/Maveth Eternal Souls x5/ Barsoom x25->x10->x100 Born in Fire](https://forum.wowcircle.net/member.php?u=261041)
+Форк DBM-Frostmourne для wowcircle от меня
+
+[Arsum/Maveth Eternal Souls x5/ Barsoom x25->x10->x100 Born in Fire](https://forum.wowcircle.net/member.php?u=261041)
 
 По мере возможностей и желания буду дополнять таймеры, можете открывать пулреквесты и issues, будем смотреть чо делать
 

@@ -231,9 +231,9 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Yell_Trigger_arm_left	= "Царапина...",
 	Yell_Trigger_arm_right	= "Всего лишь плоть!",
-	YellEncounterStart		= "None shall pass!",
-	YellLeftArmDies			= "Just a scratch!",
-	YellRightArmDies		= "Only a flesh wound!",
+	YellEncounterStart		= "Вам не пройти!",
+	YellLeftArmDies			= "Царапина...",
+	YellRightArmDies		= "Всего лишь плоть!",
 	Health_Body				= "Кологарн",
 	Health_Right_Arm		= "Правая рука",
 	Health_Left_Arm			= "Левая рука",
