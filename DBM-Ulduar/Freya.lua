@@ -33,8 +33,8 @@ local warnRoots				= mod:NewTargetAnnounce(62438, 2)
 
 local specWarnFury			= mod:NewSpecialWarningYou(63571)
 local specWarnTremor		= mod:NewSpecialWarningCast(62859)	-- Hard mode
-local specWarnBeam			= mod:NewSpecialWarningMove(62865)	-- Hard mode
-local specWarnBeamsSoon		= mod:NewSpecialWarning("WarningBeamsSoon", 3) -- Hard mode Sun Beam
+local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865)	-- Hard mode
+local specWarnUnstableBeamSoon	= mod:NewSpecialWarning("WarningBeamsSoon", 3) -- Hard mode Sun Beam
 
 local enrage 				= mod:NewBerserkTimer(600)
 local timerAlliesOfNature	= mod:NewNextTimer(60, 62678)
@@ -43,7 +43,7 @@ local timerFury				= mod:NewTargetTimer(10, 63571)
 local timerTremorCD 		= mod:NewCDTimer(26, 62859)
 local timerEonarsGiftCD     = mod:NewCDTimer(40, 62584)
 local timerRootsCD      	= mod:NewCDTimer(14, 62439)
-local timerSunBeamCD		= mod:NewCDTimer(18, 62872) -- Hard mode Sun Beam
+local timerUnstableBeamCD	= mod:NewCDTimer(15, 62451) -- Hard mode Sun Beam
 
 
 mod:AddBoolOption("HealthFrame", true)
@@ -106,10 +106,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 			end
 		end
 		timerFury:Start(args.destName)
-	elseif args:IsSpellID(62211, 62623, 62872, 64201) and args.sourceName == "Sun Beam" and GetTime() - (self.vb.lastBeam or 0) > 10 then 
-		self.vb.lastBeam = GetTime() 
-		timerSunBeamCD:Start()
-		specWarnBeamsSoon:Schedule(15)
 	end
 end
 
@@ -125,8 +121,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self:Schedule(0.5, showRootWarning)
 		end
-	elseif args:IsSpellID(62451, 62865) and args:IsPlayer() then
-		specWarnBeam:Show()
+	elseif args:IsSpellID(62451, 62865) then
+		if GetTime() - (self.vb.lastBeam or 0) > 10 then 
+			self.vb.lastBeam = GetTime() 
+			timerUnstableBeamCD:Start()
+			specWarnUnstableBeamSoon:Schedule(12)
+		end
+		if args:IsPlayer() then 
+			specWarnUnstableBeam:Show()
+		end
 	end
 end
 
