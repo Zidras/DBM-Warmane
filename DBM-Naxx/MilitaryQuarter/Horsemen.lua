@@ -24,10 +24,10 @@ local ZELIEK_MARK = 28835
 local BARON_MARK = 28834
 local THANE_MARK = 28832
 
-local NextLadyMark			= mod:NewNextTimer(16, LADY_MARK)
-local NextZeliekMark		= mod:NewNextTimer(16, ZELIEK_MARK)
-local NextBaronMark			= mod:NewNextTimer(15, BARON_MARK)
-local NextThaneMark			= mod:NewNextTimer(15, THANE_MARK)
+local NextLadyMark			= mod:NewNextTimer(12, LADY_MARK)
+local NextZeliekMark		= mod:NewNextTimer(12, ZELIEK_MARK)
+local NextBaronMark			= mod:NewNextTimer(12, BARON_MARK)
+local NextThaneMark			= mod:NewNextTimer(12, THANE_MARK)
 
 local specWarnMarkOnPlayer	= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer", nil, false, true)
 
@@ -46,10 +46,10 @@ local markCounter = 0
 function mod:OnCombatStart(delay)
 	self.combat_start = GetTime()
 	markCounter = 0
-	NextLadyMark:Start()
-	NextZeliekMark:Start()
-	NextBaronMark:Start()
-	NextThaneMark:Start()
+	NextLadyMark:Start(24)
+	NextZeliekMark:Start(24)
+	NextBaronMark:Start(24)
+	NextThaneMark:Start(24)
 	
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
@@ -72,16 +72,16 @@ function mod:DoMarks(args)
 	local wasMark = false
 	if args:IsSpellID(LADY_MARK) then 
 		wasMark = true
-		NextLadyMark:Start(15)
+		NextLadyMark:Start(12)
 	elseif args:IsSpellID(ZELIEK_MARK) then 
 		wasMark = true	
-		NextZeliekMark:Start(15)
+		NextZeliekMark:Start(12)
 	elseif args:IsSpellID(BARON_MARK) then
 		wasMark = true
-		NextBaronMark:Start(15)
+		NextBaronMark:Start(12)
 	elseif args:IsSpellID(THANE_MARK) then
 		wasMark = true
-		NextThaneMark:Start(15)
+		NextThaneMark:Start(12)
 	end
 
 	if wasMark and (GetTime() - markSpam) > 5 then
@@ -100,7 +100,7 @@ end
 
 function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if self:DoMarks(args) and args:IsPlayer() then
-		if args.amount >= 4 then
+		if args.amount >= 3 then
 			specWarnMarkOnPlayer:Show(args.spellName, args.amount)
 		end
 	end

@@ -45,7 +45,7 @@ function mod:OnCombatStart(delay)
 	warnedAdds = false
 	specwarnP2Soon:Schedule(217-delay)
 	timerPhase2:Start()
-	frostBlastCD:Start(257)
+	frostBlastCD:Start(247)
 	warnPhase2:Schedule(227)
 	self:ScheduleMethod(226, "StartPhase2")
 	self.vb.phase = 1
@@ -77,10 +77,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\alarm1.wav")
 		end
 		blastTimer:Start()
+		frostBlastCD:Start()
 	elseif args:IsSpellID(27819) then -- Detonate Mana
 		warnMana:Show(args.destName)
 		self:SetIcon(args.destName, 8, 5.5)
-		if self:GetDetonateRange(args.destName) < 15 then
+		if self:GetDetonateRange(args.destName) <= 12 then
 			if UnitName("player") == args.destName then
 				warnManaOnYou:Show()
 				SendChatMessage("Detonate Mana on me!","SAY")

@@ -18,7 +18,7 @@ local warnPhase2		= mod:NewPhaseAnnounce(2, 4)
 
 local timerPhase2		= mod:NewTimer(275, "TimerPhase2", 27082)
 local timerWave			= mod:NewTimer(20, "TimerWave", 27082)
-local timerGate     = mod:NewTimer(155, "Gate Opens", 9484)
+local timerGate     = mod:NewTimer(205, "Gate Opens", 9484)
 
 local wavesNormal = {
 	{2, L.Trainee, next = 20},
