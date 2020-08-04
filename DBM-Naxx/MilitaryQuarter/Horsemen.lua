@@ -26,8 +26,8 @@ local THANE_MARK = 28832
 
 local NextLadyMark			= mod:NewNextTimer(12, LADY_MARK)
 local NextZeliekMark		= mod:NewNextTimer(12, ZELIEK_MARK)
-local NextBaronMark			= mod:NewNextTimer(12, BARON_MARK)
-local NextThaneMark			= mod:NewNextTimer(12, THANE_MARK)
+local NextBaronMark			= mod:NewNextTimer(10, BARON_MARK)
+local NextThaneMark			= mod:NewNextTimer(10, THANE_MARK)
 
 local specWarnMarkOnPlayer	= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer", nil, false, true)
 
@@ -46,10 +46,10 @@ local markCounter = 0
 function mod:OnCombatStart(delay)
 	self.combat_start = GetTime()
 	markCounter = 0
-	NextLadyMark:Start(24)
-	NextZeliekMark:Start(24)
-	NextBaronMark:Start(24)
-	NextThaneMark:Start(24)
+	NextLadyMark:Start(34)
+	NextZeliekMark:Start(34)
+	NextBaronMark:Start(34)
+	NextThaneMark:Start(34)
 	
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
@@ -78,10 +78,10 @@ function mod:DoMarks(args)
 		NextZeliekMark:Start(12)
 	elseif args:IsSpellID(BARON_MARK) then
 		wasMark = true
-		NextBaronMark:Start(12)
+		NextBaronMark:Start(10)
 	elseif args:IsSpellID(THANE_MARK) then
 		wasMark = true
-		NextThaneMark:Start(12)
+		NextThaneMark:Start(10)
 	end
 
 	if wasMark and (GetTime() - markSpam) > 5 then
