@@ -31,7 +31,7 @@ local specWarnMutatedInfection	= mod:NewSpecialWarningYou(71224)
 local specWarnStickyOoze		= mod:NewSpecialWarningMove(69774)
 local specWarnOozeExplosion		= mod:NewSpecialWarningRun(69839)
 local specWarnSlimeSpray		= mod:NewSpecialWarningSpell(69508, false)--For people that need a bigger warning to move
-local specWarnRadiatingOoze		= mod:NewSpecialWarningSpell(69760, not mod:IsTank())
+local specWarnRadiatingOoze		= mod:NewSpecialWarningSpell(69760, false)
 local specWarnLittleOoze		= mod:NewSpecialWarning("SpecWarnLittleOoze")
 local specWarnVileGas			= mod:NewSpecialWarningYou(72272)
 
@@ -125,6 +125,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
+		timerVileGasCD:Start()
 		RFVileGasTargets[#RFVileGasTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
@@ -138,7 +139,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(72272, 72273) then
-		timerVileGasCD:Start()
+		--timerVileGasCD:Start() -- tentative moved to SPELL_AURA_APPLIED
 	end
 end
 
@@ -166,7 +167,7 @@ end
 
 function mod:SWING_DAMAGE(args)
 	if args:IsPlayer() and args:GetSrcCreatureID() == 36897 then --Little ooze hitting you
-		specWarnLittleOoze:Show()
+		--specWarnLittleOoze:Show() -- why the fuck does it even exist? 5k dmg to cloth. removed.
 	elseif args:GetDestCreatureID() == 36899 and args:IsSrcTypePlayer() then
 		if args.sourceName ~= UnitName("player") then
 			if self.Options.TankArrow then
