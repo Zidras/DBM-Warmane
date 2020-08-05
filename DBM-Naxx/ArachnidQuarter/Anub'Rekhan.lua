@@ -27,13 +27,8 @@ mod:AddBoolOption("ArachnophobiaTimer", true, "timer")
 
 
 function mod:OnCombatStart(delay)
-	if mod:IsDifficulty("heroic25") then
-		timerLocustIn:Start(65 - delay)
-		warningLocustSoon:Schedule(55 - delay)
-	else
-		timerLocustIn:Start(91 - delay)
-		warningLocustSoon:Schedule(76 - delay)
-	end
+	timerLocustIn:Start(70 - delay)
+	warningLocustSoon:Schedule(65 - delay)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -41,11 +36,7 @@ function mod:SPELL_CAST_START(args)
 		warningLocustNow:Show()
 		specialWarningLocust:Show()
 		timerLocustIn:Stop()
-		if mod:IsDifficulty("heroic25") then
-			timerLocustFade:Start(23)
-		else
-			timerLocustFade:Start(19)
-		end
+		timerLocustFade:Start(23)
 	end
 end
 
@@ -54,7 +45,8 @@ function mod:SPELL_AURA_REMOVED(args)
 	and args.auraType == "BUFF" then
 		warningLocustFaded:Show()
 		timerLocustIn:Start()
-		warningLocustSoon:Schedule(42)
+		warningLocustSoon:Schedule(70-23)
+		timerLocustIn:Start(75-23)
 	end
 end
 
