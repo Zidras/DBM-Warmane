@@ -71,7 +71,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	if emote == L.EmotePhase2 or emote:find(L.EmotePhase2) then
 		-- phase2
 		self.vb.phase = 2
-		self.isGrounded = true
+		self.vb.isGrounded = true
 		timerTurret1:Stop()
 		timerTurret2:Stop()
 		timerTurret3:Stop()
