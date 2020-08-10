@@ -1,5 +1,5 @@
 # Форк для WoWCircle logon1
-Форк DBM-Frostmourne для wowcircle от меня
+[Форк DBM-Frostmourne для WoWCircle от меня](https://forum.wowcircle.net/showthread.php?t=991037)
 
 [Arsum/Maveth Eternal Souls x5/ Barsoom x25->x10->x100 Born in Fire](https://forum.wowcircle.net/member.php?u=261041)
 
@@ -13,9 +13,9 @@
 
 коммит с readme от 2020-08-02 будем считать базовым тк вроде всё как раз подстроено чтобы нормально работать
 
-Связаться можно со мной либо в [дискорде](https://discord.com/invite/QhV3Jfz) либо в [ВК](https://vk.com/filipp_balakin)
+Связаться можно со мной либо в [дискорде](https://discord.gg/ca4eR2D) либо в [ВК](https://vk.com/filipp_balakin)
 
-Большое спасибо [asjeward](https://github.com/ajseward) и контрибьютором оригинального [DBM-Frostmourne](https://github.com/ajseward/DBM-Frostmourne)  за его версию DBM которую я отдедачил под циркуль
+Большое спасибо [asjeward](https://github.com/ajseward) и контрибьюторам оригинального [DBM-Frostmourne](https://github.com/ajseward/DBM-Frostmourne)  за его версию DBM которую я отдедачил под циркуль
 
 # DBM-Frostmourne
 Originally based on [DBM for Warmane - Icecrown](https://github.com/Ayaro1/DBM_Warmane_Icecrown). Most edits done by Sariyo, Gjeneth, Arrj, Nimloth, Zbruennig and anyone else mentioned in the changelog below.
