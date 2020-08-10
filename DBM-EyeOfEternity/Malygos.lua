@@ -95,7 +95,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg:sub(0, L.YellPhase3:len()) == L.YellPhase3 then
 		self:SendSync("Phase3")
 		self.vb.phase = 3
-	elseif msg == "ENOUGH! If you intend to reclaim Azeroth's magic, then you shall have it!" then
+	elseif msg == L.EnoughScream then
 		timerBreath:Stop()
 		timerAttackable:Start()
 		timerStaticFieldCD:Start(24+15.5)

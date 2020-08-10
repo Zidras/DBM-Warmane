@@ -127,6 +127,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	WarningRuneofDeathIn10Sec = "Руна смерти через ~10сек"
 }
 
 L:SetTimerLocalization{
@@ -144,7 +145,17 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Steelbreaker		= "Сталелом",
 	RunemasterMolgeim	= "Мастер рун Молгейм",
-	StormcallerBrundir 	= "Буревестник Брундир"
+	StormcallerBrundir 	= "Буревестник Брундир",
+	YellPull1			= "Кто бы вы ни были  жалкие бродяги или великие герои... Вы всего лишь смертные!",
+	YellPull2			= "Я буду спокоен, лишь когда окончательно истреблю вас.",
+	YellPull3			= "Чужаки! Вам не одолеть Железное Собрание!",
+	YellRuneOfDeath		= "Расшифруйте вот это!",
+	YellRunemasterMolgeimDied = "И что вам дало мое поражение? Вы все так же обречены, смертные.",
+	YellRunemasterMolgeimDied2 = "Наследие бурь не умрет вместе со мной.",
+	YellStormcallerBrundirDied = "Никто не превзойдет силу шторма.",
+	YellStormcallerBrundirDied2 = "Вас ждет бездна безумия!",
+	YellSteelbreakerDied = "Мое поражение лишь приблизит вашу погибель.",
+	YellSteelbreakerDied2 = "Невозможно..."
 }
 
 ----------------------------
@@ -158,7 +169,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	NextCollapsingStar		= "Вспыхивающая звезда",
-	PossibleNextCosmicSmash	= "Кара небесная",
+	NextCosmicSmash	= "Кара небесная",
 	TimerCombatStart		= "Битва начнется через"
 }
 
@@ -173,7 +184,7 @@ L:SetOptionLocalization{
 	WarningPhasePunch		= "Объявлять цели заклинания Фазовый удар",
 	NextCollapsingStar		= "Отсчет времени до появления Вспыхивающей звезды",
 	WarningCosmicSmash 		= "Предупреждение для Кары небесной",
-	PossibleNextCosmicSmash	= "Отсчет времени до следующей Кары небесной",
+	NextCosmicSmash	        = "Отсчет времени до следующей Кары небесной",
 	TimerCombatStart		= "Отсчет времени до начала боя",
 	WarnPhase2Soon			= "Предупреждать заранее о фазе 2 (на ~23%)",
 	warnStarLow				= "Спец-предупреждение, когда у Вспыхивающей звезды мало здоровья (на ~25%)"
@@ -327,6 +338,9 @@ L:SetMiscLocalization{
 	Snaplasher         = "Хватоплет",
 	StormLasher        = "Грозовой плеточник",
 	YellKill           = "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
+	YellAdds1          = "Эонар, твоей прислужнице нужна помощь!",
+	YellAdds2          = "Вас захлестнет сила стихий!",
+	EmoteLGift         = "начинает расти!",
 	TrashRespawnTimer  = "Возрождение монстров"
 }
 

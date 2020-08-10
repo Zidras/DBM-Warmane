@@ -160,9 +160,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		adds[33202] = true
 		adds[32916] = true
 		adds[32919] = true
-	elseif msg == "Eonar, your servant requires aid!" then
+	elseif msg == L.YellAdds1 then
 		timerAlliesOfNature:Start()
-	elseif msg == "The swarm of the elements shall overtake you!" then
+	elseif msg == L.YellAdds2 then
 		timerAlliesOfNature:Start()
 	end
 end
@@ -191,7 +191,7 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, mob)
 	-- localize this 
-	if strmatch(msg, "begins to grow!") then
+	if strmatch(msg, L.EmoteLGift) then
 		timerEonarsGiftCD:Start()
 	end
 end

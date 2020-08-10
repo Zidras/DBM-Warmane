@@ -341,6 +341,9 @@ L:SetMiscLocalization{
 	Snaplasher         = "Snaplasher",
 	StormLasher        = "Storm Lasher",
 	YellKill           = "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
+	YellAdds1          = "Eonar, your servant requires aid!",
+	YellAdds2          = "The swarm of the elements shall overtake you!",
+	EmoteLGift         = "begins to grow!",
 	TrashRespawnTimer  = "Freya trash respawn"
 }
 
