@@ -34,7 +34,7 @@ A version of WotLK DBM with accurate timers for Warmane servers. Please see the 
 * * Most of these are marked as CDs
 * For example: Frost Blast on Kel'Thuzad, Locust Swarm (Cast, not the duration) on Anub'Rekhan, Noth's first Blink, and Eonar's Gift are the most random.
 
-# 5.04 [IN DEVELOPMENT]
+# 5.04 
 ### General
 * Arrow (mostly used by shadow crash on vezax) is now default centered, and can be moved with /dbm arrow move.
 * * Note: this seems to not work sometimes? Reload ui will fix it usually. Unsure why.
