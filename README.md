@@ -1,4 +1,4 @@
-# Grab the latest version (5.03) [here](https://github.com/ajseward/DBM-Frostmourne/releases)
+# Grab the latest version [here](https://github.com/ajseward/DBM-Frostmourne/releases)
 The master branch is used for development
 
 # DBM-Frostmourne
