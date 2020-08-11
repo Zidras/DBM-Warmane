@@ -139,6 +139,8 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(27810) then
 		warnFissure:Show()
+		specwarnfissure:Show()
+		fissureCD:Start()
 	end
 	if args:IsSpellID(27808) then
 		frostBlastCD:Start()

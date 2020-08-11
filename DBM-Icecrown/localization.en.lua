@@ -370,7 +370,8 @@ L:SetMiscLocalization{
 	Keleseth			= "Prince Keleseth",
 	Taldaram			= "Prince Taldaram",
 	Valanar				= "Prince Valanar",
-	EmpoweredFlames		= "Empowered Flames speed toward (%S+)!"
+	EmpoweredFlames		= "Empowered Flames speed toward (%S+)!",
+	EmpoweredFlames2	= "Empowered Flames speed toward (%S+)!"
 }
 
 -----------------------------

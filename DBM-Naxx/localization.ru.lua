@@ -379,7 +379,7 @@ L:SetOptionLocalization({
 	fissure 		= "Спец-предупреждение для Взрыва Бездны(войдзона)",
 	warnAddsSoon	= "Предупреждать заранее о Стражах Ледяной Короны",
 	BlastAlarm		= "Воспроизводить специальный звук сирены при применении Ледяного взрыва",
-	BlastAlarm		= "Play custom OnlySmile sound for Shadow Fissure",
+	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure",
 	ShowRange		= "Показывать окно проверки дистанции в фазе 2"
 })
 

@@ -378,7 +378,7 @@ L:SetOptionLocalization({
 	fissure 		= "Show special warning for Shadow Fissure",
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
-	BlastAlarm		= "Play custom OnlySmile sound for Shadow Fissure",
+	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure",
 	ShowRange		= "Show range frame when Phase 2 starts"
 })
 
