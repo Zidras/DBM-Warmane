@@ -423,7 +423,7 @@ L:SetOptionLocalization{
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
 	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
 	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.",
-	SoundWarnCountingFlames = "Play sound counter 5...1 to Flames"
+	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames"
 }
 
 L:SetMiscLocalization{

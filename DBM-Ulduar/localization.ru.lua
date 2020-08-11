@@ -424,8 +424,8 @@ L:SetOptionLocalization{
 	RangeFrame				= "Показывать окно проверки дистанции в фазе 1 (6 м)",
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
 	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.",
-	SoundWarnCountingFlames = "Play sound counter 5...1 to Flames"
+	WarnFlamesIn5Sec 		= "Спец-предупреждение: Пламя через 5 сек.",
+	SoundWarnCountingFlames = "Проигрывать звуковой отсчет 5...1 до следующего Пламени"
 }
 
 L:SetMiscLocalization{
