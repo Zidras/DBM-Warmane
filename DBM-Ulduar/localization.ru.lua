@@ -110,11 +110,13 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
+	WarningTTIn10Sec			= "Раскаты ярости через 10 сек."
 }
 
 L:SetOptionLocalization{
 	SetIconOnLightBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65121),
-	SetIconOnGravityBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64234)
+	SetIconOnGravityBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64234),
+	WarningTympanicTantrumIn10Sec = "Спец-предупреждение (10 сек.) для $spell:62776"
 }
 
 --------------------
@@ -127,6 +129,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
+	WarningRuneofDeathIn10Sec = "Руна смерти через ~10сек"
 }
 
 L:SetTimerLocalization{
@@ -144,7 +147,17 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Steelbreaker		= "Сталелом",
 	RunemasterMolgeim	= "Мастер рун Молгейм",
-	StormcallerBrundir 	= "Буревестник Брундир"
+	StormcallerBrundir 	= "Буревестник Брундир",
+	YellPull1			= "Кто бы вы ни были – жалкие бродяги или великие герои... Вы всего лишь смертные!",
+	YellPull2			= "Я буду спокоен, лишь когда окончательно истреблю вас.",
+	YellPull3			= "Чужаки! Вам не одолеть Железное Собрание!",
+	YellRuneOfDeath		= "Расшифруйте вот это!",
+	YellRunemasterMolgeimDied = "И что вам дало мое поражение? Вы все так же обречены, смертные.",
+	YellRunemasterMolgeimDied2 = "Наследие бурь не умрет вместе со мной.",
+	YellStormcallerBrundirDied = "Никто не превзойдет силу шторма.",
+	YellStormcallerBrundirDied2 = "Вас ждет бездна безумия!",
+	YellSteelbreakerDied = "Мое поражение лишь приблизит вашу погибель.",
+	YellSteelbreakerDied2 = "Невозможно..."
 }
 
 ----------------------------
@@ -158,7 +171,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	NextCollapsingStar		= "Вспыхивающая звезда",
-	PossibleNextCosmicSmash	= "Кара небесная",
+	NextCosmicSmash	= "Кара небесная",
 	TimerCombatStart		= "Битва начнется через"
 }
 
@@ -173,14 +186,14 @@ L:SetOptionLocalization{
 	WarningPhasePunch		= "Объявлять цели заклинания Фазовый удар",
 	NextCollapsingStar		= "Отсчет времени до появления Вспыхивающей звезды",
 	WarningCosmicSmash 		= "Предупреждение для Кары небесной",
-	PossibleNextCosmicSmash	= "Отсчет времени до следующей Кары небесной",
+	NextCosmicSmash	=	"Отсчет времени до следующей Кары небесной",
 	TimerCombatStart		= "Отсчет времени до начала боя",
 	WarnPhase2Soon			= "Предупреждать заранее о фазе 2 (на ~23%)",
 	warnStarLow				= "Спец-предупреждение, когда у Вспыхивающей звезды мало здоровья (на ~25%)"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Ваши действия нелогичны. Все возможные исходы этой схватки просчитаны. Пантеон получит сообщение от Наблюдателя в любом случае.",
+	YellPull				= "Взгляните на мир моими глазами: узрите необъятную вселенную, непостижимую даже для величайших умов.",
 	YellKill				= "Я видел миры, охваченные пламенем Творцов. Их жители гибли, не успев издать ни звука. Я был свидетелем того, как галактики рождались и умирали в мгновение ока. И все время я оставался холодным... и безразличным. Я. Не чувствовал. Ничего. Триллионы загубленных судеб. Неужели все они были подобны вам? Неужели все они так же любили жизнь?",
 	Emote_CollapsingStar	= "%s призывает вспыхивающие звезды!",
 	Phase2					= "Узрите чудо созидания!",
@@ -218,6 +231,9 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Yell_Trigger_arm_left	= "Царапина...",
 	Yell_Trigger_arm_right	= "Всего лишь плоть!",
+	YellEncounterStart		= "Вам не пройти!",
+	YellLeftArmDies			= "Царапина...",
+	YellRightArmDies		= "Всего лишь плоть!",
 	Health_Body				= "Кологарн",
 	Health_Right_Arm		= "Правая рука",
 	Health_Left_Arm			= "Левая рука",
@@ -295,7 +311,7 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "Сложный режим"
+	TimerHardmodeThorim	= "Присутствие Сиф"
 }
 
 L:SetOptionLocalization{
@@ -327,6 +343,9 @@ L:SetMiscLocalization{
 	Snaplasher         = "Хватоплет",
 	StormLasher        = "Грозовой плеточник",
 	YellKill           = "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
+	YellAdds1          = "Эонар, твоей прислужнице нужна помощь!",
+	YellAdds2          = "Вас захлестнет сила стихий!",
+	EmoteLGift         = "начинает расти!",
 	TrashRespawnTimer  = "Возрождение монстров"
 }
 
@@ -354,7 +373,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	TrashRespawnTimer	= "Возрождение монстров"
+	TrashRespawnTimer	= "Возрождение монстров",
+	WarningBeamsSoon = "Beams soon"
 }
 
 L:SetWarningLocalization{
@@ -377,7 +397,8 @@ L:SetGeneralLocalization{
 L:SetWarningLocalization{
 	MagneticCore		= "Магнитное ядро у |3-1(>%s<)",
 	WarningShockBlast	= "Шоковый удар - бегите",
-	WarnBombSpawn		= "Бомбот"
+	WarnBombSpawn		= "Бомбот",
+	WarningFlamesIn5Sec = "Flames in 5 sec.",
 }
 
 L:SetTimerLocalization{
@@ -402,7 +423,9 @@ L:SetOptionLocalization{
 	ShockBlastWarningInP4	= "Спец-предупреждение для $spell:63631 в фазе 4",
 	RangeFrame				= "Показывать окно проверки дистанции в фазе 1 (6 м)",
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997)
+	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
+	WarnFlamesIn5Sec 		= "Спец-предупреждение: Пламя через 5 сек.",
+	SoundWarnCountingFlames = "Проигрывать звуковой отсчет 5...1 до следующего Пламени"
 }
 
 L:SetMiscLocalization{
@@ -414,6 +437,7 @@ L:SetMiscLocalization{
 	YellPhase2		= "ПРЕВОСХОДНО! Просто восхитительный результат! Целостность обшивки – 98,9 процента! Почти что ни царапинки! Продолжаем!",
 	YellPhase3		= "Спасибо, друзья! Благодаря вам я получил ценнейшие сведения! Так, а куда же я дел... – ах, вот куда.",
 	YellPhase4		= "Фаза предварительной проверки завершена. Пора начать главный тест!",
+	YellKilled		= "Очевидно, я совершил небольшую ошибку в расчетах. Пленный злодей затуманил мой разум и заставил меня отклониться от инструкций. Сейчас все системы в норме. Конец связи.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
 }
 

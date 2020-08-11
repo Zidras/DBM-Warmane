@@ -57,6 +57,7 @@ mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
+mod:AddBoolOption("SoundWarnCountingMC", true)
 mod:RemoveOption("HealthFrame")
 
 
@@ -79,6 +80,13 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(7, "addsTimer")
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
+		if self.Options.SoundWarnCountingMC then
+			self:ScheduleMethod(25, "ToMC5")
+			self:ScheduleMethod(26, "ToMC4")
+			self:ScheduleMethod(27, "ToMC3")
+			self:ScheduleMethod(28, "ToMC2")
+			self:ScheduleMethod(29, "ToMC1")
+		end
 	end
 	timerDominateMindCD:Start(-13-delay)  -- Custom adjustment to Heroic25
 	if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
@@ -145,6 +153,26 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 	end
 end
 
+function mod:ToMC5()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+end
+
+function mod:ToMC4()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+end
+
+function mod:ToMC3()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+end
+
+function mod:ToMC2()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+end
+
+function mod:ToMC1()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+end
+
 function mod:TrySetTarget()
 	if DBM:GetRaidRank() >= 1 then
 		for i = 1, GetNumRaidMembers() do
@@ -167,6 +195,13 @@ do
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
 		timerDominateMindCD:Start()
+		if self.Options.SoundWarnCountingMC then
+			self:ScheduleMethod(35, "ToMC5")
+			self:ScheduleMethod(36, "ToMC4")
+			self:ScheduleMethod(37, "ToMC3")
+			self:ScheduleMethod(38, "ToMC2")
+			self:ScheduleMethod(39, "ToMC1")
+		end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
 	end
