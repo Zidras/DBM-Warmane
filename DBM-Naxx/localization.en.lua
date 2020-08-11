@@ -375,8 +375,10 @@ L:SetGeneralLocalization({
 L:SetOptionLocalization({
 	TimerPhase2		= "Show timer for Phase 2",
 	specwarnP2Soon	= "Show special warning 10 seconds before Kel'Thuzad engages",
+	fissure 		= "Show special warning for Shadow Fissure",
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
+	BlastAlarm		= "Play custom OnlySmile sound for Shadow Fissure",
 	ShowRange		= "Show range frame when Phase 2 starts"
 })
 
@@ -386,6 +388,7 @@ L:SetMiscLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Kel'Thuzad engages in 10 Seconds",
+	fissure 		= "Shadow Fissure",
 	warnAddsSoon	= "Guardians of Icecrown incoming soon"
 })
 

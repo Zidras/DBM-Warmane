@@ -376,8 +376,10 @@ L:SetGeneralLocalization({
 L:SetOptionLocalization({
 	TimerPhase2		= "Отсчет времени до фазы 2",
 	specwarnP2Soon	= "Спец-предупреждение за 10 секунд до вступления Кел'Тузада в бой",
+	fissure 		= "Спец-предупреждение для Взрыва Бездны(войдзона)",
 	warnAddsSoon	= "Предупреждать заранее о Стражах Ледяной Короны",
 	BlastAlarm		= "Воспроизводить специальный звук сирены при применении Ледяного взрыва",
+	BlastAlarm		= "Play custom OnlySmile sound for Shadow Fissure",
 	ShowRange		= "Показывать окно проверки дистанции в фазе 2"
 })
 
@@ -387,6 +389,7 @@ L:SetMiscLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Кел'Тузад вступает в бой через 10 секунд",
+	fissure 		= "Взрыв Бездны",
 	warnAddsSoon	= "Скоро прибытие Стражей Ледяной Короны"
 })
 

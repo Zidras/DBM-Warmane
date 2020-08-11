@@ -13,13 +13,15 @@ mod:EnableModel()
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH",
+	"SPELL_SUMMON"
 )
 
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1)
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
 local warnFissure			= mod:NewSpellAnnounce(27810, 3)
+local specwarnfissure		= mod:NewSpecialWarning("fissure")
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnManaClose   = mod:NewSpecialWarning("Detonate Mana Near YOU")
 local warnManaOnYou   = mod:NewSpecialWarning("You have Detonate Mana!")
@@ -32,9 +34,11 @@ local blastTimer			= mod:NewBuffActiveTimer(4, 27808)
 local timerPhase2			= mod:NewTimer(227, "TimerPhase2")
 local mindControlCD = mod:NewNextTimer(60, 28410)
 local frostBlastCD    = mod:NewCDTimer(25, 27808)
+local fissureCD    = mod:NewCDTimer(14, 27810)
 
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
+mod:AddBoolOption("SmileScream", false)
 
 local warnedAdds = false
 
@@ -68,6 +72,22 @@ end
 
 local frostBlastTargets = {}
 local chainsTargets = {}
+
+function mod:BigRedThing()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\smile_voidzone.mp3", "Master")
+end
+
+function mod:SPELL_SUMMON(args)
+	if args:IsSpellID(27810) then
+		warnFissure:Show()
+		specwarnfissure:Show()
+		if self.Options.SmileScream then
+			self:ScheduleMethod(0.01, "BigRedThing")
+		end
+		fissureCD:Start()
+	end
+end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(27808) then -- Frost Blast
 		table.insert(frostBlastTargets, args.destName)
