@@ -103,7 +103,7 @@ mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
-mod:AddBoolOption("LKBugWorkaround", true)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
+mod:AddBoolOption("LKBugWorkaround", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
 local lastPlagueCast = 0
 local warned_preP2 = false
