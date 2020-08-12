@@ -64,6 +64,8 @@ local specWarnTrap			= mod:NewSpecialWarningYou(73539) --Heroic Ability
 local specWarnTrapNear		= mod:NewSpecialWarning("SpecWarnTrapNear") --Heroic Ability
 local specWarnHarvestSouls	= mod:NewSpecialWarningSpell(74297) --Heroic Ability
 local specWarnValkyrLow		= mod:NewSpecialWarning("SpecWarnValkyrLow")
+local specWarnEnrage		= mod:NewSpecialWarningSpell(72143, isTank())
+local specWarnEnrageLow		= mod:NewSpecialWarningSpell(28747, false)
 
 local timerCombatStart		= mod:NewTimer(53.5, "TimerCombatStart", 2457)
 local timerPhaseTransition	= mod:NewTimer(62, "PhaseTransition", 72262)
@@ -264,6 +266,7 @@ function mod:SPELL_CAST_START(args)
 		warnDefileSoon:Cancel()
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		warnShamblingEnrage:Show(args.destName)
+		specWarnEnrage:Show()
 		timerEnrageCD:Start()
 		timerEnrageCDnext:Start()
 	elseif args:IsSpellID(72262) then -- Quake (phase transition end)
@@ -407,6 +410,8 @@ do
 		if args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 			warnShamblingEnrage:Show(args.destName)
 			timerEnrageCD:Start()
+		elseif args:IsSpellID(28747) then -- Shambling Horror enrage effect on low hp
+			specWarnEnrageLow:Show()
 		elseif args:IsSpellID(72754, 73708, 73709, 73710) and args:IsPlayer() and time() - lastDefile > 2 then		-- Defile Damage
 			specWarnDefile:Show()
 			lastDefile = time()

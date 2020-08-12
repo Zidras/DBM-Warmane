@@ -56,7 +56,6 @@ mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
-mod:AddBoolOption("SoundWarnCountingMC", true)
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("SoundWarnCountingMC", true)
 
