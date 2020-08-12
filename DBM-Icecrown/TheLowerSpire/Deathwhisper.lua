@@ -189,6 +189,8 @@ do
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
 		timerDominateMindCD:Start()
+		table.wipe(dominateMindTargets)
+		dominateMindIcon = 6
 		if mod.Options.SoundWarnCountingMC then
 			mod:ScheduleMethod(35, "ToMC5")
 			mod:ScheduleMethod(36, "ToMC4")
@@ -196,8 +198,6 @@ do
 			mod:ScheduleMethod(38, "ToMC2")
 			mod:ScheduleMethod(39, "ToMC1")
 		end
-		table.wipe(dominateMindTargets)
-		dominateMindIcon = 6
 	end
 	
 	function mod:SPELL_AURA_APPLIED(args)
