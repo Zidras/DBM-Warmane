@@ -341,6 +341,9 @@ L:SetMiscLocalization{
 	Snaplasher         = "Snaplasher",
 	StormLasher        = "Storm Lasher",
 	YellKill           = "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
+	YellAdds1          = "Eonar, your servant requires aid!",
+	YellAdds2          = "The swarm of the elements shall overtake you!",
+	EmoteLGift         = "begins to grow!",
 	TrashRespawnTimer  = "Freya trash respawn"
 }
 
@@ -420,7 +423,7 @@ L:SetOptionLocalization{
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
 	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
 	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.",
-	SoundWarnCountingFlames = "Play sound counter 5...1 to Flames"
+	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames"
 }
 
 L:SetMiscLocalization{

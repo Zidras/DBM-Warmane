@@ -56,6 +56,7 @@ mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
+mod:AddBoolOption("SoundWarnCountingMC", true)
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("SoundWarnCountingMC", true)
 
@@ -188,7 +189,7 @@ do
 	local function showDominateMindWarning()
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
-		timerDominateMindCD:Start()	
+		timerDominateMindCD:Start()
 		if self.Options.SoundWarnCountingMC then
 			self:ScheduleMethod(35, "ToMC5")
 			self:ScheduleMethod(36, "ToMC4")

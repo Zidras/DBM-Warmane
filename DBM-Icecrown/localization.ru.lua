@@ -150,7 +150,7 @@ L:SetOptionLocalization{
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
-	SoundWarnCountingMC			= "Проигрывать звуковой отсчет времени 5...1 до контроля разума"
+	SoundWarnCountingMC			= "Проигрывать звуковой отсчет 5...1 до контроля разума"
 }
 
 L:SetMiscLocalization{

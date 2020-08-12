@@ -110,13 +110,13 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarningTTIn10Sec			= "Tympanic Tantrum in 10 sec."
+	WarningTTIn10Sec			= "Раскаты ярости через 10 сек."
 }
 
 L:SetOptionLocalization{
 	SetIconOnLightBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65121),
 	SetIconOnGravityBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64234),
-	WarningTympanicTantrumIn10Sec = "Show special pre-warning (10 sec.) for $spell:62776 "
+	WarningTympanicTantrumIn10Sec = "Спец-предупреждение (10 сек.) для $spell:62776"
 }
 
 --------------------
@@ -129,7 +129,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "RoD in ~10 sec."
+	WarningRuneofDeathIn10Sec = "Руна смерти через ~10сек"
 }
 
 L:SetTimerLocalization{
@@ -311,7 +311,7 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerHardmodeThorim	= "Sif's Presence",
+	TimerHardmodeThorim	= "Присутствие Сиф"
 }
 
 L:SetOptionLocalization{
@@ -343,6 +343,9 @@ L:SetMiscLocalization{
 	Snaplasher         = "Хватоплет",
 	StormLasher        = "Грозовой плеточник",
 	YellKill           = "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
+	YellAdds1          = "Эонар, твоей прислужнице нужна помощь!",
+	YellAdds2          = "Вас захлестнет сила стихий!",
+	EmoteLGift         = "начинает расти!",
 	TrashRespawnTimer  = "Возрождение монстров"
 }
 
@@ -421,8 +424,8 @@ L:SetOptionLocalization{
 	RangeFrame				= "Показывать окно проверки дистанции в фазе 1 (6 м)",
 	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
 	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.",
-	SoundWarnCountingFlames = "Play sound counter 5...1 to Flames"
+	WarnFlamesIn5Sec 		= "Спец-предупреждение: Пламя через 5 сек.",
+	SoundWarnCountingFlames = "Проигрывать звуковой отсчет 5...1 до следующего Пламени"
 }
 
 L:SetMiscLocalization{
