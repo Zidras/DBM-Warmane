@@ -64,7 +64,7 @@ local specWarnTrap			= mod:NewSpecialWarningYou(73539) --Heroic Ability
 local specWarnTrapNear		= mod:NewSpecialWarning("SpecWarnTrapNear") --Heroic Ability
 local specWarnHarvestSouls	= mod:NewSpecialWarningSpell(74297) --Heroic Ability
 local specWarnValkyrLow		= mod:NewSpecialWarning("SpecWarnValkyrLow")
-local specWarnEnrage		= mod:NewSpecialWarningSpell(72143, isTank())
+local specWarnEnrage		= mod:NewSpecialWarningSpell(72143, mod:IsTank())
 local specWarnEnrageLow		= mod:NewSpecialWarningSpell(28747, false)
 
 local timerCombatStart		= mod:NewTimer(53.5, "TimerCombatStart", 2457)
