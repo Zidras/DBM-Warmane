@@ -50,6 +50,7 @@ local timerUnstableBeamCD	= mod:NewCDTimer(15, 62451) -- Hard mode Sun Beam
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("PlaySoundOnFury")
 mod:AddBoolOption("RangeFrame", true)
+mod:AddBoolOption("WarnBeamsSoon", true)
 
 local adds		= {}
 local rootedPlayers 	= {}
@@ -126,7 +127,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		if GetTime() - (self.vb.lastBeam or 0) > 10 then 
 			self.vb.lastBeam = GetTime() 
 			timerUnstableBeamCD:Start()
-			specWarnUnstableBeamSoon:Schedule(12)
+			if (self.Options.WarnBeamsSoon) then 
+				specWarnUnstableBeamSoon:Schedule(12)
+			end
 		end
 		if args:IsPlayer() then 
 			specWarnUnstableBeam:Show()

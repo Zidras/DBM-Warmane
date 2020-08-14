@@ -359,6 +359,7 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	WarnSimulKill	= "Announce first mob down",
 	PlaySoundOnFury = "Play sound when you are affected by $spell:63571",
+	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon",
 	TimerSimulKill	= "Show timer for mob resurrection"
 }
 
