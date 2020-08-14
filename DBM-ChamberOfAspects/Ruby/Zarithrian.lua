@@ -22,7 +22,7 @@ local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2)--ability 
 local timerAddsCD				= mod:NewTimer(45.5, "TimerAdds")
 local timerAddsTravel			= mod:NewTimer(10, "Adds arrive in") -- Timer to indicate when the summoned adds arive
 local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, mod:IsTank() or mod:IsHealer())
-local timerFearCD				= mod:NewCDTimer(31, 74384)--anywhere from 31-40 seconds in between fears.
+local timerFearCD				= mod:NewCDTimer(37, 74384)--anywhere from 35-40 seconds in between fears.
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(14-delay)--need more pulls to verify consistency

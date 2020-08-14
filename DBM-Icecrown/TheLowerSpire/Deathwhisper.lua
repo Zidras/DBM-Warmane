@@ -58,6 +58,7 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("SoundWarnCountingMC", true)
+mod:AddBoolOption("EqUneqWeapons", mod:IsMelee() and not mod:IsTank())
 
 local lastDD	= 0
 local dominateMindTargets	= {}
@@ -84,6 +85,9 @@ function mod:OnCombatStart(delay)
 			self:ScheduleMethod(27, "ToMC3")
 			self:ScheduleMethod(28, "ToMC2")
 			self:ScheduleMethod(29, "ToMC1")
+			if mod.Options.EqUneqWeapons then
+				mod:ScheduleMethod(29, "UnW")
+			end
 		end
 	end
 	table.wipe(dominateMindTargets)
@@ -147,6 +151,23 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 	end
 end
 
+function mod:UnW()
+   if self:IsWeaponDependent("player") then
+        PickupInventoryItem(16)
+        PutItemInBackpack()
+        PickupInventoryItem(17)
+        PutItemInBackpack()
+    elseif select(2, UnitClass("player")) == "HUNTER" then
+        PickupInventoryItem(18)
+        PutItemInBackpack()
+    end
+	UseEquipmentSet("nw")
+end
+
+function mod:EqW()
+	UseEquipmentSet("pve")
+end
+
 function mod:ToMC5()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
 end
@@ -197,11 +218,19 @@ do
 			mod:ScheduleMethod(37, "ToMC3")
 			mod:ScheduleMethod(38, "ToMC2")
 			mod:ScheduleMethod(39, "ToMC1")
+			if mod.Options.EqUneqWeapons then
+				mod:ScheduleMethod(39, "UnW")
+			end
 		end
 	end
 	
 	function mod:SPELL_AURA_APPLIED(args)
 		if args:IsSpellID(71289) then
+	        if args:IsPlayer() and self.Options.EqUneqWeapons then
+	            self:ScheduleMethod(12.1, "EqW")
+	            self:ScheduleMethod(13, "EqW")
+	            self:ScheduleMethod(15, "EqW")
+	        end
 			dominateMindTargets[#dominateMindTargets + 1] = args.destName
 			if self.Options.SetIconOnDominateMind then
 				self:SetIcon(args.destName, dominateMindIcon, 12)
@@ -247,6 +276,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			warnAddsSoon:Cancel()
 			self:UnscheduleMethod("addsTimer")
 		end
+	elseif args:IsSpellID(71289) and args:IsPlayer() then
+	   self:ScheduleMethod(0.2, "EqW")
+	   self:ScheduleMethod(2.2, "EqW")
 	end
 end
 

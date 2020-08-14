@@ -2577,6 +2577,14 @@ function bossModPrototype:IsHealer()
 			or (select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
 end
 
+function bossModPrototype:IsWeaponDependent(uId)
+	return select(2, UnitClass(uId)) == "ROGUE"
+		or (select(2, UnitClass(uId)) == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
+		or select(2, UnitClass(uId)) == "DEATHKNIGHT"
+		or (select(2, UnitClass(uId)) == "PALADIN" and not (select(3, GetTalentTabInfo(1)) >= 51))
+     	or (select(2, UnitClass(uId)) == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
+end
+
 
 -------------------------
 --  Boss Health Frame  --
