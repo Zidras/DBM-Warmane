@@ -320,8 +320,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			enrageTimer:Start()
 		end
 		self:UnscheduleMethod("WormsSubmerge")
-		timerNextCrash:Start(52)
-		timerNextCrashTwo:Schedule(52)
+		timerNextCrash:Start(34)
+		timerNextCrashTwo:Schedule(33)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
 		if self.Options.RangeFrame then

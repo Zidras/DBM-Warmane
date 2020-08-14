@@ -43,7 +43,7 @@ local specWarnFelInferno		= mod:NewSpecialWarningMove(68718)
 local SpecWarnFelFireball		= mod:NewSpecialWarning("SpecWarnFelFireball", false)
 local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66965, isMagicDispeller)
 
-local timerCombatStart			= mod:NewTimer(76.3, "TimerCombatStart", 2457)--roleplay for first pull
+local timerCombatStart			= mod:NewTimer(95.5, "TimerCombatStart", 2457)--roleplay for first pull
 local enrageTimer				= mod:NewBerserkTimer(600)
 local timerFlame 				= mod:NewTargetTimer(8, 68123)--There are 8 debuff Ids. Since we detect first to warn, use an 8sec timer to cover duration of trigger spell and damage debuff.
 local timerFlameCD				= mod:NewCDTimer(30, 68125)

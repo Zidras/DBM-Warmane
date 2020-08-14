@@ -11,7 +11,7 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## Author: Tandanu and Nitram
-## X-Website: http://www.deadlybossmods.com
+## X-Website: https://github.com/ArsumPB/DBM-wowcircle
 localization.en.lua
 localization.de.lua
 localization.cn.lua

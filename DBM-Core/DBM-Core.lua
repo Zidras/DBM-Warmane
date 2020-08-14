@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 5040 $"):sub(12, -3),
-	Version = "5.04",
-	DisplayVersion = "5.04 DBM-Frostmourne edit by Barsoom for WoWCircle WotLK", -- the string that is shown as version
-	ReleaseRevision = 5040 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 6002 $"):sub(12, -3),
+	Version = "6.02",
+	DisplayVersion = "6.02 DBM-WoWCircle Barsoom for WoWCircle WotLK  (DBM-Frostmourne fork)", -- the string that is shown as version
+	ReleaseRevision = 6002 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -1506,7 +1506,7 @@ do
 							else 
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/ajseward/DBM-Frostmourne]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/ArsumPB/DBM-wowcircle]"):format(displayVersion, revision))
 							end
 						end
 					end
