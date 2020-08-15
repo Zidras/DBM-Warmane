@@ -360,6 +360,7 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	WarnSimulKill	= "Объявлять, когда первый монстр погибает",
 	PlaySoundOnFury = "Звуковой сигнал, когда на вас $spell:63571",
+	WarnBeamsSoon	= "Спец-предупреждение для скорых $spell:62865",
 	TimerSimulKill	= "Отсчет времени до воскрешения монстров"
 }
 

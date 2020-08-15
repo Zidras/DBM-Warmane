@@ -380,7 +380,8 @@ L:SetOptionLocalization({
 	fissure 		= "Show special warning for Shadow Fissure",
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
-	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure",
+	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure(joke)",
+	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. For this feature to work, create two sets of equipment 'pve' for equipped weaponsand 'nw' for unequipped.",
 	ShowRange		= "Show range frame when Phase 2 starts"
 })
 

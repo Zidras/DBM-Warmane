@@ -12,6 +12,7 @@ mod:EnableModel()
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
+	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_SUCCESS",
 	"UNIT_HEALTH",
 	"SPELL_SUMMON"
@@ -38,6 +39,7 @@ local fissureCD    = mod:NewCDTimer(14, 27810)
 
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
+mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank())
 mod:AddBoolOption("SmileScream", false)
 
 local warnedAdds = false
@@ -53,11 +55,32 @@ function mod:OnCombatStart(delay)
 	warnPhase2:Schedule(227)
 	self:ScheduleMethod(226, "StartPhase2")
 	self.vb.phase = 1
-	if mod:IsDifficulty("heroic25") then
+	if mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25") then
 		mindControlCD:Start(287)
 		warnMindControl:Schedule(282)
+		if self.Options.EqUneqWeaponsKT then
+			self:ScheduleMethod(286, "UnWKT")
+		end
 	end
 	self:Schedule(227, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
+end
+
+function mod:UnWKT()
+   if self:IsWeaponDependent("player") then
+        PickupInventoryItem(16)
+        PutItemInBackpack()
+        PickupInventoryItem(17)
+        PutItemInBackpack()
+    elseif isHunter then
+        PickupInventoryItem(18)
+        PutItemInBackpack()
+    end
+	UseEquipmentSet("nw")
+end
+
+function mod:EqWKT()
+	print("trying to equip pve")
+	UseEquipmentSet("pve")
 end
 
 function mod:OnCombatEnd()
@@ -120,11 +143,30 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self:ScheduleMethod(1.0, "AnnounceChainsTargets")
 		end
+		if self.Options.EqUneqWeaponsKT then
+			self:ScheduleMethod(59, "UnWKT")
+		end
 	end
+end
+
+function mod:has_value(tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
 end
 
 function mod:AnnounceChainsTargets()
 	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
+	if (not self:has_value(chainsTargets,UnitName("player")) and self.Options.EqUneqWeaponsKT) then
+    	print("Equipping scheduled")
+        self:ScheduleMethod(0.5, "EqWKT")
+        self:ScheduleMethod(2.0, "EqWKT")
+        self:ScheduleMethod(8.0, "EqWKT")
+        self:ScheduleMethod(10.0, "EqWKT")
+	end
 	table.wipe(chainsTargets)
 end
 
@@ -151,6 +193,18 @@ function mod:UNIT_HEALTH(uId)
 	if not warnedAdds and self:GetUnitCreatureId(uId) == 15990 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.48 then
 		warnedAdds = true
 		warnAddsSoon:Show()
+	end
+end
+
+function mod:SPELL_AURA_REMOVED(args)
+    if args:IsSpellID(28410) then
+    	if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeaponsKT then
+	    	print("Equipping scheduled")
+	        self:ScheduleMethod(0.01, "EqWKT")
+	        self:ScheduleMethod(1.7, "EqWKT")
+	        self:ScheduleMethod(7.0, "EqWKT")
+	        self:ScheduleMethod(9.0, "EqWKT")
+    	end
 	end
 end
 
