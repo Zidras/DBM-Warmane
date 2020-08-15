@@ -770,6 +770,13 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		if timer > 3 then DBM:Schedule(timer - 3, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(3), channel) end
 		if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(2), channel) end
 		if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(1), channel) end
+		if timer >= 5 then
+			DBM:Schedule(timer - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+			DBM:Schedule(timer - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+			DBM:Schedule(timer - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+			DBM:Schedule(timer - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+			DBM:Schedule(timer - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+		end
 		DBM:Schedule(timer, SendChatMessage, DBM_CORE_ANNOUNCE_PULL_NOW, channel)
 	elseif cmd:sub(1, 5) == "arrow" then
 		local x, y = string.split(" ", cmd:sub(6):trim())
