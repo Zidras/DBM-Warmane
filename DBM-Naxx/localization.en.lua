@@ -341,7 +341,8 @@ L:SetOptionLocalization({
 	TimerLanding		= "Show timer for landing",
 	TimerIceBlast		= "Show timer for Frost Breath",
 	WarningDeepBreath	= "Show special warning for Frost Breath",
-	WarningIceblock		= "Yell on Ice Block"
+	WarningIceblock		= "Yell on Ice Block",
+	SpecWarnSapphLow 	= "Special warning for 10% execute phase (cancel air phase)"
 })
 
 L:SetMiscLocalization({
@@ -353,7 +354,8 @@ L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "Air phase in 10 seconds",
 	WarningAirPhaseNow	= "Air phase",
 	WarningLanded		= "Sapphiron landed",
-	WarningDeepBreath	= "Frost Breath"
+	WarningDeepBreath	= "Frost Breath",
+	SpecWarnSapphLow 	= "Sapphiron can't fly!"
 })
 
 L:SetTimerLocalization({

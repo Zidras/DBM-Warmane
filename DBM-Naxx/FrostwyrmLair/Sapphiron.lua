@@ -12,7 +12,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"CHAT_MSG_MONSTER_EMOTE",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"SPELL_CAST_SUCCESS"
+	"SPELL_CAST_SUCCESS",
+	"UNIT_HEALTH"
 )
 
 local warnDrainLifeNow	= mod:NewSpellAnnounce(28542, 2)
@@ -22,7 +23,7 @@ local warnAirPhaseNow	= mod:NewAnnounce("WarningAirPhaseNow", 4, "Interface\\Add
 local warnLanded		= mod:NewAnnounce("WarningLanded", 4, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 
 local warnDeepBreath	= mod:NewSpecialWarning("WarningDeepBreath")
-
+local specwarnlowhp		= mod:NewSpecialWarning("SpecWarnSapphLow")
 mod:AddBoolOption("WarningIceblock", true, "announce")
 
 local timerDrainLife	= mod:NewCDTimer(20, 28542)
@@ -32,12 +33,14 @@ local timerIceBlast		= mod:NewTimer(9.3, "TimerIceBlast", 15876)
 
 local noTargetTime = 0
 local isFlying = false
+local warned_lowhp = false
 
 mod:AddBoolOption("RangeFrame", true)
 
 function mod:OnCombatStart(delay)
 	noTargetTime = 0
 	isFlying = false
+	warned_lowhp = false
 	warnAirPhaseSoon:Schedule(38.5 - delay)
 	timerAirPhase:Start(48.5 - delay)
 	self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
@@ -71,6 +74,14 @@ end
 
 mod.CHAT_MSG_RAID_BOSS_EMOTE = mod.CHAT_MSG_MONSTER_EMOTE -- used to be a normal emote
 
+function mod:UNIT_HEALTH(uId)
+	if not warned_lowhp and self:GetUnitCreatureId(uId) == 15989 and UnitHealth(uId) / UnitHealthMax(uId) < 0.1 then
+		warned_lowhp = true
+		specwarnlowhp:Show()
+		timerAirPhase:Cancel()
+	end
+end
+
 function mod:OnSync(event)
 	if event == "DeepBreath" then
 		timerIceBlast:Show()
@@ -81,13 +92,13 @@ function mod:OnSync(event)
 end
 
 function mod:Landing()
-	warnAirPhaseSoon:Schedule(56)
+	warnAirPhaseSoon:Schedule(50)
 	warnLanded:Show()
 	timerAirPhase:Start()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	self:Schedule(65, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
+	self:Schedule(60, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
 
 local function resetIsFlying()
