@@ -40,7 +40,7 @@ local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3)
 local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, canPurge)
 local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, mod:IsMelee())
 local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
-local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", not mod:IsTank())
+local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
 
 --[[local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131)]]--
 local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131)
@@ -58,7 +58,7 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("SoundWarnCountingMC", true)
-mod:AddBoolOption("EqUneqWeapons", mod:IsMelee() and not mod:IsTank())
+mod:AddBoolOption("EqUneqWeapons", mod:IsWeaponDependent("player"))
 
 local lastDD	= 0
 local dominateMindTargets	= {}
@@ -123,20 +123,6 @@ do	-- add the additional Shield Bar
 	end
 end
 
---[[function mod:addsTimer()  -- Original add spawn timers, working for normal mode
-	timerAdds:Cancel()
-	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:ScheduleMethod(45, "addsTimer")
-		timerAdds:Start(45)
-	else
-		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
-		self:ScheduleMethod(60, "addsTimer")
-		timerAdds:Start()
-	end
-end]]--
-
 function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
@@ -165,6 +151,7 @@ function mod:UnW()
 end
 
 function mod:EqW()
+	print("trying to equip pve")
 	UseEquipmentSet("pve")
 end
 
@@ -205,11 +192,25 @@ function mod:TrySetTarget()
 	end
 end
 
+function mod:has_value(tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
 do
 	local function showDominateMindWarning()
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
 		timerDominateMindCD:Start()
+    	if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons) then
+	    	print("Equipping scheduled")
+	        mod:ScheduleMethod(0.5, "EqW")
+	        mod:ScheduleMethod(2.0, "EqW")
+    	end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
 		if mod.Options.SoundWarnCountingMC then
@@ -226,11 +227,6 @@ do
 	
 	function mod:SPELL_AURA_APPLIED(args)
 		if args:IsSpellID(71289) then
-	        if args:IsPlayer() and self.Options.EqUneqWeapons then
-	            self:ScheduleMethod(12.1, "EqW")
-	            self:ScheduleMethod(13, "EqW")
-	            self:ScheduleMethod(15, "EqW")
-	        end
 			dominateMindTargets[#dominateMindTargets + 1] = args.destName
 			if self.Options.SetIconOnDominateMind then
 				self:SetIcon(args.destName, dominateMindIcon, 12)
@@ -276,9 +272,12 @@ function mod:SPELL_AURA_REMOVED(args)
 			warnAddsSoon:Cancel()
 			self:UnscheduleMethod("addsTimer")
 		end
-	elseif args:IsSpellID(71289) and args:IsPlayer() then
-	   self:ScheduleMethod(0.2, "EqW")
-	   self:ScheduleMethod(2.2, "EqW")
+    elseif args:IsSpellID(71289) then
+    	if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons then
+	    	print("Equipping scheduled")
+	        self:ScheduleMethod(0.01, "EqW")
+	        self:ScheduleMethod(1.7, "EqW")
+    	end
 	end
 end
 
