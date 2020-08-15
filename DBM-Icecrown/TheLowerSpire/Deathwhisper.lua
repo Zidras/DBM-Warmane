@@ -21,7 +21,7 @@ mod:RegisterEvents(
 local canPurge = select(2, UnitClass("player")) == "MAGE"
 			or select(2, UnitClass("player")) == "SHAMAN"
 			or select(2, UnitClass("player")) == "PRIEST"
-
+local isHunter = select(2, UnitClass("player")) == "HUNTER"
 local warnAddsSoon					= mod:NewAnnounce("WarnAddsSoon", 2)
 local warnDominateMind				= mod:NewTargetAnnounce(71289, 3)
 local warnDeathDecay				= mod:NewSpellAnnounce(72108, 2)
@@ -58,7 +58,7 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("SoundWarnCountingMC", true)
-mod:AddBoolOption("EqUneqWeapons", mod:IsWeaponDependent("player"))
+mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank())
 
 local lastDD	= 0
 local dominateMindTargets	= {}
@@ -143,7 +143,7 @@ function mod:UnW()
         PutItemInBackpack()
         PickupInventoryItem(17)
         PutItemInBackpack()
-    elseif select(2, UnitClass("player")) == "HUNTER" then
+    elseif isHunter then
         PickupInventoryItem(18)
         PutItemInBackpack()
     end
