@@ -17,7 +17,7 @@ mod:RegisterEvents(
 	"UNIT_HEALTH",
 	"SPELL_SUMMON"
 )
-
+local isHunter = select(2, UnitClass("player")) == "HUNTER"
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1)
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
