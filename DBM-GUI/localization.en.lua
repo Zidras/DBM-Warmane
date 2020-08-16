@@ -48,6 +48,7 @@ L.EnableDBM 				= "Enable DBM"
 L.EnableStatus 				= "Reply to 'status' whispers"
 L.AutoRespond 				= "Enable auto-respond while fighting"
 L.EnableMiniMapIcon			= "Show minimap button"
+L.DisableCinematics			= "Disable Cinematics (requires reload for new settings to take effect)"
 L.FixCLEUOnCombatStart		= "Clear combat log cache on pull"
 L.Latency_Text				= "Set max latency sync threshold: %d"
 

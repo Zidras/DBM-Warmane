@@ -129,6 +129,7 @@ DBM.DefaultOptions = {
 	DontSetIcons = false,
 	LatencyThreshold = 250,
 	BigBrotherAnnounceToRaid = false,
+	DisableCinematics = false,
 --	HelpMessageShown = false,
 }
 
@@ -2059,6 +2060,9 @@ do
 		end
 		self:LFG_UPDATE()
 --		self:Schedule(10, function() if not DBM.Options.HelpMessageShown then DBM.Options.HelpMessageShown = true DBM:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
+		if DBM.Options.DisableCinematics then
+			MovieFrame:SetScript("OnEvent", function() GameMovieFinished() end)
+		end
 	end
 end
 

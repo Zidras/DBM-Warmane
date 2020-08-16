@@ -1192,7 +1192,7 @@ local function CreateOptionsMenu()
 		----------------------------------------------
 		--             General Options              --
 		----------------------------------------------
-		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 210, true)
+		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 240, true)
 	
 		local enabledbm = generaloptions:CreateCheckButton(L.EnableDBM, true)
 		enabledbm:SetScript("OnShow",  function() enabledbm:SetChecked(DBM:IsEnabled()) end)
@@ -1202,6 +1202,7 @@ local function CreateOptionsMenu()
 		local AutoRespond   = generaloptions:CreateCheckButton(L.AutoRespond,  true, nil, "AutoRespond")
 		local MiniMapIcon   = generaloptions:CreateCheckButton(L.EnableMiniMapIcon,  true)
 		local FixCLEUOnCombatStart   = generaloptions:CreateCheckButton(L.FixCLEUOnCombatStart,  true, nil, "FixCLEUOnCombatStart")
+		local DisableCinematics			= generaloptions:CreateCheckButton(L.DisableCinematics, true, nil, "DisableCinematics")
 		MiniMapIcon:SetScript("OnClick", function(self)
 			DBM:ToggleMinimapButton()
 			self:SetChecked( DBM.Options.ShowMinimapButton )
@@ -1211,7 +1212,7 @@ local function CreateOptionsMenu()
 		end)
 	
 		local bmrange  = generaloptions:CreateButton(L.Button_RangeFrame)
-		bmrange:SetPoint('TOPLEFT', MiniMapIcon, "BOTTOMLEFT", 0, -25)
+		bmrange:SetPoint('TOPLEFT', MiniMapIcon, "BOTTOMLEFT", 0, -50)
 		bmrange:SetScript("OnClick", function(self) 
 			if DBM.RangeCheck:IsShown() then
 				DBM.RangeCheck:Hide()
