@@ -771,7 +771,6 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(2), channel) end
 		if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(1), channel) end
 		if timer >= 5 then
-			sendSync("DBMv4-PullSound", ("%s\t%s"):format(timer, "pullDummyText"))
 			DBM:Schedule(timer - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
 			DBM:Schedule(timer - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
 			DBM:Schedule(timer - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
@@ -1533,23 +1532,14 @@ do
 		text = tostring(text)
 		if time and text then
 			DBM:CreatePizzaTimer(time, text, nil, sender)
-		end
-	end
-
-	syncHandlers["DBMv4-PullSound"] = function(msg, channel, sender)
-		if select(2, IsInInstance()) == "pvp" then return end
-		if DBM:GetRaidRank(sender) == 0 then return end
-		if sender == UnitName("player") then return end
-		local time, text = strsplit("\t", msg)
-		time = tonumber(time or 0)
-		text = tostring(text)
-		if time and text then
-			DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-			DBM:Schedule(time - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-			DBM:Schedule(time - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-			DBM:Schedule(time - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-			DBM:Schedule(time - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-			DBM:Schedule(time, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
+			if text == tostring(DBM_CORE_TIMER_PULL) and time >= 5 then
+				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+				DBM:Schedule(time - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+				DBM:Schedule(time - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+				DBM:Schedule(time - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+				DBM:Schedule(time - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+				DBM:Schedule(time-0.01, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
+			end
 		end
 	end
 
@@ -1635,10 +1625,10 @@ function DBM:ShowUpdateReminder(newVersion, newRevision)
 	editBox:SetFontObject("GameFontHighlight")
 	editBox:SetTextInsets(0, 0, 0, 1)
 	editBox:SetFocus()
-	editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
+	editBox:SetText("https://github.com/ArsumPB/DBM-wowcircle")
 	editBox:HighlightText()
 	editBox:SetScript("OnTextChanged", function(self)
-		editBox:SetText("https://github.com/ajseward/DBM-Frostmourne")
+		editBox:SetText("https://github.com/ArsumPB/DBM-wowcircle")
 		editBox:HighlightText()
 	end)
 	local fontstring = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
