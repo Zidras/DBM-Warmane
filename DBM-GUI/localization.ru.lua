@@ -49,6 +49,7 @@ L.EnableDBM 				= "Включить DBM"
 L.EnableStatus 				= "Отвечать на запрос статуса боя шепотом"
 L.AutoRespond 				= "Включить авто-ответ в бою"
 L.EnableMiniMapIcon			= "Отображать кнопку на мини-карте"
+L.DisableCinematics			= "Отключить синематики (требуется релоад, чтобы вступило в силу)"
 L.FixCLEUOnCombatStart		= "Очищать кэш журнала боя в начале битвы"
 L.Latency_Text				= "Макс. задержка для синхр-ции: %d"
 
