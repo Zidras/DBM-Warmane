@@ -118,8 +118,10 @@ DBM_CORE_AUTO_TIMER_TEXTS = {
 	cast = "%s",
 	active = "%s",
 	cd = "%s CD",
+	cdcount		= "%s CD (%%d)",
 	next = "Next %s",
 	achievement = "%s",
+	nextcount = "Next %s (%%d)",
 }
 
 DBM_CORE_AUTO_TIMER_OPTIONS = {
@@ -127,8 +129,10 @@ DBM_CORE_AUTO_TIMER_OPTIONS = {
 	cast = "Show timer for |cff71d5ff|Hspell:%d|h%s|h|r cast",
 	active = "Show timer for |cff71d5ff|Hspell:%d|h%s|h|r duration",
 	cd = "Show timer for |cff71d5ff|Hspell:%d|h%s|h|r cooldown",
+	cdcount		= "Show timer for $spell:%s cooldown",
 	next = "Show timer for next |cff71d5ff|Hspell:%d|h%s|h|r",
 	achievement = "Show timer for %s",
+	nextcount	= "Show timer for next $spell:%s",
 }
 
 -- Auto-generated Warning Localizations
@@ -139,6 +143,8 @@ DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	soon = "%s soon",
 	prewarn = "%s in %s",
 	phase = "Phase %d",
+	nextcount	= "Next %s (%%d)",
+	count		= "%s (%%d)",
 }
 
 local prewarnOption = "Show pre-warning for |cff71d5ff|Hspell:%d|h%s|h|r"
@@ -148,7 +154,10 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	cast = "Show warning when |cff71d5ff|Hspell:%d|h%s|h|r is being cast",
 	soon = prewarnOption,
 	prewarn = prewarnOption,
-	phase = "Announce Phase %d"
+	phase = "Announce Phase %d",
+	nextcount	= "Show timer for next $spell:%s",
+	count		= "Show warning for $spell:%s",
+	stack		= "Announce $spell:%s stacks",
 }
 
 

@@ -175,6 +175,17 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 --  Cache frequently used global variables in locals  --
 --------------------------------------------------------
 local DBM = DBM
+local ipairs, pairs, next = ipairs, pairs, next
+local type, select = type, select
+local GetTime = GetTime
+local floor, mhuge, mmin, mmax = math.floor, math.huge, math.min, math.max
+local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo
+local UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress = UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress
+local UnitGUID, UnitHealth, UnitHealthMax = UnitGUID, UnitHealth, UnitHealthMax
+local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit, UnitIsAFK = UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit, UnitIsAFK
+local GetInstanceInfo = GetInstanceInfo
+local GetSpellInfo = GetSpellInfo
+local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 -- these global functions are accessed all the time by the event handler
 -- so caching them is worth the effort
 local ipairs, pairs, next = ipairs, pairs, next
@@ -1200,6 +1211,21 @@ do
 	end
 end
 
+-- An anti spam function to throttle spammy events (e.g. SPELL_AURA_APPLIED on all group members)
+-- @param time the time to wait between two events (optional, default 2.5 seconds)
+-- @param id the id to distinguish different events (optional, only necessary if your mod keeps track of two different spam events at the same time)
+function DBM:AntiSpam(time, id)
+	if GetTime() - (id and (self["lastAntiSpam" .. tostring(id)] or 0) or self.lastAntiSpam or 0) > (time or 2.5) then
+		if id then
+			self["lastAntiSpam" .. tostring(id)] = GetTime()
+		else
+			self.lastAntiSpam = GetTime()
+		end
+		return true
+	else
+		return false
+	end
+end
 
 ---------------
 --  Options  --
@@ -2460,6 +2486,44 @@ function bossModPrototype:GetBossTarget(cid)
 	end
 end
 
+local targetScanCount = {}
+
+function bossModPrototype:BossTargetScanner(cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, isFinalScan)
+	--Increase scan count
+	local cidOrGuid = cidOrGuid or self.creatureId
+	if not cidOrGuid then return end
+	if not targetScanCount[cidOrGuid] then targetScanCount[cidOrGuid] = 0 end
+	targetScanCount[cidOrGuid] = targetScanCount[cidOrGuid] + 1
+	--Set default values
+	local scanInterval = scanInterval or 0.05
+	local scanTimes = scanTimes or 16
+	local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
+	--Do scan
+	if targetname and targetname ~= DBM_CORE_UNKNOWN then
+		if (GetNumRaidMembers() == 0) then scanTimes = 1 end--Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
+		if (isEnemyScan and UnitIsFriend("player", targetuid) or self:IsTanking(targetuid, bossuid)) and not isFinalScan and not includeTank then--On player scan, ignore tanks. On enemy scan, ignore friendly player.
+			if targetScanCount[cidOrGuid] < scanTimes then--Make sure no infinite loop.
+				self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank)--Scan multiple times to be sure it's not on something other then tank (or friend on enemy scan).
+			else--Go final scan.
+				self:BossTargetScanner(cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, true)
+			end
+		else--Scan success. (or failed to detect right target.) But some spells can be used on tanks, anyway warns tank if player scan. (enemy scan block it)
+			targetScanCount[cidOrGuid] = nil--Reset count for later use.
+			self:UnscheduleMethod("BossTargetScanner", cidOrGuid, returnFunc)--Unschedule all checks just to be sure none are running, we are done.
+			if not (isEnemyScan and isFinalScan) then--If enemy scan, player target is always bad. So do not warn anything. Also, must filter nil value on returnFunc.
+				self[returnFunc](self, targetname, targetuid, bossuid)--Return results to warning function with all variables.
+			end
+		end
+	else--target was nil, lets schedule a rescan here too.
+		if targetScanCount[cidOrGuid] < scanTimes then--Make sure not to infinite loop here as well.
+			self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank)
+		else
+			targetScanCount[cidOrGuid] = nil--Reset count for later use.
+			self:UnscheduleMethod("BossTargetScanner", cidOrGuid, returnFunc)--Unschedule all checks just to be sure none are running, we are done.
+		end
+	end
+end
+
 function bossModPrototype:GetThreatTarget(cid)
 	cid = cid or self.creatureId
 	for i = 1, GetNumRaidMembers() do
@@ -2515,12 +2579,21 @@ function bossModPrototype:IsDifficulty(...)
 	return false
 end
 
+function bossModPrototype:IsTrivial(level)
+	if UnitLevel("player") >= level then
+		return true
+	end
+	return false
+end
+
 function bossModPrototype:SetUsedIcons(...)
 	self.usedIcons = {}
 	for i = 1, select("#", ...) do
 		self.usedIcons[select(i, ...)] = true
 	end
 end
+
+bossModPrototype.AntiSpam = DBM.AntiSpam
 
 function bossModPrototype:LatencyCheck()
 	return select(3, GetNetStats()) < DBM.Options.LatencyThreshold
@@ -2588,6 +2661,32 @@ function bossModPrototype:IsTank()
      		or (select(2, UnitClass("player")) == "DEATHKNIGHT" and IsDeathKnightTank())
 			or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(2)) >= 51)
 			or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51 and IsDruidTank())
+end
+
+function bossModPrototype:IsTanking(unit, boss)
+	if not unit then return false end
+	if GetPartyAssignment("MAINTANK", unit, 1) then
+		return true
+	end
+	if UnitGroupRolesAssigned(unit) == "TANK" then
+		return true
+	end
+	if boss and UnitExists(boss) then--Only checking one bossID as requested
+		local tanking, status = UnitDetailedThreatSituation(unit, boss)
+		if tanking or (status == 3) then
+			return true
+		end
+	else--Check all of them if one isn't defined
+		for i = 1, 5 do
+			if UnitExists("boss"..i) then
+				local tanking, status = UnitDetailedThreatSituation(unit, "boss"..i)
+				if tanking or (status == 3) then
+					return true
+				end
+			end
+		end
+	end
+	return false
 end
 
 function bossModPrototype:IsHealer()
@@ -2747,6 +2846,10 @@ do
 	
 	function bossModPrototype:NewSpellAnnounce(spellId, color, ...)
 		return newAnnounce(self, "spell", spellId, color or 3, ...)
+	end
+
+	function bossModPrototype:NewCountAnnounce(spellId, color, ...)
+		return newAnnounce(self, "count", spellId, color or 3, ...)
 	end
 
 	function bossModPrototype:NewCastAnnounce(spellId, color, castTime, icon, optionDefault, optionName)
@@ -3274,11 +3377,19 @@ do
 	function bossModPrototype:NewCDTimer(...)
 		return newTimer(self, "cd", ...)
 	end
-	
+
+	function bossModPrototype:NewCDCountTimer(...)
+		return newTimer(self, "cdcount", ...)
+	end
+
 	function bossModPrototype:NewNextTimer(...)
 		return newTimer(self, "next", ...)
 	end
-	
+
+	function bossModPrototype:NewNextCountTimer(...)
+		return newTimer(self, "nextcount", ...)
+	end
+
 	function bossModPrototype:NewAchievementTimer(...)
 		return newTimer(self, "achievement", ...)
 	end

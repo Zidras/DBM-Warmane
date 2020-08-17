@@ -186,6 +186,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(66118, 67630, 68646, 68647) then			-- Swarm (start p3)
 		warnPhase3:Show()
+		self.vb.phase = 2
 		warnEmergeSoon:Cancel()
 		warnSubmergeSoon:Cancel()
 		specWarnSubmergeSoon:Cancel()

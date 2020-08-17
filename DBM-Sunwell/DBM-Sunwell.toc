@@ -1,0 +1,29 @@
+﻿## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0태양샘 고원|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Der Sonnenbrunnen|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太陽之井|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariablesPerCharacter: DBMSunwell_SavedVars, DBMSunwell_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Name: Sunwell Plateau
+## X-DBM-Mod-Name-ruRU: Плато Солнечного Колодца
+--## X-DBM-Mod-LoadZoneID: 790
+## X-DBM-Mod-LoadZone: Sunwell Plateau
+## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца
+localization.en.lua
+localization.cn.lua
+localization.de.lua
+localization.kr.lua
+localization.ru.lua
+localization.tw.lua
+Kalecgos.lua
+KalecgosFrame.lua
+KalecgosFrame.xml
+Brutallus.lua
+Felmyst.lua
+EredarTwins.lua
+M'uru.lua
+Kil'jaeden.lua

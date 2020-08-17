@@ -119,8 +119,11 @@ DBM_CORE_AUTO_TIMER_TEXTS = {
 	cast = "%s",
 	active = "%s",
 	cd = "Восст. %s",
+	cdcount	= "Восст. %s (%%d)",
 	next = "След. %s",
 	achievement = "%s",
+	nextcount = "След. %s (%%d)",
+	count = "%s (%%d)",
 }
 
 DBM_CORE_AUTO_TIMER_OPTIONS = {
@@ -128,8 +131,11 @@ DBM_CORE_AUTO_TIMER_OPTIONS = {
 	cast = "Отсчет времени применения заклинания |cff71d5ff|Hspell:%d|h%s|h|r",
 	active = "Отсчет времени действия |cff71d5ff|Hspell:%d|h%s|h|r",
 	cd = "Отсчет времени до восстановления |cff71d5ff|Hspell:%d|h%s|h|r",
+	cdcount = "Отсчет времени до восстановления $spell:%s",
 	next = "Отсчет времени до следующего |cff71d5ff|Hspell:%d|h%s|h|r",
 	achievement = "Отсчет времени для %s",
+	nextcount = "Отсчет времени до следующего $spell:%s",
+	count = "Предупреждение для $spell:%s",
 }
 
 -- Auto-generated Warning Localizations
@@ -140,6 +146,7 @@ DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	soon = "Скоро %s",
 	prewarn = "%s через %s",
 	phase = "Фаза %d",
+	count = "%s (%%d)",
 }
 
 local prewarnOption = "Предупреждать заранее о |cff71d5ff|Hspell:%d|h%s|h|r"
@@ -149,7 +156,8 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	cast = "Предупреждать о применении заклинания |cff71d5ff|Hspell:%d|h%s|h|r",
 	soon = prewarnOption,
 	prewarn = prewarnOption,
-	phase = "Объявлять фазу %d"
+	phase = "Объявлять фазу %d",
+	count = "Предупреждение для $spell:%s",
 }
 
 
