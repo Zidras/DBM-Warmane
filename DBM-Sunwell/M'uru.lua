@@ -21,7 +21,7 @@ local warnDarkness		= mod:NewSpellAnnounce(45996, 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnFiend			= mod:NewAnnounce("WarnFiend", 2, 46268)
 local warnBlackHole		= mod:NewSpellAnnounce(46282, 3)
-
+local specWarnBH		= mod:NewSpecialWarning("specWarnBH")
 local timerHuman		= mod:NewTimer(60, "TimerHuman")
 local timerVoid			= mod:NewTimer(30, "TimerVoid", 46087)
 local timerNextDarkness	= mod:NewNextTimer(45, 45996)
@@ -38,7 +38,7 @@ local function phase2()
 	mod:UnscheduleMethod("HumanSpawn")
 	mod:UnscheduleMethod("VoidSpawn")
 	timerBlackHoleCD:Start(17)
-	if DBM.BossHealth:IsShown() then
+	if self.Options.HealthFrame then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(25840, L.Entropius)
 	end
@@ -61,7 +61,7 @@ end
 function mod:OnCombatStart(delay)
 	humanCount = 1
 	voidCount = 1
-	timerHuman:Start(15-delay, humanCount)
+	timerHuman:Start(12-delay, humanCount)
 	timerVoid:Start(36.5-delay, voidCount)
 	timerNextDarkness:Start(-delay)
 	self:ScheduleMethod(15, "HumanSpawn")
@@ -91,6 +91,7 @@ function mod:SPELL_SUMMON(args)
 		warnFiend:Show()
 	elseif args.spellId == 46282 then
 		warnBlackHole:Show()
+		specWarnBH:Show()
 		timerBlackHoleCD:Start()
 	end
 end
