@@ -61,7 +61,7 @@ end
 function mod:OnCombatStart(delay)
 	humanCount = 1
 	voidCount = 1
-	timerHuman:Start(12-delay, humanCount)
+	timerHuman:Start(10-delay, humanCount)
 	timerVoid:Start(36.5-delay, voidCount)
 	timerNextDarkness:Start(-delay)
 	self:ScheduleMethod(15, "HumanSpawn")
