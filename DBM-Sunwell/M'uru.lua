@@ -53,7 +53,6 @@ end
 
 function mod:VoidSpawn()
 	warnVoid:Show(voidCount)
-	specWarnVoid:Show()
 	voidCount = voidCount + 1
 	timerVoid:Start(nil, voidCount)
 	self:ScheduleMethod(30, "VoidSpawn")
@@ -73,6 +72,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 45996 and args:GetDestCreatureID() == 25741 then
 		warnDarkness:Show()
+		specWarnVoid:Show()
 		timerNextDarkness:Start()
 	end
 end
@@ -99,6 +99,12 @@ end
 function mod:UNIT_DIED(args)
 	if self:GetCIDFromGUID(args.destGUID) == 25840 then
 		DBM:EndCombat(self)
+	elseif self:GetCIDFromGUID(args.destGUID) == 25741 then
+		timerNextDarkness:Cancel()
+		timerHuman:Cancel()
+		timerVoid:Cancel()
+		timerPhase:Start()
+		self:Schedule(10, phase2)
 	end
 end
 
