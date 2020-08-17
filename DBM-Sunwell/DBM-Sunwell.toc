@@ -13,6 +13,7 @@
 --## X-DBM-Mod-LoadZoneID: 790
 ## X-DBM-Mod-LoadZone: Sunwell Plateau
 ## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца
+MapSizes.lua
 localization.en.lua
 localization.cn.lua
 localization.de.lua
@@ -27,4 +28,3 @@ Felmyst.lua
 EredarTwins.lua
 M'uru.lua
 Kil'jaeden.lua
-MapSizes.lua
