@@ -21,7 +21,7 @@ local warnDarkness		= mod:NewSpellAnnounce(45996, 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnFiend			= mod:NewAnnounce("WarnFiend", 2, 46268)
 local warnBlackHole		= mod:NewSpellAnnounce(46282, 3)
-local specWarnBH		= mod:NewSpecialWarning("specWarnBH")
+local specWarnVoid		= mod:NewSpecialWarning("specWarnVoid")
 local timerHuman		= mod:NewTimer(60, "TimerHuman")
 local timerVoid			= mod:NewTimer(30, "TimerVoid", 46087)
 local timerNextDarkness	= mod:NewNextTimer(45, 45996)
@@ -53,6 +53,7 @@ end
 
 function mod:VoidSpawn()
 	warnVoid:Show(voidCount)
+	specWarnVoid:Show()
 	voidCount = voidCount + 1
 	timerVoid:Start(nil, voidCount)
 	self:ScheduleMethod(30, "VoidSpawn")
@@ -91,7 +92,6 @@ function mod:SPELL_SUMMON(args)
 		warnFiend:Show()
 	elseif args.spellId == 46282 then
 		warnBlackHole:Show()
-		specWarnBH:Show()
 		timerBlackHoleCD:Start()
 	end
 end

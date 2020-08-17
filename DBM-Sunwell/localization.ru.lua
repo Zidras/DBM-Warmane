@@ -155,7 +155,7 @@ L:SetWarningLocalization{
 	WarnVoid		= "Часовой Бездны (%d)",
 	WarnVoidSoon	= "Часовой Бездны через 5 сек. (%d)",
 	WarnFiend		= "Появился череп - рассейте",
-	specWarnBH		= "Черная дыра - РАССЕЙТЕ ЧЕРЕПА!"
+	specWarnBH		= "Мрак - РАССЕЙТЕ ЧЕРЕПА!"
 }
 
 L:SetTimerLocalization{
