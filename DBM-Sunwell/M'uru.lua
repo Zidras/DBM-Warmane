@@ -22,6 +22,9 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnFiend			= mod:NewAnnounce("WarnFiend", 2, 46268)
 local warnBlackHole		= mod:NewSpellAnnounce(46282, 3)
 local specWarnVoid		= mod:NewSpecialWarning("specWarnVoid")
+local specWarnBH		= mod:NewSpecialWarning("specWarnBH")
+local specWarnVW		= mod:NewSpecialWarning("specWarnVW", mod:IsTank())
+local specWarnDarknessSoon	= mod:NewSpecialWarning("specWarnDarknessSoon", mod:IsMelee() or mod:IsTank())
 local timerHuman		= mod:NewTimer(60, "TimerHuman")
 local timerVoid			= mod:NewTimer(30, "TimerVoid", 46087)
 local timerNextDarkness	= mod:NewNextTimer(45, 45996)
@@ -30,8 +33,34 @@ local timerPhase		= mod:NewTimer(10, "TimerPhase", 46087)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 
+mod:AddBoolOption("SoundWarnCountingMC", true)
+
 local humanCount = 1
 local voidCount = 1
+
+function mod:ToMC5()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+end
+
+function mod:ToMC4()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+end
+
+function mod:ToMC3()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+end
+
+function mod:ToMC2()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+end
+
+function mod:ToMC1()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+end
+
+function mod:ToMC0()
+	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
+end
 
 local function phase2()
 	warnPhase2:Show()
@@ -55,6 +84,7 @@ function mod:VoidSpawn()
 	warnVoid:Show(voidCount)
 	voidCount = voidCount + 1
 	timerVoid:Start(nil, voidCount)
+	specWarnVW:Schedule(25)
 	self:ScheduleMethod(30, "VoidSpawn")
 end
 
@@ -63,8 +93,18 @@ function mod:OnCombatStart(delay)
 	voidCount = 1
 	timerHuman:Start(10-delay, humanCount)
 	timerVoid:Start(36.5-delay, voidCount)
+	specWarnVW:Schedule(31.5)
 	timerNextDarkness:Start(-delay)
-	self:ScheduleMethod(15, "HumanSpawn")
+	specWarnDarknessSoon:Schedule(40)
+	if self.Options.SoundWarnCountingMC then
+		self:ScheduleMethod(40, "ToMC5")
+		self:ScheduleMethod(41, "ToMC4")
+		self:ScheduleMethod(42, "ToMC3")
+		self:ScheduleMethod(43, "ToMC2")
+		self:ScheduleMethod(44, "ToMC1")
+		self:ScheduleMethod(45, "ToMC0")
+	end
+	self:ScheduleMethod(10, "HumanSpawn")
 	self:ScheduleMethod(36.5, "VoidSpawn")
 	berserkTimer:Start(-delay)
 end
@@ -74,6 +114,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnDarkness:Show()
 		specWarnVoid:Show()
 		timerNextDarkness:Start()
+		if self.Options.SoundWarnCountingMC then
+			self:ScheduleMethod(40, "ToMC5")
+			self:ScheduleMethod(41, "ToMC4")
+			self:ScheduleMethod(42, "ToMC3")
+			self:ScheduleMethod(43, "ToMC2")
+			self:ScheduleMethod(44, "ToMC1")
+			self:ScheduleMethod(45, "ToMC0")
+		end
+		specWarnDarknessSoon:Schedule(40)
 	end
 end
 
@@ -92,6 +141,7 @@ function mod:SPELL_SUMMON(args)
 		warnFiend:Show()
 	elseif args.spellId == 46282 then
 		warnBlackHole:Show()
+		specWarnBH:Show()
 		timerBlackHoleCD:Start()
 	end
 end
@@ -99,12 +149,5 @@ end
 function mod:UNIT_DIED(args)
 	if self:GetCIDFromGUID(args.destGUID) == 25840 then
 		DBM:EndCombat(self)
-	elseif self:GetCIDFromGUID(args.destGUID) == 25741 then
-		timerNextDarkness:Cancel()
-		timerHuman:Cancel()
-		timerVoid:Cancel()
-		timerPhase:Start()
-		self:Schedule(10, phase2)
 	end
 end
-
