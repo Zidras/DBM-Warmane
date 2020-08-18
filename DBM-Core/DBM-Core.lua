@@ -129,7 +129,8 @@ DBM.DefaultOptions = {
 	DontSetIcons = false,
 	LatencyThreshold = 250,
 	BigBrotherAnnounceToRaid = false,
-	DisableCinematics = false,
+	DisableCinematics = true,
+	AudioPull = true,
 --	HelpMessageShown = false,
 }
 
@@ -782,7 +783,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		if timer > 3 then DBM:Schedule(timer - 3, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(3), channel) end
 		if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(2), channel) end
 		if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(1), channel) end
-		if timer >= 5 then
+		if timer >= 5 and DBM.Options.AudioPull then
 			DBM:Schedule(timer - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
 			DBM:Schedule(timer - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
 			DBM:Schedule(timer - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
@@ -1559,7 +1560,7 @@ do
 		text = tostring(text)
 		if time and text then
 			DBM:CreatePizzaTimer(time, text, nil, sender)
-			if text == tostring(DBM_CORE_TIMER_PULL) and time >= 5 then
+			if text == tostring(DBM_CORE_TIMER_PULL) and time >= 5 and DBM.Options.AudioPull then
 				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
 				DBM:Schedule(time - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
 				DBM:Schedule(time - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
