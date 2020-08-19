@@ -20,7 +20,7 @@ local warningFear				= mod:NewSpellAnnounce(74384, 3)
 local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2)--ability lasts 30 seconds, has a 15 second cd, so tanks should trade at 2 stacks.
 
 local timerAddsCD				= mod:NewTimer(45.5, "TimerAdds")
-local timerAddsTravel			= mod:NewTimer(10, "Adds arrive in") -- Timer to indicate when the summoned adds arive
+local timerAddsTravel			= mod:NewTimer(10, "AddsArrive") -- Timer to indicate when the summoned adds arive
 local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, mod:IsTank() or mod:IsHealer())
 local timerFearCD				= mod:NewCDTimer(37, 74384)--anywhere from 35-40 seconds in between fears.
 
