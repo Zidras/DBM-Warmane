@@ -14,14 +14,19 @@ L:SetWarningLocalization{
 	SpecWarnWildMagic	= "Wild Magic - %s!"
 }
 
+L:SetTimerLocalization{
+	TimerNextPortal		= "Портал (%d)"
+}
+
 L:SetOptionLocalization{
 	WarnPortal			= "Show warning for $spell:46021 target",
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",
+	TimerNextPortal		= "Показывать таймер портала",
+	RangeFrame			= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 46021),
 	ShowFrame			= "Show Spectral Realm frame" ,
 	FrameClassColor		= "Use class colors in Spectral Realm frame",
 	FrameUpwards		= "Expand Spectral Realm frame upwards",
-	FrameLocked			= "Set Spectral Realm frame not movable",
-	RangeFrame			= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 46021)
+	FrameLocked			= "Set Spectral Realm frame not movable"
 }
 
 L:SetMiscLocalization{
@@ -55,7 +60,8 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	Pull			= "Ah, more lambs to the slaughter!"
+	Pull			= "Ah, more lambs to the slaughter!",
+	BurnWhisper		= "Огонь на тебе!"
 }
 
 --------------
@@ -68,18 +74,25 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase		= "%s Phase"
+	WarnPhase		= "%s Phase",
+	WarnPhaseSoon	= "%s фаза через 10 сек",
+	WarnBreath		= "Глубокий Вздох (%d)"
 }
 
 L:SetTimerLocalization{
-	TimerPhase		= "Next %s Phase"
+	TimerPhase		= "Next %s Phase",
+	TimerBreath		= "Глубокий Вздох"	
 }
 
 L:SetOptionLocalization{
 	WarnPhase		= "Show warning for next phase",
 	TimerPhase		= "Show time for next phase",
+	WarnBreath		= "Показывать предупреждение для Глубокого Вздоха",
+	TimerPhase		= "Показывать таймер фаз",
+	TimerBreath		= "Показывать время до восстановления Глубокого Вздоха",
 	VaporIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45665)
+	EncapsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45665),
+	YellOnEncaps	= "Кричать когда на вас $spell:45665"
 }
 
 L:SetMiscLocalization{
@@ -101,7 +114,9 @@ L:SetGeneralLocalization{
 L:SetOptionLocalization{
 	NovaIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45329),
 	ConflagIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 45333)
+	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 45333),
+	NovaWhisper		= "Шепот целям заклинания $spell:45329 target (нужен РЛ)",
+	ConflagWhisper	= "Шепот целям заклинания $spell:45333 target (нужен РЛ)",
 }
 
 L:SetMiscLocalization{
@@ -123,12 +138,16 @@ L:SetGeneralLocalization{
 L:SetWarningLocalization{
 	WarnHuman		= "Humanoids (%d)",
 	WarnVoid		= "Void Sentinel (%d)",
-	WarnFiend		= "Dark Fiend spawned"
+	WarnFiend		= "Dark Fiend spawned",
+	specWarnVoid	= "Мрак - РАССЕЙТЕ ЧЕРЕПА!",
+	specWarnBH		= "Черная дыра - РАССЕЙТЕ ЧЕРЕПА!",
+	specWarnVW		= "Часовой Бездны через 5",
+	specWarnDarknessSoon = "Скоро Мрак"
 }
 
 L:SetTimerLocalization{
 	TimerHuman		= "Next Humanoids (%s)",
-	TimerVoid		= "Next Void (%s)",
+	TimerVoid		= "Next Void Sentinel (%s)",
 	TimerPhase		= "Entropius"
 }
 
@@ -136,9 +155,14 @@ L:SetOptionLocalization{
 	WarnHuman		= "Show warning for Humanoids",
 	WarnVoid		= "Show warning for Void Sentinels",
 	WarnFiend		= "Show warning for Fiends in phase 2",
+	specWarnVoid	= "Показывать спец-предупреждение для Мрака(рассеивания)",
+	specWarnBH		= "Показывать спец-предупреждение для черной дыры(рассеивания)",
+	specWarnVW		= "Показывать спец-предупреждение перед Часовым Бездны",
+	specWarnDarknessSoon = "Показывать спец-предупреждение перед Мраком",
 	TimerHuman		= "Show timer for Humanoids",
 	TimerVoid		= "Show timer for Void Sentinels",
-	TimerPhase		= "Show time for Phase 2 transition"
+	TimerPhase		= "Show time for Phase 2 transition",
+	SoundWarnCountingDS = "Проигрывать звуковой отсчет 5...1 до Мрака"
 }
 
 L:SetMiscLocalization{
@@ -177,9 +201,13 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	YellPull		= "The expendable have perished. So be it! Now I shall succeed where Sargeras could not! I will bleed this wretched world and secure my place as the true master of the Burning Legion! The end has come! Let the unravelling of this world commence!",
+	YellBloom		= "Bloom on me!",
+	BloomWhisper	= "Огненный цветок на тебе!",
 	OrbYell1		= "I will channel my powers into the orbs! Be ready!",
 	OrbYell2		= "I have empowered another orb! Use it quickly!",
 	OrbYell3		= "Another orb is ready! Make haste!",
-	OrbYell4		= "I have channeled all I can! The power is in your hands!"
+	OrbYell4		= "I have channeled all I can! The power is in your hands!",
+	ReflectionYell1	= "Who can you trust!",
+	ReflectionYell2 = "The enemy is among you!"
 
 }

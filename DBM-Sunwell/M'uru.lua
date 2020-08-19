@@ -33,32 +33,32 @@ local timerPhase		= mod:NewTimer(10, "TimerPhase", 46087)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 
-mod:AddBoolOption("SoundWarnCountingMC", true)
+mod:AddBoolOption("SoundWarnCountingDS", true)
 
 local humanCount = 1
 local voidCount = 1
 
-function mod:ToMC5()
+function mod:ToDS5()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
 end
 
-function mod:ToMC4()
+function mod:ToDS4()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
 end
 
-function mod:ToMC3()
+function mod:ToDS3()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
 end
 
-function mod:ToMC2()
+function mod:ToDS2()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
 end
 
-function mod:ToMC1()
+function mod:ToDS1()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
 end
 
-function mod:ToMC0()
+function mod:ToDS0()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
 end
 
@@ -97,12 +97,12 @@ function mod:OnCombatStart(delay)
 	timerNextDarkness:Start(47-delay)
 	specWarnDarknessSoon:Schedule(42)
 	if self.Options.SoundWarnCountingMC then
-		self:ScheduleMethod(42, "ToMC5")
-		self:ScheduleMethod(43, "ToMC4")
-		self:ScheduleMethod(44, "ToMC3")
-		self:ScheduleMethod(45, "ToMC2")
-		self:ScheduleMethod(46, "ToMC1")
-		self:ScheduleMethod(47, "ToMC0")
+		self:ScheduleMethod(42, "ToDS5")
+		self:ScheduleMethod(43, "ToDS4")
+		self:ScheduleMethod(44, "ToDS3")
+		self:ScheduleMethod(45, "ToDS2")
+		self:ScheduleMethod(46, "ToDS1")
+		self:ScheduleMethod(47, "ToDS0")
 	end
 	self:ScheduleMethod(10, "HumanSpawn")
 	self:ScheduleMethod(36.5, "VoidSpawn")
@@ -115,12 +115,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnVoid:Show()
 		timerNextDarkness:Start()
 		if self.Options.SoundWarnCountingMC then
-			self:ScheduleMethod(40, "ToMC5")
-			self:ScheduleMethod(41, "ToMC4")
-			self:ScheduleMethod(42, "ToMC3")
-			self:ScheduleMethod(43, "ToMC2")
-			self:ScheduleMethod(44, "ToMC1")
-			self:ScheduleMethod(45, "ToMC0")
+			self:ScheduleMethod(40, "ToDS5")
+			self:ScheduleMethod(41, "ToDS4")
+			self:ScheduleMethod(42, "ToDS3")
+			self:ScheduleMethod(43, "ToDS2")
+			self:ScheduleMethod(44, "ToDS1")
+			self:ScheduleMethod(45, "ToDS0")
 		end
 		specWarnDarknessSoon:Schedule(40)
 	end

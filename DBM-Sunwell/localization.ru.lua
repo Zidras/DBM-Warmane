@@ -43,8 +43,7 @@ L:SetMiscLocalization{
 	FrameClassColor		= "Использовать цвета классов",
 	FrameOrientation	= "Рост вверх",
 	FrameHide			= "Скрыть рамку",
-	FrameClose			= "Закрыть",
-	YellPull			= "Да! Отныне я не раб Малигоса! Да сгинет тот, кто бросит мне вызов!"
+	FrameClose			= "Закрыть"
 }
 
 ----------------
@@ -54,12 +53,6 @@ L = DBM:GetModLocalization("Brutallus")
 
 L:SetGeneralLocalization{
 	name = "Бруталл"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
@@ -180,7 +173,7 @@ L:SetOptionLocalization{
 	TimerHuman		= "Показывать таймер аддов-гуманоидов",
 	TimerVoid		= "Показывать таймер Часовых Бездны",
 	TimerPhase		= "Показывать таймер перехода во 2 фазу",
-	SoundWarnCountingMC = "Проигрывать звуковой отсчет 5...1 до Мрака",
+	SoundWarnCountingDS = "Проигрывать звуковой отсчет 5...1 до Мрака",
 }
 
 L:SetMiscLocalization{

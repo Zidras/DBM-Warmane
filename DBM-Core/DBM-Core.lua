@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 6004 $"):sub(12, -3),
-	Version = "6.04",
-	DisplayVersion = "6.04 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/ArsumPB/DBM-wowcircle)", -- the string that is shown as version
-	ReleaseRevision = 6004 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 6005 $"):sub(12, -3),
+	Version = "6.05",
+	DisplayVersion = "6.05 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/ArsumPB/DBM-wowcircle)", -- the string that is shown as version
+	ReleaseRevision = 6005 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}

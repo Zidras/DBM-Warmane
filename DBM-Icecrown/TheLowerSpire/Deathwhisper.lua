@@ -85,7 +85,7 @@ function mod:OnCombatStart(delay)
 			self:ScheduleMethod(27, "ToMC3")
 			self:ScheduleMethod(28, "ToMC2")
 			self:ScheduleMethod(29, "ToMC1")
-			if mod.Options.EqUneqWeapons then
+			if mod.Options.EqUneqWeapons and not mod:IsTank() then
 				mod:ScheduleMethod(29, "UnW")
 			end
 		end
@@ -147,7 +147,6 @@ function mod:UnW()
         PickupInventoryItem(18)
         PutItemInBackpack()
     end
-	UseEquipmentSet("nw")
 end
 
 function mod:EqW()
@@ -206,10 +205,11 @@ do
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
 		timerDominateMindCD:Start()
-    	if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons) then
+    	if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons and not mod:IsTank()) then
 	    	print("Equipping scheduled")
-	        mod:ScheduleMethod(0.5, "EqW")
-	        mod:ScheduleMethod(2.0, "EqW")
+	        mod:ScheduleMethod(0.1, "EqW")
+	        mod:ScheduleMethod(1.7, "EqW")
+	        mod:ScheduleMethod(3.3, "EqW")
     	end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
@@ -219,7 +219,7 @@ do
 			mod:ScheduleMethod(37, "ToMC3")
 			mod:ScheduleMethod(38, "ToMC2")
 			mod:ScheduleMethod(39, "ToMC1")
-			if mod.Options.EqUneqWeapons then
+			if mod.Options.EqUneqWeapons and not mod:IsTank() then
 				mod:ScheduleMethod(39, "UnW")
 			end
 		end
@@ -273,10 +273,10 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:UnscheduleMethod("addsTimer")
 		end
     elseif args:IsSpellID(71289) then
-    	if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons then
-	    	print("Equipping scheduled")
-	        self:ScheduleMethod(0.01, "EqW")
+    	if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and not mod:IsTank() then
+	        self:ScheduleMethod(0.1, "EqW")
 	        self:ScheduleMethod(1.7, "EqW")
+	        self:ScheduleMethod(3.3, "EqW")
     	end
 	end
 end
