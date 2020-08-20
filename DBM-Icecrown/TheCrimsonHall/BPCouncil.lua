@@ -53,6 +53,8 @@ local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)		-- Hard mode debu
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
+local soundEmpoweredV			= mod:NewSound(72039)
+
 mod:AddBoolOption("EmpoweredFlameIcon", true)
 mod:AddBoolOption("ActivePrinceIcon", false)
 mod:AddBoolOption("RangeFrame", true)
@@ -149,6 +151,7 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
 		warnEmpoweredShockVortex:Show()
 		specWarnEmpoweredShockV:Show()
+		soundEmpoweredV:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		timerShockVortex:Start(30)
 	elseif args:IsSpellID(71718) then	-- Conjure Flames
 		warnConjureFlames:Show()
@@ -210,6 +213,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.EmpoweredFlames) or msg:match(L.EmpoweredFlames2) then
 		warnEmpoweredFlames:Show(target)
+		soundEmpoweredFlames:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if target == UnitName("player") then
 			specWarnEmpoweredFlames:Show()
 			soundEmpoweredFlames:Play()

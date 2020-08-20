@@ -52,7 +52,7 @@ local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, true)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
-
+local soundWarnSpirit				= mod:NewSound(71426)
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
@@ -321,6 +321,7 @@ function mod:SPELL_SUMMON(args)
 	if args:IsSpellID(71426) then -- Summon Vengeful Shade
 		if time() - lastSpirit > 5 then
 			warnSummonSpirit:Show()
+			soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 			timerSummonSpiritCD:Start()
 			lastSpirit = time()
 		end

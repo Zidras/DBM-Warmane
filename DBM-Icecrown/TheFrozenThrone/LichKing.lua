@@ -643,6 +643,7 @@ function mod:OnSync(msg, target)
 					SendChatMessage(L.YellDefile, "SAY")
 				end
 			elseif target then
+				soundDefile:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 				local uId = DBM:GetRaidUnitId(target)
 				if uId then
 					local inRange = CheckInteractDistance(uId, 2)

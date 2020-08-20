@@ -35,6 +35,7 @@ local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, 4)
 local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, 4)
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123)
+local soundFrostBeacon			= mod:NewSound(70126)
 
 local timerNextAirphase			= mod:NewTimer(120, "TimerNextAirphase", 43810)
 local timerNextGroundphase		= mod:NewTimer(42.5, "TimerNextGroundphase", 43810)
@@ -157,6 +158,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		beaconTargets[#beaconTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnFrostBeacon:Show()
+			soundFrostBeacon:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		end
 		if self.vb.phase == 1 and self.Options.SetIconOnFrostBeacon then
 			table.insert(beaconIconTargets, DBM:GetRaidUnitId(args.destName))

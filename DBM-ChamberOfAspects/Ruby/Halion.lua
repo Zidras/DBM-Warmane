@@ -35,6 +35,8 @@ local specWarnShadowConsumption		= mod:NewSpecialWarningRun(74792)
 local specWarnFieryConsumption		= mod:NewSpecialWarningRun(74562)
 local specWarnMeteorStrike			= mod:NewSpecialWarningMove(75952)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(77844)
+local soundMeteor					= mod:NewSound(74648)
+local soundCutters					= mod:NewSound(77844)
 
 local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792)
 local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562)
@@ -226,6 +228,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.MeteorCast or msg:find(L.MeteorCast) then--There is no CLEU cast trigger for meteor, only yell
 		if not self.Options.AnnounceAlternatePhase then
 			warningMeteor:Show()
+			soundMeteor:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 			timerMeteorCast:Start()--7 seconds from boss yell the meteor impacts.
 			timerMeteorCD:Start()
 		end
@@ -240,6 +243,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			specWarnTwilightCutter:Schedule(5)
 		if not self.Options.AnnounceAlternatePhase then
 			warningTwilightCutter:Show()
+			soundCutters:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 			timerTwilightCutterCast:Start()
 			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
 			timerTwilightCutterCD:Schedule(15)
