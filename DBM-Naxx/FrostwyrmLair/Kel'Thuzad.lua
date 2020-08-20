@@ -15,6 +15,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_SUCCESS",
 	"UNIT_HEALTH",
+	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_SUMMON"
 )
 local isHunter = select(2, UnitClass("player")) == "HUNTER"
@@ -224,4 +225,10 @@ function mod:GetDetonateRange(playerName)
 		end
 	end
 	return 100 --dummy number
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) and mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
+		mod:UnWKT()
+	end
 end

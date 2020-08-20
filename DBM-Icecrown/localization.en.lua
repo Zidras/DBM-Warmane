@@ -155,6 +155,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	YellPull				= "What is this disturbance? You dare trespass upon this hallowed ground? This shall be your final resting place!",
 	YellReanimatedFanatic	= "Arise, and exult in your pure form!",
+	YellMC					= "You are weak, powerless to resist my will!",
 	ShieldPercent			= "Mana Barrier",--Translate Spell id 70842
 	Fanatic1				= "Cult Fanatic",
 	Fanatic2				= "Deformed Fanatic",

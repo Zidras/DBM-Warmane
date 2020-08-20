@@ -15,7 +15,8 @@ mod:RegisterEvents(
 	"SPELL_SUMMON",
 	"SWING_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_TARGET"
+	"UNIT_TARGET",
+	"SPELL_CAST_SUCCESS"
 )
 
 local canPurge = select(2, UnitClass("player")) == "MAGE"
@@ -200,6 +201,12 @@ function mod:has_value(tab, val)
     return false
 end
 
+function mod:SPELL_CAST_SUCCESS(args)
+	if args:IsSpellID(71289) and mod.Options.EqUneqWeapons and not mod:IsTank() then
+		mod:UnW()
+	end
+end
+
 do
 	local function showDominateMindWarning()
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
@@ -335,5 +342,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
+	elseif (msg == L.YellMC or msg:find(L.YellMC)) and mod.Options.EqUneqWeapons and not mod:IsTank() then
+		mod:UnW()
 	end
 end
