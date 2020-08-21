@@ -32,7 +32,7 @@ local timerBlackHoleCD	= mod:NewCDTimer(15, 46282)
 local timerPhase		= mod:NewTimer(10, "TimerPhase", 46087)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
-
+local soundDarkness		= mod:NewSound(45996)
 mod:AddBoolOption("SoundWarnCountingDS", true)
 
 local humanCount = 1
@@ -56,10 +56,6 @@ end
 
 function mod:ToDS1()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-end
-
-function mod:ToDS0()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
 end
 
 local function phase2()
@@ -102,8 +98,8 @@ function mod:OnCombatStart(delay)
 		self:ScheduleMethod(44, "ToDS3")
 		self:ScheduleMethod(45, "ToDS2")
 		self:ScheduleMethod(46, "ToDS1")
-		self:ScheduleMethod(47, "ToDS0")
 	end
+	soundDarkness:Schedule(47,"Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 	self:ScheduleMethod(10, "HumanSpawn")
 	self:ScheduleMethod(36.5, "VoidSpawn")
 	berserkTimer:Start(-delay)
@@ -120,8 +116,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:ScheduleMethod(42, "ToDS3")
 			self:ScheduleMethod(43, "ToDS2")
 			self:ScheduleMethod(44, "ToDS1")
-			self:ScheduleMethod(45, "ToDS0")
 		end
+		soundDarkness:Schedule(45,"Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		specWarnDarknessSoon:Schedule(40)
 	end
 end
