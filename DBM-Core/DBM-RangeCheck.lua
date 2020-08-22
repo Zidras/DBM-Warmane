@@ -112,9 +112,9 @@ do
 		rangeCheck:Show(frame.range, frame.filter)
 	end
 
---	local function setSpeed(self, option)
---		DBM.Options.RangeFrameUpdates = option
---	end
+	local function setSpeed(self, option)
+		DBM.Options.RangeFrameUpdates = option
+	end
 
 	local function toggleLocked()
 		DBM.Options.RangeFrameLocked = not DBM.Options.RangeFrameLocked
@@ -154,12 +154,12 @@ do
 			info.menuList = "frames"
 			UIDropDownMenu_AddButton(info, 1)
 
---[[			info = UIDropDownMenu_CreateInfo()
+			info = UIDropDownMenu_CreateInfo()
 			info.text = DBM_CORE_RANGECHECK_OPTION_SPEED
 			info.notCheckable = true
 			info.hasArrow = true
 			info.menuList = "speed"
-			UIDropDownMenu_AddButton(info, 1)]]
+			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
 			info.text = DBM_CORE_RANGECHECK_LOCK
@@ -285,7 +285,7 @@ do
 				info.arg1 = "both"
 				info.checked = (DBM.Options.RangeFrameFrames == "both")
 				UIDropDownMenu_AddButton(info, 2)	
---[[			elseif menu == "speed" then
+			elseif menu == "speed" then
 				info = UIDropDownMenu_CreateInfo()
 				info.text = DBM_CORE_RANGECHECK_OPTION_SLOW
 				info.func = setSpeed
@@ -305,7 +305,7 @@ do
 				info.func = setSpeed
 				info.arg1 = "Fast"
 				info.checked = (DBM.Options.RangeFrameUpdates == "Fast")
-				UIDropDownMenu_AddButton(info, 2)	]]
+				UIDropDownMenu_AddButton(info, 2)
 			end
 		elseif level == 3 then
 			local option = menu
@@ -359,14 +359,16 @@ end
 ------------------------
 function createFrame()
 	local elapsed = 0
---[[	local updateRate
+	local updateRate
 	if DBM.Options.RangeFrameUpdates == "Slow" then
 		updateRate = 0.5
 	elseif DBM.Options.RangeFrameUpdates == "Average" then
 		updateRate = 0.25
 	elseif DBM.Options.RangeFrameUpdates == "Fast" then
 		updateRate = 0.05
-	end]]
+	else
+		updateRate = 0.25
+	end
 	local frame = CreateFrame("GameTooltip", "DBMRangeCheck", UIParent, "GameTooltipTemplate")
 	dropdownFrame = CreateFrame("Frame", "DBMRangeCheckDropdown", frame, "UIDropDownMenuTemplate")
 	frame:SetFrameStrata("DIALOG")
@@ -394,7 +396,7 @@ function createFrame()
 	end)
 	frame:SetScript("OnUpdate", function(self, e)
 		elapsed = elapsed + e
-		if elapsed >= 0.05 and self.checkFunc then
+		if elapsed >= updateRate and self.checkFunc then
 			onUpdate(self, elapsed)
 			elapsed = 0
 		end
@@ -410,14 +412,14 @@ end
 
 function createRadarFrame()
 	local elapsed = 0
---[[	local updateRate
+	local updateRate
 	if DBM.Options.RangeFrameUpdates == "Slow" then
 		updateRate = 0.5
 	elseif DBM.Options.RangeFrameUpdates == "Average" then
 		updateRate = 0.25
 	elseif DBM.Options.RangeFrameUpdates == "Fast" then
 		updateRate = 0.05
-	end]]
+	end
 	local radarFrame = CreateFrame("Frame", "DBMRangeCheckRadar", UIParent)
 	radarFrame:SetFrameStrata("DIALOG")
 	

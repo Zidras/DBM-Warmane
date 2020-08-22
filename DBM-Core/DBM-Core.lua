@@ -131,6 +131,7 @@ DBM.DefaultOptions = {
 	BigBrotherAnnounceToRaid = false,
 	DisableCinematics = true,
 	AudioPull = true,
+	RangeFrameUpdates = "Average"
 --	HelpMessageShown = false,
 }
 
