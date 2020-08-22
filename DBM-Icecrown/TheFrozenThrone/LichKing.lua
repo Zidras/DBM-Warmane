@@ -114,7 +114,7 @@ local warnedValkyrGUIDs = {}
 local LKTank
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 0	
+	self.vb.phase = 0
 	lastPlagueCast = 0
 	warned_preP2 = false
 	warned_preP3 = false
@@ -388,10 +388,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnHarvestSouls:Show()
 		timerHarvestSoulCD:Start(107) -- Custom edit to make Harvest Souls timers work again
 		timerVileSpirit:Cancel()
-		-- wowcircle fix
-		--timerSoulreaperCD:Cancel()
-		--timerDefileCD:Cancel()
-		--warnDefileSoon:Cancel()
+		timerSoulreaperCD:Cancel()
+		timerDefileCD:Cancel()
+		warnDefileSoon:Cancel()
 	end
 end
 
@@ -542,6 +541,9 @@ function mod:UNIT_HEALTH(uId)
 end
 
 function mod:NextPhase()
+	if not self.vb.phase then
+		self.vb.phase = 0
+	end
 	self.vb.phase = self.vb.phase + 1
 	if self.vb.phase == 1 then
 		berserkTimer:Start()
@@ -559,10 +561,11 @@ function mod:NextPhase()
 		timerInfestCD:Start(14)
 		warnDefileSoon:Schedule(33)
 	elseif self.vb.phase == 3 then
-		timerVileSpirit:Start(20)
-		timerDefileCD:Start(50)
-		timerHarvestSoulCD:Start(14)
-		warnDefileSoon:Schedule(33)
+		timerVileSpirit:Start(17)
+		timerDefileCD:Start(33.5)
+		timerSoulreaperCD:Start(37.5)
+		timerHarvestSoulCD:Start(12)
+		warnDefileSoon:Schedule(30)
 	end
 end
 
