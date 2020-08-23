@@ -44,7 +44,7 @@ local timerProximityMines		= mod:NewCDTimer(25, 63027)
 local timerShockBlast			= mod:NewCastTimer(63631)
 local timerSpinUp				= mod:NewCastTimer(4, 63414)
 local timerDarkGlareCast		= mod:NewCastTimer(10, 63274)
-local timerNextDarkGlare		= mod:NewNextTimer(31, 63274)
+local timerNextDarkGlare		= mod:NewNextTimer(41, 63274)
 local timerNextShockblast		= mod:NewNextTimer(40, 63631)
 local timerPlasmaBlastCD		= mod:NewCDTimer(30, 64529)
 local timerShell				= mod:NewBuffActiveTimer(6, 63666)
@@ -159,7 +159,7 @@ local function show_warning_for_spinup()
 	if is_spinningUp then
 		warnDarkGlare:Show()
 		if mod.Options.PlaySoundOnDarkGlare then
-			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
+			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		end
 	end
 end
@@ -220,7 +220,6 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(63027) then				-- Proximity Mines
 		timerProximityMines:Start()
-
 	elseif args:IsSpellID(63414) then			-- Spinning UP (before Dark Glare)
 		is_spinningUp = true
 		timerSpinUp:Start()
@@ -228,7 +227,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNextDarkGlare:Schedule(14)			-- 4 (cast spinup) + 10 sec (cast dark glare)
 		DBM:Schedule(0.15, show_warning_for_spinup)	-- wait 0.15 and then announce it, otherwise it will sometimes fail
 		lastSpinUp = GetTime()
-	
 	elseif args:IsSpellID(65192) then	-- Flame Suppressant CD (phase 2)
 		timerFlameSuppressantCD:Start()
 	end
@@ -273,7 +271,7 @@ function mod:NextPhase()
 		timerFlameSuppressant:Stop()
 		timerPlasmaBlastCD:Stop()
 		timerP1toP2:Start()
-		timerNextDarkGlare:Schedule(43)
+		timerNextDarkGlare:Schedule(30)
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()
 			DBM.BossHealth:AddBoss(33651, L.MobPhase2)
