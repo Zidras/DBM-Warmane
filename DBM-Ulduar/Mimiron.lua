@@ -24,7 +24,7 @@ mod:RegisterEvents(
 local blastWarn					= mod:NewTargetAnnounce(64529, 4)
 local shellWarn					= mod:NewTargetAnnounce(63666, 2)
 local lootannounce				= mod:NewAnnounce("MagneticCore", 1)
-local warnBombSpawn				= mod:NewAnnounce("WarnBombSpawn", 3)
+local warnBombSpawn				= mod:NewSpecialWarning("WarnBombSpawn", 3)
 local warnFrostBomb				= mod:NewSpellAnnounce(64623, 3)
 
 local warnFlamesSoon			= mod:NewSoonAnnounce(64566, 1) 

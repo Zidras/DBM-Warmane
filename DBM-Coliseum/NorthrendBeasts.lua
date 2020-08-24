@@ -41,7 +41,7 @@ local specWarnChargeNear	= mod:NewSpecialWarning("SpecialWarningChargeNear")
 local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemoveEnrage())
 
 local enrageTimer			= mod:NewBerserkTimer(223)
-local timerCombatStart		= mod:NewTimer(17.5, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(11, "TimerCombatStart", 2457)
 local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457)
 local timerSubmerge			= mod:NewTimer(42, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp") 
 local timerEmerge			= mod:NewTimer(6, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
@@ -52,7 +52,7 @@ local timerNextImpale		= mod:NewNextTimer(10, 67477, nil, mod:IsTank() or mod:Is
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758)
 local timerNextCrash		= mod:NewCDTimer(70, 67662) -- Original timer. The second Massive Crash should happen 70 seconds after the first
-local timerNextCrashTwo		= mod:NewCDTimer(71, 67662, "2nd Massive Crash") -- Added timer to start a second Massive Crash timer at the start of Icehowl. The second Massive Crash happens 122 seconds into the Icehowl fight
+local timerNextCrashTwo		= mod:NewCDTimer(50, 67662, "Второе Сокрушение") -- Added timer to start a second Massive Crash timer at the start of Icehowl. The second Massive Crash happens 122 seconds into the Icehowl fight
 local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, mod:IsMelee())
 local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, mod:IsMelee())
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819)
@@ -307,7 +307,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		self:ScheduleMethod(17, "WormsEmerge")
-		timerCombatStart:Show(11)
+		timerCombatStart:Show(10)
 		updateHealthFrame(2)
 		self.vb.phase = 2
 		if self.Options.RangeFrame then
@@ -320,10 +320,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			enrageTimer:Start()
 		end
 		self:UnscheduleMethod("WormsSubmerge")
+		self:UnscheduleMethod("WormsEmerge")
 		timerNextCrash:Start(34)
 		timerNextCrashTwo:Schedule(33)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
+		timerEmerge:Cancel()
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
