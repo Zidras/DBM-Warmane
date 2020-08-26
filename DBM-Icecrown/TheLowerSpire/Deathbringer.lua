@@ -19,6 +19,7 @@ mod:RegisterEvents(
 local warnFrenzySoon		= mod:NewAnnounce("WarnFrenzySoon", 2, 72737, true)
 local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
+local SoundAdds				= mod:NewSound(72173)
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, true)
 local warnBloodNova			= mod:NewSpellAnnounce(73058, 2)
 local warnMark				= mod:NewTargetAnnounce(72444, 4)
@@ -137,6 +138,7 @@ do
 		if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
 			if time() - lastBeast > 5 then
 				warnAdds:Show()
+				SoundAdds:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 				warnAddsSoon:Schedule(30)
 				timerCallBloodBeast:Start()
 				lastBeast = time()

@@ -41,7 +41,7 @@
 ----------------------
 --  Combat log Fix  --
 ----------------------
-local tCLFix = 0
+--[[local tCLFix = 0
 
 local function fCLFix(self,elapsed)
     tCLFix = tCLFix + elapsed
@@ -53,7 +53,7 @@ end
 
 local f = CreateFrame("frame")
 f:SetScript("OnUpdate", fCLFix)
-
+--]]
 -------------------------------
 --  Globals/Default Options  --
 -------------------------------

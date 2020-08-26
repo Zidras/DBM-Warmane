@@ -37,8 +37,10 @@ local specWarnVolatileOozeOther		= mod:NewSpecialWarningTarget(70447, false)
 local specWarnGaseousBloatOther		= mod:NewSpecialWarningTarget(70672, false)
 local specWarnMalleableGoo			= mod:NewSpecialWarning("SpecWarnMalleableGoo")
 local specWarnMalleableGooNear		= mod:NewSpecialWarning("SpecWarnMalleableGooNear")
-local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, true)
-local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, false)
+local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, mod:IsMelee() or mod:isTank() or mod:IsWeaponDependent("player"))
+local soundChokingGasBomb			= mod:NewSound(71255, nil,  mod:IsMelee() or mod:isTank() or mod:isTank() or mod:IsWeaponDependent("player"))
+local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, mod:IsHealer() or mod:IsRanged())
+local soundMalleableGooCast			= mod:NewSound(72295, nil, mod:IsHealer() or mod:IsRanged())
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
 local specWarnUnboundPlague			= mod:NewSpecialWarningYou(72856)		-- Heroic Ability
@@ -198,12 +200,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(71255) then
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
+		soundChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		timerChokingGasBombCD:Start()
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
 		warnMalleableGoo:Show()
 		specWarnMalleableGooCast:Show()
+		soundMalleableGooCast:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerMalleableGooCD:Start(20)
 		else
