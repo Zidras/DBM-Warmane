@@ -151,7 +151,7 @@ L:SetOptionLocalization{
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Проигрывать звуковой отсчет 5...1 до контроля разума",
-	EqUneqWeapons				= "Автоматически снимать и надевать оружия перед и после контроля. Для работы этой функции создайте два набора экипировки 'pve' для одетых пушек и 'nw' для снятых."
+	EqUneqWeapons				= "Автоматически снимать и надевать оружия перед и после контроля. Для работы этой функции создайте два набора экипировки 'pve' для одетых пушек. Для снятия не нужен комплект экипировки."
 }
 
 L:SetMiscLocalization{

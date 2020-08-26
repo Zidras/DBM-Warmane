@@ -149,7 +149,7 @@ L:SetOptionLocalization{
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
-	EqUneqWeapons				= "Automatically unequip and equip weapons before and after Mind Control. For this feature to work, create two sets of equipment 'pve' for equipped weaponsand 'nw' for unequipped."
+	EqUneqWeapons				= "Automatically unequip and equip weapons before and after Mind Control. For this feature to work, create two sets of equipment 'pve' for equipped weapons."
 }
 
 L:SetMiscLocalization{
