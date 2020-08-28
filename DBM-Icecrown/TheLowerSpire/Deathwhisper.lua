@@ -39,7 +39,7 @@ local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237)
 local specWarnDeathDecay			= mod:NewSpecialWarningMove(72108)
 local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3)
 local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, canPurge)
-local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, mod:IsMelee())
+local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, true)
 local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
 
@@ -66,9 +66,13 @@ local dominateMindTargets	= {}
 local dominateMindIcon 	= 6
 local deformedFanatic
 local empoweredAdherent
+local dtime = 0
+local lastMc = 0
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
+	dtime = 0
+	lastMc = 0
 	if self.Options.ShieldHealthFrame then
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(36855, L.name)
@@ -202,16 +206,22 @@ function mod:has_value(tab, val)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(71289) and mod.Options.EqUneqWeapons and not mod:IsTank() then
-		mod:UnW()
+	if args:IsSpellID(71289) then
+		timerDominateMindCD:Start()
+		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+			mod:UnW()
+		end
 	end
 end
 
 do
-	local function showDominateMindWarning()
+	local function showDominateMindWarning(mc_delay)
+		if not mc_delay then
+			mc_delay = 0
+		end
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
-		timerDominateMindCD:Start()
+		timerDominateMindCD:Start(40-mc_delay)
     	if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons and not mod:IsTank()) then
 	    	print("Equipping scheduled")
 	        mod:ScheduleMethod(0.1, "EqW")
@@ -221,13 +231,13 @@ do
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
 		if mod.Options.SoundWarnCountingMC then
-			mod:ScheduleMethod(35, "ToMC5")
-			mod:ScheduleMethod(36, "ToMC4")
-			mod:ScheduleMethod(37, "ToMC3")
-			mod:ScheduleMethod(38, "ToMC2")
-			mod:ScheduleMethod(39, "ToMC1")
+			mod:ScheduleMethod(35-mc_delay, "ToMC5")
+			mod:ScheduleMethod(36-mc_delay, "ToMC4")
+			mod:ScheduleMethod(37-mc_delay, "ToMC3")
+			mod:ScheduleMethod(38-mc_delay, "ToMC2")
+			mod:ScheduleMethod(39-mc_delay, "ToMC1")
 			if mod.Options.EqUneqWeapons and not mod:IsTank() then
-				mod:ScheduleMethod(39, "UnW")
+				mod:ScheduleMethod(39-mc_delay, "UnW")
 			end
 		end
 	end
@@ -240,10 +250,17 @@ do
 				dominateMindIcon = dominateMindIcon - 1
 			end
 			self:Unschedule(showDominateMindWarning)
+			if lastMc > 0 then
+				dtime = GetTime() - lastMc
+			end
+			if dtime < 0 then
+				dtime = 0
+			end
+			print("Time diff "..dtime)
 			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("normal25") or (mod:IsDifficulty("heroic25") and #dominateMindTargets >= 3) then
-				showDominateMindWarning()
+				showDominateMindWarning(dtime)
 			else
-				self:Schedule(0.9, showDominateMindWarning)
+				self:Schedule(0.9, showDominateMindWarning, dtime)
 			end
 		elseif args:IsSpellID(71001, 72108, 72109, 72110) then
 			if args:IsPlayer() then
@@ -343,7 +360,11 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
-	elseif (msg == L.YellMC or msg:find(L.YellMC)) and mod.Options.EqUneqWeapons and not mod:IsTank() then
-		mod:UnW()
+	elseif (msg == L.YellMC or msg:find(L.YellMC)) then
+		lastMc = GetTime()
+		timerDominateMindCD:Start()
+		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+			mod:UnW()
+		end
 	end
 end
