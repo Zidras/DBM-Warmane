@@ -18,8 +18,7 @@ mod:RegisterEvents(
 	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_WHISPER",
-	"SWING_DAMAGE",
-	"SWING_MISSED"
+	"UNIT_AURA"
 )
 
 local isPAL = select(2, UnitClass("player")) == "PALADIN"
@@ -33,7 +32,7 @@ local warnShamblingHorror	= mod:NewSpellAnnounce(70372, 3) --Phase 1 Add
 local warnDrudgeGhouls		= mod:NewSpellAnnounce(70358, 2) --Phase 1 Add
 local warnShamblingEnrage	= mod:NewTargetAnnounce(72143, 3, nil, true) --Phase 1 Add Ability
 local warnNecroticPlague	= mod:NewTargetAnnounce(73912, 4) --Phase 1+ Ability
-local warnNecroticPlagueJump= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 73912) --Phase 1+ Ability
+local warnNecroticPlagueJump= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 70337)
 local warnInfest			= mod:NewSpellAnnounce(73779, 3, nil, true) --Phase 1 & 2 Ability
 local warnPhase2Soon		= mod:NewAnnounce("WarnPhase2Soon", 1)
 local valkyrWarning			= mod:NewAnnounce("ValkyrWarning", 3, 71844)--Phase 2 Ability
@@ -106,150 +105,74 @@ mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
-mod:AddBoolOption("LKBugWorkaround", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
 local lastPlagueCast = 0
 local warned_preP2 = false
 local warned_preP3 = false
 local warnedValkyrGUIDs = {}
-local LKTank
+
+local plagueHop = GetSpellInfo(70338)--Hop spellID only, not cast one.
+local plagueExpires = {}
+local lastPlague
+
+local function RestoreWipeTime(self)
+	self:SetWipeTime(5) --Restore it after frostmourn room.
+end
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 0
 	lastPlagueCast = 0
 	warned_preP2 = false
 	warned_preP3 = false
-	LKTank = nil
 	self:NextPhase()
 	table.wipe(warnedValkyrGUIDs)
+	table.wipe(plagueExpires)
 end
 
-function mod:DefileTarget()
-	local target = self:GetBossTarget(36597)
-	if not target then return end
-	if mod:LatencyCheck() then--Only send sync if you have low latency.
-		self:SendSync("DefileOn", target)
-	end
-end
-
-function mod:TankTrap()
-	if mod:LatencyCheck() then
-		self:SendSync("TrapOn", LKTank)
-	end
-end
-
-function mod:TrapTarget()
-	local targetname = self:GetBossTarget(36597)
+function mod:DefileTarget(targetname, uId)
 	if not targetname then return end
-	if targetname ~= LKTank then--If scan doesn't return tank abort other scans and do other warnings.
-		self:UnscheduleMethod("TrapTarget")
-		self:UnscheduleMethod("TankTrap")--Also unschedule tanktrap since we got a scan that returned a non tank.
-		if mod:LatencyCheck() then
-			self:SendSync("TrapOn", targetname)
-		end
-	else
-		self:UnscheduleMethod("TankTrap")
-		self:ScheduleMethod(1, "TankTrap") --If scan returns tank schedule warnings for tank after all other scans have completed. If none of those scans return another player this will be allowed to fire.
+	warnDefileCast:Show(targetname)
+	if self.Options.DefileIcon then
+		self:SetIcon(targetname, 8, 10)
 	end
-end
-
---for those that want to avoid latency check.
-function mod:OldDefileTarget()
-	local targetname = self:GetBossTarget(36597)
-	if not targetname then return end
-		warnDefileCast:Show(targetname)
-		if self.Options.DefileIcon then
-			self:SetIcon(targetname, 8, 10)
-		end
 	if targetname == UnitName("player") then
 		specWarnDefileCast:Show()
 		soundDefile:Play()
 		if self.Options.YellOnDefile then
 			SendChatMessage(L.YellDefile, "SAY")
 		end
-	elseif targetname then
-		local uId = DBM:GetRaidUnitId(targetname)
+	else
+		soundDefile:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if uId then
 			local inRange = CheckInteractDistance(uId, 2)
-			local x, y = GetPlayerMapPosition(uId)
-			if x == 0 and y == 0 then
-				SetMapToCurrentZone()
-				x, y = GetPlayerMapPosition(uId)
-			end
 			if inRange then
-				specWarnDefileNear:Show()
---				if self.Options.DefileArrow then
---					DBM.Arrow:ShowRunAway(x, y, 15, 5)
---				end
+				specWarnDefileNear:Show(targetname)
 			end
 		end
 	end
 end
 
-function mod:OldTankTrap()
-	warnTrapCast:Show(LKTank)
+function mod:TrapTarget(targetname, uId)
+	if not targetname then return end
+	warnTrapCast:Show(targetname)
 	if self.Options.TrapIcon then
-		self:SetIcon(LKTank, 8, 10)
+		self:SetIcon(targetname, 8, 10)
 	end
-	if LKTank == UnitName("player") then
+	if targetname == UnitName("player") then
 		specWarnTrap:Show()
 		if self.Options.YellOnTrap then
 			SendChatMessage(L.YellTrap, "SAY")
 		end
-	end
-	local uId = DBM:GetRaidUnitId(LKTank)
-	if uId ~= "none" then
-		local inRange = CheckInteractDistance(uId, 2)
-		local x, y = GetPlayerMapPosition(uId)
-		if x == 0 and y == 0 then
-			SetMapToCurrentZone()
-			x, y = GetPlayerMapPosition(uId)
-		end
-		if inRange then
-			specWarnTrapNear:Show()
-			if self.Options.TrapArrow then
-				DBM.Arrow:ShowRunAway(x, y, 10, 5)
+	else
+		if uId then
+			local inRange = CheckInteractDistance(uId, 2)
+			if inRange then
+				specWarnTrapNear:Show(targetname)
 			end
 		end
 	end
 end
 
-function mod:OldTrapTarget()
-	local targetname = self:GetBossTarget(36597)
-	if not targetname then return end
-	if targetname ~= LKTank then--If scan doesn't return tank abort other scans and do other warnings.
-		self:UnscheduleMethod("OldTrapTarget")
-		self:UnscheduleMethod("OldTankTrap")--Also unschedule tanktrap since we got a scan that returned a non tank.
-		warnTrapCast:Show(targetname)
-		if self.Options.TrapIcon then
-			self:SetIcon(targetname, 8, 10)
-		end
-		if targetname == UnitName("player") then
-			specWarnTrap:Show()
-			if self.Options.YellOnTrap then
-				SendChatMessage(L.YellTrap, "SAY")
-			end
-		end
-		local uId = DBM:GetRaidUnitId(targetname)
-		if uId then
-			local inRange = CheckInteractDistance(uId, 2)
-			local x, y = GetPlayerMapPosition(uId)
-			if x == 0 and y == 0 then
-				SetMapToCurrentZone()
-				x, y = GetPlayerMapPosition(uId)
-			end
-			if inRange then
-				specWarnTrapNear:Show()
-				if self.Options.TrapArrow then
-					DBM.Arrow:ShowRunAway(x, y, 10, 5)
-				end
-			end
-		end
-	else
-		self:UnscheduleMethod("OldTankTrap")
-		self:ScheduleMethod(1, "OldTankTrap") --If scan returns tank schedule warnings for tank after all other scans have completed. If none of those scans return another player this will be allowed to fire.
-	end
-end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
@@ -290,39 +213,13 @@ function mod:SPELL_CAST_START(args)
 		specWarnInfest:Show()
 		timerInfestCD:Start()
 	elseif args:IsSpellID(72762) then -- Defile
-		if self.Options.LKBugWorkaround then
-			self:ScheduleMethod(0.1, "OldDefileTarget")
-		else
-			self:ScheduleMethod(0.1, "DefileTarget")
-		end
+		self:BossTargetScanner(36597, "DefileTarget", 0.02, 15)
 		warnDefileSoon:Cancel()
 		warnDefileSoon:Schedule(27)
 		timerDefileCD:Start()
 	elseif args:IsSpellID(73539) then -- Shadow Trap (Heroic)
+		self:BossTargetScanner(36597, "TrapTarget", 0.02, 15)
 		timerTrapCD:Start()
-		if self.Options.LKBugWorkaround then
-			self:ScheduleMethod(0.01, "OldTrapTarget")
-			self:ScheduleMethod(0.02, "OldTrapTarget")
-			self:ScheduleMethod(0.03, "OldTrapTarget")
-			self:ScheduleMethod(0.04, "OldTrapTarget")
-			self:ScheduleMethod(0.05, "OldTrapTarget")
-			self:ScheduleMethod(0.06, "OldTrapTarget")
-			self:ScheduleMethod(0.07, "OldTrapTarget")
-			self:ScheduleMethod(0.08, "OldTrapTarget")
-			self:ScheduleMethod(0.09, "OldTrapTarget")
-			self:ScheduleMethod(0.1, "OldTrapTarget")
-		else
-			self:ScheduleMethod(0.01, "TrapTarget")
-			self:ScheduleMethod(0.02, "TrapTarget")
-			self:ScheduleMethod(0.03, "TrapTarget")
-			self:ScheduleMethod(0.04, "TrapTarget")
-			self:ScheduleMethod(0.05, "TrapTarget")
-			self:ScheduleMethod(0.06, "TrapTarget")
-			self:ScheduleMethod(0.07, "TrapTarget")
-			self:ScheduleMethod(0.08, "TrapTarget")
-			self:ScheduleMethod(0.09, "TrapTarget")
-			self:ScheduleMethod(0.1, "TrapTarget")
-		end
 	elseif args:IsSpellID(73650) then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
 		timerRestoreSoul:Start()
@@ -333,7 +230,7 @@ function mod:SPELL_CAST_START(args)
 		timerSoulreaperCDnext:Start(49.5+34)
 		timerDefileCD:Start(41.3)
 	elseif args:IsSpellID(72350) then -- Fury of Frostmourne
-		mod:SetWipeTime(160)--Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
+		mod:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
 		timerRoleplay:Start()
 		timerVileSpirit:Cancel()
 		timerSoulreaperCD:Cancel()
@@ -347,7 +244,8 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(70337, 73912, 73913, 73914) then -- Necrotic Plague (SPELL_AURA_APPLIED is not fired for this spell)
-		warnNecroticPlague:Show(args.destName)
+		lastPlague = args.destName
+		warnNecroticPlague:Show(lastPlague)
 		timerNecroticPlagueCD:Start()
 		timerNecroticPlagueCleanse:Start()
 		lastPlagueCast = GetTime()
@@ -398,6 +296,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerSoulreaperCDnext:Cancel()
 		timerDefileCD:Cancel()
 		warnDefileSoon:Cancel()
+		self:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
+		self:ScheduleMethod(50, "RestoreWipeTime")
 	end
 end
 
@@ -584,24 +484,18 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg)--We get this whisper for all plagues, ones cast by lich king and ones from dispel jumps.
-	if msg:find(L.PlagueWhisper) and self:IsInCombat() then--We do a combat check with lich king since rotface uses the same whisper message and we only want this to work on lich king.
-		if GetTime() - lastPlagueCast > 1 then--We don't want to send sync if it came from a spell cast though, so we ignore whisper unless it was at least 1 second after a cast.
-			specWarnNecroticPlague:Show()
-			self:SendSync("PlagueOn", UnitName("player"))
+function mod:UNIT_AURA(uId)
+	local name = GetUnitName(uId)
+	if (not name) or (name == lastPlague) then return end
+	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, plagueHop)
+	if not spellId or not expires then return end
+	if spellId == 70338 and expires > 0 and not plagueExpires[expires] then
+		plagueExpires[expires] = true
+		warnNecroticPlagueJump:Show(name)
+		timerNecroticPlagueCleanse:Start()
+		if self.Options.NecroticPlagueIcon then
+			self:SetIcon(uId, 5, 5)
 		end
-	end
-end
-
-function mod:SWING_DAMAGE(args)
-	if args:GetSrcCreatureID() == 36597 then--Lich king Tank
-		LKTank = args.destName
-	end
-end
-
-function mod:SWING_MISSED(args)
-	if args:GetSrcCreatureID() == 36597 then--Lich king Tank
-		LKTank = args.destName
 	end
 end
 
@@ -613,73 +507,6 @@ function mod:OnSync(msg, target)
 	elseif msg == "PRIGrabbed" then--Does this function fail to alert second healer if 2 different priests are grabbed within < 2.5 seconds?
 		if self.Options.specWarnHealerGrabbed then
 			specWarnPRIGrabbed:Show(target)
-		end
-	elseif msg == "TrapOn" then
-		if not self.Options.LKBugWorkaround then
-			warnTrapCast:Show(target)
-			if self.Options.TrapIcon then
-				self:SetIcon(player, 8, 10)
-			end
-			if target == UnitName("player") then
-				specWarnTrap:Show()
-				if self.Options.YellOnTrap then
-					SendChatMessage(L.YellTrap, "SAY")
-				end
-			end
-			local uId = DBM:GetRaidUnitId(target)
-			if uId ~= "none" then
-				local inRange = CheckInteractDistance(uId, 2)
-				local x, y = GetPlayerMapPosition(uId)
-				if x == 0 and y == 0 then
-					SetMapToCurrentZone()
-					x, y = GetPlayerMapPosition(uId)
-				end
-				if inRange then
-					specWarnTrapNear:Show()
-					if self.Options.TrapArrow then
-						DBM.Arrow:ShowRunAway(x, y, 10, 5)
-					end
-				end
-			end
-		end
-	elseif msg == "DefileOn" then
-		if not self.Options.LKBugWorkaround then
-			warnDefileCast:Show(target)
-			if self.Options.DefileIcon then
-				self:SetIcon(target, 8, 10)
-			end
-			if target == UnitName("player") then
-				specWarnDefileCast:Show()
-				soundDefile:Play()
-				if self.Options.YellOnDefile then
-					SendChatMessage(L.YellDefile, "SAY")
-				end
-			elseif target then
-				soundDefile:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-				local uId = DBM:GetRaidUnitId(target)
-				if uId then
-					local inRange = CheckInteractDistance(uId, 2)
-					local x, y = GetPlayerMapPosition(uId)
-					if x == 0 and y == 0 then
-						SetMapToCurrentZone()
-						x, y = GetPlayerMapPosition(uId)
-					end
-					if inRange then
-						specWarnDefileNear:Show()
---						if self.Options.DefileArrow then
---							DBM.Arrow:ShowRunAway(x, y, 15, 5)
---						end
-					end
-				end
-			end
-		end
-	elseif msg == "PlagueOn" and self:IsInCombat() then
-		if GetTime() - lastPlagueCast > 1 then --We also do same 1 second check here
-			warnNecroticPlagueJump:Show(target)
-			timerNecroticPlagueCleanse:Start()
-			if self.Options.NecroticPlagueIcon then
-				self:SetIcon(target, 5, 5)
-			end
 		end
 	end
 end
