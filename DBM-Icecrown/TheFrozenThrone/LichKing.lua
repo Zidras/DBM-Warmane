@@ -115,7 +115,7 @@ local plagueHop = GetSpellInfo(70338)--Hop spellID only, not cast one.
 local plagueExpires = {}
 local lastPlague
 
-local function RestoreWipeTime(self)
+function mod:RestoreWipeTime(self)
 	self:SetWipeTime(5) --Restore it after frostmourn room.
 end
 
