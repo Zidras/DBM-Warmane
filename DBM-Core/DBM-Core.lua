@@ -2571,25 +2571,25 @@ do
 	function bossModPrototype:BossTargetScannerAbort(cidOrGuid, returnFunc)
 		targetScanCount[cidOrGuid] = nil--Reset count for later use.
 		self:UnscheduleMethod("BossTargetScanner", cidOrGuid, returnFunc)
-		print("Boss target scan for "..cidOrGuid.." should be aborting.", 3)
+		--print("Boss target scan for "..cidOrGuid.." should be aborting.", 3)
 	end
 
 	function bossModPrototype:BossUnitTargetScannerAbort(uId)
 		if not uId then--Not called with unit, means mod requested to clear all used units
-			print("BossUnitTargetScannerAbort called without unit, clearing all targetMonitor units", 2)
+			--print("BossUnitTargetScannerAbort called without unit, clearing all targetMonitor units", 2)
 			table.wipe(targetMonitor)
 			return
 		end
 		if targetMonitor[uId] and targetMonitor[uId].allowTank and UnitExists(uId.."target") and UnitPlayerOrPetInRaid(uId.."target") then
-			print("targetMonitor unit exists, allowTank target exists", 2)
+			--print("targetMonitor unit exists, allowTank target exists", 2)
 			local modId, returnFunc = targetMonitor[uId].modid, targetMonitor[uId].returnFunc
-			print("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
+			--print("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
 			local mod = self:GetModByName(modId)
-			print("targetMonitor found a target that probably is a tank", 2)
+			--print("targetMonitor found a target that probably is a tank", 2)
 			mod[returnFunc](mod, GetUnitName(uId.."target"), uId.."target", uId)--Return results to warning function with all variables.
 		end
 		targetMonitor[uId] = nil
-		print("Boss unit target scan should be aborting for "..uId, 3)
+		--print("Boss unit target scan should be aborting for "..uId, 3)
 	end
 
 	function bossModPrototype:BossUnitTargetScanner(uId, returnFunc, scanTime, allowTank)
@@ -2612,7 +2612,7 @@ do
 		scanInterval = scanInterval or 0.05
 		scanTimes = scanTimes or 16
 		local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
-		print("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
+		--print("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
 		--Do scan
 		if targetname and targetname ~= "неизвестно" and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
 			if not IsInRaid() then scanTimes = 1 end --Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
@@ -2812,7 +2812,7 @@ function bossModPrototype:IsTanking(unit, boss)
 	if boss and UnitExists(boss) then--Only checking one bossID as requested
 		local tanking, status = UnitDetailedThreatSituation(unit, boss)
 		if tanking or (status == 3) then
-			print("tanking function fired bossUID true")
+			--print("tanking function fired bossUID true")
 			return true
 		end
 	else--Check all of them if one isn't defined
@@ -2820,13 +2820,13 @@ function bossModPrototype:IsTanking(unit, boss)
 			if UnitExists("boss"..i) then
 				local tanking, status = UnitDetailedThreatSituation(unit, "boss"..i)
 				if tanking or (status == 3) then
-					print("tanking function fired bossNNN true")
+					--print("tanking function fired bossNNN true")
 					return true
 				end
 			end
 		end
 	end
-	print("tanking function fired false")
+	--print("tanking function fired false")
 	return false
 end
 
