@@ -18,26 +18,28 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_SUMMON"
 )
-local isHunter = select(2, UnitClass("player")) == "HUNTER"
+local isHunter 				= select(2, UnitClass("player")) == "HUNTER"
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1)
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
 local warnFissure			= mod:NewSpellAnnounce(27810, 3)
+local soundFissure			= mod:NewSound(27810)
 local specwarnfissure		= mod:NewSpecialWarning("fissure")
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
-local warnManaClose   = mod:NewSpecialWarning("Detonate Mana Near YOU")
-local warnManaOnYou   = mod:NewSpecialWarning("You have Detonate Mana!")
+local warnManaClose   		= mod:NewSpecialWarning("Рядом Взрыв Маны")
+local warnManaOnYou   		= mod:NewSpecialWarning("Взрыв Маны на Вас!")
 local warnChainsTargets		= mod:NewTargetAnnounce(28410, 2)
-local warnMindControl = mod:NewAnnounce("Mind Control Soon", 4)
+local warnMindControl 		= mod:NewAnnounce("Скоро Цепи Кел'Тузада", 4)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808)
 local timerPhase2			= mod:NewTimer(227, "TimerPhase2")
-local mindControlCD = mod:NewNextTimer(60, 28410)
-local frostBlastCD    = mod:NewCDTimer(25, 27808)
-local fissureCD    = mod:NewCDTimer(14, 27810)
+local mindControlCD 		= mod:NewNextTimer(60, 28410)
+local frostBlastCD   		= mod:NewCDTimer(25, 27808)
+local fissureCD  			= mod:NewCDTimer(14, 27810)
 
+local timerPossibleMC		= mod:NewTimer(20, "Сейчас контроль! (20s)", 28410)
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
 mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank())
@@ -102,9 +104,10 @@ function mod:BigRedThing()
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(27810) then
+	if args:IsSpellID(27810) and self:AntiSpam(2, 1) then
 		warnFissure:Show()
 		specwarnfissure:Show()
+		soundFissure:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if self.Options.SmileScream then
 			self:ScheduleMethod(0.01, "BigRedThing")
 		end
@@ -128,7 +131,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:GetDetonateRange(args.destName) <= 12 then
 			if UnitName("player") == args.destName then
 				warnManaOnYou:Show()
-				SendChatMessage("Detonate Mana on me!","SAY")
+				SendChatMessage("Взрыв маны на мне!","SAY")
 			else
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 				warnManaClose:Show()
@@ -137,6 +140,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(28410) then -- Chains of Kel'Thuzad
 		table.insert(chainsTargets, args.destName)
 		mindControlCD:Start()
+		timerPossibleMC:Schedule(60)
 		warnMindControl:Schedule(60)
 		self:UnscheduleMethod("AnnounceChainsTargets")
 		if #chainsTargets >= 3 then
@@ -145,7 +149,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:ScheduleMethod(1.0, "AnnounceChainsTargets")
 		end
 		if self.Options.EqUneqWeaponsKT then
-			self:ScheduleMethod(59, "UnWKT")
+			self:ScheduleMethod(58, "UnWKT")
 		end
 	end
 end
@@ -177,12 +181,14 @@ function mod:AnnounceBlastTargets()
 		self:SetIcon(frostBlastTargets[i], 8 - i, 4.5)
 		frostBlastTargets[i] = nil
 	end
+	timerPossibleMC:Cancel()
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(27810) then
 		warnFissure:Show()
 		specwarnfissure:Show()
+		soundFissure:Schedule(0.01, "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		fissureCD:Start()
 	end
 	if args:IsSpellID(27808) then
@@ -228,7 +234,13 @@ function mod:GetDetonateRange(playerName)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) and mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
-		mod:UnWKT()
+	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) then
+		if not mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
+			mod:UnWKT()
+			self:ScheduleMethod(59, "UnWKT")
+		end
+		timerPossibleMC:Cancel()
+		mindControlCD:Start()
+		timerPossibleMC:Schedule(60)
 	end
 end
