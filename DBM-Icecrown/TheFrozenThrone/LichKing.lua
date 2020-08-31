@@ -17,7 +17,6 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL",
-	"CHAT_MSG_RAID_BOSS_WHISPER",
 	"UNIT_AURA"
 )
 
@@ -189,7 +188,7 @@ function mod:SPELL_CAST_START(args)
 		timerDefileCD:Cancel()
 		warnDefileSoon:Cancel()
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
-		warnShamblingEnrage:Show(args.destName)
+		warnShamblingEnrage:Show(args.sourceName)
 		specWarnEnrage:Show()
 		timerEnrageCD:Start()
 		timerEnrageCDnext:Start()
@@ -491,10 +490,13 @@ function mod:UNIT_AURA(uId)
 	if (not name) or (name == lastPlague) then return end
 	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, plagueHop)
 	if not spellId or not expires then return end
-	if spellId == 70338 and expires > 0 and not plagueExpires[expires] then
+	if (spellId == 73787 or spellId == 70338 or spellId == 73785 or spellId == 73786) and expires > 0 and not plagueExpires[expires] then
 		plagueExpires[expires] = true
 		warnNecroticPlagueJump:Show(name)
 		timerNecroticPlagueCleanse:Start()
+		if name == UnitName("player") and not mod:IsTank() then
+			specWarnNecroticPlague:Show()
+		end
 		if self.Options.NecroticPlagueIcon then
 			self:SetIcon(uId, 5, 5)
 		end
