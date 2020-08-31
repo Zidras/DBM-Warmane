@@ -12,7 +12,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_SUMMON",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_HEALTH"
 )
 
 local warnHuman			= mod:NewAnnounce("WarnHuman", 4)
@@ -33,10 +34,12 @@ local timerPhase		= mod:NewTimer(10, "TimerPhase", 46087)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 local soundDarkness		= mod:NewSound(45996)
+local soundBH			= mod:NewSound(46282)
 mod:AddBoolOption("SoundWarnCountingDS", true)
 
 local humanCount = 1
 local voidCount = 1
+local warned_phase2 = false
 
 function mod:ToDS5()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
@@ -59,11 +62,18 @@ function mod:ToDS1()
 end
 
 local function phase2()
+	mod.vb.phase = 2
 	warnPhase2:Show()
+	warned_phase2 = true
 	mod:UnscheduleMethod("HumanSpawn")
 	mod:UnscheduleMethod("VoidSpawn")
-	timerBlackHoleCD:Start(17)
-	if self.Options.HealthFrame then
+	mod:UnscheduleMethod("ToDS5")
+	mod:UnscheduleMethod("ToDS4")
+	mod:UnscheduleMethod("ToDS3")
+	mod:UnscheduleMethod("ToDS2")
+	mod:UnscheduleMethod("ToDS1")
+	timerBlackHoleCD:Start(11)
+	if mod.Options.HealthFrame then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(25840, L.Entropius)
 	end
@@ -85,8 +95,10 @@ function mod:VoidSpawn()
 end
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	humanCount = 1
 	voidCount = 1
+	warned_phase2 = false
 	timerHuman:Start(10-delay, humanCount)
 	timerVoid:Start(36.5-delay, voidCount)
 	specWarnVW:Schedule(31.5)
@@ -124,11 +136,14 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 46177 then
+		warned_phase2 =  true
 		timerNextDarkness:Cancel()
 		timerHuman:Cancel()
 		timerVoid:Cancel()
 		timerPhase:Start()
-		self:Schedule(10, phase2)
+		specWarnDarknessSoon:Cancel()
+		soundDarkness:Cancel()
+		self:Schedule(6, phase2)
 	end
 end
 
@@ -138,6 +153,7 @@ function mod:SPELL_SUMMON(args)
 	elseif args.spellId == 46282 then
 		warnBlackHole:Show()
 		specWarnBH:Show()
+		soundDarkness:Schedule(0.1, "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		timerBlackHoleCD:Start()
 	end
 end
@@ -145,5 +161,17 @@ end
 function mod:UNIT_DIED(args)
 	if self:GetCIDFromGUID(args.destGUID) == 25840 then
 		DBM:EndCombat(self)
+	end
+end
+
+function mod:UNIT_HEALTH(uId)
+	if not warned_phase2 and self:GetUnitCreatureId(uId) == 25840 and UnitHealth(uId) / UnitHealthMax(uId) > 0.9 and self.vb.phase == 1 then
+		warned_phase2 = true
+		timerNextDarkness:Cancel()
+		timerHuman:Cancel()
+		timerVoid:Cancel()
+		specWarnDarknessSoon:Cancel()
+		soundDarkness:Cancel()
+		phase2()
 	end
 end
