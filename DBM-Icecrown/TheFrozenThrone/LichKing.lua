@@ -212,7 +212,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnInfest:Show()
 		timerInfestCD:Start()
 	elseif args:IsSpellID(72762) then -- Defile
-		self:ScheduleMethod(0.15, "BossTargetScanner", 36597, "DefileTarget", 0.01, 15)
+		self:ScheduleMethod(0.05, "BossTargetScanner", 36597, "DefileTarget", 0.02, 15)
 		--self:BossTargetScanner(36597, "DefileTarget", 0.1, 5)
 		warnDefileSoon:Cancel()
 		warnDefileSoon:Schedule(27)
