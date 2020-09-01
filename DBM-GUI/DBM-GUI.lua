@@ -1833,7 +1833,7 @@ local function CreateOptionsMenu()
 
 	-- Set Revision // please don't translate this!
 	DBM_GUI_OptionsFrameRevision:SetText("Version: "..DBM.DisplayVersion.." - Core: r"..DBM.Revision.." - Gui: r"..revision)
-	DBM_GUI_OptionsFrameTranslation:SetText("Translated by: "..L.TranslationBy)
+	DBM_GUI_OptionsFrameTranslation:SetText(" ")
 end
 DBM:RegisterOnGuiLoadCallback(CreateOptionsMenu, 1)
 
