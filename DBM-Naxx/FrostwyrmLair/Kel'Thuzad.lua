@@ -60,6 +60,7 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 	if mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25") then
 		mindControlCD:Start(287)
+		timerPossibleMC:Schedule(287)
 		warnMindControl:Schedule(282)
 		if self.Options.EqUneqWeaponsKT then
 			self:ScheduleMethod(286, "UnWKT")
