@@ -29,10 +29,10 @@ local warnPortalOpen	= mod:NewAnnounce("WarnPortalOpen", 4, 72483)
 local specWarnLayWaste	= mod:NewSpecialWarningSpell(71730)
 local specWarnManaVoid	= mod:NewSpecialWarningMove(71741)
 
-local specWarnSuppresserOne			= mod:NewSpecialWarning("Suppressors")
-local specWarnSuppresserTwo			= mod:NewSpecialWarning("Suppressors")
-local specWarnSuppresserThree		= mod:NewSpecialWarning("Suppressors")
-local specWarnSuppresserFour		= mod:NewSpecialWarning("Suppressors")
+local specWarnSuppresserOne			= mod:NewSpecialWarning("Подавители")
+local specWarnSuppresserTwo			= mod:NewSpecialWarning("Подавители")
+local specWarnSuppresserThree		= mod:NewSpecialWarning("Подавители")
+local specWarnSuppresserFour		= mod:NewSpecialWarning("Подавители")
 
 local timerLayWaste		= mod:NewBuffActiveTimer(12, 69325)
 local timerNextPortal	= mod:NewCDTimer(46.5, 72483, nil)
@@ -43,10 +43,10 @@ local timerCorrosion	= mod:NewTargetTimer(6, 70751, nil, false)
 local timerBlazingSkeleton	= mod:NewTimer(50, "TimerBlazingSkeleton", 17204)
 local timerAbom				= mod:NewTimer(50, "TimerAbom", 43392)--Experimental
 
-local timerSuppresserOne	= mod:NewTimer(72, "1st wave of Suppressors")
-local timerSuppresserTwo	= mod:NewTimer(60, "2nd wave of Suppressors")
-local timerSuppresserThree	= mod:NewTimer(60, "3rd wave of Suppressors")
-local timerSuppresserFour	= mod:NewTimer(60, "4th wave of Suppressors")
+local timerSuppresserOne	= mod:NewTimer(72, "1 волна Подавителей")
+local timerSuppresserTwo	= mod:NewTimer(60, "2 волна Подавителей")
+local timerSuppresserThree	= mod:NewTimer(60, "3 волна Подавителей")
+local timerSuppresserFour	= mod:NewTimer(60, "4 волна Подавителей")
 
 local berserkTimer		= mod:NewBerserkTimer(420)
 
@@ -101,7 +101,7 @@ function mod:OnCombatStart(delay)
 	timerSuppresserFour:Schedule(182)
 	specWarnSuppresserOne:Schedule(73)
 	specWarnSuppresserTwo:Schedule(132)
-	specWarnSuppresserThree:Schedule(187)
+	specWarnSuppresserThree:Schedule(190)
 	specWarnSuppresserFour:Schedule(242)
 end
 
