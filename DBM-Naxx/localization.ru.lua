@@ -348,7 +348,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	EmoteBreath			= "%s делает глубокий вдох.",
+	EmoteBreath			= "%s глубоко вдыхает.",
 	WarningYellIceblock	= "Я в Ледяной глыбе!"
 })
 
