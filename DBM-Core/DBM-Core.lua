@@ -2615,7 +2615,7 @@ do
 		--print("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
 		--Do scan
 		if targetname and targetname ~= "неизвестно" and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
-			if not IsInRaid() then scanTimes = 1 end --Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
+			if (GetNumRaidMembers() == 0) then scanTimes = 1 end --Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
 			if (isEnemyScan and UnitIsFriend("player", targetuid) or (onlyPlayers and not UnitIsPlayer("player", targetuid)) or self:IsTanking(targetuid, bossuid)) and not isFinalScan then--On player scan, ignore tanks. On enemy scan, ignore friendly player. On Only player, ignore npcs and pets
 				if targetScanCount[cidOrGuid] < scanTimes then--Make sure no infinite loop.
 					self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, nil, targetFilter, tankFilter, onlyPlayers)--Scan multiple times to be sure it's not on something other then tank (or friend on enemy scan, or npc/pet on only person)
