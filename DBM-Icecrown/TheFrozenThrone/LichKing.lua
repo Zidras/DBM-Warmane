@@ -167,6 +167,14 @@ function mod:TrapTarget(targetname, uId)
 			local inRange = CheckInteractDistance(uId, 2)
 			if inRange then
 				specWarnTrapNear:Show(targetname)
+				if self.Options.TrapArrow then
+					local x, y = GetPlayerMapPosition(uId)
+						if x == 0 and y == 0 then
+							SetMapToCurrentZone()
+							x, y = GetPlayerMapPosition(uId)
+						end
+					DBM.Arrow:ShowRunAway(x, y, 10, 5)
+				end
 			end
 		end
 	end
