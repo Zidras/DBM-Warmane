@@ -115,7 +115,7 @@ local plagueExpires = {}
 local lastPlague
 
 function mod:RestoreWipeTime(self)
-	self:SetWipeTime(5) --Restore it after frostmourn room.
+	mod:SetWipeTime(5) --Restore it after frostmourn room.
 end
 
 function mod:OnCombatStart(delay)
