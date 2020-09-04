@@ -191,10 +191,7 @@ local GetSpellInfo = GetSpellInfo
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 -- these global functions are accessed all the time by the event handler
 -- so caching them is worth the effort
-local ipairs, pairs, next = ipairs, pairs, next
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
-local type = type
-local select = select
 local floor = math.floor
 
 -- for Phanx' Class Colors

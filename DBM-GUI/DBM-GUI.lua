@@ -1725,8 +1725,12 @@ local function CreateOptionsMenu()
 		-- SpecialWarn Sound
 		local Sounds = {
 			{	text	= L.NoSound,		value	= "" },
-			{	text	= "Default",		value 	= "Sound\\Spells\\PVPFlagTaken.wav", 		sound=true },
-			{	text	= "NightElfBell",	value 	= "Sound\\Doodad\\BellTollNightElf.wav", 	sound=true }
+			{	text	= "Default",		value 	= "Sound\\Spells\\PVPFlagTaken.wav",					sound=true },
+			{	text	= "NightElfBell",	value 	= "Sound\\Doodad\\BellTollNightElf.wav",				sound=true },
+			{	text	= "Beware",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg",	sound=true },
+			{	text	= "Alert",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3",		sound=true },
+			{	text	= "Info",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3",		sound=true },
+			{	text	= "Long",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3",		sound=true }
 		}
 		if GetSharedMedia3() then
 			for k,v in next, GetSharedMedia3():HashTable("sound") do
