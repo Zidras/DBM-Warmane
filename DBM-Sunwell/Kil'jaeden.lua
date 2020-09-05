@@ -83,7 +83,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args:IsPlayer() then
 			specWarnBloom:Show()
-			SendChatMessage("Fire Bloom on ME!", "SAY")
+			SendChatMessage("Огненный Цветок на мне!", "SAY")
 		end
 		if #warnBloomTargets >= 5 then
 			showBloomTargets()

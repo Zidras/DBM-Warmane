@@ -30,6 +30,7 @@ local timerGasSpore			= mod:NewBuffActiveTimer(12, 69279)
 local timerVileGas			= mod:NewBuffActiveTimer(6, 71218, nil, mod:IsRanged())
 local timerGasSporeCD		= mod:NewNextTimer(40, 69279)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
 local timerPungentBlight	= mod:NewNextTimer(33, 71219)		-- 33 seconds after 3rd stack of inhaled
+local soundPungentBlight 	= mod:NewSound5(71219)
 local timerInhaledBlight	= mod:NewNextTimer(34, 71912)		-- 34 seconds'ish
 local timerGastricBloat		= mod:NewTargetTimer(100, 72551, nil, true)	-- 100 Seconds until expired
 local timerGastricBloatCD	= mod:NewCDTimer(11, 72551, nil, true) 		-- 10 to 14 seconds
@@ -163,6 +164,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if (args.amount or 1) >= 3 then
 			specWarnInhaled3:Show(args.amount)
 			timerPungentBlight:Start()
+			soundPungentBlight:Schedule(33-5)
 		end
 		if (args.amount or 1) <= 2 then	--Prevent timer from starting after 3rd stack since he won't cast it a 4th time, he does Pungent instead.
 			timerInhaledBlight:Start()

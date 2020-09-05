@@ -224,15 +224,13 @@ function mod:SPELL_CAST_START(args)
 		specWarnInfest:Show()
 		timerInfestCD:Start()
 	elseif args:IsSpellID(72762) then -- Defile
-		self:ScheduleMethod(0.04, "BossTargetScanner", 36597, "DefileTarget", 0.02, 15)
-		--self:BossTargetScanner(36597, "DefileTarget", 0.1, 5)
+		self:ScheduleMethod(0.08, "BossTargetScanner", 36597, "DefileTarget", 0.01, 10)
 		warnDefileSoon:Cancel()
 		warnDefileSoon:Schedule(27)
 		timerDefileCD:Start()
 		soundDefile3:Schedule(32.5-3)
 	elseif args:IsSpellID(73539) then -- Shadow Trap (Heroic)
-		self:ScheduleMethod(0.02, "BossTargetScanner", 36597, "TrapTarget", 0.01, 15)
-		--self:BossTargetScanner(36597, "TrapTarget", 0.2, 3)
+		self:ScheduleMethod(0.05, "BossTargetScanner", 36597, "TrapTarget", 0.01, 10)
 		timerTrapCD:Start()
 	elseif args:IsSpellID(73650) then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
@@ -315,7 +313,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerDefileCD:Cancel()
 		soundDefile3:Cancel()
 		warnDefileSoon:Cancel()
-		self:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
+		mod:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
 		self:ScheduleMethod(50, "RestoreWipeTime")
 	end
 end

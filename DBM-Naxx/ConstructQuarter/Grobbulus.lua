@@ -22,6 +22,7 @@ local specWarnInjection	= mod:NewSpecialWarning("SpecialWarningInjection")
 
 local timerInjection	= mod:NewTargetTimer(10, 28169)
 local timerCloud		= mod:NewNextTimer(15, 28240)
+local soundCloud		= mod:NewSound3(28240, nil, mod:IsMelee() or mod:IsTank())
 local enrageTimer		= mod:NewBerserkTimer(720)
 
 mod:AddBoolOption("SetIconOnInjectionTarget", true)
@@ -62,7 +63,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerInjection:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnInjection:Show()
-			SendChatMessage("Mutating Injection on me!", "SAY")
+			SendChatMessage("Мутагенный укол на мне!", "SAY")
 		end
 		if self.Options.SetIconOnInjectionTarget then
 			table.insert(mutateIcons, args.destName)
@@ -84,5 +85,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(28240) then
 		warnCloud:Show()
 		timerCloud:Start()
+		soundCloud:Schedule(15-3)
 	end
 end

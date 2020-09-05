@@ -37,6 +37,8 @@ local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815, "TimerSpeedKill")
 
+local soundSpecial					= mod:NewSound5(66058, "SpecialSpellSoundCountdown")
+
 mod:AddBoolOption("SpecialWarnOnDebuff", false, "announce")
 mod:AddBoolOption("SetIconOnDebuffTarget", true)
 mod:AddBoolOption("HealthFrame", true)
@@ -48,6 +50,7 @@ local debuffIcon					= 8
 function mod:OnCombatStart(delay)
 	timerSpecial:Start(-delay)
 	warnSpecial:Schedule(40-delay)
+	soundSpecial:Schedule(40-delay)
 	timerAchieve:Start(-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		enrageTimer:Start(360-delay)
@@ -88,6 +91,7 @@ function mod:SpecialAbility(debuff)
 	end
 	timerSpecial:Start()
 	warnSpecial:Schedule(40)
+	soundSpecial:Schedule(40)
 end
 
 function mod:resetDebuff()

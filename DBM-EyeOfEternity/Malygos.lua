@@ -119,7 +119,7 @@ function mod:StaticFieldTarget()
 	local announcetarget = guids[targetGuid]
 	if announcetarget == UnitName("player") then
 		specWarnStaticField:Show()
-		SendChatMessage("Static Field on me!", "YELL")
+		SendChatMessage("Статическое поле на мне!", "YELL")
 	else
 		local uId2 = DBM:GetRaidUnitId(announcetarget)
 		if uId2 then

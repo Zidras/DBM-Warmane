@@ -188,6 +188,7 @@ L:SetMiscLocalization{
 
 L:SetOptionLocalization{
 	TimerSpecialSpell			= "Отсчет времени до перезарядки спец-способности",
+	SpecialSpellSoundCountdown	= "5-секундный звуковой отсчет до следующей спец-способности",
 	WarnSpecialSpellSoon		= "Предупреждение о следующуюей спец-способность",
 	SpecWarnSpecial				= "Спец-предупреждение для смены цветов",
 	SpecWarnSwitchTarget		= "Спец-предупреждение для других, когда босс читает заклинание",
