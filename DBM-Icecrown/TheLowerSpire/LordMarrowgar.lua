@@ -32,6 +32,8 @@ local timerBoned			= mod:NewAchievementTimer(8, 4610, "AchievementBoned")
 local berserkTimer			= mod:NewBerserkTimer(600)
 
 local soundWhirlwind = mod:NewSound(69076)
+local soundWhirlwind5 = mod:NewSound5(69076)
+
 mod:AddBoolOption("SetIconOnImpale", true)
 
 local impaleTargets = {}
@@ -46,6 +48,7 @@ end
 function mod:OnCombatStart(delay)
 	preWarnWhirlwind:Schedule(40-delay)
 	timerWhirlwindCD:Start(45-delay)
+	soundWhirlwind5:Schedule(40-delay)
 	timerBoneSpike:Start(15-delay)
 	berserkTimer:Start(-delay)
 	table.wipe(impaleTargets)
@@ -55,6 +58,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(69076) then			-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		timerWhirlwindCD:Start()
+		soundWhirlwind5:Schedule(85)
 		preWarnWhirlwind:Schedule(85)
 		timerWhirlwind:Show()
 		soundWhirlwind:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")

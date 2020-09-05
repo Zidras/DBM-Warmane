@@ -191,7 +191,8 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT		= "Set icons on $spell:%d targets"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT		= "Play sound on $spell:%d"
-
+DBM_CORE_AUTO_SOUND_OPTION_TEXT5	= "5-секундный звуковой отсчет до $spell:%d"
+DBM_CORE_AUTO_SOUND_OPTION_TEXT5	= "3-секундный звуковой отсчет до $spell:%d"
 
 -- New special warnings
 DBM_CORE_MOVE_SPECIAL_WARNING_BAR	= "Special warning movable"

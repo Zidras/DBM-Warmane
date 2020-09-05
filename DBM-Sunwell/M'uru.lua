@@ -30,36 +30,17 @@ local timerHuman		= mod:NewTimer(60, "TimerHuman")
 local timerVoid			= mod:NewTimer(30, "TimerVoid", 46087)
 local timerNextDarkness	= mod:NewNextTimer(45, 45996)
 local timerBlackHoleCD	= mod:NewCDTimer(15, 46282)
-local timerPhase		= mod:NewTimer(10, "TimerPhase", 46087)
+local timerPhase		= mod:NewTimer(6, "TimerPhase", 46087)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 local soundDarkness		= mod:NewSound(45996)
 local soundBH			= mod:NewSound(46282)
-mod:AddBoolOption("SoundWarnCountingDS", true)
+local soundBH3			= mod:NewSound3(46282)
+local soundDS5			= mod:NewSound5(45996)
 
 local humanCount = 1
 local voidCount = 1
 local warned_phase2 = false
-
-function mod:ToDS5()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-end
-
-function mod:ToDS4()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-end
-
-function mod:ToDS3()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-end
-
-function mod:ToDS2()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-end
-
-function mod:ToDS1()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-end
 
 local function phase2()
 	mod.vb.phase = 2
@@ -67,12 +48,8 @@ local function phase2()
 	warned_phase2 = true
 	mod:UnscheduleMethod("HumanSpawn")
 	mod:UnscheduleMethod("VoidSpawn")
-	mod:UnscheduleMethod("ToDS5")
-	mod:UnscheduleMethod("ToDS4")
-	mod:UnscheduleMethod("ToDS3")
-	mod:UnscheduleMethod("ToDS2")
-	mod:UnscheduleMethod("ToDS1")
-	timerBlackHoleCD:Start(11)
+	timerBlackHoleCD:Start(15)
+	soundBH3:Schedule(15-3)
 	if mod.Options.HealthFrame then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(25840, L.Entropius)
@@ -104,13 +81,7 @@ function mod:OnCombatStart(delay)
 	specWarnVW:Schedule(31.5)
 	timerNextDarkness:Start(47-delay)
 	specWarnDarknessSoon:Schedule(42)
-	if self.Options.SoundWarnCountingMC then
-		self:ScheduleMethod(42, "ToDS5")
-		self:ScheduleMethod(43, "ToDS4")
-		self:ScheduleMethod(44, "ToDS3")
-		self:ScheduleMethod(45, "ToDS2")
-		self:ScheduleMethod(46, "ToDS1")
-	end
+	soundDS5:Schedule(42)
 	soundDarkness:Schedule(47,"Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 	self:ScheduleMethod(10, "HumanSpawn")
 	self:ScheduleMethod(36.5, "VoidSpawn")
@@ -122,13 +93,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnDarkness:Show()
 		specWarnVoid:Show()
 		timerNextDarkness:Start()
-		if self.Options.SoundWarnCountingMC then
-			self:ScheduleMethod(40, "ToDS5")
-			self:ScheduleMethod(41, "ToDS4")
-			self:ScheduleMethod(42, "ToDS3")
-			self:ScheduleMethod(43, "ToDS2")
-			self:ScheduleMethod(44, "ToDS1")
-		end
+		soundDS5:Schedule(40)
 		soundDarkness:Schedule(45,"Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		specWarnDarknessSoon:Schedule(40)
 	end
@@ -140,9 +105,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNextDarkness:Cancel()
 		timerHuman:Cancel()
 		timerVoid:Cancel()
+		specWarnVW:Cancel()
 		timerPhase:Start()
 		specWarnDarknessSoon:Cancel()
 		soundDarkness:Cancel()
+		soundDS5:Cancel()
 		self:Schedule(6, phase2)
 	end
 end
@@ -150,11 +117,12 @@ end
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 46268 then
 		warnFiend:Show()
-	elseif args.spellId == 46282 then
+	elseif args.spellId == 46282 and self:AntiSpam(2, 1) then
 		warnBlackHole:Show()
 		specWarnBH:Show()
-		soundDarkness:Schedule(0.1, "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+		soundDarkness:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		timerBlackHoleCD:Start()
+		soundBH3:Schedule(12)
 	end
 end
 
@@ -172,6 +140,7 @@ function mod:UNIT_HEALTH(uId)
 		timerVoid:Cancel()
 		specWarnDarknessSoon:Cancel()
 		soundDarkness:Cancel()
+		soundDS5:Cancel()
 		phase2()
 	end
 end

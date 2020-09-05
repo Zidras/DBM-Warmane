@@ -125,7 +125,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
-		timerVileGasCD:Start()
+		timerVileGasCD:Start(25)
 		RFVileGasTargets[#RFVileGasTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
@@ -139,7 +139,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(72272, 72273) then
-		--timerVileGasCD:Start() -- tentative moved to SPELL_AURA_APPLIED
+		timerVileGasCD:Start() -- tentative moved to SPELL_AURA_APPLIED
 	end
 end
 

@@ -3046,6 +3046,77 @@ do
 	end	
 end
 
+do
+	local soundPrototype5 = {}
+	local mt = { __index = soundPrototype5 }
+	function bossModPrototype:NewSound5(spellId, optionName, optionDefault)
+		self.numSounds = self.numSounds and self.numSounds + 1 or 1
+		local obj = setmetatable(
+			{
+				option = optionName or DBM_CORE_AUTO_SOUND_OPTION_TEXT5:format(spellId),
+				mod = self,
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "misc")
+		end
+		return obj
+	end
+	
+	function soundPrototype5:Play(file)
+		if not self.option or self.mod.Options[self.option] then
+			PlaySoundFile(file or "Interface\\AddOns\\DBM-Core\\sounds\\5to1.mp3", "Master")
+		end
+	end
+
+	function soundPrototype5:Schedule(t, ...)
+		return schedule(t, self.Play, self.mod, self, ...)
+	end
+
+	function soundPrototype5:Cancel(...)
+		return unschedule(self.Play, self.mod, self, ...)
+	end	
+end
+
+do
+	local soundPrototype3 = {}
+	local mt = { __index = soundPrototype3 }
+	function bossModPrototype:NewSound3(spellId, optionName, optionDefault)
+		self.numSounds = self.numSounds and self.numSounds + 1 or 1
+		local obj = setmetatable(
+			{
+				option = optionName or DBM_CORE_AUTO_SOUND_OPTION_TEXT3:format(spellId),
+				mod = self,
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "misc")
+		end
+		return obj
+	end
+	
+	function soundPrototype3:Play(file)
+		if not self.option or self.mod.Options[self.option] then
+			PlaySoundFile(file or "Interface\\AddOns\\DBM-Core\\sounds\\3to1.mp3", "Master")
+		end
+	end
+
+	function soundPrototype3:Schedule(t, ...)
+		return schedule(t, self.Play, self.mod, self, ...)
+	end
+
+	function soundPrototype3:Cancel(...)
+		return unschedule(self.Play, self.mod, self, ...)
+	end	
+end
+
+
 ------------------------------
 --  Special Warning Object  --
 ------------------------------

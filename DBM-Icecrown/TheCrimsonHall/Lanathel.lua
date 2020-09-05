@@ -45,7 +45,7 @@ local timerEssenceoftheBloodQueen	= mod:NewBuffActiveTimer(60, 71473)
 local berserkTimer					= mod:NewBerserkTimer(330)
 
 local soundSwarmingShadows			= mod:NewSound(71266)
-
+local soundPact3					= mod:NewSound3(71340)
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
@@ -59,6 +59,7 @@ local function warnPactTargets()
 	warnPactDarkfallen:Show(table.concat(pactTargets, "<, >"))
 	table.wipe(pactTargets)
 	timerNextPactDarkfallen:Start(30)
+	soundPact3:Schedule(27)
 	pactIcons = 6
 end
 
@@ -66,6 +67,7 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerFirstBite:Start(-delay)
 	timerNextPactDarkfallen:Start(15-delay)
+	soundPact3:Schedule(12-delay)
 	timerNextSwarmingShadows:Start(-delay)
 	table.wipe(pactTargets)
 	pactIcons = 6
@@ -162,6 +164,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerInciteTerror:Start()
 		timerNextSwarmingShadows:Start()--This resets the swarming shadows timer
 		timerNextPactDarkfallen:Start(25)--and the Pact timer also reset -5 seconds
+		soundPact3:Cancel()
+		soundPact3:Schedule(22)
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 			timerNextInciteTerror:Start(120)--120 seconds in between first and second on 10 man
 		else
