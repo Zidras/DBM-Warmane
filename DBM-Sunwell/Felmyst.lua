@@ -14,8 +14,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_SUMMON",
 	"RAID_BOSS_EMOTE",
-	"UNIT_SPELLCAST_SUCCEEDED",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+	"UNIT_AURA"
 )
 
 local warnGas				= mod:NewSpellAnnounce(45855, 3)
@@ -43,6 +43,9 @@ local berserkTimer			= mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("EncapsIcon", true)
 mod:AddBoolOption("VaporIcon", true)
+
+
+local encaura = GetSpellInfo(45665)
 
 local breathCounter = 0
 local pull = 0
@@ -138,14 +141,13 @@ function mod:RAID_BOSS_EMOTE(msg)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
-	if (spellName == GetSpellInfo(45665) or spellName == GetSpellInfo(45661)) and self:AntiSpam(2, 1) then
-		self:SendSync("Encapsulate")
-	end
-end
 
-function mod:OnSync(event, arg)
-	if event == "Encapsulate" then
-		self:BossTargetScanner(25038, "EncapsulateTarget", 0.025, 20)
+function mod:UNIT_AURA(uId)
+	local name = GetUnitName(uId)
+	if (not name) then return end
+	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, encaura)
+	if not spellId or not expires then return end
+	if (spellId == 45665 or spellId == 45661) and expires > 0 and self:AntiSpam(3, 1) then
+		mod:EncapsulateTarget(name, uId)
 	end
 end

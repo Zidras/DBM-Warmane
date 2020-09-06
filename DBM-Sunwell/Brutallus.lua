@@ -7,6 +7,8 @@ mod:SetZone()
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
+mod:RegisterCombat("yell", L.YellPull)
+
 mod.disableHealthCombat = true
 
 
@@ -15,7 +17,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
-	"SPELL_MISSED"
+	"SPELL_MISSED",
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 local warnMeteor		= mod:NewSpellAnnounce(45150, 3)
@@ -49,6 +52,9 @@ function mod:OnCombatStart(delay)
 	timerBurnCD:Start(-delay)
 	timerStompCD:Start(-delay)
 	berserkTimer:Start(-delay)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(5, nil)
+	end
 end
 
 function mod:OnCombatEnd()
@@ -74,13 +80,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args:IsPlayer() then
 			specWarnBurn:Show()
-		end
-		if self.Options.RangeFrame then
-			if UnitDebuff("player", GetSpellInfo(46394)) then--You have debuff, show everyone
-				DBM.RangeCheck:Show(10, nil)
-			else--You do not have debuff, only show players who do
-				DBM.RangeCheck:Show(10, DebuffFilter)
-			end
+			SendChatMessage("Огонь на МНЕ!", "YELL")
 		end
 	elseif args.spellId == 45185 then
 		warnStomp:Show(args.destName)

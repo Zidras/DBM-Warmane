@@ -57,6 +57,7 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	BurnIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(46394),
+	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(4, 46394),
 	BurnWhisper		= "Шепот целям заклинания $spell:46394 (нужен РЛ)"
 }
 
