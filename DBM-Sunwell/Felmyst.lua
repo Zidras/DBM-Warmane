@@ -147,7 +147,7 @@ function mod:UNIT_AURA(uId)
 	if (not name) then return end
 	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, encaura)
 	if not spellId or not expires then return end
-	if (spellId == 45665 or spellId == 45661) and expires > 0 and self:AntiSpam(3, 1) then
+	if (spellId == 45665 or spellId == 45661) and expires > 0 and self:AntiSpam(10, 1) then
 		mod:EncapsulateTarget(name, uId)
 	end
 end
