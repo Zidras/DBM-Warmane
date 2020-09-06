@@ -356,7 +356,7 @@ do
 					local spellinfo, _, icon = GetSpellInfo(spellid)
 					local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
 					if (spellid == 34477 or spellid == 57934) and (fromplayer == toplayer) then 
-						DBM:AddMsg("bar removed 34477/57934")
+						--skip
 					else
 						SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
 						if settings.showlocal then
