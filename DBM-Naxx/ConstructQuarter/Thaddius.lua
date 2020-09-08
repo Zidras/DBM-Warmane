@@ -27,12 +27,12 @@ local timerShiftCast		= mod:NewCastTimer(3, 28089)
 local timerThrow			= mod:NewNextTimer(20.6, 28338)
 
 local soundShiftWarn		= mod:NewSound(28089)
+local soundShift3			= mod:NewSound3(28089)
 
 mod:AddBoolOption("ArrowsEnabled", false, "Arrows")
 mod:AddBoolOption("ArrowsRightLeft", false, "Arrows")
 mod:AddBoolOption("ArrowsInverse", false, "Arrows")
 mod:AddBoolOption("HealthFrame", true)
-mod:AddBoolOption("SoundWarnCountingShift", true)
 
 mod:SetBossHealthInfo(
 	15930, L.Boss1,
@@ -53,39 +53,13 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 end
 
-function mod:ToShift5()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-end
-
-function mod:ToShift4()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-end
-
-function mod:ToShift3()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-end
-
-function mod:ToShift2()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-end
-
-function mod:ToShift1()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-end
-
 local lastShift = 0
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(28089) then
 		phase2 = true
 		self.vb.phase = 2
 		timerNextShift:Start()
-		if mod.Options.SoundWarnCountingShift then
-			mod:ScheduleMethod(25, "ToShift5")
-			mod:ScheduleMethod(26, "ToShift4")
-			mod:ScheduleMethod(27, "ToShift3")
-			mod:ScheduleMethod(28, "ToShift2")
-			mod:ScheduleMethod(29, "ToShift1")
-		end
+		soundShift3:Schedule(27)
 		timerShiftCast:Start()
 		soundShiftWarn:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		warnShiftCasting:Show()

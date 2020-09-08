@@ -21,7 +21,7 @@ local warnSpidersNow	= mod:NewAnnounce("WarningSpidersNow", 4, 17332)
 
 local timerWebSpray		= mod:NewNextTimer(29.5, 29484)
 local timerSpider		= mod:NewTimer(30, "TimerSpider", 17332)
-local soundWebSpray		= mod:NewTimer3(29484)
+local soundWebSpray		= mod:NewSound3(29484)
 
 
 function mod:OnCombatStart(delay)

@@ -236,7 +236,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) then
-		if not mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
+		if mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
 			mod:UnWKT()
 			self:ScheduleMethod(59, "UnWKT")
 		end
