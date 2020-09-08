@@ -110,13 +110,16 @@ function mod:UNIT_AURA(elapsed)
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg == L.Emote or msg == L.Emote2 then
+	print(msg)
+	if msg:match(L.Emote) or msg:match(L.Emote2) or msg:find(L.Emote) or msg:find(L.Emote2) or msg == L.Emote or msg == L.Emote2 then
 		down = down + 1
+		print("down "..down)
 		if down >= 2 then
 			self:UnscheduleMethod("TankThrow")
 			timerThrow:Cancel()
 			warnThrowSoon:Cancel()
 			DBM.BossHealth:Hide()
+			print('enragetimer next')
 			enrageTimer:Start()
 		end
 	end
