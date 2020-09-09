@@ -474,8 +474,13 @@ function mod:NextPhase()
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
 		timerDrudgeGhouls:Start(10)
-		timerNecroticPlagueCD:Start(30)
-		soundPlague3:Schedule(27)
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			timerNecroticPlagueCD:Start(30)
+			soundPlague3:Schedule(27)
+		else
+			timerNecroticPlagueCD:Start(27)
+			soundPlague3:Schedule(24)
+		end
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerTrapCD:Start()
 		end
