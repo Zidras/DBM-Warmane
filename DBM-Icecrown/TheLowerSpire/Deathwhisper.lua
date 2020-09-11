@@ -42,6 +42,7 @@ local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, canPurge)
 local specWarnDarkMartyrdom			= mod:NewSpecialWarningMove(72499, true)
 local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
+local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
 --[[local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131)]]--
 local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131)
@@ -61,6 +62,7 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
+mod:AddBoolOption("BlockWeapons", false)
 
 local lastDD	= 0
 local dominateMindTargets	= {}
@@ -86,7 +88,8 @@ function mod:OnCombatStart(delay)
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 		soundWarnMC:Schedule(25)
-		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+		if mod.Options.EqUneqWeapons and not mod:IsTank() and not mod.Options.BlockWeapons then
+			specWarnWeapons:Show()
 			mod:ScheduleMethod(29, "UnW")
 		end
 	end
@@ -141,20 +144,22 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 end
 
 function mod:UnW()
-   if self:IsWeaponDependent("player") then
+   if self:IsWeaponDependent("player") and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons then
         PickupInventoryItem(16)
         PutItemInBackpack()
         PickupInventoryItem(17)
         PutItemInBackpack()
-    elseif isHunter then
+    elseif isHunter and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons then
         PickupInventoryItem(18)
         PutItemInBackpack()
     end
 end
 
 function mod:EqW()
-	print("trying to equip pve")
-	UseEquipmentSet("pve")
+	if mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons then
+		print("trying to equip pve")
+		UseEquipmentSet("pve")
+	end
 end
 
 function mod:TrySetTarget()

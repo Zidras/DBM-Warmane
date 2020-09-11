@@ -42,7 +42,7 @@ DBM_CORE_VERSIONCHECK_HEADER		= "Deadly Boss Mods - версии"
 DBM_CORE_VERSIONCHECK_ENTRY			= "%s: %s (r%d)"
 DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s: DBM не установлен"
 DBM_CORE_VERSIONCHECK_FOOTER		= "Найдено %d |4игрок:игрока:игроков; с установленным Deadly Boss Mods"
-DBM_CORE_YOUR_VERSION_OUTDATED      = "Ваша версия Deadly Boss Mods устарела! Пожалуйста, посетите www.deadlybossmods.com для загрузки последней версии."
+DBM_CORE_YOUR_VERSION_OUTDATED      = "Ваша версия Deadly Boss Mods устарела! Пожалуйста, посетите https://github.com/ArsumPB/DBM-wowcircle для загрузки последней версии."
 
 DBM_CORE_UPDATEREMINDER_HEADER		= "Ваша версия Deadly Boss Mods устарела.\n Версия %s (r%d) доступна для загрузки здесь:"
 DBM_CORE_UPDATEREMINDER_FOOTER		= "Нажмите CTRL+C, чтобы скопировать ссылку загрузки в буфер обмена."
@@ -83,7 +83,9 @@ DBM_LFG_INVITE						= "Приглашение в подземелье"
 
 DBM_CORE_SLASHCMD_HELP				= {
 	"Доступные (/) команды:",
+	"/dbm pull: начинает отсчет атаки (псевдоним: /pull)",
 	"/dbm version: выполнение проверки используемой рейдом версии (псевдоним: ver)",
+	"/dbm ver2: выполнение проверки используемой рейдом версии (отчет в рейд чат)",
 	"/dbm unlock: отображение перемещаемой строки состояния таймера (псевдоним: move)",
 	"/dbm timer <x> <text>: начинает отсчет <x> сек. Pizza Timer с именем <text>",
 	"/dbm broadcast timer <x> <text>: транслирует <x> сек. Pizza Timer с именем <text> в рейд (требуются права лидера или помощника)",

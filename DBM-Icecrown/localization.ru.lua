@@ -137,7 +137,8 @@ L:SetWarningLocalization{
 	WarnReanimating				= "Помощник воскрешается",			-- Reanimating an adherent or fanatic
 	WarnTouchInsignificance		= "%s на |3-5(>%s<) (%d)",		-- Touch of Insignificance on >args.destName< (args.amount)
 	WarnAddsSoon				= "Скоро призыв помощников",
-	SpecWarnVengefulShade		= "Мстительный дух атакует вас - бегите"--creatureid 38222
+	SpecWarnVengefulShade		= "Мстительный дух атакует вас - бегите", --creatureid 38222
+	WeaponsStatus				= "Cнятие оружий включено",
 }
 
 L:SetOptionLocalization{
@@ -145,13 +146,16 @@ L:SetOptionLocalization{
 	WarnReanimating				= "Предупреждение при воскрешении помощников",											-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Отсчет времени до призыва помощников",
 	SpecWarnVengefulShade		= "Спец-предупреждение, когда вас атакует Мстительный дух",--creatureid 38222
+	WeaponsStatus				= "Спец-предупреждение в начале боя если включена функция снятия/надевания оружий",
 	ShieldHealthFrame			= "Показывать здоровье босса с индикатором здоровья для \n$spell:70842",
 	WarnTouchInsignificance		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),	
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Проигрывать звуковой отсчет 5...1 до контроля разума",
-	EqUneqWeapons				= "Снимать/надевать оружия перед/после контроля. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен."
+	EqUneqWeapons				= "Снимать/надевать оружия перед/после контроля. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен.",
+	BlockWeapons				= "Полностью заблокировать функцию снятия/надевания выше (выкл по ум.)",
+
 }
 
 L:SetMiscLocalization{
