@@ -50,11 +50,6 @@ function mod:Adds()
 	self:ScheduleMethod(60, "Adds")
 end
 
-function mod:OnCombatEnd()
-	soundFreeze:Cancel()
-end
-
-
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
 	timerCombatStart:Show(-delay)
@@ -63,20 +58,17 @@ function mod:OnCombatStart(delay)
 		warnAddsSoon:Schedule(57)
 		self:ScheduleMethod(62, "Adds")
 		timerBelowZeroCD:Start(85-delay)--This doesn't make sense. Need more logs to verify
-		soundFreeze:Schedule(85-delay)
 	else
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerAdds:Start(63-delay)
 			warnAddsSoon:Schedule(58)
 			self:ScheduleMethod(63, "Adds")
-			timerBelowZeroCD:Start(102-delay)--This doesn't make sense. Need more logs to verify
-			soundFreeze:Schedule(102-delay)
+			timerBelowZeroCD:Start(82-delay)--This doesn't make sense. Need more logs to verify
 		else
 			timerAdds:Start(57-delay)
 			warnAddsSoon:Schedule(52)
 			self:ScheduleMethod(57, "Adds")
 			timerBelowZeroCD:Start(75-delay)--This doesn't make sense. Need more logs to verify
-			soundFreeze:Schedule(75-delay)
 		end
 	end
 end
@@ -94,6 +86,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnWoundingStrike:Show(args.destName)
 	elseif args:IsSpellID(72306, 69638) and ((UnitFactionGroup("player") == "Alliance" and mod:GetCIDFromGUID(args.destGUID) == 36939) or (UnitFactionGroup("player") == "Horde" and mod:GetCIDFromGUID(args.destGUID) == 37200)) then
 		timerBattleFuryActive:Start()		-- only a timer for 1st stack
+	elseif args:IsSpellID(69705) and self:AntiSpam(1, 1) then
+		soundFreeze:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	end
 end
 
@@ -109,7 +103,6 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(69705) then
 		timerBelowZeroCD:Start()
-		soundFreeze:Schedule(35)
 	end
 end
 

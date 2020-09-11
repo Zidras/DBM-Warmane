@@ -126,9 +126,11 @@ function mod:SPELL_AURA_APPLIED(args)
 				InfectionIcon = 8
 			end
 		end
-	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() and self:AntiSpam(6, 1) then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
+	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
 		timerVileGasCD:Start(25)
-		soundVileGas:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+		if self:AntiSpam(6, 1) then
+			soundVileGas:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+		end
 		RFVileGasTargets[#RFVileGasTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
@@ -141,9 +143,11 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(72272, 72273) and self:AntiSpam(6, 1) then
+	if args:IsSpellID(72272, 72273) then
 		timerVileGasCD:Start()
-		soundVileGas:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+		if self:AntiSpam(6, 1) then
+			soundVileGas:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+		end
 	end
 end
 
