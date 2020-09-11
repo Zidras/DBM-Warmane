@@ -46,6 +46,8 @@ local berserkTimer					= mod:NewBerserkTimer(330)
 
 local soundSwarmingShadows			= mod:NewSound(71266)
 local soundPact3					= mod:NewSound3(71340)
+local soundBloodthirst				= mod:NewSound5(71474)
+
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
@@ -85,6 +87,7 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
+	soundBloodthirst:Cancel()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -128,9 +131,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 				timerEssenceoftheBloodQueen:Start(75)--75 seconds on 10 man
 				warnBloodthirstSoon:Schedule(70)
+				soundBloodthirst:Schedule(70)
 			else
 				timerEssenceoftheBloodQueen:Start()--60 seconds on 25 man
 				warnBloodthirstSoon:Schedule(55)
+				soundBloodthirst:Schedule(55)
 			end
 		end
 	elseif args:IsSpellID(70923) then

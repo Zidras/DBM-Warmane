@@ -43,6 +43,8 @@ local timerOozeExplosion		= mod:NewCastTimer(4, 69839)
 local timerVileGasCD			= mod:NewNextTimer(30, 72272)
 
 local soundMutatedInfection		= mod:NewSound(71224)
+local soundVileGas				= mod:NewSound(72272)
+
 mod:AddBoolOption("RangeFrame", mod:IsRanged())
 mod:AddBoolOption("InfectionIcon", true)
 mod:AddBoolOption("TankArrow")
@@ -124,8 +126,9 @@ function mod:SPELL_AURA_APPLIED(args)
 				InfectionIcon = 8
 			end
 		end
-	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
+	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() and self:AntiSpam(6, 1) then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
 		timerVileGasCD:Start(25)
+		soundVileGas:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 		RFVileGasTargets[#RFVileGasTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
@@ -138,8 +141,9 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(72272, 72273) then
-		timerVileGasCD:Start() -- tentative moved to SPELL_AURA_APPLIED
+	if args:IsSpellID(72272, 72273) and self:AntiSpam(6, 1) then
+		timerVileGasCD:Start()
+		soundVileGas:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	end
 end
 

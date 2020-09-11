@@ -54,7 +54,7 @@ local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
 local soundEmpoweredV			= mod:NewSound(72039)
-
+local soundSwitch				= mod:NewSound(70952)
 mod:AddBoolOption("EmpoweredFlameIcon", true)
 mod:AddBoolOption("ActivePrinceIcon", false)
 mod:AddBoolOption("RangeFrame", true)
@@ -165,6 +165,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70952) and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Valanar)
+		soundSwitch:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 		warnTargetSwitchSoon:Schedule(42)
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
@@ -173,6 +174,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(70981) and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Keleseth)
+		soundSwitch:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 		warnTargetSwitchSoon:Schedule(42)
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
@@ -181,6 +183,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(70982) and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
+		soundSwitch:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 		warnTargetSwitchSoon:Schedule(42)
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
@@ -190,7 +193,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72999) then	--Shadow Prison (hard mode)
 		if args:IsPlayer() then
 			timerShadowPrison:Start()
-			if (args.amount or 1) >= 6 then	--Placeholder right now, might use a different value
+			if (args.amount or 1) >= 10 then	--Placeholder right now, might use a different value
 				specWarnShadowPrison:Show(args.amount)
 			end
 		end

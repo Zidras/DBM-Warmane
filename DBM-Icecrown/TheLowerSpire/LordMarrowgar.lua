@@ -31,8 +31,8 @@ local timerBoned			= mod:NewAchievementTimer(8, 4610, "AchievementBoned")
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 
-local soundWhirlwind = mod:NewSound(69076)
-local soundWhirlwind5 = mod:NewSound5(69076)
+local soundWhirlwind 		= mod:NewSound(69076)
+local soundWhirlwind5 		= mod:NewSound5(69076)
 
 mod:AddBoolOption("SetIconOnImpale", true)
 

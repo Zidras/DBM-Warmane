@@ -38,6 +38,8 @@ local timerBelowZeroCD		= mod:NewNextTimer(35, 69705)
 local timerBattleFuryActive	= mod:NewBuffActiveTimer(17, 72306, nil, mod:IsTank() or mod:IsHealer())
 local timerAdds				= mod:NewTimer(60, "TimerAdds", AddsIcon)
 
+local soundFreeze			= mod:NewSound(69705)
+
 mod:RemoveOption("HealthFrame")
 
 function mod:Adds()
@@ -48,6 +50,11 @@ function mod:Adds()
 	self:ScheduleMethod(60, "Adds")
 end
 
+function mod:OnCombatEnd()
+	soundFreeze:Cancel()
+end
+
+
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
 	timerCombatStart:Show(-delay)
@@ -56,17 +63,20 @@ function mod:OnCombatStart(delay)
 		warnAddsSoon:Schedule(57)
 		self:ScheduleMethod(62, "Adds")
 		timerBelowZeroCD:Start(85-delay)--This doesn't make sense. Need more logs to verify
+		soundFreeze:Schedule(85-delay)
 	else
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerAdds:Start(63-delay)
 			warnAddsSoon:Schedule(58)
 			self:ScheduleMethod(63, "Adds")
 			timerBelowZeroCD:Start(102-delay)--This doesn't make sense. Need more logs to verify
+			soundFreeze:Schedule(102-delay)
 		else
 			timerAdds:Start(57-delay)
 			warnAddsSoon:Schedule(52)
 			self:ScheduleMethod(57, "Adds")
 			timerBelowZeroCD:Start(75-delay)--This doesn't make sense. Need more logs to verify
+			soundFreeze:Schedule(75-delay)
 		end
 	end
 end
@@ -99,6 +109,7 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(69705) then
 		timerBelowZeroCD:Start()
+		soundFreeze:Schedule(35)
 	end
 end
 

@@ -53,12 +53,13 @@ local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, true)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 local soundWarnSpirit				= mod:NewSound(71426)
+local soundWarnMC					= mod:NewSound5(71289)
+
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
-mod:AddBoolOption("SoundWarnCountingMC", true)
 mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
 
 local lastDD	= 0
@@ -84,15 +85,9 @@ function mod:OnCombatStart(delay)
 	self:ScheduleMethod(7, "addsTimer")
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
-		if self.Options.SoundWarnCountingMC then
-			self:ScheduleMethod(25, "ToMC5")
-			self:ScheduleMethod(26, "ToMC4")
-			self:ScheduleMethod(27, "ToMC3")
-			self:ScheduleMethod(28, "ToMC2")
-			self:ScheduleMethod(29, "ToMC1")
-			if mod.Options.EqUneqWeapons and not mod:IsTank() then
-				mod:ScheduleMethod(29, "UnW")
-			end
+		soundWarnMC:Schedule(25)
+		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+			mod:ScheduleMethod(29, "UnW")
 		end
 	end
 	table.wipe(dominateMindTargets)
@@ -103,6 +98,9 @@ end
 
 function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
+	self:UnscheduleMethod("UnW")
+	self:UnscheduleMethod("EqW")
+	soundWarnMC:Cancel()
 end
 
 do	-- add the additional Shield Bar
@@ -159,26 +157,6 @@ function mod:EqW()
 	UseEquipmentSet("pve")
 end
 
-function mod:ToMC5()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-end
-
-function mod:ToMC4()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-end
-
-function mod:ToMC3()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-end
-
-function mod:ToMC2()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-end
-
-function mod:ToMC1()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-end
-
 function mod:TrySetTarget()
 	if DBM:GetRaidRank() >= 1 then
 		for i = 1, GetNumRaidMembers() do
@@ -230,15 +208,9 @@ do
     	end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
-		if mod.Options.SoundWarnCountingMC then
-			mod:ScheduleMethod(35-mc_delay, "ToMC5")
-			mod:ScheduleMethod(36-mc_delay, "ToMC4")
-			mod:ScheduleMethod(37-mc_delay, "ToMC3")
-			mod:ScheduleMethod(38-mc_delay, "ToMC2")
-			mod:ScheduleMethod(39-mc_delay, "ToMC1")
-			if mod.Options.EqUneqWeapons and not mod:IsTank() then
-				mod:ScheduleMethod(39-mc_delay, "UnW")
-			end
+		soundWarnMC:Schedule(35-mc_delay)
+		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+			mod:ScheduleMethod(39-mc_delay, "UnW")
 		end
 	end
 	
@@ -256,7 +228,6 @@ do
 			if dtime < 0 then
 				dtime = 0
 			end
-			print("Time diff "..dtime)
 			if mod:IsDifficulty("heroic10") or mod:IsDifficulty("normal25") or (mod:IsDifficulty("heroic25") and #dominateMindTargets >= 3) then
 				showDominateMindWarning(dtime)
 			else
@@ -301,6 +272,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	        self:ScheduleMethod(0.1, "EqW")
 	        self:ScheduleMethod(1.7, "EqW")
 	        self:ScheduleMethod(3.3, "EqW")
+	        self:ScheduleMethod(5.0, "EqW")
     	end
 	end
 end

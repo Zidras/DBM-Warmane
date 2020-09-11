@@ -39,7 +39,7 @@ local berserkTimer			= mod:NewBerserkTimer(300)
 
 local warnGoo				= mod:NewSpellAnnounce(72549, 4)
 local timerGooCD			= mod:NewNextTimer(10, 72549)
-
+local soundSpores			= mod:NewSound(69279)
 mod:AddBoolOption("RangeFrame", mod:IsRanged())
 mod:AddBoolOption("SetIconOnGasSpore", true)
 mod:AddBoolOption("AnnounceSporeIcons", false)
@@ -74,6 +74,7 @@ end
 
 local function warnGasSporeTargets()
 	warnGasSpore:Show(table.concat(gasSporeTargets, "<, >"))
+	soundSpores:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	timerGasSpore:Start()
 	table.wipe(gasSporeTargets)
 end

@@ -63,7 +63,7 @@ local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539)
 local berserkTimer					= mod:NewBerserkTimer(600)
 
 local soundGaseousBloat 			= mod:NewSound(72455)
-
+local soundMutatedPlague			= mod:NewSound(72451)
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")
 mod:AddBoolOption("MalleableGooIcon")
@@ -244,9 +244,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
 		timerTearGas:Start()
-	elseif args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
+	elseif args:IsSpellID(72451, 72463, 72671, 72672) and self:AntiSpam(1, 1) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.spellName, args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
+		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	elseif args:IsSpellID(70542) then
 		timerMutatedSlash:Show(args.destName)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
@@ -275,9 +276,10 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_APPLIED_DOSE(args)
-	if args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
+	if args:IsSpellID(72451, 72463, 72671, 72672) and self:AntiSpam(1, 1) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.spellName, args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
+		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	elseif args:IsSpellID(70542) then
 		timerMutatedSlash:Show(args.destName)
 	end

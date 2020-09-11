@@ -73,7 +73,7 @@ local timerSoulreaperCDnext	= mod:NewCDTimer(68.0, 73797, nil, true)
 local timerHarvestSoul	 	= mod:NewTargetTimer(6, 74325)
 local timerHarvestSoulCD	= mod:NewCDTimer(75, 74325)
 local timerInfestCD			= mod:NewCDTimer(22.5, 73779, nil, mod:IsHealer())
-local timerNecroticPlagueCleanse = mod:NewTimer(5, "TimerNecroticPlagueCleanse", 73912, false)
+local timerNecroticCleanse	= mod:NewTimer(5, "TimerNecroticPlagueCleanse", 73912, false)
 local timerNecroticPlagueCD	= mod:NewCDTimer(30, 73912)
 local timerDefileCD			= mod:NewCDTimer(32.5, 72762)
 local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, true)
@@ -106,6 +106,7 @@ mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
+mod:AddBoolOption("YellInValk")
 
 local lastPlagueCast = 0
 local warned_preP2 = false
@@ -263,7 +264,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnNecroticPlague:Show(lastPlague)
 		timerNecroticPlagueCD:Start()
 		soundPlague3:Schedule(27)
-		timerNecroticPlagueCleanse:Start()
+		timerNecroticCleanse:Start()
 		lastPlagueCast = GetTime()
 		if args:IsPlayer() then
 			specWarnNecroticPlague:Show()
@@ -381,6 +382,7 @@ do
 					valkyrTargets[i] = true          -- this person has been announced
 					if UnitName("raid"..i) == UnitName("player") then
 						specWarnYouAreValkd:Show()
+						SendChatMessage(UnitName("player").." "..select(1, UnitClass("player")), "YELL")
 						if mod:IsHealer() then--Is player that's grabbed a healer
 							if isPAL then
 								mod:SendSync("PALGrabbed", UnitName("player"))--They are a holy paladin
@@ -517,7 +519,7 @@ function mod:UNIT_AURA(uId)
 	if (spellId == 73787 or spellId == 70338 or spellId == 73785 or spellId == 73786) and expires > 0 and not plagueExpires[expires] then
 		plagueExpires[expires] = true
 		warnNecroticPlagueJump:Show(name)
-		timerNecroticPlagueCleanse:Start()
+		timerNecroticCleanse:Start()
 		if name == UnitName("player") and not mod:IsTank() then
 			specWarnNecroticPlague:Show()
 		end
