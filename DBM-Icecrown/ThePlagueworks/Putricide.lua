@@ -28,13 +28,11 @@ local warnVolatileExperiment		= mod:NewSpellAnnounce(72840, 4)		-- Phase transit
 local warnMalleableGoo				= mod:NewSpellAnnounce(72295, 2)		-- Phase 2 ability
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3)		-- Phase 2 ability
 local warnPhase3Soon				= mod:NewAnnounce("WarnPhase3Soon", 2)
-local warnMutatedPlague				= mod:NewAnnounce("WarnMutatedPlague", 2, 72451, true) -- Phase 3 ability
+local warnMutatedPlague				= mod:NewStackAnnounce(72451, 2, nil, true) -- Phase 3 ability
 local warnUnboundPlague				= mod:NewTargetAnnounce(72856, 3)			-- Heroic Ability
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447)
 local specWarnGaseousBloat			= mod:NewSpecialWarningYou(70672)
-local specWarnVolatileOozeOther		= mod:NewSpecialWarningTarget(70447, false)
-local specWarnGaseousBloatOther		= mod:NewSpecialWarningTarget(70672, false)
 local specWarnMalleableGoo			= mod:NewSpecialWarning("SpecWarnMalleableGoo")
 local specWarnMalleableGooNear		= mod:NewSpecialWarning("SpecWarnMalleableGooNear")
 local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent("player"))
@@ -50,7 +48,7 @@ local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341)				-- Approx
 local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351)			-- Used every 38 seconds exactly except after phase changes
 local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255)
 local timerMalleableGooCD			= mod:NewCDTimer(25, 72295)
-local timerTearGas					= mod:NewBuffActiveTimer(16, 71615)
+local timerTearGas					= mod:NewBuffFadesTimer(16, 71615)
 local timerPotions					= mod:NewBuffActiveTimer(30, 73122)
 local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451)				-- 10 to 11
 local timerUnboundPlagueCD			= mod:NewNextTimer(60, 72856)
@@ -224,7 +222,6 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70447, 72836, 72837, 72838) then--Green Slime
 		warnVolatileOozeAdhesive:Show(args.destName)
-		specWarnVolatileOozeOther:Show(args.destName)
 		if args:IsPlayer() then
 			specWarnVolatileOozeAdhesive:Show()
 		end
@@ -233,7 +230,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
 		warnGaseousBloat:Show(args.destName)
-		specWarnGaseousBloatOther:Show(args.destName)
 		timerGaseousBloat:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnGaseousBloat:Show()
@@ -245,7 +241,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
 		timerTearGas:Start()
 	elseif args:IsSpellID(72451, 72463, 72671, 72672) and self:AntiSpam(1, 1) then	-- Mutated Plague
-		warnMutatedPlague:Show(args.spellName, args.destName, args.amount or 1)
+		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
 		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	elseif args:IsSpellID(70542) then
@@ -277,7 +273,7 @@ end
 
 function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(72451, 72463, 72671, 72672) and self:AntiSpam(1, 1) then	-- Mutated Plague
-		warnMutatedPlague:Show(args.spellName, args.destName, args.amount or 1)
+		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
 		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	elseif args:IsSpellID(70542) then
@@ -308,9 +304,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.UnboundPlagueIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif args:IsSpellID(71615) and GetTime() - spamGas > 5 then 	-- Tear Gas Removal
+	elseif args:IsSpellID(71615) and self:AntiSpam(5, 2) then 	-- Tear Gas Removal
 		self:NextPhase()
-		spamGas = GetTime()
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
 	elseif args:IsSpellID(70542) then

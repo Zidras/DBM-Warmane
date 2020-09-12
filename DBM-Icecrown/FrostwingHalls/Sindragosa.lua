@@ -21,16 +21,16 @@ local warnAirphase				= mod:NewAnnounce("WarnAirphase", 2, 43810)
 local warnGroundphaseSoon		= mod:NewAnnounce("WarnGroundphaseSoon", 2, 43810)
 local warnPhase2soon			= mod:NewAnnounce("WarnPhase2soon", 1)
 local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
-local warnInstability			= mod:NewAnnounce("WarnInstability", 2, 69766)
-local warnChilledtotheBone		= mod:NewAnnounce("WarnChilledtotheBone", 2, 70106)
-local warnMysticBuffet			= mod:NewAnnounce("WarnMysticBuffet", 2, 70128)
+local warnInstability			= mod:NewCountAnnounce(69766, 2, nil)
+local warnChilledtotheBone		= mod:NewCountAnnounce(70106, 2, nil)
+local warnMysticBuffet			= mod:NewCountAnnounce(70128, 2, nil)
 local warnFrostBeacon			= mod:NewTargetAnnounce(70126, 4)
 local warnBlisteringCold		= mod:NewSpellAnnounce(70123, 3)
 local warnFrostBreath			= mod:NewSpellAnnounce(71056, 2, nil, true)
 local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, true)
 
 local specWarnUnchainedMagic	= mod:NewSpecialWarningYou(69762)
-local specWarnFrostBeacon		= mod:NewSpecialWarningYou(70126)
+local specWarnFrostBeacon		= mod:NewSpecialWarningMoveAway(70126)
 local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, 4)
 local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, 4)
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5)
@@ -43,10 +43,10 @@ local timerNextFrostBreath		= mod:NewNextTimer(22, 71056, nil, true)
 local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123)
 local timerNextBeacon			= mod:NewNextTimer(16, 70126)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123)
-local timerUnchainedMagic		= mod:NewBuffActiveTimer(30, 69762)
-local timerInstability			= mod:NewBuffActiveTimer(5, 69766)
-local timerChilledtotheBone		= mod:NewBuffActiveTimer(8, 70106)
-local timerMysticBuffet			= mod:NewBuffActiveTimer(8, 70128)
+local timerUnchainedMagic		= mod:NewCDTimer(30, 69762)
+local timerInstability			= mod:NewBuffFadesTimer(5, 69766)
+local timerChilledtotheBone		= mod:NewBuffFadesTimer(8, 70106)
+local timerMysticBuffet			= mod:NewBuffFadesTimer(8, 70128)
 local timerNextMysticBuffet		= mod:NewNextTimer(6, 70128)
 local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic")
 
@@ -224,7 +224,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNextBlisteringCold:Start()
 		soundBlisteringCold:Play()
 	end
-end	
+end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(69762) then
@@ -252,7 +252,7 @@ end
 function mod:UNIT_HEALTH(uId)
 	if not warned_P2 and self:GetUnitCreatureId(uId) == 36853 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		warned_P2 = true
-		warnPhase2soon:Show()	
+		warnPhase2soon:Show()
 	end
 end
 

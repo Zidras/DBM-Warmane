@@ -139,4 +139,4 @@ L.SpamBlockNoShowAnnounce		= "Do not show announces or play warning sounds"
 L.SpamBlockNoSendAnnounce		= "Do not send announces to raid chat"
 L.SpamBlockNoSendWhisper		= "Do not send whispers to other players"
 L.SpamBlockNoSetIcon			= "Do not set icons on targets"
-
+L.SpamBlockNoYells				= "Do not send chat yells"

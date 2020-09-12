@@ -24,19 +24,19 @@ local warnMutatedInfection		= mod:NewTargetAnnounce(71224, 4)
 local warnRadiatingOoze			= mod:NewSpellAnnounce(69760, 3)
 local warnOozeSpawn				= mod:NewAnnounce("WarnOozeSpawn", 1)
 local warnStickyOoze			= mod:NewSpellAnnounce(69774, 1)
-local warnUnstableOoze			= mod:NewAnnounce("WarnUnstableOoze", 2, 69558)
+local warnUnstableOoze			= mod:NewStackAnnounce(69558, 2)
 local warnVileGas				= mod:NewTargetAnnounce(72272, 3)
 
 local specWarnMutatedInfection	= mod:NewSpecialWarningYou(71224)
 local specWarnStickyOoze		= mod:NewSpecialWarningMove(69774)
-local specWarnOozeExplosion		= mod:NewSpecialWarningRun(69839)
+local specWarnOozeExplosion		= mod:NewSpecialWarningDodge(69839)
 local specWarnSlimeSpray		= mod:NewSpecialWarningSpell(69508, false)--For people that need a bigger warning to move
 local specWarnRadiatingOoze		= mod:NewSpecialWarningSpell(69760, false)
 local specWarnLittleOoze		= mod:NewSpecialWarning("SpecWarnLittleOoze")
 local specWarnVileGas			= mod:NewSpecialWarningYou(72272)
 
 local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, mod:IsTank())
-local timerWallSlime			= mod:NewTimer(25, "NextPoisonSlimePipes", 69789)
+local timerWallSlime			= mod:NewNextTimer(25, 69789)
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 71224)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839)
@@ -110,7 +110,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(69760) then
 		warnRadiatingOoze:Show()
 	elseif args:IsSpellID(69558) then
-		warnUnstableOoze:Show(args.spellName, args.destName, args.amount or 1)
+		warnUnstableOoze:Show(args.destName, args.amount or 1)
 	elseif args:IsSpellID(69674, 71224, 73022, 73023) then
 		warnMutatedInfection:Show(args.destName)
 		timerMutatedInfection:Start(args.destName)

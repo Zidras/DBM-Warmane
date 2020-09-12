@@ -39,7 +39,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-do 
+do
 	local lastBlade = 0
 	function mod:SPELL_DAMAGE(args)
 		if args:IsSpellID(70305) and args:IsPlayer() and time() - lastBlade > 2 then

@@ -36,10 +36,11 @@ mod:AddBoolOption("PlaySoundOnDevouringFlame", false)
 
 local castFlames
 local combattime = 0
+local isGrounded = false
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
-	self.vb.isGrounded = false
+	isGrounded = false
 	enrageTimer:Start(-delay)
 	combattime = GetTime()
 	if mod:IsDifficulty("heroic10") then
@@ -62,7 +63,7 @@ function mod:SPELL_DAMAGE(args)
 		specWarnDevouringFlame:Show()
 		if self.Options.PlaySoundOnDevouringFlame then
 			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
-		end		
+		end
 	end
 end
 
@@ -71,7 +72,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	if emote == L.EmotePhase2 or emote:find(L.EmotePhase2) then
 		-- phase2
 		self.vb.phase = 2
-		self.vb.isGrounded = true
+		isGrounded = true
 		timerTurret1:Stop()
 		timerTurret2:Stop()
 		timerTurret3:Stop()
@@ -82,8 +83,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg, mob)
-	if self.vb.isGrounded and (msg == L.YellAir or msg == L.YellAir2) and GetTime() - combattime > 30 then
-		self.vb.isGrounded = false -- warmane resets the timers idk why 
+	if isGrounded and (msg == L.YellAir or msg == L.YellAir2) and GetTime() - combattime > 30 then
+		isGrounded = false -- warmane resets the timers idk why 
 		if mod:IsDifficulty("heroic10") then -- not sure?
 			warnTurretsReadySoon:Schedule(23)
 			warnTurretsReady:Schedule(43)
@@ -100,7 +101,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, mob)
 
 	elseif msg == L.YellGround then
 		timerGrounded:Start()
-		self.vb.isGrounded = true
+		isGrounded = true
 	end
 end
 

@@ -35,7 +35,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnMortalWound	= "%s on >%s< (%d)",		-- Mortal Wound on >args.destName< (args.amount)
+	WarnMortalWound	= "%s on >%s< (%s)",		-- Mortal Wound on >args.destName< (args.amount)
 	SpecWarnTrap	= "Trap Activated! - Vengeful Fleshreapers incoming"--creatureid 37038
 }
 
@@ -133,7 +133,7 @@ L:SetTimerLocalization{
 
 L:SetWarningLocalization{
 	WarnReanimating				= "Add reviving",			-- Reanimating an adherent or fanatic
-	WarnTouchInsignificance		= "%s on >%s< (%d)",		-- Touch of Insignificance on >args.destName< (args.amount)
+	WarnTouchInsignificance		= "%s on >%s< (%s)",		-- Touch of Insignificance on >args.destName< (args.amount)
 	WarnAddsSoon				= "New adds soon",
 	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away"--creatureid 38222
 }
@@ -240,13 +240,13 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	InhaledBlight		= "Inhaled Blight >%d<",
-	WarnGastricBloat	= "%s on >%s< (%d)",		-- Gastric Bloat on >args.destName< (args.amount)
+	WarnGastricBloat	= "%s on >%s< (%s)",		-- Gastric Bloat on >args.destName< (args.amount)
 }
 
 L:SetOptionLocalization{
 	InhaledBlight		= "Show warning for $spell:71912",
 	RangeFrame			= "Show range frame (8 yards)",
-	WarnGastricBloat	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(72551, GetSpellInfo(72551) or "unknown"),	
+	WarnGastricBloat	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(72551, GetSpellInfo(72551) or "unknown"),
 	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
 	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat\n(requires announce to be enabled and promoted status)",
 	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid\n(requires promoted status)"
@@ -303,7 +303,7 @@ L:SetGeneralLocalization{
 L:SetWarningLocalization{
 	WarnPhase2Soon				= "Phase 2 soon",
 	WarnPhase3Soon				= "Phase 3 soon",
-	WarnMutatedPlague			= "%s on >%s< (%d)",	-- Mutated Plague on >args.destName< (args.amount)
+	WarnMutatedPlague			= "%s on >%s< (%s)",	-- Mutated Plague on >args.destName< (args.amount)
 	SpecWarnMalleableGoo		= "Malleable Goo on you - Move away",
 	SpecWarnMalleableGooNear	= "Malleable Goo near you - Watch out",
 	SpecWarnUnboundPlague		= "Drop off the Unbound Plague",
@@ -414,7 +414,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnCorrosion	= "%s on >%s< (%d)",		-- Corrosion on >args.destName< (args.amount)
+	WarnCorrosion	= "%s on >%s< (%s)",		-- Corrosion on >args.destName< (args.amount)
 	WarnPortalOpen	= "Portals open"
 }
 

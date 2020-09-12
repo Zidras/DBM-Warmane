@@ -21,12 +21,12 @@ local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, true)
 local warnBloodNova			= mod:NewSpellAnnounce(73058, 2)
-local warnMark				= mod:NewTargetAnnounce(72444, 4)
+local warnMark				= mod:NewTargetCountAnnounce(72444, 4)
 local warnBoilingBlood		= mod:NewTargetAnnounce(72441, 2, nil, mod:IsHealer())
 local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, mod:IsTank() or mod:IsHealer())
 
 local specwarnMark			= mod:NewSpecialWarningTarget(72444, false)
-local specwarnRuneofBlood	= mod:NewSpecialWarningTarget(72410, mod:IsTank())
+local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, mod:IsTank())
 
 local timerCombatStart		= mod:NewTimer(47.3, "TimerCombatStart", 2457)
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, mod:IsTank() or mod:IsHealer())
@@ -48,7 +48,7 @@ local warned_preFrenzy = false
 local boilingBloodTargets = {}
 local boilingBloodIcon 	= 8
 local spamBloodBeast = 0
-
+local Mark = 0
 local function warnBoilingBloodTargets()
 	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
 	table.wipe(boilingBloodTargets)
@@ -74,6 +74,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(boilingBloodTargets)
 	warned_preFrenzy = false
 	boilingBloodIcon = 8
+	Mark = 0
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
@@ -90,7 +91,7 @@ do	-- add the additional Rune Power Bar
 	local last = 0
 	local function getRunePowerPercent()
 		local guid = UnitGUID("focus")
-		if mod:GetCIDFromGUID(guid) == 37813 then 
+		if mod:GetCIDFromGUID(guid) == 37813 then
 			last = math.floor(UnitPower("focus")/UnitPowerMax("focus") * 100)
 			return last
 		end
@@ -133,7 +134,7 @@ do
 		currentIcon = 1
 		iconsSet = 0
 	end
-	
+
 	local lastBeast = 0
 	function mod:SPELL_SUMMON(args)
 		if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
@@ -153,7 +154,7 @@ do
 			end
 		end
 	end
-	
+
 	mod:RegisterOnUpdateHandler(function(self)
 		if self.Options.BeastIcons and (DBM:GetRaidRank() > 0 and not (iconsSet == 5 and self:IsDifficulty("normal25", "heroic25") or iconsSet == 2 and self:IsDifficulty("normal10", "heroic10"))) then
 			for i = 1, GetNumRaidMembers() do
@@ -171,7 +172,8 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(72293) then		-- Mark of the Fallen Champion
-		warnMark:Show(args.destName)
+		Mark = Mark + 1
+		warnMark:Show(Mark, args.destName)
 		specwarnMark:Show(args.destName)
 	elseif args:IsSpellID(72385, 72441, 72442, 72443) then	-- Boiling Blood
 		boilingBloodTargets[#boilingBloodTargets + 1] = args.destName
@@ -201,7 +203,7 @@ end
 function mod:UNIT_HEALTH(uId)
 	if not warned_preFrenzy and self:GetUnitCreatureId(uId) == 37813 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.33 then
 		warned_preFrenzy = true
-		warnFrenzySoon:Show()	
+		warnFrenzySoon:Show()
 	end
 end
 

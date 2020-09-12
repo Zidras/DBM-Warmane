@@ -18,6 +18,7 @@ mod:RegisterEvents(
 
 local warnShadowCrash			= mod:NewTargetAnnounce(62660, 4)
 local warnLeechLife				= mod:NewTargetAnnounce(63276, 3)
+local warnSaroniteVapor			= mod:NewCountAnnounce(63337, 2)
 
 local specWarnShadowCrash		= mod:NewSpecialWarning("SpecialWarningShadowCrash")
 local specWarnShadowCrashNear	= mod:NewSpecialWarning("SpecialWarningShadowCrashNear")
@@ -41,8 +42,10 @@ mod:AddBoolOption("SetIconOnLifeLeach", true)
 mod:AddBoolOption("CrashArrow")
 mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
+local vaporsCount = 0
 
 function mod:OnCombatStart(delay)
+	vaporsCount = 0
 	timerEnrage:Start(-delay)
 	timerHardmode:Start(-delay)
 	timerNextSurgeofDarkness:Start(-delay)
@@ -149,7 +152,11 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	if emote == L.EmoteSaroniteVapors or emote:find(L.EmoteSaroniteVapors) then
-		timerSaroniteVapors:Start()
+		vaporsCount = vaporsCount + 1
+		warnSaroniteVapor:Show(vaporsCount)
+		if vaporsCount < 6 then
+			timerSaroniteVapors:Start(nil, vaporsCount+1)
+		end
 	end
 end
 

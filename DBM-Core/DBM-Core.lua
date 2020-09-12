@@ -131,7 +131,9 @@ DBM.DefaultOptions = {
 	BigBrotherAnnounceToRaid = false,
 	DisableCinematics = true,
 	AudioPull = true,
-	RangeFrameUpdates = "Average"
+	RangeFrameUpdates = "Average",
+	DontSendYells = false,
+	RangeFrameFrames = "radar",
 --	HelpMessageShown = false,
 }
 
@@ -192,7 +194,6 @@ local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 -- these global functions are accessed all the time by the event handler
 -- so caching them is worth the effort
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
-local floor = math.floor
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -217,7 +218,7 @@ local function removeEntry(t, val)
 	local existed = false
 	for i = #t, 1, -1 do
 		if t[i] == val then
-			table.remove(t, i)
+			tremove(t, i)
 			existed = true
 		end
 	end
@@ -239,7 +240,7 @@ end
 --
 local function strFromTime(time)
 	if type(time) ~= "number" then time = 0 end
-	time = math.floor(time)
+	time = floor(time)
 	if time < 60 then
 		return DBM_CORE_TIMER_FORMAT_SECS:format(time)
 	elseif time % 60 == 0 then
@@ -509,7 +510,7 @@ do
 			error("Usage: DBM:RegisterCallback(event, callbackFunc)", 2)
 		end
 		callbacks[event] = callbacks[event] or {}
-		table.insert(callbacks[event], f)
+		tinsert(callbacks[event], f)
 		return #callbacks[event]
 	end
 end
@@ -616,7 +617,7 @@ do
 		function removeAllMatching(f, mod, ...)
 			-- remove all elements that match the signature, this destroyes the heap and leaves a normal array
 			local v, match
-			for i = #heap, 1, -1 do -- iterate backwards over the array to allow usage of table.remove
+			for i = #heap, 1, -1 do -- iterate backwards over the array to allow usage of tremove
 				v = heap[i]
 				if (not f or v.func == f) and (not mod or v.mod == mod) then
 					match = true
@@ -627,7 +628,7 @@ do
 						end
 					end
 					if match then
-						table.remove(heap, i)
+						tremove(heap, i)
 						firstFree = firstFree - 1
 					end
 				end
@@ -684,6 +685,14 @@ do
 			v = {time = GetTime() + t, func = f, mod = mod, ...}
 		end
 		insert(v)
+	end
+
+	function scheduleCountdown(time, numAnnounces, func, mod, self, ...)
+		time = time or 5
+		numAnnounces = numAnnounces or 3
+		for i = 1, numAnnounces do
+			schedule(time - i, func, mod, self, i, ...)
+		end
 	end
 
 	function unschedule(f, mod, ...)
@@ -849,7 +858,7 @@ do
 	end
 	function DBM:ShowVersions(notify)
 		for i, v in pairs(raid) do
-			table.insert(sortMe, v)
+			tinsert(sortMe, v)
 		end
 		table.sort(sortMe, sort)
 		self:AddMsg(DBM_CORE_VERSIONCHECK_HEADER)
@@ -865,7 +874,7 @@ do
 		end
 		for i = #sortMe, 1, -1 do
 			if not sortMe[i].revision then
-				table.remove(sortMe, i)
+				tremove(sortMe, i)
 			end
 		end
 		self:AddMsg(DBM_CORE_VERSIONCHECK_FOOTER:format(#sortMe))
@@ -879,7 +888,7 @@ do
 			return
 		end
 		for i, v in pairs(raid) do
-			table.insert(sortMe, v)
+			tinsert(sortMe, v)
 		end
 		table.sort(sortMe, sort)
 		SendChatMessage(DBM_CORE_VERSIONCHECK_HEADER, "RAID")
@@ -895,7 +904,7 @@ do
 		end
 		for i = #sortMe, 1, -1 do
 			if not sortMe[i].revision then
-				table.remove(sortMe, i)
+				tremove(sortMe, i)
 			end
 		end
 		SendChatMessage(DBM_CORE_VERSIONCHECK_FOOTER:format(#sortMe), "RAID")
@@ -1000,7 +1009,7 @@ do
 	end
 
 	function DBM:RegisterOnGuiLoadCallback(f, sort)
-		table.insert(callOnLoad, {f, sort or math.huge})
+		tinsert(callOnLoad, {f, sort or math.huge})
 	end
 end
 
@@ -1279,8 +1288,8 @@ do
 				if v.OnInitialize then v:OnInitialize() end
 				for i, cat in ipairs(v.categorySort) do -- temporary hack
 					if cat == "misc" then
-						table.remove(v.categorySort, i)
-						table.insert(v.categorySort, cat)
+						tremove(v.categorySort, i)
+						tinsert(v.categorySort, cat)
 						break
 					end
 				end
@@ -1324,7 +1333,7 @@ do
 			self.AddOns = {}
 			for i = 1, GetNumAddOns() do
 				if GetAddOnMetadata(i, "X-DBM-Mod") and not checkEntry(bannedMods, GetAddOnInfo(i)) then
-					table.insert(self.AddOns, {
+					tinsert(self.AddOns, {
 						sort		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or math.huge) or math.huge,
 						category	= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
 						name		= GetAddOnMetadata(i, "X-DBM-Mod-Name") or "",
@@ -1342,7 +1351,7 @@ do
 						if id then
 							self.AddOns[#self.AddOns].zoneId[i] = id
 						else
-							table.remove(self.AddOns[#self.AddOns].zoneId, i)
+							tremove(self.AddOns[#self.AddOns].zoneId, i)
 						end
 					end
 					if self.AddOns[#self.AddOns].subTabs then
@@ -1696,7 +1705,7 @@ do
 	end
 
 	local function clearTargetList()
-		table.wipe(targetList)
+		twipe(targetList)
 	end
 
 	local function scanForCombat(mod, mob)
@@ -1845,7 +1854,7 @@ function DBM:StartCombat(mod, delay, synced)
 		if mod.combatInfo.noCombatInVehicle and UnitInVehicle("player") then -- HACK
 			return
 		end
-		table.insert(inCombat, mod)
+		tinsert(inCombat, mod)
 		self:AddMsg(DBM_CORE_COMBAT_STARTED:format(mod.combatInfo.name))
 		if mod:IsDifficulty("heroic5", "heroic25") then
 			mod.stats.heroicPulls = mod.stats.heroicPulls + 1
@@ -1938,8 +1947,8 @@ function DBM:EndCombat(mod, wipe)
 			end
 			fireEvent("kill", mod)
 		end
-		table.wipe(autoRespondSpam)
-		table.wipe(bossuIdCache)
+		twipe(autoRespondSpam)
+		twipe(bossuIdCache)
 		if mod.OnCombatEnd then mod:OnCombatEnd(wipe) end
 		DBM.BossHealth:Hide()
 		DBM.Arrow:Hide(true)
@@ -2008,7 +2017,7 @@ do
 		if sender == requestedFrom and (GetTime() - requestTime) < 5 and #inCombat == 0 then
 			local lag = select(3, GetNetStats()) / 1000
 			if not mod.combatInfo then return end
-			table.insert(inCombat, mod)
+			tinsert(inCombat, mod)
 			mod.inCombat = true
 			mod.blockSyncs = nil
 			mod.combatInfo.pull = GetTime() - time + lag
@@ -2308,7 +2317,7 @@ DBM.Bars:SetAnnounceHook(function(bar)
 		prefix = DBM_CORE_ALLIANCE
 	end
 	if prefix then
-		return ("%s: %s  %d:%02d"):format(prefix, _G[bar.frame:GetName().."BarName"]:GetText(), math.floor(bar.timer / 60), bar.timer % 60)
+		return ("%s: %s  %d:%02d"):format(prefix, _G[bar.frame:GetName().."BarName"]:GetText(), floor(bar.timer / 60), bar.timer % 60)
 	end
 end)
 
@@ -2385,7 +2394,7 @@ do
 			end
 		end
 		if obj.localization.general.name == "name" then obj.localization.general.name = name end
-		table.insert(self.Mods, obj)
+		tinsert(self.Mods, obj)
 		modsById[name] = obj
 		obj:AddBoolOption("HealthFrame", false, "misc")
 		obj:SetZone()
@@ -2574,7 +2583,7 @@ do
 	function bossModPrototype:BossUnitTargetScannerAbort(uId)
 		if not uId then--Not called with unit, means mod requested to clear all used units
 			--print("BossUnitTargetScannerAbort called without unit, clearing all targetMonitor units", 2)
-			table.wipe(targetMonitor)
+			twipe(targetMonitor)
 			return
 		end
 		if targetMonitor[uId] and targetMonitor[uId].allowTank and UnitExists(uId.."target") and UnitPlayerOrPetInRaid(uId.."target") then
@@ -2933,7 +2942,7 @@ do
 		else
 			self:AddBoolOption(optionName or text, optionDefault, "announce")
 		end
-		table.insert(self.announces, obj)
+		tinsert(self.announces, obj)
 		return obj
 	end
 	
@@ -2971,23 +2980,60 @@ do
 		if optionName == false then
 			obj.option = nil
 		else
-			self:AddBoolOption(optionName or text, optionDefault, "announce")
+			local catType = "announce"--Default to General announce
+			--Change if Personal or Other
+			if announceType == "target" or announceType == "targetcount" or announceType == "stack" then
+				catType = "announceother"
+			end
+			self:AddBoolOption(optionName or text, optionDefault, catType)
 		end
-		table.insert(self.announces, obj)
 		self.localization.options[text] = DBM_CORE_AUTO_ANNOUNCE_OPTIONS[announceType]:format(spellId, spellName)
+		tinsert(self.announces, obj)
 		return obj
 	end
-	
+
+	function bossModPrototype:NewYouAnnounce(spellId, color, ...)
+		return newAnnounce(self, "you", spellId, color or 1, ...)
+	end
+
 	function bossModPrototype:NewTargetAnnounce(spellId, color, ...)
 		return newAnnounce(self, "target", spellId, color or 2, ...)
 	end
-	
+
+	function bossModPrototype:NewTargetSourceAnnounce(spellId, color, ...)
+		return newAnnounce(self, "targetsource", spellId, color or 3, ...)
+	end
+
+	function bossModPrototype:NewTargetCountAnnounce(spellId, color, ...)
+		return newAnnounce(self, "targetcount", spellId, color or 3, ...)
+	end
+
 	function bossModPrototype:NewSpellAnnounce(spellId, color, ...)
-		return newAnnounce(self, "spell", spellId, color or 3, ...)
+		return newAnnounce(self, "spell", spellId, color or 2, ...)
+	end
+
+	function bossModPrototype:NewEndAnnounce(spellId, color, ...)
+		return newAnnounce(self, "ends", spellId, color or 2, ...)
+	end
+
+	function bossModPrototype:NewEndTargetAnnounce(spellId, color, ...)
+		return newAnnounce(self, "endtarget", spellId, color or 2, ...)
+	end
+
+	function bossModPrototype:NewFadesAnnounce(spellId, color, ...)
+		return newAnnounce(self, "fades", spellId, color or 2, ...)
+	end
+
+	function bossModPrototype:NewAddsLeftAnnounce(spellId, color, ...)
+		return newAnnounce(self, "adds", spellId, color or 3, ...)
 	end
 
 	function bossModPrototype:NewCountAnnounce(spellId, color, ...)
-		return newAnnounce(self, "count", spellId, color or 3, ...)
+		return newAnnounce(self, "count", spellId, color or 2, ...)
+	end
+
+	function bossModPrototype:NewStackAnnounce(spellId, color, ...)
+		return newAnnounce(self, "stack", spellId, color or 2, ...)
 	end
 
 	function bossModPrototype:NewCastAnnounce(spellId, color, castTime, icon, optionDefault, optionName)
@@ -2995,15 +3041,35 @@ do
 	end
 
 	function bossModPrototype:NewSoonAnnounce(spellId, color, ...)
-		return newAnnounce(self, "soon", spellId, color or 1, ...)
+		return newAnnounce(self, "soon", spellId, color or 2, ...)
 	end
-	
+
+	function bossModPrototype:NewSoonCountAnnounce(spellId, color, ...)
+		return newAnnounce(self, "sooncount", spellId, color or 2, ...)
+	end
+
 	function bossModPrototype:NewPreWarnAnnounce(spellId, time, color, icon, optionDefault, optionName)
 		return newAnnounce(self, "prewarn", spellId, color or 1, icon, optionDefault, optionName, nil, time)
 	end
-	
-	function bossModPrototype:NewPhaseAnnounce(phase, color, icon, ...)
-		return newAnnounce(self, "phase", phase, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+
+	function bossModPrototype:NewBaitAnnounce(spellId, color, ...)
+		return newAnnounce(self, "bait", spellId, color or 3, ...)
+	end
+
+	function bossModPrototype:NewPhaseAnnounce(stage, color, icon, ...)
+		return newAnnounce(self, "stage", stage, color or 2, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+	end
+
+	function bossModPrototype:NewPhaseChangeAnnounce(color, icon, ...)
+		return newAnnounce(self, "stagechange", 0, color or 2, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+	end
+
+	function bossModPrototype:NewPrePhaseAnnounce(stage, color, icon, ...)
+		return newAnnounce(self, "prestage", stage, color or 2, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+	end
+
+	function bossModPrototype:NewMoveToAnnounce(spellId, color, ...)
+		return newAnnounce(self, "moveto", spellId, color or 3, ...)
 	end
 end
 
@@ -3025,7 +3091,7 @@ do
 		if optionName == false then
 			obj.option = nil
 		else
-			self:AddBoolOption(obj.option, optionDefault, "misc")
+			self:AddBoolOption(obj.option, optionDefault, "sound")
 		end
 		return obj
 	end
@@ -3061,7 +3127,7 @@ do
 		if optionName == false then
 			obj.option = nil
 		else
-			self:AddBoolOption(obj.option, optionDefault, "misc")
+			self:AddBoolOption(obj.option, optionDefault, "sound")
 		end
 		return obj
 	end
@@ -3096,7 +3162,7 @@ do
 		if optionName == false then
 			obj.option = nil
 		else
-			self:AddBoolOption(obj.option, optionDefault, "misc")
+			self:AddBoolOption(obj.option, optionDefault, "sound")
 		end
 		return obj
 	end
@@ -3114,6 +3180,128 @@ do
 	function soundPrototype3:Cancel(...)
 		return unschedule(self.Play, self.mod, self, ...)
 	end	
+end
+
+--------------------
+--  Yell Object  --
+--------------------
+do
+	local yellPrototype = {}
+	local mt = { __index = yellPrototype }
+	local function newYell(self, yellType, spellId, yellText, optionDefault, optionName, chatType)
+		if not spellId and not yellText then
+			error("NewYell: you must provide either spellId or yellText", 2)
+			return
+		end
+		if type(spellId) == "string" and spellId:match("OptionVersion") then
+			print("newYell for: "..yellText.." is using OptionVersion hack. This is depricated")
+			return
+		end
+		local optionVersion
+		if type(optionName) == "number" then
+			optionVersion = optionName
+			optionName = nil
+		end
+		local displayText
+		if not yellText then
+			displayText = DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT[yellType]:format(GetSpellInfo(spellId) or DBM_CORE_UNKNOWN)
+		end
+		--Passed spellid as yellText.
+		--Auto localize spelltext using yellText instead
+		if yellText and type(yellText) == "number" then
+			displayText = DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT[yellType]:format(GetSpellInfo(yellText) or DBM_CORE_UNKNOWN)
+		end
+		local obj = setmetatable(
+			{
+				text = displayText or yellText,
+				mod = self,
+				chatType = chatType,
+				yellType = yellType
+			},
+			mt
+		)
+		if optionName then
+			obj.option = optionName
+			self:AddBoolOption(obj.option, optionDefault, "yell")
+		elseif not (optionName == false) then
+			obj.option = "Yell"..(spellId or yellText)..(yellType ~= "yell" and yellType or "")..(optionVersion or "")
+			self:AddBoolOption(obj.option, optionDefault, "yell")
+			self.localization.options[obj.option] = DBM_CORE_AUTO_YELL_OPTION_TEXT[yellType]:format(spellId)
+		end
+		return obj
+	end
+
+	function yellPrototype:Yell(...)
+		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" and DBM.Options.FilterVoidFormSay then return end
+		if not self.option or self.mod.Options[self.option] then
+			if self.yellType == "combo" then
+				SendChatMessage(pformat(self.text, ...), self.chatType or "YELL")
+			else
+				SendChatMessage(pformat(self.text, ...), self.chatType or "SAY")
+			end
+		end
+	end
+	yellPrototype.Show = yellPrototype.Yell
+
+	--Force override to use say message, even when object defines "YELL"
+	function yellPrototype:Say(...)
+		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" and DBM.Options.FilterVoidFormSay then return end
+		if not self.option or self.mod.Options[self.option] then
+			SendChatMessage(pformat(self.text, ...), "SAY")
+		end
+	end
+
+	function yellPrototype:Schedule(t, ...)
+		return schedule(t, self.Yell, self.mod, self, ...)
+	end
+
+	function yellPrototype:Countdown(time, numAnnounces, ...)
+		if time > 60 then--It's a spellID not a time
+			local _, _, _, _, _, _, expireTime = DBM:UnitDebuff("player", time)
+			if expireTime then
+				local remaining = expireTime-GetTime()
+				scheduleCountdown(remaining, numAnnounces, self.Yell, self.mod, self, ...)
+			end
+		else
+			scheduleCountdown(time, numAnnounces, self.Yell, self.mod, self, ...)
+		end
+	end
+
+	function yellPrototype:Cancel(...)
+		return unschedule(self.Yell, self.mod, self, ...)
+	end
+
+	function bossModPrototype:NewYell(...)
+		return newYell(self, "yell", ...)
+	end
+
+	function bossModPrototype:NewShortYell(...)
+		return newYell(self, "shortyell", ...)
+	end
+
+	function bossModPrototype:NewCountYell(...)
+		return newYell(self, "count", ...)
+	end
+
+	function bossModPrototype:NewFadesYell(...)
+		return newYell(self, "fade", ...)
+	end
+
+	function bossModPrototype:NewShortFadesYell(...)
+		return newYell(self, "shortfade", ...)
+	end
+
+	function bossModPrototype:NewIconFadesYell(...)
+		return newYell(self, "iconfade", ...)
+	end
+
+	function bossModPrototype:NewPosYell(...)
+		return newYell(self, "position", ...)
+	end
+
+	function bossModPrototype:NewComboYell(...)
+		return newYell(self, "combo", ...)
+	end
 end
 
 
@@ -3199,7 +3387,7 @@ do
 		else
 			self:AddBoolOption(optionName or text, optionDefault, "announce")		
 		end
-		table.insert(self.specwarns, obj)
+		tinsert(self.specwarns, obj)
 		return obj
 	end
 
@@ -3219,11 +3407,24 @@ do
 		if optionName == false then
 			obj.option = nil
 		else
-			self:AddBoolOption(optionName or text, optionDefault, "announce")		-- todo cleanup core code from that indexing type using options[text] is very bad!!! ;)
+			local catType = "announce"--Default to General announce
+			--Directly affects another target (boss or player) that you need to know about
+			if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" then
+				catType = "announceother"
+			--Directly affects you
+			elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakpos" then
+				catType = "announcepersonal"
+			--Things you have to do to fulfil your role
+			elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" or announceType == "switch" or announceType == "switchcount" then
+				catType = "announcerole"
+			end
+			self:AddBoolOption(optionName or text, optionDefault, catType)		-- todo cleanup core code from that indexing type using options[text] is very bad!!! ;)
 		end
-		table.insert(self.specwarns, obj)
+		tinsert(self.specwarns, obj)
 		if announceType == "stack" then
 			self.localization.options[text] = DBM_CORE_AUTO_SPEC_WARN_OPTIONS[announceType]:format(stacks or 3, spellId)
+		elseif announceType == "prewarn" then
+			self.localization.options[text] = DBM_CORE_AUTO_SPEC_WARN_OPTIONS[announceType]:format(tostring(stacks or 5), spellId)
 		else
 			self.localization.options[text] = DBM_CORE_AUTO_SPEC_WARN_OPTIONS[announceType]:format(spellId)
 		end
@@ -3234,20 +3435,64 @@ do
 		return newSpecialWarning(self, "spell", text, nil, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningEnd(text, optionDefault, ...)
+		return newSpecialWarning(self, "ends", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningFades(text, optionDefault, ...)
+		return newSpecialWarning(self, "fades", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSoon(text, optionDefault, ...)
+		return newSpecialWarning(self, "soon", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningBait(text, optionDefault, ...)
+		return newSpecialWarning(self, "bait", text, nil, optionDefault, ...)
+	end
+
 	function bossModPrototype:NewSpecialWarningDispel(text, optionDefault, ...)
 		return newSpecialWarning(self, "dispel", text, nil, optionDefault, ...)
 	end
-	
+
 	function bossModPrototype:NewSpecialWarningInterupt(text, optionDefault, ...)
-		return newSpecialWarning(self, "interupt", text, nil, optionDefault, ...)
+		return newSpecialWarning(self, "interrupt", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningInterruptCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "interruptcount", text, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningYou(text, optionDefault, ...)
 		return newSpecialWarning(self, "you", text, nil, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningYouCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "youcount", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningYouPos(text, optionDefault, ...)
+		return newSpecialWarning(self, "youpos", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSoakPos(text, optionDefault, ...)
+		return newSpecialWarning(self, "soakpos", text, nil, optionDefault, ...)
+	end
+
 	function bossModPrototype:NewSpecialWarningTarget(text, optionDefault, ...)
 		return newSpecialWarning(self, "target", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningTargetCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "targetcount", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningDefensive(text, optionDefault, ...)
+		return newSpecialWarning(self, "defensive", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningTaunt(text, optionDefault, ...)
+		return newSpecialWarning(self, "taunt", text, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningClose(text, optionDefault, ...)
@@ -3258,6 +3503,50 @@ do
 		return newSpecialWarning(self, "move", text, nil, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningKeepMove(text, optionDefault, ...)
+		return newSpecialWarning(self, "keepmove", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningStopMove(text, optionDefault, ...)
+		return newSpecialWarning(self, "stopmove", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningGTFO(text, optionDefault, ...)
+		return newSpecialWarning(self, "gtfo", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningDodge(text, optionDefault, ...)
+		return newSpecialWarning(self, "dodge", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningDodgeCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "dodgecount", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningDodgeLoc(text, optionDefault, ...)
+		return newSpecialWarning(self, "dodgeloc", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningMoveAway(text, optionDefault, ...)
+		return newSpecialWarning(self, "moveaway", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningMoveAwayCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "moveawaycount", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningMoveTo(text, optionDefault, ...)
+		return newSpecialWarning(self, "moveto", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSoak(text, optionDefault, ...)
+		return newSpecialWarning(self, "soak", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningJump(text, optionDefault, ...)
+		return newSpecialWarning(self, "jump", text, nil, optionDefault, ...)
+	end
+
 	function bossModPrototype:NewSpecialWarningRun(text, optionDefault, ...)
 		return newSpecialWarning(self, "run", text, nil, optionDefault, ...)
 	end
@@ -3266,10 +3555,49 @@ do
 		return newSpecialWarning(self, "cast", text, nil, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningLookAway(text, optionDefault, ...)
+		return newSpecialWarning(self, "lookaway", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningReflect(text, optionDefault, ...)
+		return newSpecialWarning(self, "reflect", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "count", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSoonCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "sooncount", text, nil, optionDefault, ...)
+	end
+
 	function bossModPrototype:NewSpecialWarningStack(text, optionDefault, stacks, ...)
 		return newSpecialWarning(self, "stack", text, stacks, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningSwitch(text, optionDefault, ...)
+		return newSpecialWarning(self, "switch", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSwitchCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "switchcount", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningAdds(text, optionDefault, ...)
+		return newSpecialWarning(self, "adds", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningAddsCustom(text, optionDefault, ...)
+		return newSpecialWarning(self, "addscustom", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningTargetChange(text, optionDefault, ...)
+		return newSpecialWarning(self, "targetchange", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningPreWarn(text, optionDefault, time, ...)
+		return newSpecialWarning(self, "prewarn", text, time, optionDefault, ...)
+	end
 	do
 		local anchorFrame
 		local function moveEnd()
@@ -3369,7 +3697,7 @@ do
 			else				
 				bar:SetText(pformat(self.text, ...))
 			end
-			table.insert(self.startedTimers, id)
+			tinsert(self.startedTimers, id)
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, fireEvent, "DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
@@ -3400,7 +3728,7 @@ do
 			for i = #self.startedTimers, 1, -1 do
 				if self.startedTimers[i] == id then
 					DBM.Bars:CancelBar(id)
-					table.remove(self.startedTimers, i)
+					tremove(self.startedTimers, i)
 				end
 			end
 		end
@@ -3505,7 +3833,7 @@ do
 			mt
 		)
 		obj:AddOption(optionDefault, optionName)
-		table.insert(self.timers, obj)
+		tinsert(self.timers, obj)
 		return obj
 	end
 	
@@ -3554,7 +3882,7 @@ do
 			mt
 		)
 		obj:AddOption(optionDefault, optionName)
-		table.insert(self.timers, obj)
+		tinsert(self.timers, obj)
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
 			self.localization.options[id] = DBM_CORE_AUTO_TIMER_OPTIONS[timerType]:format(GetAchievementLink(spellId):gsub("%[(.+)%]", "%1"))
@@ -3572,8 +3900,13 @@ do
 		return newTimer(self, "active", ...)
 	end
 
+	----Buff/Debuff on players
+	function bossModPrototype:NewBuffFadesTimer(...)
+		return newTimer(self, "fades", ...)
+	end
+
 	function bossModPrototype:NewCastTimer(timer, ...)
-		if timer > 1000 then -- hehe :) best hack in DBM. This makes the first argument optional, so we can omit it to use the cast time from the spell id ;)
+		if tonumber(timer) and timer > 1000 then -- hehe :) best hack in DBM. This makes the first argument optional, so we can omit it to use the cast time from the spell id ;)
 			local spellId = timer
 			timer = select(7, GetSpellInfo(spellId)) or 1000 -- GetSpellInfo takes YOUR spell haste into account...WTF?
 			local spellHaste = select(7, GetSpellInfo(53142)) / 10000 -- 53142 = Dalaran Portal, should have 10000 ms cast time
@@ -3582,13 +3915,39 @@ do
 		end
 		return newTimer(self, "cast", timer, ...)
 	end
-	
+
+	function bossModPrototype:NewCastCountTimer(timer, ...)
+		if tonumber(timer) and timer > 1000 then -- hehe :) best hack in DBM. This makes the first argument optional, so we can omit it to use the cast time from the spell id ;)
+			local spellId = timer
+			timer = select(7, GetSpellInfo(spellId)) or 1000 -- GetSpellInfo takes YOUR spell haste into account...WTF?
+			local spellHaste = select(7, GetSpellInfo(53142)) / 10000 -- 53142 = Dalaran Portal, should have 10000 ms cast time
+			timer = timer / spellHaste -- calculate the real cast time of the spell...
+			return self:NewCastTimer(timer / 1000, spellId, ...)
+		end
+		return newTimer(self, "castcount", timer, ...)
+	end
+
+	function bossModPrototype:NewCastSourceTimer(timer, ...)
+		if tonumber(timer) and timer > 1000 then -- hehe :) best hack in DBM. This makes the first argument optional, so we can omit it to use the cast time from the spell id ;)
+			local spellId = timer
+			timer = select(7, GetSpellInfo(spellId)) or 1000 -- GetSpellInfo takes YOUR spell haste into account...WTF?
+			local spellHaste = select(7, GetSpellInfo(53142)) / 10000 -- 53142 = Dalaran Portal, should have 10000 ms cast time
+			timer = timer / spellHaste -- calculate the real cast time of the spell...
+			return self:NewCastSourceTimer(timer / 1000, spellId, ...)
+		end
+		return newTimer(self, "castsource", timer, ...)
+	end
+
 	function bossModPrototype:NewCDTimer(...)
 		return newTimer(self, "cd", ...)
 	end
 
 	function bossModPrototype:NewCDCountTimer(...)
 		return newTimer(self, "cdcount", ...)
+	end
+
+	function bossModPrototype:NewCDSourceTimer(...)
+		return newTimer(self, "cdsource", ...)
 	end
 
 	function bossModPrototype:NewNextTimer(...)
@@ -3599,10 +3958,42 @@ do
 		return newTimer(self, "nextcount", ...)
 	end
 
+	function bossModPrototype:NewNextSourceTimer(...)
+		return newTimer(self, "nextsource", ...)
+	end
+
 	function bossModPrototype:NewAchievementTimer(...)
 		return newTimer(self, "achievement", ...)
 	end
-	
+
+	function bossModPrototype:NewCDSpecialTimer(...)
+		return newTimer(self, "cdspecial", ...)
+	end
+
+	function bossModPrototype:NewNextSpecialTimer(...)
+		return newTimer(self, "nextspecial", ...)
+	end
+
+	function bossModPrototype:NewPhaseTimer(...)
+		return newTimer(self, "stage", ...)
+	end
+
+	function bossModPrototype:NewRPTimer(...)
+		return newTimer(self, "roleplay", ...)
+	end
+
+	function bossModPrototype:NewAddsTimer(...)
+		return newTimer(self, "adds", ...)
+	end
+
+	function bossModPrototype:NewAddsCustomTimer(...)
+		return newTimer(self, "addscustom", ...)
+	end
+
+	function bossModPrototype:NewAITimer(...)
+		return newTimer(self, "ai", ...)
+	end
+
 	function bossModPrototype:GetLocalizedTimerText(timerType, spellId)
 		local spellName
 		if timerType == "achievement" then
@@ -3736,7 +4127,7 @@ end
 function bossModPrototype:AddOptionSpacer(cat)
 	cat = cat or "misc"
 	if self.optionCategories[cat] then
-		table.insert(self.optionCategories[cat], DBM_OPTION_SPACER)
+		tinsert(self.optionCategories[cat], DBM_OPTION_SPACER)
 	end
 end
 
@@ -3755,9 +4146,9 @@ function bossModPrototype:SetOptionCategory(name, cat)
 	end
 	if not self.optionCategories[cat] then
 		self.optionCategories[cat] = {}
-		table.insert(self.categorySort, cat)
+		tinsert(self.categorySort, cat)
 	end
-	table.insert(self.optionCategories[cat], name)
+	tinsert(self.optionCategories[cat], name)
 end
 
 
@@ -3797,7 +4188,7 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	if not self.zones then return end
 	for i, v in ipairs(self.zones) do
 		combatInfo[v] = combatInfo[v] or {}
-		table.insert(combatInfo[v], info)
+		tinsert(combatInfo[v], info)
 	end
 end
 
@@ -3844,7 +4235,7 @@ function bossModPrototype:GetBossHPString(cId)
 		local unitId = ((i == 0) and "target") or idType..i.."target"
 		local guid = UnitGUID(unitId)
 		if guid and tonumber(guid:sub(9, 12), 16) == cId then
-			return math.floor(UnitHealth(unitId)/UnitHealthMax(unitId) * 100).."%"
+			return floor(UnitHealth(unitId)/UnitHealthMax(unitId) * 100).."%"
 		end
 	end
 	return DBM_CORE_UNKNOWN
@@ -4018,9 +4409,15 @@ do
 	local returnKey = {__index = function(t, k) return k end}
 	local defaultCatLocalization = {
 		__index = setmetatable({
-			timer		= DBM_CORE_OPTION_CATEGORY_TIMERS,
-			announce	= DBM_CORE_OPTION_CATEGORY_WARNINGS,
-			misc		= DBM_CORE_OPTION_CATEGORY_MISC
+			timer				= DBM_CORE_OPTION_CATEGORY_TIMERS,
+			announce			= DBM_CORE_OPTION_CATEGORY_WARNINGS,
+			announceother		= DBM_CORE_OPTION_CATEGORY_WARNINGS_OTHER,
+			announcepersonal	= DBM_CORE_OPTION_CATEGORY_WARNINGS_YOU,
+			announcerole		= DBM_CORE_OPTION_CATEGORY_WARNINGS_ROLE,
+			sound				= DBM_CORE_OPTION_CATEGORY_SOUNDS,
+			yell				= DBM_CORE_OPTION_CATEGORY_YELLS,
+			icon				= DBM_CORE_OPTION_CATEGORY_ICONS,
+			misc				= MISCELLANEOUS
 		}, returnKey)
 	}
 	local defaultTimerLocalization = {

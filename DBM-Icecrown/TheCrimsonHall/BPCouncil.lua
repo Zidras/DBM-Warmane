@@ -35,9 +35,10 @@ local warnEmpoweredShockVortex	= mod:NewCastAnnounce(72039, 4)					-- 4,5sec cas
 local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, mod:IsRanged())
 local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant cast
 
-local specWarnVortex			= mod:NewSpecialWarning("SpecWarnVortex")
-local specWarnVortexNear		= mod:NewSpecialWarning("SpecWarnVortexNear")
-local specWarnEmpoweredShockV	= mod:NewSpecialWarningRun(72039)
+local specWarnVortex			= mod:NewSpecialWarningYou(72037)
+local yellVortex				= mod:NewYell(72037)
+local specWarnVortexNear		= mod:NewSpecialWarningClose(72037)
+local specWarnEmpoweredShockV	= mod:NewSpecialWarningMoveAway(72039)
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040)
 local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6)
 
@@ -48,7 +49,7 @@ local timerGlitteringSparksCD	= mod:NewCDTimer(20, 72798)				-- This is pretty n
 local timerShockVortex			= mod:NewCDTimer(15.0, 72037)			-- Seen a range from 16,8 - 21,6
 local timerShockVortexMax		= mod:NewCDTimer(20.0, 72037)			-- Seen a range from 16,8 - 21,6
 local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, mod:IsRanged())				-- Might need tweaking
-local timerShadowPrison			= mod:NewBuffActiveTimer(10, 72999)		-- Hard mode debuff
+local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999)		-- Hard mode debuff
 
 local berserkTimer				= mod:NewBerserkTimer(600)
 
@@ -103,6 +104,7 @@ function mod:OldShockVortexTarget()
 		warnShockVortex:Show(targetname)
 	if targetname == UnitName("player") then
 		specWarnVortex:Show()
+		yellVortex:Yell()
 	elseif targetname then
 		local uId = DBM:GetRaidUnitId(targetname)
 		if uId then
@@ -113,7 +115,7 @@ function mod:OldShockVortexTarget()
 				x, y = GetPlayerMapPosition(uId)
 			end
 			if inRange then
-				specWarnVortexNear:Show()
+				specWarnVortexNear:Show(targetname)
 				if self.Options.VortexArrow then
 					DBM.Arrow:ShowRunAway(x, y, 10, 5)
 				end

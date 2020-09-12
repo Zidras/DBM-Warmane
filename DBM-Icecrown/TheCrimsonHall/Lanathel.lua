@@ -32,15 +32,15 @@ local specWarnEssenceoftheBloodQueen= mod:NewSpecialWarningYou(71473)
 local specWarnBloodthirst			= mod:NewSpecialWarningYou(71474)
 local specWarnSwarmingShadows		= mod:NewSpecialWarningMove(71266)
 local specWarnMindConrolled			= mod:NewSpecialWarningTarget(70923, mod:IsTank())
-
+local yellBloodthirst				= mod:NewYell(70877, L.YellFrenzy)
 local timerNextInciteTerror			= mod:NewNextTimer(100, 73070)
 local timerFirstBite				= mod:NewCastTimer(15, 71727)
 local timerNextPactDarkfallen		= mod:NewNextTimer(30.5, 71340)
 local timerNextSwarmingShadows		= mod:NewNextTimer(30.5, 71266)
 local timerInciteTerror				= mod:NewBuffActiveTimer(4, 73070)
 local timerBloodBolt				= mod:NewBuffActiveTimer(6, 71772)
-local timerBloodThirst				= mod:NewBuffActiveTimer(10, 71474)
-local timerEssenceoftheBloodQueen	= mod:NewBuffActiveTimer(60, 71473)
+local timerBloodThirst				= mod:NewBuffFadesTimer(10, 71474)
+local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 71473)
 
 local berserkTimer					= mod:NewBerserkTimer(330)
 
@@ -52,7 +52,6 @@ mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
 mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("YellOnFrenzy", false, "announce")
 
 local pactTargets = {}
 local pactIcons = 6
@@ -115,9 +114,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnBloodthirst:Show(args.destName)
 		if args:IsPlayer() then
 			specWarnBloodthirst:Show()
-			if self.Options.YellOnFrenzy then
-				SendChatMessage(L.YellFrenzy, "SAY")
-			end
+			yellBloodthirst:Yell()
 			if mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10") then
 				timerBloodThirst:Start(15)--15 seconds on 10 man
 			else

@@ -10,24 +10,25 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
-	"UNIT_SPELLCAST_SUCCEEDED",
-	"SPELL_CAST_SUCCESS"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
-local warnInhaledBlight		= mod:NewAnnounce("InhaledBlight", 3, 71912)
-local warnGastricBloat		= mod:NewAnnounce("WarnGastricBloat", 2, 72551, true)
+local warnInhaledBlight		= mod:NewStackAnnounce(71912, 3)
+local warnGastricBloat		= mod:NewStackAnnounce(72551, 2, nil, true)
 local warnGasSpore			= mod:NewTargetAnnounce(69279, 4)
 local warnVileGas			= mod:NewTargetAnnounce(73020, 3)
 
 local specWarnPungentBlight	= mod:NewSpecialWarningSpell(71219)
 local specWarnGasSpore		= mod:NewSpecialWarningYou(69279)
+local yellGasSpore			= mod:NewYell(69279)
 local specWarnVileGas		= mod:NewSpecialWarningYou(71218)
+local yellVileGas			= mod:NewYell(69240)
 local specWarnGastricBloat	= mod:NewSpecialWarningStack(72551, nil, 9)
 local specWarnInhaled3		= mod:NewSpecialWarningStack(71912, mod:IsTank(), 3)
-local specWarnGoo			= mod:NewSpecialWarningSpell(72549, false)
+local specWarnGoo			= mod:NewSpecialWarningDodge(72549, true)
 
-local timerGasSpore			= mod:NewBuffActiveTimer(12, 69279)
-local timerVileGas			= mod:NewBuffActiveTimer(6, 71218, nil, mod:IsRanged())
+local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279)
+local timerVileGas			= mod:NewBuffFadesTimer(6, 71218, nil, mod:IsRanged())
 local timerGasSporeCD		= mod:NewNextTimer(40, 69279)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
 local timerPungentBlight	= mod:NewNextTimer(33, 71219)		-- 33 seconds after 3rd stack of inhaled
 local soundPungentBlight 	= mod:NewSound5(71219)
@@ -96,7 +97,7 @@ function mod:OnCombatStart(delay)
 	lastGoo = 0
 	warnedfailed = false
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10)
+		DBM.RangeCheck:Show(8)
 	end
 	timerGooCD:Start(13-delay)
 end
@@ -161,7 +162,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(0.3, warnGasSporeTargets)
 		end
 	elseif args:IsSpellID(69166, 71912) then	-- Inhaled Blight
-		warnInhaledBlight:Show(args.amount or 1)
+		warnInhaledBlight:Show(args.destName, args.amount or 1)
 		if (args.amount or 1) >= 3 then
 			specWarnInhaled3:Show(args.amount)
 			timerPungentBlight:Start()
@@ -171,7 +172,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerInhaledBlight:Start()
 		end
 	elseif args:IsSpellID(72219, 72551, 72552, 72553) then	-- Gastric Bloat
-		warnGastricBloat:Show(args.spellName, args.destName, args.amount or 1)
+		warnGastricBloat:Show(args.destName, args.amount or 1)
 		timerGastricBloat:Start(args.destName)
 		timerGastricBloatCD:Start()
 		if args:IsPlayer() and (args.amount or 1) >= 9 then
