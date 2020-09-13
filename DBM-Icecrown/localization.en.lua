@@ -562,5 +562,11 @@ L:SetMiscLocalization{
 	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s",
 	ValkGrabbed				= "Valkyr Shadowguard grabbed %s",
 	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague",
-	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<"
+	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<",
+	FrameTitle				= "Valkyr targets",
+	FrameLock				= "Frame Lock",
+	FrameClassColor			= "Use Class Colors",
+	FrameOrientation		= "Expand upwards",
+	FrameHide				= "Hide Frame",
+	FrameClose				= "Close"
 }

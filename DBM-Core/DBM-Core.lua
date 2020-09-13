@@ -3005,7 +3005,7 @@ do
 			else
 				text = DBM_CORE_AUTO_ANNOUNCE_TEXTS[announceType]:format(spellName, DBM_CORE_SEC_FMT:format(preWarnTime or 5))
 			end
-		elseif announceType == "phase" then
+		elseif announceType == "stage" then
 			text = DBM_CORE_AUTO_ANNOUNCE_TEXTS[announceType]:format(spellId)
 		else
 			text = DBM_CORE_AUTO_ANNOUNCE_TEXTS[announceType]:format(spellName)

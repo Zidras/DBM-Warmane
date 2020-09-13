@@ -66,3 +66,5 @@ FrostwingHalls\Valithria.lua
 FrostwingHalls\Sindragosa.lua
 FrostwingHalls\FrostwingHallTrash.lua
 TheFrozenThrone\LichKing.lua
+TheFrozenThrone\LichKingFrame.lua
+TheFrozenThrone\LichKingFrame.xml

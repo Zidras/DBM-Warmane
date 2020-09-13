@@ -17,7 +17,8 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_AURA"
+	"UNIT_AURA",
+	"UNIT_EXITING_VEHICLE"
 )
 
 local isPAL = select(2, UnitClass("player")) == "PALADIN"
@@ -94,6 +95,7 @@ local berserkTimer			= mod:NewBerserkTimer(900)
 local soundDefile			= mod:NewSound(72762)
 local soundDefile3			= mod:NewSound3(72762)
 local soundPlague3			= mod:NewSound3(73912)
+local UnitName = UnitName
 
 mod:AddBoolOption("SpecWarnHealerGrabbed", mod:IsTank() or mod:IsHealer(), "announce")
 mod:AddBoolOption("DefileIcon")
@@ -107,6 +109,20 @@ mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
 mod:AddBoolOption("YellInValk", true, "yell")
+
+mod:AddBoolOption("ShowFrame", true)
+mod:AddBoolOption("FrameLocked", false)
+mod:AddBoolOption("FrameClassColor", true, nil, function()
+	mod:UpdateColors()
+end)
+mod:AddBoolOption("FrameUpwards", false, nil, function()
+	mod:ChangeFrameOrientation()
+end)
+
+mod.Options.FramePoint = "CENTER"
+mod.Options.FrameX = 150
+mod.Options.FrameY = -50
+
 
 local lastPlagueCast = 0
 local warned_preP2 = false
@@ -123,12 +139,19 @@ end
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 0
+	if self.Options.ShowFrame then
+		self:CreateFrame()
+	end
 	lastPlagueCast = 0
 	warned_preP2 = false
 	warned_preP3 = false
 	self:NextPhase()
 	table.wipe(warnedValkyrGUIDs)
 	table.wipe(plagueExpires)
+end
+
+function mod:OnCombatEnd()
+	self:DestroyFrame()
 end
 
 function mod:DefileTarget(targetname, uId)
@@ -378,6 +401,12 @@ do
 				if UnitInVehicle("raid"..i) and not valkyrTargets[i] then      -- if person #i is in a vehicle and not already announced 
 					valkyrWarning:Show(UnitName("raid"..i))  -- UnitName("raid"..i) returns the name of the person who got valkyred
 					valkyrTargets[i] = true          -- this person has been announced
+					local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(i)
+					if name == UnitName("raid"..i) then
+						grp = subgroup
+						class = fileName
+						mod:AddEntry(name, grp or 0, class, grabIcon)
+					end
 					if UnitName("raid"..i) == UnitName("player") then
 						specWarnYouAreValkd:Show()
 						SendChatMessage(UnitName("player").." "..select(1, UnitClass("player")), "YELL")
@@ -405,10 +434,13 @@ do
 			grabIcon = 2
 		end
 	end  
-	
-	
+
+
 	function mod:SPELL_SUMMON(args)
 		if args:IsSpellID(69037) then -- Summon Val'kyr
+			if self.Options.ShowFrame then
+				self:CreateFrame()
+			end
 			if time() - lastValk > 15 then -- show the warning and timer just once for all three summon events
 				warnSummonValkyr:Show()
 				timerSummonValkyr:Start()
@@ -506,6 +538,9 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.LKPull or msg:find(L.LKPull) then
 		timerCombatStart:Start()
+		if self.Options.ShowFrame then
+			self:CreateFrame()
+		end
 	end
 end
 
@@ -525,6 +560,10 @@ function mod:UNIT_AURA(uId)
 			self:SetIcon(uId, 5, 5)
 		end
 	end
+end
+
+function mod:UNIT_EXITING_VEHICLE(uId)
+	mod:RemoveEntry(UnitName(uId))
 end
 
 function mod:OnSync(msg, target)
