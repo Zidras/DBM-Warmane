@@ -52,7 +52,7 @@ local berserkTimer					= mod:NewBerserkTimer(480)
 
 local soundConsumption 				= mod:NewSound(74562, "SoundOnConsumption")
 
-mod:AddBoolOption("YellOnConsumption", true, "announce")
+mod:AddBoolOption("YellOnConsumption", true, "yell")
 mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
 mod:AddBoolOption("WhisperOnConsumption", false, "announce")
 mod:AddBoolOption("SetIconOnConsumption", true)

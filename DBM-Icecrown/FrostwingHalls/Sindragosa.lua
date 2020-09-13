@@ -41,7 +41,7 @@ local timerNextAirphase			= mod:NewTimer(120, "TimerNextAirphase", 43810)
 local timerNextGroundphase		= mod:NewTimer(42.5, "TimerNextGroundphase", 43810)
 local timerNextFrostBreath		= mod:NewNextTimer(22, 71056, nil, true)
 local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123)
-local timerNextBeacon			= mod:NewNextTimer(16, 70126)
+local timerNextBeacon			= mod:NewNextCountTimer(16, 70126)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123)
 local timerUnchainedMagic		= mod:NewCDTimer(30, 69762)
 local timerInstability			= mod:NewBuffFadesTimer(5, 69766)
@@ -63,6 +63,7 @@ mod:AddBoolOption("RangeFrame")
 local beaconTargets		= {}
 local beaconIconTargets	= {}
 local unchainedTargets	= {}
+local p2_beacon_num = 1
 local warned_P2 = false
 local warnedfailed = false
 local unchainedIcons = 7
@@ -101,6 +102,7 @@ local function warnUnchainedTargets()
 end
 
 function mod:OnCombatStart(delay)
+	p2_beacon_num = 1
 	berserkTimer:Start(-delay)
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
@@ -112,8 +114,8 @@ function mod:OnCombatStart(delay)
 	unchainedIcons = 7
 	self.vb.phase = 1
 	activeBeacons = false
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(20, GetRaidTargetIndex) -- Edit to fix auto showing range check with heroic mode values
+	if self.Options.RangeFrame and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) then
+		DBM.RangeCheck:Show(20) -- Edit to fix auto showing range check with heroic mode values
 	end
 end
 
@@ -144,7 +146,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		if self.vb.phase == 2 then--Phase 2 there is only one icon/beacon, don't use sorting method if we don't have to.
-			timerNextBeacon:Start()
+			p2_beacon_num = p2_beacon_num + 1
+			timerNextBeacon:Start(16, p2_beacon_num)
 			if self.Options.SetIconOnFrostBeacon then
 				self:SetIcon(args.destName, 8)
 				if self.Options.AnnounceFrostBeaconIcons then
@@ -272,7 +275,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
 		self.vb.phase = self.vb.phase + 1
 		warnPhase2:Show()
-		timerNextBeacon:Start(7)
+		p2_beacon_num = 1
+		timerNextBeacon:Start(7, p2_beacon_num)
 		timerNextAirphase:Cancel()
 		timerNextGroundphase:Cancel()
 		warnGroundphaseSoon:Cancel()

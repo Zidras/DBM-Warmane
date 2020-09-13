@@ -67,8 +67,8 @@ mod:AddBoolOption("GaseousBloatIcon")
 mod:AddBoolOption("MalleableGooIcon")
 mod:AddBoolOption("UnboundPlagueIcon")					-- icon on the player with active buff
 mod:AddBoolOption("GooArrow")
-mod:AddBoolOption("YellOnMalleableGoo", true, "announce")
-mod:AddBoolOption("YellOnUnbound", true, "announce")
+mod:AddBoolOption("YellOnMalleableGoo", true, "yell")
+mod:AddBoolOption("YellOnUnbound", true, "yell")
 mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
 local warned_preP2 = false

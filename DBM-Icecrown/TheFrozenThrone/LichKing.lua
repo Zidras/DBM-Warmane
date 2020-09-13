@@ -106,7 +106,7 @@ mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
-mod:AddBoolOption("YellInValk")
+mod:AddBoolOption("YellInValk", true, "yell")
 
 local lastPlagueCast = 0
 local warned_preP2 = false

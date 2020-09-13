@@ -45,7 +45,7 @@ mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("SetIconOnGripTarget", true)
 mod:AddBoolOption("PlaySoundOnEyebeam", true)
 mod:AddBoolOption("SetIconOnEyebeamTarget", true)
-mod:AddBoolOption("YellOnBeam", true, "announce")
+mod:AddBoolOption("YellOnBeam", true, "yell")
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(600-delay)

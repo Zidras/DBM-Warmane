@@ -134,6 +134,8 @@ DBM.DefaultOptions = {
 	RangeFrameUpdates = "Average",
 	DontSendYells = false,
 	RangeFrameFrames = "radar",
+	DebugMode = false,
+	DebugLevel = 1,
 --	HelpMessageShown = false,
 }
 
@@ -831,6 +833,17 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 				DBM:AddMsg(v)
 			end
 		end
+	elseif cmd:sub(1, 10) == "debuglevel" then
+		local level = tonumber(cmd:sub(11)) or 1
+		if level < 1 or level > 3 then
+			DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 3.")
+			return
+		end
+		DBM.Options.DebugLevel = level
+		DBM:AddMsg("Debug Level is " .. level)
+	elseif cmd:sub(1, 5) == "debug" then
+		DBM.Options.DebugMode = DBM.Options.DebugMode == false and true or false
+		DBM:AddMsg("Debug Message is " .. (DBM.Options.DebugMode and "ON" or "OFF"))
 	else
 		DBM:LoadGUI()
 	end
@@ -1610,6 +1623,12 @@ do
 			local handler = whisperSyncHandlers[prefix]
 			if handler then handler(msg, channel, sender) end
 		end
+		if msg:find("spell:") and (DBM.Options.DebugLevel > 2) then
+			local spellId = string.match(msg, "spell:(%d+)") or "UNKNOWN"
+			local spellName = string.match(msg, "h%[(.-)%]|h") or "UNKNOWN"
+			local message = "RAID_BOSS_WHISPER on "..sender.." with spell of "..spellName.." ("..spellId..")"
+			DBM:Debug(message)
+		end
 	end
 end
 
@@ -1835,6 +1854,8 @@ function checkWipe(confirm)
 			DBM:Schedule(3, checkWipe)
 		elseif confirm then
 			for i = #inCombat, 1, -1 do
+				local reason = (wipe and "No combat unit found in your party.")
+				DBM:Debug("You wiped. Reason : "..reason)
 				DBM:EndCombat(inCombat[i], true)
 			end
 		else
@@ -1853,6 +1874,11 @@ function DBM:StartCombat(mod, delay, synced)
 		if not mod.combatInfo then return end
 		if mod.combatInfo.noCombatInVehicle and UnitInVehicle("player") then -- HACK
 			return
+		end
+		if event then
+			DBM:Debug("StartCombat called by : "..event..". LastInstanceMapID is (skipped)")
+		else
+			DBM:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is (skipped)")
 		end
 		tinsert(inCombat, mod)
 		self:AddMsg(DBM_CORE_COMBAT_STARTED:format(mod.combatInfo.name))
@@ -2272,6 +2298,16 @@ function DBM:AddMsg(text, prefix)
 	DEFAULT_CHAT_FRAME:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(prefix), tostring(text)), 0.41, 0.8, 0.94)
 end
 
+function DBM:Debug(text, level)
+	if not self.Options or not self.Options.DebugMode then return end
+	if (level or 1) <= DBM.Options.DebugLevel then
+		local frame = _G[tostring(DBM.Options.ChatFrame)]
+		frame = frame and frame:IsShown() and frame or DEFAULT_CHAT_FRAME
+		frame:AddMessage("|cffff7d0aDBM Debug:|r "..text, 1, 1, 1)
+		fireEvent("DBM_Debug", text, level)
+	end
+end
+
 do
 	local testMod
 	local testWarning1, testWarning2, testWarning3
@@ -2577,25 +2613,25 @@ do
 	function bossModPrototype:BossTargetScannerAbort(cidOrGuid, returnFunc)
 		targetScanCount[cidOrGuid] = nil--Reset count for later use.
 		self:UnscheduleMethod("BossTargetScanner", cidOrGuid, returnFunc)
-		--print("Boss target scan for "..cidOrGuid.." should be aborting.", 3)
+		DBM:Debug("Boss target scan for "..cidOrGuid.." should be aborting.", 3)
 	end
 
 	function bossModPrototype:BossUnitTargetScannerAbort(uId)
 		if not uId then--Not called with unit, means mod requested to clear all used units
-			--print("BossUnitTargetScannerAbort called without unit, clearing all targetMonitor units", 2)
+			DBM:Debug("BossUnitTargetScannerAbort called without unit, clearing all targetMonitor units", 2)
 			twipe(targetMonitor)
 			return
 		end
 		if targetMonitor[uId] and targetMonitor[uId].allowTank and UnitExists(uId.."target") and UnitPlayerOrPetInRaid(uId.."target") then
-			--print("targetMonitor unit exists, allowTank target exists", 2)
+			DBM:Debug("targetMonitor unit exists, allowTank target exists", 2)
 			local modId, returnFunc = targetMonitor[uId].modid, targetMonitor[uId].returnFunc
-			--print("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
+			DBM:Debug("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
 			local mod = self:GetModByName(modId)
-			--print("targetMonitor found a target that probably is a tank", 2)
+			DBM:Debug("targetMonitor found a target that probably is a tank", 2)
 			mod[returnFunc](mod, GetUnitName(uId.."target"), uId.."target", uId)--Return results to warning function with all variables.
 		end
 		targetMonitor[uId] = nil
-		--print("Boss unit target scan should be aborting for "..uId, 3)
+		DBM:Debug("Boss unit target scan should be aborting for "..uId, 3)
 	end
 
 	function bossModPrototype:BossUnitTargetScanner(uId, returnFunc, scanTime, allowTank)
@@ -2618,7 +2654,7 @@ do
 		scanInterval = scanInterval or 0.05
 		scanTimes = scanTimes or 16
 		local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
-		--print("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
+		DBM:Debug("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
 		--Do scan
 		if targetname and targetname ~= "неизвестно" and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
 			if (GetNumRaidMembers() == 0) then scanTimes = 1 end --Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
@@ -2818,7 +2854,7 @@ function bossModPrototype:IsTanking(unit, boss)
 	if boss and UnitExists(boss) then--Only checking one bossID as requested
 		local tanking, status = UnitDetailedThreatSituation(unit, boss)
 		if tanking or (status == 3) then
-			--print("tanking function fired bossUID true")
+			DBM:Debug("tanking function fired bossUID true")
 			return true
 		end
 	else--Check all of them if one isn't defined
@@ -2826,13 +2862,13 @@ function bossModPrototype:IsTanking(unit, boss)
 			if UnitExists("boss"..i) then
 				local tanking, status = UnitDetailedThreatSituation(unit, "boss"..i)
 				if tanking or (status == 3) then
-					--print("tanking function fired bossNNN true")
+					DBM:Debug("tanking function fired bossNNN true")
 					return true
 				end
 			end
 		end
 	end
-	--print("tanking function fired false")
+	DBM:Debug("tanking function fired false")
 	return false
 end
 
@@ -2927,6 +2963,14 @@ do
 
 	-- old constructor (no auto-localize)
 	function bossModPrototype:NewAnnounce(text, color, icon, optionDefault, optionName)
+		if not text then
+			error("NewAnnounce: you must provide announce text", 2)
+			return
+		end
+		if type(optionName) == "number" then
+			DBM:Debug("Non auto localized optionNames cannot be numbers, fix this for "..text)
+			optionName = nil
+		end
 		local obj = setmetatable(
 			{
 				text = self.localization.warnings[text],
@@ -3194,7 +3238,7 @@ do
 			return
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then
-			print("newYell for: "..yellText.." is using OptionVersion hack. This is depricated")
+			DBM:Debug("newYell for: "..yellText.." is using OptionVersion hack. This is depricated", 3)
 			return
 		end
 		local optionVersion
@@ -3232,7 +3276,7 @@ do
 	end
 
 	function yellPrototype:Yell(...)
-		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" and DBM.Options.FilterVoidFormSay then return end
+		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" then return end
 		if not self.option or self.mod.Options[self.option] then
 			if self.yellType == "combo" then
 				SendChatMessage(pformat(self.text, ...), self.chatType or "YELL")
@@ -3245,7 +3289,7 @@ do
 
 	--Force override to use say message, even when object defines "YELL"
 	function yellPrototype:Say(...)
-		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" and DBM.Options.FilterVoidFormSay then return end
+		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" then return end
 		if not self.option or self.mod.Options[self.option] then
 			SendChatMessage(pformat(self.text, ...), "SAY")
 		end
@@ -3686,8 +3730,39 @@ do
 			return self:Start(nil, timer, ...) -- first argument is optional!
 		end
 		if not self.option or self.mod.Options[self.option] then
+			if self.type and (self.type == "cdcount" or self.type == "nextcount") then--remove previous timer.
+				for i = #self.startedTimers, 1, -1 do
+					if DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
+						local bar = DBM.Bars:GetBar(self.startedTimers[i])
+						if bar then
+							local remaining = ("%.1f"):format(bar.timer)
+							local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
+							ttext = ttext.."("..self.id..")"
+							if bar.timer > 0.2 then
+								DBM:Debug("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining, 2)
+							end
+						end
+					end
+					DBM.Bars:CancelBar(self.startedTimers[i])
+					fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
+					self.startedTimers[i] = nil
+				end
+			end
 			local timer = timer and ((timer > 0 and timer) or self.timer + timer) or self.timer
 			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+			if DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
+				if not self.type or (self.type ~= "target" and self.type ~= "active" and self.type ~= "fades" and self.type ~= "ai") then
+					local bar = DBM.Bars:GetBar(id)
+					if bar then
+						local remaining = ("%.1f"):format(bar.timer)
+						local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
+						ttext = ttext.."("..self.id..")"
+						if bar.timer > 0.2 then
+							DBM:Debug("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining, 2)
+						end
+					end
+				end
+			end
 			local bar = DBM.Bars:CreateBar(timer, id, self.icon)
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15

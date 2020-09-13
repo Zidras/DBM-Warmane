@@ -22,7 +22,7 @@ local warnFlashFreeze		= mod:NewSpecialWarningSpell(61968)
 local specWarnBitingCold	= mod:NewSpecialWarningMove(62188, false)
 
 mod:AddBoolOption("PlaySoundOnFlashFreeze", true, "announce")
-mod:AddBoolOption("YellOnStormCloud", true, "announce")
+mod:AddBoolOption("YellOnStormCloud", true, "yell")
 
 local enrageTimer			= mod:NewBerserkTimer(475)
 local timerFlashFreeze		= mod:NewCastTimer(9, 61968)
