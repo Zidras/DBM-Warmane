@@ -36,7 +36,7 @@ local specWarnLittleOoze		= mod:NewSpecialWarning("SpecWarnLittleOoze")
 local specWarnVileGas			= mod:NewSpecialWarningYou(72272)
 
 local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, mod:IsTank())
-local timerWallSlime			= mod:NewNextTimer(25, 69789)
+local timerWallSlime			= mod:NewNextTimer(25-4.4, 69789)
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 71224)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839)

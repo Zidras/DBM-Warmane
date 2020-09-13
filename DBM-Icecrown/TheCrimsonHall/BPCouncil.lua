@@ -36,7 +36,7 @@ local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, mod:IsRanged())
 local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant cast
 
 local specWarnVortex			= mod:NewSpecialWarningYou(72037)
-local yellVortex				= mod:NewYell(72037)
+local yellVortex				= mod:NewYellMe(72037)
 local specWarnVortexNear		= mod:NewSpecialWarningClose(72037)
 local specWarnEmpoweredShockV	= mod:NewSpecialWarningMoveAway(72039)
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040)

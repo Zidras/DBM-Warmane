@@ -23,6 +23,8 @@ local warnUnstableExperiment		= mod:NewSpellAnnounce(70351, 4)
 local warnVolatileOozeAdhesive		= mod:NewTargetAnnounce(70447, 3)
 local warnGaseousBloat				= mod:NewTargetAnnounce(70672, 3)
 local warnPhase2Soon				= mod:NewAnnounce("WarnPhase2Soon", 2)
+local warnPhase2					= mod:NewPhaseAnnounce(2, 2)
+local warnPhase3					= mod:NewPhaseAnnounce(3, 2)
 local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
 local warnVolatileExperiment		= mod:NewSpellAnnounce(72840, 4)		-- Phase transition heroic
 local warnMalleableGoo				= mod:NewSpellAnnounce(72295, 2)		-- Phase 2 ability
@@ -151,16 +153,19 @@ function mod:SPELL_CAST_START(args)
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (Heroic phase change end)
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
+			self:ScheduleMethod(40-4.4, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
+			timerUnstableExperimentCD:Cancel()
 		end
 	elseif args:IsSpellID(73121, 73122) then		--Guzzle Potions (Heroic phase change end)
 		if mod:IsDifficulty("heroic10") then
 			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
+			timerUnstableExperimentCD:Cancel()
 		elseif mod:IsDifficulty("heroic25") then
-			self:ScheduleMethod(30, "NextPhase")
+			self:ScheduleMethod(30-1.3, "NextPhase")
 			timerPotions:Start(20)
+			timerUnstableExperimentCD:Cancel()
 		end
 	end
 end
@@ -168,18 +173,20 @@ end
 function mod:NextPhase()
 	self.vb.phase = self.vb.phase + 1
 	if self.vb.phase == 2 then
+		warnPhase2:Show()
 		warnUnstableExperimentSoon:Schedule(15)
 		timerUnstableExperimentCD:Start(20)
 		timerSlimePuddleCD:Start(10)
 		timerMalleableGooCD:Start(5)
-		timerChokingGasBombCD:Start(10)
+		timerChokingGasBombCD:Start(14.4)
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
 	elseif self.vb.phase == 3 then
+		warnPhase3:Show()
 		timerSlimePuddleCD:Start(15)
 		timerMalleableGooCD:Start(9)
-		timerChokingGasBombCD:Start(10)
+		timerChokingGasBombCD:Start(11.3)
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end

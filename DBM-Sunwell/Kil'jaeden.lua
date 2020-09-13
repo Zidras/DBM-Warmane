@@ -27,19 +27,22 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
-local specWarnBloom		= mod:NewSpecialWarningYou(45641)
+local warnShipTarget	= mod:NewTargetAnnounce(46589, 3)
+local specWarnShip		= mod:NewSpecialWarningMove(46589)
+local specWarnBloom		= mod:NewSpecialWarningMoveAway(45641)
 local specWarnBomb		= mod:NewSpecialWarningSpell(46605, nil, nil, nil, 3)
 local specWarnShield	= mod:NewSpecialWarningSpell(45848)
 local specWarnDarkOrb	= mod:NewSpecialWarning("SpecWarnDarkOrb", false)
 local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", false)
 
+local yellBloom			= mod:NewYellMe(45641)
+local yellShip			= mod:NewYellMe(46589)
 local timerBloomCD		= mod:NewCDTimer(20, 45641)
 local timerDartCD		= mod:NewCDTimer(20, 45740)
 local timerBomb			= mod:NewCastTimer(9, 46605)
 local timerBombCD		= mod:NewCDTimer(45, 46605)
 local timerSpike		= mod:NewCastTimer(28, 46680)
 local timerBlueOrb		= mod:NewTimer(37, "TimerBlueOrb", 45109)
-
 local berserkTimer		= mod:NewBerserkTimer(900)
 
 mod:AddBoolOption("BloomIcon", true)
@@ -48,6 +51,7 @@ mod:AddBoolOption("RangeFrame", true)
 local warnBloomTargets = {}
 local orbGUIDs = {}
 local bloomIcon = 8
+mod.vb.phase = 1
 
 local function showBloomTargets()
 	warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
@@ -83,7 +87,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args:IsPlayer() then
 			specWarnBloom:Show()
-			SendChatMessage("Огненный Цветок на мне!", "SAY")
+			yellBloom:Yell()
 		end
 		if #warnBloomTargets >= 5 then
 			showBloomTargets()
@@ -127,6 +131,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args.spellId == 45848 then
 		warnShield:Show()
 		specWarnShield:Show()
+	elseif args.spellId == 46589 and args.destName ~= nil then
+		warnShipTarget:Show(args.destName)
+		if args.destName == UnitName("player") then
+			specWarnShip:Show()
+			yellShip:Show()
+		end
 	end
 end
 

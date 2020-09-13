@@ -183,7 +183,7 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 --------------------------------------------------------
 local DBM = DBM
 local ipairs, pairs, next = ipairs, pairs, next
-local type, select = type, select
+local type, select, tonumber = type, select, tonumber
 local GetTime = GetTime
 local floor, mhuge, mmin, mmax = math.floor, math.huge, math.min, math.max
 local GetRaidRosterInfo = GetRaidRosterInfo
@@ -195,7 +195,7 @@ local GetSpellInfo = GetSpellInfo
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 -- these global functions are accessed all the time by the event handler
 -- so caching them is worth the effort
-local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
+local tinsert, tremove, twipe, tsort = table.insert, table.remove, table.wipe, table.sort
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -873,7 +873,7 @@ do
 		for i, v in pairs(raid) do
 			tinsert(sortMe, v)
 		end
-		table.sort(sortMe, sort)
+		tsort(sortMe, sort)
 		self:AddMsg(DBM_CORE_VERSIONCHECK_HEADER)
 		for i, v in ipairs(sortMe) do
 			if v.displayVersion then
@@ -903,7 +903,7 @@ do
 		for i, v in pairs(raid) do
 			tinsert(sortMe, v)
 		end
-		table.sort(sortMe, sort)
+		tsort(sortMe, sort)
 		SendChatMessage(DBM_CORE_VERSIONCHECK_HEADER, "RAID")
 		for i, v in ipairs(sortMe) do
 			if v.displayVersion then
@@ -1014,7 +1014,7 @@ do
 				end
 				return false
 			end
-			table.sort(callOnLoad, function(v1, v2) return v1[2] < v2[2] end)
+			tsort(callOnLoad, function(v1, v2) return v1[2] < v2[2] end)
 			for i, v in ipairs(callOnLoad) do v[1]() end
 			collectgarbage("collect")
 		end
@@ -1022,7 +1022,7 @@ do
 	end
 
 	function DBM:RegisterOnGuiLoadCallback(f, sort)
-		tinsert(callOnLoad, {f, sort or math.huge})
+		tinsert(callOnLoad, {f, sort or mhuge})
 	end
 end
 
@@ -1347,7 +1347,7 @@ do
 			for i = 1, GetNumAddOns() do
 				if GetAddOnMetadata(i, "X-DBM-Mod") and not checkEntry(bannedMods, GetAddOnInfo(i)) then
 					tinsert(self.AddOns, {
-						sort		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or math.huge) or math.huge,
+						sort		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or mhuge) or mhuge,
 						category	= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
 						name		= GetAddOnMetadata(i, "X-DBM-Mod-Name") or "",
 						zone		= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZone") or "")},
@@ -1374,7 +1374,7 @@ do
 					end
 				end
 			end
-			table.sort(self.AddOns, function(v1, v2) return v1.sort < v2.sort end)
+			tsort(self.AddOns, function(v1, v2) return v1.sort < v2.sort end)
 			self:RegisterEvents(
 				"COMBAT_LOG_EVENT_UNFILTERED",
 				"ZONE_CHANGED_NEW_AREA",
@@ -1713,7 +1713,7 @@ do
 	local targetList = {}
 	local function buildTargetList()
 		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-		for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
+		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
 			local id = (i == 0 and "target") or uId..i.."target"
 			local guid = UnitGUID(id)
 			if guid and (bit.band(guid:sub(1, 5), 0x00F) == 3 or bit.band(guid:sub(1, 5), 0x00F) == 5) then
@@ -1843,7 +1843,7 @@ function checkWipe(confirm)
 	if #inCombat > 0 then
 		local wipe = true
 		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-		for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
+		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
 			local id = (i == 0 and "player") or uId..i
 			if UnitAffectingCombat(id) and not UnitIsDeadOrGhost(id) then
 				wipe = false
@@ -1953,15 +1953,15 @@ function DBM:EndCombat(mod, wipe)
 			if mod:IsDifficulty("heroic5", "heroic25") then
 				mod.stats.heroicKills = mod.stats.heroicKills + 1
 				mod.stats.heroicLastTime = thisTime
-				mod.stats.heroicBestTime = math.min(bestTime or math.huge, thisTime)
+				mod.stats.heroicBestTime = mmin(bestTime or mhuge, thisTime)
 			elseif mod:IsDifficulty("normal5", "heroic10") then
 				mod.stats.kills = mod.stats.kills + 1
 				mod.stats.lastTime = thisTime
-				mod.stats.bestTime = math.min(bestTime or math.huge, thisTime)
+				mod.stats.bestTime = mmin(bestTime or mhuge, thisTime)
 			end
 			if not lastTime then
 				self:AddMsg(DBM_CORE_BOSS_DOWN:format(mod.combatInfo.name, strFromTime(thisTime)))
-			elseif thisTime < (bestTime or math.huge) then
+			elseif thisTime < (bestTime or mhuge) then
 				self:AddMsg(DBM_CORE_BOSS_DOWN_NEW_RECORD:format(mod.combatInfo.name, strFromTime(thisTime), strFromTime(bestTime)))
 			else
 				self:AddMsg(DBM_CORE_BOSS_DOWN_LONG:format(mod.combatInfo.name, strFromTime(thisTime), strFromTime(lastTime), strFromTime(bestTime)))
@@ -2123,7 +2123,7 @@ end
 do
 	local function requestTimers()
 		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-		for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
+		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
 			local id = (i == 0 and "player") or uId..i
 			if UnitAffectingCombat(id) and not UnitIsDeadOrGhost(id) then
 				DBM:RequestTimers()
@@ -2181,7 +2181,7 @@ do
 				mod = not v.isCustomMod and v
 			end
 			mod = mod or inCombat[1]
-			sendWhisper(sender, chatPrefix..DBM_CORE_STATUS_WHISPER:format((mod.combatInfo.name or ""), mod:GetHP() or "unknown", getNumAlivePlayers(), math.max(GetNumRaidMembers(), GetNumPartyMembers() + 1)))
+			sendWhisper(sender, chatPrefix..DBM_CORE_STATUS_WHISPER:format((mod.combatInfo.name or ""), mod:GetHP() or "unknown", getNumAlivePlayers(), mmax(GetNumRaidMembers(), GetNumPartyMembers() + 1)))
 		elseif #inCombat > 0 and DBM.Options.AutoRespond and
 		(isRealIdMessage and (not isOnSameServer(sender) or DBM:GetRaidUnitId((select(4, BNGetFriendInfoByID(sender)))) == "none") or not isRealIdMessage and DBM:GetRaidUnitId(sender) == "none") then
 			local mod
@@ -2190,7 +2190,7 @@ do
 			end
 			mod = mod or inCombat[1]
 			if not autoRespondSpam[sender] then
-				sendWhisper(sender, chatPrefix..DBM_CORE_AUTO_RESPOND_WHISPER:format(UnitName("player"), mod.combatInfo.name or "", mod:GetHP() or "unknown", getNumAlivePlayers(), math.max(GetNumRaidMembers(), GetNumPartyMembers() + 1)))
+				sendWhisper(sender, chatPrefix..DBM_CORE_AUTO_RESPOND_WHISPER:format(UnitName("player"), mod.combatInfo.name or "", mod:GetHP() or "unknown", getNumAlivePlayers(), mmax(GetNumRaidMembers(), GetNumPartyMembers() + 1)))
 				DBM:AddMsg(DBM_CORE_AUTO_RESPONDED)
 			end
 			autoRespondSpam[sender] = true
@@ -2854,7 +2854,7 @@ function bossModPrototype:IsTanking(unit, boss)
 	if boss and UnitExists(boss) then--Only checking one bossID as requested
 		local tanking, status = UnitDetailedThreatSituation(unit, boss)
 		if tanking or (status == 3) then
-			DBM:Debug("tanking function fired bossUID true")
+			DBM:Debug("tanking function fired bossUID true",4)
 			return true
 		end
 	else--Check all of them if one isn't defined
@@ -2862,7 +2862,7 @@ function bossModPrototype:IsTanking(unit, boss)
 			if UnitExists("boss"..i) then
 				local tanking, status = UnitDetailedThreatSituation(unit, "boss"..i)
 				if tanking or (status == 3) then
-					DBM:Debug("tanking function fired bossNNN true")
+					DBM:Debug("tanking function fired bossNNN true",4)
 					return true
 				end
 			end
@@ -3319,6 +3319,10 @@ do
 		return newYell(self, "yell", ...)
 	end
 
+	function bossModPrototype:NewYellMe(...)
+		return newYell(self, "yellme", ...)
+	end
+
 	function bossModPrototype:NewShortYell(...)
 		return newYell(self, "shortyell", ...)
 	end
@@ -3694,7 +3698,7 @@ do
 				frame:Show()
 				frame:SetFrameStrata("TOOLTIP")
 				frame:SetAlpha(1)
-				frame.timer = math.huge
+				frame.timer = mhuge
 			end
 		end
 	end
@@ -4306,7 +4310,7 @@ end
 
 function bossModPrototype:GetBossHPString(cId)
 	local idType = (GetNumRaidMembers() == 0 and "party") or "raid"
-	for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
+	for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
 		local unitId = ((i == 0) and "target") or idType..i.."target"
 		local guid = UnitGUID(unitId)
 		if guid and tonumber(guid:sub(9, 12), 16) == cId then
@@ -4323,7 +4327,7 @@ end
 function bossModPrototype:IsWipe()
 	local wipe = true
 	local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-	for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
+	for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
 		local id = (i == 0 and "player") or uId..i
 		if UnitAffectingCombat(id) and not UnitIsDeadOrGhost(id) then
 			wipe = false

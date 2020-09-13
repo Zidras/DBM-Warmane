@@ -198,7 +198,8 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerBlueOrb	= "Активация сферы дракона"
+	TimerBlueOrb	= "Активация сферы дракона",
+	TimerDarkOrb	= "Темные сферы!"
 }
 
 L:SetOptionLocalization{
