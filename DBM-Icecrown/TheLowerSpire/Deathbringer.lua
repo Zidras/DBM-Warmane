@@ -27,7 +27,7 @@ local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, mod:IsTank() or mo
 
 local specwarnMark			= mod:NewSpecialWarningTarget(72444, false)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, mod:IsTank())
-
+local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, mod:IsTank())
 local timerCombatStart		= mod:NewTimer(47.3, "TimerCombatStart", 2457)
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, mod:IsTank() or mod:IsHealer())
 local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441)
@@ -120,7 +120,11 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(72410) then
 		warnRuneofBlood:Show(args.destName)
-		specwarnRuneofBlood:Show(args.destName)
+		if not args:IsPlayer() then
+			specwarnRuneofBlood:Show(args.destName)
+		else
+			specwarnRuneofBloodYou:Show()
+		end
 		timerRuneofBlood:Start()
 	end
 end
