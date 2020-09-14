@@ -138,10 +138,8 @@ function mod:RestoreWipeTime(self)
 end
 
 function mod:OnCombatStart(delay)
+	self:DestroyFrame()
 	self.vb.phase = 0
-	if self.Options.ShowFrame then
-		self:CreateFrame()
-	end
 	lastPlagueCast = 0
 	warned_preP2 = false
 	warned_preP3 = false
@@ -221,6 +219,7 @@ function mod:SPELL_CAST_START(args)
 		timerDefileCD:Cancel()
 		soundDefile3:Cancel()
 		warnDefileSoon:Cancel()
+		self:DestroyFrame()
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		warnShamblingEnrage:Show(args.sourceName)
 		specWarnEnrage:Show()
@@ -517,6 +516,9 @@ function mod:NextPhase()
 			timerTrapCD:Start()
 		end
 	elseif self.vb.phase == 2 then
+		if self.Options.ShowFrame then
+			self:CreateFrame()
+		end
 		timerSummonValkyr:Start(20)
 		timerSoulreaperCD:Start(32)
 		timerSoulreaperCDnext:Start(32+34)
