@@ -388,13 +388,13 @@ do
 	local grabIcon = 2
 	local iconsSet = 0
 	local lastValk = 0
-	
+
 	local function resetValkIconState()
 		table.wipe(valkIcons)
 		currentIcon = 2
 		iconsSet = 0
 	end
-	
+
 	local function scanValkyrTargets()
 		if (time() - lastValk) < 10 then    -- scan for like 10secs
 			for i=0, GetNumRaidMembers() do        -- for every raid member check ..
@@ -421,11 +421,11 @@ do
 					if mod.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 0 then
 						if mod.Options.ValkyrIcon then
 							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName("raid"..i)), "RAID")
-							grabIcon = grabIcon + 1
 						else
 							SendChatMessage(L.ValkGrabbed:format(UnitName("raid"..i)), "RAID")
 						end
 					end
+					grabIcon = grabIcon + 1
 				end
 			end
 			mod:Schedule(0.5, scanValkyrTargets)  -- check for more targets in a few
@@ -433,7 +433,7 @@ do
 			wipe(valkyrTargets)       -- no more valkyrs this round, so lets clear the table
 			grabIcon = 2
 		end
-	end  
+	end
 
 
 	function mod:SPELL_SUMMON(args)

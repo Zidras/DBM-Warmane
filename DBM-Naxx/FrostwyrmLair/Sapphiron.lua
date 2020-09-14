@@ -24,7 +24,7 @@ local warnLanded		= mod:NewAnnounce("WarningLanded", 4, "Interface\\AddOns\\DBM-
 
 local warnDeepBreath	= mod:NewSpecialWarning("WarningDeepBreath")
 local specwarnlowhp		= mod:NewSpecialWarning("SpecWarnSapphLow")
-mod:AddBoolOption("WarningIceblock", true, "announce")
+mod:AddBoolOption("WarningIceblock", true, "yell")
 
 local timerDrainLife	= mod:NewCDTimer(20, 28542)
 local timerAirPhase		= mod:NewTimer(60, "TimerAir", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
