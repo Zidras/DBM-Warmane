@@ -30,7 +30,9 @@ local warnConflag			= mod:NewTargetAnnounce(45333, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
 local specWarnConflag		= mod:NewSpecialWarningYou(45333)
+local specWarnConflagNear	= mod:NewSpecialWarningClose(45333)
 local specWarnNova			= mod:NewSpecialWarningYou(45329)
+local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
 local specWarnPyro			= mod:NewSpecialWarningDispel(45230)
 local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, nil, 8)
 local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, false, 5)
@@ -47,8 +49,8 @@ local berserkTimer			= mod:NewBerserkTimer(360)
 local soundConflag			= mod:NewSound(45333)
 
 mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("ConflagIcon", false)
-mod:AddBoolOption("NovaIcon", false)
+mod:AddBoolOption("ConflagIcon", true)
+mod:AddBoolOption("NovaIcon", true)
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
@@ -80,15 +82,15 @@ end
 
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
-function mod:SPELL_DAMAGE(_, _, _, _, _, _, _, _, spellId)
-	if spellId == 45256 then
+function mod:SPELL_DAMAGE(args)
+	if args:IsSpellID(45256) then
 		warnBlow:Show(destName)
 		timerBlowCD:Start()
 	end
 end
 
-function mod:SPELL_MISSED(_, _, _, _, _, _, _, _, spellId)
-	if spellId == 45256 then
+function mod:SPELL_MISSED(args)
+	if args:IsSpellID(45256) then
 		timerBlowCD:Start()
 	end
 end
@@ -107,6 +109,15 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		timerNovaCD:Start()
 		if target == UnitName("player") then
 			specWarnNova:Show()
+		else
+			for i=0, GetNumRaidMembers() do
+				if UnitName("raid"..i) == target then
+					local inRange = CheckInteractDistance("raid"..i, 2)
+					if inRange then
+						specWarnNovaNear:Show(target)
+					end
+				end
+			end
 		end
 		if self.Options.NovaIcon then
 			self:SetIcon(target, 7, 5)
@@ -118,6 +129,16 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		if target == UnitName("player") then
 			specWarnConflag:Show()
 			soundConflag:Play()
+		else
+			soundConflag:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+			for i=0, GetNumRaidMembers() do
+				if UnitName("raid"..i) == target then
+					local inRange = CheckInteractDistance("raid"..i, 2)
+					if inRange then
+						specWarnConflagNear:Show(target)
+					end
+				end
+			end
 		end
 		if self.Options.ConflagIcon then
 			self:SetIcon(target, 8, 5)

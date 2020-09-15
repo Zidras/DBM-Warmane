@@ -18,20 +18,23 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
 	"SPELL_MISSED",
-	"CHAT_MSG_RAID_BOSS_EMOTE"
+	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"UNIT_DIED"
 )
 
 local warnMeteor		= mod:NewSpellAnnounce(45150, 3)
 local warnBurn			= mod:NewTargetAnnounce(46394, 3)
 local warnStomp			= mod:NewTargetAnnounce(45185, 3)
 
+local specwarnStompYou	= mod:NewSpecialWarningYou(45185, mod:IsTank())
+local specwarnStomp		= mod:NewSpecialWarningTaunt(45185, mod:IsTank())
 local specWarnMeteor	= mod:NewSpecialWarningStack(45150, nil, 4)
 local specWarnBurn		= mod:NewSpecialWarningYou(46394)
 
 local timerMeteorCD		= mod:NewCDTimer(10, 45150)
-local timerStompCD		= mod:NewCDTimer(31, 45185)
+local timerStompCD		= mod:NewCDTimer(30, 45185)
 local timerBurn			= mod:NewTargetTimer(59, 46394)
-local timerBurnCD		= mod:NewCDTimer(20, 46394)
+local timerBurnCD		= mod:NewCDTimer(59, 46394)
 
 local berserkTimer		= mod:NewBerserkTimer(360)
 
@@ -84,10 +87,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 45185 then
 		warnStomp:Show(args.destName)
+		if not args:IsPlayer() then
+			specwarnStomp:Show(args.destName)
+		else
+			specwarnStompYou:Show()
+		end
 		timerStompCD:Start()
 	elseif args.spellId == 45150 and args:IsPlayer() then
 		local amount = args.amount or 1
-		if amount >= 4 then
+		if amount >= 2 then
 			specWarnMeteor:Show(amount)
 		end
 	end
@@ -99,6 +107,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.BurnIcon then
 			self:SetIcon(args.destName, 0)
 		end
+		timerBurn:Cancel(args.destName)
 	end
 end
 
@@ -109,11 +118,15 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:SPELL_MISSED(_, _, _, _, _, _, _, _, spellId)
+function mod:SPELL_MISSED(args)
 	if spellId == 46394 then
 		warnBurn:Show("MISSED")
 		if self:AntiSpam(19, 1) then
 			timerBurnCD:Start()
 		end
 	end
+end
+
+function mod:UNIT_DIED(args)
+	timerBurn:Cancel(args.destName)
 end

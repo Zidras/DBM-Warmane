@@ -14,7 +14,8 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+	"SPELL_DAMAGE"
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
@@ -27,8 +28,8 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
-local warnShipTarget	= mod:NewTargetAnnounce(46589, 3)
-local specWarnShip		= mod:NewSpecialWarningMove(46589)
+local warnSpikeTarget	= mod:NewTargetAnnounce(46589, 3)
+local specWarnSpike		= mod:NewSpecialWarningMove(46589)
 local specWarnBloom		= mod:NewSpecialWarningMoveAway(45641)
 local specWarnBomb		= mod:NewSpecialWarningSpell(46605, nil, nil, nil, 3)
 local specWarnShield	= mod:NewSpecialWarningSpell(45848)
@@ -36,7 +37,7 @@ local specWarnDarkOrb	= mod:NewSpecialWarning("SpecWarnDarkOrb", true)
 local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", true)
 
 local yellBloom			= mod:NewYellMe(45641)
-local yellShip			= mod:NewYellMe(46589)
+local yellSpike			= mod:NewYellMe(46589)
 local timerBloomCD		= mod:NewCDTimer(20, 45641)
 local timerDartCD		= mod:NewCDTimer(20, 45740)
 local timerBomb			= mod:NewCastTimer(9, 46605)
@@ -132,10 +133,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnShield:Show()
 		specWarnShield:Show()
 	elseif args.spellId == 46589 and args.destName ~= nil then
-		warnShipTarget:Show(args.destName)
+		warnSpikeTarget:Show(args.destName)
 		if args.destName == UnitName("player") then
-			specWarnShip:Show()
-			yellShip:Show()
+			specWarnSpike:Show()
+			yellSpike:Yell()
 		end
 	end
 end
@@ -168,5 +169,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerDartCD:Start(49)
 			timerBombCD:Start(58)
 		end
+	end
+end
+
+function mod:SPELL_DAMAGE(args)
+	if args.spellId == 45680 and not orbGUIDs[args.sourceGUID] then
+		orbGUIDs[args.sourceGUID] = true
+		warnDarkOrb:Show()
+		specWarnDarkOrb:Show()
 	end
 end

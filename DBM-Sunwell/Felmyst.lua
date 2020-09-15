@@ -15,6 +15,7 @@ mod:RegisterEvents(
 	"SPELL_SUMMON",
 	"RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_YELL",
+	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_AURA"
 )
 
@@ -32,11 +33,14 @@ local specWarnEncapsNear	= mod:NewSpecialWarningClose(45665)
 local specWarnVapor			= mod:NewSpecialWarningYou(45392)
 local specWarnBreath		= mod:NewSpecialWarningSpell(45717, nil, nil, nil, 3)
 
+local yellEncaps			= mod:NewYellMe(45665)
+
 local timerGas				= mod:NewCastTimer(1, 45855)
 local timerGasCD			= mod:NewCDTimer(19, 45855)
 local timerCorrosion		= mod:NewTargetTimer(10, 45866)
 local timerEncaps			= mod:NewTargetTimer(7, 45665)
-local timerBreath			= mod:NewCDCountTimer(17, 45717)
+local timerEncapsCD			= mod:NewCDTimer(50, 45665)
+local timerBreath			= mod:NewCDCountTimer(20, 45717)
 local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550)
 
 local berserkTimer			= mod:NewBerserkTimer(600)
@@ -56,10 +60,12 @@ function mod:Groundphase()
 	warnPhase:Show(L.Ground)
 	timerGasCD:Start(17)
 	timerPhase:Start(60, L.Air)
+	timerEncapsCD:Start()
 end
 
 function mod:EncapsulateTarget(targetname, uId)
 	if not targetname then return end
+	timerEncapsCD:Cancel()
 	warnEncaps:Show(targetname)
 	timerEncaps:Start(targetname)
 	if self.Options.EncapsIcon then
@@ -67,15 +73,15 @@ function mod:EncapsulateTarget(targetname, uId)
 	end
 	if targetname == UnitName("player") then
 		specWarnEncaps:Show()
-		SendChatMessage("Encapsulate on ME!", "SAY")
+		yellEncaps:Yell()
 	elseif uId then
 		local x, y = GetPlayerMapPosition(uId)
 		if x == 0 and y == 0 then
 			SetMapToCurrentZone()
 			x, y = GetPlayerMapPosition(uId)
 		end
-		local inRange = DBM.RangeCheck:GetDistance("player", x, y)
-		if inRange and inRange < 21 then
+		local inRange = CheckInteractDistance(uId, 4)
+		if inRange then
 			specWarnEncapsNear:Show(targetname)
 		end
 	end
@@ -84,9 +90,10 @@ end
 function mod:OnCombatStart(delay)
 	breathCounter = 0
 	pull = GetTime()
-	timerGasCD:Start(17-delay)
+	timerGasCD:Start(16-delay)
 	timerPhase:Start(-delay, L.Air)
 	berserkTimer:Start(-delay)
+	timerEncapsCD:Start()
 end
 
 
@@ -125,12 +132,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnPhase:Show(L.Air)
 		timerGasCD:Cancel()
 		timerBreath:Start(42, 1)
-		timerPhase:Start(116, L.Ground)
-		self:ScheduleMethod(116, "Groundphase")
+		timerPhase:Start(118, L.Ground)
+		self:ScheduleMethod(118, "Groundphase")
 	end
 end
 
-function mod:RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.Breath or msg:find(L.Breath) then
 		breathCounter = breathCounter + 1
 		warnBreath:Show(breathCounter)
