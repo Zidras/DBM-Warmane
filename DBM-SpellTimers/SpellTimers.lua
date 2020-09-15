@@ -6,9 +6,9 @@
 -- This addon is written and copyrighted by:
 --    * Martin Verges (Nitram @ EU-Azshara)
 --    * Paul Emmerich (Tandanu @ EU-Aegwynn)
--- 
+--
 -- The localizations are written by:
---    * enGB/enUS: Nitram/Tandanu        http://www.deadlybossmods.com		
+--    * enGB/enUS: Nitram/Tandanu        http://www.deadlybossmods.com
 --    * deDE: Nitram/Tandanu             http://www.deadlybossmods.com
 --    * zhCN: yleaf(yaroot@gmail.com)
 --    * zhTW: yleaf(yaroot@gmail.com)/Juha
@@ -125,10 +125,10 @@ do
 				for i=1, #settings.spells, 1 do
 					createnewentry()
 				end
-			end				
+			end
 		end
 
-		
+
 		do
 			local area = generalarea
 			local enabled = area:CreateCheckButton(L.Enable, true)
@@ -176,7 +176,7 @@ do
 						settings.spells[self.guikey][field] = self:GetNumber()
 						rebuildSpellIDIndex()
 					elseif field == "cooldown" then
-						settings.spells[self.guikey][field] = self:GetNumber()					
+						settings.spells[self.guikey][field] = self:GetNumber()
 					elseif field == "enabled" then
 						settings.spells[self.guikey].enabled = not not self:GetChecked()
 					else
@@ -196,12 +196,12 @@ do
 							self:SetText( string.gsub(text, "%%spell", spellinfo) )
 						end
 					elseif field == "enabled" then
-						self:SetChecked( settings.spells[self.guikey].enabled ) 
+						self:SetChecked( settings.spells[self.guikey].enabled )
 					else
 						self:SetText( settings.spells[self.guikey][field] or "" )
 					end
 				end
-			end	
+			end
 
 			local area = auraarea
 
@@ -209,18 +209,18 @@ do
 			getadditionalid:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP");
 			getadditionalid:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN");
 			getadditionalid:SetWidth(15)
-			getadditionalid:SetHeight(15)		
+			getadditionalid:SetHeight(15)
 
 			function createnewentry()
 				CurCount = CurCount + 1
-				local spellid = area:CreateEditBox(L.SpellID, "", 65)
+				local spellid = area:CreateEditBox(L.SpellID, "", 75)
 				spellid.guikey = CurCount
 				spellid:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 40, 15-(CurCount*35))
 				spellid:SetScript("OnTextChanged", onchange_spell("spell"))
 				spellid:SetScript("OnShow", onshow_spell("spell"))
 				spellid:SetNumeric(true)
 
-				local bartext = area:CreateEditBox(L.BarText, "", 190)
+				local bartext = area:CreateEditBox(L.BarText, "", 245)
 				bartext.guikey = CurCount
 				bartext:SetPoint('TOPLEFT', spellid, "TOPRIGHT", 20, 0)
 				bartext:SetScript("OnTextChanged", onchange_spell("bartext"))
@@ -236,14 +236,14 @@ do
 				local enableit = area:CreateCheckButton("")
 				enableit.guikey = CurCount
 				enableit:SetScript("OnShow", onshow_spell("enabled"))
-				enableit:SetScript("OnClick", onchange_spell("enabled"))				
+				enableit:SetScript("OnClick", onchange_spell("enabled"))
 				enableit:SetPoint("LEFT", cooldown, "RIGHT", 5, 0)
 
 				getadditionalid:ClearAllPoints()
 				getadditionalid:SetPoint("RIGHT", spellid, "LEFT", -15, 0)
 				area.frame:SetHeight( area.frame:GetHeight() + 35 )
 				area.frame:GetParent():SetHeight( area.frame:GetParent():GetHeight() + 35 )
-			
+
 				panel:SetMyOwnHeight()
 				if DBM_GUI_OptionsFramePanelContainer.displayedFrame and CurCount > 1 then
 					DBM_GUI_OptionsFrame:DisplayFrame(panel.frame)
@@ -257,7 +257,7 @@ do
 					end
 				end)
 			end
-			
+
 			if #settings.spells == 0 then
 				createnewentry()
 			else
@@ -282,23 +282,23 @@ do
 			end
 		end
 	end
-	
-	function clearAllSpellBars() 
-  	for k,v in pairs(SpellBarIndex) do
-  	   SpellBars:CancelBar(k)
-  	   SpellBarIndex[k] = nil
-  	end	
+
+	function clearAllSpellBars()
+		for k,v in pairs(SpellBarIndex) do
+			SpellBars:CancelBar(k)
+			SpellBarIndex[k] = nil
+		end
 	end
 
 	local myportals = {}
 	local lastmsg = "";
 	local mainframe = CreateFrame("frame", "DBM_SpellTimers", UIParent)
 	local spellEvents = {
-	  ["SPELL_CAST_SUCCESS"] = true,
-	  ["SPELL_RESURRECT"] = true,
-	  ["SPELL_HEAL"] = true,
-	  ["SPELL_AURA_APPLIED"] = true,
-	  ["SPELL_AURA_REFRESH"] = true,
+		["SPELL_CAST_SUCCESS"] = true,
+		["SPELL_RESURRECT"] = true,
+		["SPELL_HEAL"] = true,
+		["SPELL_AURA_APPLIED"] = true,
+		["SPELL_AURA_REFRESH"] = true,
 	}
 	mainframe:SetScript("OnEvent", function(self, event, ...)
 		if event == "ADDON_LOADED" and select(1, ...) == "DBM-SpellTimers" then
@@ -332,7 +332,7 @@ do
 					v.enabled = true
 				end
 			end
-			
+
 			rebuildSpellIDIndex()
 
 		elseif settings.enabled and event == "COMBAT_LOG_EVENT_UNFILTERED" and spellEvents[select(2, ...)] then
@@ -391,7 +391,7 @@ do
 			end
 		elseif settings.enabled and event == "PLAYER_ENTERING_BATTLEGROUND" then
 		  -- spell cooldowns all reset on entering an arena or bg
-		  clearAllSpellBars() 
+		  clearAllSpellBars()
 		end
 	end)
 	mainframe:RegisterEvent("ADDON_LOADED")

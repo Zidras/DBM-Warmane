@@ -206,8 +206,8 @@ do
 						else
 							-- check target and raid/party targets
 							local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-							for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
-								id = (i == 0 and "target") or uId..i.."target"
+							for j = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
+								id = (j == 0 and "target") or uId..j.."target"
 								if getCIDfromGUID(UnitGUID(id or "")) == v.id then
 									targetCache[v.id] = id
 									break
