@@ -1454,7 +1454,7 @@ do
 			if not inRaid then
 				-- joined a new party
 				inRaid = true
-				sendSync("H")
+				sendSync("DBMv4-Ver", "Hi!")
 				fireEvent("partyJoin", playerName)
 			end
 			for i = 0, GetNumPartyMembers() do
