@@ -40,7 +40,7 @@ local specWarnDeathDecay			= mod:NewSpecialWarningMove(72108)
 local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3)
 local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, canPurge)
 local specWarnDarkMartyrdom			= mod:NewSpecialWarningRun(72499, true)
-local specWarnFrostbolt				= mod:NewSpecialWarningInterupt(72007, false)
+local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, false)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
