@@ -950,7 +950,7 @@ do
 	function unschedule(f, mod, ...)
 		if not f and not mod then
 			-- you really want to kill the complete scheduler? call unscheduleAll
-			error("cannot unschedule everything, pass a function and/or a mod")
+			--DBM:Debug("cannot unschedule everything, pass a function and/or a mod",3)
 		end
 		return removeAllMatching(f, mod, ...)
 	end
@@ -2239,7 +2239,7 @@ end
 function checkWipe(confirm)
 	if #inCombat > 0 then
 		if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
-			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
+			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = DBM:GetCurrentInstanceDifficulty()
 		end
 		local wipe = true
 		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
@@ -4986,7 +4986,7 @@ do
 		if Name then
 			spellName = Name--Pull from name stored in object
 		elseif spellId then
-			DBM:Debug("|cffff0000GetLocalizedTimerText fallback, this should not happen and is a bug. this fallback should be deleted if this message is never seen after async code is live|r")
+			--DBM:Debug("|cffff0000GetLocalizedTimerText fallback, this should not happen and is a bug. this fallback should be deleted if this message is never seen after async code is live|r")
 			if timerType == "achievement" then
 				spellName = select(2, GetAchievementInfo(spellId))
 			else

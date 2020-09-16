@@ -82,6 +82,10 @@ function mod:StartAbomTimer()
 	end
 end
 
+function mod:OnCombatEnd()
+	soundPortals:Cancel()
+end
+
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerNextPortal:Start()
@@ -112,6 +116,7 @@ function mod:Portals()
 	warnPortalSoon:Cancel()
 	soundPortals:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 	warnPortalOpen:Schedule(15)
+	soundPortals:Schedule(15,"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	timerPortalsOpen:Schedule(15)
 	warnPortalSoon:Schedule(41)
 	timerNextPortal:Start()

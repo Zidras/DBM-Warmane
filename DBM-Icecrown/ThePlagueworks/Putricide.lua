@@ -31,7 +31,7 @@ local warnMalleableGoo				= mod:NewSpellAnnounce(72295, 2)		-- Phase 2 ability
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3)		-- Phase 2 ability
 local warnPhase3Soon				= mod:NewAnnounce("WarnPhase3Soon", 2)
 local warnMutatedPlague				= mod:NewStackAnnounce(72451, 2, nil, true) -- Phase 3 ability
-local warnUnboundPlague				= mod:NewTargetAnnounce(72856, 3)			-- Heroic Ability
+local warnUnboundPlague				= mod:NewTargetAnnounce(72856, 3, nil, false)			-- Heroic Ability
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447)
 local specWarnGaseousBloat			= mod:NewSpecialWarningYou(70672)
