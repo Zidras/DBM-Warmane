@@ -181,9 +181,7 @@ function mod:TrapTarget(targetname, uId)
 	end
 	if targetname == UnitName("player") then
 		specWarnTrap:Show()
-		if self.Options.YellOnTrap then
-			SendChatMessage(L.YellTrap, "SAY")
-		end
+		yellTrap:Yell()
 	else
 		if uId then
 			local inRange = CheckInteractDistance(uId, 2)
