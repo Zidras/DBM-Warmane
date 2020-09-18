@@ -1130,6 +1130,7 @@ do
 	local function sort(v1, v2)
 		return (v1.revision or 0) > (v2.revision or 0)
 	end
+
 	function DBM:ShowVersions(notify)
 		for i, v in pairs(raid) do
 			tinsert(sortMe, v)
@@ -1769,6 +1770,7 @@ do
 	end
 
 	function loadModOptions(modId)
+		DBM:Debug("Loading default options for "..modId, 2)
 		local savedOptions = _G[modId:gsub("-", "").."_SavedVars"] or {}
 		local savedStats = _G[modId:gsub("-", "").."_SavedStats"] or {}
 		for i, v in ipairs(DBM.Mods) do
@@ -1804,7 +1806,24 @@ do
 	end
 end
 
+function DBM:SpecChanged(force)
+	--Load Options again.
+	DBM:Debug("SpecChanged fired", 2)
+	for i, v in ipairs(self.AddOns) do
+		if IsAddOnLoaded(v.modId) then
+			DBM:Schedule(0.5, DBM.LoadMod, DBM, v)
+			loadModOptions(v.modId)
+		end
+	end
+end
 
+function DBM:PLAYER_TALENT_UPDATE()
+	local lastSpecID = currentSpecGroup
+	DBM:SetCurrentSpecInfo()
+	if currentSpecGroup ~= lastSpecID then
+		DBM:SpecChanged()
+	end
+end
 --------------------------------
 --  Load Boss Mods on Demand  --
 --------------------------------
@@ -2806,7 +2825,7 @@ end
 --  Enable/Disable DBM  --
 --------------------------
 function DBM:Disable()
-	unschedule()
+	unscheduleAll()
 	self.Options.Enabled = false
 end
 
@@ -4840,7 +4859,7 @@ do
 --				optionDefault = not completed
 --			end
 		else
-			spellName = GetSpellInfo(spellId or 0)
+			spellName = DBM:GetSpellInfo(spellId or 0)
 			if spellName then
 				icon = type(texture) == "number" and ( texture <=8 and (iconFolder .. texture) or select(3, GetSpellInfo(texture))) or texture or spellId and select(3, GetSpellInfo(spellId))
 			else
@@ -4854,12 +4873,14 @@ do
 				text = self.localization.timers[timerText],
 				type = timerType,
 				spellId = spellId,
+				name = spellName,
 				timer = timer,
 				id = id,
 				icon = icon,
 				r = r,
 				g = g,
 				b = b,
+				allowdouble = allowdouble,
 				startedTimers = {},
 				mod = self,
 			},
