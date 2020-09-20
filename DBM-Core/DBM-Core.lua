@@ -877,6 +877,25 @@ do
 		end
 	end
 
+	local wrappers = {}
+	local function range(max, cur, ...)
+		cur = cur or 1
+		if cur > max then
+			return ...
+		end
+		return cur, range(max, cur + 1, select(2, ...))
+	end
+	local function getWrapper(n)
+		wrappers[n] = wrappers[n] or loadstring(([[
+			return function(func, tbl)
+				return func(]] .. ("tbl[%s], "):rep(n):sub(0, -3) .. [[)
+			end
+		]]):format(range(n)))()
+		return wrappers[n]
+	end
+
+	local nextModSyncSpamUpdate = 0
+
 	mainFrame:SetScript("OnUpdate", function(self, elapsed)
 		local time = GetTime()
 
@@ -4596,7 +4615,7 @@ do
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
 			if self.type and not self.text then
-				bar:SetText(pformat(self.mod:GetLocalizedTimerText(self.type, self.spellId), ...))
+				bar:SetText(pformat(self.mod:GetLocalizedTimerText(self.type, self.spellId, self.name), ...))
 			else				
 				bar:SetText(pformat(self.text, ...))
 			end
@@ -4819,7 +4838,7 @@ do
 		end
 	end
 	
-	function bossModPrototype:NewTimer(timer, name, icon, optionDefault, optionName, r, g, b)
+	function bossModPrototype:NewTimer(timer, name, texture, optionDefault, optionName, r, g, b)
 		local icon = type(texture) == "number" and ( texture <=8 and (iconFolder .. texture) or select(3, GetSpellInfo(texture))) or texture or "Interface\\Icons\\Spell_Nature_WispSplode"
 		local obj = setmetatable(
 			{
@@ -4854,6 +4873,8 @@ do
 		if timerType == "achievement" then
 			spellName = select(2, GetAchievementInfo(spellId))
 			icon = type(texture) == "number" and select(10, GetAchievementInfo(texture)) or texture or spellId and select(10, GetAchievementInfo(spellId))
+		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" then
+			icon = type(texture) == "number" and select(3, GetSpellInfo(texture)) or texture or (type(spellId) == "number" and select(3, GetSpellInfo(texture))) or "Interface\\Icons\\Spell_Nature_WispSplode"
 --			if optionDefault == nil then
 --				local completed = select(4, GetAchievementInfo(spellId))
 --				optionDefault = not completed
@@ -5007,7 +5028,7 @@ do
 		if Name then
 			spellName = Name--Pull from name stored in object
 		elseif spellId then
-			--DBM:Debug("|cffff0000GetLocalizedTimerText fallback, this should not happen and is a bug. this fallback should be deleted if this message is never seen after async code is live|r")
+			DBM:Debug("|cffff0000GetLocalizedTimerText fallback, this should not happen and is a bug. this fallback should be deleted if this message is never seen after async code is live|r")
 			if timerType == "achievement" then
 				spellName = select(2, GetAchievementInfo(spellId))
 			else

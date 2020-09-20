@@ -62,6 +62,7 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
+mod:AddBoolOption("EqUneqTimer")
 mod:AddBoolOption("BlockWeapons", false)
 
 local lastDD	= 0
@@ -88,7 +89,7 @@ function mod:OnCombatStart(delay)
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 		soundWarnMC:Schedule(25)
-		if mod.Options.EqUneqWeapons and not mod:IsTank() and not mod.Options.BlockWeapons then
+		if mod.Options.EqUneqWeapons and not mod:IsTank() and not mod.Options.BlockWeapons and mod.Options.EqUneqTimer then
 			specWarnWeapons:Show()
 			mod:ScheduleMethod(29, "UnW")
 		end
@@ -190,10 +191,12 @@ function mod:has_value(tab, val)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(71289) then
+	if args.spellId == 71289 then
 		timerDominateMindCD:Start()
-		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+		DBM:Debug("MC on "..args.destName,2)
+		if mod.Options.EqUneqWeapons and args.destName == UnitName("player") then
 			mod:UnW()
+			DBM:Debug("Unequipping",2)
 		end
 	end
 end
@@ -215,7 +218,7 @@ do
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
 		soundWarnMC:Schedule(35-mc_delay)
-		if mod.Options.EqUneqWeapons and not mod:IsTank() then
+		if mod.Options.EqUneqWeapons and not mod:IsTank() and mod.Options.EqUneqTimer then
 			mod:ScheduleMethod(39-mc_delay, "UnW")
 		end
 	end
@@ -341,8 +344,5 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif (msg == L.YellMC or msg:find(L.YellMC)) then
 		lastMc = GetTime()
 		timerDominateMindCD:Start()
-		if mod.Options.EqUneqWeapons and not mod:IsTank() then
-			mod:UnW()
-		end
 	end
 end
