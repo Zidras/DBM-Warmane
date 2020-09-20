@@ -406,7 +406,9 @@ do
 					end
 					if UnitName("raid"..i) == UnitName("player") then
 						specWarnYouAreValkd:Show()
-						SendChatMessage(UnitName("player").." "..select(1, UnitClass("player")), "YELL")
+						if mod.Options.YellInValk then
+							SendChatMessage(UnitName("player").." "..select(1, UnitClass("player")), "YELL")
+						end
 						if mod:IsHealer() then--Is player that's grabbed a healer
 							if isPAL then
 								mod:SendSync("PALGrabbed", UnitName("player"))--They are a holy paladin
