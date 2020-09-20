@@ -181,9 +181,7 @@ function mod:TrapTarget(targetname, uId)
 	end
 	if targetname == UnitName("player") then
 		specWarnTrap:Show()
-		if self.Options.YellOnTrap then
-			SendChatMessage(L.YellTrap, "SAY")
-		end
+		yellTrap:Yell()
 	else
 		if uId then
 			local inRange = CheckInteractDistance(uId, 2)
@@ -408,7 +406,9 @@ do
 					end
 					if UnitName("raid"..i) == UnitName("player") then
 						specWarnYouAreValkd:Show()
-						SendChatMessage(UnitName("player").." "..select(1, UnitClass("player")), "YELL")
+						if mod.Options.YellInValk then
+							SendChatMessage(UnitName("player").." "..select(1, UnitClass("player")), "YELL")
+						end
 						if mod:IsHealer() then--Is player that's grabbed a healer
 							if isPAL then
 								mod:SendSync("PALGrabbed", UnitName("player"))--They are a holy paladin
