@@ -2694,6 +2694,7 @@ do
 			if breakBar then
 				SendAddonMessage("DBMv4-BTR3", ("%s\t"):format(breakBar.timer), "WHISPER", target)
 			end
+			return
 		end
 		local mod
 		for i, v in ipairs(inCombat) do
