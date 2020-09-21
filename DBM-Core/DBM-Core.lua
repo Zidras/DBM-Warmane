@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 6009 $"):sub(12, -3),
-	Version = "6.09",
-	DisplayVersion = "6.09 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/ArsumPB/DBM-wowcircle)", -- the string that is shown as version
-	ReleaseRevision = 6009 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 6010 $"):sub(12, -3),
+	Version = "6.10",
+	DisplayVersion = "6.10 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/ArsumPB/DBM-wowcircle)", -- the string that is shown as version
+	ReleaseRevision = 6010 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -1418,6 +1418,7 @@ do
 	end)
 
 	local function updateAllRoster(self)
+		DBM:Debug("Updating roster",3)
 		if GetNumRaidMembers() >= 1 then
 			if not inRaid then
 				inRaid = true
@@ -1976,9 +1977,11 @@ do
 
 	syncHandlers["DBMv4-Ver"] = function(msg, channel, sender)
 		if msg == "Hi!" then
+			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()),4)
 			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
 		else
 			local revision, version, displayVersion, locale = strsplit("\t", msg)
+			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
 			revision, version = tonumber(revision or ""), tonumber(version or "")
 			if revision and version and displayVersion and raid[sender] then
 				raid[sender].revision = revision
@@ -2611,14 +2614,17 @@ do
 		local selectedClient
 		local listNum = 0
 		for i, v in ipairs(sortMe) do
+			DBM.Debug("Rev"..tostring(v.name).." "..tostring(v.revision), 3)
 			-- If selectedClient player's realm is not same with your's, timer recovery by selectedClient not works at all.
 			-- SendAddonMessage target channel is "WHISPER" and target player is other realm, no msg sends at all. At same realm, message sending works fine. (Maybe bliz bug or SendAddonMessage function restriction?)
-			if v.name ~= playerName and UnitIsConnected(v.id) and (not UnitIsGhost(v.id)) and (GetTime() - (clientUsed[v.name] or 0)) > 10 then
-				listNum = listNum + 1
-				if listNum == requestNum then
-					selectedClient = v
-					clientUsed[v.name] = GetTime()
-					break
+			if v.revision then
+				if v.name ~= playerName and tonumber(v.revision) >= DBM.ReleaseRevision and UnitIsConnected(v.id) and (not UnitIsGhost(v.id)) and (GetTime() - (clientUsed[v.name] or 0)) > 10 then
+					listNum = listNum + 1
+					if listNum == requestNum then
+						selectedClient = v
+						clientUsed[v.name] = GetTime()
+						break
+					end
 				end
 			end
 		end
