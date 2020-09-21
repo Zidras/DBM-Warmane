@@ -166,8 +166,8 @@ local showedUpdateReminder = true
 local combatInitialized = false
 local healthCombatInitialized = false
 local pformat
-local schedulerFrame = CreateFrame("Frame", "DBMScheduler")
-schedulerFrame:Hide()
+--local schedulerFrame = CreateFrame("Frame", "DBMScheduler")
+--schedulerFrame:Hide()
 local startScheduler
 local schedule
 local unschedule
@@ -1847,6 +1847,9 @@ end
 --  Load Boss Mods on Demand  --
 --------------------------------
 function DBM:ZONE_CHANGED_NEW_AREA()
+	SetMapToCurrentZone()
+	timerRequestInProgress = false
+	self:Debug("ZONE_CHANGED_NEW_AREA fired")
 	local zoneName = GetRealZoneText()
 	local zoneId = GetCurrentMapAreaID()
 	for i, v in ipairs(self.AddOns) do
@@ -1896,7 +1899,22 @@ function DBM:LoadMod(mod)
 		if DBM_GUI then
 			DBM_GUI:UpdateModList()
 		end
-		collectgarbage("collect")
+		local _, instanceType = IsInInstance()
+		if instanceType ~= "pvp" and #inCombat == 0 and GetNumPartyMembers() > 0 then--do timer recovery only mod load
+			if not timerRequestInProgress then
+				timerRequestInProgress = true
+				-- Request timer to 3 person to prevent failure.
+				self:Unschedule(self.RequestTimers)
+				self:Schedule(7, self.RequestTimers, self, 1)
+				self:Schedule(10, self.RequestTimers, self, 2)
+				self:Schedule(13, self.RequestTimers, self, 3)
+				self:Schedule(15, function() timerRequestInProgress = false end)
+				self:RAID_ROSTER_UPDATE(true)
+			end
+		end
+		if not InCombatLockdown() and not UnitAffectingCombat("player") and not IsFalling() then--We loaded in combat but still need to avoid garbage collect in combat
+			collectgarbage("collect")
+		end
 		return true
 	end
 end
@@ -2008,18 +2026,24 @@ do
 		if time and text then
 			DBM:CreatePizzaTimer(time, text, nil, sender)
 			if text == tostring(DBM_CORE_TIMER_PULL) and time >= 5 and DBM.Options.AudioPull then
-				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-				DBM:Schedule(time - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-				DBM:Schedule(time - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-				DBM:Schedule(time - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-				DBM:Schedule(time - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-				DBM:Schedule(time-0.01, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
+				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5to1.mp3", "Master")
+				DBM:Schedule(time, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
 			end
 		end
 	end
 
 	whisperSyncHandlers["DBMv4-RequestTimers"] = function(msg, channel, sender)
 		DBM:SendTimers(sender)
+	end
+
+	whisperSyncHandlers["DBMv4-BTR3"] = function(msg, channel, sender)
+		local timer = strsplit("\t", msg)
+		timer = tonumber(timer or 0)
+		if timer > 3600 then return end
+		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
+		if #inCombat >= 1 then return end
+		if DBM.Bars:GetBar(DBM_CORE_TIMER_BREAK) then return end--Already recovered. Prevent duplicate recovery
+		DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_BREAK, false)
 	end
 
 	whisperSyncHandlers["DBMv4-CombatInfo"] = function(msg, channel, sender)
@@ -2310,7 +2334,7 @@ function DBM:FireCustomEvent(event, ...)
 	fireEvent(event, ...)
 end
 
-function DBM:StartCombat(mod, delay, synced)
+function DBM:StartCombat(mod, delay, synced, event)
 	fireEvent("pull", mod, delay, synced)
 	if not checkEntry(inCombat, mod) then
 		if not mod.combatInfo then return end
@@ -2565,24 +2589,55 @@ DBM.UNIT_DESTROYED = DBM.UNIT_DIED
 --  Timer recovery  --
 ----------------------
 do
-	local requestedFrom = nil
+	local requestedFrom = {}
 	local requestTime = 0
+	local clientUsed = {}
+	local sortMe = {}
 
-	function DBM:RequestTimers()
-		local bestClient
+	local function sort(v1, v2)
+		if v1.revision and not v2.revision then
+			return true
+		elseif v2.revision and not v1.revision then
+			return false
+		elseif v1.revision and v2.revision then
+			return v1.revision > v2.revision
+		end
+	end
+
+	function DBM:RequestTimers(requestNum)
+		twipe(sortMe)
 		for i, v in pairs(raid) do
-			if v.name ~= UnitName("player") and UnitIsConnected(v.id) and (not UnitIsGhost(v.id)) and (v.revision or 0) > ((bestClient and bestClient.revision) or 0) then
-				bestClient = v
+			tinsert(sortMe, v)
+		end
+		tsort(sortMe, sort)
+		self:Debug("RequestTimers Running", 2)
+		local selectedClient
+		local listNum = 0
+		for i, v in ipairs(sortMe) do
+			-- If selectedClient player's realm is not same with your's, timer recovery by selectedClient not works at all.
+			-- SendAddonMessage target channel is "WHISPER" and target player is other realm, no msg sends at all. At same realm, message sending works fine. (Maybe bliz bug or SendAddonMessage function restriction?)
+			if v.name ~= playerName and UnitIsConnected(v.id) and (not UnitIsGhost(v.id)) and (GetTime() - (clientUsed[v.name] or 0)) > 10 then
+				listNum = listNum + 1
+				if listNum == requestNum then
+					selectedClient = v
+					clientUsed[v.name] = GetTime()
+					break
+				end
 			end
 		end
-		if not bestClient then return end
-		requestedFrom = bestClient.name
+		if not selectedClient then return end
+		self:Debug("Requesting timer recovery to "..selectedClient.name)
+		requestedFrom[selectedClient.name] = true
 		requestTime = GetTime()
-		SendAddonMessage("DBMv4-RequestTimers", "", "WHISPER", bestClient.name)
+		SendAddonMessage("DBMv4-RequestTimers", "", "WHISPER", selectedClient.name)
 	end
 
 	function DBM:ReceiveCombatInfo(sender, mod, time)
-		if sender == requestedFrom and (GetTime() - requestTime) < 5 and #inCombat == 0 then
+		if DBM.Options.Enabled and requestedFrom[sender] and (GetTime() - requestTime) < 5 and #inCombat == 0 then
+			--self:StartCombat(mod, time, true, "TIMER_RECOVERY")
+			--Recovery successful, someone sent info, abort other recovery requests
+			--self:Unschedule(self.RequestTimers)
+			--twipe(requestedFrom)
 			local lag = select(3, GetNetStats()) / 1000
 			if not mod.combatInfo then return end
 			tinsert(inCombat, mod)
@@ -2594,7 +2649,8 @@ do
 	end
 
 	function DBM:ReceiveTimerInfo(sender, mod, timeLeft, totalTime, id, ...)
-		if sender == requestedFrom and (GetTime() - requestTime) < 5 then
+		DBM.Debug(("Receiving Timer Info: %s\t%s\t%s\t%s from %s"):format(mod.id, timeLeft, totalTime, "123", sender),3)
+		if requestedFrom[sender] and (GetTime() - requestTime) < 5 then
 			local lag = select(3, GetNetStats()) / 1000
 			for i, v in ipairs(mod.timers) do
 				if v.id == id then
@@ -2606,7 +2662,7 @@ do
 	end
 
 	function DBM:ReceiveVariableInfo(sender, mod, name, value)
-		if sender == requestedFrom and (GetTime() - requestTime) < 5 then
+		if requestedFrom[sender] and (GetTime() - requestTime) < 5 then
 			if value == "true" then
 				mod.vb[name] = true
 			elseif value == "false" then
@@ -2619,16 +2675,29 @@ do
 end
 
 do
-	local spamProtection = 0
+	local spamProtection = {}
 	function DBM:SendTimers(target)
-		if GetTime() - spamProtection < 0.4 then
+		self:Debug("SendTimers requested by "..target, 2)
+		local spamForTarget = spamProtection[target] or 0
+		-- just try to clean up the table, that should keep the hash table at max. 4 entries or something :)
+		for k, v in pairs(spamProtection) do
+			if GetTime() - v >= 1 then
+				spamProtection[k] = nil
+			end
+		end
+		if GetTime() - spamForTarget < 1 then -- just to prevent players from flooding this on purpose
 			return
 		end
-		spamProtection = GetTime()
-		if UnitInBattleground("player") then
-			DBM:SendBGTimers(target)
+		spamProtection[target] = GetTime()
+		if #inCombat < 1 then
+			self:Debug("Sending Break timer to "..target, 2)
+			--Break timer is up, so send that
+			--But only if we are not in combat with a boss
+			local breakBar = self.Bars:GetBar("%s\t"..DBM_CORE_TIMER_BREAK) or self.Bars:GetBar(DBM_CORE_TIMER_BREAK)
+			if breakBar then
+				SendAddonMessage("DBMv4-BTR3", ("%s\t"):format(breakBar.timer), "WHISPER", target)
+			end
 		end
-		if #inCombat < 1 then return end
 		local mod
 		for i, v in ipairs(inCombat) do
 			mod = not v.isCustomMod and v
@@ -2671,6 +2740,7 @@ function DBM:SendTimerInfo(mod, target)
 				end
 				timeLeft = totalTime - elapsed
 				if timeLeft > 0 and totalTime > 0 then
+					DBM.Debug(("Sending Timer Info: %s\t%s\t%s\t%s to %s"):format(mod.id, timeLeft, totalTime, uId, target),3)
 					SendAddonMessage("DBMv4-TimerInfo", ("%s\t%s\t%s\t%s"):format(mod.id, timeLeft, totalTime, uId), "WHISPER", target)
 				end
 			end
@@ -2688,20 +2758,10 @@ function DBM:SendVariableInfo(mod, target)
 end
 
 do
-	local function requestTimers()
-		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
-			local id = (i == 0 and "player") or uId..i
-			if UnitAffectingCombat(id) and not UnitIsDeadOrGhost(id) then
-				DBM:RequestTimers()
-				break
-			end
-		end
-	end
 
 	function DBM:PLAYER_ENTERING_WORLD()
 		if #inCombat == 0 then
-			DBM:Schedule(0, requestTimers)
+			DBM:Schedule(0, self.RequestTimers, self, 1)
 		end
 		self:LFG_UPDATE()
 --		self:Schedule(10, function() if not DBM.Options.HelpMessageShown then DBM.Options.HelpMessageShown = true DBM:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
