@@ -149,7 +149,6 @@ DBM.MapSizes = {
     TheForgeofSouls = {{1448.1, 965.4}},
     PitofSaron = {{1533.3333, 1022.9167}},
     HallsofReflection = {{879.02, 586.02}},
-    IcecrownCitadel = {{1355.47, 903.647}, {1067, 711.3337}, {195.47, 130.315}, {773.71, 515.81}, {1148.74, 765.82}, {373.71, 249.13}, {293.26, 195.507}, {247.93, 165.288}},
     TheRubySanctum = {{752.0833, 502.084}},
 }
 
@@ -592,12 +591,13 @@ function createRadarFrame()
 	
 	
 	if (not DBM.Options.RangeFrameRadarPoint) then 
-		-- probably upgrading from an older version
+		DBM:Debug("radar probably upgrading from an older version",3)
 		DBM.Options.RangeFrameRadarPoint = DBM.DefaultOptions.RangeFrameRadarPoint
 		DBM.Options.RangeFrameRadarX = DBM.DefaultOptions.RangeFrameRadarX
 		DBM.Options.RangeFrameRadarY = DBM.DefaultOptions.RangeFrameRadarY
 		DBM.Options.RangeFrameFrames = DBM.DefaultOptions.RangeFrameFrames
 	end
+	print(DBM.Options.RangeFrameRadarPoint, UIParent, DBM.Options.RangeFrameRadarPoint, DBM.Options.RangeFrameRadarX, DBM.Options.RangeFrameRadarY)
 	radarFrame:SetPoint(DBM.Options.RangeFrameRadarPoint, UIParent, DBM.Options.RangeFrameRadarPoint, DBM.Options.RangeFrameRadarX, DBM.Options.RangeFrameRadarY)
 	radarFrame:SetHeight(128)
 	radarFrame:SetWidth(128)
