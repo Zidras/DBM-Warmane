@@ -109,7 +109,7 @@ mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 --mod:AddBoolOption("DefileArrow")
 mod:AddBoolOption("TrapArrow")
 mod:AddBoolOption("YellInValk", true, "yell")
-
+mod:AddBoolOption("RemoveBOP")
 mod:AddBoolOption("ShowFrame", true)
 mod:AddBoolOption("FrameLocked", false)
 mod:AddBoolOption("FrameClassColor", true, nil, function()
@@ -135,6 +135,14 @@ local lastPlague
 
 function mod:RestoreWipeTime(self)
 	mod:SetWipeTime(5) --Restore it after frostmourn room.
+end
+
+function mod:RemoveBOP()
+	if mod.Options.RemoveBOP then
+		CancelUnitBuff("player", (GetSpellInfo(10278)))
+		CancelUnitBuff("player", (GetSpellInfo(642)))
+		CancelUnitBuff("player", (GetSpellInfo(45438)))
+	end
 end
 
 function mod:OnCombatStart(delay)
@@ -262,6 +270,12 @@ function mod:SPELL_CAST_START(args)
 		timerSoulreaperCDnext:Start(49.5+34)
 		timerDefileCD:Start(41.3)
 		soundDefile3:Schedule(41.3-3)
+		if mod.Options.RemoveBOP then
+			self:ScheduleMethod(39.50, "RemoveBOP")
+			self:ScheduleMethod(39.90, "RemoveBOP")
+			self:ScheduleMethod(39.95, "RemoveBOP")
+			self:ScheduleMethod(39.99, "RemoveBOP")
+		end
 	elseif args:IsSpellID(72350) then -- Fury of Frostmourne
 		mod:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
 		timerRoleplay:Start()
