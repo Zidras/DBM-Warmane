@@ -59,7 +59,7 @@ DBM_CORE_WHISPER_COMBAT_END_WIPE	= "%s потерпел поражение от 
 DBM_CORE_VERSIONCHECK_HEADER		= "Deadly Boss Mods - версии"
 DBM_CORE_VERSIONCHECK_ENTRY			= "%s: %s (r%d)"
 DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s: DBM не установлен"
-DBM_CORE_VERSIONCHECK_FOOTER		= "Найдено %d |4игрок:игрока:игроков; с установленным Deadly Boss Mods"
+DBM_CORE_VERSIONCHECK_FOOTER		= "Найдено %d игр. с установленным Deadly Boss Mods"
 DBM_CORE_YOUR_VERSION_OUTDATED      = "Ваша версия Deadly Boss Mods устарела! Пожалуйста, посетите https://github.com/ArsumPB/DBM-wowcircle для загрузки последней версии."
 
 DBM_CORE_UPDATEREMINDER_HEADER		= "Ваша версия Deadly Boss Mods устарела.\n Версия %s (r%d) доступна для загрузки здесь:"

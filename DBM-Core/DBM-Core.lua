@@ -1006,7 +1006,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	elseif cmd == "ver2" or cmd == "version2" then
 		DBM:ShowVersions(true)
 	elseif cmd == "rel" or cmd == "release" then  -- Added to broadcast the version check to raid chat
-		DBM:ShowRelease(true)
+		DBM:ShowRelease()
 	elseif cmd == "unlock" or cmd == "move" then
 		DBM.Bars:ShowMovableBar()
 	elseif cmd == "help" then
@@ -1176,7 +1176,7 @@ do
 			sortMe[i] = nil
 		end
 	end
-	function DBM:ShowRelease(notify)
+	function DBM:ShowRelease()
 			if DBM:GetRaidRank() == 0 then
 			DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
 			return
@@ -1189,9 +1189,6 @@ do
 		for i, v in ipairs(sortMe) do
 			if v.displayVersion then
 				SendChatMessage(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.displayVersion, v.revision), "RAID")
-				--[[if notify and v.displayVersion ~= DBM.Version and v.revision < DBM.ReleaseRevision then
-					SendChatMessage(chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
-				end]]--
 			else
 				SendChatMessage(DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM:format(v.name), "RAID")
 			end
