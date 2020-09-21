@@ -597,7 +597,7 @@ function createRadarFrame()
 		DBM.Options.RangeFrameRadarY = DBM.DefaultOptions.RangeFrameRadarY
 		DBM.Options.RangeFrameFrames = DBM.DefaultOptions.RangeFrameFrames
 	end
-	print(DBM.Options.RangeFrameRadarPoint, UIParent, DBM.Options.RangeFrameRadarPoint, DBM.Options.RangeFrameRadarX, DBM.Options.RangeFrameRadarY)
+	DBM:Debug(DBM.Options.RangeFrameRadarPoint, UIParent, DBM.Options.RangeFrameRadarPoint, DBM.Options.RangeFrameRadarX, DBM.Options.RangeFrameRadarY,3)
 	radarFrame:SetPoint(DBM.Options.RangeFrameRadarPoint, UIParent, DBM.Options.RangeFrameRadarPoint, DBM.Options.RangeFrameRadarX, DBM.Options.RangeFrameRadarY)
 	radarFrame:SetHeight(128)
 	radarFrame:SetWidth(128)
