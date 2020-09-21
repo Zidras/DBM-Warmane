@@ -2037,13 +2037,15 @@ do
 	end
 
 	whisperSyncHandlers["DBMv4-BTR3"] = function(msg, channel, sender)
-		local timer = strsplit("\t", msg)
+		local timer, maxtime = strsplit("\t", msg)
 		timer = tonumber(timer or 0)
+		maxtime = tonumber(maxtime or 0)
 		if timer > 3600 then return end
 		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
 		if #inCombat >= 1 then return end
 		if DBM.Bars:GetBar(DBM_CORE_TIMER_BREAK) then return end--Already recovered. Prevent duplicate recovery
 		DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_BREAK, false)
+		DBM.Bars:UpdateBar(DBM_CORE_TIMER_BREAK, maxtime-timer, maxtime)
 	end
 
 	whisperSyncHandlers["DBMv4-CombatInfo"] = function(msg, channel, sender)
@@ -2697,7 +2699,7 @@ do
 			--But only if we are not in combat with a boss
 			local breakBar = self.Bars:GetBar("%s\t"..DBM_CORE_TIMER_BREAK) or self.Bars:GetBar(DBM_CORE_TIMER_BREAK)
 			if breakBar then
-				SendAddonMessage("DBMv4-BTR3", ("%s\t"):format(breakBar.timer), "WHISPER", target)
+				SendAddonMessage("DBMv4-BTR3", ("%s\t%s"):format(breakBar.timer, breakBar.totalTime), "WHISPER", target)
 			end
 			return
 		end
