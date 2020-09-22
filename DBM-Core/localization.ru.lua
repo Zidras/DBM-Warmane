@@ -127,7 +127,7 @@ DBM_CORE_BREAK_MIN					= "Перерыв заканчивается через %
 DBM_CORE_BREAK_SEC					= "Перерыв заканчивается через %s сек.!"
 DBM_CORE_TIMER_BREAK				= "Перерыв!"
 DBM_CORE_ANNOUNCE_BREAK_OVER		= "Перерыв закончился"
-
+DBM_TimerCombatStart				= "Начало боя!"
 DBM_CORE_TIMER_PULL					= "Атака"
 DBM_CORE_ANNOUNCE_PULL				= "Атака через %d сек."
 DBM_CORE_ANNOUNCE_PULL_NOW			= "Атака!"

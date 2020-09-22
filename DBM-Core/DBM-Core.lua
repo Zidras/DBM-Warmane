@@ -859,8 +859,8 @@ do
 				v = heap[i]
 				if (not f or v.func == f) and (not mod or v.mod == mod) then
 					match = true
-					for i = 1, select("#", ...) do
-						if select(i, ...) ~= v[i] then
+					for j = 1, select("#", ...) do
+						if select(j, ...) ~= v[j] then
 							match = false
 							break
 						end
@@ -910,7 +910,7 @@ do
 			deleteMin()
 			local n = nextTask.n
 			if n == #nextTask then
-			nextTask.func(unpack(nextTask))
+				nextTask.func(unpack(nextTask))
 			else
 				-- too many nil values (or a trailing nil)
 				-- this is bad because unpack will not work properly
@@ -2078,15 +2078,20 @@ do
 	end
 
 	whisperSyncHandlers["DBMv4-BTR3"] = function(msg, channel, sender)
-		local timer, maxtime = strsplit("\t", msg)
+		local timer, maxtime, id, text, texture = strsplit("\t", msg)
 		timer = tonumber(timer or 0)
 		maxtime = tonumber(maxtime or 0)
 		if timer > 3600 then return end
+		if id   == nil then id = DBM_CORE_TIMER_BREAK end--old ver compat
+		if text == nil then text = DBM_CORE_TIMER_BREAK end--old ver compat
+		local combaticon = select(3, GetSpellInfo(texture)) or texture or "Interface\\Icons\\Spell_Nature_WispSplode"
 		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
 		if #inCombat >= 1 then return end
-		if DBM.Bars:GetBar(DBM_CORE_TIMER_BREAK) then return end--Already recovered. Prevent duplicate recovery
-		DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_BREAK, false)
-		DBM.Bars:UpdateBar(DBM_CORE_TIMER_BREAK, maxtime-timer, maxtime)
+		if DBM.Bars:GetBar(id) then return end--Already recovered. Prevent duplicate recovery
+		DBM:Debug("Calling createbar "..maxtime..id.." icon "..combaticon,3)
+		DBM.Bars:CreateBar(maxtime, id, combaticon)
+		DBM.Bars:GetBar(id):SetText(text)
+		DBM.Bars:UpdateBar(id, maxtime-timer, maxtime)
 	end
 
 	whisperSyncHandlers["DBMv4-CombatInfo"] = function(msg, channel, sender)
@@ -2754,7 +2759,11 @@ do
 			--But only if we are not in combat with a boss
 			local breakBar = self.Bars:GetBar("%s\t"..DBM_CORE_TIMER_BREAK) or self.Bars:GetBar(DBM_CORE_TIMER_BREAK)
 			if breakBar then
-				SendAddonMessage("DBMv4-BTR3", ("%s\t%s"):format(breakBar.timer, breakBar.totalTime), "WHISPER", target)
+				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s"):format(breakBar.timer, breakBar.totalTime, breakBar.id, DBM_CORE_TIMER_BREAK), "WHISPER", target)
+			end
+			local breakBar = self.Bars:GetBar("TimerCombatStart")
+			if breakBar then
+				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s\t%s"):format(breakBar.timer, breakBar.totalTime, breakBar.id, DBM_TimerCombatStart, 2457), "WHISPER", target)
 			end
 			return
 		end
@@ -3269,7 +3278,7 @@ DBM.GetUnitCreatureId = bossModPrototype.GetUnitCreatureId
 
 do
 	local bossTargetuIds = {
-		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target"
+		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target", "mouseover"
 	}
 	local targetScanCount = {}
 	local repeatedScanEnabled = {}
@@ -3279,7 +3288,7 @@ do
 		local cacheuid = bossuIdCache[guid] or "boss1"
 		if UnitGUID(cacheuid) == guid then
 			bossuid = cacheuid
-			name = GetUnitName(cacheuid.."target")
+			name = DBM:GetUnitFullName(cacheuid.."target")
 			uid = cacheuid.."target"
 			bossuIdCache[guid] = bossuid
 		end
@@ -3287,7 +3296,7 @@ do
 		for _, uId in ipairs(bossTargetuIds) do
 			if UnitGUID(uId) == guid then
 				bossuid = uId
-				name = GetUnitName(uId.."target")
+				name = DBM:GetUnitFullName(uId.."target")
 				uid = uId.."target"
 				bossuIdCache[guid] = bossuid
 				break
@@ -3295,11 +3304,11 @@ do
 		end
 		if name or scanOnlyBoss then return name, uid, bossuid end
 		-- failed to detect from default uIds, scan all group members's target.
-		if DBM:IsInRaid() then
+		if IsInRaid() then
 			for i = 1, GetNumRaidMembers() do
 				if UnitGUID("raid"..i.."target") == guid then
 					bossuid = "raid"..i.."target"
-					name = GetUnitName("raid"..i.."targettarget")
+					name = DBM:GetUnitFullName("raid"..i.."targettarget")
 					uid = "raid"..i.."targettarget"
 					bossuIdCache[guid] = bossuid
 					break
@@ -3330,7 +3339,7 @@ do
 					end
 				end
 				if not found and not scanOnlyBoss then
-					if DBM:IsInRaid() then
+					if IsInRaid() then
 						for i = 1, GetNumRaidMembers() do
 							if self:GetUnitCreatureId("raid"..i.."target") == cidOrGuid then
 								bossuIdCache[cidOrGuid] = "raid"..i.."target"
@@ -3372,7 +3381,7 @@ do
 			DBM:Debug("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
 			local mod = self:GetModByName(modId)
 			DBM:Debug("targetMonitor found a target that probably is a tank", 2)
-			mod[returnFunc](mod, GetUnitName(uId.."target"), uId.."target", uId)--Return results to warning function with all variables.
+			mod[returnFunc](mod, DBM:GetUnitFullName(uId.."target"), uId.."target", uId)--Return results to warning function with all variables.
 		end
 		targetMonitor[uId] = nil
 		DBM:Debug("Boss unit target scan should be aborting for "..uId, 3)
@@ -3400,8 +3409,8 @@ do
 		local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
 		DBM:Debug("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
 		--Do scan
-		if targetname and targetname ~= "неизвестно" and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
-			if (GetNumRaidMembers() == 0) then scanTimes = 1 end --Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
+		if targetname and targetname ~= DBM_CORE_UNKNOWN and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
+			if not IsInRaid() then scanTimes = 1 end--Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
 			if (isEnemyScan and UnitIsFriend("player", targetuid) or (onlyPlayers and not UnitIsPlayer("player", targetuid)) or self:IsTanking(targetuid, bossuid)) and not isFinalScan then--On player scan, ignore tanks. On enemy scan, ignore friendly player. On Only player, ignore npcs and pets
 				if targetScanCount[cidOrGuid] < scanTimes then--Make sure no infinite loop.
 					self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, nil, targetFilter, tankFilter, onlyPlayers)--Scan multiple times to be sure it's not on something other then tank (or friend on enemy scan, or npc/pet on only person)
@@ -3448,15 +3457,116 @@ do
 	end
 end
 
-function bossModPrototype:GetThreatTarget(cid)
-	cid = cid or self.creatureId
-	for i = 1, GetNumRaidMembers() do
-		if self:GetUnitCreatureId("raid"..i.."target") == cid then
-			for x = 1, GetNumRaidMembers() do
-				if UnitDetailedThreatSituation("raid"..x, "raid"..i.."target") == 1 then
-					return "raid"..x
+do
+	local bossCache = {}
+	local lastTank
+
+	function bossModPrototype:GetCurrentTank(cidOrGuid)
+		if lastTank and GetTime() - (bossCache[cidOrGuid] or 0) < 2 then -- return last tank within 2 seconds of call
+			return lastTank
+		else
+			cidOrGuid = cidOrGuid or self.creatureId--GetBossTarget supports GUID or CID and it will automatically return correct values with EITHER ONE
+			local uId
+			local _, fallbackuId, mobuId = self:GetBossTarget(cidOrGuid)
+			if mobuId then--Have a valid mob unit ID
+				--First, use trust threat more than fallbackuId and see what we pull from it first.
+				--This is because for GetCurrentTank we want to know who is tanking it, not who it's targeting.
+				local unitId = (IsInRaid() and "raid") or "party"
+				for i = 0, GetNumGroupMembers() do
+					local id = (i == 0 and "target") or unitId..i
+					local tanking, status = UnitDetailedThreatSituation(id, mobuId)--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
+					if tanking or (status == 3) then uId = id end--Found highest threat target, make them uId
+					if uId then break end
+				end
+				--Did not get anything useful from threat, so use who the boss was looking at, at time of cast (ie fallbackuId)
+				if fallbackuId and not uId then
+					uId = fallbackuId
 				end
 			end
+			if uId then--Now we have a valid uId
+				bossCache[cidOrGuid] = GetTime()
+				lastTank = UnitName(uId)
+				return UnitName(lastTank), uId
+			end
+			return false
+		end
+	end
+end
+
+--Now this function works perfectly. But have some limitation due to DBM.RangeCheck:GetDistance() function.
+--Unfortunely, DBM.RangeCheck:GetDistance() function cannot reflects altitude difference. This makes range unreliable.
+--So, we need to cafefully check range in difference altitude (Especially, tower top and bottom)
+do
+	local rangeCache = {}
+	local rangeUpdated = {}
+
+	function bossModPrototype:CheckBossDistance(cidOrGuid, onlyBoss, itemId, defaultReturn)
+		if not DBM.Options.DontShowFarWarnings then return true end--Global disable.
+		cidOrGuid = cidOrGuid or self.creatureId
+		local uId = DBM:GetUnitIdFromGUID(cidOrGuid, onlyBoss)
+		if uId then
+			itemId = itemId or 32698
+			local inRange = IsItemInRange(itemId, uId)
+			if inRange then--IsItemInRange was a success
+				return inRange
+			else--IsItemInRange doesn't work on all bosses/npcs, but tank checks do
+				DBM:Debug("CheckBossDistance failed on IsItemInRange for: "..cidOrGuid, 2)
+				return self:CheckTankDistance(cidOrGuid, nil, onlyBoss, defaultReturn)--Return tank distance check fallback
+			end
+		end
+		DBM:Debug("CheckBossDistance failed on uId for: "..cidOrGuid, 2)
+		return (defaultReturn == nil) or defaultReturn--When we simply can't figure anything out, return true and allow warnings using this filter to fire
+	end
+
+	function bossModPrototype:CheckTankDistance(cidOrGuid, distance, onlyBoss, defaultReturn)
+		if not DBM.Options.DontShowFarWarnings then return true end--Global disable.
+		distance = distance or 43
+		if rangeCache[cidOrGuid] and (GetTime() - (rangeUpdated[cidOrGuid] or 0)) < 2 then -- return same range within 2 sec call
+			if rangeCache[cidOrGuid] > distance then
+				return false
+			else
+				return true
+			end
+		else
+			cidOrGuid = cidOrGuid or self.creatureId--GetBossTarget supports GUID or CID and it will automatically return correct values with EITHER ONE
+			local uId
+			local _, fallbackuId, mobuId = self:GetBossTarget(cidOrGuid, onlyBoss)
+			if mobuId then--Have a valid mob unit ID
+				--First, use trust threat more than fallbackuId and see what we pull from it first.
+				--This is because for CheckTankDistance we want to know who is tanking it, not who it's targeting.
+				local unitId = (IsInRaid() and "raid") or "party"
+				for i = 0, GetNumGroupMembers() do
+					local id = (i == 0 and "target") or unitId..i
+					local tanking, status = UnitDetailedThreatSituation(id, mobuId)--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
+					if tanking or (status == 3) then uId = id end--Found highest threat target, make them uId
+					if uId then break end
+				end
+				--Did not get anything useful from threat, so use who the boss was looking at, at time of cast (ie fallbackuId)
+				if fallbackuId and not uId then
+					uId = fallbackuId
+				end
+			end
+			if uId then--Now we have a valid uId
+				if UnitIsUnit(uId, "player") then return true end--If "player" is target, avoid doing any complicated stuff
+				if not UnitIsPlayer(uId) then
+					local inRange2, checkedRange = UnitInRange(uId)--43
+					if checkedRange then--checkedRange only returns true if api worked, so if we get false, true then we are not near npc
+						return inRange2 and true or false
+					else--Its probably a totem or just something we can't assess. Fall back to no filtering
+						return true
+					end
+				end
+				local inRange =  DBM.RangeCheck:GetDistance("player", uId)--We check how far we are from the tank who has that boss
+				rangeCache[cidOrGuid] = inRange
+				rangeUpdated[cidOrGuid] = GetTime()
+				if inRange and (inRange > distance) then--You are not near the person tanking boss
+					return false
+				end
+				--Tank in range, return true.
+				return true
+			end
+			DBM:Debug("CheckTankDistance failed on uId for: "..cidOrGuid, 2)
+			return (defaultReturn == nil) or defaultReturn--When we simply can't figure anything out, return true and allow warnings using this filter to fire. But some spells will prefer not to fire(i.e : Galakras tower spell), we can define it on this function calling.
 		end
 	end
 end
@@ -3648,35 +3758,84 @@ function bossModPrototype:IsHealer()
 		or (select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
 end
 
-function bossModPrototype:IsTanking(unit, boss)
-	if not unit then return false end
-	if GetPartyAssignment("MAINTANK", unit, 1) then
-		return true
+function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID, includeTarget)
+	if isName then--Passed combat log name, so pull unit ID
+		unit = DBM:GetRaidUnitId(unit)
 	end
-	if UnitGroupRolesAssigned(unit) == "TANK" then
-		return true
+	if not unit then
+		DBM:Debug("IsTanking passed with invalid unit", 2)
+		return false
 	end
-	if boss and UnitExists(boss) then--Only checking one bossID as requested
+	--Prefer threat target first
+	if boss then--Only checking one bossID as requested
+		--Check threat first
 		local tanking, status = UnitDetailedThreatSituation(unit, boss)
 		if tanking or (status == 3) then
-			DBM:Debug("tanking function fired bossUID true",4)
 			return true
+		end
+		--Non threat fallback
+		if includeTarget and UnitExists(boss) then
+			local guid = UnitGUID(boss)
+			local _, targetuid = self:GetBossTarget(guid, true)
+			if UnitIsUnit(unit, targetuid) then
+				return true
+			end
 		end
 	else--Check all of them if one isn't defined
 		for i = 1, 5 do
-			if UnitExists("boss"..i) then
-				local tanking, status = UnitDetailedThreatSituation(unit, "boss"..i)
+			local unitID = "boss"..i
+			local guid = UnitGUID(unitID)
+			--No GUID, any unit having threat returns true, GUID, only specific unit matching guid
+			if not bossGUID or (guid and guid == bossGUID) then
+				--Check threat first
+				local tanking, status = UnitDetailedThreatSituation(unit, unitID)
 				if tanking or (status == 3) then
-					DBM:Debug("tanking function fired bossNNN true",4)
 					return true
+				end
+				--Non threat fallback
+				if includeTarget and UnitExists(unitID) then
+					local _, targetuid = self:GetBossTarget(guid, true)
+					if UnitIsUnit(unit, targetuid) then
+						return true
+					end
+				end
+			end
+		end
+		--Check group targets if no boss unitIDs found and bossGUID passed.
+		--This allows IsTanking to be used in situations boss UnitIds don't exist
+		if bossGUID then
+			local groupType = (IsInRaid() and "raid") or "party"
+			for i = 0, GetNumGroupMembers() do
+				local unitID = (i == 0 and "target") or groupType..i.."target"
+				local guid = UnitGUID(unitID)
+				if guid and guid == bossGUID then
+					--Check threat first
+					local tanking, status = UnitDetailedThreatSituation(unit, unitID)
+					if tanking or (status == 3) then
+						return true
+					end
+					--Non threat fallback
+					if includeTarget and UnitExists(unitID) then
+						local _, targetuid = self:GetBossTarget(guid, true)
+						if UnitIsUnit(unit, targetuid) then
+							return true
+						end
+					end
 				end
 			end
 		end
 	end
-	DBM:Debug("tanking function fired false")
+	if not onlyRequested then
+		--Use these as fallback if threat target not found
+		if GetPartyAssignment("MAINTANK", unit, 1) then
+			return true
+		end
+		if UnitGroupRolesAssigned(unit) == "TANK" then
+			return true
+		end
+	end
 	return false
 end
-
 function bossModPrototype:IsWeaponDependent(uId)
 	return select(2, UnitClass(uId)) == "ROGUE"
 		or (select(2, UnitClass(uId)) == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
@@ -3696,6 +3855,26 @@ end
 -----------------------
 --  Utility Methods  --
 -----------------------
+
+function IsInGroup()
+	return (GetNumRaidMembers() == 0 and GetNumPartyMembers() > 0)
+end
+
+function IsInRaid()
+	return GetNumRaidMembers() > 0
+end
+
+function GetNumSubgroupMembers()
+	return GetNumPartyMembers()
+end
+
+function GetNumGroupMembers()
+	if IsInGroup() then
+		return GetNumPartyMembers()
+	else
+		return GetNumRaidMembers()
+	end
+end
 
 function bossModPrototype:IsDifficulty(...)
 	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
@@ -5573,6 +5752,7 @@ bossModPrototype.UnscheduleEvent = bossModPrototype.UnscheduleMethod
 --  Icons  --
 -------------
 function bossModPrototype:SetIcon(target, icon, timer)
+	if target == nil then return end --prevent error if called on mob etc(lichking)
 	if DBM.Options.DontSetIcons or not enableIcons or DBM:GetRaidRank() == 0 then
 		return
 	end
