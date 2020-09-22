@@ -60,7 +60,7 @@ f:SetScript("OnUpdate", fCLFix)
 DBM = {
 	Revision = ("$Revision: 6010 $"):sub(12, -3),
 	Version = "6.10",
-	DisplayVersion = "6.10 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/ArsumPB/DBM-wowcircle)", -- the string that is shown as version
+	DisplayVersion = "6.10 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/Barsoomx/DBM-wowcircle)", -- the string that is shown as version
 	ReleaseRevision = 6010 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
@@ -1140,7 +1140,7 @@ SlashCmdList["DBMRANGE"] = function(msg)
 		DBM.RangeCheck:Hide()
 	else
 		local r = tonumber(msg)
-		if r and (r == 10 or r == 11 or r == 15 or r == 28 or r == 12 or r == 6 or r == 8 or r == 20) then
+		if r then
 			DBM.RangeCheck:Show(r)
 		else
 			DBM.RangeCheck:Show(10)
@@ -1160,11 +1160,13 @@ do
 		end
 		tsort(sortMe, sort)
 		self:AddMsg(DBM_CORE_VERSIONCHECK_HEADER)
+		local nreq = 1
 		for i, v in ipairs(sortMe) do
 			if v.displayVersion then
 				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.displayVersion, v.revision))
 				if notify and v.displayVersion ~= DBM.Version and v.revision < DBM.ReleaseRevision then
-					--SendChatMessage(chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
+					DBM:Schedule(nreq*3,SendChatMessage, chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
+					nreq = nreq + 1
 				end
 			else
 				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM:format(v.name))
@@ -2011,7 +2013,7 @@ do
 							else 
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/ArsumPB/DBM-wowcircle]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Barsoomx/DBM-wowcircle]"):format(displayVersion, revision))
 							end
 						end
 					end
@@ -2034,6 +2036,23 @@ do
 				DBM:Schedule(time, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
 			end
 		end
+	end
+
+	syncHandlers["DBMv4-IS"] = function(msg, channel, sender)
+		local guid, ver, optionName = strsplit("\t", msg)
+		DBM:Debug(("DBMv4-IS received %s %s %s"):format(guid, ver, optionName),3)
+		ver = tonumber(ver) or 0
+		if ver > (iconSetRevision[optionName] or 0) then--Save first synced version and person, ignore same version. refresh occurs only above version (fastest person)
+			iconSetRevision[optionName] = ver
+			iconSetPerson[optionName] = guid
+		end
+		if iconSetPerson[optionName] == UnitGUID("player") then--Check if that highest version was from ourself
+			canSetIcons[optionName] = true
+		else--Not from self, it means someone with a higher version than us probably sent it
+			canSetIcons[optionName] = false
+		end
+		local name = DBM:GetFullPlayerNameByGUID(iconSetPerson[optionName]) or DBM_CORE_UNKNOWN
+		DBM:Debug(name.." was elected icon setter for "..optionName, 2)
 	end
 
 	whisperSyncHandlers["DBMv4-RequestTimers"] = function(msg, channel, sender)
@@ -2145,10 +2164,10 @@ function DBM:ShowUpdateReminder(newVersion, newRevision)
 	editBox:SetFontObject("GameFontHighlight")
 	editBox:SetTextInsets(0, 0, 0, 1)
 	editBox:SetFocus()
-	editBox:SetText("https://github.com/ArsumPB/DBM-wowcircle")
+	editBox:SetText("https://github.com/Barsoomx/DBM-wowcircle")
 	editBox:HighlightText()
 	editBox:SetScript("OnTextChanged", function(self)
-		editBox:SetText("https://github.com/ArsumPB/DBM-wowcircle")
+		editBox:SetText("https://github.com/Barsoomx/DBM-wowcircle")
 		editBox:HighlightText()
 	end)
 	local fontstring = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -2377,6 +2396,24 @@ function DBM:StartCombat(mod, delay, synced, event)
 		if not synced then
 			sendSync("DBMv4-Pull", (delay or 0).."\t"..mod.id.."\t"..(mod.revision or 0))
 		end
+		if mod.findFastestComputer and not DBM.Options.DontSetIcons then
+			if DBM:GetRaidRank() > 0 then
+				for i = 1, #mod.findFastestComputer do
+					local option = mod.findFastestComputer[i]
+					if mod.Options[option] then
+						DBM:Debug(("DBMv4-IS sending %s %s %s"):format(UnitGUID("player"), tostring(DBM.Revision), option),3)
+						sendSync("DBMv4-IS", UnitGUID("player").."\t"..tostring(DBM.Revision).."\t"..option)
+					end
+				end
+			elseif GetNumPartyMembers() == 0 then
+				for i = 1, #mod.findFastestComputer do
+					local option = mod.findFastestComputer[i]
+					if mod.Options[option] then
+						canSetIcons[option] = true
+					end
+				end
+			end
+		end
 		-- http://www.deadlybossmods.com/forum/viewtopic.php?t=1464
 		if DBM.Options.ShowBigBrotherOnCombatStart and BigBrother and type(BigBrother.ConsumableCheck) == "function" then
 			if DBM.Options.BigBrotherAnnounceToRaid then
@@ -2446,20 +2483,16 @@ function DBM:EndCombat(mod, wipe)
 			end
 			fireEvent("kill", mod)
 		end
-				twipe(autoRespondSpam)
-				twipe(bossHealth)
-				twipe(bossHealthuIdCache)
-				twipe(bossuIdCache)
-				--sync table
-				twipe(canSetIcons)
-				twipe(iconSetRevision)
-				twipe(iconSetPerson)
-				twipe(addsGUIDs)
-
-				twipe(canSetIcons)
-				twipe(iconSetRevision)
-				twipe(iconSetPerson)
-				twipe(addsGUIDs)		if mod.OnCombatEnd then mod:OnCombatEnd(wipe) end
+		twipe(autoRespondSpam)
+		twipe(bossHealth)
+		twipe(bossHealthuIdCache)
+		twipe(bossuIdCache)
+		--sync table
+		twipe(canSetIcons)
+		twipe(iconSetRevision)
+		twipe(iconSetPerson)
+		twipe(addsGUIDs)	
+		if mod.OnCombatEnd then mod:OnCombatEnd(wipe) end
 		DBM.BossHealth:Hide()
 		DBM.Arrow:Hide(true)
 	end
@@ -5202,6 +5235,12 @@ function bossModPrototype:AddBoolOption(name, default, cat, func)
 		self.optionFuncs = self.optionFuncs or {}
 		self.optionFuncs[name] = func
 	end
+	if cat == "icon" then
+		if not self.findFastestComputer then
+			self.findFastestComputer = {}
+		end
+		self.findFastestComputer[#self.findFastestComputer + 1] = name
+	end
 end
 
 function bossModPrototype:RemoveOption(name)
@@ -5533,6 +5572,177 @@ function bossModPrototype:ClearIcons()
 			end
 		end
 	end	
+end
+
+function bossModPrototype:CanSetIcon(optionName)
+	if canSetIcons[optionName] then
+		return true
+	end
+	return false
+end
+
+do
+	local scanExpires = {}
+	local addsIcon = {}
+	local addsIconSet = {}
+	local mobUids = {"mouseover", "target", "boss1", "boss2", "boss3", "boss4", "boss5"}
+	function bossModPrototype:ScanForMobs(creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName, isFriendly, secondCreatureID, skipMarked)
+		if not optionName then optionName = self.findFastestComputer[1] end
+		if canSetIcons[optionName] then
+			--Declare variables.
+			DBM:Debug("canSetIcons true", 4)
+			local timeNow = GetTime()
+			if not creatureID then--This function must not be used to boss, so remove self.creatureId. Accepts cid, guid and cid table
+				error("DBM:ScanForMobs calld without creatureID")
+				return
+			end
+			iconSetMethod = iconSetMethod or 0--Set IconSetMethod -- 0: Descending / 1:Ascending / 2: Force Set / 9:Force Stop
+			scanningTime = scanningTime or 8
+			maxIcon = maxIcon or 8 --We only have 8 icons.
+			isFriendly = isFriendly or false
+			secondCreatureID = secondCreatureID or 0
+			scanInterval = scanInterval or 0.2
+			--With different scanID, this function can support multi scanning same time. Required for Nazgrim.
+			local scanID = 0
+			if type(creatureID) == "number" then
+				scanID = creatureID --guid and table no not supports multi scanning. only cid supports multi scanning
+			end
+			if iconSetMethod == 9 then--Force stop scanning
+				--clear variables
+				scanExpires[scanID] = nil
+				addsIcon[scanID] = nil
+				addsIconSet[scanID] = nil
+				return
+			end
+			if not addsIcon[scanID] then addsIcon[scanID] = mobIcon or 8 end
+			if not addsIconSet[scanID] then addsIconSet[scanID] = 0 end
+			if not scanExpires[scanID] then scanExpires[scanID] = timeNow + scanningTime end
+			--DO SCAN NOW
+			for _, unitid2 in ipairs(mobUids) do
+				local guid2 = UnitGUID(unitid2)
+				local cid2 = self:GetCIDFromGUID(guid2)
+				local isEnemy = UnitIsEnemy("player", unitid2) or true--If api returns nil, assume it's an enemy
+				local isFiltered = false
+				if (not isFriendly and not isEnemy) or (skipMarked and not GetRaidTargetIndex(unitid2)) then
+					isFiltered = true
+					DBM:Debug("A unit skipped because it's a filtered mob", 3)
+				end
+				if not isFiltered then
+					if guid2 and type(creatureID) == "table" and creatureID[cid2] and not addsGUIDs[guid2] then
+						DBM:Debug("Match found, SHOULD be setting icon", 2)
+						if type(creatureID[cid2]) == "number" then
+							SetRaidTarget(unitid2, creatureID[cid2])
+						else
+							SetRaidTarget(unitid2, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
+						end
+						addsGUIDs[guid2] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
+					elseif guid2 and (guid2 == creatureID or cid2 == creatureID or cid2 == secondCreatureID) and not addsGUIDs[guid2] then
+						DBM:Debug("Match found, SHOULD be setting icon", 2)
+						if iconSetMethod == 2 then
+							SetRaidTarget(unitid2, mobIcon)
+						else
+							SetRaidTarget(unitid2, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
+						end
+						addsGUIDs[guid2] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
+					end
+				end
+			end
+			for uId in DBM:GetGroupMembers() do
+				local unitid = uId.."target"
+				local guid = UnitGUID(unitid)
+				local cid = self:GetCIDFromGUID(guid)
+				local isEnemy = UnitIsEnemy("player", unitid) or true--If api returns nil, assume it's an enemy
+				local isFiltered = false
+				if (not isFriendly and not isEnemy) or (skipMarked and not GetRaidTargetIndex(unitid)) then
+					isFiltered = true
+					DBM:Debug("ScanForMobs aborting because filtered mob", 2)
+				end
+				if not isFiltered then
+					if guid and type(creatureID) == "table" and creatureID[cid] and not addsGUIDs[guid] then
+						DBM:Debug("Match found, SHOULD be setting icon", 2)
+						if type(creatureID[cid]) == "number" then
+							SetRaidTarget(unitid, creatureID[cid])
+						else
+							SetRaidTarget(unitid, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
+						end
+						addsGUIDs[guid] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
+					elseif guid and (guid == creatureID or cid == creatureID or cid == secondCreatureID) and not addsGUIDs[guid] then
+						DBM:Debug("Match found, SHOULD be setting icon", 2)
+						if iconSetMethod == 2 then
+							SetRaidTarget(unitid, mobIcon)
+						else
+							SetRaidTarget(unitid, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
+						end
+						addsGUIDs[guid] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
+					end
+				end
+			end
+			if timeNow < scanExpires[scanID] then--scan for limited times.
+				self:ScheduleMethod(scanInterval, "ScanForMobs", creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName, isFriendly, secondCreatureID)
+			else
+				DBM:Debug("Stopping ScanForMobs for: "..(optionName or "nil"), 2)
+				--clear variables
+				scanExpires[scanID] = nil
+				addsIcon[scanID] = nil
+				addsIconSet[scanID] = nil
+				--Do not wipe adds GUID table here, it's wiped by :Stop() which is called by EndCombat
+			end
+		else
+			DBM:Debug("Not elected to set icons for "..(optionName or "nil"), 2)
+		end
+	end
 end
 
 -----------------------

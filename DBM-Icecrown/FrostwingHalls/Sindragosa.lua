@@ -81,7 +81,7 @@ do
 				if self.Options.AnnounceFrostBeaconIcons then
 					SendChatMessage(L.BeaconIconSet:format(beaconIcons, UnitName(v)), "RAID")
 				end
-				self:SetIcon(UnitName(v), beaconIcons)
+				self:SetIcon(UnitName(v), beaconIcons, 15)
 				beaconIcons = beaconIcons - 1
 			end
 			table.wipe(beaconIconTargets)
@@ -149,7 +149,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			p2_beacon_num = p2_beacon_num + 1
 			timerNextBeacon:Start(16, p2_beacon_num)
 			if self.Options.SetIconOnFrostBeacon then
-				self:SetIcon(args.destName, 8)
+				self:SetIcon(args.destName, 8, 10)
 				if self.Options.AnnounceFrostBeaconIcons then
 					SendChatMessage(L.BeaconIconSet:format(8, args.destName), "RAID")
 				end

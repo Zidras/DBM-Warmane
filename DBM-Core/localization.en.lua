@@ -4,7 +4,7 @@ DBM_DBM								= "DBM"
 DBM_HOW_TO_USE_MOD					= "Welcome to "..DBM_DBM..". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. DBM will setup defaults for your spec, but you may want to fine tune these."
 DBM_SILENT_REMINDER					= "Reminder: "..DBM_DBM.." is still in silent mode."
 
-DBM_CORE_UPDATEREMINDER_URL			= "https://github.com/ArsumPB/DBM-wowcircle"
+DBM_CORE_UPDATEREMINDER_URL			= "https://github.com/Barsoomx/DBM-wowcircle"
 
 DBM_COPY_URL_DIALOG					= "Copy URL"
 
@@ -61,7 +61,7 @@ DBM_CORE_VERSIONCHECK_HEADER		= "Deadly Boss Mods - Versions"
 DBM_CORE_VERSIONCHECK_ENTRY			= "%s: %s (r%d)"
 DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s: DBM not installed"
 DBM_CORE_VERSIONCHECK_FOOTER		= "Found %d players with Deadly Boss Mods"
-DBM_CORE_YOUR_VERSION_OUTDATED      = "Your version of Deadly Boss Mods is out-of-date. Please visit www.deadlybossmods.com to get the latest version."
+DBM_CORE_YOUR_VERSION_OUTDATED      = "Your version of Deadly Boss Mods is out-of-date. Please visit https://github.com/Barsoomx/DBM-wowcircle to get the latest version."
 
 DBM_CORE_UPDATEREMINDER_HEADER		= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (r%d) is available for download here:"
 DBM_CORE_UPDATEREMINDER_FOOTER		= "Press Ctrl-C to copy the download link to your clipboard."

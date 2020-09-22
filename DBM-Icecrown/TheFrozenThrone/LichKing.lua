@@ -18,7 +18,8 @@ mod:RegisterEvents(
 	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_AURA",
-	"UNIT_EXITING_VEHICLE"
+	"UNIT_EXITING_VEHICLE",
+	"UNIT_DIED"
 )
 
 local isPAL = select(2, UnitClass("player")) == "PALADIN"
@@ -102,7 +103,7 @@ mod:AddBoolOption("DefileIcon")
 mod:AddBoolOption("NecroticPlagueIcon")
 mod:AddBoolOption("RagingSpiritIcon")
 mod:AddBoolOption("TrapIcon")
-mod:AddBoolOption("ValkyrIcon")
+mod:AddBoolOption("ValkyrIcon", nil, "icon")
 mod:AddBoolOption("HarvestSoulIcon")
 mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
@@ -213,7 +214,7 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
 		warnRemorselessWinter:Show()
 		timerPhaseTransition:Start()
-		timerRagingSpiritCD:Start(6)
+		timerRagingSpiritCD:Start(4)
 		warnShamblingSoon:Cancel()
 		timerShamblingHorror:Cancel()
 		timerDrudgeGhouls:Cancel()
@@ -229,8 +230,8 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		warnShamblingEnrage:Show(args.sourceName)
 		specWarnEnrage:Show()
-		timerEnrageCD:Start()
-		timerEnrageCDnext:Start()
+		timerEnrageCD:Start(args.sourceGUID)
+		timerEnrageCDnext:Start(args.sourceGUID)
 	elseif args:IsSpellID(72262) then -- Quake (phase transition end)
 		warnQuake:Show()
 		timerRagingSpiritCD:Cancel()
@@ -365,7 +366,7 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		if args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 			warnShamblingEnrage:Show(args.destName)
-			timerEnrageCD:Start()
+			timerEnrageCD:Start(args.sourceGUID)
 		elseif args:IsSpellID(28747) then -- Shambling Horror enrage effect on low hp
 			specWarnEnrageLow:Show()
 		elseif args:IsSpellID(72754, 73708, 73709, 73710) and args:IsPlayer() and time() - lastDefile > 2 then		-- Defile Damage
@@ -393,18 +394,10 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 end	
 
 do
-	local valkIcons = {}
 	local valkyrTargets = {}
-	local currentIcon = 2
 	local grabIcon = 2
-	local iconsSet = 0
 	local lastValk = 0
-
-	local function resetValkIconState()
-		table.wipe(valkIcons)
-		currentIcon = 2
-		iconsSet = 0
-	end
+	local UnitInVehicle = UnitInVehicle
 
 	local function scanValkyrTargets()
 		if (time() - lastValk) < 10 then    -- scan for like 10secs
@@ -460,29 +453,16 @@ do
 				lastValk = time()
 				scanValkyrTargets()
 				if self.Options.ValkyrIcon then
-					resetValkIconState()
+					local cid = self:GetCIDFromGUID(args.destGUID)
+					if self:IsDifficulty("normal25", "heroic25") then
+						self:ScanForMobs(cid, 1, 2, 3, 0.1, 20, "ValkyrIcon")
+					else
+						self:ScanForMobs(cid, 1, 2, 1, 0.1, 20, "ValkyrIcon")
+					end
 				end
-			end
-			if self.Options.ValkyrIcon then
-				valkIcons[args.destGUID] = currentIcon
-				currentIcon = currentIcon + 1
 			end
 		end
 	end
-	
-	mod:RegisterOnUpdateHandler(function(self)
-		if self.Options.ValkyrIcon and (DBM:GetRaidRank() > 0 and not (iconsSet == 3 and self:IsDifficulty("normal25", "heroic25") or iconsSet == 1 and self:IsDifficulty("normal10", "heroic10"))) then
-			for i = 1, GetNumRaidMembers() do
-				local uId = "raid"..i.."target"
-				local guid = UnitGUID(uId)
-				if valkIcons[guid] then
-					SetRaidTarget(uId, valkIcons[guid])
-					iconsSet = iconsSet + 1
-					valkIcons[guid] = nil
-				end
-			end
-		end
-	end, 1)
 end
 
 do 
@@ -506,6 +486,14 @@ function mod:UNIT_HEALTH(uId)
 	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.43 then
 		warned_preP3 = true
 		warnPhase3Soon:Show()
+	end
+end
+
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 37698 then--Shambling Horror
+		timerEnrageCD:Cancel(args.sourceGUID)
+		timerEnrageCDnext:Cancel(args.sourceGUID)
 	end
 end
 
@@ -561,7 +549,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:UNIT_AURA(uId)
-	local name = GetUnitName(uId)
+	local name = DBM:GetUnitFullName(uId)
 	if (not name) or (name == lastPlague) then return end
 	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, plagueHop)
 	if not spellId or not expires then return end

@@ -823,7 +823,6 @@ do
 
 			local mapName = GetMapInfo()
 			local level = GetCurrentMapDungeonLevel()
-			if level == 0 then level = 1 end
 			local dims  = DBM.MapSizes[mapName] and DBM.MapSizes[mapName][level]
 			if not dims then -- This ALWAYS happens when leaving a zone that has a map and moving into one that does not.
 				if select(3, radarFrame.circle:GetVertexColor()) < 0.5 then
@@ -954,7 +953,6 @@ do
 		local startX, startY = GetPlayerMapPosition(uId)
 		local mapName = GetMapInfo()
 		local level = GetCurrentMapDungeonLevel()
-		if level == 0 then level = 1 end
 		local dims = mapSizes[mapName] and mapSizes[mapName][level]
 		if not dims then
 			return
@@ -982,7 +980,6 @@ do
 			return false
 		end
 		local level = GetCurrentMapDungeonLevel()
-		if level == 0 then level = 1 end
 		local dims = levels[level]
 		if not dims and levels and GetCurrentMapDungeonLevel() == 0 then -- we are in a known zone but the dungeon level seems to be wrong
 			SetMapToCurrentZone() -- fixes the dungeon level
@@ -1033,7 +1030,6 @@ function rangeCheck:Show(range, filter)
 	frame.range = range
 	frame.filter = filter
 	local level = GetCurrentMapDungeonLevel()
-	if level == 0 then level = 1 end
 	if DBM.Options.RangeFrameFrames == "text" or DBM.Options.RangeFrameFrames == "both" or not DBM.MapSizes[mapName] or (DBM.MapSizes[mapName] and not DBM.MapSizes[mapName][level]) then
 		frame:Show()
 		frame:SetOwner(UIParent, "ANCHOR_PRESERVE")

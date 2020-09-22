@@ -53,7 +53,7 @@ local encaura = GetSpellInfo(45665)
 
 local breathCounter = 0
 local pull = 0
-
+	
 function mod:Groundphase()
 	breathCounter = 0
 	pull = GetTime()
@@ -150,7 +150,7 @@ end
 
 
 function mod:UNIT_AURA(uId)
-	local name = GetUnitName(uId)
+	local name = DBM:GetUnitFullName(uId)
 	if (not name) then return end
 	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, encaura)
 	if not spellId or not expires then return end

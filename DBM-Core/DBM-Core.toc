@@ -6,7 +6,7 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## Author: Barsoom, Bunny67, DBM-frostmourne contributors, original DBM team
-## X-Website: https://github.com/ArsumPB/DBM-wowcircle
+## X-Website: https://github.com/Barsoomx/DBM-wowcircle
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
