@@ -136,12 +136,12 @@ function mod:SPELL_SUMMON(args)
 			SoundAdds:Play("Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 			warnAddsSoon:Schedule(30)
 			timerCallBloodBeast:Start()
-			if self.Options.BeastIcons then
-				if self:IsDifficulty("normal25", "heroic25") then
-					self:ScanForMobs(args.destGUID, 0, 8, 5, 0.1, 20, "BeastIcons")
-				else
-					self:ScanForMobs(args.destGUID, 0, 8, 2, 0.1, 20, "BeastIcons")
-				end
+		end
+		if self.Options.BeastIcons then
+			if self:IsDifficulty("normal25", "heroic25") then
+				self:ScanForMobs(args.destGUID, 0, 8, 5, 0.1, 20, "BeastIcons")
+			else
+				self:ScanForMobs(args.destGUID, 0, 8, 2, 0.1, 20, "BeastIcons")
 			end
 		end
 	end
