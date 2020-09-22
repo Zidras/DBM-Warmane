@@ -96,9 +96,6 @@ DBM.DefaultOptions = {
 	ShowSpecialWarnings = true,
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
-	RangeFrameSound1 = "none",
-	RangeFrameSound2 = "none",
-	RangeFrameLocked = false,
 	RangeFrameFrames = "radar",
 	RangeFrameUpdates = "Average",
 	RangeFramePoint = "CENTER",
@@ -143,6 +140,7 @@ DBM.DefaultOptions = {
 
 DBM.Bars = DBT:New()
 DBM.Mods = {}
+DBM.ModLists = {}
 ------------------------
 -- Global Identifiers --
 ------------------------
@@ -163,15 +161,15 @@ local autoRespondSpam = {}
 local chatPrefix = "<Deadly Boss Mods> "
 local chatPrefixShort = "<DBM> "
 local ver = ("%s (r%d)"):format(DBM.DisplayVersion, DBM.Revision)
-local mainFrame = CreateFrame("Frame")
+local mainFrame = CreateFrame("Frame", "DBMMainFrame")
 local newerVersionPerson = {}
 local newerRevisionPerson = {}
 local showedUpdateReminder = true
 local combatInitialized = false
 local healthCombatInitialized = false
 local pformat
---local schedulerFrame = CreateFrame("Frame", "DBMScheduler")
---schedulerFrame:Hide()
+local schedulerFrame = CreateFrame("Frame", "DBMScheduler")
+schedulerFrame:Hide()
 local startScheduler
 local schedule
 local unschedule
@@ -224,6 +222,8 @@ local wowVersion = select(4, GetBuildInfo())
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 
 local bannedMods = { -- a list of "banned" (meaning they are replaced by another mod like DBM-Battlegrounds (replaced by DBM-PvP)) boss mods, these mods will not be loaded by DBM (and they wont show up in the GUI)
+	"DBM_API",
+	"DBM-Outlands",
 	"DBM-Battlegrounds", --replaced by DBM-PvP
 }
 
@@ -881,6 +881,7 @@ do
 		end
 	end
 
+
 	local wrappers = {}
 	local function range(max, cur, ...)
 		cur = cur or 1
@@ -899,8 +900,8 @@ do
 	end
 
 	local nextModSyncSpamUpdate = 0
-
-	mainFrame:SetScript("OnUpdate", function(self, elapsed)
+	--mainFrame:SetScript("OnUpdate", function(self, elapsed)
+	local function onUpdate(self, elapsed)
 		local time = GetTime()
 
 		-- execute scheduled tasks
@@ -934,14 +935,34 @@ do
 		end
 
 		-- clean up sync spam timers and auto respond spam blockers
-		-- TODO: optimize this; using next(t, k) all the time on nearly empty hash tables is not a good idea...doesn't really matter here as modSyncSpam only very rarely contains more than 4 entries...
-		local k, v = next(modSyncSpam, nil)
-		if v and (time - v > 2.5) then
-			modSyncSpam[k] = nil
+		if time > nextModSyncSpamUpdate then
+			nextModSyncSpamUpdate = time + 20
+			-- TODO: optimize this; using next(t, k) all the time on nearly empty hash tables is not a good idea...doesn't really matter here as modSyncSpam only very rarely contains more than 4 entries...
+			-- we now do this just every 20 seconds since the earlier assumption about modSyncSpam isn't true any longer
+			-- note that not removing entries at all would be just a small memory leak and not a problem (the sync functions themselves check the timestamp)
+			local k, v = next(modSyncSpam, nil)
+			if v and (time - v > 8) then
+				modSyncSpam[k] = nil
+			end
 		end
-	end)
+		if not nextTask and foundModFunctions == 0 then--Nothing left, stop scheduler
+			schedulerFrame:SetScript("OnUpdate", nil)
+			schedulerFrame:Hide()
+		end
+	end
+
+	function startScheduler()
+		if not schedulerFrame:IsShown() then
+			schedulerFrame:Show()
+			schedulerFrame:SetScript("OnUpdate", onUpdate)
+		end
+	end
 
 	function schedule(t, f, mod, ...)
+		if type(f) ~= "function" then
+			error("usage: schedule(time, func, [mod, args...])", 2)
+		end
+		startScheduler()
 		local v
 		if numChachedTables > 0 and select("#", ...) <= 4 then -- a cached table is available and all arguments fit into an array with four slots
 			v = popCachedTable()
@@ -994,9 +1015,6 @@ function DBM:Unschedule(f, ...)
 	return unschedule(f, nil, ...)
 end
 
-function DBM:ForceUpdate()
-	mainFrame:GetScript("OnUpdate")(mainFrame, 0)
-end
 
 ----------------------
 --  Slash Commands  --
@@ -3144,6 +3162,10 @@ do
 		end
 		if obj.localization.general.name == "name" then obj.localization.general.name = name end
 		tinsert(self.Mods, obj)
+		if modId then
+			self.ModLists[modId] = self.ModLists[modId] or {}
+			tinsert(self.ModLists[modId], name)
+		end
 		modsById[name] = obj
 		obj:AddBoolOption("HealthFrame", false, "misc")
 		obj:SetZone()
@@ -3151,7 +3173,7 @@ do
 	end
 
 	function DBM:GetModByName(name)
-		return modsById[name]
+		return modsById[tostring(name)]
 	end
 end
 
@@ -3210,7 +3232,16 @@ function bossModPrototype:DisableMod()
 	self.Options.Enabled = false
 end
 
+function bossModPrototype:Stop()
+	for i, v in ipairs(self.timers) do
+		v:Stop()
+	end
+	self:Unschedule()
+end
+
+
 function bossModPrototype:RegisterOnUpdateHandler(func, interval)
+	startScheduler()
 	if type(func) ~= "function" then return end
 	self.elapsed = 0
 	self.updateInterval = interval or 0
@@ -3430,11 +3461,18 @@ function bossModPrototype:GetThreatTarget(cid)
 	end
 end
 
-function bossModPrototype:Stop(cid)
-	for i, v in ipairs(self.timers) do
-		v:Stop()
+-----------------------
+--  Utility Methods  --
+-----------------------
+
+function bossModPrototype:IsDifficulty(...)
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	for i = 1, select("#", ...) do
+		if diff == select(i, ...) then
+			return true
+		end
 	end
-	self:Unschedule()
+	return false
 end
 
 -- hard coded party-mod support, yay :)
@@ -3996,7 +4034,7 @@ do
 	end
 
 	function bossModPrototype:NewPhaseAnnounce(stage, color, icon, ...)
-		return newAnnounce(self, "stage", stage, color or 2, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+		return newAnnounce(self, "stage", stage, color or 2, icon or "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness", ...)
 	end
 
 	function bossModPrototype:NewPhaseChangeAnnounce(color, icon, ...)
