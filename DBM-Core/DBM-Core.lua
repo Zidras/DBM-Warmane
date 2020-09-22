@@ -2690,7 +2690,7 @@ do
 	end
 
 	function DBM:ReceiveTimerInfo(sender, mod, timeLeft, totalTime, id, ...)
-		DBM:Debug(("Receiving Timer Info: %s\t%s\t%s\t%s from %s"):format(mod.id, timeLeft, totalTime, "123", sender),3)
+		DBM:Debug(("Receiving Timer Info: %s %s %s %s from %s"):format(mod.id, timeLeft, totalTime, "123", sender),3)
 		if requestedFrom[sender] and (GetTime() - requestTime) < 5 then
 			local lag = select(3, GetNetStats()) / 1000
 			for i, v in ipairs(mod.timers) do
@@ -2782,7 +2782,7 @@ function DBM:SendTimerInfo(mod, target)
 				end
 				timeLeft = totalTime - elapsed
 				if timeLeft > 0 and totalTime > 0 then
-					DBM:Debug(("Sending Timer Info: %s\t%s\t%s\t%s to %s"):format(mod.id, timeLeft, totalTime, uId, target),3)
+					DBM:Debug(("Sending Timer Info: %s %s %s %s to %s"):format(mod.id, timeLeft, totalTime, uId, target),3)
 					SendAddonMessage("DBMv4-TimerInfo", ("%s\t%s\t%s\t%s"):format(mod.id, timeLeft, totalTime, uId), "WHISPER", target)
 				end
 			end

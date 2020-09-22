@@ -40,7 +40,7 @@ local SoundAdds				= mod:NewSound(72173)
 
 mod:AddBoolOption("RangeFrame", mod:IsRanged())
 mod:AddBoolOption("RunePowerFrame", true, "misc")
-mod:AddBoolOption("BeastIcons", true)
+mod:AddBoolOption("BeastIcons", true, "icon")
 mod:AddBoolOption("BoilingBloodIcons", false)
 mod:RemoveOption("HealthFrame")
 
@@ -129,49 +129,22 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-do
-	local beastIcon = {}
-	local currentIcon = 1
-	local iconsSet = 0
-	local function resetBeastIconState()
-		table.wipe(beastIcon)
-		currentIcon = 1
-		iconsSet = 0
-	end
-
-	local lastBeast = 0
-	function mod:SPELL_SUMMON(args)
-		if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
-			if time() - lastBeast > 5 then
-				warnAdds:Show()
-				SoundAdds:Play("Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
-				warnAddsSoon:Schedule(30)
-				timerCallBloodBeast:Start()
-				lastBeast = time()
-				if self.Options.BeastIcons then
-					resetBeastIconState()
-				end
-			end
+function mod:SPELL_SUMMON(args)
+	if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
+		if self:AntiSpam(5) then
+			warnAdds:Show()
+			SoundAdds:Play("Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
+			warnAddsSoon:Schedule(30)
+			timerCallBloodBeast:Start()
 			if self.Options.BeastIcons then
-				beastIcon[args.destGUID] = currentIcon
-				currentIcon = currentIcon + 1
-			end
-		end
-	end
-
-	mod:RegisterOnUpdateHandler(function(self)
-		if self.Options.BeastIcons and (DBM:GetRaidRank() > 0 and not (iconsSet == 5 and self:IsDifficulty("normal25", "heroic25") or iconsSet == 2 and self:IsDifficulty("normal10", "heroic10"))) then
-			for i = 1, GetNumRaidMembers() do
-				local uId = "raid"..i.."target"
-				local guid = UnitGUID(uId)
-				if beastIcon[guid] then
-					SetRaidTarget(uId, beastIcon[guid])
-					iconsSet = iconsSet + 1
-					beastIcon[guid] = nil
+				if self:IsDifficulty("normal25", "heroic25") then
+					self:ScanForMobs(args.destGUID, 0, 8, 5, 0.1, 20, "BeastIcons")
+				else
+					self:ScanForMobs(args.destGUID, 0, 8, 2, 0.1, 20, "BeastIcons")
 				end
 			end
 		end
-	end, 1)
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)

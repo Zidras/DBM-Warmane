@@ -89,7 +89,7 @@ function mod:OnCombatStart(delay)
 	if not mod:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 		soundWarnMC:Schedule(25)
-		if mod.Options.EqUneqWeapons and not mod:IsTank() and not mod.Options.BlockWeapons and mod.Options.EqUneqTimer then
+		if mod.Options.EqUneqWeapons and not mod:IsTank() and mod.Options.EqUneqTimer then
 			specWarnWeapons:Show()
 			mod:ScheduleMethod(29, "UnW")
 		end
@@ -145,12 +145,12 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 end
 
 function mod:UnW()
-   if self:IsWeaponDependent("player") and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons then
+   if self:IsWeaponDependent("player") and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons and not mod:IsTank() then
         PickupInventoryItem(16)
         PutItemInBackpack()
         PickupInventoryItem(17)
         PutItemInBackpack()
-    elseif isHunter and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons then
+    elseif isHunter and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons and not mod:IsTank() then
         PickupInventoryItem(18)
         PutItemInBackpack()
     end
