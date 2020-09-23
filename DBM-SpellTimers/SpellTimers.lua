@@ -213,14 +213,14 @@ do
 
 			function createnewentry()
 				CurCount = CurCount + 1
-				local spellid = area:CreateEditBox(L.SpellID, "", 75)
+				local spellid = area:CreateEditBox(L.SpellID, "", 65)
 				spellid.guikey = CurCount
 				spellid:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 40, 15-(CurCount*35))
 				spellid:SetScript("OnTextChanged", onchange_spell("spell"))
 				spellid:SetScript("OnShow", onshow_spell("spell"))
 				spellid:SetNumeric(true)
 
-				local bartext = area:CreateEditBox(L.BarText, "", 245)
+				local bartext = area:CreateEditBox(L.BarText, "", 190)
 				bartext.guikey = CurCount
 				bartext:SetPoint('TOPLEFT', spellid, "TOPRIGHT", 20, 0)
 				bartext:SetScript("OnTextChanged", onchange_spell("bartext"))
