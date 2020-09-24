@@ -19,7 +19,8 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_AURA",
 	"UNIT_EXITING_VEHICLE",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local isPAL = select(2, UnitClass("player")) == "PALADIN"
@@ -81,6 +82,7 @@ local timerNecroticCleanse	= mod:NewTimer(5, "TimerNecroticPlagueCleanse", 73912
 local timerNecroticPlagueCD	= mod:NewNextTimer(30, 73912)
 local timerDefileCD			= mod:NewNextTimer(32.5, 72762)
 local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, true)
+local timerSoulShriekCD		= mod:NewCDTimer(12, 69242, nil, true)
 local timerEnrageCDnext		= mod:NewCDTimer(41, 72143, nil, true)
 local timerShamblingHorror 	= mod:NewNextTimer(60, 70372)
 local timerDrudgeGhouls 	= mod:NewNextTimer(20, 70358)
@@ -133,6 +135,8 @@ local warnedValkyrGUIDs = {}
 local plagueHop = GetSpellInfo(70338)--Hop spellID only, not cast one.
 local plagueExpires = {}
 local lastPlague
+
+local soulshriek = GetSpellInfo(69242)
 
 function mod:RestoreWipeTime(self)
 	mod:SetWipeTime(5) --Restore it after frostmourn room.
@@ -214,7 +218,7 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
 		warnRemorselessWinter:Show()
 		timerPhaseTransition:Start()
-		timerRagingSpiritCD:Start(4)
+		timerRagingSpiritCD:Start(3.5)
 		warnShamblingSoon:Cancel()
 		timerShamblingHorror:Cancel()
 		timerDrudgeGhouls:Cancel()
@@ -317,6 +321,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif args:IsSpellID(69200) then -- Raging Spirit
 		warnRagingSpirit:Show(args.destName)
+		timerSoulShriekCD:Start(20, args.destName)
 		if args:IsPlayer() then
 			specWarnRagingSpirit:Show()
 		end
@@ -349,6 +354,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnDefileSoon:Cancel()
 		mod:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
 		self:ScheduleMethod(50, "RestoreWipeTime")
+	elseif args:IsSpellID(69242) then -- Soul Shriek Raging spirits
+		timerSoulShriekCD:Start(args.sourceGUID)
 	end
 end
 
@@ -494,6 +501,8 @@ function mod:UNIT_DIED(args)
 	if cid == 37698 then--Shambling Horror
 		timerEnrageCD:Cancel(args.sourceGUID)
 		timerEnrageCDnext:Cancel(args.sourceGUID)
+	elseif cid == 36701 then
+		timerSoulShriekCD:Cancel(args.sourceGUID)
 	end
 end
 
@@ -566,12 +575,20 @@ function mod:UNIT_AURA(uId)
 	end
 end
 
+function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+	if spellName == soulshriek and mod:LatencyCheck() then
+		self:SendSync("SoulShriek", UnitGUID(uId))
+	end
+end
+
 function mod:UNIT_EXITING_VEHICLE(uId)
 	mod:RemoveEntry(UnitName(uId))
 end
 
 function mod:OnSync(msg, target)
-	if msg == "PALGrabbed" then--Does this function fail to alert second healer if 2 different paladins are grabbed within < 2.5 seconds?
+	if msg == "SoulShriek" and self:AntiSpam(1, target) then
+		timerSoulShriekCD:Start(target)
+	elseif msg == "PALGrabbed" then--Does this function fail to alert second healer if 2 different paladins are grabbed within < 2.5 seconds?
 		if self.Options.specWarnHealerGrabbed then
 			specWarnPALGrabbed:Show(target)
 		end

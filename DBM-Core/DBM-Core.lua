@@ -135,6 +135,7 @@ DBM.DefaultOptions = {
 	DontSendYells = false,
 	DebugMode = false,
 	DebugLevel = 1,
+	SilentMode = false,
 --	HelpMessageShown = false,
 }
 
@@ -1146,6 +1147,9 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	elseif cmd:sub(1, 5) == "debug" then
 		DBM.Options.DebugMode = DBM.Options.DebugMode == false and true or false
 		DBM:AddMsg("Debug Message is " .. (DBM.Options.DebugMode and "ON" or "OFF"))
+	elseif cmd:sub(1, 6) == "silent" then
+		DBM.Options.SilentMode = DBM.Options.SilentMode == false and true or false
+		DBM:AddMsg("Silent Mode is " .. (DBM.Options.SilentMode and "ON" or "OFF"), nil, true)
 	else
 		DBM:LoadGUI()
 	end
@@ -2989,14 +2993,17 @@ end
 -----------------------
 --  Misc. Functions  --
 -----------------------
-function DBM:AddMsg(text, prefix)
+function DBM:AddMsg(text, prefix, force)
 	local tag = prefix or (self.localization and self.localization.general.name) or "DBM"
 	local frame = _G[tostring(DBM.Options.ChatFrame)]
+	local force = force or false
 	frame = frame and frame:IsShown() and frame or DEFAULT_CHAT_FRAME
-	if prefix ~= false then
+	if prefix ~= false and not DBM.Options.SilentMode then
 		frame:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(tag), tostring(text)), 0.41, 0.8, 0.94)
-	else
+	elseif not DBM.Options.SilentMode then
 		frame:AddMessage(text, 0.41, 0.8, 0.94)
+	elseif force then
+		frame:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(tag), tostring(text)), 0.41, 0.8, 0.94)
 	end
 end
 AddMsg = DBM.AddMsg
