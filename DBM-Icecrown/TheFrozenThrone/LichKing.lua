@@ -126,7 +126,7 @@ mod.Options.FramePoint = "CENTER"
 mod.Options.FrameX = 150
 mod.Options.FrameY = -50
 
-
+local warnedAchievement = false
 local lastPlagueCast = 0
 local warned_preP2 = false
 local warned_preP3 = false
@@ -292,6 +292,8 @@ function mod:SPELL_CAST_START(args)
 		timerHarvestSoulCD:Cancel()
 		berserkTimer:Cancel()
 		warnDefileSoon:Cancel()
+	elseif args:IsSpellID(69242,73800,73801,73802) then -- Soul Shriek Raging spirits
+		timerSoulShriekCD:Start(args.sourceGUID)
 	end
 end
 
@@ -354,8 +356,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnDefileSoon:Cancel()
 		mod:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
 		self:ScheduleMethod(50, "RestoreWipeTime")
-	elseif args:IsSpellID(69242) then -- Soul Shriek Raging spirits
-		timerSoulShriekCD:Start(args.sourceGUID)
 	end
 end
 
@@ -398,7 +398,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 			end
 		end
 	end
-end	
+end
 
 do
 	local valkyrTargets = {}
@@ -414,8 +414,8 @@ do
 					valkyrTargets[i] = true          -- this person has been announced
 					local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(i)
 					if name == UnitName("raid"..i) then
-						grp = subgroup
-						class = fileName
+						local grp = subgroup
+						local class = fileName
 						mod:AddEntry(name, grp or 0, class, grabIcon)
 					end
 					if UnitName("raid"..i) == UnitName("player") then
@@ -472,7 +472,7 @@ do
 	end
 end
 
-do 
+do
 	local lastWinter = 0
 	function mod:SPELL_DAMAGE(args)
 		if args:IsSpellID(68983, 73791, 73792, 73793) and args:IsPlayer() and time() - lastWinter > 2 then		-- Remorseless Winter
@@ -586,7 +586,7 @@ function mod:UNIT_EXITING_VEHICLE(uId)
 end
 
 function mod:OnSync(msg, target)
-	if msg == "SoulShriek" and self:AntiSpam(1, target) then
+	if msg == "SoulShriek" then
 		timerSoulShriekCD:Start(target)
 	elseif msg == "PALGrabbed" then--Does this function fail to alert second healer if 2 different paladins are grabbed within < 2.5 seconds?
 		if self.Options.specWarnHealerGrabbed then

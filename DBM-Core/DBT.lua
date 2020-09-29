@@ -66,7 +66,7 @@ options = {
 	BarXOffset = {
 		type = "number",
 		default = 0,
-	},	
+	},
 	BarYOffset = {
 		type = "number",
 		default = 0,
@@ -74,7 +74,7 @@ options = {
 	HugeBarXOffset = {
 		type = "number",
 		default = 0,
-	},	
+	},
 	HugeBarYOffset = {
 		type = "number",
 		default = 0,
@@ -312,7 +312,7 @@ do
 		table.insert(instances, obj)
 		return obj
 	end
-	
+
 	function DBT:LoadOptions(id)
 		DBT_SavedOptions[id] = DBT_SavedOptions[id] or {}
 		self.options = setmetatable(DBT_SavedOptions[id], optionMT)
@@ -367,9 +367,9 @@ do
 		end
 		frame:EnableMouse(not self.options.ClickThrough or self.movable)
 		return frame
-	end	
+	end
 	local mt = {__index = barPrototype}
-	
+
 	function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy)
 		if timer <= 0 then return end
 		if (self.numBars or 0) >= 15 and not isDummy then return end
@@ -601,7 +601,7 @@ function barPrototype:Update(elapsed)
 	elseif self.fadingIn then
 		self.fadingIn = nil
 	end
-	
+
 	if self.timer <= 7.75 and not self.flashing and obj.options.Flash then
 		self.flashing = true
 		self.ftimer = 0
@@ -690,7 +690,7 @@ do
 		updateClickThrough(self, self:GetOption("ClickThrough"))
 		self.movable = false
 	end
-	
+
 	function DBT:ShowMovableBar(small, large)
 		if small or small == nil then
 			local bar1 = self:CreateBar(20, "Move1", "Interface\\Icons\\Spell_Nature_WispSplode", nil, true)
@@ -807,7 +807,7 @@ function updateClickThrough(self, newValue)
 		end
 	end
 end
-	
+
 options.ClickThrough.onChange = updateClickThrough
 
 
@@ -935,7 +935,7 @@ do
 		local tex2 = frame.tex2
 		tex1:SetTexture(self.owner.options.Texture)
 		tex2:SetTexture(self.owner.options.Texture)
-		-- tex1:SetTexCoordModifiesRect(true)  
+		-- tex1:SetTexCoordModifiesRect(true) 
 		tex1:SetHorizTile(true)
 		tex1:SetVertTile(true)
 		tex1:SetTexCoord(0, 0.5, 0, 1)

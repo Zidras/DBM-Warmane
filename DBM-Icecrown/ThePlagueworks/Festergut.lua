@@ -52,6 +52,7 @@ local vileGasTargets	= {}
 local gasSporeCast 	= 0
 local lastGoo = 0
 local warnedfailed = false
+local gasSporeIcon = 8
 
 do
 	local function sort_by_group(v1, v2)
@@ -60,7 +61,7 @@ do
 	function mod:SetSporeIcons()
 		if DBM:GetRaidRank() > 0 then
 			table.sort(gasSporeIconTargets, sort_by_group)
-			local gasSporeIcon = 8
+			gasSporeIcon = 8
 			for i, v in ipairs(gasSporeIconTargets) do
 				if self.Options.AnnounceSporeIcons then
 					SendChatMessage(L.SporeSet:format(gasSporeIcon, UnitName(v)), "RAID")

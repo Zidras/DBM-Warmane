@@ -50,7 +50,7 @@ function mod:OnCombatStart(delay)
 	NextZeliekMark:Start(34)
 	NextBaronMark:Start(34)
 	NextThaneMark:Start(34)
-	
+
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
@@ -70,11 +70,11 @@ end
 
 function mod:DoMarks(args)
 	local wasMark = false
-	if args:IsSpellID(LADY_MARK) then 
+	if args:IsSpellID(LADY_MARK) then
 		wasMark = true
 		NextLadyMark:Start(12)
-	elseif args:IsSpellID(ZELIEK_MARK) then 
-		wasMark = true	
+	elseif args:IsSpellID(ZELIEK_MARK) then
+		wasMark = true
 		NextZeliekMark:Start(12)
 	elseif args:IsSpellID(BARON_MARK) then
 		wasMark = true
@@ -108,13 +108,13 @@ end
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 16064 then 
-		NextZeliekMark:Cancel() 
-	elseif cid == 30549 then 
+	if cid == 16064 then
+		NextZeliekMark:Cancel()
+	elseif cid == 30549 then
 		NextBaronMark:Cancel()
-	elseif cid == 16065 then 
+	elseif cid == 16065 then
 		NextLadyMark:Cancel()
-	elseif cid == 16063 then 
+	elseif cid == 16063 then
 		NextZeliekMark:Cancel()
 	end
 end

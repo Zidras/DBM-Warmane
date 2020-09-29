@@ -92,7 +92,6 @@ function mod:OnCombatStart(delay)--These may still need retuning too, log i had 
 	table.wipe(phases)
 	warned_preP2 = false
 	warned_preP3 = false
-	phase2Started = 0
 	lastflame = 0
 	lastshroud = 0
 	berserkTimer:Start(-delay)
@@ -202,10 +201,10 @@ end
 function mod:UNIT_HEALTH(uId)
 	if not warned_preP2 and self:GetUnitCreatureId(uId) == 39863 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.79 then
 		warned_preP2 = true
-		warnPhase2Soon:Show()	
+		warnPhase2Soon:Show()
 	elseif not warned_preP3 and self:GetUnitCreatureId(uId) == 40142 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.54 then
 		warned_preP3 = true
-		warnPhase3Soon:Show()	
+		warnPhase3Soon:Show()
 	end
 end
 

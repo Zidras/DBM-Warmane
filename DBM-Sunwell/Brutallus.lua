@@ -119,7 +119,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_MISSED(args)
-	if spellId == 46394 then
+	if args.spellId == 46394 then
 		warnBurn:Show("MISSED")
 		if self:AntiSpam(19, 1) then
 			timerBurnCD:Start()

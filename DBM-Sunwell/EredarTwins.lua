@@ -84,7 +84,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_DAMAGE(args)
 	if args:IsSpellID(45256) then
-		warnBlow:Show(destName)
+		warnBlow:Show(args.destName)
 		timerBlowCD:Start()
 	end
 end

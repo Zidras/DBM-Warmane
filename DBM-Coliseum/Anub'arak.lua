@@ -97,14 +97,14 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 end
 
-function mod:Adds() 
-	if self:IsInCombat() then 
-		if not Burrowed then 
-			timerAdds:Start() 
-			warnAdds:Schedule(45) 
-			self:ScheduleMethod(45, "Adds") 
-		end 
-	end 
+function mod:Adds()
+	if self:IsInCombat() then
+		if not Burrowed then
+			timerAdds:Start()
+			warnAdds:Schedule(45)
+			self:ScheduleMethod(45, "Adds")
+		end
+	end
 end
 
 function mod:ShadowStrike()
@@ -133,7 +133,7 @@ do
 				self:SetIcon(UnitName(v), PColdIcon)
 				PColdIcon = PColdIcon - 1
 			end
-			table.wipe(PColdTargets)	
+			table.wipe(PColdTargets)
 		end
 	end
 end
@@ -160,7 +160,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				self:SetPcoldIcons()--Sort and fire as early as possible once we have all targets.
 			end
 		end
-		timerPCold:Show() 
+		timerPCold:Show()
 	elseif args:IsSpellID(66012) then							-- Freezing Slash
 		warnFreezingSlash:Show(args.destName)
 		timerFreezingSlash:Start()
@@ -196,8 +196,8 @@ function mod:SPELL_CAST_START(args)
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
-			timerAdds:Cancel() 
-			warnAdds:Cancel() 
+			timerAdds:Cancel()
+			warnAdds:Cancel()
 			self:UnscheduleMethod("Adds")
 		end
 	elseif args:IsSpellID(66134) then							-- Shadow Strike

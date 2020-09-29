@@ -30,7 +30,7 @@ local warnSummonSpirit				= mod:NewSpellAnnounce(71426, 2)
 local warnReanimating				= mod:NewAnnounce("WarnReanimating", 3)
 local warnDarkTransformation		= mod:NewSpellAnnounce(70900, 4)
 local warnDarkEmpowerment			= mod:NewSpellAnnounce(70901, 4)
-local warnPhase2					= mod:NewPhaseAnnounce(2, 1)	
+local warnPhase2					= mod:NewPhaseAnnounce(2, 1)
 local warnFrostbolt					= mod:NewCastAnnounce(72007, 2, false)
 local warnTouchInsignificance		= mod:NewStackAnnounce("WarnTouchInsignificance", 2, 71204, true)
 local warnDarkMartyrdom				= mod:NewSpellAnnounce(72499, 4)
@@ -72,6 +72,7 @@ local deformedFanatic
 local empoweredAdherent
 local dtime = 0
 local lastMc = 0
+local UnitGUID = UnitGUID
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
@@ -81,7 +82,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(36855, L.name)
 		self:ScheduleMethod(0.5, "CreateShildHPFrame")
-	end		
+	end
 	berserkTimer:Start(-delay)
 	timerAdds:Start(7)
 	warnAddsSoon:Schedule(4)			-- 3sec pre-warning on start
@@ -117,7 +118,7 @@ do	-- add the additional Shield Bar
 		end
 		for i = 0, GetNumRaidMembers(), 1 do
 			local unitId = ((i == 0) and "target") or "raid"..i.."target"
-			local guid = UnitGUID(unitId)
+			guid = UnitGUID(unitId)
 			if mod:GetCIDFromGUID(guid) == 36855 then
 				last = math.floor(UnitMana(unitId)/UnitManaMax(unitId) * 100)
 				return last
@@ -209,12 +210,12 @@ do
 		warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 		timerDominateMind:Start()
 		timerDominateMindCD:Start(40-mc_delay)
-    	if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons and not mod:IsTank()) then
-	    	print("Equipping scheduled")
+		if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons and not mod:IsTank()) then
+			print("Equipping scheduled")
 	        mod:ScheduleMethod(0.1, "EqW")
 	        mod:ScheduleMethod(1.7, "EqW")
 	        mod:ScheduleMethod(3.3, "EqW")
-    	end
+		end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
 		soundWarnMC:Schedule(35-mc_delay)
@@ -222,7 +223,7 @@ do
 			mod:ScheduleMethod(39-mc_delay, "UnW")
 		end
 	end
-	
+
 	function mod:SPELL_AURA_APPLIED(args)
 		if args:IsSpellID(71289) then
 			dominateMindTargets[#dominateMindTargets + 1] = args.destName
@@ -277,12 +278,12 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:UnscheduleMethod("addsTimer")
 		end
     elseif args:IsSpellID(71289) then
-    	if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and not mod:IsTank() then
+		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and not mod:IsTank() then
 	        self:ScheduleMethod(0.1, "EqW")
 	        self:ScheduleMethod(1.7, "EqW")
 	        self:ScheduleMethod(3.3, "EqW")
 	        self:ScheduleMethod(5.0, "EqW")
-    	end
+		end
 	end
 end
 

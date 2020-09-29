@@ -130,7 +130,7 @@ function mod:SPELL_CAST_START(args)
 		warnFrostBreath:Show()
 		timerNextFrostBreath:Start()
 	end
-end	
+end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70126) then

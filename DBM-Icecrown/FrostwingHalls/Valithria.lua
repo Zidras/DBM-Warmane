@@ -185,7 +185,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-do 
+do
 	local lastVoid = 0
 	function mod:SPELL_DAMAGE(args)
 		if args:IsSpellID(71086, 71743, 72029, 72030) and args:IsPlayer() and time() - lastVoid > 2 then		-- Mana Void

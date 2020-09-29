@@ -53,7 +53,7 @@ local encaura = GetSpellInfo(45665)
 
 local breathCounter = 0
 local pull = 0
-	
+
 function mod:Groundphase()
 	breathCounter = 0
 	pull = GetTime()

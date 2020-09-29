@@ -49,6 +49,8 @@ local boilingBloodTargets = {}
 local boilingBloodIcon 	= 8
 local spamBloodBeast = 0
 local Mark = 0
+local UnitGUID = UnitGUID
+
 local function warnBoilingBloodTargets()
 	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
 	table.wipe(boilingBloodTargets)
@@ -97,7 +99,7 @@ do	-- add the additional Rune Power Bar
 		end
 		for i = 0, GetNumRaidMembers(), 1 do
 			local unitId = ((i == 0) and "target") or "raid"..i.."target"
-			local guid = UnitGUID(unitId)
+			guid = UnitGUID(unitId)
 			if mod:GetCIDFromGUID(guid) == 37813 then
 				last = math.floor(UnitPower(unitId)/UnitPowerMax(unitId) * 100)
 				return last

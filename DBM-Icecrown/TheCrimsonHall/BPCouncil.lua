@@ -254,7 +254,7 @@ function mod:OnSync(msg, target)
 			warnShockVortex:Show(target)
 			if target == UnitName("player") then
 				specWarnVortex:Show()
-			elseif targetname then
+			elseif target then
 				local uId = DBM:GetRaidUnitId(target)
 				if uId then
 					local inRange = CheckInteractDistance(uId, 2)

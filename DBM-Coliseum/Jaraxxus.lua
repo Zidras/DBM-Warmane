@@ -113,14 +113,14 @@ do
 	local function getShieldHP()
 		return math.max(1, math.floor(healed / maxAbsorb * 100))
 	end
-	
+
 	function mod:SPELL_HEAL(args)
 		if args.destGUID == incinerateTarget then
 			healed = healed + (args.absorbed or 0)
 		end
-	end	
+	end
 	mod.SPELL_PERIODIC_HEAL = mod.SPELL_HEAL
-	
+
 	function setIncinerateTarget(mod, target, name)
 		incinerateTarget = target
 		healed = 0
@@ -131,7 +131,7 @@ do
 		DBM.BossHealth:RemoveBoss(getShieldHP)
 		DBM.BossHealth:AddBoss(getShieldHP, L.IncinerateTarget:format(name))
 	end
-	
+
 	function clearIncinerateTarget(self, name)
 		DBM.BossHealth:RemoveBoss(getShieldHP)
 		if self.Options.IncinerateFleshIcon then
@@ -153,7 +153,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		setIncinerateTarget(self, args.destGUID, args.destName)
 		self:Schedule(15, clearIncinerateTarget, self, args.destName)
-	elseif args:IsSpellID(66228, 67108, 67106, 67107) then	
+	elseif args:IsSpellID(66228, 67108, 67106, 67107) then
 		timerNetherPowerCD:Stop()							-- Nether Power
 		timerNetherPowerCD:Start()
 		warnNetherPowerSoon:Schedule(40)
@@ -163,13 +163,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
 		local targetname = args.destName
 		timerFlame:Start(args.destName)
-		timerFlameCD:Start()		
+		timerFlameCD:Start()
 		if args:IsPlayer() then
 			specWarnFlame:Show()
 			if self.Options.LegionFlameRunSound then
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 			end
-		end		
+		end
 		if self.Options.LegionFlameIcon then
 			self:SetIcon(args.destName, 7, 8)
 		end
@@ -212,7 +212,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(67900, 67899, 67898, 66269) then		-- Nether Portal
 		timerPortalCD:Start()
 		warnPortalSoon:Schedule(110)
-	
+
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
 		warnFlame:Show(args.destName)
 	end

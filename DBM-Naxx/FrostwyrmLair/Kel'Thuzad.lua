@@ -167,7 +167,7 @@ end
 function mod:AnnounceChainsTargets()
 	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
 	if (not self:has_value(chainsTargets,UnitName("player")) and self.Options.EqUneqWeaponsKT) then
-    	print("Equipping scheduled")
+		DBM:Debug("Equipping scheduled",2)
         self:ScheduleMethod(0.5, "EqWKT")
         self:ScheduleMethod(2.0, "EqWKT")
         self:ScheduleMethod(8.0, "EqWKT")
@@ -206,13 +206,13 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
     if args:IsSpellID(28410) then
-    	if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeaponsKT then
-	    	print("Equipping scheduled")
+		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeaponsKT then
+			DBM:Debug("Equipping scheduled",2)
 	        self:ScheduleMethod(0.01, "EqWKT")
 	        self:ScheduleMethod(1.7, "EqWKT")
 	        self:ScheduleMethod(7.0, "EqWKT")
 	        self:ScheduleMethod(9.0, "EqWKT")
-    	end
+		end
 	end
 end
 
@@ -225,6 +225,7 @@ function mod:RangeToggle(show)
 end
 
 function mod:GetDetonateRange(playerName)
+	local uId
 	for i= 1, GetNumRaidMembers()  do
 		uId = "raid"..i
 		if UnitName(uId) == playerName then

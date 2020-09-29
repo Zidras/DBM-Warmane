@@ -144,7 +144,6 @@ DBM.MapSizes = {
     VioletHold = {{256.229, 170.82}},
     IsleofConquest = {{2650, 1766.66633}},
     HrothgarsLanding = {{3677.0836, 2452.084}},
-    TheArgentColiseum = {{369.9862, 246.658}, {369.986, 246.658}},
     TheArgentColiseum = {{369.9862, 246.658}, {369.9862, 246.658}, {739.996, 493.33}},
     TheForgeofSouls = {{1448.1, 965.4}},
     PitofSaron = {{1533.3333, 1022.9167}},
@@ -220,13 +219,6 @@ do
 		if sound ~= "none" then
 			PlaySoundFile(sound)
 		end
-	end
-	
-	local function setFrames(self, option)
-		DBM.Options.RangeFrameFrames = option
-		radarFrame:Hide()
-		frame:Hide()
-		rangeCheck:Show(frame.range, frame.filter)
 	end
 
 	local function setSpeed(self, option)
@@ -588,8 +580,8 @@ function createRadarFrame()
 	end
 	local radarFrame = CreateFrame("Frame", "DBMRangeCheckRadar", UIParent)
 	radarFrame:SetFrameStrata("DIALOG")
-	
-	
+
+
 	if (not DBM.Options.RangeFrameRadarPoint) then 
 		DBM:Debug("radar probably upgrading from an older version",3)
 		DBM.Options.RangeFrameRadarPoint = DBM.DefaultOptions.RangeFrameRadarPoint
@@ -752,7 +744,7 @@ do
 	local function setDotColor(id, class)
 		if not class then -- set to white color, dont set .class so we can try again later when class returns properly i guess?
 			dots[id].dot:SetVertexColor(unpack(vertexColors["PRIEST"]))
-			return 
+			return
 		end
 		if class and class == dots[id].class then return end
 

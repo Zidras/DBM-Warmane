@@ -95,7 +95,7 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 end
 
-function mod:StartPhase2() 
+function mod:StartPhase2()
 	self.vb.phase = 2
 end
 

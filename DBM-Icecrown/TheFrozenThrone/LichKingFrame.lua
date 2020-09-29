@@ -10,7 +10,7 @@ function LichKing:InitializeMenu()
 	info.isTitle = 1
 	info.notCheckable = 1
 	UIDropDownMenu_AddButton(info, 1)
-	
+
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.FrameLock
 	info.value = self.Options.FrameLocked
@@ -18,7 +18,7 @@ function LichKing:InitializeMenu()
 	info.checked = self.Options.FrameLocked
 	info.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info, 1)
-	
+
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.FrameClassColor
 	info.value = self.Options.FrameClassColor
@@ -26,7 +26,7 @@ function LichKing:InitializeMenu()
 	info.checked = self.Options.FrameClassColor
 	info.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info, 1)
-	
+
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.FrameOrientation
 	info.value = self.Options.FrameUpwards
@@ -40,7 +40,7 @@ function LichKing:InitializeMenu()
 	info.func = function() DBMLichKingFrameDrag:Hide() end
 	info.notCheckable = 1
 	UIDropDownMenu_AddButton(info, 1)
-	
+
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.FrameClose
 	info.func = function() end
@@ -86,10 +86,10 @@ local function createBar(name, grp, rt)
 	end
 	lastEntry = newEntry
 	firstEntry = firstEntry or newEntry	
-	
+
 	newEntry.data.frame.entry = newEntry
 	newEntry:Update(0)
-	
+
 	return newEntry
 end
 
@@ -106,7 +106,7 @@ function barMethods:Update(elapsed)
 		spark:ClearAllPoints()
 		spark:SetPoint("CENTER", bar, "LEFT", ((bar:GetValue() / 35) * bar:GetWidth()), 0)
 		spark:Show()
-	end	
+	end
 end
 
 function barMethods:GetNext()
