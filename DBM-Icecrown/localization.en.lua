@@ -435,6 +435,11 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Show timer when Nightmare Portals are opened up",
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn",
 	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)",
+	Suppressors					= "Suppressors",
+	TimerSuppressorOne			= "1st wave of Suppressors",
+	TimerSuppressorTwo			= "2nd wave of Suppressors",
+	TimerSuppressorThree		= "3rd wave of Suppressors",
+	TimerSuppressorFour			= "4th wave of Suppressors",
 	WarnCorrosion				= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(70751, GetSpellInfo(70751) or "unknown")
 }
 
