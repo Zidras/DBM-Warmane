@@ -386,8 +386,8 @@ DBM_CORE_AUTO_READY_CHECK_OPTION_TEXT	= "Play ready check sound when boss is pul
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT		= "Set icons on $spell:%d targets"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT		= "Play sound on $spell:%d"
-DBM_CORE_AUTO_SOUND_OPTION_TEXT5	= "5-секундный звуковой отсчет до $spell:%d"
-DBM_CORE_AUTO_SOUND_OPTION_TEXT5	= "3-секундный звуковой отсчет до $spell:%d"
+DBM_CORE_AUTO_SOUND_OPTION_TEXT5	= "5-second audio countdown to $spell:%d"
+DBM_CORE_AUTO_SOUND_OPTION_TEXT3	= "3-second audio countdown to $spell:%d"
 
 -- New special warnings
 DBM_CORE_MOVE_WARNING_BAR			= "Announce movable"

@@ -135,7 +135,8 @@ L:SetWarningLocalization{
 	WarnReanimating				= "Add reviving",			-- Reanimating an adherent or fanatic
 	WarnTouchInsignificance		= "%s on >%s< (%s)",		-- Touch of Insignificance on >args.destName< (args.amount)
 	WarnAddsSoon				= "New adds soon",
-	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away"--creatureid 38222
+	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away",--creatureid 38222
+	WeaponsStatus				= "Auto Unequiping enabled",
 }
 
 L:SetOptionLocalization{
@@ -143,13 +144,17 @@ L:SetOptionLocalization{
 	WarnReanimating				= "Show warning when an add is being revived",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Show timer for new adds",
 	SpecWarnVengefulShade		= "Show special warning when you are attacked by Vengeful Shade",--creatureid 38222
+	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled",
 	ShieldHealthFrame			= "Show boss health with a health bar for $spell:70842",
-	WarnTouchInsignificance		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),	
+	WarnTouchInsignificance		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
-	EqUneqWeapons				= "Automatically unequip and equip weapons before and after Mind Control. For this feature to work, create two sets of equipment 'pve' for equipped weapons."
+	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equiping to work, create an equipment set called 'pve'.",
+	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
+	BlockWeapons				= "Completely block the unequip/equip functions above (off by default)",
+
 }
 
 L:SetMiscLocalization{
@@ -543,13 +548,18 @@ L:SetOptionLocalization{
 	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
 	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
 	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
-	ValkyrIcon				= "Set icons on Valkyrs",
+	ValkyrIcon				= "Set icons on Val'Kyrs",
 	DefileArrow				= "Show DBM arrow when $spell:72762 is near you",
 	TrapArrow				= "Show DBM arrow when $spell:73539 is near you",
 	LKBugWorkaround			= "Don't use latency based sync check for defile/shadow trap\n(Default on until a bug in sync check is worked out)",
 	AnnounceValkGrabs		= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",
 	SpecWarnValkyrLow		= "Show special warning when Valkyr is below 55% HP",
-	AnnouncePlagueStack		= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)"
+	AnnouncePlagueStack		= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",
+	ShowFrame				= "Show Val'Kyr Targets frame",
+	FrameClassColor			= "Use Class Colors in Val'Kyr Targets frame",
+	FrameUpwards 			= "Expand Val'Kyr target frame upwards",
+	FrameLocked				= "Lock Val'Kyr Targets frame",
+	RemoveBOP				= "Remove Hand of Protection and Divine Shield before exiting Frostmourne room"
 }
 
 L:SetMiscLocalization{

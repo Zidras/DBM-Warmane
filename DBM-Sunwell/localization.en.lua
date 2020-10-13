@@ -81,14 +81,13 @@ L:SetWarningLocalization{
 
 L:SetTimerLocalization{
 	TimerPhase		= "Next %s Phase",
-	TimerBreath		= "Глубокий Вздох"	
+	TimerBreath		= "Глубокий Вздох"
 }
 
 L:SetOptionLocalization{
 	WarnPhase		= "Show warning for next phase",
 	TimerPhase		= "Show time for next phase",
 	WarnBreath		= "Показывать предупреждение для Глубокого Вздоха",
-	TimerPhase		= "Показывать таймер фаз",
 	TimerBreath		= "Показывать время до восстановления Глубокого Вздоха",
 	VaporIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45392),
 	EncapsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45665),
