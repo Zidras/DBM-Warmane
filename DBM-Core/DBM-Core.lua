@@ -1173,7 +1173,7 @@ do
 			if v.displayVersion then
 				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.displayVersion, v.revision))
 				if notify and v.displayVersion ~= DBM.Version and v.revision < DBM.ReleaseRevision then
-					DBM:Schedule(nreq*3,SendChatMessage, chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
+					DBM:Schedule(nreq*10,SendChatMessage, chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
 					nreq = nreq + 1
 				end
 			else

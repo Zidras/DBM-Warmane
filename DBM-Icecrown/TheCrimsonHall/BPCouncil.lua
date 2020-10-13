@@ -264,7 +264,7 @@ function mod:OnSync(msg, target)
 						x, y = GetPlayerMapPosition(uId)
 					end
 					if inRange then
-						specWarnVortexNear:Show()
+						specWarnVortexNear:Show(target)
 						if self.Options.VortexArrow then
 							DBM.Arrow:ShowRunAway(x, y, 10, 5)
 						end

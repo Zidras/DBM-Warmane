@@ -19,7 +19,7 @@
 -- Special thanks to:
 --    * Arta (DBM-Party)
 --
--- 
+--
 -- The code of this addon is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. (see license.txt)
 -- All included textures and sounds are copyrighted by their respective owners.
 --
