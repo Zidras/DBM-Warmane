@@ -25,7 +25,7 @@ local specWarnWildMagic	= mod:NewSpecialWarning("SpecWarnWildMagic")
 
 local timerNextPortal	= mod:NewNextCountTimer(25, 46021)
 local timerBreathCD		= mod:NewCDTimer(15, 44799, false)
-local timerBuffetCD		= mod:NewCDTimer(8, 45018)
+local timerBuffetCD		= mod:NewCDTimer(4, 45018)
 local timerPorted		= mod:NewBuffActiveTimer(60, 46021)
 local timerExhausted	= mod:NewBuffActiveTimer(60, 44867)
 
@@ -110,7 +110,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 45018 and args:IsPlayer() then
 		local amount = args.amount or 1
-		if amount >= 10 and amount % 2 == 0 then
+		if amount >= 15 and amount % 2 == 0 then
 			specWarnBuffet:Show(amount)
 		end
 	end
@@ -125,7 +125,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 45018 then
+	if args.spellId == 45018 and self:AntiSpam(7, 1) then
 		warnBuffet:Show()
 		timerBuffetCD:Start()
 	end
