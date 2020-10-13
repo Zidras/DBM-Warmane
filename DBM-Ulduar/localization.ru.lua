@@ -13,7 +13,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 }
-	
+
 L:SetMiscLocalization{
 	YellPull	= "Обнаружены противники. Запуск протокола оценки угрозы. Главная цель выявлена. Повторный анализ через 30 секунд.",
 	Emote		= "%%s наводится на (%S+)%."

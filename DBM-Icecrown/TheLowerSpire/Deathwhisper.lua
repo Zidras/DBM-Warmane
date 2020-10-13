@@ -32,7 +32,7 @@ local warnDarkTransformation		= mod:NewSpellAnnounce(70900, 4)
 local warnDarkEmpowerment			= mod:NewSpellAnnounce(70901, 4)
 local warnPhase2					= mod:NewPhaseAnnounce(2, 1)
 local warnFrostbolt					= mod:NewCastAnnounce(72007, 2, false)
-local warnTouchInsignificance		= mod:NewStackAnnounce("WarnTouchInsignificance", 2, 71204, true)
+local warnTouchInsignificance		= mod:NewStackAnnounce(71204, 2, nil, true)
 local warnDarkMartyrdom				= mod:NewSpellAnnounce(72499, 4)
 
 local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237)
