@@ -437,6 +437,11 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета",
 	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)",
+	Suppressors					= "Подавители",
+	TimerSuppressorOne			= "1 волна Подавителей",
+	TimerSuppressorTwo			= "2 волна Подавителей",
+	TimerSuppressorThree		= "3 волна Подавителей",
+	TimerSuppressorFour			= "4 волна Подавителей",
 	WarnCorrosion				= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(70751, GetSpellInfo(70751) or "unknown")
 }
 
