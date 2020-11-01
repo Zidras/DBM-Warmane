@@ -121,7 +121,7 @@ function mod:SPELL_DAMAGE(args)
 			spam = GetTime()
 			specWarnOrb:Show()
 		end
-	elseif self.Options.AnnounceFails and args:IsSpellID(62466) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= "none" and args.destName then
+	elseif self.Options.AnnounceFails and args:IsSpellID(62466) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= nil and args.destName then
 		lastcharge[args.destName] = (lastcharge[args.destName] or 0) + 1
 		SendChatMessage(L.ChargeOn:format(args.destName), "RAID")
 	end
