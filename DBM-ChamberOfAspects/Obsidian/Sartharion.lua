@@ -186,14 +186,14 @@ function mod:OnCombatEnd(wipe)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if self.Options.AnnounceFails and self.Options.Announce and args:IsSpellID(57491) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= "none" and args.destName then
+	if self.Options.AnnounceFails and self.Options.Announce and args:IsSpellID(57491) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= nil and args.destName then
 		lastfire[args.destName] = (lastfire[args.destName] or 0) + 1
 		SendChatMessage(L.FireWallOn:format(args.destName), "RAID")
 	end
 end
 
 function mod:SPELL_DAMAGE(args)
-	if self.Options.AnnounceFails and self.Options.Announce and args:IsSpellID(59128) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= "none" and args.destName then
+	if self.Options.AnnounceFails and self.Options.Announce and args:IsSpellID(59128) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= nil and args.destName then
 		lastvoids[args.destName] = (lastvoids[args.destName] or 0) + 1
 		SendChatMessage(L.VoidZoneOn:format(args.destName), "RAID")
 	end

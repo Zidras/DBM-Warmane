@@ -1130,7 +1130,7 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 			elseif subCmd:upper() == "FOCUS" then
 				DBM.Arrow:ShowRunTo("focus")
 				success = true
-			elseif DBM:GetRaidUnitId(DBM:Capitalize(subCmd)) ~= "none" then
+			elseif DBM:GetRaidUnitId(DBM:Capitalize(subCmd)) ~= nil then
 				DBM.Arrow:ShowRunTo(DBM:Capitalize(subCmd))
 				success = true
 			end
@@ -2134,7 +2134,7 @@ do
 		if msg and channel ~= "WHISPER" and channel ~= "GUILD" then
 			local handler = syncHandlers[prefix]
 			if handler then handler(msg, channel, sender) end
-		elseif msg and channel == "WHISPER" and self:GetRaidUnitId(sender) ~= "none" then
+		elseif msg and channel == "WHISPER" and self:GetRaidUnitId(sender) ~= nil then
 			local handler = whisperSyncHandlers[prefix]
 			if handler then handler(msg, channel, sender) end
 		end
@@ -2879,7 +2879,9 @@ do
 
 	-- sender is a presenceId for real id messages, a character name otherwise
 	local function onWhisper(msg, sender, isRealIdMessage)
+		DBM:Debug("Whisper from "..tostring(sender).." message is "..tostring(msg),4)
 		if msg == "status" and #inCombat > 0 and DBM.Options.StatusEnabled then
+			DBM:Debug("Status whisper received, going to response",3)
 			local mod
 			for i, v in ipairs(inCombat) do
 				mod = not v.isCustomMod and v
@@ -2887,7 +2889,8 @@ do
 			mod = mod or inCombat[1]
 			sendWhisper(sender, chatPrefix..DBM_CORE_STATUS_WHISPER:format((mod.combatInfo.name or ""), mod:GetHP() or "unknown", getNumAlivePlayers(), mmax(GetNumRaidMembers(), GetNumPartyMembers() + 1)))
 		elseif #inCombat > 0 and DBM.Options.AutoRespond and
-		(isRealIdMessage and (not isOnSameServer(sender) or DBM:GetRaidUnitId((select(4, BNGetFriendInfoByID(sender)))) == "none") or not isRealIdMessage and DBM:GetRaidUnitId(sender) == "none") then
+		(isRealIdMessage and (not isOnSameServer(sender) or DBM:GetRaidUnitId((select(4, BNGetFriendInfoByID(sender)))) == nil) or not isRealIdMessage and DBM:GetRaidUnitId(sender) == nil) then
+			DBM:Debug("Whisper in combat received, going to status response",3)
 			local mod
 			for i, v in ipairs(inCombat) do
 				mod = not v.isCustomMod and v

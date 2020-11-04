@@ -345,7 +345,7 @@ do
 			local spellid = select(9, ...)
 
 			-- now we filter if cast is from outside raidgrp (we don't want to see mass spam in Dalaran/...)
-			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == "none" then return end
+			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == nil then return end
 
       guikey = SpellIDIndex[spellid]
       v = (guikey and settings.spells[guikey])
@@ -376,7 +376,7 @@ do
 			local toplayer = select(7, ...)		-- Added by Florin Patan
 			local spellid = select(9, ...)
 			
-			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == "none" then return end
+			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == nil then return end
 
 			for k,v in pairs(myportals) do
 				if v.spell == spellid then
