@@ -1071,6 +1071,24 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM:Schedule(timer, SendChatMessage, DBM_CORE_ANNOUNCE_BREAK_OVER, channel)
 	elseif cmd:sub(1, 4) == "pull" then
 		if DBM:GetRaidRank() == 0 then
+			local timer = tonumber(cmd:sub(5)) or 10
+			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "EMOTE"
+			DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_PULL, false)
+			SendChatMessage(DBM_CORE_ANNOUNCE_PULL:format(timer), channel)
+			if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(7), channel) end
+			if timer > 5 then DBM:Schedule(timer - 5, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(5), channel) end
+			if timer > 3 then DBM:Schedule(timer - 3, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(3), channel) end
+			if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(2), channel) end
+			if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(1), channel) end
+			if timer >= 5 and DBM.Options.AudioPull then
+				DBM:Schedule(timer - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
+				DBM:Schedule(timer - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
+				DBM:Schedule(timer - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
+				DBM:Schedule(timer - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
+				DBM:Schedule(timer - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
+				DBM:Schedule(timer - 0.01, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
+			end
+			DBM:Schedule(timer, SendChatMessage, DBM_CORE_ANNOUNCE_PULL_NOW, channel)
 			return DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
 		end
 		local timer = tonumber(cmd:sub(5)) or 10
@@ -1938,7 +1956,7 @@ do
 			if not DBM:GetModByName("AlteracValley") and MAX_BATTLEFIELD_QUEUES then
 				for i = 1, MAX_BATTLEFIELD_QUEUES do
 					if GetBattlefieldStatus(i) == "confirm" then
-						for i, v in ipairs(DBM.AddOns) do
+						for _, v in ipairs(DBM.AddOns) do
 							if v.modId == "DBM-PvP" then
 								DBM:LoadMod(v)
 								return
@@ -5744,13 +5762,14 @@ bossModPrototype.UnscheduleEvent = bossModPrototype.UnscheduleMethod
 --  Icons  --
 -------------
 function bossModPrototype:SetIcon(target, icon, timer)
-	if target == nil then return end --prevent error if called on mob etc(lichking)
+	if not target then return end --prevent error if called on mob etc(lichking)
 	if DBM.Options.DontSetIcons or not enableIcons or DBM:GetRaidRank() == 0 then
 		return
 	end
 	icon = icon and icon >= 0 and icon <= 8 and icon or 8
 	local oldIcon = self:GetIcon(target) or 0
-	SetRaidTarget(DBM:GetRaidUnitId(target), icon)
+	local uId = DBM:GetRaidUnitId(target) or target
+	SetRaidTarget(uId, icon)
 	self:UnscheduleMethod("SetIcon", target)
 	if timer then
 		self:ScheduleMethod(timer, "RemoveIcon", target)
@@ -5761,7 +5780,8 @@ function bossModPrototype:SetIcon(target, icon, timer)
 end
 
 function bossModPrototype:GetIcon(target)
-	return GetRaidTargetIndex(DBM:GetRaidUnitId(target))
+	local uId = DBM:GetRaidUnitId(target) or target
+	return GetRaidTargetIndex(uId)
 end
 
 function bossModPrototype:RemoveIcon(target, timer)
