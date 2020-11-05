@@ -569,7 +569,7 @@ function mod:UNIT_AURA(uId)
 		if name == UnitName("player") and not mod:IsTank() then
 			specWarnNecroticPlague:Show()
 		end
-		if self.Options.NecroticPlagueIcon then
+		if self.Options.NecroticPlagueIcon and UnitIsPlayer(uId) then
 			self:SetIcon(uId, 5, 5)
 		end
 	end

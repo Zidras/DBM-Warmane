@@ -83,7 +83,7 @@ function mod:UnWKT()
 end
 
 function mod:EqWKT()
-	print("trying to equip pve")
+	DBM:Debug("trying to equip pve",1)
 	UseEquipmentSet("pve")
 end
 

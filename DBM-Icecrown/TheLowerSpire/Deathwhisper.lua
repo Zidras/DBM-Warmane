@@ -160,7 +160,7 @@ end
 function mod:EqW()
 	CancelUnitBuff("player", (GetSpellInfo(25780)))
 	if mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons then
-		print("trying to equip pve")
+		DBM:Debug("trying to equip pve",1)
 		UseEquipmentSet("pve")
 	end
 end
@@ -211,7 +211,7 @@ do
 		timerDominateMind:Start()
 		timerDominateMindCD:Start(40-mc_delay)
 		if (not mod:has_value(dominateMindTargets,UnitName("player")) and mod.Options.EqUneqWeapons and not mod:IsTank()) then
-			print("Equipping scheduled")
+			DBM:Debug("Equipping scheduled",1)
 	        mod:ScheduleMethod(0.1, "EqW")
 	        mod:ScheduleMethod(1.7, "EqW")
 	        mod:ScheduleMethod(3.3, "EqW")

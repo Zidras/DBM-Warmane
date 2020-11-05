@@ -58,10 +58,10 @@ f:SetScript("OnUpdate", fCLFix)
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 6011 $"):sub(12, -3),
-	Version = "6.11",
-	DisplayVersion = "6.11 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/Barsoomx/DBM-wowcircle)", -- the string that is shown as version
-	ReleaseRevision = 6011 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 6012 $"):sub(12, -3),
+	Version = "6.12",
+	DisplayVersion = "6.12 DBM-WoWCircle by Barsoom for WoWCircle WotLK (https://github.com/Barsoomx/DBM-wowcircle)", -- the string that is shown as version
+	ReleaseRevision = 6012 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -619,12 +619,12 @@ do
 					for k, v in ipairs(self.AddOns[#self.AddOns].zone) do
 						self.AddOns[#self.AddOns].zone[k] = (self.AddOns[#self.AddOns].zone[k]):trim()
 					end
-					for i = #self.AddOns[#self.AddOns].zoneId, 1, -1 do
-						local id = tonumber(self.AddOns[#self.AddOns].zoneId[i])
+					for j = #self.AddOns[#self.AddOns].zoneId, 1, -1 do
+						local id = tonumber(self.AddOns[#self.AddOns].zoneId[j])
 						if id then
-							self.AddOns[#self.AddOns].zoneId[i] = id
+							self.AddOns[#self.AddOns].zoneId[j] = id
 						else
-							tremove(self.AddOns[#self.AddOns].zoneId, i)
+							tremove(self.AddOns[#self.AddOns].zoneId, j)
 						end
 					end
 					if self.AddOns[#self.AddOns].subTabs then
@@ -901,7 +901,7 @@ do
 			else
 				-- too many nil values (or a trailing nil)
 				-- this is bad because unpack will not work properly
-				-- TODO: is there a better solution?
+				-- is there a better solution?
 				getWrapper(n)(nextTask.func, nextTask)
 			end
 			pushCachedTable(nextTask)
@@ -924,7 +924,7 @@ do
 		-- clean up sync spam timers and auto respond spam blockers
 		if time > nextModSyncSpamUpdate then
 			nextModSyncSpamUpdate = time + 20
-			-- TODO: optimize this; using next(t, k) all the time on nearly empty hash tables is not a good idea...doesn't really matter here as modSyncSpam only very rarely contains more than 4 entries...
+			-- optimize this; using next(t, k) all the time on nearly empty hash tables is not a good idea...doesn't really matter here as modSyncSpam only very rarely contains more than 4 entries...
 			-- we now do this just every 20 seconds since the earlier assumption about modSyncSpam isn't true any longer
 			-- note that not removing entries at all would be just a small memory leak and not a problem (the sync functions themselves check the timestamp)
 			local k, v = next(modSyncSpam, nil)
@@ -1841,9 +1841,9 @@ do
 				v.stats.heroicPulls = v.stats.heroicPulls or 0
 
 				if v.OnInitialize then v:OnInitialize() end
-				for i, cat in ipairs(v.categorySort) do -- temporary hack
+				for j, cat in ipairs(v.categorySort) do -- temporary hack
 					if cat == "misc" then
-						tremove(v.categorySort, i)
+						tremove(v.categorySort, j)
 						tinsert(v.categorySort, cat)
 						break
 					end
@@ -1885,7 +1885,7 @@ function DBM:ZONE_CHANGED_NEW_AREA()
 	for i, v in ipairs(self.AddOns) do
 		if not IsAddOnLoaded(v.modId) and (checkEntry(v.zone, zoneName) or checkEntry(v.zoneId, zoneId)) then
 			-- srsly, wtf? LoadAddOn doesn't work properly on ZONE_CHANGED_NEW_AREA when reloading the UI
-			-- TODO: is this still necessary? this was a WotLK beta bug
+			-- is this still necessary? this was a WotLK beta bug
 			DBM:Unschedule(DBM.LoadMod, DBM, v)
 			DBM:Schedule(3, DBM.LoadMod, DBM, v)
 		end
@@ -2541,8 +2541,8 @@ function DBM:OnMobKill(cId, synced)
 			end
 			v.combatInfo.killMobs[cId] = false
 			local allMobsDown = true
-			for i, v in pairs(v.combatInfo.killMobs) do
-				if v then
+			for _, k in pairs(v.combatInfo.killMobs) do
+				if k then
 					allMobsDown = false
 					break
 				end
@@ -3013,7 +3013,6 @@ function DBM:AddMsg(text, prefix, force)
 		frame:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(tag), tostring(text)), 0.41, 0.8, 0.94)
 	end
 end
-AddMsg = DBM.AddMsg
 
 function DBM:Debug(text, level)
 	if not self.Options or not self.Options.DebugMode then return end
@@ -3101,10 +3100,6 @@ function DBM:AntiSpam(time, id)
 	else
 		return false
 	end
-end
-
-function DBM:GetTOC()
-	return wowTOC, wowVersionString, wowBuild
 end
 
 function DBM:InCombat()
@@ -3600,7 +3595,7 @@ end
 
 -- hard coded party-mod support, yay :)
 -- returns heroic for old instances that do not have a heroic mode (Naxx, Ulduar...)
-function bossModPrototype:GetDifficulty() 
+function bossModPrototype:GetDifficulty()
 	local _, instanceType, difficulty, _, _, playerDifficulty, isDynamicInstance = GetInstanceInfo()
 	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
 		if difficulty == 1 then -- 10 men
@@ -3875,10 +3870,6 @@ end
 
 function IsInRaid()
 	return GetNumRaidMembers() > 0
-end
-
-function GetNumSubgroupMembers()
-	return GetNumPartyMembers()
 end
 
 function GetNumGroupMembers()
@@ -5233,7 +5224,6 @@ do
 				r = r,
 				g = g,
 				b = b,
-				allowdouble = allowdouble,
 				startedTimers = {},
 				mod = self,
 			},
@@ -5860,7 +5850,7 @@ do
 					isFiltered = true
 					DBM:Debug("A unit skipped because it's a filtered mob", 3)
 				end
-				if not isFiltered then
+				if not isFiltered and cid2~=0 then
 					if guid2 and type(creatureID) == "table" and creatureID[cid2] and not addsGUIDs[guid2] then
 						DBM:Debug("Match found, SHOULD be setting icon", 2)
 						if type(creatureID[cid2]) == "number" then
@@ -5882,7 +5872,7 @@ do
 							addsIconSet[scanID] = nil
 							return
 						end
-					elseif guid2 and (guid2 == creatureID or cid2 == creatureID or cid2 == secondCreatureID) and not addsGUIDs[guid2] then
+					elseif guid2 and (guid2 == creatureID or cid2 == creatureID or cid2 == secondCreatureID and cid2~=0) and not addsGUIDs[guid2] then
 						DBM:Debug("Match found, SHOULD be setting icon", 2)
 						if iconSetMethod == 2 then
 							SetRaidTarget(unitid2, mobIcon)

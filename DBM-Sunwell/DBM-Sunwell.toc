@@ -1,8 +1,5 @@
 ﻿## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0태양샘 고원|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Der Sonnenbrunnen|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太陽之井|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariablesPerCharacter: DBMSunwell_SavedVars, DBMSunwell_SavedStats
@@ -15,11 +12,7 @@
 ## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца
 MapSizes.lua
 localization.en.lua
-localization.cn.lua
-localization.de.lua
-localization.kr.lua
 localization.ru.lua
-localization.tw.lua
 Kalecgos.lua
 KalecgosFrame.lua
 KalecgosFrame.xml

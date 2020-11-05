@@ -75,9 +75,9 @@ local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
 local specWarnShadowStrike	= mod:NewSpecialWarning("SpecWarnShadowStrike", mod:IsTank())
 
 function mod:OnCombatStart(delay)
-	Burrowed = false 
-	timerAdds:Start(10-delay) 
-	warnAdds:Schedule(10-delay) 
+	Burrowed = false
+	timerAdds:Start(10-delay)
+	warnAdds:Schedule(10-delay)
 	self:ScheduleMethod(10-delay, "Adds")
 	warnSubmergeSoon:Schedule(70-delay)
 	specWarnSubmergeSoon:Schedule(70-delay)

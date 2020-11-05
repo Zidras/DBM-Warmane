@@ -39,6 +39,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	TimerStart	= "Show start timer",
+	TimerSoundStart	= "5-second audio countdown to start",
 	TimerShadow = "Show timer for Shadow Sight"
 })
 
@@ -58,7 +59,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Game starts", 
+	TimerStart	= "Game starts",
 	TimerTower	= "%s",
 	TimerGY		= "%s"
 })
