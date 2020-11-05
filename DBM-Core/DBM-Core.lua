@@ -5906,7 +5906,7 @@ do
 					isFiltered = true
 					DBM:Debug("ScanForMobs aborting because filtered mob", 2)
 				end
-				if not isFiltered then
+				if not isFiltered and cid~=0 then
 					if guid and type(creatureID) == "table" and creatureID[cid] and not addsGUIDs[guid] then
 						DBM:Debug("Match found, SHOULD be setting icon", 2)
 						if type(creatureID[cid]) == "number" then
