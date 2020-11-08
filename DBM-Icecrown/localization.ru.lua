@@ -428,7 +428,11 @@ L:SetWarningLocalization{
 L:SetTimerLocalization{
 	TimerPortalsOpen		= "Открытие порталов",
 	TimerBlazingSkeleton	= "Исторгающий пламя скелет",
-	TimerAbom				= "След. поганище?"
+	TimerAbom				= "След. поганище?",
+	TimerSuppressorOne			= "1 волна Подавителей",
+	TimerSuppressorTwo			= "2 волна Подавителей",
+	TimerSuppressorThree		= "3 волна Подавителей",
+	TimerSuppressorFour			= "4 волна Подавителей"
 }
 
 L:SetOptionLocalization{

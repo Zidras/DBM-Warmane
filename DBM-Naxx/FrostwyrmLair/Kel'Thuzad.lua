@@ -39,10 +39,12 @@ local mindControlCD 		= mod:NewNextTimer(60, 28410)
 local frostBlastCD   		= mod:NewCDTimer(25, 27808)
 local fissureCD  			= mod:NewCDTimer(14, 27810)
 
-local timerPossibleMC		= mod:NewTimer(20, "Сейчас контроль! (20s)", 28410)
+local timerPossibleMC		= mod:NewTimer(20, "MCImminent", 28410)
+
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
 mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank())
+mod:AddBoolOption("EqUneqWeaponsKT2")
 mod:AddBoolOption("SmileScream", false)
 
 local warnedAdds = false
@@ -70,7 +72,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:UnWKT()
-   if self:IsWeaponDependent("player") then
+   if self:IsWeaponDependent("player") and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
         PickupInventoryItem(16)
         PutItemInBackpack()
         PickupInventoryItem(17)
@@ -79,7 +81,6 @@ function mod:UnWKT()
         PickupInventoryItem(18)
         PutItemInBackpack()
     end
-	UseEquipmentSet("nw")
 end
 
 function mod:EqWKT()
@@ -100,17 +101,13 @@ end
 local frostBlastTargets = {}
 local chainsTargets = {}
 
-function mod:BigRedThing()
-	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\smile_voidzone.mp3", "Master")
-end
-
 function mod:SPELL_SUMMON(args)
 	if args:IsSpellID(27810) and self:AntiSpam(2, 1) then
 		warnFissure:Show()
 		specwarnfissure:Show()
 		soundFissure:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if self.Options.SmileScream then
-			self:ScheduleMethod(0.01, "BigRedThing")
+			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\smile_voidzone.mp3", "Master")
 		end
 		fissureCD:Start()
 	end
@@ -191,9 +188,17 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specwarnfissure:Show()
 		soundFissure:Schedule(0.01, "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		fissureCD:Start()
-	end
-	if args:IsSpellID(27808) then
+	elseif args:IsSpellID(27808) then
 		frostBlastCD:Start()
+	elseif args.spellId == 28410 then
+		mindControlCD:Start()
+		timerPossibleMC:Cancel()
+		timerPossibleMC:Schedule(60)
+		DBM:Debug("MC on "..args.destName,2)
+		if mod.Options.EqUneqWeaponsKT2 and args.destName == UnitName("player") then
+			mod:UnWKT()
+			DBM:Debug("Unequipping",2)
+		end
 	end
 end
 
@@ -206,7 +211,7 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
     if args:IsSpellID(28410) then
-		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeaponsKT then
+		if (args.destName == UnitName("player") or args:IsPlayer()) and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
 			DBM:Debug("Equipping scheduled",2)
 	        self:ScheduleMethod(0.01, "EqWKT")
 	        self:ScheduleMethod(1.7, "EqWKT")

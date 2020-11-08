@@ -377,12 +377,14 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	TimerPhase2		= "Show timer for Phase 2",
+	MCImminent		= "MC Imminent! (20s)",
 	specwarnP2Soon	= "Show special warning 10 seconds before Kel'Thuzad engages",
 	fissure 		= "Show special warning for Shadow Fissure",
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
 	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure(joke)",
-	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. For this feature to work, create two sets of equipment 'pve' for equipped weaponsand 'nw' for unequipped.",
+	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. Create equip. set called 'pve' for re-equipping",
+	EqUneqWeaponsKT2= "Automatically unequip and equip weapons when MC is cast on YOU",
 	ShowRange		= "Show range frame when Phase 2 starts"
 })
 
@@ -399,5 +401,6 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPhase2	= "Phase 2"
+	TimerPhase2	= "Phase 2",
+	MCImminent	= "MC Imminent! (20s)"
 })

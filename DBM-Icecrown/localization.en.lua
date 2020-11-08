@@ -426,7 +426,11 @@ L:SetWarningLocalization{
 L:SetTimerLocalization{
 	TimerPortalsOpen		= "Portals open",
 	TimerBlazingSkeleton	= "Next Blazing Skeleton",
-	TimerAbom				= "Next Abomination"
+	TimerAbom				= "Next Abomination",
+	TimerSuppressorOne			= "1st wave of Suppressors",
+	TimerSuppressorTwo			= "2nd wave of Suppressors",
+	TimerSuppressorThree		= "3rd wave of Suppressors",
+	TimerSuppressorFour			= "4th wave of Suppressors"
 }
 
 L:SetOptionLocalization{

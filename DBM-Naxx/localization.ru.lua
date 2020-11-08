@@ -363,7 +363,7 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
 	TimerAir		= "Воздушная фаза",
 	TimerLanding	= "Приземление",
-	TimerIceBlast	= "Ледяное дыхание"	
+	TimerIceBlast	= "Ледяное дыхание"
 })
 
 ------------------
@@ -378,12 +378,14 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	TimerPhase2		= "Отсчет времени до фазы 2",
+	MCImminent		= "Сейчас контроль! (20s)",
 	specwarnP2Soon	= "Спец-предупреждение за 10 секунд до вступления Кел'Тузада в бой",
 	fissure 		= "Спец-предупреждение для Взрыва Бездны(войдзона)",
 	warnAddsSoon	= "Предупреждать заранее о Стражах Ледяной Короны",
 	BlastAlarm		= "Воспроизводить специальный звук сирены при применении Ледяного взрыва",
 	SmileScream		= "Проигрывать крик OnlySmile при касте Взрыва Бездны(шуточное)",
 	EqUneqWeaponsKT	= "Снимать/надевать оружия перед/после контроля. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен.",
+	EqUneqWeaponsKT2= "Снимать/надевать оружия когда контроль кастуется в вас.",
 	ShowRange		= "Показывать окно проверки дистанции в фазе 2"
 })
 
@@ -400,6 +402,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPhase2	= "Фаза 2"
+	TimerPhase2	= "Фаза 2",
+	MCImminent	= "Сейчас контроль! (20s)"
 })
 
