@@ -74,7 +74,7 @@ DBM.DefaultOptions = {
 		{r = 1.00, g = 0.10, b = 0.10}, -- Color 4 - #FF1A1A - Red
 	},
 	RaidWarningSound = "Sound\\Doodad\\BellTollNightElf.wav",
-	SpecialWarningSound = "Sound\\Spells\\PVPFlagTaken.wav",
+	SpecialWarningSound = "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3",
 	RaidWarningPosition = {
 		Point = "TOP",
 		X = 0,
@@ -114,7 +114,7 @@ DBM.DefaultOptions = {
 	SpecialWarningPoint = "CENTER",
 	SpecialWarningX = 0,
 	SpecialWarningY = 75,
-	SpecialWarningFont = STANDARD_TEXT_FONT,
+	SpecialWarningFont = STANDARD_TEXT_FONT or "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf",
 	SpecialWarningFontSize = 50,
 	SpecialWarningFontColor = {0.0, 0.0, 1.0},
 	HealthFrameGrowUp = false,

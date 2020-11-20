@@ -380,6 +380,7 @@ L:SetOptionLocalization({
 	MCImminent		= "MC Imminent! (20s)",
 	specwarnP2Soon	= "Show special warning 10 seconds before Kel'Thuzad engages",
 	fissure 		= "Show special warning for Shadow Fissure",
+	manaNear		= "Show special warning when Detonate Mana is nearby",
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
 	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure(joke)",
@@ -397,6 +398,7 @@ L:SetMiscLocalization({
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Kel'Thuzad engages in 10 Seconds",
 	fissure 		= "Shadow Fissure",
+	manaNear		= "Detonate Mana nearby",
 	warnAddsSoon	= "Guardians of Icecrown incoming soon"
 })
 

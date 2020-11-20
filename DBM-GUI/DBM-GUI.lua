@@ -1552,7 +1552,8 @@ local function CreateOptionsMenu()
 			{	text	= "Default",		value 	= STANDARD_TEXT_FONT,			font = STANDARD_TEXT_FONT		},
 			{	text	= "Arial",			value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
 			{	text	= "Skurri",			value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
-			{	text	= "Morpheus",		value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	}
+			{	text	= "Morpheus",		value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	},
+			{	text	= "PT Sans Narrow",	value 	= "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf",	font = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"	}
 		}
 		if GetSharedMedia3() then
 			for k,v in next, GetSharedMedia3():HashTable("font") do
@@ -1706,7 +1707,8 @@ local function CreateOptionsMenu()
 			{	text	= "Default",		value 	= STANDARD_TEXT_FONT,			font = STANDARD_TEXT_FONT		},
 			{	text	= "Arial",			value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
 			{	text	= "Skurri",			value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
-			{	text	= "Morpheus",		value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	}
+			{	text	= "Morpheus",		value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	},
+			{	text	= "PT Sans Narrow",	value 	= "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf",	font = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"	}
 		}
 		if GetSharedMedia3() then
 			for k,v in next, GetSharedMedia3():HashTable("font") do

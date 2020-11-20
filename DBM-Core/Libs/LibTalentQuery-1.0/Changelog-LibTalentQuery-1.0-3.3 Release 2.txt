@@ -1,0 +1,14 @@
+------------------------------------------------------------------------
+r85 | zeksie | 2010-08-27 16:58:05 +0000 (Fri, 27 Aug 2010) | 1 line
+Changed paths:
+   A /tags/3.3 Release 2 (from /trunk:84)
+
+Tagging as 3.3 Release 2
+------------------------------------------------------------------------
+r84 | greltok | 2010-08-24 07:38:56 +0000 (Tue, 24 Aug 2010) | 2 lines
+Changed paths:
+   M /trunk/LibTalentQuery-1.0.lua
+
+Now handles "mouseover" when converting from guid to unitid.
+Reported in Curse comments by kliegs.
+------------------------------------------------------------------------

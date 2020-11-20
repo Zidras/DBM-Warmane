@@ -1,0 +1,17 @@
+## Interface: 30300
+## LoadOnDemand: 1
+## Title: Lib: GroupTalents-1.0
+## Notes: Library to help with querying unit talents.
+## Author: Zek
+## Version: $Rev: 51 $
+## OptionalDeps: Ace3, LibTalentQuery-1.0
+## X-Category: Library
+## X-ReleaseDate: $Date$
+## X-Website: http://wowace.com/wiki/LibGroupTalents-1.0
+## X-License: MIT
+## X-Curse-Packaged-Version: 3.3 Release 3
+## X-Curse-Project-Name: LibGroupTalents-1.0
+## X-Curse-Project-ID: libgrouptalents-1-0
+## X-Curse-Repository-ID: wow/libgrouptalents-1-0/mainline
+
+lib.xml

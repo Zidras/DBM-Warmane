@@ -1,0 +1,13 @@
+------------------------------------------------------------------------
+r56 | greltok | 2010-09-30 14:49:58 -0500 (Thu, 30 Sep 2010) | 1 line
+Changed paths:
+   A /tags/3.3 Release 3 (from /trunk:55)
+
+Tagging as 3.3 Release 3
+------------------------------------------------------------------------
+r55 | greltok | 2010-09-23 23:25:05 -0500 (Thu, 23 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/LibGroupTalents-1.0.lua
+
+Ticket 6 - Use full name where needed.
+------------------------------------------------------------------------

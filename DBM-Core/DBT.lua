@@ -209,7 +209,7 @@ options = {
 	},
 	Font = {
 		type = "string",
-		default = STANDARD_TEXT_FONT,
+		default = STANDARD_TEXT_FONT or "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf",
 	},
 	FontSize = {
 		type = "number",
