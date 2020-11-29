@@ -38,7 +38,7 @@ local enrageTimer			= mod:NewBerserkTimer(480)
 local soundFrenzy			= mod:NewSound(72737)
 local SoundAdds				= mod:NewSound(72173)
 
-mod:AddBoolOption("RangeFrame", mod:IsRanged())
+mod:AddBoolOption("RangeFrame")
 mod:AddBoolOption("RunePowerFrame", true, "misc")
 mod:AddBoolOption("BeastIcons", true, "icon")
 mod:AddBoolOption("BoilingBloodIcons", false)
