@@ -108,8 +108,8 @@ DBM.DefaultOptions = {
 	RangeFrameRadarX = 100,
 	RangeFrameRadarY = -100,
 	HPFramePoint = "CENTER",
-	HPFrameX = -50,
-	HPFrameY = 50,
+	HPFrameX = -150,
+	HPFrameY = 300,
 	HPFrameMaxEntries = 5,
 	SpecialWarningPoint = "CENTER",
 	SpecialWarningX = 0,
@@ -2845,6 +2845,7 @@ do
 		if DBM.Options.DisableCinematics then
 			MovieFrame:SetScript("OnEvent", function() GameMovieFinished() end)
 		end
+		DBM.BossHealth:Hide()
 	end
 end
 
