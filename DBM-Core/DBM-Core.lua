@@ -1310,10 +1310,6 @@ end
 do
 	local callOnLoad = {}
 	function DBM:LoadGUI()
-		if not self.Options.Enabled then
-			DBM:AddMsg(DBM_CORE_UPDATEREMINDER_DISABLE)
-			return
-		end
 		if not IsAddOnLoaded("DBM-GUI") then
 			local _, _, _, enabled = GetAddOnInfo("DBM-GUI")
 			if not enabled then
@@ -2089,10 +2085,12 @@ do
 		local timer, maxtime, id, text, texture = strsplit("\t", msg)
 		timer = tonumber(timer or 0)
 		maxtime = tonumber(maxtime or 0)
+		texture = tonumber(texture) or texture
 		if timer > 3600 then return end
 		if id   == nil then id = DBM_CORE_TIMER_BREAK end--old ver compat
 		if text == nil then text = DBM_CORE_TIMER_BREAK end--old ver compat
-		local combaticon = select(3, GetSpellInfo(texture)) or texture or "Interface\\Icons\\Spell_Nature_WispSplode"
+		if texture and type(texture)=="number" then texture = select(3, GetSpellInfo(texture)) end
+		local combaticon = texture or "Interface\\Icons\\Spell_Nature_WispSplode"
 		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
 		if #inCombat >= 1 then return end
 		if DBM.Bars:GetBar(id) then return end--Already recovered. Prevent duplicate recovery
@@ -3235,9 +3233,9 @@ end
 
 function bossModPrototype:Toggle()
 	if self.Options.Enabled then
-		self:DisableMod()
+		DBM:Disable()
 	else
-		self:EnableMod()
+		DBM:Enable()
 	end
 end
 

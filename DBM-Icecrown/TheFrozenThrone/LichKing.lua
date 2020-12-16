@@ -138,12 +138,12 @@ local lastPlague
 
 local soulshriek = GetSpellInfo(69242)
 
-function mod:RestoreWipeTime(self)
-	mod:SetWipeTime(5) --Restore it after frostmourn room.
+function mod:RestoreWipeTime()
+	self:SetWipeTime(5) --Restore it after frostmourn room.
 end
 
 function mod:RemoveBOP()
-	if mod.Options.RemoveBOP then
+	if mod.Options.RemoveBOP then -- cancelaura bop bubble iceblock
 		CancelUnitBuff("player", (GetSpellInfo(10278)))
 		CancelUnitBuff("player", (GetSpellInfo(642)))
 		CancelUnitBuff("player", (GetSpellInfo(45438)))
@@ -409,7 +409,7 @@ do
 	local function scanValkyrTargets()
 		if (time() - lastValk) < 10 then    -- scan for like 10secs
 			for i=0, GetNumRaidMembers() do        -- for every raid member check ..
-				if UnitInVehicle("raid"..i) and not valkyrTargets[i] then      -- if person #i is in a vehicle and not already announced 
+				if UnitInVehicle("raid"..i) and not valkyrTargets[i] then      -- if person #i is in a vehicle and not already announced
 					valkyrWarning:Show(UnitName("raid"..i))  -- UnitName("raid"..i) returns the name of the person who got valkyred
 					valkyrTargets[i] = true          -- this person has been announced
 					local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(i)
