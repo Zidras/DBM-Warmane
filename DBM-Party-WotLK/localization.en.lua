@@ -436,12 +436,18 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	TimerPhase2		= "Rhino phase",
+	TimerPhase1		= "Troll phase"
 })
 
 L:SetTimerLocalization({
+	TimerPhase2		= "Rhino phase",
+	TimerPhase1		= "Troll phase"
 })
 
 L:SetOptionLocalization({
+	TimerPhase2		= "Show warning for Rhino phase",
+	TimerPhase1		= "Show warning for Troll phase"
 })
 
 -------------------------
@@ -877,12 +883,14 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	SpecWarnSpecial	= "Shadow Nova - Hide Behind Pillars"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	SpecWarnSpecial	= "Show special warning on Shadow Nova cast to hide",
 })
 
 L:SetMiscLocalization({

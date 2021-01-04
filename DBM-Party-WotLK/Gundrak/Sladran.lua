@@ -8,16 +8,25 @@ mod:SetCreatureID(29304)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_START"
+	"SPELL_CAST_START",
+	"SPELL_DAMAGE",
+	"SPELL_PERIODIC_DAMAGE"
 )
 
 local warningNova	= mod:NewSpellAnnounce(55081, 3)
 local timerNovaCD	= mod:NewCDTimer(24, 55081)
-local timerSpores	= mod:NewCDTimer(8, 38575)
+local timerSpores	= mod:NewCDTimer(10, 38575)
+local specwarnSpores= mod:NewSpecialWarningMove(38575)
+local left = 0
+
+local function spores()
+	timerSpores:Start()
+	mod:Schedule(10, spores)
+end
 
 function mod:OnCombatStart()
-	lowHealth = nil
-	spores()
+	timerSpores:Start(3)
+	self:Schedule(3, spores)
 end
 
 function mod:OnCombatEnd()
@@ -25,15 +34,24 @@ function mod:OnCombatEnd()
 	timerSpores:Cancel()
 end
 
-local function spores()
-	timerSpores:Start()
-	mod:Schedule(8, spores)
-end
-
-
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(55081, 59842) then
 		warningNova:Show()
 		timerNovaCD:Start()
+		left = tonumber(timerSpores:GetRemaining())
+		print(left)
+		if left < 3.5 then
+			self:Unschedule(spores)
+			timerSpores:Update(10-3.5,10)
+			self:Schedule(3.5, spores)
+		end
 	end
 end
+
+function mod:SPELL_DAMAGE(args)
+	if args.spellId == 38575 and args.destName == UnitName("player") then
+		specwarnSpores:Show()
+	end
+end
+
+mod.SPELL_PERIODIC_DAMAGE = mod.SPELL_DAMAGE

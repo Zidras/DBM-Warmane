@@ -438,12 +438,18 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	TimerPhase2		= "Фаза Носорога",
+	TimerPhase1		= "Фаза Тролля"
 })
 
 L:SetTimerLocalization({
+	TimerPhase2		= "Фаза Носорога",
+	TimerPhase1		= "Фаза Тролля"
 })
 
 L:SetOptionLocalization({
+	TimerPhase2		= "Предупреждение для фазы Носорога",
+	TimerPhase1		= "Предупреждение для фазы Тролля"
 })
 
 -------------------------
@@ -879,12 +885,14 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	SpecWarnSpecial	= "Кольцо Тьмы - прячьтесь за колоннами!"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	SpecWarnSpecial	= "Спец-предупреждение для Кольца Тьмы (спрятаться за колоннами)",
 })
 
 L:SetMiscLocalization({
