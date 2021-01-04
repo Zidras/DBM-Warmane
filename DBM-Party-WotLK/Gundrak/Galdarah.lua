@@ -8,4 +8,67 @@ mod:SetCreatureID(29306)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
+	"SPELL_CAST_SUCCESS",
+	"SPELL_SUMMON"
 )
+
+local timerTopot		= mod:NewCDTimer(20, 59829)
+local timerVihr			= mod:NewCDTimer(21, 59824)
+local timerCharge		= mod:NewCDTimer(21, 59827)
+local specVihr			= mod:NewSpecialWarningMove(59824)
+local specFlames		= mod:NewSpecialWarningMove(66682)
+local timerNextFlames	= mod:NewNextTimer(10, 66682)
+local soundFlames3		= mod:NewSound3(66682)
+
+mod.vb.phase = 1
+
+local function switchPhase()
+	if mod.vb.phase == 1 then
+		mod.vb.phase = 2
+		timerVihr:Cancel()
+		timerTopot:Cancel()
+		timerCharge:Cancel()
+		timerTopot:Start(25)
+		timerCharge:Start(21)
+	elseif mod.vb.phase == 2 then
+		timerVihr:Cancel()
+		timerTopot:Cancel()
+		timerCharge:Cancel()
+		timerVihr:Start()
+	end
+end
+
+function mod:Flames_G(time)	-- Flames
+	local timer = time or 10
+	timerNextFlames:Start(timer)
+	self:ScheduleMethod(timer, "Flames_G")
+	soundFlames3:Schedule(timer-3)
+	specFlames:Schedule(timer)
+end
+
+function mod:OnCombatStart(delay)
+	timerVihr:Start()
+	self.vb.phase = 1
+	self:Flames_G(7)
+end
+
+function mod:OnCombatEnd()
+	self:UnscheduleMethod("Flames_G")
+	timerNextFlames:Cancel()
+	soundFlames3:Cancel()
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 59824 then
+		timerVihr:Start()
+		specVihr:Show()
+	elseif args.spellId == 59829 then
+		timerTopot:Start()
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == "После этого ничего не останется!" or msg == "Хотите увидеть cилу? Я покажу вам... силу!" or msg == "Ain't gonna be nothin' left after this!" or msg == "You wanna see power? I'm gonna show you power!" then
+		switchPhase()
+	end
+end

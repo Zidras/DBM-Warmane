@@ -14,8 +14,8 @@ mod:RegisterEvents(
 
 local warningDecayFleshSoon	= mod:NewSoonAnnounce(49356, 2)
 local warningCloud 			= mod:NewSpellAnnounce(49548, 3)
-
-local warnedDecay		= false
+local timerSoulstorm		= mod:NewCDTimer(6, 69049)
+local warnedDecay			= false
 
 function mod:OnCombatStart()
 	warnedDecay = false
@@ -31,5 +31,6 @@ function mod:UNIT_HEALTH(uId)
 	if not warnedDecay and self:GetUnitCreatureId(uId) == 26632 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.58 then
 		warnedDecay = true
 		warningDecayFleshSoon:Show()
+		timerSoulstorm:Start()
 	end
 end

@@ -9,16 +9,29 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH",
+	"SPELL_CAST_START"
 )
 
 local warningTransform	= mod:NewSpellAnnounce(55098, 3)
 local timerTransform	= mod:NewCDTimer(10, 55098)--experimental
+local timerCopies		= mod:NewCDTimer(21, 55342)
 
 local lowHealth
 
 function mod:OnCombatStart()
 	lowHealth = nil
+	copies()
+end
+
+function mod:OnCombatEnd()
+	self:Unschedule(copies)
+	timerCopies:Cancel()
+end
+
+local function copies()
+	timerCopies:Start()
+	mod:Schedule(21, copies)
 end
 
 function mod:SPELL_CAST_START(args)

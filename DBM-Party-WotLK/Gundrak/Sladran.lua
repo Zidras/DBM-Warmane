@@ -13,6 +13,23 @@ mod:RegisterEvents(
 
 local warningNova	= mod:NewSpellAnnounce(55081, 3)
 local timerNovaCD	= mod:NewCDTimer(24, 55081)
+local timerSpores	= mod:NewCDTimer(8, 38575)
+
+function mod:OnCombatStart()
+	lowHealth = nil
+	spores()
+end
+
+function mod:OnCombatEnd()
+	self:Unschedule(spores)
+	timerSpores:Cancel()
+end
+
+local function spores()
+	timerSpores:Start()
+	mod:Schedule(8, spores)
+end
+
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(55081, 59842) then

@@ -8,11 +8,23 @@ mod:SetCreatureID(29307)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_START"
+	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS"
 )
 
 local warningElemental	= mod:NewAnnounce("WarningElemental", 3, 54850)
 local warningStone		= mod:NewAnnounce("WarningStone", 3, 54878)
+local timerBarrage		= mod:NewCDTimer(21, 67994)
+
+function mod:OnCombatStart()
+	timerBarrage:Start()
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 67994 then
+		timerBarrage:Start()
+	end
+end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(54850) then
