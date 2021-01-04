@@ -65,7 +65,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == "Я вернулся! Еще один шанс раскроить вам головы!" or msg == "I return! A second chance to carve out your skull!" then
+	if msg == "Я вернулся! Еще один шанс раскроить вам головы!" or msg == "I return! A second chance to carve your skull!" then
 		self.vb.phase = 2
 		timerNova:Cancel()
 		timerNova:Start(15)
