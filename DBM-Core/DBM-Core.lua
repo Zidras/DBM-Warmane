@@ -2008,7 +2008,7 @@ do
 	--New LDB Object
 	if LibStub("LibDataBroker-1.1", true) then
 		dataBroker = LibStub("LibDataBroker-1.1"):NewDataObject("DBM",
-			{type = "launcher", label = "DBM", icon = "Interface\\AddOns\\DBM-Core\\textures\\dbm_airhorn"}
+			{type = "launcher", label = "DBM", icon = "Interface\\Icons\\INV_Helmet_87"}
 		)
 
 		function dataBroker.OnClick(self, button)
