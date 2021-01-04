@@ -99,8 +99,8 @@ local function rebuildSpellIDIndex()
 end
 
 -- functions
-local addDefaultOptions
-do 
+local addDefaultOptions, clearAllSpellBars
+do
 	local function creategui()
 		local createnewentry
 		local CurCount = 0
@@ -213,14 +213,14 @@ do
 
 			function createnewentry()
 				CurCount = CurCount + 1
-				local spellid = area:CreateEditBox(L.SpellID, "", 65)
+				local spellid = area:CreateEditBox(L.SpellID, "", 75)
 				spellid.guikey = CurCount
 				spellid:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 40, 15-(CurCount*35))
 				spellid:SetScript("OnTextChanged", onchange_spell("spell"))
 				spellid:SetScript("OnShow", onshow_spell("spell"))
 				spellid:SetNumeric(true)
 
-				local bartext = area:CreateEditBox(L.BarText, "", 190)
+				local bartext = area:CreateEditBox(L.BarText, "", 245)
 				bartext.guikey = CurCount
 				bartext:SetPoint('TOPLEFT', spellid, "TOPRIGHT", 20, 0)
 				bartext:SetScript("OnTextChanged", onchange_spell("bartext"))
@@ -345,28 +345,29 @@ do
 			local spellid = select(9, ...)
 
 			-- now we filter if cast is from outside raidgrp (we don't want to see mass spam in Dalaran/...)
-			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == nil then return end
+			if settings.only_from_raid and not DBM:GetRaidUnitId(fromplayer) then return end
 
-      guikey = SpellIDIndex[spellid]
-      v = (guikey and settings.spells[guikey])
-      if v and v.enabled == true then
-          if v.spell ~= spellid then
-            print("DBM-SpellTimers Index mismatch error! "..guikey.." "..spellid)
-          end
-					local spellinfo, _, icon = GetSpellInfo(spellid)
-					local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
-					if (spellid == 34477 or spellid == 57934) and (fromplayer == toplayer) then 
-						--skip
-					else
-						SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
-						if settings.showlocal then
-							local msg =  L.Local_CastMessage:format(bartext)
-							if not lastmsg or lastmsg ~= msg then
-								DBM:AddMsg(msg)
-								lastmsg = msg
-							end
-						end
+			local guikey = SpellIDIndex[spellid]
+			local v = (guikey and settings.spells[guikey])
+			if v and v.enabled == true then
+				if v.spell ~= spellid then
+					print("DBM-SpellTimers Index mismatch error! "..guikey.." "..spellid)
+				end
+
+				local spellinfo, _, icon = GetSpellInfo(spellid)
+				local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
+				if (spellid == 34477 or spellid == 57934) and (fromplayer == toplayer) then 
+					return
+				end
+				SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
+
+				if settings.showlocal then
+					local msg =  L.Local_CastMessage:format(bartext)
+					if not lastmsg or lastmsg ~= msg then
+						DBM:AddMsg(msg)
+						lastmsg = msg
 					end
+				end
 			end
 
 		elseif settings.enabled and event == "COMBAT_LOG_EVENT_UNFILTERED" and settings.show_portal and select(2, ...) == "SPELL_CREATE" then
@@ -375,8 +376,8 @@ do
 			local fromplayer = select(4, ...)
 			local toplayer = select(7, ...)		-- Added by Florin Patan
 			local spellid = select(9, ...)
-			
-			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == nil then return end
+
+			if settings.only_from_raid and not DBM:GetRaidUnitId(fromplayer) then return end
 
 			for k,v in pairs(myportals) do
 				if v.spell == spellid then

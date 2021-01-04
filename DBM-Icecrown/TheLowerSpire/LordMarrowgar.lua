@@ -15,19 +15,19 @@ mod:RegisterEvents(
 	"SPELL_SUMMON"
 )
 
-local preWarnWhirlwind   	= mod:NewSoonAnnounce(69076, 3)
+local preWarnWhirlwind		= mod:NewSoonAnnounce(69076, 3)
 local warnBoneSpike			= mod:NewCastAnnounce(69057, 2)
 local warnImpale			= mod:NewTargetAnnounce(72669, 3)
 
-local specWarnColdflame		= mod:NewSpecialWarningMove(70825)
-local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076)
+local specWarnColdflame		= mod:NewSpecialWarningMove(70825, nil, nil, nil, 1, 2)
+local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
-local timerBoneSpike		= mod:NewCDTimer(18, 69057)
-local timerBoneSpikeUp		= mod:NewTimer(3, "Шипы через...")
-local timerWhirlwindCD		= mod:NewCDTimer(90, 69076)
-local timerWhirlwind		= mod:NewBuffActiveTimer(31, 69076)
+local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
+local timerWhirlwindCD		= mod:NewCDTimer(90, 69076, nil, nil, nil, 2)
+local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
+local timerBoned			= mod:NewAchievementTimer(8, 4610)
 local timerWhirlwindStart	= mod:NewTimer(3, "Вихрь через...")
-local timerBoned			= mod:NewAchievementTimer(8, 4610, "AchievementBoned")
+local timerBoneSpikeUp		= mod:NewTimer(3, "Шипы через...")
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 
@@ -55,13 +55,18 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(69076) then			-- Bone Storm (Whirlwind)
+	if args:IsSpellID(69076) then
 		specWarnWhirlwind:Show()
 		timerWhirlwindCD:Start()
 		soundWhirlwind5:Schedule(85)
 		preWarnWhirlwind:Schedule(85)
-		timerWhirlwind:Show()
 		soundWhirlwind:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
+		else
+			timerWhirlwind:Show()						-- Approx 20seconds on normal.
+			timerBoneSpike:Cancel()						-- He doesn't do Bone Spike Graveyard during Bone Storm on normal
+		end
 	end
 end
 
@@ -72,7 +77,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif args:IsSpellID(69076) then
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
-			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal - Edit from 15 to 1 for Heroic Mode
+			timerBoneSpike:Start(15)			-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end
 end
@@ -86,9 +91,9 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(args)
-	if args:IsSpellID(69146, 70823, 70824, 70825) and args:IsPlayer() and GetTime() - lastColdflame > 2 then		-- Coldflame, MOVE!
+	if args:IsSpellID(69146, 70823, 70824, 70825) and args:IsPlayer() and self:AntiSpam() then		-- Coldflame, MOVE!
 		specWarnColdflame:Show()
-		lastColdflame = GetTime()
+		specWarnColdflame:Play("runaway")
 	end
 end
 
@@ -97,11 +102,11 @@ function mod:SPELL_SUMMON(args)
 		impaleTargets[#impaleTargets + 1] = args.sourceName
 		timerBoned:Start()
 		if self.Options.SetIconOnImpale then
-			if 	impaleIcon < 1 then	--Icons are gonna be crazy on this fight if people don't control jumps, we will use ALL of them and only reset icons if we run out of them
-				impaleIcon = 8
+			if self.vb.impaleIcon < 1 then	--Icons are gonna be crazy on this fight if people don't control jumps, we will use ALL of them and only reset icons if we run out of them
+				self.vb.impaleIcon = 8
 			end
-			self:SetIcon(args.sourceName, impaleIcon)
-			impaleIcon = impaleIcon - 1
+			self:SetIcon(args.sourceName, self.vb.impaleIcon)
+			self.vb.impaleIcon = self.vb.impaleIcon - 1
 		end
 		self:Unschedule(showImpaleWarning)
 		if mod:IsDifficulty("normal10") or (mod:IsDifficulty("normal25") and #impaleTargets >= 3) then
@@ -110,4 +115,8 @@ function mod:SPELL_SUMMON(args)
 			self:Schedule(0.3, showImpaleWarning)
 		end
 	end
+end
+
+function mod:OnCombatEnd(wipe)
+	DBM.BossHealth:Clear()
 end

@@ -17,31 +17,32 @@ local warnInhaledBlight		= mod:NewStackAnnounce(71912, 3)
 local warnGastricBloat		= mod:NewStackAnnounce(72551, 2, nil, true)
 local warnGasSpore			= mod:NewTargetAnnounce(69279, 4)
 local warnVileGas			= mod:NewTargetAnnounce(73020, 3)
+local warnGoo				= mod:NewSpellAnnounce(72549, 4)
 
-local specWarnPungentBlight	= mod:NewSpecialWarningSpell(71219)
-local specWarnGasSpore		= mod:NewSpecialWarningYou(69279)
+local specWarnPungentBlight	= mod:NewSpecialWarningSpell(71219, nil, nil, nil, 2, 2)
+local specWarnGasSpore		= mod:NewSpecialWarningYou(69279, nil, nil, nil, 1, 2)
 local yellGasSpore			= mod:NewYellMe(69279)
-local specWarnVileGas		= mod:NewSpecialWarningYou(71218)
+local specWarnVileGas		= mod:NewSpecialWarningYou(71218, nil, nil, nil, 1, 2)
 local yellVileGas			= mod:NewYellMe(69240)
-local specWarnGastricBloat	= mod:NewSpecialWarningStack(72551, nil, 9)
-local specWarnInhaled3		= mod:NewSpecialWarningStack(71912, mod:IsTank(), 3)
-local specWarnGoo			= mod:NewSpecialWarningDodge(72549, true)
+local specWarnGastricBloat	= mod:NewSpecialWarningStack(72551, nil, 9, nil, nil, 1, 6)
+local specWarnInhaled3		= mod:NewSpecialWarningStack(71912, "Tank", 3, nil, nil, 1, 2)
+local specWarnGoo			= mod:NewSpecialWarningDodge(72549, true, nil, nil, 1, 2)
 
-local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279)
-local timerVileGas			= mod:NewBuffFadesTimer(6, 71218, nil, mod:IsRanged())
-local timerGasSporeCD		= mod:NewNextTimer(40, 69279)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
-local timerPungentBlight	= mod:NewNextTimer(33, 71219)		-- 33 seconds after 3rd stack of inhaled
-local soundPungentBlight 	= mod:NewSound5(71219)
-local timerInhaledBlight	= mod:NewNextTimer(34, 71912)		-- 34 seconds'ish
-local timerGastricBloat		= mod:NewTargetTimer(100, 72551, nil, true)	-- 100 Seconds until expired
-local timerGastricBloatCD	= mod:NewCDTimer(11, 72551, nil, true) 		-- 10 to 14 seconds
+local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279, nil, nil, nil, 3)
+local timerVileGas			= mod:NewBuffFadesTimer(6, 71218, nil, "Ranged", nil, 3)
+local timerGasSporeCD		= mod:NewNextTimer(40, 69279, nil, nil, nil, 3)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
+local timerPungentBlight	= mod:NewNextTimer(33, 71219, nil, nil, nil, 2)		-- 33 seconds after 3rd stack of inhaled
+local timerInhaledBlight	= mod:NewNextTimer(34, 71912, nil, nil, nil, 6)		-- 34 seconds'ish
+local timerGastricBloat		= mod:NewTargetTimer(100, 72551, nil, true, nil, 5, nil, DBM_CORE_TANK_ICON)	-- 100 Seconds until expired
+local timerGastricBloatCD	= mod:NewCDTimer(11, 72551, nil, true, nil, 5, nil, DBM_CORE_TANK_ICON) 		-- 10 to 14 seconds
+local timerGooCD			= mod:NewNextTimer(10, 72549, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
-local warnGoo				= mod:NewSpellAnnounce(72549, 4)
-local timerGooCD			= mod:NewNextTimer(10, 72549)
+local soundPungentBlight 	= mod:NewSound5(71219)
 local soundSpores			= mod:NewSound(69279)
-mod:AddBoolOption("RangeFrame", mod:IsRanged())
+
+mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("SetIconOnGasSpore", true)
 mod:AddBoolOption("AnnounceSporeIcons", false)
 mod:AddBoolOption("AchievementCheck", false, "announce")
@@ -100,7 +101,9 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(8)
 	end
-	timerGooCD:Start(13-delay)
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerGooCD:Start(13-delay)
+	end
 end
 
 function mod:OnCombatEnd()
@@ -112,6 +115,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69195, 71219, 73031, 73032) then	-- Pungent Blight
 		specWarnPungentBlight:Show()
+		specWarnPungentBlight:Play("aesoon")
 		timerInhaledBlight:Start(38)
 	end
 end
@@ -149,6 +153,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args:IsPlayer() then
 			specWarnGasSpore:Show()
+			specWarnGasSpore:Play("targetyou")
+			yellGasSpore:Yell()
 		end
 		if self.Options.SetIconOnGasSpore then
 			table.insert(gasSporeIconTargets, DBM:GetRaidUnitId(args.destName))
@@ -178,11 +184,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerGastricBloatCD:Start()
 		if args:IsPlayer() and (args.amount or 1) >= 9 then
 			specWarnGastricBloat:Show(args.amount)
+			specWarnGastricBloat:Play("stackhigh")
 		end
 	elseif args:IsSpellID(69240, 71218, 73019, 73020) and args:IsDestTypePlayer() then	-- Vile Gas
 		vileGasTargets[#vileGasTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
+			specWarnVileGas:Play("scatter")
+			yellVileGas:Yell()
 		end
 		self:Unschedule(warnVileGasTargets)
 		self:Schedule(0.8, warnVileGasTargets)

@@ -2,17 +2,17 @@ local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4380 $"):sub(12, -3))
-local AddsIcon
+local addsIcon
 if UnitFactionGroup("player") == "Alliance" then
 	mod:RegisterCombat("yell", L.PullAlliance)
 	mod:RegisterKill("yell", L.KillAlliance)
 	mod:SetCreatureID(37215)	-- Orgrim's Hammer
-	AddsIcon = 23334
+	addsIcon = 23334
 else
 	mod:RegisterCombat("yell", L.PullHorde)
 	mod:RegisterKill("yell", L.KillHorde)
 	mod:SetCreatureID(37540)	-- The Skybreaker
-	AddsIcon = 23336
+	addsIcon = 23336
 end
 mod:SetMinCombatTime(50)
 
@@ -28,15 +28,15 @@ local warnBelowZero			= mod:NewSpellAnnounce(69705, 4)
 local warnExperienced		= mod:NewTargetAnnounce(71188, 1, nil, false)		-- might be spammy
 local warnVeteran			= mod:NewTargetAnnounce(71193, 2, nil, false)		-- might be spammy
 local warnElite				= mod:NewTargetAnnounce(71195, 3, nil, false)		-- might be spammy
-local warnBattleFury		= mod:NewStackAnnounce(72306, 2, nil, mod:IsTank())
-local warnBladestorm		= mod:NewSpellAnnounce(69652, 3, nil, mod:IsMelee())
+local warnBattleFury		= mod:NewStackAnnounce(72306, 2, nil, "Tank|Healer", 2)
+local warnBladestorm		= mod:NewSpellAnnounce(69652, 3, nil, "Melee")
 local warnWoundingStrike	= mod:NewTargetAnnounce(69651, 2)
-local warnAddsSoon			= mod:NewAnnounce("WarnAddsSoon", 2, AddsIcon)
+local warnAddsSoon			= mod:NewAnnounce("WarnAddsSoon", 2, addsIcon)
 
-local timerCombatStart		= mod:NewTimer(47.5, "TimerCombatStart", 2457)
-local timerBelowZeroCD		= mod:NewNextTimer(35, 69705)
-local timerBattleFuryActive	= mod:NewBuffFadesTimer(17, 72306, nil, mod:IsTank() or mod:IsHealer())
-local timerAdds				= mod:NewTimer(60, "TimerAdds", AddsIcon)
+local timerCombatStart		= mod:NewCombatTimer(47.5)
+local timerBelowZeroCD		= mod:NewNextTimer(35, 69705, nil, nil, nil, 5)
+local timerBattleFuryActive	= mod:NewBuffFadesTimer(17, 72306, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerAdds				= mod:NewTimer(60, "TimerAdds", addsIcon, nil, nil, 1)
 
 local soundFreeze			= mod:NewSound(69705)
 
@@ -52,7 +52,7 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerCombatStart:Show(-delay)
+	timerCombatStart:Start(-delay)
 	if UnitFactionGroup("player") == "Alliance" then
 		timerAdds:Start(62-delay)
 		warnAddsSoon:Schedule(57)

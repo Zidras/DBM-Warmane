@@ -52,7 +52,7 @@ L:SetMiscLocalization({
 ----------------------
 --  Alterac Valley  --
 ----------------------
-L = DBM:GetModLocalization("AlteracValley")
+L = DBM:GetModLocalization("z402")
 
 L:SetGeneralLocalization({
 	name = "Alterac Valley"
@@ -80,7 +80,7 @@ L:SetOptionLocalization({
 --------------------
 --  Arathi Basin  --
 --------------------
-L = DBM:GetModLocalization("ArathiBasin")
+L = DBM:GetModLocalization("z462")
 
 L:SetGeneralLocalization({
 	name = "Arathi Basin"
@@ -93,13 +93,13 @@ L:SetMiscLocalization({
 	ScoreExpr	= "(%d+)/1600",
 	Alliance	= "Alliance",
 	Horde		= "Horde",
-	WinBarText	= "%s wins",
+	WinBarText	= "Final: %d - %d",
 	BasesToWin	= "Bases to win: %d",
 	Flag		= "Flag"
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Game starts", 
+	TimerStart	= "Game starts",
 	TimerCap	= "%s"
 })
 
@@ -114,7 +114,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Eye of the Storm  --
 ------------------------
-L = DBM:GetModLocalization("EyeoftheStorm")
+L = DBM:GetModLocalization("z541")
 
 L:SetGeneralLocalization({
 	name = "Eye of the Storm"
@@ -127,7 +127,8 @@ L:SetMiscLocalization({
 	ScoreExpr		= "(%d+)/1600",
 	Alliance 		= "Alliance",
 	Horde 			= "Horde",
-	WinBarText 		= "%s wins",
+	WinBarText 		= "Final: %d - %d",
+	Flag			= "Flag",
 	FlagReset 		= "The flag has been reset!",
 	FlagTaken 		= "(.+) has taken the flag!",
 	FlagCaptured	= "The .+ ha%w+ captured the flag!",
@@ -136,7 +137,7 @@ L:SetMiscLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Game starts", 
+	TimerStart	= "Game starts",
 	TimerFlag	= "Flag respawn"
 })
 
@@ -150,7 +151,7 @@ L:SetOptionLocalization({
 ---------------------
 --  Warsong Gulch  --
 ---------------------
-L = DBM:GetModLocalization("WarsongGulch")
+L = DBM:GetModLocalization("z444")
 
 L:SetGeneralLocalization({
 	name = "Warsong Gulch"
@@ -161,18 +162,18 @@ L:SetMiscLocalization({
 	BgStart30 			= "The battle for Warsong Gulch begins in 30 seconds. Prepare yourselves!",
 	ZoneName 			= "Warsong Gulch",
 	Alliance 			= "Alliance",
-	Horde 				= "Horde",	
+	Horde 				= "Horde",
 	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
-	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
-	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
-	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
+	ExprFlagPickUp		= "The (.+) .lag was picked up by (.+)!",
+	ExprFlagDropped		= "The (.+) .lag was dropped by (%w+)!",
+	ExprFlagCaptured	= "(.+) captured the (%w+) .lag!",
 	FlagAlliance		= "Alliance Flag: ",
 	FlagHorde			= "Horde Flag: ",
 	FlagBase			= "Base"
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Game starts", 
+	TimerStart	= "Game starts",
 	TimerFlag	= "Flag respawn"
 })
 
@@ -186,7 +187,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Isle of Conquest  --
 ------------------------
-L = DBM:GetModLocalization("IsleofConquest")
+L = DBM:GetModLocalization("z483")
 
 L:SetGeneralLocalization({
 	name = "Isle of Conquest"
@@ -198,13 +199,13 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart			= "Game starts", 
+	TimerStart			= "Game starts",
 	TimerPOI			= "%s",
 	TimerSiegeEngine	= "Siege Engine ready"
 })
 
 L:SetOptionLocalization({
-	TimerStart			= "Show start timer", 
+	TimerStart			= "Show start timer",
 	TimerPOI			= "Show capture timer",
 	TimerSiegeEngine	= "Show timer for Siege Engine construction",
 	WarnSiegeEngine		= "Show warning when Siege Engine is ready",
