@@ -4562,9 +4562,9 @@ do
 				return
 			end
 			if event then
-				self:Debug("StartCombat called by : "..event..". LastInstanceMapID is "..LastInstanceMapID)
+				self:Debug("StartCombat called by : "..tostring(event)..". LastInstanceMapID is "..tostring(LastInstanceMapID))
 			else
-				self:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is "..LastInstanceMapID)
+				self:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is "..tostring(LastInstanceMapID))
 			end
 			--check completed. starting combat
 			tinsert(inCombat, mod)
