@@ -86,6 +86,7 @@ DBM_CORE_OPTION_TIMER_BERSERK		= "Отсчет времени до $spell:26662"
 DBM_CORE_GENERIC_TIMER_COMBAT		= "Бой начинается"
 DBM_CORE_OPTION_TIMER_COMBAT		= "Отсчет времени до начала боя"
 DBM_CORE_BAD						= "Плохой"
+DBM_CORE_OPTION_HEALTH_FRAME		= "Отображать здоровье босса"
 
 DBM_CORE_OPTION_CATEGORY_TIMERS		= "Индикаторы"
 DBM_CORE_OPTION_CATEGORY_WARNINGS	= "Предупреждения"

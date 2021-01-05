@@ -39,7 +39,6 @@ function mod:SPELL_CAST_START(args)
 		warningNova:Show()
 		timerNovaCD:Start()
 		left = tonumber(timerSpores:GetRemaining())
-		print(left)
 		if left < 3.5 then
 			self:Unschedule(spores)
 			timerSpores:Update(10-3.5,10)

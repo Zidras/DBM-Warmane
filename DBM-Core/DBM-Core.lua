@@ -9824,6 +9824,7 @@ do
 		__index = setmetatable({
 			timer_berserk = DBM_CORE_OPTION_TIMER_BERSERK,
 			timer_combat = DBM_CORE_OPTION_TIMER_COMBAT,
+			HealthFrame = DBM_CORE_OPTION_HEALTH_FRAME
 		}, returnKey)
 	}
 	local defaultMiscLocalization = {
