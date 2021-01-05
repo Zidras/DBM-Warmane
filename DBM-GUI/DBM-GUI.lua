@@ -54,12 +54,7 @@ local modelFrameCreated = false
 local soundsRegistered = false
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
-local standardFont = STANDARD_TEXT_FONT
-if (LOCALE_ruRU) then
-	standardFont = "Fonts\\ARIALN.TTF"
-else
-	standardFont = "Fonts\\FRIZQT__.TTF"
-end
+local standardFont = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"
 
 --------------------------------------------------------
 --  Cache frequently used global variables in locals  --
@@ -401,7 +396,11 @@ do
 		{sound = true, text = "SW 4", value = 4},
 
 		--Inject DBMs custom media that's not available to LibSharedMedia because it uses SoundKit Id (which LSM doesn't support)
-		{sound = true, text = "AirHorn (DBM)", value = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
+		{sound = true, text = "AirHorn (DBM)",		value	= "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
+		{sound = true,	text	= "Beware",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg"},
+		{sound = true, 	text	= "Alert",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3"},
+		{sound = true, 	text	= "Info",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3"},
+		{sound = true, 	text	= "Long",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3"}
 --		{sound = true, text = "Algalon: Beware!", value = 15391},
 --		{sound = true, text = "BB Wolf: Run Away", value = 9278},
 --		{sound = true, text = "Blizzard Raid Emote", value = 37666},
@@ -475,7 +474,7 @@ do
 			if isTimer then
 				dropdown = self:CreateDropdown(nil, tcolors, nil, nil, function(value)
 					mod.Options[modvar.."TColor"] = value
-				end, 20, 25, button)
+				end, 25, 25, button)
 				dropdown:SetScript("OnShow", function(self)
 					self:SetSelectedValue(mod.Options[modvar.."TColor"])
 				end)
@@ -1344,13 +1343,15 @@ local function CreateOptionsMenu()
 		----------------------------------------------
 		--             General Options              --
 		----------------------------------------------
-		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 260, true)
+		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 310, true)
 
 		local StatusEnabled = generaloptions:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
 		local AutoRespond   = generaloptions:CreateCheckButton(L.AutoRespond,  true, nil, "AutoRespond")
 		local MiniMapIcon   = generaloptions:CreateCheckButton(L.EnableMiniMapIcon,  true)
 
 		local FixCLEUOnCombatStart   = generaloptions:CreateCheckButton(L.FixCLEUOnCombatStart,  true, nil, "FixCLEUOnCombatStart")
+		local DisableCinematics			= generaloptions:CreateCheckButton(L.DisableCinematics, true, nil, "DisableCinematics")
+		local AudioPull					= generaloptions:CreateCheckButton(L.AudioPull, true, nil, "AudioPull")
 		MiniMapIcon:SetScript("OnClick", function(self)
 			DBM:ToggleMinimapButton()
 			self:SetChecked( not DBM_MinimapIcon.hide )
@@ -1366,7 +1367,7 @@ local function CreateOptionsMenu()
 		local SoundChannelDropdown = generaloptions:CreateDropdown(L.UseSoundChannel, soundChannelsList, "DBM", "UseSoundChannel", function(value)
 			DBM.Options.UseSoundChannel = value
 		end)
-		SoundChannelDropdown:SetPoint("TOPLEFT", generaloptions.frame, "TOPLEFT", 0, -140)
+		SoundChannelDropdown:SetPoint("TOPLEFT", generaloptions.frame, "TOPLEFT", 0, -190)
 
 		local bmrange  = generaloptions:CreateButton(L.Button_RangeFrame, 120, 30)
 		bmrange:SetPoint('TOPLEFT', SoundChannelDropdown, "BOTTOMLEFT", 15, -5)
@@ -1469,7 +1470,7 @@ local function CreateOptionsMenu()
 		--            Raid Warning Colors            --
 		-----------------------------------------------
 		local RaidWarningPanel = DBM_GUI_Frame:CreateNewPanel(L.Tab_RaidWarning, "option")
-		local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header, nil, 420, true)
+		local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header, nil, 480, true)
 
 		local ShowWarningsInChat 	= raidwarnoptions:CreateCheckButton(L.ShowWarningsInChat, true, nil, "ShowWarningsInChat")
 		local WarningIconLeft		= raidwarnoptions:CreateCheckButton(L.WarningIconLeft,  true, nil, "WarningIconLeft")
@@ -1483,7 +1484,8 @@ local function CreateOptionsMenu()
 			{text = "Default",	value = standardFont,		font = standardFont},
 			{text = "Arial",	value = "Fonts\\ARIALN.TTF",	font = "Fonts\\ARIALN.TTF"},
 			{text = "Skurri",	value = "Fonts\\skurri.ttf",	font = "Fonts\\skurri.ttf"},
-			{text = "Morpheus",	value = "Fonts\\MORPHEUS.ttf",	font = "Fonts\\MORPHEUS.ttf"}
+			{text = "Morpheus",	value = "Fonts\\MORPHEUS.ttf",	font = "Fonts\\MORPHEUS.ttf"},
+			{text = "PT Sans Narrow",	value 	= "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf",	font = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"}
 		})
 
 		local FontDropDown = raidwarnoptions:CreateDropdown(L.Warn_FontType, Fonts, "DBM", "WarningFont", function(value)

@@ -132,7 +132,7 @@ DBM.DefaultOptions = {
 	},
 	RaidWarningSound = "Sound\\Doodad\\BellTollNightElf.wav",
 	SpecialWarningSound = "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3",
-	SpecialWarningSound2 = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav",
+	SpecialWarningSound2 = "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg",
 	SpecialWarningSound3 = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg",
 	SpecialWarningSound4 = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav",
 	SpecialWarningSound5 = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav",
@@ -478,6 +478,7 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 	"DBM_API",
 	"DBM-Outlands",
 	"DBM-Battlegrounds", --replaced by DBM-PvP
+	"DBM-Profiles" -- replaced by inline module since 7.00
 }
 
 
@@ -492,7 +493,16 @@ local LD
 if LibStub("LibDurability", true) then
 	LD = LibStub("LibDurability")
 end
-
+local LSM
+if LibStub("LibSharedMedia-3.0", true) then
+	LSM = LibStub("LibSharedMedia-3.0")
+	LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+	LSM:Register("sound", "Beware ENG", "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+	LSM:Register("sound", "Beware",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
+	LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
+	LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+	LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
+end
 
 --------------------------------------------------------
 --  Cache frequently used global variables in locals  --
