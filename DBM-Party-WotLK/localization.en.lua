@@ -327,7 +327,8 @@ L:SetMiscLocalization({
 	YellPull		= "The chill you feel is the herald of your doom!",
 	HandlerYell		= "Bolster my defenses! Hurry, curse you!",
 	Phase2			= "Surely you can see the futility of it all!",
-	YellKill		= "Your efforts... are in vain."
+	YellKill		= "Your efforts... are in vain.",
+	SetIconOnEnragedMob = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(39249)
 })
 
 -----------------

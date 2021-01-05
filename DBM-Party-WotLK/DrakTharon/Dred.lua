@@ -21,9 +21,17 @@ local timerFearCD	= mod:NewCDTimer(15, 22686)  -- cooldown ??
 local timerSlash	= mod:NewTargetTimer(10, 48873)
 local timerSlashCD	= mod:NewCDTimer(18, 48873)
 
+local function poison()
+	timerPcloud:Start()
+	mod:Schedule(7.5, poison)
+end
+
 function mod:OnCombatStart(delay)
 	timerPcloud:Start(8)
+	self:Schedule(8, poison)
 end
+
+
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(22686) and args.sourceGUID == 27483 then

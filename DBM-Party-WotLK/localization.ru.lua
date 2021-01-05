@@ -329,7 +329,8 @@ L:SetMiscLocalization({
 	YellPull		= "Вам холодно? Это дыхание скорой смерти.",
 	HandlerYell		= "Защищайте меня! Быстрее, будьте вы прокляты!",
 	Phase2			= "Неужели вы не понимаете всей бесполезности происходящего?",
-	YellKill		= "Ваши усилия… напрасны."
+	YellKill		= "Ваши усилия… напрасны.",
+	SetIconOnEnragedMob = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(39249)
 })
 
 -----------------
