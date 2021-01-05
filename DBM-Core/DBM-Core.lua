@@ -5211,7 +5211,7 @@ do
 			mod.inCombat = true
 			mod.blockSyncs = nil
 			mod.combatInfo.pull = GetTime() - time + lag
-			self:Schedule(3, checkWipe)
+			self:Schedule(3, checkWipe, self)
 		end
 	end
 

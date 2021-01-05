@@ -37,7 +37,7 @@ local soundWhirlwind5 		= mod:NewSound5(69076)
 mod:AddBoolOption("SetIconOnImpale", true)
 
 local impaleTargets = {}
-local impaleIcon	= 8
+mod.vb.impaleIcon	= 8
 local lastColdflame = 0
 
 local function showImpaleWarning()
@@ -93,7 +93,6 @@ end
 function mod:SPELL_PERIODIC_DAMAGE(args)
 	if args:IsSpellID(69146, 70823, 70824, 70825) and args:IsPlayer() and self:AntiSpam() then		-- Coldflame, MOVE!
 		specWarnColdflame:Show()
-		specWarnColdflame:Play("runaway")
 	end
 end
 

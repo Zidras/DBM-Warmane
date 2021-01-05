@@ -305,7 +305,6 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
 		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
-		specWarnMutatedPlague:Show(args.amount)
 	elseif args:IsSpellID(70542) then
 		timerMutatedSlash:Show(args.destName)
 	end
