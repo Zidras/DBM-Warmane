@@ -13,8 +13,7 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_EMOTE",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"SPELL_CAST_SUCCESS",
-	"UNIT_HEALTH",
-	"UNIT_AURA"
+	"UNIT_HEALTH"
 )
 
 local warnDrainLifeNow	= mod:NewSpellAnnounce(28542, 2)
@@ -25,7 +24,7 @@ local warnLanded		= mod:NewAnnounce("WarningLanded", 4, "Interface\\AddOns\\DBM-
 
 local warnDeepBreath	= mod:NewSpecialWarning("WarningDeepBreath")
 local specwarnlowhp		= mod:NewSpecialWarning("SpecWarnSapphLow")
-local warnFrostrain		= mod:NewSpecialWarningYou(55699)
+local warnFrostrain		= mod:NewSpecialWarningMove(55699)
 
 mod:AddBoolOption("WarningIceblock", true, "yell")
 
@@ -37,7 +36,6 @@ local timerIceBlast		= mod:NewTimer(8, "TimerIceBlast", 15876)
 local noTargetTime = 0
 local isFlying = false
 local warned_lowhp = false
-local frostrain = GetSpellInfo(55699)
 
 mod:AddBoolOption("RangeFrame", true)
 
@@ -59,6 +57,8 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(28522) and args:IsPlayer() and self.Options.WarningIceblock then
 		SendChatMessage(L.WarningYellIceblock, "YELL")
+	elseif (spellId == 55699 or spellId == 28547) and args.destName == UnitName("player") and self:AntiSpam(1) then
+		warnFrostrain:Show()
 	end
 end
 
@@ -83,16 +83,6 @@ function mod:UNIT_HEALTH(uId)
 		warned_lowhp = true
 		specwarnlowhp:Show()
 		timerAirPhase:Cancel()
-	end
-end
-
-function mod:UNIT_AURA(uId)
-	local name = DBM:GetUnitFullName(uId)
-	if (not name) then return end
-	local _, _, _, _, _, _, expires, _, _, _, spellId = UnitDebuff(uId, frostrain)
-	if not spellId or not expires then return end
-	if (spellId == 55699 or spellId == 28547) and expires > 0 and self:AntiSpam(1) then
-		warnFrostrain:Show()
 	end
 end
 

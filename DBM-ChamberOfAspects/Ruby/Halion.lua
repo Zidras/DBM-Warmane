@@ -29,29 +29,30 @@ local warningFieryConsumption		= mod:NewTargetAnnounce(74562, 4)
 local warningMeteor					= mod:NewSpellAnnounce(74648, 3)
 local warningShadowBreath			= mod:NewSpellAnnounce(75954, 2, nil, true)
 local warningFieryBreath			= mod:NewSpellAnnounce(74526, 2, nil, true)
-local warningTwilightCutter			= mod:NewAnnounce("TwilightCutterCast", 4, 77844)
+local warningTwilightCutter			= mod:NewAnnounce("TwilightCutterCast", 2, 77844)
 
-local specWarnShadowConsumption		= mod:NewSpecialWarningRun(74792)
-local specWarnFieryConsumption		= mod:NewSpecialWarningRun(74562)
-local specWarnMeteorStrike			= mod:NewSpecialWarningMove(75952)
-local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(77844)
-local soundMeteor					= mod:NewSound(74648)
-local soundCutters					= mod:NewSound(77844)
+local specWarnShadowConsumption		= mod:NewSpecialWarningRun(74792, nil, nil, nil, 4, 2)
+local yellShadowconsumption			= mod:NewYellMe(74792)
+local specWarnFieryCombustion		= mod:NewSpecialWarningRun(74562, nil, nil, nil, 4, 2)
+local yellFieryCombustion			= mod:NewYellMe(74562)
+local specWarnMeteorStrike			= mod:NewSpecialWarningMove(75952, nil, nil, nil, 1, 2)
+local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(77844, nil, nil, nil, 3, 2)
 
-local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792)
-local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562)
-local timerMeteorCD					= mod:NewNextTimer(40, 74648)
+local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792, nil, nil, nil, 3)
+local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3)
+local timerMeteorCD					= mod:NewNextTimer(40, 74648, nil, nil, nil, 3)
 local timerMeteorCast				= mod:NewCastTimer(7, 74648)--7-8 seconds from boss yell the meteor impacts.
 local timerTwilightCutterCast		= mod:NewCastTimer(5, 77844)
-local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 77844)
-local timerTwilightCutterCD			= mod:NewNextTimer(15, 77844)
-local timerShadowBreathCD			= mod:NewCDTimer(19, 75954, nil, true)--Same as debuff timers, same CD, can be merged into 1.
-local timerFieryBreathCD			= mod:NewCDTimer(19, 74526, nil, true)--But unique icons are nice pertaining to phase you're in ;)
+local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 77844, nil, nil, nil, 6)
+local timerTwilightCutterCD			= mod:NewNextTimer(15, 77844, nil, nil, nil, 6)
+local timerShadowBreathCD			= mod:NewCDTimer(19, 75954, nil, true, nil, 5)--Same as debuff timers, same CD, can be merged into 1.
+local timerFieryBreathCD			= mod:NewCDTimer(19, 74526, nil, true, nil, 5)--But unique icons are nice pertaining to phase you're in ;)
 
 local berserkTimer					= mod:NewBerserkTimer(480)
 
 local soundConsumption 				= mod:NewSound(74562, "SoundOnConsumption")
-
+local soundMeteor					= mod:NewSound(74648)
+local soundCutters					= mod:NewSound(77844)
 mod:AddBoolOption("YellOnConsumption", true, "yell")
 mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
 mod:AddBoolOption("WhisperOnConsumption", false, "announce")
@@ -62,6 +63,8 @@ local warned_preP3 = false
 local lastflame = 0
 local lastshroud = 0
 local phases = {}
+
+mod.vb.phase = 1
 
 function mod:LocationChecker()
 	if GetTime() - lastshroud < 6 then
@@ -76,6 +79,8 @@ local function updateHealthFrame(phase)
 		return
 	end
 	phases[phase] = true
+	mod.vb.phase = phase
+
 	if phase == 1 then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(39863, L.NormalHalion)
@@ -146,17 +151,15 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 		end
 		if args:IsPlayer() then
 			specWarnShadowConsumption:Show()
-			soundConsumption:Play()
-			if self.Options.YellOnConsumption then
-				SendChatMessage(L.YellConsumption, "SAY")
-			end
+			specWarnShadowConsumption:Play("runout")
+			yellShadowconsumption:Yell()
 		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 7)
 		end
 	elseif args:IsSpellID(74562) then
 		if not self.Options.AnnounceAlternatePhase then
-			warningFieryConsumption:Show(args.destName)
+			warningFieryCombustion:Show(args.destName)
 			if DBM:GetRaidRank() >= 1 and self.Options.WhisperOnConsumption then
 				SendChatMessage(L.WhisperCombustion, "WHISPER", "COMMON", args.destName)
 			end
@@ -165,11 +168,9 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 			self:SendSync("FieryTarget", args.destName)
 		end
 		if args:IsPlayer() then
-			specWarnFieryConsumption:Show()
-			soundConsumption:Play()
-			if self.Options.YellOnConsumption then
-				SendChatMessage(L.YellCombustion, "SAY")
-			end
+			specWarnFieryCombustion:Show()
+			specWarnFieryCombustion:Play("runout")
+			yellFieryCombustion:Yell()
 		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 8)
@@ -276,7 +277,7 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "FieryTarget" then
 		if self.Options.AnnounceAlternatePhase then
-			warningFieryConsumption:Show(target)
+			warningFieryCombustion:Show(target)
 			if DBM:GetRaidRank() >= 1 and self.Options.WhisperOnConsumption then
 				SendChatMessage(L.WhisperCombustion, "WHISPER", "COMMON", target)
 			end

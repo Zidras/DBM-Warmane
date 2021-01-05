@@ -65,7 +65,8 @@ function mod:OnCombatStart(delay)
 		timerPossibleMC:Schedule(287)
 		warnMindControl:Schedule(282)
 		if self.Options.EqUneqWeaponsKT then
-			self:ScheduleMethod(286, "UnWKT")
+			self:ScheduleMethod(286.0, "UnWKT")
+			self:ScheduleMethod(286.5, "UnWKT")
 		end
 	end
 	self:Schedule(227, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
@@ -147,7 +148,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:ScheduleMethod(1.0, "AnnounceChainsTargets")
 		end
 		if self.Options.EqUneqWeaponsKT then
-			self:ScheduleMethod(58, "UnWKT")
+			self:ScheduleMethod(58.0, "UnWKT")
+			self:ScheduleMethod(58.5, "UnWKT")
 		end
 	end
 end
@@ -165,10 +167,14 @@ function mod:AnnounceChainsTargets()
 	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
 	if (not self:has_value(chainsTargets,UnitName("player")) and self.Options.EqUneqWeaponsKT) then
 		DBM:Debug("Equipping scheduled",2)
-        self:ScheduleMethod(0.5, "EqWKT")
-        self:ScheduleMethod(2.0, "EqWKT")
+        self:ScheduleMethod(1.0, "EqWKT")
+		self:ScheduleMethod(2.0, "EqWKT")
+		self:ScheduleMethod(3.6, "EqWKT")
+		self:ScheduleMethod(5.0, "EqWKT")
+		self:ScheduleMethod(6.0, "EqWKT")
         self:ScheduleMethod(8.0, "EqWKT")
-        self:ScheduleMethod(10.0, "EqWKT")
+		self:ScheduleMethod(10.0,"EqWKT")
+		self:ScheduleMethod(12.0,"EqWKT")
 	end
 	table.wipe(chainsTargets)
 end
@@ -197,6 +203,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		DBM:Debug("MC on "..args.destName,2)
 		if mod.Options.EqUneqWeaponsKT2 and args.destName == UnitName("player") then
 			mod:UnWKT()
+			mod:UnWKT()
 			DBM:Debug("Unequipping",2)
 		end
 	end
@@ -213,10 +220,12 @@ function mod:SPELL_AURA_REMOVED(args)
     if args:IsSpellID(28410) then
 		if (args.destName == UnitName("player") or args:IsPlayer()) and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
 			DBM:Debug("Equipping scheduled",2)
-	        self:ScheduleMethod(0.01, "EqWKT")
-	        self:ScheduleMethod(1.7, "EqWKT")
+	        self:ScheduleMethod(0.1, "EqWKT")
+			self:ScheduleMethod(1.7, "EqWKT")
+			self:ScheduleMethod(3.7, "EqWKT")
 	        self:ScheduleMethod(7.0, "EqWKT")
-	        self:ScheduleMethod(9.0, "EqWKT")
+			self:ScheduleMethod(9.0, "EqWKT")
+			self:ScheduleMethod(11.0,"EqWKT")
 		end
 	end
 end
@@ -243,6 +252,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) then
 		if mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
+			mod:UnWKT()
 			mod:UnWKT()
 			self:ScheduleMethod(59, "UnWKT")
 		end

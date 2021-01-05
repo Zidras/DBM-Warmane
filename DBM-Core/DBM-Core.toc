@@ -3,7 +3,7 @@
 ## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Основной|r
 ## Notes: Deadly Boss Mods
 ## Dependencies: DBM-StatusBarTimers, DBM-DefaultSkin
-## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0
+## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0, LibGroupTalents-1.0, LibTalentQuery-1.0, LibSharedMedia-3.0
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision, DBM_SavedOptions
 ## LoadOnDemand: 0
@@ -14,6 +14,11 @@ Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+Libs\LibGroupTalents-1.0\LibGroupTalents-1.0.lua
+Libs\LibGroupTalents-1.0\lib.xm
+Libs\LibTalentQuery-1.0\LibTalentQuery-1.0.lua
+Libs\LibTalentQuery-1.0\lib.xml
+Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
 
 localization.en.lua
 localization.ru.lua

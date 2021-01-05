@@ -194,9 +194,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 71289 then
 		timerDominateMindCD:Start()
 		DBM:Debug("MC on "..args.destName,2)
-		if mod.Options.EqUneqWeapons and args.destName == UnitName("player") then
-			mod:UnW()
-			mod:UnW()
+		if self.Options.EqUneqWeapons and args.destName == UnitName("player") then
+			self:UnW()
+			self:UnW()
+			self:ScheduleMethod(0.01, "UnW")
 			DBM:Debug("Unequipping",2)
 		end
 	end
@@ -214,7 +215,10 @@ do
 			DBM:Debug("Equipping scheduled",1)
 	        mod:ScheduleMethod(0.1, "EqW")
 	        mod:ScheduleMethod(1.7, "EqW")
-	        mod:ScheduleMethod(3.3, "EqW")
+			mod:ScheduleMethod(3.3, "EqW")
+			mod:ScheduleMethod(5.5, "EqW")
+			mod:ScheduleMethod(7.5, "EqW")
+			mod:ScheduleMethod(9.9, "EqW")
 		end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
@@ -282,7 +286,9 @@ function mod:SPELL_AURA_REMOVED(args)
 	        self:ScheduleMethod(0.1, "EqW")
 	        self:ScheduleMethod(1.7, "EqW")
 	        self:ScheduleMethod(3.3, "EqW")
-	        self:ScheduleMethod(5.0, "EqW")
+			self:ScheduleMethod(5.0, "EqW")
+			self:ScheduleMethod(8.0, "EqW")
+			self:ScheduleMethod(9.9, "EqW")
 		end
 	end
 end

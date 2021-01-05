@@ -186,7 +186,8 @@ DBM_CORE_HORDE						= "Horde"
 
 DBM_CORE_UNKNOWN					= "unknown"
 
-DBM_CORE_BREAK_START				= "Break starting now -- you have %s minute(s)!"
+DBM_CORE_BREAK_USAGE				= "Break timer cannot be longer than 60 minutes. Make sure you're inputting time in minutes and not seconds."
+DBM_CORE_BREAK_START				= "Break starting now -- you have %s!"
 DBM_CORE_BREAK_MIN					= "Break ends in %s minute(s)!"
 DBM_CORE_BREAK_SEC					= "Break ends in %s seconds!"
 DBM_CORE_TIMER_BREAK				= "Break time!"
