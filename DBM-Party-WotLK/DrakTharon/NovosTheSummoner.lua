@@ -8,21 +8,33 @@ mod:SetZone()
 mod:RegisterCombat("yell", L.YellPull)
 mod:RegisterKill("yell", L.YellKill)
 mod:SetWipeTime(25)
-
+local isDispeller = select(2, UnitClass("player")) == "MAGE"
+					or select(2, UnitClass("player")) == "DRUID"
+					or select(2, UnitClass("player")) == "SHAMAN"
 mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL",
-	"SPELL_CAST_SUCCESS"
+	"SPELL_CAST_SUCCESS",
+	"SPELL_AURA_APPLIED"
 )
 
-local WarnCrystalHandler 	= mod:NewAnnounce("WarnCrystalHandler")
+local WarnCrystalHandler 	= mod:NewAnnounce("WarnCrystalHandler", 1, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 local timerInsanity			= mod:NewCDTimer(35, 57496)
+local timerInsanityDie		= mod:NewCastTimer(5, 57496)
+local specwarnInsanity		= mod:NewSpecialWarningDodge(57496)
+local specwarnCurse			= mod:NewSpecialWarningDispel(59856, isDispeller)
+local warnCurseTarget		= mod:NewTargetAnnounce(59856)
+local timerNextCurse		= mod:NewCDTimer(20, 59856)
+local specwarnSnow			= mod:NewSpecialWarningMove(59854)
 local timerFrenzy			= mod:NewCDTimer(16, 39249)
-local timerCrystalHandler 	= mod:NewTimer(20, "timerCrystalHandler")
+local warnFrenzy			= mod:NewTargetAnnounce(39249)
+local timerCrystalHandler 	= mod:NewTimer(30, "timerCrystalHandler", 72262)
 
+mod:AddBoolOption("SetIconOnEnragedMob", true, "icon")
 local CrystalHandlers = 4
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 1
 	timerCrystalHandler:Start(25.5-delay)
 	timerInsanity:Start(20)
 	timerFrenzy:Start(10)
@@ -31,22 +43,41 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.HandlerYell then
+		timerCrystalHandler:Cancel()
 		CrystalHandlers = CrystalHandlers - 1
 		if CrystalHandlers > 0 then
 			WarnCrystalHandler:Show(CrystalHandlers)
 			timerCrystalHandler:Start()
-		else
+		elseif self.vb.phase == 1 and CrystalHandlers < 0 then
+			warnPhase2:Show()
+			self.vb.phase = 2
+		elseif CrystalHandlers == 0 then
 			WarnCrystalHandler:Show(CrystalHandlers)
 		end
 	elseif msg == L.Phase2 then
 		warnPhase2:Show()
+		self.vb.phase = 2
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 57496 then
+	if (args.spellId == 57496  or args.spellId == 6767) and self:AntiSpam(1,1) then
 		timerInsanity:Start()
-	elseif args.spellId == 59829 then
+		timerInsanityDie:Start()
+		specwarnInsanity:Show()
+	elseif args.spellId == 39249 then
+		warnFrenzy:Show(args.destName)
+		if self.Options.SetIconOnEnragedMob then
+			self:ScanForMobs(args.destGUID, nil, nil, nil, nil, nil, "SetIconOnEnragedMob")
+		end
 		timerFrenzy:Start()
+	elseif args.spellId == 59856 then
+		warnCurseTarget:Show(args.destName)
+		specwarnCurse:Show()
+		timerNextCurse:Start()
+	elseif args.spellId == 59854 and self:AntiSpam(1,2) then
+		specwarnSnow:Show()
 	end
 end
+
+mod.SPELL_AURA_APPLIED = mod.SPELL_CAST_SUCCESS

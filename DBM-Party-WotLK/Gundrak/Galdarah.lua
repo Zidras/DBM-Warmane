@@ -9,7 +9,8 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS",
-	"SPELL_SUMMON"
+	"SPELL_SUMMON",
+	"CHAT_MSG_MONSTER_YELL"
 )
 
 local timerTopot		= mod:NewCDTimer(20, 59829)
@@ -17,20 +18,29 @@ local timerVihr			= mod:NewCDTimer(21, 59824)
 local timerCharge		= mod:NewCDTimer(21, 59827)
 local specVihr			= mod:NewSpecialWarningMove(59824)
 local specFlames		= mod:NewSpecialWarningMove(66682)
-local timerNextFlames	= mod:NewNextTimer(10, 66682)
-local soundFlames3		= mod:NewSound3(66682)
-
+local timerNextFlames	= mod:NewNextTimer(11, 66682)
+local soundFlames3		= mod:NewSound3(66682, nil, mod:IsRanged() or mod:IsHealer())
+local phasetimer1		= mod:NewTimer(52, "TimerPhase1", 72262)
+local phasewarn1		= mod:NewAnnounce("TimerPhase1", 4, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
+local phasetimer2		= mod:NewTimer(52, "TimerPhase2", 72262)
+local phasewarn2		= mod:NewAnnounce("TimerPhase2", 4, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
 mod.vb.phase = 1
 
 local function switchPhase()
 	if mod.vb.phase == 1 then
 		mod.vb.phase = 2
+		phasetimer2:Cancel()
+		phasewarn2:Show()
+		phasetimer1:Start(52)
 		timerVihr:Cancel()
 		timerTopot:Cancel()
 		timerCharge:Cancel()
 		timerTopot:Start(25)
 		timerCharge:Start(21)
 	elseif mod.vb.phase == 2 then
+		phasetimer1:Cancel()
+		phasewarn1:Show()
+		phasetimer2:Start(52)
 		timerVihr:Cancel()
 		timerTopot:Cancel()
 		timerCharge:Cancel()
@@ -39,7 +49,7 @@ local function switchPhase()
 end
 
 function mod:Flames_G(time)	-- Flames
-	local timer = time or 10
+	local timer = time or 11
 	timerNextFlames:Start(timer)
 	self:ScheduleMethod(timer, "Flames_G")
 	soundFlames3:Schedule(timer-3)
@@ -49,6 +59,7 @@ end
 function mod:OnCombatStart(delay)
 	timerVihr:Start()
 	self.vb.phase = 1
+	phasetimer2:Start(52)
 	self:Flames_G(7)
 end
 
@@ -69,6 +80,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == "После этого ничего не останется!" or msg == "Хотите увидеть cилу? Я покажу вам... силу!" or msg == "Ain't gonna be nothin' left after this!" or msg == "You wanna see power? I'm gonna show you power!" then
+		print("phase change", msg)
 		switchPhase()
 	end
 end

@@ -329,7 +329,8 @@ L:SetMiscLocalization({
 	YellPull		= "Вам холодно? Это дыхание скорой смерти.",
 	HandlerYell		= "Защищайте меня! Быстрее, будьте вы прокляты!",
 	Phase2			= "Неужели вы не понимаете всей бесполезности происходящего?",
-	YellKill		= "Ваши усилия… напрасны."
+	YellKill		= "Ваши усилия… напрасны.",
+	SetIconOnEnragedMob = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(39249)
 })
 
 -----------------
@@ -438,12 +439,18 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	TimerPhase2		= "Фаза Носорога",
+	TimerPhase1		= "Фаза Тролля"
 })
 
 L:SetTimerLocalization({
+	TimerPhase2		= "Фаза Носорога",
+	TimerPhase1		= "Фаза Тролля"
 })
 
 L:SetOptionLocalization({
+	TimerPhase2		= "Предупреждение для фазы Носорога",
+	TimerPhase1		= "Предупреждение для фазы Тролля"
 })
 
 -------------------------
@@ -879,12 +886,14 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	SpecWarnSpecial	= "Кольцо Тьмы - прячьтесь за колоннами!"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	SpecWarnSpecial	= "Спец-предупреждение для Кольца Тьмы (спрятаться за колоннами)",
 })
 
 L:SetMiscLocalization({

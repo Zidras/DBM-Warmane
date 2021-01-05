@@ -12,7 +12,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+	"SPELL_CAST_SUCCESS"
 )
 
 local warningSmash		= mod:NewSpellAnnounce(42723, 1)
@@ -22,13 +23,16 @@ local timerSmash		= mod:NewCastTimer(3, 42723)
 local timerSmashCD		= mod:NewCDTimer(13, 42723)
 local timerWoeStrike	= mod:NewTargetTimer(10, 42723)
 local timerNova			= mod:NewCDTimer(25, 59435)
-local timerRuneCD		= mod:NewCDTimer(15, 64852)
-
+local specwarnNova		= mod:NewSpecialWarning("SpecWarnSpecial")
+local warnNova			= mod:NewSpellAnnounce(42723, 4)
+local timerRuneCD		= mod:NewCDTimer(10, 64852, nil, true, nil, "Interface\\Icons\\Spell_Fire_SelfDestruct")
+local warningRune		= mod:NewTargetAnnounce(64852, 2, "Interface\\Icons\\Spell_Fire_SelfDestruct")
+local specwarnRune		= mod:NewSpecialWarningMove(64852)
 local specWarnSpelllock	= mod:NewSpecialWarningCast(42729)
 
 function mod:OnCombatStart()
 	self.vb.phase = 1
-	timerSmashCD:Start()
+	timerSmashCD:Start(15)
 	timerNova:Start(18.5)
 end
 
@@ -46,6 +50,18 @@ function mod:SPELL_CAST_START(args)
 	end
 	if args.spellId == 59435 then
 		timerNova:Start()
+		specwarnNova:Show()
+		warnNova:Show()
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 64852 then
+		timerRuneCD:Start()
+		warningRune:Show(args.destName)
+		if args.destName == UnitName("player") then
+			specwarnRune:Show()
+		end
 	end
 end
 
@@ -65,10 +81,10 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == "Я вернулся! Еще один шанс раскроить вам головы!" or msg == "I return! A second chance to carve out your skull!" then
+	if msg == "Я вернулся! Еще один шанс раскроить вам головы!" or msg == "I return! A second chance to carve your skull!" then
 		self.vb.phase = 2
 		timerNova:Cancel()
 		timerNova:Start(15)
-		timerRuneCD:Start(10)
+		timerRuneCD:Start(5)
 	end
 end
