@@ -31,11 +31,11 @@ local warningShadowBreath			= mod:NewSpellAnnounce(75954, 2, nil, true)
 local warningFieryBreath			= mod:NewSpellAnnounce(74526, 2, nil, true)
 local warningTwilightCutter			= mod:NewAnnounce("TwilightCutterCast", 2, 77844)
 
-local specWarnShadowConsumption		= mod:NewSpecialWarningRun(74792, nil, nil, nil, 4, 2)
+local specWarnShadowConsumption		= mod:NewSpecialWarningRun(74792, nil, nil, nil, 1, 2)
 local yellShadowconsumption			= mod:NewYellMe(74792)
-local specWarnFieryCombustion		= mod:NewSpecialWarningRun(74562, nil, nil, nil, 4, 2)
+local specWarnFieryCombustion		= mod:NewSpecialWarningRun(74562, nil, nil, nil, 1, 2)
 local yellFieryCombustion			= mod:NewYellMe(74562)
-local specWarnMeteorStrike			= mod:NewSpecialWarningMove(75952, nil, nil, nil, 1, 2)
+local specWarnMeteorStrike			= mod:NewSpecialWarningMove(75952, nil, nil, nil, 2, 2)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(77844, nil, nil, nil, 3, 2)
 
 local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792, nil, nil, nil, 3)
@@ -53,7 +53,6 @@ local berserkTimer					= mod:NewBerserkTimer(480)
 local soundConsumption 				= mod:NewSound(74562, "SoundOnConsumption")
 local soundMeteor					= mod:NewSound(74648)
 local soundCutters					= mod:NewSound(77844)
-mod:AddBoolOption("YellOnConsumption", true, "yell")
 mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
 mod:AddBoolOption("WhisperOnConsumption", false, "announce")
 mod:AddBoolOption("SetIconOnConsumption", true)
@@ -159,7 +158,7 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 		end
 	elseif args:IsSpellID(74562) then
 		if not self.Options.AnnounceAlternatePhase then
-			warningFieryCombustion:Show(args.destName)
+			warningFieryConsumption:Show(args.destName)
 			if DBM:GetRaidRank() >= 1 and self.Options.WhisperOnConsumption then
 				SendChatMessage(L.WhisperCombustion, "WHISPER", "COMMON", args.destName)
 			end
@@ -277,7 +276,7 @@ function mod:OnSync(msg, target)
 		end
 	elseif msg == "FieryTarget" then
 		if self.Options.AnnounceAlternatePhase then
-			warningFieryCombustion:Show(target)
+			warningFieryConsumption:Show(target)
 			if DBM:GetRaidRank() >= 1 and self.Options.WhisperOnConsumption then
 				SendChatMessage(L.WhisperCombustion, "WHISPER", "COMMON", target)
 			end
