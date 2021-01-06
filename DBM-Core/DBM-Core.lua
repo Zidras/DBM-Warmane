@@ -6188,48 +6188,24 @@ function bossModPrototype:IsDifficulty(...)
 	return false
 end
 
--- hard coded party-mod support, yay :)
--- returns heroic for old instances that do not have a heroic mode (Naxx, Ulduar...)
--- function bossModPrototype:GetDifficulty()
--- 	local _, instanceType, difficulty, _, _, playerDifficulty, isDynamicInstance = GetInstanceInfo()
--- 	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
--- 		if difficulty == 1 then -- 10 men
--- 			return playerDifficulty == 0 and "normal10" or playerDifficulty == 1 and "heroic10" or "unknown"
--- 		elseif difficulty == 2 then -- 25 men
--- 			return playerDifficulty == 0 and "normal25" or playerDifficulty == 1 and "heroic25" or "unknown"
--- 		end
--- 	else -- support for "old" instances
--- 		if GetInstanceDifficulty() == 1 then
--- 			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
--- 			self.hasHeroic and "normal10" or "heroic10"
--- 		elseif GetInstanceDifficulty() == 2 then
--- 			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
--- 			self.hasHeroic and "normal25" or "heroic25"
--- 		elseif GetInstanceDifficulty() == 3 then
--- 			return "heroic10"
--- 		elseif GetInstanceDifficulty() == 4 then
--- 			return "heroic25"
--- 		end
--- 	end
--- end
-
 function bossModPrototype:GetDifficulty()
-	local _, instanceType = GetInstanceInfo()
-	local diff = GetInstanceDifficulty()
-	if instanceType == "party" then
-		if diff == 1 then
-			return "normal5"
-		elseif diff == 2 then
-			return "heroic5"
+	local _, instanceType, difficulty, _, _, playerDifficulty, isDynamicInstance = GetInstanceInfo()
+	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
+		if difficulty == 1 then -- 10 men
+			return playerDifficulty == 0 and "normal10" or playerDifficulty == 1 and "heroic10" or "unknown"
+		elseif difficulty == 2 then -- 25 men
+			return playerDifficulty == 0 and "normal25" or playerDifficulty == 1 and "heroic25" or "unknown"
 		end
-	elseif instanceType == "raid" then
-		if diff == 1 then
-			return "normal10"
-		elseif diff == 2 then
-			return "normal25"
-		elseif diff == 3 then
+	else -- support for "old" instances
+		if GetInstanceDifficulty() == 1 then
+			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
+			self.hasHeroic and "normal10" or "heroic10"
+		elseif GetInstanceDifficulty() == 2 then
+			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
+			self.hasHeroic and "normal25" or "heroic25"
+		elseif GetInstanceDifficulty() == 3 then
 			return "heroic10"
-		elseif diff == 4 then
+		elseif GetInstanceDifficulty() == 4 then
 			return "heroic25"
 		end
 	end

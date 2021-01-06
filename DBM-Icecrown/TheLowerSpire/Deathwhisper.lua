@@ -40,14 +40,14 @@ local specWarnDeathDecay			= mod:NewSpecialWarningMove(72108, nil, nil, nil, 1, 
 local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, nil, nil, 1, 6)
 local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, "MagicDispeller", nil, nil, 1, 2)
 local specWarnDarkMartyrdom			= mod:NewSpecialWarningRun(72499, "Melee", nil, nil, 4, 2)
-local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, nil, nil, 2, 1, 2) -- TODO: HasInterrupt
+local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, nil, false, 2, 1, 2) -- HasInterrupt?
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", "-Tank")
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
 local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131, nil, nil, 1, DBM_CORE_TANK_ICON..DBM_CORE_DAMAGE_ICON)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
-local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true)
+local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
 local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
