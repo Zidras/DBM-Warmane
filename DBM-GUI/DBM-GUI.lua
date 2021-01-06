@@ -1343,7 +1343,7 @@ local function CreateOptionsMenu()
 		----------------------------------------------
 		--             General Options              --
 		----------------------------------------------
-		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 310, true)
+		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 330, true)
 
 		local StatusEnabled = generaloptions:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
 		local AutoRespond   = generaloptions:CreateCheckButton(L.AutoRespond,  true, nil, "AutoRespond")
@@ -1352,6 +1352,7 @@ local function CreateOptionsMenu()
 		local FixCLEUOnCombatStart   = generaloptions:CreateCheckButton(L.FixCLEUOnCombatStart,  true, nil, "FixCLEUOnCombatStart")
 		local DisableCinematics			= generaloptions:CreateCheckButton(L.DisableCinematics, true, nil, "DisableCinematics")
 		local AudioPull					= generaloptions:CreateCheckButton(L.AudioPull, true, nil, "AudioPull")
+		local BigTimerNumbers			= generaloptions:CreateCheckButton(L.BigTimerNumbers, true, nil, "BigTimerNumbers")
 		MiniMapIcon:SetScript("OnClick", function(self)
 			DBM:ToggleMinimapButton()
 			self:SetChecked( not DBM_MinimapIcon.hide )
@@ -1367,7 +1368,7 @@ local function CreateOptionsMenu()
 		local SoundChannelDropdown = generaloptions:CreateDropdown(L.UseSoundChannel, soundChannelsList, "DBM", "UseSoundChannel", function(value)
 			DBM.Options.UseSoundChannel = value
 		end)
-		SoundChannelDropdown:SetPoint("TOPLEFT", generaloptions.frame, "TOPLEFT", 0, -190)
+		SoundChannelDropdown:SetPoint("TOPLEFT", generaloptions.frame, "TOPLEFT", 0, -220)
 
 		local bmrange  = generaloptions:CreateButton(L.Button_RangeFrame, 120, 30)
 		bmrange:SetPoint('TOPLEFT', SoundChannelDropdown, "BOTTOMLEFT", 15, -5)

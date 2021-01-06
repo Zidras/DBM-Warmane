@@ -324,6 +324,7 @@ DBM.DefaultOptions = {
 	LastRevision = 0,
 	DisableCinematics = true,
 	AudioPull = true,
+	BigTimerNumbers = true,
 	DontSendYells = false,
 	DebugMode = false,
 	DebugLevel = 1,
@@ -503,7 +504,7 @@ if LibStub("LibSharedMedia-3.0", true) then
 	LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 end
-
+DBM.LSM = LSM
 --------------------------------------------------------
 --  Cache frequently used global variables in locals  --
 --------------------------------------------------------
@@ -896,9 +897,13 @@ do
 		if IsInGuild() then
 			SendAddonMessage("DBMv4-GH","Hi!" ,"GUILD")
 		end
+		if DBM and TT then
+			TT:Initialize(true)
+		end
 		if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
 		end
+		DBM:Debug("Delayed functions finished", 3)
 	end
 
 	-- register a callback that will be executed once the addon is fully loaded (ADDON_LOADED fired, saved vars are available)
@@ -1515,7 +1520,6 @@ end
 do
 	local function Pull(timer)
 		if DBM:GetRaidRank() == 0 then
-			local timer = tonumber(cmd:sub(5)) or 10
 			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "EMOTE"
 			DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_PULL, false)
 			SendChatMessage(DBM_CORE_ANNOUNCE_PULL:format(timer), channel)
@@ -1535,7 +1539,6 @@ do
 			DBM:Schedule(timer, SendChatMessage, DBM_CORE_ANNOUNCE_PULL_NOW, channel)
 			return DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
 		end
-		local timer = tonumber(cmd:sub(5)) or 10
 		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
 		DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_PULL, true)
 		SendChatMessage(DBM_CORE_ANNOUNCE_PULL:format(timer), channel)
@@ -1985,36 +1988,6 @@ do
 		end)
 	end
 
-end
-
-do
-	function DBM:ShowRelease()
-			if DBM:GetRaidRank() == 0 then
-			DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
-			return
-		end
-		for i, v in pairs(raid) do
-			tinsert(sortMe, v)
-		end
-		tsort(sortMe, sort)
-		SendChatMessage(DBM_CORE_VERSIONCHECK_HEADER, "RAID")
-		for i, v in ipairs(sortMe) do
-			if v.displayVersion then
-				SendChatMessage(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.displayVersion, v.revision), "RAID")
-			else
-				SendChatMessage(DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM:format(v.name), "RAID")
-			end
-		end
-		for i = #sortMe, 1, -1 do
-			if not sortMe[i].revision then
-				tremove(sortMe, i)
-			end
-		end
-		SendChatMessage(DBM_CORE_VERSIONCHECK_FOOTER:format(#sortMe), "RAID")
-		for i = #sortMe, 1, -1 do
-			sortMe[i] = nil
-		end
-	end
 end
 
 -------------------
@@ -3598,7 +3571,7 @@ do
 		end
 	end
 
-	-- TODO: is there a good reason that version information is broadcasted and not unicasted?
+	-- is there a good reason that version information is broadcasted and not unicasted?
 	syncHandlers["DBMv4-H"] = function(msg, channel, sender)
 		DBM:Unschedule(SendVersion)--Throttle so we don't needlessly send tons of comms during initial raid invites
 		DBM:Schedule(3, SendVersion)--Send version if 3 seconds have past since last "Hi" sync
@@ -3864,7 +3837,7 @@ do
 
 		function showResults()
 			local resultCount = 0
-			-- TODO: you could catch some localized instances by observing IDs if there are multiple players with the same instance ID but a different name ;) (not that useful if you are trying to get a fresh instance)
+			-- you could catch some localized instances by observing IDs if there are multiple players with the same instance ID but a different name ;) (not that useful if you are trying to get a fresh instance)
 			DBM:AddMsg(DBM_INSTANCE_INFO_RESULTS, false)
 			DBM:AddMsg("---", false)
 			for i, v in pairs(results.data) do
@@ -4154,7 +4127,7 @@ do
 end
 
 --------------------
---  Notes Editor  -- TODO
+--  Notes Editor  --
 --------------------
 do
 	local frame, fontstring, fontstringFooter, editBox, button3
@@ -5262,7 +5235,7 @@ do
 			--But only if we are not in combat with a boss
 			local breakBar = self.Bars:GetBar("%s\t"..DBM_CORE_TIMER_BREAK) or self.Bars:GetBar(DBM_CORE_TIMER_BREAK)
 			if breakBar then
-				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s"):format(breakBar.timer, breakBar.totalTime, breakBar.id, DBM_CORE_TIMER_BREAK), "WHISPER", target)
+				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s\t"):format(breakBar.timer, breakBar.totalTime, breakBar.id, DBM_CORE_TIMER_BREAK, 52800), "WHISPER", target)
 			end
 			breakBar = self.Bars:GetBar("TimerCombatStart")
 			if breakBar then
@@ -5692,7 +5665,7 @@ function DBM:RegisterMapSize(zone, ...)
 end
 
 function DBM:GetMapSizes()
---	if not currentSizes then -- TODO
+--	if not currentSizes then
 		DBM:UpdateMapSizes()
 --	end
 --	return currentSizes
@@ -6904,7 +6877,7 @@ do
 	local announcePrototype = {}
 	local mt = {__index = announcePrototype}
 
-	-- TODO: is there a good reason that this is a weak table?
+	-- is there a good reason that this is a weak table?
 	local cachedColorFunctions = setmetatable({}, {__mode = "kv"})
 
 	local function setText(announceType, spellId, castTime, preWarnTime)
@@ -6930,7 +6903,7 @@ do
 		return text, spellName
 	end
 
-	-- TODO: this function is an abomination, it needs to be rewritten. Also: check if these work-arounds are still necessary
+	-- this function is an abomination, it needs to be rewritten. Also: check if these work-arounds are still necessary
 	function announcePrototype:Show(...) -- todo: reduce amount of unneeded strings
 		if not self.option or self.mod.Options[self.option] then
 			if DBM.Options.DontShowBossAnnounces then return end	-- don't show the announces if the spam filter option is set
@@ -6984,7 +6957,7 @@ do
 			DBM:AddWarning(text)
 			if DBM.Options.ShowWarningsInChat then
 				if not DBM.Options.WarningIconChat then
-					text = text:gsub(textureExp, "") -- textures @ chat frame can (and will) distort the font if using certain combinations of UI scale, resolution and font size TODO: is this still true as of cataclysm?
+					text = text:gsub(textureExp, "") -- textures @ chat frame can (and will) distort the font if using certain combinations of UI scale, resolution and font size : is this still true as of cataclysm?
 				end
 				self.mod:AddMsg(text, nil)
 			end
@@ -8558,7 +8531,7 @@ do
 		return unschedule(self.Start, self.mod, self, ...)
 	end
 
-	--TODO, figure out why this function doesn't properly stop count timers when calling stop without count on count timers
+	--figure out why this function doesn't properly stop count timers when calling stop without count on count timers
 	function timerPrototype:Stop(...)
 		fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id, false)
 		if select("#", ...) == 0 then
@@ -9268,7 +9241,7 @@ function bossModPrototype:AddButton(name, onClick, cat, width, height, fontObjec
 	}
 end
 
--- FIXME: this function does not reset any settings to default if you remove an option in a later revision and a user has selected this option in an earlier revision were it still was available
+-- this function does not reset any settings to default if you remove an option in a later revision and a user has selected this option in an earlier revision were it still was available
 -- this will be fixed as soon as it is necessary due to removed options ;-)
 function bossModPrototype:AddDropdownOption(name, options, default, cat, func)
 	cat = cat or "misc"

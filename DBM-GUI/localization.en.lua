@@ -327,6 +327,9 @@ L.HideQuestTooltips			= "Hide quest objectives from tooltips during boss fights"
 L.HideTooltips				= "Completely hide tooltips during boss fights"
 L.DisableSFX				= "Disable sound effects channel during boss fights"
 L.DisableCinematics			= "Hide in-game cinematics"
+L.AudioPull					= "Enable audio countdown for /pull"
+L.BigTimerNumbers			= "Enable visual Gold Numbers countdown for /pull"
+
 L.OnlyFight					= "Only during fight, after each movie has played once"
 L.AfterFirst				= "In instance, after each movie has played once"
 L.Always					= ALWAYS
