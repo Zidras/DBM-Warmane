@@ -398,6 +398,7 @@ do
 		--Inject DBMs custom media that's not available to LibSharedMedia because it uses SoundKit Id (which LSM doesn't support)
 		{sound = true, text = "AirHorn (DBM)",		value	= "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
 		{sound = true,	text	= "Beware",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg"},
+		{sound = true,	text	= "Beware RUS",		value 	= "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav"},
 		{sound = true, 	text	= "Alert",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3"},
 		{sound = true, 	text	= "Info",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3"},
 		{sound = true, 	text	= "Long",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3"}

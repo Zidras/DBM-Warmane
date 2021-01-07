@@ -61,7 +61,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if (args.spellId == 57496  or args.spellId == 6767) and self:AntiSpam(1,1) then
+	if (args.spellId == 57496  or args.spellId == 6767) and not self:IsCreatureGUID(args.destGUID) and self:AntiSpam(1,1) then
 		timerInsanity:Start()
 		timerInsanityDie:Start()
 		specwarnInsanity:Show()

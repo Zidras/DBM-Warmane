@@ -70,12 +70,7 @@ local tinsert = table.insert
 local GetTime = GetTime
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
-local standardFont = STANDARD_TEXT_FONT
-if (LOCALE_ruRU) then
-	standardFont = "Fonts\\ARIALN.TTF"
-else
-	standardFont = "Fonts\\FRIZQT__.TTF"
-end
+local standardFont = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"
 
 -----------------------
 --  Default Options  --
@@ -1651,7 +1646,7 @@ do
 		if self.obj then
 			self.obj.curTime = GetTime()
 			self.obj.delta = self.obj.curTime - self.obj.lastUpdate
-			if barIsAnimating and self.obj.delta >= 0.01 or self.obj.delta >= 0.04 then
+			if barIsAnimating and self.obj.delta >= 0.01 or self.obj.delta >= 0.02 then
 				self.obj.lastUpdate = self.obj.curTime
 				self.obj:Update(self.obj.delta)
 			end

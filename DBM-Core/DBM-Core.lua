@@ -499,7 +499,7 @@ if LibStub("LibSharedMedia-3.0", true) then
 	LSM = LibStub("LibSharedMedia-3.0")
 	LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 	LSM:Register("sound", "Beware ENG", "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-	LSM:Register("sound", "Beware",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
+	LSM:Register("sound", "RUS Beware",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
 	LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 	LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
