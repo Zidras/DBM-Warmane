@@ -87,10 +87,10 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = ("$Revision: 7000 $"):sub(12, -3),
-	Version = "7.00",
-	DisplayVersion = "7.00 DBM-WoWCircle by Barsoom for WoWCircle WotLK", -- the string that is shown as version
-	ReleaseRevision = 7000 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 7001 $"):sub(12, -3),
+	Version = "7.01",
+	DisplayVersion = "7.01 DBM-WoWCircle by Barsoom for WoWCircle WotLK", -- the string that is shown as version
+	ReleaseRevision = 7001 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -435,7 +435,7 @@ local checkCustomBossHealth
 local fireEvent
 local playerName = UnitName("player")
 local playerLevel = UnitLevel("player")
-local playerRealm = GetRealmName()
+local playerRealm = GetRealmName():gsub(" Prx 1", ""):gsub(" Prx 2", "")
 local LastInstanceMapID = -1
 local LastGroupSize = 0
 local iconFolder = "Interface\\AddOns\\DBM-Core\\icon\\"
@@ -3718,7 +3718,7 @@ do
 			end
 		end
 
-		syncHandlers["DBMv4-IRE"] = function(sender)
+		syncHandlers["DBMv4-IRE"] = function(msg, channel, sender)
 			local popup = inspopup:IsShown()
 			if popup and savedSender == sender then -- found the popup with the correct data
 				savedSender = nil
@@ -3727,7 +3727,8 @@ do
 			end
 		end
 
-		syncHandlers["DBMv4-GCB"] = function(sender, modId, ver, difficulty, name)
+		syncHandlers["DBMv4-GCB"] = function(msg, channel, sender)
+			local  modId, ver, difficulty, name = strsplit("\t", msg)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or not (ver == "2") then return end--Ignore old versions
 			if DBM:AntiSpam(10, "GCB") then
@@ -3749,7 +3750,8 @@ do
 			end
 		end
 
-		syncHandlers["DBMv4-GCE"] = function(sender, modId, ver, wipe, time, difficulty, name, wipeHP)
+		syncHandlers["DBMv4-GCE"] = function(msg, channel, sender)
+			local  modId, ver, wipe, time, difficulty, name, wipeHP = strsplit("\t", msg)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or not (ver == "5") then return end--Ignore old versions
 			if DBM:AntiSpam(5, "GCE") then
