@@ -2,8 +2,8 @@
 
 local L
 
-local spell				= "%s"				
-local debuff			= "%s: >%s<"			
+local spell				= "%s"
+local debuff			= "%s: >%s<"
 local spellCD			= "Восстановление %s"
 local spellSoon			= "Скоро %s"
 local optionWarning		= "Предупреждение для %s"
@@ -408,7 +408,7 @@ L:SetOptionLocalization({
 })
 
 -------------------------
---  Drakkari Colossus  --		
+--  Drakkari Colossus  --
 -------------------------
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
@@ -702,7 +702,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	SplitTrigger1		= "Меня на вас хватит!",
 	SplitTrigger2		= "Вы получите больше, чем заслуживаете!",
-	MergeTrigger		= "Ну а теперь, покончим с этим!"	
+	MergeTrigger		= "Ну а теперь, покончим с этим!"
 })
 
 -------------------
@@ -1139,7 +1139,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Портал #%d" , 
+	TimerPortalIn	= "Портал #%d" ,
 })
 
 L:SetOptionLocalization({

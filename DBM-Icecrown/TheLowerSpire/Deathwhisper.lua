@@ -296,8 +296,8 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(71420, 72007, 72501, 72502) then
 		warnFrostbolt:Show()
-		specWarnFrostbolt:Show(args.sourceName)
-		specWarnFrostbolt:Play("kickcast")
+		--specWarnFrostbolt:Show(args.sourceName)
+		--specWarnFrostbolt:Play("kickcast")
 		timerFrostboltCast:Start()
 	elseif args:IsSpellID(70900) then
 		warnDarkTransformation:Show()

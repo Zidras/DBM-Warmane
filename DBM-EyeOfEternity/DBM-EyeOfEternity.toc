@@ -8,7 +8,8 @@
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Malygos|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMEyeOfEternity_SavedVars, DBMEyeOfEternity_SavedStats
+## SavedVariables: DBMEyeOfEternity_AllSavedVars
+## SavedVariablesPerCharacter: DBMCEyeOfEternity_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: WotLK
 ## X-DBM-Mod-Has-Heroic-Mode: 0

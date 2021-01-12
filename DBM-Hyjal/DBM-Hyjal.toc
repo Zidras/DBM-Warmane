@@ -2,7 +2,8 @@
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mount Hyjal|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMHyjal_SavedVars, DBMHyjal_SavedStats
+## SavedVariables: DBMHyjal_AllSavedVars
+## SavedVariablesPerCharacter: DBMHyjal_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: The Battle for Mount Hyjal

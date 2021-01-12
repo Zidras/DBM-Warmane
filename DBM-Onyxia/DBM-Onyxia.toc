@@ -10,10 +10,12 @@
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Onyxias Hort|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMOnyxia_SavedVars, DBMOnyxia_SavedStats
+## SavedVariables: DBMOnyxia_AllSavedVars
+## SavedVariablesPerCharacter: DBMOnyxia_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WotLK
-## X-DBM-Mod-Has-Heroic-Mode: 0
+## X-DBM-Mod-No-Heroic: 1
 ## X-DBM-Mod-Sort: 3
 ## X-DBM-Mod-Name: Onyxia's Lair
 ## X-DBM-Mod-Name-frFR: Repaire d'Onyxia

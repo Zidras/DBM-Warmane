@@ -9,7 +9,8 @@
 ## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Coliseo de los Cruzados|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMColiseum_SavedVars, DBMColiseum_SavedStats
+## SavedVariables: DBMColiseum_AllSavedVars
+## SavedVariablesPerCharacter: DBMColiseum_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: WotLK
 ## X-DBM-Mod-Name: Crusader's Coliseum

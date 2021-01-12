@@ -108,7 +108,6 @@ function DBM:ReleaseDate(year, month, day, hour, minute, second)
 	return releaseDate(year, month, day, hour, minute, second)
 end
 
-DBM_SavedOptions = {}
 
 local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
 

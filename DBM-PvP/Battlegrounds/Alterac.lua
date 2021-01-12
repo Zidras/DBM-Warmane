@@ -1,7 +1,4 @@
--- Alterac mod v3.0
--- rewrite by Nitram and Tandanu
-
-local Alterac	= DBM:NewMod("AlteracValley", "DBM-PvP", 2)
+local Alterac	= DBM:NewMod("z402", "DBM-PvP", 2)
 local L			= Alterac:GetLocalizedStrings()
 
 Alterac:SetZone(DBM_DISABLE_ZONE_DETECTION)

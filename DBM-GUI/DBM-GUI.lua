@@ -3455,7 +3455,7 @@ local function CreateOptionsMenu()
 		local profilePanel			= DBM_GUI_Frame:CreateNewPanel(L.Panel_Profile, "option")
 		local createProfileArea		= profilePanel:CreateArea(L.Area_CreateProfile, nil, 65, true)
 		local createTextbox			= createProfileArea:CreateEditBox(L.EnterProfileName, "", 175)
-		createTextbox:SetMaxLetters(17)
+		createTextbox:SetMaxLetters(20)
 		createTextbox:SetPoint('TOPLEFT', 30, -25)
 		createTextbox:SetScript("OnEnterPressed", function() DBM_GUI.dbm_profilePanel_create() end)
 

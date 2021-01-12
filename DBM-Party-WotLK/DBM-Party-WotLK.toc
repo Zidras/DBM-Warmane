@@ -8,8 +8,10 @@
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mazmorras|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMPartyWotLK_SavedVars, DBMPartyWotLK_SavedStats
+## SavedVariables: DBMPartyWotLK_AllSavedVars
+## SavedVariablesPerCharacter: DBMPartyWotLK_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: PARTY
 ## X-DBM-Mod-Category: WotLK
 ## X-DBM-Mod-SubCategories: Ahn'Kahet,Azjol-Nerub,CoT: Old Stratholme,Drak'Tharon Keep,Gundrak,Halls of Lightning,Halls of Stone,The Nexus,The Oculus,Utgarde Keep,Utgarde Pinnacle,Violet Hold,Trial of the Champion,The Forge of Souls,Pit of Saron,Halls of Reflection
 ## X-DBM-Mod-SubCategories-frFR: Ahn'Kahet,Azjol-Nérub,GT: L'Épuration de Stratholme,Drak'Tharon,Gundrak,Salles de foudre,Salles de pierre,Le Nexus,L'Occulus,Donjon d'Utgarde,Cime d'Utgarde,Fort Pourpre,L'épreuve du champion,La Forge des âmes,La Fosse de Saron,Salles des Reflets
