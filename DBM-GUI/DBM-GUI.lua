@@ -1344,13 +1344,13 @@ local function CreateOptionsMenu()
 		----------------------------------------------
 		--             General Options              --
 		----------------------------------------------
-		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 330, true)
+		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 360, true)
 
 		local StatusEnabled = generaloptions:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
 		local AutoRespond   = generaloptions:CreateCheckButton(L.AutoRespond,  true, nil, "AutoRespond")
 		local MiniMapIcon   = generaloptions:CreateCheckButton(L.EnableMiniMapIcon,  true)
 
-		local FixCLEUOnCombatStart   = generaloptions:CreateCheckButton(L.FixCLEUOnCombatStart,  true, nil, "FixCLEUOnCombatStart")
+		local FixCLEUOnCombatStart		= generaloptions:CreateCheckButton(L.FixCLEUOnCombatStart,  true, nil, "FixCLEUOnCombatStart")
 		local DisableCinematics			= generaloptions:CreateCheckButton(L.DisableCinematics, true, nil, "DisableCinematics")
 		local AudioPull					= generaloptions:CreateCheckButton(L.AudioPull, true, nil, "AudioPull")
 		local BigTimerNumbers			= generaloptions:CreateCheckButton(L.BigTimerNumbers, true, nil, "BigTimerNumbers")
