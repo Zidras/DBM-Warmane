@@ -77,26 +77,21 @@ mod:AddBoolOption("YellOnMalleableGoo", true, "yell")
 mod:AddBoolOption("YellOnUnbound", true, "yell")
 mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
-mod.vb.warned_preP2 = false
-mod.vb.warned_preP3 = false
-mod.vb.phase = 0
+local warned_preP2 = false
+local warned_preP3 = false
+local spamPuddle = 0
+local spamGas = 0
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerSlimePuddleCD:Start(10-delay)
 	timerUnstableExperimentCD:Start(30-delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
-	self.vb.warned_preP2 = false
-	self.vb.warned_preP3 = false
+	warned_preP2 = false
+	warned_preP3 = false
 	self.vb.phase = 1
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		timerUnboundPlagueCD:Start(10-delay)
-	end
-end
-
-function mod:OnCombatEnd(wipe)
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Hide()
 	end
 end
 
@@ -116,8 +111,9 @@ function mod:OldMalleableGooTarget()
 		end
 	if targetname == UnitName("player") then
 		specWarnMalleableGoo:Show()
-		specWarnMalleableGoo:Play("targetyou")
-		yellMalleableGoo:Yell()
+		if self.Options.YellOnMalleableGoo then
+			SendChatMessage(L.YellMalleable, "SAY")
+		end
 	elseif targetname then
 		local uId = DBM:GetRaidUnitId(targetname)
 		if uId then
@@ -128,8 +124,7 @@ function mod:OldMalleableGooTarget()
 				x, y = GetPlayerMapPosition(uId)
 			end
 			if inRange then
-				specWarnMalleableGooNear:Show(targetname)
-				specWarnMalleableGooNear:Play("watchstep")
+				specWarnMalleableGooNear:Show()
 				if self.Options.GooArrow then
 					DBM.Arrow:ShowRunAway(x, y, 10, 5)
 				end
@@ -147,7 +142,6 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(71617) then				--Tear Gas, normal phase change trigger
 		warnTearGas:Show()
 		warnUnstableExperimentSoon:Cancel()
-		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerMalleableGooCD:Cancel()
 		soundGooCast:Cancel()
@@ -158,7 +152,6 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin)
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
-		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerMalleableGooCD:Cancel()
 		soundGooCast:Cancel()
@@ -173,10 +166,11 @@ function mod:SPELL_CAST_START(args)
 			timerUnstableExperimentCD:Cancel()
 		end
 	elseif args:IsSpellID(73121, 73122) then		--Guzzle Potions (Heroic phase change end)
-		if self:IsDifficulty("heroic10") then
+		if mod:IsDifficulty("heroic10") then
 			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
-		elseif self:IsDifficulty("heroic25") then
+			timerUnstableExperimentCD:Cancel()
+		elseif mod:IsDifficulty("heroic25") then
 			self:ScheduleMethod(30-1.3, "NextPhase")
 			timerPotions:Start(20)
 			timerUnstableExperimentCD:Cancel()
@@ -212,10 +206,10 @@ function mod:NextPhase()
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(70341) and self:AntiSpam(5, 1) then
+	if args:IsSpellID(70341) and GetTime() - spamPuddle > 5 then
 		warnSlimePuddle:Show()
 		if self.vb.phase == 3 then
-			timerSlimePuddleCD:Start(20)             --In phase 3 it's faster
+			timerSlimePuddleCD:Start(20)--In phase 3 it's faster
 		else
 			timerSlimePuddleCD:Start()
 		end
@@ -228,7 +222,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		soundGasBomb:Schedule(35.5-3)
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
-	elseif args:IsSpellID(72615, 72295, 74280, 74281, 70852, 72296) then
+	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
 		warnMalleableGoo:Show()
 		specWarnMalleableGooCast:Show()
 		soundMalleableGooCast:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
@@ -287,15 +281,14 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72855, 72856, 70911) then	 -- Unbound Plague
 		warnUnboundPlague:Show(args.destName)
 		if self.Options.UnboundPlagueIcon then
-			self:SetIcon(args.destName, 5)
+			self:SetIcon(args.destName, 5, 20)
 		end
 		if args:IsPlayer() then
 			specWarnUnboundPlague:Show()
-			specWarnUnboundPlague:Play("targetyou")
 			timerUnboundPlague:Start()
-			yellUnboundPlague:Yell()
-		else
-			warnUnboundPlague:Show(args.destName)
+			if self.Options.YellOnUnbound then
+				SendChatMessage(L.YellUnbound, "SAY")
+			end
 		end
 	end
 end
@@ -344,11 +337,11 @@ end
 
 --values subject to tuning depending on dps and his health pool
 function mod:UNIT_HEALTH(uId)
-	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
-		self.vb.warned_preP2 = true
+	if self.vb.phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
+		warned_preP2 = true
 		warnPhase2Soon:Show()
-	elseif self.vb.phase == 2 and not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
-		self.vb.warned_preP3 = true
+	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
+		warned_preP3 = true
 		warnPhase3Soon:Show()
 	end
 end
