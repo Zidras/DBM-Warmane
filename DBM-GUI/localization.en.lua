@@ -331,7 +331,7 @@ L.DisableSFX				= "Disable sound effects channel during boss fights"
 L.DisableCinematics			= "Hide in-game cinematics"
 L.AudioPull					= "Enable audio countdown for /pull"
 L.BigTimerNumbers			= "Enable visual Gold Numbers countdown for /pull"
-
+L.ReportRecount		    	= "Send Recount report after boss encounter end (assist required)"
 L.OnlyFight					= "Only during fight, after each movie has played once"
 L.AfterFirst				= "In instance, after each movie has played once"
 L.Always					= ALWAYS

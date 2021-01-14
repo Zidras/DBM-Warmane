@@ -337,6 +337,7 @@ DBM.DefaultOptions = {
 	ShortTimerText = true,
 	ChatFrame = "DEFAULT_CHAT_FRAME",
 	CoreSavedRevision = 1,
+	ReportRecount = true,
 --	HelpMessageShown = false,
 }
 
@@ -4833,6 +4834,26 @@ do
 						msg = msg or chatPrefixShort..DBM_CORE_WHISPER_COMBAT_END_KILL:format(playerName, difficultyText..(name or ""))
 					end
 					sendWhisper(k, msg)
+				end
+				if self.Options.ReportRecount and self:GetRaidRank() > 0 and Recount then
+					Recount.db.profile.CurDataSet="LastFightData";
+					Recount.MainWindow.DispTableSorted={};
+					Recount.MainWindow.DispTableLookup={};
+					Recount.FightName="Current Fight";
+					Recount:SetMainWindowMode(1)
+					Recount:FullRefreshMainWindow();
+					C_Timer_DBM:After(0.01, function()
+					Recount:ReportData(25,(IsInRaid() and "raid") or "party")
+					end)
+					C_Timer_DBM:After(1, function()
+					Recount:SetMainWindowMode(23)
+					Recount:FullRefreshMainWindow()
+					end)
+					C_Timer_DBM:After(1.5, function()
+					Recount:ReportData(6,(IsInRaid() and "raid") or "party")
+					Recount:SetMainWindowMode(1)
+					Recount:FullRefreshMainWindow()
+					end)
 				end
 				fireEvent("DBM_Kill", mod)
 				if self.Options.EventSoundVictory2 and self.Options.EventSoundVictory2 ~= "None" and self.Options.EventSoundVictory2 ~= "" then
