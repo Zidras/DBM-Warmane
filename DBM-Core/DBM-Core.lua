@@ -4836,24 +4836,7 @@ do
 					sendWhisper(k, msg)
 				end
 				if self.Options.ReportRecount and self:GetRaidRank() > 0 and Recount then
-					Recount.db.profile.CurDataSet="LastFightData";
-					Recount.MainWindow.DispTableSorted={};
-					Recount.MainWindow.DispTableLookup={};
-					Recount.FightName="Current Fight";
-					Recount:SetMainWindowMode(1)
-					Recount:FullRefreshMainWindow();
-					C_Timer_DBM:After(0.01, function()
 					Recount:ReportData(25,(IsInRaid() and "raid") or "party")
-					end)
-					C_Timer_DBM:After(1, function()
-					Recount:SetMainWindowMode(23)
-					Recount:FullRefreshMainWindow()
-					end)
-					C_Timer_DBM:After(1.5, function()
-					Recount:ReportData(6,(IsInRaid() and "raid") or "party")
-					Recount:SetMainWindowMode(1)
-					Recount:FullRefreshMainWindow()
-					end)
 				end
 				fireEvent("DBM_Kill", mod)
 				if self.Options.EventSoundVictory2 and self.Options.EventSoundVictory2 ~= "None" and self.Options.EventSoundVictory2 ~= "" then
@@ -5003,18 +4986,24 @@ end
 
 function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, maxPlayers, playerDifficulty, isDynamicInstance = GetInstanceInfo()
-	if difficulty == 1 and maxPlayers == 25 then difficulty = 2 end
-
-	if difficulty == 1 then
-		return instanceType == "raid" and "normal10" or "normal5", difficultyName.." - ", difficulty, maxPlayers
-	elseif difficulty == 2 then
-		return instanceType == "raid" and "normal25" or "heroic5", difficultyName.." - ", difficulty, maxPlayers
-	elseif difficulty == 3 then
-		return "heroic10", difficultyName.." - ", difficulty, maxPlayers
-	elseif difficulty == 4 then
-		return "heroic25", difficultyName.." - ", difficulty, maxPlayers
-	else
-		return "normal", "", difficulty, maxPlayers, 0
+	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
+		if difficulty == 1 then -- 10 men
+			return playerDifficulty == 0 and "normal10" or playerDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+		elseif difficulty == 2 then -- 25 men
+			return playerDifficulty == 0 and "normal25" or playerDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+		end
+	else -- support for "old" instances
+		if GetInstanceDifficulty() == 1 then
+			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
+			self.hasHeroic and "normal10" or "heroic10", difficultyName.." - ", difficulty, maxPlayers
+		elseif GetInstanceDifficulty() == 2 then
+			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
+			self.hasHeroic and "normal25" or "heroic25", difficultyName.." - ", difficulty, maxPlayers
+		elseif GetInstanceDifficulty() == 3 then
+			return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+		elseif GetInstanceDifficulty() == 4 then
+			return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+		end
 	end
 end
 
@@ -6233,16 +6222,6 @@ function bossModPrototype:GetDifficulty()
 	end
 end
 
-function bossModPrototype:IsDifficulty(...)
-	local diff = self:GetDifficulty()
-	for i = 1, select("#", ...) do
-		if diff == select(i, ...) then
-			return true
-		end
-	end
-	return false
-end
-
 function bossModPrototype:IsTrivial(level)
 	if UnitLevel("player") >= level then
 		return true
@@ -6492,16 +6471,6 @@ function GetNumGroupMembers()
 	else
 		return GetNumRaidMembers()
 	end
-end
-
-function bossModPrototype:IsDifficulty(...)
-	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-	for i = 1, select("#", ...) do
-		if diff == select(i, ...) then
-			return true
-		end
-	end
-	return false
 end
 
 function bossModPrototype:IsLFR()
