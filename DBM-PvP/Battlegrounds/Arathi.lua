@@ -261,6 +261,7 @@ do
 			winTimer:Update(get_gametime(), get_gametime()+HordeTime)
 			winTimer:DisableEnlarge()
 			winTimer:UpdateName(L.WinBarText:format(L.Horde))
+			DBM:Debug(L.WinBarText:format(L.Horde),2)
 			winTimer:SetColor(hordeColor)
 			winTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_01.blp")
 
@@ -275,6 +276,7 @@ do
 			winTimer:Update(get_gametime(), get_gametime()+AllyTime)
 			winTimer:DisableEnlarge()
 			winTimer:UpdateName(L.WinBarText:format(L.Alliance))
+			DBM:Debug(L.WinBarText:format(L.Alliance),2)
 			winTimer:SetColor(allyColor)
 			winTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_02.blp")
 		end
