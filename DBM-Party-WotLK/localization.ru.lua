@@ -1223,7 +1223,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Отличная работа!"
+	YellCombatEnd	= "Превосходно!"
 })
 
 -----------------------
