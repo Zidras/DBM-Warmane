@@ -338,6 +338,7 @@ DBM.DefaultOptions = {
 	ChatFrame = "DEFAULT_CHAT_FRAME",
 	CoreSavedRevision = 1,
 	ReportRecount = true,
+	PerCharacterSettings = false,
 --	HelpMessageShown = false,
 }
 
@@ -2539,7 +2540,8 @@ function DBM:LoadModOptions(modId, inCombat, first)
 	local oldSavedVarsName = modId:gsub("-", "").."_SavedVars"
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
 	local savedStatsName = modId:gsub("-", "").."_SavedStats"
-	local fullname = playerName.."-"..playerRealm
+	local fullname = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
+	self:Debug("using profile namespace "..fullname, 3)
 	if not currentSpecName or not currentSpecGroup then
 		self:SetCurrentSpecInfo()
 	end
