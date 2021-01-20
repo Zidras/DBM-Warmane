@@ -95,7 +95,7 @@ L:SetMiscLocalization({
 	ScoreExpr	= "(%d+)/1600",
 	Alliance	= "Альянса",
 	Horde		= "Орды",
-	WinBarText	= "Финал: %d - %d",
+	WinBarText	= "Победа %s",
 	BasesToWin	= "Захвачено баз: %d",
 	Flag		= "Флаг"
 })
