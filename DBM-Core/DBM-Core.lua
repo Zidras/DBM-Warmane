@@ -113,10 +113,7 @@ local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
 
 -- dual profile setup
 local _, playerClass = UnitClass("player")
-DBM_UseDualProfile = true
-if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" then
-	DBM_UseDualProfile = false
-end
+
 DBM_CharSavedRevision = 2
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
@@ -339,6 +336,7 @@ DBM.DefaultOptions = {
 	CoreSavedRevision = 1,
 	ReportRecount = true,
 	PerCharacterSettings = false,
+	DualProfile = true,
 --	HelpMessageShown = false,
 }
 
@@ -901,6 +899,12 @@ do
 		if DBM and TT then
 			TT:Initialize(true)
 		end
+		if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" then
+			DBM_UseDualProfile = false
+		else
+			DBM_UseDualProfile = DBM.Options.DualProfile
+		end
+		DBM:SpecChanged(true)
 		if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
 		end
@@ -2683,7 +2687,7 @@ function DBM:LoadAllModDefaultOption(modId)
 	end
 	-- variable init
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
-	local fullname = playerName.."-"..playerRealm
+	local fullname = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
 	local profileNum = playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
 	-- prevent nil table error
 	if not _G[savedVarsName] then _G[savedVarsName] = {} end
@@ -2722,7 +2726,7 @@ function DBM:LoadModDefaultOption(mod)
 	end
 	-- variable init
 	local savedVarsName = (mod.modId):gsub("-", "").."_AllSavedVars"
-	local fullname = playerName.."-"..playerRealm
+	local fullname = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
 	local profileNum = playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
 	-- prevent nil table error
 	if not _G[savedVarsName] then _G[savedVarsName] = {} end
@@ -2758,7 +2762,7 @@ function DBM:CopyAllModOption(modId, sourceName, sourceProfile)
 	end
 	-- variable init
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
-	local targetName = playerName.."-"..playerRealm
+	local targetName = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
 	local targetProfile = playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
 	-- do not copy setting itself
 	if targetName == sourceName and targetProfile == sourceProfile then
@@ -2818,7 +2822,7 @@ function DBM:CopyAllModTypeOption(modId, sourceName, sourceProfile, Type)
 	end
 	-- variable init
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
-	local targetName = playerName.."-"..playerRealm
+	local targetName = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
 	local targetProfile = playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
 	-- do not copy setting itself
 	if targetName == sourceName and targetProfile == sourceProfile then
@@ -2875,7 +2879,7 @@ function DBM:DeleteAllModOption(modId, name, profile)
 	end
 	-- variable init
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
-	local fullname = playerName.."-"..playerRealm
+	local fullname = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
 	local profileNum = playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
 	-- cannot delete current profile.
 	if fullname == name and profileNum == profile then
@@ -2950,11 +2954,11 @@ do
 		DBM_AllSavedOptions[usedProfile] = self.Options
 
 		-- force enable dual profile (change default)
-		if tonumber(DBM_CharSavedRevision) < 12976 then
-			if playerClass ~= "MAGE" and playerClass ~= "WARLOCK" and playerClass ~= "ROGUE" then
-				DBM_UseDualProfile = true
-			end
-		end
+		--if tonumber(DBM_CharSavedRevision) < 12976 then
+		--	if playerClass ~= "MAGE" and playerClass ~= "WARLOCK" and playerClass ~= "ROGUE" then
+		--		DBM_UseDualProfile = true
+		--	end
+		--end
 		DBM_CharSavedRevision = self.Revision
 		-- load special warning options
 		self:UpdateWarningOptions()
