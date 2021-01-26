@@ -1,5 +1,5 @@
 ﻿local mod	= DBM:NewMod("z444", "DBM-PvP", 2)
-local L			= mod:GetLocalizedStrings()
+local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20200405141240")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
@@ -22,8 +22,8 @@ local FlagCarrier = {
 	[2] = nil
 }
 
-local startTimer = mod:NewTimer(62, "TimerStart")
-local flagTimer = mod:NewTimer(23, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
+local startTimer	= mod:NewTimer(62, "TimerStart")
+local flagTimer		= mod:NewTimer(23, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
 
 mod:AddBoolOption("ShowFlagCarrier", true, nil, function()
 	if mod.Options.ShowFlagCarrier and bgzone then
@@ -34,29 +34,33 @@ mod:AddBoolOption("ShowFlagCarrier", true, nil, function()
 end)
 mod:AddBoolOption("ShowFlagCarrierErrorNote", false)
 
-function mod:OnInitialize()
-	if select(2, IsInInstance()) == "pvp" and GetRealZoneText() == L.ZoneName then
-		bgzone = true
-		if self.Options.ShowFlagCarrier then
-			self:ShowFlagCarrier()
-			self:CreateFlagCarrierButton()
-			self.FlagCarrierFrame1Text:SetText("")
-			self.FlagCarrierFrame2Text:SetText("")
-		end
+do
+	function mod:OnInitialize()
+		if select(2, IsInInstance()) == "pvp" and GetRealZoneText() == L.ZoneName then
+			bgzone = true
+			if self.Options.ShowFlagCarrier then
+				self:ShowFlagCarrier()
+				self:CreateFlagCarrierButton()
+				if self.FlagCarrierFrame1Text then -- check for nil error? ebal ety igry btw
+					self.FlagCarrierFrame1Text:SetText("")
+					self.FlagCarrierFrame2Text:SetText("")
+				end
+			end
 
-		FlagCarrier[1] = nil
-		FlagCarrier[2] = nil
+			FlagCarrier[1] = nil
+			FlagCarrier[2] = nil
 
-	elseif bgzone then
-		bgzone = false
-		if self.Options.ShowFlagCarrier then
-			self:HideFlagCarrier()
+		elseif bgzone then
+			bgzone = false
+			if self.Options.ShowFlagCarrier then
+				self:HideFlagCarrier()
+			end
 		end
 	end
 end
 
 function mod:ZONE_CHANGED_NEW_AREA()
-	self:ScheduleMethod(4, "OnInitialize")
+	self:ScheduleMethod(8, "OnInitialize")
 end
 
 function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
