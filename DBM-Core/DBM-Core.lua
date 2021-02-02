@@ -5155,7 +5155,7 @@ do
 		elseif v2.revision and not v1.revision then
 			return false
 		elseif v1.revision and v2.revision then
-			return v1.revision > v2.revision
+			return (tonumber(v1.revision) or 0) > (tonumber(v2.revision) or 0)
 		end
 	end
 
