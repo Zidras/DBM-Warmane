@@ -30,7 +30,8 @@ local timerFrenzy			= mod:NewCDTimer(16, 39249)
 local warnFrenzy			= mod:NewTargetAnnounce(39249)
 local timerCrystalHandler 	= mod:NewTimer(30, "timerCrystalHandler", 72262)
 
-mod:AddBoolOption("SetIconOnEnragedMob", true, "icon")
+mod:AddSetIconOption("SetIconOnEnragedMob", 39249, true, true)
+
 local CrystalHandlers = 4
 
 function mod:OnCombatStart(delay)
