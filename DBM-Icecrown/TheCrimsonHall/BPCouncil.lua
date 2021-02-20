@@ -47,7 +47,7 @@ local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5)	-- usu
 local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718, nil, nil, nil, 3) -- every 20-30 seconds but never more often than every 20sec
 local timerGlitteringSparksCD	= mod:NewCDTimer(20, 72798, nil, nil, nil, 2) -- This is pretty nasty on heroic
 local timerShockVortex			= mod:NewCDTimer(15.0, 72037, nil, nil, nil, 3) -- Seen a range from 16,8 - 21,6
-local timerShockVortexMax		= mod:NewCDTimer(20.0, 72037, nil, nil, nil, 3) -- Seen a range from 16,8 - 21,6
+local timerShockVortexMax		= mod:NewCDTimer(20.0, 72814, nil, nil, nil, 3) -- Seen a range from 16,8 - 21,6
 local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking
 local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
 
