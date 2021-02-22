@@ -21,7 +21,8 @@ local warnBreathInc				= mod:NewAnnounce("WarningBreathSoon", 3, 60072)
 local warnBreath				= mod:NewAnnounce("WarningBreath", 4, 60072)
 local warnSurge					= mod:NewTargetAnnounce(60936, 3)
 local warnStaticField			= mod:NewTargetAnnounce(57430, 3)
-
+local warnPhase2				= mod:NewPhaseAnnounce(2)
+local warnPhase3				= mod:NewPhaseAnnounce(3)
 local specWarnSurge				= mod:NewSpecialWarningYou(60936)
 local specWarnStaticField		= mod:NewSpecialWarningYou(57430, nil, nil, nil, 1, 2)
 local specWarnStaticFieldNear	= mod:NewSpecialWarningClose(57430, nil, nil, nil, 1, 2)
@@ -137,6 +138,7 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(60936, 57407) then
+		DBM:Debug("SURGE" .. guids[args.destGUID], 2)
 		local target = guids[args.destGUID or 0]
 		if target then
 			surgeTargets[#surgeTargets + 1] = target
@@ -160,6 +162,7 @@ function mod:OnSync(event, arg)
 	elseif event == "Phase2" then
 		timerSpark:Stop()
 		timerVortexCD:Stop()
+		warnPhase2:Show()
 		timerIntermission:Start()
 		timerBreath:Start(92)
 	elseif event == "Breath" then
@@ -168,6 +171,7 @@ function mod:OnSync(event, arg)
 	elseif event == "BreathSoon" then
 		warnBreathInc:Show()
 	elseif event == "Phase3" then
+		warnPhase3:Show()
 		self:Schedule(6, buildGuidTable)
 	end
 end
