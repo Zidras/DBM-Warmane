@@ -227,6 +227,12 @@ local function MixinSharedMedia3(mediatype, mediatable)
 		local LSM = LibStub("LibSharedMedia-3.0")
 		soundsRegistered = true
 		--Embedded Sound Clip media
+		LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+		LSM:Register("sound", "Beware ENG", "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+		LSM:Register("sound", "RUS Beware",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
+		LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
+		LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+		LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 		LSM:Register("sound", "AirHorn (DBM)", [[Interface\AddOns\DBM-Core\sounds\AirHorn.ogg]])
 		LSM:Register("sound", "Jaina: Beware", [[Interface\AddOns\DBM-Core\sounds\SoundClips\beware.ogg]])
 		LSM:Register("sound", "Jaina: Beware (reverb)", [[Interface\AddOns\DBM-Core\sounds\SoundClips\beware_with_reverb.ogg]])
@@ -573,7 +579,13 @@ do
 
 		if dbmvar and DBM.Options[dbmvar] ~= nil then
 			button:SetScript("OnShow",  function(self) button:SetChecked(DBM.Options[dbmvar]) end)
-			button:SetScript("OnClick", function(self) DBM.Options[dbmvar] = not DBM.Options[dbmvar] end)
+			button:SetScript("OnClick", function(self) DBM.Options[dbmvar] = not DBM.Options[dbmvar]
+				if dbmvar == "DualProfile" then -- kocTblJIb for dualprofile since overriding Onshow or onClick breaks this hueta
+					DBM_UseDualProfile = not DBM_UseDualProfile
+					DBM:Debug(tostring( dbmvar ) .. "DBM_UseDualProfile is now " .. tostring( DBM_UseDualProfile ))
+					DBM:SpecChanged(true)
+				end
+			end)
 		end
 
 		if dbtvar then
@@ -3513,13 +3525,7 @@ local function CreateOptionsMenu()
 		local dualProfileArea		= profilePanel:CreateArea(L.Area_DualProfile, nil, 140, true)
 		local dualProfile			= dualProfileArea:CreateCheckButton(L.DualProfile, true, nil, "DualProfile")
 		local PerCharacterSettings	= dualProfileArea:CreateCheckButton(L.PerCharacterSettings, true, nil, "PerCharacterSettings")
-		dualProfile:SetScript("OnClick", function()
-			DBM_UseDualProfile = not DBM_UseDualProfile
-			DBM:SpecChanged(true)
-		end)
-		dualProfile:SetScript("OnShow", function()
-			dualProfile:SetChecked(DBM_UseDualProfile)
-		end)
+
 
 		function DBM_GUI:dbm_profilePanel_create()
 			if createTextbox:GetText() then

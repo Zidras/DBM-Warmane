@@ -63,6 +63,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
+	if self:GetCIDFromGUID(args.sourceGUID) == 28859 then
+		DBM:Debug("SCSuccess " .. args.spellId .. GetSpellLink(args.spellId) , 2)
+	end
 	if args:IsSpellID(56105) then
 		timerVortexCD:Start()
 		warnVortexSoon:Schedule(54)
@@ -71,7 +74,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if timerSpark:GetTime() < 11 and timerSpark:IsStarted() then
 			timerSpark:Update(18, 30)
 		end
-	elseif args:IsSpellID(57430) then 
+	elseif args:IsSpellID(57430) then
 		self:ScheduleMethod(0.1, "StaticFieldTarget")
 		--warnStaticField:Show()
 		timerStaticFieldCD:Start()
@@ -79,8 +82,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 -- not really sure which one this spell is casted by. Use both i guess
-function mod:SPELL_CAST_START(args) 
-	if args:IsSpellID(57430) then 
+function mod:SPELL_CAST_START(args)
+	if self:GetCIDFromGUID(args.sourceGUID) == 28859 then
+		DBM:Debug("SCStart " .. args.spellId .. GetSpellLink(args.spellId) , 2)
+	end
+	if args:IsSpellID(57430) then
 		self:ScheduleMethod(0.1, "StaticFieldTarget")
 		--warnStaticField:Show()
 		timerStaticFieldCD:Start()
