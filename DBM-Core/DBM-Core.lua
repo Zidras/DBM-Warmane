@@ -87,7 +87,7 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = ("$Revision: 7001 $"):sub(12, -3),
+	Revision = ("$Revision: 7002 $"):sub(12, -3),
 	Version = "7.02",
 	DisplayVersion = "7.02 DBM-WoWCircle by Barsoom for WoWCircle WotLK", -- the string that is shown as version
 	ReleaseRevision = 7002 -- the revision of the latest stable version that is available (for /dbm ver2)
