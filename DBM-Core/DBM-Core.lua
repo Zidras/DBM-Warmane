@@ -88,9 +88,9 @@ end
 
 DBM = {
 	Revision = ("$Revision: 7001 $"):sub(12, -3),
-	Version = "7.01",
-	DisplayVersion = "7.01 DBM-WoWCircle by Barsoom for WoWCircle WotLK", -- the string that is shown as version
-	ReleaseRevision = 7001 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Version = "7.02",
+	DisplayVersion = "7.02 DBM-WoWCircle by Barsoom for WoWCircle WotLK", -- the string that is shown as version
+	ReleaseRevision = 7002 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
