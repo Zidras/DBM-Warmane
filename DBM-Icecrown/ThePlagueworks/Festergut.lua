@@ -42,7 +42,7 @@ local berserkTimer			= mod:NewBerserkTimer(300)
 local soundPungentBlight 	= mod:NewSound5(71219)
 local soundSpores			= mod:NewSound(69279)
 
-mod:AddBoolOption("RangeFrame", "Ranged")
+mod:AddBoolOption("RangeFrame")
 mod:AddBoolOption("SetIconOnGasSpore", true)
 mod:AddBoolOption("AnnounceSporeIcons", false)
 mod:AddBoolOption("AchievementCheck", false, "announce")

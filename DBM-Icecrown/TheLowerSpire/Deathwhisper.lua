@@ -222,6 +222,7 @@ do
 		end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
+		soundWarnMC:Cancel()
 		soundWarnMC:Schedule(35-mc_delay)
 		if mod.Options.EqUneqWeapons and not mod:IsTank() and mod.Options.EqUneqTimer then
 			mod:ScheduleMethod(39-mc_delay, "UnW")

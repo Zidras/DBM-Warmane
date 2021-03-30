@@ -273,10 +273,26 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(70352, 74118) then	--Ooze Variable
 		if args:IsPlayer() then
 			specWarnOozeVariable:Show()
+			warnUnstableExperimentSoon:Cancel()
+			timerUnstableExperimentCD:Cancel()
+			timerMalleableGooCD:Cancel()
+			soundGooCast:Cancel()
+			timerSlimePuddleCD:Cancel()
+			timerChokingGasBombCD:Cancel()
+			soundGasBomb:Cancel()
+			timerUnboundPlagueCD:Cancel()
 		end
 	elseif args:IsSpellID(70353, 74119) then	-- Gas Variable
 		if args:IsPlayer() then
 			specWarnGasVariable:Show()
+			warnUnstableExperimentSoon:Cancel()
+			timerUnstableExperimentCD:Cancel()
+			timerMalleableGooCD:Cancel()
+			soundGooCast:Cancel()
+			timerSlimePuddleCD:Cancel()
+			timerChokingGasBombCD:Cancel()
+			soundGasBomb:Cancel()
+			timerUnboundPlagueCD:Cancel()
 		end
 	elseif args:IsSpellID(72855, 72856, 70911) then	 -- Unbound Plague
 		warnUnboundPlague:Show(args.destName)

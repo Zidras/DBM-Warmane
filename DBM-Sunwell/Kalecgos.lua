@@ -39,10 +39,9 @@ end)
 mod:AddBoolOption("FrameUpwards", false, nil, function()
 	mod:ChangeFrameOrientation()
 end)
-
-mod.Options.FramePoint = "CENTER"
-mod.Options.FrameX = 150
-mod.Options.FrameY = -50
+mod:AddEditboxOption("FramePoint", "CENTER")
+mod:AddEditboxOption("FrameX", 150)
+mod:AddEditboxOption("FrameY", -50)
 
 local portCount = 1
 
