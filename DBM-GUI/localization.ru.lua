@@ -67,7 +67,7 @@ L.Latency_Text				= "Макс. задержка для синхр-ции: %d"
 L.EnableDBM 				= "Включить DBM"
 L.EnableStatus 				= "Отвечать на запрос статуса боя шепотом"
 L.AutoRespond 				= "Включить авто-ответ в бою"
-L.FixCLEUOnCombatStart		= "Очищать кэш журнала боя в начале битвы"
+L.FixCLEUOnCombatStart		= "Очищать кэш журнала боя в начале/конце битвы и после смены зоны"
 
 L.ModelOptions				= "Настройки 3D моделей на странице боссов"
 L.EnableModels				= "Показывать 3D модели боссов"

@@ -64,7 +64,7 @@ L.Latency_Text				= "Set max latency sync threshold: %d"
 L.EnableDBM 				= "Enable DBM"
 L.EnableStatus 				= "Reply to 'status' whispers"
 L.AutoRespond 				= "Enable auto-respond while fighting"
-L.FixCLEUOnCombatStart		= "Clear combat log cache on pull"
+L.FixCLEUOnCombatStart		= "Clear combat log cache on pull/combat end and zone change"
 
 L.ModelOptions				= "3D Model Viewer Options"
 L.EnableModels				= "Enable 3D models in boss options"

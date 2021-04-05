@@ -3061,6 +3061,10 @@ do
 			savedDifficulty, difficultyText = currentDifficulty, currentDifficultyText
 		end
 		self:Debug("Instance Check fired with mapID "..mapID.." and difficulty "..difficulty, 2)
+		if DBM.Options.FixCLEUOnCombatStart then
+			self:Schedule(0.5, CombatLogClearEntries)
+			DBM:Debug("Scheduled FixCLEU")
+		end
 --		if LastInstanceMapID == mapID then
 --			self:Debug("No action taken because mapID hasn't changed since last check", 2)
 --			return
@@ -3111,6 +3115,10 @@ do
 		self:Debug("ZONE_CHANGED_NEW_AREA fired")
 		self:Unschedule(SecondaryLoadCheck)
 		self:Schedule(3, SecondaryLoadCheck, self)
+		if DBM.Options.FixCLEUOnCombatStart then
+			self:Schedule(0.5, CombatLogClearEntries)
+			DBM:Debug("Scheduled FixCLEU")
+		end
 	end
 
 	function DBM:LoadModsOnDemand(checkTable, checkValue)
@@ -4382,6 +4390,10 @@ do
 		if delayedFunction then--Will throw error if not a function, purposely not doing and type(delayedFunction) == "function" for now to make sure code works though  cause it always should be function
 			delayedFunction()
 			delayedFunction = nil
+		end
+		if DBM.Options.FixCLEUOnCombatStart then
+			self:Schedule(0.5, CombatLogClearEntries)
+			DBM:Debug("Scheduled FixCLEU")
 		end
 	end
 end
