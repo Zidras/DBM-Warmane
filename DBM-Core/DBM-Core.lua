@@ -1723,7 +1723,7 @@ do
 			end
 			LL:RequestLatency()
 			DBM:AddMsg(DBM_CORE_LAG_CHECKING)
-			C_Timer:After(5, function() DBM:ShowLag() end)
+			C_Timer.After(5, function() DBM:ShowLag() end)
 		elseif cmd:sub(1, 10) == "durability" then
 			if not LD then
 				DBM:AddMsg(DBM_CORE_UPDATE_REQUIRES_RELAUNCH)
@@ -1731,7 +1731,7 @@ do
 			end
 			LD:RequestDurability()
 			DBM:AddMsg(DBM_CORE_DUR_CHECKING)
-			C_Timer:After(5, function() DBM:ShowDurability() end)
+			C_Timer.After(5, function() DBM:ShowDurability() end)
 		elseif cmd:sub(1, 5) == "arrow" then
 			if not DBM:IsInRaid() then
 				DBM:AddMsg(DBM_ARROW_NO_RAIDGROUP)
@@ -3498,7 +3498,7 @@ do
 				if timer/60 > 1 then dummyMod2.text:Schedule(timer - 1*60, DBM_CORE_BREAK_MIN:format(1)) end
 				dummyMod2.text:Schedule(timer, DBM_CORE_ANNOUNCE_BREAK_OVER:format(hour..":"..minute))
 			end
-			C_Timer_DBM:After(timer, function() self.Options.tempBreak2 = nil end)
+			C_Timer_DBM.After(timer, function() self.Options.tempBreak2 = nil end)
 		end
 	end
 
@@ -3847,7 +3847,7 @@ do
 					DBM:Schedule(0.99, DBM.AddMsg, DBM, DBM_INSTANCE_INFO_ALL_RESPONSES)
 					allResponded = true
 				end
-				C_Timer_DBM:After(1, showResults) --Delay results so we allow time for same sender to send more than 1 lockout, otherwise, if we get expectedResponses before all data is sent from 1 user, we clip some of their data.
+				C_Timer_DBM.After(1, showResults) --Delay results so we allow time for same sender to send more than 1 lockout, otherwise, if we get expectedResponses before all data is sent from 1 user, we clip some of their data.
 			end
 		end
 
@@ -3990,7 +3990,7 @@ do
 			self:Schedule(17, updateInstanceInfo, 45, true)
 			self:Schedule(32, updateInstanceInfo, 30)
 			self:Schedule(48, updateInstanceInfo, 15)
---			C_Timer_DBM:After(62, showResults)
+--			C_Timer_DBM.After(62, showResults)
 		end
 	end
 
@@ -6456,6 +6456,7 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID,
 	end
 	return false
 end
+
 function bossModPrototype:IsWeaponDependent(uId)
 	return select(2, UnitClass(uId)) == "ROGUE"
 		or (select(2, UnitClass(uId)) == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
@@ -6474,22 +6475,6 @@ end
 -----------------------
 --  Utility Methods  --
 -----------------------
-
-function IsInGroup()
-	return (GetNumRaidMembers() == 0 and GetNumPartyMembers() > 0)
-end
-
-function IsInRaid()
-	return GetNumRaidMembers() > 0
-end
-
-function GetNumGroupMembers()
-	if IsInGroup() then
-		return GetNumPartyMembers()
-	else
-		return GetNumRaidMembers()
-	end
-end
 
 function bossModPrototype:IsLFR()
 	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
@@ -6766,7 +6751,7 @@ do
 			font1:Show()
 			font1u:Show()
 			added = true
-			frame.font1ticker = frame.font1ticker or C_Timer_DBM:NewTicker(0.05, fontHide1)
+			frame.font1ticker = frame.font1ticker or C_Timer_DBM.NewTicker(0.05, fontHide1)
 		elseif not frame.font2ticker then
 			font2elapsed = 0
 			font2.lastUpdate = GetTime()
@@ -6774,7 +6759,7 @@ do
 			font2:Show()
 			font2u:Show()
 			added = true
-			frame.font2ticker = frame.font2ticker or C_Timer_DBM:NewTicker(0.05, fontHide2)
+			frame.font2ticker = frame.font2ticker or C_Timer_DBM.NewTicker(0.05, fontHide2)
 		elseif not frame.font3ticker or force then
 			font3elapsed = 0
 			font3.lastUpdate = GetTime()
@@ -6783,7 +6768,7 @@ do
 			font3u:Show()
 			fontHide3()
 			added = true
-			frame.font3ticker = frame.font3ticker or C_Timer_DBM:NewTicker(0.05, fontHide3)
+			frame.font3ticker = frame.font3ticker or C_Timer_DBM.NewTicker(0.05, fontHide3)
 		end
 		if not added then
 			local prevText1 = font2:GetText()
@@ -6846,7 +6831,7 @@ do
 				moveEnd(self)
 			else
 				anchorFrame:Show()
-				anchorFrame.ticker = anchorFrame.ticker or C_Timer_DBM:NewTicker(5, function() self:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE) end)
+				anchorFrame.ticker = anchorFrame.ticker or C_Timer_DBM.NewTicker(5, function() self:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE) end)
 				self:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
 				self:Schedule(15, moveEnd, self)
 				self.Bars:CreateBar(15, DBM_CORE_MOVE_WARNING_BAR)
@@ -7539,14 +7524,14 @@ do
 			font1:SetText(text)
 			font1:Show()
 			added = true
-			frame.font1ticker = frame.font1ticker or C_Timer_DBM:NewTicker(0.05, fontHide1)
+			frame.font1ticker = frame.font1ticker or C_Timer_DBM.NewTicker(0.05, fontHide1)
 		elseif not frame.font2ticker or force then
 			font2elapsed = 0
 			font2.lastUpdate = GetTime()
 			font2:SetText(text)
 			font2:Show()
 			added = true
-			frame.font2ticker = frame.font2ticker or C_Timer_DBM:NewTicker(0.05, fontHide2)
+			frame.font2ticker = frame.font2ticker or C_Timer_DBM.NewTicker(0.05, fontHide2)
 		end
 		if not added then
 			local prevText1 = font2:GetText()

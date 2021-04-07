@@ -10,6 +10,9 @@
 ## DefaultState: enabled
 ## Author: Barsoom, Bunny67, DBM-frostmourne contributors, original DBM team
 ## X-Website: https://github.com/Barsoomx/DBM-wowcircle
+
+compat.lua
+
 Libs\Ace3\LibStub\LibStub.lua
 Libs\Ace3\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\Ace3\AceAddon-3.0\AceAddon-3.0.lua
@@ -30,10 +33,14 @@ Libs\LibTalentQuery-1.0\lib.xml
 Libs\LibGroupTalents-1.0\LibGroupTalents-1.0.lua
 Libs\LibGroupTalents-1.0\lib.xml
 Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+Libs\LibDurability\LibDurability.lua
+Libs\LibLatency\LibLatency.lua
+
+
 localization.en.lua
 localization.ru.lua
 
-compat.lua
+
 DBM-Core.lua
 DBM-Arrow.lua
 DBM-Flash.lua
