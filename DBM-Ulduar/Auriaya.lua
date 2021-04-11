@@ -43,7 +43,7 @@ local timerSonic		= mod:NewCastTimer(64688)
 
 mod:AddBoolOption("HealthFrame", true)
 
-local isFeared			= false
+local isFeared = false
 local catLives = 9
 
 function mod:OnCombatStart(delay)
@@ -97,7 +97,7 @@ function mod:UNIT_DIED(args)
 			else
 				warnCatDied:Show(catLives)
 				timerDefender:Start()
-         	end
+			end
 			if self.Options.HealthFrame then
 				DBM.BossHealth:RemoveBoss(34035)
 				DBM.BossHealth:AddBoss(34035, L.Defender:format(catLives))

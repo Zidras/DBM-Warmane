@@ -14,27 +14,82 @@ DBM_CORE_LOAD_MOD_ERROR				= "Error while loading boss mods for %s: %s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "Loaded '%s' boss mods. For more options, type /dbm in your chat."
 DBM_CORE_LOAD_GUI_ERROR				= "Could not load GUI: %s"
 
-DBM_CORE_COMBAT_STARTED				= "%s engaged. Good luck and have fun! :)";
+DBM_CORE_COMBAT_STARTED				= "%s engaged. Good luck and have fun! :)"
+DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "Engaged an in progress fight against %s. Good luck and have fun! :)"
+DBM_CORE_GUILD_COMBAT_STARTED		= "%s has been engaged by guild"
 DBM_CORE_BOSS_DOWN					= "%s down after %s!"
-DBM_CORE_BOSS_DOWN_LONG				= "%s down after %s! Your last kill took %s and your fastest kill took %s."
-DBM_CORE_BOSS_DOWN_NEW_RECORD		= "%s down after %s! This is a new record! (Old record was %s)"
-DBM_CORE_COMBAT_ENDED				= "Combat against %s ended after %s."
+DBM_CORE_BOSS_DOWN_I				= "%s down! You have %d total victories."
+DBM_CORE_BOSS_DOWN_L				= "%s down after %s! Your last kill took %s and your fastest kill took %s. You have %d total victories."
+DBM_CORE_BOSS_DOWN_NR				= "%s down after %s! This is a new record! (Old record was %s). You have %d total victories."
+DBM_CORE_GUILD_BOSS_DOWN			= "%s has been defeated by guild after %s!"
+DBM_CORE_COMBAT_ENDED_AT			= "Combat against %s (%s) ended after %s."
+DBM_CORE_COMBAT_ENDED_AT_LONG		= "Combat against %s (%s) ended after %s. You have %d total wipes on this difficulty."
+DBM_CORE_GUILD_COMBAT_ENDED_AT		= "Guild has wiped on %s (%s) after %s."
+DBM_CORE_COMBAT_STATE_RECOVERED		= "%s was engaged %s ago, recovering timers..."
 
-DBM_CORE_TIMER_FORMAT_SECS			= "%d |4second:seconds;"
+DBM_CORE_AFK_WARNING				= "You are AFK and in combat (%d percent health remaining), firing sound alert. If you are not AFK, clear your AFK flag or disable this option in 'extra features'."
+
+DBM_CORE_COMBAT_STARTED_AI_TIMER	= "My CPU is a neural net processor; a learning computer. (This fight will use the new timer AI feature to generate timer approximations)"
+
+DBM_CORE_PROFILE_NOT_FOUND			= "<Deadly Boss Mods> Your current profile is corrupted. Deadly Boss Mods will load 'Default' profile."
+DBM_CORE_PROFILE_CREATED			= "'%s' profile created."
+DBM_CORE_PROFILE_CREATE_ERROR		= "Create profile failed. Invalid profile name."
+DBM_CORE_PROFILE_CREATE_ERROR_D		= "Create profile failed. '%s' profile already exists."
+DBM_CORE_PROFILE_APPLIED			= "'%s' profile applied."
+DBM_CORE_PROFILE_APPLY_ERROR		= "Apply profile failed. '%s' profile does not exist."
+DBM_CORE_PROFILE_COPIED				= "'%s' profile copied."
+DBM_CORE_PROFILE_COPY_ERROR			= "Copy profile failed. '%s' profile does not exist."
+DBM_CORE_PROFILE_COPY_ERROR_SELF	= "Cannot copy profile to itself."
+DBM_CORE_PROFILE_DELETED			= "'%s' profile deleted. 'Default' profile will be applied."
+DBM_CORE_PROFILE_DELETE_ERROR		= "Delete profile failed. '%s' profile does not exist."
+DBM_CORE_PROFILE_CANNOT_DELETE		= "Cannot delete 'Default' profile."
+DBM_CORE_MPROFILE_COPY_SUCCESS		= "%s's (%d spec) mod settings have been copied."
+DBM_CORE_MPROFILE_COPY_SELF_ERROR	= "Cannot copy character settings to itself"
+DBM_CORE_MPROFILE_COPY_S_ERROR		= "Source is corrupted. Settings not copied or partly copied. Copy failed."
+DBM_CORE_MPROFILE_COPYS_SUCCESS		= "%s's (%d spec) mod sound or note settings have been copied."
+DBM_CORE_MPROFILE_COPYS_SELF_ERROR	= "Cannot copy character sound or note settings to itself"
+DBM_CORE_MPROFILE_COPYS_S_ERROR		= "Source is corrupted. Sound or note settings not copied or partly copied. Copy failed."
+DBM_CORE_MPROFILE_DELETE_SUCCESS	= "%s's (%d spec) mod settings deleted."
+DBM_CORE_MPROFILE_DELETE_SELF_ERROR	= "Cannot delete mod settings currently in use."
+DBM_CORE_MPROFILE_DELETE_S_ERROR	= "Source is corrupted. Settings not deleted or partly deleted. Delete failed."
+
+DBM_CORE_NOTE_SHARE_SUCCESS			= "%s has shared their note for %s"
+DBM_CORE_NOTE_SHARE_FAIL			= "%s attempted to share note text with you for %s. However, mod associated with this ability is not uninstalled or is not loaded. If you need this note, make sure you load the mod they are sharing notes for and ask them to share again"
+
+DBM_CORE_NOTEHEADER					= "Enter your note text here for %s. Enclosing a players name with >< class colors it. For alerts with multiple counts, separate notes with '/'"
+DBM_CORE_NOTEFOOTER					= "Press 'Okay' to accept changes or 'Cancel' to decline changes"
+DBM_CORE_NOTESHAREDHEADER			= "%s has shared below note text for %s. If you accept it, it will overwrite your existing note"
+DBM_CORE_NOTESHARED					= "Your note has been sent to the group"
+DBM_CORE_NOTESHAREERRORSOLO			= "Lonely? Shouldn't be passing notes to yourself"
+DBM_CORE_NOTESHAREERRORBLANK		= "Cannot share blank notes"
+DBM_CORE_NOTESHAREERRORGROUPFINDER	= "Notes cannot be shared in BGs, LFR, or LFG"
+DBM_CORE_NOTESHAREERRORALREADYOPEN	= "Cannot open a shared note link while note editor is already open, to prevent you from losing the note you are currently editing"
+
+DBM_CORE_ALLMOD_DEFAULT_LOADED		= "Default options for all mods in this instance have been loaded."
+DBM_CORE_ALLMOD_STATS_RESETED		= "All mod stats have been reset."
+DBM_CORE_MOD_DEFAULT_LOADED			= "Default options for this fight have been loaded."
+DBM_CORE_SOUNDKIT_MIGRATION			= "One or more of your warning/special warning sounds were reset to defaults do to incompatability media type or invalid sound path. DBM now only supports sound files residing your addons folder, or SoundKit IDs for playing media"
+
+DBM_CORE_TIMER_FORMAT_SECS			= "%.2f |4second:seconds;"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d |4minute:minutes;"
-DBM_CORE_TIMER_FORMAT				= "%d |4minute:minutes; and %d |4second:seconds;"
+DBM_CORE_TIMER_FORMAT				= "%d |4minute:minutes; and %.2f |4second:seconds;"
 
 DBM_CORE_MIN						= "min"
 DBM_CORE_MIN_FMT					= "%d min"
 DBM_CORE_SEC						= "sec"
-DBM_CORE_SEC_FMT					= "%d sec"
+DBM_CORE_SEC_FMT					= "%s sec"
 DBM_CORE_DEAD						= "dead"
 DBM_CORE_OK							= "Okay"
 
+DBM_CORE_GENERIC_WARNING_OTHERS		= "and one other"
+DBM_CORE_GENERIC_WARNING_OTHERS2	= "and %d others"
 DBM_CORE_GENERIC_WARNING_BERSERK	= "Berserk in %s %s"
 DBM_CORE_GENERIC_TIMER_BERSERK		= "Berserk"
 DBM_CORE_OPTION_TIMER_BERSERK		= "Show timer for $spell:26662"
 DBM_CORE_OPTION_HEALTH_FRAME		= "Show boss health frame"
+DBM_CORE_GENERIC_TIMER_COMBAT		= "Combat starts"
+DBM_CORE_OPTION_TIMER_COMBAT		= "Show timer for combat start"
+DBM_CORE_BAD						= "Bad"
 
 DBM_CORE_OPTION_CATEGORY_TIMERS		= "Bars"
 DBM_CORE_OPTION_CATEGORY_WARNINGS	= "Announces"
@@ -51,21 +106,30 @@ DBM_CORE_OPTION_CATEGORY_DROPDOWNS		= "Dropdowns"--Still put in MISC sub grooup,
 DBM_CORE_OPTION_CATEGORY_YELLS			= "Yells"
 DBM_CORE_OPTION_CATEGORY_ICONS			= "Icons"
 
-DBM_CORE_AUTO_RESPONDED				= "Auto-responded."
-DBM_CORE_STATUS_WHISPER				= "%s: %s, %d/%d people alive"
-DBM_CORE_AUTO_RESPOND_WHISPER		= "%s is busy fighting against %s (%s, %d/%d people alive)"
-DBM_CORE_WHISPER_COMBAT_END_KILL	= "%s has defeated %s!"
-DBM_CORE_WHISPER_COMBAT_END_WIPE	= "%s has wiped on %s"
+DBM_CORE_AUTO_RESPONDED						= "Auto-responded."
+DBM_CORE_STATUS_WHISPER						= "%s: %s, %d/%d people alive"
+DBM_CORE_AUTO_RESPOND_WHISPER				= "%s is busy fighting against %s (%s, %d/%d people alive)"
+DBM_CORE_WHISPER_COMBAT_END_KILL			= "%s has defeated %s!"
+DBM_CORE_WHISPER_COMBAT_END_KILL_STATS		= "%s has defeated %s! They have %d total victories."
+DBM_CORE_WHISPER_COMBAT_END_WIPE_AT			= "%s has wiped on %s at %s"
+DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s has wiped on %s at %s. They have %d total wipes on this difficulty."
 
-DBM_CORE_VERSIONCHECK_HEADER		= "Deadly Boss Mods - Versions"
-DBM_CORE_VERSIONCHECK_ENTRY			= "%s: %s (r%d)"
-DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s: DBM not installed"
-DBM_CORE_VERSIONCHECK_FOOTER		= "Found %d players with Deadly Boss Mods"
-DBM_CORE_YOUR_VERSION_OUTDATED      = "Your version of Deadly Boss Mods is out-of-date. Please visit https://github.com/Barsoomx/DBM-wowcircle to get the latest version."
+DBM_CORE_VERSIONCHECK_HEADER		= "Boss Mod - Versions"
+DBM_CORE_VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"--One Boss mod
+DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s: No boss mod installed"
+DBM_CORE_VERSIONCHECK_FOOTER		= "Found %d player(s) with DBM"
+DBM_CORE_VERSIONCHECK_OUTDATED		= "Following %d player(s) have outdated boss mod version: %s"
+DBM_CORE_YOUR_VERSION_OUTDATED      = "Your version of Deadly Boss Mods is out-of-date. Please visit " .. DBM_CORE_UPDATEREMINDER_URL .. " to get the latest version."
+DBM_CORE_VOICE_PACK_OUTDATED		= "Your selected DBM voice pack is missing some sounds supported by DBM. Some warning sounds will still play default sounds. Please download a newer version of voice pack or pack contact author for an update that contains missing audio"
+DBM_CORE_VOICE_MISSING				= "You have a DBM voice pack selected that could not be found. If this is an error, make sure your voice pack is properly installed and enabled in addons."
+DBM_CORE_VOICE_DISABLED				= "You currently have at least one DBM voice pack installed but none enabled. If you intend to use a voice pack, make sure it's chosen in 'Spoken Alerts', else uninstall unused voice packs to hide this message"
+DBM_CORE_VOICE_COUNT_MISSING		= "Countdown voice %d is set to a voice/count pack that could not be found. It has be reset to default setting: %s."
 
-DBM_CORE_UPDATEREMINDER_HEADER		= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (r%d) is available for download here:"
-DBM_CORE_UPDATEREMINDER_FOOTER		= "Press Ctrl-C to copy the download link to your clipboard."
-DBM_CORE_UPDATEREMINDER_NOTAGAIN	= "Show popup when a new version is available"
+DBM_CORE_UPDATEREMINDER_HEADER			= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (r%d) is available for download here:"
+DBM_CORE_UPDATEREMINDER_FOOTER			= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
+DBM_CORE_UPDATEREMINDER_FOOTER_GENERIC	= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
+DBM_CORE_UPDATEREMINDER_DISABLE			= "WARNING: Due to your "..DBM_DEADLY_BOSS_MODS.." being too out of date it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
+DBM_CORE_UPDATEREMINDER_NOTAGAIN		= "Show popup when a new version is available"
 
 DBM_CORE_MOVABLE_BAR				= "Drag me!"
 
@@ -122,7 +186,8 @@ DBM_CORE_HORDE						= "Horde"
 
 DBM_CORE_UNKNOWN					= "unknown"
 
-DBM_CORE_BREAK_START				= "Break starting now -- you have %s minute(s)!"
+DBM_CORE_BREAK_USAGE				= "Break timer cannot be longer than 60 minutes. Make sure you're inputting time in minutes and not seconds."
+DBM_CORE_BREAK_START				= "Break starting now -- you have %s!"
 DBM_CORE_BREAK_MIN					= "Break ends in %s minute(s)!"
 DBM_CORE_BREAK_SEC					= "Break ends in %s seconds!"
 DBM_CORE_TIMER_BREAK				= "Break time!"
@@ -177,7 +242,7 @@ DBM_CORE_AUTO_TIMER_TEXTS = {
 }
 
 DBM_CORE_AUTO_TIMER_OPTIONS = {
-	target		= "Show timer for |cff71d5ff|Hspell:%d|h%s|h|r debuff",
+	target		= "Show timer for $spell:%s debuff",
 	cast		= "Show timer for $spell:%s cast",
 	castcount	= "Show timer (with count) for $spell:%s cast",
 	castsource	= "Show timer (with source) for $spell:%s cast",
@@ -465,3 +530,19 @@ DBM_CORE_ENRAGE_ICON		= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.bl
 
 --LDB
 DBM_LDB_TOOLTIP_HELP1	= "Click to open DBM"
+
+DBM_CORE_L = {}
+
+local L = DBM_CORE_L
+
+L.LOCK_FRAME 						= "Frame Locked"
+L.INFOFRAME_SHOW_SELF				= "Always show your power"		-- Always show your own power value even if you are below the threshold
+L.INFOFRAME_SETLINES				= "Set max lines"
+L.INFOFRAME_SETCOLS					= "Set max columns"
+L.INFOFRAME_LINESDEFAULT			= "Set by mod"
+L.INFOFRAME_LINES_TO				= "%d lines"
+L.INFOFRAME_COLS_TO					= "%d columns"
+L.INFOFRAME_POWER					= "Power"
+L.INFOFRAME_AGGRO					= "Aggro"
+L.INFOFRAME_MAIN					= "Main:"--Main power
+L.INFOFRAME_ALT						= "Alt:"--Alternate Power

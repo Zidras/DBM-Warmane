@@ -200,7 +200,7 @@ function mod:SPELL_CAST_START(args)
 			warnAdds:Cancel()
 			self:UnscheduleMethod("Adds")
 		end
-	elseif args:IsSpellID(66134) then							-- Shadow Strike
+	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then							-- Shadow Strike
 		self:ShadowStrike()
 		specWarnShadowStrike:Show()
 		warnShadowStrike:Show()

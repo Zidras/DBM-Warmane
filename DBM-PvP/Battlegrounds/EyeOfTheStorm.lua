@@ -1,22 +1,17 @@
--- EyeOfTheStorm mod v3.0
--- rewrite by Nitram and Tandanu
---
--- thanks DiabloHu
+local mod	= DBM:NewMod("z541", "DBM-PvP", 2)
+local L		= mod:GetLocalizedStrings()
 
-local EyeOfTheStorm	= DBM:NewMod("EyeoftheStorm", "DBM-PvP", 2)
-local L				= EyeOfTheStorm:GetLocalizedStrings()
+mod:SetRevision("20200405141240")
+mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
-EyeOfTheStorm:RemoveOption("HealthFrame")
-
-EyeOfTheStorm:SetZone(DBM_DISABLE_ZONE_DETECTION)
-
-EyeOfTheStorm:RegisterEvents(
+mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
 	"CHAT_MSG_BG_SYSTEM_HORDE",
 	"CHAT_MSG_BG_SYSTEM_ALLIANCE",
 	"CHAT_MSG_BG_SYSTEM_NEUTRAL",
 	"UPDATE_WORLD_STATES"
 )
+mod:RemoveOption("HealthFrame")
 
 local bgzone = false
 local ResPerSec = {
@@ -26,29 +21,21 @@ local ResPerSec = {
 	[3] = 2.5,
 	[4] = 5,
 }
-local allyColor = {
-	r = 0,
-	g = 0,
-	b = 1,
-}
-local hordeColor = {
-	r = 1,
-	g = 0,
-	b = 0,
-}
 
-EyeOfTheStorm:AddBoolOption("ShowPointFrame", true, nil, function()
-	if EyeOfTheStorm.Options.ShowPointFrame and bgzone then
-		EyeOfTheStorm:ShowEstimatedPoints()
+local allyColor = {r = 0, g = 0, b = 1}
+local hordeColor = {r = 1, g = 0, b = 0}
+
+mod:AddBoolOption("ShowPointFrame", true, nil, function()
+	if mod.Options.ShowPointFrame and bgzone then
+		mod:ShowEstimatedPoints()
 	else
-		EyeOfTheStorm:HideEstimatedPoints()
+		mod:HideEstimatedPoints()
 	end
 end)
 
-
-local startTimer = EyeOfTheStorm:NewTimer(62, "TimerStart")
-local winTimer = EyeOfTheStorm:NewTimer(30, "TimerWin")
-local flagTimer = EyeOfTheStorm:NewTimer(9, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
+local startTimer = mod:NewTimer(62, "TimerStart")
+local winTimer = mod:NewTimer(30, "TimerWin")
+local flagTimer = mod:NewTimer(9, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
 
 local objectives = {
 	[1] = 6,	-- Blood Elf
@@ -67,12 +54,12 @@ local function isTower(id)
 end
 
 local function getBasecount()
-	local alliance = 0 
+	local alliance = 0
 	local horde = 0
 	for k,v in pairs(objectives) do
-		if v == 11 then 
+		if v == 11 then
 			alliance = alliance + 1
-		elseif v == 10 then 
+		elseif v == 10 then
 			horde = horde + 1
 		end
 	end
@@ -111,7 +98,7 @@ do
 		if select(2, IsInInstance()) == "pvp" and GetRealZoneText() == L.ZoneName then
 			bgzone = true
 			updateGametime()
-			for i=1, GetNumMapLandmarks(), 1 do
+			for i = 1, GetNumMapLandmarks(), 1 do
 				local name, _, textureIndex = GetMapLandmarkInfo(i)
 				if name and textureIndex then
 					if isTower(textureIndex) or isFlag(textureIndex) then
@@ -119,19 +106,19 @@ do
 					end
 				end
 			end
-			if EyeOfTheStorm.Options.ShowPointFrame then
-				EyeOfTheStorm:ShowEstimatedPoints()
+			if mod.Options.ShowPointFrame then
+				mod:ShowEstimatedPoints()
 			end
 
 		elseif bgzone then
 			bgzone = false
-			if EyeOfTheStorm.Options.ShowPointFrame then
-				EyeOfTheStorm:HideEstimatedPoints()
+			if mod.Options.ShowPointFrame then
+				mod:HideEstimatedPoints()
 			end
 		end
 	end
-	EyeOfTheStorm.OnInitialize = initialize
-	EyeOfTheStorm.ZONE_CHANGED_NEW_AREA = initialize
+	mod.OnInitialize = initialize
+	mod.ZONE_CHANGED_NEW_AREA = initialize
 end
 
 do
@@ -147,15 +134,15 @@ do
 				end
 			end
 		end
-		EyeOfTheStorm:UPDATE_WORLD_STATES()
+		mod:UPDATE_WORLD_STATES()
 	end
-	
+
 	local function scheduleCheck(self)
 		self:Schedule(1, checkForUpdates)
 	end
 
-	function EyeOfTheStorm:CHAT_MSG_BG_SYSTEM_ALLIANCE(arg1)
-		if EyeOfTheStorm.Options.ShowPointFrame then
+	function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(arg1)
+		if mod.Options.ShowPointFrame then
 			if string.match(arg1, L.FlagTaken) then
 				local name = string.match(arg1, L.FlagTaken)
 				if name then
@@ -163,12 +150,12 @@ do
 					self.HordeFlag = nil
 					self:UpdateFlagDisplay()
 				end
-	
+
 			elseif string.match(arg1, L.FlagDropped) then
 				self.AllyFlag = nil
 				self.HordeFlag = nil
 				self:UpdateFlagDisplay()
-	
+
 			elseif string.match(arg1, L.FlagCaptured) then
 				flagTimer:Start()
 				self.AllyFlag = nil
@@ -179,8 +166,8 @@ do
 		scheduleCheck(self)
 	end
 
-	function EyeOfTheStorm:CHAT_MSG_BG_SYSTEM_HORDE(arg1)
-		if EyeOfTheStorm.Options.ShowPointFrame then
+	function mod:CHAT_MSG_BG_SYSTEM_HORDE(arg1)
+		if mod.Options.ShowPointFrame then
 			if string.match(arg1, L.FlagTaken) then
 				local name = string.match(arg1, L.FlagTaken)
 				if name then
@@ -188,12 +175,12 @@ do
 					self.HordeFlag = name
 					self:UpdateFlagDisplay()
 				end
-	
+
 			elseif string.match(arg1, L.FlagDropped) then
 				self.AllyFlag = nil
 				self.HordeFlag = nil
 				self:UpdateFlagDisplay()
-	
+
 			elseif string.match(arg1, L.FlagCaptured) then
 				flagTimer:Start()
 				self.AllyFlag = nil
@@ -204,7 +191,7 @@ do
 		scheduleCheck(self)
 	end
 
-	function EyeOfTheStorm:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
+	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
 		if not bgzone then
 			return
 		end
@@ -212,20 +199,19 @@ do
 		if arg1 == L.BgStart60 then
 			startTimer:Start()
 
-		elseif arg1 == L.BgStart30  then		
+		elseif arg1 == L.BgStart30  then
 			startTimer:Update(31, 62)
 
 		elseif string.match(arg1, L.FlagReset) then
-			EyeOfTheStorm.AllyFlag = nil
-			EyeOfTheStorm.HordeFlag = nil
-			EyeOfTheStorm:UpdateFlagDisplay()
+			mod.AllyFlag = nil
+			mod.HordeFlag = nil
+			mod:UpdateFlagDisplay()
 		end
 		scheduleCheck(self)
-	end	
+	end
 end
 
-
-function EyeOfTheStorm:UPDATE_WORLD_STATES()
+function mod:UPDATE_WORLD_STATES()
 	if not bgzone then return end
 
 	local last_alliance_bases, last_horde_bases = getBasecount()
@@ -234,9 +220,9 @@ function EyeOfTheStorm:UPDATE_WORLD_STATES()
 	-- calculate new times
 	local AllyTime = (1600 - last_alliance_score) / ResPerSec[last_alliance_bases]
 	local HordeTime = (1600 - last_horde_score) / ResPerSec[last_horde_bases]
-	
-	if AllyTime > 5000 then		AllyTime = 5000 end
-	if HordeTime > 5000 then	HordeTime = 5000 end
+
+	if AllyTime > 5000 then AllyTime = 5000 end
+	if HordeTime > 5000 then HordeTime = 5000 end
 
 	if AllyTime == HordeTime then
 		winner_is = 0 
@@ -250,7 +236,8 @@ function EyeOfTheStorm:UPDATE_WORLD_STATES()
 		winner_is = 2
 		winTimer:Update(getGametime(), getGametime()+HordeTime)
 		winTimer:DisableEnlarge()
-		winTimer:UpdateName(L.WinBarText:format(L.Horde))
+		local AllyPoints = math.floor((HordeTime * ResPerSec[last_alliance_bases]) + last_alliance_score)
+		winTimer:UpdateName(L.WinBarText:format(AllyPoints, 1600))
 		winTimer:SetColor(hordeColor)
 
 		if self.ScoreFrame1Text and self.ScoreFrame2Text then
@@ -261,10 +248,10 @@ function EyeOfTheStorm:UPDATE_WORLD_STATES()
 		end
 
 	elseif HordeTime > AllyTime then -- Alliance wins
-		winner_is = 1
-		winTimer:Update(getGametime(), getGametime()+AllyTime)
+		winTimer:Update(getGametime(), getGametime() + AllyTime)
 		winTimer:DisableEnlarge()
-		winTimer:UpdateName(L.WinBarText:format(L.Alliance))
+		local HordePoints = math.floor((HordeTime * ResPerSec[last_horde_bases]) + last_horde_score)
+		winTimer:UpdateName(L.WinBarText:format(1600, HordePoints))
 		winTimer:SetColor(allyColor)
 
 		if self.ScoreFrame1Text and self.ScoreFrame2Text then
@@ -276,9 +263,9 @@ function EyeOfTheStorm:UPDATE_WORLD_STATES()
 	end
 end
 
-function EyeOfTheStorm:UpdateFlagDisplay()
+function mod:UpdateFlagDisplay()
 	if self.ScoreFrame1Text and self.ScoreFrame2Text then
-		
+
 		local newText
 		local oldText = self.ScoreFrame1Text:GetText()
 		if self.AllyFlag then
@@ -291,7 +278,7 @@ function EyeOfTheStorm:UpdateFlagDisplay()
 			newText = string.gsub(oldText, "%((%d+)%).*", "%(%1%)")
 		end
 		self.ScoreFrame1Text:SetText(newText)
-		
+
 		newText = nil
 		oldText = self.ScoreFrame2Text:GetText()
 		if self.HordeFlag then
@@ -304,11 +291,11 @@ function EyeOfTheStorm:UpdateFlagDisplay()
 			newText = string.gsub(oldText, "%((%d+)%).*", "%(%1%)")
 		end
 		self.ScoreFrame2Text:SetText(newText)
-		
+
 	end
 end
 
-function EyeOfTheStorm:ShowEstimatedPoints()
+function mod:ShowEstimatedPoints()
 	if AlwaysUpFrame1Text and AlwaysUpFrame2Text then
 		if not self.ScoreFrame1 then
 			self.ScoreFrame1 = CreateFrame("Frame", nil, AlwaysUpFrame1)
@@ -335,7 +322,7 @@ function EyeOfTheStorm:ShowEstimatedPoints()
 	end
 end
 
-function EyeOfTheStorm:HideEstimatedPoints()
+function mod:HideEstimatedPoints()
 	if self.ScoreFrame1 and self.ScoreFrame2 then
 		self.ScoreFrame1:Hide()
 		self.ScoreFrame1Text:SetText("")

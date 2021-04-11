@@ -1,4 +1,4 @@
-local IsleOfConquest	= DBM:NewMod("IsleofConquest", "DBM-PvP", 2)
+local IsleOfConquest	= DBM:NewMod("z483", "DBM-PvP", 2)
 local L					= IsleOfConquest:GetLocalizedStrings()
 
 IsleOfConquest:RemoveOption("HealthFrame")
@@ -20,7 +20,7 @@ local hordeTowerIcon = "Interface\\AddOns\\DBM-PvP\\Textures\\OrcTower"
 local hordeColor = {r = 1, g = 0, b = 0}
 
 local warnSiegeEngine = IsleOfConquest:NewAnnounce("WarnSiegeEngine", 3)
-local warnSiegeEngineSoon = IsleOfConquest:NewAnnounce("WarnSiegeEngineSoon", 2) 
+local warnSiegeEngineSoon = IsleOfConquest:NewAnnounce("WarnSiegeEngineSoon", 2)
 
 local startTimer = IsleOfConquest:NewTimer(62, "TimerStart")
 local POITimer = IsleOfConquest:NewTimer(61, "TimerPOI")	-- point of interest
@@ -46,7 +46,7 @@ local function isPoi(id)
 		or (id >= 150 and id <= 154)	-- Refinerie
 		or (id >= 9 and id <= 12)		-- Keep
 end
-function getPoiState(id)
+local function getPoiState(id)
 	if isInArgs(id, 18, 136, 141, 146, 151) then		return 1		-- alliance
 	elseif isInArgs(id, 20, 138, 143, 148, 153) then 	return 2		-- horde
 	elseif isInArgs(id, 16, 135, 140, 145, 150) then	return 3		-- if getPoiState(id) == 3 then --- untaken
@@ -56,7 +56,7 @@ function getPoiState(id)
 	end
 end
 
--- 
+--
 -- 16 Quarry - Uncontrolled
 -- 17 Quarry - In Conflict (to Alliance)
 -- 18 Quarry - Alliance Controlled

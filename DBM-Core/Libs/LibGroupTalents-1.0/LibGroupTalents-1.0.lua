@@ -1,6 +1,6 @@
 --[[
 Name: LibGroupTalents-1.0
-Revision: $Rev: 55 $
+Revision: $Rev: 56 $
 Author: Zek
 Documentation: http://wowace.com/wiki/LibGroupTalents-1.0
 SVN: svn://svn.wowace.com/wow/libgrouptalents-1-0/mainline/trunk
@@ -66,7 +66,7 @@ Events:
 
 local TalentQuery = LibStub("LibTalentQuery-1.0")
 
-local MAJOR, MINOR = "LibGroupTalents-1.0", tonumber(("$Rev: 55 $"):match("(%d+)"))
+local MAJOR, MINOR = "LibGroupTalents-1.0", tonumber(("$Rev: 56 $"):match("(%d+)"))
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
 
@@ -224,6 +224,7 @@ end
 -- PLAYER_LOGIN
 function lib:PLAYER_LOGIN()
 	ChatThrottleLib = _G.ChatThrottleLib
+	self:TriggerRefreshTalents(UnitGUID("player"), 2)
 	lib.PLAYER_LOGIN = nil
 end
 

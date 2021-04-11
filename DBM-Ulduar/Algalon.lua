@@ -59,8 +59,8 @@ function mod:OnCombatStart(delay)
 	local text = select(3, GetWorldStateUIInfo(1))
 	local _, _, time = string.find(text, L.PullCheck)
 	if not time then
-        	time = 60
-    	end
+		time = 60
+	end
 	time = tonumber(time)
 	if time == 60 then
 		timerCombatStart:Start(26.5-delay)

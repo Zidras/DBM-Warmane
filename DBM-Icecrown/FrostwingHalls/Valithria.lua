@@ -43,10 +43,10 @@ local timerCorrosion				= mod:NewTargetTimer(6, 70751, nil, false)
 local timerBlazingSkeleton			= mod:NewTimer(50, "TimerBlazingSkeleton", 17204)
 local timerAbom						= mod:NewTimer(50, "TimerAbom", 43392)--Experimental
 
-local timerSuppresserOne			= mod:NewTimer(72, "TimerSuppressorOne")
-local timerSuppresserTwo			= mod:NewTimer(60, "TimerSuppressorTwo")
-local timerSuppresserThree			= mod:NewTimer(60, "TimerSuppressorThree")
-local timerSuppresserFour			= mod:NewTimer(60, "TimerSuppressorFour")
+local timerSuppresserOne			= mod:NewTimer(72, "TimerSuppressorOne","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserTwo			= mod:NewTimer(60, "TimerSuppressorTwo","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserThree			= mod:NewTimer(60, "TimerSuppressorThree","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserFour			= mod:NewTimer(60, "TimerSuppressorFour","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 local berserkTimer					= mod:NewBerserkTimer(420)
 local soundPortals					= mod:NewSound(72483)

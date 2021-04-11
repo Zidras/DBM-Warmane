@@ -16,23 +16,23 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warnFrenzySoon		= mod:NewAnnounce("WarnFrenzySoon", 2, 72737, true)
+local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, true)
 local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, true)
 local warnBloodNova			= mod:NewSpellAnnounce(73058, 2)
 local warnMark				= mod:NewTargetCountAnnounce(72444, 4)
-local warnBoilingBlood		= mod:NewTargetAnnounce(72441, 2, nil, mod:IsHealer())
-local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, mod:IsTank() or mod:IsHealer())
+local warnBoilingBlood		= mod:NewTargetAnnounce(72441, 2, nil, "Healer")
+local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, "Tank|Healer")
 
-local specwarnMark			= mod:NewSpecialWarningTarget(72444, false)
-local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, mod:IsTank())
+local specwarnMark			= mod:NewSpecialWarningTarget(72444, nil, false, nil, 1, 2)
+local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, mod:IsTank())
-local timerCombatStart		= mod:NewTimer(47.3, "TimerCombatStart", 2457)
-local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, mod:IsTank() or mod:IsHealer())
-local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441)
-local timerBloodNova		= mod:NewNextTimer(20, 73058)
-local timerCallBloodBeast	= mod:NewNextTimer(40, 72173)
+local timerCombatStart		= mod:NewCombatTimer(47.3)
+local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441, nil, "Healer", nil, 5, nil, DBM_CORE_HEALER_ICON)
+local timerBloodNova		= mod:NewNextTimer(20, 73058, nil, nil, nil, 2)
+local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
 
 local enrageTimer			= mod:NewBerserkTimer(480)
 local soundFrenzy			= mod:NewSound(72737)
@@ -40,7 +40,7 @@ local SoundAdds				= mod:NewSound(72173)
 
 mod:AddBoolOption("RangeFrame")
 mod:AddBoolOption("RunePowerFrame", true, "misc")
-mod:AddBoolOption("BeastIcons", true, "icon")
+mod:AddSetIconOption("BeastIcons", 72173, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddBoolOption("BoilingBloodIcons", false)
 mod:RemoveOption("HealthFrame")
 
@@ -189,7 +189,13 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg:find(L.PullAlliance, 1, true) then
 		timerCombatStart:Start()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(12)
+		end
 	elseif msg:find(L.PullHorde, 1, true) then
 		timerCombatStart:Start(99.5)
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(12)
+		end
 	end
 end

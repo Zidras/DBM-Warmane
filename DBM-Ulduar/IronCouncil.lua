@@ -161,7 +161,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerShieldofRunes:Start()
 	elseif args:IsSpellID(64637, 61888) then	-- Overwhelming Power
 		warnOverwhelmingPower:Show(args.destName)
-		if args:IsPlayer() then 
+		if args:IsPlayer() then
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(20)
 			end
@@ -200,7 +200,7 @@ end
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 32857 then -- brundir 
+	if cid == 32857 then -- brundir
 		brundirAlive = false
 		if runemasterAlive and steelbreakerAlive then
 			timerRuneofDeathDura:Start()
@@ -210,7 +210,7 @@ function mod:UNIT_DIED(args)
 		end
 	elseif cid == 32927 then -- runemaster
 		runemasterAlive = false
-		if brundirAlive and steelbreakerAlive then 
+		if brundirAlive and steelbreakerAlive then
 			lightningWhirlCD:Start()
 		end
 		timerRuneofDeathDura:Stop()

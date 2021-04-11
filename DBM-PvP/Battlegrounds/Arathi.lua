@@ -1,9 +1,4 @@
--- Arathi mod v3.0
--- rewrite by Tandanu
---
--- thanks to DiabloH
-
-local Arathi	= DBM:NewMod("ArathiBasin", "DBM-PvP", 2)
+local Arathi	= DBM:NewMod("z462", "DBM-PvP", 2)
 local L			= Arathi:GetLocalizedStrings()
 
 Arathi:SetZone(DBM_DISABLE_ZONE_DETECTION)
@@ -17,7 +12,7 @@ Arathi:RegisterEvents(
 	"CHAT_MSG_BG_SYSTEM_NEUTRAL",
 	"UPDATE_WORLD_STATES"
 )
-	
+
 local bgzone = false
 local ResPerSec = {
 	[0] = 0,
@@ -56,12 +51,12 @@ local function get_objective(id)
 	end
 end
 local function get_basecount()
-	local alliance = 0 
+	local alliance = 0
 	local horde = 0
 	for k,v in pairs(objectives) do
-		if v == 18 or v == 23 or v == 28 or v == 33 or v == 38 then 
+		if v == 18 or v == 23 or v == 28 or v == 33 or v == 38 then
 			alliance = alliance + 1
-		elseif v == 20 or v == 25 or v == 30 or v == 35 or v == 40 then 
+		elseif v == 20 or v == 25 or v == 30 or v == 35 or v == 40 then
 			horde = horde + 1
 		end
 	end
@@ -148,13 +143,13 @@ end)
 
 local startTimer = Arathi:NewTimer(62, "TimerStart")
 local winTimer = Arathi:NewTimer(30, "TimerWin")
-local capTimer = Arathi:NewTimer(63, "TimerCap")
+local capTimer = Arathi:NewTimer(59, "TimerCap")
 
 local function obj_state(id)
-	if id == 18 or id == 23 or id == 28 or id == 33 or id == 38 then	
+	if id == 18 or id == 23 or id == 28 or id == 33 or id == 38 then
 		return 1 -- if obj_state(id) > 2 then .. conflict state ...	( 1 == alliance,  2 == horde )
 	elseif id == 20 or id == 25 or id == 30 or id == 35 or id == 40 then
-		return 2 
+		return 2
 	elseif id == 17 or id == 22 or id == 27 or id == 32 or id == 37 then
 		return 3 -- if obj_state(id) == 3 then --- alliance trys to capture from horde
 	elseif id == 19 or id == 24 or id == 29 or id == 34 or id == 39 then
@@ -173,21 +168,21 @@ do
 				if typ then
 					if obj_state(objectives[typ]) <= 2 and obj_state(textureIndex) > 2 then
 						capTimer:Start(nil, name)
-		
+
 						if obj_state(textureIndex) == 3 then
 							capTimer:SetColor(allyColor, name)
 							capTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_02.blp", name)
 						else
 							capTimer:SetColor(hordeColor, name)
 							capTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_01.blp", name)
-						end	
-						
+						end
+
 					elseif obj_state(textureIndex) <= 2 then
 						capTimer:Stop(name)
 					end
 					objectives[typ] = textureIndex
 				end
-			end		 
+			end
 		end
 	end
 
@@ -202,7 +197,7 @@ do
 		if not bgzone then return end
 		if arg1 == L.BgStart60 then
 			startTimer:Start()
-		elseif arg1 == L.BgStart30  then		
+		elseif arg1 == L.BgStart30  then
 			startTimer:Update(31, 62)
 		end
 		schedule_check(self)
@@ -211,7 +206,7 @@ end
 
 do
 	local winner_is = 0		-- 0 = nobody  1 = alliance  2 = horde
-	local last_horde_score = 0 
+	local last_horde_score = 0
 	local last_alliance_score = 0
 
 	function Arathi:UPDATE_WORLD_STATES()
@@ -223,12 +218,12 @@ do
 
 		if AllyScore ~= last_alliance_score then
 			last_alliance_score = AllyScore
-			if winner_is == 1 then 
+			if winner_is == 1 then
 				callupdate = true
 			end
 		elseif HordeScore ~= last_horde_score then
 			last_horde_score = HordeScore
-			if winner_is == 2 then 
+			if winner_is == 2 then
 				callupdate = true
 			end
 		end
@@ -248,7 +243,7 @@ do
 		if HordeTime > 5000 then	HordeTime = 5000 end
 
 		if AllyTime == HordeTime then
-			winner_is = 0 
+			winner_is = 0
 			winTimer:Stop()
 			if self.ScoreFrame1Text then
 				self.ScoreFrame1Text:SetText("")
@@ -266,6 +261,7 @@ do
 			winTimer:Update(get_gametime(), get_gametime()+HordeTime)
 			winTimer:DisableEnlarge()
 			winTimer:UpdateName(L.WinBarText:format(L.Horde))
+			DBM:Debug(L.WinBarText:format(L.Horde),2)
 			winTimer:SetColor(hordeColor)
 			winTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_01.blp")
 
@@ -273,13 +269,14 @@ do
 			if self.ScoreFrame1Text and self.ScoreFrame2Text then
 				local HordePoints = math.floor(math.floor(((AllyTime * ResPerSec[last_horde_bases]) + last_horde_score) / 10) * 10)
 				self.ScoreFrame2Text:SetText("("..HordePoints..")")
-				self.ScoreFrame1Text:SetText("(1600)")		
+				self.ScoreFrame1Text:SetText("(1600)")
 			end
 
 			winner_is = 1
 			winTimer:Update(get_gametime(), get_gametime()+AllyTime)
 			winTimer:DisableEnlarge()
 			winTimer:UpdateName(L.WinBarText:format(L.Alliance))
+			DBM:Debug(L.WinBarText:format(L.Alliance),2)
 			winTimer:SetColor(allyColor)
 			winTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_02.blp")
 		end
@@ -306,7 +303,7 @@ do
 					else
 						baseLowest = EnemyTime
 					end
-					
+
 					local EnemyFinal = math.floor( ( EnemyLast + math.floor( baseLowest * ResPerSec[ 5 - i ] + 0.5 ) ) / 10 ) * 10
 					local FriendlyFinal = math.floor( ( FriendlyLast + math.floor( baseLowest * ResPerSec[ i ] + 0.5 ) ) / 10 ) * 10
 					if( FriendlyFinal >= 1600 and EnemyFinal < 1600 ) then
@@ -318,7 +315,7 @@ do
 				self.ScoreFrameToWinText:SetText("")
 			end
 		end
-		
+
 	end
 end
 

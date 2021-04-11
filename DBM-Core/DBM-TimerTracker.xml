@@ -1,0 +1,86 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Frame name="DBM_StartTimerBar" virtual="true" hidden="true">
+		<Size x="206" y="26"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentGoTexture" parentKey="GoTexture" alpha="0">
+					<Size x="256" y="256"/>
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="UIParent" x="0" y="0"/>
+					</Anchors>
+					<Animations>
+						<AnimationGroup parentKey="GoTextureAnim">
+							<Scale scaleX="0.25" scaleY="0.25" duration="0.0" order="1"/>
+							<Alpha change="1" duration="0.0" order="2"/>
+							<Scale scaleX="4" scaleY="4" duration="0.4" smoothing="OUT" order="3"/>
+							<Scale startDelay="0.6" scaleX="1.4" scaleY="1.4" duration="0.2" smoothing="OUT" order="4"/>
+							<Alpha startDelay="0.6" change="-1.0" duration="0.2" smoothing="OUT" order="4"/>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="2">
+				<Texture name="$parentGlow1" parentKey="glow1" alpha="0">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentDigit1" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentDigit1" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentGlow2" parentKey="glow2" alpha="0">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentDigit2" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentDigit2" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentGoTextureGlow" parentKey="GoTextureGlow" alpha="0">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentGoTexture" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentGoTexture" x="0" y="0"/>
+					</Anchors>
+					<Animations>
+						<AnimationGroup parentKey="GoTextureAnim">
+							<Scale scaleX="0.25" scaleY="0.25" duration="0.0" order="1"/>
+							<Alpha change="1" duration="0.0" order="2"/>
+							<Scale scaleX="4" scaleY="4" duration="0.4" smoothing="OUT" order="3"/>
+							<Alpha change="-1.0" duration="0.4" smoothing="IN" order="3"/>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="digit" alpha="0">
+				<Animations>
+					<AnimationGroup parentKey="startNumbers">
+						<Scale scaleX="0.25" scaleY="0.25" duration="0.0" order="1"/>
+						<Alpha change="1" duration="0.0" order="1"/>
+						<Scale scaleX="4" scaleY="4" duration="0.3" smoothing="OUT" order="2"/>
+						<Scale startDelay="0.6" scaleX="1.2" scaleY="1.2" duration="0.1" order="3"/>
+						<Alpha startDelay="0.6" change="-1.0" duration="0.1" order="3"/>
+						<Scripts>
+							<OnPlay>
+								local frame = self:GetParent():GetParent()
+								TT:SetTexNumbers(frame, frame.digit.digit1, frame.digit.digit2)
+							</OnPlay>
+							<OnFinished>
+								local frame = self:GetParent():GetParent()
+								TT:NumberAnimOnFinished(frame)
+							</OnFinished>
+						</Scripts>
+					</AnimationGroup>
+				</Animations>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture parentKey="digit1"/>
+						<Texture parentKey="digit2"/>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				TT:OnShow(self)
+			</OnShow>
+		</Scripts>
+	</Frame>
+</Ui>

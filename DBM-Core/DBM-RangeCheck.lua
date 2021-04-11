@@ -523,7 +523,7 @@ function createFrame()
 	elseif DBM.Options.RangeFrameUpdates == "Fast" then
 		updateRate = 0.05
 	else
-		updateRate = 0.25
+		updateRate = 0.05
 	end
 	local frame = CreateFrame("GameTooltip", "DBMRangeCheck", UIParent, "GameTooltipTemplate")
 	dropdownFrame = CreateFrame("Frame", "DBMRangeCheckDropdown", frame, "UIDropDownMenuTemplate")
@@ -576,7 +576,7 @@ function createRadarFrame()
 	elseif DBM.Options.RangeFrameUpdates == "Fast" then
 		updateRate = 0.05
 	else
-		updateRate = 0.25
+		updateRate = 0.05
 	end
 	local radarFrame = CreateFrame("Frame", "DBMRangeCheckRadar", UIParent)
 	radarFrame:SetFrameStrata("DIALOG")

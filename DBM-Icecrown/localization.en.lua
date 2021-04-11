@@ -420,7 +420,8 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnCorrosion	= "%s on >%s< (%s)",		-- Corrosion on >args.destName< (args.amount)
-	WarnPortalOpen	= "Portals open"
+	WarnPortalOpen	= "Portals open",
+	Suppressors		= "Suppressors",
 }
 
 L:SetTimerLocalization{
@@ -439,7 +440,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Show timer when Nightmare Portals are opened up",
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn",
 	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)",
-	Suppressors					= "Suppressors",
+	Suppressors					= "Show special warning for new Suppressors",
 	TimerSuppressorOne			= "1st wave of Suppressors",
 	TimerSuppressorTwo			= "2nd wave of Suppressors",
 	TimerSuppressorThree		= "3rd wave of Suppressors",

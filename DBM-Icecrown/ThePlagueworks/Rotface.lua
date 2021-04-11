@@ -45,7 +45,7 @@ local timerVileGasCD			= mod:NewNextTimer(30, 72272)
 local soundMutatedInfection		= mod:NewSound(71224)
 local soundVileGas				= mod:NewSound(72272)
 
-mod:AddBoolOption("RangeFrame", mod:IsRanged())
+mod:AddBoolOption("RangeFrame")
 mod:AddBoolOption("InfectionIcon", true)
 mod:AddBoolOption("TankArrow")
 

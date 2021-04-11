@@ -54,7 +54,7 @@ L:SetMiscLocalization({
 ----------------------
 --  Alterac Valley  --
 ----------------------
-L = DBM:GetModLocalization("AlteracValley")
+L = DBM:GetModLocalization("z402")
 
 L:SetGeneralLocalization({
 	name = "Альтеракская долина"
@@ -82,7 +82,7 @@ L:SetOptionLocalization({
 --------------------
 --  Arathi Basin  --
 --------------------
-L = DBM:GetModLocalization("ArathiBasin")
+L = DBM:GetModLocalization("z462")
 
 L:SetGeneralLocalization({
 	name = "Низина Арати"
@@ -116,7 +116,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Eye of the Storm  --
 ------------------------
-L = DBM:GetModLocalization("EyeoftheStorm")
+L = DBM:GetModLocalization("z541")
 
 L:SetGeneralLocalization({
 	name = "Око Бури"
@@ -129,16 +129,17 @@ L:SetMiscLocalization({
 	ScoreExpr		= "(%d+)/1600",
 	Alliance 		= "Альянса",
 	Horde 			= "Орды",
-	WinBarText 		= "Победа %s",
+	WinBarText 		= "Финал: %d - %d",
+	Flag			= "Флаг",
 	FlagReset 		= "Флаг возвращен на базу.",
 	FlagTaken 		= "(.+) захватывает флаг!",
-	FlagCaptured	= "(.+) захватывает флаг (%w+)!",
+	FlagCaptured	= "(.+) захватил флаг!",
 	FlagDropped		= "Флаг уронили!"
 
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Битва начнется через", 
+	TimerStart	= "Битва начнется через",
 	TimerFlag	= "Флаг восстановлен"
 })
 
@@ -152,7 +153,7 @@ L:SetOptionLocalization({
 ---------------------
 --  Warsong Gulch  --
 ---------------------
-L = DBM:GetModLocalization("WarsongGulch")
+L = DBM:GetModLocalization("z444")
 
 L:SetGeneralLocalization({
 	name = "Ущелье Песни Войны"
@@ -165,11 +166,13 @@ L:SetMiscLocalization({
 	Alliance 			= "Альянса",
 	Horde 				= "Орды",
 	InfoErrorText		= "Функция выбора флагоносца, будет восстановлена после выхода из режима боя.",
-	ExprFlagPickUp		= "(.+) подымает флаг (%w+)",
-	ExprFlagCaptured	= "(.+) захватывает флаг (%w+)!",
-	ExprFlagReturn		= "(.+) возвращает флаг (%w+) на базу!",
-	FlagAlliance		= "Флаг Альянса: ",
-	FlagHorde			= "Флаг Орды: ",
+
+	ExprFlagPickUp		= "(.+) несет флаг (.+)!",
+	ExprFlagPickUp2		= "Флаг (.+) у [|0-9-]*%((.+)%)",
+	ExprFlagDropped		= "(.+) роняет флаг (.+)!",
+	ExprFlagCaptured	= "(.+) захватывает флаг (.+)!",
+	FlagAlliance		= "Флаг Альянса",
+	FlagHorde			= "Флаг Орды",
 	FlagBase			= "База"
 })
 
@@ -188,7 +191,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Isle of Conquest  --
 ------------------------
-L = DBM:GetModLocalization("IsleofConquest")
+L = DBM:GetModLocalization("z483")
 
 L:SetGeneralLocalization({
 	name = "Остров Завоеваний"

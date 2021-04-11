@@ -24,20 +24,20 @@ local inviteTimer = mod:NewTimer(60, "TimerInvite", nil, nil, false)
 function mod:ZONE_CHANGED_NEW_AREA()
 	if select(2, IsInInstance()) == "pvp" then
 		SendAddonMessage("DBMv4-Ver", "Hi!", "BATTLEGROUND")
-		self:Schedule(3, DBM.RequestTimers, DBM)
+		self:Schedule(3, DBM.RequestTimers, DBM, 1)
 		inviteTimer:Stop()
 		SetMapToCurrentZone() -- for GetMapLandmarkInfo()
 	end
-	for i, v in ipairs(DBM:GetModByName("AlteracValley").timers) do v:Stop() end
-	for i, v in ipairs(DBM:GetModByName("EyeoftheStorm").timers) do v:Stop() end
-	for i, v in ipairs(DBM:GetModByName("WarsongGulch").timers) do v:Stop() end
-	for i, v in ipairs(DBM:GetModByName("ArathiBasin").timers) do v:Stop() end
-	for i, v in ipairs(DBM:GetModByName("IsleofConquest").timers) do v:Stop() end
-	DBM:GetModByName("AlteracValley"):Unschedule()
-	DBM:GetModByName("EyeoftheStorm"):Unschedule()
-	DBM:GetModByName("WarsongGulch"):Unschedule()
-	DBM:GetModByName("ArathiBasin"):Unschedule()
-	DBM:GetModByName("IsleofConquest"):Unschedule()
+	for i, v in ipairs(DBM:GetModByName("z402").timers) do v:Stop() end
+	for i, v in ipairs(DBM:GetModByName("z541").timers) do v:Stop() end
+	for i, v in ipairs(DBM:GetModByName("z444").timers) do v:Stop() end
+	for i, v in ipairs(DBM:GetModByName("z462").timers) do v:Stop() end
+	for i, v in ipairs(DBM:GetModByName("z483").timers) do v:Stop() end
+	DBM:GetModByName("z402"):Unschedule()
+	DBM:GetModByName("z541"):Unschedule()
+	DBM:GetModByName("z444"):Unschedule()
+	DBM:GetModByName("z462"):Unschedule()
+	DBM:GetModByName("z483"):Unschedule()
 end
 mod.PLAYER_ENTERING_WORLD = mod.ZONE_CHANGED_NEW_AREA
 mod.OnInitialize = mod.ZONE_CHANGED_NEW_AREA
@@ -70,15 +70,16 @@ hooksecurefunc("WorldStateScoreFrame_Update", function() --re-color the players 
 	if not mod.Options.ColorByClass then
 		return
 	end
+	local _
 	local isArena = IsActiveBattlefieldArena()
 	for i = 1, MAX_WORLDSTATE_SCORE_BUTTONS do
 		local index = (FauxScrollFrame_GetOffset(WorldStateScoreScrollFrame) or 0) + i
 		local name, _, _, _, _, faction, _, _, _, class = GetBattlefieldScore(index)
 		if (name ~= UnitName("player")) and class and RAID_CLASS_COLORS[class] and getglobal("WorldStateScoreButton"..i.."NameText") then
 			getglobal("WorldStateScoreButton"..i.."NameText"):SetTextColor(RAID_CLASS_COLORS[class].r, RAID_CLASS_COLORS[class].g, RAID_CLASS_COLORS[class].b)
-			local playerName = getglobal("WorldStateScoreButton"..i.."NameText"):GetText()
+			local playerName, playerServer = getglobal("WorldStateScoreButton"..i.."NameText"):GetText()
 			if playerName then
-				local _, _, playerName, playerServer = string.find(playerName, "([^%-]+)%-(.+)")
+				_, _, playerName, playerServer = string.find(playerName, "([^%-]+)%-(.+)")
 				if playerServer and playerName then
 					if faction == 0 then
 						if isArena then --green team

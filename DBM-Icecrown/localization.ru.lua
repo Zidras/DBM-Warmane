@@ -422,7 +422,8 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnCorrosion	= "%s на |3-5(>%s<) (%d)",		-- Corrosion on >args.destName< (args.amount)
-	WarnPortalOpen	= "Открытие порталов"
+	WarnPortalOpen	= "Открытие порталов",
+	Suppressors		= "Подавители",
 }
 
 L:SetTimerLocalization{
@@ -441,7 +442,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета",
 	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)",
-	Suppressors					= "Подавители",
+	Suppressors					= "Спец-предупреждение для появления Подавителей",
 	TimerSuppressorOne			= "1 волна Подавителей",
 	TimerSuppressorTwo			= "2 волна Подавителей",
 	TimerSuppressorThree		= "3 волна Подавителей",

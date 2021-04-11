@@ -254,11 +254,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	-- Shaman
 	elseif args:IsSpellID(66054) then								-- Hex
 		warnHex:Show(args.destName)
-	elseif args:IsSpellID(65983) then								-- Heroism
+	elseif args:IsSpellID(65983) and self:AntiSpam(2,65983) then								-- Heroism
 		warnHeroism:Show()
 		specWarnHeroism:Show()
 		timerHeroismCD:Start()
-	elseif args:IsSpellID(65980) then								-- Bloodlust
+	elseif args:IsSpellID(65980) and self:AntiSpam(2,65983) then								-- Bloodlust
 		warnBloodlust:Show()
 		specWarnBloodlust:Show()
 		timerBloodlustCD:Start()
@@ -270,7 +270,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEntanglingRoots:Show(args.destName)
 	elseif args:IsSpellID(66086, 67974, 67975, 67976) then			-- Tranquility
 		warnTranquility:Show()
-		specWarnTranquility:Show()
+		specWarnTranquility:Show(args.sourceName)
 	-- Rogue
 	-- Hunter
 	elseif args:IsSpellID(65871) then								-- Deterrence

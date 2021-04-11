@@ -2,7 +2,8 @@
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0The Eye|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMTheEye_SavedVars, DBMTheEye_SavedStats
+## SavedVariables: DBMTheEye_AllSavedVars
+## SavedVariablesPerCharacter: DBMTheEye_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: Tempest Keep - The Eye

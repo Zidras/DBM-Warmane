@@ -24,6 +24,8 @@ local warnLanded		= mod:NewAnnounce("WarningLanded", 4, "Interface\\AddOns\\DBM-
 
 local warnDeepBreath	= mod:NewSpecialWarning("WarningDeepBreath")
 local specwarnlowhp		= mod:NewSpecialWarning("SpecWarnSapphLow")
+local warnFrostrain		= mod:NewSpecialWarningMove(55699)
+
 mod:AddBoolOption("WarningIceblock", true, "yell")
 
 local timerDrainLife	= mod:NewCDTimer(20, 28542)
@@ -55,6 +57,8 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(28522) and args:IsPlayer() and self.Options.WarningIceblock then
 		SendChatMessage(L.WarningYellIceblock, "YELL")
+	elseif (spellId == 55699 or spellId == 28547) and args.destName == UnitName("player") and self:AntiSpam(1) then
+		warnFrostrain:Show()
 	end
 end
 

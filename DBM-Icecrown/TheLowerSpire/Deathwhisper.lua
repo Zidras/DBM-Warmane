@@ -9,14 +9,14 @@ mod:RegisterCombat("yell", L.YellPull)
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
+	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"SPELL_INTERRUPT",
 	"SPELL_SUMMON",
 	"SWING_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_TARGET",
-	"SPELL_CAST_SUCCESS"
+	"UNIT_TARGET"
 )
 
 local canPurge = select(2, UnitClass("player")) == "MAGE"
@@ -32,25 +32,24 @@ local warnDarkTransformation		= mod:NewSpellAnnounce(70900, 4)
 local warnDarkEmpowerment			= mod:NewSpellAnnounce(70901, 4)
 local warnPhase2					= mod:NewPhaseAnnounce(2, 1)
 local warnFrostbolt					= mod:NewCastAnnounce(72007, 2, false)
-local warnTouchInsignificance		= mod:NewStackAnnounce(71204, 2, nil, true)
 local warnDarkMartyrdom				= mod:NewSpellAnnounce(72499, 4)
+local warnTouchInsignificance		= mod:NewStackAnnounce(71204, 2, nil, true)
 
-local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237)
-local specWarnDeathDecay			= mod:NewSpecialWarningMove(72108)
-local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3)
-local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, canPurge)
-local specWarnDarkMartyrdom			= mod:NewSpecialWarningRun(72499, true)
-local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, false)
-local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
+local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237, nil, nil, nil, 1, 2)
+local specWarnDeathDecay			= mod:NewSpecialWarningMove(72108, nil, nil, nil, 1, 2)
+local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, nil, nil, 1, 6)
+local specWarnVampricMight			= mod:NewSpecialWarningDispel(70674, "MagicDispeller", nil, nil, 1, 2)
+local specWarnDarkMartyrdom			= mod:NewSpecialWarningRun(72499, "Melee", nil, nil, 4, 2)
+local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, nil, false, 2, 1, 2) -- HasInterrupt?
+local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", "-Tank")
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
---[[local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131)]]--
-local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131)
+local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131, nil, nil, 1, DBM_CORE_TANK_ICON..DBM_CORE_DAMAGE_ICON)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
-local timerDominateMindCD			= mod:NewCDTimer(40, 71289)
-local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true)
+local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
+local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
 local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
-local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, true)
+local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 local soundWarnSpirit				= mod:NewSound(71426)
@@ -195,8 +194,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 71289 then
 		timerDominateMindCD:Start()
 		DBM:Debug("MC on "..args.destName,2)
-		if mod.Options.EqUneqWeapons and args.destName == UnitName("player") then
-			mod:UnW()
+		if self.Options.EqUneqWeapons and args.destName == UnitName("player") then
+			self:UnW()
+			self:UnW()
+			self:ScheduleMethod(0.01, "UnW")
 			DBM:Debug("Unequipping",2)
 		end
 	end
@@ -214,10 +215,14 @@ do
 			DBM:Debug("Equipping scheduled",1)
 	        mod:ScheduleMethod(0.1, "EqW")
 	        mod:ScheduleMethod(1.7, "EqW")
-	        mod:ScheduleMethod(3.3, "EqW")
+			mod:ScheduleMethod(3.3, "EqW")
+			mod:ScheduleMethod(5.5, "EqW")
+			mod:ScheduleMethod(7.5, "EqW")
+			mod:ScheduleMethod(9.9, "EqW")
 		end
 		table.wipe(dominateMindTargets)
 		dominateMindIcon = 6
+		soundWarnMC:Cancel()
 		soundWarnMC:Schedule(35-mc_delay)
 		if mod.Options.EqUneqWeapons and not mod:IsTank() and mod.Options.EqUneqTimer then
 			mod:ScheduleMethod(39-mc_delay, "UnW")
@@ -282,7 +287,9 @@ function mod:SPELL_AURA_REMOVED(args)
 	        self:ScheduleMethod(0.1, "EqW")
 	        self:ScheduleMethod(1.7, "EqW")
 	        self:ScheduleMethod(3.3, "EqW")
-	        self:ScheduleMethod(5.0, "EqW")
+			self:ScheduleMethod(5.0, "EqW")
+			self:ScheduleMethod(8.0, "EqW")
+			self:ScheduleMethod(9.9, "EqW")
 		end
 	end
 end
@@ -290,6 +297,8 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(71420, 72007, 72501, 72502) then
 		warnFrostbolt:Show()
+		--specWarnFrostbolt:Show(args.sourceName)
+		--specWarnFrostbolt:Play("kickcast")
 		timerFrostboltCast:Start()
 	elseif args:IsSpellID(70900) then
 		warnDarkTransformation:Show()
@@ -315,15 +324,11 @@ function mod:SPELL_INTERRUPT(args)
 	end
 end
 
-local lastSpirit = 0
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(71426) then -- Summon Vengeful Shade
-		if time() - lastSpirit > 5 then
-			warnSummonSpirit:Show()
-			soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-			timerSummonSpiritCD:Start()
-			lastSpirit = time()
-		end
+	if args:IsSpellID(71426) and self:AntiSpam(5, 1) then -- Summon Vengeful Shade
+		warnSummonSpirit:Show()
+		timerSummonSpiritCD:Start()
+		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 	end
 end
 

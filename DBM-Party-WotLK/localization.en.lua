@@ -1,7 +1,7 @@
 local L
 
-local spell				= "%s"				
-local debuff			= "%s: >%s<"			
+local spell				= "%s"
+local debuff			= "%s: >%s<"
 local spellCD			= "%s cooldown"					-- translate
 local spellSoon			= "%s soon"						-- translate
 local optionWarning		= "Show warning for %s"			-- translate
@@ -406,7 +406,7 @@ L:SetOptionLocalization({
 })
 
 -------------------------
---  Drakkari Colossus  --		
+--  Drakkari Colossus  --
 -------------------------
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
@@ -1137,7 +1137,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Portal #%d", 
+	TimerPortalIn	= "Portal #%d",
 })
 
 L:SetOptionLocalization({

@@ -21,7 +21,7 @@ local specWarnLightBomb				= mod:NewSpecialWarningYou(65121)
 local specWarnGravityBomb			= mod:NewSpecialWarningYou(64234)
 local specWarnConsumption			= mod:NewSpecialWarningMove(64206)--Hard mode void zone dropped by Gravity Bomb
 
-local enrageTimer					= mod:NewBerserkTimer(600)
+local enrageTimer					= mod:NewBerserkTimer(360)
 local timerTympanicTantrumCast		= mod:NewCastTimer(62776)
 local timerTympanicTantrum			= mod:NewBuffActiveTimer(8, 62776)
 local timerTympanicTantrumCD		= mod:NewCDTimer(60, 62776)
@@ -43,7 +43,6 @@ function mod:OnCombatStart(delay)
 		timerTympanicTantrumCD:Start(60-delay)
 	end
 
-	
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
@@ -104,7 +103,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-do 
+do
 	local lastConsumption = 0
 	function mod:SPELL_DAMAGE(args)
 		if args:IsSpellID(64208, 64206) and args:IsPlayer() and time() - lastConsumption > 2 then		-- Hard mode void zone
