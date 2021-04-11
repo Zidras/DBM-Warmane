@@ -25,14 +25,18 @@ local timerSystemOverload	= mod:NewBuffActiveTimer(20, 62475)
 local timerFlameVents		= mod:NewCastTimer(10, 62396)
 
 local timerNextFlameVents = nil
-if mod:IsDifficulty("heroic10") then
-	timerNextFlameVents	= mod:NewNextTimer(20, 62396)
-else 
-	timerNextFlameVents	= mod:NewNextTimer(20, 62396) -- im leaving this split because it keeps changing every week
-end
+
 local timerPursued			= mod:NewTargetTimer(30, 62374)
 
-local soundPursued = mod:NewSound(62374)
+local soundPursued			= mod:NewSound(62374)
+
+if mod:IsDifficulty("heroic10") then
+	timerNextFlameVents	= mod:NewNextTimer(20, 62396)
+else
+	timerNextFlameVents	= mod:NewNextTimer(20, 62396) -- im leaving this split because it keeps changing every week
+end
+
+
 
 local guids = {}
 local function buildGuidTable()

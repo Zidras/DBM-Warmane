@@ -131,7 +131,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnUnstableBeamSoon:Schedule(12)
 			end
 		end
-		if args:IsPlayer() then 
+		if args:IsPlayer() then
 			specWarnUnstableBeam:Show()
 		end
 	end

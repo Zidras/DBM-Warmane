@@ -78,7 +78,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 		timerTurret3:Stop()
 		timerTurret4:Stop()
 		timerGrounded:Stop()
-		
 	end
 end
 
@@ -129,7 +128,7 @@ function mod:UNIT_TARGET(unit)	-- I think this is useless, why would anyone in t
 		end
 		castFlames = false
 	end
-end 
+end
 
 function mod:CastFlame(target)
 	warnDevouringFlameCast:Show(target)
@@ -137,4 +136,4 @@ function mod:CastFlame(target)
 		specWarnDevouringFlameCast:Show()
 	end
 	self:SetIcon(target, 8, 9)
-end 
+end
