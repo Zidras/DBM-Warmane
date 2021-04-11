@@ -102,8 +102,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then		-- Bossfight (tank and spank)
 		warnPhase2:Show()
 		enrageTimer:Stop()
-		if (timerHardmodeThorim ~= nil) then
-			timerHardmodeThorim:Stop()
+		if (TimerHardmodeThorim ~= nil) then
+			TimerHardmodeThorim:Stop()
 		end
 		self.vb.phase = 2
 		enrageTimer:Start(300)
