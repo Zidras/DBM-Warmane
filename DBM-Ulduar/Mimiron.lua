@@ -26,12 +26,10 @@ local shellWarn					= mod:NewTargetAnnounce(63666, 2)
 local lootannounce				= mod:NewAnnounce("MagneticCore", 1)
 local warnBombSpawn				= mod:NewSpecialWarning("WarnBombSpawn", 3)
 local warnFrostBomb				= mod:NewSpellAnnounce(64623, 3)
+local warnFlamesSoon			= mod:NewSoonAnnounce(64566, 1)
 
-local warnFlamesSoon			= mod:NewSoonAnnounce(64566, 1) 
 local warnFlamesIn5Sec			= mod:NewSpecialWarning("WarningFlamesIn5Sec", 3)
-
 local warnShockBlast			= mod:NewSpecialWarning("WarningShockBlast", nil, false)
-
 local warnDarkGlare				= mod:NewSpecialWarningSpell(63293)
 
 local enrage 					= mod:NewBerserkTimer(900)
@@ -90,7 +88,7 @@ function mod:OnCombatStart(delay)
 	self:SetWipeTime(20)
 	enrage:Start(-delay)
 	self:NextPhase()
-	timerPlasmaBlastCD:Start(24-delay) 
+	timerPlasmaBlastCD:Start(24-delay)
 	if DBM:GetRaidRank() == 2 then
 		lootmethod, _, masterlooterRaidID = GetLootMethod()
 	end
@@ -121,7 +119,7 @@ function mod:OnCombatEnd()
 	end
 end
 
-function mod:Flames()	-- Flames 
+function mod:Flames()	-- Flames
 	timerNextFlames:Start()
 	self:ScheduleMethod(28, "Flames")
 	warnFlamesSoon:Schedule(18)
@@ -335,13 +333,13 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellPhase2 or msg:find(L.YellPhase2)) then -- register Phase 2
 		self:SendSync("Phase2")
-
+		self:SetWipeTime(20)
 	elseif (msg == L.YellPhase3 or msg:find(L.YellPhase3)) then -- register Phase 3
 		self:SendSync("Phase3")
-
+		self:SetWipeTime(20)
 	elseif (msg == L.YellPhase4 or msg:find(L.YellPhase4)) then -- register Phase 4
 		self:SendSync("Phase4")
-	
+		self:SetWipeTime(20)
 	elseif (msg == L.YellHardPull or msg:find(L.YellHardPull)) then -- register HARDMODE
 		enrage:Stop()
 		hardmode = true
@@ -349,11 +347,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerHardmode:Start()
 		timerPlasmaBlastCD:Start(28)
 		timerFlameSuppressant:Start()
-		timerProximityMines:Start(21) 
+		timerProximityMines:Start(21)
 		timerNextFlames:Start(6)
 		self:ScheduleMethod(6, "Flames")
 		if self.Options.WarnFlamesIn5Sec then
-			warnFlamesIn5Sec:Schedule(1) 
+			warnFlamesIn5Sec:Schedule(1)
 		end
 		if self.Options.SoundWarnCountingFlames then
 			self:ScheduleMethod(1, "ToFlames5")

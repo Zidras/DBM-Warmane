@@ -475,7 +475,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "Облако саронитовых паров образовывается поблизости!",
+	EmoteSaroniteVapors	= "Поблизости начинают возникать саронитовые испарения!",
 	YellLeech			= "Вытягивание жизни на мне!",
 	YellCrash			= "Темное сокрушение на мне!"
 }

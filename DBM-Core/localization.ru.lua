@@ -471,3 +471,19 @@ DBM_CORE_LAG_FOOTER					= "Нет ответа: %s"
 
 --LDB
 DBM_LDB_TOOLTIP_HELP1	= "Левый клик чтобы открыть DBM"
+
+if not DBM_CORE_L then DBM_CORE_L = {} end
+
+local L = DBM_CORE_L
+
+L.LOCK_FRAME						= "Закрепить окно"
+L.INFOFRAME_SHOW_SELF				= "Всегда показывать вашу энергию"		-- Always show your own power value even if you are below the threshold
+L.INFOFRAME_SETLINES				= "Максимальное число строк"
+L.INFOFRAME_SETCOLS					= "Максимальное число столбцов"
+L.INFOFRAME_LINESDEFAULT			= "По умолчанию"
+L.INFOFRAME_LINES_TO				= "%d строк"
+L.INFOFRAME_COLS_TO					= "%d столбцов"
+L.INFOFRAME_POWER					= "Power"
+L.INFOFRAME_AGGRO					= "Угроза"
+L.INFOFRAME_MAIN					= "Main:"--Main power
+L.INFOFRAME_ALT						= "Alt:"--Alternate Power
