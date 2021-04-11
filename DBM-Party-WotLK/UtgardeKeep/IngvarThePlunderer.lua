@@ -25,10 +25,11 @@ local timerWoeStrike	= mod:NewTargetTimer(10, 42723)
 local timerNova			= mod:NewCDTimer(25, 59435)
 local specwarnNova		= mod:NewSpecialWarning("SpecWarnSpecial")
 local warnNova			= mod:NewSpellAnnounce(42723, 4)
-local timerRuneCD		= mod:NewCDTimer(10, 64852, nil, true, nil, "Interface\\Icons\\Spell_Fire_SelfDestruct")
+local timerRuneCD		= mod:NewCDTimer(10, 64851)
 local warningRune		= mod:NewTargetAnnounce(64852, 2, "Interface\\Icons\\Spell_Fire_SelfDestruct")
-local specwarnRune		= mod:NewSpecialWarningMove(64852)
+local specwarnRune		= mod:NewSpecialWarningMove(64989)
 local specWarnSpelllock	= mod:NewSpecialWarningCast(42729)
+
 
 function mod:OnCombatStart()
 	self.vb.phase = 1
@@ -36,6 +37,9 @@ function mod:OnCombatStart()
 	timerNova:Start(18.5)
 end
 
+function mod:OnCombatEnd()
+	timerRuneCD:Cancel()
+end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(42723, 42669, 59706) then

@@ -124,10 +124,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(0.5, showRootWarning)
 		end
 	elseif args:IsSpellID(62451, 62865) then
-		if GetTime() - (self.vb.lastBeam or 0) > 10 then 
-			self.vb.lastBeam = GetTime() 
+		if GetTime() - (self.vb.lastBeam or 0) > 10 then
+			self.vb.lastBeam = GetTime()
 			timerUnstableBeamCD:Start()
-			if (self.Options.WarnBeamsSoon) then 
+			if (self.Options.WarnBeamsSoon) then
 				specWarnUnstableBeamSoon:Schedule(12)
 			end
 		end
@@ -146,7 +146,7 @@ function mod:SPELL_AURA_REMOVED(args)
         iconId = iconId + 1
     elseif args:IsSpellID(63571, 62589) then
 		self:RemoveIcon(args.destName)
-		if args:IsPlayer() and self.Options.RangeFrame then 
+		if args:IsPlayer() and self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
     end
@@ -193,7 +193,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, mob)
-	-- localize this 
+	-- localize this
 	if strmatch(msg, L.EmoteLGift) then
 		timerEonarsGiftCD:Start()
 	end

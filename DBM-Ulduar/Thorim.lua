@@ -30,7 +30,7 @@ local enrageTimer				= mod:NewBerserkTimer(369)
 local timerStormhammerCD		= mod:NewCDTimer(16, 62042)
 local timerLightningCharge	 	= mod:NewCDTimer(16, 62466)
 local timerUnbalancingStrike	= mod:NewCastTimer(26, 62130)
-local TimerHardmodeThorim		= mod:NewTimer(175, "TimerHardmodeThorim", 62042)
+local TimerHardmodeThorim		= mod:NewTimer(152, "TimerHardmodeThorim", 62042)
 local timerFrostNova			= mod:NewNextTimer(20, 62605)
 local timerFrostNovaCast		= mod:NewCastTimer(2.5, 62605)
 local timerChainLightning		= mod:NewNextTimer(15, 64390)
@@ -79,7 +79,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnStormhammer:Show(args.destName)
 		timerStormhammerCD:Start()
 	elseif args:IsSpellID(62507) then				-- Touch of Dominion
-		TimerHardmodeThorim:Start()
+		TimerHardmodeThorim:Start(150)
 	elseif args:IsSpellID(62130) then				-- Unbalancing Strike
 		warnUnbalancingStrike:Show(args.destName)
 	elseif args:IsSpellID(62526, 62527) then		-- Runic Detonation

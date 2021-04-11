@@ -31,13 +31,12 @@ local warnFlamesSoon			= mod:NewSoonAnnounce(64566, 1)
 local warnFlamesIn5Sec			= mod:NewSpecialWarning("WarningFlamesIn5Sec", 3)
 
 local warnShockBlast			= mod:NewSpecialWarning("WarningShockBlast", nil, false)
-mod:AddBoolOption("ShockBlastWarningInP1", mod:IsMelee(), "announce")
-mod:AddBoolOption("ShockBlastWarningInP4", mod:IsMelee(), "announce")
+
 local warnDarkGlare				= mod:NewSpecialWarningSpell(63293)
 
 local enrage 					= mod:NewBerserkTimer(900)
 local timerHardmode				= mod:NewTimer(610, "TimerHardmode", 64582)
-local timerP1toP2				= mod:NewTimer(41, "TimeToPhase2") 
+local timerP1toP2				= mod:NewTimer(41, "TimeToPhase2")
 local timerP2toP3				= mod:NewTimer(15, "TimeToPhase3")
 local timerP3toP4				= mod:NewTimer(30, "TimeToPhase4")
 local timerProximityMines		= mod:NewCDTimer(25, 63027)
@@ -55,7 +54,9 @@ local timerNextFrostBomb        = mod:NewNextTimer(30, 64623)
 local timerBombExplosion		= mod:NewCastTimer(15, 65333)
 local timerBombBotSpawn			= mod:NewCDTimer(15, 63811)
 
-mod:AddBoolOption("PlaySoundOnShockBlast", isMelee)
+mod:AddBoolOption("ShockBlastWarningInP1", nil, "announce")
+mod:AddBoolOption("ShockBlastWarningInP4", nil, "announce")
+mod:AddBoolOption("PlaySoundOnShockBlast")
 mod:AddBoolOption("PlaySoundOnDarkGlare", true)
 mod:AddBoolOption("HealthFramePhase4", true)
 mod:AddBoolOption("AutoChangeLootToFFA", true)
@@ -66,7 +67,7 @@ mod:AddBoolOption("WarnFlamesIn5Sec", true)
 mod:AddBoolOption("SoundWarnCountingFlames", true)
 
 local hardmode = false
-local lootmethod, masterlooterRaidID
+local lootmethod, _, masterlooterRaidID
 
 local spinningUp				= GetSpellInfo(63414)
 local lastSpinUp				= 0
@@ -86,7 +87,7 @@ function mod:OnCombatStart(delay)
 	is_spinningUp = false
 	napalmShellIcon = 7
 	table.wipe(napalmShellTargets)
-	
+	self:SetWipeTime(20)
 	enrage:Start(-delay)
 	self:NextPhase()
 	timerPlasmaBlastCD:Start(24-delay) 
@@ -100,6 +101,14 @@ end
 
 function mod:OnCombatEnd()
 	DBM.BossHealth:Hide()
+	timerBombBotSpawn:Cancel()
+	self:UnscheduleMethod("ToFlames5")
+	self:UnscheduleMethod("ToFlames4")
+	self:UnscheduleMethod("ToFlames3")
+	self:UnscheduleMethod("ToFlames2")
+	self:UnscheduleMethod("ToFlames1")
+	self:UnscheduleMethod("BombBot")
+	self:UnscheduleMethod("Flames")
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
@@ -306,7 +315,7 @@ function mod:NextPhase()
 				SetLootMethod(lootmethod)
 			end
 		end
-		timerBombBotSpawn:Stop()
+		timerBombBotSpawn:Cancel()
 		self:UnscheduleMethod("BombBot")
 		timerP3toP4:Start()
 		timerProximityMines:Start(34)
@@ -336,6 +345,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif (msg == L.YellHardPull or msg:find(L.YellHardPull)) then -- register HARDMODE
 		enrage:Stop()
 		hardmode = true
+		self:SetWipeTime(35)
 		timerHardmode:Start()
 		timerPlasmaBlastCD:Start(28)
 		timerFlameSuppressant:Start()
