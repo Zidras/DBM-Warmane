@@ -19,8 +19,6 @@ LL.serverFrame = LL.serverFrame or CreateFrame("Frame")
 
 local throttleTable = LL.throttleTable
 local throttleSendTable = LL.throttleSendTable
-local throttleSInfo = 0
-local serverLatency = 0
 local callbackMap = LL.callbackMap
 local frame = LL.frame
 local serverFrame = LL.serverFrame
@@ -30,31 +28,6 @@ local GetTime, GetNetStats, IsInGroup, IsInRaid, SendAddonMessage = GetTime, Get
 local SendChatMessage = SendChatMessage
 local pName = UnitName("player")
 
-local function GetServerInfo()
-	local t = GetTime()
-	if t - throttleSInfo > 30 then
-		throttleSInfo = GetTime()
-		serverFrame:RegisterEvent("CHAT_MSG_SYSTEM")
-		SendChatMessage(".server info", "SAY")
-		C_Timer.After(0.2, function() serverFrame:UnregisterEvent("CHAT_MSG_SYSTEM") end)
-	end
-	return serverLatency
-end
-
--- parse server info wowcircle
-serverFrame:SetScript("OnEvent", function (self, event, ...)
-	local msg = ...
-	local m1 = match(msg, "Server delay: (%d+) ms")
-	local m2 = match(msg, "Server latency: (%d+) ms")
-	if m1 or m2 then
-		serverLatency = m1 or m2
-	end
-end)
-
-
-GetServerInfo()
-
-
 frame:SetScript("OnEvent", function(_, _, prefix, msg, channel, sender)
 	if prefix == "Lag" and throttleTable[channel] then
 		if msg == "R" then
@@ -62,7 +35,7 @@ frame:SetScript("OnEvent", function(_, _, prefix, msg, channel, sender)
 			if t - throttleTable[channel] > 1 then
 				throttleTable[channel] = t
 				local _, _, latencyHome = GetNetStats()
-				local latencyWorld = latencyHome + ( GetServerInfo() or 0 ) -- compatibility with newer api
+				local latencyWorld = latencyHome -- compatibility with newer api
 				-- 4.0.6 has added a return value so that two distinct latency values are now returned
 				-- may be able to parse .server info but different servers have different stuff, so just a workaround for now
 				SendAddonMessage("Lag", format("%d,%d", latencyHome or 0, latencyWorld or 0), channel)
@@ -93,7 +66,7 @@ function LL:RequestLatency(channel)
 		end
 
 		local _, _, latencyHome = GetNetStats()
-		local latencyWorld = latencyHome + ( GetServerInfo() or 0 )
+		local latencyWorld = latencyHome
 
 		for _,func in next, callbackMap do
 			func(latencyHome, latencyWorld, pName, channel) -- This allows us to show our own latency when not grouped
