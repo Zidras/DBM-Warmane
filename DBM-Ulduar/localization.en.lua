@@ -349,7 +349,8 @@ L:SetMiscLocalization{
 
 L:SetWarningLocalization{
 	WarnSimulKill	= "First add down - Resurrection in ~12 seconds",
-	WarningBeamsSoon = "Beams soon"
+	WarningBeamsSoon = "Beams soon",
+	EonarsGift = "Target Change - switch to Eonar's Gift"
 }
 
 L:SetTimerLocalization{

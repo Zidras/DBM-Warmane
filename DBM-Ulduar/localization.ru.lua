@@ -350,7 +350,9 @@ L:SetMiscLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnSimulKill	= "Первый помощник погиб - воскрешение через ~12 сек."
+	WarnSimulKill	= "Первый помощник погиб - воскрешение через ~12 сек.",
+	WarningBeamsSoon = "Скоро Лучи",
+	EonarsGift = "Смена цели - переключитесь на Дар Эонара"
 }
 
 L:SetTimerLocalization{
@@ -375,7 +377,6 @@ L:SetGeneralLocalization{
 
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "Возрождение монстров",
-	WarningBeamsSoon = "Beams soon"
 }
 
 L:SetWarningLocalization{

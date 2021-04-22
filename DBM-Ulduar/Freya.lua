@@ -36,8 +36,9 @@ local specWarnFury			= mod:NewSpecialWarningYou(63571)
 local specWarnTremor		= mod:NewSpecialWarningCast(62859)	-- Hard mode
 local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865)	-- Hard mode
 local specWarnUnstableBeamSoon	= mod:NewSpecialWarning("WarningBeamsSoon", 3) -- Hard mode Sun Beam
+local specWarnEonarsGift    = mod:NewSpecialWarning("EonarsGift", 3)
 
-local enrage 				= mod:NewBerserkTimer(600)
+local enrage 				= mod:NewBerserkTimer(480)
 local timerAlliesOfNature	= mod:NewNextTimer(60, 62678)
 local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill")
 local timerFury				= mod:NewTargetTimer(10, 63571)
@@ -46,6 +47,10 @@ local timerEonarsGiftCD     = mod:NewCDTimer(40, 62584)
 local timerRootsCD      	= mod:NewCDTimer(14, 62439)
 local timerUnstableBeamCD	= mod:NewCDTimer(15, 62451) -- Hard mode Sun Beam
 
+
+local specBombs		= mod:NewSpecialWarningMove(64587)
+local timerNextBombs	= mod:NewNextTimer(11, 64587)
+local soundBombs3		= mod:NewSound3(64587)
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("PlaySoundOnFury")
@@ -68,6 +73,8 @@ end
 
 function mod:OnCombatEnd(wipe)
 	DBM.BossHealth:Hide()
+	timerNextBombs:Cancel()
+	specBombs:Cancel()
 	if not wipe then
 		if DBM.Bars:GetBar(L.TrashRespawnTimer) then
 			DBM.Bars:CancelBar(L.TrashRespawnTimer)
@@ -108,6 +115,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 			end
 		end
 		timerFury:Start(args.destName)
+	elseif args.spellId == 64650 and self:AntiSpam(1,64650) then
+		timerNextBombs:Start(9.95)
+		soundBombs3:Schedule(10.5-3)
+		specBombs:Schedule(9.95)
 	end
 end
 
@@ -140,6 +151,7 @@ end
 function mod:SPELL_AURA_REMOVED(args)
     if args.spellId == 62519 then
 		warnPhase2:Show()
+		self:Bombs(11)
 		self.vb.phase = 2
     elseif args:IsSpellID(62861, 62438) then
         self:RemoveIcon(args.destName)
@@ -195,6 +207,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, mob)
 	-- localize this
 	if strmatch(msg, L.EmoteLGift) then
+		specWarnEonarsGift:Show()
 		timerEonarsGiftCD:Start()
 	end
 end
