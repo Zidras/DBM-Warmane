@@ -563,12 +563,12 @@ function TT:ToggleState(force)
 	if DBM or force then
 		self.timerList = self.timerList or {}
 
-		self:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL", "OnEvent")
+		--self:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL", "OnEvent")
 		self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
 
 		self:HookDBM()
 	else
-		self:UnregisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
+		--self:UnregisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 		self:Unhook(DBM, "CreatePizzaTimer")
