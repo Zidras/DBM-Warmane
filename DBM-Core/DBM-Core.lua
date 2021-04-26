@@ -6979,7 +6979,16 @@ do
 				if not DBM.Options.WarningIconChat then
 					text = text:gsub(textureExp, "") -- textures @ chat frame can (and will) distort the font if using certain combinations of UI scale, resolution and font size : is this still true as of cataclysm?
 				end
-				self.mod:AddMsg(text, nil)
+				if DBM.Options.ShowFakedRaidWarnings then
+					for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
+						local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
+						if frame ~= RaidWarningFrame and frame:GetScript("OnEvent") then
+							frame:GetScript("OnEvent")(frame, "CHAT_MSG_RAID_WARNING", text, playerName, GetDefaultLanguage("player"), "", playerName, "", 0, 0, "", 0, 99, "")
+						end
+					end
+				else
+					self.mod:AddMsg(text, nil)
+				end
 			end
 			if self.sound > 0 then
 				if self.sound > 1 and DBM.Options.ChosenVoicePack ~= "None" and not voiceSessionDisabled and self.sound <= SWFilterDisabed then return end

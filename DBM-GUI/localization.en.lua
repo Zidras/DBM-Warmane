@@ -4,8 +4,8 @@ local L = DBM_GUI_Translations
 
 L.MainFrame = "Deadly Boss Mods"
 
-L.TranslationByPrefix		= "Translated by "
-L.TranslationBy 			= nil -- your name here, localizers!
+L.TranslationByPrefix		= "DBM WowCircle - "
+L.TranslationBy 			= " Barsoom, Bunny67"
 L.Website					= "Visit us on discord at |cFF73C2FBhttps://discord.gg/uMbjr87|r"
 L.WebsiteButton				= "Website"
 
@@ -92,6 +92,7 @@ L.InfoRaidWarning			= [[You can specify the position and colors of the raid warn
 This frame is used for messages like "Player X is affected by Y".]]
 L.ColorResetted 			= "The color settings of this field have been reset."
 L.ShowWarningsInChat 		= "Show warnings in chat frame"
+L.ShowFakedRaidWarnings 	= "Show warnings as faked raid warning messages"
 L.WarningIconLeft 			= "Show icon on left side"
 L.WarningIconRight 			= "Show icon on right side"
 L.WarningIconChat 			= "Show icons in chat frame"
