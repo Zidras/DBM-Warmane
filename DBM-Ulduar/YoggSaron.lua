@@ -69,6 +69,7 @@ mod:AddInfoFrameOption(63050)
 
 local targetWarningsShown			= {}
 mod.vb.phase = 1
+local beaconIcon = 8
 local brainLinkTargets = {}
 local SanityBuff = DBM:GetSpellInfoNew(63050)
 local brainLinkIcon = 7
@@ -77,6 +78,7 @@ local Guardians = 0
 function mod:OnCombatStart(delay)
 	Guardians = 0
 	self.vb.phase = 1
+	beaconIcon = 8
 	enrageTimer:Start()
 	timerAchieve:Start()
 	table.wipe(targetWarningsShown)
@@ -215,9 +217,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerLunaricGaze:Start()
 	elseif args.spellId == 64465 then
 		if self.Options.SetIconOnBeacon then
-			self:ScanForMobs(args.sourceGUID, 2, self.vb.beaconIcon, 1, 0.2, 10, "SetIconOnBeacon")
+			self:ScanForMobs(args.sourceGUID, 2, beaconIcon, 1, 0.2, 10, "SetIconOnBeacon")
 		end
-		self.vb.beaconIcon = self.vb.beaconIcon - 1
+		beaconIcon = beaconIcon - 1
+		if beaconIcon == 0 then
+			beaconIcon = 8
+		end
 		timerEmpower:Start()
 		timerEmpowerDuration:Start()
 		warnEmpowerSoon:Schedule(40)
