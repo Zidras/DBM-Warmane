@@ -151,7 +151,6 @@ end
 function mod:SPELL_AURA_REMOVED(args)
     if args.spellId == 62519 then
 		warnPhase2:Show()
-		self:Bombs(11)
 		self.vb.phase = 2
     elseif args:IsSpellID(62861, 62438) then
         self:RemoveIcon(args.destName)
