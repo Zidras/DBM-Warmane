@@ -1302,9 +1302,9 @@ function lib:GetGUIDTalents(guid, refetch)
 			TalentQuery:Query(unit)
 
 			local namerealm = UnitFullName(unit)
+			local skipGlyphs
 			if (not r.talents and not r.requested) then
 				-- Don't need to query on a 'refetch' because they'll send changes anyway via comms
-				local skipGlyphs
 				if (not UnitIsVisible(unit) or not CanInspect(unit)) then
 					if (r.version) then
 						if (CanCommQuery(guid)) then

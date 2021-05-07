@@ -116,7 +116,7 @@ do	-- add the additional Shield Bar
 			return last
 		end
 		for i = 0, GetNumRaidMembers(), 1 do
-			local unitId = ((i == 0) and "target") or "raid"..i.."target"
+			local unitId = ((i == 0) and "target") or ("raid"..i.."target")
 			guid = UnitGUID(unitId)
 			if mod:GetCIDFromGUID(guid) == 36855 then
 				last = math.floor(UnitMana(unitId)/UnitManaMax(unitId) * 100)

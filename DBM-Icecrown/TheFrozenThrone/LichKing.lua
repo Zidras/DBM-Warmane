@@ -127,7 +127,6 @@ mod:AddEditboxOption("FrameY", -50)
 
 
 local warnedAchievement = false
-local lastPlagueCast = 0
 local warned_preP2 = false
 local warned_preP3 = false
 local warnedValkyrGUIDs = {}
@@ -153,7 +152,6 @@ end
 function mod:OnCombatStart(delay)
 	self:DestroyFrame()
 	self.vb.phase = 0
-	lastPlagueCast = 0
 	warned_preP2 = false
 	warned_preP3 = false
 	self:NextPhase()
@@ -303,7 +301,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNecroticPlagueCD:Start()
 		soundPlague3:Schedule(27)
 		timerNecroticCleanse:Start()
-		lastPlagueCast = GetTime()
 		if args:IsPlayer() then
 			specWarnNecroticPlague:Show()
 		end

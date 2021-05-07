@@ -912,9 +912,9 @@ Initialize["move"] = function(self)
 	self.P = P
 	self.A2 = A2
 	self.StartX = X
-	self.EndX = X + self.XSetting or 0
+	self.EndX = (X + self.XSetting) or 0
 	self.StartY = Y
-	self.EndY = Y + self.YSetting or 0
+	self.EndY = (Y + self.YSetting) or 0
 	self.XChange = self.EndX - self.StartX
 	self.YChange = self.EndY - self.StartY
 	

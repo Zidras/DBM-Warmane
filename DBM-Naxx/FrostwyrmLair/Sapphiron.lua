@@ -57,7 +57,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(28522) and args:IsPlayer() and self.Options.WarningIceblock then
 		SendChatMessage(L.WarningYellIceblock, "YELL")
-	elseif (spellId == 55699 or spellId == 28547) and args.destName == UnitName("player") and self:AntiSpam(1) then
+	elseif (args.spellId == 55699 or args.spellId == 28547) and args.destName == UnitName("player") and self:AntiSpam(1) then
 		warnFrostrain:Show()
 	end
 end

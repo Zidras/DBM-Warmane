@@ -209,7 +209,7 @@ DBM.DefaultOptions = {
 	HideTooltips = false,
 	DisableSFX = false,
 	EnableModels = true,
-	RangeFrameFrames = "radar",
+	RangeFrameFrames = "both",
 	RangeFrameUpdates = "Fast",
 	RangeFramePoint = "CENTER",
 	RangeFrameX = 50,
@@ -1087,21 +1087,6 @@ do
 			end)
 			self:Schedule(10, runDelayedFunctions, self)
 		end
-	end
-end
-
-function DBM:LFG_PROPOSAL_SHOW()
-	DBM.Bars:CreateBar(40, DBM_LFG_INVITE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-end
-
-function DBM:LFG_PROPOSAL_FAILED()
-	DBM.Bars:CancelBar(DBM_LFG_INVITE)
-end
-
-function DBM:LFG_UPDATE()
-	local _, joined = GetLFGInfoServer()
-	if not joined then
-		DBM.Bars:CancelBar(DBM_LFG_INVITE)
 	end
 end
 
@@ -2112,7 +2097,7 @@ do
 			local loaded, reason = LoadAddOn("DBM-GUI")
 			if not loaded then
 				if reason then
-					self:AddMsg(DBM_CORE_LOAD_GUI_ERROR:format(tostring(_G["ADDON_"..reason or ""])))
+					self:AddMsg(DBM_CORE_LOAD_GUI_ERROR:format(tostring(_G[("ADDON_"..reason) or ""])))
 				else
 					self:AddMsg(DBM_CORE_LOAD_GUI_ERROR:format(DBM_CORE_UNKNOWN))
 				end
@@ -2979,7 +2964,6 @@ do
 		self:UpdateWarningOptions()
 		self:UpdateSpecialWarningOptions()
 		self.Options.CoreSavedRevision = self.Revision
-		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then return end--Don't do sound migration in a situation user is loading wrong DBM version, to avoid sound path corruption
 		--Migrate user sound options to soundkit Ids if selected media doesn't exist in Interface\\AddOns
 		--This will in the short term, screw with people trying to use LibSharedMedia sound files on 8.1.5 until LSM has migrated as well.
 		local migrated = false
@@ -3171,7 +3155,7 @@ function DBM:LoadMod(mod, force)
 	local loaded, reason = LoadAddOn(mod.modId)
 	if not loaded then
 		if reason then
-			self:AddMsg(DBM_CORE_LOAD_MOD_ERROR:format(tostring(mod.name), tostring(_G["ADDON_"..reason or ""])))
+			self:AddMsg(DBM_CORE_LOAD_MOD_ERROR:format(tostring(mod.name), tostring(_G[("ADDON_"..reason) or ""])))
 		else
 			self:Debug("LoadAddOn failed and did not give reason")
 		end
@@ -5004,7 +4988,7 @@ end
 function DBM:SetCurrentSpecInfo()
 	currentSpecGroup = GetActiveTalentGroup() or 1
 
-	local maxPoints, specName = 0
+	local maxPoints, specName = 0, nil
 
 	for i = 1, MAX_TALENT_TABS do
 		local name, _, pointsSpent = GetTalentTabInfo(i, nil, nil, currentSpecGroup)
@@ -5871,13 +5855,6 @@ function bossModPrototype:Stop()
 	self:Unschedule()
 end
 
-function bossModPrototype:SetUsedIcons(...)
-	self.usedIcons = {}
-	for i = 1, select("#", ...) do
-		self.usedIcons[select(i, ...)] = true
-	end
-end
-
 function bossModPrototype:RegisterOnUpdateHandler(func, interval)
 	startScheduler()
 	if type(func) ~= "function" then return end
@@ -5890,16 +5867,6 @@ function bossModPrototype:UnregisterOnUpdateHandler()
 	self.elapsed = nil
 	self.updateInterval = nil
 	twipe(updateFunctions)
-end
-
-
-function bossModPrototype:SetRevision(revision)
-	self.revision = revision
-end
-
-
-function bossModPrototype:SendWhisper(msg, target)
-	return not DBM.Options.DontSendBossWhispers and sendWhisper(target, chatPrefixShort..msg)
 end
 
 function bossModPrototype:GetUnitCreatureId(uId)
@@ -6591,6 +6558,45 @@ function DBM:GetBossHP(cIdOrGUID)
 	return nil
 end
 
+function DBM:GetBossHPByGUID(guid)
+	local uId = bossHealthuIdCache[guid] or "target"
+	if UnitGUID(uId) == guid and UnitHealthMax(uId) ~= 0 then
+		if bossHealth[guid] and (UnitHealth(uId) == 0 and not UnitIsDead(uId)) then return bossHealth[guid], uId, UnitName(uId) end--Return last non 0 value if value is 0, since it's last valid value we had.
+		local hp = UnitHealth(uId) / UnitHealthMax(uId) * 100
+		bossHealth[guid] = hp
+		return hp, uId, UnitName(uId)
+	elseif UnitGUID("focus") == guid and UnitHealthMax("focus") ~= 0 then
+		if bossHealth[guid] and (UnitHealth("focus") == 0  and not UnitIsDead("focus")) then return bossHealth[guid], "focus", UnitName("focus") end--Return last non 0 value if value is 0, since it's last valid value we had.
+		local hp = UnitHealth("focus") / UnitHealthMax("focus") * 100
+		bossHealth[guid] = hp
+		return hp, "focus", UnitName("focus")
+	else
+		for i = 1, 5 do
+			local guid2 = UnitGUID("boss"..i)
+			if guid == guid2 and UnitHealthMax("boss"..i) ~= 0 then
+				if bossHealth[guid] and (UnitHealth("boss"..i) == 0 and not UnitIsDead("boss"..i)) then return bossHealth[guid], "boss"..i, UnitName("boss"..i) end--Return last non 0 value if value is 0, since it's last valid value we had.
+				local hp = UnitHealth("boss"..i) / UnitHealthMax("boss"..i) * 100
+				bossHealth[guid] = hp
+				bossHealthuIdCache[guid] = "boss"..i
+				return hp, "boss"..i, UnitName("boss"..i)
+			end
+		end
+		local idType = (IsInRaid() and "raid") or "party"
+		for i = 0, GetNumGroupMembers() do
+			local unitId = ((i == 0) and "target") or idType..i.."target"
+			local guid2 = UnitGUID(unitId)
+			if guid == guid2 and UnitHealthMax(unitId) ~= 0 then
+				if bossHealth[guid] and (UnitHealth(unitId) == 0 and not UnitIsDead(unitId)) then return bossHealth[guid], unitId, UnitName(unitId) end--Return last non 0 value if value is 0, since it's last valid value we had.
+				local hp = UnitHealth(unitId) / UnitHealthMax(unitId) * 100
+				bossHealth[guid] = hp
+				bossHealthuIdCache[guid] = unitId
+				return hp, unitId, UnitName(unitId)
+			end
+		end
+	end
+	return nil
+end
+
 function DBM:GetBossHPByUnitID(uId)
 	if UnitHealthMax(uId) ~= 0 then
 		local hp = UnitHealth(uId) / UnitHealthMax(uId) * 100
@@ -6646,6 +6652,8 @@ function bossModPrototype:GetLowestBossHealth()
 end
 
 bossModPrototype.GetBossHP = DBM.GetBossHP
+bossModPrototype.GetBossHPByGUID = DBM.GetBossHPByGUID
+bossModPrototype.GetBossHPByUnitID = DBM.GetBossHPByUnitID
 
 -----------------------
 --  Announce Object  --
@@ -7056,7 +7064,7 @@ do
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
-			local path = customPath or "Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg"
+			local path = customPath or ("Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg")
 			DBM:PlaySoundFile(path)
 		end
 	end
@@ -7871,7 +7879,7 @@ do
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
-			local path = customPath or "Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg"
+			local path = customPath or ("Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg")
 			DBM:PlaySoundFile(path)
 		end
 	end

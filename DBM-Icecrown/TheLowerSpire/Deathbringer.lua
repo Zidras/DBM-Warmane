@@ -98,7 +98,7 @@ do	-- add the additional Rune Power Bar
 			return last
 		end
 		for i = 0, GetNumRaidMembers(), 1 do
-			local unitId = ((i == 0) and "target") or "raid"..i.."target"
+			local unitId = ((i == 0) and "target") or ("raid"..i.."target")
 			guid = UnitGUID(unitId)
 			if mod:GetCIDFromGUID(guid) == 37813 then
 				last = math.floor(UnitPower(unitId)/UnitPowerMax(unitId) * 100)
