@@ -144,6 +144,7 @@ DBM_CORE_MINIMAP_TOOLTIP_FOOTER		= "Shift+click or right-click to move\nAlt+shif
 
 DBM_CORE_RANGECHECK_HEADER			= "Range Check (%d yd)"
 DBM_CORE_RANGECHECK_SETRANGE		= "Set range"
+DBM_CORE_RANGECHECK_SETTHRESHOLD	= "Set player threshold"
 DBM_CORE_RANGECHECK_SOUNDS			= "Sounds"
 DBM_CORE_RANGECHECK_SOUND_OPTION_1	= "Sound when one player is in range"
 DBM_CORE_RANGECHECK_SOUND_OPTION_2	= "Sound when more than one player is in range"
@@ -162,10 +163,26 @@ DBM_CORE_RANGECHECK_OPTION_SLOW		= "Slow (lowest CPU)"
 DBM_CORE_RANGECHECK_OPTION_AVERAGE	= "Medium"
 DBM_CORE_RANGECHECK_OPTION_FAST		= "Fast (Most real-time)"
 DBM_CORE_RANGERADAR_HEADER			= "Range Radar (%d yd)"
+DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d in range (%dyd)"--Multi
+DBM_CORE_RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1fyd)"--One target
 
 DBM_LFG_INVITE						= "LFG Invite"
 DBM_LFG_CD                          = "LFG cooldown"
 DBM_PHASE							= "Phase %d"
+
+DBM_CORE_NO_ARROW					= "Arrow can not be used in old instances with no map support(download a map patch or deal with it)"
+DBM_ARROW_MOVABLE					= "Arrow movable"
+DBM_ARROW_WAY_USAGE					= "/dway <x> <y>: Creates an arrow that points to a specific location (using local zone map coordinates)"
+DBM_ARROW_WAY_SUCCESS				= "To hide arrow, do '/dbm arrow hide' or reach arrow"
+DBM_ARROW_ERROR_USAGE	= {
+	"DBM-Arrow usage:",
+	"-----------------",
+	"/dbm arrow <x> <y>: Creates an arrow that points to a specific location (using world coordinates)",
+	"/dbm arrow map <x> <y>: Creates an arrow that points to a specific location (using zone map coordinates)",
+	"/dbm arrow <player>: Creates and arrow that points to a specific player in your party or raid (case sensitive!)",
+	"/dbm arrow hide: Hides the arrow",
+	"/dbm arrow move: Makes the arrow movable"
+}
 
 DBM_CORE_SLASHCMD_HELP				= {
 	"Available slash commands:",
@@ -177,7 +194,34 @@ DBM_CORE_SLASHCMD_HELP				= {
 	"/dbm help: Shows slash command descriptions",
 }
 
+DBM_CORE_SLASHCMD_HELP2				= {
+	"Available slash commands:",
+	"-----------------",
+	"/dbm pull <sec>: Sends a pull timer for <sec> seconds to the raid (requires promoted. alias: pull).",
+	"/dbm break <min>: Sends a break timer for <min> minutes to the raid (requires promoted. alias: break).",
+	"/dbm version: Performs a boss mod version check (alias: ver).",
+	"/dbm version2: Performs a boss mod version check that also whispers out of date users (alias: ver2).",
+	"/dbm lockout: Asks raid members for their current raid instance lockouts (aliases: lockouts, ids) (requires promoted).",
+	"/dbm lag: Performs a raid-wide latency check.",
+	"/dbm durability: Performs a raid-wide durability check."
+}
+
+DBM_CORE_TIMER_USAGE	= {
+	"DBM timer commands:",
+	"-----------------",
+	"/dbm timer <sec> <text>: Starts a <sec> second timer with your <text>.",
+	"/dbm ltimer <sec> <text>: Starts a timer that also automatically loops until canceled.",
+	"('Broadcast' in front of any timer also shares it with raid if leader/promoted)",
+	"/dbm timer endloop: Stops any looping ltimer."
+}
+
+DBM_CORE_UPDATE_REQUIRES_RELAUNCH		= "WARNING: This DBM update will not work correctly if you don't fully restart your game client. This update contains new files or .toc file changes that cannot be loaded via ReloadUI. You may encounter broken functionality or errors if you continue without a client restart."
+DBM_CORE_BAD_LOAD					= "DBM has detected your mod for this instance failed to fully load correctly because of combat. As soon as you are out of combat, please do /console reloadui as soon as possible."
 DBM_ERROR_NO_PERMISSION				= "You don't have the required permission to do this."
+DBM_CORE_TRANSCRIPTOR_LOG_START		= "Transcriptor logging started."
+DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor logging ended."
+DBM_CORE_LOAD_MOD_DISABLED			= "%s is installed but currently disabled. This mod will not be loaded unless you enable it."
+DBM_CORE_LOAD_MOD_DISABLED_PLURAL	= "%s are installed but currently disabled. These mods will not be loaded unless you enable them."
 
 DBM_CORE_BOSSHEALTH_HIDE_FRAME		= "Close health frame"
 
@@ -238,7 +282,7 @@ DBM_CORE_AUTO_TIMER_TEXTS = {
 	addsshort		= "Adds",
 	addscustom		= "Incoming Adds (%%s)",
 	addscustomshort	= "Adds (%%s)",
-	roleplay		= GUILD_INTEREST_RP
+	roleplay		= "Role play"
 }
 
 DBM_CORE_AUTO_TIMER_OPTIONS = {
