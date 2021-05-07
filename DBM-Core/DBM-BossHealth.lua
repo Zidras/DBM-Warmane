@@ -17,6 +17,7 @@ local anchor
 local header
 local dropdownFrame
 --local sortingEnabled
+local tremove, tinsert = table.remove, table.insert
 
 do
 	local id = 0
@@ -24,6 +25,17 @@ do
 		id = id + 1
 		return id
 	end
+end
+
+-- checks if a given value is in an array
+-- returns true if it finds the value, false otherwise
+local function checkEntry(t, val)
+	for i, v in ipairs(t) do
+		if v == val then
+			return true
+		end
+	end
+	return false
 end
 
 ------------
@@ -116,7 +128,7 @@ local function createFrame(self)
 	anchor:SetPoint(DBM.Options.HPFramePoint, UIParent, DBM.Options.HPFramePoint, DBM.Options.HPFrameX, DBM.Options.HPFrameY)
 	header = anchor:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 	header:SetPoint("BOTTOM", anchor, "BOTTOM")
-	anchor:SetScript("OnUpdate", updateFrame)
+	--anchor:SetScript("OnUpdate", updateFrame)
 	anchor:SetScript("OnMouseDown", onMouseDown)
 	anchor:SetScript("OnMouseUp", onMouseUp)
 	anchor:SetScript("OnHide", onHide)
@@ -124,8 +136,8 @@ local function createFrame(self)
 	menu[1].checked = DBM.Options.HealthFrameLocked
 end
 
-local function createBar(self, cId, name)
-	local bar = table.remove(barCache, #barCache) or CreateFrame("Frame", "DBM_BossHealth_Bar_"..getBarId(), anchor, "DBMBossHealthBarTemplate")
+local function createBar(self, name, ...) -- the vararg will also contain the name, see method AddBoss for details (TODO: this should be handled earlier, seriously...)
+	local bar = tremove(barCache, #barCache) or CreateFrame("Frame", "DBM_BossHealth_Bar_"..getBarId(), anchor, "DBMBossHealthBarTemplate")
 	bar:Show()
 	local bartext = _G[bar:GetName().."BarName"]
 	local barborder = _G[bar:GetName().."BarBorder"]
@@ -133,11 +145,22 @@ local function createBar(self, cId, name)
 	barborder:SetScript("OnMouseDown", onMouseDown)
 	barborder:SetScript("OnMouseUp", onMouseUp)
 	barborder:SetScript("OnHide", onHide)
-	bar.id = cId
+	if select("#", ...) <= 2 then -- 2 as the name is in the vararg
+		bar.id = ...
+	else
+		bar.id = {...}
+		bar.id[#bar.id] = nil -- we don't want the name in here
+	end
 	bar.hidden = false
 	bar:ClearAllPoints()
-	bartext:SetText(name)
-	updateBar(bar, 100)
+	bartext:SetText(name or "")
+	bar.nameused = name and true or nil
+	if type(bar.id) == "function" then
+		local health, icon = bar.id()
+		updateBar(bar, health, icon, true)
+	else
+		updateBar(bar, 100)
+	end
 	return bar
 end
 
@@ -146,81 +169,91 @@ end
 ------------------
 --  Bar Update  --
 ------------------
-function updateBar(bar, percent, dontShowDead)
-	local bartimer = _G[bar:GetName().."BarTimer"]
-	local barbar = _G[bar:GetName().."Bar"]
-	bartimer:SetText((percent > 0 or dontShowDead) and math.floor(percent).."%" or DBM_CORE_DEAD)
-	barbar:SetValue(percent)
-	barbar:SetStatusBarColor((100 - percent) / 100, percent/100, 0)
-	bar.value = percent
-	local bossAlive = false
-	for i = 1, #bars do
-		if bars[i].value > 0 then
-			bossAlive = true
-			break
+function updateBar(bar, percent, icon, dontShowDead, name)
+	if not percent then return end
+	local barName = bar:GetName()
+	local bartimer = _G[barName .. "BarTimer"]
+	local barbar = _G[barName .. "Bar"]
+	local barIcon = _G[barName .. "BarIcon"]
+	local bartext = _G[barName .. "BarName"]
+	if percent >= 1 then
+		bartimer:SetText(math.floor(percent).."%")
+		barbar:SetValue(percent)
+		barbar:SetStatusBarColor((100 - percent) / 100, percent/100, 0)
+		bar.value = percent
+	elseif (bar.value == 0) or (percent >= 0) then
+		if percent == 0 or percent == -1 then
+			bartimer:SetText(dontShowDead and "0%" or DEAD)
+		else
+			bartimer:SetText("0%")
+		end
+		barbar:SetValue(0)
+		barbar:SetStatusBarColor(0, 0, 0)
+		bar.value = 0
+	else--can't detect health. show unknown
+		if not bar.value or bar.value >= 1 then
+			bartimer:SetText(DBM_CORE_UNKNOWN)
+		else
+			bartimer:SetText(dontShowDead and "0%" or DEAD)
 		end
 	end
-	if not bossAlive and #bars > 0 then
-		bossHealth:Hide()
+	if not icon or type(icon) ~= "number" or icon < 1 or icon > 8 then
+		barIcon:Hide()
+	else
+		barIcon:Show()
+		barIcon:SetTexCoord((icon - 1) % 4 / 4, (icon - 1) % 4 / 4 + 0.25, icon < 5 and 0 or 0.25, icon < 5 and 0.25 or 0.5)
+	end
+	if name and not bar.nameused then
+		bartext:SetText(name)
 	end
 end
 
 do
-	local t = 0
-	local targetCache = {}
-	local function getCIDfromGUID(guid)
-		if not guid then
-			return -1
-		end
-		local cType = bit.band(guid:sub(0, 5), 0x00F)
-		return (cType == 3 or cType == 5) and tonumber(guid:sub(9, 12), 16) or -1
-	end
-
---	local function compareBars(b1, b2)
---		return b1.value > b2.value
---	end
-
-	function updateFrame(self, e)
-		t = t + e
-		if t >= 0.5 then
-			t = 0
---			if #bars > DBM.Options.HPFrameMaxEntries then
---				sortingEnabled = true
+	function updateFrame(self)
+--		if #bars > DBM.Options.HPFrameMaxEntries then
+--			sortingEnabled = true
+--		end
+--		if sortingEnabled then
+--			table.sort(bars, compareBars)
+--		end
+		for i, v in ipairs(bars) do
+--			if i > DBM.Options.HPFrameMaxEntries then
+--				v:Hide()
+--			else
+--				v:Show()
 --			end
---			if sortingEnabled then
---				table.sort(bars, compareBars)
---			end
-			for i, v in ipairs(bars) do
---				if i > DBM.Options.HPFrameMaxEntries then
---					v:Hide()
---				else
---					v:Show()
---				end
-				if type(v.id) == "number" then
-					local id = targetCache[v.id] -- ask the cache if we already know where the mob is
-					if getCIDfromGUID(UnitGUID(id or "")) ~= v.id then -- the cache doesn't know it, update the cache
-						targetCache[v.id] = nil
-						-- check focus target
-						if getCIDfromGUID(UnitGUID("focus")) == v.id then
-							targetCache[v.id] = "focus"
-						else
-							-- check target and raid/party targets
-							local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-							for j = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
-								id = (j == 0 and "target") or uId..j.."target"
-								if getCIDfromGUID(UnitGUID(id or "")) == v.id then
-									targetCache[v.id] = id
-									break
-								end
-							end
-						end
-					end
-					if getCIDfromGUID(UnitGUID(id or "")) == v.id then -- did we find the mob? if yes: update the health bar
-						updateBar(v, ((UnitHealth(id)) / (UnitHealthMax(id)) * 100 or 100))
-					end
-				elseif type(v.id) == "function" then -- generic bars
-					updateBar(v, v.id(), true)
+			if type(v.id) == "number" then -- creature ID
+				local health, id, name = DBM:GetBossHP(v.id)
+				if health then
+					updateBar(v, health, GetRaidTargetIndex(id), nil, name)
+				else
+					updateBar(v, -1)
 				end
+			elseif type(v.id) == "string" then -- UnitID or GUID
+				local health, id, name
+				if v.id:match("boss") then
+					health, id, name = DBM:GetBossHPByUnitID(v.id)
+				else
+					health, id, name = DBM:GetBossHPByGUID(v.id)
+				end
+				if health then
+					updateBar(v, health, GetRaidTargetIndex(id), nil, name)
+				else
+					updateBar(v, -1)
+				end
+			elseif type(v.id) == "table" then -- multi boss
+				-- TODO: it would be more efficient to scan all party/raid members for all IDs instead of going over all raid members n times
+				-- this is especially important for the cache
+				for j, id in ipairs(v.id) do
+					local health = DBM:GetBossHP(id)
+					if health then
+						updateBar(v, health)
+						break
+					end
+				end
+			elseif type(v.id) == "function" then -- generic bars
+				local health, icon = v.id()
+				updateBar(v, health, icon, true)
 			end
 		end
 	end
@@ -234,6 +267,15 @@ function bossHealth:Show(name)
 	header:SetText(name)
 	anchor:Show()
 	bossHealth:Clear()
+	updateFrame(bossHealth)
+	if not bossHealth.ticker then
+		bossHealth.ticker = C_Timer.NewTicker(0.5, function() updateFrame(bossHealth) end)
+	end
+end
+
+function bossHealth:SetHeaderText(name)
+	if not anchor then return end
+	header:SetText(name)
 end
 
 function bossHealth:Clear()
@@ -249,28 +291,84 @@ function bossHealth:Clear()
 end
 
 function bossHealth:Hide()
-	if anchor then anchor:Hide() end
+	if anchor then
+		if bossHealth.ticker then
+			bossHealth.ticker:Cancel()
+			bossHealth.ticker = nil
+		end
+		anchor:Hide()
+	end
 end
 
-function bossHealth:AddBoss(cId, name)
-	if not anchor or not anchor:IsShown() then return end
-	table.insert(bars, createBar(self, cId, name))
+function bossHealth:IsShown()
+	return anchor and anchor:IsShown()
+end
+
+-- HACK to support the old API cId, name. TODO: change API to name, cId and update _all_ boss mods (or: add new method AddSharedHealthBoss or something but this would also be ugly...) (or: use addBoss({cId1, cId2, ...}, name) for multi-cId bosses but that's just ugly)
+-- for now: using this ugly code here instead of ugly code in all boss mods that make use of multi-cId health bars
+
+-- hack to support shared health bosses
+local function addBoss(self, name, ...) -- name, cId1, cId2, ..., cIdN, name
+	if not anchor or not anchor:IsShown() then
+		return
+	end
+	tinsert(bars, createBar(self, name, ...))
 	updateBarStyle(bars[#bars], #bars)
 end
 
+-- the signature of this method is (cId1, cId2, ..., cIdN, name) for compatibility reasons (used to be cId, name)
+function bossHealth:AddBoss(...)
+	-- copy the name to the front of the arg list
+	-- note: name is now twice in the arg list but we can't really fix that in an efficient way (this is handled in createBar()
+	if select("#", ...) == 1 then
+		return addBoss(self, nil, ...)
+	else
+		return addBoss(self, select(select("#", ...), ...), ...)
+	end
+end
+
+-- just pass any of the creature IDs for shared health bosses
+-- also accepts the name of the bar for generic bars (i.e. id == function) as you probably don't have access to the specific closure when removing something later
 function bossHealth:RemoveBoss(cId)
 	if not anchor or not anchor:IsShown() then return end
 	for i = #bars, 1, -1 do
 		local bar = bars[i]
-		if bar.id == cId then
+		if bar.id == cId or type(bar.id) == "table" and checkEntry(bar.id, cId) or type(bar.id) == "function" and (_G[bar:GetName().."BarName"]):GetText() == cId then
 			if bars[i + 1] then
 				local next = bars[i + 1]
-				next:SetPoint("TOP", bars[i - 1] or anchor, "BOTTOM", 0, 0)
+				if DBM.Options.HealthFrameGrowUp then
+					next:SetPoint("BOTTOM", bars[i - 1] or anchor, "TOP", 0, 0)
+				else
+					next:SetPoint("TOP", bars[i - 1] or anchor, "BOTTOM", 0, 0)
+				end
 			end
 			bar:Hide()
 			bar:ClearAllPoints()
 			barCache[#barCache + 1] = bar
-			table.remove(bars, i)
+			tremove(bars, i)
+		end
+	end
+end
+
+-- any ID for shared health bosses
+function bossHealth:HasBoss(id)
+	if not anchor or not anchor:IsShown() then return end
+	for i, bar in ipairs(bars) do
+		if bar.id == id or type(bar.id) == "table" and checkEntry(bar.id, id) then
+			return true
+		end
+	end
+	return false
+end
+
+-- renames an entry in the health frame
+-- just pass any of the creature IDs for shared health bosses
+function bossHealth:RenameBoss(cId, newName)
+	if not anchor or not anchor:IsShown() then return end -- TODO: the entries should still be added even if the frame was never created if someone enables the frame mid-combat...
+	for i = #bars, 1, -1 do
+		local bar = bars[i]
+		if bar.id == cId or type(bar.id) == "table" and checkEntry(bar.id, cId) then
+			(_G[bar:GetName().."BarName"]):SetText(newName)
 		end
 	end
 end
@@ -281,4 +379,9 @@ function bossHealth:UpdateSettings()
 	for i, v in ipairs(bars) do
 		updateBarStyle(v, i)
 	end
+end
+
+function bossHealth:Update()
+	if not anchor or not anchor:IsShown() then return end
+	updateFrame(self)
 end
