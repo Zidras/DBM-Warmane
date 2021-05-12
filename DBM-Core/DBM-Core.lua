@@ -3356,6 +3356,7 @@ do
 		end
 		local name = DBM:GetFullPlayerNameByGUID(iconSetPerson[optionName]) or DBM_CORE_UNKNOWN
 		DBM:Debug(name.." was elected icon setter for "..optionName, 2)
+		DBM:AddMsg(name.." was elected icon setter for "..optionName)
 	end
 
 	whisperSyncHandlers["DBMv4-RequestTimers"] = function(msg, channel, sender)
