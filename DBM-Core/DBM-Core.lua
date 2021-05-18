@@ -5945,11 +5945,20 @@ do
 				end
 				if not found and not scanOnlyBoss then
 					if IsInRaid() then
-						for i = 1, GetNumRaidMembers() do
+						for i = 1, GetNumGroupMembers() do
 							if self:GetUnitCreatureId("raid"..i.."target") == cidOrGuid then
 								bossuIdCache[cidOrGuid] = "raid"..i.."target"
 								bossuIdCache[UnitGUID("raid"..i.."target")] = "raid"..i.."target"
 								name, uid, bossuid = getBossTarget(UnitGUID("raid"..i.."target"))
+								break
+							end
+						end
+					elseif IsInGroup() then
+						for i = 1, GetNumGroupMembers() do
+							if self:GetUnitCreatureId("party"..i.."target") == cidOrGuid then
+								bossuIdCache[cidOrGuid] = "party"..i.."target"
+								bossuIdCache[UnitGUID("party"..i.."target")] = "party"..i.."target"
+								name, uid, bossuid = getBossTarget(UnitGUID("party"..i.."target"))
 								break
 							end
 						end
@@ -6195,17 +6204,6 @@ end
 
 function bossModPrototype:SendWhisper(msg, target)
 	return not DBM.Options.DontSendBossWhispers and sendWhisper(target, chatPrefixShort..msg)
-end
-
-function bossModPrototype:GetBossTarget(cid)
-	cid = cid or self.creatureId
-	for i = 1, GetNumRaidMembers() do
-		if self:GetUnitCreatureId("raid"..i.."target") == cid then
-			return UnitName("raid"..i.."targettarget"), "raid"..i.."targettarget"
-		elseif self:GetUnitCreatureId("focus") == cid then	-- we check our own focus frame, maybe the boss is there ;)
-			return UnitName("focustarget"), "focustarget"
-		end
-	end
 end
 
 function bossModPrototype:GetThreatTarget(cid)
