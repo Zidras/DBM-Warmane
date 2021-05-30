@@ -58,10 +58,10 @@ local soundWarnMC					= mod:NewSound5(71289)
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
-mod:AddBoolOption("ShieldHealthFrame", true, "misc")
+mod:AddBoolOption("ShieldHealthFrame", false, "misc")
 mod:RemoveOption("HealthFrame")
-mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
-mod:AddBoolOption("EqUneqTimer")
+mod:AddBoolOption("EqUneqWeapons", mod:IsEquipmentSetAvailable("pve") and (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and mod:IsDifficulty("heroic10", "heroic25"))
+mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
 
 local lastDD	= 0

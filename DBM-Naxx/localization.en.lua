@@ -383,7 +383,6 @@ L:SetOptionLocalization({
 	manaNear		= "Show special warning when Detonate Mana is nearby",
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
-	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure(joke)",
 	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. Create equip. set called 'pve' for re-equipping",
 	EqUneqWeaponsKT2= "Automatically unequip and equip weapons when MC is cast on YOU",
 	ShowRange		= "Show range frame when Phase 2 starts"

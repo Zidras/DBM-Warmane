@@ -167,32 +167,20 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnPhase2Soon		= "Phase 2 soon",
-	WarnPhase3Soon		= "Phase 3 soon",
 	TwilightCutterCast	= "Casting Twilight Cutter: 5 sec"
 })
 
 L:SetOptionLocalization({
-	WarnPhase2Soon			= "Show pre-warning for Phase 2 (at ~79%)",
-	WarnPhase3Soon			= "Show pre-warning for Phase 3 (at ~54%)",
-	TwilightCutterCast		= "Show warning when $spell:77844 is being cast",
+	TwilightCutterCast		= "Show warning when $spell:74769 is being cast",
 	AnnounceAlternatePhase	= "Show warnings/timers for phase you aren't in as well",
-	SoundOnConsumption		= "Play sound on $spell:74562 or $spell:74792",--We use localized text for these functions
-	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets",--So we can use single functions for both versions of spell.
-	YellOnConsumption		= "Yell on $spell:74562 or $spell:74792",
-	WhisperOnConsumption	= "Send whisper to $spell:74562 or $spell:74792\ntargets"
+	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets"--So we can use single functions for both versions of spell.
 })
 
 L:SetMiscLocalization({
-	NormalHalion			= "Physical Halion",
-	TwilightHalion			= "Twilight Halion",
+	Halion					= "Halion",
 	MeteorCast				= "The heavens burn!",
 	Phase2					= "You will find only suffering within the realm of twilight! Enter if you dare!",
 	Phase3					= "I am the light and the darkness! Cower, mortals, before the herald of Deathwing!",
-	twilightcutter			= "The orbiting spheres pulse with dark energy!",
-	YellCombustion			= "Combustion on me!",
-	WhisperCombustion		= "Combustion on you! Run to the wall!",
-	YellConsumption			= "Consumption on me!",
-	WhisperConsumption		= "Consumption on you! Run to the wall!",
+	twilightcutter			= "Beware the shadow!", --"The orbiting spheres pulse with dark energy!". Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!"
 })

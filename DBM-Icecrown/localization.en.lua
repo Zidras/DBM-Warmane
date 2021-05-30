@@ -105,7 +105,9 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	AchievementBoned	= "Time to free"
+	AchievementBoned	= "Time to free",
+	TimerBoneSpikeUp	= "Spikes up in...",
+	TimerWhirlwindStart	= "Whirlwind starts in..."
 }
 
 L:SetWarningLocalization{
@@ -151,10 +153,9 @@ L:SetOptionLocalization{
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equiping to work, create an equipment set called 'pve'.",
+	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.",
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
-	BlockWeapons				= "Completely block the unequip/equip functions above (off by default)",
-
+	BlockWeapons				= "Completely block the unequip/equip functions above"
 }
 
 L:SetMiscLocalization{
@@ -517,68 +518,43 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase2Soon			= "Phase 2 transition soon",
-	WarnPhase3Soon			= "Phase 3 transition soon",
 	ValkyrWarning			= ">%s< has been grabbed!",
 	SpecWarnYouAreValkd		= "You have been grabbed",
-	SpecWarnDefileCast		= "Defile on you - Move away",
-	SpecWarnDefileNear		= "Defile near you - Watch out",
-	SpecWarnTrapNear		= "Shadow Trap near you - Watch out",
 	WarnNecroticPlagueJump	= "Necrotic Plague jumped to >%s<",
-	SpecWarnPALGrabbed		= "Paladin Healer %s has been grabbed",
-	SpecWarnPRIGrabbed		= "Priest Healer %s has been grabbed",
 	SpecWarnValkyrLow		= "Valkyr below 55%"
 }
 
 L:SetTimerLocalization{
-	TimerCombatStart	= "Combat starts",
 	TimerRoleplay		= "Roleplay",
 	PhaseTransition		= "Phase transition",
 	TimerNecroticPlagueCleanse = "Cleanse Necrotic Plague"
 }
 
 L:SetOptionLocalization{
-	TimerCombatStart		= "Show timer for start of combat",
 	TimerRoleplay			= "Show timer for roleplay event",
 	WarnNecroticPlagueJump	= "Announce $spell:73912 jump targets",
 	TimerNecroticPlagueCleanse	= "Show timer to cleanse Necrotic Plague before\nthe first tick",
 	PhaseTransition			= "Show time for phase transitions",
-	WarnPhase2Soon			= "Show pre-warning for Phase 2 transition (at ~73%)",
-	WarnPhase3Soon			= "Show pre-warning for Phase 3 transition (at ~43%)",
 	ValkyrWarning			= "Announce who has been grabbed by Val'kyr Shadowguards",
 	SpecWarnYouAreValkd		= "Show special warning when you have been grabbed by a Val'kyr Shadowguard",--npc36609
-	SpecWarnHealerGrabbed	= "Show special warning when a paladin or priest healer has been grabbed\n(requires that healer to be running DBM)",
-	SpecWarnDefileCast		= "Show special warning for $spell:72762 on you",
-	SpecWarnDefileNear		= "Show special warning for $spell:72762 near you",
-	SpecWarnTrapNear		= "Show special warning for $spell:73539 near you",
-	YellOnDefile			= "Yell on $spell:72762",
-	YellOnTrap				= "Yell on $spell:73539",
 	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
 	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
 	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
 	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
 	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
-	ValkyrIcon				= "Set icons on Val'Kyrs",
-	DefileArrow				= "Show DBM arrow when $spell:72762 is near you",
 	TrapArrow				= "Show DBM arrow when $spell:73539 is near you",
-	LKBugWorkaround			= "Don't use latency based sync check for defile/shadow trap\n(Default on until a bug in sync check is worked out)",
 	AnnounceValkGrabs		= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",
 	SpecWarnValkyrLow		= "Show special warning when Valkyr is below 55% HP",
 	AnnouncePlagueStack		= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",
 	ShowFrame				= "Show Val'Kyr Targets frame",
 	FrameClassColor			= "Use Class Colors in Val'Kyr Targets frame",
-	FrameUpwards 			= "Expand Val'Kyr target frame upwards",
+	FrameUpwards			= "Expand Val'Kyr target frame upwards",
 	FrameLocked				= "Lock Val'Kyr Targets frame",
-	RemoveBOP				= "Remove Hand of Protection and Divine Shield before exiting Frostmourne room"
 }
 
 L:SetMiscLocalization{
 	LKPull					= "So the Light's vaunted justice has finally arrived? Shall I lay down Frostmourne and throw myself at your mercy, Fordring?",
-	YellDefile				= "Defile on me!",
-	YellTrap				= "Shadow Trap on me!",
-	YellValk				= "I've been grabbed!",
 	LKRoleplay				= "Is it truly righteousness that drives you? I wonder...",
-	PlagueWhisper			= "You have been infected by",
 	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s",
 	ValkGrabbed				= "Valkyr Shadowguard grabbed %s",
 	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague",

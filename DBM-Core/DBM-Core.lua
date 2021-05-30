@@ -128,7 +128,7 @@ DBM.DefaultOptions = {
 	},
 	RaidWarningSound = "Sound\\Doodad\\BellTollNightElf.wav",
 	SpecialWarningSound = "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3",
-	SpecialWarningSound2 = "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg",
+	SpecialWarningSound2 = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav",
 	SpecialWarningSound3 = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg",
 	SpecialWarningSound4 = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav",
 	SpecialWarningSound5 = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav",
@@ -6307,6 +6307,9 @@ local specFlags ={
 	["Physical"] = "IsPhysical",
 	["RemoveEnrage"] = "CanRemoveEnrage",
 	["MagicDispeller"] = "IsMagicDispeller",
+	["HasInterrupt"] = "CanInterrupt",
+	["RaidCooldown"] = "HasRaidCooldown",
+	["TargetedCooldown"] = "HasTargetedCooldown"
 }
 
 function bossModPrototype:GetRoleFlagValue(flag)
@@ -6362,6 +6365,26 @@ function bossModPrototype:IsMagicDispeller()
 	return select(2, UnitClass("player")) == "MAGE"
 		or select(2, UnitClass("player")) == "SHAMAN"
 		or select(2, UnitClass("player")) == "PRIEST"
+end
+
+function bossModPrototype:CanInterrupt()
+	return select(2, UnitClass("player")) == "WARRIOR"
+		or select(2, UnitClass("player")) == "ROGUE"
+		or select(2, UnitClass("player")) == "SHAMAN"
+		or select(2, UnitClass("player")) == "MAGE"
+		or select(2, UnitClass("player")) == "DEATHKNIGHT"
+end
+
+function bossModPrototype:HasRaidCooldown()
+	return select(2, UnitClass("player")) == "PRIEST"						-- Divine Hymn
+		or select(2, UnitClass("player")) == "DRUID"						-- Tranquility
+		or select(2, UnitClass("player")) == "PALADIN"						-- Aura Mastery and/or Divine Sacrifice
+end
+
+function bossModPrototype:HasTargetedCooldown()
+	return select(2, UnitClass("player")) == "WARRIOR"
+		or select(2, UnitClass("player")) == "PRIEST" and (IsSpellKnown(33206) or IsSpellKnown(47788))				-- Pain Suppression / Guardian Spirit
+		or select(2, UnitClass("player")) == "PALADIN" and (getTalentpointsSpent(20234) >= 1 or IsSpellKnown(6940))	-- Improved Lay on Hands / Hand of Sacrifice
 end
 
 local function IsDeathKnightTank()
@@ -6480,6 +6503,14 @@ function bossModPrototype:IsWeaponDependent(uId)
 		or select(2, UnitClass(uId)) == "DEATHKNIGHT"
 		or (select(2, UnitClass(uId)) == "PALADIN" and not (select(3, GetTalentTabInfo(1)) >= 51))
 		or (select(2, UnitClass(uId)) == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
+end
+
+function bossModPrototype:IsEquipmentSetAvailable(setName)
+	local _, index = GetEquipmentSetInfoByName(setName)
+	if index then
+		return true
+	end
+	return false
 end
 
 -------------------------

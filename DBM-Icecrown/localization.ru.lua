@@ -107,7 +107,9 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	AchievementBoned	= "Время до освобождения"
+	AchievementBoned	= "Время до освобождения",
+	TimerBoneSpikeUp	= "Шипы через...",
+	TimerWhirlwindStart	= "Вихрь через..."
 }
 
 L:SetWarningLocalization{
@@ -155,8 +157,7 @@ L:SetOptionLocalization{
 	SoundWarnCountingMC			= "Проигрывать звуковой отсчет 5...1 до контроля разума",
 	EqUneqWeapons				= "Снимать/надевать оружия если в вас кастанулся контроль. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен.",
 	EqUneqTimer					= "Снимать оружия по таймеру ВСЕГДА, а не в каст(если высокий пинг). Опция выше должна быть вкл.",
-	BlockWeapons				= "Полностью заблокировать функции снятия/надевания выше (выкл по ум.)",
-
+	BlockWeapons				= "Полностью заблокировать функции снятия/надевания выше"
 }
 
 L:SetMiscLocalization{
@@ -517,52 +518,31 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase2Soon			= "Скоро переход в фазу 2",
-	WarnPhase3Soon			= "Скоро переход в фазу 3",
 	ValkyrWarning			= "|3-3(>%s<) схватили!",
 	SpecWarnYouAreValkd		= "Вас схватили",
-	SpecWarnDefileCast		= "Осквернение на вас - отбегите",
-	SpecWarnDefileNear		= "Осквернение около вас - остерегайтесь",
-	SpecWarnTrapNear		= "Теневая ловушка около вас - остерегайтесь",
 	WarnNecroticPlagueJump	= "Мертвящая чума перепрыгнула на |3-3(>%s<)",
-	SpecWarnPALGrabbed		= "Паладина лекаря |3-3(%s) схватили",
-	SpecWarnPRIGrabbed		= "Жреца лекаря |3-3(%s) схватили",
 	SpecWarnValkyrLow		= "У Валь'киры меньше 55%"
 }
 
 L:SetTimerLocalization{
-	TimerCombatStart	= "Начало боя",
 	TimerRoleplay		= "Представление",
 	PhaseTransition		= "Переходная фаза",
 	TimerNecroticPlagueCleanse = "Очищение Мертвящей чумы"
 }
 
 L:SetOptionLocalization{
-	TimerCombatStart		= "Отсчет времени до начала боя",
 	TimerRoleplay			= "Отсчет времени для представления",
 	WarnNecroticPlagueJump	= "Объявлять цели прыжков $spell:73912",
 	TimerNecroticPlagueCleanse	= "Отсчет времени для очищения Мертвящей чумы до первого тика",
 	PhaseTransition			= "Отсчет времени для переходной фазы",
-	WarnPhase2Soon			= "Предупреждать заранее о переходе в фазу 2 (на ~73%)",
-	WarnPhase3Soon			= "Предупреждать заранее о переходе в фазу 3 (на ~43%)",
 	ValkyrWarning			= "Объявлять, кого схватили Валь'киры",
 	SpecWarnYouAreValkd		= "Спец-предупреждение, когда вас схватила Валь'кира",
-	SpecWarnHealerGrabbed	= "Спец-предупреждение, когда схватили паладина или жреца лекаря (требует наличия DBM у лекаря)",
-	SpecWarnDefileCast		= "Спец-предупреждение, когда $spell:72762 на вас",
-	SpecWarnDefileNear		= "Спец-предупреждение, когда $spell:72762 около вас",
-	SpecWarnTrapNear		= "Спец-предупреждение, когда $spell:73539 около вас",
-	YellOnDefile			= "Кричать, когда $spell:72762 на вас",
-	YellOnTrap				= "Кричать, когда $spell:73539 на вас",
 	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
 	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
 	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
 	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
 	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
-	ValkyrIcon				= "Устанавливать метки на Валь'кир",
-	DefileArrow				= "Показывать стрелку, когда $spell:72762 около вас",
 	TrapArrow				= "Показывать стрелку, когда $spell:73539 около вас",
-	YellInValk				= "Кричать свой никнейм и класс если вы схвачены Валь'Кирой",
-	LKBugWorkaround			= "Отключить синхр-цию для Осквернения и Теневой ловушки\n(вкл. по умолчанию до исправления бага с синхронизацией)",
 	AnnounceValkGrabs		= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
 	SpecWarnValkyrLow		= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",
 	AnnouncePlagueStack		= "Объявлять стаки заклинания $spell:73912 в рейд-чат (10\nстаков, далее каждые 5) (требуются права помощника)",
@@ -570,16 +550,11 @@ L:SetOptionLocalization{
 	FrameClassColor			= "Использовать цвета классов в окне целей Валь'Кир",
 	FrameUpwards			= "Рост окна целей Валь'Кир вверх",
 	FrameLocked				= "Зафиксировать окно целей Валь'Кир",
-	RemoveBOP				= "Снимать Длань Защиты и Божественный щит перед выходом из комнаты Ледяной Скорби"
 }
 
 L:SetMiscLocalization{
 	LKPull					= "Неужели прибыли наконец хваленые силы Света? Мне бросить Ледяную Скорбь и сдаться на твою милость, Фордринг?",
-	YellDefile				= "Осквернение на мне!",
-	YellTrap				= "Теневая ловушка на мне!",
-	YellValk				= "Меня схватили!",
 	LKRoleplay				= "Что движет вами?.. Праведность? Не знаю...",
-	PlagueWhisper			= "Вы заражены",
 	ValkGrabbedIcon			= "Валь'кира {rt%d} схватила %s",
 	ValkGrabbed				= "Валь'кира схватила %s",
 	PlagueStackWarning		= "Предупреждение: %s получил %d стаков Мертвящей чумы",

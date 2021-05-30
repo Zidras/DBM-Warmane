@@ -26,8 +26,8 @@ local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_COR
 local timerWhirlwindCD		= mod:NewCDTimer(90, 69076, nil, nil, nil, 2)
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
-local timerWhirlwindStart	= mod:NewTimer(3, "Вихрь через...")
-local timerBoneSpikeUp		= mod:NewTimer(3, "Шипы через...")
+local timerBoneSpikeUp		= mod:NewTimer(3, "TimerBoneSpikeUp", 69065)
+local timerWhirlwindStart	= mod:NewTimer(3, "TimerWhirlwindStart", 69076)
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 

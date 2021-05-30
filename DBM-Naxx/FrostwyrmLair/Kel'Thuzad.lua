@@ -45,7 +45,6 @@ mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
 mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank())
 mod:AddBoolOption("EqUneqWeaponsKT2")
-mod:AddBoolOption("SmileScream", false)
 
 local warnedAdds = false
 
@@ -107,9 +106,6 @@ function mod:SPELL_SUMMON(args)
 		warnFissure:Show()
 		specwarnfissure:Show()
 		soundFissure:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-		if self.Options.SmileScream then
-			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\smile_voidzone.mp3", "Master")
-		end
 		fissureCD:Start()
 	end
 end
