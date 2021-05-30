@@ -1,25 +1,17 @@
-# DBM для WoWCircle WoTLK Logon
+# DBM for Warmane-Icecrown
 
-[DBM-WoWCircle v7](https://forum.wowcircle.net/showthread.php?t=991037)
+Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle).
 
-**Автор форка** - [Maveth/Reign Eternal Souls/Traitors of Humanity x5/ Barsoom x25->x10->x100 Born in Fire logon1 WoTLK](https://forum.wowcircle.net/member.php?u=261041)
+This version aims to deliver more accurate timers and features from retail to Warmane-Icecrown server raids.
 
-**NEW GUI** - Скорее всего придется переделывать настройки после 6.12, но добавлено много новых функций с официального DBM
+# HOW TO INSTALL
 
-**Если что-то не работает или у вас есть предложения/пожелания пожалуйста [пишите в дискорд в канал(не в личку)](https://discord.gg/uMbjr87)**
+**Disclaimer: If you have used DBM before, you will need to do a clean install before using this version since this is a retail backport and therefore it is not compatible with 2010's version of DBM. To do this:**
+1. On your addons folder (Interface/Addons), select every DBM folder (everything that starts with DBM-) and **delete** them.
+2. On your SavedVariables folder (WTF/Account/[AccountName]/SavedVariables), select every DBM file (everything that starts with DBM-) and **delete** them. **THIS STEP WILL REMOVE YOUR DBM CONFIGURATIONS/PROFILES!**
 
-[**DOWNLOAD/СКАЧАТЬ**](https://github.com/Barsoomx/DBM-wowcircle/archive/master.zip)
 
-# ОБЯЗАТЕЛЬНО УДАЛИТЕ СТАРЫЙ ДБМ < 7.00
+**With no remnants of old DBM files we are now ready to start the installation process.**
 
-**В архиве одна папка, открыть её и скопировать ВСЕ к себе в аддоны. ОБЯЗАТЕЛЬНО УДАЛИТЕ СТАРЫЙ ДБМ < 7.00**
-
-**_ОБЯЗАТЕЛЬНО УДАЛИТЕ СТАРЫЙ ДБМ < 7.00_**
-
-**DBM-Ulduar** добавлены фишки, подправлены касты(должно всё показывать, если нет -> пишете в дис я добавлю), фрейм с сортировкой здравомыслия на на Йогг-Сароне
-
-**DBM-Icecrown** добавлены таймеры, звуковые анонсы, автоснятие пушек на леди, подкорректированы тайминги под циркуль, фреймы схваченных игроков валькирами
-
-**DBM-Naxx** подкручен под хардмод, буду править только под хм накс, автоснятие пушек на КелТузаде
-
-**DBM-Sunwell** взят с офы и полностью отредактирован и исправлен мною для работы у нас на сервере
+1. Download the master branch from this repository (https://github.com/Zidras/DBM-Icecrown/archive/refs/heads/master.zip).
+2. Extract the contents of the zip file to your addons folder (Interface/Addons)
