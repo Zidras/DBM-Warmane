@@ -128,8 +128,8 @@ DBM.DefaultOptions = {
 	},
 	RaidWarningSound = "Sound\\Doodad\\BellTollNightElf.wav",
 	SpecialWarningSound = "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3",
-	SpecialWarningSound2 = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav",
-	SpecialWarningSound3 = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg",
+	SpecialWarningSound2 = "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg",
+	SpecialWarningSound3 = "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3",
 	SpecialWarningSound4 = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav",
 	SpecialWarningSound5 = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav",
 	ModelSoundValue = "Short",
@@ -2964,54 +2964,6 @@ do
 		self:UpdateWarningOptions()
 		self:UpdateSpecialWarningOptions()
 		self.Options.CoreSavedRevision = self.Revision
-		--Migrate user sound options to soundkit Ids if selected media doesn't exist in Interface\\AddOns
-		--This will in the short term, screw with people trying to use LibSharedMedia sound files on 8.1.5 until LSM has migrated as well.
-		local migrated = false
-		if type(self.Options.RaidWarningSound) == "string" and self.Options.RaidWarningSound ~= "" then
-			local searchMsg = self.Options.RaidWarningSound:lower()
-			if not searchMsg:find("addons") or searchMsg:find("classicsupport") then
-				self.Options.RaidWarningSound = self.DefaultOptions.RaidWarningSound
-				migrated = true
-			end
-		end
-		if type(self.Options.SpecialWarningSound) == "string" and self.Options.SpecialWarningSound ~= "" then
-			local searchMsg = self.Options.SpecialWarningSound:lower()
-			if not searchMsg:find("addons") or searchMsg:find("classicsupport") then
-				self.Options.SpecialWarningSound = self.DefaultOptions.SpecialWarningSound
-				migrated = true
-			end
-		end
-		if type(self.Options.SpecialWarningSound2) == "string" and self.Options.SpecialWarningSound2 ~= "" then
-			local searchMsg = self.Options.SpecialWarningSound2:lower()
-			if not searchMsg:find("addons") or searchMsg:find("classicsupport") then
-				self.Options.SpecialWarningSound2 = self.DefaultOptions.SpecialWarningSound2
-				migrated = true
-			end
-		end
-		if type(self.Options.SpecialWarningSound3) == "string" and self.Options.SpecialWarningSound3 ~= "" then
-			local searchMsg = self.Options.SpecialWarningSound3:lower()
-			if not searchMsg:find("addons") or searchMsg:find("classicsupport") then
-				self.Options.SpecialWarningSound3 = self.DefaultOptions.SpecialWarningSound3
-				migrated = true
-			end
-		end
-		if type(self.Options.SpecialWarningSound4) == "string" and self.Options.SpecialWarningSound4 ~= "" then
-			local searchMsg = self.Options.SpecialWarningSound4:lower()
-			if not searchMsg:find("addons") or searchMsg:find("classicsupport") then
-				self.Options.SpecialWarningSound4 = self.DefaultOptions.SpecialWarningSound4
-				migrated = true
-			end
-		end
-		if type(self.Options.SpecialWarningSound5) == "string" and self.Options.SpecialWarningSound5 ~= "" then
-			local searchMsg = self.Options.SpecialWarningSound5:lower()
-			if not searchMsg:find("addons") or searchMsg:find("classicsupport") then
-				self.Options.SpecialWarningSound5 = self.DefaultOptions.SpecialWarningSound5
-				migrated = true
-			end
-		end
-		if migrated then
-			self:AddMsg(DBM_CORE_SOUNDKIT_MIGRATION)
-		end
 	end
 end
 
@@ -3356,6 +3308,7 @@ do
 		end
 		local name = DBM:GetFullPlayerNameByGUID(iconSetPerson[optionName]) or DBM_CORE_UNKNOWN
 		DBM:Debug(name.." was elected icon setter for "..optionName, 2)
+		DBM:AddMsg(name.." was elected icon setter for "..optionName)
 	end
 
 	whisperSyncHandlers["DBMv4-RequestTimers"] = function(msg, channel, sender)
@@ -5944,11 +5897,20 @@ do
 				end
 				if not found and not scanOnlyBoss then
 					if IsInRaid() then
-						for i = 1, GetNumRaidMembers() do
+						for i = 1, GetNumGroupMembers() do
 							if self:GetUnitCreatureId("raid"..i.."target") == cidOrGuid then
 								bossuIdCache[cidOrGuid] = "raid"..i.."target"
 								bossuIdCache[UnitGUID("raid"..i.."target")] = "raid"..i.."target"
 								name, uid, bossuid = getBossTarget(UnitGUID("raid"..i.."target"))
+								break
+							end
+						end
+					elseif IsInGroup() then
+						for i = 1, GetNumGroupMembers() do
+							if self:GetUnitCreatureId("party"..i.."target") == cidOrGuid then
+								bossuIdCache[cidOrGuid] = "party"..i.."target"
+								bossuIdCache[UnitGUID("party"..i.."target")] = "party"..i.."target"
+								name, uid, bossuid = getBossTarget(UnitGUID("party"..i.."target"))
 								break
 							end
 						end
@@ -6194,17 +6156,6 @@ end
 
 function bossModPrototype:SendWhisper(msg, target)
 	return not DBM.Options.DontSendBossWhispers and sendWhisper(target, chatPrefixShort..msg)
-end
-
-function bossModPrototype:GetBossTarget(cid)
-	cid = cid or self.creatureId
-	for i = 1, GetNumRaidMembers() do
-		if self:GetUnitCreatureId("raid"..i.."target") == cid then
-			return UnitName("raid"..i.."targettarget"), "raid"..i.."targettarget"
-		elseif self:GetUnitCreatureId("focus") == cid then	-- we check our own focus frame, maybe the boss is there ;)
-			return UnitName("focustarget"), "focustarget"
-		end
-	end
 end
 
 function bossModPrototype:GetThreatTarget(cid)

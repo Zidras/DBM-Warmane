@@ -114,7 +114,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 62660 then		-- Shadow Crash
-		self:ScheduleMethod(0.05, "BossTargetScanner", 33271, "ShadowCrashTarget", 0.05, 20)
+		self:ScheduleMethod(0.03, "BossTargetScanner", 33271, "ShadowCrashTarget", 0.01, 10)
 		timerShadowCrashCD:Start()
 	elseif args.spellId == 63276 then	-- Mark of the Faceless
 		if self.Options.SetIconOnLifeLeach then
