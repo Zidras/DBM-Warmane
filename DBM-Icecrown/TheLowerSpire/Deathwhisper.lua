@@ -145,7 +145,7 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 end
 
 function mod:UnW()
-   if self:IsWeaponDependent("player") and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons and not mod:IsTank() then
+   if self:IsWeaponDependent("player") and mod.Options.EqUneqWeapons and not mod.Options.BlockWeapons and not mod:IsTank() and mod:IsEquipmentSetAvailable("pve") then
         PickupInventoryItem(16)
         PutItemInBackpack()
         PickupInventoryItem(17)

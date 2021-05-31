@@ -43,7 +43,7 @@ local timerPossibleMC		= mod:NewTimer(20, "MCImminent", 28410)
 
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
-mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank())
+mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and mod:IsEquipmentSetAvailable("pve"))
 mod:AddBoolOption("EqUneqWeaponsKT2")
 
 local warnedAdds = false
@@ -72,15 +72,17 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:UnWKT()
-   if self:IsWeaponDependent("player") and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
-        PickupInventoryItem(16)
-        PutItemInBackpack()
-        PickupInventoryItem(17)
-        PutItemInBackpack()
-    elseif isHunter then
-        PickupInventoryItem(18)
-        PutItemInBackpack()
-    end
+	if mod:IsEquipmentSetAvailable("pve") then
+		if self:IsWeaponDependent("player") and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
+				PickupInventoryItem(16)
+				PutItemInBackpack()
+				PickupInventoryItem(17)
+				PutItemInBackpack()
+		elseif isHunter then
+				PickupInventoryItem(18)
+				PutItemInBackpack()
+		end
+	end
 end
 
 function mod:EqWKT()
