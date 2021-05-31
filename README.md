@@ -1,3 +1,6 @@
+[![Game Version](https://img.shields.io/badge/wow-3.3.5-blue.svg)](https://github.com/Zidras/DBM-Icecrown/tree/Warmane-Icecrown)
+[![Discord](https://discordapp.com/api/guilds/598993375479463946/widget.png?style=shield)](https://discord.gg/CyVWDWS)
+
 # DBM for Warmane-Icecrown
 
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle).
