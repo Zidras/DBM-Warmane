@@ -412,12 +412,13 @@ do
 				if UnitInVehicle(uId) and not valkyrTargets[uId] then      -- if person #i is in a vehicle and not already announced
 					valkyrWarning:Show(UnitName(uId))  -- GetRaidRosterInfo(i) returns the name of the person who got valkyred
 					valkyrTargets[uId] = true          -- this person has been announced
-					--[[local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(uId)
+					local raidIndex = UnitInRaid(uId)
+					local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(raidIndex + 1)
 					if name == UnitName(uId) then
 						local grp = subgroup
 						local class = fileName
 						mod:AddEntry(name, grp or 0, class, grabIcon)
-					end]]
+					end
 					if UnitIsUnit(uId, "player") then
 						specWarnYouAreValkd:Show()
 						specWarnYouAreValkd:Play("targetyou")
