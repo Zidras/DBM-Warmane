@@ -144,6 +144,7 @@ local function NextPhase(self)
 		end
 	elseif self.vb.phase == 2 then
 		warnPhase2:Show()
+		warnPhase2:Play("phasechange")
 		if self.Options.ShowFrame then
 			self:CreateFrame()
 		end
@@ -155,6 +156,7 @@ local function NextPhase(self)
 		warnDefileSoon:ScheduleVoice(33, "scatter") -- Voice Pack - Scatter.ogg: "Spread!"
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
+		warnPhase3:Play("phasechange")
 		timerVileSpirit:Start(17)
 		timerSoulreaperCD:Start(37.5)
 		timerDefileCD:Start(33.5)
@@ -351,7 +353,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
 		specWarnHarvestSouls:Show()
-		specWarnHarvestSouls:Play("phasechange")
+		--specWarnHarvestSouls:Play("phasechange")
 		timerHarvestSoulCD:Start(107) -- Custom edit to make Harvest Souls timers work again
 		timerVileSpirit:Cancel()
 		timerSoulreaperCD:Cancel()
