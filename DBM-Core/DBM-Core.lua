@@ -4961,6 +4961,11 @@ function DBM:GetCurrentInstanceDifficulty()
 			return playerDifficulty == 0 and "normal10" or playerDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
 		elseif difficulty == 2 then -- 25 men
 			return playerDifficulty == 0 and "normal25" or playerDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+		-- Zidras: prevents breaking for servers with GetInstanceInfo() correctly identifying difficulty 1-4
+		elseif difficulty == 3 then
+			return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+		elseif difficulty == 4 then
+			return "heroic25", difficultyName.." - ", difficulty, maxPlayers
 		end
 	else -- support for "old" instances
 		if GetInstanceDifficulty() == 1 then
