@@ -465,47 +465,38 @@ L:SetGeneralLocalization{
 	name = "Sindragosa"
 }
 
+L:SetWarningLocalization{
+	WarnAirphase			= "Air phase",
+	WarnGroundphaseSoon		= "Sindragosa landing soon"
+}
+
 L:SetTimerLocalization{
 	TimerNextAirphase		= "Next air phase",
 	TimerNextGroundphase	= "Next ground phase",
 	AchievementMystic		= "Time to clear Mystic stacks"
 }
 
-L:SetWarningLocalization{
-	WarnPhase2soon			= "Phase 2 soon",
-	WarnAirphase			= "Air phase",
-	WarnGroundphaseSoon		= "Sindragosa landing soon",
-	WarnInstability			= "Instability >%d<",
-	WarnChilledtotheBone	= "Chilled to the Bone >%d<",
-	WarnMysticBuffet		= "Mystic Buffet >%d<"
-}
-
 L:SetOptionLocalization{
 	WarnAirphase			= "Announce air phase",
 	WarnGroundphaseSoon		= "Show pre-warning for ground phase",
-	WarnPhase2soon			= "Show pre-warning for Phase 2 (at ~38%)",
 	TimerNextAirphase		= "Show timer for next air phase",
 	TimerNextGroundphase	= "Show timer for next ground phase",
-	WarnInstability			= "Show warning for your $spell:69766 stacks",
-	WarnChilledtotheBone	= "Show warning for your $spell:70106 stacks",
-	WarnMysticBuffet		= "Show warning for your $spell:70128 stacks",
-	AnnounceFrostBeaconIcons= "Announce icons for $spell:70126 targets to raid chat\n(requires announce to be enabled and promoted status)",
+	AnnounceFrostBeaconIcons= "Announce icons for $spell:70126 targets to raid chat<br/>(requires raid leader)",
 	SetIconOnFrostBeacon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
 	SetIconOnUnchainedMagic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase	= "Clear all icons before air phase",
-	AchievementCheck		= "Announce 'All You Can Eat' achievement warnings to raid\n(requires promoted status)",
-	RangeFrame				= "Show raid icon based range frame (10 normal, 20 heroic)"
+	AchievementCheck		= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)",
+	RangeFrame				= "Show dynamic range frame (10/20) based on last used boss ability and player debuffs"
 }
 
 L:SetMiscLocalization{
 	YellAirphase		= "Your incursion ends here! None shall survive!",
-	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2			= "Now, feel my master's limitless power and despair!",
+	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	BeaconIconSet		= "Frost Beacon icon {rt%d} set on %s",
 	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet",
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<",
-	YellPull			= "You are fools to have come to this place. The icy winds of Northrend will consume your souls!"--Not currently in use.
+	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<"
 }
 
 ---------------------

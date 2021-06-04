@@ -20,15 +20,14 @@ mod:RegisterEventsInCombat(
 
 local warnAirphase				= mod:NewAnnounce("WarnAirphase", 2, 43810)
 local warnGroundphaseSoon		= mod:NewAnnounce("WarnGroundphaseSoon", 2, 43810)
-local warnPhase2soon			= mod:NewAnnounce("WarnPhase2soon", 1)
+local warnPhase2soon			= mod:NewPrePhaseAnnounce(2)
 local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
-local warnInstability			= mod:NewCountAnnounce(69766, 2, nil)
-local warnChilledtotheBone		= mod:NewCountAnnounce(70106, 2, nil)
-local warnMysticBuffet			= mod:NewCountAnnounce(70128, 2, nil)
+local warnInstability			= mod:NewCountAnnounce(69766, 2, nil, false)
+local warnChilledtotheBone		= mod:NewCountAnnounce(70106, 2, nil, false)
+local warnMysticBuffet			= mod:NewCountAnnounce(70128, 2, nil, false)
 local warnFrostBeacon			= mod:NewTargetAnnounce(70126, 4)
-local warnBlisteringCold		= mod:NewSpellAnnounce(70123, 3)
-local warnFrostBreath			= mod:NewSpellAnnounce(71056, 2, nil, true)
-local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, true, 2)
+local warnFrostBreath			= mod:NewSpellAnnounce(69649, 2, nil, "Tank|Healer")
+local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, "SpellCaster", 2)
 
 local specWarnUnchainedMagic	= mod:NewSpecialWarningYou(69762, nil, nil, nil, 1, 2)
 local specWarnFrostBeacon		= mod:NewSpecialWarningMoveAway(70126, nil, nil, nil, 3, 2)
@@ -39,7 +38,7 @@ local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4,
 
 local timerNextAirphase			= mod:NewTimer(120, "TimerNextAirphase", 43810, nil, nil, 6)
 local timerNextGroundphase		= mod:NewTimer(42.5, "TimerNextGroundphase", 43810, nil, nil, 6)
-local timerNextFrostBreath		= mod:NewNextTimer(22, 71056, nil, true, nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2)
 local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123, nil, nil, nil, 2)
@@ -65,10 +64,11 @@ local beaconTargets		= {}
 local beaconIconTargets	= {}
 local unchainedTargets	= {}
 local p2_beacon_num = 1
-local warned_P2 = false
-local warnedfailed = false
-local unchainedIcons = 7
-local activeBeacons	= false
+mod.vb.warned_P2 = false
+mod.vb.warnedfailed = false
+mod.vb.phase = 0
+mod.vb.unchainedIcons = 7
+mod.vb.activeBeacons	= false
 
 do
 	local function sort_by_group(v1, v2)
@@ -99,7 +99,7 @@ local function warnUnchainedTargets()
 	warnUnchainedMagic:Show(table.concat(unchainedTargets, "<, >"))
 	timerUnchainedMagic:Start()
 	table.wipe(unchainedTargets)
-	unchainedIcons = 7
+	self.vb.unchainedIcons = 7
 end
 
 function mod:OnCombatStart(delay)
@@ -107,14 +107,14 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
-	warned_P2 = false
-	warnedfailed = false
+	self.vb.warned_P2 = false
+	self.vb.warnedfailed = false
 	table.wipe(beaconTargets)
 	table.wipe(beaconIconTargets)
 	table.wipe(unchainedTargets)
-	unchainedIcons = 7
+	self.vb.unchainedIcons = 7
 	self.vb.phase = 1
-	activeBeacons = false
+	self.vb.activeBeacons = false
 	if self.Options.RangeFrame and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) then
 		DBM.RangeCheck:Show(20) -- Edit to fix auto showing range check with heroic mode values
 	end
@@ -168,8 +168,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnUnchainedMagic:Show()
 		end
 		if self.Options.SetIconOnUnchainedMagic then
-			self:SetIcon(args.destName, unchainedIcons)
-			unchainedIcons = unchainedIcons - 1
+			self:SetIcon(args.destName, self.vb.unchainedIcons)
+			self.vb.unchainedIcons = self.vb.unchainedIcons - 1
 		end
 		self:Unschedule(warnUnchainedTargets)
 		if #unchainedTargets >= 6 then
@@ -206,12 +206,12 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		if args:IsDestTypePlayer() then
-			if self.Options.AchievementCheck and DBM:GetRaidRank() > 0 and not warnedfailed then
+			if self.Options.AchievementCheck and DBM:GetRaidRank() > 0 and not self.vb.warnedfailed then
 				if (args.amount or 1) == 5 then
 					SendChatMessage(L.AchievementWarning:format(args.destName), "RAID")
 				elseif (args.amount or 1) > 5 then
+					self.vb.warnedfailed = true
 					SendChatMessage(L.AchievementFailed:format(args.destName, (args.amount or 1)), "RAID_WARNING")
-					warnedfailed = true
 				end
 			end
 		end
@@ -222,7 +222,6 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(70117) then--Icy Grip Cast, not blistering cold, but adds an extra 1sec to the warning
-		warnBlisteringCold:Show()
 		specWarnBlisteringCold:Show()
 		timerBlisteringCold:Start()
 		timerNextBlisteringCold:Start()
@@ -232,11 +231,11 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(69762) then
-		if self.Options.SetIconOnUnchainedMagic and not activeBeacons then
+		if self.Options.SetIconOnUnchainedMagic and not self.vb.activeBeacons then
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(70126) then
-		activeBeacons = false
+		self.vb.activeBeacons = false
 	elseif args:IsSpellID(70106) then	--Chilled to the bone (melee)
 		if args:IsPlayer() then
 			timerChilledtotheBone:Cancel()
@@ -254,8 +253,8 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if not warned_P2 and self:GetUnitCreatureId(uId) == 36853 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
-		warned_P2 = true
+	if not self.vb.warned_P2 and self:GetUnitCreatureId(uId) == 36853 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
+		self.vb.warned_P2 = true
 		warnPhase2soon:Show()
 	end
 end
@@ -272,7 +271,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
 		warnGroundphaseSoon:Schedule(37.5)
-		activeBeacons = true
+		self.vb.activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
 		self.vb.phase = self.vb.phase + 1
 		warnPhase2:Show()

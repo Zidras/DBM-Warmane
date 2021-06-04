@@ -467,45 +467,38 @@ L:SetGeneralLocalization{
 	name = "Синдрагоса"
 }
 
+L:SetWarningLocalization{
+	WarnAirphase			= "Воздушная фаза",
+	WarnGroundphaseSoon		= "Синдрагоса скоро приземлится"
+}
+
 L:SetTimerLocalization{
 	TimerNextAirphase		= "След. воздушная фаза",
 	TimerNextGroundphase	= "След. наземная фаза",
 	AchievementMystic		= "Время для устранения Таинственной энергии"
 }
 
-L:SetWarningLocalization{
-	WarnPhase2soon			= "Скоро фаза 2",
-	WarnAirphase			= "Воздушная фаза",
-	WarnGroundphaseSoon		= "Синдрагоса скоро приземлится",
-	WarnInstability			= "Неустойчивость >%d<",
-	WarnChilledtotheBone	= "Обморожение >%d<",
-	WarnMysticBuffet		= "Таинственная энергия >%d<"
-}
-
 L:SetOptionLocalization{
 	WarnAirphase			= "Объявлять воздушную фазу",
 	WarnGroundphaseSoon		= "Предупреждать заранее о наземной фазе",
-	WarnPhase2soon			= "Предупреждать заранее о фазе 2 (на ~38%)",
 	TimerNextAirphase		= "Отсчет времени до следующей воздушной фазы",
 	TimerNextGroundphase	= "Отсчет времени до следующей наземной фазы",
-	WarnInstability			= "Предупреждение о ваших стаках $spell:69766",
-	WarnChilledtotheBone	= "Предупреждение о ваших стаках $spell:70106",
-	WarnMysticBuffet		= "Предупреждение о ваших стаках $spell:70128",
-	AnnounceFrostBeaconIcons= "Объявлять метки целей заклинания $spell:70126 в рейд-чат\n(требуются права помощника)",
+	AnnounceFrostBeaconIcons= "Объявлять метки целей заклинания $spell:70126 в рейд-чат<br/>(требуются права помощника)",
 	SetIconOnFrostBeacon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
 	SetIconOnUnchainedMagic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase	= "Снимать все метки перед воздушной фазой",
-	AchievementCheck		= "Объявлять предупреждения для достижения 'Таинственная дама'\nв рейд-чат (требуются права помощника)",
-	RangeFrame				= "Показывать игроков в окне проверки дистанции (10/25 гер. режимы)"
+	AchievementCheck		= "Объявлять предупреждения для достижения 'Таинственная дама'<br/>в рейд-чат (требуются права помощника)",
+	RangeFrame				= "Показывать игроков с метками в окне проверки дистанции (10 норм., 20 гер.)"
 }
 
 L:SetMiscLocalization{
-	YellAirphase	= "Здесь ваше вторжение и окончится! Никто не уцелеет.",
-	YellPhase2		= "А теперь почувствуйте всю мощь господина и погрузитесь в отчаяние!",
-	BeaconIconSet	= "Ледяная метка {rt%d} установлена на: %s",
+	YellAirphase		= "Здесь ваше вторжение и окончится! Никто не уцелеет.",
+	YellPhase2			= "А теперь почувствуйте всю мощь господина и погрузитесь в отчаяние!",
+	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
+	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
+	BeaconIconSet		= "Ледяная метка {rt%d} установлена на: %s",
 	AchievementWarning	= "Предупреждение: %s получил 5 стаков Таинственной энергии",
-	AchievementFailed	= ">> ДОСТИЖЕНИЕ ПРОВАЛЕНО: %s получил %d стаков Таинственной энергии <<",
-	YellPull		= "Глупцы, зачем вы сюда явились! Ледяные ветра Нордскола унесут ваши души!"
+	AchievementFailed	= ">> ДОСТИЖЕНИЕ ПРОВАЛЕНО: %s получил %d стаков Таинственной энергии <<"
 }
 
 ---------------------
