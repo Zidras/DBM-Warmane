@@ -36,8 +36,8 @@ local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, 4, nil, 
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5, nil, nil, 1, 6)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
-local timerNextAirphase			= mod:NewTimer(120, "TimerNextAirphase", 43810, nil, nil, 6)
-local timerNextGroundphase		= mod:NewTimer(42.5, "TimerNextGroundphase", 43810, nil, nil, 6)
+local timerNextAirphase			= mod:NewTimer(110, "TimerNextAirphase", 43810, nil, nil, 6)
+local timerNextGroundphase		= mod:NewTimer(45, "TimerNextGroundphase", 43810, nil, nil, 6)
 local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2)
 local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)
