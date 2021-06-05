@@ -136,7 +136,7 @@ L:SetWarningLocalization{
 	WarnTouchInsignificance		= "%s on >%s< (%s)",		-- Touch of Insignificance on >args.destName< (args.amount)
 	WarnAddsSoon				= "New adds soon",
 	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away",--creatureid 38222
-	WeaponsStatus				= "Auto Unequiping enabled",
+	WeaponsStatus				= "Auto Unequipping enabled",
 }
 
 L:SetOptionLocalization{
@@ -151,7 +151,7 @@ L:SetOptionLocalization{
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equiping to work, create an equipment set called 'pve'.",
+	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.",
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
 	BlockWeapons				= "Completely block the unequip/equip functions above (off by default)",
 
@@ -164,7 +164,8 @@ L:SetMiscLocalization{
 	ShieldPercent			= "Mana Barrier",--Translate Spell id 70842
 	Fanatic1				= "Cult Fanatic",
 	Fanatic2				= "Deformed Fanatic",
-	Fanatic3				= "Reanimated Fanatic"
+	Fanatic3				= "Reanimated Fanatic",
+	setMissing = "ATTENTION! Automatic weapon unequipping / equipping will not work until you create a 'pve' equipment set!"
 }
 
 ----------------------

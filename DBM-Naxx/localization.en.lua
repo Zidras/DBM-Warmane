@@ -392,7 +392,8 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Yell = "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
 	YellMC1 = "Your soul is bound to me, now!",
-	YellMC2 = "There will be no escape!"
+	YellMC2 = "There will be no escape!",
+	setMissing = "ATTENTION! Automatic weapon unequipping / equipping will not work until you create a 'pve' equipment set!"
 })
 
 L:SetWarningLocalization({

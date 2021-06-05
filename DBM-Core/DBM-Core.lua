@@ -6467,6 +6467,15 @@ function bossModPrototype:IsWeaponDependent(uId)
 		or (select(2, UnitClass(uId)) == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
 end
 
+function bossModPrototype:IsEquipmentSetAvailable(setName)
+	local setName = setName or 'pve'
+	local _, index = GetEquipmentSetInfoByName(setName)
+	if index then
+		return true
+	end
+	return false
+end
+
 -------------------------
 --  Boss Health Frame  --
 -------------------------
