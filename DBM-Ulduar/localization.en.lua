@@ -14,6 +14,7 @@ L:SetTimerLocalization{
 
 L:SetMiscLocalization{
 	YellPull	= "Hostile entities detected. Threat assessment protocol active. Primary target engaged. Time minus 30 seconds to re-evaluation.",
+	YellPull2	= "Orbital countermeasures enabled.",
 	Emote		= "%%s pursues (%S+)%."
 }
 

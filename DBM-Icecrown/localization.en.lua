@@ -138,7 +138,7 @@ L:SetWarningLocalization{
 	WarnTouchInsignificance		= "%s on >%s< (%s)",		-- Touch of Insignificance on >args.destName< (args.amount)
 	WarnAddsSoon				= "New adds soon",
 	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away",--creatureid 38222
-	WeaponsStatus				= "Auto Unequiping enabled",
+	WeaponsStatus				= "Auto Unequipping enabled",
 }
 
 L:SetOptionLocalization{
@@ -165,7 +165,8 @@ L:SetMiscLocalization{
 	ShieldPercent			= "Mana Barrier",--Translate Spell id 70842
 	Fanatic1				= "Cult Fanatic",
 	Fanatic2				= "Deformed Fanatic",
-	Fanatic3				= "Reanimated Fanatic"
+	Fanatic3				= "Reanimated Fanatic",
+	setMissing = "ATTENTION! Automatic weapon unequipping / equipping will not work until you create a 'pve' equipment set!"
 }
 
 ----------------------

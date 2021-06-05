@@ -46,6 +46,17 @@ mod:AddBoolOption("ShowRange", true)
 mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and mod:IsEquipmentSetAvailable("pve"))
 mod:AddBoolOption("EqUneqWeaponsKT2")
 
+if (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
+	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
+		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
+		if frame.AddMessage then
+			mod:Schedule(10, frame.AddMessage, frame, L.setMissing)
+		end
+	end
+	mod:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
+end
+
+
 local warnedAdds = false
 
 function mod:OnCombatStart(delay)
