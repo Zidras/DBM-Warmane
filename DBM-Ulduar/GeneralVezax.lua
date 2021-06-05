@@ -70,7 +70,6 @@ function mod:ShadowCrashTarget(targetname, uId)
 				end
 			end
 		end
-	else
 		warnShadowCrash:Show(targetname)
 	end
 end
