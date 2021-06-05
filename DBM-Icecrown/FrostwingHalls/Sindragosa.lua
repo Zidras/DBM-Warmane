@@ -51,8 +51,6 @@ local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic
 
 local berserkTimer				= mod:NewBerserkTimer(600)
 
-local soundBlisteringCold 		= mod:NewSound(70123)
-local soundFrostBeacon			= mod:NewSound(70126)
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
 mod:AddBoolOption("ClearIconsOnAirphase", true)
@@ -176,7 +174,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			playerBeaconed = true
 			specWarnFrostBeacon:Show()
-			soundFrostBeacon:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+			specWarnFrostBeacon:Play("scatter")
 		end
 		if self.vb.phase == 1 and self.Options.SetIconOnFrostBeacon then
 			table.insert(beaconIconTargets, DBM:GetRaidUnitId(args.destName))
@@ -210,6 +208,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			playerUnchained = true
 			specWarnUnchainedMagic:Show()
+			specWarnUnchainedMagic:Play("targetyou")
 		end
 		if self.Options.SetIconOnUnchainedMagic then
 			self:SetIcon(args.destName, self.vb.unchainedIcons)
@@ -226,6 +225,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerChilledtotheBone:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnChilledtotheBone:Show(args.amount)
+				specWarnChilledtotheBone:Play("stackhigh")
 			else
 				warnChilledtotheBone:Show(args.amount or 1)
 			end
@@ -235,6 +235,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerInstability:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnInstability:Show(args.amount)
+				specWarnInstability:Play("stackhigh")
 			else
 				warnInstability:Show(args.amount or 1)
 			end
@@ -245,6 +246,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerNextMysticBuffet:Start()
 			if (args.amount or 1) >= 5 then
 				specWarnMysticBuffet:Show(args.amount)
+				specWarnMysticBuffet:Play("stackhigh")
 			else
 				warnMysticBuffet:Show(args.amount or 1)
 			end
@@ -269,6 +271,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 70117 then--Icy Grip Cast, not blistering cold, but adds an extra 1sec to the warning
 		specWarnBlisteringCold:Show()
+		specWarnBlisteringCold:Play("runout")
 		timerBlisteringCold:Start()
 		timerNextBlisteringCold:Start()
 		soundBlisteringCold:Play()
