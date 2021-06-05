@@ -638,6 +638,15 @@ end
 --------------
 --  Events  --
 --------------
+local function has_value(tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
 do
 	local registeredEvents = {}
 	local registeredSpellIds = {}
@@ -697,7 +706,16 @@ do
 
 	local function handleEvent(self, event, ...)
 		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
+		if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+			isUnitEvent = true
+		end
+
 		for i, v in ipairs(registeredEvents[event]) do
+			-- Workaround for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1"). Check if we have valid units registered and filter out everything else.
+			-- v is mod here... so we check registered mods for registered events with registered uIds (v.registeredUnitEvents[event]).
+			-- then we check if we have our unit (arg1) in the table ... self.registeredUnitEvents[event] = {arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8} which is defined below
+			if isUnitEvent and v and v.registeredUnitEvents and v.registeredUnitEvents[event] and not has_value(v.registeredUnitEvents[event], arg1) then return end
+
 			if type(v[event]) == "function" and (not v.zones or checkEntry(v.zones, GetRealZoneText()) or checkEntry(v.zones, GetCurrentMapAreaID())) and (not v.Options or v.Options.Enabled) then
 				v[event](v, ...)
 			end
@@ -707,6 +725,17 @@ do
 	function DBM:RegisterEvents(...)
 		for i = 1, select("#", ...) do
 			local event = select(i, ...)
+
+			if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+				event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", event)
+				-- Register valid units for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1")
+				-- separate units with spaces up to 9 units. Otherwise skip unit filter for that event
+				if arg1 or arg2 or arg3 or arg4 or arg5 or arg6 or arg7 or arg8 then
+					self.registeredUnitEvents = self.registeredUnitEvents or {}
+					self.registeredUnitEvents[event] = {arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8}
+				end
+			end
+
 			registeredEvents[event] = registeredEvents[event] or {}
 			tinsert(registeredEvents[event], self)
 			mainFrame:RegisterEvent(event)

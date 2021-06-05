@@ -17,7 +17,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH boss1"
 )
 
 local warnPhase2Soon				= mod:NewAnnounce("WarnPhase2Soon", 2)

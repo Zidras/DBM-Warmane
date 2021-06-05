@@ -19,7 +19,7 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_EMOTE",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED target"
 )
 
 local warnGaze			= mod:NewAnnounce("WarnGaze", 4, 39414)

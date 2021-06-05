@@ -21,7 +21,7 @@ mod:RegisterEvents(
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_TARGET",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
 )
 
 local warnTargetSwitch			= mod:NewAnnounce("WarnTargetSwitch", 3, 70952)

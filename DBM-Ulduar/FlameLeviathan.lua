@@ -5,7 +5,7 @@ mod:SetRevision(("$Revision: 4181 $"):sub(12, -3))
 
 mod:SetCreatureID(33113)
 
-mod:RegisterCombat("yell", L.YellPull)
+mod:RegisterCombat("yell", L.YellPull, L.YellPull2)
 
 mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
@@ -45,6 +45,7 @@ local function buildGuidTable()
 		guids[UnitGUID("raid"..i.."pet") or ""] = UnitName("raid"..i)
 	end
 end
+flguids = guids
 
 function mod:OnCombatStart(delay)
 	buildGuidTable()
@@ -56,7 +57,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(62907) then		-- Ward of Life spawned (Creature id: 34275)
+	if args:IsSpellID(62907) and self:AntiSpam(1, 2) then		-- Ward of Life spawned (Creature id: 34275)
 		warnWardofLife:Show()
 	end
 end
