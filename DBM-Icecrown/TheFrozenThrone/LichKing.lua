@@ -8,9 +8,7 @@ mod:SetMinSyncRevision(3913)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-"CHAT_MSG_MONSTER_YELL"
-)
-mod:RegisterEventsInCombat(
+	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_DISPEL",
