@@ -274,7 +274,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnBlisteringCold:Play("runout")
 		timerBlisteringCold:Start()
 		timerNextBlisteringCold:Start()
-		soundBlisteringCold:Play()
 	end
 end
 
