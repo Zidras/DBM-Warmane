@@ -23,7 +23,7 @@ local specWarnColdflame		= mod:NewSpecialWarningMove(70825, nil, nil, nil, 1, 2)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
 local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerWhirlwindCD		= mod:NewCDTimer(90, 69076, nil, nil, nil, 2)
+local timerWhirlwindCD		= mod:NewCDTimer(63, 69076, nil, nil, nil, 2) -- Edited
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
 local timerBoneSpikeUp		= mod:NewTimer(3, "TimerBoneSpikeUp", 69065)
@@ -46,8 +46,8 @@ local function showImpaleWarning()
 end
 
 function mod:OnCombatStart(delay)
-	preWarnWhirlwind:Schedule(40-delay)
-	timerWhirlwindCD:Start(45-delay)
+	preWarnWhirlwind:Schedule(43-delay) -- Edited
+	timerWhirlwindCD:Start(48-delay) -- Edited
 	soundWhirlwind5:Schedule(40-delay)
 	timerBoneSpike:Start(15-delay)
 	berserkTimer:Start(-delay)
@@ -59,7 +59,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnWhirlwind:Show()
 		timerWhirlwindCD:Start()
 		soundWhirlwind5:Schedule(85)
-		preWarnWhirlwind:Schedule(85)
+		preWarnWhirlwind:Schedule(80) -- Edited
 		soundWhirlwind:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
