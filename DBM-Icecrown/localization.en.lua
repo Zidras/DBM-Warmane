@@ -166,7 +166,7 @@ L:SetMiscLocalization{
 	Fanatic1				= "Cult Fanatic",
 	Fanatic2				= "Deformed Fanatic",
 	Fanatic3				= "Reanimated Fanatic",
-	setMissing = "ATTENTION! Automatic weapon unequipping / equipping will not work until you create a 'pve' equipment set!"
+	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve"
 }
 
 ----------------------

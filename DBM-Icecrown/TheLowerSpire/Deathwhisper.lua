@@ -64,7 +64,7 @@ mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter)
 mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
 
-if (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) and not mod:IsEquipmentSetAvailable("pve") then
+if mod.Options.EqUneqWeapons and (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) and not mod:IsEquipmentSetAvailable("pve") then
 	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 		if frame.AddMessage then
