@@ -47,7 +47,7 @@ mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunte
 mod:AddBoolOption("EqUneqWeaponsKT2")
 mod:AddBoolOption("SmileScream", false)
 
-if (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
+if mod.Options.EqUneqWeaponsKT and (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
 	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 		if frame.AddMessage then

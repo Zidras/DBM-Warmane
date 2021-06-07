@@ -384,16 +384,16 @@ L:SetOptionLocalization({
 	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
 	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
 	SmileScream		= "Play custom OnlySmile sound for Shadow Fissure(joke)",
-	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. Create equip. set called 'pve' for re-equipping",
+	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. Create equip. set named 'pve' for re-equipping",
 	EqUneqWeaponsKT2= "Automatically unequip and equip weapons when MC is cast on YOU",
 	ShowRange		= "Show range frame when Phase 2 starts"
 })
 
 L:SetMiscLocalization({
-	Yell = "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
-	YellMC1 = "Your soul is bound to me, now!",
-	YellMC2 = "There will be no escape!",
-	setMissing = "ATTENTION! Automatic weapon unequipping / equipping will not work until you create a 'pve' equipment set!"
+	Yell		= "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
+	YellMC1		= "Your soul is bound to me, now!",
+	YellMC2		= "There will be no escape!",
+	setMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve"
 })
 
 L:SetWarningLocalization({
