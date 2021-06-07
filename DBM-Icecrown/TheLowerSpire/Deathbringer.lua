@@ -40,7 +40,7 @@ local soundFrenzy			= mod:NewSound(72737)
 local SoundAdds				= mod:NewSound(72173)
 
 mod:AddBoolOption("RangeFrame", "Ranged")
-mod:AddBoolOption("RunePowerFrame", true, "misc")
+mod:AddBoolOption("RunePowerFrame", false, "misc")
 mod:AddSetIconOption("BeastIcons", 72173, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddBoolOption("BoilingBloodIcons", false)
 mod:RemoveOption("HealthFrame")
