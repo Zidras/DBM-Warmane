@@ -39,9 +39,6 @@ local timerGooCD			= mod:NewCDTimer(10, 72297, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
-local soundPungentBlight 	= mod:NewSound5(71219)
-local soundSpores			= mod:NewSound(69279)
-
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("SetIconOnGasSpore", true)
 mod:AddBoolOption("AnnounceSporeIcons", false)
@@ -77,7 +74,6 @@ end
 
 local function warnGasSporeTargets()
 	warnGasSpore:Show(table.concat(gasSporeTargets, "<, >"))
-	soundSpores:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	timerGasSpore:Start()
 	table.wipe(gasSporeTargets)
 end
@@ -119,7 +115,6 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69279 then	-- Gas Spore
 		gasSporeTargets[#gasSporeTargets + 1] = args.destName
@@ -159,7 +154,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnInhaled3:Show(amount)
 			specWarnInhaled3:Play("defensive")
 			timerPungentBlight:Start()
-			soundPungentBlight:Schedule(33-5)
 		else	--Prevent timer from starting after 3rd stack since he won't cast it a 4th time, he does Pungent instead.
 			timerInhaledBlight:Start()
 		end
