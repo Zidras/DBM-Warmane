@@ -179,11 +179,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		if self:LatencyCheck() then
 			self:SendSync("Meteor")
 		end
-	end
-end
-
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg == L.twilightcutter or msg:find(L.twilightcutter) then
+	elseif msg == L.twilightcutter or msg:find(L.twilightcutter) then -- Edited (specific for Warmane since CHAT_MSG_RAID_BOSS_EMOTE fires twice: at 5s and at cutter)
 			specWarnTwilightCutter:Schedule(5)
 			specWarnTwilightCutter:ScheduleVoice(5, "farfromline")
 		if not self.Options.AnnounceAlternatePhase then
