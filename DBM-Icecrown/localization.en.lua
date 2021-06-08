@@ -245,22 +245,15 @@ L:SetGeneralLocalization{
 	name = "Festergut"
 }
 
-L:SetWarningLocalization{
-	InhaledBlight		= "Inhaled Blight >%d<",
-	WarnGastricBloat	= "%s on >%s< (%s)",		-- Gastric Bloat on >args.destName< (args.amount)
-}
-
 L:SetOptionLocalization{
-	InhaledBlight		= "Show warning for $spell:71912",
 	RangeFrame			= "Show range frame (8 yards)",
-	WarnGastricBloat	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(72551, GetSpellInfo(72551) or "unknown"),
 	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
-	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat\n(requires announce to be enabled and promoted status)",
-	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid\n(requires promoted status)"
+	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat<br/>(requires raid leader)",
+	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)"
 }
 
 L:SetMiscLocalization{
-	SporeSet	= "Gas Spore icon {rt%d} set on %s",
+	SporeSet			= "Gas Spore icon {rt%d} set on %s",
 	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Inoculated <<"
 }
 

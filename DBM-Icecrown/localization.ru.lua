@@ -247,22 +247,15 @@ L:SetGeneralLocalization{
 	name = "Тухлопуз"
 }
 
-L:SetWarningLocalization{
-	InhaledBlight		= "Гнилостные испарения в легких >%d<",
-	WarnGastricBloat	= "%s на |3-5(>%s<) (%d)",		-- Gastric Bloat on >args.destName< (args.amount)
-}
-
 L:SetOptionLocalization{
-	InhaledBlight		= "Предупреждение для $spell:71912",
 	RangeFrame			= "Показывать окно проверки дистанции (8 м)",
-	WarnGastricBloat	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(72551, GetSpellInfo(72551) or "unknown"),	
 	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
-	AnnounceSporeIcons	= "Объявлять метки целей заклинания $spell:69279 в рейд-чат\n(требуются права помощника)",
-	AchievementCheck	= "Объявлять о провале достижения 'Масок нет!' в рейд-чат\n(требуются права помощника)"
+	AnnounceSporeIcons	= "Объявлять метки целей заклинания $spell:69279 в рейд-чат<br/>(требуются права помощника)",
+	AchievementCheck	= "Объявлять о провале достижения 'Масок нет!' в рейд-чат<br/>(требуются права помощника)"
 }
 
 L:SetMiscLocalization{
-	SporeSet	= "Метка Газообразных спор {rt%d} установлена на: %s",
+	SporeSet			= "Метка Газообразных спор {rt%d} установлена на: %s",
 	AchievementFailed	= ">> ДОСТИЖЕНИЕ ПРОВАЛЕНО: %s получил %d стаков Невосприимчивости к гнили <<"
 }
 
