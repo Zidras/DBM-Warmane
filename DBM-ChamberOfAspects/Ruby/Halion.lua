@@ -170,9 +170,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.Phase3 or msg:find(L.Phase3) then
 		self:SendSync("Phase3")
 	elseif msg == L.MeteorCast or msg:find(L.MeteorCast) then--There is no CLEU cast trigger for meteor, only yell
+		warningMeteor:Show()
+		warningMeteor:Play("153247") -- Voice Pack - 153247.ogg: "Meteor! Run."
 		if not self.Options.AnnounceAlternatePhase then
-			warningMeteor:Show()
-			warningMeteor:Play("153247") -- Voice Pack - 153247.ogg: "Meteor! Run."
 			timerMeteorCast:Start()--7 seconds from boss yell the meteor impacts.
 			timerMeteorCD:Start()
 		end
