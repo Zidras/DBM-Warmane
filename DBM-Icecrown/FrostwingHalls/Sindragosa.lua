@@ -225,7 +225,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerChilledtotheBone:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnChilledtotheBone:Show(args.amount)
-				specWarnChilledtotheBone:Play("stackhigh")
+				--specWarnChilledtotheBone:Play("stackhigh")
 			else
 				warnChilledtotheBone:Show(args.amount or 1)
 			end
@@ -235,7 +235,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerInstability:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnInstability:Show(args.amount)
-				specWarnInstability:Play("stackhigh")
+				--specWarnInstability:Play("stackhigh")
 			else
 				warnInstability:Show(args.amount or 1)
 			end
@@ -246,7 +246,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerNextMysticBuffet:Start()
 			if (args.amount or 1) >= 5 then
 				specWarnMysticBuffet:Show(args.amount)
-				specWarnMysticBuffet:Play("stackhigh")
+				--specWarnMysticBuffet:Play("stackhigh")
 			else
 				warnMysticBuffet:Show(args.amount or 1)
 			end
