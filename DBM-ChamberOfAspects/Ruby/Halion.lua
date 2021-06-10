@@ -190,13 +190,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerTwilightCutterCD:Schedule(15)
 		end
 		if self:LatencyCheck() then
-			self:SendSync("TwilightCutter")
+			self:SendSync("TwilightCutterNew")
 		end
 	end
 end
 
 function mod:OnSync(msg, target)
-	if msg == "TwilightCutter" then
+	if msg == "TwilightCutterNew" then
 		if self.Options.AnnounceAlternatePhase then
 			timerTwilightCutterCD:Cancel()
 			warningTwilightCutter:Show()
