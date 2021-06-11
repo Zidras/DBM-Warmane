@@ -52,8 +52,8 @@ local timerSuppresserTwo			= mod:NewTimer(60, "TimerSuppressorTwo","Interface\\A
 local timerSuppresserThree			= mod:NewTimer(60, "TimerSuppressorThree","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local timerSuppresserFour			= mod:NewTimer(60, "TimerSuppressorFour","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
-local berserkTimer					= mod:NewBerserkTimer(420)
-local soundPortals					= mod:NewSound(72483)
+local berserkTimer			= mod:NewBerserkTimer(420)
+
 mod:AddBoolOption("SetIconOnBlazingSkeleton", true)
 
 mod.vb.BlazingSkeletonTimer = 60
@@ -87,10 +87,6 @@ function mod:StartAbomTimer()
 	end
 end
 
-function mod:OnCombatEnd()
-	soundPortals:Cancel()
-end
-
 function mod:OnCombatStart(delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		berserkTimer:Start(-delay)
@@ -121,10 +117,8 @@ function mod:Portals()
 	warnPortalOpen:Cancel()
 	timerPortalsOpen:Cancel()
 	warnPortalSoon:Cancel()
-	soundPortals:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 	warnPortalOpen:Schedule(15)
 	timerPortalsOpen:Start()
-	soundPortals:Schedule(15,"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	timerPortalsClose:Schedule(15)
 	warnPortalSoon:Schedule(41)
 	timerNextPortal:Start()
