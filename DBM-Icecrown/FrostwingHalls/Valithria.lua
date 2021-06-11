@@ -7,7 +7,6 @@ mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
 mod:RegisterCombat("combat")
 
-
 mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
