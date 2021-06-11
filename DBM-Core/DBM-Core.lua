@@ -541,15 +541,6 @@ local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 ---------------------------------
 --  General (local) functions  --
 ---------------------------------
---  returns the index for a value in a table.
-local function tIndexOf(t, val)
-	for i, v in ipairs(t) do
-		if v == val then
-			return i
-		end
-	end
-end
-
 -- checks if a given value is in an array
 -- returns true if it finds the value, false otherwise
 local function checkEntry(t, val)
