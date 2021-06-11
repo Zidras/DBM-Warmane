@@ -1,4 +1,4 @@
-﻿local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
+local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 3726 $"):sub(12, -3))

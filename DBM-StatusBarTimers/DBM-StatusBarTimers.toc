@@ -1,4 +1,4 @@
-﻿## Interface: 30300
+## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFStatus Bar Timers (REQUIRED)|r
 ## Notes: DBM - status bar timer library
 ## SavedVariables: DBT_AllPersistentOptions

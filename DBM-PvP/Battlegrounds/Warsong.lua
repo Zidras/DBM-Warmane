@@ -1,4 +1,4 @@
-﻿local mod	= DBM:NewMod("z444", "DBM-PvP", 2)
+local mod	= DBM:NewMod("z444", "DBM-PvP", 2)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20200405141240")

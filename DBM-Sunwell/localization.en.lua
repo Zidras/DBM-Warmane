@@ -1,4 +1,4 @@
-﻿local L
+local L
 
 ---------------
 --  Kalecgos --
