@@ -73,7 +73,7 @@ function mod:SPELL_DAMAGE(args)
 	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
 		timerNextShockwave:Start()
 	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
-		specWarnEyebeamNear:Show()
+		specWarnEyebeamNear:Show(args.destName)
 	end
 end
 
@@ -102,10 +102,12 @@ function mod:OnSync(msg, target)
 end
 
 local gripTargets = {}
+
 function mod:GripAnnounce()
 	warnGrip:Show(table.concat(gripTargets, "<, >"))
 	table.wipe(gripTargets)
 end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(64290, 64292) then
 		if self.Options.SetIconOnGripTarget then
