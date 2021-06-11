@@ -420,13 +420,13 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnCorrosion	= "%s on >%s< (%s)",		-- Corrosion on >args.destName< (args.amount)
 	WarnPortalOpen	= "Portals open",
-	Suppressors		= "Suppressors",
+	Suppressors		= "Suppressors"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen		= "Portals open",
+	TimerPortalsClose		= "Portals close",
 	TimerBlazingSkeleton	= "Next Blazing Skeleton",
 	TimerAbom				= "Next Abomination",
 	TimerSuppressorOne			= "1st wave of Suppressors",
@@ -439,21 +439,18 @@ L:SetOptionLocalization{
 	SetIconOnBlazingSkeleton	= "Set icon on Blazing Skeleton (skull)",
 	WarnPortalOpen				= "Show warning when Nightmare Portals are opened up",
 	TimerPortalsOpen			= "Show timer when Nightmare Portals are opened up",
+	TimerPortalsClose			= "Show timer when Nightmare Portals are closed",
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn",
 	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)",
 	Suppressors					= "Show special warning for new Suppressors",
 	TimerSuppressorOne			= "1st wave of Suppressors",
 	TimerSuppressorTwo			= "2nd wave of Suppressors",
 	TimerSuppressorThree		= "3rd wave of Suppressors",
-	TimerSuppressorFour			= "4th wave of Suppressors",
-	WarnCorrosion				= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(70751, GetSpellInfo(70751) or "unknown")
+	TimerSuppressorFour			= "4th wave of Suppressors"
 }
 
 L:SetMiscLocalization{
-	YellPull		= "Intruders have breached the inner sanctum. Hasten the destruction of the green dragon! Leave only bones and sinew for the reanimation!",
-	YellKill		= "I AM RENEWED! Ysera grant me the favor to lay these foul creatures to rest!",
-	YellPortals		= "I have opened a portal into the Dream. Your salvation lies within, heroes...",
-	YellPhase2		= "My strength is returning. Press on, heroes!"--Need to confirm this is when adds spawn faster (phase 2) before used in mod
+	YellPortals		= "I have opened a portal into the Dream. Your salvation lies within, heroes..."
 }
 
 ------------------

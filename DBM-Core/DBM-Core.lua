@@ -6289,6 +6289,7 @@ local specFlags ={
 	["Melee"] = "IsMelee",
 	["Ranged"] = "IsRanged",
 	["Physical"] = "IsPhysical",
+	["ManaUser"] = "IsManaUser",
 	["RemoveEnrage"] = "CanRemoveEnrage",
 	["MagicDispeller"] = "IsMagicDispeller",
 }
@@ -6316,36 +6317,65 @@ function bossModPrototype:GetRoleFlagValue(flag)
 end
 
 function bossModPrototype:IsMelee()
-	return select(2, UnitClass("player")) == "ROGUE"
-		or select(2, UnitClass("player")) == "WARRIOR"
-		or select(2, UnitClass("player")) == "DEATHKNIGHT"
-		or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) < 51)
-		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
+	return playerClass == "ROGUE"
+		or playerClass == "WARRIOR"
+		or playerClass == "DEATHKNIGHT"
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) < 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
 end
 
 function bossModPrototype:IsRanged()
-	return select(2, UnitClass("player")) == "MAGE"
-		or select(2, UnitClass("player")) == "HUNTER"
-		or select(2, UnitClass("player")) == "WARLOCK"
-		or select(2, UnitClass("player")) == "PRIEST"
-		or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
-		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) < 51)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
+	return playerClass == "MAGE"
+		or playerClass == "HUNTER"
+		or playerClass == "WARLOCK"
+		or playerClass == "PRIEST"
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(2)) < 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
 end
 
 function bossModPrototype:IsPhysical()
-	return self:IsMelee() or select(2, UnitClass("player")) == "HUNTER"
+	return self:IsMelee() or playerClass == "HUNTER"
+end
+
+function bossModPrototype:IsManaUser() --Similar to ranged, but includes all paladins and all shaman
+	return playerClass == "MAGE"
+	or playerClass == "WARLOCK"
+	or playerClass == "PRIEST"
+	or playerClass == "PALADIN"
+    or playerClass == "SHAMAN"
+	or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
 end
 
 function bossModPrototype:CanRemoveEnrage()
-	return select(2, UnitClass("player")) == "HUNTER" or select(2, UnitClass("player")) == "ROGUE"
+	return playerClass == "HUNTER" or playerClass == "ROGUE"
 end
 
 function bossModPrototype:IsMagicDispeller()
-	return select(2, UnitClass("player")) == "MAGE"
-		or select(2, UnitClass("player")) == "SHAMAN"
-		or select(2, UnitClass("player")) == "PRIEST"
+	return playerClass == "MAGE"
+		or playerClass == "SHAMAN"
+		or playerClass == "PRIEST"
+end
+
+function bossModPrototype:CanInterrupt()
+	return playerClass == "WARRIOR"
+		or playerClass == "ROGUE"
+		or playerClass == "SHAMAN"
+		or playerClass == "MAGE"
+		or playerClass == "DEATHKNIGHT"
+end
+
+function bossModPrototype:HasRaidCooldown()
+	return playerClass == "PRIEST"						-- Divine Hymn
+		or playerClass == "DRUID"						-- Tranquility
+		or playerClass == "PALADIN"						-- Aura Mastery and/or Divine Sacrifice
+end
+
+function bossModPrototype:HasTargetedCooldown()
+	return playerClass == "WARRIOR"
+		or playerClass == "PRIEST" and (IsSpellKnown(33206) or IsSpellKnown(47788))				-- Pain Suppression / Guardian Spirit
+		or playerClass == "PALADIN" and (getTalentpointsSpent(20234) >= 1 or IsSpellKnown(6940))	-- Improved Lay on Hands / Hand of Sacrifice
 end
 
 local function IsDeathKnightTank()
@@ -6366,17 +6396,17 @@ local function IsDruidTank()
 end
 
 function bossModPrototype:IsTank()
-	return (select(2, UnitClass("player")) == "WARRIOR" and select(3, GetTalentTabInfo(3)) >= 13)
-		or (select(2, UnitClass("player")) == "DEATHKNIGHT" and IsDeathKnightTank())
-		or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(2)) >= 51)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51 and IsDruidTank())
+	return (playerClass == "WARRIOR" and select(3, GetTalentTabInfo(3)) >= 13)
+		or (playerClass == "DEATHKNIGHT" and IsDeathKnightTank())
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(2)) >= 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51 and IsDruidTank())
 end
 
 function bossModPrototype:IsHealer()
-	return (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
-		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(3)) >= 51)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(3)) >= 51)
-		or (select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
+	return (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
 end
 
 function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID, includeTarget)
