@@ -541,6 +541,15 @@ local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 ---------------------------------
 --  General (local) functions  --
 ---------------------------------
+--  returns the index for a value in a table.
+local function tIndexOf(t, val)
+	for i, v in ipairs(t) do
+		if v == val then
+			return i
+		end
+	end
+end
+
 -- checks if a given value is in an array
 -- returns true if it finds the value, false otherwise
 local function checkEntry(t, val)
@@ -655,9 +664,8 @@ do
 	local argsMT = {__index = {}}
 	local args = setmetatable({}, argsMT)
 
-	function argsMT.__index:IsSpellID(a1, a2, a3, a4, a5)
-		local v = self.spellId
-		return v == a1 or v == a2 or v == a3 or v == a4 or v == a5
+	function argsMT.__index:IsSpellID(...)
+		return tIndexOf({...}, args.spellId) ~= nil
 	end
 
 	function argsMT.__index:IsPlayer()
