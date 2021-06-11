@@ -152,7 +152,7 @@ L:SetMiscLocalization{
 	AllianceVictory    = "GLORY TO THE ALLIANCE!",
 	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!",
 	YellKill           = "A shallow and tragic victory. We are weaker as a whole from the losses suffered today. Who but the Lich King could benefit from such foolishness? Great warriors have lost their lives. And for what? The true threat looms ahead - the Lich King awaits us all in death."
-} 
+}
 
 L:SetOptionLocalization{
 	PlaySoundOnBladestorm	= "Play sound on Bladestorm"
@@ -168,7 +168,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Next special ability"	
+	TimerSpecialSpell	= "Next special ability"
 }
 
 L:SetWarningLocalization{
@@ -248,7 +248,7 @@ L:SetOptionLocalization{
 	PlaySoundOnPursue		= "Play sound when you are being pursued",
 	PursueIcon				= "Set icons on pursued targets",
 	SpecWarnShadowStrike	= "Show special warning for $spell:66134 (to interrupt)",
-	RemoveHealthBuffsInP3	= "Remove HP buffs at start of Phase 3", 
+	RemoveHealthBuffsInP3	= "Remove HP buffs at start of Phase 3",
 	SetIconsOnPCold         = "Set icons on $spell:68510 targets",
 	AnnouncePColdIcons		= "Announce icons for $spell:68510 targets to raid chat\n(requires announce to be enabled and leader/promoted status)",
 	AnnouncePColdIconsRemoved	= "Also announce when icons are removed for $spell:68510\n(requires above option)"

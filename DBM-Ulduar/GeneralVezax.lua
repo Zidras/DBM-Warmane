@@ -106,7 +106,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 62662 then	
+	if args.spellId == 62662 then
 		timerSurgeofDarkness:Stop()
 	end
 end

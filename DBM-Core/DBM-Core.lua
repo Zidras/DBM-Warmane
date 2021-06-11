@@ -114,7 +114,7 @@ local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
 -- dual profile setup
 local _, playerClass = UnitClass("player")
 
-DBM_CharSavedRevision = 2
+-- DBM_CharSavedRevision = 2
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
 local standardFont = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"
@@ -455,8 +455,8 @@ local showConstantReminder = 0
 local tooltipsHidden = false
 local SWFilterDisabed = 3
 local currentSpecName, currentSpecGroup
-local cSyncSender = {}
-local cSyncReceived = 0
+--local cSyncSender = {}
+--local cSyncReceived = 0
 local canSetIcons = {}
 local iconSetRevision = {}
 local iconSetPerson = {}
@@ -2987,7 +2987,7 @@ do
 		--		DBM_UseDualProfile = true
 		--	end
 		--end
-		DBM_CharSavedRevision = self.Revision
+		-- DBM_CharSavedRevision = self.Revision
 		-- load special warning options
 		self:UpdateWarningOptions()
 		self:UpdateSpecialWarningOptions()
@@ -4525,8 +4525,8 @@ do
 	}
 
 	function DBM:StartCombat(mod, delay, event, synced, syncedStartHp, syncedEvent)
-		cSyncSender = {}
-		cSyncReceived = 0
+		--cSyncSender = {}
+		--cSyncReceived = 0
 		if not checkEntry(inCombat, mod) then
 			-- - HACK: гарантирует, что мы не обнаружим ложное притяжение, если событие сработает снова, когда босс умрет ...
 			if mod.lastKillTime and GetTime() - mod.lastKillTime < 10 then return end
@@ -6467,7 +6467,7 @@ function bossModPrototype:IsWeaponDependent(uId)
 end
 
 function bossModPrototype:IsEquipmentSetAvailable(setName)
-	local setName = setName or 'pve'
+	setName = setName or 'pve'
 	local _, index = GetEquipmentSetInfoByName(setName)
 	if index then
 		return true

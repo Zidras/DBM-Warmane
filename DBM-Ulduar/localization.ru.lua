@@ -62,11 +62,11 @@ L:SetGeneralLocalization{
 	name = "Острокрылая"
 }
 
-L:SetWarningLocalization{	
+L:SetWarningLocalization{
 	warnTurretsReadySoon		= "Гарпунные пушки будут собраны через 20 секунд",
 	warnTurretsReady			= "Гарпунные пушки собраны",
 	SpecWarnDevouringFlameCast	= "Лавовая бомба на вас",
-	WarnDevouringFlameCast		= "Лавовая бомба на |3-5(>%s<)" 
+	WarnDevouringFlameCast		= "Лавовая бомба на |3-5(>%s<)"
 }
 
 L:SetTimerLocalization{
@@ -326,7 +326,7 @@ L:SetMiscLocalization{
 	YellPhase2	= "Бесстыжие выскочки! Вы решили бросить вызов мне лично? Я сокрушу вас всех!",
 	YellKill	= "Придержите мечи! Я сдаюсь.",
 	ChargeOn	= "Разряд молнии: %s",
-	Charge		= "Попали под Разряд молнии (в этом бою): %s" 
+	Charge		= "Попали под Разряд молнии (в этом бою): %s"
 }
 
 -------------
@@ -505,7 +505,7 @@ L:SetWarningLocalization{
 	SpecWarnSanity 					= "Осталось %d Здравомыслия",
 	SpecWarnGuardianLow				= "Прекратите атаковать этого Стража",
 	SpecWarnMadnessOutNow			= "Доведение до помешательства заканчивается - выбегайте",
-	WarnBrainPortalSoon				= "Провал Безумия через 3 секунды",	
+	WarnBrainPortalSoon				= "Провал Безумия через 3 секунды",
 	SpecWarnFervor					= "Рвение Сары на вас",
 	SpecWarnFervorCast				= "Рвение Сары накладывается на вас",
 	SpecWarnMaladyNear				= "Душевная болезнь на |3-5(%s) около вас",

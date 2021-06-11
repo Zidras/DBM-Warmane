@@ -19,12 +19,9 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local isDispeller = select(2, UnitClass("player")) == "MAGE"
-	    		 or select(2, UnitClass("player")) == "PRIEST"
-	    		 or select(2, UnitClass("player")) == "SHAMAN"
+local isDispeller = select(2, UnitClass("player")) == "MAGE" or select(2, UnitClass("player")) == "PRIEST" or select(2, UnitClass("player")) == "SHAMAN"
 
-local isMagicDispeller = select(2, UnitClass("player")) == "PALADIN"
-	    		 or select(2, UnitClass("player")) == "PRIEST"
+local isMagicDispeller = select(2, UnitClass("player")) == "PALADIN" or select(2, UnitClass("player")) == "PRIEST"
 
 local warnFelFireball			= mod:NewCastAnnounce(66532, 2)
 local warnPortalSoon			= mod:NewSoonAnnounce(67900, 3)
@@ -49,7 +46,7 @@ local timerFlame 				= mod:NewTargetTimer(8, 68123)--There are 8 debuff Ids. Sin
 local timerFlameCD				= mod:NewCDTimer(30, 68125)
 local timerNetherPowerCD		= mod:NewCDTimer(45, 67009)
 local timerFlesh				= mod:NewTargetTimer(12, 67049)
-local timerFleshCD				= mod:NewCDTimer(23, 67051) 
+local timerFleshCD				= mod:NewCDTimer(23, 67051)
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
 local timerPortalTwo			= mod:NewTimer(120, "2nd Nether Portal")
 local timerVolcanoCD			= mod:NewCDTimer(120, 67901)

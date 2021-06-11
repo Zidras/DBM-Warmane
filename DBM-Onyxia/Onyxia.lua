@@ -28,8 +28,8 @@ local timerNextFlameBreath	= mod:NewCDTimer(20, 68970)--Breath she does on groun
 local timerNextDeepBreath	= mod:NewCDTimer(35, 17086)--Range from 35-60seconds in between based on where she moves to.
 local timerBreath			= mod:NewCastTimer(8, 17086)
 local timerWhelps			= mod:NewTimer(105, "TimerWhelps", 10697)
-local timerAchieve			= mod:NewAchievementTimer(300, 4405, "TimerSpeedKill") 
-local timerAchieveWhelps	= mod:NewAchievementTimer(10, 4406, "TimerWhelps") 
+local timerAchieve			= mod:NewAchievementTimer(300, 4405, "TimerSpeedKill")
+local timerAchieveWhelps	= mod:NewAchievementTimer(10, 4406, "TimerWhelps")
 
 local soundBlastNova		= mod:NewSound(68958, nil, mod:IsMelee())
 local soundDeepBreath 		= mod:NewSound(17086)
@@ -78,7 +78,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnWhelpsSoon:Cancel()
 --		preWarnDeepBreath:Cancel()
 		sndFunny:Schedule(20, "Interface\\AddOns\\DBM-Onyxia\\sounds\\now-hit-it-very-hard-and-fast.mp3")
-   		sndFunny:Schedule(35, "Interface\\AddOns\\DBM-Onyxia\\sounds\\i-dont-see-enough-dots.mp3")
+		sndFunny:Schedule(35, "Interface\\AddOns\\DBM-Onyxia\\sounds\\i-dont-see-enough-dots.mp3")
 		sndFunny:Schedule(50, "Interface\\AddOns\\DBM-Onyxia\\sounds\\hit-it-like-you-mean-it.mp3")
 		sndFunny:Schedule(65, "Interface\\AddOns\\DBM-Onyxia\\sounds\\throw-more-dots.mp3")
 	end
@@ -114,9 +114,9 @@ end
 function mod:UNIT_HEALTH(uId)
 	if self.vb.phase == 1 and not warned_preP2 and self:GetUnitCreatureId(uId) == 10184 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.67 then
 		warned_preP2 = true
-		warnPhase2Soon:Show()	
+		warnPhase2Soon:Show()
 	elseif self.vb.phase == 2 and not warned_preP3 and self:GetUnitCreatureId(uId) == 10184 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.41 then
 		warned_preP3 = true
-		warnPhase3Soon:Show()	
+		warnPhase3Soon:Show()
 	end
 end

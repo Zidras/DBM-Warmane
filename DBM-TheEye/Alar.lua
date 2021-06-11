@@ -62,17 +62,17 @@ end
 
 mod:RegisterOnUpdateHandler(function(self)
 	if self:IsInCombat() then
-		local foundIt
+		--local foundIt
 		local target
 		local phoenix
 		for uId in DBM:GetGroupMembers() do
 			if self:GetUnitCreatureId(uId.."target") == 19551 or self:GetUnitCreatureId("mouseover") == 19551 then
 				self:AntiSpam(30, 2)
-				foundIt = true
+				--foundIt = true
 				phoenix = true
 				break
 			elseif self:GetUnitCreatureId(uId.."target") == 19514 or self:GetUnitCreatureId("mouseover") == 19514 then
-				foundIt = true
+				--foundIt = true
 				target = UnitName(uId.."targettarget")
 				if not target and UnitCastingInfo(uId.."target") == buffetName then
 					target = "Dummy"

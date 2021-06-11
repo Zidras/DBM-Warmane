@@ -43,9 +43,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnMirroredSoul:Show(args.destName)
 		timerMirroredSoul:Show(args.destName)
 		specwarnMirroredSoul:Show()
-		if self.Options.SetIconOnMirroredTarget then 
-			self:SetIcon(args.destName, 8, 8) 
-		end 
+		if self.Options.SetIconOnMirroredTarget then
+			self:SetIcon(args.destName, 8, 8)
+		end
 	elseif args:IsSpellID(68939) then							-- Unleashed Souls
 		timerUnleashedSouls:Start()
 	end

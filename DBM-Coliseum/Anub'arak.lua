@@ -1,14 +1,14 @@
-﻿local mod	= DBM:NewMod("Anub'arak_Coliseum", "DBM-Coliseum")
+local mod	= DBM:NewMod("Anub'arak_Coliseum", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4435 $"):sub(12, -3))
-mod:SetCreatureID(34564)  
+mod:SetCreatureID(34564)
 
 mod:RegisterCombat("yell", L.YellPull)
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REFRESH", 	
+	"SPELL_AURA_REFRESH",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
@@ -22,7 +22,7 @@ mod:AddBoolOption("RemoveHealthBuffsInP3", false)
 -- Adds
 local warnAdds				= mod:NewAnnounce("warnAdds", 3, 45419)
 local timerAdds				= mod:NewTimer(45, "timerAdds", 45419)
-local Burrowed				= false 
+local Burrowed				= false
 
 -- Pursue
 local warnPursue			= mod:NewTargetAnnounce(67574, 4)

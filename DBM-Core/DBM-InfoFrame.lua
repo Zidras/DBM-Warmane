@@ -20,7 +20,7 @@ local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS-- for P
 --  Locals  --
 --------------
 local infoFrame = DBM.InfoFrame
-local frame, initializeDropdown, currentMapId, currentEvent, createFrame
+local frame, initializeDropdown, currentEvent, createFrame
 local maxLines, modLines, maxCols, modCols, prevLines = 5, 5, 1, 1, 0
 local sortMethod = 1--1 Default, 2 SortAsc, 3 GroupId
 local lines, sortedLines, icons, value = {}, {}, {}, {}
@@ -967,7 +967,7 @@ function infoFrame:Show(modMaxLines, event, ...)
 		return
 	end
 	prevLines = 0
-	currentMapId = GetCurrentMapAreaID()
+	-- local currentMapId = GetCurrentMapAreaID()
 	modLines = modMaxLines
 	if DBM.Options.InfoFrameLines and DBM.Options.InfoFrameLines ~= 0 then
 		maxLines = DBM.Options.InfoFrameLines

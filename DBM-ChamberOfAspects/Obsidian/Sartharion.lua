@@ -22,9 +22,9 @@ local warnShadron			= mod:NewAnnounce("WarningShadron", 2, 58105, false)
 local warnVesperon			= mod:NewAnnounce("WarningVesperon", 2, 61251, false)
 
 local warnFireWall			= mod:NewSpecialWarning("WarningFireWall", nil, nil, nil, 2, 2)
-local warnVesperonPortal	= mod:NewSpecialWarning("WarningVesperonPortal", false, nil, nil, 1, 7)
+local specwarnVesperonPortal= mod:NewSpecialWarning("WarningVesperonPortal", false, nil, nil, 1, 7)
 local warnTenebronPortal	= mod:NewSpecialWarning("WarningTenebronPortal", false, nil, nil, 1, 7)
-local warnShadronPortal		= mod:NewSpecialWarning("WarningShadronPortal", false, nil, nil, 1, 7)
+local specwarnShadronPortal	= mod:NewSpecialWarning("WarningShadronPortal", false, nil, nil, 1, 7)
 
 mod:AddBoolOption("AnnounceFails", true, "announce")
 
@@ -68,12 +68,14 @@ function mod:OnSync(event)
 		warnFireWall:Play("watchwave")
 	elseif event == "VesperonPortal" then
 		warnVesperonPortal:Show()
+		specwarnVesperonPortal:Show()
 		warnVesperonPortal:Play("newportal")
 	elseif event == "TenebronPortal" then
 		warnTenebronPortal:Show()
 		warnTenebronPortal:Play("newportal")
 	elseif event == "ShadronPortal" then
 		warnShadronPortal:Show()
+		specwarnShadronPortal:Show()
 		warnShadronPortal:Play("newportal")
 	end
 end

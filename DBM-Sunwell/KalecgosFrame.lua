@@ -2,7 +2,7 @@ local Kal 	= DBM:GetModByName("Kal")
 local L		= Kal:GetLocalizedStrings()
 
 function Kal:InitializeMenu()
-	local self = Kal -- this function will be called by UIDropDownMenu_Initialize()
+	self = self or Kal -- this function will be called by UIDropDownMenu_Initialize()
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.name
 	info.notClickable = 1
@@ -10,41 +10,41 @@ function Kal:InitializeMenu()
 	info.notCheckable = 1
 	UIDropDownMenu_AddButton(info, 1)
 
-	local info = UIDropDownMenu_CreateInfo()
-	info.text = L.FrameLock
-	info.value = self.Options.FrameLocked
-	info.func = function() self.Options.FrameLocked = not self.Options.FrameLocked end
-	info.checked = self.Options.FrameLocked
-	info.keepShownOnClick = 1
-	UIDropDownMenu_AddButton(info, 1)
+	local info1 = UIDropDownMenu_CreateInfo()
+	info1.text = L.FrameLock
+	info1.value = self.Options.FrameLocked
+	info1.func = function() self.Options.FrameLocked = not self.Options.FrameLocked end
+	info1.checked = self.Options.FrameLocked
+	info1.keepShownOnClick = 1
+	UIDropDownMenu_AddButton(info1, 1)
 
-	local info = UIDropDownMenu_CreateInfo()
-	info.text = L.FrameClassColor
-	info.value = self.Options.FrameClassColor
-	info.func = function() self.Options.FrameClassColor = not self.Options.FrameClassColor self:UpdateColors() end
-	info.checked = self.Options.FrameClassColor
-	info.keepShownOnClick = 1
-	UIDropDownMenu_AddButton(info, 1)
+	local info2 = UIDropDownMenu_CreateInfo()
+	info2.text = L.FrameClassColor
+	info2.value = self.Options.FrameClassColor
+	info2.func = function() self.Options.FrameClassColor = not self.Options.FrameClassColor self:UpdateColors() end
+	info2.checked = self.Options.FrameClassColor
+	info2.keepShownOnClick = 1
+	UIDropDownMenu_AddButton(info2, 1)
 
-	local info = UIDropDownMenu_CreateInfo()
-	info.text = L.FrameOrientation
-	info.value = self.Options.FrameUpwards
-	info.func = function() self.Options.FrameUpwards = not self.Options.FrameUpwards self:ChangeFrameOrientation() end
-	info.checked = self.Options.FrameUpwards
-	info.keepShownOnClick = 1
-	UIDropDownMenu_AddButton(info, 1)
+	local info3 = UIDropDownMenu_CreateInfo()
+	info3.text = L.FrameOrientation
+	info3.value = self.Options.FrameUpwards
+	info3.func = function() self.Options.FrameUpwards = not self.Options.FrameUpwards self:ChangeFrameOrientation() end
+	info3.checked = self.Options.FrameUpwards
+	info3.keepShownOnClick = 1
+	UIDropDownMenu_AddButton(info3, 1)
 
-	local info = UIDropDownMenu_CreateInfo()
-	info.text = L.FrameHide
-	info.func = function() DBMKalFrameDrag:Hide() end
-	info.notCheckable = 1
-	UIDropDownMenu_AddButton(info, 1)
+	local info4 = UIDropDownMenu_CreateInfo()
+	info4.text = L.FrameHide
+	info4.func = function() DBMKalFrameDrag:Hide() end
+	info4.notCheckable = 1
+	UIDropDownMenu_AddButton(info4, 1)
 
-	local info = UIDropDownMenu_CreateInfo()
-	info.text = L.FrameClose
-	info.func = function() end
-	info.notCheckable = 1
-	UIDropDownMenu_AddButton(info, 1)
+	local info5 = UIDropDownMenu_CreateInfo()
+	info5.text = L.FrameClose
+	info5.func = function() end
+	info5.notCheckable = 1
+	UIDropDownMenu_AddButton(info5, 1)
 end
 
 local firstEntry = nil
@@ -76,7 +76,7 @@ local function createBar(name)
 			name = name,
 			timer = 60
 		}
-	}, 
+	},
 	{
 		__index = barMethods
 	})
@@ -84,7 +84,7 @@ local function createBar(name)
 		lastEntry.next = newEntry
 	end
 	lastEntry = newEntry
-	firstEntry = firstEntry or newEntry	
+	firstEntry = firstEntry or newEntry
 
 	newEntry.data.frame.entry = newEntry
 	newEntry:Update(0)

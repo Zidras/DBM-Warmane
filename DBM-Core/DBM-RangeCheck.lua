@@ -188,10 +188,10 @@ local CHARM_TEX_COORDS = {
 	[8] = 	{ 0.75, 1,    0.25, 0.5  }
 }
 
-local hexColors = {}
+--local hexColors = {}
 local vertexColors = {}
 for k, v in pairs(RAID_CLASS_COLORS) do
-	hexColors[k] = ("|cff%02x%02x%02x"):format(v.r * 255, v.g * 255, v.b * 255)
+	--hexColors[k] = ("|cff%02x%02x%02x"):format(v.r * 255, v.g * 255, v.b * 255)
 	vertexColors[k] = { v.r, v.g, v.b }
 end
 ---------------------
@@ -582,7 +582,7 @@ function createRadarFrame()
 	radarFrame:SetFrameStrata("DIALOG")
 
 
-	if (not DBM.Options.RangeFrameRadarPoint) then 
+	if (not DBM.Options.RangeFrameRadarPoint) then
 		DBM:Debug("radar probably upgrading from an older version",3)
 		DBM.Options.RangeFrameRadarPoint = DBM.DefaultOptions.RangeFrameRadarPoint
 		DBM.Options.RangeFrameRadarX = DBM.DefaultOptions.RangeFrameRadarX

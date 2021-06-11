@@ -50,7 +50,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-do 
+do
 	local lasttoxic = 0
 	function mod:SPELL_PERIODIC_DAMAGE(args)
 		if args:IsSpellID(69024, 70436) and args:IsPlayer() and time() - lasttoxic > 2 then
@@ -66,21 +66,21 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg) 
-	if msg == L.IckPursuit or msg:match(L.IckPursuit) then 
+function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg)
+	if msg == L.IckPursuit or msg:match(L.IckPursuit) then
 		self:SendSync("Pursuit", UnitName("player"))
-	end 
-end 
+	end
+end
 
-function mod:OnSync(msg, target) 
-	if msg == "Pursuit" then 
+function mod:OnSync(msg, target)
+	if msg == "Pursuit" then
 		warnPursuit:Show(target)
-		if target == UnitName("player") then 
-			specWarnPursuit:Show() 
+		if target == UnitName("player") then
+			specWarnPursuit:Show()
 			soundPursuit:Play()
-		end 
-		if self.Options.SetIconOnPursuitTarget then 
-			self:SetIcon(target, 8, 12) 
 		end
-	end 
-end 
+		if self.Options.SetIconOnPursuitTarget then
+			self:SetIcon(target, 8, 12)
+		end
+	end
+end
