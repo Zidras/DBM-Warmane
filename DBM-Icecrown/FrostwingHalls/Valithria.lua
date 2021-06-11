@@ -4,6 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision(("$Revision: 4436 $"):sub(12, -3))
 mod:SetCreatureID(36789, 38589)
 mod:SetUsedIcons(8)
+mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
 
