@@ -4467,18 +4467,18 @@ function DBM:FireCustomEvent(event, ...)
 	fireEvent(event, ...)
 end
 
-function checkBossHealth(self)
+function checkBossHealth(self, onlyHighest)
 	if #inCombat > 0 then
-		for i, v in ipairs(inCombat) do
+		for _, v in ipairs(inCombat) do
 			if not v.multiMobPullDetection or v.mainBoss then
-				self:GetBossHP(v.mainBoss or v.combatInfo.mob or -1)
+				self:GetBossHP(v.mainBoss or v.combatInfo.mob or -1, onlyHighest)
 			else
 				for _, mob in ipairs(v.multiMobPullDetection) do
-					self:GetBossHP(mob)
+					self:GetBossHP(mob, onlyHighest)
 				end
 			end
 		end
-		self:Schedule(1, checkBossHealth, self)
+		self:Schedule(1, checkBossHealth, self, onlyHighest)
 	end
 end
 
@@ -4594,7 +4594,7 @@ do
 			if mod.CustomHealthUpdate then
 				self:Schedule(1, checkCustomBossHealth, self, mod)
 			else
-				self:Schedule(1, checkBossHealth, self)
+				self:Schedule(1, checkBossHealth, self, mod.onlyHighest)
 			end
 			if self.Options.RecordOnlyBosses then
 				self:StartLogging(0, nil)
@@ -6530,20 +6530,24 @@ end
 ----------------------------
 --  Boss Health Function  --
 ----------------------------
-function DBM:GetBossHP(cIdOrGUID)
+function DBM:GetBossHP(cIdOrGUID, onlyHighest)
 	local uId = bossHealthuIdCache[cIdOrGUID] or "target"
 	local guid = UnitGUID(uId)
 	--Target or Cached (if already called with this cid or GUID before)
 	if (self:GetCIDFromGUID(guid) == cIdOrGUID or guid == cIdOrGUID) and UnitHealthMax(uId) ~= 0 then
 		if bossHealth[cIdOrGUID] and (UnitHealth(uId) == 0 and not UnitIsDead(uId)) then return bossHealth[cIdOrGUID], uId, UnitName(uId) end--Return last non 0 value if value is 0, since it's last valid value we had.
 		local hp = UnitHealth(uId) / UnitHealthMax(uId) * 100
+		if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
 		bossHealth[cIdOrGUID] = hp
+		end
 		return hp, uId, UnitName(uId)
 	--Focus
 	elseif (self:GetCIDFromGUID(UnitGUID("focus")) == cIdOrGUID or UnitGUID("focus") == cIdOrGUID) and UnitHealthMax("focus") ~= 0 then
 		if bossHealth[cIdOrGUID] and (UnitHealth("focus") == 0  and not UnitIsDead("focus")) then return bossHealth[cIdOrGUID], "focus", UnitName("focus") end--Return last non 0 value if value is 0, since it's last valid value we had.
 		local hp = UnitHealth("focus") / UnitHealthMax("focus") * 100
-		bossHealth[cIdOrGUID] = hp
+		if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
+			bossHealth[cIdOrGUID] = hp
+		end
 		return hp, "focus", UnitName("focus")
 	else
 		--Boss UnitIds
@@ -6553,7 +6557,9 @@ function DBM:GetBossHP(cIdOrGUID)
 			if (self:GetCIDFromGUID(bossguid) == cIdOrGUID or bossguid == cIdOrGUID) and UnitHealthMax(unitID) ~= 0 then
 				if bossHealth[cIdOrGUID] and (UnitHealth(unitID) == 0 and not UnitIsDead(unitID)) then return bossHealth[cIdOrGUID], unitID, UnitName(unitID) end--Return last non 0 value if value is 0, since it's last valid value we had.
 				local hp = UnitHealth(unitID) / UnitHealthMax(unitID) * 100
-				bossHealth[cIdOrGUID] = hp
+				if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
+					bossHealth[cIdOrGUID] = hp
+				end
 				bossHealthuIdCache[cIdOrGUID] = unitID
 				return hp, unitID, UnitName(unitID)
 			end
@@ -6566,7 +6572,9 @@ function DBM:GetBossHP(cIdOrGUID)
 			if (self:GetCIDFromGUID(bossguid) == cIdOrGUID or bossguid == cIdOrGUID) and UnitHealthMax(unitId) ~= 0 then
 				if bossHealth[cIdOrGUID] and (UnitHealth(unitId) == 0 and not UnitIsDead(unitId)) then return bossHealth[cIdOrGUID], unitId, UnitName(unitId) end--Return last non 0 value if value is 0, since it's last valid value we had.
 				local hp = UnitHealth(unitId) / UnitHealthMax(unitId) * 100
-				bossHealth[cIdOrGUID] = hp
+				if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
+					bossHealth[cIdOrGUID] = hp
+				end
 				bossHealthuIdCache[cIdOrGUID] = unitId
 				return hp, unitId, UnitName(unitId)
 			end
