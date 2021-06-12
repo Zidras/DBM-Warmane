@@ -4466,18 +4466,18 @@ function DBM:FireCustomEvent(event, ...)
 	fireEvent(event, ...)
 end
 
-function checkBossHealth(self)
+function checkBossHealth(self, onlyHighest)
 	if #inCombat > 0 then
-		for i, v in ipairs(inCombat) do
+		for _, v in ipairs(inCombat) do
 			if not v.multiMobPullDetection or v.mainBoss then
-				self:GetBossHP(v.mainBoss or v.combatInfo.mob or -1)
+				self:GetBossHP(v.mainBoss or v.combatInfo.mob or -1, onlyHighest)
 			else
 				for _, mob in ipairs(v.multiMobPullDetection) do
-					self:GetBossHP(mob)
+					self:GetBossHP(mob, onlyHighest)
 				end
 			end
 		end
-		self:Schedule(1, checkBossHealth, self)
+		self:Schedule(1, checkBossHealth, self, onlyHighest)
 	end
 end
 
@@ -4593,7 +4593,7 @@ do
 			if mod.CustomHealthUpdate then
 				self:Schedule(1, checkCustomBossHealth, self, mod)
 			else
-				self:Schedule(1, checkBossHealth, self)
+				self:Schedule(1, checkBossHealth, self, mod.onlyHighest)
 			end
 			if self.Options.RecordOnlyBosses then
 				self:StartLogging(0, nil)
@@ -6289,6 +6289,7 @@ local specFlags ={
 	["Melee"] = "IsMelee",
 	["Ranged"] = "IsRanged",
 	["Physical"] = "IsPhysical",
+	["ManaUser"] = "IsManaUser",
 	["RemoveEnrage"] = "CanRemoveEnrage",
 	["MagicDispeller"] = "IsMagicDispeller",
 }
@@ -6316,36 +6317,65 @@ function bossModPrototype:GetRoleFlagValue(flag)
 end
 
 function bossModPrototype:IsMelee()
-	return select(2, UnitClass("player")) == "ROGUE"
-		or select(2, UnitClass("player")) == "WARRIOR"
-		or select(2, UnitClass("player")) == "DEATHKNIGHT"
-		or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) < 51)
-		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
+	return playerClass == "ROGUE"
+		or playerClass == "WARRIOR"
+		or playerClass == "DEATHKNIGHT"
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) < 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
 end
 
 function bossModPrototype:IsRanged()
-	return select(2, UnitClass("player")) == "MAGE"
-		or select(2, UnitClass("player")) == "HUNTER"
-		or select(2, UnitClass("player")) == "WARLOCK"
-		or select(2, UnitClass("player")) == "PRIEST"
-		or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
-		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(2)) < 51)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
+	return playerClass == "MAGE"
+		or playerClass == "HUNTER"
+		or playerClass == "WARLOCK"
+		or playerClass == "PRIEST"
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(2)) < 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
 end
 
 function bossModPrototype:IsPhysical()
-	return self:IsMelee() or select(2, UnitClass("player")) == "HUNTER"
+	return self:IsMelee() or playerClass == "HUNTER"
+end
+
+function bossModPrototype:IsManaUser() --Similar to ranged, but includes all paladins and all shaman
+	return playerClass == "MAGE"
+	or playerClass == "WARLOCK"
+	or playerClass == "PRIEST"
+	or playerClass == "PALADIN"
+    or playerClass == "SHAMAN"
+	or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
 end
 
 function bossModPrototype:CanRemoveEnrage()
-	return select(2, UnitClass("player")) == "HUNTER" or select(2, UnitClass("player")) == "ROGUE"
+	return playerClass == "HUNTER" or playerClass == "ROGUE"
 end
 
 function bossModPrototype:IsMagicDispeller()
-	return select(2, UnitClass("player")) == "MAGE"
-		or select(2, UnitClass("player")) == "SHAMAN"
-		or select(2, UnitClass("player")) == "PRIEST"
+	return playerClass == "MAGE"
+		or playerClass == "SHAMAN"
+		or playerClass == "PRIEST"
+end
+
+function bossModPrototype:CanInterrupt()
+	return playerClass == "WARRIOR"
+		or playerClass == "ROGUE"
+		or playerClass == "SHAMAN"
+		or playerClass == "MAGE"
+		or playerClass == "DEATHKNIGHT"
+end
+
+function bossModPrototype:HasRaidCooldown()
+	return playerClass == "PRIEST"						-- Divine Hymn
+		or playerClass == "DRUID"						-- Tranquility
+		or playerClass == "PALADIN"						-- Aura Mastery and/or Divine Sacrifice
+end
+
+function bossModPrototype:HasTargetedCooldown()
+	return playerClass == "WARRIOR"
+		or playerClass == "PRIEST" and (IsSpellKnown(33206) or IsSpellKnown(47788))				-- Pain Suppression / Guardian Spirit
+		or playerClass == "PALADIN" and (getTalentpointsSpent(20234) >= 1 or IsSpellKnown(6940))	-- Improved Lay on Hands / Hand of Sacrifice
 end
 
 local function IsDeathKnightTank()
@@ -6366,17 +6396,17 @@ local function IsDruidTank()
 end
 
 function bossModPrototype:IsTank()
-	return (select(2, UnitClass("player")) == "WARRIOR" and select(3, GetTalentTabInfo(3)) >= 13)
-		or (select(2, UnitClass("player")) == "DEATHKNIGHT" and IsDeathKnightTank())
-		or (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(2)) >= 51)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51 and IsDruidTank())
+	return (playerClass == "WARRIOR" and select(3, GetTalentTabInfo(3)) >= 13)
+		or (playerClass == "DEATHKNIGHT" and IsDeathKnightTank())
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(2)) >= 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51 and IsDruidTank())
 end
 
 function bossModPrototype:IsHealer()
-	return (select(2, UnitClass("player")) == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
-		or (select(2, UnitClass("player")) == "SHAMAN" and select(3, GetTalentTabInfo(3)) >= 51)
-		or (select(2, UnitClass("player")) == "DRUID" and select(3, GetTalentTabInfo(3)) >= 51)
-		or (select(2, UnitClass("player")) == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
+	return (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "PRIEST" and select(3, GetTalentTabInfo(3)) < 51)
 end
 
 function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID, includeTarget)
@@ -6506,20 +6536,24 @@ end
 ----------------------------
 --  Boss Health Function  --
 ----------------------------
-function DBM:GetBossHP(cIdOrGUID)
+function DBM:GetBossHP(cIdOrGUID, onlyHighest)
 	local uId = bossHealthuIdCache[cIdOrGUID] or "target"
 	local guid = UnitGUID(uId)
 	--Target or Cached (if already called with this cid or GUID before)
 	if (self:GetCIDFromGUID(guid) == cIdOrGUID or guid == cIdOrGUID) and UnitHealthMax(uId) ~= 0 then
 		if bossHealth[cIdOrGUID] and (UnitHealth(uId) == 0 and not UnitIsDead(uId)) then return bossHealth[cIdOrGUID], uId, UnitName(uId) end--Return last non 0 value if value is 0, since it's last valid value we had.
 		local hp = UnitHealth(uId) / UnitHealthMax(uId) * 100
+		if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
 		bossHealth[cIdOrGUID] = hp
+		end
 		return hp, uId, UnitName(uId)
 	--Focus
 	elseif (self:GetCIDFromGUID(UnitGUID("focus")) == cIdOrGUID or UnitGUID("focus") == cIdOrGUID) and UnitHealthMax("focus") ~= 0 then
 		if bossHealth[cIdOrGUID] and (UnitHealth("focus") == 0  and not UnitIsDead("focus")) then return bossHealth[cIdOrGUID], "focus", UnitName("focus") end--Return last non 0 value if value is 0, since it's last valid value we had.
 		local hp = UnitHealth("focus") / UnitHealthMax("focus") * 100
-		bossHealth[cIdOrGUID] = hp
+		if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
+			bossHealth[cIdOrGUID] = hp
+		end
 		return hp, "focus", UnitName("focus")
 	else
 		--Boss UnitIds
@@ -6529,7 +6563,9 @@ function DBM:GetBossHP(cIdOrGUID)
 			if (self:GetCIDFromGUID(bossguid) == cIdOrGUID or bossguid == cIdOrGUID) and UnitHealthMax(unitID) ~= 0 then
 				if bossHealth[cIdOrGUID] and (UnitHealth(unitID) == 0 and not UnitIsDead(unitID)) then return bossHealth[cIdOrGUID], unitID, UnitName(unitID) end--Return last non 0 value if value is 0, since it's last valid value we had.
 				local hp = UnitHealth(unitID) / UnitHealthMax(unitID) * 100
-				bossHealth[cIdOrGUID] = hp
+				if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
+					bossHealth[cIdOrGUID] = hp
+				end
 				bossHealthuIdCache[cIdOrGUID] = unitID
 				return hp, unitID, UnitName(unitID)
 			end
@@ -6542,7 +6578,9 @@ function DBM:GetBossHP(cIdOrGUID)
 			if (self:GetCIDFromGUID(bossguid) == cIdOrGUID or bossguid == cIdOrGUID) and UnitHealthMax(unitId) ~= 0 then
 				if bossHealth[cIdOrGUID] and (UnitHealth(unitId) == 0 and not UnitIsDead(unitId)) then return bossHealth[cIdOrGUID], unitId, UnitName(unitId) end--Return last non 0 value if value is 0, since it's last valid value we had.
 				local hp = UnitHealth(unitId) / UnitHealthMax(unitId) * 100
-				bossHealth[cIdOrGUID] = hp
+				if not onlyHighest or onlyHighest and hp > (bossHealth[cIdOrGUID] or 0) then
+					bossHealth[cIdOrGUID] = hp
+				end
 				bossHealthuIdCache[cIdOrGUID] = unitId
 				return hp, unitId, UnitName(unitId)
 			end

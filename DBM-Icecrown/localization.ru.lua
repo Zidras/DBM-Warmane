@@ -422,13 +422,13 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnCorrosion	= "%s на |3-5(>%s<) (%d)",		-- Corrosion on >args.destName< (args.amount)
 	WarnPortalOpen	= "Открытие порталов",
-	Suppressors		= "Подавители",
+	Suppressors		= "Подавители"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen		= "Открытие порталов",
+	TimerPortalsClose		= "закрытие порталов", -- Needs review
 	TimerBlazingSkeleton	= "Исторгающий пламя скелет",
 	TimerAbom				= "След. поганище?",
 	TimerSuppressorOne			= "1 волна Подавителей",
@@ -441,21 +441,18 @@ L:SetOptionLocalization{
 	SetIconOnBlazingSkeleton	= "Устанавливать метку на Исторгающего пламя скелета (череп)",
 	WarnPortalOpen				= "Предупреждение об открытии порталов",
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
+	TimerPortalsClose			= "Обратный отсчет до закрытия порталов", -- Needs review
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета",
 	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)",
 	Suppressors					= "Спец-предупреждение для появления Подавителей",
 	TimerSuppressorOne			= "1 волна Подавителей",
 	TimerSuppressorTwo			= "2 волна Подавителей",
 	TimerSuppressorThree		= "3 волна Подавителей",
-	TimerSuppressorFour			= "4 волна Подавителей",
-	WarnCorrosion				= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(70751, GetSpellInfo(70751) or "unknown")
+	TimerSuppressorFour			= "4 волна Подавителей"
 }
 
 L:SetMiscLocalization{
-	YellPull		= "Чужаки ворвались во внутренние покои. Уничтожьте зеленого дракона! Пусть останутся лишь кости и прах для воскрешения!",
-	YellKill		= "Я ИЗЛЕЧИЛАСЬ! Изера, даруй мне силу покончить с этими нечестивыми тварями.",
-	YellPortals		= "Я открыла портал в Изумрудный Сон. Там вы найдете спасение, герои...",
-	YellPhase2		= "Силы возвращаются ко мне. Герои, еще немного!"--Need to confirm this is when adds spawn faster (phase 2) before used in mod
+	YellPortals		= "Я открыла портал в Изумрудный Сон. Там вы найдете спасение, герои..."
 }
 
 ------------------
