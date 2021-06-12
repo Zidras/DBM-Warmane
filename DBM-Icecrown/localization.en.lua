@@ -450,6 +450,8 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull		= "Intruders have breached the inner sanctum. Hasten the destruction of the green dragon! Leave only bones and sinew for the reanimation!",
+	YellKill		= "I AM RENEWED! Ysera grant me the favor to lay these foul creatures to rest!",
 	YellPortals		= "I have opened a portal into the Dream. Your salvation lies within, heroes..."
 }
 
