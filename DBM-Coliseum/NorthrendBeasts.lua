@@ -118,6 +118,7 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
+	timerNextCrash:Cancel()
 end
 
 function mod:warnToxin()
