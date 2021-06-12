@@ -16,7 +16,8 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local warnImpaleOn			= mod:NewTargetAnnounce(67478, 2, nil, mod:IsTank() or mod:IsHealer())
@@ -41,7 +42,7 @@ local specWarnChargeNear	= mod:NewSpecialWarning("SpecialWarningChargeNear")
 local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemoveEnrage())
 
 local enrageTimer			= mod:NewBerserkTimer(223)
-local timerCombatStart		= mod:NewTimer(11, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(17.5, "TimerCombatStart", 2457)
 local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457)
 local timerSubmerge			= mod:NewTimer(42, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local timerEmerge			= mod:NewTimer(6, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
@@ -52,7 +53,7 @@ local timerNextImpale		= mod:NewNextTimer(10, 67477, nil, mod:IsTank() or mod:Is
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758)
 local timerNextCrash		= mod:NewCDTimer(70, 67662) -- Original timer. The second Massive Crash should happen 70 seconds after the first
-local timerNextCrashTwo		= mod:NewCDTimer(50, 67662, "Второе Сокрушение") -- Added timer to start a second Massive Crash timer at the start of Icehowl. The second Massive Crash happens 122 seconds into the Icehowl fight
+
 local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, mod:IsMelee())
 local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, mod:IsMelee())
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819)
@@ -108,7 +109,7 @@ function mod:OnCombatStart(delay)
 	end
 	timerNextStomp:Start(38-delay)
 	timerRisingAnger:Start(48-delay)
-	timerCombatStart:Start(-delay)
+	timerCombatStart:Start(14.5-delay)
 	updateHealthFrame(1)
 	self.vb.phase = 1
 end
@@ -271,13 +272,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			self:ClearIcons()
 		end
 		if target == UnitName("player") then
---[[			local x, y = GetPlayerMapPosition(target)
-			if x == 0 and y == 0 then
-				SetMapToCurrentZone()
-				x, y = GetPlayerMapPosition(target)
-			end--]]
 			specWarnCharge:Show()
---			DBM.Arrow:ShowRunAway(x, y, 12, 5)
 			if self.Options.PingCharge then
 				Minimap:PingLocation()
 			end
@@ -307,7 +302,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		self:ScheduleMethod(17, "WormsEmerge")
-		timerCombatStart:Show(10)
+		timerCombatStart:Show(11.5)
 		updateHealthFrame(2)
 		self.vb.phase = 2
 		if self.Options.RangeFrame then
@@ -321,8 +316,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		self:UnscheduleMethod("WormsSubmerge")
 		self:UnscheduleMethod("WormsEmerge")
-		timerNextCrash:Start(34)
-		timerNextCrashTwo:Schedule(33)
+		timerCombatStart:Show(6)
+		timerNextCrash:Start(6+32)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
 		timerEmerge:Cancel()
@@ -338,6 +333,7 @@ function mod:UNIT_DIED(args)
 		specWarnSilence:Cancel()
 		timerNextStomp:Stop()
 		timerNextImpale:Stop()
+		timerRisingAnger:Stop()
 		DBM.BossHealth:RemoveBoss(cid) -- remove Gormok from the health frame
 	elseif cid == 35144 then
 		AcidmawDead = true
@@ -367,5 +363,11 @@ function mod:UNIT_DIED(args)
 			DBM.BossHealth:RemoveBoss(35144)
 			DBM.BossHealth:RemoveBoss(34799)
 		end
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+	if spellName == GetSpellInfo(66683) then
+		timerNextCrash:Start(45+5)
 	end
 end
