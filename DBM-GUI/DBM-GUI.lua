@@ -1030,7 +1030,8 @@ function UpdateAnimationFrame(mod)
 		DBM_BossPreview:SetCreature(model)
 	end
 	local modelFile = DBM_BossPreview:GetModel()
-	if modelFile and type(modelFile) == "string" and string.find(modelFile, "dragon") then
+	if modelFile and type(modelFile) == "string" and
+	(string.find(modelFile, "dragon") or string.find(modelFile, "wurm") or string.find(modelFile, "drake") or string.find(modelFile, "malygos") or string.find(modelFile, "yoggsaron")) then
 		DBM_BossPreview.timer = .1
 		DBM_BossPreview:SetScript("OnUpdate", FixCameraAnimationFrame)
 	else
@@ -1049,7 +1050,7 @@ local function CreateAnimationFrame()
 	local mobstyle = CreateFrame('DressUpModel', "DBM_BossPreview", DBM_GUI_OptionsFramePanelContainer)
 	mobstyle:SetPoint("BOTTOMRIGHT", DBM_GUI_OptionsFramePanelContainer, "BOTTOMRIGHT", -5, 5)
 	mobstyle:SetWidth(300)
-	mobstyle:SetHeight(230)
+	mobstyle:SetHeight(300)
 	mobstyle:SetRotation(0)
 	mobstyle:SetClampRectInsets(0, 0, 24, 0)
 	return mobstyle
