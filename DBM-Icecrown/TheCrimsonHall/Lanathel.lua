@@ -45,10 +45,6 @@ local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, n
 
 local berserkTimer					= mod:NewBerserkTimer(320)
 
-local soundSwarmingShadows			= mod:NewSound(71266)
-local soundPact3					= mod:NewSound3(71340)
-local soundBloodthirst				= mod:NewSound5(71474)
-
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
@@ -62,7 +58,6 @@ local function warnPactTargets(self)
 	warnPactDarkfallen:Show(table.concat(pactTargets, "<, >"))
 	table.wipe(pactTargets)
 	timerNextPactDarkfallen:Start(30)
-	soundPact3:Schedule(27)
 	self.vb.pactIcons = 6
 end
 
@@ -70,7 +65,6 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerFirstBite:Start(-delay)
 	timerNextPactDarkfallen:Start(15-delay)
-	soundPact3:Schedule(12-delay)
 	timerNextSwarmingShadows:Start(-delay)
 	table.wipe(pactTargets)
 	self.vb.pactIcons = 6
@@ -88,7 +82,6 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	soundBloodthirst:Cancel()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -133,11 +126,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			if self:IsDifficulty("normal10", "heroic10") then
 				timerEssenceoftheBloodQueen:Start(75)--75 seconds on 10 man
 				warnBloodthirstSoon:Schedule(70)
-				soundBloodthirst:Schedule(70)
 			else
 				timerEssenceoftheBloodQueen:Start()--60 seconds on 25 man
 				warnBloodthirstSoon:Schedule(55)
-				soundBloodthirst:Schedule(55)
 			end
 		end
 	elseif args.spellId == 70923 then
@@ -173,8 +164,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerInciteTerror:Start()
 		timerNextSwarmingShadows:Start()--This resets the swarming shadows timer
 		timerNextPactDarkfallen:Start(25)--and the Pact timer also reset -5 seconds
-		soundPact3:Cancel()
-		soundPact3:Schedule(22)
 		if self:IsDifficulty("normal10", "heroic10") then
 			timerNextInciteTerror:Start(120)--120 seconds in between first and second on 10 man
 		else
@@ -205,7 +194,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			specWarnSwarmingShadows:Show()
 			specWarnSwarmingShadows:Play("runout")
 			specWarnSwarmingShadows:ScheduleVoice(1.5, "keepmove")
-			soundSwarmingShadows:Play()
 		else
 			warnSwarmingShadows:Show(target)
 		end
