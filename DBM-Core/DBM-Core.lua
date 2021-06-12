@@ -6293,13 +6293,21 @@ end
 
 local specFlags ={
 	["Tank"] = "IsTank",
+	["Dps"] = "IsDps",
 	["Healer"] = "IsHealer",
-	["Melee"] = "IsMelee",
-	["Ranged"] = "IsRanged",
+	["Melee"] = "IsMelee", --ANY melee, including tanks or healers that are 100% exempt from healer/ranged mechanics
+	["MeleeDps"] = "IsMeleeDps",
 	["Physical"] = "IsPhysical",
+	["Ranged"] = "IsRanged", --ANY ranged, healer and dps included
+	["RangedDps"] = "IsRangedDps", --Only ranged dps
+	["SpellCaster"] = "IsSpellCaster", --Has channeled casts, can be interrupted/spell locked by roars, etc, include healers. Use CasterDps if dealing with reflect
+	["CasterDps"] = "IsCasterDps", --Ranged dps that uses spells, relevant for spell reflect type abilities that only reflect spells but not ranged physical such as hunters
+	["RaidCooldown"] = "HasRaidCooldown",
 	["ManaUser"] = "IsManaUser",
 	["RemoveEnrage"] = "CanRemoveEnrage",
 	["MagicDispeller"] = "IsMagicDispeller",
+	["HasInterrupt"] = "CanInterrupt", --Has an interrupt that is 24 seconds or less CD that is BASELINE (not a talent)
+	["TargetedCooldown"] = "HasTargetedCooldown" --Custom: Single Target external defensive cooldown
 }
 
 function bossModPrototype:GetRoleFlagValue(flag)
@@ -6333,7 +6341,16 @@ function bossModPrototype:IsMelee()
 		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51)
 end
 
-function bossModPrototype:IsRanged()
+function bossModPrototype:IsMeleeDps()
+	return playerClass == "ROGUE"
+		or (playerClass == "WARRIOR" and select(3, GetTalentTabInfo(3)) < 13)
+		or (playerClass == "DEATHKNIGHT" and not IsDeathKnightTank())
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(2)) >= 50)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) >= 51 and not IsDruidTank())
+end
+
+function bossModPrototype:IsRanged() --Including healer
 	return playerClass == "MAGE"
 		or playerClass == "HUNTER"
 		or playerClass == "WARLOCK"
@@ -6347,13 +6364,52 @@ function bossModPrototype:IsPhysical()
 	return self:IsMelee() or playerClass == "HUNTER"
 end
 
+function bossModPrototype:IsRangedDps()
+	return playerClass == "MAGE"
+		or playerClass == "HUNTER"
+		or playerClass == "WARLOCK"
+		or (playerClass == "PRIEST" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(1)) >= 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(1)) >= 51)
+end
+
 function bossModPrototype:IsManaUser() --Similar to ranged, but includes all paladins and all shaman
 	return playerClass == "MAGE"
-	or playerClass == "WARLOCK"
-	or playerClass == "PRIEST"
-	or playerClass == "PALADIN"
-    or playerClass == "SHAMAN"
-	or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
+		or playerClass == "WARLOCK"
+		or playerClass == "PRIEST"
+		or playerClass == "PALADIN"
+		or playerClass == "SHAMAN"
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
+end
+
+function bossModPrototype:IsDps()--For features that simply should only be on for dps and not healers or tanks and without me having to use "not is heal or not is tank" rules :)
+	return playerClass == "WARLOCK"
+		or playerClass == "MAGE"
+		or playerClass == "HUNTER"
+		or playerClass == "ROGUE"
+		or (playerClass == "WARRIOR" and select(3, GetTalentTabInfo(3)) < 13)
+		or (playerClass == "DEATHKNIGHT" and not IsDeathKnightTank())
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "DRUID" and (select(3, GetTalentTabInfo(1)) >= 51) or ((select(3, GetTalentTabInfo(2)) >= 51) and not IsDruidTank()))
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(3)) < 51)
+		or (playerClass == "PRIEST" and select(3, GetTalentTabInfo(3)) >= 51)
+end
+
+function bossModPrototype:IsSpellCaster()
+	return playerClass == "MAGE"
+		or playerClass == "WARLOCK"
+		or playerClass == "PRIEST"
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(2)) < 50)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(2)) < 51)
+		or (playerClass == "PALADIN" and select(3, GetTalentTabInfo(1)) >= 51)
+end
+
+function bossModPrototype:IsCasterDps()
+	return playerClass == "MAGE"
+		or playerClass == "WARLOCK"
+		or (playerClass == "PRIEST" and select(3, GetTalentTabInfo(3)) >= 51)
+		or (playerClass == "SHAMAN" and select(3, GetTalentTabInfo(1)) >= 51)
+		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(1)) < 51)
 end
 
 function bossModPrototype:CanRemoveEnrage()
@@ -6381,8 +6437,8 @@ function bossModPrototype:HasRaidCooldown()
 end
 
 function bossModPrototype:HasTargetedCooldown()
-	return playerClass == "WARRIOR"
-		or playerClass == "PRIEST" and (IsSpellKnown(33206) or IsSpellKnown(47788))				-- Pain Suppression / Guardian Spirit
+	return playerClass == "WARRIOR"																	-- Intervene
+		or playerClass == "PRIEST" and (IsSpellKnown(33206) or IsSpellKnown(47788))					-- Pain Suppression / Guardian Spirit
 		or playerClass == "PALADIN" and (getTalentpointsSpent(20234) >= 1 or IsSpellKnown(6940))	-- Improved Lay on Hands / Hand of Sacrifice
 end
 
