@@ -385,18 +385,11 @@ L:SetGeneralLocalization{
 	name = "Blood-Queen Lana'thel"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SetIconOnDarkFallen		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71340),
 	SwarmingShadowsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
 	BloodMirrorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
-	RangeFrame				= "Show range frame (8 yards)",
-	YellOnFrenzy			= "Yell on $spell:71474"
+	RangeFrame				= "Show range frame (8 yards)"
 }
 
 L:SetMiscLocalization{

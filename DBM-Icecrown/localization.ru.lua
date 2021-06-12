@@ -387,18 +387,11 @@ L:SetGeneralLocalization{
 	name = "Королева Лана'тель"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	SetIconOnDarkFallen		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71340),
 	SwarmingShadowsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
 	BloodMirrorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
-	RangeFrame				= "Показывать окно проверки дистанции (8 м)",
-	YellOnFrenzy			= "Кричать, когда на вас $spell:71474"
+	RangeFrame				= "Показывать окно проверки дистанции (8 м)"
 }
 
 L:SetMiscLocalization{
