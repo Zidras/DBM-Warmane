@@ -1,4 +1,4 @@
-﻿local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
+local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4134 $"):sub(12, -3))
@@ -39,7 +39,7 @@ local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC /
 local enrageTimer				= mod:NewBerserkTimer(600)
 
 -- 5/23 00:33:48.648  SPELL_AURA_APPLIED,0x0000000000000000,nil,0x80000000,0x0480000001860FAC,"Hâzzad",0x4000512,63355,"Crunch Armor",0x1,DEBUFF
--- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48 
+-- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("SetIconOnGripTarget", true)
@@ -73,7 +73,7 @@ function mod:SPELL_DAMAGE(args)
 	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
 		timerNextShockwave:Start()
 	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
-		specWarnEyebeamNear:Show()
+		specWarnEyebeamNear:Show(args.destName)
 	end
 end
 
@@ -102,10 +102,12 @@ function mod:OnSync(msg, target)
 end
 
 local gripTargets = {}
+
 function mod:GripAnnounce()
 	warnGrip:Show(table.concat(gripTargets, "<, >"))
 	table.wipe(gripTargets)
 end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(64290, 64292) then
 		if self.Options.SetIconOnGripTarget then

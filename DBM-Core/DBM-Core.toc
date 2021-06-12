@@ -1,4 +1,4 @@
-﻿## Interface: 30300
+## Interface: 30300
 ## Title:|cffffd200Deadly Boss Mods|r |cff69ccf0Core|r
 ## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Основной|r
 ## Notes: Deadly Boss Mods

@@ -65,7 +65,7 @@ mod:AddBoolOption("RangeFrame", true)
 local mcIcon = 8
 local warnConflagTargets = {}
 local warnMCTargets = {}
-local shieldDown = false
+--local shieldDown = false
 local phase5 = false
 local flamestrike = GetSpellInfo(36735)
 
@@ -128,7 +128,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(warnConflagTargets)
 	table.wipe(warnMCTargets)
 	mcIcon = 8
-	shieldDown = false
+	--shieldDown = false
 	phase5 = false
 	timerPhase1mob:Start(30, L.Thaladred)
 	if self.Options.HealthFrame then
@@ -168,7 +168,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnToy:Show()
 		end
 	elseif args.spellId == 36815 and not phase5 then
-		shieldDown = false
+		--shieldDown = false
 		showShieldHealthBar(self, args.destGUID, args.spellName, 80000)
 		specWarnShield:Show()
 		timerShieldCD:Start()
@@ -181,7 +181,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 36815 and not phase5 then
-		shieldDown = true
+		--shieldDown = true
 		specWarnPyro:Show(args.sourceName)
 		hideShieldHealthBar()
 	elseif args.spellId == 36797 then

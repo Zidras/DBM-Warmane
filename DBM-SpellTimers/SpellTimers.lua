@@ -356,7 +356,7 @@ do
 
 				local spellinfo, _, icon = GetSpellInfo(spellid)
 				local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
-				if (spellid == 34477 or spellid == 57934) and (fromplayer == toplayer) then 
+				if (spellid == 34477 or spellid == 57934) and (fromplayer == toplayer) then
 					return
 				end
 				SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)

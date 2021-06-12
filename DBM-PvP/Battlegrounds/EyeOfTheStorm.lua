@@ -225,15 +225,15 @@ function mod:UPDATE_WORLD_STATES()
 	if HordeTime > 5000 then HordeTime = 5000 end
 
 	if AllyTime == HordeTime then
-		winner_is = 0 
+		-- winner_is = 0
 		winTimer:Stop()
 		if self.ScoreFrame1Text then
 			self.ScoreFrame1Text:SetText("")
 			self.ScoreFrame2Text:SetText("")
 		end
-		
+
 	elseif AllyTime > HordeTime then -- Horde wins
-		winner_is = 2
+		-- winner_is = 2
 		winTimer:Update(getGametime(), getGametime()+HordeTime)
 		winTimer:DisableEnlarge()
 		local AllyPoints = math.floor((HordeTime * ResPerSec[last_alliance_bases]) + last_alliance_score)
@@ -259,7 +259,7 @@ function mod:UPDATE_WORLD_STATES()
 			self.ScoreFrame1Text:SetText("(1600)")
 			self.ScoreFrame2Text:SetText("("..HordePoints..")")
 			self:UpdateFlagDisplay()
-		end		
+		end
 	end
 end
 

@@ -1,4 +1,4 @@
-﻿local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
+local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 3726 $"):sub(12, -3))
@@ -68,7 +68,7 @@ local isDispeller = select(2, UnitClass("player")) == "WARRIOR"
 local warnChainsofIce		= mod:NewTargetAnnounce(66020, 2) 				-- 66020
 local warnDeathgrip			= mod:NewTargetAnnounce(66017, 2) 				-- 66017
 -- Paladin
-local warnHandofFreedom		= mod:NewTargetAnnounce(66115, 3) 				-- 66115 
+local warnHandofFreedom		= mod:NewTargetAnnounce(66115, 3) 				-- 66115
 local warnHandofProt		= mod:NewTargetAnnounce(66009, 3) 				-- 66009
 local warnHoJ				= mod:NewTargetAnnounce(66613, 1) 				-- 66613, 66607
 local warnRepentance		= mod:NewTargetAnnounce(66008, 1) 				-- 66008
@@ -122,10 +122,10 @@ local timerShadowstepCD		= mod:NewCDTimer(20, 36554)
 local timerBlindCD			= mod:NewCDTimer(120, 65960)
 local timerDeathgripCD		= mod:NewCDTimer(20, 66017)
 local timerFrostTrapCD		= mod:NewCDTimer(30, 65880)
-local timerDisengageCD		= mod:NewCDTimer(30, 65869)	
-local timerPsychicScreamCD	= mod:NewCDTimer(30, 65543)	
+local timerDisengageCD		= mod:NewCDTimer(30, 65869)
+local timerPsychicScreamCD	= mod:NewCDTimer(30, 65543)
 local timerBlinkCD			= mod:NewCDTimer(15, 65793)
-local timerHoJCD			= mod:NewCDTimer(40, 66613)	
+local timerHoJCD			= mod:NewCDTimer(40, 66613)
 local timerRepentanceCD		= mod:NewCDTimer(60, 66008)
 local timerHoPCD 			= mod:NewCDTimer(300, 66009)
 local timerSilenceCD		= mod:NewCDTimer(45, 65542)
@@ -135,7 +135,7 @@ local timerBloodlustCD		= mod:NewCDTimer(300, 65980)
 
 local specWarnHellfire		= mod:NewSpecialWarningMove(68147)
 local specWarnHandofProt	= mod:NewSpecialWarningDispel(66009, isDispeller)
-local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, isDispeller) 
+local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, isDispeller)
 local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, isDispeller)
 local specWarnHandofFreedom	= mod:NewSpecialWarningDispel(68758, isDispeller)
 local specWarnTranquility 	= mod:NewSpecialWarningInterrupt(66086)
@@ -149,33 +149,33 @@ mod:AddBoolOption("PlaySoundOnBladestorm", mod:IsMelee())
 
 function mod:SPELL_CAST_SUCCESS(args)
 	-- Death Knight
-	if args:IsSpellID(66017, 68753, 68754, 68755) and args:IsDestTypePlayer() then	-- Death Grip 
+	if args:IsSpellID(66017, 68753, 68754, 68755) and args:IsDestTypePlayer() then	-- Death Grip
 		warnDeathgrip:Show(args.destName)
 		timerDeathgripCD:Start()
-	elseif args:IsSpellID(66020) and args:IsDestTypePlayer() then 	-- Chains of Ice 
+	elseif args:IsSpellID(66020) and args:IsDestTypePlayer() then 	-- Chains of Ice
 		warnChainsofIce:Show(args.destName)
 	-- Paladin
-	elseif args:IsSpellID(68758, 68757, 68756, 66115) and not args:IsDestTypePlayer() then	-- Hand of Freedom 
+	elseif args:IsSpellID(68758, 68757, 68756, 66115) and not args:IsDestTypePlayer() then	-- Hand of Freedom
 		warnHandofFreedom:Show(args.destName)
 		specWarnHandofFreedom:Show(args.destName)
-	elseif args:IsSpellID(66009) then								-- Hand of Protection 
+	elseif args:IsSpellID(66009) then								-- Hand of Protection
 		warnHandofProt:Show(args.destName)
 		specWarnHandofProt:Show(args.destName)
 		timerHoPCD:Start()
-	elseif args:IsSpellID(66008) then								-- Repentance 
+	elseif args:IsSpellID(66008) then								-- Repentance
 		warnRepentance:Show(args.destName)
 		timerRepentanceCD:Start()
-	elseif args:IsSpellID(66613, 66007) then						-- Hammer of Justice 
+	elseif args:IsSpellID(66613, 66007) then						-- Hammer of Justice
 		warnHoJ:Show(args.destName)
 		timerHoJCD:Start()
 	elseif args:IsSpellID(66010) then								-- Divine Shield
 		warnDivineShield:Show()
 		specWarnDivineShield:Show()
-	elseif args:IsSpellID(66011) then								-- Avenging Wrath  
+	elseif args:IsSpellID(66011) then								-- Avenging Wrath
 		warnAvengingWrath:Show()
 		specWarnAvengingWrath:Show()
 	-- Mage
-	elseif args:IsSpellID(65802) then								-- Ice Block 
+	elseif args:IsSpellID(65802) then								-- Ice Block
 		warnIceBlock:Show()
 		specWarnIceBlock:Show()
 	elseif args:IsSpellID(65793) then								-- Blink
@@ -184,12 +184,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(65790) then								-- Counterspell
 		warnCounterspell:Show(args.destName)
 	-- Warlock
-	elseif args:IsSpellID(65816, 68145, 68146, 68147) then			-- Hellfire 
+	elseif args:IsSpellID(65816, 68145, 68146, 68147) then			-- Hellfire
 		warnHellfire:Show()
-	elseif args:IsSpellID(65820, 68141, 68139, 68140) then			-- Death Coil 
+	elseif args:IsSpellID(65820, 68141, 68139, 68140) then			-- Death Coil
 		warnDeathCoil:Show(args.destName)
 	-- Warrior
-	elseif args:IsSpellID(65947) then								-- Bladestorm 
+	elseif args:IsSpellID(65947) then								-- Bladestorm
 		warnBladestorm:Show()
 		timerBladestorm:Start()
 		timerBladestormCD:Start()
@@ -197,20 +197,20 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self.Options.PlaySoundOnBladestorm then
 			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 		end
-	elseif args:IsSpellID(65932) then								-- Retaliation 
+	elseif args:IsSpellID(65932) then								-- Retaliation
 		warnRetaliation:Show()
-	elseif args:IsSpellID(65931) then								-- Intimidating Shout 
+	elseif args:IsSpellID(65931) then								-- Intimidating Shout
 		warnIntimidatingShout:Show()
 	-- Shaman
-	elseif args:IsSpellID(66063) then								-- Earth Shield 
+	elseif args:IsSpellID(66063) then								-- Earth Shield
 		warnEarthShield:Show(args.destName)
 		specWarnEarthShield:Show(args.destName)
 	-- Priest
-	elseif args:IsSpellID(65544) then								-- Dispersion 
+	elseif args:IsSpellID(65544) then								-- Dispersion
 		warnDispersion:Show()
-	elseif args:IsSpellID(65543) then								-- Psychic Scream 
+	elseif args:IsSpellID(65543) then								-- Psychic Scream
 		warnPsychicScream:Show()
-	elseif args:IsSpellID(65545) then								-- Psychic Horror 
+	elseif args:IsSpellID(65545) then								-- Psychic Horror
 		warnPsychicHorror:Show(args.destName)
 	elseif args:IsSpellID(65542) then								-- Silence
 		warnSilence:Show(args.destName)
@@ -219,7 +219,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(65860) then								-- Barkskin
 		warnBarkskin:Show()
 	-- Rogue
-	elseif args:IsSpellID(66178, 68759, 68760, 68761) then			-- Shadowstep 
+	elseif args:IsSpellID(66178, 68759, 68760, 68761) then			-- Shadowstep
 		warnShadowstep:Show()
 		timerShadowstepCD:Start()
 	elseif args:IsSpellID(65960) then								-- Blind

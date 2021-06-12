@@ -30,7 +30,7 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-do 
+do
 	local lastPerfspill = 0
 	local lastColnspill = 0
 	function mod:SPELL_DAMAGE(args)

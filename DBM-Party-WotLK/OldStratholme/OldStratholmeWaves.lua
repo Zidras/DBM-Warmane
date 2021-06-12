@@ -58,10 +58,10 @@ local function getWaveString(wave)
 end
 
 function mod:UPDATE_WORLD_STATES(args)
-	if mod:IsDifficulty("heroic5") then 
-		waves = wavesHeroic 
-	else 
-		waves = wavesNormal 
+	if mod:IsDifficulty("heroic5") then
+		waves = wavesHeroic
+	else
+		waves = wavesNormal
 	end
 	local text = select(3, GetWorldStateUIInfo(2))
 	if not text then return end

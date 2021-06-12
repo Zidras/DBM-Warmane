@@ -53,7 +53,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-do 
+do
 	local lasticyblast = 0
 	function mod:SPELL_PERIODIC_DAMAGE(args)
 		if args:IsSpellID(69238, 69628) and args:IsPlayer() and time() - lasticyblast > 3 then		-- Icy Blast, MOVE!

@@ -20,7 +20,7 @@ local warnMarkNow			= mod:NewAnnounce("WarningMarkNow", 2, 28835)
 local holyWrathCD     		= mod:NewCDTimer(13, 57466)
 
 local LADY_MARK = 28833
-local ZELIEK_MARK = 28835 
+local ZELIEK_MARK = 28835
 local BARON_MARK = 28834
 local THANE_MARK = 28832
 

@@ -83,7 +83,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg, mob)
 	if isGrounded and (msg == L.YellAir or msg == L.YellAir2) and GetTime() - combattime > 30 then
-		isGrounded = false -- warmane resets the timers idk why 
+		isGrounded = false -- warmane resets the timers idk why
 		if mod:IsDifficulty("heroic10") then -- not sure?
 			warnTurretsReadySoon:Schedule(23)
 			warnTurretsReady:Schedule(43)

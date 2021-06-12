@@ -19,11 +19,6 @@ local timerShout		= mod:NewNextTimer(16, 55543)
 local timerTaunt		= mod:NewCDTimer(20, 29060)
 local timerShieldWall	= mod:NewCDTimer(20, 29061)
 
-local mindControls = {}
-
-function getMindControlID(unitId)
-end
-
 function mod:OnCombatStart(delay)
 	timerShout:Start(16 - delay)
 	warnShoutSoon:Schedule(11 - delay)

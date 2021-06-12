@@ -45,7 +45,6 @@ local function buildGuidTable()
 		guids[UnitGUID("raid"..i.."pet") or ""] = UnitName("raid"..i)
 	end
 end
-flguids = guids
 
 function mod:OnCombatStart(delay)
 	buildGuidTable()

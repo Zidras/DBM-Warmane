@@ -52,11 +52,9 @@ mod:AddBoolOption("VaporIcon", true)
 local encaura = GetSpellInfo(45665)
 
 local breathCounter = 0
-local pull = 0
 
 function mod:Groundphase()
 	breathCounter = 0
-	pull = GetTime()
 	warnPhase:Show(L.Ground)
 	timerGasCD:Start(17)
 	timerPhase:Start(60, L.Air)
@@ -89,7 +87,6 @@ end
 
 function mod:OnCombatStart(delay)
 	breathCounter = 0
-	pull = GetTime()
 	timerGasCD:Start(16-delay)
 	timerPhase:Start(-delay, L.Air)
 	berserkTimer:Start(-delay)

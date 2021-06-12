@@ -1,4 +1,4 @@
-﻿-- globals
+-- globals
 DBM.Flash = {}
 -- locals
 local flashFrame = DBM.Flash

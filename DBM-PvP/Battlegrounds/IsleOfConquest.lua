@@ -96,7 +96,7 @@ end
 -- 82 Allianz Gate - Destroyed
 --
 -- 9 Keep - In Conflict (to Allianz)
--- 10 Keep - Horde Controlled 
+-- 10 Keep - Horde Controlled
 -- 11 Keep - Alliance
 -- 12 Keep - In Conflict (to Horde)
 --
@@ -120,7 +120,7 @@ do
 			bgzone = false
 		end
 	end
-	
+
 	IsleOfConquest.OnInitialize = initialize
 	IsleOfConquest.ZONE_CHANGED_NEW_AREA = initialize
 end
@@ -131,7 +131,7 @@ function IsleOfConquest:CHAT_MSG_BG_SYSTEM_NEUTRAL(arg1)
 	if not bgzone then return end
 	if arg1 == L.BgStart60 then
 		startTimer:Start()
-	elseif arg1 == L.BgStart30  then		
+	elseif arg1 == L.BgStart30  then
 		startTimer:Update(31, 62)
 	elseif arg1 == L.BgStart15 then
 		startTimer:Update(47, 62)
@@ -164,7 +164,7 @@ local function checkForUpdates()
 				POITimer:Stop(name)
 			end
 			poi[k] = textureIndex
-		end		 
+		end
 	end
 end
 
@@ -195,7 +195,7 @@ function IsleOfConquest:UNIT_DIED(args)
 	if cid == 34476 then
 		self:SendSync("SEBroken", "Alliance")
 	elseif cid == 35069 then
-		self:SendSync("SEBroken", "Horde")	
+		self:SendSync("SEBroken", "Horde")
 	end
 end
 
