@@ -56,7 +56,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(62907) and self:AntiSpam(1, 2) then		-- Ward of Life spawned (Creature id: 34275)
+	if args:IsSpellID(62907) and self:AntiSpam(2, "warnWardofLife") then		-- Ward of Life spawned (Creature id: 34275)
 		warnWardofLife:Show()
 	end
 end
