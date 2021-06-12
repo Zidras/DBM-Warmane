@@ -5,7 +5,7 @@ mod:SetRevision(("$Revision: 2248 $"):sub(12, -3))
 mod:SetCreatureID(15989)
 
 mod:RegisterCombat("combat")
-
+mod:SetModelScale(0.1)
 mod:EnableModel()
 
 mod:RegisterEvents(
