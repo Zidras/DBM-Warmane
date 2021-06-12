@@ -40,17 +40,16 @@ local specWarnCosmicSmash		= mod:NewSpecialWarningSpell(64598)
 
 local timerCombatStart		    = mod:NewTimer(7, "TimerCombatStart", 2457)
 local enrageTimer				= mod:NewBerserkTimer(360)
-local timerNextBigBang			= mod:NewNextTimer(90.5, 64584)
-local timerBigBangCast			= mod:NewCastTimer(8, 64584)
-local timerNextCollapsingStar	= mod:NewTimer(15, "NextCollapsingStar")
-local timerCDCosmicSmash		= mod:NewTimer(25, "NextCosmicSmash")
-local timerCastCosmicSmash		= mod:NewCastTimer(4.5, 62311)
-local timerPhasePunch			= mod:NewBuffActiveTimer(45, 64412)
-local timerNextPhasePunch		= mod:NewNextTimer(15.5, 64412)
+local timerNextBigBang			= mod:NewNextTimer(90.5, 64584, nil, nil, nil, 2, nil, DBM_CORE_TANK_ICON)
+local timerBigBangCast			= mod:NewCastTimer(8, 64584, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON)
+local timerNextCollapsingStar	= mod:NewTimer(18, "NextCollapsingStar", "Interface\\Icons\\Spell_Shadow_Shadesofdarkness", nil, nil, 2, DBM_CORE_HEALER_ICON)
+local timerCDCosmicSmash		= mod:NewTimer(25, "NextCosmicSmash", "Interface\\Icons\\Spell_Fire_SelfDestruct", nil, nil, 2, DBM_CORE_DEADLY_ICON)
+local timerCastCosmicSmash		= mod:NewCastTimer(4.5, 62311, nil, nil, nil, 2, nil, DBM_CORE_IMPORTANT_ICON)
+local timerPhasePunch			= mod:NewBuffActiveTimer(45, 64412, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON)
+local timerNextPhasePunch		= mod:NewNextTimer(15.5, 64412, nil, nil, nil, 2, nil, DBM_CORE_TANK_ICON)
 
 local warned_preP2 = false
 local warned_star = false
-local phase2Warning = 105
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
@@ -86,6 +85,8 @@ function mod:SPELL_CAST_START(args)
 		announceBigBang:Show()
 		announcePreBigBang:Schedule(80)
 		specWarnBigBang:Show()
+		timerCDCosmicSmash:Cancel()
+		timerCDCosmicSmash:Start(25-11.5)
 	end
 end
 
@@ -117,7 +118,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.Emote_CollapsingStar or msg:find(L.Emote_CollapsingStar) then
-		timerNextCollapsingStar:Start()
+		timerNextCollapsingStar:Start(60)
 	end
 end
 
