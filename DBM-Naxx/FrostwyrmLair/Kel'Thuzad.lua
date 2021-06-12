@@ -43,10 +43,10 @@ local timerPossibleMC		= mod:NewTimer(20, "MCImminent", 28410)
 
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
-mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and mod:IsEquipmentSetAvailable("pve"))
+mod:AddBoolOption("EqUneqWeaponsKT", (mod:IsWeaponDependent() or isHunter) and not mod:IsTank())
 mod:AddBoolOption("EqUneqWeaponsKT2")
 
-if mod.Options.EqUneqWeaponsKT and (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
+if mod.Options.EqUneqWeaponsKT and (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
 	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 		if frame.AddMessage then
@@ -83,17 +83,15 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:UnWKT()
-	if mod:IsEquipmentSetAvailable("pve") then
-		if self:IsWeaponDependent("player") and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
-				PickupInventoryItem(16)
-				PutItemInBackpack()
-				PickupInventoryItem(17)
-				PutItemInBackpack()
-		elseif isHunter then
-				PickupInventoryItem(18)
-				PutItemInBackpack()
-		end
-	end
+   if self:IsWeaponDependent() and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) then
+        PickupInventoryItem(16)
+        PutItemInBackpack()
+        PickupInventoryItem(17)
+        PutItemInBackpack()
+    elseif isHunter then
+        PickupInventoryItem(18)
+        PutItemInBackpack()
+    end
 end
 
 function mod:EqWKT()

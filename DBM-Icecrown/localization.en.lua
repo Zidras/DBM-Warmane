@@ -444,6 +444,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull		= "Intruders have breached the inner sanctum. Hasten the destruction of the green dragon! Leave only bones and sinew for the reanimation!",
 	YellPortals		= "I have opened a portal into the Dream. Your salvation lies within, heroes..."
 }
 
