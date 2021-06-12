@@ -4301,6 +4301,14 @@ do
 				targetList[cId] = id
 			end
 		end
+		for i = 0, 5 do
+			local id = "boss" .. i
+			local guid = UnitGUID(id)
+			if guid and DBM:IsCreatureGUID(guid) then
+				local cId = DBM:GetCIDFromGUID(guid)
+				targetList[cId] = id
+			end
+		end
 	end
 
 	local function clearTargetList()
