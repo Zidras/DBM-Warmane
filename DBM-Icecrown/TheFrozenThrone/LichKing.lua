@@ -142,10 +142,11 @@ function mod:RestoreWipeTime()
 end
 
 function mod:RemoveBOP()
-	if mod.Options.RemoveBOP then -- cancelaura bop bubble iceblock
+	if mod.Options.RemoveBOP then -- cancelaura bop bubble iceblock Dintervention
 		CancelUnitBuff("player", (GetSpellInfo(10278)))
 		CancelUnitBuff("player", (GetSpellInfo(642)))
 		CancelUnitBuff("player", (GetSpellInfo(45438)))
+		CancelUnitBuff("player", (GetSpellInfo(19752)))
 	end
 end
 
