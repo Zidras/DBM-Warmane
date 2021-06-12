@@ -37,8 +37,8 @@ local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, n
 local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 4, 2)
 local specWarnMalleableGoo			= mod:NewSpecialWarning("SpecWarnMalleableGoo")
 local specWarnMalleableGooNear		= mod:NewSpecialWarning("SpecWarnMalleableGooNear")
-local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent("player"))
-local soundChokingGasBomb			= mod:NewSound(71255, nil,  mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent("player"))
+local specWarnChokingGasBomb		= mod:NewSpecialWarningSpell(71255, mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent())
+local soundChokingGasBomb			= mod:NewSound(71255, nil,  mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent())
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, mod:IsHealer() or mod:IsRanged())
 local soundMalleableGooCast			= mod:NewSound(72295, nil, mod:IsHealer() or mod:IsRanged())
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
@@ -65,7 +65,7 @@ local berserkTimer					= mod:NewBerserkTimer(600)
 
 local soundGaseousBloat 			= mod:NewSound(72455)
 local soundMutatedPlague			= mod:NewSound(72451)
-local soundGasBomb 					= mod:NewSound3(71255, nil, mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent("player"))
+local soundGasBomb 					= mod:NewSound3(71255, nil, mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent())
 local soundGooCast					= mod:NewSound3(72295, nil, mod:IsHealer() or mod:IsRanged())
 
 mod:AddBoolOption("OozeAdhesiveIcon")

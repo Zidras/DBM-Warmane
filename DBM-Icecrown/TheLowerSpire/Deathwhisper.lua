@@ -60,11 +60,11 @@ mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", false)
 mod:AddBoolOption("ShieldHealthFrame", true, "misc")
 mod:RemoveOption("HealthFrame")
-mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
+mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
 mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
 
-if mod.Options.EqUneqWeapons and (mod:IsWeaponDependent("player") or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) and not mod:IsEquipmentSetAvailable("pve") then
+if mod.Options.EqUneqWeapons and (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) and not mod:IsEquipmentSetAvailable("pve") then
 	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 		if frame.AddMessage then
@@ -155,7 +155,7 @@ function mod:addsTimer()  -- Edited add spawn timers, working for heroic mode
 end
 
 function mod:UnW()
-   if self:IsWeaponDependent("player") and self.Options.EqUneqWeapons and not self.Options.BlockWeapons and not self:IsTank() and self:IsEquipmentSetAvailable("pve") then
+   if self:IsWeaponDependent() and self.Options.EqUneqWeapons and not self.Options.BlockWeapons and not self:IsTank() and self:IsEquipmentSetAvailable("pve") then
         PickupInventoryItem(16)
         PutItemInBackpack()
         PickupInventoryItem(17)
