@@ -170,14 +170,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerHoJCD:Start()
 	elseif args:IsSpellID(66010) then								-- Divine Shield
 		warnDivineShield:Show()
-		specWarnDivineShield:Show()
+		specWarnDivineShield:Show(args.sourceName)
 	elseif args:IsSpellID(66011) then								-- Avenging Wrath
 		warnAvengingWrath:Show()
-		specWarnAvengingWrath:Show()
+		specWarnAvengingWrath:Show(args.sourceName)
 	-- Mage
 	elseif args:IsSpellID(65802) then								-- Ice Block
 		warnIceBlock:Show()
-		specWarnIceBlock:Show()
+		specWarnIceBlock:Show(args.sourceName)
 	elseif args:IsSpellID(65793) then								-- Blink
 		warnBlink:Show()
 		timerBlinkCD:Start()
@@ -256,11 +256,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnHex:Show(args.destName)
 	elseif args:IsSpellID(65983) and self:AntiSpam(2,65983) then								-- Heroism
 		warnHeroism:Show()
-		specWarnHeroism:Show()
+		specWarnHeroism:Show(args.destName)
 		timerHeroismCD:Start()
 	elseif args:IsSpellID(65980) and self:AntiSpam(2,65983) then								-- Bloodlust
 		warnBloodlust:Show()
-		specWarnBloodlust:Show()
+		specWarnBloodlust:Show(args.destName)
 		timerBloodlustCD:Start()
 	-- Priest
 	-- Druid
@@ -282,7 +282,7 @@ end
 
 function mod:SPELL_DAMAGE(args)
 	if args:IsPlayer() and args:IsSpellID(65817, 68142, 68143, 68144) then
-		specWarnHellfire:Show()
+		specWarnHellfire:Show(args.sourceName)
 	end
 end
 
@@ -291,42 +291,70 @@ function mod:UNIT_DIED(args)
 	if cid == 34472 or cid == 34454 then -- Rogue
 		timerShadowstepCD:Cancel()
 		timerBlindCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34472)
+		DBM.BossHealth:RemoveBoss(34454)
 	elseif cid == 34458 or cid == 34461 then -- DK
 		timerDeathgripCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34458)
+		DBM.BossHealth:RemoveBoss(34461)
 	elseif cid == 34475 or cid == 34453 then -- Warrior
 		timerBladestormCD:Cancel()
 		preWarnBladestorm:Cancel()
-	--elseif cid == 34460 or cid == 34451 then -- Balance Druid
-	--elseif cid == 34469 or cid == 34459 then -- Resto Druid
+		DBM.BossHealth:RemoveBoss(34475)
+		DBM.BossHealth:RemoveBoss(34453)
+	elseif cid == 34460 or cid == 34451 then -- Balance Druid
+		DBM.BossHealth:RemoveBoss(34460)
+		DBM.BossHealth:RemoveBoss(34451)
+	elseif cid == 34469 or cid == 34459 then -- Resto Druid
+		DBM.BossHealth:RemoveBoss(34469)
+		DBM.BossHealth:RemoveBoss(34459)
 	elseif cid == 34467 or cid == 34448 then -- Hunter
 		timerFrostTrapCD:Cancel()
 		timerDisengageCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34467)
+		DBM.BossHealth:RemoveBoss(34448)
 	elseif cid == 34468 or cid == 34449 then -- Mage
 		timerBlinkCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34468)
+		DBM.BossHealth:RemoveBoss(34449)
 	elseif cid == 34465 or cid == 34445 then -- Holy Paladin
 		timerHoJCD:Cancel()
 		timerHoPCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34465)
+		DBM.BossHealth:RemoveBoss(34445)
 	elseif cid == 34471 or cid == 34456 then -- Retri Paladin
 		timerHoJCD:Cancel()
 		timerRepentanceCD:Cancel()
 		timerHoPCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34471)
+		DBM.BossHealth:RemoveBoss(34456)
 	elseif cid == 34466 or cid == 34447 then -- Disco Priest
 		timerPsychicScreamCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34466)
+		DBM.BossHealth:RemoveBoss(34447)
 	elseif cid == 34473 or cid == 34441 then -- Shadow Priest
 		timerPsychicScreamCD:Cancel()
 		timerSilenceCD:Cancel()
+		DBM.BossHealth:RemoveBoss(34473)
+		DBM.BossHealth:RemoveBoss(34441)
 	elseif cid == 34463 or cid == 34455 then -- Enh Shaman
 		if cid == 34463 then
 			timerHeroismCD:Cancel()
 		else
 			timerBloodlustCD:Cancel()
 		end
+		DBM.BossHealth:RemoveBoss(34463)
+		DBM.BossHealth:RemoveBoss(34455)
 	elseif cid == 34470 or cid == 34444 then -- Resto Shaman
 		if cid == 34470 then
 			timerHeroismCD:Cancel()
 		else
 			timerBloodlustCD:Cancel()
 		end
-	--elseif cid == 34474 or cid == 34450 then -- Warlock
+		DBM.BossHealth:RemoveBoss(34470)
+		DBM.BossHealth:RemoveBoss(34444)
+	elseif cid == 34474 or cid == 34450 then -- Warlock
+		DBM.BossHealth:RemoveBoss(34474)
+		DBM.BossHealth:RemoveBoss(34450)
 	end
 end
