@@ -25,3 +25,10 @@ If applicable, add a video to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+
+**Error Log**
+<!--- If you received an error then please post it in the empty space below, -->
+<!--- so that the error is wrapped in the 3 backquotes (before and after) -->
+```
+
+```
