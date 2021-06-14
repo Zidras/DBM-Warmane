@@ -52,7 +52,7 @@ local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DB
 local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1, nil, DBM_CORE_DEADLY_ICON)			-- Used every 38 seconds exactly except after phase changes
 local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
 local timerMalleableGooCD			= mod:NewCDTimer(25, 72295, nil, nil, nil, 3)
-local timerTearGas					= mod:NewBuffFadesTimer(8, 71615, nil, nil, nil, 6)
+local timerTearGas					= mod:NewBuffFadesTimer(16, 71615, nil, nil, nil, 6)
 local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
 local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)				-- 10 to 11
 local timerUnboundPlagueCD			= mod:NewNextTimer(60, 70911, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
@@ -67,7 +67,7 @@ local berserkTimer					= mod:NewBerserkTimer(600)
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")
 mod:AddBoolOption("MalleableGooIcon")
-mod:AddBoolOption("UnboundPlagueIcon")					-- icon on the player with active buff
+mod:AddBoolOption("UnboundPlagueIcon")
 mod:AddBoolOption("GooArrow")
 
 mod.vb.warned_preP2 = false
@@ -147,7 +147,7 @@ function mod:SPELL_CAST_START(args)
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (Heroic phase change end)
 		if self:IsDifficulty("heroic10", "heroic25") then
-			self:ScheduleMethod(40-4.4, "NextPhase")	--May need slight tweaking +- a second or two
+			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
 			timerUnstableExperimentCD:Cancel()
 		end
@@ -157,7 +157,7 @@ function mod:SPELL_CAST_START(args)
 			timerPotions:Start()
 			timerUnstableExperimentCD:Cancel()
 		elseif mod:IsDifficulty("heroic25") then
-			self:ScheduleMethod(30-1.3, "NextPhase")
+			self:ScheduleMethod(30, "NextPhase")
 			timerPotions:Start(20)
 			timerUnstableExperimentCD:Cancel()
 		end
@@ -172,7 +172,7 @@ function mod:NextPhase()
 		timerUnstableExperimentCD:Start(20)
 		timerSlimePuddleCD:Start(10)
 		timerMalleableGooCD:Start(5)
-		timerChokingGasBombCD:Start(14.4)
+		timerChokingGasBombCD:Start(15)
 		warnChokingGasBombSoon:Schedule(10)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
@@ -181,7 +181,7 @@ function mod:NextPhase()
 		warnPhase3:Show()
 		timerSlimePuddleCD:Start(15)
 		timerMalleableGooCD:Start(9)
-		timerChokingGasBombCD:Start(11.3)
+		timerChokingGasBombCD:Start(12)
 		warnChokingGasBombSoon:Schedule(7)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
