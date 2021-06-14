@@ -203,7 +203,7 @@ function mod:SPELL_SUMMON(args)
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
-	if (msg:match(L.EmpoweredFlames) or msg:match(L.EmpoweredFlames2)) and target then
+	if msg:match(L.EmpoweredFlames) and target then
 		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnEmpoweredFlames:Show()
