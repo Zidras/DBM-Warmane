@@ -51,9 +51,6 @@ local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -
 
 local berserkTimer				= mod:NewBerserkTimer(600)
 
-local soundEmpoweredFlames		= mod:NewSound(72040)
-local soundEmpoweredV			= mod:NewSound(72039)
-local soundSwitch				= mod:NewSound(70952)
 mod:AddBoolOption("EmpoweredFlameIcon", true)
 mod:AddBoolOption("ActivePrinceIcon", false)
 mod:AddBoolOption("RangeFrame", true)
@@ -138,7 +135,6 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
 		specWarnEmpoweredShockV:Show()
 		specWarnEmpoweredShockV:Play("scatter")
-		soundEmpoweredV:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		timerShockVortex:Start(30)
 	elseif args.spellId == 71718 then	-- Conjure Flames
 		warnConjureFlames:Show()
@@ -154,7 +150,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		activePrince = args.destGUID
 		if self:IsInCombat() then
 			warnTargetSwitch:Show(L.Valanar)
-			soundSwitch:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 			warnTargetSwitchSoon:Schedule(42)
 			timerTargetSwitch:Start()
 		if self.Options.RangeFrame then
@@ -163,7 +158,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 	elseif args.spellId == 70981 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Keleseth)
-		soundSwitch:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 		warnTargetSwitchSoon:Schedule(42)
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
@@ -172,7 +166,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 70982 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
-		soundSwitch:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 		warnTargetSwitchSoon:Schedule(42)
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
@@ -208,10 +201,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		if target == UnitName("player") then
 			specWarnEmpoweredFlames:Show()
 			specWarnEmpoweredFlames:Play("justrun")
-			soundEmpoweredFlames:Play()
 		else
 			warnEmpoweredFlames:Show(target)
-			soundEmpoweredFlames:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		end
 		if self.Options.EmpoweredFlameIcon then
 			self:SetIcon(target, 7, 10)
