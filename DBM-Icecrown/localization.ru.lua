@@ -348,9 +348,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnTargetSwitch		= "Смените цель на: %s",
-	WarnTargetSwitchSoon	= "Скоро смена цели",
-	SpecWarnVortex			= "Сотрясающий вихрь на вас - отбегите",
-	SpecWarnVortexNear		= "Сотрясающий вихрь около вас - остерегайтесь"
+	WarnTargetSwitchSoon	= "Скоро смена цели"
 }
 
 L:SetTimerLocalization{
@@ -361,13 +359,10 @@ L:SetOptionLocalization{
 	WarnTargetSwitch		= "Предупреждение о смене цели",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Предупреждать заранее о смене цели",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Отсчет времени до смены цели",
-	SpecWarnVortex			= "Спец-предупреждение, когда $spell:72037 на вас",
-	SpecWarnVortexNear		= "Спец-предупреждение, когда $spell:72037 около вас",
 	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
 	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)",
 	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
-	VortexArrow				= "Показывать стрелку, когда $spell:72037 около вас",
-	BypassLatencyCheck		= "Отключить синхр-цию для $spell:72037\n(используйте только в случае возникновения проблем)"
+	VortexArrow				= "Показывать стрелку, когда $spell:72037 около вас"
 }
 
 L:SetMiscLocalization{

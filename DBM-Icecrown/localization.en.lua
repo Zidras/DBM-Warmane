@@ -346,9 +346,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnTargetSwitch		= "Switch target to: %s",
-	WarnTargetSwitchSoon	= "Target switch soon",
-	SpecWarnVortex			= "Shock Vortex on you - Move away",
-	SpecWarnVortexNear		= "Shock Vortex near you - Watch out"
+	WarnTargetSwitchSoon	= "Target switch soon"
 }
 
 L:SetTimerLocalization{
@@ -359,13 +357,10 @@ L:SetOptionLocalization{
 	WarnTargetSwitch		= "Show warning to switch targets",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Show pre-warning to switch targets",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Show timer for target switch cooldown",
-	SpecWarnVortex			= "Show special warning for $spell:72037 on you",
-	SpecWarnVortexNear		= "Show special warning for $spell:72037 near you",
 	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
 	ActivePrinceIcon		= "Set icon on the empowered Prince (skull)",
 	RangeFrame				= "Show range frame (12 yards)",
-	VortexArrow				= "Show DBM arrow when $spell:72037 is near you",
-	BypassLatencyCheck		= "Don't use latency based sync check for $spell:72037\n(only use this if you're having problems otherwise)"
+	VortexArrow				= "Show DBM arrow when $spell:72037 is near you"
 }
 
 L:SetMiscLocalization{
