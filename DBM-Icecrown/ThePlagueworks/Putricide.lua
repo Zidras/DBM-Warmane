@@ -41,9 +41,7 @@ local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1,
 local yellMalleableGoo				= mod:NewYellMe(72295)
 local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
 local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee|Tank|WeaponDependant", nil, nil, 1, 2)
-local soundChokingGasBomb			= mod:NewSound(71255, nil,  mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent())
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
-local soundMalleableGooCast			= mod:NewSound(72295, nil, mod:IsHealer() or mod:IsRanged())
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
 local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2)		-- Heroic Ability
@@ -65,11 +63,6 @@ local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, nil, nil, 5, nil
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
-
-local soundGaseousBloat 			= mod:NewSound(72455)
-local soundMutatedPlague			= mod:NewSound(72451)
-local soundGasBomb 					= mod:NewSound3(71255, nil, mod:IsMelee() or mod:IsTank() or mod:IsWeaponDependent())
-local soundGooCast					= mod:NewSound3(72295, nil, mod:IsHealer() or mod:IsRanged())
 
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")
@@ -140,10 +133,8 @@ function mod:SPELL_CAST_START(args)
 		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerMalleableGooCD:Cancel()
-		soundGooCast:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
-		soundGasBomb:Cancel()
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin)
 		warnVolatileExperiment:Show()
@@ -151,10 +142,8 @@ function mod:SPELL_CAST_START(args)
 		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerMalleableGooCD:Cancel()
-		soundGooCast:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
-		soundGasBomb:Cancel()
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (Heroic phase change end)
 		if self:IsDifficulty("heroic10", "heroic25") then
@@ -183,9 +172,7 @@ function mod:NextPhase()
 		timerUnstableExperimentCD:Start(20)
 		timerSlimePuddleCD:Start(10)
 		timerMalleableGooCD:Start(5)
-		soundGooCast:Schedule(9)
 		timerChokingGasBombCD:Start(14.4)
-		soundGasBomb:Schedule(14.4-3)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
@@ -193,9 +180,7 @@ function mod:NextPhase()
 		warnPhase3:Show()
 		timerSlimePuddleCD:Start(15)
 		timerMalleableGooCD:Start(9)
-		soundGooCast:Schedule(6)
 		timerChokingGasBombCD:Start(11.3)
-		soundGasBomb:Schedule(11.3-3)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
@@ -213,18 +198,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args.spellId == 71255 then
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
-		soundChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		timerChokingGasBombCD:Start()
-		soundGasBomb:Schedule(35.5-3)
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerMalleableGooCD:Start(20)
-			soundGooCast:Schedule(17)
 		else
 			timerMalleableGooCD:Start()
-			soundGooCast:Schedule(22)
 		end
 		self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
 	end
@@ -249,7 +230,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnGaseousBloat:Show()
 			specWarnGaseousBloat:Play("justrun")
 			specWarnGaseousBloat:ScheduleVoice(1.5, "keepmove")
-			soundGaseousBloat:Play()
 		else
 			warnGaseousBloat:Show(args.destName)
 		end
@@ -261,7 +241,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
-		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	elseif args.spellId == 70542 then
 		timerMutatedSlash:Show(args.destName)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
@@ -272,10 +251,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnUnstableExperimentSoon:Cancel()
 			timerUnstableExperimentCD:Cancel()
 			timerMalleableGooCD:Cancel()
-			soundGooCast:Cancel()
 			timerSlimePuddleCD:Cancel()
 			timerChokingGasBombCD:Cancel()
-			soundGasBomb:Cancel()
 			timerUnboundPlagueCD:Cancel()
 		end
 	elseif args:IsSpellID(70353, 74119) then	-- Gas Variable
@@ -284,10 +261,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnUnstableExperimentSoon:Cancel()
 			timerUnstableExperimentCD:Cancel()
 			timerMalleableGooCD:Cancel()
-			soundGooCast:Cancel()
 			timerSlimePuddleCD:Cancel()
 			timerChokingGasBombCD:Cancel()
-			soundGasBomb:Cancel()
 			timerUnboundPlagueCD:Cancel()
 		end
 	elseif args:IsSpellID(72855, 72856, 70911) then	 -- Unbound Plague
@@ -309,7 +284,6 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
-		soundMutatedPlague:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	elseif args.spellId == 70542 then
 		timerMutatedSlash:Show(args.destName)
 	end
