@@ -173,6 +173,7 @@ function mod:NextPhase()
 		timerSlimePuddleCD:Start(10)
 		timerMalleableGooCD:Start(5)
 		timerChokingGasBombCD:Start(14.4)
+		warnChokingGasBombSoon:Schedule(10)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
@@ -181,6 +182,7 @@ function mod:NextPhase()
 		timerSlimePuddleCD:Start(15)
 		timerMalleableGooCD:Start(9)
 		timerChokingGasBombCD:Start(11.3)
+		warnChokingGasBombSoon:Schedule(7)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
@@ -199,6 +201,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
 		timerChokingGasBombCD:Start()
+		warnChokingGasBombSoon:Schedule(30.5)
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
