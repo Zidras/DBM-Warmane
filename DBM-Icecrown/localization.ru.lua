@@ -302,39 +302,12 @@ L:SetGeneralLocalization{
 	name = "Профессор Мерзоцид"
 }
 
-L:SetWarningLocalization{
-	WarnPhase2Soon				= "Скоро фаза 2",
-	WarnPhase3Soon				= "Скоро фаза 3",
-	WarnMutatedPlague			= "%s на |3-5(>%s<) (%d)",	-- Mutated Plague on >args.destName< (args.amount)
-	SpecWarnMalleableGoo		= "Вязкая гадость на вас - отбегите",
-	SpecWarnMalleableGooNear	= "Вязкая гадость около вас - остерегайтесь",
-	SpecWarnUnboundPlague		= "Передайте Безудержную чуму",
-	SpecWarnNextPlageSelf		= "Скоро Безудержная чума, приготовьтесь!"
-}
-
 L:SetOptionLocalization{
-	WarnPhase2Soon				= "Предупреждать заранее о фазе 2 (на ~83%)",
-	WarnPhase3Soon				= "Предупреждать заранее о фазе 3 (на ~38%)",
-	SpecWarnMalleableGoo		= "Спец-предупреждение, когда вы - первая цель заклинания\n$spell:72295",
-	SpecWarnMalleableGooNear	= "Спец-предупреждение, когда вы около первой цели заклинания\n$spell:72295",
-	WarnMutatedPlague			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(72451, GetSpellInfo(72451) or "unknown"),
 	OozeAdhesiveIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70447),
 	GaseousBloatIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70672),
 	UnboundPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72856),
 	MalleableGooIcon			= "Устанавливать метку на первую цель заклинания $spell:72295",
-	NextUnboundPlagueTargetIcon	= "Устанавливать метку на следующую цель заклинания $spell:72856",
-	YellOnMalleableGoo			= "Кричать, когда на вас $spell:72295",
-	YellOnUnbound				= "Кричать, когда на вас $spell:72856",
-	GooArrow					= "Показывать стрелку, когда $spell:72295 около вас",
-	SpecWarnUnboundPlague		= "Спец-предупреждение для передачи заклинания $spell:72856",
-	SpecWarnNextPlageSelf		= "Спец-предупреждение, когда вы являетесь следующей целью\nзаклинания $spell:72856",
-	BypassLatencyCheck			= "Отключить синхр-цию для $spell:72295\n(используйте только в случае возникновения проблем)"
-}
-
-L:SetMiscLocalization{
-	YellPull		= "Отличные новости, народ! Я усовершенствовал штамм чумы, которая уничтожит весь Азерот!",
-	YellMalleable	= "Вязкая гадость на мне!",
-	YellUnbound		= "Безудержная чума на мне!"
+	GooArrow					= "Показывать стрелку, когда $spell:72295 около вас"
 }
 
 ----------------------------

@@ -300,39 +300,12 @@ L:SetGeneralLocalization{
 	name = "Professor Putricide"
 }
 
-L:SetWarningLocalization{
-	WarnPhase2Soon				= "Phase 2 soon",
-	WarnPhase3Soon				= "Phase 3 soon",
-	WarnMutatedPlague			= "%s on >%s< (%s)",	-- Mutated Plague on >args.destName< (args.amount)
-	SpecWarnMalleableGoo		= "Malleable Goo on you - Move away",
-	SpecWarnMalleableGooNear	= "Malleable Goo near you - Watch out",
-	SpecWarnUnboundPlague		= "Drop off the Unbound Plague",
-	SpecWarnNextPlageSelf		= "Unbound Plage to you next, get prepared!"
-}
-
 L:SetOptionLocalization{
-	WarnPhase2Soon				= "Show pre-warning for Phase 2 (at ~83%)",
-	WarnPhase3Soon				= "Show pre-warning for Phase 3 (at ~38%)",
-	SpecWarnMalleableGoo		= "Show special warning if you are first $spell:72295 target",
-	SpecWarnMalleableGooNear	= "Show special warning if you are near first $spell:72295 target",
-	WarnMutatedPlague			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(72451, GetSpellInfo(72451) or "unknown"),
 	OozeAdhesiveIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70447),
 	GaseousBloatIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70672),
 	UnboundPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72856),
 	MalleableGooIcon			= "Set icon on first $spell:72295 target",
-	NextUnboundPlagueTargetIcon	= "Set icon on next $spell:72856 target",
-	YellOnMalleableGoo			= "Yell on $spell:72295",
-	YellOnUnbound				= "Yell on $spell:72856",
-	GooArrow					= "Show DBM arrow when $spell:72295 is near you",
-	SpecWarnUnboundPlague		= "Show special warning for $spell:72856 transfer",
-	SpecWarnNextPlageSelf		= "Show special warning when you are the next $spell:72856 target",
-	BypassLatencyCheck			= "Don't use latency based sync check for $spell:72295\n(only use this if you're having problems otherwise)"
-}
-
-L:SetMiscLocalization{
-	YellPull		= "Good news, everyone! I think I've perfected a plague that will destroy all life on Azeroth!",
-	YellMalleable	= "Malleable Goo on me!",
-	YellUnbound		= "Unbound Plague on me!"
+	GooArrow					= "Show DBM arrow when $spell:72295 is near you"
 }
 
 ----------------------------
