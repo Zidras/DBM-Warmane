@@ -6557,8 +6557,8 @@ function bossModPrototype:IsWeaponDependent()
 	return playerClass == "ROGUE"
 		or (playerClass == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
 		or playerClass == "DEATHKNIGHT"
-		or (playerClass and not (select(3, GetTalentTabInfo(1)) >= 51))
-		or (playerClass and (select(3, GetTalentTabInfo(2)) >= 50))
+		or (playerClass == "PALADIN" and not (select(3, GetTalentTabInfo(1)) >= 51))
+		or (playerClass == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
 end
 
 function bossModPrototype:IsEquipmentSetAvailable(setName)
