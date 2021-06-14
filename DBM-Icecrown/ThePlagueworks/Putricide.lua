@@ -15,7 +15,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REFRESH",
 	"SPELL_AURA_REMOVED",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH boss1"
 )
 
 local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
