@@ -32,7 +32,7 @@ local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Melee"
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Phase 2 ability
 local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
 local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer") -- Phase 3 ability
-local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3)		-- Heroic Ability
+local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
 local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
