@@ -6307,7 +6307,8 @@ local specFlags ={
 	["RemoveEnrage"] = "CanRemoveEnrage",
 	["MagicDispeller"] = "IsMagicDispeller",
 	["HasInterrupt"] = "CanInterrupt", --Has an interrupt that is 24 seconds or less CD that is BASELINE (not a talent)
-	["TargetedCooldown"] = "HasTargetedCooldown" --Custom: Single Target external defensive cooldown
+	["TargetedCooldown"] = "HasTargetedCooldown", --Custom: Single Target external defensive cooldown
+	["WeaponDependent"] = "IsWeaponDependent" --Custom
 }
 
 function bossModPrototype:GetRoleFlagValue(flag)
