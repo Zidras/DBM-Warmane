@@ -32,6 +32,7 @@ local specWarnEmpoweredLight		= mod:NewSpecialWarningYou(67218)
 
 local enrageTimer					= mod:NewBerserkTimer(360)
 local timerSpecial					= mod:NewTimer(45, "TimerSpecialSpell", "Interface\\Icons\\INV_Enchant_EssenceMagicLarge")
+local timerRoleplay					= mod:NewTimer(115, "TimerRoleplay", "Interface\\Icons\\Spell_Holy_BorrowedTime")
 local timerHeal						= mod:NewCastTimer(15, 65875)
 local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
@@ -58,6 +59,12 @@ function mod:OnCombatStart(delay)
 		enrageTimer:Start(480-delay)
 	end
 	debuffIcon = 8
+end
+
+function mod:OnCombatEnd(wipe)
+	if not wipe then
+		timerRoleplay:Start()
+	end
 end
 
 local lightEssence = GetSpellInfo(67223)

@@ -69,7 +69,7 @@ local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, mod:IsHealer() o
 local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank())
 
 -- Shadow Strike
-local timerShadowStrike		= mod:NewNextTimer(30.5, 66134)
+local timerShadowStrike		= mod:NewNextTimer(30, 66134)
 local preWarnShadowStrike	= mod:NewSoonAnnounce(66134, 3)
 local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
 local specWarnShadowStrike	= mod:NewSpecialWarning("SpecWarnShadowStrike", mod:IsTank())
@@ -107,13 +107,32 @@ function mod:Adds()
 	end
 end
 
-function mod:ShadowStrike()
+function mod:ShadowStrike(offset)
+	offset = offset or 0
 	if self:IsInCombat() then
-		timerShadowStrike:Start()
+		timerShadowStrike:Cancel()
+		timerShadowStrike:Start(30-offset)
 		preWarnShadowStrike:Cancel()
-		preWarnShadowStrike:Schedule(25.5)
+		preWarnShadowStrike:Schedule(25.5-offset)
 		self:UnscheduleMethod("ShadowStrike")
-		self:ScheduleMethod(30.5, "ShadowStrike")
+		self:ScheduleMethod(30-offset, "ShadowStrike")
+	end
+end
+
+function mod:Unburrow()
+	Burrowed = false
+	timerAdds:Start(5)
+	warnAdds:Schedule(5)
+	self:ScheduleMethod(5, "Adds")
+	warnEmerge:Show()
+	warnSubmergeSoon:Schedule(65)
+	specWarnSubmergeSoon:Schedule(65)
+	timerSubmerge:Start()
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerShadowStrike:Stop()
+		preWarnShadowStrike:Cancel()
+		self:UnscheduleMethod("ShadowStrike")
+		self:ScheduleMethod(5.5, "ShadowStrike", 9)  -- 9 sec offset
 	end
 end
 
@@ -216,6 +235,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(55)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
+		self:ScheduleMethod(65, "Unburrow")
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
 		timerAdds:Start(5)
@@ -229,7 +249,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(5.5, "ShadowStrike")  -- 35-36sec after Emerge next ShadowStrike
+			self:ScheduleMethod(5.5, "ShadowStrike", 7)  -- 35-36sec after Emerge next ShadowStrike
 		end
 	end
 end

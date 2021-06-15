@@ -49,11 +49,13 @@ local function switchPhase()
 end
 
 function mod:Flames_G(time)	-- Flames
-	local timer = time or 11
-	timerNextFlames:Start(timer)
-	self:ScheduleMethod(timer, "Flames_G")
-	soundFlames3:Schedule(timer-3)
-	specFlames:Schedule(timer)
+	if self:IsInCombat() then
+		local timer = time or 11
+		timerNextFlames:Start(timer)
+		self:ScheduleMethod(timer, "Flames_G")
+		soundFlames3:Schedule(timer-3)
+		specFlames:Schedule(timer)
+	end
 end
 
 function mod:OnCombatStart(delay)

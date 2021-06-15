@@ -167,7 +167,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Следующая спец-способность"
+	TimerSpecialSpell	= "Следующая спец-способность",
+	TimerRoleplay		= "Представление перед падением"
 }
 
 L:SetWarningLocalization{
@@ -188,6 +189,7 @@ L:SetMiscLocalization{
 
 L:SetOptionLocalization{
 	TimerSpecialSpell			= "Отсчет времени до перезарядки спец-способности",
+	TimerRoleplay				= "Таймер представления перед падением (после победы)",
 	SpecialSpellSoundCountdown	= "5-секундный звуковой отсчет до следующей спец-способности",
 	WarnSpecialSpellSoon		= "Предупреждение о следующуюей спец-способность",
 	SpecWarnSpecial				= "Спец-предупреждение для смены цветов",

@@ -20,8 +20,10 @@ local specwarnSpores= mod:NewSpecialWarningMove(38575)
 local left = 0
 
 local function spores()
-	timerSpores:Start()
-	mod:Schedule(10, spores)
+	if mod:IsInCombat() then
+		timerSpores:Start()
+		mod:Schedule(10, spores)
+	end
 end
 
 function mod:OnCombatStart()

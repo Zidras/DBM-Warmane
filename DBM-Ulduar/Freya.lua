@@ -48,7 +48,7 @@ local timerRootsCD      	= mod:NewCDTimer(14, 62439)
 local timerUnstableBeamCD	= mod:NewCDTimer(15, 62451) -- Hard mode Sun Beam
 
 
-local specBombs		= mod:NewSpecialWarningMove(64587)
+local specBombs			= mod:NewSpecialWarningMove(64587)
 local timerNextBombs	= mod:NewNextTimer(11, 64587)
 local soundBombs3		= mod:NewSound3(64587)
 
@@ -115,10 +115,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 			end
 		end
 		timerFury:Start(args.destName)
-	elseif args.spellId == 64650 and self:AntiSpam(1,64650) then
-		timerNextBombs:Start(9.95)
-		soundBombs3:Schedule(10.5-3)
-		specBombs:Schedule(9.95)
+	elseif args.spellId == 64650 then
+		if self:AntiSpam(1,64650) and self:IsInCombat() then
+			timerNextBombs:Start(9.95)
+			soundBombs3:Schedule(10.5-3)
+			specBombs:Schedule(9.95)
+		end
 	end
 end
 
