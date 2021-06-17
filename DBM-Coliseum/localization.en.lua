@@ -168,7 +168,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Next special ability"
+	TimerSpecialSpell	= "Next special ability",
+	TimerRoleplay		= "Roleplay before fall"
 }
 
 L:SetWarningLocalization{
@@ -189,6 +190,7 @@ L:SetMiscLocalization{
 
 L:SetOptionLocalization{
 	TimerSpecialSpell			= "Show timer for next special ability",
+	TimerRoleplay				= "Show timer for roleplay after victory",
 	WarnSpecialSpellSoon		= "Show pre-warning for next special ability",
 	SpecWarnSpecial				= "Show special warning when you have to change color",
 	SpecWarnSwitchTarget		= "Show special warning when the other Twin is casting",

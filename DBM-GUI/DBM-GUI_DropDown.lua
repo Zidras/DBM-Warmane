@@ -44,13 +44,25 @@ do
 	local TabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", UIParent, "DBM_GUI_DropDownMenu")
 	local ClickFrame = CreateFrame("Button", nil, UIParent)
 
-	TabFrame1:SetBackdrop({
-		bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
-		edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border",
-		tile=1, tileSize=32, edgeSize=32,
-		insets={left=11, right=12, top=12, bottom=11}
-	});
-
+	if ElvUI then
+		TabFrame1:SetBackdrop({
+			bgFile=[[Interface\AddOns\DBM-Core\textures\NormTex2.tga]],
+			edgeFile=[[Interface\BUTTONS\WHITE8X8]],
+			--tile=1, tileSize=32, edgeSize=32,
+			--insets={left=11, right=12, top=12, bottom=11}
+			tile = false, tileSize = 0, edgeSize = 1,
+			insets = {left = 0, right = 0, top = 0, bottom = 0}
+		});
+		TabFrame1:SetBackdropColor(0.1, 0.1, 0.1, 1)
+		TabFrame1:SetBackdropBorderColor(0, 0, 0, 1)
+	else
+		TabFrame1:SetBackdrop({
+			bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+			edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border",
+			tile=1, tileSize=32, edgeSize=32,
+			insets={left=11, right=12, top=12, bottom=11}
+		});
+	end
 	TabFrame1:EnableMouseWheel(1)
 	function TabFrame1:OnMouseWheel(delta)
 		local scrollBar = _G[self:GetName() .. "ListScrollBar"]

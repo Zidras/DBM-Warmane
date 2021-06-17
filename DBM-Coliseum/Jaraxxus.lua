@@ -68,8 +68,8 @@ function mod:OnCombatStart(delay)
 	warnPortalTwoSoon:Schedule(137-delay)
 	timerVolcanoCD:Start(82-delay)
 	warnVolcanoSoon:Schedule(77-delay)
-    timerNetherPowerCD:Start(15-delay)
-	warnNetherPowerSoon:Schedule(10-delay)
+    timerNetherPowerCD:Start(42-delay)
+	warnNetherPowerSoon:Schedule(37-delay)
 	timerFleshCD:Start(14-delay)
 	timerFlameCD:Start(20-delay)
 	enrageTimer:Start(-delay)
@@ -194,7 +194,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(67009) then								-- Nether Power
+	if args:IsSpellID(67009) and self:AntiSpam(1,67009) then								-- Nether Power
 		warnNetherPower:Show()
 		timerNetherPowerCD:Start()
 		warnNetherPowerSoon:Schedule(35)

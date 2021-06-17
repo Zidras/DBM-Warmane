@@ -41,6 +41,11 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 --
+local S
+if ElvUI then
+	local E, L, V, P, G = unpack(ElvUI)
+	S = E:GetModule("Skins")
+end
 
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
@@ -229,7 +234,7 @@ local function MixinSharedMedia3(mediatype, mediatable)
 		--Embedded Sound Clip media
 		LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 		LSM:Register("sound", "Beware ENG", "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-		LSM:Register("sound", "RUS Beware",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
+		LSM:Register("sound", "Beware RUS",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
 		LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 		LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 		LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
@@ -466,6 +471,9 @@ do
 		local buttonName = button:GetName()
 		button.myheight = 25
 		button.mytype = "checkbutton"
+		if ElvUI and S then
+			S:HandleCheckBox(button, true)
+		end
 		-- font strings do not support hyperlinks, so check if we need one...
 		local noteSpellName = name
 		if name:find("%$spell:") then
@@ -814,6 +822,11 @@ function PanelPrototype:CreateButton(title, width, height, onclick, FontObject)
 	end
 	if _G[buttonName.."Text"]:GetStringWidth() > button:GetWidth() then
 		button:SetWidth( _G[buttonName.."Text"]:GetStringWidth() + 25 )
+	end
+
+	if button.StripTextures and button.SetTemplate then
+		button:StripTextures()
+		button:SetTemplate("Transparent")
 	end
 
 	self:SetLastObj(button)
