@@ -436,7 +436,7 @@
 					<Anchors>
 						<Anchor point="LEFT" relativeTo="$parentRevision" relativePoint="RIGHT">
 							<Offset>
-								<AbsDimension x="20" y="0"/>
+								<AbsDimension x="30" y="0"/>
 							</Offset>
 						</Anchor>
 					</Anchors>

@@ -1,7 +1,7 @@
 [![Game Version](https://img.shields.io/badge/wow-3.3.5-blue.svg)](https://github.com/Barsoomx/DBM-wowcircle/tree/master)
 [![Discord](https://discordapp.com/api/guilds/598993375479463946/widget.png?style=shield)](https://discord.gg/uMbjr87)
 
-# DBM WoWCircle WoTLK
+# DBM-WoWCircle
 
 [DBM-WoWCircle v7](https://forum.wowcircle.net/showthread.php?t=991037)
 
