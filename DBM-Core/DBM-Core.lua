@@ -586,7 +586,7 @@ local function sendSync(prefix, msg)
 	elseif GetRealNumPartyMembers() > 0 then
 		SendAddonMessage(prefix, msg, "PARTY")
 	end
-	DBM:Debug(prefix.." "..msg:gsub("\t", " "), 4)
+	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 4)
 end
 
 --
