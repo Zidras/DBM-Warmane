@@ -4,10 +4,10 @@ local L = DBM_GUI_Translations
 
 L.MainFrame = "Deadly Boss Mods"
 
-L.TranslationByPrefix		= "DBM WowCircle - "
-L.TranslationBy 			= " Barsoom, Bunny67"
+L.TranslationByPrefix		= "Retail backport by - "
+L.TranslationBy 			= "Barsoom, Bunny67, Zidras"
 L.Website					= "Visit us on discord at |cFF73C2FBhttps://discord.gg/uMbjr87|r"
-L.WebsiteButton				= "Website"
+L.WebsiteButton				= "GitHub"
 
 L.OTabBosses	= "Bosses"
 L.OTabOptions	= GAMEOPTIONS_MENU
@@ -333,6 +333,7 @@ L.DisableCinematics			= "Hide in-game cinematics"
 L.AudioPull					= "Enable audio countdown for /pull"
 L.BigTimerNumbers			= "Enable visual Gold Numbers countdown for /pull"
 L.ReportRecount		    	= "Send Recount report after boss encounter end (assist required)"
+L.ReportSkada		    	= "Send SkadaRevisited report after boss encounter end (assist required)"
 L.PerCharacterSettings    	= "Use per-character profiles instead of global namespace"
 L.OnlyFight					= "Only during fight, after each movie has played once"
 L.AfterFirst				= "In instance, after each movie has played once"

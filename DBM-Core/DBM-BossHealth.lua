@@ -192,7 +192,8 @@ function updateBar(bar, percent, icon, dontShowDead, name)
 		bar.value = 0
 	else--can't detect health. show unknown
 		if not bar.value or bar.value >= 1 then
-			bartimer:SetText(DBM_CORE_UNKNOWN)
+			-- bartimer:SetText(DBM_CORE_UNKNOWN)
+			-- don't update when no target
 		else
 			bartimer:SetText(dontShowDead and "0%" or DEAD)
 		end
@@ -334,6 +335,37 @@ function bossHealth:RemoveBoss(cId)
 	for i = #bars, 1, -1 do
 		local bar = bars[i]
 		if bar.id == cId or type(bar.id) == "table" and checkEntry(bar.id, cId) or type(bar.id) == "function" and (_G[bar:GetName().."BarName"]):GetText() == cId then
+			if bars[i + 1] then
+				local next = bars[i + 1]
+				if DBM.Options.HealthFrameGrowUp then
+					next:SetPoint("BOTTOM", bars[i - 1] or anchor, "TOP", 0, 0)
+				else
+					next:SetPoint("TOP", bars[i - 1] or anchor, "BOTTOM", 0, 0)
+				end
+			end
+			bar:Hide()
+			bar:ClearAllPoints()
+			barCache[#barCache + 1] = bar
+			tremove(bars, i)
+		end
+	end
+end
+
+--workaround for stuff
+function bossHealth:RemoveLowest()
+	if not anchor or not anchor:IsShown() then return end
+	local lowest = 100
+	local index
+	for i = #bars, 1, -1 do
+		local bar = bars[i]
+		if bar.value < lowest then
+			lowest = bar.value
+			index = bar.id
+		end
+	end
+	for i = #bars, 1, -1 do
+		local bar = bars[i]
+		if bar.id == index or type(bar.id) == "table" and checkEntry(bar.id, index) or type(bar.id) == "function" and (_G[bar:GetName().."BarName"]):GetText() == index then
 			if bars[i + 1] then
 				local next = bars[i + 1]
 				if DBM.Options.HealthFrameGrowUp then

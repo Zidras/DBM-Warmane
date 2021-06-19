@@ -89,7 +89,7 @@ end
 DBM = {
 	Revision = ("$Revision: 7004 $"):sub(12, -3),
 	Version = "7.04",
-	DisplayVersion = "7.04 DBM-WoWCircle (New GUI) by Barsoom for WoWCircle WotLK", -- the string that is shown as version
+	DisplayVersion = "7.04 DBM-WoWCircle by Barsoom", -- the string that is shown as version
 	ReleaseRevision = 7004 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
@@ -337,6 +337,7 @@ DBM.DefaultOptions = {
 	ChatFrame = "DEFAULT_CHAT_FRAME",
 	CoreSavedRevision = 1,
 	ReportRecount = false,
+	ReportSkada = false,
 	PerCharacterSettings = false,
 	DualProfile = true,
 --	HelpMessageShown = false,
@@ -585,6 +586,7 @@ local function sendSync(prefix, msg)
 	elseif GetRealNumPartyMembers() > 0 then
 		SendAddonMessage(prefix, msg, "PARTY")
 	end
+	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 4)
 end
 
 --
@@ -1792,8 +1794,8 @@ do
 			DBM:RequestInstanceInfo()
 		elseif cmd:sub(1, 10) == "debuglevel" then
 			local level = tonumber(cmd:sub(11)) or 1
-			if level < 1 or level > 3 then
-				DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 3.")
+			if level < 1 or level > 5 then
+				DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 4.")
 				return
 			end
 			DBM.Options.DebugLevel = level
@@ -4843,6 +4845,9 @@ do
 				end
 				if self.Options.ReportRecount and self:GetRaidRank() > 0 and Recount then
 					Recount:ReportData(25,(IsInRaid() and "raid") or "party")
+				end
+				if self.Options.ReportSkada and self:GetRaidRank() > 0 and Skada and Skada.revisited then
+					Skada:Report("RAID", "preset", nil, nil, 25)
 				end
 				fireEvent("DBM_Kill", mod)
 				if self.Options.EventSoundVictory2 and self.Options.EventSoundVictory2 ~= "None" and self.Options.EventSoundVictory2 ~= "" then
