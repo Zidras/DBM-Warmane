@@ -1381,6 +1381,7 @@ local function CreateOptionsMenu()
 		local AudioPull					= generaloptions:CreateCheckButton(L.AudioPull, true, nil, "AudioPull")
 		local BigTimerNumbers			= generaloptions:CreateCheckButton(L.BigTimerNumbers, true, nil, "BigTimerNumbers")
 		local ReportRecount				= generaloptions:CreateCheckButton(L.ReportRecount, true, nil, "ReportRecount")
+		local ReportSkada				= generaloptions:CreateCheckButton(L.ReportSkada, true, nil, "ReportSkada")
 
 		MiniMapIcon:SetScript("OnClick", function(self)
 			DBM:ToggleMinimapButton()
@@ -1524,7 +1525,7 @@ local function CreateOptionsMenu()
 			DBM:UpdateWarningOptions()
 			DBM:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
 		end)
-		FontDropDown:SetPoint("TOPLEFT", WarningShortText, "BOTTOMLEFT", 0, -10)
+		FontDropDown:SetPoint("TOPLEFT", WarningShortText, "BOTTOMLEFT", 0, -30)
 
 		-- RaidWarn Font Style
 		local FontStyles = {
@@ -3576,7 +3577,7 @@ local function CreateOptionsMenu()
 	DBM_GUI_OptionsFrameWebsite:SetText(L.Website)
 	local frame = CreateFrame("Button", nil, DBM_GUI_OptionsFrame)
 	frame:SetAllPoints(DBM_GUI_OptionsFrameWebsite)
-	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, DBM_COPY_URL_DIALOG) end)
+	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, DBM_COPY_URL_DIALOG, "https://discord.gg/uMbjr87") end)
 end
 DBM:RegisterOnGuiLoadCallback(CreateOptionsMenu, 1)
 

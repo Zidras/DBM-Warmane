@@ -92,6 +92,7 @@ globals = {
 	"_G",
 	"bit",
 	"Recount",
+	"Skada",
 	-- misc custom
 	"CUSTOM_CLASS_COLORS",
 	"LibStub",
