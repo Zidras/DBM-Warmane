@@ -586,6 +586,7 @@ local function sendSync(prefix, msg)
 	elseif GetRealNumPartyMembers() > 0 then
 		SendAddonMessage(prefix, msg, "PARTY")
 	end
+	DBM:Debug(prefix.." "..msg:gsub("\t", " "), 4)
 end
 
 --
@@ -1793,8 +1794,8 @@ do
 			DBM:RequestInstanceInfo()
 		elseif cmd:sub(1, 10) == "debuglevel" then
 			local level = tonumber(cmd:sub(11)) or 1
-			if level < 1 or level > 3 then
-				DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 3.")
+			if level < 1 or level > 5 then
+				DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 4.")
 				return
 			end
 			DBM.Options.DebugLevel = level
