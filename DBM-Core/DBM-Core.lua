@@ -1109,6 +1109,7 @@ do
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
 				"LFG_PROPOSAL_SUCCEEDED",
+				"READY_CHECK",
 				"LFG_UPDATE",
 				"PLAYER_TALENT_UPDATE"
 			)
@@ -3020,6 +3021,14 @@ function DBM:LFG_UPDATE()
 	if not joined then
 		self.Bars:CancelBar(DBM_LFG_INVITE)
 		fireEvent("DBM_TimerStop", "DBMLFGTimer")
+	end
+end
+
+function DBM:READY_CHECK()
+	if self.Options.RLReadyCheckSound then--readycheck sound, if ora3 not installed (bad to have 2 mods do it)
+		if not BINDING_HEADER_oRA3 then
+			self:PlaySoundFile("Sound\\interface\\levelup2.wav")
+		end
 	end
 end
 
