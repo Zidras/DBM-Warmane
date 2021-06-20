@@ -42,7 +42,7 @@ local specWarnChargeNear	= mod:NewSpecialWarning("SpecialWarningChargeNear")
 local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemoveEnrage())
 
 local enrageTimer			= mod:NewBerserkTimer(225)
-local timerCombatStart		= mod:NewTimer(17.5, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(21.5, "TimerCombatStart", 2457)
 local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457)
 local timerSubmerge			= mod:NewTimer(42, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local timerEmerge			= mod:NewTimer(6, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
@@ -102,6 +102,7 @@ function mod:OnCombatStart(delay)
 	DreadscaleActive = true
 	DreadscaleDead = false
 	AcidmawDead = false
+	specWarnSilence:Cancel()
 	specWarnSilence:Schedule(37-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerNextBoss:Start(175 - delay)
@@ -109,7 +110,7 @@ function mod:OnCombatStart(delay)
 	end
 	timerNextStomp:Start(38-delay)
 	timerRisingAnger:Start(48-delay)
-	timerCombatStart:Start(14.5-delay)
+	timerCombatStart:Start(-delay)
 	updateHealthFrame(1)
 	self.vb.phase = 1
 end
@@ -303,7 +304,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		self:ScheduleMethod(17, "WormsEmerge")
-		timerCombatStart:Show(11.5)
+		timerCombatStart:Show(15)
 		updateHealthFrame(2)
 		self.vb.phase = 2
 		if self.Options.RangeFrame then

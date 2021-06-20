@@ -235,7 +235,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(55)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
-		self:ScheduleMethod(65, "Unburrow")
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
 		timerAdds:Start(5)
