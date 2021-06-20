@@ -6795,7 +6795,7 @@ do
 			font1u:Hide()
 			font1:Hide()
 			if frame.font1ticker then
-				frame.font1ticker:Cancel()
+				AceTimer:CancelTimer(frame.font1ticker)
 				frame.font1ticker = nil
 			end
 		elseif font1elapsed > duration then
@@ -6814,7 +6814,7 @@ do
 			font2u:Hide()
 			font2:Hide()
 			if frame.font2ticker then
-				frame.font2ticker:Cancel()
+				AceTimer:CancelTimer(frame.font2ticker)
 				frame.font2ticker = nil
 			end
 		elseif font2elapsed > duration then
@@ -6833,7 +6833,7 @@ do
 			font3u:Hide()
 			font3:Hide()
 			if frame.font3ticker then
-				frame.font3ticker:Cancel()
+				AceTimer:CancelTimer(frame.font3ticker)
 				frame.font3ticker = nil
 			end
 		elseif font3elapsed > duration then
@@ -6946,7 +6946,7 @@ do
 		local function moveEnd(self)
 			anchorFrame:Hide()
 			if anchorFrame.ticker then
-				anchorFrame.ticker:Cancel()
+				AceTimer:CancelTimer(anchorFrame.ticker)
 				anchorFrame.ticker = nil
 			end
 			font1elapsed = self.Options.WarningDuration2
@@ -7638,7 +7638,7 @@ do
 		if font1elapsed > duration * 1.3 then
 			font1:Hide()
 			if frame.font1ticker then
-				frame.font1ticker:Cancel()
+				AceTimer:CancelTimer(frame.font1ticker)
 				frame.font1ticker = nil
 			end
 		elseif font1elapsed > duration then
@@ -7656,7 +7656,7 @@ do
 		if font2elapsed > duration * 1.3 then
 			font2:Hide()
 			if frame.font2ticker then
-				frame.font2ticker:Cancel()
+				AceTimer:CancelTimer(frame.font2ticker)
 				frame.font2ticker = nil
 			end
 		elseif font2elapsed > duration then

@@ -296,7 +296,7 @@ end
 function bossHealth:Hide()
 	if anchor then
 		if bossHealth.ticker then
-			bossHealth.ticker:Cancel()
+			AceTimer:CancelTimer(bossHealth.ticker)
 			bossHealth.ticker = nil
 		end
 		anchor:Hide()

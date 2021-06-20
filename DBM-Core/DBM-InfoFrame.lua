@@ -1029,7 +1029,7 @@ function infoFrame:Show(modMaxLines, event, ...)
 	if not frame.ticker and not value[4] and event ~= "table" then
 		frame.ticker = AceTimer:ScheduleRepeatingTimer(function() onUpdate(frame) end, 0.5)
 	elseif frame.ticker and value[4] then -- Redundancy, in event calling a non onupdate infoframe show without a hide event to unschedule ticker based infoframe
-		frame.ticker:Cancel()
+		AceTimer:CancelTimer(frame.ticker)
 		frame.ticker = nil
 	end
 end
