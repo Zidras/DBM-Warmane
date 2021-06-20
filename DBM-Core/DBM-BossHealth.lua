@@ -16,6 +16,8 @@ local updateBar
 local anchor
 local header
 local dropdownFrame
+local AceTimer = LibStub("AceTimer-3.0")
+
 --local sortingEnabled
 local tremove, tinsert = table.remove, table.insert
 
@@ -270,7 +272,7 @@ function bossHealth:Show(name)
 	bossHealth:Clear()
 	updateFrame(bossHealth)
 	if not bossHealth.ticker then
-		bossHealth.ticker = C_Timer.NewTicker(0.5, function() updateFrame(bossHealth) end)
+		bossHealth.ticker = AceTimer:ScheduleRepeatingTimer(function() updateFrame(bossHealth) end, 0.5)
 	end
 end
 
