@@ -2,7 +2,7 @@ local Kal 	= DBM:GetModByName("Kal")
 local L		= Kal:GetLocalizedStrings()
 
 function Kal:InitializeMenu()
-	self = self or Kal -- this function will be called by UIDropDownMenu_Initialize()
+	self = Kal -- this function will be called by UIDropDownMenu_Initialize()
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.name
 	info.notClickable = 1
