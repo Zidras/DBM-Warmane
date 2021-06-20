@@ -92,7 +92,7 @@ function mod:OnCombatStart(delay)
 	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
-		self:ScheduleMethod(30.5-delay, "ShadowStrike")
+		self:ScheduleMethod(30-delay, "ShadowStrike")
 	end
 	self.vb.phase = 1
 end
@@ -116,23 +116,6 @@ function mod:ShadowStrike(offset)
 		preWarnShadowStrike:Schedule(25.5-offset)
 		self:UnscheduleMethod("ShadowStrike")
 		self:ScheduleMethod(30-offset, "ShadowStrike")
-	end
-end
-
-function mod:Unburrow()
-	Burrowed = false
-	timerAdds:Start(5)
-	warnAdds:Schedule(5)
-	self:ScheduleMethod(5, "Adds")
-	warnEmerge:Show()
-	warnSubmergeSoon:Schedule(65)
-	specWarnSubmergeSoon:Schedule(65)
-	timerSubmerge:Start()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-		timerShadowStrike:Stop()
-		preWarnShadowStrike:Cancel()
-		self:UnscheduleMethod("ShadowStrike")
-		self:ScheduleMethod(5.5, "ShadowStrike", 9)  -- 9 sec offset
 	end
 end
 
@@ -237,6 +220,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerFreezingSlash:Stop()
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
+		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
 		self:ScheduleMethod(5, "Adds")
@@ -245,10 +229,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		specWarnSubmergeSoon:Schedule(65)
 		timerSubmerge:Start()
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+			SendChatMessage("UNBURROW", "RAID")
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(5.5, "ShadowStrike", 7)  -- 35-36sec after Emerge next ShadowStrike
+			self:ScheduleMethod(1, "ShadowStrike", 1)  -- 35-36sec after Emerge next ShadowStrike
 		end
 	end
 end

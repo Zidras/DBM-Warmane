@@ -84,10 +84,10 @@ do
 	local lastinferno = 0
 	function mod:SPELL_DAMAGE(args)
 		if args:IsPlayer() and args:IsSpellID(66877, 67070, 67071, 67072) then		-- Legion Flame
-			if GetTime() - 3 > lastflame then
+			if GetTime() - 1 > lastflame then
 				specWarnFlame:Show()
 				if self.Options.LegionFlameRunSound then
-					PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
+					PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 				end
 				lastflame = GetTime()
 			end
@@ -148,7 +148,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		setIncinerateTarget(self, args.destGUID, args.destName)
 		self:Schedule(15, clearIncinerateTarget, self, args.destName)
-	elseif args:IsSpellID(66228, 67108, 67106, 67107) then
+	elseif args:IsSpellID(66228, 67108, 67106, 67107) and self:AntiSpam(1,67009) then
 		timerNetherPowerCD:Stop()							-- Nether Power
 		timerNetherPowerCD:Start()
 		warnNetherPowerSoon:Schedule(40)
@@ -156,7 +156,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnNetherPower:Show()
 
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
-		local targetname = args.destName
 		timerFlame:Start(args.destName)
 		timerFlameCD:Start()
 		if args:IsPlayer() then
@@ -169,7 +168,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 7, 8)
 		end
 		if DBM:GetRaidRank() >= 1 and self.Options.LegionFlameWhisper then
-			self:SendWhisper(L.WhisperFlame, targetname)
+			--self:SendWhisper(L.WhisperFlame, args.destName)
 		end
 	elseif args:IsSpellID(66334, 67905, 67906, 67907) and args:IsPlayer() then
 		specWarnKiss:Show()
