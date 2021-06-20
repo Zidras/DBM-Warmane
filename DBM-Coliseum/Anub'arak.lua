@@ -47,11 +47,6 @@ local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DB
 local warnSubmergeTwo			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnSubmergeTwoSoon		= mod:NewAnnounce("WarnSubmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local specWarnSubmergeTwoSoon	= mod:NewSpecialWarning("specWarnSubmergeSoon", mod:IsTank())
-local timerSubmergeTwo			= mod:NewTimer(145, "2nd Submerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-
--- Extra Emerge timers
-local timerEmergeOne			= mod:NewTimer(65, "1st Emerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmergeTwo			= mod:NewTimer(65, "2nd Emerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 -- Phases
 local warnPhase3			= mod:NewPhaseAnnounce(3)
@@ -69,7 +64,7 @@ local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, mod:IsHealer() o
 local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank())
 
 -- Shadow Strike
-local timerShadowStrike		= mod:NewNextTimer(30, 66134)
+local timerShadowStrike		= mod:NewNextTimer(30.0, 66134)
 local preWarnShadowStrike	= mod:NewSoonAnnounce(66134, 3)
 local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
 local specWarnShadowStrike	= mod:NewSpecialWarning("SpecWarnShadowStrike", mod:IsTank())
@@ -82,13 +77,10 @@ function mod:OnCombatStart(delay)
 	warnSubmergeSoon:Schedule(70-delay)
 	specWarnSubmergeSoon:Schedule(70-delay)
 	timerSubmerge:Start(80-delay)
-	timerEmergeOne:Schedule(80)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(-delay)
 	warnSubmergeTwoSoon:Schedule(215)
 	specWarnSubmergeTwoSoon:Schedule(215)
-	timerSubmergeTwo:Schedule(80)
-	timerEmergeTwo:Schedule(225)
 	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
@@ -111,11 +103,25 @@ function mod:ShadowStrike(offset)
 	offset = offset or 0
 	if self:IsInCombat() then
 		timerShadowStrike:Cancel()
-		timerShadowStrike:Start(30-offset)
+		timerShadowStrike:Start(30.0-offset)
 		preWarnShadowStrike:Cancel()
 		preWarnShadowStrike:Schedule(25.5-offset)
 		self:UnscheduleMethod("ShadowStrike")
-		self:ScheduleMethod(30-offset, "ShadowStrike")
+		self:ScheduleMethod(30.0-offset, "ShadowStrike")
+	end
+end
+
+function mod:ShadowStrikeReset(time)
+	if not time then return end
+	if self:IsInCombat() then
+		timerShadowStrike:Cancel()
+		timerShadowStrike:Start(time)
+		if (time - 5) > 0 then
+			preWarnShadowStrike:Cancel()
+			preWarnShadowStrike:Schedule(time-5)
+		end
+		self:UnscheduleMethod("ShadowStrike")
+		self:ScheduleMethod(time, "ShadowStrike")
 	end
 end
 
@@ -194,6 +200,8 @@ function mod:SPELL_CAST_START(args)
 		specWarnSubmergeSoon:Cancel()
 		timerEmerge:Stop()
 		timerSubmerge:Stop()
+		local left = timerShadowStrike:GetRemaining()
+		self:ShadowStrikeReset(left+1.5)
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
@@ -232,7 +240,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(1, "ShadowStrike", 1)  -- 35-36sec after Emerge next ShadowStrike
+			self:ScheduleMethod(1, "ShadowStrike", 1)
 		end
 	end
 end
