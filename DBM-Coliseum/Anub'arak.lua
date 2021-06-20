@@ -229,7 +229,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		specWarnSubmergeSoon:Schedule(65)
 		timerSubmerge:Start()
 		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-			SendChatMessage("UNBURROW", "RAID")
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
