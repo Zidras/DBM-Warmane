@@ -1122,7 +1122,7 @@ function infoFrame:Hide()
 	twipe(value)
 	if frame then
 		if frame.ticker then
-			frame.ticker:Cancel()
+			AceTimer:CancelTimer(frame.ticker)
 			frame.ticker = nil
 		end
 		frame:Hide()
