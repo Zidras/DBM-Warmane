@@ -34,7 +34,7 @@ local specWarnLittleOoze		= mod:NewSpecialWarning("SpecWarnLittleOoze", false, n
 local specWarnVileGas			= mod:NewSpecialWarningYou(72272, nil, nil, nil, 1, 2)
 
 local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, "Tank", nil, 5)
-local timerWallSlime			= mod:NewNextTimer(25-4.4, 69789)
+local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508, nil, nil, nil, 3)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 3)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2)
@@ -64,7 +64,7 @@ end
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(9-delay) -- Adjust from 25 to 9 to have a correct timer from the start
 	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray
-	timerVileGasCD:Start(25-delay)
+	timerVileGasCD:Start(29-delay) -- Edited.
 	self:Schedule(25-delay, WallSlime, self)
 	self.vb.InfectionIcon = 8
 	spamOoze = 0
