@@ -270,20 +270,13 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnOozeSpawn				= "Малый слизнюк",
-	WarnUnstableOoze			= "%s на |3-5(>%s<) (%d)",			-- Unstable Ooze on >args.destName< (args.amount)
 	SpecWarnLittleOoze			= "Малый слизнюк атакует вас - бегите"--creatureid 36897
 }
 
-L:SetTimerLocalization{
-	NextPoisonSlimePipes		= "След. трубы для подачи ядовитой слизи"
-}
-
 L:SetOptionLocalization{
-	NextPoisonSlimePipes		= "Отсчет времени до следующих труб для подачи ядовитой слизи",
 	WarnOozeSpawn				= "Предупреждение при появлении Малого слизнюка",
 	SpecWarnLittleOoze			= "Спец-предупреждение, когда вас атакует Малый слизнюк",--creatureid 36897
 	RangeFrame					= "Показывать окно проверки дистанции (8 м)",
-	WarnUnstableOoze			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(69558, GetSpellInfo(69558) or "unknown"),
 	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
 	TankArrow					= "Показывать стрелку для кайтера Большого слизнюка (экспериментально)"
 }

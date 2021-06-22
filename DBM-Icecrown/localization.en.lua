@@ -268,20 +268,13 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnOozeSpawn				= "Little Ooze spawning",
-	WarnUnstableOoze			= "%s on >%s< (%d)",			-- Unstable Ooze on >args.destName< (args.amount)
 	SpecWarnLittleOoze			= "Little Ooze attacking you - Run Away"--creatureid 36897
 }
 
-L:SetTimerLocalization{
-	NextPoisonSlimePipes		= "Next Poison Slime Pipes"
-}
-
 L:SetOptionLocalization{
-	NextPoisonSlimePipes		= "Show timer for next Poison Slime Pipes",
 	WarnOozeSpawn				= "Show warning for Little Ooze spawning",
 	SpecWarnLittleOoze			= "Show special warning when you are attacked by Little Ooze",--creatureid 36897
 	RangeFrame					= "Show range frame (8 yards)",
-	WarnUnstableOoze			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(69558, GetSpellInfo(69558) or "unknown"),
 	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
 	TankArrow					= "Show DBM arrow for Big Ooze kiter (Experimental)"
 }
