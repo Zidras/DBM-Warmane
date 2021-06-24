@@ -51,7 +51,7 @@ local enrageTimer			= mod:NewBerserkTimer(570)	-- 9:30 ? hmpf (no enrage while s
 local specWarnPCold			= mod:NewSpecialWarningYou(68510, false)
 local timerPCold			= mod:NewBuffActiveTimer(15, 68509)
 
-mod:AddSetIconOption("SetIconsOnPCold", 68510, true, false, {7, 6, 5, 4, 3})
+mod:AddSetIconOption("SetIconsOnPCold", 68510, true, true, {7, 6, 5, 4, 3})
 
 mod:AddBoolOption("AnnouncePColdIcons", false)
 mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
