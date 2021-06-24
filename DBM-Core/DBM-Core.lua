@@ -3273,7 +3273,7 @@ do
 			local revision, version, displayVersion, locale = strsplit("\t", msg)
 			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
 			revision, version = tonumber(revision or ""), tonumber(version or "")
-			if revision >= 9999 then revision = 4442 end
+			if (not tonumber(revision)) or (tonumber(revision) >= 9999) then revision = 4442 end
 			if revision and version and displayVersion and raid[sender] then
 				raid[sender].revision = revision
 				raid[sender].version = version
@@ -3339,6 +3339,9 @@ do
 		local guid, ver, optionName = strsplit("\t", msg)
 		DBM:Debug(("DBMv4-IS received %s %s %s"):format(guid, ver, optionName),3)
 		ver = tonumber(ver) or 0
+		if ver >= 9999 then
+			ver = 4442
+		end
 		if ver > (iconSetRevision[optionName] or 0) then--Save first synced version and person, ignore same version. refresh occurs only above version (fastest person)
 			iconSetRevision[optionName] = ver
 			iconSetPerson[optionName] = guid
