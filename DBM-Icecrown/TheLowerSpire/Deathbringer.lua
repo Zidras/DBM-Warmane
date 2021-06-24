@@ -3,8 +3,9 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4408 $"):sub(12, -3))
 mod:SetCreatureID(37813)
-mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
+
+mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
@@ -20,19 +21,19 @@ local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, "Tank|Healer")
 local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, "Tank|Healer")
-local warnBloodNova			= mod:NewSpellAnnounce(73058, 2)
-local warnMark				= mod:NewTargetCountAnnounce(72444, 4)
-local warnBoilingBlood		= mod:NewTargetAnnounce(72441, 2, nil, "Healer")
+local warnBloodNova			= mod:NewSpellAnnounce(72378, 2)
+local warnMark 				= mod:NewTargetCountAnnounce(72293, 4, 72293)
+local warnBoilingBlood		= mod:NewTargetAnnounce(72385, 2, nil, "Healer")
 local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, "Tank|Healer")
 
 local specwarnMark			= mod:NewSpecialWarningTarget(72444, nil, false, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
-local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, mod:IsTank())
+local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
 local timerCombatStart		= mod:NewCombatTimer(47.3)
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
-local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441, nil, "Healer", nil, 5, nil, DBM_CORE_HEALER_ICON)
-local timerBloodNova		= mod:NewNextTimer(20, 73058, nil, nil, nil, 2)
+local timerBoilingBlood		= mod:NewNextTimer(15.5, 72385, nil, "Healer", nil, 5, nil, DBM_CORE_HEALER_ICON)
+local timerBloodNova		= mod:NewNextTimer(20, 72378, nil, nil, nil, 2)
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
 
 local enrageTimer			= mod:NewBerserkTimer(480)
@@ -41,21 +42,23 @@ local SoundAdds				= mod:NewSound(72173)
 
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
-mod:AddSetIconOption("BeastIcons", 72173, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
+mod:AddSetIconOption("BeastIcons", 72173, true, true)
 mod:AddBoolOption("BoilingBloodIcons", false)
+mod:AddInfoFrameOption(72370, false)
 mod:RemoveOption("HealthFrame")
 
-local warned_preFrenzy = false
+mod.vb.warned_preFrenzy = false
+mod.vb.boilingBloodIcon 	= 8
+mod.vb.Mark = 0
 local boilingBloodTargets = {}
-local boilingBloodIcon 	= 8
-local spamBloodBeast = 0
-local Mark = 0
+local spellName = DBM:GetSpellInfo(72370)
 local UnitGUID = UnitGUID
 
-local function warnBoilingBloodTargets()
+local function warnBoilingBloodTargets(self)
 	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
 	table.wipe(boilingBloodTargets)
-	boilingBloodIcon = 8
+	self.vb.boilingBloodIcon = 8
+	timerBoilingBlood:Start()
 end
 
 function mod:OnCombatStart(delay)
@@ -64,7 +67,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(37813, L.name)
 		self:ScheduleMethod(0.5, "CreateBossRPFrame")
 	end
-	if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
+	if self:IsDifficulty("normal10", "normal25") then
 		enrageTimer:Start(-delay)
 	else
 		enrageTimer:Start(360-delay)
@@ -75,17 +78,24 @@ function mod:OnCombatStart(delay)
 	timerRuneofBlood:Start(19.5-delay)
 	timerBoilingBlood:Start(19-delay)
 	table.wipe(boilingBloodTargets)
-	warned_preFrenzy = false
-	boilingBloodIcon = 8
-	Mark = 0
+	self.vb.warned_preFrenzy = false
+	self.vb.boilingBloodIcon = 8
+	self.vb.Mark = 0
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:SetHeader(spellName)
+		DBM.InfoFrame:Show(1, "enemypower", 2)
 	end
 end
 
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 	DBM.BossHealth:Clear()
 end
@@ -121,10 +131,13 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(72410) then
+	if args.spellId == 72410 then
 		warnRuneofBlood:Show(args.destName)
 		if not args:IsPlayer() then
 			specwarnRuneofBlood:Show(args.destName)
+			if mod:IsTank() then
+				specwarnRuneofBlood:Play("tauntboss")
+			end
 		else
 			specwarnRuneofBloodYou:Show()
 		end
@@ -151,38 +164,37 @@ function mod:SPELL_SUMMON(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(72293) then		-- Mark of the Fallen Champion
-		Mark = Mark + 1
-		warnMark:Show(Mark, args.destName)
+	if args.spellId == 72293 then		-- Mark of the Fallen Champion
+		self.vb.Mark = self.vb.Mark + 1
+		warnMark:Show(self.vb.Mark, args.destName)
 		specwarnMark:Show(args.destName)
 	elseif args:IsSpellID(72385, 72441, 72442, 72443) then	-- Boiling Blood
 		boilingBloodTargets[#boilingBloodTargets + 1] = args.destName
-		timerBoilingBlood:Start()
 		if self.Options.BoilingBloodIcons then
-			self:SetIcon(args.destName, boilingBloodIcon, 15)
-			boilingBloodIcon = boilingBloodIcon - 1
+			self:SetIcon(args.destName, self.vb.boilingBloodIcon, 15)
 		end
+		self.vb.boilingBloodIcon = self.vb.boilingBloodIcon - 1
 		self:Unschedule(warnBoilingBloodTargets)
-		if (mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) or ((mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25")) and #boilingBloodTargets >= 3) then	-- Boiling Blood
-			warnBoilingBloodTargets()
+		if self:IsDifficulty("normal10", "heroic10") or (self:IsDifficulty("normal25", "heroic25") and #boilingBloodTargets >= 3) then	-- Boiling Blood
+			warnBoilingBloodTargets(self)
 		else
-			self:Schedule(0.3, warnBoilingBloodTargets)
+			self:Schedule(0.5, warnBoilingBloodTargets, self)
 		end
-	elseif args:IsSpellID(72737) then						-- Frenzy
+	elseif args.spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
 		soundFrenzy:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(72385, 72441, 72442, 72443) then
+	if args:IsSpellID(72385, 72441, 72442, 72443) and self.Options.BoilingBloodIcons then
 		self:SetIcon(args.destName, 0)
 	end
 end
 
 function mod:UNIT_HEALTH(uId)
-	if not warned_preFrenzy and self:GetUnitCreatureId(uId) == 37813 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.33 then
-		warned_preFrenzy = true
+	if not self.vb.warned_preFrenzy and self:GetUnitCreatureId(uId) == 37813 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.33 then
+		self.vb.warned_preFrenzy = true
 		warnFrenzySoon:Show()
 	end
 end

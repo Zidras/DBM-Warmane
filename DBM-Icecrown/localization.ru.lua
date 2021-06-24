@@ -215,21 +215,10 @@ L:SetGeneralLocalization{
 	name = "Саурфанг Смертоносный"
 }
 
-L:SetWarningLocalization{
-	WarnFrenzySoon	= "Скоро Бешенство"
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "Начало боя"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart		= "Отсчет времени до начала боя",
-	WarnFrenzySoon			= "Предупреждать о скором Бешенстве (на ~33%)",
 	BoilingBloodIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72441),
 	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
-	RunePowerFrame			= "Показывать здоровье босса + индикатор для $spell:72371",
-	BeastIcons				= "Устанавливать метки на Кровавые чудовища"
+	RunePowerFrame			= "Показывать здоровье босса + индикатор для $spell:72371"
 }
 
 L:SetMiscLocalization{
