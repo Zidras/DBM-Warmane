@@ -102,9 +102,6 @@ L:SetOptionLocalization({
 	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
 })
 
-L:SetMiscLocalization({
-})
-
 -------------------------
 --  Saviana Ragefire  --
 -------------------------
@@ -114,18 +111,10 @@ L:SetGeneralLocalization({
 	name = "Saviana Ragefire"
 })
 
-L:SetWarningLocalization({
-	SpecialWarningTranq		= "Enrage - Tranq now"
-})
-
 L:SetOptionLocalization({
-	SpecialWarningTranq		= "Show special warning for $spell:78722 (to tranq)",
 	RangeFrame				= "Show range frame (10 yards)",
 	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
 })
-
-L:SetMiscLocalization{
-}
 
 --------------------------
 --  General Zarithrian  --
@@ -143,14 +132,14 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerAdds	= "New adds",
-	AddsArrive	= "Adds arrive in",
+	AddsArrive	= "Adds arrive in"
 })
 
 L:SetOptionLocalization({
 	WarnAdds		= "Announce new adds",
 	TimerAdds		= "Show timer for new adds",
 	AddsArrive		= "Show timer for adds arrival",
-	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367, GetSpellInfo(74367) or "unknown")
+	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367)
 })
 
 L:SetMiscLocalization({

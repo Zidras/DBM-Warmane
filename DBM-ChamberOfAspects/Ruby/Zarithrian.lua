@@ -13,16 +13,16 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warningAdds				= mod:NewAnnounce("WarnAdds", 3)
-local warnCleaveArmor			= mod:NewAnnounce("warnCleaveArmor", 2, 74367, mod:IsTank() or mod:IsHealer())
-local warningFear				= mod:NewSpellAnnounce(74384, 3)
+local warningAdds				= mod:NewAnnounce("WarnAdds", 3, 74398)
+local warnCleaveArmor			= mod:NewStackAnnounce(74367, 2, nil, "Tank|Healer")
 
-local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2)--ability lasts 30 seconds, has a 15 second cd, so tanks should trade at 2 stacks.
+local specWarnFear				= mod:NewSpecialWarningSpell(74384, nil, nil, nil, 2, 2)
+local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2, nil, nil, 1, 6)--ability lasts 30 seconds, has a 15 second cd, so tanks should trade at 2 stacks.
 
-local timerAddsCD				= mod:NewTimer(45.5, "TimerAdds")
+local timerAddsCD				= mod:NewTimer(45.5, "TimerAdds", 74398, nil, nil, 1)
 local timerAddsTravel			= mod:NewTimer(10, "AddsArrive") -- Timer to indicate when the summoned adds arive
-local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, mod:IsTank() or mod:IsHealer())
-local timerFearCD				= mod:NewCDTimer(37, 74384)--anywhere from 35-40 seconds in between fears.
+local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, "Tank|Healer", nil, 5)
+local timerFearCD				= mod:NewCDTimer(37, 74384, nil, nil, nil, 2)--anywhere from 35-40 seconds in between fears.
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(14-delay)--need more pulls to verify consistency
@@ -30,27 +30,30 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(74384) then
-		warningFear:Show()
+	if args.spellId == 74384 then
+		specWarnFear:Show()
+		specWarnFear:Play("fearsoon")
 		timerFearCD:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(74367) then
-		warnCleaveArmor:Show(args.spellName, args.destName, args.amount or 1)
+	if args.spellId == 74367 then
+		local amount = args.amount or 1
 		timerCleaveArmor:Start(args.destName)
-		if args:IsPlayer() and (args.amount or 1) >= 2 then
-			specWarnCleaveArmor:Show(args.amount)
+		if args:IsPlayer() and amount >= 2 then
+			specWarnCleaveArmor:Show(amount)
+			specWarnCleaveArmor:Play("stackhigh")
+		else
+			warnCleaveArmor:Show(args.destName, amount)
 		end
 	end
 end
-
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.SummonMinions or msg:match(L.SummonMinions) then
-		warningFear:Show()
+		warningAdds:Show()
 		timerAddsCD:Start()
 		timerAddsTravel:Start() -- Added timer for travel time on summoned adds
 	end
