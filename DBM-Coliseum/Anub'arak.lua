@@ -35,7 +35,7 @@ mod:AddBoolOption("PursueIcon")
 -- Emerge
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerEmerge			= mod:NewTimer(62, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 -- Submerge
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
@@ -240,7 +240,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(1, "ShadowStrike", 1)
+			self:ScheduleMethod(1, "ShadowStrike", 6)
 		end
 	end
 end
