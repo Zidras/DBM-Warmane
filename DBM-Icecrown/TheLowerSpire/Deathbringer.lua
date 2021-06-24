@@ -37,8 +37,6 @@ local timerBloodNova		= mod:NewNextTimer(20, 72378, nil, nil, nil, 2)
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
 
 local enrageTimer			= mod:NewBerserkTimer(480)
-local soundFrenzy			= mod:NewSound(72737)
-local SoundAdds				= mod:NewSound(72173)
 
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
@@ -149,7 +147,6 @@ function mod:SPELL_SUMMON(args)
 	if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
 		if self:AntiSpam(5) then
 			warnAdds:Show()
-			SoundAdds:Play("Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 			warnAddsSoon:Schedule(30)
 			timerCallBloodBeast:Start()
 		end
@@ -182,7 +179,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
-		soundFrenzy:Play("Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 	end
 end
 
