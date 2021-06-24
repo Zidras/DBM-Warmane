@@ -3273,6 +3273,7 @@ do
 			local revision, version, displayVersion, locale = strsplit("\t", msg)
 			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
 			revision, version = tonumber(revision or ""), tonumber(version or "")
+			if revision >= 9999 then revision = 4442 end
 			if revision and version and displayVersion and raid[sender] then
 				raid[sender].revision = revision
 				raid[sender].version = version
@@ -3545,7 +3546,7 @@ do
 	end
 
 	local function HandleVersion(revision, version, displayVersion, sender, noRaid)
-		if version > DBM.Revision then -- Update reminder
+		if (version > DBM.Revision) and version < 9999 then -- Update reminder
 			if #newerVersionPerson < 4 then
 				if not checkEntry(newerVersionPerson, sender) then
 					newerVersionPerson[#newerVersionPerson + 1] = sender
