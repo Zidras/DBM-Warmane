@@ -133,9 +133,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnRuneofBlood:Show(args.destName)
 		if not args:IsPlayer() then
 			specwarnRuneofBlood:Show(args.destName)
-			if mod:IsTank() then
-				specwarnRuneofBlood:Play("tauntboss")
-			end
+			specwarnRuneofBlood:Play("tauntboss")
 		else
 			specwarnRuneofBloodYou:Show()
 		end
