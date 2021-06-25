@@ -169,7 +169,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	TimerSpecialSpell	= "Next special ability",
-	TimerRoleplay		= "Roleplay before fall"
+	TimerRoleplay		= "Roleplay before the fall"
 }
 
 L:SetWarningLocalization{
