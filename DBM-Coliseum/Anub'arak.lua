@@ -21,47 +21,46 @@ mod:AddBoolOption("RemoveHealthBuffsInP3", false)
 
 -- Adds
 local warnAdds				= mod:NewAnnounce("warnAdds", 3, 45419)
-local timerAdds				= mod:NewTimer(45, "timerAdds", 45419)
-local Burrowed				= false
+local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_CORE_TANK_ICON)
 
 -- Pursue
 local warnPursue			= mod:NewTargetAnnounce(67574, 4)
 local specWarnPursue		= mod:NewSpecialWarning("SpecWarnPursue")
-local warnHoP				= mod:NewTargetAnnounce(10278, 2, nil, false)--Heroic strat revolves around kiting pursue and using Hand of Protection.
-local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, false)--So we will track bops to make this easier.
+local warnHoP				= mod:NewTargetAnnounce(10278, 2)--Heroic strat revolves around kiting pursue and using Hand of Protection.
+local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, nil, nil, 3)--So we will track bops to make this easier.
 mod:AddBoolOption("PlaySoundOnPursue")
 mod:AddBoolOption("PursueIcon")
 
 -- Emerge
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmerge			= mod:NewTimer(62, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerEmerge			= mod:NewTimer(62, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
 
 -- Submerge
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnSubmergeSoon		= mod:NewAnnounce("WarnSubmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local specWarnSubmergeSoon	= mod:NewSpecialWarning("specWarnSubmergeSoon", mod:IsTank())
-local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
+local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
 
 -- Phases
 local warnPhase3			= mod:NewPhaseAnnounce(3)
-local enrageTimer			= mod:NewBerserkTimer(570)	-- 9:30 ? hmpf (no enrage while submerged... this sucks)
+local enrageTimer			= mod:NewBerserkTimer(570)
+local Burrowed				= false
 
 -- Penetrating Cold
 local specWarnPCold			= mod:NewSpecialWarningYou(68510, false)
-local timerPCold			= mod:NewBuffActiveTimer(15, 68509)
+local timerPCold			= mod:NewBuffActiveTimer(15, 68509, nil, nil, nil, 3)
 
 mod:AddSetIconOption("SetIconsOnPCold", 68510, true, true, {7, 6, 5, 4, 3})
-
 mod:AddBoolOption("AnnouncePColdIcons", false)
 mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
 
 -- Freezing Slash
 local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, mod:IsHealer() or mod:IsTank())
-local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank())
+local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank(), nil, nil, nil, DBM_CORE_TANK_ICON..DBM_CORE_HEALER_ICON)
 
 -- Shadow Strike
-local timerShadowStrike		= mod:NewNextTimer(30.0, 66134)
+local timerShadowStrike		= mod:NewNextTimer(30.0, 66134, nil, true, nil, 4, nil, DBM_CORE_MYTHIC_ICON, nil, 3)
 local preWarnShadowStrike	= mod:NewSoonAnnounce(66134, 3)
 local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
 local specWarnShadowStrike	= mod:NewSpecialWarning("SpecWarnShadowStrike", mod:IsTank())
@@ -160,7 +159,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconsOnPCold then
 			table.insert(PColdTargets, DBM:GetRaidUnitId(args.destName))
 			self:UnscheduleMethod("SetPcoldIcons")
-			self:ScheduleMethod(0.5, "SetPcoldIcons")
+			self:ScheduleMethod(0.2, "SetPcoldIcons")
 		end
 		timerPCold:Show()
 	elseif args:IsSpellID(66012) then							-- Freezing Slash
@@ -204,7 +203,7 @@ function mod:SPELL_CAST_START(args)
 			warnAdds:Cancel()
 			self:UnscheduleMethod("Adds")
 		end
-	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then							-- Shadow Strike
+	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then
 		self:ShadowStrike()
 		specWarnShadowStrike:Show()
 		warnShadowStrike:Show()
@@ -220,6 +219,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(55)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
+		timerShadowStrike:Stop()
+		preWarnShadowStrike:Cancel()
+		self:UnscheduleMethod("ShadowStrike")
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
 		timerEmerge:Cancel()
@@ -234,7 +236,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(1, "ShadowStrike", 6)
+			self:ScheduleMethod(5.5, "ShadowStrike")
 		end
 	end
 end

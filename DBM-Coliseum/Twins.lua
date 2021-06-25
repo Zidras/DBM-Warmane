@@ -12,7 +12,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_INTERRUPT"
+	"SPELL_INTERRUPT",
+	"CHAT_MSG_MONSTER_YELL"
 )
 
 mod:SetBossHealthInfo(
@@ -37,6 +38,7 @@ local timerHeal						= mod:NewCastTimer(15, 65875)
 local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815, "TimerSpeedKill")
+local timerCombatStart				= mod:NewCombatTimer(25)
 
 local soundSpecial					= mod:NewSound5(66058, "SpecialSpellSoundCountdown")
 
@@ -231,5 +233,11 @@ end
 function mod:SPELL_INTERRUPT(args)
 	if type(args.extraSpellId) == "number" and (args.extraSpellId == 65875 or args.extraSpellId == 67303 or args.extraSpellId == 67304 or args.extraSpellId == 67305 or args.extraSpellId == 65876 or args.extraSpellId == 67306 or args.extraSpellId == 67307 or args.extraSpellId == 67308) then
 		timerHeal:Cancel()
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.CombatStart or msg:find(L.CombatStart) then
+		timerCombatStart:Start()
 	end
 end
