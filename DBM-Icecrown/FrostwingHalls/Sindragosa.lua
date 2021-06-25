@@ -39,7 +39,7 @@ local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4,
 local timerNextAirphase			= mod:NewTimer(120, "TimerNextAirphase", 43810, nil, nil, 6)
 local timerNextGroundphase		= mod:NewTimer(42.5, "TimerNextGroundphase", 43810, nil, nil, 6)
 local timerNextFrostBreath		= mod:NewNextTimer(22, 71056, nil, true, nil, 5, nil, DBM_CORE_TANK_ICON)
-local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2)
+local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON, nil, 3)
 local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123, nil, nil, nil, 2)
 local timerUnchainedMagic		= mod:NewCDTimer(30, 69762, nil, nil, nil, 3)
@@ -53,6 +53,7 @@ local berserkTimer				= mod:NewBerserkTimer(600)
 
 local soundBlisteringCold 		= mod:NewSound(70123)
 local soundFrostBeacon			= mod:NewSound(70126)
+
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
 mod:AddBoolOption("ClearIconsOnAirphase", true)

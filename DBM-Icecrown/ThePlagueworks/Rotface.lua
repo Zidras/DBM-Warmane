@@ -39,7 +39,7 @@ local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, mod:IsTank())
 local timerWallSlime			= mod:NewNextTimer(25-4.4, 69789)
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 71224)
-local timerOozeExplosion		= mod:NewCastTimer(4, 69839)
+local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 3)
 local timerVileGasCD			= mod:NewNextTimer(30, 72272)
 
 local soundMutatedInfection		= mod:NewSound(71224)

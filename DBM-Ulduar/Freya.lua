@@ -118,6 +118,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args.spellId == 64650 then
 		if self:AntiSpam(1,64650) and self:IsInCombat() then
 			timerNextBombs:Start(9.95)
+			soundBombs3:Cancel()
+			specBombs:Cancel()
 			soundBombs3:Schedule(10.5-3)
 			specBombs:Schedule(9.95)
 		end

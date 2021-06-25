@@ -35,7 +35,7 @@ local specWarnCosmicSmash		= mod:NewSpecialWarningSpell(64598)
 
 local timerCombatStart		    = mod:NewTimer(7, "TimerCombatStart", 2457)
 local enrageTimer				= mod:NewBerserkTimer(360)
-local timerNextBigBang			= mod:NewNextTimer(90.5, 64584, nil, nil, nil, 2, nil, DBM_CORE_TANK_ICON)
+local timerNextBigBang			= mod:NewNextTimer(90.5, 64584, nil, nil, nil, 2, nil, DBM_CORE_TANK_ICON, nil, 3)
 local timerBigBangCast			= mod:NewCastTimer(8, 64584, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON)
 local timerNextCollapsingStar	= mod:NewTimer(18, "NextCollapsingStar", "Interface\\Icons\\Spell_Shadow_Shadesofdarkness", nil, nil, 2, DBM_CORE_HEALER_ICON)
 local timerCDCosmicSmash		= mod:NewTimer(25, "NextCosmicSmash", "Interface\\Icons\\Spell_Fire_SelfDestruct", nil, nil, 2, DBM_CORE_DEADLY_ICON)

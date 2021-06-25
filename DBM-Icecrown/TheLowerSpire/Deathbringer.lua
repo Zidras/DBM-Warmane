@@ -32,7 +32,7 @@ local timerCombatStart		= mod:NewCombatTimer(47.3)
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441, nil, "Healer", nil, 5, nil, DBM_CORE_HEALER_ICON)
 local timerBloodNova		= mod:NewNextTimer(20, 73058, nil, nil, nil, 2)
-local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
+local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON, nil, 3)
 
 local enrageTimer			= mod:NewBerserkTimer(480)
 local soundFrenzy			= mod:NewSound(72737)
