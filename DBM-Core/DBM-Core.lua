@@ -5090,7 +5090,7 @@ do
 			end
 		end
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySoundFile playing with media "..path, 3)
+		DBM:Debug("PlaySoundFile playing with media "..path, 4)
 		if soundSetting == "Dialog" then
 			PlaySoundFile(path, "Dialog")
 		elseif ignoreSFX or soundSetting == "Master" then
@@ -5102,7 +5102,7 @@ do
 	end
 	local function playSound(self, path, ignoreSFX, validate)
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySound playing with media "..path, 3)
+		DBM:Debug("PlaySound playing with media "..path, 4)
 		if soundSetting == "Dialog" then
 			PlaySound(path, "Dialog", false)
 		elseif ignoreSFX or soundSetting == "Master" then
