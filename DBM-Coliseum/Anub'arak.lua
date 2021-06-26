@@ -96,6 +96,7 @@ end
 function mod:ShadowStrike(offset)
 	offset = offset or 0
 	if self:IsInCombat() then
+		print(GetTime())
 		timerShadowStrike:Cancel()
 		timerShadowStrike:Start(30.0-offset)
 		preWarnShadowStrike:Cancel()
@@ -223,6 +224,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		preWarnShadowStrike:Cancel()
 		self:UnscheduleMethod("ShadowStrike")
 	elseif msg and msg:find(L.Emerge) then
+		print(GetTime())
 		Burrowed = false
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
@@ -236,7 +238,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(5.5, "ShadowStrike")
+			self:ScheduleMethod(5.0, "ShadowStrike")
 		end
 	end
 end
