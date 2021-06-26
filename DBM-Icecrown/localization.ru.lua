@@ -199,11 +199,15 @@ L:SetTimerLocalization{
 
 L:SetMiscLocalization{
 	PullAlliance	= "Запускайте двигатели! Летим навстречу судьбе.",
+	CombatAlliance	= "Ах вы псы трусливые! Напали исподтишка!",
 	KillAlliance	= "Ну не говорите потом, что я не предупреждал. В атаку, братья и сестры!",
 	PullHorde		= "Воспряньте, сыны и дочери Орды! Сегодня мы будем биться со смертельным врагом! ЛОК'ТАР ОГАР!",
+	CombatHorde		= "БОЕВОЙ КОРАБЛЬ АЛЬЯНСА! ВСЕ НА ПАЛУБУ!",
 	KillHorde		= "Альянс повержен. Вперед, к Королю-личу!",
 	AddsAlliance	= "Разрушители, сержанты, в бой!",
-	AddsHorde		= "Marines, Sergeants, attack"
+	AddsHorde		= "Marines, Sergeants, attack",
+	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
+	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!"
 }
 
 -----------------------------
