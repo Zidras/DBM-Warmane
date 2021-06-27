@@ -1,8 +1,8 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4396 $"):sub(12, -3))
-mod:SetMinSyncRevision(4396)
+mod:SetRevision(("$Revision: 4397 $"):sub(12, -3))
+mod:SetMinSyncRevision(4397)
 mod:SetCreatureID(34797, 35144, 34799, 34796)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
