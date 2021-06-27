@@ -31,9 +31,6 @@ local timerWhirlwindStart	= mod:NewTimer(3, "TimerWhirlwindStart", 69076)
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 
-local soundWhirlwind 		= mod:NewSound(69076)
-local soundWhirlwind5 		= mod:NewSound5(69076)
-
 mod:AddBoolOption("SetIconOnImpale", true)
 
 mod.vb.impaleIcon	= 8
@@ -41,7 +38,6 @@ mod.vb.impaleIcon	= 8
 function mod:OnCombatStart(delay)
 	preWarnWhirlwind:Schedule(43-delay) -- Edited
 	timerWhirlwindCD:Start(48-delay) -- Edited
-	soundWhirlwind5:Schedule(40-delay)
 	timerBoneSpike:Start(15-delay)
 	berserkTimer:Start(-delay)
 end
@@ -50,11 +46,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69076 then						-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
-
 		timerWhirlwindCD:Start()
-		soundWhirlwind5:Schedule(85)
 		preWarnWhirlwind:Schedule(80) -- Edited
-		soundWhirlwind:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
 		else
