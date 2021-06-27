@@ -10,10 +10,9 @@
 ## X-DBM-Mod-Name: Crusader's Coliseum
 ## X-DBM-Mod-Name-ruRU: Колизей Авангарда
 ## X-DBM-Mod-Sort: 2
---We do not use areaID for this map because otherwise this mod would load in trial of champion 5 man as well.
---## X-DBM-Mod-LoadZoneID: 544
 ## X-DBM-Mod-LoadZone: Trial of the Crusader
 ## X-DBM-Mod-LoadZone-ruRU: Испытание крестоносца
+
 localization.en.lua
 localization.ru.lua
 MapSizes.lua
