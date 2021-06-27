@@ -26,8 +26,8 @@ local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_COR
 local timerWhirlwindCD		= mod:NewCDTimer(63, 69076, nil, nil, nil, 2) -- Edited
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
-local timerBoneSpikeUp		= mod:NewTimer(3, "TimerBoneSpikeUp", 69065)
-local timerWhirlwindStart	= mod:NewTimer(3, "TimerWhirlwindStart", 69076)
+local timerBoneSpikeUp		= mod:NewCastTimer(69057)
+local timerWhirlwindStart	= mod:NewCastTimer(69076)
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 
@@ -75,6 +75,9 @@ function mod:SPELL_CAST_START(args)
 		warnBoneSpike:Show()
 		timerBoneSpike:Start()
 		timerBoneSpikeUp:Start()
+	elseif args.spellId == 69076 then
+		timerWhirlwindCD:Cancel()
+		timerWhirlwindStart:Start()
 	end
 end
 
