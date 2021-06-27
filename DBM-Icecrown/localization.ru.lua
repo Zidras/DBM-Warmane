@@ -107,18 +107,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	AchievementBoned	= "Время до освобождения",
 	TimerBoneSpikeUp	= "Шипы через...",
 	TimerWhirlwindStart	= "Вихрь через..."
 }
 
-L:SetWarningLocalization{
-	WarnImpale			= "Прокалывание: >%s<"
-}
-
 L:SetOptionLocalization{
-	WarnImpale			= "Объявлять цели заклинания $spell:69062",
-	AchievementBoned	= "Отсчет времени для достижения Косточка попалась",
 	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062)
 }
 

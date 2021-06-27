@@ -105,18 +105,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	AchievementBoned	= "Time to free",
 	TimerBoneSpikeUp	= "Spikes up in...",
 	TimerWhirlwindStart	= "Whirlwind starts in..."
 }
 
-L:SetWarningLocalization{
-	WarnImpale			= ">%s< is impaled"
-}
-
 L:SetOptionLocalization{
-	WarnImpale			= "Announce $spell:69062 targets",
-	AchievementBoned	= "Show timer for Boned achievement",
 	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062)
 }
 
