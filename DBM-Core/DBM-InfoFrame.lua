@@ -12,7 +12,7 @@ local UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTar
 local UnitExists, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost = UnitExists, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost
 local UnitThreatSituation, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton =  UnitThreatSituation, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton
 local error, tostring, type, pairs, ipairs, select, tonumber = error, tostring, type, pairs, ipairs, select, tonumber
-local tsort, twipe, mfloor, mmax, mmin, mrandom, schar, ssplit, CAfter =  table.sort, table.wipe, math.floor, math.max, math.min, math.random, string.char, string.split, C_Timer.After
+local tsort, twipe, mfloor, mmax, mmin, mrandom, schar, ssplit =  table.sort, table.wipe, math.floor, math.max, math.min, math.random, string.char, string.split
 local NORMAL_FONT_COLOR, SPELL_FAILED_OUT_OF_RANGE = NORMAL_FONT_COLOR, SPELL_FAILED_OUT_OF_RANGE
 local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS-- for Phanx' Class Colors
 
@@ -25,6 +25,7 @@ local maxLines, modLines, maxCols, modCols, prevLines = 5, 5, 1, 1, 0
 local sortMethod = 1--1 Default, 2 SortAsc, 3 GroupId
 local lines, sortedLines, icons, value = {}, {}, {}, {}
 local playerName = UnitName("player")
+local AceTimer = LibStub("AceTimer-3.0")
 
 ---------------------
 --  Dropdown Menu  --
@@ -1026,11 +1027,9 @@ function infoFrame:Show(modMaxLines, event, ...)
 	frame:Show()
 	onUpdate(frame, value[1])
 	if not frame.ticker and not value[4] and event ~= "table" then
-		frame.ticker = C_Timer.NewTicker(0.5, function()
-			onUpdate(frame)
-		end)
+		frame.ticker = AceTimer:ScheduleRepeatingTimer(function() onUpdate(frame) end, 0.5)
 	elseif frame.ticker and value[4] then -- Redundancy, in event calling a non onupdate infoframe show without a hide event to unschedule ticker based infoframe
-		frame.ticker:Cancel()
+		AceTimer:CancelTimer(frame.ticker)
 		frame.ticker = nil
 	end
 end
@@ -1045,9 +1044,7 @@ function infoFrame:Update(time)
 	end
 	if frame:IsShown() then
 		if time then
-			CAfter(time, function()
-				onUpdate(frame)
-			end)
+			AceTimer:ScheduleTimer(function() onUpdate(frame) end, time)
 		else
 			onUpdate(frame)
 		end
@@ -1125,7 +1122,7 @@ function infoFrame:Hide()
 	twipe(value)
 	if frame then
 		if frame.ticker then
-			frame.ticker:Cancel()
+			AceTimer:CancelTimer(frame.ticker)
 			frame.ticker = nil
 		end
 		frame:Hide()

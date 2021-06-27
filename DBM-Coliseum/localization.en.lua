@@ -169,7 +169,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	TimerSpecialSpell	= "Next special ability",
-	TimerRoleplay		= "Roleplay before fall"
+	TimerRoleplay		= "Roleplay before the fall"
 }
 
 L:SetWarningLocalization{
@@ -184,6 +184,7 @@ L:SetWarningLocalization{
 
 L:SetMiscLocalization{
 	YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
+	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
 	Fjola		= "Fjola Lightbane",
 	Eydis		= "Eydis Darkbane"
 }

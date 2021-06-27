@@ -37,7 +37,7 @@ local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, "Tank", nil, 5)
 local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508, nil, nil, nil, 3)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 3)
-local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2)
+local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 3)
 local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3)
 
 mod:AddBoolOption("RangeFrame", "Ranged")

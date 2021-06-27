@@ -46,6 +46,7 @@ ignore = {
 	"213", -- Unused loop variable
 	"231/_.*", -- unused variables starting with _
 	"311", -- Value assigned to a local variable is unused
+	"312/self", -- Value assigned is overwritten
 --	"431", -- shadowing upvalue
 	"43.", -- Shadowing an upvalue, an upvalue argument, an upvalue loop variable.
 	"542", -- An empty if branch
@@ -97,8 +98,6 @@ globals = {
 	"CUSTOM_CLASS_COLORS",
 	"LibStub",
 	"BigWigs",
-	"TimerFrame_DBM",
-	"C_Timer",
 	"ElvUI",
 	"BigBrother",
 	"Transcriptor",
@@ -187,7 +186,6 @@ globals = {
 	"AnimationsToggle_STARTNUMBERS",
 	"TimerTracker",
 	"TimerTracker_OnEvent",
-	"C_Timer",
 	"C_Talent",
 	"TimerFrame",
 	"WorldStateTopCenterFrame",

@@ -1558,10 +1558,15 @@ end
 function barPrototype:MoveToNextPosition()
 	if self.moving == "enlarge" then return end
 	local newAnchor = (self.prev and self.prev.frame) or (self.enlarged and self.owner.secAnchor) or self.owner.mainAnchor
-	local oldX = self.frame:GetRight() - self.frame:GetWidth()/2
-	local oldY = self.frame:GetTop()
 	local Enlarged = self.enlarged
 	local ExpandUpwards = Enlarged and self.owner.options.ExpandUpwardsLarge or not Enlarged and self.owner.options.ExpandUpwards
+	local oldX = self.frame:GetRight() - self.frame:GetWidth()/2
+	local oldY
+	if ExpandUpwards then
+		oldY = self.frame:GetTop() + self.owner.options[Enlarged and "HugeBarYOffset" or "BarYOffset"]
+	else
+		oldY = self.frame:GetTop() - self.owner.options[Enlarged and "HugeBarYOffset" or "BarYOffset"]
+	end
 	self.frame:ClearAllPoints()
 	if ExpandUpwards then
 		self.movePoint = "BOTTOM"

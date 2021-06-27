@@ -135,7 +135,7 @@ DBM.DefaultOptions = {
 	ModelSoundValue = "Short",
 	CountdownVoice = "Corsica",
 	CountdownVoice2 = "Kolt",
-	CountdownVoice3 = "Smooth",
+	CountdownVoice3 = "SmoothR",
 	ChosenVoicePack = "None",
 	VoiceOverSpecW2 = "DefaultOnly",
 	AlwaysPlayVoice = false,
@@ -199,7 +199,7 @@ DBM.DefaultOptions = {
 	UseSoundChannel = "Master",
 	LFDEnhance = true,
 	WorldBossNearAlert = false,
-	RLReadyCheckSound = true,
+	RLReadyCheckSound = false,
 	AFKHealthWarning = false,
 	AutoReplySound = true,
 	HideObjectivesFrame = true,
@@ -265,11 +265,11 @@ DBM.DefaultOptions = {
 	SpecialWarningFlashAlph3 = 0.4,
 	SpecialWarningFlashAlph4 = 0.4,
 	SpecialWarningFlashAlph5 = 0.5,
-	SpecialWarningFlash1 = true,
-	SpecialWarningFlash2 = true,
-	SpecialWarningFlash3 = true,
-	SpecialWarningFlash4 = true,
-	SpecialWarningFlash5 = true,
+	SpecialWarningFlash1 = false,
+	SpecialWarningFlash2 = false,
+	SpecialWarningFlash3 = false,
+	SpecialWarningFlash4 = false,
+	SpecialWarningFlash5 = false,
 	SpecialWarningFlashCount1 = 1,
 	SpecialWarningFlashCount2 = 1,
 	SpecialWarningFlashCount3 = 3,
@@ -507,6 +507,8 @@ if LibStub("LibSharedMedia-3.0", true) then
 	LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
 end
 DBM.LSM = LSM
+local AceTimer = LibStub("AceTimer-3.0")
+
 --------------------------------------------------------
 --  Cache frequently used global variables in locals  --
 --------------------------------------------------------
@@ -1094,6 +1096,7 @@ do
 				"CHAT_MSG_ADDON",
 				"PLAYER_REGEN_DISABLED",
 				"PLAYER_REGEN_ENABLED",
+				"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
 				"UNIT_DIED",
 				"UNIT_DESTROYED",
 				"CHAT_MSG_WHISPER",
@@ -1107,6 +1110,7 @@ do
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
 				"LFG_PROPOSAL_SUCCEEDED",
+				"READY_CHECK",
 				"LFG_UPDATE",
 				"PLAYER_TALENT_UPDATE"
 			)
@@ -1740,7 +1744,7 @@ do
 			end
 			LL:RequestLatency()
 			DBM:AddMsg(DBM_CORE_LAG_CHECKING)
-			C_Timer.After(5, function() DBM:ShowLag() end)
+			AceTimer:ScheduleTimer(function() DBM:ShowLag() end, 5)
 		elseif cmd:sub(1, 10) == "durability" then
 			if not LD then
 				DBM:AddMsg(DBM_CORE_UPDATE_REQUIRES_RELAUNCH)
@@ -1748,7 +1752,7 @@ do
 			end
 			LD:RequestDurability()
 			DBM:AddMsg(DBM_CORE_DUR_CHECKING)
-			C_Timer.After(5, function() DBM:ShowDurability() end)
+			AceTimer:ScheduleTimer(function() DBM:ShowDurability() end, 5)
 		elseif cmd:sub(1, 5) == "arrow" then
 			if not DBM:IsInRaid() then
 				DBM:AddMsg(DBM_ARROW_NO_RAIDGROUP)
@@ -3021,6 +3025,14 @@ function DBM:LFG_UPDATE()
 	end
 end
 
+function DBM:READY_CHECK()
+	if self.Options.RLReadyCheckSound then--readycheck sound, if ora3 not installed (bad to have 2 mods do it)
+		if not BINDING_HEADER_oRA3 then
+			self:PlaySoundFile("Sound\\interface\\levelup2.wav")
+		end
+	end
+end
+
 function DBM:PLAYER_TALENT_UPDATE()
 	local lastSpecID = currentSpecGroup
 	self:SetCurrentSpecInfo()
@@ -3262,6 +3274,7 @@ do
 			local revision, version, displayVersion, locale = strsplit("\t", msg)
 			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
 			revision, version = tonumber(revision or ""), tonumber(version or "")
+			if (not tonumber(revision)) or (tonumber(revision) >= 9999) then revision = 4442 end
 			if revision and version and displayVersion and raid[sender] then
 				raid[sender].revision = revision
 				raid[sender].version = version
@@ -3327,6 +3340,9 @@ do
 		local guid, ver, optionName = strsplit("\t", msg)
 		DBM:Debug(("DBMv4-IS received %s %s %s"):format(guid, ver, optionName),3)
 		ver = tonumber(ver) or 0
+		if ver >= 9999 then
+			ver = 4442
+		end
 		if ver > (iconSetRevision[optionName] or 0) then--Save first synced version and person, ignore same version. refresh occurs only above version (fastest person)
 			iconSetRevision[optionName] = ver
 			iconSetPerson[optionName] = guid
@@ -3480,7 +3496,7 @@ do
 				if timer/60 > 1 then dummyMod2.text:Schedule(timer - 1*60, DBM_CORE_BREAK_MIN:format(1)) end
 				dummyMod2.text:Schedule(timer, DBM_CORE_ANNOUNCE_BREAK_OVER:format(hour..":"..minute))
 			end
-			C_Timer.After(timer, function() self.Options.tempBreak2 = nil end)
+			AceTimer:ScheduleTimer(function() self.Options.tempBreak2 = nil end, timer)
 		end
 	end
 
@@ -3534,7 +3550,7 @@ do
 	end
 
 	local function HandleVersion(revision, version, displayVersion, sender, noRaid)
-		if version > DBM.Revision then -- Update reminder
+		if (version > DBM.Revision) and version < 9999 then -- Update reminder
 			if #newerVersionPerson < 4 then
 				if not checkEntry(newerVersionPerson, sender) then
 					newerVersionPerson[#newerVersionPerson + 1] = sender
@@ -3829,7 +3845,7 @@ do
 					DBM:Schedule(0.99, DBM.AddMsg, DBM, DBM_INSTANCE_INFO_ALL_RESPONSES)
 					allResponded = true
 				end
-				C_Timer.After(1, showResults) --Delay results so we allow time for same sender to send more than 1 lockout, otherwise, if we get expectedResponses before all data is sent from 1 user, we clip some of their data.
+				AceTimer:ScheduleTimer(showResults, 1) --Delay results so we allow time for same sender to send more than 1 lockout, otherwise, if we get expectedResponses before all data is sent from 1 user, we clip some of their data.
 			end
 		end
 
@@ -3972,7 +3988,7 @@ do
 			self:Schedule(17, updateInstanceInfo, 45, true)
 			self:Schedule(32, updateInstanceInfo, 30)
 			self:Schedule(48, updateInstanceInfo, 15)
---			C_Timer.After(62, showResults)
+--			AceTimer:ScheduleTimer(showResults,62)
 		end
 	end
 
@@ -4373,6 +4389,34 @@ do
 				end
 			end
 			clearTargetList()
+		end
+	end
+
+	local function isBossEngaged(cId)
+		-- note that this is designed to work with any number of bosses, but it might be sufficient to check the first 5 unit ids
+		-- TODO: check if the client supports more than 5 boss unit IDs...just because the default boss health frame is limited to 5 doesn't mean there can't be more
+		local i = 1
+		repeat
+			local bossUnitId = "boss"..i
+			local bossGUID = not UnitIsDead(bossUnitId) and UnitGUID(bossUnitId) -- check for UnitIsVisible maybe?
+			local bossCId = bossGUID and DBM:GetCIDFromGUID(bossGUID)
+			if bossCId and (type(cId) == "number" and cId == bossCId or type(cId) == "table" and checkEntry(cId, bossCId)) then
+				return true
+			end
+			i = i + 1
+		until not bossGUID
+	end
+
+	function DBM:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+		if timerRequestInProgress then return end--do not start ieeu combat if timer request is progressing. (not to break Timer Recovery stuff)
+		local combat = combatInfo[GetRealZoneText()] or combatInfo[GetCurrentMapAreaID()]
+		if dbmIsEnabled and combat then
+			DBM:Debug("INSTANCE_ENCOUNTER_ENGAGE_UNIT combatInfo check fired")
+			for i, v in ipairs(combat) do
+				if v.type:find("combat") and isBossEngaged(v.multiMobPullDetection or v.mob) then
+					self:StartCombat(v.mod, 0, "IEEU")
+				end
+			end
 		end
 	end
 
@@ -5075,7 +5119,7 @@ do
 			end
 		end
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySoundFile playing with media "..path, 3)
+		DBM:Debug("PlaySoundFile playing with media "..path, 4)
 		if soundSetting == "Dialog" then
 			PlaySoundFile(path, "Dialog")
 		elseif ignoreSFX or soundSetting == "Master" then
@@ -5087,7 +5131,7 @@ do
 	end
 	local function playSound(self, path, ignoreSFX, validate)
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySound playing with media "..path, 3)
+		DBM:Debug("PlaySound playing with media "..path, 4)
 		if soundSetting == "Dialog" then
 			PlaySound(path, "Dialog", false)
 		elseif ignoreSFX or soundSetting == "Master" then
@@ -6794,7 +6838,7 @@ do
 			font1u:Hide()
 			font1:Hide()
 			if frame.font1ticker then
-				frame.font1ticker:Cancel()
+				AceTimer:CancelTimer(frame.font1ticker)
 				frame.font1ticker = nil
 			end
 		elseif font1elapsed > duration then
@@ -6813,7 +6857,7 @@ do
 			font2u:Hide()
 			font2:Hide()
 			if frame.font2ticker then
-				frame.font2ticker:Cancel()
+				AceTimer:CancelTimer(frame.font2ticker)
 				frame.font2ticker = nil
 			end
 		elseif font2elapsed > duration then
@@ -6832,7 +6876,7 @@ do
 			font3u:Hide()
 			font3:Hide()
 			if frame.font3ticker then
-				frame.font3ticker:Cancel()
+				AceTimer:CancelTimer(frame.font3ticker)
 				frame.font3ticker = nil
 			end
 		elseif font3elapsed > duration then
@@ -6910,7 +6954,7 @@ do
 			font1:Show()
 			font1u:Show()
 			added = true
-			frame.font1ticker = frame.font1ticker or C_Timer.NewTicker(0.05, fontHide1)
+			frame.font1ticker = frame.font1ticker or AceTimer:ScheduleRepeatingTimer(fontHide1, 0.05)
 		elseif not frame.font2ticker then
 			font2elapsed = 0
 			font2.lastUpdate = GetTime()
@@ -6918,7 +6962,7 @@ do
 			font2:Show()
 			font2u:Show()
 			added = true
-			frame.font2ticker = frame.font2ticker or C_Timer.NewTicker(0.05, fontHide2)
+			frame.font2ticker = frame.font2ticker or AceTimer:ScheduleRepeatingTimer(fontHide2, 0.05)
 		elseif not frame.font3ticker or force then
 			font3elapsed = 0
 			font3.lastUpdate = GetTime()
@@ -6927,7 +6971,7 @@ do
 			font3u:Show()
 			fontHide3()
 			added = true
-			frame.font3ticker = frame.font3ticker or C_Timer.NewTicker(0.05, fontHide3)
+			frame.font3ticker = frame.font3ticker or AceTimer:ScheduleRepeatingTimer(fontHide3, 0.05)
 		end
 		if not added then
 			local prevText1 = font2:GetText()
@@ -6945,7 +6989,7 @@ do
 		local function moveEnd(self)
 			anchorFrame:Hide()
 			if anchorFrame.ticker then
-				anchorFrame.ticker:Cancel()
+				AceTimer:CancelTimer(anchorFrame.ticker)
 				anchorFrame.ticker = nil
 			end
 			font1elapsed = self.Options.WarningDuration2
@@ -6990,7 +7034,7 @@ do
 				moveEnd(self)
 			else
 				anchorFrame:Show()
-				anchorFrame.ticker = anchorFrame.ticker or C_Timer.NewTicker(5, function() self:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE) end)
+				anchorFrame.ticker = anchorFrame.ticker or AceTimer:ScheduleRepeatingTimer(function() self:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE) end, 5)
 				self:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
 				self:Schedule(15, moveEnd, self)
 				self.Bars:CreateBar(15, DBM_CORE_MOVE_WARNING_BAR)
@@ -7637,7 +7681,7 @@ do
 		if font1elapsed > duration * 1.3 then
 			font1:Hide()
 			if frame.font1ticker then
-				frame.font1ticker:Cancel()
+				AceTimer:CancelTimer(frame.font1ticker)
 				frame.font1ticker = nil
 			end
 		elseif font1elapsed > duration then
@@ -7655,7 +7699,7 @@ do
 		if font2elapsed > duration * 1.3 then
 			font2:Hide()
 			if frame.font2ticker then
-				frame.font2ticker:Cancel()
+				AceTimer:CancelTimer(frame.font2ticker)
 				frame.font2ticker = nil
 			end
 		elseif font2elapsed > duration then
@@ -7692,14 +7736,14 @@ do
 			font1:SetText(text)
 			font1:Show()
 			added = true
-			frame.font1ticker = frame.font1ticker or C_Timer.NewTicker(0.05, fontHide1)
+			frame.font1ticker = frame.font1ticker or AceTimer:ScheduleRepeatingTimer(fontHide1, 0.05)
 		elseif not frame.font2ticker or force then
 			font2elapsed = 0
 			font2.lastUpdate = GetTime()
 			font2:SetText(text)
 			font2:Show()
 			added = true
-			frame.font2ticker = frame.font2ticker or C_Timer.NewTicker(0.05, fontHide2)
+			frame.font2ticker = frame.font2ticker or AceTimer:ScheduleRepeatingTimer(fontHide2, 0.05)
 		end
 		if not added then
 			local prevText1 = font2:GetText()

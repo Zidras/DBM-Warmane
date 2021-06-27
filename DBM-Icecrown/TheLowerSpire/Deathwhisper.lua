@@ -200,19 +200,30 @@ end
 do	-- add the additional Shield Bar
 	local last = 100
 	local function getShieldPercent()
-		local guid = UnitGUID("focus")
+
+		local unitId = "boss1"
+		local guid = UnitGUID(unitId)
 		if mod:GetCIDFromGUID(guid) == 36855 then
-			last = math.floor(UnitMana("focus")/UnitManaMax("focus") * 100)
+			last = math.floor(UnitMana(unitId)/UnitManaMax(unitId) * 100)
 			return last
 		end
+
+		unitId = "boss1"
+		guid = UnitGUID(unitId)
+		if mod:GetCIDFromGUID(guid) == 36855 then
+			last = math.floor(UnitMana(unitId)/UnitManaMax(unitId) * 100)
+			return last
+		end
+
 		for i = 0, GetNumRaidMembers(), 1 do
-			local unitId = ((i == 0) and "target") or ("raid"..i.."target")
+			unitId = ((i == 0) and "target") or ("raid"..i.."target")
 			guid = UnitGUID(unitId)
 			if mod:GetCIDFromGUID(guid) == 36855 then
 				last = math.floor(UnitMana(unitId)/UnitManaMax(unitId) * 100)
 				return last
 			end
 		end
+
 		return last
 	end
 	function mod:CreateShildHPFrame()

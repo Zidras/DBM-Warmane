@@ -21,55 +21,46 @@ mod:AddBoolOption("RemoveHealthBuffsInP3", false)
 
 -- Adds
 local warnAdds				= mod:NewAnnounce("warnAdds", 3, 45419)
-local timerAdds				= mod:NewTimer(45, "timerAdds", 45419)
-local Burrowed				= false
+local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_CORE_TANK_ICON)
 
 -- Pursue
 local warnPursue			= mod:NewTargetAnnounce(67574, 4)
 local specWarnPursue		= mod:NewSpecialWarning("SpecWarnPursue")
-local warnHoP				= mod:NewTargetAnnounce(10278, 2, nil, false)--Heroic strat revolves around kiting pursue and using Hand of Protection.
-local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, false)--So we will track bops to make this easier.
+local warnHoP				= mod:NewTargetAnnounce(10278, 2)--Heroic strat revolves around kiting pursue and using Hand of Protection.
+local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, nil, nil, 3)--So we will track bops to make this easier.
 mod:AddBoolOption("PlaySoundOnPursue")
 mod:AddBoolOption("PursueIcon")
 
 -- Emerge
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerEmerge			= mod:NewTimer(62, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
 
 -- Submerge
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnSubmergeSoon		= mod:NewAnnounce("WarnSubmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local specWarnSubmergeSoon	= mod:NewSpecialWarning("specWarnSubmergeSoon", mod:IsTank())
-local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-
--- Submerge 2
-local warnSubmergeTwo			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-local warnSubmergeTwoSoon		= mod:NewAnnounce("WarnSubmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-local specWarnSubmergeTwoSoon	= mod:NewSpecialWarning("specWarnSubmergeSoon", mod:IsTank())
-local timerSubmergeTwo			= mod:NewTimer(145, "2nd Submerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-
--- Extra Emerge timers
-local timerEmergeOne			= mod:NewTimer(65, "1st Emerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmergeTwo			= mod:NewTimer(65, "2nd Emerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
 
 -- Phases
 local warnPhase3			= mod:NewPhaseAnnounce(3)
-local enrageTimer			= mod:NewBerserkTimer(570)	-- 9:30 ? hmpf (no enrage while submerged... this sucks)
+local enrageTimer			= mod:NewBerserkTimer(570)
+local Burrowed				= false
 
 -- Penetrating Cold
 local specWarnPCold			= mod:NewSpecialWarningYou(68510, false)
-local timerPCold			= mod:NewBuffActiveTimer(15, 68509)
-mod:AddBoolOption("SetIconsOnPCold", true)
+local timerPCold			= mod:NewBuffActiveTimer(15, 68509, nil, nil, nil, 3)
+
+mod:AddSetIconOption("SetIconsOnPCold", 68510, true, true, {7, 6, 5, 4, 3})
 mod:AddBoolOption("AnnouncePColdIcons", false)
 mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
 
 -- Freezing Slash
 local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, mod:IsHealer() or mod:IsTank())
-local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank())
+local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank(), nil, nil, nil, DBM_CORE_TANK_ICON..DBM_CORE_HEALER_ICON)
 
 -- Shadow Strike
-local timerShadowStrike		= mod:NewNextTimer(30, 66134)
+local timerShadowStrike		= mod:NewNextTimer(30.0, 66134, nil, true, nil, 4, nil, DBM_CORE_MYTHIC_ICON, nil, 3)
 local preWarnShadowStrike	= mod:NewSoonAnnounce(66134, 3)
 local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
 local specWarnShadowStrike	= mod:NewSpecialWarning("SpecWarnShadowStrike", mod:IsTank())
@@ -82,17 +73,12 @@ function mod:OnCombatStart(delay)
 	warnSubmergeSoon:Schedule(70-delay)
 	specWarnSubmergeSoon:Schedule(70-delay)
 	timerSubmerge:Start(80-delay)
-	timerEmergeOne:Schedule(80)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(-delay)
-	warnSubmergeTwoSoon:Schedule(215)
-	specWarnSubmergeTwoSoon:Schedule(215)
-	timerSubmergeTwo:Schedule(80)
-	timerEmergeTwo:Schedule(225)
 	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
-		self:ScheduleMethod(30.5-delay, "ShadowStrike")
+		self:ScheduleMethod(30-delay, "ShadowStrike")
 	end
 	self.vb.phase = 1
 end
@@ -111,28 +97,25 @@ function mod:ShadowStrike(offset)
 	offset = offset or 0
 	if self:IsInCombat() then
 		timerShadowStrike:Cancel()
-		timerShadowStrike:Start(30-offset)
+		timerShadowStrike:Start(30.0-offset)
 		preWarnShadowStrike:Cancel()
 		preWarnShadowStrike:Schedule(25.5-offset)
 		self:UnscheduleMethod("ShadowStrike")
-		self:ScheduleMethod(30-offset, "ShadowStrike")
+		self:ScheduleMethod(30.0-offset, "ShadowStrike")
 	end
 end
 
-function mod:Unburrow()
-	Burrowed = false
-	timerAdds:Start(5)
-	warnAdds:Schedule(5)
-	self:ScheduleMethod(5, "Adds")
-	warnEmerge:Show()
-	warnSubmergeSoon:Schedule(65)
-	specWarnSubmergeSoon:Schedule(65)
-	timerSubmerge:Start()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
-		timerShadowStrike:Stop()
-		preWarnShadowStrike:Cancel()
+function mod:ShadowStrikeReset(time)
+	if not time then return end
+	if self:IsInCombat() then
+		timerShadowStrike:Cancel()
+		timerShadowStrike:Start(time)
+		if (time - 5) > 0 then
+			preWarnShadowStrike:Cancel()
+			preWarnShadowStrike:Schedule(time-5)
+		end
 		self:UnscheduleMethod("ShadowStrike")
-		self:ScheduleMethod(5.5, "ShadowStrike", 9)  -- 9 sec offset
+		self:ScheduleMethod(time, "ShadowStrike")
 	end
 end
 
@@ -175,9 +158,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if self.Options.SetIconsOnPCold then
 			table.insert(PColdTargets, DBM:GetRaidUnitId(args.destName))
-			if ((mod:IsDifficulty("normal25") or mod:IsDifficulty("heroic25")) and #PColdTargets >= 5) or ((mod:IsDifficulty("normal10") or mod:IsDifficulty("heroic10")) and #PColdTargets >= 2) then
-				self:SetPcoldIcons()--Sort and fire as early as possible once we have all targets.
-			end
+			self:UnscheduleMethod("SetPcoldIcons")
+			self:ScheduleMethod(0.2, "SetPcoldIcons")
 		end
 		timerPCold:Show()
 	elseif args:IsSpellID(66012) then							-- Freezing Slash
@@ -211,6 +193,8 @@ function mod:SPELL_CAST_START(args)
 		specWarnSubmergeSoon:Cancel()
 		timerEmerge:Stop()
 		timerSubmerge:Stop()
+		local left = timerShadowStrike:GetRemaining()
+		self:ShadowStrikeReset(left+1.5)
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
@@ -219,7 +203,7 @@ function mod:SPELL_CAST_START(args)
 			warnAdds:Cancel()
 			self:UnscheduleMethod("Adds")
 		end
-	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then							-- Shadow Strike
+	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then
 		self:ShadowStrike()
 		specWarnShadowStrike:Show()
 		warnShadowStrike:Show()
@@ -235,9 +219,12 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(55)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
-		self:ScheduleMethod(65, "Unburrow")
+		timerShadowStrike:Stop()
+		preWarnShadowStrike:Cancel()
+		self:UnscheduleMethod("ShadowStrike")
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
+		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
 		self:ScheduleMethod(5, "Adds")
@@ -249,7 +236,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(5.5, "ShadowStrike", 7)  -- 35-36sec after Emerge next ShadowStrike
+			self:ScheduleMethod(5.0, "ShadowStrike")
 		end
 	end
 end

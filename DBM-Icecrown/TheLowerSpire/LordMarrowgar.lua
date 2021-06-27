@@ -23,7 +23,7 @@ local specWarnColdflame		= mod:NewSpecialWarningMove(69146, nil, nil, nil, 1, 2)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
 local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerWhirlwindCD		= mod:NewCDTimer(63, 69076, nil, nil, nil, 2) -- Edited
+local timerWhirlwindCD		= mod:NewCDTimer(63, 69076, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 1) -- Edited
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
 local timerBoneSpikeUp		= mod:NewCastTimer(69057)

@@ -2,10 +2,10 @@ local mod	= DBM:NewMod("Valithria", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4436 $"):sub(12, -3))
-mod:SetCreatureID(36789, 38589)
+mod:SetCreatureID(36789)
 mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
-mod:RegisterCombat("combat")
+
 mod:RegisterCombat("yell", L.YellPull)
 
 mod:RegisterEvents(
@@ -16,8 +16,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"SPELL_MISSED",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_TARGET",
-	"UNIT_SPELLCAST_START boss1"
+	"UNIT_TARGET"
 )
 
 local warnCorrosion			= mod:NewStackAnnounce(70751, 2, nil, false)
@@ -146,6 +145,8 @@ function mod:SPELL_CAST_START(args)
 			self.vb.blazingSkeleton = args.sourceGUID
 			self:TrySetTarget()
 		end
+	elseif args.spellId == 71189 then
+		DBM:EndCombat(self)
 	end
 end
 
@@ -200,12 +201,6 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 function mod:UNIT_TARGET()
 	if self.vb.blazingSkeleton then
 		self:TrySetTarget()
-	end
-end
-
-function mod:UNIT_SPELLCAST_START(uId, spellName)
-	if spellName == GetSpellInfo(71189) then
-		DBM:EndCombat(self)
 	end
 end
 

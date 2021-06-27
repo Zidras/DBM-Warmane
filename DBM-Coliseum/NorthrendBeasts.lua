@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4385 $"):sub(12, -3))
-mod:SetCreatureID(34797)
+mod:SetRevision(("$Revision: 4396 $"):sub(12, -3))
+mod:SetMinSyncRevision(4396)
+mod:SetCreatureID(34797, 35144, 34799, 34796)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -42,26 +43,26 @@ local specWarnChargeNear	= mod:NewSpecialWarning("SpecialWarningChargeNear")
 local specWarnTranq			= mod:NewSpecialWarning("SpecialWarningTranq", mod:CanRemoveEnrage())
 
 local enrageTimer			= mod:NewBerserkTimer(225)
-local timerCombatStart		= mod:NewTimer(17.5, "TimerCombatStart", 2457)
+local timerCombatStart		= mod:NewTimer(20.0, "TimerCombatStart", 2457)
 local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457)
 local timerSubmerge			= mod:NewTimer(42, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local timerEmerge			= mod:NewTimer(6, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 local timerBreath			= mod:NewCastTimer(5, 67650)
-local timerNextStomp		= mod:NewNextTimer(20, 66330)
+local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, true, nil, 2, nil, DBM_CORE_INTERRUPT_ICON, nil, mod:IsSpellCaster() and 3 or nil, 3)
 local timerNextImpale		= mod:NewNextTimer(10, 67477, nil, mod:IsTank() or mod:IsHealer())
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758)
-local timerNextCrash		= mod:NewCDTimer(49, 67662) -- Original timer. The second Massive Crash should happen 70 seconds after the first
+local timerNextCrash		= mod:NewCDTimer(49, 67662, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 1) -- Original timer. The second Massive Crash should happen 70 seconds after the first
 
-local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, mod:IsMelee())
-local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, mod:IsMelee())
+local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, mod:IsMelee() or mod:IsHealer())
+local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, mod:IsMelee() or mod:IsHealer())
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819)
 local timerMoltenSpewCD		= mod:NewCDTimer(21, 66820)
 local timerParalyticSprayCD	= mod:NewCDTimer(21, 66901)
 local timerBurningSprayCD	= mod:NewCDTimer(21, 66902)
-local timerParalyticBiteCD	= mod:NewCDTimer(25, 66824, nil, mod:IsTank())
-local timerBurningBiteCD	= mod:NewCDTimer(15, 66879, nil, mod:IsTank())
+local timerParalyticBiteCD	= mod:NewCDTimer(25, 66824, nil, mod:IsTank() or mod:IsHealer())
+local timerBurningBiteCD	= mod:NewCDTimer(15, 66879, nil, mod:IsTank() or mod:IsHealer())
 
 mod:AddBoolOption("PingCharge")
 mod:AddBoolOption("SetIconOnChargeTarget", true)
@@ -102,14 +103,16 @@ function mod:OnCombatStart(delay)
 	DreadscaleActive = true
 	DreadscaleDead = false
 	AcidmawDead = false
-	specWarnSilence:Schedule(37-delay)
+	timerCombatStart:Start()
+	specWarnSilence:Cancel()
+	specWarnSilence:Schedule(20+4.5-delay)
+	specWarnSilence:ScheduleVoice(20+4.5-delay, "silencesoon")
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerNextBoss:Start(175 - delay)
-		timerNextBoss:Schedule(170)
+		timerNextBoss:Start(20+152 - delay)
+		timerNextBoss:Schedule(20+147)
 	end
-	timerNextStomp:Start(38-delay)
-	timerRisingAnger:Start(48-delay)
-	timerCombatStart:Start(14.5-delay)
+	timerNextStomp:Start(20+5.5-delay)
+	timerRisingAnger:Start(20+16-delay)
 	updateHealthFrame(1)
 	self.vb.phase = 1
 end
@@ -168,7 +171,7 @@ function mod:WormsSubmerge()
 	timerBurningSprayCD:Cancel()
 	timerParalyticBiteCD:Cancel()
 	DreadscaleActive = not DreadscaleActive
-	self:ScheduleMethod(6, "WormsEmerge")
+	self:ScheduleMethod(3, "WormsEmerge")
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -302,8 +305,8 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
-		self:ScheduleMethod(17, "WormsEmerge")
-		timerCombatStart:Show(11.5)
+		self:ScheduleMethod(14, "WormsEmerge")
+		timerCombatStart:Show(12)
 		updateHealthFrame(2)
 		self.vb.phase = 2
 		if self.Options.RangeFrame then
@@ -330,6 +333,7 @@ end
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
+
 	if cid == 34796 then
 		specWarnSilence:Cancel()
 		timerNextStomp:Stop()
@@ -347,6 +351,7 @@ function mod:UNIT_DIED(args)
 			timerSlimePoolCD:Cancel()
 		end
 		if DreadscaleDead then
+			timerNextBoss:Cancel()
 			DBM.BossHealth:RemoveBoss(35144)
 			DBM.BossHealth:RemoveBoss(34799)
 		end
@@ -361,9 +366,12 @@ function mod:UNIT_DIED(args)
 			timerSweepCD:Cancel()
 		end
 		if AcidmawDead then
+			timerNextBoss:Cancel()
 			DBM.BossHealth:RemoveBoss(35144)
 			DBM.BossHealth:RemoveBoss(34799)
 		end
+	elseif cid == 34797 then
+		DBM:EndCombat(self)
 	end
 end
 
