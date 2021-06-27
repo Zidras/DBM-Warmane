@@ -137,10 +137,9 @@ L:SetTimerLocalization{
 
 L:SetWarningLocalization{
 	WarnReanimating				= "Помощник воскрешается",			-- Reanimating an adherent or fanatic
-	WarnTouchInsignificance		= "%s на |3-5(>%s<) (%d)",		-- Touch of Insignificance on >args.destName< (args.amount)
 	WarnAddsSoon				= "Скоро призыв помощников",
 	SpecWarnVengefulShade		= "Мстительный дух атакует вас - бегите", --creatureid 38222
-	WeaponsStatus				= "Cнятие оружий включено",
+	WeaponsStatus				= "Cнятие оружий включено"
 }
 
 L:SetOptionLocalization{
@@ -150,7 +149,6 @@ L:SetOptionLocalization{
 	SpecWarnVengefulShade		= "Спец-предупреждение, когда вас атакует Мстительный дух",--creatureid 38222
 	WeaponsStatus				= "Спец-предупреждение в начале боя если включена функция снятия/надевания оружий",
 	ShieldHealthFrame			= "Показывать здоровье босса с индикатором здоровья для \n$spell:70842",
-	WarnTouchInsignificance		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71204, GetSpellInfo(71204) or "unknown"),
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
@@ -161,9 +159,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Как вы смеете ступать в эти священные покои? Это место станет вашей могилой!",
 	YellReanimatedFanatic	= "Восстань и обрети истинную форму!",
-	YellMC					= "Ты не в силах противиться моей воле!",
 	ShieldPercent			= "Барьер маны",
 	Fanatic1				= "Фанатик культа",
 	Fanatic2				= "Кособокий фанатик",
