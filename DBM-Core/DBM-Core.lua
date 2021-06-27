@@ -8601,6 +8601,10 @@ do
 			if self.option then
 				countVoice = self.mod.Options[self.option .. "CVoice"]
 				if not self.fade and (type(countVoice) == "string" or countVoice > 0) then--Started without faded and has count voice assigned
+					local bar = DBM.Bars:GetBar(id)
+					if bar and bar.countdown and bar.countdown > 0 then
+						DBM:Unschedule(playCountSound, id)
+					end
 					playCountdown(id, timer, countVoice, countVoiceMax)--timerId, timer, voice, count
 				end
 			end
