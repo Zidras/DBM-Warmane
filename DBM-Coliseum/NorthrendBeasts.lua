@@ -271,6 +271,7 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.Charge) or msg:find(L.Charge) then
+		timerNextCrash:Cancel()
 		timerNextCrash:Start()
 		if self.Options.ClearIconsOnIceHowl then
 			self:ClearIcons()
@@ -321,6 +322,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:UnscheduleMethod("WormsSubmerge")
 		self:UnscheduleMethod("WormsEmerge")
 		timerCombatStart:Show(6)
+		timerNextCrash:Cancel()
 		timerNextCrash:Start(4+32)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
@@ -377,6 +379,7 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 	if spellName == GetSpellInfo(66683) then
+		timerNextCrash:Cancel()
 		timerNextCrash:Start(49)
 	end
 end
