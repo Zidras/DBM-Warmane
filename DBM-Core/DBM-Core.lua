@@ -1096,6 +1096,7 @@ do
 				"CHAT_MSG_ADDON",
 				"PLAYER_REGEN_DISABLED",
 				"PLAYER_REGEN_ENABLED",
+				"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
 				"UNIT_DIED",
 				"UNIT_DESTROYED",
 				"CHAT_MSG_WHISPER",
@@ -4388,6 +4389,34 @@ do
 				end
 			end
 			clearTargetList()
+		end
+	end
+
+	local function isBossEngaged(cId)
+		-- note that this is designed to work with any number of bosses, but it might be sufficient to check the first 5 unit ids
+		-- TODO: check if the client supports more than 5 boss unit IDs...just because the default boss health frame is limited to 5 doesn't mean there can't be more
+		local i = 1
+		repeat
+			local bossUnitId = "boss"..i
+			local bossGUID = not UnitIsDead(bossUnitId) and UnitGUID(bossUnitId) -- check for UnitIsVisible maybe?
+			local bossCId = bossGUID and DBM:GetCIDFromGUID(bossGUID)
+			if bossCId and (type(cId) == "number" and cId == bossCId or type(cId) == "table" and checkEntry(cId, bossCId)) then
+				return true
+			end
+			i = i + 1
+		until not bossGUID
+	end
+
+	function DBM:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+		if timerRequestInProgress then return end--do not start ieeu combat if timer request is progressing. (not to break Timer Recovery stuff)
+		local combat = combatInfo[GetRealZoneText()] or combatInfo[GetCurrentMapAreaID()]
+		if dbmIsEnabled and combat then
+			DBM:Debug("INSTANCE_ENCOUNTER_ENGAGE_UNIT combatInfo check fired")
+			for i, v in ipairs(combat) do
+				if v.type:find("combat") and isBossEngaged(v.multiMobPullDetection or v.mob) then
+					self:StartCombat(v.mod, 0, "IEEU")
+				end
+			end
 		end
 	end
 
