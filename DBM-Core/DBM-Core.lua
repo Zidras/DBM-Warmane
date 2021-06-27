@@ -723,6 +723,156 @@ do
 		end
 	end
 
+	local registerUnitEvent, unregisterUnitEvent, registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
+	do
+		local frames = {} -- frames that are being used for unit events, one frame per unit id (this could be optimized, as it currently creates a new frame even for a different event, but that's not worth the effort as 90% of all calls are just boss1 anyways)
+
+		function registerUnitEvent(mod, event, ...)
+			mod.registeredUnitEvents = mod.registeredUnitEvents or {}
+			for i = 1, select("#", ...) do
+				local uId = select(i, ...)
+				if not uId then break end
+				local frame = frames[uId]
+				if not frame then
+					frame = CreateFrame("Frame")
+					if uId == "mouseover" then
+						-- work-around for mouse-over events (broken!)
+						frame:SetScript("OnEvent", function(self, event, uId, ...)
+							-- we registered mouseover events, so we only want mouseover events, thanks.
+							handleEvent(self, event, "mouseover", ...)
+						end)
+					else
+						frame:SetScript("OnEvent", handleEvent)
+					end
+					frames[uId] = frame
+				end
+				registeredUnitEventIds[event .. uId] = (registeredUnitEventIds[event .. uId] or 0) + 1
+				mod.registeredUnitEvents[event .. uId] = true
+				frame:RegisterUnitEvent(event, uId)
+			end
+		end
+
+		function unregisterUnitEvent(mod, event, ...)
+			for i = 1, select("#", ...) do
+				local uId = select(i, ...)
+				if not uId then break end
+				local frame = frames[uId]
+				local refs = (registeredUnitEventIds[event .. uId] or 1) - 1
+				registeredUnitEventIds[event .. uId] = refs
+				if refs <= 0 then
+					registeredUnitEventIds[event .. uId] = nil
+					if frame then
+						frame:UnregisterEvent(event)
+					end
+				end
+				if mod.registeredUnitEvents and mod.registeredUnitEvents[event .. uId] then
+					mod.registeredUnitEvents[event .. uId] = nil
+				end
+			end
+			for i = #registeredEvents[event], 1, -1 do
+				if registeredEvents[event][i] == mod then
+					tremove(registeredEvents[event], i)
+				end
+			end
+			if #registeredEvents[event] == 0 then
+				registeredEvents[event] = nil
+			end
+		end
+
+		function registerSpellId(event, spellId)
+			if type(spellId) == "string" then--Something is screwed up, like SPELL_AURA_APPLIED DOSE
+				DBM:AddMsg("DBM RegisterEvents Error: "..spellId.." is not a number!")
+				return
+			end
+			if spellId and not DBM:GetSpellInfo(spellId) then
+				DBM:AddMsg("DBM RegisterEvents Error: "..spellId.." spell id does not exist!")
+				return
+			end
+			if not registeredSpellIds[event] then
+				registeredSpellIds[event] = {}
+			end
+			registeredSpellIds[event][spellId] = (registeredSpellIds[event][spellId] or 0) + 1
+		end
+
+		function unregisterSpellId(event, spellId)
+			if not registeredSpellIds[event] then return end
+			if spellId and not DBM:GetSpellInfo(spellId) then
+				DBM:AddMsg("DBM unregisterSpellId Error: "..spellId.." spell id does not exist!")
+				return
+			end
+			local refs = (registeredSpellIds[event][spellId] or 1) - 1
+			registeredSpellIds[event][spellId] = refs
+			if refs <= 0 then
+				registeredSpellIds[event][spellId] = nil
+			end
+		end
+
+		--There are 2 tables. unfilteredCLEUEvents and registeredSpellIds table.
+		--unfilteredCLEUEvents saves UNFILTERED cleu event count. this is count table to prevent bad unregister.
+		--registeredSpellIds tables filtered table. this saves event and spell ids. works smiliar with unfilteredCLEUEvents table.
+		function registerCLEUEvent(mod, event)
+			local argTable = {strsplit(" ", event)}
+			-- filtered cleu event. save information in registeredSpellIds table.
+			if #argTable > 1 then
+				event = argTable[1]
+				for i = 2, #argTable do
+					registerSpellId(event, tonumber(argTable[i]))
+				end
+			-- no args. works as unfiltered. save information in unfilteredCLEUEvents table.
+			else
+				unfilteredCLEUEvents[event] = (unfilteredCLEUEvents[event] or 0) + 1
+			end
+			registeredEvents[event] = registeredEvents[event] or {}
+			tinsert(registeredEvents[event], mod)
+		end
+
+		function unregisterCLEUEvent(mod, event)
+			local argTable = {strsplit(" ", event)}
+			local eventCleared = false
+			-- filtered cleu event. save information in registeredSpellIds table.
+			if #argTable > 1 then
+				event = argTable[1]
+				for i = 2, #argTable do
+					unregisterSpellId(event, tonumber(argTable[i]))
+				end
+				local remainingSpellIdCount = 0
+				if registeredSpellIds[event] then
+					for _, _ in pairs(registeredSpellIds[event]) do
+						remainingSpellIdCount = remainingSpellIdCount + 1
+					end
+				end
+				if remainingSpellIdCount == 0 then
+					registeredSpellIds[event] = nil
+					-- if unfilteredCLEUEvents and registeredSpellIds do not exists, clear registeredEvents.
+					if not unfilteredCLEUEvents[event] then
+						eventCleared = true
+					end
+				end
+			-- no args. works as unfiltered. save information in unfilteredCLEUEvents table.
+			else
+				local refs = (unfilteredCLEUEvents[event] or 1) - 1
+				unfilteredCLEUEvents[event] = refs
+				if refs <= 0 then
+					unfilteredCLEUEvents[event] = nil
+					-- if unfilteredCLEUEvents and registeredSpellIds do not exists, clear registeredEvents.
+					if not registeredSpellIds[event] then
+						eventCleared = true
+					end
+				end
+			end
+			for i = #registeredEvents[event], 1, -1 do
+				if registeredEvents[event][i] == mod then
+					registeredEvents[event][i] = {}
+					break
+				end
+			end
+			if eventCleared then
+				registeredEvents[event] = nil
+			end
+		end
+	end
+
+	-- UNIT_* events are special: they can take 'parameters' like this: "UNIT_HEALTH boss1 boss2" which only trigger the event for the given unit ids
 	function DBM:RegisterEvents(...)
 		for i = 1, select("#", ...) do
 			local event = select(i, ...)
@@ -740,6 +890,83 @@ do
 			registeredEvents[event] = registeredEvents[event] or {}
 			tinsert(registeredEvents[event], self)
 			mainFrame:RegisterEvent(event)
+		end
+	end
+
+	local function unregisterUEvent(mod, event)
+		if event:sub(0, 5) == "UNIT_" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+			local eventName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", event)
+			if eventName:sub(eventName:len() - 10) == "_UNFILTERED" then
+				mainFrame:UnregisterEvent(eventName:sub(0, -12))
+			else
+				unregisterUnitEvent(mod, eventName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+			end
+		end
+	end
+
+	local function findRealEvent(t, val)
+		for _, v in ipairs(t) do
+			local event = strsplit(" ", v)
+			if event == val then
+				return v
+			end
+		end
+	end
+
+	function DBM:RegisterShortTermEvents(...)
+		local _shortTermRegisterEvents = {...}
+		for k, v in pairs(_shortTermRegisterEvents) do
+			if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
+				-- legacy event, oh noes
+				_shortTermRegisterEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
+			end
+		end
+		self.shortTermEventsRegistered = 1
+		self:RegisterEvents(unpack(_shortTermRegisterEvents))
+		-- Fix so we can register multiple short term events. Use at your own risk, as unsucribing will cause
+		-- all short term events to unregister.
+		if not self.shortTermRegisterEvents then
+			self.shortTermRegisterEvents = {}
+		end
+		for k, v in pairs(_shortTermRegisterEvents) do
+			self.shortTermRegisterEvents[k] = v
+		end
+		-- End fix
+	end
+
+	function DBM:UnregisterShortTermEvents()
+		if self.shortTermRegisterEvents then
+			for event, mods in pairs(registeredEvents) do
+				if event:sub(0, 6) == "SPELL_" or event:sub(0, 6) == "RANGE_" then
+					local i = 1
+					while mods[i] do
+						if mods[i] == self then
+							local findEvent = findRealEvent(self.shortTermRegisterEvents, event)
+							if findEvent then
+								unregisterCLEUEvent(self, findEvent)
+								break
+							end
+						end
+						i = i +1
+					end
+				else
+					local match = false
+					for i = #mods, 1, -1 do
+						if mods[i] == self and checkEntry(self.shortTermRegisterEvents, event) then
+							tremove(mods, i)
+							match = true
+						end
+					end
+					if #mods == 0 or (match and event:sub(0, 5) == "UNIT_" and event:sub(0, -10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED") then
+						unregisterUEvent(self, event)
+					end
+					if #mods == 0 then
+						registeredEvents[event] = nil
+					end
+				end
+			end
+			self.shortTermEventsRegistered = nil
+			self.shortTermRegisterEvents = nil
 		end
 	end
 
@@ -3056,13 +3283,13 @@ do
 		if instanceType == "none" then
 			LastInstanceType = "none"
 			if not targetEventsRegistered then
---				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
+				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
 				targetEventsRegistered = true
 			end
 		else
 			LastInstanceType = instanceType
 			if targetEventsRegistered then
---				self:UnregisterShortTermEvents()
+				self:UnregisterShortTermEvents()
 				targetEventsRegistered = false
 			end
 			if savedDifficulty == "worldboss" then
@@ -5799,6 +6026,8 @@ end
 -----------------------
 bossModPrototype.RegisterEvents = DBM.RegisterEvents
 bossModPrototype.AddMsg = DBM.AddMsg
+bossModPrototype.RegisterShortTermEvents = DBM.RegisterShortTermEvents
+bossModPrototype.UnregisterShortTermEvents = DBM.UnregisterShortTermEvents
 
 function bossModPrototype:SetZone(...)
 	if select("#", ...) == 0 then

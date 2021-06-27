@@ -52,8 +52,7 @@ local isHunter = select(2, UnitClass("player")) == "HUNTER"
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
-mod:AddBoolOption("ShieldHealthFrame", false, "misc")
-mod:RemoveOption("HealthFrame")
+mod:AddBoolOption("ShieldHealthFrame", true)
 mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
 mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
@@ -73,6 +72,7 @@ mod.vb.phase = 0
 mod.vb.dominateMindIcon = 6
 local deformedFanatic
 local empoweredAdherent
+local lastPower = 100
 local shieldName = DBM:GetSpellInfo(70842)
 
 local function has_value(tab, val)
@@ -157,12 +157,14 @@ local function TrySetTarget(self)
 	end
 end
 
+local function getPower()
+	return lastPower
+end
+
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
-	if self.Options.ShieldHealthFrame then
-		DBM.BossHealth:Show(L.name)
-		DBM.BossHealth:AddBoss(36855, L.name)
-		self:ScheduleMethod(0.5, "CreateShildHPFrame")
+	if DBM.BossHealth:IsShown() and self.Options.ShieldHealthFrame then
+		DBM.BossHealth:AddBoss(getPower, shieldName)
 	end
 	berserkTimer:Start(-delay)
 	timerAdds:Start(7)
@@ -180,6 +182,10 @@ function mod:OnCombatStart(delay)
 	self.vb.dominateMindIcon = 6
 	deformedFanatic = nil
 	empoweredAdherent = nil
+	lastPower = 100
+	self:RegisterShortTermEvents(
+		"UNIT_MANA boss1"
+	)
 end
 
 function mod:OnCombatEnd()
@@ -187,29 +193,7 @@ function mod:OnCombatEnd()
 	self:UnscheduleMethod("UnW")
 	self:UnscheduleMethod("EqW")
 	soundWarnMC:Cancel()
-end
-
-do	-- add the additional Shield Bar
-	local last = 100
-	local function getShieldPercent()
-		local guid = UnitGUID("focus")
-		if mod:GetCIDFromGUID(guid) == 36855 then
-			last = math.floor(UnitMana("focus")/UnitManaMax("focus") * 100)
-			return last
-		end
-		for i = 0, GetNumRaidMembers(), 1 do
-			local unitId = ((i == 0) and "target") or ("raid"..i.."target")
-			guid = UnitGUID(unitId)
-			if mod:GetCIDFromGUID(guid) == 36855 then
-				last = math.floor(UnitMana(unitId)/UnitManaMax(unitId) * 100)
-				return last
-			end
-		end
-		return last
-	end
-	function mod:CreateShildHPFrame()
-		DBM.BossHealth:AddBoss(getShieldPercent, L.ShieldPercent)
-	end
+	self:UnregisterShortTermEvents()
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
@@ -266,6 +250,10 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 70842 then
 		self.vb.phase = 2
 		warnPhase2:Show()
+		self:UnregisterShortTermEvents()
+		if DBM.BossHealth:IsShown() and self.Options.ShieldHealthFrame then
+			DBM.BossHealth:RemoveBoss(getPower)
+		end
 		if self:IsDifficulty("normal10", "normal25") then
 			timerAdds:Cancel()
 			warnAddsSoon:Cancel()
@@ -329,6 +317,12 @@ end
 function mod:UNIT_TARGET()
 	if empoweredAdherent or deformedFanatic then
 		TrySetTarget(self)
+	end
+end
+
+function mod:UNIT_MANA(uId)
+	if self:GetUnitCreatureId(uId) == 36855 then
+		lastPower = math.floor(UnitPower(uId)/UnitPowerMax(uId) * 100)
 	end
 end
 
