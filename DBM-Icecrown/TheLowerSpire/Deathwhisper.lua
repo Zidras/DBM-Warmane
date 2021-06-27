@@ -53,6 +53,7 @@ mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
 mod:AddBoolOption("ShieldHealthFrame", false, "misc")
+mod:AddInfoFrameOption(70842, false)
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
 mod:AddBoolOption("EqUneqTimer", false)
@@ -180,6 +181,10 @@ function mod:OnCombatStart(delay)
 	self.vb.dominateMindIcon = 6
 	deformedFanatic = nil
 	empoweredAdherent = nil
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:SetHeader(shieldName)
+		DBM.InfoFrame:Show(1, "enemypower", 2)
+	end
 end
 
 function mod:OnCombatEnd()
@@ -187,6 +192,9 @@ function mod:OnCombatEnd()
 	self:UnscheduleMethod("UnW")
 	self:UnscheduleMethod("EqW")
 	soundWarnMC:Cancel()
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
+	end
 end
 
 do	-- add the additional Shield Bar
@@ -270,6 +278,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			timerAdds:Cancel()
 			warnAddsSoon:Cancel()
 			self:Unschedule(addsTimer)
+		end
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Hide()
 		end
     elseif args:IsSpellID(71289) then
 		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and not self:IsTank() then
