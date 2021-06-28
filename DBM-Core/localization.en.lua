@@ -4,7 +4,7 @@ DBM_DBM								= "DBM"
 DBM_HOW_TO_USE_MOD					= "Welcome to "..DBM_DBM..". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. DBM will setup defaults for your spec, but you may want to fine tune these."
 DBM_SILENT_REMINDER					= "Reminder: "..DBM_DBM.." is still in silent mode."
 
-DBM_CORE_UPDATEREMINDER_URL			= "https://github.com/Barsoomx/DBM-wowcircle"
+DBM_CORE_UPDATEREMINDER_URL			= "https://github.com/Zidras/DBM-Icecrown/"
 
 DBM_COPY_URL_DIALOG					= "Copy URL"
 

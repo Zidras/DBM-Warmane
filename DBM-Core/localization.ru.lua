@@ -3,7 +3,7 @@ if GetLocale() ~= "ruRU" then return end
 DBM_HOW_TO_USE_MOD					= "Добро пожаловать в DBM. Наберите /dbm help чтобы получить список поддерживаемых команд. Для доступа к настройкам наберите /dbm в чате. Загрузите конкретные зоны вручную чтобы настроить определенных боссов по вашему вкусу. DBM установит настройки по умолчанию для вашей специализации, но вы возможно захотите настроить их более тонко."
 DBM_SILENT_REMINDER					= "Напоминание: DBM всё еще в тихом режиме."
 
-DBM_CORE_UPDATEREMINDER_URL			= "https://github.com/Barsoomx/DBM-wowcircle"
+DBM_CORE_UPDATEREMINDER_URL			= "https://github.com/Zidras/DBM-Icecrown/"
 
 DBM_COPY_URL_DIALOG					= "Копировать ссылку"
 

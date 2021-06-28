@@ -8,8 +8,8 @@
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision, DBM_SavedOptions
 ## LoadOnDemand: 0
 ## DefaultState: enabled
-## Author: Barsoom, Bunny67, DBM-frostmourne contributors, original DBM team
-## X-Website: https://github.com/Barsoomx/DBM-wowcircle
+## Author: Barsoom, Bunny67, Zidras, DBM-frostmourne contributors, original DBM team
+## X-Website: https://github.com/Zidras/DBM-Icecrown/
 
 compat.lua
 
