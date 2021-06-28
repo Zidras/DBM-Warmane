@@ -467,7 +467,6 @@ DBM_CORE_AUTO_SOUND_OPTION_TEXT_YOU		= "Звуковой сигнал при $sp
 DBM_CORE_AUTO_SOUND_OPTION_TEXT_SOON	= "Звуковой сигнал при $spell:%d скоро"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT_CLOSE	= "Звуковой сигнал при $spell:%d около вас"
 
-
 -- New special warnings
 DBM_CORE_MOVE_WARNING_BAR			= "Индикатор предупреждения"
 DBM_CORE_MOVE_WARNING_MESSAGE		= "Спасибо за использование Deadly Boss Mods"
