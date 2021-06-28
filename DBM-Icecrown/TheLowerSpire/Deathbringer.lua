@@ -141,7 +141,7 @@ function mod:SPELL_CAST_START(args)
 		warnBloodNova:Show()
 		timerBloodNova:Start()
 	elseif args.spellId == 72293 then
-        self:BossTargetScanner(37813, "FallenMarkTarget", 0.02, 1.50)
+        self:BossTargetScanner(37813, "FallenMarkTarget", 0.01, 10)
     end
 end
 
