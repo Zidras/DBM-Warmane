@@ -1,8 +1,8 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4396 $"):sub(12, -3))
-mod:SetMinSyncRevision(4396)
+mod:SetRevision(("$Revision: 4397 $"):sub(12, -3))
+mod:SetMinSyncRevision(4397)
 mod:SetCreatureID(34797, 35144, 34799, 34796)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -271,6 +271,7 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.Charge) or msg:find(L.Charge) then
+		timerNextCrash:Cancel()
 		timerNextCrash:Start()
 		if self.Options.ClearIconsOnIceHowl then
 			self:ClearIcons()
@@ -321,6 +322,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:UnscheduleMethod("WormsSubmerge")
 		self:UnscheduleMethod("WormsEmerge")
 		timerCombatStart:Show(6)
+		timerNextCrash:Cancel()
 		timerNextCrash:Start(4+32)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
@@ -377,6 +379,7 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 	if spellName == GetSpellInfo(66683) then
+		timerNextCrash:Cancel()
 		timerNextCrash:Start(49)
 	end
 end
