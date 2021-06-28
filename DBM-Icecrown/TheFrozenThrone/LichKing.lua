@@ -93,6 +93,11 @@ local timerTrapCD		 	= mod:NewNextTimer(15.5, 73539, nil, nil, nil, 3, nil, DBM_
 local timerRestoreSoul 		= mod:NewCastTimer(40, 73650, nil, nil, nil, 6)
 local timerRoleplay			= mod:NewTimer(162, "TimerRoleplay", 72350, nil, nil, 6)
 
+local soundInfestSoon		= mod:NewSoundSoon(70541, nil, "Healer|RaidCooldown")
+local soundNecroticOnYou	= mod:NewSoundYou(70337)
+local soundDefileOnYou		= mod:NewSoundYou(72762)
+local soundSoulReaperSoon	= mod:NewSoundSoon(69409, "Tank|Healer|TargetedCooldown")
+
 local berserkTimer			= mod:NewBerserkTimer(900)
 
 mod:AddBoolOption("DefileIcon")
@@ -148,8 +153,10 @@ local function NextPhase(self)
 		end
 		timerSummonValkyr:Start(20)
 		timerSoulreaperCD:Start(40)
+		soundSoulReaperSoon:Schedule(40-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(38)
 		timerInfestCD:Start(14)
+		soundInfestSoon:Schedule(14-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 		warnDefileSoon:Schedule(33)
 		warnDefileSoon:ScheduleVoice(33, "scatter") -- Voice Pack - Scatter.ogg: "Spread!"
 	elseif self.vb.phase == 3 then
@@ -157,6 +164,7 @@ local function NextPhase(self)
 		warnPhase3:Play("phasechange")
 		timerVileSpirit:Start(17)
 		timerSoulreaperCD:Start(37.5)
+		soundSoulReaperSoon:Schedule(37.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(33.5)
 		timerHarvestSoulCD:Start(12)
 		warnDefileSoon:Schedule(30)
@@ -191,6 +199,7 @@ function mod:DefileTarget(targetname, uId)
 	if targetname == UnitName("player") then
 		specWarnDefileCast:Show()
 		specWarnDefileCast:Play("runout")
+		soundDefileOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\defileOnYou.mp3")
 		yellDefile:Yell()
 	else
 		if uId then
@@ -241,6 +250,7 @@ function mod:SPELL_CAST_START(args)
 		timerDrudgeGhouls:Cancel()
 		timerSummonValkyr:Cancel()
 		timerInfestCD:Cancel()
+		soundInfestSoon:Cancel()
 		timerNecroticPlagueCD:Cancel()
 		timerTrapCD:Cancel()
 		timerDefileCD:Cancel()
@@ -273,6 +283,8 @@ function mod:SPELL_CAST_START(args)
 		warnInfest:Show()
 		specWarnInfest:Show()
 		timerInfestCD:Start()
+		soundInfestSoon:Cancel()
+		soundInfestSoon:Schedule(22.5-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 	elseif args.spellId == 72762 then -- Defile
 		self:BossTargetScanner(36597, "DefileTarget", 0.02, 15)
 		warnDefileSoon:Cancel()
@@ -304,6 +316,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNecroticPlagueCleanse:Start()
 		if args:IsPlayer() then
 			specWarnNecroticPlague:Show()
+			soundNecroticOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\necroticOnYou.mp3")
 		end
 		if self.Options.NecroticPlagueIcon then
 			self:SetIcon(lastPlague, 5, 5)
@@ -314,6 +327,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specwarnSoulreaper:Show(args.destName)
 		timerSoulreaper:Start(args.destName)
 		timerSoulreaperCD:Start()
+		soundSoulReaperSoon:Schedule(30.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		if args:IsPlayer() then
 			specWarnSoulreaper:Show()
 			specWarnSoulreaper:Play("defensive")
@@ -355,6 +369,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerHarvestSoulCD:Start(107) -- Custom edit to make Harvest Souls timers work again
 		timerVileSpirit:Cancel()
 		timerSoulreaperCD:Cancel()
+		soundSoulReaperSoon:Cancel()
 		timerDefileCD:Cancel()
 		warnDefileSoon:Cancel()
 		warnDefileSoon:CancelVoice()
@@ -381,6 +396,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72754, 73708, 73709, 73710) and args:IsPlayer() and self:AntiSpam(2, 1) then		-- Defile Damage
 		specWarnDefile:Show()
 		specWarnDefile:Play("runaway")
+		soundDefileOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\defileOnYou.mp3")
 	elseif args.spellId == 73650 and self:AntiSpam(3, 2) then		-- Restore Soul (Heroic)
 		timerHarvestSoulCD:Start(60)
 		timerVileSpirit:Start(10)--May be wrong too but we'll see, didn't have enough log for this one.
@@ -514,6 +530,7 @@ function mod:UNIT_AURA(uId)
 		timerNecroticPlagueCleanse:Start()
 		if name == UnitName("player") and not mod:IsTank() then
 			specWarnNecroticPlague:Show()
+			soundNecroticOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\necroticOnYou.mp3")
 		end
 		if self.Options.NecroticPlagueIcon then
 			self:SetIcon(uId, 5, 5)

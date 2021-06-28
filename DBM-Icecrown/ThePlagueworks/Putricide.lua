@@ -62,6 +62,9 @@ local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)
 local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)
 
+local soundSpecWarnMalleableGoo		= mod:NewSound(72295)
+local soundSpecWarnChokingGasBomb	= mod:NewSound(71255)
+
 local berserkTimer					= mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("OozeAdhesiveIcon")
@@ -96,15 +99,18 @@ function mod:MalleableGooTarget(targetname, uId)
 		specWarnMalleableGoo:Show()
 		specWarnMalleableGoo:Play("targetyou")
 		yellMalleableGoo:Yell()
+		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 	else
 		if uId then
 			local inRange = CheckInteractDistance(uId, 2)
 			if inRange then
 				specWarnMalleableGooNear:Show(targetname)
 				specWarnMalleableGooNear:Play("watchstep")
+				soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 			else
 				specWarnMalleableGooCast:Show()
 				specWarnMalleableGooCast:Play("watchstep")
+				soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 			end
 			if self.Options.GooArrow then
 				local x, y = GetPlayerMapPosition(uId)
@@ -117,6 +123,7 @@ function mod:MalleableGooTarget(targetname, uId)
 		else
 			specWarnMalleableGooCast:Show()
 			specWarnMalleableGooCast:Play("watchstep")
+			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 		end
 	end
 end
@@ -200,6 +207,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args.spellId == 71255 then
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
+		soundSpecWarnChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking.mp3")
 		timerChokingGasBombCD:Start()
 		warnChokingGasBombSoon:Schedule(30.5)
 	elseif args:IsSpellID(72855, 72856, 70911) then

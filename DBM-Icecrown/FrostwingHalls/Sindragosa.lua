@@ -49,6 +49,8 @@ local timerMysticBuffet			= mod:NewBuffFadesTimer(8, 70128, nil, nil, nil, 5)
 local timerNextMysticBuffet		= mod:NewNextTimer(6, 70128, nil, nil, nil, 2)
 local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic")
 
+local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
+
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
@@ -209,6 +211,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			playerUnchained = true
 			specWarnUnchainedMagic:Show()
 			specWarnUnchainedMagic:Play("targetyou")
+			soundUnchainedMagic:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\unchained.mp3")
 		end
 		if self.Options.SetIconOnUnchainedMagic then
 			self:SetIcon(args.destName, self.vb.unchainedIcons)

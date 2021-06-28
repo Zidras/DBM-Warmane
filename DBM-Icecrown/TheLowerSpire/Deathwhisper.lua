@@ -45,8 +45,8 @@ local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
+
 local soundWarnSpirit				= mod:NewSound(71426)
-local soundWarnMC					= mod:NewSound5(71289)
 
 local isHunter = select(2, UnitClass("player")) == "HUNTER"
 mod:AddBoolOption("SetIconOnDominateMind", true)
@@ -120,8 +120,6 @@ local function showDominateMindWarning(self)
 	end
 	table.wipe(dominateMindTargets)
 	self.vb.dominateMindIcon = 6
-	soundWarnMC:Cancel()
-	soundWarnMC:Schedule(35)
 	if mod.Options.EqUneqWeapons and not mod:IsTank() and mod.Options.EqUneqTimer then
 		mod:ScheduleMethod(39, "UnW")
 	end
@@ -171,7 +169,6 @@ function mod:OnCombatStart(delay)
 	self:Schedule(7, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
-		soundWarnMC:Schedule(25)
 		if self.Options.EqUneqWeapons and not self:IsTank() and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
 			self:ScheduleMethod(29, "UnW")
@@ -191,7 +188,6 @@ function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
 	self:UnscheduleMethod("UnW")
 	self:UnscheduleMethod("EqW")
-	soundWarnMC:Cancel()
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
@@ -338,7 +334,7 @@ function mod:SPELL_SUMMON(args)
 	if args.spellId == 71426 and self:AntiSpam(5, 1) then -- Summon Vengeful Shade
 		warnSummonSpirit:Show()
 		timerSummonSpiritCD:Start()
-		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
+		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\spirits.mp3")
 	end
 end
 

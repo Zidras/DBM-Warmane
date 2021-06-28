@@ -49,6 +49,8 @@ local timerShockVortex			= mod:NewCDTimer(15.0, 72037, nil, nil, nil, 3) -- Seen
 local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking
 local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
 
+local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
+
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("EmpoweredFlameIcon", true)
@@ -95,6 +97,7 @@ function mod:ShockVortexTarget(targetname, uId)
 			if inRange then
 				specWarnVortexNear:Show(targetname)
 				specWarnVortexNear:Play("watchstep")
+				soundSpecWarnVortexNear:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\vortexNear.mp3")
 				if self.Options.VortexArrow then
 					local x, y = GetPlayerMapPosition(uId)
 					if x == 0 and y == 0 then

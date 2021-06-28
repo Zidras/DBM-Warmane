@@ -51,6 +51,8 @@ local timerSuppresserTwo			= mod:NewTimer(58, "TimerSuppressorTwo","Interface\\A
 local timerSuppresserThree			= mod:NewTimer(62, "TimerSuppressorThree","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local timerSuppresserFour			= mod:NewTimer(50, "TimerSuppressorFour","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
+local soundSpecWarnSuppresser	= mod:NewSound(70935)
+
 local berserkTimer			= mod:NewBerserkTimer(420)
 
 mod:AddBoolOption("SetIconOnBlazingSkeleton", true)
@@ -106,9 +108,13 @@ function mod:OnCombatStart(delay)
 	timerSuppresserThree:Schedule(88)
 	timerSuppresserFour:Schedule(150)
 	specWarnSuppresserOne:Schedule(30)
+	soundSpecWarnSuppresser:Schedule(30, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 	specWarnSuppresserTwo:Schedule(88)
+	soundSpecWarnSuppresser:Schedule(88, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 	specWarnSuppresserThree:Schedule(150)
+	soundSpecWarnSuppresser:Schedule(150, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 	specWarnSuppresserFour:Schedule(200)
+	soundSpecWarnSuppresser:Schedule(200, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 end
 
 function mod:Portals()

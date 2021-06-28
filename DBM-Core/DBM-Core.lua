@@ -7528,6 +7528,111 @@ do
 	end
 end
 
+do
+	local soundPrototypeYou = {}
+	local mt = { __index = soundPrototypeYou }
+	function bossModPrototype:NewSoundYou(spellId, optionName, optionDefault)
+		self.numSounds = self.numSounds and self.numSounds + 1 or 1
+		local obj = setmetatable(
+			{
+				option = optionName or DBM_CORE_AUTO_SOUND_OPTION_TEXT_YOU:format(spellId),
+				mod = self,
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+		end
+		return obj
+	end
+
+	function soundPrototypeYou:Play(file)
+		if not self.option or self.mod.Options[self.option] then
+			PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav", "Master")
+		end
+	end
+
+	function soundPrototypeYou:Schedule(t, ...)
+		return schedule(t, self.Play, self.mod, self, ...)
+	end
+
+	function soundPrototypeYou:Cancel(...)
+		return unschedule(self.Play, self.mod, self, ...)
+	end
+end
+
+do
+	local soundPrototypeSoon = {}
+	local mt = { __index = soundPrototypeSoon }
+	function bossModPrototype:NewSoundSoon(spellId, optionName, optionDefault)
+		self.numSounds = self.numSounds and self.numSounds + 1 or 1
+		local obj = setmetatable(
+			{
+				option = optionName or DBM_CORE_AUTO_SOUND_OPTION_TEXT_SOON:format(spellId),
+				mod = self,
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+		end
+		return obj
+	end
+
+	function soundPrototypeSoon:Play(file)
+		if not self.option or self.mod.Options[self.option] then
+			PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav", "Master")
+		end
+	end
+
+	function soundPrototypeSoon:Schedule(t, ...)
+		return schedule(t, self.Play, self.mod, self, ...)
+	end
+
+	function soundPrototypeSoon:Cancel(...)
+		return unschedule(self.Play, self.mod, self, ...)
+	end
+end
+
+do
+	local soundPrototypeClose = {}
+	local mt = { __index = soundPrototypeClose }
+	function bossModPrototype:NewSoundClose(spellId, optionName, optionDefault)
+		self.numSounds = self.numSounds and self.numSounds + 1 or 1
+		local obj = setmetatable(
+			{
+				option = optionName or DBM_CORE_AUTO_SOUND_OPTION_TEXT_CLOSE:format(spellId),
+				mod = self,
+			},
+			mt
+		)
+		if optionName == false then
+			obj.option = nil
+		else
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+		end
+		return obj
+	end
+
+	function soundPrototypeClose:Play(file)
+		if not self.option or self.mod.Options[self.option] then
+			PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav", "Master")
+		end
+	end
+
+	function soundPrototypeClose:Schedule(t, ...)
+		return schedule(t, self.Play, self.mod, self, ...)
+	end
+
+	function soundPrototypeClose:Cancel(...)
+		return unschedule(self.Play, self.mod, self, ...)
+	end
+end
+
 --------------------
 --  Yell Object  --
 --------------------

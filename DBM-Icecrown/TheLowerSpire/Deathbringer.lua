@@ -16,6 +16,8 @@ mod:RegisterEvents(
 	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL"
 )
+local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
+local canVanish = select(2, UnitClass("player")) == "ROGUE"
 
 local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, "Tank|Healer")
 local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
@@ -35,6 +37,8 @@ local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5
 local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441, nil, "Healer", nil, 5, nil, DBM_CORE_HEALER_ICON)
 local timerBloodNova		= mod:NewNextTimer(20, 73058, nil, nil, nil, 2)
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON, nil, 3)
+
+local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
 local enrageTimer			= mod:NewBerserkTimer(480)
 
@@ -121,11 +125,24 @@ do	-- add the additional Rune Power Bar
 	end
 end
 
+function mod:FallenMarkTarget(targetname)
+    if not targetname then return end
+    if targetname == UnitName("player") then
+		if canShadowmeld then
+			soundSpecWarnMark:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Shadowmeld.ogg")
+		elseif canVanish then
+			soundSpecWarnMark:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Vanish.ogg")
+		end
+	end
+end
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(73058, 72378) then	-- Blood Nova (only 2 cast IDs, 4 spell damage IDs, and one dummy)
 		warnBloodNova:Show()
 		timerBloodNova:Start()
-	end
+	elseif args.spellId == 72293 then
+        self:BossTargetScanner(37813, "FallenMarkTarget", 0.02, 1.50)
+    end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
