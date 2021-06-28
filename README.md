@@ -24,4 +24,4 @@ This version aims to deliver more accurate timers and features from retail to Wa
 **With no remnants of old DBM files we are now ready to start the installation process.**
 
 1. Download the addon from the **main** repository (https://github.com/Zidras/DBM-Icecrown/archive/refs/heads/main.zip).
-2. Extract the contents of the zip file to your addons folder (Interface/Addons)
+2. Inside the zip file, open DBM-Icecrown-main. Copy/Paste all those folders (DBM-Core, DBM-GUI, etc) into your addons folder (Interface/Addons). DO NOT put the DBM-Icecrown-main folder directly into the addon folder, it will not work.
