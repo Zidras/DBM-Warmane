@@ -5044,33 +5044,25 @@ function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, maxPlayers, playerDifficulty, isDynamicInstance = GetInstanceInfo()
 	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
 		if difficulty == 1 then -- 10 men
-			print(1)
 			return playerDifficulty == 0 and "normal10" or playerDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
 		elseif difficulty == 2 then -- 25 men
-			print(2)
 			return playerDifficulty == 0 and "normal25" or playerDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
 		-- Zidras: prevents breaking for servers with GetInstanceInfo() correctly identifying difficulty 1-4
 		elseif difficulty == 3 then
-			print(3)
 			return "heroic10", difficultyName.." - ", difficulty, maxPlayers
 		elseif difficulty == 4 then
-			print(4)
 			return "heroic25", difficultyName.." - ", difficulty, maxPlayers
 		end
 	else -- support for "old" instances
 		if GetInstanceDifficulty() == 1 then
-			print(5)
 			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
 			self.hasHeroic and "normal10" or "heroic10", difficultyName.." - ", difficulty, maxPlayers
 		elseif GetInstanceDifficulty() == 2 then
-			print(6)
 			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
 			self.hasHeroic and "normal25" or "heroic25", difficultyName.." - ", difficulty, maxPlayers
 		elseif GetInstanceDifficulty() == 3 then
-			print(7)
 			return "heroic10", difficultyName.." - ", difficulty, maxPlayers
 		elseif GetInstanceDifficulty() == 4 then
-			print(8)
 			return "heroic25", difficultyName.." - ", difficulty, maxPlayers
 		end
 	end
