@@ -442,11 +442,11 @@ do
 					if IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
 						if self.Options.ValkyrIcon then
 							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName(uId)), "RAID")
-							grabIcon = grabIcon + 1
 						else
 							SendChatMessage(L.ValkGrabbed:format(UnitName(uId)), "RAID")
 						end
 					end
+					grabIcon = grabIcon + 1
 				end
 			end
 			self:Schedule(0.5, scanValkyrTargets, self)  -- check for more targets in a few
