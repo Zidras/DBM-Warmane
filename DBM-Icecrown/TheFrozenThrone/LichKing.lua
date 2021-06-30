@@ -96,7 +96,7 @@ local timerRoleplay			= mod:NewTimer(162, "TimerRoleplay", 72350, nil, nil, 6)
 local soundInfestSoon		= mod:NewSoundSoon(70541, nil, "Healer|RaidCooldown")
 local soundNecroticOnYou	= mod:NewSoundYou(70337)
 local soundDefileOnYou		= mod:NewSoundYou(72762)
-local soundSoulReaperSoon	= mod:NewSoundSoon(69409, "Tank|Healer|TargetedCooldown")
+local soundSoulReaperSoon	= mod:NewSoundSoon(69409, nil, "Tank|Healer|TargetedCooldown")
 
 local berserkTimer			= mod:NewBerserkTimer(900)
 
