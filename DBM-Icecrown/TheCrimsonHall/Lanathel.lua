@@ -50,7 +50,6 @@ mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
 mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("YellOnFrenzy", false, "announce")
 
 local pactTargets = {}
 mod.vb.pactIcons = 6
