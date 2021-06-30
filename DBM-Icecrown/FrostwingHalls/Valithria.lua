@@ -31,10 +31,10 @@ local specWarnGutSpray		= mod:NewSpecialWarningDefensive(70633, nil, nil, nil, 1
 local specWarnLayWaste		= mod:NewSpecialWarningSpell(69325, nil, nil, nil, 2, 2)
 local specWarnManaVoid		= mod:NewSpecialWarningMove(71179, nil, nil, nil, 1, 2)
 
-local specWarnSuppresserOne			= mod:NewSpecialWarning("Suppressors")
-local specWarnSuppresserTwo			= mod:NewSpecialWarning("Suppressors")
-local specWarnSuppresserThree		= mod:NewSpecialWarning("Suppressors")
-local specWarnSuppresserFour		= mod:NewSpecialWarning("Suppressors")
+local specWarnSuppresserOne			= mod:NewSpecialWarning("Suppressers")
+local specWarnSuppresserTwo			= mod:NewSpecialWarning("Suppressers")
+local specWarnSuppresserThree		= mod:NewSpecialWarning("Suppressers")
+local specWarnSuppresserFour		= mod:NewSpecialWarning("Suppressers")
 
 local timerLayWaste			= mod:NewBuffActiveTimer(12, 69325, nil, nil, nil, 2)
 local timerNextPortal		= mod:NewCDTimer(46.5, 72483, nil, nil, nil, 5, nil, DBM_CORE_HEALER_ICON)
@@ -46,10 +46,10 @@ local timerCorrosion		= mod:NewTargetTimer(6, 70751, nil, false, nil, 3)
 local timerBlazingSkeleton	= mod:NewTimer(50, "TimerBlazingSkeleton", 17204, nil, nil, 1)
 local timerAbom				= mod:NewTimer(50, "TimerAbom", 43392, nil, nil, 1)
 
-local timerSuppresserOne			= mod:NewTimer(30, "TimerSuppressorOne","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSuppresserTwo			= mod:NewTimer(58, "TimerSuppressorTwo","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSuppresserThree			= mod:NewTimer(62, "TimerSuppressorThree","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSuppresserFour			= mod:NewTimer(50, "TimerSuppressorFour","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserOne			= mod:NewTimer(30, "TimerSuppresserOne","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserTwo			= mod:NewTimer(58, "TimerSuppresserTwo","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserThree			= mod:NewTimer(62, "TimerSuppresserThree","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerSuppresserFour			= mod:NewTimer(50, "TimerSuppresserFour","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 local soundSpecWarnSuppresser	= mod:NewSound(70935)
 
