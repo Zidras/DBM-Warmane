@@ -70,6 +70,7 @@ L.ModelOptions				= "3D Model Viewer Options"
 L.EnableModels				= "Enable 3D models in boss options"
 
 L.Button_RangeFrame			= "Show/hide range frame"
+L.Button_InfoFrame			= "Show/hide info frame"
 L.Button_TestBars			= "Start test bars"
 
 L.PizzaTimer_Headline 		= 'Create a "Pizza Timer"'
