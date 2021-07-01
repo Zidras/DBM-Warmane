@@ -37,7 +37,7 @@ local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(71420, "HasInterrupt
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
-local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131, nil, nil, 1, DBM_CORE_TANK_ICON..DBM_CORE_DAMAGE_ICON)
+local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131, nil, nil, 1, DBM_CORE_TANK_ICON..DBM_CORE_DAMAGE_ICON)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
 local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
@@ -49,6 +49,7 @@ local berserkTimer					= mod:NewBerserkTimer(600)
 local soundWarnSpirit				= mod:NewSound(71426)
 
 local isHunter = select(2, UnitClass("player")) == "HUNTER"
+mod:AddBoolOption("RemoveDruidBuff", true, not mod:IsTank())
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
@@ -125,17 +126,17 @@ local function showDominateMindWarning(self)
 	end
 end
 
-local function addsTimer(self)  -- Edited add spawn timers, working for heroic mode
+function mod:addsTimer()
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:Schedule(45, addsTimer, self)
+		self:ScheduleMethod(45, "addsTimer")
 		timerAdds:Start(45)
 	else
-		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:Schedule(45, addsTimer, self)
-		timerAdds:Start(45)
+		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
+		self:ScheduleMethod(60, "addsTimer")
+		timerAdds:Start()
 	end
 end
 
@@ -169,6 +170,9 @@ function mod:OnCombatStart(delay)
 	self:Schedule(7, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
+		if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
+			mod:ScheduleMethod(24, "RemoveBuffs")
+		end
 		if self.Options.EqUneqWeapons and not self:IsTank() and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
 			self:ScheduleMethod(29, "UnW")
@@ -354,4 +358,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
 	end
+end
+
+function mod:RemoveBuffs()
+	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild
+	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild
 end
