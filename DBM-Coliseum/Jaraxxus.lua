@@ -40,11 +40,11 @@ local specWarnFelInferno		= mod:NewSpecialWarningMove(68718)
 local SpecWarnFelFireball		= mod:NewSpecialWarning("SpecWarnFelFireball", false)
 local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66965, isMagicDispeller)
 
-local timerCombatStart			= mod:NewTimer(90.5, "TimerCombatStart", 2457)--roleplay for first pull
+local timerCombatStart			= mod:NewTimer(76.5, "TimerCombatStart", 2457)--roleplay for first pull
 local enrageTimer				= mod:NewBerserkTimer(600)
 local timerFlame 				= mod:NewTargetTimer(8, 68123)--There are 8 debuff Ids. Since we detect first to warn, use an 8sec timer to cover duration of trigger spell and damage debuff.
 local timerFlameCD				= mod:NewCDTimer(30, 68125)
-local timerNetherPowerCD		= mod:NewCDTimer(42, 67009)
+local timerNetherPowerCD		= mod:NewCDTimer(45, 67009)
 local timerFlesh				= mod:NewTargetTimer(12, 67049)
 local timerFleshCD				= mod:NewCDTimer(23, 67051)
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
@@ -68,8 +68,8 @@ function mod:OnCombatStart(delay)
 	warnPortalTwoSoon:Schedule(137-delay)
 	timerVolcanoCD:Start(82-delay)
 	warnVolcanoSoon:Schedule(77-delay)
-    timerNetherPowerCD:Start(40-delay)
-	warnNetherPowerSoon:Schedule(37-delay)
+    timerNetherPowerCD:Start(15-delay)
+	warnNetherPowerSoon:Schedule(10-delay)
 	timerFleshCD:Start(14-delay)
 	timerFlameCD:Start(20-delay)
 	enrageTimer:Start(-delay)
@@ -149,7 +149,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		setIncinerateTarget(self, args.destGUID, args.destName)
 		self:Schedule(15, clearIncinerateTarget, self, args.destName)
 	elseif args:IsSpellID(66228, 67108, 67106, 67107) and self:AntiSpam(1,67009) then
-		timerNetherPowerCD:Stop()							-- Nether Power
+		timerNetherPowerCD:Stop()								-- Nether Power
 		timerNetherPowerCD:Start()
 		warnNetherPowerSoon:Schedule(40)
 		specWarnNetherPower:Show()
@@ -193,7 +193,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(67009) and self:AntiSpam(1,67009) then								-- Nether Power
+	if args:IsSpellID(67009) and self:AntiSpam(1,67009) then	-- Nether Power
 		warnNetherPower:Show()
 		timerNetherPowerCD:Start()
 		warnNetherPowerSoon:Schedule(35)
