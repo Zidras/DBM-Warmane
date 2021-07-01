@@ -44,7 +44,8 @@ local timerBloodBolt				= mod:NewBuffActiveTimer(6, 71772, nil, nil, nil, 2)
 local timerBloodThirst				= mod:NewBuffFadesTimer(10, 70877, nil, nil, nil, 5)
 local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, nil, 5)
 
-local berserkTimer					= mod:NewBerserkTimer(320)
+local berserkTimer					= mod:NewBerserkTimer(330)
+local berserkTimerLordaeron			= mod:NewTimer(300, "Berserk Timer Lordaeron", nil, false)
 
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
@@ -63,6 +64,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
+	berserkTimerLordaeron:Start(-delay)
 	timerFirstBite:Start(-delay)
 	timerNextPactDarkfallen:Start(15-delay)
 	timerNextSwarmingShadows:Start(-delay)
