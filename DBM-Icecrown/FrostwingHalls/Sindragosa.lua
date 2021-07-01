@@ -52,6 +52,7 @@ local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic
 local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
 
 local berserkTimer				= mod:NewBerserkTimer(600)
+local berserkTimerLordaeron		= mod:NewTimer(390, "Berserk Timer Lordaeron", nil, false)
 
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
@@ -142,6 +143,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
+	berserkTimerLordaeron:Start()
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
 	self.vb.warned_P2 = false
@@ -236,7 +238,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 69766 then	--Instability (casters)
 		if args:IsPlayer() then
 			timerInstability:Start()
-			if (args.amount or 1) >= 4 then
+			if (args.amount or 1) >= 3 then
 				specWarnInstability:Show(args.amount)
 				--specWarnInstability:Play("stackhigh")
 			else
@@ -321,8 +323,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		warnAirphase:Show()
 		timerNextFrostBreath:Cancel()
-		timerUnchainedMagic:Start(56)
-		timerNextBlisteringCold:Start(78.5)--Not exact anywhere from 80-110seconds after airphase begin
+		timerUnchainedMagic:Start(55)
+		timerNextBlisteringCold:Start(80)--Not exact anywhere from 80-110seconds after airphase begin
 		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
 		warnGroundphaseSoon:Schedule(37.5)
