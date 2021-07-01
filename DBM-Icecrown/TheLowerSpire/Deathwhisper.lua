@@ -106,6 +106,11 @@ function mod:EqW()
 	end
 end
 
+function mod:RemoveBuffs()
+	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild
+	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild
+end
+
 local function showDominateMindWarning(self)
 	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 	timerDominateMind:Start()
@@ -358,9 +363,4 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
 	end
-end
-
-function mod:RemoveBuffs()
-	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild
-	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild
 end
