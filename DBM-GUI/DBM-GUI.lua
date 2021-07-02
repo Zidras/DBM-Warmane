@@ -1410,8 +1410,19 @@ local function CreateOptionsMenu()
 			end
 		end)
 
+		local bminfo = generaloptions:CreateButton(L.Button_InfoFrame, 120, 30)
+		bminfo.myheight = 0
+		bminfo:SetPoint("LEFT", bmrange, "RIGHT", 2, 0)
+		bminfo:SetScript("OnClick", function()
+			if DBM.InfoFrame:IsShown() then
+				DBM.InfoFrame:Hide()
+			else
+				DBM.InfoFrame:Show(5, "test")
+			end
+		end)
+
 		local bmtestmode  = generaloptions:CreateButton(L.Button_TestBars, 150, 30)
-		bmtestmode:SetPoint('TOPLEFT', bmrange, "TOPRIGHT", 0, 0)
+		bmtestmode:SetPoint('TOPLEFT', bminfo, "TOPRIGHT", 0, 0)
 		bmtestmode:SetScript("OnClick", function(self) DBM:DemoMode() end)
 
 		local latencySlider = generaloptions:CreateSlider(L.Latency_Text, 50, 750, 5, 210)   -- (text , min_value , max_value , step , width)

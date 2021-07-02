@@ -1897,7 +1897,7 @@ do
 				name = ("|r|cff%.2x%.2x%.2x%s|r|cff%.2x%.2x%.2x"):format(playerColor.r * 255, playerColor.g * 255, playerColor.b * 255, name, 0.41 * 255, 0.8 * 255, 0.94 * 255)
 			end
 			if v.displayVersion then
-				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.displayVersion, v.revision))
+				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(name, v.displayVersion, v.revision, v.VPVersion or ""), false)--Only display VP version if not running two mods
 				if notify and v.displayVersion ~= DBM.Version and v.revision < DBM.ReleaseRevision then
 					DBM:Schedule(nreq*10,SendChatMessage, chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
 					nreq = nreq + 1
@@ -1915,7 +1915,7 @@ do
 			end
 			--Table sorting sorts dbm to top, bigwigs underneath. Highest version dbm always at top. so sortMe[1]
 			--This check compares all dbm version to highest RELEASE version in raid.
-			if sortMe[i].revision and (sortMe[i].revision < sortMe[1].version) then
+			if sortMe[i].revision and (tonumber(sortMe[i].revision or "") < tonumber(sortMe[1].version or "")) then
 				OldMod = OldMod + 1
 				local name = sortMe[i].name
 				local playerColor = RAID_CLASS_COLORS[DBM:GetRaidClass(name)]
@@ -6336,7 +6336,8 @@ local specFlags ={
 	["RemoveEnrage"] = "CanRemoveEnrage",
 	["MagicDispeller"] = "IsMagicDispeller",
 	["HasInterrupt"] = "CanInterrupt", --Has an interrupt that is 24 seconds or less CD that is BASELINE (not a talent)
-	["TargetedCooldown"] = "HasTargetedCooldown" --Custom: Single Target external defensive cooldown
+	["TargetedCooldown"] = "HasTargetedCooldown", --Custom: Single Target external defensive cooldown
+	["WeaponDependent"] = "IsWeaponDependent" --Custom: Specs that depend on weapon use
 }
 
 function bossModPrototype:GetRoleFlagValue(flag)
