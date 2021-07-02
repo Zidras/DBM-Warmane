@@ -5,7 +5,7 @@
 ## SavedVariables: DBMSunwell_AllSavedVars
 ## SavedVariablesPerCharacter: DBMSunwell_SavedStats
 ## X-DBM-Mod: 1
-## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: Sunwell Plateau
 ## X-DBM-Mod-Name-ruRU: Плато Солнечного Колодца
 --## X-DBM-Mod-LoadZoneID: 790
