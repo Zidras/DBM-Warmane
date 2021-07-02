@@ -107,8 +107,20 @@ function mod:EqW()
 end
 
 function mod:RemoveBuffs()
-	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild
-	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild
+	CancelUnitBuff("player", (GetSpellInfo(1126)))		-- Mark of the Wild Rank 1
+	CancelUnitBuff("player", (GetSpellInfo(5232)))		-- Mark of the Wild Rank 2
+	CancelUnitBuff("player", (GetSpellInfo(6756)))		-- Mark of the Wild Rank 3
+	CancelUnitBuff("player", (GetSpellInfo(5234)))		-- Mark of the Wild Rank 4
+	CancelUnitBuff("player", (GetSpellInfo(8907)))		-- Mark of the Wild Rank 5
+	CancelUnitBuff("player", (GetSpellInfo(9884)))		-- Mark of the Wild Rank 6
+	CancelUnitBuff("player", (GetSpellInfo(9885)))		-- Mark of the Wild Rank 7
+	CancelUnitBuff("player", (GetSpellInfo(26990)))		-- Mark of the Wild Rank 8
+	CancelUnitBuff("player", (GetSpellInfo(48469)))		-- Mark of the Wild Rank 9
+	CancelUnitBuff("player", (GetSpellInfo(21849)))		-- Gift of the Wild Rank 1
+	CancelUnitBuff("player", (GetSpellInfo(21850)))		-- Gift of the Wild Rank 2
+	CancelUnitBuff("player", (GetSpellInfo(26991)))		-- Gift of the Wild Rank 3
+	CancelUnitBuff("player", (GetSpellInfo(48470)))		-- Gift of the Wild Rank 4
+	CancelUnitBuff("player", (GetSpellInfo(69381)))		-- Drums of the Wild
 end
 
 local function showDominateMindWarning(self)
