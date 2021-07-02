@@ -49,7 +49,7 @@ local berserkTimer					= mod:NewBerserkTimer(600)
 local soundWarnSpirit				= mod:NewSound(71426)
 
 local isHunter = select(2, UnitClass("player")) == "HUNTER"
-mod:AddBoolOption("RemoveDruidBuff", true, not mod:IsTank())
+mod:AddBoolOption("RemoveDruidBuff", nil, false)
 mod:AddBoolOption("SetIconOnDominateMind", true)
 mod:AddBoolOption("SetIconOnDeformedFanatic", true)
 mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
