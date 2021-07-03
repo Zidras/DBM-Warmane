@@ -63,7 +63,6 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	berserkTimerLordaeron:Start(-delay)
 	timerFirstBite:Start(-delay)
 	timerNextPactDarkfallen:Start(15-delay)
 	timerNextSwarmingShadows:Start(-delay)
