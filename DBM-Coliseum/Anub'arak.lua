@@ -134,6 +134,25 @@ function mod:ShadowStrikeReset(time)
 	end
 end
 
+-- Warmane workaround, since emerge boss emote is not being fired
+function mod:EmergeFix()
+	Burrowed = false
+	timerEmerge:Cancel()
+	timerAdds:Start(5)
+	warnAdds:Schedule(5)
+	self:ScheduleMethod(5, "Adds")
+	warnEmerge:Show()
+	warnSubmergeSoon:Schedule(65)
+	specWarnSubmergeSoon:Schedule(65)
+	timerSubmerge:Start()
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerShadowStrike:Stop()
+		preWarnShadowStrike:Cancel()
+		self:UnscheduleMethod("ShadowStrike")
+		self:ScheduleMethod(5.0, "ShadowStrike")
+	end
+end
+
 local PColdTargets = {}
 do
 	local function sort_by_group(v1, v2)
@@ -237,7 +256,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerShadowStrike:Stop()
 		preWarnShadowStrike:Cancel()
 		self:UnscheduleMethod("ShadowStrike")
+		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
 	elseif msg and msg:find(L.Emerge) then
+		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		Burrowed = false
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
