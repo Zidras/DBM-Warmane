@@ -38,7 +38,7 @@ local timerHeal						= mod:NewCastTimer(15, 65875)
 local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815, "TimerSpeedKill")
-local timerCombatStart				= mod:NewCombatTimer(25)
+local timerCombatStart				= mod:NewCombatTimer(22)
 
 local soundSpecial					= mod:NewSound5(66058, "SpecialSpellSoundCountdown")
 

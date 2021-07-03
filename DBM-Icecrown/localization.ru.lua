@@ -194,9 +194,9 @@ L:SetMiscLocalization{
 	CombatHorde		= "БОЕВОЙ КОРАБЛЬ АЛЬЯНСА! ВСЕ НА ПАЛУБУ!",
 	KillHorde		= "Альянс повержен. Вперед, к Королю-личу!",
 	AddsAlliance	= "Разрушители, сержанты, в бой!",
-	AddsHorde		= "Marines, Sergeants, attack",
-	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
-	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!"
+	AddsHorde		= "Пехота, сержанты, в бой!",
+	MageAlliance	= "Корабль под обстрелом! Боевого мага сюда, пусть заткнет эти пушки!",
+	MageHorde		= "Корабль под обстрелом! Заклинателя сюда, пусть заткнет эти пушки!"
 }
 
 -----------------------------
