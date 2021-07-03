@@ -236,7 +236,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 69766 then	--Instability (casters)
 		if args:IsPlayer() then
 			timerInstability:Start()
-			if (args.amount or 1) >= 3 then
+			if (args.amount or 1) >= 4 then
 				specWarnInstability:Show(args.amount)
 				--specWarnInstability:Play("stackhigh")
 			else
