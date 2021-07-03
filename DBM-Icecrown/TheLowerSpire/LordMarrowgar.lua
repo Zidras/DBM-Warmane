@@ -23,11 +23,11 @@ local specWarnColdflame		= mod:NewSpecialWarningMove(69146, nil, nil, nil, 1, 2)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
 local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerBoneSpikeUp		= mod:NewCastTimer(69057)
-local timerWhirlwindCD		= mod:NewCDTimer(90, 69076, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 1) -- Edited
+local timerWhirlwindCD		= mod:NewCDTimer(30, 69076, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 1) -- Edited
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
-local timerWhirlwindStart	= mod:NewCastTimer(69076)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
+local timerBoneSpikeUp		= mod:NewCastTimer(69057)
+local timerWhirlwindStart	= mod:NewCastTimer(69076)
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 
@@ -46,7 +46,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69076 then						-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
-		timerWhirlwindCD:Start()
 		preWarnWhirlwind:Schedule(80) -- Edited
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
@@ -65,6 +64,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 69076 then
 		if self:IsDifficulty("normal10", "normal25") then
 			timerWhirlwind:Cancel()
+			timerWhirlwindCD:Start()
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end
