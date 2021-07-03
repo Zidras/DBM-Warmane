@@ -51,8 +51,7 @@ local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic
 
 local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
 
-local berserkTimer				= mod:NewBerserkTimer(600)
-local berserkTimerLordaeron		= mod:NewTimer(390, "Berserk Timer Lordaeron", nil, false)
+local berserkTimer				= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(390) or mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
