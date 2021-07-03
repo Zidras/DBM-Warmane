@@ -73,7 +73,7 @@ L.ModelOptions				= "Настройки 3D моделей на странице 
 L.EnableModels				= "Показывать 3D модели боссов"
 
 L.Button_RangeFrame			= "Окно проверки дистанции"
-L.Button_InfoFrame			= "Окно информации"
+L.Button_InfoFrame			= "Окно инфо-фрейма"
 L.Button_TestBars			= "Запустить проверку"
 
 L.PizzaTimer_Headline 		= 'Создать "Pizza Timer"'
