@@ -142,7 +142,6 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	berserkTimerLordaeron:Start()
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
 	self.vb.warned_P2 = false
