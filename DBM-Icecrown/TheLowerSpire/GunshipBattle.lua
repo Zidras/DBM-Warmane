@@ -4,7 +4,6 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision(("$Revision: 4380 $"):sub(12, -3))
 local addsIcon
 local bossID
-mod:RegisterCombat("combat")
 if UnitFactionGroup("player") == "Alliance" then
 	mod:RegisterCombat("yell", L.CombatAlliance)
 	mod:RegisterKill("yell", L.KillAlliance)
