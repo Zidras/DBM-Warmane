@@ -146,8 +146,6 @@ local function addsTimer(self)
 	end
 end
 
-
-
 local function TrySetTarget(self)
 	if DBM:GetRaidRank() >= 1 then
 		for uId in DBM:GetGroupMembers() do
@@ -179,7 +177,7 @@ function mod:OnCombatStart(delay)
 	if not self:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 		if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
-			mod:ScheduleMethod(24, "RemoveBuffs")
+			self:ScheduleMethod(24, "RemoveBuffs")
 		end
 		if self.Options.EqUneqWeapons and not self:IsTank() and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
