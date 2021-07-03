@@ -132,19 +132,21 @@ local function showDominateMindWarning(self)
 	end
 end
 
-function mod:addsTimer()
+local function addsTimer(self)
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+	if self:IsDifficulty("heroic10", "heroic25") then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
-		self:ScheduleMethod(45, "addsTimer")
+		self:Schedule(45, addsTimer, self)
 		timerAdds:Start(45)
 	else
 		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
-		self:ScheduleMethod(60, "addsTimer")
-		timerAdds:Start()
+		self:Schedule(60, addsTimer, self)
+		timerAdds:Start(60)
 	end
 end
+
+
 
 local function TrySetTarget(self)
 	if DBM:GetRaidRank() >= 1 then
