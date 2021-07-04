@@ -76,6 +76,7 @@ mod:AddBoolOption("GooArrow")
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 mod.vb.phase = 0
+mod.vb.chokingTimeRemaining = 0
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
@@ -85,6 +86,7 @@ function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self.vb.phase = 1
+	self.vb.chokingTimeRemaining = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerUnboundPlagueCD:Start(10-delay)
 	end
@@ -143,7 +145,7 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin)
+	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin); Warmane does not have this event
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
@@ -188,8 +190,8 @@ function mod:NextPhase()
 		warnPhase3:Show()
 		timerSlimePuddleCD:Start(15)
 		timerMalleableGooCD:Start(9)
-		timerChokingGasBombCD:Start(12)
-		warnChokingGasBombSoon:Schedule(7)
+		timerChokingGasBombCD:Start(self.vb.chokingTimeRemaining)
+		warnChokingGasBombSoon:Schedule(self.vb.chokingTimeRemaining-7)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(50)
 		end
@@ -263,6 +265,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerUnstableExperimentCD:Cancel()
 			timerMalleableGooCD:Cancel()
 			timerSlimePuddleCD:Cancel()
+			if self.vb.phase == 2 then
+				self.vb.chokingTimeRemaining = timerChokingGasBombCD:GetRemaining()
+			end
 			timerChokingGasBombCD:Cancel()
 			timerUnboundPlagueCD:Cancel()
 		end
@@ -273,6 +278,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerUnstableExperimentCD:Cancel()
 			timerMalleableGooCD:Cancel()
 			timerSlimePuddleCD:Cancel()
+			if self.vb.phase == 2 then
+				self.vb.chokingTimeRemaining = timerChokingGasBombCD:GetRemaining()
+			end
 			timerChokingGasBombCD:Cancel()
 			timerUnboundPlagueCD:Cancel()
 		end

@@ -128,7 +128,7 @@ DBM.DefaultOptions = {
 	},
 	RaidWarningSound = "Sound\\Doodad\\BellTollNightElf.wav",
 	SpecialWarningSound = "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3",
-	SpecialWarningSound2 = "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg",
+	SpecialWarningSound2 = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav",
 	SpecialWarningSound3 = "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3",
 	SpecialWarningSound4 = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav",
 	SpecialWarningSound5 = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav",
@@ -500,8 +500,6 @@ local LSM
 if LibStub("LibSharedMedia-3.0", true) then
 	LSM = LibStub("LibSharedMedia-3.0")
 	LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-	LSM:Register("sound", "Beware ENG", "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-	LSM:Register("sound", "Beware RUS",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
 	LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 	LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
