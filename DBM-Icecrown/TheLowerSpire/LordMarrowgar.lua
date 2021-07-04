@@ -62,9 +62,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args.spellId == 69076 then
+		timerWhirlwind:Cancel()
+		timerWhirlwindCD:Start()
 		if self:IsDifficulty("normal10", "normal25") then
-			timerWhirlwind:Cancel()
-			timerWhirlwindCD:Start()
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end
