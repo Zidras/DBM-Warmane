@@ -59,7 +59,7 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerCombatStart:Show(-delay)
+	timerCombatStart:Start(-delay)
 	if UnitFactionGroup("player") == "Alliance" then
 		timerAdds:Start(62-delay)
 		warnAddsSoon:Schedule(57)
