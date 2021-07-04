@@ -5,13 +5,13 @@ mod:SetRevision(("$Revision: 4380 $"):sub(12, -3))
 local addsIcon
 local bossID
 if UnitFactionGroup("player") == "Alliance" then
-	mod:RegisterCombat("yell", L.CombatAlliance)
+	mod:RegisterCombat("yell", L.PullAlliance)
 	mod:RegisterKill("yell", L.KillAlliance)
 	mod:SetCreatureID(36939, 37215)    -- High Overlord Saurfang, Orgrim's Hammer
 	addsIcon = 23334
 	bossID = 36939
 else
-	mod:RegisterCombat("yell", L.CombatHorde)
+	mod:RegisterCombat("yell", L.PullHorde)
 	mod:RegisterKill("yell", L.KillHorde)
 	mod:SetCreatureID(36948, 37540)    -- Muradin Bronzebeard, The Skybreaker
 	addsIcon = 23336
@@ -59,7 +59,7 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerCombatStart:Show(-delay)
+	timerCombatStart:Start(-delay)
 	if UnitFactionGroup("player") == "Alliance" then
 		timerAdds:Start(62-delay)
 		warnAddsSoon:Schedule(57)
