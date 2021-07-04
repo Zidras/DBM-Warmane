@@ -142,7 +142,7 @@ local function addsTimer(self)
 	else
 		warnAddsSoon:Schedule(55)	-- 5 secs prewarning
 		self:Schedule(60, addsTimer, self)
-		timerAdds:Start(60)
+		timerAdds:Start()
 	end
 end
 
