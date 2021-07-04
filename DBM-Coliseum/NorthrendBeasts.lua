@@ -54,7 +54,6 @@ local timerNextImpale		= mod:NewNextTimer(10, 67477, nil, mod:IsTank() or mod:Is
 local timerRisingAnger      = mod:NewNextTimer(20, 66636)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758)
 local timerNextCrash		= mod:NewCDTimer(70, 67662, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 1) -- Original timer. The second Massive Crash should happen 70 seconds after the first
-local timerNextCrashTwo		= mod:NewCDTimer(71, 67662, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON, nil, 1) -- Added timer to start a second Massive Crash timer at the start of Icehowl. The second Massive Crash happens 122 seconds into the Icehowl fight
 local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, mod:IsMelee() or mod:IsHealer())
 local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, mod:IsMelee() or mod:IsHealer())
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819)
@@ -247,6 +246,9 @@ function mod:SPELL_CAST_START(args)
 		timerParalyticSprayCD:Start()
 	elseif args:IsSpellID(66902, 67627, 67628, 67629) then		-- Burning Spray
 		timerBurningSprayCD:Start()
+	elseif args:IsSpellID(66683, 67660, 67661, 67662) then		-- Warmane workaound: Icehowl Massive Crash
+		timerNextCrash:Cancel()
+		timerNextCrash:Start()
 	end
 end
 
@@ -324,7 +326,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerCombatStart:Show(9)
 		timerNextCrash:Cancel()
 		timerNextCrash:Start(4+48)
-		timerNextCrashTwo:Schedule(52)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
 		timerEmerge:Cancel()
