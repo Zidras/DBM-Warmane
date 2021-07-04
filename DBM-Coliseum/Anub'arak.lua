@@ -34,7 +34,7 @@ mod:AddBoolOption("PursueIcon")
 -- Emerge
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmerge			= mod:NewTimer(62, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
+local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
 
 -- Submerge
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
@@ -116,6 +116,25 @@ function mod:ShadowStrikeReset(time)
 		end
 		self:UnscheduleMethod("ShadowStrike")
 		self:ScheduleMethod(time, "ShadowStrike")
+	end
+end
+
+-- Warmane workaround, since emerge boss emote is not being fired
+function mod:EmergeFix()
+	Burrowed = false
+	timerEmerge:Cancel()
+	timerAdds:Start(5)
+	warnAdds:Schedule(5)
+	self:ScheduleMethod(5, "Adds")
+	warnEmerge:Show()
+	warnSubmergeSoon:Schedule(65)
+	specWarnSubmergeSoon:Schedule(65)
+	timerSubmerge:Start()
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		timerShadowStrike:Stop()
+		preWarnShadowStrike:Cancel()
+		self:UnscheduleMethod("ShadowStrike")
+		self:ScheduleMethod(5.0, "ShadowStrike")
 	end
 end
 
@@ -203,7 +222,7 @@ function mod:SPELL_CAST_START(args)
 			warnAdds:Cancel()
 			self:UnscheduleMethod("Adds")
 		end
-	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then
+	elseif args:IsSpellID(66134) and self:AntiSpam(2,66134) then	-- Shadow Strike
 		self:ShadowStrike()
 		specWarnShadowStrike:Show()
 		warnShadowStrike:Show()
@@ -222,7 +241,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerShadowStrike:Stop()
 		preWarnShadowStrike:Cancel()
 		self:UnscheduleMethod("ShadowStrike")
+		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
 	elseif msg and msg:find(L.Emerge) then
+		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		Burrowed = false
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
@@ -241,23 +262,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	end
 end
 
-function mod:RemoveBuffs()
-	CancelUnitBuff("player", (GetSpellInfo(47440)))		-- Commanding Shout (Rank 3)
-	CancelUnitBuff("player", (GetSpellInfo(47439)))		-- Commanding Shout (Rank 2)
-	CancelUnitBuff("player", (GetSpellInfo(45517)))		-- Commanding Shout (Rank 1)
-	CancelUnitBuff("player", (GetSpellInfo(469)))		-- Commanding Shout (Rank 1)
-	CancelUnitBuff("player", (GetSpellInfo(48161)))		-- Power Word: Fortitude (Rank 8)
-	CancelUnitBuff("player", (GetSpellInfo(25389)))		-- Power Word: Fortitude (Rank 7)
-	CancelUnitBuff("player", (GetSpellInfo(10938)))		-- Power Word: Fortitude (Rank 6)
-	CancelUnitBuff("player", (GetSpellInfo(10937)))		-- Power Word: Fortitude (Rank 5)
-	CancelUnitBuff("player", (GetSpellInfo(2791)))		-- Power Word: Fortitude (Rank 4)
-	CancelUnitBuff("player", (GetSpellInfo(1245)))		-- Power Word: Fortitude (Rank 3)
-	CancelUnitBuff("player", (GetSpellInfo(1244)))		-- Power Word: Fortitude (Rank 2)
-	CancelUnitBuff("player", (GetSpellInfo(1243)))		-- Power Word: Fortitude (Rank 1)
-	CancelUnitBuff("player", (GetSpellInfo(48162)))		-- Prayer of Fortitude (Rank 4)
-	CancelUnitBuff("player", (GetSpellInfo(25392)))		-- Prayer of Fortitude (Rank 3)
-	CancelUnitBuff("player", (GetSpellInfo(21564)))		-- Prayer of Fortitude (Rank 2)
-	CancelUnitBuff("player", (GetSpellInfo(21562)))		-- Prayer of Fortitude (Rank 1)
+function mod:RemoveBuffs() -- Spells are now removed by name and not SpellID so no longer need to list all ranks.
+	CancelUnitBuff("player", (GetSpellInfo(47440)))		-- Commanding Shout
+	CancelUnitBuff("player", (GetSpellInfo(48161)))		-- Power Word: Fortitude
+	CancelUnitBuff("player", (GetSpellInfo(48162)))		-- Prayer of Fortitude
 	CancelUnitBuff("player", (GetSpellInfo(72590)))		-- Runescroll of Fortitude
 end
-

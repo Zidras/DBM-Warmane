@@ -51,7 +51,7 @@ local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic
 
 local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
 
-local berserkTimer				= mod:NewBerserkTimer(600)
+local berserkTimer				= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(390) or mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
@@ -321,8 +321,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		warnAirphase:Show()
 		timerNextFrostBreath:Cancel()
-		timerUnchainedMagic:Start(56)
-		timerNextBlisteringCold:Start(78.5)--Not exact anywhere from 80-110seconds after airphase begin
+		timerUnchainedMagic:Start(55)
+		timerNextBlisteringCold:Start(80)--Not exact anywhere from 80-110seconds after airphase begin
 		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
 		warnGroundphaseSoon:Schedule(37.5)

@@ -44,7 +44,7 @@ local timerBloodBolt				= mod:NewBuffActiveTimer(6, 71772, nil, nil, nil, 2)
 local timerBloodThirst				= mod:NewBuffFadesTimer(10, 70877, nil, nil, nil, 5)
 local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, nil, 5)
 
-local berserkTimer					= mod:NewBerserkTimer(320)
+local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(300) or mod:NewBerserkTimer(330)
 
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
