@@ -233,8 +233,6 @@ local function MixinSharedMedia3(mediatype, mediatable)
 		soundsRegistered = true
 		--Embedded Sound Clip media
 		LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-		LSM:Register("sound", "Beware ENG", "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-		LSM:Register("sound", "Beware RUS",	"Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav")
 		LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
 		LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 		LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
@@ -407,12 +405,10 @@ do
 		{sound = true, text = "SW 4", value = 4},
 
 		--Inject DBMs custom media that's not available to LibSharedMedia because it uses SoundKit Id (which LSM doesn't support)
-		{sound = true, text = "AirHorn (DBM)",		value	= "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
-		{sound = true,	text	= "Beware",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg"},
-		{sound = true,	text	= "Beware RUS",		value 	= "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav"},
-		{sound = true, 	text	= "Alert",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3"},
-		{sound = true, 	text	= "Info",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3"},
-		{sound = true, 	text	= "Long",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3"}
+		{sound = true, text = "AirHorn (DBM)",	value	= "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
+		{sound = true, text	= "Alert",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3"},
+		{sound = true, text	= "Info",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3"},
+		{sound = true, text	= "Long",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3"}
 --		{sound = true, text = "Algalon: Beware!", value = 15391},
 --		{sound = true, text = "BB Wolf: Run Away", value = 9278},
 --		{sound = true, text = "Blizzard Raid Emote", value = 37666},
