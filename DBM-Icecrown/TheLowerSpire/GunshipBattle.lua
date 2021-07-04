@@ -59,9 +59,25 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerAdds:Start(15-delay)--First adds might come early or late so timer should be taken as a proximity only.
-	warnAddsSoon:Schedule(10)
-	self:Schedule(15, Adds, self)
+	timerCombatStart:Show(-delay)
+	if UnitFactionGroup("player") == "Alliance" then
+		timerAdds:Start(62-delay)
+		warnAddsSoon:Schedule(57)
+		self:Schedule(62, Adds, self)
+		timerBelowZeroCD:Start(75-delay)--This doesn't make sense. Need more logs to verify
+	else
+		if self:IsDifficulty("heroic10", "heroic25") then
+			timerAdds:Start(63-delay)
+			warnAddsSoon:Schedule(58)
+			self:Schedule(63, Adds, self)
+			timerBelowZeroCD:Start(102-delay)--This doesn't make sense. Need more logs to verify
+		else
+			timerAdds:Start(57-delay)
+			warnAddsSoon:Schedule(52)
+			self:Schedule(57, Adds, self)
+			timerBelowZeroCD:Start(80-delay)--This doesn't make sense. Need more logs to verify
+		end
+	end
 	self.vb.firstMage = false
 end
 
@@ -112,7 +128,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg:find(L.PullAlliance) or msg:find(L.PullHorde) then
-		timerCombatStart:Start()
+		--timerCombatStart:Start()
 	elseif (msg:find(L.AddsAlliance) or msg:find(L.AddsHorde)) and self:IsInCombat() then
 		self:Unschedule(Adds)
 		Adds(self)
