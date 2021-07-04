@@ -171,29 +171,21 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnBattleFury	= "%s (%d)",
-	WarnAddsSoon	= "Скоро призыв помощников"
+	WarnAddsSoon	= "Скоро новые помощники"
 }
 
 L:SetOptionLocalization{
-	WarnBattleFury		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(69638, GetSpellInfo(69638) or "Battle Fury"),
-	TimerCombatStart	= "Отсчет времени до начала боя",
 	WarnAddsSoon		= "Предупреждать заранее о призыве помощников",
 	TimerAdds			= "Отсчет времени до новых помощников"
 }
 
 L:SetTimerLocalization{
-	TimerCombatStart	= "Начало боя",
 	TimerAdds			= "Призыв помощников"
 }
 
 L:SetMiscLocalization{
 	PullAlliance	= "Запускайте двигатели! Летим навстречу судьбе.",
-	CombatAlliance	= "Ах вы псы трусливые! Напали исподтишка!",
-	KillAlliance	= "Ну не говорите потом, что я не предупреждал. В атаку, братья и сестры!",
 	PullHorde		= "Воспряньте, сыны и дочери Орды! Сегодня мы будем биться со смертельным врагом! ЛОК'ТАР ОГАР!",
-	CombatHorde		= "БОЕВОЙ КОРАБЛЬ АЛЬЯНСА! ВСЕ НА ПАЛУБУ!",
-	KillHorde		= "Альянс повержен. Вперед, к Королю-личу!",
 	AddsAlliance	= "Разрушители, сержанты, в бой!",
 	AddsHorde		= "Пехота, сержанты, в бой!",
 	MageAlliance	= "Корабль под обстрелом! Боевого мага сюда, пусть заткнет эти пушки!",

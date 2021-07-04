@@ -169,29 +169,21 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnBattleFury	= "%s (%d)",
 	WarnAddsSoon	= "New adds soon"
 }
 
 L:SetOptionLocalization{
-	WarnBattleFury		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(69638, GetSpellInfo(69638) or "Battle Fury"),
-	TimerCombatStart	= "Show time for start of combat",
 	WarnAddsSoon		= "Show pre-warning for adds spawning",
 	TimerAdds			= "Show timer for new adds"
 }
 
 L:SetTimerLocalization{
-	TimerCombatStart	= "Combat starts",
 	TimerAdds			= "New adds"
 }
 
 L:SetMiscLocalization{
 	PullAlliance	= "Fire up the engines! We got a meetin' with destiny, lads!",
-	CombatAlliance	= "Cowardly dogs! Ye blindsided us!",
-	KillAlliance	= "Don't say I didn't warn ya, scoundrels! Onward, brothers and sisters!",
 	PullHorde		= "Rise up, sons and daughters of the Horde! Today we battle a hated enemy of the Horde! LOK'TAR OGAR!",
-	CombatHorde		= "ALLIANCE GUNSHIP! ALL HANDS ON DECK!",
-	KillHorde		= "The Alliance falter. Onward to the Lich King!",
 	AddsAlliance	= "Reavers, Sergeants, attack",
 	AddsHorde		= "Marines, Sergeants, attack",
 	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
