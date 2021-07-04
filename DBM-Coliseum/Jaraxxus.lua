@@ -48,7 +48,7 @@ local timerNetherPowerCD		= mod:NewCDTimer(42.5, 67009)
 local timerFlesh				= mod:NewTargetTimer(12, 67049)
 local timerFleshCD				= mod:NewCDTimer(23, 67051)
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
-local timerPortalTwo			= mod:NewTimer(120, "2nd Nether Portal")
+local timerPortalTwo			= mod:NewNextTimer(120, 67900) -- temporary
 local timerVolcanoCD			= mod:NewCDTimer(120, 67901, nil, nil, nil, 2, nil, DBM_CORE_DAMAGE_ICON, nil, 3)
 
 mod:AddBoolOption("LegionFlameWhisper", false, "announce")
