@@ -17,6 +17,7 @@ else
 	addsIcon = 23336
 	bossID = 36948
 end
+mod:SetMinCombatTime(50)
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
