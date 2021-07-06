@@ -470,6 +470,7 @@ L:SetOptionLocalization{
 	FrameClassColor			= "Use Class Colors in Val'Kyr Targets frame",
 	FrameUpwards			= "Expand Val'Kyr target frame upwards",
 	FrameLocked				= "Lock Val'Kyr Targets frame",
+	RemoveImmunes			= "Remove immunity spells before exiting Frostmourne room"
 }
 
 L:SetMiscLocalization{

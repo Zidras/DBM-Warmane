@@ -472,6 +472,7 @@ L:SetOptionLocalization{
 	FrameClassColor			= "Использовать цвета классов в окне целей Валь'Кир",
 	FrameUpwards			= "Рост окна целей Валь'Кир вверх",
 	FrameLocked				= "Зафиксировать окно целей Валь'Кир",
+	RemoveImmunes			= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
 }
 
 L:SetMiscLocalization{
