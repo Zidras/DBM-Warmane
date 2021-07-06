@@ -16,6 +16,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"SPELL_HEAL",
 	"SPELL_PERIODIC_HEAL",
+	"SPELL_SUMMON",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -48,7 +49,6 @@ local timerNetherPowerCD		= mod:NewCDTimer(42.5, 67009)
 local timerFlesh				= mod:NewTargetTimer(12, 67049)
 local timerFleshCD				= mod:NewCDTimer(23, 67051)
 local timerPortalCD				= mod:NewCDTimer(120, 67900)
-local timerPortalTwo			= mod:NewNextTimer(120, 67900) -- temporary
 local timerVolcanoCD			= mod:NewCDTimer(120, 67901, nil, nil, nil, 2, nil, DBM_CORE_DAMAGE_ICON, nil, 3)
 
 mod:AddBoolOption("LegionFlameWhisper", false, "announce")
@@ -65,7 +65,6 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
 	timerPortalCD:Start(22-delay)
-	timerPortalTwo:Schedule(22)
 	warnPortalSoon:Schedule(17-delay)
 	warnPortalTwoSoon:Schedule(137-delay)
 	timerVolcanoCD:Start(82-delay)
@@ -200,17 +199,18 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNetherPowerCD:Start()
 		warnNetherPowerSoon:Schedule(35)
 		specWarnNetherPower:Show()
-
 	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Volcano
 		timerVolcanoCD:Start()
 		warnVolcanoSoon:Schedule(110)
-
-	elseif args:IsSpellID(67900, 67899, 67898, 66269) then		-- Nether Portal
-		timerPortalCD:Start()
-		warnPortalSoon:Schedule(110)
-
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
 		warnFlame:Show(args.destName)
+	end
+end
+
+function mod:SPELL_SUMMON(args)
+	if args:IsSpellID(66269, 67898, 67899, 67900) then			-- Nether Portal. Warmane workaround since there is no CLEU:SCSuccess event being fired
+		timerPortalCD:Start()
+		warnPortalSoon:Schedule(110)
 	end
 end
 
