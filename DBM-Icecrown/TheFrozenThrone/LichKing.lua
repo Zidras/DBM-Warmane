@@ -23,10 +23,6 @@ mod:RegisterEvents(
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
-local UnitName, GetRaidRosterInfo, UnitClass = UnitName, GetRaidRosterInfo, UnitClass
-local isPAL = select(2, UnitClass("player")) == "PALADIN"
-local isPRI = select(2, UnitClass("player")) == "PRIEST"
-
 local warnRemorselessWinter = mod:NewSpellAnnounce(68981, 3) --Phase Transition Start Ability
 local warnQuake				= mod:NewSpellAnnounce(72262, 4) --Phase Transition End Ability
 local warnRagingSpirit		= mod:NewTargetAnnounce(69200, 3) --Transition Add
@@ -81,7 +77,7 @@ local timerHarvestSoulCD	= mod:NewNextTimer(75, 68980, nil, nil, nil, 6)
 local timerInfestCD			= mod:NewNextTimer(22.5, 70541, nil, "Healer|RaidCooldown", nil, 5, nil, DBM_CORE_HEALER_ICON, nil, nil, 4)
 local timerNecroticPlagueCleanse = mod:NewTimer(5, "TimerNecroticPlagueCleanse", 70337, "Healer", nil, 5, DBM_CORE_HEALER_ICON)
 local timerNecroticPlagueCD	= mod:NewNextTimer(30, 70337, nil, nil, nil, 3)
-local timerDefileCD			= mod:NewNextTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON, nil, nil, 4)
+local timerDefileCD			= mod:NewNextTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON, nil, 2, 4)
 local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, "Tank|RemoveEnrage", nil, 5, nil, DBM_CORE_ENRAGE_ICON)
 local timerShamblingHorror 	= mod:NewNextTimer(60, 70372, nil, nil, nil, 1)
 local timerDrudgeGhouls 	= mod:NewNextTimer(20, 70358, nil, nil, nil, 1)
@@ -109,6 +105,7 @@ mod:AddBoolOption("HarvestSoulIcon", false)
 mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 mod:AddBoolOption("TrapArrow")
+mod:AddBoolOption("RemoveImmunes")
 mod:AddBoolOption("ShowFrame", true)
 mod:AddBoolOption("FrameLocked", false)
 mod:AddBoolOption("FrameClassColor", true, nil, function()
@@ -131,6 +128,15 @@ local plagueExpires = {}
 local lastPlague
 
 local soulshriek = GetSpellInfo(69242)
+
+function mod:RemoveImmunes()
+	if mod.Options.RemoveImmunes then -- cancelaura bop bubble iceblock Dintervention
+		CancelUnitBuff("player", (GetSpellInfo(10278)))
+		CancelUnitBuff("player", (GetSpellInfo(642)))
+		CancelUnitBuff("player", (GetSpellInfo(45438)))
+		CancelUnitBuff("player", (GetSpellInfo(19752)))
+	end
+end
 
 local function NextPhase(self)
 	self.vb.phase = self.vb.phase + 1
@@ -298,6 +304,9 @@ function mod:SPELL_CAST_START(args)
 	elseif args.spellId == 73650 then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
 		timerRestoreSoul:Start()
+		if mod.Options.RemoveImmunes then
+			self:ScheduleMethod(39.99, "RemoveImmunes")
+		end
 	elseif args.spellId == 72350 then -- Fury of Frostmourne
 		self:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
 		self:Stop()

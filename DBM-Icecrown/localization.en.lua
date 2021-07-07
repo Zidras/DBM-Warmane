@@ -145,6 +145,7 @@ L:SetOptionLocalization{
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
+	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight",
 	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.",
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
 	BlockWeapons				= "Completely block the unequip/equip functions above"
@@ -470,6 +471,7 @@ L:SetOptionLocalization{
 	FrameClassColor			= "Use Class Colors in Val'Kyr Targets frame",
 	FrameUpwards			= "Expand Val'Kyr target frame upwards",
 	FrameLocked				= "Lock Val'Kyr Targets frame",
+	RemoveImmunes			= "Remove immunity spells before exiting Frostmourne room"
 }
 
 L:SetMiscLocalization{

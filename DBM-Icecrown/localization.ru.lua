@@ -146,6 +146,7 @@ L:SetOptionLocalization{
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Проигрывать звуковой отсчет 5...1 до контроля разума",
+	RemoveDruidBuff				= "Снимите бафф Друида через 24 секунды после начала боя", -- Needs review
 	EqUneqWeapons				= "Снимать/надевать оружия если в вас кастанулся контроль. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен.",
 	EqUneqTimer					= "Снимать оружия по таймеру ВСЕГДА, а не в каст(если высокий пинг). Опция выше должна быть вкл.",
 	BlockWeapons				= "Полностью заблокировать функции снятия/надевания выше"
@@ -471,6 +472,7 @@ L:SetOptionLocalization{
 	FrameClassColor			= "Использовать цвета классов в окне целей Валь'Кир",
 	FrameUpwards			= "Рост окна целей Валь'Кир вверх",
 	FrameLocked				= "Зафиксировать окно целей Валь'Кир",
+	RemoveImmunes			= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
 }
 
 L:SetMiscLocalization{
