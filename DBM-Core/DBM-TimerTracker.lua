@@ -385,7 +385,7 @@ function TT:CreateTimer(timerType, timeSeconds, totalTime)
 		end
 
 		timer:ClearAllPoints()
-		timer:Point("TOP", 0, -155 - (24 * #self.timerList))
+		timer:Point("TOP", 0, -100 - (24 * #self.timerList))
 
 		timer.isFree = false
 		timer.type = timerType
