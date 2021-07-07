@@ -3298,7 +3298,7 @@ do
 							else
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Barsoomx/DBM-wowcircle]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Zidras/DBM-Icecrown]"):format(displayVersion, revision))
 							end
 						end
 					end
