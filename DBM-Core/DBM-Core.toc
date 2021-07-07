@@ -42,9 +42,9 @@ localization.ru.lua
 
 
 DBM-Core.lua
+DBM-RangeCheck.lua
 DBM-Arrow.lua
 DBM-Flash.lua
-DBM-RangeCheck.lua
 DBM-InfoFrame.lua
 DBM-BossHealth.lua
 DBM-BossHealth.xml
