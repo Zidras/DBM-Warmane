@@ -42,114 +42,112 @@
 --    * blip_8.ogg by Corsica_S (http://www.freesound.org/usersViewSingle.php?id=7037)
 --  The full of text of the license can be found in the file "Sounds\Creative Commons Sampling Plus 1.0.txt".
 
-DBM.MapSizes = {
-    Durotar = {{5287.5, 3525}},
-    Mulgore = {{5137.5, 3425.0003}},
-    Barrens = {{10133.334, 6756.25}},
-    Kalimdor = {{36799.81, 24533.2}},
-    Azeroth = {{40741.18, 27149.68}},
-    Alterac = {{2800.0003, 1866.6667}},
-    Arathi = {{3600.0004, 2399.9997}},
-    Badlands = {{2487.5, 1658.334}},
-    BlastedLands = {{3350, 2233.33}},
-    Tirisfal = {{4518.75, 3012.5001}},
-    Silverpine = {{4200, 2800}},
-    WesternPlaguelands = {{4299.9997, 2866.667}},
-    EasternPlaguelands = {{4031.25, 2687.5}},
-    Hilsbrad = {{3200, 2133.333}},
-    Hinterlands = {{3850, 2566.667}},
-    DunMorogh = {{4925, 3283.334}},
-    SearingGorge = {{2231.2503, 1487.5}},
-    BurningSteppes = {{2929.1663, 1952.083}},
-    Elwynn = {{3470.834, 2314.587}},
-    DeadwindPass = {{2499.9997, 1666.664}},
-    Duskwood = {{2700.0003, 1800.004}},
-    LochModan = {{2758.333, 1839.583}},
-    Redridge = {{2170.834, 1447.92}},
-    Stranglethorn = {{6381.25, 4254.17}},
-    SwampOfSorrows = {{2293.75, 1529.167}},
-    Westfall = {{3500.0003, 2333.33}},
-    Wetlands = {{4135.4167, 2756.25}},
-    Teldrassil = {{5091.666, 3393.75}},
-    Darkshore = {{6550, 4366.666}},
-    Ashenvale = {{5766.667, 3843.7504}},
-    ThousandNeedles = {{4399.9997, 2933.333}},
-    StonetalonMountains = {{4883.333, 3256.2503}},
-    Desolace = {{4495.833, 2997.9163}},
-    Feralas = {{6950, 4633.333}},
-    Dustwallow = {{5250.0001, 3500}},
-    Tanaris = {{6900, 4600}},
-    Aszhara = {{5070.833, 3381.25}},
-    Felwood = {{5750, 3833.333}},
-    UngoroCrater = {{3700.0003, 2466.666}},
-    Moonglade = {{2308.333, 1539.583}},
-    Silithus = {{3483.334, 2322.916}},
-    Winterspring = {{7100.0003, 4733.333}},
-    Stormwind = {{1737.50033, 1158.333}},
-    Ogrimmar = {{1402.605, 935.416}},
-    Ironforge = {{790.6246, 527.605}},
-    ThunderBluff = {{1043.7499, 695.8331}},
-    Darnassis = {{1058.333, 705.733}},
-    Undercity = {{959.375, 640.104}},
-    AlteracValley = {{4237.5, 2825}},
-    WarsongGulch = {{1145.8337, 764.5831}},
-    ArathiBasin = {{1756.2497, 1170.833}},
-    EversongWoods = {{4925, 3283.337}},
-    Ghostlands = {{3300, 2199.999}},
-    AzuremystIsle = {{4070.83, 2714.583}},
-    Hellfire = {{5164.583, 3443.75}},
-    Expansion01 = {{17464.079, 11642.718}},
-    Zangarmarsh = {{5027.083, 3352.084}},
-    TheExodar = {{1056.77, 704.688}},
-    ShadowmoonValley = {{5500, 3666.666}},
-    BladesEdgeMountains = {{5425, 3616.6664}},
-    BloodmystIsle = {{3262.5, 2174.9997}},
-    Nagrand = {{5524.997, 3683.33366}},
-    TerokkarForest = {{5400, 3600.0001}},
-    Netherstorm = {{5574.99966, 3716.667}},
-    SilvermoonCity = {{1211.458, 806.772}},
-    ShattrathCity = {{1306.25, 870.834}},
-    NetherstormArena = {{2270.8337, 1514.583}},
-    Northrend = {{17751.398, 11834.27}},
-    BoreanTundra = {{5764.583, 3843.75}},
-    Dragonblight = {{5608.333, 3739.583}},
-    GrizzlyHills = {{5250, 3500}},
-    HowlingFjord = {{6045.833, 4031.2503}},
-    IcecrownGlacier = {{6270.8333, 4181.25}},
-    SholazarBasin = {{4356.25, 2904.167}},
-    TheStormPeaks = {{7112.5, 4741.67}},
-    ZulDrak = {{4993.75, 3329.167}},
-    Sunwell = {{3327.083, 2218.75}},
-    LakeWintergrasp = {{2975, 1983.334}},
-    ScarletEnclave = {{3162.5, 2108.3334}},
-    Dalaran = {{830.015, 553.34}, {563.224, 375.49}},
-    CrystalsongForest = {{2722.917, 1814.583}},
-    StrandoftheAncients = {{1743.7499, 1162.4997}},
-    TheNexus = {{1101.281, 734.1875}},
-    CoTStratholme = {{1125.3, 750.2}},
-    Ahnkahet = {{972.418, 648.279}},
-    UtgardeKeep = {{734.581, 489.7215}, {481.081, 320.7203}, {736.581, 491.0545}},
-    UtgardePinnacle = {{548.936, 365.957}, {756.17996, 504.119}},
-    HallsofLightning = {{566.235, 377.49}, {708.237, 472.16}},
-    Ulduar77 = {{920.196, 613.466}},
-    TheEyeofEternity = {{430.07, 286.713}},
-    Nexus80 = {{514.707, 343.139}, {664.707, 443.139}, {514.707, 343.139}, {294.701, 196.464}},
-    Ulduar = {{669.451, 446.3}, {1328.461, 885.64}, {910.5, 607}, {1569.46, 1046.3}, {619.469, 412.98}},
-    Gundrak = {{905.033, 603.35}},
-    TheObsidianSanctum = {{1162.49967, 775}},
-    VaultofArchavon = {{1398.255, 932.17}},
-    AzjolNerub = {{752.974, 501.983}, {292.974, 195.316}, {367.5, 245}},
-    DrakTharonKeep = {{619.941, 413.294}, {619.941, 413.294}},
-    Naxxramas = {{1093.83, 729.22}, {1093.83, 729.22}, {1200, 800}, {1200.33, 800.22}, {2069.81, 1379.88}, {655.94, 437.29}},
-    VioletHold = {{256.229, 170.82}},
-    IsleofConquest = {{2650, 1766.66633}},
-    HrothgarsLanding = {{3677.0836, 2452.084}},
-    TheArgentColiseum = {{369.9862, 246.658}, {369.9862, 246.658}, {739.996, 493.33}},
-    TheForgeofSouls = {{1448.1, 965.4}},
-    PitofSaron = {{1533.3333, 1022.9167}},
-    HallsofReflection = {{879.02, 586.02}},
-    TheRubySanctum = {{752.0833, 502.084}},
-}
+DBM:RegisterMapSize("Durotar",				0, 5287.5, 3525)
+DBM:RegisterMapSize("Mulgore",				0, 5137.5, 3425.0003)
+DBM:RegisterMapSize("Barrens",				0, 10133.334, 6756.25)
+DBM:RegisterMapSize("Kalimdor",				0, 36799.81, 24533.2)
+DBM:RegisterMapSize("Azeroth",				0, 40741.18, 27149.68)
+DBM:RegisterMapSize("Alterac",				0, 2800.0003, 1866.6667)
+DBM:RegisterMapSize("Arathi",				0, 3600.0004, 2399.9997)
+DBM:RegisterMapSize("Badlands",				0, 2487.5, 1658.334)
+DBM:RegisterMapSize("BlastedLands",			0, 3350, 2233.33)
+DBM:RegisterMapSize("Tirisfal",				0, 4518.75, 3012.5001)
+DBM:RegisterMapSize("Silverpine",			0, 4200, 2800)
+DBM:RegisterMapSize("WesternPlaguelands",	0, 4299.9997, 2866.667)
+DBM:RegisterMapSize("EasternPlaguelands",	0, 4031.25, 2687.5)
+DBM:RegisterMapSize("Hilsbrad",				0, 3200, 2133.333)
+DBM:RegisterMapSize("Hinterlands",			0, 3850, 2566.667)
+DBM:RegisterMapSize("DunMorogh",			0, 4925, 3283.334)
+DBM:RegisterMapSize("SearingGorge",			0, 2231.2503, 1487.5)
+DBM:RegisterMapSize("BurningSteppes",		0, 2929.1663, 1952.083)
+DBM:RegisterMapSize("Elwynn",				0, 3470.834, 2314.587)
+DBM:RegisterMapSize("DeadwindPass",			0, 2499.9997, 1666.664)
+DBM:RegisterMapSize("Duskwood",				0, 2700.0003, 1800.004)
+DBM:RegisterMapSize("LochModan",			0, 2758.333, 1839.583)
+DBM:RegisterMapSize("Redridge",				0, 2170.834, 1447.92)
+DBM:RegisterMapSize("Stranglethorn",		0, 6381.25, 4254.17)
+DBM:RegisterMapSize("SwampOfSorrows",		0, 2293.75, 1529.167)
+DBM:RegisterMapSize("Westfall",				0, 3500.0003, 2333.33)
+DBM:RegisterMapSize("Wetlands",				0, 4135.4167, 2756.25)
+DBM:RegisterMapSize("Teldrassil",			0, 5091.666, 3393.75)
+DBM:RegisterMapSize("Darkshore",			0, 6550, 4366.666)
+DBM:RegisterMapSize("Ashenvale",			0, 5766.667, 3843.7504)
+DBM:RegisterMapSize("ThousandNeedles",		0, 4399.9997, 2933.333)
+DBM:RegisterMapSize("StonetalonMountains",	0, 4883.333, 3256.2503)
+DBM:RegisterMapSize("Desolace",				0, 4495.833, 2997.9163)
+DBM:RegisterMapSize("Feralas",				0, 6950, 4633.333)
+DBM:RegisterMapSize("Dustwallow",			0, 5250.0001, 3500)
+DBM:RegisterMapSize("Tanaris",				0, 6900, 4600)
+DBM:RegisterMapSize("Aszhara",				0, 5070.833, 3381.25)
+DBM:RegisterMapSize("Felwood",				0, 5750, 3833.333)
+DBM:RegisterMapSize("UngoroCrater",			0, 3700.0003, 2466.666)
+DBM:RegisterMapSize("Moonglade",			0, 2308.333, 1539.583)
+DBM:RegisterMapSize("Silithus",				0, 3483.334, 2322.916)
+DBM:RegisterMapSize("Winterspring",			0, 7100.0003, 4733.333)
+DBM:RegisterMapSize("Stormwind",			0, 1737.50033, 1158.333)
+DBM:RegisterMapSize("Ogrimmar",				0, 1402.605, 935.416)
+DBM:RegisterMapSize("Ironforge",			0, 790.6246, 527.605)
+DBM:RegisterMapSize("ThunderBluff",			0, 1043.7499, 695.8331)
+DBM:RegisterMapSize("Darnassis",			0, 1058.333, 705.733)
+DBM:RegisterMapSize("Undercity",			0, 959.375, 640.104)
+DBM:RegisterMapSize("AlteracValley",		0, 4237.5, 2825)
+DBM:RegisterMapSize("WarsongGulch",			0, 1145.8337, 764.5831)
+DBM:RegisterMapSize("ArathiBasin",			0, 1756.2497, 1170.833)
+DBM:RegisterMapSize("EversongWoods" ,		0, 4925, 3283.337)
+DBM:RegisterMapSize("Ghostlands",			0, 3300, 2199.999)
+DBM:RegisterMapSize("AzuremystIsle",		0, 4070.83, 2714.583)
+DBM:RegisterMapSize("Hellfire",				0, 5164.583, 3443.75)
+DBM:RegisterMapSize("Expansion01",			0, 17464.079, 11642.718) --?
+DBM:RegisterMapSize("Zangarmarsh",			0, 5027.083, 3352.084)
+DBM:RegisterMapSize("TheExodar",			0, 1056.77, 704.688)
+DBM:RegisterMapSize("ShadowmoonValley",		0, 5500, 3666.666)
+DBM:RegisterMapSize("BladesEdgeMountains",	0, 5425, 3616.6664)
+DBM:RegisterMapSize("BloodmystIsle",		0, 3262.5, 2174.9997)
+DBM:RegisterMapSize("Nagrand",				0, 5524.997, 3683.33366)
+DBM:RegisterMapSize("TerokkarForest",		0, 5400, 3600.0001)
+DBM:RegisterMapSize("Netherstorm",			0, 5574.99966, 3716.667)
+DBM:RegisterMapSize("SilvermoonCity",		0, 1211.458, 806.772)
+DBM:RegisterMapSize("ShattrathCity",		0, 1306.25, 870.834)
+DBM:RegisterMapSize("NetherstormArena",		0, 2270.8337, 1514.583)
+DBM:RegisterMapSize("Northrend",			0, 17751.398, 11834.27)
+DBM:RegisterMapSize("BoreanTundra",			0, 5764.583, 3843.75)
+DBM:RegisterMapSize("Dragonblight",			0, 5608.333, 3739.583)
+DBM:RegisterMapSize("GrizzlyHills",			0, 5250, 3500)
+DBM:RegisterMapSize("HowlingFjord",			0, 6045.833, 4031.2503)
+DBM:RegisterMapSize("IcecrownGlacier",		0, 6270.8333, 4181.25)
+DBM:RegisterMapSize("SholazarBasin",		0, 4356.25, 2904.167)
+DBM:RegisterMapSize("TheStormPeaks",		0, 7112.5, 4741.67)
+DBM:RegisterMapSize("ZulDrak",				0, 4993.75, 3329.167)
+DBM:RegisterMapSize("Sunwell",				0, 3327.083, 2218.75)
+DBM:RegisterMapSize("LakeWintergrasp",		0, 2975, 1983.334)
+DBM:RegisterMapSize("ScarletEnclave",		0, 3162.5, 2108.3334)
+DBM:RegisterMapSize("Dalaran",				1, 830.015, 553.34,		2, 563.224, 375.49)
+DBM:RegisterMapSize("CrystalsongForest",	0, 2722.917, 1814.583)
+DBM:RegisterMapSize("StrandoftheAncients",	0, 1743.7499, 1162.4997)
+--"TheNexus" = {{1101.281, 734.1875}} -- Exists on Party-WotLK
+--"CoTStratholme" = {{1125.3, 750.2}} -- This looks wrong. Exists on Party-WotLK
+--"Ahnkahet" = {{972.418, 648.279}} -- Exists on Party-WotLK
+--"UtgardeKeep" = {{734.581, 489.7215}, {481.081, 320.7203}, {736.581, 491.0545}} -- Exists on Party-WotLK
+--"UtgardePinnacle" = {{548.936, 365.957}, {756.17996, 504.119}} -- Exists on Party-WotLK
+--"HallsofLightning" = {{566.235, 377.49}, {708.237, 472.16}} -- Exists on Party-WotLK
+--"Ulduar77" = {{920.196, 613.466}} -- Halls of Stone. Exists on Party-WotLK
+--"TheEyeofEternity" = {{430.07, 286.713}} -- Exists on EyeOfEternity
+--"Nexus80" = {{514.707, 343.139}, {664.707, 443.139}, {514.707, 343.139}, {294.701, 196.464}} -- Oculus. Exists on Party-WotLK
+--"Ulduar" = {{669.451, 446.3}, {1328.461, 885.64}, {910.5, 607}, {1569.46, 1046.3}, {619.469, 412.98}} -- Exists on Ulduar
+--"Gundrak" = {{905.033, 603.35}} -- Exists on Party-WotLK
+--"TheObsidianSanctum" = {{1162.49967, 775}} -- Exists on Obsidian
+--"VaultofArchavon" = {{1398.255, 932.17}} -- Exists on VoA
+--"AzjolNerub" = {{752.974, 501.983}, {292.974, 195.316}, {367.5, 245}} -- Exists on Party-WotLK
+--"DrakTharonKeep" = {{619.941, 413.294}, {619.941, 413.294}} -- Exists on Party-WotLK
+--"Naxxramas" = {{1093.83, 729.22}, {1093.83, 729.22}, {1200, 800}, {1200.33, 800.22}, {2069.81, 1379.88}, {655.94, 437.29}} -- Exists on Naxx
+--"VioletHold" = {{256.229, 170.82}} -- Exists on Party-WotLK
+DBM:RegisterMapSize("IsleofConquest",		0, 2650, 1766.66633)
+DBM:RegisterMapSize("HrothgarsLanding",		0, 3677.0836, 2452.084)
+--"TheArgentColiseum" = {{369.9862, 246.658}, {369.9862, 246.658}, {739.996, 493.33}} -- 3 levels? Exists on Coliseum
+--"TheForgeofSouls" = {{1448.1, 965.4}} -- Exists on Party-WotLK
+--"PitofSaron" = {{1533.3333, 1022.9167}} -- Exists on Party-WotLK
+--"HallsofReflection" = {{879.02, 586.02}} -- Exists on Party-WotLK
+--"TheRubySanctum" = {{752.0833, 502.084}} -- Exists on Ruby
 
 ---------------
 --  Globals  --

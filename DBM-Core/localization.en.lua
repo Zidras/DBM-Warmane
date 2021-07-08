@@ -514,7 +514,7 @@ DBM_ARROW_MOVABLE					= "Arrow movable"
 DBM_ARROW_NO_RAIDGROUP				= "This function only works in raid groups and within raid instances."
 DBM_ARROW_ERROR_USAGE	= {
 	"DBM-Arrow usage:",
-	"/dbm arrow <x> <y>  creates an arrow that points to a specific locataion (0 < x/y < 100)",
+	"/dbm arrow <x> <y>  creates an arrow that points to a specific location (0 < x/y < 100)",
 	"/dbm arrow <player>  creates and arrow that points to a specific player in your party or raid",
 	"/dbm arrow hide  hides the arrow",
 	"/dbm arrow move  makes the arrow movable",
