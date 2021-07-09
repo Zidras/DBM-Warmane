@@ -1544,8 +1544,10 @@ end
 ----------------------
 do
 	local function Pull(timer)
-		if DBM:GetRaidRank() == 0 then
-			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "EMOTE"
+		local isTank = UnitGroupRolesAssigned("player")
+		local LFGTankException = IsPartyLFG() and isTank --Tanks in LFG need to be able to send pull timer even if someone refuses to pass lead. LFG locks roles so no one can abuse this.
+		if (DBM:GetRaidRank(playerName) == 0 and IsInGroup() and not LFGTankException) or select(2, IsInInstance()) == "pvp" then
+			local channel = "EMOTE"
 			DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_PULL, false)
 			SendChatMessage(DBM_CORE_ANNOUNCE_PULL:format(timer), channel)
 			if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(7), channel) end
@@ -10129,4 +10131,3 @@ do
 		return modLocalizations[name] or self:CreateModLocalization(name)
 	end
 end
-
