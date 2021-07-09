@@ -26,6 +26,7 @@ local warnPhase3				= mod:NewPhaseAnnounce(3)
 local specWarnSurge				= mod:NewSpecialWarningYou(60936)
 local specWarnStaticField		= mod:NewSpecialWarningYou(57430, nil, nil, nil, 1, 2)
 local specWarnStaticFieldNear	= mod:NewSpecialWarningClose(57430, nil, nil, nil, 1, 2)
+local yellStaticField			= mod:NewYellMe(57430)
 
 local enrageTimer				= mod:NewBerserkTimer(615)
 local timerSpark				= mod:NewTimer(30, "TimerSpark", 59381)
@@ -126,7 +127,7 @@ function mod:StaticFieldTarget()
 	local announcetarget = guids[targetGuid]
 	if announcetarget == UnitName("player") then
 		specWarnStaticField:Show()
-		SendChatMessage("Статическое поле на мне!", "YELL")
+		yellStaticField:Yell()
 	else
 		local uId2 = DBM:GetRaidUnitId(announcetarget)
 		if uId2 then
