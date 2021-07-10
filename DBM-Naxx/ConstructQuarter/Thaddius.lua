@@ -40,24 +40,21 @@ mod:SetBossHealthInfo(
 )
 
 local currentCharge
-local phase2
 local down = 0
 
 function mod:OnCombatStart(delay)
-	phase2 = false
+	self:SetStage(1)
 	currentCharge = nil
 	down = 0
 	self:ScheduleMethod(20.6 - delay, "TankThrow")
 	timerThrow:Start(-delay)
 	warnThrowSoon:Schedule(17.6 - delay)
-	self.vb.phase = 1
 end
 
 local lastShift = 0
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(28089) then
-		phase2 = true
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerNextShift:Start()
 		soundShift3:Schedule(27)
 		timerShiftCast:Start()
@@ -68,7 +65,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:UNIT_AURA(elapsed)
-	if not phase2 or (GetTime() - lastShift) > 5 or (GetTime() - lastShift) < 3 then return end
+	if self.vb.phase ~= 2 or (GetTime() - lastShift) > 5 or (GetTime() - lastShift) < 3 then return end
 	local charge
 	local i = 1
 	while UnitDebuff("player", i) do
@@ -123,7 +120,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 end
 
 function mod:TankThrow()
-	if not self:IsInCombat() or phase2 then
+	if not self:IsInCombat() or self.vb.phase == 2 then
 		DBM.BossHealth:Hide()
 		return
 	end

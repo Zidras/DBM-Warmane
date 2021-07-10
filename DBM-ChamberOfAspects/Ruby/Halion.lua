@@ -55,14 +55,13 @@ mod:AddBoolOption("SetIconOnConsumption", true)
 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-mod.vb.phase = 1
 local phases = {}
 
 function mod:OnCombatStart(delay)--These may still need retuning too, log i had didn't have pull time though.
 	table.wipe(phases)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
-	self.vb.phase = 1
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerMeteorCD:Start(20-delay)
 	timerFieryConsumptionCD:Start(15-delay)
@@ -235,7 +234,7 @@ function mod:OnSync(msg, target)
 			end
 		end
 	elseif msg == "Phase2" and self.vb.phase < 2 then
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerFieryBreathCD:Cancel()
 		timerMeteorCD:Cancel()
 		timerFieryConsumptionCD:Cancel()
@@ -248,7 +247,7 @@ function mod:OnSync(msg, target)
 			timerTwilightCutterCD:Start(35)
 		end
 	elseif msg == "Phase3" and self.vb.phase < 3 then
-		self.vb.phase = 3
+		self:SetStage(3)
 		warnPhase3:Show()
 		timerMeteorCD:Start(30) --These i'm not sure if they start regardless of drake aggro, or if it varies as well.
 		timerFieryConsumptionCD:Start(20)--not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this

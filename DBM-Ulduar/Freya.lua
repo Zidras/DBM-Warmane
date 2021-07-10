@@ -65,7 +65,7 @@ local iconId		= 6
 local waves = 0
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	enrage:Start()
 	table.wipe(adds)
 	timerEonarsGiftCD:Start(25)
@@ -155,7 +155,7 @@ end
 function mod:SPELL_AURA_REMOVED(args)
     if args.spellId == 62519 then
 		warnPhase2:Show()
-		self.vb.phase = 2
+		self:SetStage(2)
     elseif args:IsSpellID(62861, 62438) then
         self:RemoveIcon(args.destName)
         iconId = iconId + 1

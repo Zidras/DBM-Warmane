@@ -35,7 +35,7 @@ mod:AddSetIconOption("SetIconOnEnragedMob", 39249, true, true)
 local CrystalHandlers = 4
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	timerCrystalHandler:Start(25.5-delay)
 	timerInsanity:Start(20)
 	timerFrenzy:Start(10)
@@ -51,13 +51,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerCrystalHandler:Start()
 		elseif self.vb.phase == 1 and CrystalHandlers < 0 then
 			warnPhase2:Show()
-			self.vb.phase = 2
+			self:SetStage(2)
 		elseif CrystalHandlers == 0 then
 			WarnCrystalHandler:Show(CrystalHandlers)
 		end
 	elseif msg == L.Phase2 then
 		warnPhase2:Show()
-		self.vb.phase = 2
+		self:SetStage(2)
 	end
 end
 
