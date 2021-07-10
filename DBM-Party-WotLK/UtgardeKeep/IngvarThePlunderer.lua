@@ -32,7 +32,7 @@ local specWarnSpelllock	= mod:NewSpecialWarningCast(42729)
 
 
 function mod:OnCombatStart()
-	self.vb.phase = 1
+	self:SetStage(1)
 	timerSmashCD:Start(15)
 	timerNova:Start(18.5)
 end
@@ -86,7 +86,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == "Я вернулся! Еще один шанс раскроить вам головы!" or msg == "I return! A second chance to carve your skull!" then
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerNova:Cancel()
 		timerNova:Start(15)
 		timerRuneCD:Start(5)

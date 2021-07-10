@@ -265,7 +265,7 @@ function mod:OnSync(event, args)
 end
 
 function mod:NextPhase()
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 	if self.vb.phase == 1 then
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()

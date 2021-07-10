@@ -39,7 +39,7 @@ local combattime = 0
 local isGrounded = false
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	isGrounded = false
 	enrageTimer:Start(-delay)
 	combattime = GetTime()
@@ -71,7 +71,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	if emote == L.EmotePhase2 or emote:find(L.EmotePhase2) then
 		-- phase2
-		self.vb.phase = 2
+		self:SetStage(2)
 		isGrounded = true
 		timerTurret1:Stop()
 		timerTurret2:Stop()

@@ -503,10 +503,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:NextPhase()
-	if not self.vb.phase then
-		self.vb.phase = 0
-	end
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 	if self.vb.phase == 1 then
 		berserkTimer:Start()
 		warnShamblingSoon:Schedule(15)

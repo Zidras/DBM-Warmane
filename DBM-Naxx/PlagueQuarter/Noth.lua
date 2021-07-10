@@ -41,7 +41,7 @@ end
 
 function mod:BackInRoom(delay)
 	delay = delay or 0
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 	local timer
 	if self.vb.phase == 1 then timer = 90 - delay
 	elseif self.vb.phase == 2 then timer = 110 - delay

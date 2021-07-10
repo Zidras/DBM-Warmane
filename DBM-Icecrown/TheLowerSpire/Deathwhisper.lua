@@ -84,7 +84,7 @@ local lastMc = 0
 local UnitGUID = UnitGUID
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	dtime = 0
 	lastMc = 0
 	if self.Options.ShieldHealthFrame then
@@ -296,7 +296,7 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(70842) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
 			timerAdds:Cancel()

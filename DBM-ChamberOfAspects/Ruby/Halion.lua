@@ -96,6 +96,7 @@ function mod:OnCombatStart(delay)--These may still need retuning too, log i had 
 	table.wipe(phases)
 	warned_preP2 = false
 	warned_preP3 = false
+	self:SetStage(1)
 	lastflame = 0
 	lastshroud = 0
 	berserkTimer:Start(-delay)
@@ -298,6 +299,7 @@ function mod:OnSync(msg, target)
 			end
 		end
 	elseif msg == "Phase3" then
+		self:SetStage(3)
 		updateHealthFrame(3)
 		warnPhase3:Show()
 		timerMeteorCD:Start(30) --These i'm not sure if they start regardless of drake aggro, or if it varies as well.
