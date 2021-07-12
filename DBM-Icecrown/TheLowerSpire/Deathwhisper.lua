@@ -31,7 +31,7 @@ local warnReanimating				= mod:NewAnnounce("WarnReanimating", 3)
 local warnDarkTransformation		= mod:NewSpellAnnounce(70900, 4)
 local warnDarkEmpowerment			= mod:NewSpellAnnounce(70901, 4)
 local warnPhase2					= mod:NewPhaseAnnounce(2, 1)
-local warnFrostbolt					= mod:NewCastAnnounce(72007, 2, false)
+local warnFrostbolt					= mod:NewCastAnnounce(72007, 2, "Tank")
 local warnDarkMartyrdom				= mod:NewSpellAnnounce(72499, 4)
 local warnTouchInsignificance		= mod:NewStackAnnounce(71204, 2, nil, true)
 
@@ -48,7 +48,7 @@ local timerAdds						= mod:NewTimer(45, "TimerAdds", 61131, nil, nil, 1, DBM_COR
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
 local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
-local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
+local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "Tank")
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
