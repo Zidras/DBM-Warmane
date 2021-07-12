@@ -16,7 +16,7 @@ local warnTeleportNow	= mod:NewAnnounce("WarningTeleportNow", 3, 46573)
 local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573)
 local soundTeleport5 	= mod:NewSound5(46573)
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	mod:BackInRoom(90 - delay)
 end
 
@@ -26,7 +26,7 @@ function mod:DancePhase()
 	warnTeleportNow:Schedule(47)
 	soundTeleport5:Schedule(42)
 	self:ScheduleMethod(47, "BackInRoom", 88)
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 end
 
 function mod:BackInRoom(time)
@@ -35,5 +35,5 @@ function mod:BackInRoom(time)
 	soundTeleport5:Schedule(time-5)
 	warnTeleportNow:Schedule(time)
 	self:ScheduleMethod(time, "DancePhase")
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 end

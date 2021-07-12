@@ -87,10 +87,10 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = ("$Revision: 7004 $"):sub(12, -3),
-	Version = "7.04",
-	DisplayVersion = "7.04 DBM-WoWCircle by Barsoom", -- the string that is shown as version
-	ReleaseRevision = 7004 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 7005 $"):sub(12, -3),
+	Version = "7.05",
+	DisplayVersion = "7.05 DBM-WoWCircle by Barsoom", -- the string that is shown as version
+	ReleaseRevision = 7005 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -5074,6 +5074,25 @@ function DBM:GetGroupSize()
 	return LastGroupSize
 end
 
+--Public api for requesting what phase a boss is in, in case they missed the DBM_SetStage callback
+--ModId would be journal Id or mod string of mod.
+--If not mod is not provided, it'll simply return stage for first boss in combat table if a boss is engaged
+function DBM:GetStage(modId)
+	if modId then
+		local mod = self:GetModByName(modId)
+		if mod and mod.inCombat then
+			return mod.vb.phase or 0
+		end
+	else
+		if #inCombat > 0 then--At least one boss is engaged
+			local mod = inCombat[1]--Get first mod in table
+			if mod then
+				return mod.vb.phase or 0
+			end
+		end
+	end
+end
+
 function DBM:HasMapRestrictions()
 	local mapName = GetMapInfo()
 	local level = GetCurrentMapDungeonLevel()
@@ -5318,6 +5337,9 @@ do
 				mod.vb[name] = false
 			else
 				mod.vb[name] = value
+				if name == "phase" then
+					mod:SetStage(value)--Fire stage callback for 3rd party mods when stage is recovered
+				end
 			end
 		end
 	end
@@ -5913,6 +5935,17 @@ function bossModPrototype:UnregisterOnUpdateHandler()
 	self.elapsed = nil
 	self.updateInterval = nil
 	twipe(updateFunctions)
+end
+
+function bossModPrototype:SetStage(stage)
+	if stage == 0 then--Increment request instead of hard value
+		self.vb.phase = self.vb.phase + 1
+	else
+		self.vb.phase = stage
+	end
+	if self.inCombat then--Safety, in event mod manages to run any phase change calls out of combat/during a wipe we'll just safely ignore it
+		fireEvent("DBM_SetStage", self, self.id, self.vb.phase)--Mod, modId, Stage (if available).
+	end
 end
 
 function bossModPrototype:GetUnitCreatureId(uId)

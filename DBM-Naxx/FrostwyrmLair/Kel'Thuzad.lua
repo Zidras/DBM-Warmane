@@ -71,7 +71,7 @@ function mod:OnCombatStart(delay)
 	frostBlastCD:Start(247)
 	warnPhase2:Schedule(227)
 	self:ScheduleMethod(226, "StartPhase2")
-	self.vb.phase = 1
+	self:SetStage(1)
 	if mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25") then
 		mindControlCD:Start(287)
 		timerPossibleMC:Schedule(287)
@@ -108,7 +108,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:StartPhase2()
-	self.vb.phase = 2
+	self:SetStage(2)
 end
 
 local frostBlastTargets = {}

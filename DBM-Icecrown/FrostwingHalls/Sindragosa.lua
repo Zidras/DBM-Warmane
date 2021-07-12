@@ -113,7 +113,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(beaconIconTargets)
 	table.wipe(unchainedTargets)
 	unchainedIcons = 7
-	self.vb.phase = 1
+	self:SetStage(1)
 	activeBeacons = false
 	if self.Options.RangeFrame and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) then
 		DBM.RangeCheck:Show(20) -- Edit to fix auto showing range check with heroic mode values
@@ -274,7 +274,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnGroundphaseSoon:Schedule(37.5)
 		activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
-		self.vb.phase = self.vb.phase + 1
+		self:SetStage(2)
 		warnPhase2:Show()
 		p2_beacon_num = 1
 		timerNextBeacon:Start(7, p2_beacon_num)

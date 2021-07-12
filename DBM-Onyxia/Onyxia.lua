@@ -38,7 +38,7 @@ local sndFunny				= mod:NewSound(nil, "SoundWTF", false)
 local warned_preP2 = false
 local warned_preP3 = false
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
     warned_preP2 = false
 	warned_preP3 = false
 	timerAchieve:Start(-delay)
@@ -60,7 +60,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellP2 or msg:find(L.YellP2) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 --		preWarnDeepBreath:Schedule(72)	-- Pre-Warn Deep Breath
 		timerNextDeepBreath:Start(77)
@@ -70,7 +70,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		sndFunny:Schedule(10, "Interface\\AddOns\\DBM-Onyxia\\sounds\\throw-more-dots.mp3")
 		sndFunny:Schedule(17, "Interface\\AddOns\\DBM-Onyxia\\sounds\\whelps-left-side-even-side-handle-it.mp3")
 	elseif msg == L.YellP3 or msg:find(L.YellP3) then
-		self.vb.phase = 3
+		self:SetStage(3)
 		warnPhase3:Show()
 		self:UnscheduleMethod("Whelps")
 		timerWhelps:Stop()
