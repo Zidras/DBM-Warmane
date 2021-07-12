@@ -75,17 +75,16 @@ mod:AddBoolOption("GooArrow")
 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-mod.vb.phase = 0
 mod.vb.chokingTimeRemaining = 0
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerSlimePuddleCD:Start(10-delay)
 	timerUnstableExperimentCD:Start(30-delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
-	self.vb.phase = 1
 	self.vb.chokingTimeRemaining = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerUnboundPlagueCD:Start(10-delay)
@@ -174,7 +173,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:NextPhase()
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnUnstableExperimentSoon:Schedule(15)

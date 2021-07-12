@@ -24,11 +24,10 @@ local phasetimer1		= mod:NewTimer(52, "TimerPhase1", 72262)
 local phasewarn1		= mod:NewAnnounce("TimerPhase1", 4, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
 local phasetimer2		= mod:NewTimer(52, "TimerPhase2", 72262)
 local phasewarn2		= mod:NewAnnounce("TimerPhase2", 4, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
-mod.vb.phase = 1
 
-local function switchPhase()
-	if mod.vb.phase == 1 then
-		mod.vb.phase = 2
+local function switchPhase(self)
+	if self.vb.phase == 1 then
+		self:SetStage(2)
 		phasetimer2:Cancel()
 		phasewarn2:Show()
 		phasetimer1:Start(52)
@@ -37,7 +36,7 @@ local function switchPhase()
 		timerCharge:Cancel()
 		timerTopot:Start(25)
 		timerCharge:Start(21)
-	elseif mod.vb.phase == 2 then
+	elseif self.vb.phase == 2 then
 		phasetimer1:Cancel()
 		phasewarn1:Show()
 		phasetimer2:Start(52)
@@ -60,7 +59,7 @@ end
 
 function mod:OnCombatStart(delay)
 	timerVihr:Start()
-	self.vb.phase = 1
+	self:SetStage(1)
 	phasetimer2:Start(52)
 	self:Flames_G(7)
 end

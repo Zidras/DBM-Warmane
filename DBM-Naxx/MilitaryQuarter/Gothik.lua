@@ -92,11 +92,11 @@ function mod:OnCombatStart(delay)
 	timerWave:Start(25, wave + 1)
 	warnWaveSoon:Schedule(22, wave + 1, getWaveString(wave + 1))
 	self:ScheduleMethod(25, "NextWave")
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 function mod:StartPhase2()
-	self.vb.phase = 2
+	self:SetStage(2)
 end
 
 function mod:NextWave()

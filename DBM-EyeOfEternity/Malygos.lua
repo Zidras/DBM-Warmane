@@ -52,7 +52,7 @@ function mod:OnCombatStart(delay)
 	timerAchieve:Start(-delay)
 	timerVortexCD:Start(40)
 	table.wipe(guids)
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
@@ -97,12 +97,12 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg:sub(0, L.YellPhase2:len()) == L.YellPhase2 then
 		self:SendSync("Phase2")
-		self.vb.phase = 2
+		self:SetStage(2)
 	elseif msg == L.YellBreath or msg:find(L.YellBreath) then
 		self:SendSync("BreathSoon")
 	elseif msg:sub(0, L.YellPhase3:len()) == L.YellPhase3 then
 		self:SendSync("Phase3")
-		self.vb.phase = 3
+		self:SetStage(3)
 	elseif msg == L.EnoughScream then
 		timerBreath:Stop()
 		timerAttackable:Start()

@@ -80,7 +80,7 @@ function mod:OnCombatStart(delay)
 		preWarnShadowStrike:Schedule(25.5-delay)
 		self:ScheduleMethod(30-delay, "ShadowStrike")
 	end
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 function mod:Adds()
@@ -122,6 +122,7 @@ end
 -- Warmane workaround, since emerge boss emote is not being fired
 function mod:EmergeFix()
 	Burrowed = false
+	self:SetStage(1)
 	timerEmerge:Cancel()
 	timerAdds:Start(5)
 	warnAdds:Schedule(5)
@@ -206,7 +207,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(66118, 67630, 68646, 68647) then			-- Swarm (start p3)
 		warnPhase3:Show()
-		self.vb.phase = 2
+		self:SetStage(3)
 		warnEmergeSoon:Cancel()
 		warnSubmergeSoon:Cancel()
 		specWarnSubmergeSoon:Cancel()
@@ -232,6 +233,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg and msg:find(L.Burrow) then
 		Burrowed = true
+		self:SetStage(2)
 		timerAdds:Cancel()
 		warnAdds:Cancel()
 		warnSubmerge:Show()
@@ -245,6 +247,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	elseif msg and msg:find(L.Emerge) then
 		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		Burrowed = false
+		self:SetStage(2)
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
