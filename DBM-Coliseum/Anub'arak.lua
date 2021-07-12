@@ -225,7 +225,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		self:UnscheduleMethod("ShadowStrike")
 	elseif msg and msg:find(L.Emerge) then
 		Burrowed = false
-		self:SetStage(2)
+		self:SetStage(1)
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)

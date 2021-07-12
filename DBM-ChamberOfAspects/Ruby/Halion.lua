@@ -211,6 +211,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
+		self:SetStage(2)
 		updateHealthFrame(2)
 		timerFieryBreathCD:Cancel()
 		timerMeteorCD:Cancel()
