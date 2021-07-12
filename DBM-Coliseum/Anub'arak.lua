@@ -247,7 +247,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	elseif msg and msg:find(L.Emerge) then
 		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		Burrowed = false
-		self:SetStage(2)
+		self:SetStage(1)
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
