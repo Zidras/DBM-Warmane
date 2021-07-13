@@ -262,6 +262,7 @@ function mod:SPELL_CAST_START(args)
 		warnDefileSoon:Cancel()
 		warnDefileSoon:CancelVoice()
 		timerSoulreaperCD:Cancel()
+		soundSoulReaperSoon:Cancel()
 		self:DestroyFrame()
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		timerEnrageCD:Cancel(args.sourceGUID)
