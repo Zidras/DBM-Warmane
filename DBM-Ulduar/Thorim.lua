@@ -41,7 +41,7 @@ mod:AddBoolOption("RangeFrame", true)
 local lastcharge				= {}
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	enrageTimer:Start()
 	TimerHardmodeThorim:Start()
 	if self.Options.RangeFrame then
@@ -105,7 +105,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		if (TimerHardmodeThorim ~= nil) then
 			TimerHardmodeThorim:Stop()
 		end
-		self.vb.phase = 2
+		self:SetStage(2)
 		enrageTimer:Start(300)
 	elseif msg == L.YellKill or msg:find(L.YellKill) then
 		enrageTimer:Stop()

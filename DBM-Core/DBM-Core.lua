@@ -87,10 +87,10 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = ("$Revision: 7004 $"):sub(12, -3),
-	Version = "7.04",
-	DisplayVersion = "7.04 DBM-Icecrown by Zidras, forked from Barsoom's DBM", -- the string that is shown as version
-	ReleaseRevision = 7004 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 7005 $"):sub(12, -3),
+	Version = "7.05",
+	DisplayVersion = "7.05 DBM-Icecrown by Zidras, forked from Barsoom's DBM", -- the string that is shown as version
+	ReleaseRevision = 7005 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -1544,8 +1544,10 @@ end
 ----------------------
 do
 	local function Pull(timer)
-		if DBM:GetRaidRank() == 0 then
-			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "EMOTE"
+		local isTank = UnitGroupRolesAssigned("player")
+		local LFGTankException = IsPartyLFG() and isTank --Tanks in LFG need to be able to send pull timer even if someone refuses to pass lead. LFG locks roles so no one can abuse this.
+		if (DBM:GetRaidRank(playerName) == 0 and IsInGroup() and not LFGTankException) or select(2, IsInInstance()) == "pvp" then
+			local channel = "EMOTE"
 			DBM:CreatePizzaTimer(timer, DBM_CORE_TIMER_PULL, false)
 			SendChatMessage(DBM_CORE_ANNOUNCE_PULL:format(timer), channel)
 			if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, DBM_CORE_ANNOUNCE_PULL:format(7), channel) end
@@ -5070,6 +5072,25 @@ function DBM:GetGroupSize()
 	return LastGroupSize
 end
 
+--Public api for requesting what phase a boss is in, in case they missed the DBM_SetStage callback
+--ModId would be journal Id or mod string of mod.
+--If not mod is not provided, it'll simply return stage for first boss in combat table if a boss is engaged
+function DBM:GetStage(modId)
+	if modId then
+		local mod = self:GetModByName(modId)
+		if mod and mod.inCombat then
+			return mod.vb.phase or 0
+		end
+	else
+		if #inCombat > 0 then--At least one boss is engaged
+			local mod = inCombat[1]--Get first mod in table
+			if mod then
+				return mod.vb.phase or 0
+			end
+		end
+	end
+end
+
 function DBM:HasMapRestrictions()
 	local mapName = GetMapInfo()
 	local level = GetCurrentMapDungeonLevel()
@@ -5314,6 +5335,9 @@ do
 				mod.vb[name] = false
 			else
 				mod.vb[name] = value
+				if name == "phase" then
+					mod:SetStage(value)--Fire stage callback for 3rd party mods when stage is recovered
+				end
 			end
 		end
 	end
@@ -5909,6 +5933,17 @@ function bossModPrototype:UnregisterOnUpdateHandler()
 	self.elapsed = nil
 	self.updateInterval = nil
 	twipe(updateFunctions)
+end
+
+function bossModPrototype:SetStage(stage)
+	if stage == 0 then--Increment request instead of hard value
+		self.vb.phase = self.vb.phase + 1
+	else
+		self.vb.phase = stage
+	end
+	if self.inCombat then--Safety, in event mod manages to run any phase change calls out of combat/during a wipe we'll just safely ignore it
+		fireEvent("DBM_SetStage", self, self.id, self.vb.phase)--Mod, modId, Stage (if available).
+	end
 end
 
 function bossModPrototype:GetUnitCreatureId(uId)
@@ -8104,9 +8139,12 @@ do
 		if voiceSessionDisabled or voice == "None" then return end
 		if self.mod:IsEasyDungeon() and self.mod.isTrashMod and DBM.Options.FilterTrashWarnings2 then return end
 		if (not DBM.Options.DontShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) or always) and self.hasVoice <= SWFilterDisabed then
+			local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
+			--Mute VP if SW sound is set to None in the boss mod.
+			if soundId == "None" then return end
 			local path = customPath or ("Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg")
 			DBM:PlaySoundFile(path)
 		end
@@ -10129,4 +10167,3 @@ do
 		return modLocalizations[name] or self:CreateModLocalization(name)
 	end
 end
-

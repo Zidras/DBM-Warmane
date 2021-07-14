@@ -26,6 +26,7 @@ local warnPhase3				= mod:NewPhaseAnnounce(3)
 local specWarnSurge				= mod:NewSpecialWarningYou(60936)
 local specWarnStaticField		= mod:NewSpecialWarningYou(57430, nil, nil, nil, 1, 2)
 local specWarnStaticFieldNear	= mod:NewSpecialWarningClose(57430, nil, nil, nil, 1, 2)
+local yellStaticField			= mod:NewYellMe(57430)
 
 local enrageTimer				= mod:NewBerserkTimer(615)
 local timerSpark				= mod:NewTimer(30, "TimerSpark", 59381)
@@ -51,7 +52,7 @@ function mod:OnCombatStart(delay)
 	timerAchieve:Start(-delay)
 	timerVortexCD:Start(40)
 	table.wipe(guids)
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
@@ -96,12 +97,12 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg:sub(0, L.YellPhase2:len()) == L.YellPhase2 then
 		self:SendSync("Phase2")
-		self.vb.phase = 2
+		self:SetStage(2)
 	elseif msg == L.YellBreath or msg:find(L.YellBreath) then
 		self:SendSync("BreathSoon")
 	elseif msg:sub(0, L.YellPhase3:len()) == L.YellPhase3 then
 		self:SendSync("Phase3")
-		self.vb.phase = 3
+		self:SetStage(3)
 	elseif msg == L.EnoughScream then
 		timerBreath:Stop()
 		timerAttackable:Start()
@@ -126,7 +127,7 @@ function mod:StaticFieldTarget()
 	local announcetarget = guids[targetGuid]
 	if announcetarget == UnitName("player") then
 		specWarnStaticField:Show()
-		SendChatMessage("Статическое поле на мне!", "YELL")
+		yellStaticField:Yell()
 	else
 		local uId2 = DBM:GetRaidUnitId(announcetarget)
 		if uId2 then

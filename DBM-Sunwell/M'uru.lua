@@ -43,12 +43,12 @@ local humanCount = 1
 local voidCount = 1
 local warned_phase2 = false
 
-local function phase2()
-	mod.vb.phase = 2
+local function phase2(self)
+	self:SetStage(2)
 	warnPhase2:Show()
 	warned_phase2 = true
-	mod:UnscheduleMethod("HumanSpawn")
-	mod:UnscheduleMethod("VoidSpawn")
+	self:UnscheduleMethod("HumanSpawn")
+	self:UnscheduleMethod("VoidSpawn")
 	timerBlackHoleCD:Start(15)
 	soundBH3:Schedule(15-3)
 	if mod.Options.HealthFrame then
@@ -73,7 +73,7 @@ function mod:VoidSpawn()
 end
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	humanCount = 1
 	voidCount = 1
 	warned_phase2 = false

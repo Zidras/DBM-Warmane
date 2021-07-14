@@ -68,7 +68,6 @@ mod:AddSetIconOption("SetIconOnBeacon", 64465, true, true)
 mod:AddInfoFrameOption(63050)
 
 local targetWarningsShown			= {}
-mod.vb.phase = 1
 local beaconIcon = 8
 local brainLinkTargets = {}
 local SanityBuff = DBM:GetSpellInfoNew(63050)
@@ -76,8 +75,8 @@ local brainLinkIcon = 7
 local Guardians = 0
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	Guardians = 0
-	self.vb.phase = 1
 	beaconIcon = 8
 	enrageTimer:Start()
 	timerAchieve:Start()
@@ -200,7 +199,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFervor:Show()
 		end
 	elseif args.spellId == 63894 then	-- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts)
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerMaladyCD:Start(13)--VERIFY ME
 		timerBrainLinkCD:Start(19)--VERIFY ME
 		brainportal:Start(57)
@@ -236,7 +235,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:SetIcon(args.destName, 0)
 	elseif args.spellId == 63894 then		-- Shadowy Barrier removed from Yogg-Saron (start p3)
 		self:SendSync("Phase3")			-- Sync this because you don't get it in your combat log if you are in brain room.
-		self.vb.phase = 3
+		self:SetStage(3)
 	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 2) then	-- Lunatic Gaze
 		timerNextLunaricGaze:Start()
 	elseif args:IsSpellID(63830, 63881) and self.Options.SetIconOnFearTarget then   -- Malady of the Mind (Death Coil)
@@ -268,7 +267,7 @@ end
 
 function mod:OnSync(msg)
 	if msg == "Phase3" then
-		self.vb.phase = 3
+		self:SetStage(3)
 		brainportal:Cancel()
 		warnBrainPortalSoon:Cancel()
 		timerMaladyCD:Cancel()
@@ -283,7 +282,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == "ПАДИТЕ НИЦ ПЕРЕД БОГОМ СМЕРТИ!" or msg:find("ПАДИТЕ НИЦ ПЕРЕД БОГОМ СМЕРТИ!")) or (msg == "BOW DOWN BEFORE THE GOD OF DEATH!" or msg:find("BOW DOWN BEFORE THE GOD OF DEATH!")) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerMaladyCD:Start(13)--VERIFY ME
 		timerBrainLinkCD:Start(19)--VERIFY ME
 		brainportal:Start(57)

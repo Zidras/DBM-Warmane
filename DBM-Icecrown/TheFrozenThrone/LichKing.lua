@@ -121,7 +121,6 @@ mod:AddEditboxOption("FrameY", -50)
 local warnedAchievement = false
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-mod.vb.phase = 0
 local warnedValkyrGUIDs = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 local plagueExpires = {}
@@ -139,7 +138,7 @@ function mod:RemoveImmunes()
 end
 
 local function NextPhase(self)
-	self.vb.phase = self.vb.phase + 1
+	self:SetStage(0)
 	if self.vb.phase == 1 then
 		berserkTimer:Start()
 		warnShamblingSoon:Schedule(15)
@@ -263,6 +262,7 @@ function mod:SPELL_CAST_START(args)
 		warnDefileSoon:Cancel()
 		warnDefileSoon:CancelVoice()
 		timerSoulreaperCD:Cancel()
+		soundSoulReaperSoon:Cancel()
 		self:DestroyFrame()
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		timerEnrageCD:Cancel(args.sourceGUID)

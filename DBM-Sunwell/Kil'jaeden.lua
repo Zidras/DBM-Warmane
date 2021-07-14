@@ -52,7 +52,6 @@ mod:AddBoolOption("RangeFrame", true)
 local warnBloomTargets = {}
 local orbGUIDs = {}
 local bloomIcon = 8
-mod.vb.phase = 1
 
 local function showBloomTargets()
 	warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
@@ -65,7 +64,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(warnBloomTargets)
 	table.wipe(orbGUIDs)
 	bloomIcon = 8
-	self.vb.phase = 1
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
@@ -146,7 +145,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnBlueOrb:Show()
 		specWarnBlueOrb:Show()
 	elseif msg == L.ReflectionYell1 or msg:find(L.ReflectionYell1) or msg == L.ReflectionYell2 or msg:find(L.ReflectionYell2) then
-		self.vb.phase = self.vb.phase + 1
+		self:SetStage(0)
 		if self.vb.phase == 2 then
 			warnPhase2:Show()
 			timerBlueOrb:Start()

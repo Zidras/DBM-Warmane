@@ -65,7 +65,6 @@ local beaconIconTargets	= {}
 local unchainedTargets	= {}
 mod.vb.warned_P2 = false
 mod.vb.warnedfailed = false
-mod.vb.phase = 0
 mod.vb.unchainedIcons = 7
 mod.vb.activeBeacons	= false
 local p2_beacon_num = 1
@@ -141,6 +140,7 @@ local function warnUnchainedTargets(self)
 end
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
@@ -153,7 +153,6 @@ function mod:OnCombatStart(delay)
 	p2_beacon_num = 1
 	playerUnchained = false
 	playerBeaconed = false
-	self.vb.phase = 1
 	self.vb.activeBeacons = false
 end
 
@@ -228,7 +227,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerChilledtotheBone:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnChilledtotheBone:Show(args.amount)
-				--specWarnChilledtotheBone:Play("stackhigh")
+				specWarnChilledtotheBone:Play("stackhigh")
 			else
 				warnChilledtotheBone:Show(args.amount or 1)
 			end
@@ -238,7 +237,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerInstability:Start()
 			if (args.amount or 1) >= 4 then
 				specWarnInstability:Show(args.amount)
-				--specWarnInstability:Play("stackhigh")
+				specWarnInstability:Play("stackhigh")
 			else
 				warnInstability:Show(args.amount or 1)
 			end
@@ -249,7 +248,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerNextMysticBuffet:Start()
 			if (args.amount or 1) >= 5 then
 				specWarnMysticBuffet:Show(args.amount)
-				--specWarnMysticBuffet:Play("stackhigh")
+				specWarnMysticBuffet:Play("stackhigh")
 			else
 				warnMysticBuffet:Show(args.amount or 1)
 			end
@@ -328,7 +327,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnGroundphaseSoon:Schedule(37.5)
 		self.vb.activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		p2_beacon_num = 1
 		timerNextBeacon:Start(7, p2_beacon_num)

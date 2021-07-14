@@ -41,7 +41,7 @@ local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131, nil, nil, 1, DBM_COR
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
 local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
-local timerFrostboltCast			= mod:NewCastTimer(4, 72007)
+local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
@@ -71,7 +71,6 @@ if mod.Options.EqUneqWeapons and (mod:IsWeaponDependent() or isHunter) and not m
 end
 
 local dominateMindTargets = {}
-mod.vb.phase = 0
 mod.vb.dominateMindIcon = 6
 local deformedFanatic
 local empoweredAdherent
@@ -164,7 +163,7 @@ local function TrySetTarget(self)
 end
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	if self.Options.ShieldHealthFrame then
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(36855, L.name)
@@ -289,7 +288,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 70842 then
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		if self:IsDifficulty("normal10", "normal25") then
 			timerAdds:Cancel()

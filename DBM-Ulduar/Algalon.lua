@@ -50,7 +50,7 @@ local stars_hp = {}
 local star_num = 1
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	stars = {}
 	warned_star = {}
 	stars_hp = {}
@@ -140,7 +140,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		timerNextCollapsingStar:Cancel()
 		warnPhase2:Show()
-		self.vb.phase = 2
+		self:SetStage(2)
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(32871)
 	end
