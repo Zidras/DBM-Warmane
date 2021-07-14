@@ -107,6 +107,7 @@ end
 
 function mod:ShadowStrikeReset(time)
 	if not time then return end
+	if not self:IsDifficulty("heroic10", "heroic25") then return end
 	if self:IsInCombat() then
 		timerShadowStrike:Cancel()
 		timerShadowStrike:Start(time)
