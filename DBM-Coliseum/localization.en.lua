@@ -257,3 +257,23 @@ L:SetOptionLocalization{
 	AnnouncePColdIconsRemoved	= "Also announce when icons are removed for $spell:68510\n(requires above option)"
 }
 
+----------------
+--  Roleplay  --
+----------------
+L = DBM:GetModLocalization("Roleplay")
+
+L:SetGeneralLocalization{
+	name 				= "Roleplay"
+}
+
+L:SetTimerLocalization{
+	TimerAnubRP			= "Ground breaks in"
+}
+
+L:SetOptionLocalization{
+	TimerAnubRP			= "Show time left until Lich King breaks the floor and you start falling"
+}
+
+L:SetMiscLocalization{
+	AnubRP				= "A mighty blow has been dealt to the Lich King! You have proven yourselves as able bodied champions of the Argent Crusade. Together we will strike against Icecrown Citadel and destroy what remains of the Scourge! There is no challenge that we cannot face united!"
+}
