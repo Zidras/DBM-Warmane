@@ -91,7 +91,8 @@ function mod:OnCombatStart(delay)
 	end
 end
 
-function mod:MalleableGooTarget(targetname, uId)
+-- This does not work on Warmane - boss never swaps targets to throw malleable (last checked on 14/07/2021)
+--[[function mod:MalleableGooTarget(targetname, uId)
 	if not targetname then return end
 		if self.Options.MalleableGooIcon then
 			self:SetIcon(targetname, 6, 10)
@@ -127,7 +128,7 @@ function mod:MalleableGooTarget(targetname, uId)
 			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 		end
 	end
-end
+end]]
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(70351, 71966, 71967, 71968) then
@@ -219,7 +220,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerMalleableGooCD:Start()
 		end
-		self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
+		--self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
+		specWarnMalleableGooCast:Show()
+		specWarnMalleableGooCast:Play("watchstep")
+		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 	end
 end
 
