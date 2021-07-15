@@ -134,6 +134,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
+	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight",
 	WarnAddsSoon				= "Show pre-warning for adds spawning",
 	WarnReanimating				= "Show warning when an add is being revived",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Show timer for new adds",
