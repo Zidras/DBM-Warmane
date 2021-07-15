@@ -5361,15 +5361,16 @@ do
 		end
 		spamProtection[target] = GetTime()
 		if #inCombat < 1 then
-			self:Debug("Sending Break timer to "..target, 2)
 			--Break timer is up, so send that
 			--But only if we are not in combat with a boss
 			local breakBar = self.Bars:GetBar("%s\t"..DBM_CORE_TIMER_BREAK) or self.Bars:GetBar(DBM_CORE_TIMER_BREAK)
 			if breakBar then
+				self:Debug("Sending Break timer to "..target, 2)
 				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s\t"):format(breakBar.timer, breakBar.totalTime, breakBar.id, DBM_CORE_TIMER_BREAK, 52800), "WHISPER", target)
 			end
 			breakBar = self.Bars:GetBar("TimerCombatStart")
 			if breakBar then
+				self:Debug("Sending TimerCombatStart to "..target, 2)
 				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s\t%s"):format(breakBar.timer, breakBar.totalTime, breakBar.id, DBM_TimerCombatStart, 2457), "WHISPER", target)
 			end
 			return
