@@ -150,11 +150,11 @@ L:SetMiscLocalization{
 	Shaabad				= "S - Shaabad",					-- 34463
 	Serissa				= "WL - Serissa Desventura",		-- 34474
 	Shocuul				= "WR - Shocuul",					-- 34475
-	
+
 	AllianceVictory		= "¡GLORIA A LA ALIANZA!",
 	--HordeVictory		= "That was just a taste of what the future brings. FOR THE HORDE!",--translate
 	YellKill			= "Una victoria trágica y fútil. Hoy somos menos por las pérdidas que hemos sufrido. ¿Quién podría beneficiarse de tal insensatez además del Rey Exánime? Grandes guerreros han perdido la vida. ¿Y para qué? La verdad"
-} 
+}
 
 L:SetOptionLocalization{
 	PlaySoundOnBladestorm	= "Reproducir sonido en Filotormenta"
@@ -170,7 +170,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Siguiente Habilidad especial"	
+	TimerSpecialSpell	= "Siguiente Habilidad especial"
 }
 
 L:SetWarningLocalization{
@@ -251,7 +251,7 @@ L:SetOptionLocalization{
 	PlaySoundOnPursue			= "Reproducir sonidos si te persigue",
 	PursueIcon					= "Poner icono en jugador",
 	SpecWarnShadowStrike		= "Mostrar aviso especial para Golpe de sombras ( para cortar )",
-	RemoveHealthBuffsInP3		= "Quitar bufos de vida al inicio de la fase 3", 
+	RemoveHealthBuffsInP3		= "Quitar bufos de vida al inicio de la fase 3",
 	SetIconsOnPCold         	= "Poner iconos en los objetivos de $spell:68510",
 	AnnouncePColdIcons			= "Anunciar iconos para los ojetivos de $spell:68510 en el chat de banda\n(Requiere 'anunciar' habilitado y lider o ayudante)",
 	AnnouncePColdIconsRemoved	= "También anunciar cuando se eliminen los iconos de los objetivos $spell:68510\n(Necesita la opción anterior)"
