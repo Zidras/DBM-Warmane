@@ -9,12 +9,17 @@
 ## X-DBM-Mod-Category: WotLK
 ## X-DBM-Mod-Name: Crusader's Coliseum
 ## X-DBM-Mod-Name-ruRU: Колизей Авангарда
+## X-DBM-Mod-Name-esES: Coliseo de los Cruzados
+## X-DBM-Mod-Name-esMX: Coliseo de los Cruzados
 ## X-DBM-Mod-Sort: 2
 ## X-DBM-Mod-LoadZone: Trial of the Crusader
 ## X-DBM-Mod-LoadZone-ruRU: Испытание крестоносца
+## X-DBM-Mod-LoadZone-esES: Prueba del Cruzado
+## X-DBM-Mod-LoadZone-esMX: Prueba del Cruzado
 
 localization.en.lua
 localization.ru.lua
+localization.es.lua
 MapSizes.lua
 NorthrendBeasts.lua
 Jaraxxus.lua
