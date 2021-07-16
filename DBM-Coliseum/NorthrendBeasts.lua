@@ -278,10 +278,10 @@ end
 
 function mod:SPELL_DAMAGE(args)
 	if args:IsPlayer() and (args:IsSpellID(66320, 67472, 67473, 67475) or args.spellId == 66317) then	-- Fire Bomb (66317 is impact damage, not avoidable but leaving in because it still means earliest possible warning to move. Other 4 are tick damage from standing in it)
-		specWarnGTFO:Show(spellName)
+		specWarnGTFO:Show(args.spellName)
 		specWarnGTFO:Play("runaway")
 	elseif args:IsPlayer() and args:IsSpellID(66881, 67638, 67639, 67640) then	-- Slime Pool
-		specWarnGTFO:Show(spellName)
+		specWarnGTFO:Show(args.spellName)
 		specWarnGTFO:Play("runaway")
 	end
 end
