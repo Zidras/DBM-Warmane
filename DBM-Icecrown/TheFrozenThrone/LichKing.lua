@@ -68,7 +68,7 @@ local specWarnValkyrLow		= mod:NewSpecialWarning("SpecWarnValkyrLow", nil, nil, 
 local specWarnEnrage		= mod:NewSpecialWarningSpell(72143, "Tank")
 local specWarnEnrageLow		= mod:NewSpecialWarningSpell(28747, false)
 
-local timerCombatStart		= mod:NewCombatTimer(53.5)
+local timerCombatStart		= mod:NewCombatTimer(55)
 local timerPhaseTransition	= mod:NewTimer(62.5, "PhaseTransition", 72262, nil, nil, 6)
 local timerSoulreaper	 	= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
 local timerSoulreaperCD	 	= mod:NewNextTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_CORE_TANK_ICON)
