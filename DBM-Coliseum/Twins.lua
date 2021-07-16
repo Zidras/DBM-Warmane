@@ -38,6 +38,7 @@ local timerLightTouch				= mod:NewTargetTimer(20, 67298)
 local timerDarkTouch				= mod:NewTargetTimer(20, 67283)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815, "TimerSpeedKill")
 local timerCombatStart				= mod:NewCombatTimer(35)
+local timerAnubRoleplay				= mod:NewTimer(52, "TimerAnubRoleplay", 43827, nil, nil, 6)
 
 local soundSpecial					= mod:NewSound5(66058, "SpecialSpellSoundCountdown")
 
@@ -232,5 +233,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.CombatStart or msg:find(L.CombatStart) then
 		timerCombatStart:Start()
+	elseif msg == L.AnubRP or msg:find(L.AnubRP) then
+		timerAnubRoleplay:Start()
 	end
 end

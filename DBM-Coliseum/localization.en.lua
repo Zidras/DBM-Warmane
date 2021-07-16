@@ -169,7 +169,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	TimerSpecialSpell	= "Next special ability",
-	TimerRoleplay		= "Roleplay before the fall"
+	TimerAnubRoleplay	= "Ground breaks in"
 }
 
 L:SetWarningLocalization{
@@ -186,12 +186,13 @@ L:SetMiscLocalization{
 	YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
 	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
 	Fjola		= "Fjola Lightbane",
-	Eydis		= "Eydis Darkbane"
+	Eydis		= "Eydis Darkbane",
+	AnubRP		= "A mighty blow has been dealt to the Lich King! You have proven yourselves as able bodied champions of the Argent Crusade. Together we will strike against Icecrown Citadel and destroy what remains of the Scourge! There is no challenge that we cannot face united!"
 }
 
 L:SetOptionLocalization{
 	TimerSpecialSpell			= "Show timer for next special ability",
-	TimerRoleplay				= "Show timer for roleplay after victory",
+	TimerAnubRoleplay			= "Show roleplay timer for Lich King breaking the floor",
 	WarnSpecialSpellSoon		= "Show pre-warning for next special ability",
 	SpecWarnSpecial				= "Show special warning when you have to change color",
 	SpecWarnSwitchTarget		= "Show special warning when the other Twin is casting",
@@ -256,4 +257,3 @@ L:SetOptionLocalization{
 	AnnouncePColdIcons		= "Announce icons for $spell:68510 targets to raid chat\n(requires announce to be enabled and leader/promoted status)",
 	AnnouncePColdIconsRemoved	= "Also announce when icons are removed for $spell:68510\n(requires above option)"
 }
-
