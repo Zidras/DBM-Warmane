@@ -39,7 +39,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(70323) and self:AntiSpam(0.5) then
+	if args:IsSpellID(70323) and args:IsPlayer() and self:AntiSpam(0.5) then
 		specwarnWell:Show()
 	end
 end

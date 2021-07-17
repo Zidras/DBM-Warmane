@@ -21,10 +21,10 @@ mod:RegisterEvents(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
-local warnImpaleOn			= mod:NewTargetAnnounce(67478, 2, nil, mod:IsTank() or mod:IsHealer())
+local warnImpaleOn			= mod:NewStackAnnounce(67478, 2, nil, mod:IsTank() or mod:IsHealer())
 local warnFireBomb			= mod:NewSpellAnnounce(66317, 3, nil, false)
 local warnBreath			= mod:NewSpellAnnounce(67650, 2)
-local warnRage				= mod:NewSpellAnnounce(67657, 3)
+local warnRage				= mod:NewStackAnnounce(67657, 3)
 local warnSlimePool			= mod:NewSpellAnnounce(67643, 2, nil, mod:IsMelee())
 local warnToxin				= mod:NewTargetAnnounce(66823, 3)
 local warnBile				= mod:NewTargetAnnounce(66869, 3)
@@ -177,9 +177,9 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(67477, 66331, 67478, 67479) then		-- Impale
 		timerNextImpale:Start()
-		warnImpaleOn:Show(args.destName)
+		warnImpaleOn:Show(args.destName, args.amount or 1)
 	elseif args:IsSpellID(67657, 66759, 67658, 67659) then	-- Frothing Rage
-		warnRage:Show()
+		warnRage:Show(args.destName, args.amount or 1)
 		specWarnTranq:Show()
 	elseif args:IsSpellID(66823, 67618, 67619, 67620) then	-- Paralytic Toxin
 		self:UnscheduleMethod("warnToxin")
@@ -212,7 +212,7 @@ end
 function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(67477, 66331, 67478, 67479) then		-- Impale
 		timerNextImpale:Start()
-		warnImpaleOn:Show(args.destName)
+		warnImpaleOn:Show(args.destName, args.amount or 1)
 		if (args.amount >= 3 and not self:IsDifficulty("heroic10", "heroic25") ) or ( args.amount >= 2 and self:IsDifficulty("heroic10", "heroic25") ) then
 			if args:IsPlayer() then
 				specWarnImpale3:Show(args.amount)
