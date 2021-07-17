@@ -256,24 +256,3 @@ L:SetOptionLocalization{
 	AnnouncePColdIcons			= "Anunciar iconos para los ojetivos de $spell:68510 en el chat de banda\n(Requiere 'anunciar' habilitado y lider o ayudante)",
 	AnnouncePColdIconsRemoved	= "También anunciar cuando se eliminen los iconos de los objetivos $spell:68510\n(Necesita la opción anterior)"
 }
-
-----------------
---  Roleplay  --
-----------------
-L = DBM:GetModLocalization("Roleplay")
-
-L:SetGeneralLocalization{
-	name 				= "Roleplay"
-}
-
-L:SetTimerLocalization{
-	TimerAnubRP			= "Ground breaks in" -- Needs translating
-}
-
-L:SetOptionLocalization{
-	TimerAnubRP			= "Show time left until Lich King breaks the floor and you start falling" -- Needs translating
-}
-
-L:SetMiscLocalization{
-	AnubRP				= "A mighty blow has been dealt to the Lich King! You have proven yourselves as able bodied champions of the Argent Crusade. Together we will strike against Icecrown Citadel and destroy what remains of the Scourge! There is no challenge that we cannot face united!" -- Needs translating
-}
