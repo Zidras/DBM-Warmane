@@ -126,7 +126,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg:find(L.PullAlliance) or msg:find(L.PullHorde) then
-		--timerCombatStart:Start()
+		timerCombatStart:Start()
 	elseif (msg:find(L.AddsAlliance) or msg:find(L.AddsHorde)) and self:IsInCombat() then
 		self:Unschedule(Adds)
 		Adds(self)
