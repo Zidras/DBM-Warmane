@@ -50,7 +50,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_DAMAGE(args)
-	if args.spellId == 38575 and args.destName == UnitName("player") then
+	if args.spellId == 38575 and args:IsPlayer() then
 		specwarnSpores:Show()
 	end
 end
