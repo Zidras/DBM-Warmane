@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4380 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 4400 $"):sub(12, -3))
+mod:SetMinSyncRevision(4400)
 local addsIcon
 local bossID
-
+--mod:RegisterCombat("combat")
 if UnitFactionGroup("player") == "Alliance" then
 	mod:RegisterCombat("yell", L.CombatAlliance)
 	mod:RegisterKill("yell", L.KillAlliance)
@@ -18,6 +19,7 @@ else
 	addsIcon = 23336
 	bossID = 36948
 end
+mod:SetMinCombatTime(50)
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
@@ -38,7 +40,7 @@ local warnWoundingStrike	= mod:NewTargetAnnounce(69651, 2)
 local warnAddsSoon			= mod:NewAnnounce("WarnAddsSoon", 2, addsIcon)
 
 local timerCombatStart		= mod:NewCombatTimer(47.5)
-local timerBelowZeroCD		= mod:NewNextTimer(35, 69705, nil, nil, nil, 5, nil, DBM_CORE_DAMAGE_ICON, nil, 1)
+local timerBelowZeroCD		= mod:NewNextTimer(34, 69705, nil, nil, nil, 5, nil, DBM_CORE_DAMAGE_ICON, nil, 1)
 local timerBattleFuryActive	= mod:NewBuffFadesTimer(17, 69638, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerAdds				= mod:NewTimer(60, "TimerAdds", addsIcon, nil, nil, 1)
 
@@ -59,9 +61,14 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerAdds:Start(15-delay)--First adds might come early or late so timer should be taken as a proximity only.
+	timerAdds:Start(15-delay) --First adds might come early or late so timer should be taken as a proximity only.
 	warnAddsSoon:Schedule(10)
 	self:Schedule(15, Adds, self)
+	if UnitFactionGroup("player") == "Alliance" then
+		timerBelowZeroCD:Start(39-delay)
+	else
+		timerBelowZeroCD:Start(37-delay)
+	end
 	self.vb.firstMage = false
 end
 
@@ -111,17 +118,18 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
+	print(msg:find(L.MageAlliance), msg==L.MageAlliance, msg:find(L.MageHorde), msg==L.MageHorde)
 	if msg:find(L.PullAlliance) or msg:find(L.PullHorde) then
 		timerCombatStart:Start()
-	elseif (msg:find(L.AddsAlliance) or msg:find(L.AddsHorde)) and self:IsInCombat() then
+	elseif ( (msg:find(L.AddsAlliance) or msg==L.AddsAlliance) or (msg:find(L.AddsHorde) or msg==L.AddsHorde) ) and self:IsInCombat() then
 		self:Unschedule(Adds)
 		Adds(self)
-	elseif (msg:find(L.MageAlliance) or msg:find(L.MageHorde)) and self:IsInCombat() then
-		if not self.vb.firstMage then
-			timerBelowZeroCD:Start(3.2)
-			self.vb.firstMage = true
-		else
-			timerBelowZeroCD:Update(30.3, 33.5)--Update the below zero timer to correct it with yells since it tends to be off depending on how bad your cannon operators are.
-		end
-	end
+    elseif ( (msg:find(L.MageAlliance) or msg==L.MageAlliance) or (msg:find(L.MageHorde) or msg==L.MageHorde) ) then
+        if not self.vb.firstMage then
+            timerBelowZeroCD:Start(3.2)
+            self.vb.firstMage = true
+        else
+            timerBelowZeroCD:Update(30.3, 33.5)--Update the below zero timer to correct it with yells since it tends to be off depending on how bad your cannon operators are.
+        end
+    end
 end
