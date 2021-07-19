@@ -138,24 +138,24 @@ L:SetMiscLocalization{
 	Narrhok				= "戰士 - 納霍克·破鋼者",		-- 34453
 	--Alliance NPCS
 	Tyrius				= "死騎 - 提瑞斯·暮刃",			-- 34461
- 	Kavina				= "小德 - 卡薇娜·林地之歌",		-- 34460
- 	Melador				= "小德 - 梅拉朵·谷行者",		-- 34469
- 	Alyssia 			= "獵人 - 愛莉希雅·月巡者",		-- 34467
- 	Noozle				= "法師 - 諾佐·嘯棍",			-- 34468
- 	Baelnor 			= "聖騎 - 貝爾諾·攜光者",		-- 34471
- 	Velanaa				= "聖騎 - 維蘭娜",				-- 34465
- 	Anthar				= "牧師 - 安薩·修爐匠",			-- 34466
- 	Brienna				= "牧師 - 布芮娜·夜墜",			-- 34473
- 	Irieth				= "盜賊 - 艾芮絲·影步",			-- 34472
- 	Saamul				= "薩滿 - 薩繆爾",				-- 34470
- 	Shaabad				= "薩滿 - 夏巴德",				-- 34463
- 	Serissa				= "術士 - 瑟芮莎·厲濺",			-- 34474
- 	Shocuul				= "戰士 - 修庫爾",				-- 34475
+	Kavina				= "小德 - 卡薇娜·林地之歌",		-- 34460
+	Melador				= "小德 - 梅拉朵·谷行者",		-- 34469
+	Alyssia 			= "獵人 - 愛莉希雅·月巡者",		-- 34467
+	Noozle				= "法師 - 諾佐·嘯棍",			-- 34468
+	Baelnor 			= "聖騎 - 貝爾諾·攜光者",		-- 34471
+	Velanaa				= "聖騎 - 維蘭娜",				-- 34465
+	Anthar				= "牧師 - 安薩·修爐匠",			-- 34466
+	Brienna				= "牧師 - 布芮娜·夜墜",			-- 34473
+	Irieth				= "盜賊 - 艾芮絲·影步",			-- 34472
+	Saamul				= "薩滿 - 薩繆爾",				-- 34470
+	Shaabad				= "薩滿 - 夏巴德",				-- 34463
+	Serissa				= "術士 - 瑟芮莎·厲濺",			-- 34474
+	Shocuul				= "戰士 - 修庫爾",				-- 34475
 
 	AllianceVictory		= "榮耀歸於聯盟!",
 	HordeVictory		= "那只是讓你們知道將來必須面對的命運。為了部落!",
 	YellKill			= "膚淺而悲痛的勝利。今天痛失的生命反而令我們更加的頹弱。除了巫妖王之外，誰還能從中獲利?偉大的戰士失去了寶貴生命。為了什麼?真正的威脅就在前方 - 巫妖王在死亡的領域中等著我們。"
-} 
+}
 
 L:SetOptionLocalization{
 	PlaySoundOnBladestorm	= "為劍刃風暴播放音效"
@@ -171,7 +171,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell		= "下一次 特別技能"	
+	TimerSpecialSpell		= "下一次 特別技能"
 }
 
 L:SetWarningLocalization{
