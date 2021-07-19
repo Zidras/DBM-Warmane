@@ -19,6 +19,7 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_SUMMON"
 )
+
 local isHunter 				= select(2, UnitClass("player")) == "HUNTER"
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1)
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
@@ -96,8 +97,11 @@ function mod:UnWKT()
 end
 
 function mod:EqWKT()
-	DBM:Debug("trying to equip pve",1)
-	UseEquipmentSet("pve")
+	if (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and not self:IsWeaponDependent() and self:IsEquipmentSetAvailable("pve") then
+		DBM:Debug("trying to equip pve",1)
+		UseEquipmentSet("pve")
+		CancelUnitBuff("player", (GetSpellInfo(25780)))
+	end
 end
 
 function mod:OnCombatEnd()
@@ -147,7 +151,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(28410) then -- Chains of Kel'Thuzad
 		table.insert(chainsTargets, args.destName)
 		mindControlCD:Start()
-		timerPossibleMC:Schedule(60)
 		warnMindControl:Schedule(60)
 		self:UnscheduleMethod("AnnounceChainsTargets")
 		if #chainsTargets >= 3 then
@@ -163,7 +166,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:has_value(tab, val)
-    for index, value in ipairs(tab) do
+    for _, value in ipairs(tab) do
         if value == val then
             return true
         end
@@ -193,13 +196,13 @@ function mod:AnnounceBlastTargets()
 		self:SetIcon(frostBlastTargets[i], 8 - i, 4.5)
 		frostBlastTargets[i] = nil
 	end
-	timerPossibleMC:Cancel()
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(27810) then
 		warnFissure:Show()
 		specwarnfissure:Show()
+		soundFissure:Cancel()
 		soundFissure:Schedule(0.01, "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
 		fissureCD:Start()
 	elseif args:IsSpellID(27808) then
@@ -259,7 +262,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) then
-		if mod.Options.EqUneqWeaponsKT and not mod:IsTank() then
+		if mod.Options.EqUneqWeaponsKT and mod:IsWeaponDependent() then
 			mod:UnWKT()
 			mod:UnWKT()
 			self:ScheduleMethod(59, "UnWKT")
