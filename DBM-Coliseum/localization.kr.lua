@@ -154,7 +154,7 @@ L:SetMiscLocalization{
 	Shocuul				= "전사 - 쇼쿨",						-- 34475, Allience
 
 	AllianceVictory 	= "Glory to the Alliance!",
-	HordeVictory		= "앞으로 일어날 일의 맛보기일 뿐이다. 호드를 위하여!",	
+	HordeVictory		= "앞으로 일어날 일의 맛보기일 뿐이다. 호드를 위하여!",
 	YellKill			= "상처뿐인 승리로군. 오늘 받은 손해로 우리 전력은 약해졌네. 이런 어리석은 짓으로 리치 왕 말고 또 누가 이득을 보겠나? 위대한 용사들이 목숨을 잃었네. 무엇을 위해서였나? 진짜 위협은 저 앞에 있네. 리치 왕이 우리 모두를 죽음 안에서 기다린다네.",
 }
 
