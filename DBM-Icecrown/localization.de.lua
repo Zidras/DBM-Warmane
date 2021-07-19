@@ -1,9 +1,5 @@
 ﻿if GetLocale() ~= "deDE" then return end
 
--- fehlende Übersetzungen:
---
--- Luftschiffkampf (Horde)
-
 local L
 
 ---------------------------
@@ -185,7 +181,6 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	--WarnBattleFury		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(69638, GetSpellInfo(69638) or "Battle Fury"),
 	TimerCombatStart	= "Zeige Zeit bis zum Beginn des Kampfes",
 	WarnAddsSoon		= "Zeige Vorwarnung für erscheinende Adds",
 	TimerAdds			= "Zeige Timer für neue Adds"
@@ -248,7 +243,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	InhaledBlight		= "Eingeatmeter Seuchennebel >%d<",
-	WarnGastricBloat	= "%s auf >%s< (%s)",		-- Gastric Bloat on >args.destName< (args.amount)
+	WarnGastricBloat	= "%s auf >%s< (%s)",	-- Gastric Bloat on >args.destName< (args.amount)
 }
 
 L:SetOptionLocalization{
@@ -337,7 +332,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull	= "Gute Nachricht Freunde! Ich habe eine Seuche perfektioniert, die alles Leben Azeroths auslöscht!",
+	YellPull		= "Gute Nachricht Freunde! Ich habe eine Seuche perfektioniert, die alles Leben Azeroths auslöscht!",
 	YellMalleable	= "Formbarer Schleim auf mir!",
 	YellUnbound		= "Entfesselte Seuche auf mir!"
 }
@@ -452,8 +447,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	YellPull		= "Eindringlinge im Inneren Sanktum! Beschleunigt die Vernichtung des grünen Drachen! Bewahrt nur Knochen und Sehnen für die Wiederbelebung auf!",
 	YellKill		= "ICH BIN GEHEILT! Ysera, erlaubt mir diese üblen Kreaturen zu beseitigen!",
-	YellPortals		= "Ich habe ein Portal in den Traum geöffnet. Darin liegt Eure Erlösung, Helden...",
-	YellPhase2		= "Meine Kraft kehrt zurück. Macht weiter, Helden!"
+	YellPortals		= "Ich habe ein Portal in den Traum geöffnet. Darin liegt Eure Erlösung, Helden..."
 }
 
 ------------------
@@ -493,14 +487,19 @@ L:SetOptionLocalization{
  	SetIconOnFrostBeacon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
 	SetIconOnUnchainedMagic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase	= "Entferne alle Zeichen vor der Luftphase",
+	AchievementCheck		= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)", --Needs Translating
 	RangeFrame				= "Zeige Abstandsfenster (10 m normal, 20 m heroisch)\n(zeigt nur Spieler mit Raidzeichen an)"
 }
 
 L:SetMiscLocalization{
-	YellAirphase	= "Euer Vormarsch endet hier! Keiner wird überleben!",
-	YellPhase2		= "Fühlt die grenzenlose Macht meines Meisters, und verzweifelt!",
-	BeaconIconSet			= "Frostleuchtfeuer-Zeichen {rt%d} auf %s gesetzt",
-	YellPull		= "Ihr seid Narren, euch hierher zu wagen. Der eisige Wind Nordends wird eure Seelen verschlingen!"	-- momentan nicht verwendet
+	YellAirphase		= "Euer Vormarsch endet hier! Keiner wird überleben!",
+	YellPhase2			= "Fühlt die grenzenlose Macht meines Meisters, und verzweifelt!",
+	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
+	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
+	BeaconIconSet		= "Frostleuchtfeuer-Zeichen {rt%d} auf %s gesetzt",
+	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet",
+	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<",
+	YellPull			= "Ihr seid Narren, euch hierher zu wagen. Der eisige Wind Nordends wird eure Seelen verschlingen!"	-- momentan nicht verwendet
 }
 
 ---------------------
@@ -519,44 +518,57 @@ L:SetWarningLocalization{
 	SpecWarnDefileNear		= "Entweihen in deiner Nähe - Aufpassen",
 	SpecWarnTrapNear		= "Schattenfalle in deiner Nähe - Aufpassen",
 	WarnNecroticPlagueJump	= "Nekrotische Seuche auf >%s< gesprungen",
-	SpecWarnValkyrLow		= "Valkyr below 55%"
+	SpecWarnValkyrLow		= "Valkyr below 55%" --Needs Translating
 }
 
 L:SetTimerLocalization{
-	TimerCombatStart		= "Kampf beginnt",
-	TimerRoleplay			= "Rollenspiel",
-	PhaseTransition			= "Phasenübergang",
-	TimerNecroticPlagueCleanse = "Nekrotische Seuche reinigen"
+	TimerCombatStart			= "Kampf beginnt",
+	TimerRoleplay				= "Rollenspiel",
+	PhaseTransition				= "Phasenübergang",
+	TimerNecroticPlagueCleanse	= "Nekrotische Seuche reinigen"
 }
 
 L:SetOptionLocalization{
-	TimerCombatStart		= "Zeige Timer für Kampfbeginn",
-	TimerRoleplay			= "Zeige Timer für Rollenspiel",
-	WarnNecroticPlagueJump	= "Verkünde Sprungziele von $spell:73912",
+	TimerCombatStart			= "Zeige Timer für Kampfbeginn",
+	TimerRoleplay				= "Zeige Timer für Rollenspiel",
+	WarnNecroticPlagueJump		= "Verkünde Sprungziele von $spell:73912",
 	TimerNecroticPlagueCleanse	= "Zeige Timer um Nekrotische Seuche vor dem ersten Tick zu reinigen",
-	PhaseTransition			= "Zeige Timer für Phasenübergänge",
-	WarnPhase2Soon			= "Zeige Vorwarnung für Übergang in Phase 2 (bei ~73%)",
-	WarnPhase3Soon			= "Zeige Vorwarnung für Übergang in Phase 3 (bei ~43%)",
-	SpecWarnDefileCast		= "Zeige Spezialwarnung für $spell:72762 auf dir",
-	SpecWarnDefileNear		= "Zeige Spezialwarnung für $spell:72762 in deiner Nähe",
-	SpecWarnTrapNear		= "Zeige Spezialwarnung für $spell:73539 in deiner Nähe",
-	YellOnDefile			= "Schreie bei $spell:72762",
-	YellOnTrap				= "Schreie bei $spell:73539",
-	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	ValkyrIcon				= "Setze Zeichen auf Valkyren",
-	DefileArrow				= "Zeige Pfeil wenn $spell:72762 in deiner Nähe ist",
-	TrapArrow				= "Zeige Pfeil wenn $spell:73539 in deiner Nähe ist",
-	SpecWarnValkyrLow		= "Show special warning when Valkyr is below 55% HP"
+	PhaseTransition				= "Zeige Timer für Phasenübergänge",
+	WarnPhase2Soon				= "Zeige Vorwarnung für Übergang in Phase 2 (bei ~73%)",
+	WarnPhase3Soon				= "Zeige Vorwarnung für Übergang in Phase 3 (bei ~43%)",
+	SpecWarnDefileCast			= "Zeige Spezialwarnung für $spell:72762 auf dir",
+	SpecWarnDefileNear			= "Zeige Spezialwarnung für $spell:72762 in deiner Nähe",
+	SpecWarnTrapNear			= "Zeige Spezialwarnung für $spell:73539 in deiner Nähe",
+	YellOnDefile				= "Schreie bei $spell:72762",
+	YellOnTrap					= "Schreie bei $spell:73539",
+	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
+	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
+	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
+	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
+	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
+	ValkyrIcon					= "Setze Zeichen auf Valkyren",
+	DefileArrow					= "Zeige Pfeil wenn $spell:72762 in deiner Nähe ist",
+	TrapArrow					= "Zeige Pfeil wenn $spell:73539 in deiner Nähe ist",
+	SpecWarnValkyrLow			= "Show special warning when Valkyr is below 55% HP",
+	AnnouncePlagueStack			= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",
+	ShowFrame					= "Show Val'Kyr Targets frame",
+	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame",
+	FrameUpwards				= "Expand Val'Kyr target frame upwards",
+	FrameLocked					= "Lock Val'Kyr Targets frame",
+	RemoveImmunes				= "Remove immunity spells before exiting Frostmourne room"
 }
 
 L:SetMiscLocalization{
 	LKPull					= "Der vielgerühmte Streiter des Lichts ist endlich hier? Soll ich Frostgram niederlegen und mich Eurer Gnade ausliefern, Fordring?",
+	LKRoleplay				= "Ist es wirklich Rechtschaffenheit, die Euch treibt? Ich bin mir nicht sicher…",
 	YellDefile				= "Entweihen auf mir!",
 	YellTrap				= "Schattenfalle auf mir!",
 	YellKill				= "Keine Fragen, keine Zweifel mehr - Ihr SEID Azeroths größte Champions. Ihr habt jede meiner Herausforderungen gemeistert. Meine mächtigsten Diener fielen unter Eurem unnachgiebigen Ansturm... Eurer grenzenlosen Wut...",
-	LKRoleplay				= "Ist es wirklich Rechtschaffenheit, die Euch treibt? Ich bin mir nicht sicher…",
-	PlagueWhisper			= "Ihr wurdet von der"
+	PlagueWhisper			= "Ihr wurdet von der",
+	FrameTitle				= "Valkyr targets",
+	FrameLock				= "Frame Lock",
+	FrameClassColor			= "Use Class Colors",
+	FrameOrientation		= "Expand upwards",
+	FrameHide				= "Hide Frame",
+	FrameClose				= "Close"
 }

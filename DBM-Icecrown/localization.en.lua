@@ -398,16 +398,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnAirphase			= "Announce air phase",
-	WarnGroundphaseSoon		= "Show pre-warning for ground phase",
-	TimerNextAirphase		= "Show timer for next air phase",
-	TimerNextGroundphase	= "Show timer for next ground phase",
-	AnnounceFrostBeaconIcons= "Announce icons for $spell:70126 targets to raid chat<br/>(requires raid leader)",
-	SetIconOnFrostBeacon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
-	SetIconOnUnchainedMagic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
-	ClearIconsOnAirphase	= "Clear all icons before air phase",
-	AchievementCheck		= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)",
-	RangeFrame				= "Show dynamic range frame (10/20) based on last used boss ability and player debuffs"
+	WarnAirphase				= "Announce air phase",
+	WarnGroundphaseSoon			= "Show pre-warning for ground phase",
+	TimerNextAirphase			= "Show timer for next air phase",
+	TimerNextGroundphase		= "Show timer for next ground phase",
+	AnnounceFrostBeaconIcons	= "Announce icons for $spell:70126 targets to raid chat<br/>(requires raid leader)",
+	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
+	SetIconOnUnchainedMagic		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
+	ClearIconsOnAirphase		= "Clear all icons before air phase",
+	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)",
+	RangeFrame					= "Show dynamic range frame (10/20) based on last used boss ability and player debuffs"
 }
 
 L:SetMiscLocalization{
@@ -437,32 +437,32 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerRoleplay		= "Roleplay",
-	PhaseTransition		= "Phase transition",
-	TimerNecroticPlagueCleanse = "Cleanse Necrotic Plague"
+	TimerRoleplay				= "Roleplay",
+	PhaseTransition				= "Phase transition",
+	TimerNecroticPlagueCleanse	= "Cleanse Necrotic Plague"
 }
 
 L:SetOptionLocalization{
-	TimerRoleplay			= "Show timer for roleplay event",
-	WarnNecroticPlagueJump	= "Announce $spell:73912 jump targets",
+	TimerRoleplay				= "Show timer for roleplay event",
+	WarnNecroticPlagueJump		= "Announce $spell:73912 jump targets",
 	TimerNecroticPlagueCleanse	= "Show timer to cleanse Necrotic Plague before\nthe first tick",
-	PhaseTransition			= "Show time for phase transitions",
-	ValkyrWarning			= "Announce who has been grabbed by Val'kyr Shadowguards",
-	SpecWarnYouAreValkd		= "Show special warning when you have been grabbed by a Val'kyr Shadowguard",--npc36609
-	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
-	TrapArrow				= "Show DBM arrow when $spell:73539 is near you",
-	AnnounceValkGrabs		= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",
-	SpecWarnValkyrLow		= "Show special warning when Valkyr is below 55% HP",
-	AnnouncePlagueStack		= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",
-	ShowFrame				= "Show Val'Kyr Targets frame",
-	FrameClassColor			= "Use Class Colors in Val'Kyr Targets frame",
-	FrameUpwards			= "Expand Val'Kyr target frame upwards",
-	FrameLocked				= "Lock Val'Kyr Targets frame",
-	RemoveImmunes			= "Remove immunity spells before exiting Frostmourne room"
+	PhaseTransition				= "Show time for phase transitions",
+	ValkyrWarning				= "Announce who has been grabbed by Val'kyr Shadowguards",
+	SpecWarnYouAreValkd			= "Show special warning when you have been grabbed by a Val'kyr Shadowguard",--npc36609
+	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
+	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
+	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
+	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
+	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
+	TrapArrow					= "Show DBM arrow when $spell:73539 is near you",
+	AnnounceValkGrabs			= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",
+	SpecWarnValkyrLow			= "Show special warning when Valkyr is below 55% HP",
+	AnnouncePlagueStack			= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",
+	ShowFrame					= "Show Val'Kyr Targets frame",
+	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame",
+	FrameUpwards				= "Expand Val'Kyr target frame upwards",
+	FrameLocked					= "Lock Val'Kyr Targets frame",
+	RemoveImmunes				= "Remove immunity spells before exiting Frostmourne room"
 }
 
 L:SetMiscLocalization{
