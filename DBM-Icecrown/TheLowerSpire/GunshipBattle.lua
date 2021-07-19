@@ -1,21 +1,24 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4390 $"):sub(12, -3))
-mod:SetMinSyncRevision(4390)
+mod:SetRevision(("$Revision: 4400 $"):sub(12, -3))
+mod:SetMinSyncRevision(4400)
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
 if UnitFactionGroup("player") == "Alliance" then
+	--mod:RegisterCombat("yell", L.CombatAlliance)
+	mod:RegisterKill("yell", L.KillAlliance)
 	mod:SetCreatureID(36939, 37215)    -- High Overlord Saurfang, Orgrim's Hammer
 	addsIcon = 23334
 	bossID = 36939
 else
+	--mod:RegisterCombat("yell", L.CombatHorde)
+	mod:RegisterKill("yell", L.KillHorde)
 	mod:SetCreatureID(36948, 37540)    -- Muradin Bronzebeard, The Skybreaker
 	addsIcon = 23336
 	bossID = 36948
 end
-mod:SetMinCombatTime(50)
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
@@ -57,26 +60,15 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerCombatStart:Start(-delay)
-	if UnitFactionGroup("player") == "Alliance" then
-		timerAdds:Start(62-delay)
-		warnAddsSoon:Schedule(57)
-		self:Schedule(62, Adds, self)
-		timerBelowZeroCD:Start(75-delay)--This doesn't make sense. Need more logs to verify
-	else
-		if self:IsDifficulty("heroic10", "heroic25") then
-			timerAdds:Start(63-delay)
-			warnAddsSoon:Schedule(58)
-			self:Schedule(63, Adds, self)
-			timerBelowZeroCD:Start(102-delay)--This doesn't make sense. Need more logs to verify
-		else
-			timerAdds:Start(57-delay)
-			warnAddsSoon:Schedule(52)
-			self:Schedule(57, Adds, self)
-			timerBelowZeroCD:Start(80-delay)--This doesn't make sense. Need more logs to verify
-		end
-	end
+	timerAdds:Start(15-delay) --First adds might come early or late so timer should be taken as a proximity only.
+	warnAddsSoon:Schedule(10)
+	self:Schedule(15, Adds, self)
 	self.vb.firstMage = false
+	if UnitFactionGroup("player") == "Alliance" then
+		timerBelowZeroCD:Start(39) --Approximate, since it depends on cannon damage. Corrected on yell later
+	else
+		timerBelowZeroCD:Start(37) --Approximate, since it depends on cannon damage. Corrected on yell later
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -125,17 +117,26 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg:find(L.PullAlliance) or msg:find(L.PullHorde) then
+	if msg:find(L.PullAlliance) then
 		timerCombatStart:Start()
+	elseif msg:find(L.PullHorde) then
+		timerCombatStart:Start(45)
 	elseif (msg:find(L.AddsAlliance) or msg:find(L.AddsHorde)) and self:IsInCombat() then
 		self:Unschedule(Adds)
 		Adds(self)
-	elseif (msg:find(L.MageAlliance) or msg:find(L.MageHorde)) and self:IsInCombat() then
+	elseif (msg:find(L.MageAlliance) or msg == L.MageAlliance) and self:IsInCombat() then
 		if not self.vb.firstMage then
-			timerBelowZeroCD:Start(3.2)
+			timerBelowZeroCD:Update(34, 39)
 			self.vb.firstMage = true
 		else
-			timerBelowZeroCD:Update(30.3, 33.5)--Update the below zero timer to correct it with yells since it tends to be off depending on how bad your cannon operators are.
+			timerBelowZeroCD:Update(30, 35)--Update the below zero timer to correct it with yells since it tends to be off depending on how bad your cannon operators are.
+		end
+	elseif (msg:find(L.MageHorde) or msg == L.MageHorde) and self:IsInCombat() then
+		if not self.vb.firstMage then
+			timerBelowZeroCD:Update(34.5, 37)
+			self.vb.firstMage = true
+		else
+			timerBelowZeroCD:Update(32.5, 35)--Update the below zero timer to correct it with yells since it tends to be off depending on how bad your cannon operators are.
 		end
 	end
 end
