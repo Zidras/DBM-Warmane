@@ -127,7 +127,7 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnReanimating				= "Add reviving",			-- Reanimating an adherent or fanatic
+	WarnReanimating				= "Add reviving",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "New adds soon",
 	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away",--creatureid 38222
 	WeaponsStatus				= "Auto Unequipping enabled"
@@ -201,8 +201,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	BoilingBloodIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72441),
-	RangeFrame				= "Show range frame (12 yards)",
-	RunePowerFrame			= "Show Boss Health + $spell:72371 bar"
+	RangeFrame			= "Show range frame (12 yards)",
+	RunePowerFrame		= "Show Boss Health + $spell:72371 bar"
 }
 
 L:SetMiscLocalization{
@@ -344,18 +344,18 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnPortalOpen	= "Portals open",
-	Suppressers		= "Suppressers"
+	Suppressors		= "Suppressors"
 }
 
 L:SetTimerLocalization{
-	TimerPortalsOpen		= "Portals open",
-	TimerPortalsClose		= "Portals close",
-	TimerBlazingSkeleton	= "Next Blazing Skeleton",
-	TimerAbom				= "Next Abomination",
-	TimerSuppresserOne			= "1st wave of Suppressers",
-	TimerSuppresserTwo			= "2nd wave of Suppressers",
-	TimerSuppresserThree		= "3rd wave of Suppressers",
-	TimerSuppresserFour			= "4th wave of Suppressers"
+	TimerPortalsOpen			= "Portals open",
+	TimerPortalsClose			= "Portals close",
+	TimerBlazingSkeleton		= "Next Blazing Skeleton",
+	TimerAbom					= "Next Abomination",
+	TimerSuppressorOne			= "1st wave of Suppressors",
+	TimerSuppressorTwo			= "2nd wave of Suppressors",
+	TimerSuppressorThree		= "3rd wave of Suppressors",
+	TimerSuppressorFour			= "4th wave of Suppressors"
 }
 
 L:SetOptionLocalization{
@@ -365,11 +365,11 @@ L:SetOptionLocalization{
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed",
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn",
 	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)",
-	Suppressers					= "Show special warning for new Suppressers",
-	TimerSuppresserOne			= "1st wave of Suppressers",
-	TimerSuppresserTwo			= "2nd wave of Suppressers",
-	TimerSuppresserThree		= "3rd wave of Suppressers",
-	TimerSuppresserFour			= "4th wave of Suppressers"
+	Suppressors					= "Show special warning for new Suppressors",
+	TimerSuppressorOne			= "1st wave of Suppressors",
+	TimerSuppressorTwo			= "2nd wave of Suppressors",
+	TimerSuppressorThree		= "3rd wave of Suppressors",
+	TimerSuppressorFour			= "4th wave of Suppressors"
 }
 
 L:SetMiscLocalization{
