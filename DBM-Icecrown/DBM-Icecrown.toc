@@ -13,9 +13,7 @@
 ## X-DBM-Mod-Name: Icecrown Citadel
 ## X-DBM-Mod-Name-ruRU: Цитадель Ледяной Короны
 ## X-DBM-Mod-Sort: 0
---## X-DBM-Mod-LoadZoneID: 605
-## X-DBM-Mod-LoadZone: Icecrown Citadel
-## X-DBM-Mod-LoadZone-ruRU: Цитадель Ледяной Короны
+## X-DBM-Mod-LoadZoneID: 605
 localization.en.lua
 localization.ru.lua
 localization.cn.lua
