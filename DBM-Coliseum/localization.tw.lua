@@ -43,10 +43,10 @@ L:SetOptionLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerNextBoss				= "下一隻王到來",
-	TimerCombatStart			= "戰鬥開始",
-	TimerEmerge					= "持續鑽地",
-	TimerSubmerge				= "下一次 鑽地"
+	TimerNextBoss			= "下一隻王到來",
+	TimerCombatStart		= "戰鬥開始",
+	TimerEmerge				= "持續鑽地",
+	TimerSubmerge			= "下一次 鑽地"
 }
 
 L:SetWarningLocalization{
@@ -98,7 +98,7 @@ L:SetOptionLocalization{
 	LegionFlameIcon			= "為軍團烈焰的目標設置標記",
 	LegionFlameWhisper		= "密語提示軍團烈焰的目標",
 	LegionFlameRunSound		= "為軍團烈焰播放音效",
-	IncinerateShieldFrame		= "在首領血量裡顯示焚化血肉的血量"
+	IncinerateShieldFrame	= "在首領血量裡顯示焚化血肉的血量"
 }
 
 L:SetMiscLocalization{
@@ -122,35 +122,35 @@ L:SetWarningLocalization{
 
 L:SetMiscLocalization{
 	--Horde NPCS
-	Gorgrim				= "死騎 - 高葛林·影斬",		-- 34458
-	Birana 				= "小德 - 碧菈娜·風暴之蹄",	-- 34451
-	Erin				= "小德 - 艾琳·霧蹄",		-- 34459
-	Rujkah				= "獵人 - 茹卡",		-- 34448
-	Ginselle			= "法師 - 金賽兒·凋擲",		-- 34449
-	Liandra				= "聖騎 - 黎安卓·喚日",		-- 34445
-	Malithas			= "聖騎 - 瑪力薩·亮刃",		-- 34456
-	Caiphus				= "牧師 - 嚴厲的凱普司",	-- 34447
-	Vivienne			= "牧師 - 薇薇安·黑語",		-- 34441
-	Mazdinah			= "盜賊 - 馬茲迪娜",		-- 34454
-	Thrakgar			= "薩滿 - 瑟瑞克加爾",		-- 34444
-	Broln				= "薩滿 - 伯洛連·頑角",		-- 34455
-	Harkzog				= "術士 - 哈克佐格",		-- 34450
-	Narrhok				= "戰士 - 納霍克·破鋼者",	-- 34453
+	Gorgrim				= "死騎 - 高葛林·影斬",			-- 34458
+	Birana				= "小德 - 碧菈娜·風暴之蹄",		-- 34451
+	Erin				= "小德 - 艾琳·霧蹄",			-- 34459
+	Rujkah				= "獵人 - 茹卡",				-- 34448
+	Ginselle			= "法師 - 金賽兒·凋擲",			-- 34449
+	Liandra				= "聖騎 - 黎安卓·喚日",			-- 34445
+	Malithas			= "聖騎 - 瑪力薩·亮刃",			-- 34456
+	Caiphus				= "牧師 - 嚴厲的凱普司",		-- 34447
+	Vivienne			= "牧師 - 薇薇安·黑語",			-- 34441
+	Mazdinah			= "盜賊 - 馬茲迪娜",			-- 34454
+	Thrakgar			= "薩滿 - 瑟瑞克加爾",			-- 34444
+	Broln				= "薩滿 - 伯洛連·頑角",			-- 34455
+	Harkzog				= "術士 - 哈克佐格",			-- 34450
+	Narrhok				= "戰士 - 納霍克·破鋼者",		-- 34453
 	--Alliance NPCS
-	Tyrius				= "死騎 - 提瑞斯·暮刃",		-- 34461
- 	Kavina				= "小德 - 卡薇娜·林地之歌",	-- 34460
- 	Melador				= "小德 - 梅拉朵·谷行者",	-- 34469
- 	Alyssia 			= "獵人 - 愛莉希雅·月巡者",	-- 34467
- 	Noozle				= "法師 - 諾佐·嘯棍",		-- 34468
- 	Baelnor 			= "聖騎 - 貝爾諾·攜光者",	-- 34471
- 	Velanaa				= "聖騎 - 維蘭娜", 			-- 34465
- 	Anthar				= "牧師 - 安薩·修爐匠",		-- 34466
- 	Brienna				= "牧師 - 布芮娜·夜墜",		-- 34473
- 	Irieth				= "盜賊 - 艾芮絲·影步",		-- 34472
- 	Saamul				= "薩滿 - 薩繆爾", 			-- 34470
- 	Shaabad				= "薩滿 - 夏巴德", 			-- 34463
- 	Serissa				= "術士 - 瑟芮莎·厲濺",		-- 34474
- 	Shocuul				= "戰士 - 修庫爾",			-- 34475
+	Tyrius				= "死騎 - 提瑞斯·暮刃",			-- 34461
+ 	Kavina				= "小德 - 卡薇娜·林地之歌",		-- 34460
+ 	Melador				= "小德 - 梅拉朵·谷行者",		-- 34469
+ 	Alyssia 			= "獵人 - 愛莉希雅·月巡者",		-- 34467
+ 	Noozle				= "法師 - 諾佐·嘯棍",			-- 34468
+ 	Baelnor 			= "聖騎 - 貝爾諾·攜光者",		-- 34471
+ 	Velanaa				= "聖騎 - 維蘭娜",				-- 34465
+ 	Anthar				= "牧師 - 安薩·修爐匠",			-- 34466
+ 	Brienna				= "牧師 - 布芮娜·夜墜",			-- 34473
+ 	Irieth				= "盜賊 - 艾芮絲·影步",			-- 34472
+ 	Saamul				= "薩滿 - 薩繆爾",				-- 34470
+ 	Shaabad				= "薩滿 - 夏巴德",				-- 34463
+ 	Serissa				= "術士 - 瑟芮莎·厲濺",			-- 34474
+ 	Shocuul				= "戰士 - 修庫爾",				-- 34475
 
 	AllianceVictory		= "榮耀歸於聯盟!",
 	HordeVictory		= "那只是讓你們知道將來必須面對的命運。為了部落!",
@@ -175,33 +175,32 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnSpecialSpellSoon		= "特別技能 即將到來",
-	SpecWarnSpecial				= "快變換顏色",
-	SpecWarnSwitchTarget		= "快換目標打雙子契印",
-	SpecWarnKickNow				= "現在斷法",
-	WarningTouchDebuff			= "光明或黑暗之觸: >%s<",
-	WarningPoweroftheTwins		= "雙子威能 - 加大治療: >%s<",
-	SpecWarnPoweroftheTwins		= "雙子威能"
+	WarnSpecialSpellSoon	= "特別技能 即將到來",
+	SpecWarnSpecial			= "快變換顏色",
+	SpecWarnSwitchTarget	= "快換目標打雙子契印",
+	SpecWarnKickNow			= "現在斷法",
+	WarningTouchDebuff		= "光明或黑暗之觸: >%s<",
+	WarningPoweroftheTwins	= "雙子威能 - 加大治療: >%s<",
+	SpecWarnPoweroftheTwins	= "雙子威能"
 }
 
 L:SetMiscLocalization{
-	YellPull 		= "以我們的黑暗君王之名。為了巫妖王。你‧得‧死。",
-	--CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!", -- Needs translating
-	Fjola 			= "菲歐拉·光寂",
-	Eydis			= "艾狄絲·暗寂"
+	YellPull 			= "以我們的黑暗君王之名。為了巫妖王。你‧得‧死。",
+	Fjola 				= "菲歐拉·光寂",
+	Eydis				= "艾狄絲·暗寂"
 }
 
 L:SetOptionLocalization{
-	TimerSpecialSpell			= "為下一次 特別技能顯示計時器",
-	WarnSpecialSpellSoon		= "為下一次 特別技能顯示預先警告",
-	SpecWarnSpecial				= "當你需要變換顏色時顯示特別警告",
-	SpecWarnSwitchTarget		= "當另一個首領施放雙子契印時顯示特別警告",
-	SpecWarnKickNow				= "當你可以斷法時顯示特別警告",
-	SpecialWarnOnDebuff			= "當你中了光明或黑暗之觸時顯示特別警告 (需切換顏色)",
-	SetIconOnDebuffTarget		= "為光明或黑暗之觸的目標設置標記 (英雄模式)",
-	WarningTouchDebuff			= "提示光明或黑暗之觸的目標",
-	WarningPoweroftheTwins		= "提示雙子威能的目標",
-	SpecWarnPoweroftheTwins		= "當你坦住的首領擁有雙子威能時顯示特別警告"
+	TimerSpecialSpell		= "為下一次 特別技能顯示計時器",
+	WarnSpecialSpellSoon	= "為下一次 特別技能顯示預先警告",
+	SpecWarnSpecial			= "當你需要變換顏色時顯示特別警告",
+	SpecWarnSwitchTarget	= "當另一個首領施放雙子契印時顯示特別警告",
+	SpecWarnKickNow			= "當你可以斷法時顯示特別警告",
+	SpecialWarnOnDebuff		= "當你中了光明或黑暗之觸時顯示特別警告 (需切換顏色)",
+	SetIconOnDebuffTarget	= "為光明或黑暗之觸的目標設置標記 (英雄模式)",
+	WarningTouchDebuff		= "提示光明或黑暗之觸的目標",
+	WarningPoweroftheTwins	= "提示雙子威能的目標",
+	SpecWarnPoweroftheTwins	= "當你坦住的首領擁有雙子威能時顯示特別警告"
 }
 
 -----------------
@@ -210,13 +209,13 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization{
-	name 					= "阿努巴拉克"
+	name 				= "阿努巴拉克"
 }
 
 L:SetTimerLocalization{
-	TimerEmerge				= "持續鑽地",
-	TimerSubmerge			= "下一次 鑽地",
-	timerAdds				= "下一次 中蟲出現"
+	TimerEmerge			= "持續鑽地",
+	TimerSubmerge		= "下一次 鑽地",
+	timerAdds			= "下一次 中蟲出現"
 }
 
 L:SetWarningLocalization{
@@ -231,11 +230,11 @@ L:SetWarningLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull				= "這裡將會是你們的墳墓!",
-	Emerge					= "從地底鑽出!",
-	Burrow					= "鑽進地裡!",
-	PcoldIconSet			= "透骨之寒{rt%d}: %s",
-	PcoldIconRemoved		= "移除標記: %s"
+	YellPull			= "這裡將會是你們的墳墓!",
+	Emerge				= "從地底鑽出!",
+	Burrow				= "鑽進地裡!",
+	PcoldIconSet		= "透骨之寒{rt%d}: %s",
+	PcoldIconRemoved	= "移除標記: %s"
 }
 
 L:SetOptionLocalization{

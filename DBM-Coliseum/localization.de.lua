@@ -14,12 +14,12 @@ L:SetGeneralLocalization{
 L:SetMiscLocalization{
 	Charge			= "%%s sieht (%S+) zornig an und lässt einen gewaltigen Schrei ertönen!",
 	CombatStart		= "Er kommt aus den tiefsten, dunkelsten Höhlen der Sturmgipfel - Gormok der Pfähler! Voran, Helden!",
-	Phase2		= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
-	Phase3		= "Mit der Ankündigung unseres nächsten Kämpfers gefriert die Luft selbst: Eisheuler! Tötet oder werdet getötet, Champions!",
-	Gormok		= "Gormok der Pfähler",
-	Acidmaw		= "Ätzschlund",
-	Dreadscale	= "Schreckensmaul",
-	Icehowl		= "Eisheuler"
+	Phase2			= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
+	Phase3			= "Mit der Ankündigung unseres nächsten Kämpfers gefriert die Luft selbst: Eisheuler! Tötet oder werdet getötet, Champions!",
+	Gormok			= "Gormok der Pfähler",
+	Acidmaw			= "Ätzschlund",
+	Dreadscale		= "Schreckensmaul",
+	Icehowl			= "Eisheuler"
 }
 
 L:SetOptionLocalization{
@@ -137,7 +137,7 @@ L:SetMiscLocalization{
 	AllianceVictory    = "EHRE DER ALLIANZ!",
 	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!",	-- to be translated
 	YellKill           = "Ein tragischer Sieg. Wir wurden schwächer durch die heutigen Verluste. Wer außer dem Lichkönig profitiert von solchen Torheiten? Große Krieger gaben ihr Leben. Und wofür? Die wahre Bedrohung erwartet uns noch - der Lichkönig erwartet uns alle im Tod."
-} 
+}
 
 L:SetOptionLocalization{
 	PlaySoundOnBladestorm	= "Spiele Sound bei Klingensturm"

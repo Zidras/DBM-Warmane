@@ -149,7 +149,7 @@ L:SetMiscLocalization{
 	AllianceVictory    = "GLORY TO THE ALLIANCE!",
 	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!",
 	YellKill				= "Une victoire tragique et depourvue de sens. La perte subie aujourd'hui nous affaiblira tous, car qui d'autre que le roi-liche pourrait beneficier d'une telle folie?? De grands guerriers ont perdu la vie. Et pour quoi?? La vraie menace plane à l'horizon?: le roi-liche nous attend, tous, dans la mort."
-} 
+}
 
 L:SetOptionLocalization{
 	SpecWarnHellfire		= "Montre une alerte spéciale quand vous subissez des dégats provenant des Flammes infernales",
@@ -169,7 +169,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Prochaine Capacité Spéciale"	
+	TimerSpecialSpell	= "Prochaine Capacité Spéciale"
 }
 
 L:SetWarningLocalization{
