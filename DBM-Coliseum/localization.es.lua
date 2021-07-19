@@ -120,7 +120,7 @@ L:SetWarningLocalization{
 }
 
 L:SetMiscLocalization{
-	---Horde NPCS
+	--Horde NPCS
 	Gorgrim				= "DK - Gorgrim Rajasombra",		-- 34458
 	Birana 				= "D - Birana Pezuña Tempestuosa",	-- 34451
 	Erin				= "D - Erin Pezuña de Niebla",		-- 34459
@@ -174,8 +174,8 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnSpecialSpellSoon	= "Habilidad especial pronto!",
-	SpecWarnSpecial		= "Cambia color!",
+	WarnSpecialSpellSoon		= "Habilidad especial pronto!",
+	SpecWarnSpecial				= "Cambia color!",
 	SpecWarnSwitchTarget		= "Cambio!",
 	SpecWarnKickNow				= "Cortar ahora!",
 	WarningTouchDebuff			= "Debuff en >%s<",
@@ -252,7 +252,7 @@ L:SetOptionLocalization{
 	PursueIcon					= "Poner icono en jugador",
 	SpecWarnShadowStrike		= "Mostrar aviso especial para Golpe de sombras ( para cortar )",
 	RemoveHealthBuffsInP3		= "Quitar bufos de vida al inicio de la fase 3",
-	SetIconsOnPCold         	= "Poner iconos en los objetivos de $spell:68510",
+	SetIconsOnPCold				= "Poner iconos en los objetivos de $spell:68510",
 	AnnouncePColdIcons			= "Anunciar iconos para los ojetivos de $spell:68510 en el chat de banda\n(Requiere 'anunciar' habilitado y lider o ayudante)",
 	AnnouncePColdIconsRemoved	= "También anunciar cuando se eliminen los iconos de los objetivos $spell:68510\n(Necesita la opción anterior)"
 }
