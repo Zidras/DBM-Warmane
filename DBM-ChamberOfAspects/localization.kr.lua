@@ -140,7 +140,7 @@ L:SetOptionLocalization({
 	WarnAdds		= "새로운 추가몹 알리기",
 	TimerAdds		= "새로운 추가몹 타이머 보기",
 	AddsArrive		= "Show timer for adds arrival", --Needs Translating
-	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367, GetSpellInfo(74367) or "알 수 없음")	
+	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367, GetSpellInfo(74367) or "알 수 없음")
 })
 
 L:SetMiscLocalization({
@@ -161,7 +161,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	TwilightCutterCast		= "$spell:77844을 시전할 때 경고 보기",	
+	TwilightCutterCast		= "$spell:77844을 시전할 때 경고 보기",
 	AnnounceAlternatePhase	= "해당 위치에 없을 경우에도 모든 단계의 경고/타이머 보기",
 	SetIconOnConsumption	= "$spell:74562 또는 $spell:74792 대상 공격대 아이콘 설정"--So we can use single functions for both versions of spell.
 })
