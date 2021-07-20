@@ -114,7 +114,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame				= "Zeige Abstandsfenster (10 m)",
+	RangeFrame				= "Zeige Abstandsfenster (10m)",
 	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
 })
 
