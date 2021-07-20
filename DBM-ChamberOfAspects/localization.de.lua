@@ -133,7 +133,8 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerAdds	= "Neue Adds"
+	TimerAdds	= "Neue Adds",
+	AddsArrive	= "Adds arrive in" --Needs Translating
 })
 
 L:SetOptionLocalization({
