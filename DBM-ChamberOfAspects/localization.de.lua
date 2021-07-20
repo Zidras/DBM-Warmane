@@ -139,8 +139,8 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarnAdds		= "Verkünde neue Adds",
-	TimerAdds		= "Zeige Timer für neue Adds"
-	AddsArrive		= "Show timer for adds arrival",
+	TimerAdds		= "Zeige Timer für neue Adds",
+	AddsArrive		= "Show timer for adds arrival", --Needs Translating
 	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367)
 })
 
