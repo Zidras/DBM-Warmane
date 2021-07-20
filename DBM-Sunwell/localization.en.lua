@@ -4,7 +4,7 @@ local L
 --  Kalecgos --
 ---------------
 L = DBM:GetModLocalization("Kal")
-DBM_CORE_AUTO_RANGE_OPTION_TEXT			= "Show range frame (%s) for $spell:%s"
+DBM_CORE_L.AUTO_RANGE_OPTION_TEXT			= "Show range frame (%s) for $spell:%s"
 L:SetGeneralLocalization{
 	name = "Kalecgos"
 }
@@ -22,7 +22,7 @@ L:SetOptionLocalization{
 	WarnPortal			= "Show warning for $spell:46021 target",
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",
 	TimerNextPortal		= "Показывать таймер портала",
-	RangeFrame			= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 46021),
+	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021),
 	ShowFrame			= "Show Spectral Realm frame" ,
 	FrameClassColor		= "Use class colors in Spectral Realm frame",
 	FrameUpwards		= "Expand Spectral Realm frame upwards",
@@ -55,8 +55,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BurnIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(46394),
-	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(4, 46394)
+	BurnIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(46394),
+	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(4, 46394)
 }
 
 L:SetMiscLocalization{
@@ -89,8 +89,8 @@ L:SetOptionLocalization{
 	TimerPhase		= "Show time for next phase",
 	WarnBreath		= "Показывать предупреждение для Глубокого Вздоха",
 	TimerBreath		= "Показывать время до восстановления Глубокого Вздоха",
-	VaporIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45665),
+	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
+	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
 	YellOnEncaps	= "Кричать когда на вас $spell:45665"
 }
 
@@ -111,9 +111,9 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	NovaIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 45333),
+	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
+	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
+	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333),
 	NovaWhisper		= "Шепот целям заклинания $spell:45329 target (нужен РЛ)",
 	ConflagWhisper	= "Шепот целям заклинания $spell:45333 target (нужен РЛ)",
 }
@@ -194,8 +194,8 @@ L:SetOptionLocalization{
 	SpecWarnDarkOrb	= "Show special warning for Dark Orbs",
 	SpecWarnBlueOrb	= "Show special warning for Dragon Orbs",
 	TimerBlueOrb	= "Show timer form Dragon Orbs activate",
-	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 45641),
-	BloomIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45641)
+	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
+	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
 }
 
 L:SetMiscLocalization{

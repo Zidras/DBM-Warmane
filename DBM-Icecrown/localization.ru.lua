@@ -17,8 +17,8 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap		= "Спец-предупреждение для активации ловушки",
-	SetIconOnDarkReckoning	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69483),
-	SetIconOnDeathPlague	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72865)
+	SetIconOnDarkReckoning	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69483),
+	SetIconOnDeathPlague	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72865)
 }
 
 L:SetMiscLocalization{
@@ -43,7 +43,7 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap	= "Спец-предупреждение для активации ловушки",
-	WarnMortalWound	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71127, GetSpellInfo(71127) or "unknown")
+	WarnMortalWound	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(71127, GetSpellInfo(71127) or "unknown")
 }
 
 L:SetMiscLocalization{
@@ -65,7 +65,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	BloodMirrorIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70451)
+	BloodMirrorIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70451)
 }
 
 L:SetMiscLocalization{
@@ -112,7 +112,7 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062)
+	SetIconOnImpale		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69062)
 }
 
 -------------------------
@@ -142,9 +142,9 @@ L:SetOptionLocalization{
 	SpecWarnVengefulShade		= "Спец-предупреждение, когда вас атакует Мстительный дух",--creatureid 38222
 	WeaponsStatus				= "Спец-предупреждение в начале боя если включена функция снятия/надевания оружий",
 	ShieldHealthFrame			= "Показывать здоровье босса с индикатором здоровья для \n$spell:70842",
-	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
-	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
-	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
+	SetIconOnDominateMind		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(71289),
+	SetIconOnDeformedFanatic	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70900),
+	SetIconOnEmpoweredAdherent	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Проигрывать звуковой отсчет 5...1 до контроля разума",
 	RemoveDruidBuff				= "Снимите бафф Друида через 24 секунды после начала боя", -- Needs review
 	EqUneqWeapons				= "Снимать/надевать оружия если в вас кастанулся контроль. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен.",
@@ -206,7 +206,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BoilingBloodIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72441),
+	BoilingBloodIcons	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72441),
 	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
 	RunePowerFrame			= "Показывать здоровье босса + индикатор для $spell:72371"
 }
@@ -228,7 +228,7 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Показывать окно проверки дистанции (8 м)",
-	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
+	SetIconOnGasSpore	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69279),
 	AnnounceSporeIcons	= "Объявлять метки целей заклинания $spell:69279 в рейд-чат<br/>(требуются права помощника)",
 	AchievementCheck	= "Объявлять о провале достижения 'Масок нет!' в рейд-чат<br/>(требуются права помощника)"
 }
@@ -256,7 +256,7 @@ L:SetOptionLocalization{
 	WarnOozeSpawn				= "Предупреждение при появлении Малого слизнюка",
 	SpecWarnLittleOoze			= "Спец-предупреждение, когда вас атакует Малый слизнюк",--creatureid 36897
 	RangeFrame					= "Показывать окно проверки дистанции (8 м)",
-	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
+	InfectionIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(71224),
 	TankArrow					= "Показывать стрелку для кайтера Большого слизнюка (экспериментально)"
 }
 
@@ -275,9 +275,9 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	OozeAdhesiveIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70447),
-	GaseousBloatIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70672),
-	UnboundPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72856),
+	OozeAdhesiveIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70447),
+	GaseousBloatIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70672),
+	UnboundPlagueIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72856),
 	MalleableGooIcon			= "Устанавливать метку на первую цель заклинания $spell:72295",
 	GooArrow					= "Показывать стрелку, когда $spell:72295 около вас"
 }
@@ -304,7 +304,7 @@ L:SetOptionLocalization{
 	WarnTargetSwitch		= "Предупреждение о смене цели",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Предупреждать заранее о смене цели",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Отсчет времени до смены цели",
-	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
+	EmpoweredFlameIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72040),
 	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)",
 	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
 	VortexArrow				= "Показывать стрелку, когда $spell:72037 около вас"
@@ -328,9 +328,9 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnDarkFallen		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71340),
-	SwarmingShadowsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
-	BloodMirrorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
+	SetIconOnDarkFallen		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(71340),
+	SwarmingShadowsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(71266),
+	BloodMirrorIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70838),
 	RangeFrame				= "Показывать окно проверки дистанции (8 м)"
 }
 
@@ -409,8 +409,8 @@ L:SetOptionLocalization{
 	TimerNextAirphase		= "Отсчет времени до следующей воздушной фазы",
 	TimerNextGroundphase	= "Отсчет времени до следующей наземной фазы",
 	AnnounceFrostBeaconIcons= "Объявлять метки целей заклинания $spell:70126 в рейд-чат<br/>(требуются права помощника)",
-	SetIconOnFrostBeacon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
-	SetIconOnUnchainedMagic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
+	SetIconOnFrostBeacon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70126),
+	SetIconOnUnchainedMagic	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase	= "Снимать все метки перед воздушной фазой",
 	AchievementCheck		= "Объявлять предупреждения для достижения 'Таинственная дама'<br/>в рейд-чат (требуются права помощника)",
 	RangeFrame				= "Показывать игроков с метками в окне проверки дистанции (10 норм., 20 гер.)"
@@ -455,11 +455,11 @@ L:SetOptionLocalization{
 	PhaseTransition			= "Отсчет времени для переходной фазы",
 	ValkyrWarning			= "Объявлять, кого схватили Валь'киры",
 	SpecWarnYouAreValkd		= "Спец-предупреждение, когда вас схватила Валь'кира",
-	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
+	DefileIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72762),
+	NecroticPlagueIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(73912),
+	RagingSpiritIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69200),
+	TrapIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(73539),
+	HarvestSoulIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74327),
 	TrapArrow				= "Показывать стрелку, когда $spell:73539 около вас",
 	AnnounceValkGrabs		= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
 	SpecWarnValkyrLow		= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",

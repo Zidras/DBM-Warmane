@@ -5,7 +5,7 @@ local L
 --  Kalecgos --
 ---------------
 L = DBM:GetModLocalization("Kal")
-DBM_CORE_AUTO_RANGE_OPTION_TEXT = "Показывать окно проверки дистанции (%s м) для $spell:%s"
+DBM_CORE_L.AUTO_RANGE_OPTION_TEXT = "Показывать окно проверки дистанции (%s м) для $spell:%s"
 L:SetGeneralLocalization{
 	name = "Калесгос"
 }
@@ -56,8 +56,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BurnIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(46394),
-	RangeFrame		= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(4, 46394),
+	BurnIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(46394),
+	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(4, 46394),
 	BurnWhisper		= "Шепот целям заклинания $spell:46394 (нужен РЛ)"
 }
 
@@ -92,8 +92,8 @@ L:SetOptionLocalization{
 	WarnBreath		= "Показывать предупреждение для Глубокого Вздоха",
 	TimerPhase		= "Показывать таймер фаз",
 	TimerBreath		= "Показывать время до восстановления Глубокого Вздоха",
-	VaporIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45665),
+	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
+	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
 	YellOnEncaps	= "Кричать когда на вас $spell:45665"
 }
 
@@ -120,8 +120,8 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	NovaIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45333),
+	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
+	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
 	RangeFrame		= "Показывать окно проверки дистанции (10 м)",
 	NovaWhisper		= "Шепот целям заклинания $spell:45329 target (нужен РЛ)",
 	ConflagWhisper	= "Шепот целям заклинания $spell:45333 target (нужен РЛ)",
@@ -209,7 +209,7 @@ L:SetOptionLocalization{
 	SpecWarnBlueOrb	= "Спец-предупреждение для активации Сфер Дракона",
 	TimerBlueOrb	= "Показать таймер активации Сфер Дракона",
 	RangeFrame		= "Показывать окно проверки дистанции (10 м)",
-	BloomIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(45641),
+	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641),
 	YellOnBloom		= "Кричать при $spell:45641",
 	BloomWhisper	= "Шепот целям заклинания $spell:45641 (нужен РЛ)"
 }

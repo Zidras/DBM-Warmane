@@ -53,7 +53,8 @@ local PanelPrototype = {}
 DBM_GUI = {}
 setmetatable(PanelPrototype, {__index = DBM_GUI})
 
-local L = DBM_GUI_Translations
+local L 	= DBM_GUI_Translations
+local CL	= DBM_CORE_L
 
 local modelFrameCreated = false
 local soundsRegistered = false
@@ -3584,7 +3585,7 @@ local function CreateOptionsMenu()
 	DBM_GUI_OptionsFrameWebsite:SetText(L.Website)
 	local frame = CreateFrame("Button", nil, DBM_GUI_OptionsFrame)
 	frame:SetAllPoints(DBM_GUI_OptionsFrameWebsite)
-	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, DBM_COPY_URL_DIALOG, "https://discord.gg/uMbjr87") end)
+	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, CL.COPY_URL_DIALOG, "https://discord.gg/uMbjr87") end)
 end
 DBM:RegisterOnGuiLoadCallback(CreateOptionsMenu, 1)
 

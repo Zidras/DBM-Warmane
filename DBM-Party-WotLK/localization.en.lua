@@ -328,7 +328,7 @@ L:SetMiscLocalization({
 	HandlerYell		= "Bolster my defenses! Hurry, curse you!",
 	Phase2			= "Surely you can see the futility of it all!",
 	YellKill		= "Your efforts... are in vain.",
-	SetIconOnEnragedMob = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(39249)
+	SetIconOnEnragedMob = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(39249)
 })
 
 -----------------
@@ -505,7 +505,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnOverloadTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(52658)
+	SetIconOnOverloadTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(52658)
 })
 
 ---------------
@@ -1176,7 +1176,7 @@ L:SetOptionLocalization({
 	TimerCombatStart		= "Show timer for start of combat",
 	warnExplode				= "Show warning when Ghoul Minion is about to explode",
 	AchievementCheck		= "Announce 'I've Had Worse' achievement failure to party",
-	SetIconOnMarkedTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(67823)
+	SetIconOnMarkedTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(67823)
 })
 
 L:SetMiscLocalization({
@@ -1238,7 +1238,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	specwarnRadiance		= "Show special warning for $spell:66935",
-	SetIconOnHammerTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(66940)
+	SetIconOnHammerTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(66940)
 })
 
 L:SetMiscLocalization({
@@ -1264,7 +1264,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	warnPursuit				= "Announce Pursuit targets",
 	specWarnPursuit			= "Show special warning when you are being pursued",
-	SetIconOnPursuitTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(68987)
+	SetIconOnPursuitTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(68987)
 })
 
 L:SetMiscLocalization({
@@ -1293,7 +1293,7 @@ L:SetOptionLocalization({
 	specWarnSaroniteRockNear	= "Show special warning when you are near \n $spell:70851 target",
 	specWarnPermafrost			= "Show special warning when $spell:70336 stacks get too high",
 	AchievementCheck			= "Announce 'Doesn't Go to Eleven' achievement warnings to party",
-	SetIconOnSaroniteRockTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70851)
+	SetIconOnSaroniteRockTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70851)
 })
 
 L:SetMiscLocalization({
@@ -1324,7 +1324,7 @@ L:SetOptionLocalization({
 	specWarnHoarfrost			= "Show special warning when you are affected by $spell:69246",
 	specWarnHoarfrostNear		= "Show special warning for $spell:69246 near you",
 	TimerCombatStart			= "Show timer for start of combat",
-	SetIconOnHoarfrostTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69246)
+	SetIconOnHoarfrostTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69246)
 })
 
 L:SetMiscLocalization({

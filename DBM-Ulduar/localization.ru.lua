@@ -50,7 +50,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	SlagPotIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(63477)
+	SlagPotIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63477)
 }
 
 ------------------
@@ -115,8 +115,8 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnLightBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65121),
-	SetIconOnGravityBombTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64234),
+	SetIconOnLightBombTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65121),
+	SetIconOnGravityBombTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64234),
 	WarningTympanicTantrumIn10Sec = "Спец-предупреждение (10 сек.) для $spell:62776"
 }
 
@@ -138,8 +138,8 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	PlaySoundLightningTendrils	= "Звуковой сигнал при $spell:63486",
-	SetIconOnOverwhelmingPower	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(61912),
+	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
+	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
 	AlwaysWarnOnOverload		= "Всегда предупреждать при $spell:63481\n(иначе, только когда босс в цели)",
 	PlaySoundOnOverload			= "Звуковой сигнал при $spell:63481",
 	PlaySoundDeathRune			= "Звуковой сигнал при $spell:63490"
@@ -225,8 +225,8 @@ L:SetOptionLocalization{
 	timerLeftArm			= "Отсчет времени до Возрождения левой руки",
 	timerRightArm			= "Отсчет времени до Возрождения правой руки",
 	achievementDisarmed		= "Отсчет времени для достижения Обезоружен",
-	SetIconOnGripTarget		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(63346),
+	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
+	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
 	PlaySoundOnEyebeam		= "Звуковой сигнал при $spell:63346",
 	YellOnBeam				= "Кричать, когда на вас $spell:63346",
 }
@@ -427,8 +427,8 @@ L:SetOptionLocalization{
 	ShockBlastWarningInP1	= "Спец-предупреждение для $spell:63631 в фазе 1",
 	ShockBlastWarningInP4	= "Спец-предупреждение для $spell:63631 в фазе 4",
 	RangeFrame				= "Показывать окно проверки дистанции в фазе 1 (6 м)",
-	SetIconOnNapalm			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(62997),
+	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
+	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
 	WarnFlamesIn5Sec 		= "Спец-предупреждение: Пламя через 5 сек.",
 	SoundWarnCountingFlames = "Проигрывать звуковой отсчет 5...1 до следующего Пламени"
 }

@@ -9,6 +9,7 @@ local ipairs = ipairs
 local tonumber = tonumber
 local unpack = unpack
 local floor, fmod, modf = math.floor, math.fmod, math.modf
+local L = DBM_CORE_L
 local LSM = DBM.LSM
 local GetTime = GetTime
 local UnitFactionGroup = UnitFactionGroup
@@ -548,7 +549,7 @@ function TT:HookDBM()
 	if not DBM then return end
 	if DBM then
 		self:SecureHook(DBM, "CreatePizzaTimer", function(_, time, text)
-			if (text == DBM_CORE_TIMER_PULL or text:match("Pull") or text:match("pull") or text:match("Атака")) and DBM.Options.BigTimerNumbers then
+			if (text == L.TIMER_PULL or text:match("Pull") or text:match("pull") or text:match("Атака")) and DBM.Options.BigTimerNumbers then
 				DBM.Bars:CancelBar(text)
 				time = (tonumber(time) or 10) + 0.1
 				self:CreateTimer(dbmTimerType, time, time)
