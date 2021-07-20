@@ -366,8 +366,8 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Zeige Timer wenn Alptraumportale geöffnet sind",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "Zeige Timer für nächstes Loderndes Skelett",
-	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)",
-	Suppressors					= "Show special warning for new Suppressors",
+	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)", --Needs Translating
+	Suppressors					= "Show special warning for new Suppressors", --Needs Translating
 	TimerSuppressorOne			= "1st wave of Suppressors", --Needs Translating
 	TimerSuppressorTwo			= "2nd wave of Suppressors", --Needs Translating
 	TimerSuppressorThree		= "3rd wave of Suppressors", --Needs Translating
