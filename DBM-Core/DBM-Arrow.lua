@@ -239,7 +239,7 @@ function DBM.Arrow:Move()
 	hideDistance = 5
 	frame:EnableMouse(true)
 	frame:Show()
-	DBM.Bars:CreateBar(25, L.ARROW_MOVABLE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+	DBM.Bars:CreateBar(25, DBM_CORE_L.ARROW_MOVABLE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 	DBM:Unschedule(endMove)
 	DBM:Schedule(25, endMove)
 end

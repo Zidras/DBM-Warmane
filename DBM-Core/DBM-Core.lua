@@ -5455,7 +5455,6 @@ do
 			DBM:Schedule(0, self.RequestTimers, self, 1)
 		end
 		self:LFG_UPDATE()
---		self:Schedule(10, function() if not DBM.Options.HelpMessageShown then DBM.Options.HelpMessageShown = true DBM:AddMsg(L.NEED_SUPPORT) end end)
 		if DBM.Options.DisableCinematics then
 			MovieFrame:SetScript("OnEvent", function() GameMovieFinished() end)
 		end
