@@ -433,6 +433,7 @@ local schedule
 local unschedule
 local unscheduleAll
 local scheduleCountdown
+local scheduleRepeat
 local loadOptions
 local loadModOptions
 local checkWipe
@@ -1417,6 +1418,14 @@ do
 		numAnnounces = numAnnounces or 3
 		for i = 1, numAnnounces do
 			schedule(time - i, func, mod, self, i, ...)
+		end
+	end
+
+	function scheduleRepeat(time, spellId, func, mod, self, ...)
+		--Loops until debuff is gone
+		if DBM:UnitAura("player", spellId) then--GetPlayerAuraBySpellID
+			func(...)--Probably not going to work, this is going to need to get a lot more hacky
+			schedule(time or 2, scheduleRepeat, time, spellId, func, mod, self, ...)
 		end
 	end
 
@@ -5187,6 +5196,17 @@ function DBM:GetSpellInfo(spellId)
 	end
 end
 
+function DBM:UnitAura(uId, spellInput, spellInput2, spellInput3, spellInput4)
+	if not uId then return end
+	for i = 1, 60 do
+		local spellName, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitAura(uId, i)
+		if not spellName then return end
+		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId then
+			return spellName, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
+		end
+	end
+end
+
 function DBM:UnitDebuff(uId, spellInput, spellInput2, spellInput3, spellInput4)
 	if not uId then return end
 	for i = 1, 60 do
@@ -7339,7 +7359,11 @@ do
 		elseif not (optionName == false) then
 			obj.option = catType..spellId..announceType..(optionVersion or "")
 			self:AddBoolOption(obj.option, optionDefault, catType)
-			self.localization.options[obj.option] = L.AUTO_ANNOUNCE_OPTIONS[announceType]:format(spellId)
+			if noFilter and announceType == "target" then
+				self.localization.options[obj.option] = L.AUTO_ANNOUNCE_OPTIONS["targetNF"]:format(spellId)
+			else
+				self.localization.options[obj.option] = L.AUTO_ANNOUNCE_OPTIONS[announceType]:format(spellId)
+			end
 		end
 		tinsert(self.announces, obj)
 		return obj
@@ -7680,6 +7704,7 @@ do
 		end
 		local obj = setmetatable(
 			{
+				spellId = spellId,
 				text = displayText or yellText,
 				mod = self,
 				chatType = chatType,
@@ -7722,6 +7747,7 @@ do
 		return schedule(t, self.Yell, self.mod, self, ...)
 	end
 
+	--Standard schedule object to schedule a say/yell based on what's defined in object
 	function yellPrototype:Countdown(time, numAnnounces, ...)
 		if time > 60 then--It's a spellID not a time
 			local _, _, _, _, _, _, expireTime = DBM:UnitDebuff("player", time)
@@ -7732,6 +7758,24 @@ do
 		else
 			scheduleCountdown(time, numAnnounces, self.Yell, self.mod, self, ...)
 		end
+	end
+
+	--Scheduled Force override to use SAY message, even when object defines "YELL"
+	function yellPrototype:CountdownSay(time, numAnnounces, ...)
+		if time > 60 then--It's a spellID not a time
+			local _, _, _, _, _, _, expireTime = DBM:UnitDebuff("player", time)
+			if expireTime then
+				local remaining = expireTime-GetTime()
+				scheduleCountdown(remaining, numAnnounces, self.Yell, self.mod, self, ...)
+			end
+		else
+			scheduleCountdown(time, numAnnounces, self.Say, self.mod, self, ...)
+		end
+	end
+
+	-- not yet deployed, since it needs work (from retail commit https://github.com/DeadlyBossMods/DeadlyBossMods/commit/dd83ae60738bcba8f96373aedf60005e53930bfc)
+	function yellPrototype:Repeat(...)
+		scheduleRepeat(time, self.Yell, self.spellId, self.mod, self, ...)
 	end
 
 	function yellPrototype:Cancel(...)
@@ -7770,8 +7814,20 @@ do
 		return newYell(self, "position", ...)
 	end
 
+	function bossModPrototype:NewShortPosYell(...)
+		return newYell(self, "shortposition", ...)
+	end
+
 	function bossModPrototype:NewComboYell(...)
 		return newYell(self, "combo", ...)
+	end
+
+	function bossModPrototype:NewPlayerRepeatYell(...)
+		return newYell(self, "repeatplayer", ...)
+	end
+
+	function bossModPrototype:NewIconRepeatYell(...)
+		return newYell(self, "repeaticon", ...)
 	end
 end
 
@@ -8278,7 +8334,7 @@ do
 			if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" then
 				catType = "announceother"
 			--Directly affects you
-			elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakpos" then
+			elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakcount" or announceType == "soakpos" then
 				catType = "announcepersonal"
 			--Things you have to do to fulfil your role
 			elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" or announceType == "switch" or announceType == "switchcount" then
@@ -8401,6 +8457,10 @@ do
 
 	function bossModPrototype:NewSpecialWarningSoak(text, optionDefault, ...)
 		return newSpecialWarning(self, "soak", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSoakCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "soakcount", text, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningJump(text, optionDefault, ...)
@@ -9162,6 +9222,10 @@ do
 
 	function bossModPrototype:NewTargetTimer(...)
 		return newTimer(self, "target", ...)
+	end
+
+	function bossModPrototype:NewTargetCountTimer(...)
+		return newTimer(self, "targetcount", ...)
 	end
 
 	--Buff/Debuff/event on boss
