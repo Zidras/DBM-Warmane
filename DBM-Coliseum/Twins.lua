@@ -217,7 +217,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args:IsSpellID(66001, 67281, 67282, 67283) then	-- Touch of Darkness
-		timerDarkTouch:Start(args.destName)
+		timerDarkTouch:Stop(args.destName)
 		if self.Options.SetIconOnDebuffTarget then
 			self:SetIcon(args.destName, 0)
 		end
