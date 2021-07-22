@@ -405,7 +405,7 @@ L:SetOptionLocalization{
 	TimerNextAirphase			= "Zeige Timer für nächste Luftphase",
 	TimerNextGroundphase		= "Zeige Timer für nächste Bodenphase",
 	AnnounceFrostBeaconIcons	= "Poste Zeichen für Ziele von $spell:70126 in Raidchat\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)",
- 	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
+	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
 	SetIconOnUnchainedMagic		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase		= "Entferne alle Zeichen vor der Luftphase",
 	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)", --Needs Translating
