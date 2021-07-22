@@ -156,7 +156,7 @@ L:SetMiscLocalization{
 	ShieldPercent			= "Barrière de mana",
 	Fanatic1				= "Membres du culte",
 	Fanatic2				= "Fanatique déformé",
-	Fanatic3				= "Fanatique réanimé"
+	Fanatic3				= "Fanatique réanimé",
 	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
 }
 

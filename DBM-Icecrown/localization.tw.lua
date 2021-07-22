@@ -157,7 +157,7 @@ L:SetMiscLocalization{
 	ShieldPercent			= "法力屏障",
 	Fanatic1				= "神教狂熱者",
 	Fanatic2				= "畸形的狂熱者",
-	Fanatic3				= "再活化的狂熱者"
+	Fanatic3				= "再活化的狂熱者",
 	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
 }
 

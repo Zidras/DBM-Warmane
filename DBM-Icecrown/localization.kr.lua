@@ -157,7 +157,7 @@ L:SetMiscLocalization{
 	ShieldPercent			= "마나 방벽",
 	Fanatic1				= "교단 광신자",
 	Fanatic2				= "변형된 광신자",
-	Fanatic3				= "되살아난 광신자"
+	Fanatic3				= "되살아난 광신자",
 	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
 }
 
