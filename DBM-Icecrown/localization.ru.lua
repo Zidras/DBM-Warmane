@@ -129,7 +129,7 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnReanimating				= "Помощник воскрешается",			-- Reanimating an adherent or fanatic
+	WarnReanimating				= "Помощник воскрешается",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Скоро призыв помощников",
 	SpecWarnVengefulShade		= "Мстительный дух атакует вас - бегите", --creatureid 38222
 	WeaponsStatus				= "Cнятие оружий включено"
@@ -137,7 +137,7 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	WarnAddsSoon				= "Предупреждать заранее о призыве помощников",
-	WarnReanimating				= "Предупреждение при воскрешении помощников",											-- Reanimated Adherent/Fanatic spawning
+	WarnReanimating				= "Предупреждение при воскрешении помощников",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Отсчет времени до призыва помощников",
 	SpecWarnVengefulShade		= "Спец-предупреждение, когда вас атакует Мстительный дух",--creatureid 38222
 	WeaponsStatus				= "Спец-предупреждение в начале боя если включена функция снятия/надевания оружий",
@@ -185,11 +185,7 @@ L:SetTimerLocalization{
 
 L:SetMiscLocalization{
 	PullAlliance	= "Запускайте двигатели! Летим навстречу судьбе.",
-	--CombatAlliance	= "Ах вы псы трусливые! Напали исподтишка!",
-	KillAlliance	= "Ну не говорите потом, что я не предупреждал. В атаку, братья и сестры!",
 	PullHorde		= "Воспряньте, сыны и дочери Орды! Сегодня мы будем биться со смертельным врагом! ЛОК'ТАР ОГАР!",
-	--CombatHorde		= "Сейчас вы ответите перед Саурфангом!",
-	KillHorde		= "Альянс повержен. Вперед, к Королю-личу!",
 	AddsAlliance	= "Разрушители, сержанты, в бой!",
 	AddsHorde		= "Пехота, сержанты, в бой!",
 	MageAlliance	= "Корабль под обстрелом! Боевого мага сюда, пусть заткнет эти пушки!",
@@ -350,7 +346,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnPortalOpen	= "Открытие порталов",
-	Suppressers		= "Подавители"
+	Suppressors		= "Подавители"
 }
 
 L:SetTimerLocalization{
@@ -358,10 +354,10 @@ L:SetTimerLocalization{
 	TimerPortalsClose		= "закрытие порталов", -- Needs review
 	TimerBlazingSkeleton	= "Исторгающий пламя скелет",
 	TimerAbom				= "След. поганище?",
-	TimerSuppresserOne			= "1 волна Подавителей",
-	TimerSuppresserTwo			= "2 волна Подавителей",
-	TimerSuppresserThree		= "3 волна Подавителей",
-	TimerSuppresserFour			= "4 волна Подавителей"
+	TimerSuppressorOne			= "1 волна Подавителей",
+	TimerSuppressorTwo			= "2 волна Подавителей",
+	TimerSuppressorThree		= "3 волна Подавителей",
+	TimerSuppressorFour			= "4 волна Подавителей"
 }
 
 L:SetOptionLocalization{
@@ -371,11 +367,11 @@ L:SetOptionLocalization{
 	TimerPortalsClose			= "Обратный отсчет до закрытия порталов", -- Needs review
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета",
 	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)",
-	Suppressers					= "Спец-предупреждение для появления Подавителей",
-	TimerSuppresserOne			= "1 волна Подавителей",
-	TimerSuppresserTwo			= "2 волна Подавителей",
-	TimerSuppresserThree		= "3 волна Подавителей",
-	TimerSuppresserFour			= "4 волна Подавителей"
+	Suppressors					= "Спец-предупреждение для появления Подавителей",
+	TimerSuppressorOne			= "1 волна Подавителей",
+	TimerSuppressorTwo			= "2 волна Подавителей",
+	TimerSuppressorThree		= "3 волна Подавителей",
+	TimerSuppressorFour			= "4 волна Подавителей"
 }
 
 L:SetMiscLocalization{
@@ -443,32 +439,32 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerRoleplay		= "Представление",
-	PhaseTransition		= "Переходная фаза",
-	TimerNecroticPlagueCleanse = "Очищение Мертвящей чумы"
+	TimerRoleplay				= "Представление",
+	PhaseTransition				= "Переходная фаза",
+	TimerNecroticPlagueCleanse	= "Очищение Мертвящей чумы"
 }
 
 L:SetOptionLocalization{
-	TimerRoleplay			= "Отсчет времени для представления",
-	WarnNecroticPlagueJump	= "Объявлять цели прыжков $spell:73912",
+	TimerRoleplay				= "Отсчет времени для представления",
+	WarnNecroticPlagueJump		= "Объявлять цели прыжков $spell:73912",
 	TimerNecroticPlagueCleanse	= "Отсчет времени для очищения Мертвящей чумы до первого тика",
-	PhaseTransition			= "Отсчет времени для переходной фазы",
-	ValkyrWarning			= "Объявлять, кого схватили Валь'киры",
-	SpecWarnYouAreValkd		= "Спец-предупреждение, когда вас схватила Валь'кира",
-	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
-	TrapArrow				= "Показывать стрелку, когда $spell:73539 около вас",
-	AnnounceValkGrabs		= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
-	SpecWarnValkyrLow		= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",
-	AnnouncePlagueStack		= "Объявлять стаки заклинания $spell:73912 в рейд-чат (10\nстаков, далее каждые 5) (требуются права помощника)",
-	ShowFrame				= "Показать окно целей Валь'Кир",
-	FrameClassColor			= "Использовать цвета классов в окне целей Валь'Кир",
-	FrameUpwards			= "Рост окна целей Валь'Кир вверх",
-	FrameLocked				= "Зафиксировать окно целей Валь'Кир",
-	RemoveImmunes			= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
+	PhaseTransition				= "Отсчет времени для переходной фазы",
+	ValkyrWarning				= "Объявлять, кого схватили Валь'киры",
+	SpecWarnYouAreValkd			= "Спец-предупреждение, когда вас схватила Валь'кира",
+	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
+	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
+	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
+	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
+	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
+	TrapArrow					= "Показывать стрелку, когда $spell:73539 около вас",
+	AnnounceValkGrabs			= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
+	SpecWarnValkyrLow			= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",
+	AnnouncePlagueStack			= "Объявлять стаки заклинания $spell:73912 в рейд-чат (10\nстаков, далее каждые 5) (требуются права помощника)",
+	ShowFrame					= "Показать окно целей Валь'Кир",
+	FrameClassColor				= "Использовать цвета классов в окне целей Валь'Кир",
+	FrameUpwards				= "Рост окна целей Валь'Кир вверх",
+	FrameLocked					= "Зафиксировать окно целей Валь'Кир",
+	RemoveImmunes				= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
 }
 
 L:SetMiscLocalization{
