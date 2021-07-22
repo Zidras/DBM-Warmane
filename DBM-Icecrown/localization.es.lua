@@ -187,7 +187,7 @@ L:SetMiscLocalization{
 	PullAlliance	= "¡Arrancad motores! ¡Tenemos una cita con el destino, muchachos!",
 	PullHorde		= "Rise up, sons and daughters of the Horde! Today we battle a hated enemy! LOK'TAR OGAR!!",--translate
 	AddsAlliance	= "¡Atracadores, Sargentos, atacad!",
-	AddsHorde		= "¡Atracadores, Marinos, atacad!"
+	AddsHorde		= "¡Atracadores, Marinos, atacad!",
 	KillAlliance	= "¡No digáis que no lo avisé, sinvergüenzas! Adelante, hermanos.",
 	KillHorde		= "The Alliance falter. Onward to the Lich King!"--translate
 }
