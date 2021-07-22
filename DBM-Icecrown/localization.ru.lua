@@ -180,7 +180,6 @@ L:SetOptionLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerCombatStart	= "Combat Starts", --Needs Translating
 	TimerAdds			= "Призыв помощников"
 }
 
@@ -200,10 +199,6 @@ L = DBM:GetModLocalization("Deathbringer")
 
 L:SetGeneralLocalization{
 	name = "Саурфанг Смертоносный"
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart	= "Combat Starts" --Needs Translating
 }
 
 L:SetOptionLocalization{
@@ -444,32 +439,32 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerRoleplay		= "Представление",
-	PhaseTransition		= "Переходная фаза",
-	TimerNecroticPlagueCleanse = "Очищение Мертвящей чумы"
+	TimerRoleplay				= "Представление",
+	PhaseTransition				= "Переходная фаза",
+	TimerNecroticPlagueCleanse	= "Очищение Мертвящей чумы"
 }
 
 L:SetOptionLocalization{
-	TimerRoleplay			= "Отсчет времени для представления",
-	WarnNecroticPlagueJump	= "Объявлять цели прыжков $spell:73912",
+	TimerRoleplay				= "Отсчет времени для представления",
+	WarnNecroticPlagueJump		= "Объявлять цели прыжков $spell:73912",
 	TimerNecroticPlagueCleanse	= "Отсчет времени для очищения Мертвящей чумы до первого тика",
-	PhaseTransition			= "Отсчет времени для переходной фазы",
-	ValkyrWarning			= "Объявлять, кого схватили Валь'киры",
-	SpecWarnYouAreValkd		= "Спец-предупреждение, когда вас схватила Валь'кира",
-	DefileIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
-	TrapArrow				= "Показывать стрелку, когда $spell:73539 около вас",
-	AnnounceValkGrabs		= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
-	SpecWarnValkyrLow		= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",
-	AnnouncePlagueStack		= "Объявлять стаки заклинания $spell:73912 в рейд-чат (10\nстаков, далее каждые 5) (требуются права помощника)",
-	ShowFrame				= "Показать окно целей Валь'Кир",
-	FrameClassColor			= "Использовать цвета классов в окне целей Валь'Кир",
-	FrameUpwards			= "Рост окна целей Валь'Кир вверх",
-	FrameLocked				= "Зафиксировать окно целей Валь'Кир",
-	RemoveImmunes			= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
+	PhaseTransition				= "Отсчет времени для переходной фазы",
+	ValkyrWarning				= "Объявлять, кого схватили Валь'киры",
+	SpecWarnYouAreValkd			= "Спец-предупреждение, когда вас схватила Валь'кира",
+	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
+	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
+	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
+	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
+	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
+	TrapArrow					= "Показывать стрелку, когда $spell:73539 около вас",
+	AnnounceValkGrabs			= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
+	SpecWarnValkyrLow			= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",
+	AnnouncePlagueStack			= "Объявлять стаки заклинания $spell:73912 в рейд-чат (10\nстаков, далее каждые 5) (требуются права помощника)",
+	ShowFrame					= "Показать окно целей Валь'Кир",
+	FrameClassColor				= "Использовать цвета классов в окне целей Валь'Кир",
+	FrameUpwards				= "Рост окна целей Валь'Кир вверх",
+	FrameLocked					= "Зафиксировать окно целей Валь'Кир",
+	RemoveImmunes				= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
 }
 
 L:SetMiscLocalization{
