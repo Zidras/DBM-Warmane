@@ -1,11 +1,11 @@
 if GetLocale() ~= "ruRU" then return end
-
 if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
+
 local L = DBM_GUI_Translations
 
 L.MainFrame = "Deadly Boss Mods"
 
-L.TranslationByPrefix		= "Retail backport by - "
+L.TranslationByPrefix		= "Retail backport by "
 L.TranslationBy 			= "Barsoom, Bunny67, Zidras"
 L.Website					= "Discord для обсуждения: |cFF73C2FBhttps://discord.gg/CyVWDWS|r"
 L.WebsiteButton				= "GitHub"

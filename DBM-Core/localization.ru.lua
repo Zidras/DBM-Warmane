@@ -216,8 +216,6 @@ L.TIMER_USAGE						= {
 L.ERROR_NO_PERMISSION				= "У вас недостаточно прав для выполнения этой операции."
 
 --Common Locals
-L.ALLIANCE							= "Альянс"
-L.HORDE								= "Орда"
 L.NEXT								= "След. %s"
 L.COOLDOWN							= "Восст. %s"
 L.UNKNOWN							= "неизвестно"

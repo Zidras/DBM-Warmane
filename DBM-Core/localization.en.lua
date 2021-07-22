@@ -228,8 +228,6 @@ L.TIMER_USAGE						= {
 L.ERROR_NO_PERMISSION				= "You don't have the required permission to do this."
 
 --Common Locals
-L.ALLIANCE							= "Alliance"
-L.HORDE								= "Horde"
 L.NONE								= "None"
 L.RANDOM							= "Random"
 L.NEXT								= "Next %s"
