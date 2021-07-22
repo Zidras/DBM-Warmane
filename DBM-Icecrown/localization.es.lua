@@ -473,7 +473,7 @@ L:SetMiscLocalization{
 	ValkGrabbedIcon			= "Val'kyr {rt%d} ha agarrado a %s",
 	ValkGrabbed				= "Val'kyr ha agarrado a %s",
 	PlagueStackWarning		= "Aviso: %s tiene %d marcas de Peste Necrótica",
-	AchievementCompleted	= ">> LOGRO COMPLETADO: %s tiene %d marcas de Peste Necrótica <<"
+	AchievementCompleted	= ">> LOGRO COMPLETADO: %s tiene %d marcas de Peste Necrótica <<",
 	FrameTitle				= "Valkyr targets",
 	FrameLock				= "Frame Lock",
 	FrameClassColor			= "Use Class Colors",

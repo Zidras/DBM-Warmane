@@ -23,7 +23,7 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	WarderTrap1		= "거기... 누구냐?",
-	WarderTrap2		= "내가... 깨어난다!",	
+	WarderTrap2		= "내가... 깨어난다!",
 	WarderTrap3		= "주인님의 성소를 어지럽혔구나!"
 }
 
@@ -139,9 +139,9 @@ L:SetOptionLocalization{
 	WarnAddsSoon				= "이교도 추가 사전 경고 보기",
 	WarnReanimating				= "이교도를 부활을 시작 할 경우 경고 보기",								-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "새로운 이교도 추가 타이머 보기",
-	SpecWarnVengefulShade		= "복수의 망령으로부터 공격을 받을 경우 특수 경고 보기",--creatureid 38222	
+	SpecWarnVengefulShade		= "복수의 망령으로부터 공격을 받을 경우 특수 경고 보기",--creatureid 38222
 	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
-	ShieldHealthFrame			= "$spell:70842의 방어막 바와 보스 체력바를 함께 보기",	
+	ShieldHealthFrame			= "$spell:70842의 방어막 바와 보스 체력바를 함께 보기",
 	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
 	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
 	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
@@ -245,20 +245,20 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnOozeSpawn				= "작은 수액괴물 생성",
-	SpecWarnLittleOoze			= "작은 수액괴물의 공격! - 뛰세요!"--creatureid 36897	
+	SpecWarnLittleOoze			= "작은 수액괴물의 공격! - 뛰세요!"--creatureid 36897
 }
 
 L:SetOptionLocalization{
 	WarnOozeSpawn				= "작은 수액괴물 생성 경고 보기",
-	SpecWarnLittleOoze			= "작은 수액괴물로부터 공격을 받을 경우 특수 경고 보기",--creatureid 36897	
-	RangeFrame					= "거리 프레임 보기 (8 미터)",	
+	SpecWarnLittleOoze			= "작은 수액괴물로부터 공격을 받을 경우 특수 경고 보기",--creatureid 36897
+	RangeFrame					= "거리 프레임 보기 (8 미터)",
 	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
 	TankArrow					= "큰 수액괴물 탱커 방향 DBM 화살표 보기(테스트)"
 }
 
 L:SetMiscLocalization{
 	YellSlimePipes1	= "좋은 소식이에요, 여러분! 독성 수액 배출관을 고쳤어요!",	-- Professor Putricide
-	YellSlimePipes2	= "끝내 주는 소식이에요, 여러분! 수액이 다시 나오는군요!"	-- Professor Putricide	
+	YellSlimePipes2	= "끝내 주는 소식이에요, 여러분! 수액이 다시 나오는군요!"	-- Professor Putricide
 }
 
 ---------------------------
@@ -346,7 +346,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnCorrosion	= "%s : >%s< (%d)",		-- Corrosion on >args.destName< (args.amount)
-	WarnPortalOpen	= "차원문 열림"	
+	WarnPortalOpen	= "차원문 열림"
 }
 
 L:SetTimerLocalization{
@@ -362,7 +362,7 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	SetIconOnBlazingSkeleton	= "타오르는 해골에게 공격대 징표 설정(해골)",
-	WarnPortalOpen				= "$spell:72483 열림 경고 보기",	
+	WarnPortalOpen				= "$spell:72483 열림 경고 보기",
 	TimerPortalsOpen			= "악몽의 차원문이 열릴 때 타이머 보기",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "타오르는 해골 다음 생성 타이머 보기",
@@ -404,7 +404,7 @@ L:SetOptionLocalization{
 	WarnGroundphaseSoon			= "지상 단계 사전 경고 보기",
 	TimerNextAirphase			= "다음 공중 단계 타이머 보기",
 	TimerNextGroundphase		= "다음 지상 단계 타이머 보기",
-	AnnounceFrostBeaconIcons	= "$spell:70126 대상 공격대 징표을 채팅으로 알리기\n(공대장 혹은 부공대장 권한이 있을 경우)",	
+	AnnounceFrostBeaconIcons	= "$spell:70126 대상 공격대 징표을 채팅으로 알리기\n(공대장 혹은 부공대장 권한이 있을 경우)",
 	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
 	SetIconOnUnchainedMagic		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase		= "공중 단계 전 모든 공격대 징표 제거",
@@ -433,7 +433,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	ValkyrWarning			= "발키리 : >%s<",
-	SpecWarnYouAreValkd		= "발키리가 납치 중!",	
+	SpecWarnYouAreValkd		= "발키리가 납치 중!",
 	WarnNecroticPlagueJump	= "괴저 역병 전이 : >%s<",
 	SpecWarnValkyrLow		= "발키리 HP 55% 이하!!"
 }
@@ -446,9 +446,9 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	TimerRoleplay				= "이벤트 타이머 보기",
-	WarnNecroticPlagueJump		= "$spell:73912 이동 대상 알리기",	
-	TimerNecroticPlagueCleanse	= "$spell:73912의 첫 번째 틱 이후 지속 타이머 보기",	
-	PhaseTransition				= "다음 단계 전환 타이머 보기",	
+	WarnNecroticPlagueJump		= "$spell:73912 이동 대상 알리기",
+	TimerNecroticPlagueCleanse	= "$spell:73912의 첫 번째 틱 이후 지속 타이머 보기",
+	PhaseTransition				= "다음 단계 전환 타이머 보기",
 	ValkyrWarning				= "발키리에게 붙잡힌 사람 알리기",
 	SpecWarnYouAreValkd			= "발키리에게 붙잡혔을 때 특수 경고 보기",
 	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),

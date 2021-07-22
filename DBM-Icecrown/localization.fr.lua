@@ -301,7 +301,7 @@ L:SetOptionLocalization{
 	WarnTargetSwitchSoon	= "Montre une pré-alerte pour le changement de cible",
 	TimerTargetSwitch		= "Montre un timer pour le changement de cible",
 	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
-	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux)."
+	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux).",
 	RangeFrame				= "Show range frame (12 yards)", --Needs Translating
 	VortexArrow				= "Show DBM arrow when $spell:72037 is near you" --Needs Translating
 }
