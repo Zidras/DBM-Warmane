@@ -16,7 +16,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	SpecWarnTrap		= "Zeige Spezialwarnung für Fallenaktivierung",
+	SpecWarnTrap			= "Zeige Spezialwarnung für Fallenaktivierung",
 	SetIconOnDarkReckoning	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69483),
 	SetIconOnDeathPlague	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72865)
 }
@@ -251,7 +251,7 @@ L:SetWarningLocalization{
 L:SetOptionLocalization{
 	WarnOozeSpawn				= "Zeige Warnung für Spawn von Kleinen Brühschlammern",
 	SpecWarnLittleOoze			= "Zeige Spezialwarnung, wenn du von Kleinen Brühschlammern angegriffen wirst",--creatureid 36897
-	RangeFrame					= "Show range frame (8 yards)",
+	RangeFrame					= "Show range frame (8 yards)", --Needs Translating
 	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
 	TankArrow					= "Zeige Pfeil zum Tank des Großen Schlamms (experimentell)",
 }
@@ -289,7 +289,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnTargetSwitch		= "Ziel wechseln auf: %s",
-	WarnTargetSwitchSoon	= "Zielwechsel bald",
+	WarnTargetSwitchSoon	= "Zielwechsel bald"
 }
 
 L:SetTimerLocalization{
@@ -310,6 +310,7 @@ L:SetMiscLocalization{
 	Keleseth			= "Prinz Keleseth",
 	Taldaram			= "Prinz Taldaram",
 	Valanar				= "Prinz Valanar",
+	FirstPull			= Törichte Sterbliche. Ihr glaubt, wir wären so einfach besiegt? Die San'layn sind die unsterblichen Soldaten des Lichkönigs! Seht nun ihre vereinte Macht!
 	--FirstPull			= "Foolish mortals. You thought us defeated so easily? The San'layn are the Lich King's immortal soldiers! Now you shall face their might combined!", -- Needs Translating
 	EmpoweredFlames		= "Machtvolle Flammen rasen auf (%S+) zu!"
 }
@@ -351,7 +352,7 @@ L:SetWarningLocalization{
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portale offen",
-	TimerPortalsClose			= "Portals close",
+	TimerPortalsClose			= "Portals close", --Needs Translating
 	TimerBlazingSkeleton		= "Loderndes Skelett",
 	TimerAbom					= "Abomination",
 	TimerSuppressorOne			= "1st wave of Suppressors", --Needs Translating
@@ -361,7 +362,7 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnBlazingSkeleton		= "Setze Zeichen auf Loderndes Skelett (Totenkopf)",
+	SetIconOnBlazingSkeleton	= "Setze Zeichen auf Loderndes Skelett (Totenkopf)",
 	WarnPortalOpen				= "Zeige Warnung wenn Alptraumportale geöffnet sind",
 	TimerPortalsOpen			= "Zeige Timer wenn Alptraumportale geöffnet sind",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
@@ -418,7 +419,7 @@ L:SetMiscLocalization{
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	BeaconIconSet		= "Frostleuchtfeuer-Zeichen {rt%d} auf %s gesetzt",
-	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet",
+	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet", --Needs Translating
 	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<" --Needs Translating
 }
 
@@ -470,10 +471,10 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	LKPull					= "Der vielgerühmte Streiter des Lichts ist endlich hier? Soll ich Frostgram niederlegen und mich Eurer Gnade ausliefern, Fordring?",
 	LKRoleplay				= "Ist es wirklich Rechtschaffenheit, die Euch treibt? Ich bin mir nicht sicher…",
-	YellDefile				= "Entweihen auf mir!",
-	YellTrap				= "Schattenfalle auf mir!",
-	YellKill				= "Keine Fragen, keine Zweifel mehr - Ihr SEID Azeroths größte Champions. Ihr habt jede meiner Herausforderungen gemeistert. Meine mächtigsten Diener fielen unter Eurem unnachgiebigen Ansturm... Eurer grenzenlosen Wut...",
-	PlagueWhisper			= "Ihr wurdet von der",
+	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s", -- Needs Translating
+	ValkGrabbed				= "Valkyr Shadowguard grabbed %s", -- Needs Translating
+	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague", -- Needs Translating
+	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<", -- Needs Translating
 	FrameTitle				= "Valkyr targets",
 	FrameLock				= "Frame Lock",
 	FrameClassColor			= "Use Class Colors",
