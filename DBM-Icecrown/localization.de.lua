@@ -310,8 +310,7 @@ L:SetMiscLocalization{
 	Keleseth			= "Prinz Keleseth",
 	Taldaram			= "Prinz Taldaram",
 	Valanar				= "Prinz Valanar",
-	FirstPull			= Törichte Sterbliche. Ihr glaubt, wir wären so einfach besiegt? Die San'layn sind die unsterblichen Soldaten des Lichkönigs! Seht nun ihre vereinte Macht!
-	--FirstPull			= "Foolish mortals. You thought us defeated so easily? The San'layn are the Lich King's immortal soldiers! Now you shall face their might combined!", -- Needs Translating
+	FirstPull			= Törichte Sterbliche. Ihr glaubt, wir wären so einfach besiegt? Die San'layn sind die unsterblichen Soldaten des Lichkönigs! Seht nun ihre vereinte Macht!,
 	EmpoweredFlames		= "Machtvolle Flammen rasen auf (%S+) zu!"
 }
 
