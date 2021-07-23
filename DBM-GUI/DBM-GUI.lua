@@ -391,7 +391,7 @@ do
 		local spellId = tonumber(id)
 		local spellName = DBM:GetSpellInfo(spellId)
 		if not spellName then
-			spellName = DBM_CORE_UNKNOWN
+			spellName = CL.UNKNOWN
 			DBM:Debug("Spell ID does not exist: "..spellId)
 		end
 		return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(spellId, spellName)
@@ -562,7 +562,7 @@ do
 			name = "<html><body><p>"..name.."</p></body></html>"
 		end
 		_G[buttonName .. 'Text']:SetWidth( self.frame:GetWidth() - 57 - widthAdjust)
-		_G[buttonName .. 'Text']:SetText(name or DBM_CORE_UNKNOWN)
+		_G[buttonName .. 'Text']:SetText(name or CL.UNKNOWN)
 
 		if textleft then
 			_G[buttonName .. 'Text']:ClearAllPoints()
@@ -1493,7 +1493,7 @@ local function CreateOptionsMenu()
 		generalMessagesArea:CreateCheckButton(L.ShowDefeatMessage, true, nil, "ShowDefeatMessage")
 		generalMessagesArea:CreateCheckButton(L.ShowGuildMessages, true, nil, "ShowGuildMessages")
 		generalMessagesArea:CreateCheckButton(L.ShowGuildMessagesPlus, true, nil, "ShowGuildMessagesPlus")
-		local generalWhispersArea = generalWarningPanel:CreateArea(L.WhisperMessages, nil, 135, true)
+		local generalWhispersArea = generalWarningPanel:CreateArea(L.Area_WhisperMessages, nil, 135, true)
 		generalWhispersArea:CreateCheckButton(L.AutoRespond, true, nil, "AutoRespond")
 		generalWhispersArea:CreateCheckButton(L.WhisperStats, true, nil, "WhisperStats")
 		generalWhispersArea:CreateCheckButton(L.DisableStatusWhisper, true, nil, "DisableStatusWhisper")
@@ -1521,17 +1521,17 @@ local function CreateOptionsMenu()
 
 		-- RaidWarn Font
 		local Fonts = MixinSharedMedia3("font", {
-			{text = "Default",	value = standardFont,		font = standardFont},
+			{text = DEFAULT,	value = standardFont,		font = standardFont},
 			{text = "Arial",	value = "Fonts\\ARIALN.TTF",	font = "Fonts\\ARIALN.TTF"},
 			{text = "Skurri",	value = "Fonts\\skurri.ttf",	font = "Fonts\\skurri.ttf"},
 			{text = "Morpheus",	value = "Fonts\\MORPHEUS.ttf",	font = "Fonts\\MORPHEUS.ttf"},
 			{text = "PT Sans Narrow",	value 	= "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf",	font = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"}
 		})
 
-		local FontDropDown = raidwarnoptions:CreateDropdown(L.Warn_FontType, Fonts, "DBM", "WarningFont", function(value)
+		local FontDropDown = raidwarnoptions:CreateDropdown(L.FontType, Fonts, "DBM", "WarningFont", function(value)
 			DBM.Options.WarningFont = value
 			DBM:UpdateWarningOptions()
-			DBM:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
+			DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 		end)
 		FontDropDown:SetPoint("TOPLEFT", WarningShortText, "BOTTOMLEFT", 0, -30)
 
@@ -1544,19 +1544,19 @@ local function CreateOptionsMenu()
 			{text = L.MonochromeThickOutline,	value = "MONOCHROME,THICKOUTLINE"}
 		}
 
-		local FontStyleDropDown = raidwarnoptions:CreateDropdown(L.Warn_FontStyle, FontStyles, "DBM", "WarningFontStyle", function(value)
+		local FontStyleDropDown = raidwarnoptions:CreateDropdown(L.FontStyle, FontStyles, "DBM", "WarningFontStyle", function(value)
 			DBM.Options.WarningFontStyle = value
 			DBM:UpdateWarningOptions()
-			DBM:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
+			DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 		end)
 		FontStyleDropDown:SetPoint("TOPLEFT", FontDropDown, "BOTTOMLEFT", 0, -10)
 
 		-- RaidWarn Font Shadow
-		local FontShadow = raidwarnoptions:CreateCheckButton(L.Warn_FontShadow, nil, nil, "WarningFontShadow")
+		local FontShadow = raidwarnoptions:CreateCheckButton(L.FontShadow, nil, nil, "WarningFontShadow")
 		FontShadow:SetScript("OnClick", function()
 			DBM.Options.WarningFontShadow = not DBM.Options.WarningFontShadow
 			DBM:UpdateWarningOptions()
-			DBM:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
+			DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 		end)
 		FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", 35, 0)
 
@@ -1574,7 +1574,7 @@ local function CreateOptionsMenu()
 		RaidWarnSoundDropDown:SetPoint("TOPLEFT", FontStyleDropDown, "BOTTOMLEFT", 0, -10)
 
 		-- RaidWarn Font Size
-		local fontSizeSlider = raidwarnoptions:CreateSlider(L.Warn_FontSize, 8, 60, 1, 200)
+		local fontSizeSlider = raidwarnoptions:CreateSlider(L.FontSize, 8, 60, 1, 200)
 		fontSizeSlider:SetPoint('TOPLEFT', FontDropDown, "TOPLEFT", 20, -130)
 		do
 			local firstshow = true
@@ -1586,7 +1586,7 @@ local function CreateOptionsMenu()
 				if firstshow then firstshow = false return end
 				DBM.Options.WarningFontSize = self:GetValue()
 				DBM:UpdateWarningOptions()
-				DBM:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
+				DBM:AddWarning(L.MOVE_WARNING_MESSAGE)
 			end)
 		end
 
@@ -1603,7 +1603,7 @@ local function CreateOptionsMenu()
 				if firstshow then firstshow = false return end
 				DBM.Options.WarningDuration2 = self:GetValue()
 				DBM:UpdateWarningOptions()
-				DBM:AddWarning(DBM_CORE_MOVE_WARNING_MESSAGE)
+				DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 			end)
 		end
 
@@ -2271,11 +2271,11 @@ local function CreateOptionsMenu()
 		StyleDropDown:SetPoint("TOPLEFT", BarSetup.frame, "TOPLEFT", 210, -25)
 
 		local Textures = MixinSharedMedia3("statusbar", {
-			{	text	= "Default",	value 	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp", 	texture	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp"	},
-			{	text	= "Blizzad",	value 	= "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar", 	texture	= 136570	},
-			{	text	= "Glaze",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp"	},
-			{	text	= "Otravi",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.blp", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.blp"	},
-			{	text	= "Smooth",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.blp", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.blp"	}
+			{	text	= DEFAULT,				value 	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp", 	texture	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp"	},
+			{	text	= "Blizzad",			value 	= "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar", 	texture	= 136570	},
+			{	text	= "Glaze",				value 	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp", 			texture	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp"	},
+			{	text	= "Otravi",				value 	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.blp", 			texture	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.blp"	},
+			{	text	= "Smooth",				value 	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.blp", 			texture	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.blp"	}
 		})
 
 		local TextureDropDown = BarSetup:CreateDropdown(L.BarTexture, Textures, "DBT", "Texture", function(value)
@@ -2284,13 +2284,13 @@ local function CreateOptionsMenu()
 		TextureDropDown:SetPoint("TOPLEFT", StyleDropDown, "BOTTOMLEFT", 0, -10)
 
 		local Fonts = MixinSharedMedia3("font", {
-			{	text	= "Default",		value 	= standardFont,					font = standardFont	},
-			{	text	= "Arial",			value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
-			{	text	= "Skurri",			value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
-			{	text	= "Morpheus",		value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	}
+			{	text	= DEFAULT,				value 	= standardFont,					font = standardFont	},
+			{	text	= "Arial",				value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
+			{	text	= "Skurri",				value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
+			{	text	= "Morpheus",			value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	}
 		})
 
-		local FontDropDown = BarSetup:CreateDropdown(L.Bar_Font, Fonts, "DBT", "Font", function(value)
+		local FontDropDown = BarSetup:CreateDropdown(L.FontType, Fonts, "DBT", "Font", function(value)
 			DBM.Bars:SetOption("Font", value)
 		end)
 		FontDropDown:SetPoint("TOPLEFT", TextureDropDown, "BOTTOMLEFT", 0, -10)
@@ -2303,7 +2303,7 @@ local function CreateOptionsMenu()
 			{	text	= L.MonochromeThickOutline,	value 	= "MONOCHROME,THICKOUTLINE"		}
 		}
 
-		local FontFlagDropDown = BarSetup:CreateDropdown(L.Warn_FontStyle, FontFlags, "DBT", "FontFlag",
+		local FontFlagDropDown = BarSetup:CreateDropdown(L.FontStyle, FontFlags, "DBT", "FontFlag",
 			function(value)
 				DBM.Bars:SetOption("FontFlag", value)
 			end)
@@ -2345,7 +2345,7 @@ local function CreateOptionsMenu()
 			slider:SetValue(DBM.Bars:GetOption(option))
 		end
 
-		local FontSizeSlider = BarSetup:CreateSlider(L.Bar_FontSize, 7, 18, 1)
+		local FontSizeSlider = BarSetup:CreateSlider(L.FontSize, 7, 18, 1)
 		FontSizeSlider:SetPoint("TOPLEFT", BarSetup.frame, "TOPLEFT", 20, -175)
 		FontSizeSlider:SetScript("OnShow", createDBTOnShowHandler("FontSize"))
 		FontSizeSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("FontSize"))
@@ -2527,7 +2527,7 @@ local function CreateOptionsMenu()
 		local check5 = specArea:CreateCheckButton(L.SpecialWarningIcon, true, nil, "SpecialWarningIcon")
 		local check6 = specArea:CreateCheckButton(L.ShortTextSpellname, true, nil, "SpecialWarningShortText")
 
-		local movemebutton = specArea:CreateButton(L.SpecWarn_MoveMe, 120, 16)
+		local movemebutton = specArea:CreateButton(L.MoveMe, 120, 16)
 		movemebutton:SetPoint('TOPRIGHT', specArea.frame, "TOPRIGHT", 0, -5)
 		movemebutton:SetNormalFontObject(GameFontNormalSmall)
 		movemebutton:SetHighlightFontObject(GameFontNormalSmall)
@@ -2535,7 +2535,7 @@ local function CreateOptionsMenu()
 
 		local color0 = specArea:CreateColorSelect(64)
 		color0:SetPoint('TOPLEFT', specArea.frame, "TOPLEFT", 20, -250)
-		local color0text = specArea:CreateText(L.SpecWarn_FontColor, 80)
+		local color0text = specArea:CreateText(L.FontColor, 80)
 		color0text:SetPoint("BOTTOM", color0, "TOP", 5, 4)
 		local color0reset = specArea:CreateButton(L.Reset, 64, 10, nil, GameFontNormalSmall)
 		color0reset:SetPoint('TOP', color0, "BOTTOM", 5, -10)
@@ -2565,13 +2565,13 @@ local function CreateOptionsMenu()
 		end
 
 		local Fonts = MixinSharedMedia3("font", {
-			{	text	= "Default",		value 	= standardFont,			font = standardFont	},
+			{	text	= DEFAULT,		value 	= standardFont,			font = standardFont	},
 			{	text	= "Arial",			value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
 			{	text	= "Skurri",			value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
 			{	text	= "Morpheus",		value 	= "Fonts\\MORPHEUS.ttf",		font = "Fonts\\MORPHEUS.ttf"	}
 		})
 
-		local FontDropDown = specArea:CreateDropdown(L.SpecWarn_FontType, Fonts, "DBM", "SpecialWarningFont", function(value)
+		local FontDropDown = specArea:CreateDropdown(L.FontType, Fonts, "DBM", "SpecialWarningFont", function(value)
 			DBM.Options.SpecialWarningFont = value
 			DBM:UpdateSpecialWarningOptions()
 			DBM:ShowTestSpecialWarning(nil, 1)
@@ -2586,14 +2586,14 @@ local function CreateOptionsMenu()
 			{	text	= L.MonochromeThickOutline,	value 	= "MONOCHROME,THICKOUTLINE"		}
 		}
 
-		local FontStyleDropDown = specArea:CreateDropdown(L.Warn_FontStyle, FontStyles, "DBM", "SpecialWarningFontStyle", function(value)
+		local FontStyleDropDown = specArea:CreateDropdown(L.FontStyle, FontStyles, "DBM", "SpecialWarningFontStyle", function(value)
 			DBM.Options.SpecialWarningFontStyle = value
 			DBM:UpdateSpecialWarningOptions()
 			DBM:ShowTestSpecialWarning(nil, 1)
 		end)
 		FontStyleDropDown:SetPoint("LEFT", FontDropDown, "RIGHT", 25, 0)
 
-		local FontShadow = specArea:CreateCheckButton(L.Warn_FontShadow, nil, nil, "SpecialWarningFontShadow")
+		local FontShadow = specArea:CreateCheckButton(L.FontShadow, nil, nil, "SpecialWarningFontShadow")
 		FontShadow:SetScript("OnClick", function()
 			DBM.Options.SpecialWarningFontShadow = not DBM.Options.SpecialWarningFontShadow
 			DBM:UpdateSpecialWarningOptions()
@@ -2601,7 +2601,7 @@ local function CreateOptionsMenu()
 		end)
 		FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", -35, 25)
 
-		local fontSizeSlider = specArea:CreateSlider(L.SpecWarn_FontSize, 8, 60, 1, 150)
+		local fontSizeSlider = specArea:CreateSlider(L.FontSize, 8, 60, 1, 150)
 		fontSizeSlider:SetPoint('TOPLEFT', FontDropDown, "TOPLEFT", 20, -45)
 		do
 			local firstshow = true

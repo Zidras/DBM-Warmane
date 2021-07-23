@@ -39,6 +39,9 @@ L.NoSound					= "Kein Sound"
 
 L.IconsInUse				= "Zeichennutzung des Mods"
 
+L.Large						= "Kleine"
+L.Small						= "Groß"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "Boss Statistiken"
 L.Statistic_Kills			= "Siege:"
@@ -49,6 +52,8 @@ L.Statistic_BestRank		= "Höchste Stufe:"
 
 -- Tab: General Core Options
 L.General 					= "Allgemeine Grundeinstellungen"
+L.EnableStatus				= "Antworte auf 'status'-Flüsteranfragen"
+L.FixCLEUOnCombatStart		= "Lösche Kampflog bei Pull/Kampfende und Zonenwechsel"
 L.EnableMiniMapIcon			= "Aktiviere Minimap-Symbol"
 L.UseSoundChannel			= "Audiokanal um DBM-Sounddateien abzuspielen"
 L.UseMasterChannel			= "Master Audiokanal"
@@ -67,6 +72,14 @@ L.Button_InfoFrame			= "Zeige Infofenster"
 L.Button_TestBars			= "Starte Testbalken"
 L.Button_ResetInfoRange		= "Info-/Abstandsfenster zurücksetzen"
 
+L.PizzaTimer_Headline		= 'Erstelle einen "Pizza-Timer"'
+L.PizzaTimer_Title			= 'Name (z.b. "Pizza!")'
+L.PizzaTimer_Hours			= "Stunden"
+L.PizzaTimer_Mins			= "Min"
+L.PizzaTimer_Secs			= "Sek"
+L.PizzaTimer_ButtonStart	= "Starte Timer"
+L.PizzaTimer_BroadCast		= "Anderen Schlachtzugspielern anzeigen"
+
 -- Tab: Raidwarning
 L.Tab_RaidWarning 			= "Schlachtzugwarnungen"
 L.RaidWarning_Header		= "Einstellungen für Schlachtzugwarnungen"
@@ -79,6 +92,7 @@ L.InfoRaidWarning			= [[Hier werden Position und Farben des Fensters für Schlac
 
 L.ColorResetted 			= "Diese Farbeinstellung wurde zurückgesetzt."
 L.ShowWarningsInChat 		= "Zeige Warnungen im Chatfenster"
+L.ShowFakedRaidWarnings		= "Zeige Warnungen als künstliche Schlachtzugwarnung"
 L.WarningIconLeft 			= "Zeige Symbol links an"
 L.WarningIconRight 			= "Zeige Symbol rechts an"
 L.WarningIconChat 			= "Zeige Symbole im Chatfenster"
@@ -109,6 +123,7 @@ L.DisableStatusWhisper 		= "Deaktiviere 'status'-Flüsteranfragen für die gesam
 L.DisableGuildStatus 		= "Deaktiviere das Senden von Fortschrittsmeldungen an die Gilde für die gesamte Gruppe (nur als Gruppenleiter)"
 
 -- Tab: Barsetup
+L.BarSetup					= "Balkenstil"
 L.TabCategory_Timers		= "Balkeneinstellungen"
 L.BarTexture				= "Balkentextur"
 L.BarStyle					= "Balkenstil"
@@ -140,7 +155,7 @@ L.BarEndColorUI				= "Endfarbe (Nutzer)"
 L.Bar7Header				= "Einstellungen für Nutzerbalken"
 L.Bar7ForceLarge			= "Nutze immer großen Balken"
 L.Bar7CustomInline			= "Zeichen '!' einbetten"
-
+L.Bar7Footer				= "(Testbalken wird nicht live aktualisiert)"
 -- Tab: Timers
 L.AreaTitle_BarColors		= "Balkenfarben nach Timertyp"
 L.AreaTitle_BarSetup		= "Allgemeine Balkeneinstellungen"
@@ -212,11 +227,20 @@ L.Area_EventSoundsFilters	= "Filter für Ereignisklänge"
 L.EventFilterDungMythicMusic= "Spiele keine Dungeonmusik auf Schwierigkeitsgrad Mythisch/Mythisch+"
 L.EventFilterMythicMusic	= "Spiele keine Kampfmusik auf Schwierigkeitsgrad Mythisch/Mythisch+"
 
+-- Tab: HealthFrame
+L.Panel_HPFrame				= "Lebensanzeige"
+L.Area_HPFrame				= "Lebensanzeige-Optionen"
+L.HP_Enabled				= "Lebensanzeige immer anzeigen (überschreibt boss-spezifische Option)"
+L.HP_GrowUpwards			= "Erweitere Lebensanzeige nach oben"
+L.HP_ShowDemo				= "Zeige Lebensanzeige"
+L.BarWidth					= "Balkenbreite: %d"
+
 -- Tab: Global Filter
 L.Panel_SpamFilter			= "Deaktivierung von DBM-Funktionen"
 L.Area_SpamFilter_Anounces	= "Announce Global Disable & Filter Options"
 L.SpamBlockNoShowAnnounce	= "Zeige keinen Text und spiele keine Sounds für JEGLICHE allgemeine Meldungen"
 L.SpamBlockNoShowTgtAnnounce= "Zeige keinen Text und spiele keine Sounds für allgemeine ZIEL-Meldungen (wird durch obigen Filter überschrieben)"
+L.SpamBlockNoSpecWarn		= "Zeige keine Spezialwarnungen und spiele keine Spezialwarnungstöne ab"
 L.SpamBlockNoSpecWarnText	= "Zeige keinen Spezialwarnungstext, aber erlaube dennoch Sprachpacks (wird durch obigen Filter überschrieben)"
 
 L.Area_SpamFilter_Timers	= "Timer Global Disable & Filter Options"
@@ -232,6 +256,7 @@ L.SpamBlockNoHudMap			= "Zeige keine HudMap"
 L.SpamBlockNoNameplate		= "Zeige keine Namensplakettenauras"
 L.SpamBlockNoYells			= "Sende keine automatischen Schreie"
 L.SpamBlockNoNoteSync		= "Akzeptiere keine geteilten Notizen"
+L.SpamBlockNoReminders		= "Zeige keine Loginnachrichten, Empfehlungsmeldungen, fehlende Änderungsmeldungen oder Aktualisierungsmeldungen an"
 
 L.Area_Restore				= "DBM-Wiederherstellungseinstellungen (Setzen des vorherigen Nutzerzustands nach Mod-Ende)"
 L.SpamBlockNoIconRestore	= "Setze Markierungszeichen am Kampfende nicht auf den vorherigen Zustand zurück"
@@ -270,6 +295,11 @@ L.HideQuestTooltips			= "Verberge Questziele in Tooltips während Bosskämpfen"
 L.HideTooltips				= "Verberge Tooltips vollständig während Bosskämpfen"
 L.DisableSFX				= "Deaktiviere Soundeffekte während Bosskämpfen"
 L.DisableCinematics			= "Verberge Videosequenzen"
+L.AudioPull					= "Schalte akustischen Pulltimer ein bei /pull"
+L.BigTimerNumbers			= "Schalte visuelle goldene Nummern ein bei /pull"
+L.ReportRecount		    	= "Schicke Recountreport nach Kampfende (Assistent benötigt)"
+L.ReportSkada		    	= "Schicke SkadaRevisitedreport nach Kampfende (Assistent benötigt)"
+L.PerCharacterSettings    	= "Verwende Charakterprofile anstelle eines Allgemeinprofils"
 L.AfterFirst				= "Nach jeweils einmaligem Abspielen"
 L.CombatOnly				= "im Kampf deaktivieren (alle)"
 L.RaidCombat				= "im Kampf deaktivieren (nur Bosse)"

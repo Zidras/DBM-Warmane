@@ -43,6 +43,9 @@ L.NoSound					= "靜音"
 
 L.IconsInUse				= "此模組已使用的標記"
 
+L.Large						= "大"
+L.Small						= "小"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "首領狀態"
 L.Statistic_Kills			= "勝利："
@@ -56,6 +59,18 @@ L.TabCategory_Options	 	= "一般選項"
 L.Area_BasicSetup			= "初始DBM設置提示"
 L.Area_ModulesForYou		= "哪些DBM模組適合您？"
 L.Area_ProfilesSetup		= "DBM配置檔使用指南"
+
+L.EnableStatus				= "回復“status”密語"
+L.FixCLEUOnCombatStart		= "在拉/戰鬥結束和區域更改時清除戰鬥日誌緩存"
+
+L.PizzaTimer_Headline		= '創建一個計時條'
+L.PizzaTimer_Title			= '名稱（如“Pizza計時器”）'
+L.PizzaTimer_Hours			= "時"
+L.PizzaTimer_Mins			= "分"
+L.PizzaTimer_Secs			= "秒"
+L.PizzaTimer_ButtonStart	= "開始計時"
+L.PizzaTimer_BroadCast		= "向團隊廣播"
+
 -- Panel: Core & GUI
 L.Core_GUI 					= "核心 & 圖形界面"
 L.General 					= "一般DBM核心選項"
@@ -158,6 +173,7 @@ L.InfoRaidWarning			= [[你可以對團隊警告的顏色及其位置進行設�
 在這裡會顯示例如“玩家X中了Y效果”之類的資訊。]]
 L.ColorResetted 			= "該顏色設置已重置"
 L.ShowWarningsInChat 		= "在聊天視窗中顯示通告"
+L.ShowFakedRaidWarnings		= "以偽裝團隊警告資訊的方式顯示警告內容"
 L.WarningIconLeft 			= "左側顯示圖示"
 L.WarningIconRight 			= "右側顯示圖示"
 L.WarningIconChat 			= "在聊天視窗顯示圖示"
@@ -252,6 +268,14 @@ L.Area_EventSoundsFilters		= "事件音效過濾條件"
 L.EventFilterDungMythicMusic	= "不要在傳奇/傳奇+難度播放地城音樂"
 L.EventFilterMythicMusic		= "不要在傳奇/傳奇+難度播放戰鬥音樂"
 
+-- Tab: HealthFrame
+L.Panel_HPFrame				= "血量框架"
+L.Area_HPFrame				= "血量框架選項"
+L.HP_Enabled				= "總是顯示血量框架 (覆蓋首領特定的選項)"
+L.HP_GrowUpwards			= "血量框架向上延伸"
+L.HP_ShowDemo				= "顯示血量框架"
+L.BarWidth					= "寬度: %d"
+
 -- Tab: Timers
 L.TabCategory_Timers		= "計時條"
 L.Area_ColorBytype			= "計時條分類著色指南"
@@ -288,6 +312,7 @@ L.BarEndColorUI				= "結束顏色(自訂)"
 L.Bar7Header				= "自訂計時條選項"
 L.Bar7ForceLarge			= "總是使用大計時條"
 L.Bar7CustomInline			= "使用自訂的'!'內嵌圖示"
+L.Bar7Footer				= "（虛擬欄不會實時更新）"
 --Dropdown Options
 L.CBTGeneric				= "一般"
 L.CBTAdd					= "小怪"
@@ -302,6 +327,7 @@ L.CVoiceTwo					= "倒數語音 2"
 L.CVoiceThree				= "倒數語音 3"
 
 -- Panel: Timers
+L.BarSetup					= "計時條樣式"
 L.Panel_Appearance	 		= "計時條外觀"
 L.Panel_Behavior	 		= "計時條動作"
 L.AreaTitle_BarSetup		= "計時條外觀選項"
@@ -397,6 +423,10 @@ L.HideQuestTooltips			= "首領戰鬥時隱藏任務目標提示"
 L.HideTooltips				= "首領戰鬥時完全地隱藏滑鼠提示"
 L.DisableSFX				= "首領戰鬥時禁用音效頻道（注意：如果啟用此選項，則即使戰鬥進入時音效未打開，戰鬥結束時也會打開聲音效果）"
 L.DisableCinematics			= "禁用遊戲中的過場動畫"
+L.AudioPull					= "為 /pull 啟用音頻倒計時"
+L.BigTimerNumbers			= "為 /pull 啟用視覺黃金數字倒計時"
+L.ReportRecount		    	= "在boss遭遇結束後發送Recount報告（需要協助）"
+L.ReportSkada		    	= "在boss結束後發送SkadaRevisited報告（需要協助）"
 L.OnlyFight					= "只有戰鬥中，每次動畫播放一次之後"
 L.AfterFirst				= "在副本中，每次動畫播放一次之後"
 L.CombatOnly				= "在任何戰鬥中停用"

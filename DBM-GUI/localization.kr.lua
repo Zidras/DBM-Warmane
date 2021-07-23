@@ -40,6 +40,9 @@ L.NoSound					= "효과음 없음"
 
 L.IconsInUse				= "사용되는 공격대 징표:"
 
+L.Large						= "큼"
+L.Small						= "작음"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "보스 통계"
 L.Statistic_Kills			= "승리:"
@@ -53,6 +56,18 @@ L.TabCategory_Options		= "일반 설정"
 L.Area_BasicSetup			= "DBM 초기 설정 팁"
 L.Area_ModulesForYou		= "나에게 맞는 DBM 모듈은 어떤게 있을까?"
 L.Area_ProfilesSetup		= "DBM 프로필 사용법 가이드"
+
+L.EnableStatus				= "귓속말 대상자에게 'status' 답변 보내기 사용"
+L.FixCLEUOnCombatStart		= "전투 시작 할 때 전투 로그 수정"
+
+L.PizzaTimer_Headline		= '"Pizza Timer" 만들기'
+L.PizzaTimer_Title			= '이름 (예 : "Pizza!")'
+L.PizzaTimer_Hours			= "시"
+L.PizzaTimer_Mins			= "분"
+L.PizzaTimer_Secs			= "초"
+L.PizzaTimer_ButtonStart	= "타이머 시작"
+L.PizzaTimer_BroadCast		= "공격대에 알리기"
+
 -- Panel: Core & GUI
 L.Core_GUI 					= "핵심 모드와 GUI"
 L.General 					= "일반 설정"
@@ -157,6 +172,7 @@ L.InfoRaidWarning			= [[레이드 경고 프레임의 위치와 색상을 설정
 본 프레임은 "플레이어 X가 Y에 걸렸습니다"와 같은 메시지를 표시하는데 사용됩니다.]]
 L.ColorResetted 			= "이 영역의 색상 설정을 초기화 합니다."
 L.ShowWarningsInChat 		= "대화창에서 알림 보기"
+L.ShowFakedRaidWarnings		= "위험 알림을 공격대 경보 메세지처럼 보여줍니다."
 L.WarningIconLeft 			= "왼쪽에 아이콘 표시"
 L.WarningIconRight 			= "오른쪽에 아이콘 표시"
 L.WarningIconChat 			= "대화창에 아이콘 표시"
@@ -185,7 +201,6 @@ L.SpecWarn_FlashColor		= "점멸 색상 %d"
 L.SpecWarn_FlashDur			= "점멸 지속시간: %0.1f"
 L.SpecWarn_FlashAlpha		= "점멸 투명도: %0.1f"
 L.SpecWarn_DemoButton		= "예제 보기"
-L.SpecWarn_MoveMe			= "위치 설정"
 L.SpecWarn_ResetMe			= "기본값으로 초기화"
 L.SpecialWarnSoundOption	= "기본 효과음 설정"
 L.SpecialWarnHeader1		= "종류 1: 당신이 뭔가 걸렸거나 취해야 할 행동에 대한 보통 수준 알림 설정 세트"
@@ -212,7 +227,6 @@ L.RoleSpecAlert				= "공격대에 들어왔을 때 현재 전문화와 설정�
 L.CheckGear					= "풀링 타이머가 나오면 착용 장비 알림 메시지 표시 (착용 아이템 레벨이 소지한 아이템 레벨보다 40 이상 낮거나 주무기가 없을 경우)"
 L.WorldBossAlert			= "현재 서버에서 길드원이나 친구가 필드 보스 전투를 시작하면 알림 메시지 표시 (전송자가 연합 서버에 있다면 부정확합니다)"
 
-L.WhisperMessages			= "귓속말 메시지 설정"
 L.AutoRespond 				= "전투중 귓속말 자동 응답"
 L.WhisperStats 				= "귓속말 응답에 처치/전멸 통계 포함"
 L.DisableStatusWhisper 		= "전체 파티/공격대의 귓속말 응답을 끕니다. (파티/공대장 권한 필요) 일반/영웅/신화 레이드 및 신화+ 던전에만 적용됩니다"
@@ -255,6 +269,14 @@ L.Area_EventSoundsFilters	= "이벤트 효과음 필터 적용 조건"
 L.EventFilterDungMythicMusic= "신화/신화+ 난이도에선 던전 배경음을 재생하지 않음"
 L.EventFilterMythicMusic	= "신화/신화+ 난이도에선 보스 전투 배경음을 재생하지 않음"
 
+-- Tab: HealthFrame
+L.Panel_HPFrame				= "보스 체력 프레임"
+L.Area_HPFrame				= "체력 프레임 설정"
+L.HP_Enabled				= "해당 모드에서 끈 상태라도 항상 체력 프레임 보기(강제)"
+L.HP_GrowUpwards			= "보스 체력 프레임을 위로 쌓기"
+L.HP_ShowDemo				= "체력 프레임 보기"
+L.BarWidth					= "바 길이: %d"
+
 -- Tab: Timers
 L.TabCategory_Timers		= "타이머"
 L.Area_ColorBytype			= "종류별 바 색상 가이드"
@@ -291,6 +313,7 @@ L.BarEndColorUI				= "종료 색상 (사용자)"
 L.Bar7Header				= "사용자 바 설정"
 L.Bar7ForceLarge			= "항상 커다란 바 사용"
 L.Bar7CustomInline			= "바 안쪽에 사용자 지정 '!' 아이콘 사용"
+L.Bar7Footer				= "(더미 바는 라이브 업데이트가 되지 않습니다)"
 --Dropdown Options
 L.CBTGeneric				= "일반"
 L.CBTAdd					= "쫄 등장"
@@ -305,6 +328,7 @@ L.CVoiceTwo					= "초읽기 음성 2"
 L.CVoiceThree				= "초읽기 음성 3"
 
 -- Panel: Timers
+L.BarSetup					= "바 스타일"
 L.Panel_Appearance	 		= "바 외형"
 L.Panel_Behavior	 		= "바 작동 방식"
 L.AreaTitle_BarSetup		= "바 외형 설정"
@@ -400,6 +424,10 @@ L.HideQuestTooltips			= "보스 전투중 툴팁에서 퀘스트 정보 숨기�
 L.HideTooltips				= "보스 전투중 모든 툴팁 숨기기"
 L.DisableSFX				= "보스 전투중 소리 채널 (효과음) 끄기 (알림: 이 설정을 켜면 효과음을 켜지 않았어도 전투가 끝난 후 자동으로 켜집니다)"
 L.DisableCinematics			= "게임 내 영상 끄기"
+L.AudioPull					= "/pull에 대한 오디오 카운트다운 활성화"
+L.BigTimerNumbers			= "/pull에 대한 시각적 골드 숫자 카운트다운 활성화"
+L.ReportRecount		    	= "보스 조우 종료 후 Recount 보고서 보내기(도움 필요)"
+L.ReportSkada		    	= "보스 조우 종료 후 SkadaRevisited 보고서 보내기(지원 필요)"
 L.OnlyFight					= "전투중일 때 한번만 재생"
 L.AfterFirst				= "인스턴스 던전에 있을 때 한번만 재생"
 L.CombatOnly				= "전투중 차단 (모든 전투)"

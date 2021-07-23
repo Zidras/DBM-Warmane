@@ -39,6 +39,9 @@ L.NoSound					= "Pas de son"
 
 L.IconsInUse				= "Icônes utilisées par ce module"
 
+L.Large						= "Grand"
+L.Small						= "Petit"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "Statistiques des boss"
 L.Statistic_Kills			= "Victoires:"
@@ -48,6 +51,8 @@ L.Statistic_BestKill		= "Meilleur temps:"
 
 -- Tab: General Core Options
 L.General 					= "Options générales de DBM"
+L.EnableStatus				= "Envoie du 'status' au chuchotement"
+L.FixCLEUOnCombatStart		= "Effacer le cache du journal de combat à la fin du pull/combat et du changement de zone"
 L.EnableMiniMapIcon			= "Afficher l'icône de la minicarte"
 L.UseSoundChannel			= "Configurer le canal audio utilisé par DBM pour jouer les sons d'alerte"
 L.UseMasterChannel			= "Canal audio principal"
@@ -66,6 +71,14 @@ L.Button_InfoFrame			= "Afficher/cacher la fenêtre des infos"
 L.Button_TestBars			= "Lancer les barres de test"
 L.Button_ResetInfoRange		= "Réinit. les fenêtres de portée et d'infos"
 
+L.PizzaTimer_Headline		= 'Crée un "Pizza Timer"'
+L.PizzaTimer_Title			= 'Nom (ex. "Pizza!")'
+L.PizzaTimer_Hours			= "Heures"
+L.PizzaTimer_Mins			= "Min"
+L.PizzaTimer_Secs			= "Sec"
+L.PizzaTimer_ButtonStart	= "Commencer le Timer"
+L.PizzaTimer_BroadCast		= "Diffuser au Raid"
+
 -- Tab: Raidwarning
 L.Tab_RaidWarning 			= "Alertes raid"
 L.RaidWarning_Header		= "Options des alertes raid"
@@ -78,6 +91,7 @@ L.InfoRaidWarning			= [[Vous pouvez préciser la position et les couleurs de la 
 Cette fenêtre est utilisée pour les messages de type "Le joueur X est affecté par Y".]]
 L.ColorResetted 			= "Les paramètres de couleur de ce champ ont été réinitialisés"
 L.ShowWarningsInChat 		= "Afficher les alertes raid dans la fenêtre de chat"
+L.ShowFakedRaidWarnings = "위험 알림을 공격대 경보 메세지처럼 보여줍니다."
 L.WarningIconLeft 			= "Afficher l'icône du côté gauche"
 L.WarningIconRight 			= "Afficher l'icône du côté droit"
 L.WarningIconChat 			= "Afficher les icônes dans la fenêtre de chat"
@@ -110,6 +124,7 @@ L.WhisperStats 				= "Inclure les victoires/défaites dans les réponses"
 L.DisableStatusWhisper 		= "Désactiver les chuchotements de statut pour le groupe entier (requiert Chef de groupe). S'appplique seulement aux raids normaux/heroïques/mythiques et aux donjons défis/mythiques."
 
 -- Tab: Barsetup
+L.BarSetup					= "Style des barres"
 L.TabCategory_Timers		= "Config. des barres"
 L.BarTexture				= "Texture des barres"
 L.BarStyle					= "Style des barres"
@@ -184,6 +199,14 @@ L.SWFAll					= "quand les alertes spéciales jouent n'importe quel son"
 L.SpecWarn_AlwaysVoice		= "Toujours jouer toutes les alertes vocales (Outrepasse les options par boss. Utile pour les RL)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 
+-- Tab: HealthFrame
+L.Panel_HPFrame				= "Barre de vie"
+L.Area_HPFrame				= "Configurer la Barre de vie"
+L.HP_Enabled				= "Toujours montrer la Barre de vie, même si elle est désactivée dans le Module"
+L.HP_GrowUpwards			= "Prolonge la barre de vie vers le haut"
+L.HP_ShowDemo				= "Montre la fenêtre des points de vie"
+L.BarWidth					= "Longueur de la barre: %d"
+
 -- Tab: Global Filter
 L.Panel_SpamFilter			= "Filtres globaux et de spam"
 L.Area_SpamFilter_Anounces	= "Announce Global Disable & Filter Options"
@@ -235,6 +258,10 @@ L.HideGuildChallengeUpdates	= "Masque les notifications de défis de guilde pend
 L.HideTooltips				= "Masquer le cadre d'information pendant les combats contre un boss"
 L.DisableSFX				= "Désactive le canal des effets sonores pendant les boss" --was missing
 L.DisableCinematics			= "Désactiver les cinématiques en jeu"
+L.AudioPull					= "Activer le compte à rebours audio pour /pull"
+L.BigTimerNumbers			= "Activer le compte à rebours visuel des nombres d'or pour / pull"
+L.ReportRecount		    	= "Envoyer un rapport de Recount après la fin de la rencontre avec le boss (aide requise)"
+L.ReportSkada		    	= "Envoyer le rapport SkadaRevisited après la fin de la rencontre avec le boss (aide requise)"
 L.AfterFirst				= "Après que la cinématique ait été jouée une fois"
 
 L.Panel_ExtraFeatures		= "Fonctionnalités supplémentaires"

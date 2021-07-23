@@ -48,6 +48,9 @@ L.NoSound					= "静音"
 
 L.IconsInUse				= "该模块使用到的团队标记"
 
+L.Large						= "大"
+L.Small						= "小"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "首领统计"
 L.Statistic_Kills			= "击杀:"
@@ -61,6 +64,18 @@ L.TabCategory_Options	 	= "常规设置"
 L.Area_BasicSetup			= "初始 DBM 设置提示"
 L.Area_ModulesForYou		= "哪些 DBM 模块适合您？"
 L.Area_ProfilesSetup		= "DBM 配置文件指南"
+
+L.EnableStatus				= "回复“status”密语"
+L.FixCLEUOnCombatStart		= "在拉/战斗结束和区域更改时清除战斗日志缓存"
+
+L.PizzaTimer_Headline		= '创建一个计时条'
+L.PizzaTimer_Title			= '名称（如“泡面倒计时”）'
+L.PizzaTimer_Hours			= "小时"
+L.PizzaTimer_Mins			= "分钟"
+L.PizzaTimer_Secs			= "秒"
+L.PizzaTimer_ButtonStart	= "开始计时"
+L.PizzaTimer_BroadCast		= "向团队广播"
+
 -- Panel: Core & GUI
 L.Core_GUI 					= "DBM核心设置"
 L.General 					= "DBM核心综合设置"
@@ -161,6 +176,7 @@ L.InfoRaidWarning			= [[你可以对团队警报的文本颜色及其位置进�
 在这里会显示诸如“玩家X受到了Y效果的影响”之类的信息。]]
 L.ColorResetted 			= "该颜色设置已重置。"
 L.ShowWarningsInChat 		= "在聊天窗口中显示警报"
+L.ShowFakedRaidWarnings		= "以伪装团队警报信息的方式显示警报内容"
 L.WarningIconLeft 			= "左侧显示图标"
 L.WarningIconRight 			= "右侧显示图标"
 L.WarningIconChat 			= "在聊天窗口中显示图标"
@@ -256,6 +272,14 @@ L.Area_EventSoundsFilters	= "事件音效过滤条件"
 L.EventFilterDungMythicMusic= "不要在M/M+难度下播放副本音乐"
 L.EventFilterMythicMusic	= "不要在M/M+难度下播放战斗音乐"
 
+-- Tab: HealthFrame
+L.Panel_HPFrame				= "首领生命值框体"
+L.Area_HPFrame				= "首领生命值框体选项"
+L.HP_Enabled				= "总是显示首领生命值框体 (首领模块中单独的设置将不起作用)"
+L.HP_GrowUpwards			= "计量条想上增长"
+L.HP_ShowDemo				= "显示测试框体"
+L.BarWidth					= "计量条宽度: %d"
+
 -- Tab: Timers
 L.TabCategory_Timers		= "计时条"
 L.Area_ColorBytype			= "计时条分类着色指南"
@@ -292,6 +316,7 @@ L.BarEndColorUI				= "结束颜色 (自定义)"
 L.Bar7Header				= "自定义计时条选项"
 L.Bar7ForceLarge			= "总是使用大型计时条"
 L.Bar7CustomInline			= "使用自定义 '!' 图标"
+L.Bar7Footer				= "（虚拟栏不会实时更新）"
 --Dropdown Options
 L.CBTGeneric				= "通用"
 L.CBTAdd					= "小怪"
@@ -306,6 +331,7 @@ L.CVoiceTwo					= "倒数 2"
 L.CVoiceThree				= "倒数 3"
 
 -- Panel: Timers
+L.BarSetup					= "计时条样式"
 L.Panel_Appearance	 		= "计时条设置"
 L.Panel_Behavior	 		= "计时条特性"
 L.AreaTitle_BarSetup		= "计时条综合设置"
@@ -400,7 +426,11 @@ L.HideQuestTooltips			= "Boss 战斗中隐藏鼠标提示窗体中的任务进�
 L.HideTooltips				= "Boss 战斗中完全隐藏鼠标提示窗体"
 L.DisableSFX				= "Boss 战斗中关闭音效(注意：如果你开启了这个选项，即使你在战斗开始时已关闭音效，战斗接叔后音效也会被开启)"
 L.DisableCinematics			= "自动跳过游戏内过场动画"
+L.AudioPull					= "为 /pull 启用音频倒计时"
+L.BigTimerNumbers			= "为 /pull 启用视觉黄金数字倒计时"
 L.OnlyFight					= "只有在战斗中，每部动画播放了一次之后跳过"
+L.ReportRecount		    	= "在boss遭遇结束后发送Recount报告（需要协助）"
+L.ReportSkada		    	= "在boss结束后发送SkadaRevisited报告（需要协助）"
 L.AfterFirst				= "仅第一次播放"
 L.CombatOnly				= "在任何战斗中隐藏"
 L.RaidCombat				= "在BOSS战斗中隐藏 "

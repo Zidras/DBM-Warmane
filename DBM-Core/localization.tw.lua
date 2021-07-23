@@ -128,6 +128,7 @@ L.OPTION_TIMER_BERSERK			= "為$spell:26662顯示計時器"
 L.GENERIC_TIMER_COMBAT			= "戰鬥開始"
 L.OPTION_TIMER_COMBAT			= "為戰鬥開始顯示計時器"
 L.BAD							= "地板技能"
+L.OPTION_HEALTH_FRAME			= "顯示首領血量框架"
 
 L.OPTION_CATEGORY_TIMERS			= "計時條"
 --Sub cats for "announce" object

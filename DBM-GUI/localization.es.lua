@@ -38,6 +38,9 @@ L.NoSound					= "Sin sonido"
 
 L.IconsInUse				= "Iconos usados por este módulo"
 
+L.Large						= "Pequeño"
+L.Small						= "Grande"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "Estadísticas"
 L.Statistic_Kills			= "Victorias:"
@@ -47,10 +50,22 @@ L.Statistic_BestKill		= "Mejor victoria:"
 L.Statistic_BestRank		= "Mejor nivel:"--Maybe not get used, not sure yet, localize anyways
 
 -- Tab: General Options
-L.TabCategory_Options	 	= "Opciones generales"
+L.TabCategory_Options		= "Opciones generales"
 L.Area_BasicSetup			= "Consejos básicos para configurar DBM"
 L.Area_ModulesForYou		= "Guía de módulos"
 L.Area_ProfilesSetup		= "Guía de uso de perfiles de DBM"
+
+L.EnableStatus				= "Responder 'estado' a los que te susurren en banda"
+L.FixCLEUOnCombatStart		= "Limpiar el log de combate al pullear/final de combate y cambio de zona"
+
+L.PizzaTimer_Headline		= 'Crear "Cronomentro"'
+L.PizzaTimer_Title			= 'Nombre (ej. "Pizza!")'
+L.PizzaTimer_Hours			= "Horas"
+L.PizzaTimer_Mins			= "Min"
+L.PizzaTimer_Secs			= "Seg"
+L.PizzaTimer_ButtonStart	= "Iniciar"
+L.PizzaTimer_BroadCast		= "Anunciar a Banda"
+
 -- Panel: Core & GUI
 L.Core_GUI 					= "Generales e interfaz"
 L.General 					= "Opciones generales de DBM"
@@ -145,6 +160,7 @@ L.InfoRaidWarning			= [[Puedes especificar la posición y colores del marco de a
 Este marco se usa para mensajes como "Jugador X afectado por Y".]]
 L.ColorResetted 			= "Se ha reiniciado la configuración de colores de este campo."
 L.ShowWarningsInChat 		= "Mostrar avisos en el chat"
+L.ShowFakedRaidWarnings		= "Mostrar avisos en el chat de banda"
 L.WarningIconLeft 			= "Mostrar iconos a la izquierda"
 L.WarningIconRight 			= "Mostrar iconos a la derecha"
 L.WarningIconChat 			= "Mostrar iconos en el chat"
@@ -239,7 +255,16 @@ L.Area_EventSoundsFilters	= "Filtros de sonidos de evento"
 L.EventFilterDungMythicMusic= "Desactivar música personalizada de mazmorra en dificultad Mítica/M+."
 L.EventFilterMythicMusic	= "Desactivar música personalizada de encuentros en dificultad Mítica/M+."
 
+-- Tab: HealthFrame
+L.Panel_HPFrame				= "Barra de vida"
+L.Area_HPFrame				= "Opciones de la barra de vida"
+L.HP_Enabled				= "Siempre ver la barra de vida (Sobreescribe la opción de bosses específicos)"
+L.HP_GrowUpwards			= "Mover la barra de vida arriba"
+L.HP_ShowDemo				= "Ver barra de vida"
+L.BarWidth					= "Ancho de la barra: %d"
+
 -- Tab: Timers
+L.BarSetup					= "Estilo de barra"
 L.TabCategory_Timers		= "Temporizadores"
 L.Area_ColorBytype			= "Guía para colores de barras por tipo"
 -- Panel: Color by Type
@@ -275,6 +300,7 @@ L.BarEndColorUI				= "Color final (usuario)"
 L.Bar7Header				= "Opciones de barras de usuario"
 L.Bar7ForceLarge			= "Usar siempre barras grandes"
 L.Bar7CustomInline			= "Usar icono '!' personalizado"
+L.Bar7Footer				= "(La barra ficticia no se actualiza en vivo)"
 --Dropdown Options
 L.CBTGeneric				= "Genérico"
 L.CBTAdd					= "Esbirro"
@@ -382,6 +408,10 @@ L.HideQuestTooltips			= "Ocultar objetivos de misión en en descripciones emerge
 L.HideTooltips				= "Ocultar por completo las descripciones emergentes en encuentros"
 L.DisableSFX				= "Desactivar el canal de efectos de sonido en encuentros"
 L.DisableCinematics			= "Saltar cinemáticas automáticamente"
+L.AudioPull					= "Habilitar la cuenta regresiva de audio para / pull"
+L.BigTimerNumbers			= "Habilitar la cuenta regresiva visual de los números dorados para / pull"
+L.ReportRecount		    	= "Enviar informe de Recount después de que finalice el encuentro con el jefe (requiere ser ayudante)"
+L.ReportSkada		    	= "Enviar informe de SkadaRevisited después de que finalice el encuentro con el jefe (requiere ser ayudante)"
 L.OnlyFight					= "Solo en combate, tras haber visto la cinemática por primera vez"
 L.AfterFirst				= "Tras haber visto la cinemática por primera vez"
 L.CombatOnly				= "En combate"
