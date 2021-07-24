@@ -189,7 +189,9 @@ L:SetMiscLocalization{
 	AddsAlliance	= "Häscher, Unteroffiziere, Angriff!",
 	AddsHorde		= "Soldaten! Zum Angriff!",
 	KillAlliance	= "Sagt nicht, ich hätte Euch nicht gewarnt, Ihr Schurken! Vorwärts, Brüder und Schwestern!",
-	KillHorde		= "Die Allianz wankt. Vorwärts zum Lichkönig!"
+	KillHorde		= "Die Allianz wankt. Vorwärts zum Lichkönig!",
+	MageAlliance	= "Der Rumpf ist beschädigt! Holt einen Kampfmagier, der die Kanonen ausschaltet!", --needs to be verified (video-captured alliance translation)
+	MageHorde		= "Die Außenhaut ist beschädigt! Holt einen Zauberer, der die Kanonen ausschaltet!"
 }
 
 -----------------------------
