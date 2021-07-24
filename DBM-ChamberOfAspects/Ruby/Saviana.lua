@@ -26,7 +26,7 @@ local timerBreath			= mod:NewCDTimer(25, 74403, nil, "Tank|Healer", nil, 5, nil,
 local timerEnrage			= mod:NewBuffActiveTimer(10, 78722, nil, "RemoveEnrage|Tank|Healer", nil, 5, nil, DBM_CORE_L.ENRAGE_ICON..DBM_CORE_L.TANK_ICON)
 
 mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("beaconIcon", true)
+mod:AddBoolOption("BeaconIcon", true)
 
 local beaconTargets = {}
 mod.vb.beaconIcon 	= 8

@@ -58,7 +58,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	PlaySoundOnFireWall		= "Звуковой сигнал при Огненной стене",
-	AnnounceFails			= "Объявлять игроков, потерпевших неудачу в Огненной стене и Расщелине тьмы\n(требуются права лидера или помощника)",
+	AnnounceFails			= "Объявлять игроков, потерпевших неудачу в Огненной стене и Расщелине тьмы<br/>(требуются права лидера или помощника)",
 	TimerTenebron			= "Отсчет времени до прибытия Тенеброна",
 	TimerShadron			= "Отсчет времени до прибытия Шадрона",
 	TimerVesperon			= "Отсчет времени до прибытия Весперона",
@@ -80,7 +80,7 @@ L:SetMiscLocalization({
 	FireWallOn		= "Огненная стена: %s",
 	VoidZoneOn		= "Расщелина тьмы: %s",
 	VoidZones		= "Потерпели неудачу в Расщелине тьмы (за эту попытку): %s",
-	FireWalls		= "Потерпели неудачу в Огненной стене (за эту попытку): %s",
+	FireWalls		= "Потерпели неудачу в Огненной стене (за эту попытку): %s"
 })
 
 ------------------------
@@ -100,8 +100,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningSplitSoon	= "Предупреждать заранее о разделении",
-	RangeFrame			= "Показывать окно проверки дистанции (12 м)",
-	SetIconOnBrand		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74505)
+	RangeFrame			= "Показывать окно проверки дистанции (12 м)"
 })
 
 -------------------------
@@ -114,8 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame				= "Показывать окно проверки дистанции (10 м)",
-	BeaconIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74453)
+	RangeFrame				= "Показывать окно проверки дистанции (10 м)"
 })
 
 --------------------------
@@ -140,8 +138,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "Объявлять новых помощников",
 	TimerAdds		= "Отсчет времени до новых помощников",
-	AddsArrive		= "Отсчет времени до прибытия помощников",
-	warnCleaveArmor	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(74367)
+	AddsArrive		= "Отсчет времени до прибытия помощников"
 })
 
 L:SetMiscLocalization({
