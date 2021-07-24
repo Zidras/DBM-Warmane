@@ -187,6 +187,8 @@ L:SetMiscLocalization{
 	PullHorde		= "nous affrontons le plus haï de nos ennemis",
 	AddsAlliance	= "Reavers, Sergeants, attack", --Needs Translating
 	AddsHorde		= "Marines, Sergeants, attack", --Needs Translating
+	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!", --Needs Translating
+	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!", --Needs Translating
 	KillAlliance	= "Vous direz pas que j'vous avais pas prévenus",
 	KillHorde		= "L'Alliance baisse pavillon"
 }
