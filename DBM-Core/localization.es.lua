@@ -271,7 +271,6 @@ L.TIMER_USAGE	= {
 L.ERROR_NO_PERMISSION				= "No tienes permiso para hacer eso."
 
 --Common Locals
-L.NONE						= "Ninguno"
 L.RANDOM					= "Aleatorio"
 L.NEXT						= "Siguiente %s"
 L.COOLDOWN					= "%s TdR"

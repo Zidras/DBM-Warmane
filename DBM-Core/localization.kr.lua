@@ -267,7 +267,6 @@ L.ERROR_NO_PERMISSION				= "이 명령어를 실행하기 위한 권한을 가�
 L.TIME_TOO_SHORT					= "풀링 타이머는 3초 이상으로 설정해야 합니다."
 
 --Common Locals
-L.NONE						= "없음"
 L.RANDOM					= "무작위"
 L.NEXT						= "다음 %s"
 L.COOLDOWN					= "%s 쿨타임"

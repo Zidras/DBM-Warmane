@@ -362,13 +362,13 @@ DBM.Counts = {
 }
 --Sounds use SoundKit Ids (not file data ids)
 DBM.Victory = {
-	{text = "None",						value = "None"},
+	{text = L.NONE,						value = "None"},
 	{text = "Random",					value = "Random"},
 	{text = "Blakbyrd: FF Fanfare",		value = "Interface\\AddOns\\DBM-Core\\sounds\\Victory\\bbvictory.ogg", length = 4},
 	{text = "SMG: FF Fanfare",			value = "Interface\\AddOns\\DBM-Core\\sounds\\Victory\\SmoothMcGroove_Fanfare.ogg", length = 4},
 }
 DBM.Defeat = {
-	{text = "None",						value = "None"},
+	{text = L.NONE,						value = "None"},
 	{text = "Random",					value = "Random"},
 	{text = "Kologarn: You Fail",		value = "Sound\\Creature\\Kologarn\\UR_Kologarn_Slay02.wav", length = 4},
 	{text = "Hodir: Tragic",			value = "Sound\\Creature\\Hodir\\UR_Hodir_Slay01.wav", length = 4},
@@ -378,18 +378,18 @@ DBM.Defeat = {
 }
 --Music uses file data IDs
 DBM.Music = {--Contains all music media, period
-	{text = "None",						value = "None"},
+	{text = L.NONE,						value = "None"},
 	{text = "Random",					value = "Random"},
 	{text = "Bronze Jam",				value = "Sound\\Music\\ZoneMusic\\IcecrownRaid\\IR_BronzeJam.mp3", length = 116},
 	{text = "Ulduar: Titan Orchestra",	value = "Sound\\Music\\ZoneMusic\\UlduarRaidInt\\UR_TitanOrchestraIntro.mp3", length = 102},
 }
 DBM.DungeonMusic = {--Filtered list of media assigned to dungeon/raid background music catagory
-	{text = "None",						value = "None"},
+	{text = L.NONE,						value = "None"},
 	{text = "Random",					value = "Random"},
 	{text = "Ulduar: Titan Orchestra",	value = "Sound\\Music\\ZoneMusic\\UlduarRaidInt\\UR_TitanOrchestraIntro.mp3", length = 102},
 }
 DBM.BattleMusic = {--Filtered list of media assigned to boss/encounter background music catagory
-	{text = "None",						value = "None"},
+	{text = L.NONE,						value = "None"},
 	{text = "Random",					value = "Random"},
 	{text = "Bronze Jam",				value = "Sound\\Music\\ZoneMusic\\IcecrownRaid\\IR_BronzeJam.mp3", length = 116},
 }

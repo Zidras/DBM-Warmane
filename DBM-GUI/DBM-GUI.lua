@@ -399,7 +399,7 @@ do
 
 	local sounds = MixinSharedMedia3("sound", {
 		--Inject basically dummy values for ordering special warnings to just use default SW sound assignments
-		{sound = true, text = L.None, value = "None"},
+		{sound = true, text = CL.NONE, value = "None"},
 		{sound = true, text = "SW 1", value = 1},
 		{sound = true, text = "SW 2", value = 2},
 		{sound = true, text = "SW 3", value = 3},
@@ -1537,7 +1537,7 @@ local function CreateOptionsMenu()
 
 		-- RaidWarn Font Style
 		local FontStyles = {
-			{text = L.None,						value = "None"},
+			{text = CL.NONE,					value = "None"},
 			{text = L.Outline,					value = "OUTLINE"},
 			{text = L.ThickOutline,				value = "THICKOUTLINE"},
 			{text = L.MonochromeOutline,		value = "MONOCHROME,OUTLINE"},
@@ -2296,7 +2296,7 @@ local function CreateOptionsMenu()
 		FontDropDown:SetPoint("TOPLEFT", TextureDropDown, "BOTTOMLEFT", 0, -10)
 
 		local FontFlags = {
-			{	text	= L.None,					value 	= "None"						},
+			{	text	= CL.NONE,					value 	= "None"						},
 			{	text	= L.Outline,				value 	= "OUTLINE"						},
 			{	text	= L.ThickOutline,			value 	= "THICKOUTLINE"				},
 			{	text	= L.MonochromeOutline,		value 	= "MONOCHROME,OUTLINE"			},
@@ -2579,7 +2579,7 @@ local function CreateOptionsMenu()
 		FontDropDown:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 100, -235)
 
 		local FontStyles = {
-			{	text	= L.None,					value 	= "None"						},
+			{	text	= CL.NONE,					value 	= "None"						},
 			{	text	= L.Outline,				value 	= "OUTLINE"						},
 			{	text	= L.ThickOutline,			value 	= "THICKOUTLINE"				},
 			{	text	= L.MonochromeOutline,		value 	= "MONOCHROME,OUTLINE"			},
@@ -3585,7 +3585,7 @@ local function CreateOptionsMenu()
 	DBM_GUI_OptionsFrameWebsite:SetText(L.Website)
 	local frame = CreateFrame("Button", nil, DBM_GUI_OptionsFrame)
 	frame:SetAllPoints(DBM_GUI_OptionsFrameWebsite)
-	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, CL.COPY_URL_DIALOG, "https://discord.gg/uMbjr87") end)
+	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, CL.COPY_URL_DIALOG, "https://discord.gg/CyVWDWS") end)
 end
 DBM:RegisterOnGuiLoadCallback(CreateOptionsMenu, 1)
 

@@ -270,7 +270,6 @@ L.ERROR_NO_PERMISSION		= "無權進行此操作。"
 L.TIME_TOO_SHORT			= "備戰計時器必須超過3秒。 "
 
 --Common Locals
-L.NONE						= "無"
 L.RANDOM					= "隨機"
 L.NEXT						= "下一次%s"
 L.COOLDOWN					= "%s冷卻"
