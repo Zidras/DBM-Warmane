@@ -21,7 +21,7 @@ mod:AddBoolOption("RemoveHealthBuffsInP3", false)
 
 -- Adds
 local warnAdds				= mod:NewAnnounce("warnAdds", 3, 45419)
-local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_CORE_TANK_ICON)
+local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_CORE_L.TANK_ICON)
 
 -- Pursue
 local warnPursue			= mod:NewTargetAnnounce(67574, 4)
@@ -34,13 +34,13 @@ mod:AddBoolOption("PursueIcon")
 -- Emerge
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
+local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
 
 -- Submerge
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnSubmergeSoon		= mod:NewAnnounce("WarnSubmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local specWarnSubmergeSoon	= mod:NewSpecialWarning("specWarnSubmergeSoon", mod:IsTank())
-local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_IMPORTANT_ICON, nil, 1)
+local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
 
 -- Phases
 local warnPhase3			= mod:NewPhaseAnnounce(3)
@@ -57,10 +57,10 @@ mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
 
 -- Freezing Slash
 local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, mod:IsHealer() or mod:IsTank())
-local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank(), nil, nil, nil, DBM_CORE_TANK_ICON..DBM_CORE_HEALER_ICON)
+local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, mod:IsHealer() or mod:IsTank(), nil, nil, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)
 
 -- Shadow Strike
-local timerShadowStrike		= mod:NewNextTimer(30.0, 66134, nil, true, nil, 4, nil, DBM_CORE_MYTHIC_ICON, nil, 3)
+local timerShadowStrike		= mod:NewNextTimer(30.0, 66134, nil, true, nil, 4, nil, DBM_CORE_L.MYTHIC_ICON, nil, 3)
 local preWarnShadowStrike	= mod:NewSoonAnnounce(66134, 3)
 local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
 local specWarnShadowStrike	= mod:NewSpecialWarning("SpecWarnShadowStrike", mod:IsTank())

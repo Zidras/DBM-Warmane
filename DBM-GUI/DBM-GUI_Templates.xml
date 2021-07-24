@@ -494,7 +494,7 @@
 						self:SetText(DBM_GUI_Translations.WebsiteButton)
 					</OnShow>
 					<OnClick>
-						DBM:ShowUpdateReminder(nil, nil, DBM_COPY_URL_DIALOG)
+						DBM:ShowUpdateReminder(nil, nil, DBM_CORE_L.COPY_URL_DIALOG)
 					</OnClick>
 				</Scripts>
 			</Button>

@@ -10,7 +10,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	IceBoltIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(31249)
+	IceBoltIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(31249)
 }
 
 -----------------
@@ -41,7 +41,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	DoomIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(31347)
+	DoomIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(31347)
 }
 
 ------------------
@@ -54,7 +54,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BurstIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(32014)
+	BurstIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(32014)
 }
 
 ----------------

@@ -7,6 +7,7 @@ DBM.BossHealth = {}
 -------------
 --  Locals --
 -------------
+local L = DBM_CORE_L
 local bossHealth = DBM.BossHealth
 local bars = {}
 local barCache = {}
@@ -46,7 +47,7 @@ end
 local menu
 menu = {
 	{
-		text = DBM_CORE_RANGECHECK_LOCK,
+		text = L.RANGECHECK_LOCK,
 		checked = false, -- requires DBM.Options which is not available yet
 		func = function()
 			menu[1].checked = not menu[1].checked
@@ -54,7 +55,7 @@ menu = {
 		end
 	},
 	{
-		text = DBM_CORE_BOSSHEALTH_HIDE_FRAME,
+		text = L.BOSSHEALTH_HIDE_FRAME,
 		notCheckable = true,
 		func = function() bossHealth:Hide() end
 	}
@@ -194,7 +195,7 @@ function updateBar(bar, percent, icon, dontShowDead, name)
 		bar.value = 0
 	else--can't detect health. show unknown
 		if not bar.value or bar.value >= 1 then
-			-- bartimer:SetText(DBM_CORE_UNKNOWN)
+			-- bartimer:SetText(L.UNKNOWN)
 			-- don't update when no target
 		else
 			bartimer:SetText(dontShowDead and "0%" or DEAD)

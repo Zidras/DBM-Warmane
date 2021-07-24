@@ -1,6 +1,12 @@
 ## Interface: 30300
 ## Title:|cffffd200Deadly Boss Mods|r |cff69ccf0Core|r
-## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Основной|r
+## Title-zhCN:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
+## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Ядро|r
+## Title-zhTW:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
+## Title-koKR:|cffffd200Deadly Boss Mods|r |cff69ccf0핵심 모듈|r
+## Title-esES:|cffffd200Deadly Boss Mods|r |cff69ccf0Núcleo|r
+## Title-esMX:|cffffd200Deadly Boss Mods|r |cff69ccf0Núcleo|r
+## Title-frFR:|cffffd200Deadly Boss Mods|r |cff69ccf0Noyau|r
 ## Notes: Deadly Boss Mods
 ## Dependencies: DBM-StatusBarTimers, DBM-DefaultSkin
 ## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0, LibGroupTalents-1.0, LibTalentQuery-1.0, ElvUI
@@ -38,7 +44,13 @@ Libs\LibLatency\LibLatency.lua
 
 
 localization.en.lua
+localization.de.lua
+localization.cn.lua
 localization.ru.lua
+localization.fr.lua
+localization.tw.lua
+localization.kr.lua
+localization.es.lua
 
 
 DBM-Core.lua

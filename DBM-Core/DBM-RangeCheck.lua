@@ -158,6 +158,7 @@ DBM.RangeCheck = {}
 --------------
 --  Locals  --
 --------------
+local L = DBM_CORE_L
 local rangeCheck = DBM.RangeCheck
 local checkFuncs = {}
 local frame
@@ -241,35 +242,35 @@ do
 		local info
 		if level == 1 then
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_SETRANGE
+			info.text = L.RANGECHECK_SETRANGE
 			info.notCheckable = true
 			info.hasArrow = true
 			info.menuList = "range"
 			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_SOUNDS
+			info.text = L.RANGECHECK_SOUNDS
 			info.notCheckable = true
 			info.hasArrow = true
 			info.menuList = "sounds"
 			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_OPTION_FRAMES
+			info.text = L.RANGECHECK_OPTION_FRAMES
 			info.notCheckable = true
 			info.hasArrow = true
 			info.menuList = "frames"
 			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_OPTION_SPEED
+			info.text = L.RANGECHECK_OPTION_SPEED
 			info.notCheckable = true
 			info.hasArrow = true
 			info.menuList = "speed"
 			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_LOCK
+			info.text = L.RANGECHECK_LOCK
 			if DBM.Options.RangeFrameLocked then
 				info.checked = true
 			end
@@ -277,7 +278,7 @@ do
 			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_HIDE
+			info.text = HIDE
 			info.notCheckable = true
 			info.func = rangeCheck.Hide
 			info.arg1 = rangeCheck
@@ -288,7 +289,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(5)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(5)
 					info.func = setRange
 					info.arg1 = 5
 					info.checked = (frame.range == 5)
@@ -297,7 +298,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(6)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(6)
 					info.func = setRange
 					info.arg1 = 6
 					info.checked = (frame.range == 6)
@@ -306,7 +307,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(7)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(7)
 					info.func = setRange
 					info.arg1 = 7
 					info.checked = (frame.range == 7)
@@ -315,7 +316,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(8)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(8)
 					info.func = setRange
 					info.arg1 = 8
 					info.checked = (frame.range == 8)
@@ -324,7 +325,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(9)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(9)
 					info.func = setRange
 					info.arg1 = 9
 					info.checked = (frame.range == 9)
@@ -333,7 +334,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(10)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(10)
 					info.func = setRange
 					info.arg1 = 10
 					info.checked = (frame.range == 10)
@@ -342,7 +343,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(11)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(11)
 					info.func = setRange
 					info.arg1 = 11
 					info.checked = (frame.range == 11)
@@ -351,7 +352,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(12)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(12)
 					info.func = setRange
 					info.arg1 = 12
 					info.checked = (frame.range == 12)
@@ -360,7 +361,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(13)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(13)
 					info.func = setRange
 					info.arg1 = 13
 					info.checked = (frame.range == 13)
@@ -369,7 +370,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(14)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(14)
 					info.func = setRange
 					info.arg1 = 14
 					info.checked = (frame.range == 14)
@@ -378,7 +379,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(15)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(15)
 					info.func = setRange
 					info.arg1 = 15
 					info.checked = (frame.range == 15)
@@ -387,7 +388,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(20)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(20)
 					info.func = setRange
 					info.arg1 = 20
 					info.checked = (frame.range == 20)
@@ -396,7 +397,7 @@ do
 
 				if initRangeCheck() then
 					info = UIDropDownMenu_CreateInfo()
-					info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(28)
+					info.text = L.RANGECHECK_SETRANGE_TO:format(28)
 					info.func = setRange
 					info.arg1 = 28
 					info.checked = (frame.range == 28)
@@ -406,56 +407,56 @@ do
 
 			elseif menu == "sounds" then
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_SOUND_OPTION_1
+				info.text = L.RANGECHECK_SOUND_OPTION_1
 				info.notCheckable = true
 				info.hasArrow = true
 				info.menuList = "RangeFrameSound1"
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_SOUND_OPTION_2
+				info.text = L.RANGECHECK_SOUND_OPTION_2
 				info.notCheckable = true
 				info.hasArrow = true
 				info.menuList = "RangeFrameSound2"
 				UIDropDownMenu_AddButton(info, 2)
 			elseif menu == "frames" then
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_OPTION_TEXT
+				info.text = L.RANGECHECK_OPTION_TEXT
 				info.func = setFrames
 				info.arg1 = "text"
 				info.checked = (DBM.Options.RangeFrameFrames == "text")
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_OPTION_RADAR
+				info.text = L.RANGECHECK_OPTION_RADAR
 				info.func = setFrames
 				info.arg1 = "radar"
 				info.checked = (DBM.Options.RangeFrameFrames == "radar")
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_OPTION_BOTH
+				info.text = L.RANGECHECK_OPTION_BOTH
 				info.func = setFrames
 				info.arg1 = "both"
 				info.checked = (DBM.Options.RangeFrameFrames == "both")
 				UIDropDownMenu_AddButton(info, 2)
 			elseif menu == "speed" then
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_OPTION_SLOW
+				info.text = L.RANGECHECK_OPTION_SLOW
 				info.func = setSpeed
 				info.arg1 = "Slow"
 				info.checked = (DBM.Options.RangeFrameUpdates == "Slow")
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_OPTION_AVERAGE
+				info.text = L.RANGECHECK_OPTION_AVERAGE
 				info.func = setSpeed
 				info.arg1 = "Average"
 				info.checked = (DBM.Options.RangeFrameUpdates == "Average")
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_RANGECHECK_OPTION_FAST
+				info.text = L.RANGECHECK_OPTION_FAST
 				info.func = setSpeed
 				info.arg1 = "Fast"
 				info.checked = (DBM.Options.RangeFrameUpdates == "Fast")
@@ -464,7 +465,7 @@ do
 		elseif level == 3 then
 			local option = menu
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_SOUND_0
+			info.text = L.RANGECHECK_SOUND_0
 			info.func = setSound
 			info.arg1 = option
 			info.arg2 = sound0
@@ -472,7 +473,7 @@ do
 			UIDropDownMenu_AddButton(info, 3)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_SOUND_1
+			info.text = L.RANGECHECK_SOUND_1
 			info.func = setSound
 			info.arg1 = option
 			info.arg2 = sound1
@@ -480,7 +481,7 @@ do
 			UIDropDownMenu_AddButton(info, 3)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_RANGECHECK_SOUND_2
+			info.text = L.RANGECHECK_SOUND_2
 			info.func = setSound
 			info.arg1 = option
 			info.arg2 = sound2
@@ -684,7 +685,7 @@ function onUpdate(self, elapsed)
 	local color
 	local j = 0
 	self:ClearLines()
-	self:SetText(DBM_CORE_RANGECHECK_HEADER:format(self.range), 1, 1, 1)
+	self:SetText(L.RANGECHECK_HEADER:format(self.range), 1, 1, 1)
 	if initRangeCheck(self.range) then
 		if GetNumRaidMembers() > 0 then
 			for i = 1, GetNumRaidMembers() do
@@ -716,7 +717,7 @@ function onUpdate(self, elapsed)
 			end
 		end
 	else
-		self:AddLine(DBM_CORE_RANGE_CHECK_ZONE_UNSUPPORTED:format(self.range))
+		self:AddLine(L.RANGE_CHECK_ZONE_UNSUPPORTED:format(self.range))
 	end
 	soundUpdate = soundUpdate + elapsed
 	if soundUpdate >= 5 and j > 0 then
@@ -808,7 +809,7 @@ do
 
 			if frame.range ~= (range or 0) then
 				range = frame.range
-				radarFrame.text:SetText(DBM_CORE_RANGERADAR_HEADER:format(range))
+				radarFrame.text:SetText(L.RANGERADAR_HEADER:format(range))
 			end
 
 			local mapName = GetMapInfo()

@@ -330,7 +330,7 @@ L:SetMiscLocalization({
 	HandlerYell		= "Защищайте меня! Быстрее, будьте вы прокляты!",
 	Phase2			= "Неужели вы не понимаете всей бесполезности происходящего?",
 	YellKill		= "Ваши усилия… напрасны.",
-	SetIconOnEnragedMob = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(39249)
+	SetIconOnEnragedMob = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(39249)
 })
 
 -----------------
@@ -507,7 +507,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnOverloadTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(52658)
+	SetIconOnOverloadTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(52658)
 })
 
 ---------------
@@ -1179,7 +1179,7 @@ L:SetOptionLocalization({
 	TimerCombatStart		= "Отсчет времени до начала боя",
 	warnExplode				= "Предупреждение, когда все вурдалаки-прислужники готовятся к разрыву.",
 	AchievementCheck		= "Объявлять о провале достижения 'Бывало и хуже' в чат группы",
-	SetIconOnMarkedTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(67823)
+	SetIconOnMarkedTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(67823)
 })
 
 L:SetMiscLocalization({
@@ -1241,7 +1241,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	specwarnRadiance		= "Спец-предупреждение для $spell:66935",
-	SetIconOnHammerTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(66940)
+	SetIconOnHammerTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(66940)
 })
 
 L:SetMiscLocalization({
@@ -1267,7 +1267,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	warnPursuit				= "Объявлять цели Преследования",
 	specWarnPursuit			= "Спец-предупреждение, когда вас преследуют",
-	SetIconOnPursuitTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(68987)
+	SetIconOnPursuitTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(68987)
 })
 
 L:SetMiscLocalization({
@@ -1296,7 +1296,7 @@ L:SetOptionLocalization({
 	specWarnSaroniteRockNear	= "Спец-предупреждение, когда вы около цели заклинания \n$spell:70851",
 	specWarnPermafrost			= "Спец-предупреждение при слишком большом количестве стаков \nзаклинания $spell:70336 (11 стаков)",
 	AchievementCheck			= "Объявлять предупреждения о достижении 'Не жди до одиннадцати!' в чат группы",
-	SetIconOnSaroniteRockTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70851)
+	SetIconOnSaroniteRockTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70851)
 })
 
 L:SetMiscLocalization({
@@ -1327,7 +1327,7 @@ L:SetOptionLocalization({
 	specWarnHoarfrost			= "Спец-предупреждение, когда на вас $spell:69246",
 	specWarnHoarfrostNear		= "Спец-предупреждение, когда около вас $spell:69246",
 	TimerCombatStart			= "Отсчет времени до начала боя",
-	SetIconOnHoarfrostTarget	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69246)
+	SetIconOnHoarfrostTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69246)
 })
 
 L:SetMiscLocalization({

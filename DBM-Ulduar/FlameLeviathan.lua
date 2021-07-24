@@ -26,7 +26,7 @@ local timerFlameVents		= mod:NewCastTimer(10, 62396)
 
 local timerNextFlameVents = nil
 
-local timerPursued			= mod:NewTargetTimer(30, 62374, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON, nil, 3)
+local timerPursued			= mod:NewTargetTimer(30, 62374, nil, nil, nil, 2, nil, DBM_CORE_L.DEADLY_ICON, nil, 3)
 
 local soundPursued			= mod:NewSound(62374)
 

@@ -37,7 +37,7 @@ local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(71420, "HasInterrupt
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true)
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
-local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131, nil, nil, 1, DBM_CORE_TANK_ICON..DBM_CORE_DAMAGE_ICON)
+local timerAdds						= mod:NewTimer(60, "TimerAdds", 61131, nil, nil, 1, DBM_CORE_L.TANK_ICON..DBM_CORE_L.DAMAGE_ICON)
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
 local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)

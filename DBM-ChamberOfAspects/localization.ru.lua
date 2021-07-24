@@ -101,7 +101,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningSplitSoon	= "Предупреждать заранее о разделении",
 	RangeFrame			= "Показывать окно проверки дистанции (12 м)",
-	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
+	SetIconOnBrand		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74505)
 })
 
 -------------------------
@@ -115,7 +115,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RangeFrame				= "Показывать окно проверки дистанции (10 м)",
-	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
+	BeaconIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74453)
 })
 
 --------------------------
@@ -141,7 +141,7 @@ L:SetOptionLocalization({
 	WarnAdds		= "Объявлять новых помощников",
 	TimerAdds		= "Отсчет времени до новых помощников",
 	AddsArrive		= "Отсчет времени до прибытия помощников",
-	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367)
+	warnCleaveArmor	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(74367)
 })
 
 L:SetMiscLocalization({
