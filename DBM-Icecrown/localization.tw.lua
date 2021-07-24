@@ -188,6 +188,8 @@ L:SetMiscLocalization{
 	PullHorde		= "起來吧，部落的子女!今天我們要和最可恨的敵人作戰!為了部落!",
 	AddsAlliance	= "劫奪者，士官們，攻擊!",
 	AddsHorde		= "海員們，士官們，攻擊!",
+	MageAlliance	= "船體受到傷害，找個戰鬥法師到來，搞定那些火砲!",
+	MageHorde		= "船體受損，找個巫士到這裡來，搞定那些火砲!",
 	KillAlliance	= "別說我沒警告過你，無賴!兄弟姊妹們，向前衝!",
 	KillHorde		= "聯盟已經動搖了。向巫妖王前進!"
 }
