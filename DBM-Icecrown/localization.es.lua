@@ -354,10 +354,10 @@ L:SetTimerLocalization{
 	TimerPortalsClose			= "Portals close", --Needs Translating
 	TimerBlazingSkeleton		= "Siguiente Esqueleto llameante",
 	TimerAbom					= "Siguiente Abominación",
-	TimerSuppressorOne			= "1st wave of Suppressors", --Needs Translating
-	TimerSuppressorTwo			= "2nd wave of Suppressors", --Needs Translating
-	TimerSuppressorThree		= "3rd wave of Suppressors", --Needs Translating
-	TimerSuppressorFour			= "4th wave of Suppressors" --Needs Translating
+	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
+	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
+	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
+	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
 }
 
 L:SetOptionLocalization{
@@ -367,11 +367,11 @@ L:SetOptionLocalization{
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "Mostrar tiempo para la próxima salida de Esqueleto llameante",
 	TimerAbom					= "Mostrar tiempo para siguiente Abominación glotona (Experimental)",
-	Suppressors					= "Show special warning for new Suppressors", --Needs Translating
-	TimerSuppressorOne			= "1st wave of Suppressors", --Needs Translating
-	TimerSuppressorTwo			= "2nd wave of Suppressors", --Needs Translating
-	TimerSuppressorThree		= "3rd wave of Suppressors", --Needs Translating
-	TimerSuppressorFour			= "4th wave of Suppressors" --Needs Translating
+	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
+	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
+	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
+	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
+	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
 }
 
 L:SetMiscLocalization{

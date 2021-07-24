@@ -354,10 +354,10 @@ L:SetTimerLocalization{
 	TimerPortalsClose			= "Portals close", --Needs Translating
 	TimerBlazingSkeleton		= "下一次 熾熱骷髏",
 	TimerAbom					= "下一次 憎惡體?",
-	TimerSuppressorOne			= "1st wave of Suppressors", --Needs Translating
-	TimerSuppressorTwo			= "2nd wave of Suppressors", --Needs Translating
-	TimerSuppressorThree		= "3rd wave of Suppressors", --Needs Translating
-	TimerSuppressorFour			= "4th wave of Suppressors" --Needs Translating
+	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
+	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
+	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
+	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
 }
 
 L:SetOptionLocalization{
@@ -367,11 +367,11 @@ L:SetOptionLocalization{
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "為下一次熾熱骷髏出現顯示計時器",
 	TimerAbom			= "為下一次貪吃的憎惡體出現顯示計時器 (測試中)",
-	Suppressors					= "Show special warning for new Suppressors", --Needs Translating
-	TimerSuppressorOne			= "1st wave of Suppressors", --Needs Translating
-	TimerSuppressorTwo			= "2nd wave of Suppressors", --Needs Translating
-	TimerSuppressorThree		= "3rd wave of Suppressors", --Needs Translating
-	TimerSuppressorFour			= "4th wave of Suppressors" --Needs Translating
+	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
+	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
+	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
+	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
+	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
 }
 
 L:SetMiscLocalization{
