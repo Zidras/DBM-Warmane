@@ -58,17 +58,17 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	PlaySoundOnFireWall		= "Spiele Sound bei Feuerwand",
-	AnnounceFails			= "Verkünde Spieler, die bei Feuerwand und Zone der Leere scheitern, im Raidchat (benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)",
-	TimerTenebron			= "Zeige Timer für Tenebrons Ankunft",
-	TimerShadron			= "Zeige Timer für Shadrons Ankunft",
-	TimerVesperon			= "Zeige Timer für Vesperons Ankunft",
-	WarningFireWall			= "Zeige Spezialwarnung für Feuerwand",
-	WarningTenebron			= "Verkünde Ankunft von Tenebron",
-	WarningShadron			= "Verkünde Ankunft von Shadron",
-	WarningVesperon			= "Verkünde Ankunft von Vesperon",
-	WarningTenebronPortal	= "Zeige Spezialwarnung für Tenebrons Portale",
-	WarningShadronPortal	= "Zeige Spezialwarnung für Shadrons Portale",
-	WarningVesperonPortal	= "Zeige Spezialwarnung für Vesperons Portale"
+	AnnounceFails			= "Verkünde Spieler im SZ-Chat, die bei Feuerwand und Schattenspalt scheitern (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)",
+	TimerTenebron			= "Zeige Zeit bis Tenebron in den Kampf eingreift",
+	TimerShadron			= "Zeige Zeit bis Shadron in den Kampf eingreift",
+	TimerVesperon			= "Zeige Zeit bis Vesperon in den Kampf eingreift",
+	WarningFireWall			= "Spezialwarnung für Feuerwand",
+	WarningTenebron			= "Verkünde das Eingreifen von Tenebron in den Kampf",
+	WarningShadron			= "Verkünde das Eingreifen von Shadron in den Kampf",
+	WarningVesperon			= "Verkünde das Eingreifen von Vesperon in den Kampf",
+	WarningTenebronPortal	= "Spezialwarnung für Tenebrons Portal",
+	WarningShadronPortal	= "Spezialwarnung für Shadrons Portal",
+	WarningVesperonPortal	= "Spezialwarnung für Vesperons Portal"
 })
 
 L:SetMiscLocalization({
@@ -99,9 +99,8 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Zeige Vorwarnun für Aufspaltung",
-	RangeFrame			= "Zeige Abstandsfenster (12m)",
-	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
+	WarningSplitSoon	= "Zeige Vorwarnung für Aufspaltung",
+	RangeFrame			= "Zeige Abstandsfenster (12m)"
 })
 
 -------------------------
@@ -114,8 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame				= "Zeige Abstandsfenster (10m)",
-	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
+	RangeFrame				= "Zeige Abstandsfenster (10m)"
 })
 
 --------------------------
@@ -134,14 +132,13 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerAdds	= "Neue Adds",
-	AddsArrive	= "Adds arrive in" --Needs Translating
+	AddsArrive	= "Adds kommen an in"
 })
 
 L:SetOptionLocalization({
 	WarnAdds		= "Verkünde neue Adds",
-	TimerAdds		= "Zeige Timer für neue Adds",
-	AddsArrive		= "Show timer for adds arrival",
-	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367)
+	TimerAdds		= "Zeige Zeit bis neue Adds erscheinen",
+	AddsArrive		= "Timer für die Ankunft der Adds anzeigen"
 })
 
 L:SetMiscLocalization({
@@ -164,7 +161,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	TwilightCutterCast		= "Zeige Warnung, wenn $spell:74769 gewirkt wird",
 	AnnounceAlternatePhase	= "Zeige auch Warnungen/Timer für Phasen, in denen du dich nicht befindest",
-	SetIconOnConsumption	= "Setze Zeichen auf Ziele von Einäschern"--So we can use single functions for both versions of spell."--So we can use single functions for both versions of spell.
+	SetIconOnConsumption	= "Setze Zeichen auf Ziele von $spell:74562 und $spell:74792"
 })
 
 L:SetMiscLocalization({

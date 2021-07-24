@@ -47,13 +47,13 @@ L:SetWarningLocalization({
 	WarningFireWall			= "火焰障壁",
 	WarningVesperonPortal	= "維斯佩朗的傳送門",
 	WarningTenebronPortal	= "坦納伯朗的傳送門",
-	WarningShadronPortal	= "夏德朗的傳送門",
+	WarningShadronPortal	= "夏德朗的傳送門"
 })
 
 L:SetTimerLocalization({
-	TimerTenebron	= "坦納伯朗到來",
-	TimerShadron	= "夏德朗到來",
-	TimerVesperon	= "維斯佩朗到來"
+	TimerTenebron		= "坦納伯朗到來",
+	TimerShadron		= "夏德朗到來",
+	TimerVesperon		= "維斯佩朗到來"
 })
 
 L:SetOptionLocalization({
@@ -68,7 +68,7 @@ L:SetOptionLocalization({
 	WarningVesperon			= "提示維斯佩朗到來",
 	WarningTenebronPortal	= "為坦納伯朗的傳送門顯示特別警告",
 	WarningShadronPortal	= "為夏德朗的傳送門顯示特別警告",
-	WarningVesperonPortal	= "為維斯佩朗的傳送門顯示特別警告",
+	WarningVesperonPortal	= "為維斯佩朗的傳送門顯示特別警告"
 })
 
 L:SetMiscLocalization({
@@ -79,8 +79,8 @@ L:SetMiscLocalization({
 	NameVesperon	= "維斯佩朗",
 	FireWallOn		= "火焰障壁: %s",
 	VoidZoneOn		= "暗影裂縫: %s",
-	VoidZones		= "踩中暗影裂縫 (這一次): %s",
-	FireWalls		= "撞上火焰障壁 (這一次): %s",
+	VoidZones		= "踩中暗影裂縫(這一次): %s",
+	FireWalls		= "撞上火焰障壁(這一次): %s"
 })
 
 ------------------------
@@ -95,13 +95,12 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "分裂 即將到來"
+	WarningSplitSoon	= "分裂即將到來"
 })
 
 L:SetOptionLocalization({
 	WarningSplitSoon	= "為分裂顯示預先警告",
-	RangeFrame			= "顯示距離框 (12碼)",
-	SetIconOnBrand		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74505)
+	RangeFrame			= "顯示距離框 (12碼)"
 })
 
 -------------------------
@@ -114,8 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame				= "顯示距離框 (10碼)",
-	BeaconIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74453)
+	RangeFrame			= "顯示距離框 (10碼)"
 })
 
 --------------------------
@@ -128,19 +126,18 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnAdds	= "新的小怪",
-	warnCleaveArmor	= "%s 在 >%s< (%s)"	-- Cleave Armor on >args.destName< (args.amount)
+	WarnAdds		= "新的小怪",
+	warnCleaveArmor	= ">%1$s<中了%2$s(%s)"	-- Cleave Armor on >args.destName< (args.amount)
 })
 
 L:SetTimerLocalization({
-	TimerAdds	= "新的小怪"
+	TimerAdds		= "新的小怪"
 })
 
 L:SetOptionLocalization({
 	WarnAdds		= "提示新的小怪",
 	TimerAdds		= "為新的小怪顯示計時器",
-	AddsArrive		= "Show timer for adds arrival", --Needs Translating
-	warnCleaveArmor	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(74367, GetSpellInfo(74367) or "unknown")
+	AddsArrive		= "Show timer for adds arrival" --Needs Translating
 })
 
 L:SetMiscLocalization({
