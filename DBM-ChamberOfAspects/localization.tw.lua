@@ -171,6 +171,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "天堂也將燃燒!",
 	Phase2					= "在暮光的國度只有磨難在等著你!有膽量的話就進去吧!",
 	Phase3					= "我是光明亦是黑暗!凡人，匍匐在死亡之翼的信使面前吧!",
-	twilightcutter			= "這些環繞的球體散發著黑暗能量!",
+	twilightcutter			= "這些環繞的球體散發著黑暗能量!", -- Needs different yell! Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "享受這場勝利吧，凡人們，因為這是你們最後一次的勝利。這世界將會在主人回歸時化為火海!"
 })

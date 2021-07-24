@@ -172,6 +172,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "Die Himmel brennen!",
 	Phase2					= "Ihr werdet im Reich des Zwielichts nur Leid finden! Tretet ein, wenn ihr es wagt!",
 	Phase3					= "Ich bin das Licht und die Dunkelheit! Zittert, Sterbliche, vor dem Herold Todesschwinges!",
-	twilightcutter			= "Die kreisenden Sphären pulsieren vor dunkler Energie!",
+	twilightcutter			= "Hütet euch vor dem Schatten!", --"Die kreisenden Sphären pulsieren vor dunkler Energie!" -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "Genießt euren Sieg, Sterbliche, denn es war euer letzter. Bei der Rückkehr des Meisters wird diese Welt brennen!"
 })

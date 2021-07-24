@@ -171,6 +171,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "하늘이 타오른다!",
 	Phase2					= "황혼 세계에서는 고통만이 있으리라! 자신 있다면 들어와 봐라!",
 	Phase3					= "나는 빛이자 어둠이다! 필멸자들어, 데스윙의 사자 앞에 무릎 꿇어라!",
-	twilightcutter			= "주위를 회전하는 구슬들이 고동치며 어둠의 기운을 내뿜습니다!",
+	twilightcutter			= "주위를 회전하는 구슬들이 고동치며 어둠의 기운을 내뿜습니다!", -- Needs different yell! Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "필멸자들아, 승리를 만끽해라. 그것이 마지막일 테니. 주인님이 돌아오시면 이 세상은 불타버리리라!"
 })

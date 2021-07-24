@@ -91,7 +91,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Baltharus")
 
 L:SetGeneralLocalization({
-	name = "Baltharus the Warborn"
+	name = "Baltharus l'Enfant de la guerre"
 })
 
 L:SetWarningLocalization({
@@ -110,7 +110,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
-	name = "Saviana Ragefire"
+	name = "Saviana Ragefeu"
 })
 
 L:SetOptionLocalization({
@@ -124,7 +124,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Zarithrian")
 
 L:SetGeneralLocalization({
-	name = "General Zarithrian"
+	name = "Général Zarithrian"
 })
 
 L:SetWarningLocalization({
@@ -133,7 +133,8 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerAdds	= "New adds"
+	TimerAdds	= "New adds",
+	AddsArrive	= "Adds arrivent dans"
 })
 
 L:SetOptionLocalization({
@@ -144,7 +145,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	SummonMinions	= "Turn them to ash, minions!"--needs translation
+	SummonMinions	= "Serviteurs, réduisez-les en cendres !"
 })
 
 -------------------------------------
@@ -153,7 +154,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Halion")
 
 L:SetGeneralLocalization({
-	name = "Halion the Twilight Destroyer"
+	name = "Halion le destructeur du Crépuscule"
 })
 
 L:SetWarningLocalization({
@@ -171,6 +172,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "Les cieux s'embrasent !",
 	Phase2					= "Vous ne trouverez que souffrance au royaume du crépuscule ! Entrez si vous l'osez !",
 	Phase3					= "Je suis la lumière et l'ombre ! Tremblez, mortels, devant le héraut d'Aile-de-mort !",--needs Verification
-	twilightcutter			= "Les sphères volantes rayonnent d'énergie noire !",
+	twilightcutter			= "Méfiez-vous de l'ombre !", --"Les sphères volantes rayonnent d'énergie noire !", -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!"--needs translation
 })

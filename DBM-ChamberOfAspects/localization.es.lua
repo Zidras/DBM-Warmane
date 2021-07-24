@@ -133,7 +133,8 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerAdds	= "Nuevos adds"
+	TimerAdds	= "Nuevos adds",
+	AddsArrive	= "Adds llegan en"
 })
 
 L:SetOptionLocalization({
@@ -171,6 +172,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "¡Los cielos arden!",
 	Phase2					= "En el reino del crepúsculo solo encontraréis sufrimiento. ¡Entrad si os atrevéis!",
 	Phase3					= "¡Yo soy la luz y la oscuridad! ¡Temed, mortales, la llegada de Alamuerte!",
-	twilightcutter			= "¡Las esferas que orbitan emiten energía oscura!",
+	twilightcutter			= "¡Temed la sombra!", -- ¡Las esferas que orbitan emiten energía oscura!", -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "Disfrutad la victoria, mortales, porque será la última. ¡Este mundo arderá cuando vuelva el maestro!"
 })
