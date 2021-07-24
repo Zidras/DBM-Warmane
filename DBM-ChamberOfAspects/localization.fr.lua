@@ -169,7 +169,7 @@ L:SetMiscLocalization({
 	Halion					= "Halion",
 	MeteorCast				= "Les cieux s'embrasent !",
 	Phase2					= "Vous ne trouverez que souffrance au royaume du crépuscule ! Entrez si vous l'osez !",
-	Phase3					= "Je suis la lumière et l'ombre ! Tremblez, mortels, devant le héraut d'Aile-de-mort !",--needs Verification
+	Phase3					= "Je suis la lumière et l'ombre ! Tremblez, mortels, devant le héraut d'Aile-de-mort !",
 	twilightcutter			= "Méfiez-vous de l'ombre !", --"Les sphères volantes rayonnent d'énergie noire !", -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
 	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!"--needs translation
 })

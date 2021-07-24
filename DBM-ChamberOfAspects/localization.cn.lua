@@ -86,4 +86,91 @@ L:SetMiscLocalization({
 	FireWalls		= "撞上烈焰之啸 (这一次): %s"
 })
 
--- MISSING ALL RUBY SANCTUM!!!!!
+------------------------
+--  红玉圣殿  --
+------------------------
+--  Baltharus the Warborn  --
+-----------------------------
+L = DBM:GetModLocalization("Baltharus")
+
+L:SetGeneralLocalization({
+	name = "战争之子巴尔萨鲁斯"
+})
+
+L:SetWarningLocalization({
+	WarningSplitSoon	= "分裂即將到來"
+})
+
+L:SetOptionLocalization({
+	WarningSplitSoon	= "為分裂顯示預先警告",
+	RangeFrame			= "顯示距離框 (12碼)"
+})
+
+-------------------------
+--  Saviana Ragefire  --
+-------------------------
+L = DBM:GetModLocalization("Saviana")
+
+L:SetGeneralLocalization({
+	name = "塞维娅娜·怒火"
+})
+
+L:SetOptionLocalization({
+	RangeFrame			= "顯示距離框 (10碼)"
+})
+
+--------------------------
+--  General Zarithrian  --
+--------------------------
+L = DBM:GetModLocalization("Zarithrian")
+
+L:SetGeneralLocalization({
+	name = "萨瑞瑟里安将军"
+})
+
+L:SetWarningLocalization({
+	WarnAdds		= "新的小怪",
+	warnCleaveArmor	= ">%1$s<中了%2$s(%s)"	-- Cleave Armor on >args.destName< (args.amount)
+})
+
+L:SetTimerLocalization({
+	TimerAdds		= "新的小怪"
+})
+
+L:SetOptionLocalization({
+	WarnAdds		= "提示新的小怪",
+	TimerAdds		= "為新的小怪顯示計時器",
+	AddsArrive		= "Show timer for adds arrival" --Needs Translating
+})
+
+L:SetMiscLocalization({
+	SummonMinions	= "让他们化为灰烬，仆从们！"
+})
+
+-------------------------------------
+--  Halion the Twilight Destroyer  --
+-------------------------------------
+L = DBM:GetModLocalization("Halion")
+
+L:SetGeneralLocalization({
+	name = "海里昂 暮光摧毁者"
+})
+
+L:SetWarningLocalization({
+	TwilightCutterCast	= "施放暮光切割: 5秒後"
+})
+
+L:SetOptionLocalization({
+	TwilightCutterCast		= "當$spell:77844開始施放時顯示警告",
+	AnnounceAlternatePhase	= "不管你進不進下一階段一樣顯示警告/計時器",
+	SetIconOnConsumption	= "為$spell:74562或$spell:74792的目標設置標記"--So we can use single functions for both versions of spell.
+})
+
+L:SetMiscLocalization({
+	Halion					= "海里昂",
+	MeteorCast				= "天空在燃烧！",
+	Phase2					= "暮光的世界将会让你痛不欲生！够胆量的就进来吧！",
+	Phase3					= "我就是交织的光影！凡人，在死亡之翼的使者面前颤抖吧！",
+	twilightcutter			= "阴影在弥漫！", -- "黑暗能量正在这颗旋转的魔球中脉动！", -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
+	Kill					= "享受胜利吧，凡人们，这是你们最后的胜利。回归的主人将烧毁这个世界！"
+})

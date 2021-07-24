@@ -3,6 +3,7 @@
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Kammer der Aspekte|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Палата Аспектов|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0守護巨龍之間|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0龙神之厅|r
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0흑요석 성소|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Chambre des Aspects|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Cámara de los Aspectos|r
@@ -26,6 +27,7 @@
 ## X-DBM-Mod-Name-deDE: Kammer der Aspekte
 ## X-DBM-Mod-Name-ruRU: Палата Аспектов
 ## X-DBM-Mod-Name-zhTW: 守護巨龍之間
+## X-DBM-Mod-Name-zhCN: 龙神之厅
 ## X-DBM-Mod-Name-koKR: 고룡쉼터 사원
 ## X-DBM-Mod-Name-frFR : Chambre des aspects
 ## X-DBM-Mod-Name-esES: Cámara de los Aspectos
@@ -36,7 +38,7 @@
 ## X-DBM-Mod-LoadZone-deDE: Das Obsidiansanktum,Das Rubinsanktum
 ## X-DBM-Mod-LoadZone-ruRU: Обсидиановое святилище,Рубиновое святилище
 ## X-DBM-Mod-LoadZone-zhTW: 黑曜聖所, 晶紅聖所
-## X-DBM-Mod-LoadZone-zhCN: 黑曜石圣殿
+## X-DBM-Mod-LoadZone-zhCN: 黑曜石圣殿, 红玉圣殿
 ## X-DBM-Mod-LoadZone-koKR: 흑요석 성소,루비 성소
 ## X-DBM-Mod-LoadZone-frFR: Le sanctum Obsidien,Le sanctum Rubis
 ## X-DBM-Mod-LoadZone-esES: El Sagrario Obsidiana,El Sagrario Rubí
