@@ -187,7 +187,9 @@ L:SetMiscLocalization{
 	AddsAlliance	= "Reavers, Sergeants, attack",
 	AddsHorde		= "Marines, Sergeants, attack",
 	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
-	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!"
+	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!",
+	KillAlliance	= "Don't say I didn't warn ya, scoundrels! Onward, brothers and sisters!",
+	KillHorde		= "The Alliance falter. Onward to the Lich King!"
 }
 
 -----------------------------
