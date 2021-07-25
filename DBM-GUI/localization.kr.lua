@@ -370,7 +370,7 @@ L.SpamBlockNoSpecWarnText	= "특수 알림 텍스트 표시 안함"
 L.SpamBlockNoSpecWarnFlash	= "특수 알림에 화면 점멸 사용 안함"
 L.SpamBlockNoSpecWarnSound	= "특수 알림 효과음 재생 안함 (음성 경고 메뉴에서 설정했다면 음성팩은 계속 작동)"
 L.SpamBlockNoTrivialSpecWarnSound	= "현재 레벨에 맞는 콘텐츠 이외에는 특수 알림 효과음 재생이나 화면 점멸 효과 사용 안함 (대신 사용자가 선택한 정규 알림 효과음 재생)"
-L.SpamBlockRaidWarning		= "다른 보스 모드가 알리는 경보 감추기" 
+L.SpamBlockRaidWarning		= "다른 보스 모드가 알리는 경보 감추기"
 L.SpamBlockBossWhispers		= "전투 중 사용되는 <DBM> 경보 귓속말 감추기"
 
 L.Area_SpamFilter_Timers	= "타이머 관련 기능 끄기 및 필터 설정"
