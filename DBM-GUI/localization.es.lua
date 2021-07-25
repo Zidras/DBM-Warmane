@@ -354,6 +354,8 @@ L.SpamBlockNoShowTgtAnnounce= "Ocultar anuncios generales de objetivos y desacti
 L.SpamBlockNoSpecWarnText	= "Ocultar avisos especiales pero sí reproducir sonidos de paquetes de voces (la opción anterior anula esta)"
 L.SpamBlockNoSpecWarnFlash	= "Desactivar destellos de avisos especiales"
 L.SpamBlockNoSpecWarnSound	= "Desactivar sonidos de avisos especiales (no afecta a los paquetes de voz)"
+L.SpamBlockRaidWarning		= "Filtrar anuncios de otros Boss Mods"
+L.SpamBlockBossWhispers		= "Filtrar los avisos de <DBM> mientras estas en combate"
 
 L.Area_SpamFilter_Timers	= "Opciones de filtros globales de temporizadores"
 L.SpamBlockNoShowTimers		= "Ocultar temporizadores de módulos"

@@ -372,6 +372,8 @@ L.SpamBlockNoShowTgtAnnounce= "不显示针对目标类型的警报或播放警�
 L.SpamBlockNoSpecWarnText	= "不显示特殊警报，但允许语音包(上面那个优先级比这个高)"
 L.SpamBlockNoSpecWarnFlash	= "不显示特殊警报屏幕闪烁"
 L.SpamBlockNoSpecWarnSound	= "不播放特殊团队警报的声音（如果在“语音警报”面板中启用了语音包，则仍然允许语音包）"
+L.SpamBlockRaidWarning		= "过滤其他首领预警插件警报"
+L.SpamBlockBossWhispers		= "战斗中过滤DBM密语警报"
 
 L.Area_SpamFilter_Timers	= "计时器过滤选项"
 L.SpamBlockNoShowTimers		= "不显示 DBM 原装计时条"
