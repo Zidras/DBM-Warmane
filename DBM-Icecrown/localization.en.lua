@@ -179,6 +179,8 @@ L:SetTimerLocalization{
 L:SetMiscLocalization{
 	PullAlliance	= "Fire up the engines! We got a meetin' with destiny, lads!",
 	PullHorde		= "Rise up, sons and daughters of the Horde! Today we battle a hated enemy of the Horde! LOK'TAR OGAR!",
+	--CombatAlliance	= "Cowardly dogs! Ye blindsided us!",
+	--CombatHorde		= "You answer to Saurfang now!",
 	AddsAlliance	= "Reavers, Sergeants, attack",
 	AddsHorde		= "Marines, Sergeants, attack",
 	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
