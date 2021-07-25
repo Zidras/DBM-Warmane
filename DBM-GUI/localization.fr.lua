@@ -233,6 +233,7 @@ L.SpamBlockNoRangeRestore	= "Ne pas restaurer le radar de portée quand les addo
 L.Area_SpamFilter			= "Options des filtres de spam"
 L.DontShowFarWarnings		= "Ne pas afficher les annonces/timers pour les événements distants"
 L.StripServerName			= "Ne pas afficher le royaume sur les alertes et les timers"
+L.FilterVoidFormSay			= "Ne pas envoyer la position de chat/compter les cris de chat quand dans $spell:47241"
 
 L.Area_SpecFilter			= "Options du filtre de Spécialisation"
 L.FilterTankSpec			= "Filtrer les alertes réservées aux tanks si vous n'êtes pas en spé tank. (Note: Désactivé n'est pas recommandé car les alertes de taunt sont activés en permanence par défaut.)"

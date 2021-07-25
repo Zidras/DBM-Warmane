@@ -286,7 +286,7 @@ L.SpamBlockNoRangeRestore	= "Do not restore range frame to previous state when m
 -- Tab: Spam Filter
 L.Area_SpamFilter			= "Spam Filter Options"
 L.DontShowFarWarnings		= "Do not show announces/timers for events that are far away"
-L.FilterVoidFormSay			= "Do not send chat position/count chat yells when in Void Form"
+L.FilterVoidFormSay			= "Do not send chat position/count chat yells when in $spell:47241"
 
 L.Area_SpecFilter			= "Role Filter Options"
 L.FilterTankSpec			= "Filter warnings designated for Tank role when not tank spec. (Note: Disabling this is not recommended for most users as 'taunt' warnings are now all on by default.)"
