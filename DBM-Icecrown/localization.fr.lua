@@ -17,8 +17,6 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap		= "Show special warning for trap activation",
-	SetIconOnDarkReckoning	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69483),
-	SetIconOnDeathPlague	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72865)
 }
 
 L:SetMiscLocalization{
@@ -43,7 +41,6 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap	= "Show special warning for trap activation",
-	WarnMortalWound	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71127, GetSpellInfo(71127) or "unknown")
 }
 
 L:SetMiscLocalization{
@@ -59,16 +56,6 @@ L = DBM:GetModLocalization("CrimsonHallTrash")
 
 L:SetGeneralLocalization{
 	name = "Crimson Hall Trash"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	BloodMirrorIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70451)
-}
-
-L:SetMiscLocalization{
 }
 
 ---------------------------
@@ -106,14 +93,6 @@ L:SetGeneralLocalization{
 	name = "Seigneur Gargamoelle"
 }
 
-L:SetTimerLocalization{
-	AchievementBoned		= "Temps pour libérer"
-}
-
-L:SetOptionLocalization{
-	SetIconOnImpale			= "Met des icônes sur les cibles de $spell:69062"
-}
-
 -------------------------
 --  Lady Deathwhisper  --
 -------------------------
@@ -141,9 +120,6 @@ L:SetOptionLocalization{
 	SpecWarnVengefulShade		= "Montre une alerte spéciale quand vous êtes attaquer par une Ombre vengeresse",
 	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
 	ShieldHealthFrame			= "Montre la vie du boss avec une barre de vie pour la $spell:70842",
-	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
-	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
-	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
 	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight", --Needs Translating
 	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
@@ -183,14 +159,14 @@ L:SetTimerLocalization{
 }
 
 L:SetMiscLocalization{
-	PullAlliance	= "Faites chauffer les moteurs",
-	PullHorde		= "nous affrontons le plus haï de nos ennemis",
-	AddsAlliance	= "Reavers, Sergeants, attack", --Needs Translating
-	AddsHorde		= "Marines, Sergeants, attack", --Needs Translating
-	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!", --Needs Translating
-	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!", --Needs Translating
-	KillAlliance	= "Vous direz pas que j'vous avais pas prévenus",
-	KillHorde		= "L'Alliance baisse pavillon"
+	PullAlliance	= "Faites chauffer les moteurs ! On a rencart avec le destin, les gars !",
+	PullHorde		= "Levez-vous, fils et filles de la Horde ! Aujourd’hui, nous affrontons le plus haï de nos ennemis ! LOK’TAR OGAR !",
+	AddsAlliance	= "Saccageurs, sergents, à l'attaque !",
+	AddsHorde		= "Soldats, sergents, à l'attaque !",
+	MageAlliance	= "La coque est endommagée, qu'un mage de bataille aille faire taire leurs canons !",
+	MageHorde		= "La coque déguste sévère, qu'un sorcier aille me faire taire ces canons !",
+	KillAlliance	= "Vous direz pas que j'vous avais pas prévenus, canailles ! Mes frères et sœurs, en avant !",
+	KillHorde		= "L'Alliance baisse pavillon. Sus au roi-liche !"
 }
 
 -----------------------------
@@ -203,7 +179,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BoilingBloodIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72441),
 	MarkCastIcon		= "Met des icones sur les cibles de $spell:72444 durant l'incantation (Experimental)",
 	RunePowerFrame		= "Montre la barre de vie du boss + la barre de $spell:72371"
 }
@@ -211,7 +186,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	RunePower			= "Bêtes de sang",
 	PullAlliance		= "Bon allez, on se bouge",
-	PullHorde			= "surveillez bien vos arrières"
+	PullHorde			= "Kor'krons, en route ! Champions, surveillez bien vos arrières. Le Fléau a été -"
 }
 
 -----------------
@@ -225,7 +200,6 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Montre la fenêtre de portée (8 Mètres)",
-	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
 	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat<br/>(requires raid leader)", --Needs Translating
 	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)" --Needs Translating
 }
@@ -253,14 +227,13 @@ L:SetWarningLocalization{
 L:SetOptionLocalization{
 	WarnOozeSpawn				= "Montre une alerte pour l'arrivée des Limons",
 	SpecWarnLittleOoze			= "Montre une alerte spéciale quand vous êtes attaquer par des Limons",
-	RangeFrame					= "Show range frame (8 yards)", --Needs Translating
-	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
-	TankArrow					= "Show DBM arrow for Big Ooze kiter (Experimental)"
+	RangeFrame					= "Montre la fenêtre de portée (8 Mètres)",
+	TankArrow					= "Show DBM arrow for Big Ooze kiter (Experimental)" --Needs translating
 }
 
 L:SetMiscLocalization{
-	YellSlimePipes1	= "réparé le distributeur de poison",	-- Professor Putricide
-	YellSlimePipes2	= "Great news, everyone! The slime is flowing again!"	-- Professor Putricide
+	YellSlimePipes1				= "réparé le distributeur de poison",	-- Professor Putricide
+	YellSlimePipes2				= "Great news, everyone! The slime is flowing again!"	-- Professor Putricide
 }
 
 ---------------------------
@@ -273,9 +246,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	OozeAdhesiveIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70447),
-	GaseousBloatIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70672),
-	UnboundPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72856),
 	MalleableGooIcon			= "Met une icone sur la première cible de $spell:72295",
 	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
 }
@@ -302,9 +272,8 @@ L:SetOptionLocalization{
 	WarnTargetSwitch		= "Montre l'alerte pour le changement de cible",
 	WarnTargetSwitchSoon	= "Montre une pré-alerte pour le changement de cible",
 	TimerTargetSwitch		= "Montre un timer pour le changement de cible",
-	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
 	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux).",
-	RangeFrame				= "Show range frame (12 yards)", --Needs Translating
+	RangeFrame				= "Montre la fenêtre de portée (12 Mètres)",
 	VortexArrow				= "Show DBM arrow when $spell:72037 is near you" --Needs Translating
 }
 
@@ -312,7 +281,7 @@ L:SetMiscLocalization{
 	Keleseth			= "Prince Keleseth",
 	Taldaram			= "Prince Taldaram",
 	Valanar				= "Prince Valanar",
-	--FirstPull			= "Foolish mortals. You thought us defeated so easily? The San'layn are the Lich King's immortal soldiers! Now you shall face their might combined!", -- Needs Translating
+	FirstPull			= "Naïfs mortels. Vous pensiez nous avoir vaincus si facilement ? Les San'layn sont les soldats immortels du roi-liche ! Maintenant, vous allez subir leurs puissances réunies !",
 	EmpoweredFlames		= "L'Embrasement surpuissant (%S+)!"
 }
 
@@ -326,15 +295,12 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnDarkFallen			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71340),
-	SwarmingShadowsIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
-	BloodMirrorIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
-	RangeFrame				= "Show range frame (8 yards)" --Needs Translating
+	RangeFrame				= "Montre la fenêtre de portée (8 Mètres)"
 }
 
 L:SetMiscLocalization{
 	SwarmingShadows			= "Shadows amass and swarm around (%S+)!",
-	YellFrenzy				= "I'm hungry!"
+	YellFrenzy				= "J'ai faim!"
 }
 
 -----------------------------
@@ -347,8 +313,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnCorrosion	= "%s sur >%s< (%s)",
-	WarnPortalOpen	= "Portails actifs !"
+	WarnPortalOpen	= "Portails actifs !",
+	Suppressers		= "Suppressers"	--Needs Translating
 }
 
 L:SetTimerLocalization{
@@ -377,8 +343,8 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull		= "Ne gardez que les os et les tendons",
-	YellKill		= "JE REVIS"
+	YellPull		= "Des intrus se sont introduits dans le sanctuaire. Hâtez-vous d'achever le dragon vert ! Ne gardez que les os et les tendons, pour la réanimation !",
+	YellPortals		= "J'ai ouvert un portail vers le Rêve. Vous y trouverez votre salut, héros…"
 }
 
 ------------------
@@ -407,8 +373,6 @@ L:SetOptionLocalization{
 	TimerNextAirphase			= "Montre un timer pour la prochaine phase dans les airs",
 	TimerNextGroundphase		= "Montre un timer pour la prochaine phase au sol",
 	AnnounceFrostBeaconIcons	= "Annonce les icones pour les cibles de $spell:70126 dans le chat de raid (requires announce to be enabled and leader/promoted status)",
-	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
-	SetIconOnUnchainedMagic		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase		= "Retire toutes les icones avant la phase d'envol",
 	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)", --Needs Translating
 	RangeFrame					= "Montre la fenêtre de portée (10 normal, 20 heroic) (Montre uniquement les icones marquer sur les joueurs)"
@@ -453,11 +417,6 @@ L:SetOptionLocalization{
 	PhaseTransition				= "Montre le timer pour la phase de transition",
 	ValkyrWarning				= "Announce who has been grabbed by Val'kyr Shadowguards", --Needs Translating
 	SpecWarnYouAreValkd			= "Show special warning when you have been grabbed by a Val'kyr Shadowguard",--npc36609 --Needs Translating
-	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
 	TrapArrow					= "Montre les flèches de DBM quand $spell:73539 est à coter de vous",
 	AnnounceValkGrabs			= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",  --Needs Translating
 	SpecWarnValkyrLow			= "Show special warning when Valkyr is below 55% HP",
@@ -470,16 +429,16 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	LKPull					= "la fameuse justice de la Lumière",
-	LKRoleplay				= "Is it truly righteousness that drives you? I wonder...",
+	LKPull					= "Voici donc qu’arrive la fameuse justice de la Lumière ? Dois-je déposer Deuillegivre et me jeter à tes pieds en implorant pitié, Fordring ?",
+	LKRoleplay				= "Est-ce vraiment la justice qui vous anime ? Je me demande…",
 	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s", -- Needs Translating
 	ValkGrabbed				= "Valkyr Shadowguard grabbed %s", -- Needs Translating
 	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague", -- Needs Translating
 	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<", -- Needs Translating
-	FrameTitle				= "Valkyr targets",
-	FrameLock				= "Frame Lock",
-	FrameClassColor			= "Use Class Colors",
-	FrameOrientation		= "Expand upwards",
-	FrameHide				= "Hide Frame",
-	FrameClose				= "Close"
+	FrameTitle				= "Valkyr targets", -- Needs Translating
+	FrameLock				= "Frame Lock", -- Needs Translating
+	FrameClassColor			= "Use Class Colors", -- Needs Translating
+	FrameOrientation		= "Expand upwards", -- Needs Translating
+	FrameHide				= "Hide Frame", -- Needs Translating
+	FrameClose				= "Close" -- Needs Translating
 }

@@ -17,8 +17,6 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap			= "當觸發陷阱時顯示特別警告",
-	SetIconOnDarkReckoning	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69483),
-	SetIconOnDeathPlague	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72865)
 }
 
 L:SetMiscLocalization{
@@ -43,7 +41,6 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap	= "當觸發陷阱時顯示特別警告",
-	WarnMortalWound	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71127, GetSpellInfo(71127) or "unknown")
 }
 
 L:SetMiscLocalization{
@@ -59,16 +56,6 @@ L = DBM:GetModLocalization("CrimsonHallTrash")
 
 L:SetGeneralLocalization{
 	name = "赤紅大廳小怪"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	BloodMirrorIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70451)
-}
-
-L:SetMiscLocalization{
 }
 
 ---------------------------
@@ -106,15 +93,6 @@ L:SetGeneralLocalization{
 	name = "瑪洛嘉領主"
 }
 
-L:SetTimerLocalization{
-	TimerBoneSpikeUp	= "Spikes up in...", --Needs Translating
-	TimerWhirlwindStart	= "Whirlwind starts in..." --Needs Translating
-}
-
-L:SetOptionLocalization{
-	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062)
-}
-
 -------------------------
 --  Lady Deathwhisper  --
 -------------------------
@@ -130,7 +108,7 @@ L:SetTimerLocalization{
 
 L:SetWarningLocalization{
 	WarnReanimating				= "小怪再活化",
-	WarnAddsSoon				= "新的小怪 即將到來",
+	WarnAddsSoon				= "新的小怪即將到來",
 	SpecWarnVengefulShade		= "你被復仇的暗影盯上了 - 快跑開",
 	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
 }
@@ -142,9 +120,6 @@ L:SetOptionLocalization{
 	SpecWarnVengefulShade		= "當你被復仇的暗影盯上時顯示特別警告",
 	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
 	ShieldHealthFrame			= "為$spell:70842顯示首領血量框架",
-	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
-	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
-	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
 	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight", --Needs Translating
 	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
@@ -171,7 +146,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnAddsSoon	= "新的小怪 即將到來"
+	WarnAddsSoon	= "新的小怪即將到來"
 }
 
 L:SetOptionLocalization{
@@ -188,7 +163,7 @@ L:SetMiscLocalization{
 	PullHorde		= "起來吧，部落的子女!今天我們要和最可恨的敵人作戰!為了部落!",
 	AddsAlliance	= "劫奪者，士官們，攻擊!",
 	AddsHorde		= "海員們，士官們，攻擊!",
-	MageAlliance	= "船體受到傷害，找個戰鬥法師到來，搞定那些火砲!",
+	MageAlliance	= "船體受到傷害，找個戰鬥法師來，搞定那些火砲!",
 	MageHorde		= "船體受損，找個巫士到這裡來，搞定那些火砲!",
 	KillAlliance	= "別說我沒警告過你，無賴!兄弟姊妹們，向前衝!",
 	KillHorde		= "聯盟已經動搖了。向巫妖王前進!"
@@ -204,7 +179,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BoilingBloodIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72441),
 	RangeFrame			= "顯示距離框 (12碼)",
 	RunePowerFrame		= "顯示首領血量及$spell:72371條"
 }
@@ -212,7 +186,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	RunePower			= "血魄威能",
 	PullAlliance		= "每個你殺死的部落士兵 -- 每條死去的聯盟狗，都讓巫妖王的軍隊隨之增長。此時此刻華爾琪都還在把你們倒下的同伴復活成天譴軍。",
-	PullHorde			= "柯爾克隆，前進!勇士們，要當心，天譴軍團已經……"
+	PullHorde			= "柯爾克隆，前進!勇士們，要當心，天譴軍團已經..."
 }
 
 -----------------
@@ -226,9 +200,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "顯示距離框 (8碼)",
-	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
-	AnnounceSporeIcons	= "公佈$spell:69279目標設置的標記到團隊頻道\n(需開啟團隊廣播及助理權限)",
-	AchievementCheck	= "公佈 '流感疫苗短缺' 成就失敗到團隊頻道\n(需助理權限)"
+	AnnounceSporeIcons	= "公佈$spell:69279目標設置的標記到團隊頻道<br/>(需要團隊隊長)",
+	AchievementCheck	= "公佈 '流感疫苗短缺' 成就失敗到團隊頻道<br/>(需助理權限)"
 }
 
 L:SetMiscLocalization{
@@ -246,7 +219,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnOozeSpawn				= "小軟泥怪 出現了",
+	WarnOozeSpawn				= "小軟泥怪出現了",
 	SpecWarnLittleOoze			= "你被小軟泥怪盯上了 - 快跑開"
 }
 
@@ -254,7 +227,6 @@ L:SetOptionLocalization{
 	WarnOozeSpawn				= "為小軟泥的出現顯示警告",
 	SpecWarnLittleOoze			= "當你被小軟泥怪盯上時顯示特別警告",
 	RangeFrame					= "顯示距離框 (8碼)",
-	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
 	TankArrow					= "為大軟泥怪副坦顯示DBM箭頭 (測試中)"
 }
 
@@ -273,9 +245,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	OozeAdhesiveIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70447),
-	GaseousBloatIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70672),
-	UnboundPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72856),
 	MalleableGooIcon			= "為第一個中$spell:72295的目標設置標記",
 	GooArrow					= "當你附近的人中了$spell:72295時顯示DBM箭頭"
 }
@@ -291,7 +260,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnTargetSwitch		= "轉換目標到: %s",
-	WarnTargetSwitchSoon	= "轉換目標 即將到來"
+	WarnTargetSwitchSoon	= "轉換目標即將到來"
 }
 
 L:SetTimerLocalization{
@@ -302,8 +271,7 @@ L:SetOptionLocalization{
 	WarnTargetSwitch		= "為轉換目標顯示警告",
 	WarnTargetSwitchSoon	= "為轉換目標顯示預先警告",
 	TimerTargetSwitch		= "為轉換目標顯示冷卻計時器",
-	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
-	ActivePrinceIcon		= "設置標記在強力的親王身上 (頭顱)",
+	ActivePrinceIcon		= "設置標記在強化的親王身上(頭顱)",
 	RangeFrame				= "顯示距離框 (12碼)",
 	VortexArrow				= "當你附近的人中了$spell:72037時顯示DBM箭頭"
 }
@@ -312,7 +280,7 @@ L:SetMiscLocalization{
 	Keleseth			= "凱雷希斯親王",
 	Taldaram			= "泰爾達朗親王",
 	Valanar				= "瓦拉納爾親王",
-	--FirstPull			= "Foolish mortals. You thought us defeated so easily? The San'layn are the Lich King's immortal soldiers! Now you shall face their might combined!", -- Needs Translating
+	FirstPull			= "愚蠢的凡人。你以為我們會如此輕易被擊敗?煞婪一族是巫妖王的永恆士兵!現在你將面對他們聯合的力量!",
 	EmpoweredFlames		= "煉獄烈焰加速靠近(%S+)!"
 }
 
@@ -326,9 +294,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnDarkFallen		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71340),
-	SwarmingShadowsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
-	BloodMirrorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
 	RangeFrame				= "顯示距離框 (8碼)"
 }
 
@@ -347,8 +312,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnCorrosion	= "%s: >%s< (%d)",
-	WarnPortalOpen	= "傳送門開啟"
+	WarnPortalOpen	= "傳送門開啟",
+	Suppressers		= "Suppressers"	--Needs Translating
 }
 
 L:SetTimerLocalization{
@@ -364,11 +329,11 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	SetIconOnBlazingSkeleton	= "為熾熱骷髏設置標記 (頭顱)",
-	WarnPortalOpen			= "當夢魘之門開啟時顯示警告",
-	TimerPortalsOpen		= "當夢魘之門開啟時顯示計時器",
+	WarnPortalOpen				= "當夢魘之門開啟時顯示警告",
+	TimerPortalsOpen			= "當夢魘之門開啟時顯示計時器",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "為下一次熾熱骷髏出現顯示計時器",
-	TimerAbom			= "為下一次貪吃的憎惡體出現顯示計時器 (測試中)",
+	TimerAbom					= "為下一次貪吃的憎惡體出現顯示計時器",
 	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
 	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
 	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
@@ -378,7 +343,7 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	YellPull		= "入侵者已經突破了內部聖所。加快摧毀綠龍的速度!只要留下骨頭和肌腱來復活!",
-	YellPortals		= "我打開了一道傳送門通往夢境。你們的救贖就在其中，英雄們……"
+	YellPortals		= "我打開了一道傳送門通往夢境。你們的救贖就在其中，英雄們..."
 }
 
 ------------------
@@ -396,8 +361,8 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerNextAirphase		= "下一次 空中階段",
-	TimerNextGroundphase	= "下一次 地上階段",
+	TimerNextAirphase		= "下一次空中階段",
+	TimerNextGroundphase	= "下一次地上階段",
 	AchievementMystic		= "清除秘能連擊疊加"
 }
 
@@ -406,12 +371,10 @@ L:SetOptionLocalization{
 	WarnGroundphaseSoon			= "為地上階段顯示預先警告",
 	TimerNextAirphase			= "為下一次 空中階段顯示計時器",
 	TimerNextGroundphase		= "為下一次 地上階段顯示計時器",
-	AnnounceFrostBeaconIcons	= "公佈$spell:70126目標設置的標記到團隊頻道\n(需開啟團隊廣播及助理權限)",
-	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
-	SetIconOnUnchainedMagic		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
+	AnnounceFrostBeaconIcons	= "公佈$spell:70126目標設置的標記到團隊頻道<br/>(需要團隊隊長)",
 	ClearIconsOnAirphase		= "空中階段前清除所有標記",
-	AchievementCheck			= "公佈 '吃到飽' 成就警告到團隊頻道\n(需助理權限)",
-	RangeFrame					= "顯示距離框 (普通10碼, 困難20碼)"
+	AchievementCheck			= "公佈 '吃到飽' 成就警告到團隊頻道<br/>(需助理權限)",
+	RangeFrame					= "根據最後首領使用的技能跟玩家減益顯示動態距離框(10/20碼)"
 }
 
 L:SetMiscLocalization{
@@ -453,15 +416,10 @@ L:SetOptionLocalization{
 	PhaseTransition				= "為轉換階段顯示計時器",
 	ValkyrWarning				= "提示誰給華爾琪影衛抓住了",
 	SpecWarnYouAreValkd			= "當你給華爾琪影衛抓住時顯示特別警告",
-	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
 	TrapArrow					= "當你附近的人中了$spell:73539時顯示DBM箭頭",
-	AnnounceValkGrabs			= "提示誰被華爾琪影衛抓住到團隊頻道\n(需開啟團隊廣播及助理權限)",
+	AnnounceValkGrabs			= "提示誰被華爾琪影衛抓住到團隊頻道<br/>(需開啟團隊廣播及助理權限)",
 	SpecWarnValkyrLow			= "當華爾琪血量低於55%時顯示特別警告",
-	AnnouncePlagueStack			= "提示$spell:73912層數到團隊頻道 (10層, 10層後每5層提示一次)\n(需開啟助理權限)",
+	AnnouncePlagueStack			= "提示$spell:73912層數到團隊頻道 (10層, 10層後每5層提示一次)<br/>(需開啟助理權限)",
 	ShowFrame					= "Show Val'Kyr Targets frame", --Needs Translating
 	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame", --Needs Translating
 	FrameUpwards				= "Expand Val'Kyr target frame upwards", --Needs Translating
@@ -470,16 +428,16 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	LKPull					= "聖光所謂的正義終於來了嗎？我是否該把霜之哀傷放下，祈求你的寬恕呢，弗丁？",
-	LKRoleplay				= "你們的原動力真的是正義感嗎？我很懷疑……",
-	ValkGrabbedIcon			= "華爾琪影衛{rt%d}抓住了 %s",
-	ValkGrabbed				= "華爾琪影衛抓住了 %s",
+	LKPull					= "聖光所謂的正義終於來了嗎?我是否該把霜之哀傷放下，祈求你的寬恕呢，弗丁?",
+	LKRoleplay				= "你們的原動力真的是正義感嗎?我很懷疑...",
+	ValkGrabbedIcon			= "華爾琪影衛{rt%d}抓住了%s",
+	ValkGrabbed				= "華爾琪影衛抓住了%s",
 	PlagueStackWarning		= "警告: %s中了%d層亡域瘟疫",
 	AchievementCompleted	= ">> 成就成功: %s中了%d層亡域瘟疫 <<",
-	FrameTitle				= "Valkyr targets",
-	FrameLock				= "Frame Lock",
-	FrameClassColor			= "Use Class Colors",
-	FrameOrientation		= "Expand upwards",
-	FrameHide				= "Hide Frame",
-	FrameClose				= "Close"
+	FrameTitle				= "Valkyr targets", --Needs Translating
+	FrameLock				= "Frame Lock", --Needs Translating
+	FrameClassColor			= "Use Class Colors", --Needs Translating
+	FrameOrientation		= "Expand upwards", --Needs Translating
+	FrameHide				= "Hide Frame", --Needs Translating
+	FrameClose				= "Close" --Needs Translating
 }

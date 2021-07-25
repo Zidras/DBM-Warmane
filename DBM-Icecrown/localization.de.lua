@@ -17,8 +17,6 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap			= "Zeige Spezialwarnung für Fallenaktivierung",
-	SetIconOnDarkReckoning	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69483),
-	SetIconOnDeathPlague	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72865)
 }
 
 L:SetMiscLocalization{
@@ -43,7 +41,6 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	SpecWarnTrap	= "Zeige Spezialwarnung fur Fallenaktivierung",
-	WarnMortalWound	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(71127, GetSpellInfo(71127) or "unknown")
 }
 
 L:SetMiscLocalization{
@@ -59,16 +56,6 @@ L = DBM:GetModLocalization("CrimsonHallTrash")
 
 L:SetGeneralLocalization{
 	name = "Trash der Blutroten Halle"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	BloodMirrorIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70451)
-}
-
-L:SetMiscLocalization{
 }
 
 ---------------------------
@@ -103,16 +90,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("LordMarrowgar")
 
 L:SetGeneralLocalization{
-	name = "Lord Mark'Gar"
-}
-
-L:SetTimerLocalization{
-	TimerBoneSpikeUp	= "Spikes up in...", --Needs Translating
-	TimerWhirlwindStart	= "Whirlwind starts in..." --Needs Translating
-}
-
-L:SetOptionLocalization{
-	SetIconOnImpale		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69062)
+	name = "Lord Mark'gar"
 }
 
 -------------------------
@@ -138,13 +116,10 @@ L:SetWarningLocalization{
 L:SetOptionLocalization{
 	WarnAddsSoon				= "Zeige Vorwarnung für erscheinende Adds",
 	WarnReanimating				= "Zeige Warnung, wenn ein Add wiederbelebt wird",	-- Reanimated Adherent/Fanatic spawning
-	TimerAdds					= "Zeige Timer für neue Adds",
+	TimerAdds					= "Zeige Zeit bis neue Adds erscheinen",
 	SpecWarnVengefulShade		= "Zeige Spezialwarnung, wenn du von Rachsüchtigen Schatten angegriffen wirst",--creatureid 38222
 	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
 	ShieldHealthFrame			= "Zeige Bossleben mit einer Leiste für $spell:70842",
-	SetIconOnDominateMind		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71289),
-	SetIconOnDeformedFanatic	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70900),
-	SetIconOnEmpoweredAdherent	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70901),
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
 	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight", --Needs Translating
 	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
@@ -176,7 +151,7 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	WarnAddsSoon		= "Zeige Vorwarnung für erscheinende Adds",
-	TimerAdds			= "Zeige Timer für neue Adds"
+	TimerAdds			= "Zeige Zeit bis neue Adds erscheinen"
 }
 
 L:SetTimerLocalization{
@@ -188,10 +163,10 @@ L:SetMiscLocalization{
 	PullHorde		= "Erhebt Euch, Söhne und Töchter der Horde! Wir ziehen gegen einen verhassten Feind in die Schlacht! LOK'TAR OGAR!",
 	AddsAlliance	= "Häscher, Unteroffiziere, Angriff!",
 	AddsHorde		= "Soldaten! Zum Angriff!",
+	MageAlliance	= "Der Rumpf ist beschädigt! Holt einen Kampfmagier, der die Kanonen ausschaltet!",
+	MageHorde		= "Die Außenhaut ist beschädigt! Holt einen Zauberer, der die Kanonen ausschaltet!",
 	KillAlliance	= "Sagt nicht, ich hätte Euch nicht gewarnt, Ihr Schurken! Vorwärts, Brüder und Schwestern!",
 	KillHorde		= "Die Allianz wankt. Vorwärts zum Lichkönig!",
-	MageAlliance	= "Der Rumpf ist beschädigt! Holt einen Kampfmagier, der die Kanonen ausschaltet!", --needs to be verified (video-captured alliance translation)
-	MageHorde		= "Die Außenhaut ist beschädigt! Holt einen Zauberer, der die Kanonen ausschaltet!"
 }
 
 -----------------------------
@@ -204,7 +179,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	BoilingBloodIcons	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72441),
 	RangeFrame			= "Zeige Abstandsfenster (12 m)",
 	RunePowerFrame		= "Zeige Boss-Leben und Leiste für $spell:72371"
 }
@@ -226,14 +200,13 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Zeige Abstandsfenster (8 m)",
-	SetIconOnGasSpore	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69279),
-	AnnounceSporeIcons	= "Verkünde Symbole für Ziele von $spell:69279 im Raidchat\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)",
-	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)" --Needs Translating
+	AnnounceSporeIcons	= "Verkünde Zeichen für Ziele von $spell:69279 im Schlachtzugchat (nur als Leiter)",
+	AchievementCheck	= "Verkünde Fehlschlag des Erfolgs 'Grippeimpfungs-Engpass' an Schlachtzug (nur als Leiter/Assistent)"
 }
 
 L:SetMiscLocalization{
-	SporeSet			= "Gassporensymbol {rt%d} auf %s gesetzt",
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Inoculated <<" --Needs Translating
+	SporeSet			= "Gassporenzeichen {rt%d} auf %s gesetzt",
+	AchievementFailed	= ">> ERFOLG FEHLGESCHLAGEN: %s hat %d Stapel von Geimpft <<"
 }
 
 ---------------
@@ -246,21 +219,20 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnOozeSpawn				= "Kleiner Brühschlammer erscheint",
-	SpecWarnLittleOoze			= "Kleiner Brühschlammer greift dich an - Lauf"--creatureid 36897
+	WarnOozeSpawn				= "Kleiner Schlamm erscheint",
+	SpecWarnLittleOoze			= "Kleiner Schlamm greift dich an - Lauf weg!"--creatureid 36897
 }
 
 L:SetOptionLocalization{
-	WarnOozeSpawn				= "Zeige Warnung für Spawn von Kleinen Brühschlammern",
-	SpecWarnLittleOoze			= "Zeige Spezialwarnung, wenn du von Kleinen Brühschlammern angegriffen wirst",--creatureid 36897
-	RangeFrame					= "Show range frame (8 yards)", --Needs Translating
-	InfectionIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71224),
+	WarnOozeSpawn				= "Zeige Warnung für Erscheinen eines Kleinen Schlamm",
+	SpecWarnLittleOoze			= "Spezialwarnung, wenn du von einem Kleinen Schlamm angegriffen wirst",--creatureid 36897
+	RangeFrame					= "Zeige Abstandsfenster (8 m)",
 	TankArrow					= "Zeige Pfeil zum Tank des Großen Schlamms (experimentell)",
 }
 
 L:SetMiscLocalization{
-	YellSlimePipes1	= "Gute Nachricht, Freunde! Die Giftschleim-Rohre sind repariert!",	-- Professor Putricide
-	YellSlimePipes2	= "Gute Nachricht, Freunde! Der Schleim fließt wieder!"	-- Professor Putricide
+	YellSlimePipes1				= "Gute Nachricht, Freunde! Die Giftschleim-Rohre sind repariert!",	-- Professor Putricide
+	YellSlimePipes2				= "Gute Nachricht, Freunde! Der Schleim fließt wieder!"	-- Professor Putricide
 }
 
 ---------------------------
@@ -273,9 +245,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	OozeAdhesiveIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70447),
-	GaseousBloatIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70672),
-	UnboundPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72856),
 	MalleableGooIcon			= "Setze Zeichen auf erstes Ziel von $spell:72295",
 	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
 }
@@ -286,7 +255,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("BPCouncil")
 
 L:SetGeneralLocalization{
-	name = "Der Rat des Blutes"
+	name = "Rat des Blutes"
 }
 
 L:SetWarningLocalization{
@@ -299,10 +268,9 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnTargetSwitch		= "Zeige Warnung für den Zielwechsel",-- Warn when another Prince needs to be damaged
-	WarnTargetSwitchSoon	= "Zeige Vorwarnung für den Zielwechsel",-- Every ~47 secs, you have to dps a different Prince
-	TimerTargetSwitch		= "Zeige Timer für Zielwechsel-Cooldown",
-	EmpoweredFlameIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72040),
+	WarnTargetSwitch		= "Zeige Warnung für Zielwechsel",-- Warn when another Prince needs to be damaged
+	WarnTargetSwitchSoon	= "Zeige Vorwarnung für Zielwechsel",-- Every ~47 secs, you have to dps a different Prince
+	TimerTargetSwitch		= "Zeige Zeit bis Zielwechsel",
 	ActivePrinceIcon		= "Setze Zeichen auf den machterfüllten Prinzen (Totenkopf)",
 	RangeFrame				= "Zeige Abstandsfenster (12 m)",
 	VortexArrow				= "Show DBM arrow when $spell:72037 is near you" --Needs Translating
@@ -326,9 +294,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnDarkFallen		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71340),
-	SwarmingShadowsIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(71266),
-	BloodMirrorIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70838),
 	RangeFrame				= "Zeige Abstandsfenster (8 m)"
 }
 
@@ -347,15 +312,15 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnCorrosion	= "%s auf >%s< (%s)",		-- Corrosion on >args.destName< (args.amount)
-	WarnPortalOpen	= "Portale offen"
+	WarnPortalOpen	= "Portale offen",
+	Suppressers		= "Suppressers" --Needs Translating
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portale offen",
-	TimerPortalsClose			= "Portals close", --Needs Translating
+	TimerPortalsClose			= "Portale geschlossen",
 	TimerBlazingSkeleton		= "Loderndes Skelett",
-	TimerAbom					= "Abomination",
+	TimerAbom					= "Nächste Monstrosität",
 	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
 	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
 	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
@@ -364,11 +329,11 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	SetIconOnBlazingSkeleton	= "Setze Zeichen auf Loderndes Skelett (Totenkopf)",
-	WarnPortalOpen				= "Zeige Warnung wenn Alptraumportale geöffnet sind",
-	TimerPortalsOpen			= "Zeige Timer wenn Alptraumportale geöffnet sind",
-	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
-	TimerBlazingSkeleton		= "Zeige Timer für nächstes Loderndes Skelett",
-	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)", --Needs Translating
+	WarnPortalOpen				= "Zeige Warnung, wenn Alptraumportale geöffnet sind",
+	TimerPortalsOpen			= "Zeige Zeit bis Alptraumportale geöffnet sind",
+	TimerPortalsClose			= "Zeige Zeit bis Alptraumportale geschlossen sind",
+	TimerBlazingSkeleton		= "Zeige Zeit bis nächstes Loderndes Skelett erscheint",
+	TimerAbom					= "Zeige Zeit bis nächste Gefräßige Monstrosität erscheint (experimentell)",
 	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
 	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
 	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
@@ -402,16 +367,14 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnAirphase				= "Kündige Luftphase an",
+	WarnAirphase				= "Verkünde Luftphase",
 	WarnGroundphaseSoon			= "Zeige Vorwarnung für Bodenphase",
-	TimerNextAirphase			= "Zeige Timer für nächste Luftphase",
-	TimerNextGroundphase		= "Zeige Timer für nächste Bodenphase",
-	AnnounceFrostBeaconIcons	= "Poste Zeichen für Ziele von $spell:70126 in Raidchat\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)",
-	SetIconOnFrostBeacon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(70126),
-	SetIconOnUnchainedMagic		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69762),
+	TimerNextAirphase			= "Zeige Zeit bis nächste Luftphase",
+	TimerNextGroundphase		= "Zeige Zeit bis nächste Bodenphase",
+	AnnounceFrostBeaconIcons	= "Verkünde Zeichen für Ziele von $spell:70126 im SZ-Chat (nur als Leiter)",
 	ClearIconsOnAirphase		= "Entferne alle Zeichen vor der Luftphase",
-	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)", --Needs Translating
-	RangeFrame					= "Zeige Abstandsfenster (10 m normal, 20 m heroisch)\n(zeigt nur Spieler mit Raidzeichen an)"
+	AchievementCheck			= "Verkünde Warnungen für den Erfolg 'Das Buffet ist eröffnet' an Schlachtzug (nur als Leiter/Assistent)",
+	RangeFrame					= "Zeige dynamisches Abstandsfenster (10 m/20 m) basierend auf zuletzt genutzten Bossfähigkeiten und Spieler-Debuffs"
 }
 
 L:SetMiscLocalization{
@@ -420,8 +383,8 @@ L:SetMiscLocalization{
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	BeaconIconSet		= "Frostleuchtfeuer-Zeichen {rt%d} auf %s gesetzt",
-	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet", --Needs Translating
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<" --Needs Translating
+	AchievementWarning	= "Warnung: %s hat 5 Stapel von Mystischer Puffer",
+	AchievementFailed	= ">> ERFOLG FEHLGESCHLAGEN: %s hat %d Stapel von Mystischer Puffer <<"
 }
 
 ---------------------
@@ -434,10 +397,10 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	ValkyrWarning			= ">%s< has been grabbed!", --Needs Translating
-	SpecWarnYouAreValkd		= "You have been grabbed", --Needs Translating
+	ValkyrWarning			= ">%s< wurde gegriffen!",
+	SpecWarnYouAreValkd		= "Du wurdest gegriffen",
 	WarnNecroticPlagueJump	= "Nekrotische Seuche auf >%s< gesprungen",
-	SpecWarnValkyrLow		= "Valkyr below 55%" --Needs Translating
+	SpecWarnValkyrLow		= "Schattenwächterin unter 55%%"
 }
 
 L:SetTimerLocalization{
@@ -447,21 +410,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	TimerRoleplay				= "Zeige Timer für Rollenspiel",
+	TimerRoleplay				= "Dauer des Rollenspiels (bei 10%) anzeigen",
 	WarnNecroticPlagueJump		= "Verkünde Sprungziele von $spell:73912",
-	TimerNecroticPlagueCleanse	= "Zeige Timer um Nekrotische Seuche vor dem ersten Tick zu reinigen",
-	PhaseTransition				= "Zeige Timer für Phasenübergänge",
-	ValkyrWarning				= "Announce who has been grabbed by Val'kyr Shadowguards", --Needs Translating
-	SpecWarnYouAreValkd			= "Show special warning when you have been grabbed by a Val'kyr Shadowguard",--npc36609 --Needs Translating
-	DefileIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(72762),
-	NecroticPlagueIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73912),
-	RagingSpiritIcon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(69200),
-	TrapIcon					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(73539),
-	HarvestSoulIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(74327),
+	TimerNecroticPlagueCleanse	= "Zeige Timer zum Reinigen von $spell:73912 vor dem ersten Tick",
+	PhaseTransition				= "Dauer der Phasenübergänge anzeigen",
+	ValkyrWarning				= "Verkünde Griffziele der Schattenwächterinnen der Val'kyr",
+	SpecWarnYouAreValkd			= "Spezialwarnung, wenn du von einer Schattenwächterin der Val'kyr gegriffen wurdest",--npc36609
 	TrapArrow					= "Zeige Pfeil wenn $spell:73539 in deiner Nähe ist",
-	AnnounceValkGrabs			= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",  --Needs Translating
-	SpecWarnValkyrLow			= "Show special warning when Valkyr is below 55% HP",  --Needs Translating
-	AnnouncePlagueStack			= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",  --Needs Translating
+	AnnounceValkGrabs			= "Verkünde Griffziele der Schattenwächterinnen der Val'kyr im SZ-Chat (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)",
+	SpecWarnValkyrLow			= "Spezialwarnung, wenn eine Schattenwächterin der Val'kyr unter 55% Lebenspunkte ist",
+	AnnouncePlagueStack			= "Verkünde $spell:70337 Stapel an den Schlachtzug (ab 10 Stapel, danach alle 5 Stapel) (nur als Leiter/Assistent)",
 	ShowFrame					= "Show Val'Kyr Targets frame", --Needs Translating
 	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame", --Needs Translating
 	FrameUpwards				= "Expand Val'Kyr target frame upwards", --Needs Translating
@@ -472,14 +430,14 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	LKPull					= "Der vielgerühmte Streiter des Lichts ist endlich hier? Soll ich Frostgram niederlegen und mich Eurer Gnade ausliefern, Fordring?",
 	LKRoleplay				= "Ist es wirklich Rechtschaffenheit, die Euch treibt? Ich bin mir nicht sicher…",
-	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s", -- Needs Translating
-	ValkGrabbed				= "Valkyr Shadowguard grabbed %s", -- Needs Translating
-	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague", -- Needs Translating
-	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<", -- Needs Translating
-	FrameTitle				= "Valkyr targets",
-	FrameLock				= "Frame Lock",
-	FrameClassColor			= "Use Class Colors",
-	FrameOrientation		= "Expand upwards",
-	FrameHide				= "Hide Frame",
-	FrameClose				= "Close"
+	ValkGrabbedIcon			= "Schattenwächterin der Val'kyr {rt%d} hat %s gegriffen",
+	ValkGrabbed				= "Schattenwächterin der Val'kyr hat %s gegriffen",
+	PlagueStackWarning		= "Warnung: %s hat %d Stapel von Nekrotischer Seuche",
+	AchievementCompleted	= ">> ERFOLG FERTIG: %s hat %d Stapel von Nekrotischer Seuche <<",
+	FrameTitle				= "Valkyr targets", --Needs Translating
+	FrameLock				= "Frame Lock", --Needs Translating
+	FrameClassColor			= "Use Class Colors", --Needs Translating
+	FrameOrientation		= "Expand upwards", --Needs Translating
+	FrameHide				= "Hide Frame", --Needs Translating
+	FrameClose				= "Close" --Needs Translating
 }
