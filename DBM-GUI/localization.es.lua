@@ -38,8 +38,8 @@ L.NoSound					= "Sin sonido"
 
 L.IconsInUse				= "Iconos usados por este módulo"
 
-L.Large						= "Pequeño"
-L.Small						= "Grande"
+L.Large						= "Grande"
+L.Small						= "Pequeño"
 
 -- Tab: Boss Statistics
 L.BossStatistics			= "Estadísticas"

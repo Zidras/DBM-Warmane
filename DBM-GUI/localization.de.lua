@@ -39,8 +39,8 @@ L.NoSound					= "Kein Sound"
 
 L.IconsInUse				= "Zeichennutzung des Mods"
 
-L.Large						= "Kleine"
-L.Small						= "Groß"
+L.Large						= "Groß"
+L.Small						= "Kleine"
 
 -- Tab: Boss Statistics
 L.BossStatistics			= "Boss Statistiken"
