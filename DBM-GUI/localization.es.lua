@@ -355,7 +355,7 @@ L.SpamBlockNoSpecWarnText	= "Ocultar avisos especiales pero sí reproducir sonid
 L.SpamBlockNoSpecWarnFlash	= "Desactivar destellos de avisos especiales"
 L.SpamBlockNoSpecWarnSound	= "Desactivar sonidos de avisos especiales (no afecta a los paquetes de voz)"
 L.SpamBlockRaidWarning		= "Filtrar anuncios de otros Boss Mods"
-L.SpamBlockBossWhispers		= "Filtrar los avisos de <DBM> mientras estas en combate"
+L.SpamBlockBossWhispers		= "Filtrar los avisos de DBM mientras estas en combate"
 
 L.Area_SpamFilter_Timers	= "Opciones de filtros globales de temporizadores"
 L.SpamBlockNoShowTimers		= "Ocultar temporizadores de módulos"
