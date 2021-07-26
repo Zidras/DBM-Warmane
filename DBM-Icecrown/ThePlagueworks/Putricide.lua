@@ -28,16 +28,20 @@ local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
 local warnPhase2					= mod:NewPhaseAnnounce(2, 2)
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2)
 local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
-local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Tank|Melee")
-local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Tank|Melee")		-- Phase 2 ability
+local warnVolatileExperiment		= mod:NewSpellAnnounce(72840, 4)		-- Phase transition heroic
+local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Melee")
+local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Phase 2 ability
 local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
 local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
 local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
-local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 1, 2)
-local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee|Tank", nil, nil, 1, 2)
-local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged|Healer", nil, nil, 2, 2)
+local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 4, 2)
+local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
+local yellMalleableGoo				= mod:NewYellMe(72295)
+local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
+local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
+local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
 local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2)		-- Heroic Ability
@@ -58,10 +62,10 @@ local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)
 local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
-local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged|Healer")
-local ttsMalleableSoon 				= mod:NewSoundSoon(72295, nil, "Ranged|Healer")
-local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Tank|Melee")
-local ttsChokingSoon 				= mod:NewSoundSoon(71255, nil, "Tank|Melee")
+local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
+local ttsMalleableSoon 				= mod:NewSoundSoon(72295, nil, "Ranged")
+local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
+local ttsChokingSoon 				= mod:NewSoundSoon(71255, nil, "Melee")
 local ttsSlimePuddle 				= mod:NewSound(70341)
 local ttsNextPhaseSoon 				= mod:NewSound("TTS NextPhaseSoon")
 
@@ -101,6 +105,45 @@ function mod:OnCombatStart(delay)
 	end
 end
 
+-- This does not work on Warmane - boss never swaps targets to throw malleable (last checked on 14/07/2021)
+--[[function mod:MalleableGooTarget(targetname, uId)
+	if not targetname then return end
+		if self.Options.MalleableGooIcon then
+			self:SetIcon(targetname, 6, 10)
+		end
+	if targetname == UnitName("player") then
+		specWarnMalleableGoo:Show()
+		specWarnMalleableGoo:Play("targetyou")
+		yellMalleableGoo:Yell()
+		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+	else
+		if uId then
+			local inRange = CheckInteractDistance(uId, 2)
+			if inRange then
+				specWarnMalleableGooNear:Show(targetname)
+				specWarnMalleableGooNear:Play("watchstep")
+				soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+			else
+				specWarnMalleableGooCast:Show()
+				specWarnMalleableGooCast:Play("watchstep")
+				soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+			end
+			if self.Options.GooArrow then
+				local x, y = GetPlayerMapPosition(uId)
+				if x == 0 and y == 0 then
+					SetMapToCurrentZone()
+					x, y = GetPlayerMapPosition(uId)
+				end
+				DBM.Arrow:ShowRunAway(x, y, 10, 5)
+			end
+		else
+			specWarnMalleableGooCast:Show()
+			specWarnMalleableGooCast:Play("watchstep")
+			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		end
+	end
+end]]
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(70351, 71966, 71967, 71968) then
 		warnUnstableExperimentSoon:Cancel()
@@ -109,6 +152,15 @@ function mod:SPELL_CAST_START(args)
 		warnUnstableExperimentSoon:Schedule(33)
 	elseif args.spellId == 71617 then				--Tear Gas (Normal phase2+3 change start)
 		warnTearGas:Show()
+		warnUnstableExperimentSoon:Cancel()
+		warnChokingGasBombSoon:Cancel()
+		timerUnstableExperimentCD:Cancel()
+		timerMalleableGooCD:Cancel()
+		timerSlimePuddleCD:Cancel()
+		timerChokingGasBombCD:Cancel()
+		timerUnboundPlagueCD:Cancel()
+	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin); Warmane does not have this event
+		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
@@ -158,7 +210,7 @@ function mod:NextPhase()
 		warnPhase2:Show()
 		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
 		timerUnstableExperimentCD:Start(69-(GetTime()-UnstableTime))
-		timerMalleableGooCD:Start(9.5)		
+		timerMalleableGooCD:Start(9.5)
 		ttsMalleableSoon:Schedule(9.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		timerChokingGasBombCD:Start(21)
 		ttsChokingSoon:Schedule(21-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
