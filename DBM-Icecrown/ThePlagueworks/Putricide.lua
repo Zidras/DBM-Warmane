@@ -30,7 +30,7 @@ local warnPhase3					= mod:NewPhaseAnnounce(3, 2)
 local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
 local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Tank|Melee")
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Tank|Melee")		-- Phase 2 ability
-local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|Hunter") -- Phase 3 ability
+local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
 local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
@@ -156,12 +156,15 @@ function mod:NextPhase()
 	self:SetStage(0)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
-			timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
-			timerUnstableExperimentCD:Start(69-(GetTime()-UnstableTime))
-			timerMalleableGooCD:Start(9.5)		
-			ttsMalleableSoon:Schedule(9.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			timerChokingGasBombCD:Start(21)
-			ttsChokingSoon:Schedule(21-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
+		timerUnstableExperimentCD:Start(69-(GetTime()-UnstableTime))
+		timerMalleableGooCD:Start(9.5)		
+		ttsMalleableSoon:Schedule(9.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		timerChokingGasBombCD:Start(21)
+		ttsChokingSoon:Schedule(21-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		if self:IsDifficulty("heroic10", "heroic25") then
+			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
+		end
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
@@ -171,7 +174,6 @@ function mod:NextPhase()
 		ttsChokingSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
-
 		end
 	end
 end
