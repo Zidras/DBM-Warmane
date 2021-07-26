@@ -314,19 +314,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen	= "Открытие порталов",
-	Suppressers		= "Подавители"
+	WarnPortalOpen	= "Открытие порталов"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen		= "Открытие порталов",
 	TimerPortalsClose		= "закрытие порталов", -- Needs review
 	TimerBlazingSkeleton	= "Исторгающий пламя скелет",
-	TimerAbom				= "След. поганище?",
-	TimerSuppresserOne			= "1 волна Подавителей",
-	TimerSuppresserTwo			= "2 волна Подавителей",
-	TimerSuppresserThree		= "3 волна Подавителей",
-	TimerSuppresserFour			= "4 волна Подавителей"
+	TimerAbom				= "След. поганище?"
 }
 
 L:SetOptionLocalization{
@@ -335,12 +330,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
 	TimerPortalsClose			= "Обратный отсчет до закрытия порталов", -- Needs review
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета",
-	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)",
-	Suppressers					= "Спец-предупреждение для появления Подавителей",
-	TimerSuppresserOne			= "1 волна Подавителей",
-	TimerSuppresserTwo			= "2 волна Подавителей",
-	TimerSuppresserThree		= "3 волна Подавителей",
-	TimerSuppresserFour			= "4 волна Подавителей"
+	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)"
 }
 
 L:SetMiscLocalization{

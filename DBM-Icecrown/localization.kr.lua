@@ -312,19 +312,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen	= "차원문 열림",
-	Suppressers		= "Suppressers"	--Needs Translating
+	WarnPortalOpen	= "차원문 열림"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "차원문 열림",
 	TimerPortalsClose			= "차원문 닫힘",
 	TimerBlazingSkeleton		= "다음 타오르는 해골",
-	TimerAbom					= "다음 누더기골렘",
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "다음 누더기골렘"
 }
 
 L:SetOptionLocalization{
@@ -333,12 +328,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "차원문 열림 바 보기",
 	TimerPortalsClose			= "차원문 닫힘 바 보기",
 	TimerBlazingSkeleton		= "다음 타오르는 해골 바 보기",
-	TimerAbom					= "다음 걸신들린 누더기골렘 바 보기(부정확할 수 있음)",
-	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "다음 걸신들린 누더기골렘 바 보기(부정확할 수 있음)"
 }
 
 L:SetMiscLocalization{

@@ -313,19 +313,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen	= "Portails actifs !",
-	Suppressers		= "Suppressers"	--Needs Translating
+	WarnPortalOpen	= "Portails actifs !"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "Arrivée des portails",
 	TimerPortalsClose			= "Portals close",
 	TimerBlazingSkeleton		= "Next Blazing Skeleton",
-	TimerAbom					= "Next Abomination",
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "Next Abomination"
 }
 
 L:SetOptionLocalization{
@@ -334,12 +329,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Montre une timer pour voir quand Valithria ouvre des portails.",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn", --Needs Translating
-	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)", --Needs Translating
-	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)" --Needs Translating
 }
 
 L:SetMiscLocalization{

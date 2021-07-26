@@ -342,19 +342,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen	= "Portals open",
-	Suppressers		= "Suppressers"
+	WarnPortalOpen	= "Portals open"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portals open",
 	TimerPortalsClose			= "Portals close",
 	TimerBlazingSkeleton		= "Next Blazing Skeleton",
-	TimerAbom					= "Next Abomination",
-	TimerSuppresserOne			= "1st wave of Suppressers",
-	TimerSuppresserTwo			= "2nd wave of Suppressers",
-	TimerSuppresserThree		= "3rd wave of Suppressers",
-	TimerSuppresserFour			= "4th wave of Suppressers"
+	TimerAbom					= "Next Abomination"
 }
 
 L:SetOptionLocalization{
@@ -363,12 +358,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Show timer when Nightmare Portals are opened up",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed",
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn",
-	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)",
-	Suppressers					= "Show special warning for new Suppressers",
-	TimerSuppresserOne			= "1st wave of Suppressers",
-	TimerSuppresserTwo			= "2nd wave of Suppressers",
-	TimerSuppresserThree		= "3rd wave of Suppressers",
-	TimerSuppresserFour			= "4th wave of Suppressers"
+	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)"
 }
 
 L:SetMiscLocalization{
