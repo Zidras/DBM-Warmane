@@ -23,13 +23,18 @@ local specWarnColdflame		= mod:NewSpecialWarningMove(69146, nil, nil, nil, 1, 2)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
 local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerWhirlwindCD		= mod:NewCDTimer(30, 69076, nil, nil, nil, 2, nil, DBM_CORE_L.MYTHIC_ICON, nil, 1) -- Edited
+local timerWhirlwindCD		= mod:NewCDTimer(30, 69076, nil, nil, nil, 2, nil, DBM_CORE_L.DAMAGE_ICON)
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
 local timerBoneSpikeUp		= mod:NewCastTimer(69057)
 local timerWhirlwindStart	= mod:NewCastTimer(69076)
 
-local berserkTimer			= mod:NewBerserkTimer(600)
+local soundBoneStormIn5 	= mod:NewSoundSoon(69076)
+local soundBoneSpike		= mod:NewSound(69057)
+local soundBoneStorm		= mod:NewSound(69076)
+local soundColdflame		= mod:NewSound(69146)
+
+local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("SetIconOnImpale", true)
 
@@ -37,6 +42,7 @@ mod.vb.impaleIcon	= 8
 
 function mod:OnCombatStart(delay)
 	preWarnWhirlwind:Schedule(43-delay) -- Edited
+	soundBoneStormIn5:Schedule(43-delay, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\BoneStormIn5.mp3")
 	timerWhirlwindCD:Start(48-delay) -- Edited
 	timerBoneSpike:Start(15-delay)
 	berserkTimer:Start(-delay)
@@ -46,11 +52,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69076 then						-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
-		preWarnWhirlwind:Schedule(80) -- Edited
 		if self:IsDifficulty("heroic10", "heroic25") then
-			timerWhirlwind:Show(30)						-- Approx 30seconds on heroic
+			timerWhirlwind:Show(37)			--36-38 on HC
 		else
-			timerWhirlwind:Show()						-- Approx 20seconds on normal.
+			timerWhirlwind:Show()			--30 on Norm
 			timerBoneSpike:Cancel()						-- He doesn't do Bone Spike Graveyard during Bone Storm on normal
 		end
 	end
@@ -64,6 +69,8 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 69076 then
 		timerWhirlwind:Cancel()
 		timerWhirlwindCD:Start()
+		preWarnWhirlwind:Schedule(25)
+		soundBoneStormIn5:Schedule(25, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\BoneStormIn5.mp3")
 		if self:IsDifficulty("normal10", "normal25") then
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
@@ -75,9 +82,11 @@ function mod:SPELL_CAST_START(args)
 		warnBoneSpike:Show()
 		timerBoneSpike:Start()
 		timerBoneSpikeUp:Start()
+		soundBoneSpike:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\Bone_Spike_cast.mp3")
 	elseif args.spellId == 69076 then
 		timerWhirlwindCD:Cancel()
 		timerWhirlwindStart:Start()
+		soundBoneStorm:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\Bone_Storm_cast.mp3")
 	end
 end
 
@@ -85,6 +94,7 @@ function mod:SPELL_PERIODIC_DAMAGE(args)
 	if args:IsSpellID(69146, 70823, 70824, 70825) and args:IsPlayer() and self:AntiSpam() then		-- Coldflame, MOVE!
 		specWarnColdflame:Show()
 		specWarnColdflame:Play("runaway")
+		soundColdflame:Play("Interface\\AddOns\\DBM-Core\\sounds\\gtfo.mp3")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -105,4 +115,4 @@ end
 
 function mod:OnCombatEnd(wipe)
 	DBM.BossHealth:Clear()
-end
+end 
