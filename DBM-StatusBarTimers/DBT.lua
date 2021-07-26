@@ -1229,7 +1229,7 @@ do
 	local function moveEnd(self)
 		updateClickThrough(self, self:GetOption("ClickThrough"))
 		self.movable = false
---		DBM.InfoFrame:Hide()
+		DBM.InfoFrame:Hide()
 		DBM.RangeCheck:Hide(true)
 	end
 
