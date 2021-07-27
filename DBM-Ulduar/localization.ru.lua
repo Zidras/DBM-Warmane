@@ -537,4 +537,3 @@ L:SetOptionLocalization{
 	SetIconOnBrainLinkTarget		= "Устанавливать метки на цели заклинания $spell:63802",
 	MaladyArrow						= "Показывать стрелку, когда $spell:63881 около вас"
 }
-
