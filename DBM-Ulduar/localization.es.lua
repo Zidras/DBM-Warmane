@@ -94,8 +94,7 @@ L:SetMiscLocalization{
 	YellAir				= "Danos un momento para que nos preparemos para construir las torretas.",
 	YellAir2			= "Listos para salir, ¡impedid que esos enanos se peguen a nuestra espalda!!",
 	YellGround			= "¡Moveros! ¡No seguira mucho mas en el suelo!",
-	EmotePhase2			= "¡%%s ha aterrizado permanentemente!",
-	FlamecastUnknown	= DBM_CORE_UNKNOWN
+	EmotePhase2			= "¡%%s ha aterrizado permanentemente!"
 }
 
 ----------------------------

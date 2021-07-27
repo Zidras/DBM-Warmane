@@ -94,8 +94,7 @@ L:SetMiscLocalization{
 	YellAir				= "저희에게 잠깐 포탑을 설치할 시간을 주세요.",
 	YellAir2			= "불꽃이 꺼졌습니다! 포탑을 재설치합시다!",
 	YellGround			= "움직이세요! 오래 붙잡아둘 순 없을 겁니다!",
-	EmotePhase2			= "완전히 땅에 내려앉았습니다!",
-	FlamecastUnknown	= DBM_CORE_UNKNOWN
+	EmotePhase2			= "완전히 땅에 내려앉았습니다!"
 }
 
 ----------------------------
