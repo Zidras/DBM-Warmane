@@ -66,7 +66,7 @@ L:SetWarningLocalization{
 	warnTurretsReadySoon		= "Quatrième tourelle à harpon prête dans 20 Sec",
 	warnTurretsReady			= "Quatrième tourelle à harpon prête",
 	SpecWarnDevouringFlameCast	= "Flamme dévorante sur Vous",
-	WarnDevouringFlameCast		= "Flamme dévorante sur >%s<" 
+	WarnDevouringFlameCast		= "Flamme dévorante sur >%s<"
 }
 
 L:SetTimerLocalization{
