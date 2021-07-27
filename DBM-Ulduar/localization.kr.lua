@@ -200,7 +200,7 @@ L:SetMiscLocalization{
 	Emote_CollapsingStar	= "붕괴의 별을 시전 합니다!",
 	Phase2					= "창조의 도구를 바라보아라!",
 	CollapsingStar			= "Collapsing Star",
-	PullCheck				= "(%d+)분 후에 알갈론이 신호 전송을 시작합니다."	
+	PullCheck				= "(%d+)분 후에 알갈론이 신호 전송을 시작합니다."
 }
 
 ----------------
@@ -218,7 +218,7 @@ L:SetWarningLocalization{
 L:SetTimerLocalization{
 	timerLeftArm		= "왼쪽 팔 재생성",
 	timerRightArm		= "오른쪽 팔 재생성",
-	achievementDisarmed	= "무장해제 업적"	
+	achievementDisarmed	= "무장해제 업적"
 }
 
 L:SetOptionLocalization{
@@ -475,7 +475,7 @@ L:SetOptionLocalization{
 	YellOnShadowCrash				= "어둠 붕괴일 때 외치기",
 	hardmodeSpawn					= "사로나이드 원혼 생성 타이머 보기(하드모드)",
 	CrashArrow						= "$spell:62660의 방향을 DBM Arrow로 표시하기(당신 주변일 경우)",
-	BypassLatencyCheck				= "$spell:62660의 동기화를 사용하지 않거나 네트워크 체크를 하지 않습니다.\n(만약 DBM 사용에 문제가 생기면 사용하세요.)",	
+	BypassLatencyCheck				= "$spell:62660의 동기화를 사용하지 않거나 네트워크 체크를 하지 않습니다.\n(만약 DBM 사용에 문제가 생기면 사용하세요.)",
 }
 
 L:SetMiscLocalization{
@@ -535,5 +535,5 @@ L:SetOptionLocalization{
 	ShowSaraHealth					= "사라 체력 보기(공대원 중 사라 대상/주시 일 경우)",
 	SpecWarnMaladyNear				= "병든 정신이 걸린 플레이어가 근처에 있을 경우 특수 경고 알리기(병든 정신 종료 후)",
 	SetIconOnBrainLinkTarget		= "두뇌 연결 대상 공격대 아이콘 설정",
-	MaladyArrow						= "$spell:63881 걸린 공대원이 주변에 있을 경우 화살표 보기"	
+	MaladyArrow						= "$spell:63881 걸린 공대원이 주변에 있을 경우 화살표 보기"
 }
