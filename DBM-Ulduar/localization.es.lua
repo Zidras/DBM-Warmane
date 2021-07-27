@@ -66,7 +66,7 @@ L:SetWarningLocalization{
 	warnTurretsReadySoon		= "La torreta estara lista en 20 segundos",
 	warnTurretsReady			= "La torreta esta LISTA",
 	SpecWarnDevouringFlameCast	= "Llava devoradora en Ti",
-	WarnDevouringFlameCast		= "Llama devoradora en >%s<" 
+	WarnDevouringFlameCast		= "Llama devoradora en >%s<"
 }
 
 L:SetTimerLocalization{
@@ -328,7 +328,7 @@ L:SetMiscLocalization{
 	YellPhase2	= "Gusanos impertinentes, ¿cómo osáis desafiarme en mi pedestal? ¡Os machacaré con mis propias manos!",
 	YellKill	= "¡Guardad las armas! ¡Me rindo!",
 	ChargeOn	= "Cargar relámpago: %s",
-	Charge		= "Fallos de Cargar relámpago (este try): %s" 
+	Charge		= "Fallos de Cargar relámpago (este try): %s"
 }
 
 -------------
