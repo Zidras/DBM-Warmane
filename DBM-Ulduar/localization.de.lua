@@ -66,7 +66,7 @@ L:SetWarningLocalization{
 	warnTurretsReadySoon		= "letzer Turm bereit in 20 Sek",
 	warnTurretsReady			= "letzer Turm bereit",
 	SpecWarnDevouringFlameCast	= "Verschlingende Flamme auf dir",
-	WarnDevouringFlameCast		= "Verschlingende Flamme auf >%s<" 
+	WarnDevouringFlameCast		= "Verschlingende Flamme auf >%s<"
 }
 
 L:SetTimerLocalization{
@@ -93,7 +93,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	YellAir				= "Gebt uns einen Moment, damit wir uns auf den Bau der Geschütze vorbereiten können.",
 	YellAir2			= "Feuer einstellen! Lasst uns diese Geschütze reparieren!",
-	YellGround			= "Beeilt Euch! Sie wird nicht lange am Boden bleiben!", 
+	YellGround			= "Beeilt Euch! Sie wird nicht lange am Boden bleiben!",
 	EmotePhase2			= "%%s grounded permanently!",
 	FlamecastUnknown	= DBM_CORE_UNKNOWN
 }
@@ -232,7 +232,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "Das ist nur ein Kratzer!",	
+	Yell_Trigger_arm_left	= "Das ist nur ein Kratzer!",
 	Yell_Trigger_arm_right	= "Ist nur 'ne Fleischwunde!",
 	YellEncounterStart		= "None shall pass!", --Needs Translating
 	YellLeftArmDies			= "Just a scratch!", --Needs Translating
@@ -297,7 +297,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellKill	= "Ich... bin von ihm befreit... endlich.", 
+	YellKill	= "Ich... bin von ihm befreit... endlich.",
 	YellCloud	= "Sturmwolke auf mir!"
 }
 
