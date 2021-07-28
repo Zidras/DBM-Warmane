@@ -31,6 +31,7 @@ local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, "SpellCaster", 
 
 local specWarnUnchainedMagic	= mod:NewSpecialWarningYou(69762, nil, nil, nil, 1, 2)
 local specWarnFrostBeacon		= mod:NewSpecialWarningMoveAway(70126, nil, nil, nil, 3, 2)
+local specWarnFrostBeaconSide	= mod:NewSpecialWarningMoveTo(70126, nil, nil, nil, 3, 2)
 local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, 4, nil, nil, 1, 6)
 local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, 4, nil, nil, 1, 6)
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5, nil, nil, 1, 6)
@@ -71,6 +72,9 @@ local p2_beacon_num = 1
 local playerUnchained = false
 local playerBeaconed = false
 local beaconDebuff, unchainedDebuff = DBM:GetSpellInfo(70126), DBM:GetSpellInfo(69762)
+
+local DirectionAssignments		= {DBM_CORE_L.LEFT, DBM_CORE_L.MIDDLE, DBM_CORE_L.RIGHT}
+local DirectionVoiceAssignments	= {"left", "center", "right"}
 
 local function ClearBeaconTargets(self)
 	table.wipe(beaconIconTargets)
@@ -139,6 +143,26 @@ local function warnUnchainedTargets(self)
 	playerUnchained = false
 end
 
+local function directionBeaconTargets(self, index)
+	local directionIndex
+	if index then
+		if (self:IsDifficulty("normal25") and #beaconTargets >= 5) then
+			if (index == 1 or index == 2) then directionIndex = 1		--LEFT
+			elseif (index == 3) then directionIndex = 2					--CENTER
+			else directionIndex = 3 end									--RIGHT
+		elseif (self:IsDifficulty("heroic25") and #beaconTargets >= 6) then
+			if (index == 1 or index == 2) then directionIndex = 1		--LEFT
+			elseif (index == 3 or index == 4) then directionIndex = 2	--CENTER
+			else directionIndex = 3 end									--RIGHT
+		elseif (self:IsDifficulty("normal10", "heroic10") and #beaconTargets >= 2) then
+			if index == 1 then directionIndex = 1						--LEFT
+			else directionIndex = 3 end									--RIGHT
+		end
+		specWarnFrostBeaconSide:Show(DirectionAssignments[directionIndex])
+		specWarnFrostBeaconSide:Play(DirectionVoiceAssignments[directionIndex] or "scatter")
+	end
+end
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
@@ -175,7 +199,17 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			playerBeaconed = true
 			specWarnFrostBeacon:Show()
-			specWarnFrostBeacon:Play("scatter")
+			-- Beacon Direction snippet
+			if self.vb.phase == 1 then
+				for i = 1, #beaconTargets do
+					local targetName = beaconTargets[i]
+					if targetName == DBM:GetMyPlayerInfo() then
+						directionBeaconTargets(self, i)
+					end
+				end
+			else
+				specWarnFrostBeacon:Play("scatter")
+			end
 		end
 		if self.vb.phase == 1 and self.Options.SetIconOnFrostBeacon then
 			table.insert(beaconIconTargets, DBM:GetRaidUnitId(args.destName))
@@ -199,7 +233,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		self:Unschedule(warnBeaconTargets)
-		if self.vb.phase == 2 or (self:IsDifficulty("normal25") and #beaconTargets >= 5) or (self:IsDifficulty("heroic25") and #beaconTargets >= 6) or (self:IsDifficulty("normal10", "heroic10") and #beaconIconTargets >= 2) then
+		if self.vb.phase == 2 or (self:IsDifficulty("normal25") and #beaconTargets >= 5) or (self:IsDifficulty("heroic25") and #beaconTargets >= 6) or (self:IsDifficulty("normal10", "heroic10") and #beaconTargets >= 2) then
 			warnBeaconTargets(self)
 		else
 			self:Schedule(0.3, warnBeaconTargets, self)
