@@ -67,10 +67,10 @@ local ttsMalleableSoon 				= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
 local ttsChokingSoon 				= mod:NewSoundSoon(71255, nil, "Melee")
 local ttsSlimePuddle 				= mod:NewSound(70341)
-local ttsNextPhaseSoon 				= mod:NewSound("TTS NextPhaseSoon")
 
 local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(480) or mod:NewBerserkTimer(600)
 
+mod:AddBoolOption("NextPhaseSoon", true)
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")
 mod:AddBoolOption("MalleableGooIcon")
@@ -381,10 +381,14 @@ function mod:UNIT_HEALTH(uId)
 	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
-		ttsNextPhaseSoon:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\NextPhaseSoon.mp3")
+		if self.Options.NextPhaseSoon then
+			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\NextPhaseSoon.mp3")
+		end
 	elseif self.vb.phase == 2 and not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
-		ttsNextPhaseSoon:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\NextPhaseSoon.mp3")
+		if self.Options.NextPhaseSoon then
+			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\NextPhaseSoon.mp3")
+		end
 	end
 end
