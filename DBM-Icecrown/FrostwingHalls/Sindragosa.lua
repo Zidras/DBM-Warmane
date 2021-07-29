@@ -200,7 +200,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			playerBeaconed = true
 			specWarnFrostBeacon:Show()
 			-- Beacon Direction snippet
-			if self.vb.phase == 1 then
+			if self.vb.phase == 1 and self.Options.SpecWarn70126moveto then
 				for i = 1, #beaconTargets do
 					local targetName = beaconTargets[i]
 					if targetName == DBM:GetMyPlayerInfo() then
