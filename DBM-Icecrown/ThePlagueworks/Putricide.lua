@@ -80,7 +80,6 @@ mod:AddBoolOption("GooArrow")
 local PuddleTime = 0
 local GooTime = 0
 local ChokingTime = 0
-local UnstableTime = 0
 local UnboundTime = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
@@ -95,13 +94,12 @@ function mod:OnCombatStart(delay)
 	local PuddleTime = 0
 	local GooTime = 0
 	local ChokingTime = 0
-	local UnstableTime = 0
 	local UnboundTime = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self.vb.chokingTimeRemaining = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerUnboundPlagueCD:Start(10-delay)
+		timerUnboundPlagueCD:Start(20-delay)
 	end
 end
 
@@ -150,15 +148,8 @@ function mod:SPELL_CAST_START(args)
 		warnUnstableExperiment:Show()
 		timerUnstableExperimentCD:Start()
 		warnUnstableExperimentSoon:Schedule(33)
-	elseif args.spellId == 71617 then				--Tear Gas (Normal phase2+3 change start)
+	elseif args.spellId == 71617 then				--Tear Gas (stun all on Normal phase)
 		warnTearGas:Show()
-		warnUnstableExperimentSoon:Cancel()
-		warnChokingGasBombSoon:Cancel()
-		timerUnstableExperimentCD:Cancel()
-		timerMalleableGooCD:Cancel()
-		timerSlimePuddleCD:Cancel()
-		timerChokingGasBombCD:Cancel()
-		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin); Warmane does not have this event
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
@@ -168,38 +159,52 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (Heroic phase2 change)
+	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (phase2 change)
+		warnUnstableExperimentSoon:Cancel()
+		timerUnstableExperimentCD:Cancel()
+		timerSlimePuddleCD:Cancel()
+		timerUnboundPlagueCD:Cancel()
+		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
+		timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 		if self:IsDifficulty("heroic10", "heroic25") then
-			self:ScheduleMethod(36, "NextPhase")
+			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
 			timerPotions:Start()
-			warnUnstableExperimentSoon:Cancel()
-			timerUnstableExperimentCD:Cancel()
-			timerSlimePuddleCD:Cancel()
-			timerUnboundPlagueCD:Cancel()
+			timerMalleableGooCD:Start(45.5)
+			ttsMalleableSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			timerChokingGasBombCD:Start(57)
+			ttsChokingSoon:Schedule(57-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
+		else
+			timerTearGas:Start(9.5)
+			timerMalleableGooCD:Start(19)
+			ttsMalleableSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			timerChokingGasBombCD:Start(30.5)
+			ttsChokingSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		end
-	elseif args:IsSpellID(73121, 73122) then		--Guzzle Potions (Heroic phase3 change)
+	elseif args:IsSpellID(73121, 73122) then		--Guzzle Potions (phase3 change)
+		timerUnstableExperimentCD:Cancel()
+		warnUnstableExperimentSoon:Cancel()
+		ttsMalleableSoon:Cancel()
+		ttsChokingSoon:Cancel()
+		timerMalleableGooCD:Cancel()
+		timerSlimePuddleCD:Cancel()
+		timerChokingGasBombCD:Cancel()
+		timerUnboundPlagueCD:Cancel()
+		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
+		timerMalleableGooCD:Start(50-(GetTime()-GooTime))
+		ttsMalleableSoon:Schedule((50-(GetTime()-GooTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		timerChokingGasBombCD:Start(66-(GetTime()-ChokingTime))
+		ttsChokingSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		if self:IsDifficulty("heroic10") then
-			self:ScheduleMethod(36, "NextPhase")
+			self:ScheduleMethod(38, "NextPhase")	--after 8s PP sets target
 			timerPotions:Start()
-			timerUnstableExperimentCD:Cancel()
-			ttsMalleableSoon:Cancel()
-			ttsChokingSoon:Cancel()
-			warnUnstableExperimentSoon:Cancel()
-			timerMalleableGooCD:Cancel()
-			timerSlimePuddleCD:Cancel()
-			timerChokingGasBombCD:Cancel()
-			timerUnboundPlagueCD:Cancel()
+			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
 		elseif mod:IsDifficulty("heroic25") then
-			self:ScheduleMethod(26, "NextPhase")
+			self:ScheduleMethod(28, "NextPhase")
 			timerPotions:Start(20)
-			timerUnstableExperimentCD:Cancel()
-			ttsMalleableSoon:Cancel()
-			ttsChokingSoon:Cancel()
-			warnUnstableExperimentSoon:Cancel()
-			timerMalleableGooCD:Cancel()
-			timerSlimePuddleCD:Cancel()
-			timerChokingGasBombCD:Cancel()
-			timerUnboundPlagueCD:Cancel()
+			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
+		else
+			timerTearGas:Start(12.5)
 		end
 	end
 end
@@ -208,25 +213,8 @@ function mod:NextPhase()
 	self:SetStage(0)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
-		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
-		timerUnstableExperimentCD:Start(69-(GetTime()-UnstableTime))
-		timerMalleableGooCD:Start(9.5)
-		ttsMalleableSoon:Schedule(9.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		timerChokingGasBombCD:Start(21)
-		ttsChokingSoon:Schedule(21-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-		if self:IsDifficulty("heroic10", "heroic25") then
-			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
-		end
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
-		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
-		timerMalleableGooCD:Start(50-(GetTime()-GooTime))
-		ttsMalleableSoon:Schedule((50-(GetTime()-GooTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		timerChokingGasBombCD:Start(66-(GetTime()-ChokingTime))
-		ttsChokingSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-		if self:IsDifficulty("heroic10", "heroic25") then
-			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
-		end
 	end
 end
 
@@ -286,7 +274,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 7, 20)
 		end
 	elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
-		timerTearGas:Start()
 	elseif args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
