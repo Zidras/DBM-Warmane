@@ -30,7 +30,7 @@ local timerBoned			= mod:NewAchievementTimer(8, 4610)
 local timerBoneSpikeUp		= mod:NewCastTimer(69057)
 local timerWhirlwindStart	= mod:NewCastTimer(69076)
 
-local berserkTimer			= mod:NewBerserkTimer(600)
+local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("SetIconOnImpale", true)
 

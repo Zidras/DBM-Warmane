@@ -65,7 +65,7 @@ local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295)
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255)
 
-local berserkTimer					= mod:NewBerserkTimer(600)
+local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(480) or mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")

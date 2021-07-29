@@ -44,7 +44,7 @@ local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
-local berserkTimer					= mod:NewBerserkTimer(600)
+local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(420) or mod:NewBerserkTimer(600)
 
 local soundWarnSpirit				= mod:NewSound(71426)
 
