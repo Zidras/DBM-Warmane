@@ -244,7 +244,12 @@ L:SetGeneralLocalization{
 	name = "普崔希德教授"
 }
 
+L:SetTimerLocalization{
+	NextPhaseStart				= "結束過渡階段"
+}
+
 L:SetOptionLocalization{
+	NextPhaseStart				= "顯示過渡階段結束計時器",
 	NextPhaseSoon				= "以 83% 和 37% 播放聲音 - Next Phase Soon",
 	MalleableGooIcon			= "為第一個中$spell:72295的目標設置標記",
 	GooArrow					= "當你附近的人中了$spell:72295時顯示DBM箭頭"

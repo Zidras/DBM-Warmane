@@ -244,7 +244,12 @@ L:SetGeneralLocalization{
 	name = "교수 퓨트리사이드"
 }
 
+L:SetTimerLocalization{
+	NextPhaseStart				= "전환 단계 종료"
+}
+
 L:SetOptionLocalization{
+	NextPhaseStart				= "전환 단계 종료 타이머 표시",
 	NextPhaseSoon				= "83 %와 37 %에서 사운드를 재생 - Next Phase Soon",
 	MalleableGooIcon			= "$spell:72295 대상에게 전술 목표 아이콘 설정",
 	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating

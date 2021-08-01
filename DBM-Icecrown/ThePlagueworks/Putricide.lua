@@ -37,9 +37,9 @@ local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, ni
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
 local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
 local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 4, 2)
-local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
-local yellMalleableGoo				= mod:NewYellMe(72295)
-local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
+--local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
+--local yellMalleableGoo				= mod:NewYellMe(72295)
+--local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
 local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
@@ -52,14 +52,15 @@ local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DB
 local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1, nil, DBM_CORE_L.DEADLY_ICON)			-- Used every 38 seconds exactly except after phase changes
 local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
 local timerMalleableGooCD			= mod:NewCDTimer(20, 72295, nil, nil, nil, 3)
-local timerTearGas					= mod:NewBuffFadesTimer(16, 71615, nil, nil, nil, 6)
-local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
-local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)				-- 10 to 11
+--local timerTearGas					= mod:NewBuffFadesTimer(16, 71615, nil, nil, nil, 6)
+--local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
+local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_CORE_L.TANK_ICON)				-- 10 to 11
 local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_CORE_L.HEROIC_ICON)
 local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
+local timerNextPhase				= mod:NewTimer(30, "NextPhaseStart")
 
 -- buffs from "Drink Me"
-local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+--local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
@@ -70,12 +71,12 @@ local ttsSlimePuddle 				= mod:NewSound(70341)
 
 local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(480) or mod:NewBerserkTimer(600)
 
-mod:AddBoolOption("NextPhaseSoon", true)
+mod:AddBoolOption("NextPhaseSoon")
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")
 mod:AddBoolOption("MalleableGooIcon")
 mod:AddBoolOption("UnboundPlagueIcon")
-mod:AddBoolOption("GooArrow")
+--mod:AddBoolOption("GooArrow")
 
 local PuddleTime = 0
 local GooTime = 0
@@ -83,7 +84,6 @@ local ChokingTime = 0
 local UnboundTime = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-mod.vb.chokingTimeRemaining = 0
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
@@ -97,7 +97,6 @@ function mod:OnCombatStart(delay)
 	local UnboundTime = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
-	self.vb.chokingTimeRemaining = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerUnboundPlagueCD:Start(20-delay)
 	end
@@ -159,7 +158,7 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (phase2 change)
+	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerSlimePuddleCD:Cancel()
@@ -168,22 +167,25 @@ function mod:SPELL_CAST_START(args)
 		timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 		if self:IsDifficulty("heroic10", "heroic25") then
 			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
-			timerPotions:Start()
+			timerNextPhase:Start(35)
 			timerMalleableGooCD:Start(45.5)
 			ttsMalleableSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(57)
 			ttsChokingSoon:Schedule(57-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(57-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
-			timerTearGas:Start(9.5)
+			timerNextPhase:Start(9.5)
 			timerMalleableGooCD:Start(19)
 			ttsMalleableSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(30.5)
 			ttsChokingSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(30.5-5)
 		end
-	elseif args:IsSpellID(73121, 73122) then		--Guzzle Potions (phase3 change)
+	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		timerUnstableExperimentCD:Cancel()
 		warnUnstableExperimentSoon:Cancel()
+		warnChokingGasBombSoon:Cancel()
 		ttsMalleableSoon:Cancel()
 		ttsChokingSoon:Cancel()
 		timerMalleableGooCD:Cancel()
@@ -195,16 +197,17 @@ function mod:SPELL_CAST_START(args)
 		ttsMalleableSoon:Schedule((50-(GetTime()-GooTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		timerChokingGasBombCD:Start(66-(GetTime()-ChokingTime))
 		ttsChokingSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		warnChokingGasBombSoon:Schedule((66-(GetTime()-ChokingTime))-5)
 		if self:IsDifficulty("heroic10") then
 			self:ScheduleMethod(38, "NextPhase")	--after 8s PP sets target
-			timerPotions:Start()
+			timerNextPhase:Start(38)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
 		elseif mod:IsDifficulty("heroic25") then
 			self:ScheduleMethod(28, "NextPhase")
-			timerPotions:Start(20)
+			timerNextPhase:Start(28)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
 		else
-			timerTearGas:Start(12.5)
+			timerNextPhase:Start(12.5)
 		end
 	end
 end
@@ -239,7 +242,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
 		--self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
 		specWarnMalleableGooCast:Show()
-		specWarnMalleableGooCast:Play("watchstep")
+		--specWarnMalleableGooCast:Play("watchstep")
 		timerMalleableGooCD:Start()
 		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 		ttsMalleableSoon:Cancel()
@@ -308,16 +311,16 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
-	elseif args.spellId == 70542 then
-		timerMutatedSlash:Show(args.destName)
+	--elseif args.spellId == 70542 then
+	--	timerMutatedSlash:Show(args.destName)
 	end
 end
 
 function mod:SPELL_AURA_REFRESH(args)
 	if args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Show(args.destName)
-	elseif args.spellId == 70542 then
-		timerMutatedSlash:Show(args.destName)
+	--elseif args.spellId == 70542 then
+	--	timerMutatedSlash:Show(args.destName)
 	end
 end
 
@@ -340,8 +343,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:NextPhase()
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
-	elseif args.spellId == 70542 then
-		timerMutatedSlash:Cancel(args.destName)
+	--elseif args.spellId == 70542 then
+	--	timerMutatedSlash:Cancel(args.destName)
 	end
 end
 
