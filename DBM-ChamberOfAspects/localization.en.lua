@@ -113,7 +113,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RangeFrame				= "Show range frame (10 yards)",
-	BeaconIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74453)
+	beaconIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74453)
 })
 
 --------------------------
