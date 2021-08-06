@@ -60,7 +60,7 @@ local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)
 local timerNextPhase				= mod:NewTimer(30, "NextPhaseStart")
 
 -- buffs from "Drink Me"
---local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, false, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
@@ -164,10 +164,10 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
-		timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 		if self:IsDifficulty("heroic10", "heroic25") then
 			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
 			timerNextPhase:Start(35)
+			timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 			timerMalleableGooCD:Start(45.5)
 			ttsMalleableSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(57)
@@ -175,6 +175,11 @@ function mod:SPELL_CAST_START(args)
 			warnChokingGasBombSoon:Schedule(57-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
+			if (GetTime()-PuddleTime) > 35 then
+				timerUnstableExperimentCD:Start(90-(GetTime()-PuddleTime))
+			else
+				timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
+			end
 			timerNextPhase:Start(9.5)
 			timerMalleableGooCD:Start(19)
 			ttsMalleableSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
@@ -311,16 +316,16 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
-	--elseif args.spellId == 70542 then
-	--	timerMutatedSlash:Show(args.destName)
+	elseif args.spellId == 70542 then
+		timerMutatedSlash:Show(args.destName)
 	end
 end
 
 function mod:SPELL_AURA_REFRESH(args)
 	if args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Show(args.destName)
-	--elseif args.spellId == 70542 then
-	--	timerMutatedSlash:Show(args.destName)
+	elseif args.spellId == 70542 then
+		timerMutatedSlash:Show(args.destName)
 	end
 end
 
@@ -343,8 +348,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:NextPhase()
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
-	--elseif args.spellId == 70542 then
-	--	timerMutatedSlash:Cancel(args.destName)
+	elseif args.spellId == 70542 then
+		timerMutatedSlash:Cancel(args.destName)
 	end
 end
 
