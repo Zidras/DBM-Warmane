@@ -186,7 +186,7 @@ L.PIZZA_ERROR_USAGE				= "Benutzung: /dbm [broadcast] timer <Sekunden> <Text>. <
 --L.MINIMAP_TOOLTIP_HEADER
 L.MINIMAP_TOOLTIP_FOOTER		= "Shift gedrückt halten und Ziehen zum Bewegen"
 
-L.RANGECHECK_HEADER			= "Abstandscheck (%dm)"
+L.RANGECHECK_HEADER			= "Abstandscheck (%d m)"
 L.RANGECHECK_SETRANGE		= "Abstand einstellen"
 L.RANGECHECK_SETTHRESHOLD	= "Spielerschwellwert"
 L.RANGECHECK_SOUNDS			= "Sounds"
@@ -200,9 +200,9 @@ L.RANGECHECK_OPTION_FRAMES	= "Fenster"
 L.RANGECHECK_OPTION_RADAR	= "Zeige Radarfenster"
 L.RANGECHECK_OPTION_TEXT		= "Zeige Textfenster"
 L.RANGECHECK_OPTION_BOTH		= "Zeige beide Fenster"
-L.RANGERADAR_HEADER			= "Abstand:%dm Spieler:%d"
-L.RANGERADAR_IN_RANGE_TEXT	= "%d in Reichweite (%0.1fm)"
-L.RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1fm)"
+L.RANGERADAR_HEADER			= "Reichweite Radar (%d m)"
+L.RANGERADAR_IN_RANGE_TEXT	= "%d in Reichweite (%0.1f m)"
+L.RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1f m)"
 
 L.INFOFRAME_SHOW_SELF		= "Eigene Stärke immer anzeigen" -- Always show your own power value even if you are below the threshold
 L.INFOFRAME_SETLINES			= "Setze maximale Zeilenanzahl"
@@ -287,7 +287,7 @@ L.TIMER_BREAK				= "Pause!"
 L.ANNOUNCE_BREAK_OVER		= "Pause ist vorbei (seit %s Uhr)"
 
 L.TIMER_PULL					= "Pull in"
-L.ANNOUNCE_PULL				= "Pull in %d Sekunden. (gesendet von: %s)"
+L.ANNOUNCE_PULL				= "Pull in %d Sekunden."
 L.ANNOUNCE_PULL_NOW			= "Pull jetzt!"
 L.ANNOUNCE_PULL_TARGET		= "Pulle %s in %d Sekunden. (gesendet von: %s)"
 L.ANNOUNCE_PULL_NOW_TARGET	= "Pulle %s jetzt!"

@@ -219,7 +219,7 @@ L.RANGECHECK_OPTION_FRAMES	= "Marcos"
 L.RANGECHECK_OPTION_RADAR	= "Mostrar marco de radar"
 L.RANGECHECK_OPTION_TEXT		= "Mostrar marco de texto"
 L.RANGECHECK_OPTION_BOTH		= "Mostrar ambos"
-L.RANGERADAR_HEADER			= "Distancia: %d / Jugadores: %d"
+L.RANGERADAR_HEADER			= "Radar de distancia (%d m)"
 L.RANGERADAR_RHEADER			= "Distancia inversa: %d / Jugadores: %d"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d a distancia (%0.1fm)"--Multi
 L.RANGECHECK_IN_RANGE_TEXT	= "%d a distancia"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways
@@ -321,7 +321,7 @@ L.TIMER_BREAK				= "¡Toca descanso!"
 L.ANNOUNCE_BREAK_OVER		= "El descanso ha terminado."
 
 L.TIMER_PULL					= "Iniciando en"
-L.ANNOUNCE_PULL				= "Iniciando en %d s (iniciado por %s)"
+L.ANNOUNCE_PULL				= "Iniciando en %d s"
 L.ANNOUNCE_PULL_NOW			= "¡Iniciad ahora!"
 L.ANNOUNCE_PULL_TARGET		= "Llamando a %s en %d s (iniciado por %s)"
 L.ANNOUNCE_PULL_NOW_TARGET	= "¡Llamando a %s!"

@@ -174,8 +174,8 @@ L.RANGECHECK_OPTION_SLOW			= "Slow (lowest CPU)"
 L.RANGECHECK_OPTION_AVERAGE			= "Medium"
 L.RANGECHECK_OPTION_FAST			= "Fast (Most real-time)"
 L.RANGERADAR_HEADER					= "Range Radar (%d yd)"
-L.RANGERADAR_IN_RANGE_TEXT			= "%d in range (%dyd)"--Multi
-L.RANGERADAR_IN_RANGE_TEXTONE		= "%s (%0.1fyd)"--One target
+L.RANGERADAR_IN_RANGE_TEXT			= "%d in range (%d yd)"--Multi
+L.RANGERADAR_IN_RANGE_TEXTONE		= "%s (%0.1f yd)"--One target
 L.RANGE_CHECK_ZONE_UNSUPPORTED		= "A %d yard range check is not supported in this zone.\nSupported ranges are 10, 11, 15 and 28 yard."
 
 L.LOCK_FRAME						= "Frame Locked"
