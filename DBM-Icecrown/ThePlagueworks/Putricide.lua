@@ -164,6 +164,11 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
+		if (GetTime()-PuddleTime) > 35 then
+			timerUnstableExperimentCD:Start(90-(GetTime()-PuddleTime))
+		else
+			timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
+		end
 		if self:IsDifficulty("heroic10", "heroic25") then
 			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
 			timerNextPhase:Start(35)
@@ -175,11 +180,6 @@ function mod:SPELL_CAST_START(args)
 			warnChokingGasBombSoon:Schedule(57-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
-			if (GetTime()-PuddleTime) > 35 then
-				timerUnstableExperimentCD:Start(90-(GetTime()-PuddleTime))
-			else
-				timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
-			end
 			timerNextPhase:Start(9.5)
 			timerMalleableGooCD:Start(19)
 			ttsMalleableSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
