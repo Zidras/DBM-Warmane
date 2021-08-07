@@ -32,8 +32,8 @@ local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, "SpellCaster", 
 local specWarnUnchainedMagic	= mod:NewSpecialWarningYou(69762, nil, nil, nil, 1, 2)
 local specWarnFrostBeacon		= mod:NewSpecialWarningMoveAway(70126, nil, nil, nil, 3, 2)
 local specWarnFrostBeaconSide	= mod:NewSpecialWarningMoveTo(70126, nil, nil, nil, 3, 2)
-local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, 4, nil, nil, 1, 6)
-local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, 4, nil, nil, 1, 6)
+local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, mod:IsDifficulty("heroic10", "heroic25") and 4 or 8, nil, nil, 1, 6)
+local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsDifficulty("heroic10", "heroic25") and 4 or 8, nil, nil, 1, 6)
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5, nil, nil, 1, 6)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
