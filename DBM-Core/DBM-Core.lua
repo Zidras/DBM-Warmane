@@ -6385,12 +6385,16 @@ local specFlags ={
 	["Physical"] = "IsPhysical",
 	["Ranged"] = "IsRanged", --ANY ranged, healer and dps included
 	["RangedDps"] = "IsRangedDps", --Only ranged dps
+	["ManaUser"] = "IsManaUser", --Affected by things like mana drains, or mana detonation, etc
 	["SpellCaster"] = "IsSpellCaster", --Has channeled casts, can be interrupted/spell locked by roars, etc, include healers. Use CasterDps if dealing with reflect
 	["CasterDps"] = "IsCasterDps", --Ranged dps that uses spells, relevant for spell reflect type abilities that only reflect spells but not ranged physical such as hunters
 	["RaidCooldown"] = "HasRaidCooldown",
-	["ManaUser"] = "IsManaUser",
-	["RemoveEnrage"] = "CanRemoveEnrage",
-	["MagicDispeller"] = "IsMagicDispeller",
+	["RemovePoison"] = "CanRemovePoison",--from ally
+	["RemoveDisease"] = "CanRemoveDisease",--from ally
+	["RemoveCurse"] = "CanRemoveCurse",--from ally
+	["RemoveMagic"] = "CanRemoveMagic",--from ally
+	["RemoveEnrage"] = "CanRemoveEnrage", --Can remove enemy enrage.
+	["MagicDispeller"] = "IsMagicDispeller", --from ENEMY, not debuffs on players. use "Healer" or "RemoveMagic" for ally magic dispels.
 	["HasInterrupt"] = "CanInterrupt", --Has an interrupt that is 24 seconds or less CD that is BASELINE (not a talent)
 	["TargetedCooldown"] = "HasTargetedCooldown", --Custom: Single Target external defensive cooldown
 	["WeaponDependent"] = "IsWeaponDependent" --Custom: Specs that depend on weapon use
@@ -6515,8 +6519,32 @@ function bossModPrototype:IsCasterDps()
 		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(1)) < 51)
 end
 
+function bossModPrototype:CanRemovePoison()
+	return playerClass == "DRUID"
+		or playerClass == "PALADIN"
+		or playerClass == "SHAMAN"
+end
+
+function bossModPrototype:CanRemoveDisease()
+	return playerClass == "PRIEST"
+		or playerClass == "PALADIN"
+		or playerClass == "SHAMAN"
+end
+
+function bossModPrototype:CanRemoveCurse()
+	return playerClass == "DRUID"
+		or playerClass == "MAGE"
+		or playerClass == "SHAMAN" and getTalentpointsSpent(51886) == 0
+end
+
+function bossModPrototype:CanRemoveMagic()
+	return playerClass == "PRIEST"
+		or playerClass == "PALADIN"
+end
+
 function bossModPrototype:CanRemoveEnrage()
-	return playerClass == "HUNTER" or playerClass == "ROGUE"
+	return playerClass == "HUNTER"
+		or playerClass == "ROGUE"
 end
 
 function bossModPrototype:IsMagicDispeller()
