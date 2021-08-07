@@ -73,6 +73,7 @@ local playerUnchained = false
 local playerBeaconed = false
 local beaconDebuff, unchainedDebuff = DBM:GetSpellInfo(70126), DBM:GetSpellInfo(69762)
 
+local directionIndex
 local DirectionAssignments		= {DBM_CORE_L.LEFT, DBM_CORE_L.MIDDLE, DBM_CORE_L.RIGHT}
 local DirectionVoiceAssignments	= {"left", "center", "right"}
 
@@ -144,17 +145,16 @@ local function warnUnchainedTargets(self)
 end
 
 local function directionBeaconTargets(self, index)
-	local directionIndex
 	if index then
-		if (self:IsDifficulty("normal25") and #beaconTargets >= 5) then
+		if self:IsDifficulty("normal25") then
 			if (index == 1 or index == 2) then directionIndex = 1		--LEFT
 			elseif (index == 3) then directionIndex = 2					--CENTER
 			else directionIndex = 3 end									--RIGHT
-		elseif (self:IsDifficulty("heroic25") and #beaconTargets >= 6) then
+		elseif self:IsDifficulty("heroic25") then
 			if (index == 1 or index == 2) then directionIndex = 1		--LEFT
 			elseif (index == 3 or index == 4) then directionIndex = 2	--CENTER
 			else directionIndex = 3 end									--RIGHT
-		elseif (self:IsDifficulty("normal10", "heroic10") and #beaconTargets >= 2) then
+		elseif self:IsDifficulty("normal10", "heroic10") then
 			if index == 1 then directionIndex = 1						--LEFT
 			else directionIndex = 3 end									--RIGHT
 		end
@@ -198,7 +198,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		beaconTargets[#beaconTargets + 1] = args.destName
 		if args:IsPlayer() then
 			playerBeaconed = true
-			specWarnFrostBeacon:Show()
 			-- Beacon Direction snippet
 			if self.vb.phase == 1 and self.Options.SpecWarn70126moveto then
 				for i = 1, #beaconTargets do
@@ -208,6 +207,7 @@ function mod:SPELL_AURA_APPLIED(args)
 					end
 				end
 			else
+				specWarnFrostBeacon:Show()
 				specWarnFrostBeacon:Play("scatter")
 			end
 		end
