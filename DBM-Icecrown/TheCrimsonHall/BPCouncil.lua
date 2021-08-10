@@ -37,6 +37,7 @@ local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant 
 
 local specWarnVortex			= mod:NewSpecialWarningYou(72037, nil, nil, nil, 1, 2)
 local yellVortex				= mod:NewYellMe(72037)
+local yellEmpoweredFlames		= mod:NewYellMe(72040)
 local specWarnVortexNear		= mod:NewSpecialWarningClose(72037, nil, nil, nil, 1, 2)
 local specWarnEmpoweredShockV	= mod:NewSpecialWarningMoveAway(72039, nil, nil, nil, 1, 2)
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040, nil, nil, nil, 4, 2)
@@ -47,11 +48,15 @@ local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- ever
 local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5)	-- usually every 10 seconds but sometimes more
 local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718, nil, nil, nil, 3) -- every 20-30 seconds but never more often than every 20sec
 local timerGlitteringSparksCD	= mod:NewCDTimer(20, 71807, nil, nil, nil, 2) -- This is pretty nasty on heroic
-local timerShockVortex			= mod:NewCDTimer(15.0, 72037, nil, nil, nil, 3) -- Seen a range from 16,8 - 21,6
-local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking
+local timerShockVortex			= mod:NewCDTimer(15, 72037, nil, nil, nil, 3) -- Seen a range from 16,8 - 21,6
+local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking :23
 local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
 
 local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
+local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
+local soundEmpoweredShockV		= mod:NewSound(72039)
+local soundEmpoweredFlames		= mod:NewSound(72040)
+local soundTargetSwitchSoon		= mod:NewSoundSoon(70952)
 
 local berserkTimer				= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
 
@@ -72,8 +77,10 @@ end
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	warnTargetSwitchSoon:Schedule(42-delay)
+	soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
 	timerTargetSwitch:Start(-delay)
 	timerShockVortex:Start(-delay)
+	timerKineticBombCD:Start(20-delay)
 	activePrince = nil
 	table.wipe(glitteringSparksTargets)
 	if self.Options.RangeFrame then
@@ -85,6 +92,7 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
+	soundTargetSwitchSoon:Cancel()
 end
 
 function mod:ShockVortexTarget(targetname, uId)
@@ -139,8 +147,8 @@ function mod:SPELL_CAST_START(args)
 		self:BossTargetScanner(37970, "ShockVortexTarget", 0.05, 6)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
 		specWarnEmpoweredShockV:Show()
-		specWarnEmpoweredShockV:Play("scatter")
 		timerShockVortex:Start(30)
+		soundEmpoweredShockV:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\EmpoweredVortex.mp3")
 	elseif args.spellId == 71718 then	-- Conjure Flames
 		warnConjureFlames:Show()
 		timerConjureFlamesCD:Start()
@@ -156,6 +164,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:IsInCombat() then
 			warnTargetSwitch:Show(L.Valanar)
 			warnTargetSwitchSoon:Schedule(42)
+			soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
 			timerTargetSwitch:Start()
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(12)
@@ -164,6 +173,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70981 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Keleseth)
 		warnTargetSwitchSoon:Schedule(42)
+		soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
 		if self.Options.RangeFrame then
@@ -172,6 +182,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70982 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
 		warnTargetSwitchSoon:Schedule(42)
+		soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
 		if self.Options.RangeFrame then
@@ -205,7 +216,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnEmpoweredFlames:Show()
-			specWarnEmpoweredFlames:Play("justrun")
+			soundEmpoweredFlames:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\EmpoweredOrbOnYou.mp3")
+			yellEmpoweredFlames:Yell()
 		else
 			warnEmpoweredFlames:Show(target)
 		end
@@ -222,8 +234,15 @@ function mod:UNIT_TARGET()
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
-	if spellName == GetSpellInfo(72080) then
-			warnKineticBomb:Show()
+	if spellName == GetSpellInfo(72080) and mod:LatencyCheck() then
+		self:SendSync("KineticBomb")
+	end
+end
+
+function mod:OnSync(msg, arg)
+		if msg == "KineticBomb" then
+		warnKineticBomb:Show()
+		soundKineticBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\KineticSpawn.mp3")
 		if self:IsDifficulty("normal10", "heroic10") then
 			timerKineticBombCD:Start(27)
 		else
