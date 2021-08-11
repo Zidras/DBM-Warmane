@@ -11,53 +11,39 @@ L:SetGeneralLocalization{
 	name = "Bestien von Nordend"
 }
 
-L:SetMiscLocalization{
-	Charge			= "%%s sieht (%S+) zornig an und lässt einen gewaltigen Schrei ertönen!",
-	CombatStart		= "Er kommt aus den tiefsten, dunkelsten Höhlen der Sturmgipfel - Gormok der Pfähler! Voran, Helden!",
-	Phase2			= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
-	Phase3			= "Mit der Ankündigung unseres nächsten Kämpfers gefriert die Luft selbst: Eisheuler! Tötet oder werdet getötet, Champions!",
-	Gormok			= "Gormok der Pfähler",
-	Acidmaw			= "Ätzschlund",
-	Dreadscale		= "Schreckensmaul",
-	Icehowl			= "Eisheuler"
-}
-
-L:SetOptionLocalization{
-	WarningSnobold				= "Zeige Warnung für nächsten Schneeboldvasall",
-	SpecialWarningImpale3		= "Zeige Spezialwarnung für Pfählen (>=3 Stapel)",
-	SpecialWarningAnger3		= "Zeige Spezialwarnung für Aufkochende Wut (>=3 Stapel)",
-	SpecialWarningSilence		= "Zeige Spezialwarnung für Erschütterndes Stampfen (Stille)",
-	SpecialWarningCharge		= "Zeige Spezialwarnung wenn Eisheuler dich niedertrampeln will",
-	SpecialWarningTranq			= "Zeige Spezialwarnung wenn Eisheuler Schäumende Wut erhält (für Einlullenden Schuss/Beruhigendes Gift)",
-	PingCharge					= "Ping die Minimap wenn Eisheuler dich niedertrampeln will",
-	SpecialWarningChargeNear	= "Zeige Spezialwarnung wenn Eisheuler ein Ziel in deiner Nähe niedertrampeln will",
-	SetIconOnChargeTarget		= "Setze Zeichen auf Ziele von Trampeln (Totenkopf)",
-	SetIconOnBileTarget			= "Setze Zeichen auf Ziele von Brennende Galle",
-	ClearIconsOnIceHowl			= "Entferne alle Zeichen vor dem Trampeln",
-	TimerNextBoss				= "Zeige Timer für das Erscheinen des nächsten Bosses",
-	TimerCombatStart			= "Zeige Timer für Kampfbeginn",
-	TimerEmerge					= "Zeige Timer für Auftauchen",
-	TimerSubmerge				= "Zeige Timer für Untertauchen",
-	RangeFrame                  = "Zeige Abstandsfenster in Phase 2",
-	IcehowlArrow				= "Zeige Pfeil wenn Eisheuler ein Ziel in deiner Nähe niedertrampeln will"
+L:SetWarningLocalization{
+	WarningSnobold		= "Schneeboldvasall erschienen auf >%s<"
 }
 
 L:SetTimerLocalization{
 	TimerNextBoss		= "Nächster Boss",
-	TimerCombatStart	= "Kampf beginnt",
 	TimerEmerge			= "Auftauchen",
-	TimerSubmerge		= "Untertauchen"
+	TimerSubmerge		= "Abtauchen"
 }
 
-L:SetWarningLocalization{
-	WarningSnobold				= "Schneeboldvasall gespawnt",
-	SpecialWarningImpale3		= "Pfählen >%d< auf dir",
-	SpecialWarningAnger3		= "Aufkochende Wut >%d<",
-	SpecialWarningSilence		= "Stille in ~1,5 Sekunden",
-	SpecialWarningCharge		= "Stürmt dich an - Lauf weg",
-	SpecialWarningChargeNear	= "Stürmt deine Nähe an - Lauf weg",
-	SpecialWarningTranq			= "Schäumende Wut - Einlullen/Beruhigen"
+L:SetOptionLocalization{
+	WarningSnobold		= "Zeige Warnung, wenn ein Schneeboldvasall erscheint",
+	PingCharge			= "Ping die Minimap wenn Eisheuler dich niedertrampeln will",
+	ClearIconsOnIceHowl	= "Entferne alle Zeichen vor dem Trampeln",
+	TimerNextBoss		= "Zeige Zeit bis zum Erscheinen des nächsten Bosses",
+	TimerEmerge			= "Zeige Zeit bis Auftauchen",
+	TimerSubmerge		= "Zeige Zeit bis Abtauchen",
+	IcehowlArrow		= "Zeige DBM-Pfeil, wenn Eisheuler jemand in deiner Nähe niedertrampeln will"
 }
+
+L:SetMiscLocalization{
+	Charge				= "%%s sieht (%S+) zornig an und lässt einen gewaltigen Schrei ertönen!",
+	CombatStart			= "Er kommt aus den tiefsten, dunkelsten Höhlen der Sturmgipfel - Gormok der Pfähler! Voran, Helden!",
+	Phase2				= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
+	Phase3				= "Mit der Ankündigung unseres nächsten Kämpfers gefriert die Luft selbst: Eisheuler! Tötet oder werdet getötet, Champions!",
+	Gormok				= "Gormok der Pfähler",
+	Acidmaw				= "Ätzschlund",
+	Dreadscale			= "Schreckensmaul",
+	Icehowl				= "Eisheuler"
+}
+
+
+
 
 ---------------------
 --  Lord Jaraxxus  --
@@ -68,40 +54,13 @@ L:SetGeneralLocalization{
 	name = "Lord Jaraxxus"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower				= "Macht des Nether auf Lord Jaraxxus - Jetzt dispellen",
-	SpecWarnTouch				= "Jaraxxus' Berührung auf dir",
-	SpecWarnTouchNear			= "Jaraxxus' Berührung auf %s in deiner Nähe",
-	SpecWarnNetherPower			= "Jetzt dispellen",
-	SpecWarnFelFireball			= "Teufelsfeuerball - Jetzt unterbrechen"
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "Kampf beginnt"
-}
-
-L:SetMiscLocalization{
-	WhisperFlame		= "Legionsflamme auf dir",
-	IncinerateTarget	= "Fleisch einäschern: %s"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart			= "Zeige Timer für Kampfbeginn",
-	WarnNetherPower				= "Zeige Warnung wenn Lord Jaraxxus Macht des Nether erhält (zum Dispellen/Rauben)",
-	SpecWarnTouch				= "Zeige Spezialwarnung wenn du von Jaraxxus' Berührung betroffen bist",
-	SpecWarnTouchNear			= "Zeige Spezialwarnung wenn ein Spieler mit Jaraxxus' Berührung in deiner Nähe ist",
-	SpecWarnNetherPower			= "Zeige Spezialwarnung für Macht des Nether (zum Dispellen/Rauben)",
-	SpecWarnFelFireball			= "Zeige Spezialwarnung für Teufelsfeuerball (zum Unterbrechen)",
-	TouchJaraxxusIcon			= "Setze Zeichen auf Ziele von Jaraxxus' Berührung",
-	IncinerateFleshIcon			= "Setze Zeichen auf Ziele von Fleisch einäschern",
-	LegionFlameIcon				= "Setze Zeichen auf Ziele von Legionsflamme",
-	LegionFlameWhisper			= "Sende Flüsternachricht an Ziele von Legionsflamme",
-	LegionFlameRunSound			= "Spiele Sound bei Legionsflamme",
-	IncinerateShieldFrame		= "Zeige Boss-Lebenspunkte mit Lebenspunktbalken für Fleisch einäschern"
+	IncinerateShieldFrame	= "Zeige Lebensanzeige mit einem Balken für Fleisch einäschern"
 }
 
 L:SetMiscLocalization{
-	FirstPull	= "Großhexenmeister Wilfred Zischknall wird Eure nächste Herausforderung beschwören. Harrt seiner Ankunft."
+	IncinerateTarget		= "Fleisch einäschern: %s",
+	FirstPull				= "Großhexenmeister Wilfred Zischknall wird Eure nächste Herausforderung beschwören. Harrt seiner Ankunft."
 }
 
 -------------------------

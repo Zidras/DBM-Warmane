@@ -11,52 +11,35 @@ L:SetGeneralLocalization{
 	name = "北裂境巨獸"
 }
 
-L:SetMiscLocalization{
-	Charge			= "%%s怒視著(%S+)，並發出震耳的咆哮!",
-	CombatStart		= "來自風暴群山最深邃，最黑暗的洞穴。歡迎『穿刺者』戈莫克!戰鬥吧，英雄們!",
-	Phase2			= "準備面對酸喉和懼鱗的雙重夢魘吧，英雄們，快就定位!",
-	Phase3			= "下一場參賽者的出場連空氣都會為之凝結:冰嚎!戰個你死我活吧，勇士們!",
-	Gormok			= "『穿刺者』戈莫克",
-	Acidmaw			= "酸喉",
-	Dreadscale		= "懼鱗",
-	Icehowl			= "冰嚎"
-}
-
-L:SetOptionLocalization{
-	WarningSnobold				= "為極地狗頭人奴僕出現顯示警告",
-	SpecialWarningImpale3		= "為刺穿 (大於3層)顯示特別警告",
-	SpecialWarningAnger3		= "為怒氣高漲 (大於3層)顯示特別警告",
-	SpecialWarningSilence		= "為驚恐踐踏顯示特別警告",
-	SpecialWarningCharge		= "當冰嚎即將衝鋒你時顯示特別警告",
-	SpecialWarningTranq			= "當冰嚎獲得泡沫之怒時顯示特別警告 (消狂怒用)",
-	PingCharge					= "當冰嚎即將衝鋒你時自動點擊小地圖",
-	SpecialWarningChargeNear	= "當冰嚎即將衝鋒在你附近時顯示特別警告",
-	SetIconOnChargeTarget		= "為衝鋒的目標設置標記 (頭顱)",
-	SetIconOnBileTarget			= "為燃燒膽汁的目標設置標記",
-	ClearIconsOnIceHowl			= "衝鋒前消除所有標記",
-	TimerNextBoss				= "為下一隻王到來顯示計時器",
-	TimerCombatStart			= "為戰鬥開始顯示計時器",
-	TimerEmerge					= "為持續鑽地顯示計時器",
-	TimerSubmerge				= "為下一次 鑽地顯示計時器",
-	RangeFrame                  = "在第2階段顯示距離框",
-	IcehowlArrow				= "當冰嚎即將衝鋒在你附近時顯示DBM箭頭"
+L:SetWarningLocalization{
+	WarningSnobold		= "極地狗頭人奴僕出現在>%s<"
 }
 
 L:SetTimerLocalization{
-	TimerNextBoss			= "下一隻王到來",
-	TimerCombatStart		= "戰鬥開始",
-	TimerEmerge				= "持續鑽地",
-	TimerSubmerge			= "下一次 鑽地"
+	TimerNextBoss		= "下一隻王到來",
+	TimerEmerge			= "持續鑽地",
+	TimerSubmerge		= "下一次鑽地"
 }
 
-L:SetWarningLocalization{
-	WarningSnobold				= "極地狗頭人奴僕 出現了",
-	SpecialWarningImpale3		= "你中了刺穿>%d<",
-	SpecialWarningAnger3		= "怒氣高漲: >%d<",
-	SpecialWarningSilence		= "1.5秒後 驚恐踐踏",
-	SpecialWarningCharge		= "你被衝鋒了 - 快跑開",
-	SpecialWarningChargeNear	= "你附近有人被衝鋒 - 快跑開",
-	SpecialWarningTranq			= "泡沫之怒 - 現在消除"
+L:SetOptionLocalization{
+	WarningSnobold		= "為極地狗頭人奴僕出現顯示警告",
+	PingCharge			= "當冰嚎即將衝鋒你時自動點擊小地圖",
+	ClearIconsOnIceHowl	= "衝鋒前消除所有標記",
+	TimerNextBoss		= "為下一隻王到來顯示計時器",
+	TimerEmerge			= "為持續鑽地顯示計時器",
+	TimerSubmerge		= "為下一次鑽地顯示計時器",
+	IcehowlArrow		= "當冰嚎即將衝鋒在你附近時顯示DBM箭頭"
+}
+
+L:SetMiscLocalization{
+	Charge				= "%%s怒視著(%S+)，並發出震耳的咆哮!",
+	CombatStart			= "來自風暴群山最深邃，最黑暗的洞穴。歡迎『穿刺者』戈莫克!戰鬥吧，英雄們!",
+	Phase2				= "準備面對酸喉和懼鱗的雙重夢魘吧，英雄們，快就定位!",
+	Phase3				= "下一場參賽者的出場連空氣都會為之凝結:冰嚎!戰個你死我活吧，勇士們!",
+	Gormok				= "『穿刺者』戈莫克",
+	Acidmaw				= "酸喉",
+	Dreadscale			= "懼鱗",
+	Icehowl				= "冰嚎"
 }
 
 ---------------------
@@ -68,41 +51,13 @@ L:SetGeneralLocalization{
 	name = "賈拉克瑟斯領主"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower			= "賈拉克瑟斯領主擁有虛空威能 - 快驅散",
-	SpecWarnTouch			= "你中了賈拉克瑟斯之觸",
-	SpecWarnTouchNear		= "你附近的%s中了賈拉克瑟斯之觸",
-	SpecWarnNetherPower		= "現在驅散",
-	SpecWarnFelFireball		= "魔化火球 - 現在斷法"
-
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "戰鬥開始"
-}
-
-L:SetMiscLocalization{
-	WhisperFlame			= "你中了軍團烈焰 - 快跑開",
-	IncinerateTarget		= "焚化血肉: %s"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart		= "為戰鬥開始顯示計時器",
-	WarnNetherPower			= "當賈拉克瑟斯領主擁有虛空威能時顯示警告 (驅散/竊取用)",
-	SpecWarnTouch			= "當你中了賈拉克瑟斯之觸時顯示特別警告",
-	SpecWarnTouchNear		= "當你附近的人中了賈拉克瑟斯之觸時顯示特別警告",
-	SpecWarnNetherPower		= "為虛空威能顯示特別警告 (驅散/竊取用)",
-	SpecWarnFelFireball		= "為魔化火球顯示特別警告 (斷法用)",
-	TouchJaraxxusIcon		= "為賈拉克瑟斯之觸的目標設置標記",
-	IncinerateFleshIcon		= "為焚化血肉的目標設置標記",
-	LegionFlameIcon			= "為軍團烈焰的目標設置標記",
-	LegionFlameWhisper		= "密語提示軍團烈焰的目標",
-	LegionFlameRunSound		= "為軍團烈焰播放音效",
 	IncinerateShieldFrame	= "在首領血量裡顯示焚化血肉的血量"
 }
 
 L:SetMiscLocalization{
-	FirstPull			= "大術士威爾弗雷德·菲斯巴恩將會召喚你們的下一個挑戰者。等待他的登場吧。"
+	IncinerateTarget		= "焚化血肉: %s",
+	FirstPull				= "大術士威爾弗雷德·菲斯巴恩將會召喚你們的下一個挑戰者。等待他的登場吧。"
 }
 
 -------------------------

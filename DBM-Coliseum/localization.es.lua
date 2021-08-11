@@ -2,106 +2,63 @@
 
 local L
 
-------------------------
---  Northrend Beasts  --
-------------------------
+-------------------------------
+-- Las bestias de Rasganorte --
+-------------------------------
 L = DBM:GetModLocalization("NorthrendBeasts")
 
 L:SetGeneralLocalization{
-	name = "Bestias de Rasganorte"
-}
-
-L:SetMiscLocalization{
-	Charge			= "¡Aullahielo mira a (%S+) y emite un bramido!",
-	CombatStart		= "Desde las cavernas más oscuras y profundas de Las Cumbres Tormentosas: ¡Gormok el Empalador! ¡A luchar, héroes!",
-	Phase2			= "Preparaos, héroes, para los temibles gemelos: ¡Fauceácida y Aterraescama! ¡A la arena!",
-	Phase3			= "El propio aire se congela al presentar a nuestro siguiente combatiente: ¡Aullahielo! ¡Matad o morid, campeones!",
-	Gormok			= "Gormok el Empalador",
-	Acidmaw			= "Fauceácida",
-	Dreadscale		= "Aterraescama",
-	Icehowl			= "Aullahielo"
-}
-
-L:SetOptionLocalization{
-	WarningSnobold				= "Mostrar aviso cuando salen Vasallos snóbold",
-	SpecialWarningImpale3		= "Mostrar aviso especial para Emaplar(>=3 ticks)",
-	SpecialWarningAnger3		= "Mostrar aviso especial para Ira en aumento (>=3 ticks)",
-	SpecialWarningSilence		= "Mostrar aviso especial para Silencio (bloqueo de hechizos)",
-	SpecialWarningCharge		= "Mostrar aviso especial si Aullahielo te mira",
-	SpecialWarningTranq			= "Mostrar aviso especial si Aullahielo gana Espumarajo (para tranquilizarlo)",
-	PingCharge					= "Pulsar en el Minimapa si Aullahielo va a por Ti",
-	SpecialWarningChargeNear	= "Mostrar aviso especial si Aullahielo va a cargar a alguien cerca de ti",
-	SetIconOnChargeTarget		= "Poner marca a por quien va (calavera)",
-	SetIconOnBileTarget			= "Poner marca quien tiene Bilis ardiente",
-	ClearIconsOnIceHowl			= "Limpiar iconos despues de cargar",
-	TimerNextBoss				= "Mostrar tiempo para el proximo boss",
-	TimerCombatStart			= "Mostrar tiempo para el inicio del combate",
-	TimerEmerge					= "Mostrar tiempo para emerger",
-	TimerSubmerge				= "Mostrar tiempo para sumergir",
-	RangeFrame                  = "Mostrar distancia en fase 2",
-	IcehowlArrow				= "Mostrar flecha cuando Aullahielo está a punto de cargar cerca de ti"
-}
-
-L:SetTimerLocalization{
-	TimerNextBoss				= "Proximo boss en",
-	TimerCombatStart			= "Empieza el combate",
-	TimerEmerge					= "Emergen",
-	TimerSubmerge				= "Se sumergen"
+	name = "Las bestias de Rasganorte"
 }
 
 L:SetWarningLocalization{
-	WarningSnobold				= "Sale Vasallo snóbold",
-	SpecialWarningImpale3		= "Empalar >%d< en ti",
-	SpecialWarningAnger3		= "Ira en aumento >%d<",
-	SpecialWarningSilence		= "Silenciar en ~1.5 segundos",
-	SpecialWarningCharge		= "Cargar en ti! Corre!",
-	SpecialWarningChargeNear	= "Cargar cerca de ti! Corre",
-	SpecialWarningTranq			= "Espumarajo! Tranquilizadlo!"
+	WarningSnobold		= "Vasallo snóbold en >%s<"
 }
 
----------------------
---- Lord Jaraxxus ---
----------------------
+L:SetTimerLocalization{
+	TimerNextBoss		= "Siguiente jefe",
+	TimerEmerge			= "Emersión",
+	TimerSubmerge		= "Sumersión"
+}
+
+
+L:SetOptionLocalization{
+	WarningSnobold		= "Mostrar aviso cuando aparezca un Vasallo snóbold",
+	PingCharge			= "Pulsar en el Minimapa si Aullahielo va a por Ti",
+	ClearIconsOnIceHowl	= "Quitar todos los iconos antes de cada carga",
+	TimerNextBoss		= "Mostrar temporizador para el siguiente jefe",
+	TimerEmerge			= "Mostrar temporizador para cuando Fauceácida y Aterraescama regresen a la superficie",
+	TimerSubmerge		= "Mostrar temporizador para cuando Fauceácida y Aterraescama se sumerjan en la tierra",
+	IcehowlArrow		= "Mostrar flecha cuando Aullahielo vaya a cargar hacia ti"
+}
+
+L:SetMiscLocalization{
+	Charge				= "¡Aullahielo mira a (%S+) y emite un bramido!",
+	CombatStart			= "Desde las cavernas más oscuras y profundas de Las Cumbres Tormentosas: ¡Gormok el Empalador! ¡A luchar, héroes!",
+	Phase2				= "Preparaos, héroes, para los temibles gemelos: ¡Fauceácida y Aterraescama! ¡A la arena!",
+	Phase3				= "El propio aire se congela al presentar a nuestro siguiente combatiente: ¡Aullahielo! ¡Matad o morid, campeones!",
+	Gormok				= "Gormok el Empalador",
+	Acidmaw				= "Fauceácida",
+	Dreadscale			= "Aterraescama",
+	Icehowl				= "Aullahielo"
+}
+
+-------------------
+-- Lord Jaraxxus --
+-------------------
 L = DBM:GetModLocalization("Jaraxxus")
 
 L:SetGeneralLocalization{
 	name = "Lord Jaraxxus"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower			= "Poder abisal en Jaraxxus! Dispelead Ya!",
-	SpecWarnTouch			= "Toque de Jaraxxus en TI!",
-	SpecWarnTouchNear		= "Toque de Jaraxxus en >%s< cerca de ti",
-	SpecWarnNetherPower		= "Dispelead Ya!",
-	SpecWarnFelFireball		= "Bola de Fuego vil! Interrumpe!"
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "Empieza el combate"
-}
-
-L:SetMiscLocalization{
-	WhisperFlame			= "Llama de la Legion en TI!",
-	IncinerateTarget		= "Incinerar carne en: %s"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart		= "Mostrar tiempo para inicio del combate",
-	WarnNetherPower			= "Avisar si Jaraxxus tiene Poder abisar (para dsipelear)",
-	SpecWarnTouch			= "Aviso especial si tienes Toque de Jaraxxus",
-	SpecWarnTouchNear		= "Aviso especial si tienes Toque de Jaraxxus cerca",
-	SpecWarnNetherPower		= "Aviso especial para Poder abisal(para dispelear a jaraxxus)",
-	SpecWarnFelFireball		= "Aviso especial para Fuego Vil ( para interrumpir )",
-	TouchJaraxxusIcon		= "Poner icono quien tenga Toque de Jaraxxus",
-	IncinerateFleshIcon		= "Poner icono quien tenga Carne",
-	LegionFlameIcon			= "Poner icono quien tenga Llama de la Legion",
-	LegionFlameWhisper		= "Susurrar a quien tenga la Llama de la Legion",
-	LegionFlameRunSound		= "Reproducir sonido en Llama de la Legion",
-	IncinerateShieldFrame	= "Mostrar la vida del boss con la barra de incinerar carne"
+	IncinerateShieldFrame	= "Mostrar salud del jefe en una barra de vida durante Incinerar carne"
 }
 
 L:SetMiscLocalization{
-	FirstPull	= "El gran brujo Wilfred Chispobang invocará al siguiente contrincante. Esperad a que aparezca."
+	IncinerateTarget		= "Incinerar carne: %s",
+	FirstPull				= "El gran brujo Wilfred Chispobang invocará al siguiente contrincante. Esperad a que aparezca."
 }
 
 -----------------------

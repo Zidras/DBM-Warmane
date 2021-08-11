@@ -11,54 +11,34 @@ L:SetGeneralLocalization{
 	name = "노스렌드의 야수"
 }
 
-L:SetMiscLocalization{
---	Charge			= "%%s (%S+) 노려보며 큰 소리로 울부짖습니다.",
---	Charge			= "%%s|1이;가; (%S+)|1을;를; 노려보며 큰 소리로 울부짖습니다.",
-	Charge			= "노려보며 큰 소리로 울부짖습니다.",
-	CombatStart		= "폭풍우 봉우리의 가장 깊고 어두운 동굴에서 온, 꿰뚫는 자 고르목일세! 영웅들이여, 전투에 임하게!",
-	Phase2			= "마음을 단단히 먹게, 영웅들이여. 두 배의 공포, 산성아귀와 공포비늘이 투기장으로 들어온다네!",
-	Phase3			= "다음은, 소개하는 순간 공기마저 얼어붙게 하는 얼음울음일세! 죽이지 않으면 죽을 걸세, 용사들이여!",
-	Gormok			= "꿰뚫는 자 고르목",
-	Acidmaw			= "산성아귀",
-	Dreadscale		= "공포비늘",
-	Icehowl			= "얼음울음"
-}
-
-L:SetOptionLocalization{
-	WarningSnobold				= "스노볼트 부하 생성 경고 보기",
-	SpecialWarningImpale3		= "꿰뚫기 특수 경보 보기(3 중첩이거나 그 이상일 경우)",
-	SpecialWarningAnger3		= "솟구치는 분노 특수 경고 보기(3 중첩이거나 그 이상일 경우)",
-	SpecialWarningSilence		= "진동의 발구르기 특수 경보 보기",
-	SpecialWarningCharge		= "얼음울음이 당신에게 사나운 돌진을 할 경우 특수 경보 보기",
-	SpecialWarningChargeNear	= "얼음울음이 당신 주변에 사나운 돌진을 할 경우 특수 경보 보기",
-	SpecialWarningTranq			= "얼음울음이 거품 이는 분노를 얻었을 경우 특수 경고 보기(평정 사용 클래스)",
-	SetIconOnChargeTarget		= "사나운 돌진 대상 아이콘 설정 (해골)",
-	SetIconOnBileTarget			= "타오르는 담즙 대상 아이콘 설정",
-	ClearIconsOnIceHowl			= "얼음울음의 사나운 돌진 이후 모든 공격대 아이콘 없앰",
-	PingCharge					= "얼음울음에게 사나운 돌진의 대상이 될 경우 미니맵에 핑 표시하기",
-	TimerNextBoss				= "다음 보스 등장 타이머 보기",
-	TimerCombatStart			= "전투 시작 타이머 보기",
-	TimerEmerge					= "출현 타이머 보기",
-	TimerSubmerge				= "숨기 타이머 보기",
-	RangeFrame                  = "2 페이즈에서 거리 프레임 보기",
-	IcehowlArrow				= "얼음울음이 당신 주변으로 돌진할 경우 DBM 화살표 보기"
+L:SetWarningLocalization{
+	WarningSnobold			= "스노볼트 부하 생성 : >%s<"
 }
 
 L:SetTimerLocalization{
-	TimerNextBoss				= "곧 다음 보스",
-	TimerCombatStart			= "곧 전투 시작",
-	TimerEmerge					= "출현",
-	TimerSubmerge				= "숨기"
+	TimerNextBoss			= "곧 다음 우두머리",
+	TimerEmerge				= "출현",
+	TimerSubmerge			= "숨기"
 }
 
-L:SetWarningLocalization{
-	WarningSnobold				= "스노볼트 부하 생성",
-	SpecialWarningImpale3		= "꿰뚫기 >%d<!",
-	SpecialWarningAnger3		= "솟구치는 분노 >%d<",
-	SpecialWarningSilence		= "1.5 초이내 진동의 발구르기!!!",
-	SpecialWarningCharge		= "당신에게 사나운 돌진! 뛰세요!",
-	SpecialWarningChargeNear	= "당신 주변에 사나운 돌진! 뛰세요!",
-	SpecialWarningTranq			= "거품 이는 분노! - 지금 평정!"
+L:SetOptionLocalization{
+	WarningSnobold			= "스노볼트 부하 생성 알림 보기",
+	PingCharge				= "얼음울음에게 사나운 돌진의 대상이 될 경우 미니맵에 핑 표시하기",
+	ClearIconsOnIceHowl		= "사나운 돌진 전에 모든 전술 목표 아이콘 지움",
+	TimerNextBoss			= "다음 우두머리 등장 바 보기",
+	TimerEmerge				= "출현 바 보기",
+	TimerSubmerge			= "숨기 바 보기",
+	IcehowlArrow			= "사나운 돌진 대상이 가까이 있을 경우 DBM 화살표 보기"
+}
+L:SetMiscLocalization{
+	Charge					= "노려보며 큰 소리로 울부짖습니다.",
+	CombatStart				= "폭풍우 봉우리의 가장 깊고 어두운 동굴에서 온, 꿰뚫는 자 고르목일세! 영웅들이여, 전투에 임하게!",
+	Phase2					= "마음을 단단히 먹게, 영웅들이여. 두 배의 공포, 산성아귀와 공포비늘이 투기장으로 들어온다네!",
+	Phase3					= "다음은, 소개하는 순간 공기마저 얼어붙게 하는 얼음울음일세! 죽이지 않으면 죽을 걸세, 용사들이여!",
+	Gormok					= "꿰뚫는 자 고르목",
+	Acidmaw					= "산성아귀",
+	Dreadscale				= "공포비늘",
+	Icehowl					= "얼음울음"
 }
 
 -------------------
@@ -70,39 +50,12 @@ L:SetGeneralLocalization{
 	name = "군주 자락서스"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower			= "자락서스가 황천의 힘을 얻었습니다! 해제하세요!",
-	SpecWarnTouch			= "당신에게 자락서스의 손길!",
-	SpecWarnTouchNear		= "당신 주변에 자락서스의 손길 : >%s<",
-	SpecWarnNetherPower		= "지금 해제!",
-	SpecWarnFelFireball		= "지옥 화염구 - 차단!",
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "전투 시작"
-}
-
-L:SetMiscLocalization{
-	WhisperFlame			= "당신에게 군단 불꽃!",
-	IncinerateTarget		= "살점 소각: %s"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart		= "전투 시작 타이머 보기",
-	WarnNetherPower			= "자락서스가 황천의 힘을 얻었을 경우 경고 하기 (해제를 위한 경고)",
-	SpecWarnFelFireball		= "지옥 화염구의 특수 경고 보기(차단 관련)",
-	SpecWarnTouch			= "당신이 자락서스의 손길에 걸렸을 경우 특수 경고 알리기",
-	SpecWarnTouchNear		= "당신 주변의 플레이어가 자락서스의 손길에 걸렸을 경우 특수 경고 알리기",
-	SpecWarnNetherPower		= "황천의 힘 특수 경고 알리기 (자락서스 해제클래스-법사/사제/주술사)",
-	TouchJaraxxusIcon		= "자락서스의 손길 대상 공격대 아이콘 설정",
-	IncinerateFleshIcon		= "살점 소각의 공격대 대상 아이콘 설정",
-	LegionFlameIcon			= "군단 불꽃의 공격대 대상 아이콘 설정",
-	LegionFlameWhisper		= "군단 불꽃 대상에게 귓속말 보내기",
-	LegionFlameRunSound		= "군단 불꽃 일 경우 소리 듣기",
-	IncinerateShieldFrame	= "보스 체력 프레임과 함께 살점 소각 대상자 체력바 보기"
+	IncinerateShieldFrame	= "우두머리 체력 바 사용시 살점 소각 치유량 바 함께 보기"
 }
 
 L:SetMiscLocalization{
+	IncinerateTarget		= "살점 소각: %s",
 	FirstPull				= "대흑마법사 윌프레드 피즐뱅이 다음 상대를 소환할 걸세. 기다리고 있게나."
 }
 

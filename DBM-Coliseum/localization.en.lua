@@ -9,52 +9,35 @@ L:SetGeneralLocalization{
 	name = "Northrend Beasts"
 }
 
-L:SetMiscLocalization{
-	Charge		= "^%%s glares at (%S+) and lets out",
-	CombatStart	= "Hailing from the deepest, darkest caverns of the Storm Peaks, Gormok the Impaler! Battle on, heroes!",
-	Phase2		= "Steel yourselves, heroes, for the twin terrors, Acidmaw and Dreadscale, enter the arena!",
-	Phase3		= "The air itself freezes with the introduction of our next combatant, Icehowl! Kill or be killed, champions!",
-	Gormok		= "Gormok the Impaler",
-	Acidmaw		= "Acidmaw",
-	Dreadscale	= "Dreadscale",
-	Icehowl		= "Icehowl"
-}
-
-L:SetOptionLocalization{
-	WarningSnobold				= "Show warning for Snobold Vassal spawns",
-	SpecialWarningImpale3		= "Show special warning for Impale (>=3 stacks)",
-	SpecialWarningAnger3		= "Show special warning for Rising Anger (>=3 stacks)",
-	SpecialWarningSilence		= "Show special warning for Staggering Stomp (silence)",
-	SpecialWarningCharge		= "Show special warning when Icehowl is about to charge you",
-	SpecialWarningTranq			= "Show special warning when Icehowl gains Frothing Rage (to tranq)",
-	PingCharge					= "Ping the minimap when Icehowl is about to charge you",
-	SpecialWarningChargeNear	= "Show special warning when Icehowl is about to charge near you",
-	SetIconOnChargeTarget		= "Set icons on charge targets (skull)",
-	SetIconOnBileTarget			= "Set icons on Burning Bile targets",
-	ClearIconsOnIceHowl			= "Clear all icons before charge",
-	TimerNextBoss				= "Show timer for next boss spawn",
-	TimerCombatStart			= "Show timer for start of combat",
-	TimerEmerge					= "Show timer for emerge",
-	TimerSubmerge				= "Show timer for submerge",
-	RangeFrame                  = "Show range frame in Phase 2",
-	IcehowlArrow				= "Show DBM arrow when Icehowl is about to charge near you"
+L:SetWarningLocalization{
+	WarningSnobold		= "Snobold Vassal spawned on >%s<"
 }
 
 L:SetTimerLocalization{
 	TimerNextBoss		= "Next boss",
-	TimerCombatStart	= "Combat starts",
 	TimerEmerge			= "Emerge",
 	TimerSubmerge		= "Submerge"
 }
 
-L:SetWarningLocalization{
-	WarningSnobold				= "Snobold Vassal spawned",
-	SpecialWarningImpale3		= "Impale >%d< on you",
-	SpecialWarningAnger3		= "Rising Anger >%d<",
-	SpecialWarningSilence		= "Silence in ~1.5 seconds",
-	SpecialWarningCharge		= "Charge on you - Run away",
-	SpecialWarningChargeNear	= "Charge near you - Run away",
-	SpecialWarningTranq			= "Frothing Rage - Tranq now"
+L:SetOptionLocalization{
+	WarningSnobold		= "Show warning for Snobold Vassal spawns",
+	PingCharge			= "Ping the minimap when Icehowl is about to charge you",
+	ClearIconsOnIceHowl	= "Clear all icons before charge",
+	TimerNextBoss		= "Show timer for next boss spawn",
+	TimerEmerge			= "Show timer for emerge",
+	TimerSubmerge		= "Show timer for submerge",
+	IcehowlArrow		= "Show DBM arrow when Icehowl is about to charge near you"
+}
+
+L:SetMiscLocalization{
+	Charge				= "^%%s glares at (%S+) and lets out",
+	CombatStart			= "Hailing from the deepest, darkest caverns of the Storm Peaks, Gormok the Impaler! Battle on, heroes!",
+	Phase2				= "Steel yourselves, heroes, for the twin terrors, Acidmaw and Dreadscale, enter the arena!",
+	Phase3				= "The air itself freezes with the introduction of our next combatant, Icehowl! Kill or be killed, champions!",
+	Gormok				= "Gormok the Impaler",
+	Acidmaw				= "Acidmaw",
+	Dreadscale			= "Dreadscale",
+	Icehowl				= "Icehowl"
 }
 
 ---------------------
@@ -66,40 +49,13 @@ L:SetGeneralLocalization{
 	name = "Lord Jaraxxus"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower				= "Nether Power on Lord Jaraxxus - Dispel now",
-	SpecWarnTouch				= "Touch of Jaraxxus on you",
-	SpecWarnTouchNear			= "Touch of Jaraxxus on %s near you",
-	SpecWarnNetherPower			= "Dispel now",
-	SpecWarnFelFireball			= "Fel Fireball - Interrupt now"
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "Combat starts"
-}
-
-L:SetMiscLocalization{
-	WhisperFlame		= "Legion Flame on you",
-	IncinerateTarget	= "Incinerate Flesh: %s"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart			= "Show time for start of combat",
-	WarnNetherPower				= "Show warning when Lord Jaraxxus gains Nether Power (to dispel/steal)",
-	SpecWarnTouch				= "Show special warning when you are affected by Touch of Jaraxxus",
-	SpecWarnTouchNear			= "Show special warning for Touch of Jaraxxus near you",
-	SpecWarnNetherPower			= "Show special warning for Nether Power (to dispel/steal)",
-	SpecWarnFelFireball			= "Show special warning for Fel Fireball (to interrupt)",
-	TouchJaraxxusIcon			= "Set icons on Touch of Jaraxxus targets",
-	IncinerateFleshIcon			= "Set icons on Incinerate Flesh targets",
-	LegionFlameIcon				= "Set icons on Legion Flame targets",
-	LegionFlameWhisper			= "Send whisper to Legion Flame targets",
-	LegionFlameRunSound			= "Play sound on Legion Flame",
-	IncinerateShieldFrame		= "Show boss health with a health bar for Incinerate Flesh"
+	IncinerateShieldFrame	= "Show boss health with a health bar for Incinerate Flesh"
 }
 
 L:SetMiscLocalization{
-	FirstPull	= "Grand Warlock Wilfred Fizzlebang will summon forth your next challenge. Stand by for his entry."
+	IncinerateTarget		= "Incinerate Flesh: %s",
+	FirstPull				= "Grand Warlock Wilfred Fizzlebang will summon forth your next challenge. Stand by for his entry."
 }
 
 -------------------------
