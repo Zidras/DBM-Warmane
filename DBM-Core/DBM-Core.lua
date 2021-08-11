@@ -5058,12 +5058,18 @@ function DBM:GetCurrentInstanceDifficulty()
 		if isDynamicInstance then -- Dynamic raids (ICC, RS)
 			if difficulty == 1 then -- 10 players
 				return dynamicDifficulty == 0 and "normal10" or dynamicDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
-			elseif difficulty == 2 then -- 25 men
+			elseif difficulty == 2 then -- 25 players
 				return dynamicDifficulty == 0 and "normal25" or dynamicDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+			-- On Warmane, it was confirmed by Midna that difficulty returning only 1 or 2 is their intended behaviour: https://www.warmane.com/bugtracker/report/91065
+			-- code below (difficulty 3 and 4 in dynamic instances) prevents GetCurrentInstanceDifficulty() from breaking on servers that correctly assign difficulty 1-4 in dynamic instances.
+			elseif difficulty == 3 then -- 10 heroic, dynamic
+				return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+			elseif difficulty == 4 then -- 25 heroic, dynamic
+				return "heroic25", difficultyName.." - ", difficulty, maxPlayers
 			end
 		else -- Non-dynamic raids
 			if difficulty == 1 then
-				return "normal10", difficultyName.." - ", difficulty, maxPlayers
+				return maxPlayers and "normal"..maxPlayers or "normal10", difficultyName.." - ", difficulty, maxPlayers
 			elseif difficulty == 2 then
 				return "normal25", difficultyName.." - ", difficulty, maxPlayers
 			elseif difficulty == 3 then
@@ -6368,11 +6374,10 @@ end
 -----------------------
 --  Utility Methods  --
 -----------------------
-bossModPrototype.GetDifficulty = DBM.GetCurrentInstanceDifficulty
 bossModPrototype.GetCurrentInstanceDifficulty = DBM.GetCurrentInstanceDifficulty
 
 function bossModPrototype:IsDifficulty(...)
-	local diff = self:GetDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	for i = 1, select("#", ...) do
 		if diff == select(i, ...) then
 			return true
@@ -6383,6 +6388,41 @@ end
 
 function bossModPrototype:IsTrivial(level)
 	if UnitLevel("player") >= level then
+		return true
+	end
+	return false
+end
+
+function bossModPrototype:IsLFR()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "lfr" or diff == "lfr25" then
+		return true
+	end
+	return false
+end
+
+--Dungeons: normal, heroic. (Raids excluded)
+function bossModPrototype:IsEasyDungeon()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "heroic5" or diff == "normal5" then
+		return true
+	end
+	return false
+end
+
+--Pretty much ANYTHING that has a normal mode
+function bossModPrototype:IsNormal()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "normal5" or diff == "normal10" or diff == "normal20" or diff == "normal25" or diff == "normal40" then
+		return true
+	end
+	return false
+end
+
+--Pretty much ANYTHING that has a heroic mode
+function bossModPrototype:IsHeroic()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "heroic5" or diff == "heroic10" or diff == "heroic25" then
 		return true
 	end
 	return false
@@ -6735,27 +6775,6 @@ end
 -------------------------
 function bossModPrototype:SetBossHealthInfo(...)
 	self.bossHealthInfo = {...}
-end
-
------------------------
---  Utility Methods  --
------------------------
-
-function bossModPrototype:IsLFR()
-	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-	if diff == "lfr" or diff == "lfr25" then
-		return true
-	end
-	return false
-end
-
---Dungeons: normal, heroic. (Raids excluded)
-function bossModPrototype:IsEasyDungeon()
-	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-	if diff == "heroic5" or diff == "normal5" then
-		return true
-	end
-	return false
 end
 
 ----------------------------
