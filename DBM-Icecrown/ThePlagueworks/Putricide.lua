@@ -172,7 +172,6 @@ function mod:SPELL_CAST_START(args)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
 			timerNextPhase:Start(35)
-			timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 			timerMalleableGooCD:Start(45.5)
 			ttsMalleableSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(57)
