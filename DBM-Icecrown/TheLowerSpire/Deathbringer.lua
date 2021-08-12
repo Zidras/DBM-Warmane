@@ -69,7 +69,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(37813, L.name)
 		self:ScheduleMethod(0.5, "CreateBossRPFrame")
 	end
-	if self:IsDifficulty("normal10", "normal25") then
+	if self:IsNormal() then
 		enrageTimer:Start(-delay)
 	else
 		enrageTimer:Start(360-delay)

@@ -75,7 +75,7 @@ function mod:OnCombatStart(delay)
 	timerSubmerge:Start(80-delay)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(-delay)
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+	if self:IsHeroic() then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
 		self:ScheduleMethod(30-delay, "ShadowStrike")
@@ -107,7 +107,7 @@ end
 
 function mod:ShadowStrikeReset(time)
 	if not time then return end
-	if not self:IsDifficulty("heroic10", "heroic25") then return end
+	if not self:IsHeroic() then return end
 	if self:IsInCombat() then
 		timerShadowStrike:Cancel()
 		timerShadowStrike:Start(time)
@@ -132,7 +132,7 @@ function mod:EmergeFix()
 	warnSubmergeSoon:Schedule(65)
 	specWarnSubmergeSoon:Schedule(65)
 	timerSubmerge:Start()
-	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+	if self:IsHeroic() then
 		timerShadowStrike:Stop()
 		preWarnShadowStrike:Cancel()
 		self:UnscheduleMethod("ShadowStrike")
@@ -219,7 +219,7 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
-		if mod:IsDifficulty("normal10") or mod:IsDifficulty("normal25") then
+		if self:IsNormal() then
 			timerAdds:Cancel()
 			warnAdds:Cancel()
 			self:UnscheduleMethod("Adds")
@@ -257,7 +257,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnSubmergeSoon:Schedule(65)
 		specWarnSubmergeSoon:Schedule(65)
 		timerSubmerge:Start()
-		if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		if self:IsHeroic() then
 			timerShadowStrike:Stop()
 			preWarnShadowStrike:Cancel()
 			self:UnscheduleMethod("ShadowStrike")

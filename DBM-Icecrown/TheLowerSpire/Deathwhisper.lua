@@ -134,7 +134,7 @@ end
 local function addsTimer(self)
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:Schedule(45, addsTimer, self)
 		timerAdds:Start(45)
@@ -290,7 +290,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 70842 then
 		self:SetStage(2)
 		warnPhase2:Show()
-		if self:IsDifficulty("normal10", "normal25") then
+		if self:IsNormal() then
 			timerAdds:Cancel()
 			warnAddsSoon:Cancel()
 			self:Unschedule(addsTimer)

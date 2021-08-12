@@ -120,7 +120,7 @@ function mod:StartAbomTimer()
 end
 
 function mod:OnCombatStart(delay)
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		berserkTimer:Start(-delay)
 	end
 	timerNextPortal:Start()

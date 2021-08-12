@@ -32,8 +32,8 @@ local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, "SpellCaster", 
 local specWarnUnchainedMagic	= mod:NewSpecialWarningYou(69762, nil, nil, nil, 1, 2)
 local specWarnFrostBeacon		= mod:NewSpecialWarningMoveAway(70126, nil, nil, nil, 3, 2)
 local specWarnFrostBeaconSide	= mod:NewSpecialWarningMoveTo(70126, nil, nil, nil, 3, 2)
-local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, mod:IsDifficulty("heroic10", "heroic25") and 4 or 8, nil, nil, 1, 6)
-local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsDifficulty("heroic10", "heroic25") and 4 or 8, nil, nil, 1, 6)
+local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, mod:IsHeroic() and 4 or 8, nil, nil, 1, 6)
+local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsHeroic() and 4 or 8, nil, nil, 1, 6)
 local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5, nil, nil, 1, 6)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
@@ -259,7 +259,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70106 then	--Chilled to the bone (melee)
 		if args:IsPlayer() then
 			timerChilledtotheBone:Start()
-			if (self:IsDifficulty("heroic10", "heroic25") and (args.amount or 1) >= 4) or (args.amount or 1) >= 8 then
+			if (self:IsHeroic() and (args.amount or 1) >= 4) or (args.amount or 1) >= 8 then
 				specWarnChilledtotheBone:Show(args.amount)
 				specWarnChilledtotheBone:Play("stackhigh")
 			else
@@ -269,7 +269,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 69766 then	--Instability (casters)
 		if args:IsPlayer() then
 			timerInstability:Start()
-			if (self:IsDifficulty("heroic10", "heroic25") and (args.amount or 1) >= 4) or (args.amount or 1) >= 8 then
+			if (self:IsHeroic() and (args.amount or 1) >= 4) or (args.amount or 1) >= 8 then
 				specWarnInstability:Show(args.amount)
 				specWarnInstability:Play("stackhigh")
 			else

@@ -86,7 +86,7 @@ function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self.vb.chokingTimeRemaining = 0
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		timerUnboundPlagueCD:Start(10-delay)
 	end
 end
@@ -155,7 +155,7 @@ function mod:SPELL_CAST_START(args)
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72851, 72852) then		--Create Concoction (Heroic phase change end)
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			self:ScheduleMethod(40, "NextPhase")	--May need slight tweaking +- a second or two
 			timerPotions:Start()
 			timerUnstableExperimentCD:Cancel()
@@ -183,7 +183,7 @@ function mod:NextPhase()
 		timerMalleableGooCD:Start(5)
 		timerChokingGasBombCD:Start(15)
 		warnChokingGasBombSoon:Schedule(10)
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			timerUnboundPlagueCD:Start(50)
 		end
 	elseif self.vb.phase == 3 then
@@ -192,7 +192,7 @@ function mod:NextPhase()
 		timerMalleableGooCD:Start(9)
 		timerChokingGasBombCD:Start(self.vb.chokingTimeRemaining)
 		warnChokingGasBombSoon:Schedule(self.vb.chokingTimeRemaining-7)
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			timerUnboundPlagueCD:Start(50)
 		end
 	end
@@ -215,7 +215,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			timerMalleableGooCD:Start(20)
 		else
 			timerMalleableGooCD:Start()

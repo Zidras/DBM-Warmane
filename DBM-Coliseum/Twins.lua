@@ -55,7 +55,7 @@ function mod:OnCombatStart(delay)
 	warnSpecial:Schedule(40-delay)
 	soundSpecial:Schedule(40-delay)
 	timerAchieve:Start(-delay)
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		enrageTimer:Start(360-delay)
 	else
 		enrageTimer:Start(480-delay)
