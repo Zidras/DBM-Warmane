@@ -550,7 +550,7 @@ function TT:HookDBM()
 	if DBM then
 		self:SecureHook(DBM, "CreatePizzaTimer", function(_, time, text)
 			if (text == L.TIMER_PULL or text:match("Pull") or text:match("pull") or text:match("Атака")) and DBM.Options.BigTimerNumbers then
-				DBM.Bars:CancelBar(text)
+				--DBM.Bars:CancelBar(text)
 				time = (tonumber(time) or 10) + 0.1
 				self:CreateTimer(dbmTimerType, time, time)
 			end
