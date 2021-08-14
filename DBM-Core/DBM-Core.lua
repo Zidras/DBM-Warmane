@@ -6483,6 +6483,7 @@ local specFlags ={
 	["RemoveEnrage"] = "CanRemoveEnrage", --Can remove enemy enrage.
 	["MagicDispeller"] = "IsMagicDispeller", --from ENEMY, not debuffs on players. use "Healer" or "RemoveMagic" for ally magic dispels.
 	["HasInterrupt"] = "CanInterrupt", --Has an interrupt that is 24 seconds or less CD that is BASELINE (not a talent)
+	["RemoveInvulnerabilities"] = "CanRemoveInvulnerabilities", --Custom: Can remove enemy invulnerabilities
 	["TargetedCooldown"] = "HasTargetedCooldown", --Custom: Single Target external defensive cooldown
 	["WeaponDependent"] = "IsWeaponDependent" --Custom: Specs that depend on weapon use
 }
@@ -6646,6 +6647,11 @@ function bossModPrototype:CanInterrupt()
 		or playerClass == "SHAMAN"
 		or playerClass == "MAGE"
 		or playerClass == "DEATHKNIGHT"
+end
+
+function bossModPrototype:CanRemoveInvulnerabilities()
+	return playerClass == "WARRIOR"	-- Shattering Throw
+		or playerClass == "PRIEST"	-- Mass Dispel
 end
 
 function bossModPrototype:HasRaidCooldown()

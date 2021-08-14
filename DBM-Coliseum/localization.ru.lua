@@ -69,48 +69,41 @@ L:SetGeneralLocalization{
 	name = "Чемпионы фракций"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
-}
-
 L:SetMiscLocalization{
-	Gorgrim				= "Горгрим Темный Раскол <Рыцарь смерти>",	-- 34458
-	Birana				= "Бирана Штормовое Копыто <Друид>",		-- 34451
-	Erin				= "Эрин Мглистое Копыто <Друид>",		-- 34459
-	Rujkah				= "Руж'ка <Охотница>",				-- 34448
-	Ginselle			= "Гинзелль Отразительница Гнили <Маг>",	-- 34449
-	Liandra				= "Лиандра Зовущая Солнце <Паладин>",		-- 34445
-	Malithas			= "Малитас Сияющий Клинок <Паладин>",		-- 34456
-	Caiphus				= "Каифа Неумолимый <Жрец>",			-- 34447
-	Vivienne			= "Вивьен Шепот Тьмы <Жрица>",			-- 34441
-	Mazdinah			= "Маз'дина <Разбойница>",			-- 34454
-	Thrakgar			= "Тракгар <Шаман>",				-- 34444
-	Broln				= "Бролн Крепкий Рог <Шаман>",			-- 34455
-	Harkzog				= "Харкзог <Чернокнижник>",			-- 34450
-	Narrhok				= "Наррок Крушитель Стали <Воин>",		-- 34453
-	Tyrius				= "Тирий Клинок Сумерек <Рыцарь смерти>",	-- 34461, Allience
-	Kavina				= "Кавина Песня Рощи <Друид>",			-- 34460, Allience
-	Melador				= "Меладор Дальний Гонец <Друид>",		-- 34469, Allience
-	Alyssia				= "Алисса Лунопард <Охотница>",			-- 34467, Allience
-	Noozle				= "Нуззл Чудодей <Маг>",			-- 34468, Allience
-	Baelnor				= "Бельнор Светоносный <Паладин>",		-- 34471, Allience
-	Velanaa				= "Веланаа <Паладин>",				-- 34465, Allience
-	Anthar				= "Антар Очистительный Горн <Жрец>",		-- 34466, Allience
-	Brienna				= "Бриенна Приход Ночи <Жрица>",		-- 34473, Allience
-	Irieth				= "Ириэт Шаг Сквозь Тень <Разбойница>",		-- 34472, Allience
-	Saamul				= "Саамул <Шаман>",				-- 34470, Allience
-	Shaabad				= "Шаабад <Шаман>",				-- 34463, Allience
-	Serissa				= "Серисса Мрачная Кропильщица <Чернокнижница>",-- 34474, Allience
-	Shocuul				= "Шокул <Воин>",				-- 34475, Allience
-	AllianceVictory		= "СЛАВА АЛЬЯНСУ!",
-	HordeVictory		= "That was just a taste of what the future brings. FOR THE HORDE!",
-	YellKill			= "Пустая и горькая победа. После сегодняшних потерь мы стали слабее как целое. Кто еще, кроме Короля-лича, выиграет от подобной глупости? Пали великие воины. И ради чего? Истинная опасность еще впереди – нас ждет битва с  Королем-личом."
-}
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Горгрим Темный Раскол",			-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Бирана Штормовое Копыто",		-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Эрин Мглистое Копыто",			-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Руж'ка",							-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Гинзелль Отразительница Гнили",	-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Лиандра Зовущая Солнце",			-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Малитас Сияющий Клинок",			-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Каифа Неумолимый",				-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Вивьен Шепот Тьмы",			-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Маз'дина",						-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Тракгар",						-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Бролн Крепкий Рог",			-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Харкзог",						-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Наррок Крушитель Стали",			-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Тирий Клинок Сумерек",			-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Кавина Песня Рощи",			-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Меладор Дальний Гонец",		-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Алисса Лунопард",					-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Нуззл Чудодей",					-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Бельнор Светоносный",				-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Веланаа",							-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Антар Очистительный Горн",		-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Бриенна Приход Ночи",			-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Ириэт Шаг Сквозь Тень",			-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Саамул",						-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Шаабад",						-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Серисса Мрачная Кропильщица",	-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Шокул",							-- 34475
 
-L:SetOptionLocalization{
-	PlaySoundOnBladestorm	= "Звуковой сигнал при Вихре клинков"
+	AllianceVictory		= "СЛАВА АЛЬЯНСУ!",
+	HordeVictory		= "Это было лишь пробой того, что ждет нас в будущем! ЗА ОРДУ!"
+	--YellKill			= "Пустая и горькая победа. После сегодняшних потерь мы стали слабее как целое. Кто еще, кроме Короля-лича, выиграет от подобной глупости? Пали великие воины. И ради чего? Истинная опасность еще впереди – нас ждет битва с Королем-личом."
 }
 
 ---------------------

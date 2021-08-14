@@ -21,7 +21,6 @@ L:SetTimerLocalization{
 	TimerSubmerge		= "Sumersión"
 }
 
-
 L:SetOptionLocalization{
 	WarningSnobold		= "Mostrar aviso cuando aparezca un Vasallo snóbold",
 	PingCharge			= "Pulsar en el Minimapa si Aullahielo va a por Ti",
@@ -61,56 +60,60 @@ L:SetMiscLocalization{
 	FirstPull				= "El gran brujo Wilfred Chispobang invocará al siguiente contrincante. Esperad a que aparezca."
 }
 
------------------------
--- Faction Champions --
------------------------
+-----------------------------
+-- Campeones de la facción --
+-----------------------------
 L = DBM:GetModLocalization("Champions")
 
+local champions = "Campeones de la facción"
+if UnitFactionGroup("player") == "Alliance" then
+	champions = "Campeones de la Horda"
+elseif UnitFactionGroup("player") == "Horde" then
+	champions = "Campeones de la Alianza"
+end
+
 L:SetGeneralLocalization{
-	name = "Campeones de Facción"
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
+	name = champions
 }
 
 L:SetMiscLocalization{
-	--Horde NPCS
-	Gorgrim				= "DK - Gorgrim Rajasombra",		-- 34458
-	Birana 				= "D - Birana Pezuña Tempestuosa",	-- 34451
-	Erin				= "D - Erin Pezuña de Niebla",		-- 34459
-	Rujkah				= "H - Ruj'kah",					-- 34448
-	Ginselle			= "M - Ginselle Lanzaañublo",		-- 34449
-	Liandra				= "PA - Liandra Clamasol",			-- 34445
-	Malithas			= "PA - Malithas Hoja Brillante",	-- 34456
-	Caiphus				= "PR - Caiphus el Austero",		-- 34447
-	Vivienne			= "PR - Vivienne Susurro Oscuro",	-- 34441
-	Mazdinah			= "R - Maz'dinah",					-- 34454
-	Thrakgar			= "S - Thrakgar",					-- 34444
-	Broln				= "S - Broln Cuernorrecio",			-- 34455
-	Harkzog				= "WL - Harkzog",					-- 34450
-	Narrhok				= "WR - Narrhok Rompeacero",		-- 34453
-	--Alliance NPCS
-	Tyrius				= "DK - Tyrius Hoja Umbría",		-- 34461
-	Kavina				= "D - Kavina Canto Arboleda",		-- 34460
-	Melador				= "D - Melador Caminavalles",		-- 34469
-	Alyssia             = "H - Alyssia Acechalunas",		-- 34467
-	Noozle				= "M - Noozle Varapalo",			-- 34468
-	Baelnor				= "PA - Baelnor Portador de la Luz",-- 34471
-	Velanaa				= "PA - Velanaa",					-- 34465
-	Anthar				= "PR - Anthar Ensalmaforja",		-- 34466
-	Brienna				= "PR - Brienna Talanoche",			-- 34473
-	Irieth				= "R - Irieth Paso Sombrío",		-- 34472
-	Saamul				= "S - Saamul",						-- 34470
-	Shaabad				= "S - Shaabad",					-- 34463
-	Serissa				= "WL - Serissa Desventura",		-- 34474
-	Shocuul				= "WR - Shocuul",					-- 34475
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Gorgrim Rajasombra",			-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Birana Pezuña Tempestuosa",-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Erin Pezuña de Niebla",	-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Ruj'kah",						-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Ginselle Lanzaañublo",		-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Liandra Clamasol",			-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Malithas Hoja Brillante",		-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Caiphus el Austero",		-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Vivienne Susurro Oscuro",	-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Maz'dinah",					-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Thrakgar",					-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Broln Cuernorrecio",		-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Harkzog",					-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Narrhok Rompeacero",			-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Tyrius Hoja Umbría",			-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Kavina Canto Arboleda",	-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Melador Caminavalles",		-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Acechalunas",			-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Noozle Varapalo",			-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Baelnor Portador de la Luz",	-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Velanaa",						-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Anthar Ensalmaforja",		-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Brienna Talanoche",		-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Irieth Paso Sombrío",		-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Saamul",					-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Shaabad",					-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Serissa Desventura",		-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Shocuul",						-- 34475
 
 	AllianceVictory		= "¡GLORIA A LA ALIANZA!",
-	--HordeVictory		= "That was just a taste of what the future brings. FOR THE HORDE!",--translate
-	YellKill			= "Una victoria trágica y fútil. Hoy somos menos por las pérdidas que hemos sufrido. ¿Quién podría beneficiarse de tal insensatez además del Rey Exánime? Grandes guerreros han perdido la vida. ¿Y para qué? La verdad"
+	--AllianceVictory	= "¡GLORIA PARA LA ALIANZA!" -- esMX
+	HordeVictory		= "Eso solo ha sido una muestra de lo que depara el futuro. ¡POR LA HORDA!"
+	--HordeVictory		= "Eso es sólo una probada de lo que traerá el futuro. ¡POR LA HORDA!" -- esMX
+	--YellKill			= "Una victoria trágica y fútil. Hoy somos menos por las pérdidas que hemos sufrido. ¿Quién podría beneficiarse de tal insensatez además del Rey Exánime? Grandes guerreros han perdido la vida. ¿Y para qué? La verdadera amenaza aguarda, el Rey Exánime nos espera a todos en la muerte."
+	--YellKill			= "Una victoria trágica y superficial. Nuestra integridad se vio debilitada por las pérdidas que hoy sufrimos. ¿Quién más que el Rey Exánime puede haberse beneficiado de tal insensatez? Grandes guerreros han perdido sus vidas. ¿Y para qué? La verdadera amenaza se entreteje en el futuro: el Rey Exánime nos espera en la muerte." -- esMX
 }
 
 L:SetOptionLocalization{

@@ -30,6 +30,7 @@ L:SetOptionLocalization{
 	TimerSubmerge			= "숨기 바 보기",
 	IcehowlArrow			= "사나운 돌진 대상이 가까이 있을 경우 DBM 화살표 보기"
 }
+
 L:SetMiscLocalization{
 	Charge					= "노려보며 큰 소리로 울부짖습니다.",
 	CombatStart				= "폭풍우 봉우리의 가장 깊고 어두운 동굴에서 온, 꿰뚫는 자 고르목일세! 영웅들이여, 전투에 임하게!",
@@ -68,51 +69,41 @@ L:SetGeneralLocalization{
 	name = "진영 대표 용사"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
-}
-
 L:SetMiscLocalization{
-	--Horde NPCS
---	Gorgrim				= "죽기 - 고르그림 섀도클리브",			-- 34458, Horde
---	Birana 				= "조드 - 비라나 스톰후프",				-- 34451, Horde
---	Erin				= "회드 - 에린 미스트후프",				-- 34459, Horde
---	Rujkah				= "사냥꾼 - 루즈카",					-- 34448, Horde
---	Ginselle			= "마법사 - 진셀 블라이트슬링어",		-- 34449, Horde
---	Liandra				= "신성 - 리안드라 선콜러",				-- 34445, Horde
---	Malithas			= "징벌 - 말리타스 브라이트블레이드",	-- 34456, Horde
---	Caiphus				= "수양 - 준엄한 카이푸스",				-- 34447, Horde
---	Vivienne			= "암흑 - 비비안 블랙위스퍼",			-- 34441, Horde
---	Mazdinah			= "도적 - 마즈디나",					-- 34454, Horde
---	Thrakgar			= "정기 - 스락가르",					-- 34444, Horde
---	Broln				= "고양 - 브롤른 스타우트혼",			-- 34455, Horde
---	Harkzog				= "흑마법사 - 하크조그",				-- 34450, Horde
---	Narrhok				= "전사 - 나르호크 스틸브레이커",		-- 34453, Horde
-	--Alliance NPCS
-	Tyrius				= "죽기 - 티리우스 더스크블레이드",		-- 34461, Allience
-	Kavina				= "조드 - 카비나 그로브송",				-- 34460, Allience
-	Melador				= "회드 - 멜라도르 베일스트라이더",		-- 34469, Allience
-	Alyssia 			= "사냥꾼 - 알리시아 문스토커",			-- 34467, Allience
-	Noozle				= "마법사 - 누즐 위즐스틱",				-- 34468, Allience
-	Baelnor 			= "징벌 - 벨노르 라이트베이러",			-- 34471, Allience
-	Velanaa				= "신성 - 벨라나", 						-- 34465, Allience
-	Anthar				= "수양 - 안타르 포지멘더",				-- 34466, Allience
-	Brienna				= "암흑 - 브리에나 나이트펠",			-- 34473, Allience
-	Irieth				= "도적 - 이리에스 섀도스텝",			-- 34472, Allience
-	Saamul				= "정기 - 사아물", 						-- 34470, Allience
-	Shaabad				= "고양 - 샤베드", 						-- 34463, Allience
-	Serissa				= "흑마법사 - 세리사 그림대블러",		-- 34474, Allience
-	Shocuul				= "전사 - 쇼쿨",						-- 34475, Allience
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t 고르그림 섀도클리브",		-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 비라나 스톰후프",			-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 에린 미스트후프",			-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t 루즈카",						-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t 진셀 브라이트슬링어",		-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t 리안드라 선콜러",				-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t 말리타스 브라이트블레이드",	-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t 준엄한 카이푸스",			-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t 비비안 블랙위스퍼",		-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t 마즈디나",					-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t 스락가르",					-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t 브롤른 스타우트혼",		-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t 하크조그",				-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t 나르호크 스틸브레이커",		-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t 티리우스 더스크블레이드",	-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 카비나 그로브송",			-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 멜라도르 베일스트라이더",	-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t 알리시아 문스토커",			-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t 누즐 위즐스틱",				-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t 밸노르 라이트베어러",			-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t 벨라나",						-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t 안타르 포지멘더",			-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t 브리에나 나이트펠",		-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t 이리에스 섀도스텝",			-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t 사아물",					-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t 샤바드",					-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t 세리사 그림대블러",		-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t 쇼쿨",							-- 34475
 
-	AllianceVictory 	= "Glory to the Alliance!",
-	HordeVictory		= "앞으로 일어날 일의 맛보기일 뿐이다. 호드를 위하여!",
-	YellKill			= "상처뿐인 승리로군. 오늘 받은 손해로 우리 전력은 약해졌네. 이런 어리석은 짓으로 리치 왕 말고 또 누가 이득을 보겠나? 위대한 용사들이 목숨을 잃었네. 무엇을 위해서였나? 진짜 위협은 저 앞에 있네. 리치 왕이 우리 모두를 죽음 안에서 기다린다네.",
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnBladestorm	= "전사가 칼폭을 시전 했을 경우 특수 소리 재생"
+	AllianceVictory 	= "얼라이언스에 영광을!",
+	HordeVictory		= "앞으로 일어날 일의 맛보기일 뿐이다. 호드를 위하여!"
+	--YellKill			= "상처뿐인 승리로군. 오늘 받은 손해로 우리 전력은 약해졌네. 이런 어리석은 짓으로 리치 왕 말고 또 누가 이득을 보겠나? 위대한 용사들이 목숨을 잃었네. 무엇을 위해서였나? 진짜 위협은 저 앞에 있네. 리치 왕이 우리 모두를 죽음 안에서 기다린다네.",
 }
 
 ------------------

@@ -63,55 +63,52 @@ L:SetMiscLocalization{
 -------------------------
 L = DBM:GetModLocalization("Champions")
 
+local champions = "Faction Champions"
+if UnitFactionGroup("player") == "Alliance" then
+	champions = "Horde Champions"
+elseif UnitFactionGroup("player") == "Horde" then
+	champions = "Alliance Champions"
+end
+
 L:SetGeneralLocalization{
-	name = "Faction Champions"
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
+	name = champions
 }
 
 L:SetMiscLocalization{
-	--Horde NPCS
-	Gorgrim				= "DK - Gorgrim Shadowcleave",		-- 34458
-	Birana				= "D - Birana Stormhoof",			-- 34451
-	Erin				= "D - Erin Misthoof",				-- 34459
-	Rujkah				= "H - Ruj'kah",					-- 34448
-	Ginselle			= "M - Ginselle Blightslinger",		-- 34449
-	Liandra				= "PA - Liandra Suncaller",			-- 34445
-	Malithas			= "PA - Malithas Brightblade",		-- 34456
-	Caiphus				= "PR - Caiphus the Stern",			-- 34447
-	Vivienne			= "PR - Vivienne Blackwhisper",		-- 34441
-	Mazdinah			= "R - Maz'dinah",					-- 34454
-	Thrakgar			= "S - Thrakgar",					-- 34444
-	Broln				= "S - Broln Stouthorn",			-- 34455
-	Harkzog				= "WL - Harkzog",					-- 34450
-	Narrhok				= "WR - Narrhok Steelbreaker",		-- 34453
-	--Alliance NPCS
-	Tyrius				= "DK - Tyrius Duskblade",			-- 34461
-	Kavina				= "D - Kavina Grovesong",			-- 34460
-	Melador				= "D - Melador Valestrider",		-- 34469
-	Alyssia             = "H - Alyssia Moonstalker",		-- 34467
-	Noozle				= "M - Noozle Whizzlestick",		-- 34468
-	Baelnor				= "PA - Baelnor Lightbearer",		-- 34471
-	Velanaa				= "PA - Velanaa",					-- 34465
-	Anthar				= "PR - Anthar Forgemender",		-- 34466
-	Brienna				= "PR - Brienna Nightfell",			-- 34473
-	Irieth				= "R - Irieth Shadowstep",			-- 34472
-	Saamul				= "S - Saamul",						-- 34470
-	Shaabad				= "S - Shaabad",					-- 34463
-	Serissa				= "WL - Serissa Grimdabbler",		-- 34474
-	Shocuul				= "WR - Shocuul",					-- 34475
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Gorgrim Shadowcleave",		-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Birana Stormhoof",			-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Erin Misthoof",			-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Ruj'kah",						-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Ginselle Blightslinger",	-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Liandra Suncaller",			-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Malithas Brightblade",		-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Caiphus the Stern",		-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Vivienne Blackwhisper",	-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Maz'dinah",					-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Thrakgar",					-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Broln Stouthorn",			-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Harkzog",					-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Narrhok Steelbreaker",			-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Tyrius Duskblade",			-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Kavina Grovesong",			-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Melador Valestrider",		-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Moonstalker",			-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Noozle Whizzlestick",		-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Baelnor Lightbearer",			-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Velanaa",						-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Anthar Forgemender",		-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Brienna Nightfell",		-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Irieth Shadowstep",			-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Saamul",					-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Shaabad",					-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Serissa Grimdabbler",		-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Shocuul",						-- 34475
 
 	AllianceVictory    = "GLORY TO THE ALLIANCE!",
-	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!",
-	YellKill           = "A shallow and tragic victory. We are weaker as a whole from the losses suffered today. Who but the Lich King could benefit from such foolishness? Great warriors have lost their lives. And for what? The true threat looms ahead - the Lich King awaits us all in death."
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnBladestorm	= "Play sound on Bladestorm"
+	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!"
+	--YellKill           = "A shallow and tragic victory. We are weaker as a whole from the losses suffered today. Who but the Lich King could benefit from such foolishness? Great warriors have lost their lives. And for what? The true threat looms ahead - the Lich King awaits us all in death."
 }
 
 ---------------------

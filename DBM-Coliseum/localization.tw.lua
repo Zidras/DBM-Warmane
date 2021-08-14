@@ -66,54 +66,44 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Champions")
 
 L:SetGeneralLocalization{
-	name = "各陣營勇士"
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
+	name = "陣營勇士"
 }
 
 L:SetMiscLocalization{
-	--Horde NPCS
-	Gorgrim				= "死騎 - 高葛林·影斬",			-- 34458
-	Birana				= "小德 - 碧菈娜·風暴之蹄",		-- 34451
-	Erin				= "小德 - 艾琳·霧蹄",			-- 34459
-	Rujkah				= "獵人 - 茹卡",				-- 34448
-	Ginselle			= "法師 - 金賽兒·凋擲",			-- 34449
-	Liandra				= "聖騎 - 黎安卓·喚日",			-- 34445
-	Malithas			= "聖騎 - 瑪力薩·亮刃",			-- 34456
-	Caiphus				= "牧師 - 嚴厲的凱普司",		-- 34447
-	Vivienne			= "牧師 - 薇薇安·黑語",			-- 34441
-	Mazdinah			= "盜賊 - 馬茲迪娜",			-- 34454
-	Thrakgar			= "薩滿 - 瑟瑞克加爾",			-- 34444
-	Broln				= "薩滿 - 伯洛連·頑角",			-- 34455
-	Harkzog				= "術士 - 哈克佐格",			-- 34450
-	Narrhok				= "戰士 - 納霍克·破鋼者",		-- 34453
-	--Alliance NPCS
-	Tyrius				= "死騎 - 提瑞斯·暮刃",			-- 34461
-	Kavina				= "小德 - 卡薇娜·林地之歌",		-- 34460
-	Melador				= "小德 - 梅拉朵·谷行者",		-- 34469
-	Alyssia 			= "獵人 - 愛莉希雅·月巡者",		-- 34467
-	Noozle				= "法師 - 諾佐·嘯棍",			-- 34468
-	Baelnor 			= "聖騎 - 貝爾諾·攜光者",		-- 34471
-	Velanaa				= "聖騎 - 維蘭娜",				-- 34465
-	Anthar				= "牧師 - 安薩·修爐匠",			-- 34466
-	Brienna				= "牧師 - 布芮娜·夜墜",			-- 34473
-	Irieth				= "盜賊 - 艾芮絲·影步",			-- 34472
-	Saamul				= "薩滿 - 薩繆爾",				-- 34470
-	Shaabad				= "薩滿 - 夏巴德",				-- 34463
-	Serissa				= "術士 - 瑟芮莎·厲濺",			-- 34474
-	Shocuul				= "戰士 - 修庫爾",				-- 34475
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:64:64:96|t 高葛林·影斬",		-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:0:32|t 碧菈娜·風暴之蹄",	-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:0:32|t 艾琳·霧蹄",		-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:32:64|t 茹卡",				-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:0:32|t 金賽兒·凋擲",		-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:64:96|t 黎安卓·喚日",			-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:64:96|t 瑪力薩·亮刃",			-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:63.5:95:32:64|t 嚴厲的凱普司",		-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:63.5:95:32:64|t 薇薇安·黑語",		-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:63.5:95:0:32|t 馬茲迪娜",			-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:32:64|t 瑟瑞克加爾",		-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:32:64|t 伯洛連·頑角",		-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:32:64|t 哈克佐格",		-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:0:32|t 納霍克·破鋼者",		-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:64:64:96|t 提瑞斯·暮刃",		-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:0:32|t 卡薇娜·林地之歌",	-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:0:32|t 梅拉朵·谷行者",	-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:32:64|t 愛莉希雅·月巡者",		-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:0:32|t 諾佐·嘯棍",			-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:64:96|t 貝爾諾·攜光者",		-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:64:96|t 維蘭娜",				-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:63.5:95:32:64|t 安薩·修爐匠",		-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:63.5:95:32:64|t 布芮娜·夜墜",		-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:63.5:95:0:32|t 艾芮絲·影步",		-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:32:64|t 薩繆爾",			-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:32:64|t 夏巴德",			-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:32:64|t 瑟芮莎·厲濺",		-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:0:32|t 修庫爾",				-- 34475
 
 	AllianceVictory		= "榮耀歸於聯盟!",
-	HordeVictory		= "那只是讓你們知道將來必須面對的命運。為了部落!",
-	YellKill			= "膚淺而悲痛的勝利。今天痛失的生命反而令我們更加的頹弱。除了巫妖王之外，誰還能從中獲利?偉大的戰士失去了寶貴生命。為了什麼?真正的威脅就在前方 - 巫妖王在死亡的領域中等著我們。"
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnBladestorm	= "為劍刃風暴播放音效"
+	HordeVictory		= "那只是讓你們知道將來必須面對的命運。為了部落!"
+	--YellKill			= "膚淺而悲痛的勝利。今天痛失的生命反而令我們更加的頹弱。除了巫妖王之外，誰還能從中獲利?偉大的戰士失去了寶貴生命。為了什麼?真正的威脅就在前方 - 巫妖王在死亡的領域中等著我們。"
 }
 
 ---------------------
