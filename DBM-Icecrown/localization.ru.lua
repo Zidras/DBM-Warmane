@@ -246,7 +246,13 @@ L:SetGeneralLocalization{
 	name = "Профессор Мерзоцид"
 }
 
+L:SetTimerLocalization{
+	NextPhaseStart				= "фаза Конец перехода"
+}
+
 L:SetOptionLocalization{
+	NextPhaseStart				= "Показать таймер окончания фазы перехода",
+	NextPhaseSoon				= "Воспроизведение звука на 83% и 37% - Next Phase Soon",
 	MalleableGooIcon			= "Устанавливать метку на первую цель заклинания $spell:72295",
 	GooArrow					= "Показывать стрелку, когда $spell:72295 около вас"
 }
