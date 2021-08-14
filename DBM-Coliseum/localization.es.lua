@@ -2,158 +2,118 @@
 
 local L
 
-------------------------
---  Northrend Beasts  --
-------------------------
+-------------------------------
+-- Las bestias de Rasganorte --
+-------------------------------
 L = DBM:GetModLocalization("NorthrendBeasts")
 
 L:SetGeneralLocalization{
-	name = "Bestias de Rasganorte"
-}
-
-L:SetMiscLocalization{
-	Charge			= "¡Aullahielo mira a (%S+) y emite un bramido!",
-	CombatStart		= "Desde las cavernas más oscuras y profundas de Las Cumbres Tormentosas: ¡Gormok el Empalador! ¡A luchar, héroes!",
-	Phase2			= "Preparaos, héroes, para los temibles gemelos: ¡Fauceácida y Aterraescama! ¡A la arena!",
-	Phase3			= "El propio aire se congela al presentar a nuestro siguiente combatiente: ¡Aullahielo! ¡Matad o morid, campeones!",
-	Gormok			= "Gormok el Empalador",
-	Acidmaw			= "Fauceácida",
-	Dreadscale		= "Aterraescama",
-	Icehowl			= "Aullahielo"
-}
-
-L:SetOptionLocalization{
-	WarningSnobold				= "Mostrar aviso cuando salen Vasallos snóbold",
-	SpecialWarningImpale3		= "Mostrar aviso especial para Emaplar(>=3 ticks)",
-	SpecialWarningAnger3		= "Mostrar aviso especial para Ira en aumento (>=3 ticks)",
-	SpecialWarningSilence		= "Mostrar aviso especial para Silencio (bloqueo de hechizos)",
-	SpecialWarningCharge		= "Mostrar aviso especial si Aullahielo te mira",
-	SpecialWarningTranq			= "Mostrar aviso especial si Aullahielo gana Espumarajo (para tranquilizarlo)",
-	PingCharge					= "Pulsar en el Minimapa si Aullahielo va a por Ti",
-	SpecialWarningChargeNear	= "Mostrar aviso especial si Aullahielo va a cargar a alguien cerca de ti",
-	SetIconOnChargeTarget		= "Poner marca a por quien va (calavera)",
-	SetIconOnBileTarget			= "Poner marca quien tiene Bilis ardiente",
-	ClearIconsOnIceHowl			= "Limpiar iconos despues de cargar",
-	TimerNextBoss				= "Mostrar tiempo para el proximo boss",
-	TimerCombatStart			= "Mostrar tiempo para el inicio del combate",
-	TimerEmerge					= "Mostrar tiempo para emerger",
-	TimerSubmerge				= "Mostrar tiempo para sumergir",
-	RangeFrame                  = "Mostrar distancia en fase 2",
-	IcehowlArrow				= "Mostrar flecha cuando Aullahielo está a punto de cargar cerca de ti"
-}
-
-L:SetTimerLocalization{
-	TimerNextBoss				= "Proximo boss en",
-	TimerCombatStart			= "Empieza el combate",
-	TimerEmerge					= "Emergen",
-	TimerSubmerge				= "Se sumergen"
+	name = "Las bestias de Rasganorte"
 }
 
 L:SetWarningLocalization{
-	WarningSnobold				= "Sale Vasallo snóbold",
-	SpecialWarningImpale3		= "Empalar >%d< en ti",
-	SpecialWarningAnger3		= "Ira en aumento >%d<",
-	SpecialWarningSilence		= "Silenciar en ~1.5 segundos",
-	SpecialWarningCharge		= "Cargar en ti! Corre!",
-	SpecialWarningChargeNear	= "Cargar cerca de ti! Corre",
-	SpecialWarningTranq			= "Espumarajo! Tranquilizadlo!"
+	WarningSnobold		= "Vasallo snóbold en >%s<"
 }
 
----------------------
---- Lord Jaraxxus ---
----------------------
+L:SetTimerLocalization{
+	TimerNextBoss		= "Siguiente jefe",
+	TimerEmerge			= "Emersión",
+	TimerSubmerge		= "Sumersión"
+}
+
+L:SetOptionLocalization{
+	WarningSnobold		= "Mostrar aviso cuando aparezca un Vasallo snóbold",
+	PingCharge			= "Pulsar en el Minimapa si Aullahielo va a por Ti",
+	ClearIconsOnIceHowl	= "Quitar todos los iconos antes de cada carga",
+	TimerNextBoss		= "Mostrar temporizador para el siguiente jefe",
+	TimerEmerge			= "Mostrar temporizador para cuando Fauceácida y Aterraescama regresen a la superficie",
+	TimerSubmerge		= "Mostrar temporizador para cuando Fauceácida y Aterraescama se sumerjan en la tierra",
+	IcehowlArrow		= "Mostrar flecha cuando Aullahielo vaya a cargar hacia ti"
+}
+
+L:SetMiscLocalization{
+	Charge				= "¡Aullahielo mira a (%S+) y emite un bramido!",
+	CombatStart			= "Desde las cavernas más oscuras y profundas de Las Cumbres Tormentosas: ¡Gormok el Empalador! ¡A luchar, héroes!",
+	Phase2				= "Preparaos, héroes, para los temibles gemelos: ¡Fauceácida y Aterraescama! ¡A la arena!",
+	Phase3				= "El propio aire se congela al presentar a nuestro siguiente combatiente: ¡Aullahielo! ¡Matad o morid, campeones!",
+	Gormok				= "Gormok el Empalador",
+	Acidmaw				= "Fauceácida",
+	Dreadscale			= "Aterraescama",
+	Icehowl				= "Aullahielo"
+}
+
+-------------------
+-- Lord Jaraxxus --
+-------------------
 L = DBM:GetModLocalization("Jaraxxus")
 
 L:SetGeneralLocalization{
 	name = "Lord Jaraxxus"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower			= "Poder abisal en Jaraxxus! Dispelead Ya!",
-	SpecWarnTouch			= "Toque de Jaraxxus en TI!",
-	SpecWarnTouchNear		= "Toque de Jaraxxus en >%s< cerca de ti",
-	SpecWarnNetherPower		= "Dispelead Ya!",
-	SpecWarnFelFireball		= "Bola de Fuego vil! Interrumpe!"
-}
-
-L:SetTimerLocalization{
-	TimerCombatStart		= "Empieza el combate"
-}
-
-L:SetMiscLocalization{
-	WhisperFlame			= "Llama de la Legion en TI!",
-	IncinerateTarget		= "Incinerar carne en: %s"
-}
-
 L:SetOptionLocalization{
-	TimerCombatStart		= "Mostrar tiempo para inicio del combate",
-	WarnNetherPower			= "Avisar si Jaraxxus tiene Poder abisar (para dsipelear)",
-	SpecWarnTouch			= "Aviso especial si tienes Toque de Jaraxxus",
-	SpecWarnTouchNear		= "Aviso especial si tienes Toque de Jaraxxus cerca",
-	SpecWarnNetherPower		= "Aviso especial para Poder abisal(para dispelear a jaraxxus)",
-	SpecWarnFelFireball		= "Aviso especial para Fuego Vil ( para interrumpir )",
-	TouchJaraxxusIcon		= "Poner icono quien tenga Toque de Jaraxxus",
-	IncinerateFleshIcon		= "Poner icono quien tenga Carne",
-	LegionFlameIcon			= "Poner icono quien tenga Llama de la Legion",
-	LegionFlameWhisper		= "Susurrar a quien tenga la Llama de la Legion",
-	LegionFlameRunSound		= "Reproducir sonido en Llama de la Legion",
-	IncinerateShieldFrame	= "Mostrar la vida del boss con la barra de incinerar carne"
+	IncinerateShieldFrame	= "Mostrar salud del jefe en una barra de vida durante Incinerar carne"
 }
 
 L:SetMiscLocalization{
-	FirstPull	= "El gran brujo Wilfred Chispobang invocará al siguiente contrincante. Esperad a que aparezca."
+	IncinerateTarget		= "Incinerar carne: %s",
+	FirstPull				= "El gran brujo Wilfred Chispobang invocará al siguiente contrincante. Esperad a que aparezca."
 }
 
------------------------
--- Faction Champions --
------------------------
+-----------------------------
+-- Campeones de la facción --
+-----------------------------
 L = DBM:GetModLocalization("Champions")
 
+local champions = "Campeones de la facción"
+if UnitFactionGroup("player") == "Alliance" then
+	champions = "Campeones de la Horda"
+elseif UnitFactionGroup("player") == "Horde" then
+	champions = "Campeones de la Alianza"
+end
+
 L:SetGeneralLocalization{
-	name = "Campeones de Facción"
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
+	name = champions
 }
 
 L:SetMiscLocalization{
-	--Horde NPCS
-	Gorgrim				= "DK - Gorgrim Rajasombra",		-- 34458
-	Birana 				= "D - Birana Pezuña Tempestuosa",	-- 34451
-	Erin				= "D - Erin Pezuña de Niebla",		-- 34459
-	Rujkah				= "H - Ruj'kah",					-- 34448
-	Ginselle			= "M - Ginselle Lanzaañublo",		-- 34449
-	Liandra				= "PA - Liandra Clamasol",			-- 34445
-	Malithas			= "PA - Malithas Hoja Brillante",	-- 34456
-	Caiphus				= "PR - Caiphus el Austero",		-- 34447
-	Vivienne			= "PR - Vivienne Susurro Oscuro",	-- 34441
-	Mazdinah			= "R - Maz'dinah",					-- 34454
-	Thrakgar			= "S - Thrakgar",					-- 34444
-	Broln				= "S - Broln Cuernorrecio",			-- 34455
-	Harkzog				= "WL - Harkzog",					-- 34450
-	Narrhok				= "WR - Narrhok Rompeacero",		-- 34453
-	--Alliance NPCS
-	Tyrius				= "DK - Tyrius Hoja Umbría",		-- 34461
-	Kavina				= "D - Kavina Canto Arboleda",		-- 34460
-	Melador				= "D - Melador Caminavalles",		-- 34469
-	Alyssia             = "H - Alyssia Acechalunas",		-- 34467
-	Noozle				= "M - Noozle Varapalo",			-- 34468
-	Baelnor				= "PA - Baelnor Portador de la Luz",-- 34471
-	Velanaa				= "PA - Velanaa",					-- 34465
-	Anthar				= "PR - Anthar Ensalmaforja",		-- 34466
-	Brienna				= "PR - Brienna Talanoche",			-- 34473
-	Irieth				= "R - Irieth Paso Sombrío",		-- 34472
-	Saamul				= "S - Saamul",						-- 34470
-	Shaabad				= "S - Shaabad",					-- 34463
-	Serissa				= "WL - Serissa Desventura",		-- 34474
-	Shocuul				= "WR - Shocuul",					-- 34475
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Gorgrim Rajasombra",			-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Birana Pezuña Tempestuosa",-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Erin Pezuña de Niebla",	-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Ruj'kah",						-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Ginselle Lanzaañublo",		-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Liandra Clamasol",			-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Malithas Hoja Brillante",		-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Caiphus el Austero",		-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Vivienne Susurro Oscuro",	-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Maz'dinah",					-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Thrakgar",					-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Broln Cuernorrecio",		-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Harkzog",					-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Narrhok Rompeacero",			-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Tyrius Hoja Umbría",			-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Kavina Canto Arboleda",	-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Melador Caminavalles",		-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Acechalunas",			-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Noozle Varapalo",			-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Baelnor Portador de la Luz",	-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Velanaa",						-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Anthar Ensalmaforja",		-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Brienna Talanoche",		-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Irieth Paso Sombrío",		-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Saamul",					-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Shaabad",					-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Serissa Desventura",		-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Shocuul",						-- 34475
 
 	AllianceVictory		= "¡GLORIA A LA ALIANZA!",
-	--HordeVictory		= "That was just a taste of what the future brings. FOR THE HORDE!",--translate
-	YellKill			= "Una victoria trágica y fútil. Hoy somos menos por las pérdidas que hemos sufrido. ¿Quién podría beneficiarse de tal insensatez además del Rey Exánime? Grandes guerreros han perdido la vida. ¿Y para qué? La verdad"
+	--AllianceVictory	= "¡GLORIA PARA LA ALIANZA!" -- esMX
+	HordeVictory		= "Eso solo ha sido una muestra de lo que depara el futuro. ¡POR LA HORDA!"
+	--HordeVictory		= "Eso es sólo una probada de lo que traerá el futuro. ¡POR LA HORDA!" -- esMX
+	--YellKill			= "Una victoria trágica y fútil. Hoy somos menos por las pérdidas que hemos sufrido. ¿Quién podría beneficiarse de tal insensatez además del Rey Exánime? Grandes guerreros han perdido la vida. ¿Y para qué? La verdadera amenaza aguarda, el Rey Exánime nos espera a todos en la muerte."
+	--YellKill			= "Una victoria trágica y superficial. Nuestra integridad se vio debilitada por las pérdidas que hoy sufrimos. ¿Quién más que el Rey Exánime puede haberse beneficiado de tal insensatez? Grandes guerreros han perdido sus vidas. ¿Y para qué? La verdadera amenaza se entreteje en el futuro: el Rey Exánime nos espera en la muerte." -- esMX
 }
 
 L:SetOptionLocalization{

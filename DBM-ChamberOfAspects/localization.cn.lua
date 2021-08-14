@@ -45,13 +45,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningTenebron	        = "塔尼布隆到来",
-	WarningShadron	        = "沙德隆到来",
-	WarningVesperon	        = "维斯匹隆到来",
-	WarningFireWall	        = "烈焰之啸",
+	WarningTenebron			= "塔尼布隆到来",
+	WarningShadron			= "沙德隆到来",
+	WarningVesperon			= "维斯匹隆到来",
+	WarningFireWall			= "烈焰之啸",
 	WarningVesperonPortal	= "维斯匹隆的传送门",
 	WarningTenebronPortal	= "塔尼布隆的传送门",
-	WarningShadronPortal    = "沙德隆的传送门"
+	WarningShadronPortal	= "沙德隆的传送门"
 })
 
 L:SetTimerLocalization({
@@ -61,6 +61,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	PlaySoundOnFireWall		= "音效：烈焰之啸",
 	AnnounceFails           = "公布踩中暗影裂隙和撞上烈焰之啸的玩家到团队频道 (需要团长或助理权限)",
 	TimerTenebron           = "为塔尼布隆到来显示计时条",
 	TimerShadron            = "为沙德隆到来显示计时条",
@@ -76,14 +77,14 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Wall			= "%s周围的岩浆沸腾了起来！",
-	Portal			= "%s开始开启暮光传送门!",
+	Portal			= "%s开始开启暮光传送门！",
 	NameTenebron	= "塔尼布隆",
 	NameShadron		= "沙德隆",
 	NameVesperon	= "维斯匹隆",
-	FireWallOn		= "烈焰之啸: %s",
-	VoidZoneOn		= "暗影裂隙: %s",
-	VoidZones		= "踩中暗影裂隙 (这一次): %s",
-	FireWalls		= "撞上烈焰之啸 (这一次): %s"
+	FireWallOn		= "烈焰之啸：%s",
+	VoidZoneOn		= "暗影裂隙：%s",
+	VoidZones		= "踩中暗影裂隙 (这一次)：%s",
+	FireWalls		= "撞上烈焰之啸 (这一次)：%s"
 })
 
 ------------------------
@@ -98,12 +99,12 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "分裂即將到來"
+	WarningSplitSoon 	= "分裂 即将到来"
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "為分裂顯示預先警告",
-	RangeFrame			= "顯示距離框 (12碼)"
+	WarningSplitSoon	= "预警：分裂",
+	RangeFrame			= "范围监测器：12码"
 })
 
 -------------------------
@@ -116,7 +117,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "顯示距離框 (10碼)"
+	RangeFrame			= "范围监测器：10码"
 })
 
 --------------------------
@@ -134,13 +135,14 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerAdds		= "新的小怪"
+	TimerAdds		= "新的小怪",
+	AddsArrive		= "小怪到来："
 })
 
 L:SetOptionLocalization({
-	WarnAdds		= "提示新的小怪",
-	TimerAdds		= "為新的小怪顯示計時器",
-	AddsArrive		= "Show timer for adds arrival" --Needs Translating
+	WarnAdds		= "通报：新的小怪",
+	TimerAdds		= "计时条：新的小怪",
+	AddsArrive		= "计时条：小怪到来"
 })
 
 L:SetMiscLocalization({
@@ -157,13 +159,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	TwilightCutterCast	= "施放暮光切割: 5秒後"
+	TwilightCutterCast		= "5秒后 施放暮光撕裂射线"
 })
 
 L:SetOptionLocalization({
-	TwilightCutterCast		= "當$spell:77844開始施放時顯示警告",
-	AnnounceAlternatePhase	= "不管你進不進下一階段一樣顯示警告/計時器",
-	SetIconOnConsumption	= "為$spell:74562或$spell:74792的目標設置標記"--So we can use single functions for both versions of spell.
+	TwilightCutterCast		= "警报：$spell:77844开始施放",
+	AnnounceAlternatePhase	= "显示另一场地的警报/计时条",
+	SetIconOnConsumption	= "标记：$spell:74562或$spell:74792的目标"--So we can use single functions for both versions of spell.
 })
 
 L:SetMiscLocalization({
@@ -171,6 +173,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "天空在燃烧！",
 	Phase2					= "暮光的世界将会让你痛不欲生！够胆量的就进来吧！",
 	Phase3					= "我就是交织的光影！凡人，在死亡之翼的使者面前颤抖吧！",
-	twilightcutter			= "阴影在弥漫！", -- "黑暗能量正在这颗旋转的魔球中脉动！", -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
+	twilightcutter			= "阴影在弥漫！", -- "黑暗能量正在这颗旋转的魔球中脉动！", -- Warmane(i服)不能用此台词作为判断条件，因为Warmane(i服)服务器端会在切割前5秒和切割开始时触发此台词两次。
 	Kill					= "享受胜利吧，凡人们，这是你们最后的胜利。回归的主人将烧毁这个世界！"
 })

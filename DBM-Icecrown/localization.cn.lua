@@ -329,21 +329,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen			= "传送门开启",
-	Suppressers				= "Suppressers" --Needs translating
-
+	WarnPortalOpen			= "传送门开启"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen		= "传送门开启",
 	TimerPortalsClose		= "Portals close", --Needs translating
 	TimerBlazingSkeleton	= "下一次炽热骷髅",
-	TimerAbom				= "下一次憎恶体",
-	TimerSuppresserOne		= "1st wave of Suppressers", --Needs translating
-	TimerSuppresserTwo		= "2nd wave of Suppressers", --Needs translating
-	TimerSuppresserThree	= "3rd wave of Suppressers", --Needs translating
-	TimerSuppresserFour		= "4th wave of Suppressers" --Needs translating
-
+	TimerAbom				= "下一次憎恶体"
 }
 
 L:SetOptionLocalization{
@@ -352,12 +345,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "当梦魇之门开启时显示计时器",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs translating
 	TimerBlazingSkeleton		= "为下一次炽热骷髅出现显示计时器",
-	TimerAbom					= "为下一次贪吃的憎恶体出现显示计时器",
-	Suppressers					= "Show special warning for new Suppressers", --Needs translating
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs translating
+	TimerAbom					= "为下一次贪吃的憎恶体出现显示计时器"
 }
 
 L:SetMiscLocalization{

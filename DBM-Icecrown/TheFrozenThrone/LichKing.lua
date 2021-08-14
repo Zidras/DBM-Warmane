@@ -144,7 +144,7 @@ local function NextPhase(self)
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
 		timerDrudgeGhouls:Start(10)
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			timerTrapCD:Start()
 			timerNecroticPlagueCD:Start(30)
 		else
@@ -496,7 +496,7 @@ function mod:SPELL_DAMAGE(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if self:IsDifficulty("heroic10", "heroic25") and self:GetUnitCreatureId(uId) == 36609 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.55 and not warnedValkyrGUIDs[UnitGUID(uId)] then
+	if self:IsHeroic() and self:GetUnitCreatureId(uId) == 36609 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.55 and not warnedValkyrGUIDs[UnitGUID(uId)] then
 		warnedValkyrGUIDs[UnitGUID(uId)] = true
 		specWarnValkyrLow:Show()
 		specWarnValkyrLow:Play("stopattack")

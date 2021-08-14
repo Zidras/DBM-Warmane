@@ -1229,24 +1229,24 @@ do
 	local function moveEnd(self)
 		updateClickThrough(self, self:GetOption("ClickThrough"))
 		self.movable = false
---		DBM.InfoFrame:Hide()
+		DBM.InfoFrame:Hide()
 		DBM.RangeCheck:Hide(true)
 	end
 
 	function DBT:ShowMovableBar(small, large)
 		if small or small == nil then
 			local bar1 = self:CreateBar(20, "Move1", "Interface\\Icons\\Spell_Nature_WispSplode", nil, true)
-			bar1:SetText(DBM_CORE_MOVABLE_BAR)
+			bar1:SetText(DBM_CORE_L.MOVABLE_BAR)
 		end
 		if large or large == nil then
 			local bar2 = self:CreateBar(20, "Move2", "Interface\\Icons\\Spell_Nature_WispSplode", true)
-			bar2:SetText(DBM_CORE_MOVABLE_BAR)
+			bar2:SetText(DBM_CORE_L.MOVABLE_BAR)
 		end
 		updateClickThrough(self, false)
 		self.movable = true
 		DBM:Unschedule(moveEnd, self)
 		DBM:Schedule(20, moveEnd, self)
---		DBM.InfoFrame:Show(5, "test")
+		DBM.InfoFrame:Show(5, "test")
 		DBM.RangeCheck:Show(nil, nil, true)
 	end
 end

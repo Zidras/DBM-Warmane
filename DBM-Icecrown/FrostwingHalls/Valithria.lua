@@ -31,10 +31,7 @@ local specWarnGutSpray		= mod:NewSpecialWarningDefensive(70633, nil, nil, nil, 1
 local specWarnLayWaste		= mod:NewSpecialWarningSpell(69325, nil, nil, nil, 2, 2)
 local specWarnManaVoid		= mod:NewSpecialWarningMove(71179, nil, nil, nil, 1, 2)
 
-local specWarnSuppresserOne			= mod:NewSpecialWarning("Suppressers")
-local specWarnSuppresserTwo			= mod:NewSpecialWarning("Suppressers")
-local specWarnSuppresserThree		= mod:NewSpecialWarning("Suppressers")
-local specWarnSuppresserFour		= mod:NewSpecialWarning("Suppressers")
+local specWarnSuppressers	= mod:NewSpecialWarningSpell(70935)
 
 local timerLayWaste			= mod:NewBuffActiveTimer(12, 69325, nil, nil, nil, 2)
 local timerNextPortal		= mod:NewCDTimer(46.5, 72483, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
@@ -45,13 +42,9 @@ local timerGutSpray			= mod:NewTargetTimer(12, 70633, nil, "Tank|Healer", nil, 5
 local timerCorrosion		= mod:NewTargetTimer(6, 70751, nil, false, nil, 3)
 local timerBlazingSkeleton	= mod:NewTimer(50, "TimerBlazingSkeleton", 17204, nil, nil, 1)
 local timerAbom				= mod:NewTimer(50, "TimerAbom", 43392, nil, nil, 1)
+local timerSuppressers		= mod:NewNextCountTimer(60, 70935, nil, nil, nil, 1)
 
-local timerSuppresserOne			= mod:NewTimer(30, "TimerSuppresserOne","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSuppresserTwo			= mod:NewTimer(58, "TimerSuppresserTwo","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSuppresserThree			= mod:NewTimer(62, "TimerSuppresserThree","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSuppresserFour			= mod:NewTimer(50, "TimerSuppresserFour","Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-
-local soundSpecWarnSuppresser	= mod:NewSound(70935)
+local soundSpecWarnSuppressers	= mod:NewSound(70935)
 
 local berserkTimer			= mod:NewBerserkTimer(420)
 
@@ -61,6 +54,44 @@ mod.vb.BlazingSkeletonTimer = 60
 mod.vb.AbomSpawn = 0
 mod.vb.AbomTimer = 60
 mod.vb.blazingSkeleton = nil
+mod.vb.SuppressersWave = 0
+
+local function Suppressers(self)
+	self.vb.SuppressersWave = self.vb.SuppressersWave + 1
+	if self.vb.SuppressersWave == 2 then
+		timerSuppressers:Stop()
+		timerSuppressers:Start(58, self.vb.SuppressersWave)
+		specWarnSuppressers:Cancel()
+		specWarnSuppressers:Schedule(58)
+		soundSpecWarnSuppressers:Schedule(58, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+		self:Unschedule(Suppressers)
+		self:Schedule(58, Suppressers, self)
+	elseif self.vb.SuppressersWave == 3 then
+		timerSuppressers:Stop()
+		timerSuppressers:Start(62, self.vb.SuppressersWave)
+		specWarnSuppressers:Cancel()
+		specWarnSuppressers:Schedule(62)
+		soundSpecWarnSuppressers:Schedule(62, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+		self:Unschedule(Suppressers)
+		self:Schedule(62, Suppressers, self)
+	elseif self.vb.SuppressersWave == 4 then
+		timerSuppressers:Stop()
+		timerSuppressers:Start(50, self.vb.SuppressersWave)
+		specWarnSuppressers:Cancel()
+		specWarnSuppressers:Schedule(50)
+		soundSpecWarnSuppressers:Schedule(50, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+		self:Unschedule(Suppressers)
+		self:Schedule(50, Suppressers, self)
+	elseif self.vb.SuppressersWave > 4 then -- using dummy values since I have no Warmane VODs past 4 waves.
+		timerSuppressers:Stop()
+		timerSuppressers:Start(50, self.vb.SuppressersWave)
+		specWarnSuppressers:Cancel()
+		specWarnSuppressers:Schedule(50)
+		soundSpecWarnSuppressers:Schedule(50, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+		self:Unschedule(Suppressers)
+		self:Schedule(50, Suppressers, self)
+	end
+end
 
 function mod:StartBlazingSkeletonTimer()
 	timerBlazingSkeleton:Start(self.vb.BlazingSkeletonTimer)
@@ -89,7 +120,7 @@ function mod:StartAbomTimer()
 end
 
 function mod:OnCombatStart(delay)
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		berserkTimer:Start(-delay)
 	end
 	timerNextPortal:Start()
@@ -103,18 +134,11 @@ function mod:OnCombatStart(delay)
 	timerBlazingSkeleton:Start(30-delay)
 	timerAbom:Start(5-delay)
 	self.vb.blazingSkeleton = nil
-	timerSuppresserOne:Start(-delay)
-	timerSuppresserTwo:Schedule(30)
-	timerSuppresserThree:Schedule(88)
-	timerSuppresserFour:Schedule(150)
-	specWarnSuppresserOne:Schedule(30)
-	soundSpecWarnSuppresser:Schedule(30, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
-	specWarnSuppresserTwo:Schedule(88)
-	soundSpecWarnSuppresser:Schedule(88, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
-	specWarnSuppresserThree:Schedule(150)
-	soundSpecWarnSuppresser:Schedule(150, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
-	specWarnSuppresserFour:Schedule(200)
-	soundSpecWarnSuppresser:Schedule(200, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+	self.vb.SuppressersWave = 1
+	timerSuppressers:Start(30-delay, self.vb.SuppressersWave)
+	specWarnSuppressers:Schedule(30)
+	soundSpecWarnSuppressers:Schedule(30, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+	self:Schedule(30, Suppressers, self)
 end
 
 function mod:Portals()

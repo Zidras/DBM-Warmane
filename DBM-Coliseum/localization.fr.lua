@@ -11,6 +11,25 @@ L:SetGeneralLocalization{
 	name = "Les Bêtes du Norfendre"
 }
 
+L:SetWarningLocalization{
+	WarningSnobold				= "Un Vassal frigbold viens d'arriver sur >%s<"
+}
+
+L:SetTimerLocalization{
+	TimerNextBoss				= "Prochain boss dans",
+	TimerEmerge					= "Sort du sol",
+	TimerSubmerge				= "Rentre dans le sol"
+}
+
+L:SetOptionLocalization{
+	WarningSnobold				= "Montre une alerte quand les Vassal arrivent",
+	PingCharge					= "Ping sur la minimap quand Glace-hurlante va vous charger",
+	ClearIconsOnIceHowl			= "Enlève toutes les icônes avant la prochaine charge",
+	TimerNextBoss				= "Montre le timer pour l'arrivée du prochain boss",
+	TimerEmerge					= "Montre le timer avant que les vers rentre dans le sol",
+	TimerSubmerge				= "Montre le timer avant que les vers sortent du sol"
+}
+
 L:SetMiscLocalization{
 	Charge			= "fusille (%S+) du regard",
 	CombatStart		= "Arrivant tout droit des plus noires et profondes cavernes des pics Foudroyés, Gormok l'Empaleur !",
@@ -22,50 +41,6 @@ L:SetMiscLocalization{
 	Icehowl			= "Glace-hurlante"
 }
 
-L:SetOptionLocalization{
-	WarningSnobold				= "Montre une alerte quand les Vassal arrivent",
-	SpecialWarningImpale3		= "Montre une alerte spéciale pour l'empaler (>=3 Stacks)",
-	SpecialWarningAnger3		= "Montre une alerte pour la Colère croissante (>=3 stacks)",
-	SpecialWarningFireBomb		= "Montre une alerte spéciale quand la Bombe incendiaire est sur vous",
-	SpecialWarningSlimePool		= "Montre une alerte spéciale pour les Flaque de bave",
-	SpecialWarningSilence		= "Montre une alerte spéciale pour le Piétinement ahurissant",
-	SpecialWarningToxin			= "Montre une alerte spéciale si vous êtes victime de la Toxine paralysante",
-	SpecialWarningBile			= "Montre une alerte spéciale si vous avez la Bile brûlante sur Vous",
-	SpecialWarningCharge		= "Montre une alerte spéciale quand Glace-hurlante est sur le point de vous charger",
-	SpecialWarningTranq			= "Montre une alerte spéciale quand GLace-Hurlante gagne la Rage écumeuse (Tir tranq)",
-	PingCharge					= "Ping sur la minimap quand Glace-hurlante va vous charger",
-	SpecialWarningChargeNear	= "Montre une alerte spéciale quand Glace-hurlante charge à côté de vous",
-	SetIconOnChargeTarget		= "Met une icône sur la cible de la charge ( Tête de mort )",
-	SetIconOnBileTarget			= "Met une icône sur la cible de la Bile brûlante",
-	ClearIconsOnIceHowl			= "Enlève toutes les icônes avant la prochaine charge",
-	TimerNextBoss				= "Montre le timer pour l'arrivée du prochain boss",
-	TimerCombatStart			= "Montre le timer avant le début du combat",
-	TimerEmerge					= "Montre le timer avant que les vers rentre dans le sol",
-	TimerSubmerge				= "Montre le timer avant que les vers sortent du sol",
-	RangeFrame                  = "Affiche la fenêtre de portée pour la Phase 2"
-}
-
-L:SetTimerLocalization{
-	TimerNextBoss				= "Prochain boss dans",
-	TimerCombatStart			= "Le combat débute dans",
-	TimerEmerge					= "Sort du sol",
-	TimerSubmerge				= "Rentre dans le sol"
-}
-
-L:SetWarningLocalization{
-	WarningSnobold				= "Un Vassal frigbold viens d'arriver",
-	SpecialWarningImpale3		= "Empaler >%d< sur VOUS",
-	SpecialWarningAnger3		= "Colère croissante >%d<",
-	SpecialWarningFireBomb		= "Bombe incendiaire sur VOUS",
-	SpecialWarningSlimePool		= "Flaque de bave, BOUGEZ!",
-	SpecialWarningSilence		= "Piétinement ahurissant dans ~1.5 Seconde!",
-	SpecialWarningToxin			= "Toxine paralysante sur vous, BOUGEZ!",
-	SpecialWarningCharge		= "Charge sur vous! COUREZ!",
-	SpecialWarningChargeNear	= "Charge à côté de vous! COUREZ!",
-	SpecialWarningBile			= "Bile brûlante sur VOUS !",
-	SpecialWarningTranq			= "Rage écumeuse - Tir tranq Maintenant"
-}
-
 -------------------
 -- Lord Jaraxxus --
 -------------------
@@ -75,41 +50,13 @@ L:SetGeneralLocalization{
 	name = "Seigneur Jaraxxus"
 }
 
-L:SetWarningLocalization{
-	WarnNetherPower				= "Puissance du Néant sur Jaraxxus! Dispel Maintenant!",
-	SpecWarnFlesh				= "Incinérer la chair sur VOUS!",
-	SpecWarnTouch				= "Toucher de Jaraxxus sur VOUS!",
-	SpecWarnKiss				= "Baiser de la Maîtresse",
-	SpecWarnTouchNear			= "Toucher de Jaraxxus sur >%s< à côté de vous",
-	SpecWarnFlame				= "Flamme de la Légion! COUREZ!",
-	SpecWarnNetherPower			= "Dispell Maintenant!",
-	SpecWarnFelInferno			= "Inferno gangrené! Courez plus loin!",
-	SpecWarnFelFireball			= "Boule de feu - CASSEZ",
-	SpecWarnFelFireballDispel	= "Boule de feu sur %s - Dispel"
+L:SetOptionLocalization{
+	IncinerateShieldFrame	= "Montre la vie du Boss avec une barre de vie pour Incinérer la chair"
 }
 
 L:SetMiscLocalization{
-	WhisperFlame				= "Flamme de la Légion sur VOUS!",
-	IncinerateTarget			= "Incinérer la chair: %s"
-}
-
-L:SetOptionLocalization{
-	WarnNetherPower				= "Alerte quand Jaraxxus gagne Puissance du Néant (Pour le dispell)",
-	SpecWarnFlame				= "Montre une alerte spéciale quand vous avez Flamme de la Légion",
-	SpecWarnFlesh				= "Montre une alerte spéciale quand vous avez Incinérer la chair",
-	SpecWarnTouch				= "Montre une alerte spéciale quand le Toucher de Jaraxxus est sur vous",
-	SpecWarnTouchNear			= "Montre une alerte spéciale quand le Toucher de Jaraxxus est à côté de vous",
-	SpecWarnKiss				= "Montre une alerte spéciale pour le Baiser de la Maîtresse",
-	SpecWarnNetherPower			= "Montre une alerte spéciale pour la Puissance du Néant (Pour dispell Jaraxxus)",
-	SpecWarnFelInferno			= "Montre une alerte spéciale quand vous êtes près d'un Inferno gangrené",
-	SpecWarnFelFireball			= "Montre une alerte spéciale pour la boule de feu gangrené (Pour casser)",
-	SpecWarnFelFireballDispel	= "Montre une alerte spécale pour la boule de feu gangrené (Pour dispel)",
-	TouchJaraxxusIcon			= "Met une icône sur la cible du Toucher de Jaraxxus",
-	IncinerateFleshIcon			= "Met une icône sur la cible d'Incinérer la chair",
-	LegionFlameIcon				= "Met une icône sur la cible des Flammes de la Légion",
-	LegionFlameWhisper			= "Chuchote à la cible des Flammes de la Légion pour la prévenir",
-	LegionFlameRunSound			= "Joue une sons pour les Flammes de la légion",
-	IncinerateShieldFrame		= "Montre la vie du Boss avec une barre de vie pour Incinérer la chair"
+	IncinerateTarget		= "Incinérer la chair: %s",
+	FirstPull				= "Le grand démoniste Wilfred Flopboum va invoquer votre prochain défi. Ne bougez pas, il arrive."
 }
 
 -----------------------
@@ -121,42 +68,41 @@ L:SetGeneralLocalization{
 	name = "Champion des Factions"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
-	SpecWarnHellfire		= "Flammes infernales ! BOUGEZ !",
-	SpecWarnHandofProt		= "Main de Protection sur >%s<",
-	SpecWarnDivineShield	= "Bouclier Divin sur >%s<",
-	specWarnIceBlock       	= "Bloc de glace sur %s"
-}
-
 L:SetMiscLocalization{
-	Gorgrim					= "DK - Gorgrim Fend-les-ombres",		-- 34458
-	Birana 					= "Druide - Birana Sabot-tempête",		-- 34451
-	Erin					= "Druide - Erin Sabot-de-brume",		-- 34459
-	Rujkah					= "Chasseur - Ruj'kah",					-- 34448
-	Ginselle				= "Mage - Ginselle Jettechancre",		-- 34449
-	Liandra					= "Paladin - Liandra Mande-soleil",		-- 34445
-	Malithas				= "Paladin - Malithas Brillelame",		-- 34456
-	Caiphus					= "Prêtre - Caiphus le Sévère",			-- 34447
-	Vivienne				= "Prêtre - Vivienne Murmenoir",		-- 34441
-	Mazdinah				= "Voleur - Maz'dinah",					-- 34454
-	Thrakgar				= "Chaman - Thrakgar",					-- 34444
-	Broln					= "Chaman - Broln Corne-rude",			-- 34455
-	Harkzog					= "Démoniste - Harkzog",				-- 34450
-	Narrhok					= "Guerrier - Narrhok Brise-acier",		-- 34453
-	AllianceVictory    = "GLORY TO THE ALLIANCE!",
-	HordeVictory       = "That was just a taste of what the future brings. FOR THE HORDE!",
-	YellKill				= "Une victoire tragique et depourvue de sens. La perte subie aujourd'hui nous affaiblira tous, car qui d'autre que le roi-liche pourrait beneficier d'une telle folie?? De grands guerriers ont perdu la vie. Et pour quoi?? La vraie menace plane à l'horizon?: le roi-liche nous attend, tous, dans la mort."
-}
+	--Horde NPCs
+	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Gorgrim Fend-les-ombres",	-- 34458
+	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Birana Sabot-Tempête",		-- 34451
+	Erin				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Erin Sabot-de-brume",		-- 34459
+	Rujkah				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Ruj'kah",						-- 34448
+	Ginselle			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Ginselle Jettechancre",		-- 34449
+	Liandra				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Liandra Mande-soleil",		-- 34445
+	Malithas			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Malithas Brillelame",			-- 34456
+	Caiphus				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Caiphus le Sévère",		-- 34447
+	Vivienne			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Vivienne Murmenoir",		-- 34441
+	Mazdinah			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Maz'dinah",					-- 34454
+	Thrakgar			= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Thrakgar",					-- 34444
+	Broln				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Broln Corne-Rude",			-- 34455
+	Harkzog				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Harkzog",					-- 34450
+	Narrhok				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Narrhok Brise-acier",			-- 34453
+	--Alliance NPCs
+	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Tyrius Lamebrune",			-- 34461
+	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Kavina Chantebosquet",		-- 34460
+	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Melador Arpenteval",		-- 34469
+	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Traquelune",			-- 34467
+	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Touillert Vizitige",		-- 34468
+	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Baelnor Portelumière",		-- 34471
+	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Velanaa",						-- 34465
+	Anthar				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Anthar Soigneforge",		-- 34466
+	Brienna				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:32:64|t Brienna Tombenuit",		-- 34473
+	Irieth				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:63.5:95:0:32|t Irieth Pas-de-l'ombre",		-- 34472
+	Saamul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Saamul",					-- 34470
+	Shaabad				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:32:64|t Shaabad",					-- 34463
+	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t Serissa Funèbricole",		-- 34474
+	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Shocuul",						-- 34475
 
-L:SetOptionLocalization{
-	SpecWarnHellfire		= "Montre une alerte spéciale quand vous subissez des dégats provenant des Flammes infernales",
-	SpecWarnHandofProt		= "Montre une alerte spéciale quand le Paladin lance Main de Protection",
-	SpecWarnDivineShield	= "Montre une alerte spéciale quand le Paladin lance Bouclier Divin",
-	specWarnIceBlock       	= "Montre une alerte spéciale quand le mage incante sont bloc de glace ( Pour le dispell )",
-	PlaySoundOnBladestorm	= "Play sound on Bladestorm"
+	AllianceVictory			= "GLOIRE À L'ALLIANCE !",
+	HordeVictory			= "Et ce n'était qu'un avant-goût de ce que l'avenir vous réserve. POUR LA HORDE !"
+	--YellKill				= "Une victoire tragique et dépourvue de sens. La perte subie aujourd'hui nous affaiblira tous, car qui d'autre que le roi-liche pourrait bénéficier d'une telle folie ? De grands guerriers ont perdu la vie. Et pour quoi ? La vraie menace plane à l'horizon : le roi-liche nous attend, tous, dans la mort."
 }
 
 ------------------

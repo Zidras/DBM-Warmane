@@ -19,6 +19,7 @@ local warnInjection		= mod:NewTargetAnnounce(28169, 2)
 local warnCloud			= mod:NewSpellAnnounce(28240, 2)
 
 local specWarnInjection	= mod:NewSpecialWarning("SpecialWarningInjection")
+local yellInjection		= mod:NewYellMe(28169, nil, false)
 
 local timerInjection	= mod:NewTargetTimer(10, 28169)
 local timerCloud		= mod:NewNextTimer(15, 28240)
@@ -63,7 +64,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerInjection:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnInjection:Show()
-			SendChatMessage("Мутагенный укол на мне!", "SAY")
+			yellInjection:Yell()
 		end
 		if self.Options.SetIconOnInjectionTarget then
 			table.insert(mutateIcons, args.destName)

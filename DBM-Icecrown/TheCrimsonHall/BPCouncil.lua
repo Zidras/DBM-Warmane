@@ -53,7 +53,7 @@ local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -
 
 local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
 
-local berserkTimer				= mod:NewBerserkTimer(600)
+local berserkTimer				= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("EmpoweredFlameIcon", true)
 mod:AddBoolOption("ActivePrinceIcon", false)

@@ -197,7 +197,7 @@ L.PIZZA_ERROR_USAGE				= "사용법: /dbm [broadcast] timer <시간> <텍스트>
 
 L.MINIMAP_TOOLTIP_FOOTER		= "쉬프트 누르고 드래그로 이동"
 
-L.RANGECHECK_HEADER			= "탐지 거리 (%dm)"
+L.RANGECHECK_HEADER			= "탐지 거리 (%d m)"
 L.RANGECHECK_HEADERT			= "탐지 거리 (%dm-%d명)"
 L.RANGECHECK_RHEADER			= "반전-탐지 거리 (%dm)"
 L.RANGECHECK_RHEADERT		= "반전-탐지 거리 (%dm-%d명)"
@@ -214,11 +214,11 @@ L.RANGECHECK_OPTION_FRAMES	= "창 종류"
 L.RANGECHECK_OPTION_RADAR	= "레이더 창 표시"
 L.RANGECHECK_OPTION_TEXT		= "텍스트 창 표시"
 L.RANGECHECK_OPTION_BOTH		= "모두 표시"
-L.RANGERADAR_HEADER			= "거리:%d, 플레이어:%d"
+L.RANGERADAR_HEADER			= "범위 레이더 (%d m)"
 L.RANGERADAR_RHEADER			= "반전-거리:%d 플레이어:%d"
-L.RANGERADAR_IN_RANGE_TEXT	= "거리 내 %d명 (%0.1fm)"
+L.RANGERADAR_IN_RANGE_TEXT	= "거리 내 %d명 (%0.1f m)"
 L.RANGECHECK_IN_RANGE_TEXT	= "거리 내 %d명"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways
-L.RANGERADAR_IN_RANGE_TEXTONE	= "%s (%0.1fm)"--One target
+L.RANGERADAR_IN_RANGE_TEXTONE	= "%s (%0.1f m)"--One target
 
 L.INFOFRAME_SHOW_SELF		= "내 자원 항상 보기"		-- Always show your own power value even if you are below the threshold
 L.INFOFRAME_SETLINES			= "최대 줄 갯수 지정"
@@ -319,7 +319,7 @@ L.TIMER_BREAK				= "쉬는 시간!"
 L.ANNOUNCE_BREAK_OVER		= "쉬는 시간이 %s에 끝났습니다"
 
 L.TIMER_PULL					= "풀링"
-L.ANNOUNCE_PULL				= "%d초 후 풀링합니다. (%s|1이;가; 전송)"
+L.ANNOUNCE_PULL				= "%d초 후 풀링합니다."
 L.ANNOUNCE_PULL_NOW			= "풀링 시작!"
 L.ANNOUNCE_PULL_TARGET		= "%s|1을;를; %d초 후 풀링합니다. (%s|1이;가; 전송)"
 L.ANNOUNCE_PULL_NOW_TARGET	= "%s 풀링 시작!"

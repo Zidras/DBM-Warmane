@@ -44,7 +44,7 @@ local timerSummonSpiritCD			= mod:NewCDTimer(10, 71426, nil, true, 2)
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
-local berserkTimer					= mod:NewBerserkTimer(600)
+local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(420) or mod:NewBerserkTimer(600)
 
 local soundWarnSpirit				= mod:NewSound(71426)
 
@@ -134,7 +134,7 @@ end
 local function addsTimer(self)
 	timerAdds:Cancel()
 	warnAddsSoon:Cancel()
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		warnAddsSoon:Schedule(40)	-- 5 secs prewarning
 		self:Schedule(45, addsTimer, self)
 		timerAdds:Start(45)
@@ -290,7 +290,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 70842 then
 		self:SetStage(2)
 		warnPhase2:Show()
-		if self:IsDifficulty("normal10", "normal25") then
+		if self:IsNormal() then
 			timerAdds:Cancel()
 			warnAddsSoon:Cancel()
 			self:Unschedule(addsTimer)

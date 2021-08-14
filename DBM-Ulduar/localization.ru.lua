@@ -94,8 +94,7 @@ L:SetMiscLocalization{
 	YellAir				= "Дайте время подготовить пушки.",
 	YellAir2			= "Огонь прекратился! Надо починить пушки!",
 	YellGround			= "Быстрее! Сейчас она снова взлетит!",
-	EmotePhase2			= "%%s обессилела и больше не может летать!",
-	FlamecastUnknown	= DBM_CORE_UNKNOWN
+	EmotePhase2			= "%%s обессилела и больше не может летать!"
 }
 
 ----------------------------
@@ -537,4 +536,3 @@ L:SetOptionLocalization{
 	SetIconOnBrainLinkTarget		= "Устанавливать метки на цели заклинания $spell:63802",
 	MaladyArrow						= "Показывать стрелку, когда $spell:63881 около вас"
 }
-

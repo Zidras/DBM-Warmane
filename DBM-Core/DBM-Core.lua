@@ -5053,30 +5053,39 @@ function DBM:SetCurrentSpecInfo()
 end
 
 function DBM:GetCurrentInstanceDifficulty()
-	local _, instanceType, difficulty, difficultyName, maxPlayers, playerDifficulty, isDynamicInstance = GetInstanceInfo()
-	if instanceType == "raid" and isDynamicInstance then -- "new" instance (ICC)
-		if difficulty == 1 then -- 10 men
-			return playerDifficulty == 0 and "normal10" or playerDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
-		elseif difficulty == 2 then -- 25 men
-			return playerDifficulty == 0 and "normal25" or playerDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
-		-- Zidras: prevents breaking for servers with GetInstanceInfo() correctly identifying difficulty 1-4
-		elseif difficulty == 3 then
-			return "heroic10", difficultyName.." - ", difficulty, maxPlayers
-		elseif difficulty == 4 then
-			return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+	local _, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
+	if instanceType == "raid" then
+		if isDynamicInstance then -- Dynamic raids (ICC, RS)
+			if difficulty == 1 then -- 10 players
+				return dynamicDifficulty == 0 and "normal10" or dynamicDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+			elseif difficulty == 2 then -- 25 players
+				return dynamicDifficulty == 0 and "normal25" or dynamicDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+			-- On Warmane, it was confirmed by Midna that difficulty returning only 1 or 2 is their intended behaviour: https://www.warmane.com/bugtracker/report/91065
+			-- code below (difficulty 3 and 4 in dynamic instances) prevents GetCurrentInstanceDifficulty() from breaking on servers that correctly assign difficulty 1-4 in dynamic instances.
+			elseif difficulty == 3 then -- 10 heroic, dynamic
+				return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+			elseif difficulty == 4 then -- 25 heroic, dynamic
+				return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+			end
+		else -- Non-dynamic raids
+			if difficulty == 1 then
+				return maxPlayers and "normal"..maxPlayers or "normal10", difficultyName.." - ", difficulty, maxPlayers
+			elseif difficulty == 2 then
+				return "normal25", difficultyName.." - ", difficulty, maxPlayers
+			elseif difficulty == 3 then
+				return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+			elseif difficulty == 4 then
+				return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+			end
 		end
-	else -- support for "old" instances
-		if GetInstanceDifficulty() == 1 then
-			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "normal5" or
-			self.addon and self.addon.hasHeroic and "normal10" or "heroic10", difficultyName.." - ", difficulty, maxPlayers
-		elseif GetInstanceDifficulty() == 2 then
-			return (self.modId == "DBM-Party-WotLK" or self.modId == "DBM-Party-BC") and "heroic5" or
-			self.addon and self.addon.hasHeroic and "normal25" or "heroic25", difficultyName.." - ", difficulty, maxPlayers
-		elseif GetInstanceDifficulty() == 3 then
-			return "heroic10", difficultyName.." - ", difficulty, maxPlayers
-		elseif GetInstanceDifficulty() == 4 then
-			return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+	elseif instanceType == "party" then -- 5 man Dungeons
+		if difficulty == 1 then
+			return "normal5", difficultyName.." - ", difficulty, maxPlayers
+		elseif difficulty == 2 then
+			return "heroic5", difficultyName.." - ", difficulty, maxPlayers
 		end
+	else
+		return "none"
 	end
 end
 
@@ -5978,6 +5987,50 @@ function bossModPrototype:GetCIDFromGUID(guid)
 	return (guid and tonumber(guid:sub(9, 12), 16)) or 0
 end
 
+--force param is used when CheckInterruptFilter is actually being used for a simpe target/focus check and nothing more.
+--checkCooldown should never be passed with skip or COUNT interrupt warnings. It should be passed with any other interrupt filter
+function bossModPrototype:CheckInterruptFilter(sourceGUID, force, checkCooldown, ignoreTandF)
+	if DBM.Options.FilterInterrupt2 == "None" and not force then return true end --user doesn't want to use interrupt filter, always return true
+	if DBM.Options.FilterInterrupt2 == "Always" and not force then return false end --user wants to filter ALL interrupts, always return false
+	--Pummel, Mind Freeze, Counterspell, Kick, Feral Charge, Silence, Wind Shear
+	local InterruptAvailable = true
+	local requireCooldown = checkCooldown
+	if (DBM.Options.FilterInterrupt2 == "onlyTandF") or not self.isTrashMod and (DBM.Options.FilterInterrupt2 == "TandFandBossCooldown") then
+		requireCooldown = false
+	end
+	if requireCooldown and (UnitIsDeadOrGhost("player") or (GetSpellCooldown(6552)) ~= 0 or (GetSpellCooldown(47528)) ~= 0 or (GetSpellCooldown(2139)) ~= 0 or (GetSpellCooldown(1766)) ~= 0 or (GetSpellCooldown(49377)) ~= 0 or (GetSpellCooldown(15487)) ~= 0 or (GetSpellCooldown(57994)) ~= 0) then
+		InterruptAvailable = false --checkCooldown check requested and player has no spell that can interrupt available (or is dead)
+	end
+	local unitID = (UnitGUID("target") == sourceGUID) and "target" or (UnitGUID("focus") == sourceGUID) and "focus" or nil
+	if InterruptAvailable and (ignoreTandF or unitID) then
+		--Check if it's casting something that's not interruptable at the moment
+		--retail: needed since many mobs can have interrupt immunity with same spellIds as other mobs that can be interrupted
+		if unitID then
+			if UnitCastingInfo(unitID) then
+				local _, _, _, _, _, _, _, _, notInterruptible = UnitCastingInfo(unitID)
+				if notInterruptible then return false end
+			elseif UnitChannelInfo(unitID) then
+				local _, _, _, _, _, _, _, _, notInterruptible = UnitChannelInfo(unitID)
+				if notInterruptible then return false end
+			end
+		end
+		return true
+	end
+	return false
+end
+
+function bossModPrototype:CheckDispelFilter()
+	if not DBM.Options.FilterDispel then return true end
+	--Druid: Abolish Poison (2893), Cure Poison (8946), Remove Curse (2782); Priest: Dispel Magic (527), Abolish Disease (552), Cure Disease (528), Mass Dispel (32375); Paladin: Cleanse (4987), Purify (1152); Shaman: Cleanse Spirit (51886), Cure Toxins (526); Mage: Remove Curse (475)
+	--start, duration, enable = GetSpellCooldown
+	--start & duration == 0 if spell not on cd
+	if UnitIsDeadOrGhost("player") then return false end --if dead, can't dispel
+	if (GetSpellCooldown(2893)) ~= 0 or (GetSpellCooldown(8946)) ~= 0 or (GetSpellCooldown(2782)) ~= 0 or (GetSpellCooldown(527)) ~= 0 or (GetSpellCooldown(528)) ~= 0 or (GetSpellCooldown(552)) ~= 0 or (GetSpellCooldown(32375)) ~= 0 or (GetSpellCooldown(4987)) ~= 0  or (GetSpellCooldown(1152)) ~= 0 or (GetSpellCooldown(51886)) ~= 0 or (GetSpellCooldown(526)) ~= 0 or (GetSpellCooldown(475)) ~= 0 then
+		return false
+	end
+	return true
+end
+
 DBM.GetUnitCreatureId = bossModPrototype.GetUnitCreatureId
 
 do
@@ -6321,11 +6374,10 @@ end
 -----------------------
 --  Utility Methods  --
 -----------------------
-bossModPrototype.GetDifficulty = DBM.GetCurrentInstanceDifficulty
 bossModPrototype.GetCurrentInstanceDifficulty = DBM.GetCurrentInstanceDifficulty
 
 function bossModPrototype:IsDifficulty(...)
-	local diff = self:GetDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	for i = 1, select("#", ...) do
 		if diff == select(i, ...) then
 			return true
@@ -6336,6 +6388,41 @@ end
 
 function bossModPrototype:IsTrivial(level)
 	if UnitLevel("player") >= level then
+		return true
+	end
+	return false
+end
+
+function bossModPrototype:IsLFR()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "lfr" or diff == "lfr25" then
+		return true
+	end
+	return false
+end
+
+--Dungeons: normal, heroic. (Raids excluded)
+function bossModPrototype:IsEasyDungeon()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "heroic5" or diff == "normal5" then
+		return true
+	end
+	return false
+end
+
+--Pretty much ANYTHING that has a normal mode
+function bossModPrototype:IsNormal()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "normal5" or diff == "normal10" or diff == "normal20" or diff == "normal25" or diff == "normal40" then
+		return true
+	end
+	return false
+end
+
+--Pretty much ANYTHING that has a heroic mode
+function bossModPrototype:IsHeroic()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "heroic5" or diff == "heroic10" or diff == "heroic25" then
 		return true
 	end
 	return false
@@ -6385,13 +6472,18 @@ local specFlags ={
 	["Physical"] = "IsPhysical",
 	["Ranged"] = "IsRanged", --ANY ranged, healer and dps included
 	["RangedDps"] = "IsRangedDps", --Only ranged dps
+	["ManaUser"] = "IsManaUser", --Affected by things like mana drains, or mana detonation, etc
 	["SpellCaster"] = "IsSpellCaster", --Has channeled casts, can be interrupted/spell locked by roars, etc, include healers. Use CasterDps if dealing with reflect
 	["CasterDps"] = "IsCasterDps", --Ranged dps that uses spells, relevant for spell reflect type abilities that only reflect spells but not ranged physical such as hunters
 	["RaidCooldown"] = "HasRaidCooldown",
-	["ManaUser"] = "IsManaUser",
-	["RemoveEnrage"] = "CanRemoveEnrage",
-	["MagicDispeller"] = "IsMagicDispeller",
+	["RemovePoison"] = "CanRemovePoison",--from ally
+	["RemoveDisease"] = "CanRemoveDisease",--from ally
+	["RemoveCurse"] = "CanRemoveCurse",--from ally
+	["RemoveMagic"] = "CanRemoveMagic",--from ally
+	["RemoveEnrage"] = "CanRemoveEnrage", --Can remove enemy enrage.
+	["MagicDispeller"] = "IsMagicDispeller", --from ENEMY, not debuffs on players. use "Healer" or "RemoveMagic" for ally magic dispels.
 	["HasInterrupt"] = "CanInterrupt", --Has an interrupt that is 24 seconds or less CD that is BASELINE (not a talent)
+	["RemoveInvulnerabilities"] = "CanRemoveInvulnerabilities", --Custom: Can remove enemy invulnerabilities
 	["TargetedCooldown"] = "HasTargetedCooldown", --Custom: Single Target external defensive cooldown
 	["WeaponDependent"] = "IsWeaponDependent" --Custom: Specs that depend on weapon use
 }
@@ -6515,8 +6607,32 @@ function bossModPrototype:IsCasterDps()
 		or (playerClass == "DRUID" and select(3, GetTalentTabInfo(1)) < 51)
 end
 
+function bossModPrototype:CanRemovePoison()
+	return playerClass == "DRUID"
+		or playerClass == "PALADIN"
+		or playerClass == "SHAMAN"
+end
+
+function bossModPrototype:CanRemoveDisease()
+	return playerClass == "PRIEST"
+		or playerClass == "PALADIN"
+		or playerClass == "SHAMAN"
+end
+
+function bossModPrototype:CanRemoveCurse()
+	return playerClass == "DRUID"
+		or playerClass == "MAGE"
+		or playerClass == "SHAMAN" and getTalentpointsSpent(51886) == 0
+end
+
+function bossModPrototype:CanRemoveMagic()
+	return playerClass == "PRIEST"
+		or playerClass == "PALADIN"
+end
+
 function bossModPrototype:CanRemoveEnrage()
-	return playerClass == "HUNTER" or playerClass == "ROGUE"
+	return playerClass == "HUNTER"
+		or playerClass == "ROGUE"
 end
 
 function bossModPrototype:IsMagicDispeller()
@@ -6531,6 +6647,11 @@ function bossModPrototype:CanInterrupt()
 		or playerClass == "SHAMAN"
 		or playerClass == "MAGE"
 		or playerClass == "DEATHKNIGHT"
+end
+
+function bossModPrototype:CanRemoveInvulnerabilities()
+	return playerClass == "WARRIOR"	-- Shattering Throw
+		or playerClass == "PRIEST"	-- Mass Dispel
 end
 
 function bossModPrototype:HasRaidCooldown()
@@ -6660,27 +6781,6 @@ end
 -------------------------
 function bossModPrototype:SetBossHealthInfo(...)
 	self.bossHealthInfo = {...}
-end
-
------------------------
---  Utility Methods  --
------------------------
-
-function bossModPrototype:IsLFR()
-	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-	if diff == "lfr" or diff == "lfr25" then
-		return true
-	end
-	return false
-end
-
---Dungeons: normal, heroic. (Raids excluded)
-function bossModPrototype:IsEasyDungeon()
-	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-	if diff == "heroic5" or diff == "normal5" then
-		return true
-	end
-	return false
 end
 
 ----------------------------

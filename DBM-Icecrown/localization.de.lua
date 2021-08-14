@@ -318,19 +318,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen	= "Portale offen",
-	Suppressers		= "Suppressers" --Needs Translating
+	WarnPortalOpen	= "Portale offen"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portale offen",
 	TimerPortalsClose			= "Portale geschlossen",
 	TimerBlazingSkeleton		= "Loderndes Skelett",
-	TimerAbom					= "Nächste Monstrosität",
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "Nächste Monstrosität"
 }
 
 L:SetOptionLocalization{
@@ -339,12 +334,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Zeige Zeit bis Alptraumportale geöffnet sind",
 	TimerPortalsClose			= "Zeige Zeit bis Alptraumportale geschlossen sind",
 	TimerBlazingSkeleton		= "Zeige Zeit bis nächstes Loderndes Skelett erscheint",
-	TimerAbom					= "Zeige Zeit bis nächste Gefräßige Monstrosität erscheint (experimentell)",
-	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "Zeige Zeit bis nächste Gefräßige Monstrosität erscheint (experimentell)"
 }
 
 L:SetMiscLocalization{

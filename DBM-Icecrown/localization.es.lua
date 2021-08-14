@@ -319,19 +319,14 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortalOpen	= "Siguientes portales",
-	Suppressers		= "Suppressers" --Needs Translating
+	WarnPortalOpen	= "Siguientes portales"
 }
 
 L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portales abiertos",
 	TimerPortalsClose			= "Portales cerrados",
 	TimerBlazingSkeleton		= "Siguiente Esqueleto llameante",
-	TimerAbom					= "Siguiente Abominación glotona",
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "Siguiente Abominación glotona"
 }
 
 L:SetOptionLocalization{
@@ -340,12 +335,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Mostrar temporizador para cuando se abran los portales",
 	TimerPortalsClose			= "Mostrar temporizador para cuando se cierren los portales",
 	TimerBlazingSkeleton		= "Mostrar temporizador para el siguiente Esqueleto llameante",
-	TimerAbom					= "Mostrar temporizador para la siguiente Abominación glotona",
-	Suppressers					= "Show special warning for new Suppressers", --Needs Translating
-	TimerSuppresserOne			= "1st wave of Suppressers", --Needs Translating
-	TimerSuppresserTwo			= "2nd wave of Suppressers", --Needs Translating
-	TimerSuppresserThree		= "3rd wave of Suppressers", --Needs Translating
-	TimerSuppresserFour			= "4th wave of Suppressers" --Needs Translating
+	TimerAbom					= "Mostrar temporizador para la siguiente Abominación glotona"
 }
 
 L:SetMiscLocalization{

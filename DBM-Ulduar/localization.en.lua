@@ -85,7 +85,7 @@ L:SetOptionLocalization{
 	timerTurret3				= "Show timer for turret 3 (25 player)",
 	timerTurret4				= "Show timer for turret 4 (25 player)",
 	OptionDevouringFlame		= "Announce $spell:64733 targets (unreliable)",
-	timerGrounded			    = "Show timer for ground phase duration"
+	timerGrounded				= "Show timer for ground phase duration"
 }
 
 L:SetMiscLocalization{
@@ -93,7 +93,7 @@ L:SetMiscLocalization{
 	YellAir2			= "Fires out! Let's rebuild those turrets!",
 	YellGround			= "Move quickly! She won't remain grounded for long!",
 	EmotePhase2			= "%%s grounded permanently!",
-	FlamecastUnknown	= DBM_CORE_UNKNOWN
+	FlamecastUnknown	= DBM_CORE_L.UNKNOWN
 }
 
 ----------------------------
@@ -113,9 +113,9 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnLightBombTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65121),
-	SetIconOnGravityBombTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64234),
-	WarningTympanicTantrumIn10Sec = "Show special pre-warning (10 sec.) for $spell:62776 "
+	SetIconOnLightBombTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65121),
+	SetIconOnGravityBombTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64234),
+	WarningTympanicTantrumIn10Sec	= "Show special pre-warning (10 sec.) for $spell:62776 "
 }
 
 --------------------
@@ -144,19 +144,19 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	Steelbreaker		= "Steelbreaker",
-	RunemasterMolgeim	= "Runemaster Molgeim",
-	StormcallerBrundir 	= "Stormcaller Brundir",
-	YellPull1			= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!",
-	YellPull2			= "Nothing short of total decimation will suffice.",
-	YellPull3			= "You will not defeat the Assembly of Iron so easily, invaders!",
-	YellRuneOfDeath		= "Decipher this!",
-	YellRunemasterMolgeimDied = "What have you gained from my defeat? You are no less doomed, mortals!",
-	YellRunemasterMolgeimDied2 = "The legacy of storms shall not be undone.",
-	YellStormcallerBrundirDied = "The power of the storm lives on...",
-	YellStormcallerBrundirDied2 = "You rush headlong into the maw of madness!",
-	YellSteelbreakerDied = "My death only serves to hasten your demise.",
-	YellSteelbreakerDied2 = "Impossible!"
+	Steelbreaker				= "Steelbreaker",
+	RunemasterMolgeim			= "Runemaster Molgeim",
+	StormcallerBrundir			= "Stormcaller Brundir",
+	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!",
+	YellPull2					= "Nothing short of total decimation will suffice.",
+	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!",
+	YellRuneOfDeath				= "Decipher this!",
+	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!",
+	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.",
+	YellStormcallerBrundirDied	= "The power of the storm lives on...",
+	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!",
+	YellSteelbreakerDied		= "My death only serves to hasten your demise.",
+	YellSteelbreakerDied2		= "Impossible!"
 }
 
 ----------------------------
@@ -192,7 +192,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull 				= "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
+	YellPull				= "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
 	YellPull2 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.",
 	YellKill				= "I have seen worlds bathed in the Makers' flames, their denizens fading without as much as a whimper. Entire planetary systems born and razed in the time that it takes your mortal hearts to beat once. Yet all throughout, my own heart devoid of emotion... of empathy. I. Have. Felt. Nothing. A million-million lives wasted. Had they all held within them your tenacity? Had they all loved life as you do?",
 	Emote_CollapsingStar	= "%s begins to Summon Collapsing Stars!",
@@ -226,7 +226,7 @@ L:SetOptionLocalization{
 	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
 	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
 	PlaySoundOnEyebeam		= "Play sound on $spell:63346",
-	YellOnBeam				= "Yell on $spell:63346",
+	YellOnBeam				= "Yell on $spell:63346"
 }
 
 L:SetMiscLocalization{
@@ -339,21 +339,21 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	SpawnYell          = "Children, assist me!",
-	WaterSpirit        = "Ancient Water Spirit",
-	Snaplasher         = "Snaplasher",
-	StormLasher        = "Storm Lasher",
-	YellKill           = "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
-	YellAdds1          = "Eonar, your servant requires aid!",
-	YellAdds2          = "The swarm of the elements shall overtake you!",
-	EmoteLGift         = "begins to grow!",
-	TrashRespawnTimer  = "Freya trash respawn"
+	SpawnYell			= "Children, assist me!",
+	WaterSpirit			= "Ancient Water Spirit",
+	Snaplasher			= "Snaplasher",
+	StormLasher			= "Storm Lasher",
+	YellKill			= "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
+	YellAdds1			= "Eonar, your servant requires aid!",
+	YellAdds2			= "The swarm of the elements shall overtake you!",
+	EmoteLGift			= "begins to grow!",
+	TrashRespawnTimer	= "Freya trash respawn"
 }
 
 L:SetWarningLocalization{
-	WarnSimulKill	= "First add down - Resurrection in ~12 seconds",
-	WarningBeamsSoon = "Beams soon",
-	EonarsGift = "Target Change - switch to Eonar's Gift"
+	WarnSimulKill		= "First add down - Resurrection in ~12 seconds",
+	WarningBeamsSoon	= "Beams soon",
+	EonarsGift			= "Target Change - switch to Eonar's Gift"
 }
 
 L:SetTimerLocalization{
@@ -362,7 +362,7 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnSimulKill	= "Announce first mob down",
-	PlaySoundOnFury = "Play sound when you are affected by $spell:63571",
+	PlaySoundOnFury	= "Play sound when you are affected by $spell:63571",
 	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon",
 	TimerSimulKill	= "Show timer for mob resurrection"
 }
@@ -401,7 +401,7 @@ L:SetWarningLocalization{
 	MagneticCore		= ">%s< has Magnetic Core",
 	WarningShockBlast	= "Shock Blast - Run away",
 	WarnBombSpawn		= "Bomb Bot spawned",
-	WarningFlamesIn5Sec = "Flames in 5 sec.",
+	WarningFlamesIn5Sec = "Flames in 5 sec."
 }
 
 L:SetTimerLocalization{
@@ -493,7 +493,7 @@ L:SetGeneralLocalization{
 
 L:SetMiscLocalization{
 	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",
-	YellPhase2	 		= "I am the lucid dream.",
+	YellPhase2			= "I am the lucid dream.",
 	Sara 				= "Sara",
 	WarningYellSqueeze	= "Squeeze on me! Help me!"
 }
@@ -535,4 +535,3 @@ L:SetOptionLocalization{
 	SetIconOnBrainLinkTarget		= "Set icons on $spell:63802 targets",
 	MaladyArrow						= "Show DBM arrow when $spell:63881 is near you"
 }
-

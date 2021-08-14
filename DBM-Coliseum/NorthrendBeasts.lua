@@ -108,7 +108,7 @@ function mod:combatStartFix()
 	self:SetStage(1)
 	specWarnSilence:Schedule(14)
 	specWarnSilence:ScheduleVoice(14, "silencesoon")
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		timerNextBoss:Start(152)
 		timerNextBoss:Schedule(147)
 	end
@@ -219,7 +219,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(67477, 66331, 67478, 67479) then	-- Impale
 		local amount = args.amount or 1
 		timerNextImpale:Start()
-		if (amount >= 3) or (amount >= 2 and self:IsDifficulty("heroic10", "heroic25")) then
+		if (amount >= 3) or (amount >= 2 and self:IsHeroic()) then
 			if args:IsPlayer() then
 				specWarnImpale3:Show(amount)
 				specWarnImpale3:Play("stackhigh")
@@ -339,7 +339,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.Phase3 or msg:find(L.Phase3) then
 		updateHealthFrame(3)
 		self:SetStage(3)
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			enrageTimer:Start()
 		end
 		self:UnscheduleMethod("WormsSubmerge")

@@ -40,7 +40,7 @@ local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, D
 
 local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
-local enrageTimer			= mod:NewBerserkTimer(480)
+local enrageTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(420) or mod:NewBerserkTimer(480)
 
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
@@ -69,7 +69,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(37813, L.name)
 		self:ScheduleMethod(0.5, "CreateBossRPFrame")
 	end
-	if self:IsDifficulty("normal10", "normal25") then
+	if self:IsNormal() then
 		enrageTimer:Start(-delay)
 	else
 		enrageTimer:Start(360-delay)
