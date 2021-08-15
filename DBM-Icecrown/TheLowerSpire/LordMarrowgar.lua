@@ -50,7 +50,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69076 then						-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			timerWhirlwind:Show(37)			--36-38 on HC
 		else
 			timerWhirlwind:Show()			--30 on Norm
@@ -68,7 +68,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerWhirlwind:Cancel()
 		timerWhirlwindCD:Start()
 		preWarnWhirlwind:Schedule(25)
-		if self:IsDifficulty("normal10", "normal25") then
+		if self:IsNormal() then
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
 	end

@@ -96,7 +96,7 @@ function mod:OnCombatStart(delay)
 	local UnboundTime = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
-	if self:IsDifficulty("heroic10", "heroic25") then
+	if self:IsHeroic() then
 		timerUnboundPlagueCD:Start(20-delay)
 	end
 end
