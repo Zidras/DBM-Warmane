@@ -64,10 +64,10 @@ local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, false, nil, 5, n
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
-local ttsMalleableSoon 				= mod:NewSoundSoon(72295, nil, "Ranged")
+local soundMalleableGooSoon 		= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
-local ttsChokingSoon 				= mod:NewSoundSoon(71255, nil, "Melee")
-local ttsSlimePuddle 				= mod:NewSound(70341)
+local soundChokingGasSoon 			= mod:NewSoundSoon(71255, nil, "Melee")
+local soundSlimePuddle 				= mod:NewSound(70341)
 
 local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(480) or mod:NewBerserkTimer(600)
 
@@ -172,34 +172,34 @@ function mod:SPELL_CAST_START(args)
 			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
 			timerNextPhase:Start(35)
 			timerMalleableGooCD:Start(45.5)
-			ttsMalleableSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			soundMalleableGooSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(57)
-			ttsChokingSoon:Schedule(57-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			soundChokingGasSoon:Schedule(57-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(57-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
 			timerNextPhase:Start(9.5)
 			timerMalleableGooCD:Start(19)
-			ttsMalleableSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			soundMalleableGooSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(30.5)
-			ttsChokingSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			soundChokingGasSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(30.5-5)
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		timerUnstableExperimentCD:Cancel()
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
-		ttsMalleableSoon:Cancel()
-		ttsChokingSoon:Cancel()
+		soundMalleableGooSoon:Cancel()
+		soundChokingGasSoon:Cancel()
 		timerMalleableGooCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
 		timerMalleableGooCD:Start(50-(GetTime()-GooTime))
-		ttsMalleableSoon:Schedule((50-(GetTime()-GooTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		soundMalleableGooSoon:Schedule((50-(GetTime()-GooTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		timerChokingGasBombCD:Start(66-(GetTime()-ChokingTime))
-		ttsChokingSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		soundChokingGasSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule((66-(GetTime()-ChokingTime))-5)
 		if self:IsDifficulty("heroic10") then
 			self:ScheduleMethod(38, "NextPhase")	--after 8s PP sets target
@@ -227,15 +227,15 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 70341 and self:AntiSpam(5, 1) then
 		warnSlimePuddle:Show()
-		ttsSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
+		soundSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
 		timerSlimePuddleCD:Start()
 		PuddleTime = GetTime()
 	elseif args.spellId == 71255 then
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
 		soundSpecWarnChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking.mp3")
-		ttsChokingSoon:Cancel()
-		ttsChokingSoon:Schedule(35.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		soundChokingGasSoon:Cancel()
+		soundChokingGasSoon:Schedule(35.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		timerChokingGasBombCD:Start()
 		warnChokingGasBombSoon:Schedule(30.5)
 		ChokingTime = GetTime()
@@ -248,8 +248,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		--specWarnMalleableGooCast:Play("watchstep")
 		timerMalleableGooCD:Start()
 		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-		ttsMalleableSoon:Cancel()
-		ttsMalleableSoon:Schedule(20-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		soundMalleableGooSoon:Cancel()
+		soundMalleableGooSoon:Schedule(20-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		GooTime = GetTime()
 	end
 end
@@ -279,7 +279,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.GaseousBloatIcon then
 			self:SetIcon(args.destName, 7, 20)
 		end
-	elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
+	--elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
+	--	timerTearGas:Start()
 	elseif args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
