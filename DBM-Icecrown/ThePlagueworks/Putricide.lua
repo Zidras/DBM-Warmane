@@ -168,7 +168,7 @@ function mod:SPELL_CAST_START(args)
 		else
 			timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 		end
-		if self:IsDifficulty("heroic10", "heroic25") then
+		if self:IsHeroic() then
 			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
 			timerNextPhase:Start(35)
 			timerMalleableGooCD:Start(45.5)
