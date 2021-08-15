@@ -245,13 +245,7 @@ L:SetGeneralLocalization{
 	name = "Profesor Putricidio"
 }
 
-L:SetTimerLocalization{
-	NextPhaseStart				= "Fin de la fase de transición"
-}
-
 L:SetOptionLocalization{
-	NextPhaseStart				= "Mostrar temporizador de fin de fase de transición",
-	NextPhaseSoon				= "Reproducir sonido al 83% y 37% - Next Phase Soon",
 	MalleableGooIcon			= "Poner icono en el primer objetivo de $spell:72295",
 	GooArrow					= "Mostrar flecha cuando $spell:72295 esté cerca de ti"
 }

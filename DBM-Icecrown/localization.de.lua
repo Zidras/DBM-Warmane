@@ -244,13 +244,7 @@ L:SetGeneralLocalization{
 	name = "Professor Seuchenmord"
 }
 
-L:SetTimerLocalization{
-	NextPhaseStart				= "Übergangsphase beenden"
-}
-
 L:SetOptionLocalization{
-	NextPhaseStart				= "Show Übergangsphase Ende Timer",
-	NextPhaseSoon				= "Ton bei 83 % und 37 % abspielen - Next Phase Soon",
 	MalleableGooIcon			= "Setze Zeichen auf erstes Ziel von $spell:72295",
 	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
 }

@@ -267,13 +267,7 @@ L:SetGeneralLocalization{
 	name = "Professor Putricide"
 }
 
-L:SetTimerLocalization{
-	NextPhaseStart				= "End transition phase"
-}
-
 L:SetOptionLocalization{
-	NextPhaseStart				= "Show transition phase end timer",
-	NextPhaseSoon				= "Play sound at 83% and 37% - Next Phase Soon",
 	OozeAdhesiveIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70447),
 	GaseousBloatIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70672),
 	UnboundPlagueIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72856),

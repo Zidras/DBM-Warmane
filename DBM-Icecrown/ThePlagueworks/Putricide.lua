@@ -57,7 +57,7 @@ local timerMalleableGooCD			= mod:NewCDTimer(20, 72295, nil, nil, nil, 3)
 local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_CORE_L.TANK_ICON)				-- 10 to 11
 local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_CORE_L.HEROIC_ICON)
 local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
-local timerNextPhase				= mod:NewTimer(30, "NextPhaseStart")
+local timerNextPhase				= mod:NewPhaseTimer(30)
 
 -- buffs from "Drink Me"
 local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, false, nil, 5, nil, DBM_CORE_L.TANK_ICON)
@@ -71,7 +71,6 @@ local ttsSlimePuddle 				= mod:NewSound(70341)
 
 local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(480) or mod:NewBerserkTimer(600)
 
-mod:AddBoolOption("NextPhaseSoon")
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")
 mod:AddBoolOption("MalleableGooIcon")
@@ -357,14 +356,10 @@ function mod:UNIT_HEALTH(uId)
 	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
-		if self.Options.NextPhaseSoon then
-			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\NextPhaseSoon.mp3")
-		end
+		warnPhase2Soon:Play("nextphasesoon")
 	elseif self.vb.phase == 2 and not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
-		if self.Options.NextPhaseSoon then
-			PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\NextPhaseSoon.mp3")
-		end
+		warnPhase3Soon:Play("nextphasesoon")
 	end
 end
