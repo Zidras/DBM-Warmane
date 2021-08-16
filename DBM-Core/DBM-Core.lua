@@ -3063,7 +3063,7 @@ do
 		local mapID = GetCurrentMapAreaID()
 		local _, instanceType, difficulty, difficultyName, instanceGroupSize = GetInstanceInfo()
 		local currentDifficulty, currentDifficultyText = self:GetCurrentInstanceDifficulty()
-		if currentDifficulty ~= savedDifficulty then
+		if currentDifficulty and currentDifficulty ~= savedDifficulty then -- added currentDifficulty nil check to prevent this from overriding savedDifficulty when outside instance
 			savedDifficulty, difficultyText = currentDifficulty, currentDifficultyText
 		end
 		self:Debug("Instance Check fired with mapID "..mapID.." and difficulty "..difficulty, 2)
@@ -5084,8 +5084,6 @@ function DBM:GetCurrentInstanceDifficulty()
 		elseif difficulty == 2 then
 			return "heroic5", difficultyName.." - ", difficulty, maxPlayers
 		end
-	else
-		return "none"
 	end
 end
 
