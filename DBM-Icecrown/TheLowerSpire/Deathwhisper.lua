@@ -170,11 +170,11 @@ function mod:OnCombatStart(delay)
 		self:ScheduleMethod(0.5, "CreateShildHPFrame")
 	end
 	berserkTimer:Start(-delay)
-	timerAdds:Start(7)
+	timerAdds:Start(5.5)
 	warnAddsSoon:Schedule(4)			-- 3sec pre-warning on start
-	self:Schedule(7, addsTimer, self)
+	self:Schedule(5.5, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
-		timerDominateMindCD:Start(30)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
+		timerDominateMindCD:Start(27.5)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
 		if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
 			self:ScheduleMethod(24, "RemoveBuffs")
 		end
@@ -290,10 +290,14 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 70842 then
 		self:SetStage(2)
 		warnPhase2:Show()
-		if self:IsNormal() then
-			timerAdds:Cancel()
-			warnAddsSoon:Cancel()
-			self:Unschedule(addsTimer)
+		timerSummonSpiritCD:Start(12)
+		timerAdds:Cancel()
+		warnAddsSoon:Cancel()
+		self:Unschedule(addsTimer)
+		if self:IsHeroic() then	-- Edited from retail
+			timerAdds:Start(45)
+			warnAddsSoon:Schedule(40) -- 5 secs prewarning
+			self:Schedule(45, addsTimer, self)
 		end
 		if self.Options.InfoFrame then
 			DBM.InfoFrame:Hide()
