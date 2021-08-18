@@ -245,7 +245,13 @@ L:SetGeneralLocalization{
 	name = "Professeur Putricide"
 }
 
+L:SetTimerLocalization{
+	NextPhaseStart				= "Fin de la phase de transition"
+}
+
 L:SetOptionLocalization{
+	NextPhaseStart				= "Afficher la minuterie de fin de phase de transition",
+	NextPhaseSoon				= "Jouer le son à 83% et 37% - Next Phase Soon",
 	MalleableGooIcon			= "Met une icone sur la première cible de $spell:72295",
 	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
 }
