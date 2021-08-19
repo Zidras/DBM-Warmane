@@ -3330,16 +3330,26 @@ do
 		end
 	end
 
+	local localized_TIMER_PULL = { -- Workaround for mismatched clients locales: L.TIMER_PULL would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
+		"开怪倒计时",	 --CN
+		"Pull in",		--DE, EN
+		"Iniciando en",	--ES
+		"Pull dans",	--FR
+		"풀링",			--KR
+		"Атака",		--RU
+		"戰鬥準備"		 --TW
+	}
+
 	syncHandlers["DBMv4-Pizza"] = function(msg, channel, sender)
 		if select(2, IsInInstance()) == "pvp" then return end
 		if DBM:GetRaidRank(sender) == 0 then return end
 		if sender == UnitName("player") then return end
 		local time, text = strsplit("\t", msg)
 		time = tonumber(time or 0)
-		text = tostring(text)
+		text = tContains(localized_TIMER_PULL, tostring(text)) and L.TIMER_PULL or tostring(text) -- Fixes localization of pull bar text
 		if time and text then
 			DBM:CreatePizzaTimer(time, text, nil, sender)
-			if text == tostring(L.TIMER_PULL) and time >= 5 and DBM.Options.AudioPull then
+			if tContains(localized_TIMER_PULL, text) and time >= 5 and DBM.Options.AudioPull then
 				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5to1.mp3", "Master")
 				DBM:Schedule(time, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
 			end
