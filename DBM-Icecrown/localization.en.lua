@@ -201,6 +201,7 @@ L:SetGeneralLocalization{
 L:SetOptionLocalization{
 	BoilingBloodIcons	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72441),
 	RangeFrame			= "Show range frame (12 yards)",
+	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
 	RunePowerFrame		= "Show Boss Health + $spell:72371 bar"
 }
 

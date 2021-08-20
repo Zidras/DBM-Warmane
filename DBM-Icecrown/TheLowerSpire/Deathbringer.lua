@@ -43,6 +43,7 @@ local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
 local enrageTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(420) or mod:NewBerserkTimer(480)
 
+mod:AddBoolOption("RemoveDI")
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
 mod:AddSetIconOption("BeastIcons", 72173, true, true)
@@ -199,8 +200,8 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_CAST_FAILED(args)	-- instant remove DI
-    if args:IsSpellID(72293) then
-        CancelUnitBuff("player", (GetSpellInfo(19752)))		-- Divine Intervention
+    if args:IsSpellID(72293) and self.Options.RemoveDI then
+			CancelUnitBuff("player", (GetSpellInfo(19752)))		-- Divine Intervention
     end
 end
 

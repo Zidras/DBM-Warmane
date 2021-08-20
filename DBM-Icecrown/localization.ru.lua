@@ -182,6 +182,7 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
+	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
 	RunePowerFrame			= "Показывать здоровье босса + индикатор для $spell:72371"
 }
 

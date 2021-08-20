@@ -180,6 +180,7 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Zeige Abstandsfenster (12 m)",
+	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
 	RunePowerFrame		= "Zeige Boss-Leben und Leiste für $spell:72371"
 }
 

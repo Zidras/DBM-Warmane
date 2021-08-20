@@ -180,6 +180,7 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "顯示距離框 (12碼)",
+	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
 	RunePowerFrame		= "顯示首領血量及$spell:72371條"
 }
 
