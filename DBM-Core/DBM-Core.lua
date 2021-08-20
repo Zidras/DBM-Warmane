@@ -709,17 +709,25 @@ do
 		return DBM:GetCIDFromGUID(self.destGUID)
 	end
 
-	local function handleEvent(self, event, ...)
-		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
-		if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
-			isUnitEvent = true
+	local function IsUnitEvent(event, ...)
+		local isUnitEvent = (event and event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED")
+		if isUnitEvent and ... and tContains({...}, event) then
+			isUnitEvent = false
 		end
+		return isUnitEvent
+	end
 
-		for i, v in ipairs(registeredEvents[event]) do
-			-- Workaround for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1"). Check if we have valid units registered and filter out everything else.
-			-- v is mod here... so we check registered mods for registered events with registered uIds (v.registeredUnitEvents[event]).
-			-- then we check if we have our unit (arg1) in the table ... self.registeredUnitEvents[event] = {arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8} which is defined below
-			if isUnitEvent and v and v.registeredUnitEvents and v.registeredUnitEvents[event] and not has_value(v.registeredUnitEvents[event], arg1) then return end
+    local function handleEvent(self, event, ...)
+		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
+		local isUnitEvent = IsUnitEvent(event, "UNIT_DIED", "UNIT_DESTROYED")
+
+		for _, v in ipairs(registeredEvents[event]) do
+			if isUnitEvent and v.id == DBM.currentModId then
+				-- Workaround for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1"). Check if we have valid units registered and filter out everything else.
+				-- v is mod here... so we check registered mods for registered events with registered uIds (v.registeredUnitEvents[event]).
+				-- then we check if we have our unit (args) in the table ... self.registeredUnitEvents[event] = args which is defined below
+				if v.registeredUnitEvents and v.registeredUnitEvents[event] and not has_value(v.registeredUnitEvents[event], ...) then return end
+			end
 
 			if type(v[event]) == "function" and (not v.zones or checkEntry(v.zones, GetRealZoneText()) or checkEntry(v.zones, GetCurrentMapAreaID())) and (not v.Options or v.Options.Enabled) then
 				v[event](v, ...)
@@ -732,12 +740,13 @@ do
 			local event = select(i, ...)
 
 			if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
-				event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", event)
+				local args = {strsplit(" ", event)}
+				event = tremove(args, 1)
 				-- Register valid units for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1")
 				-- separate units with spaces up to 9 units. Otherwise skip unit filter for that event
-				if arg1 or arg2 or arg3 or arg4 or arg5 or arg6 or arg7 or arg8 then
+				if next(args) then
 					self.registeredUnitEvents = self.registeredUnitEvents or {}
-					self.registeredUnitEvents[event] = {arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8}
+					self.registeredUnitEvents[event] = args
 				end
 			end
 
@@ -3321,16 +3330,26 @@ do
 		end
 	end
 
+	local localized_TIMER_PULL = { -- Workaround for mismatched clients locales: L.TIMER_PULL would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
+		"开怪倒计时",	 --CN
+		"Pull in",		--DE, EN
+		"Iniciando en",	--ES
+		"Pull dans",	--FR
+		"풀링",			--KR
+		"Атака",		--RU
+		"戰鬥準備"		 --TW
+	}
+
 	syncHandlers["DBMv4-Pizza"] = function(msg, channel, sender)
 		if select(2, IsInInstance()) == "pvp" then return end
 		if DBM:GetRaidRank(sender) == 0 then return end
 		if sender == UnitName("player") then return end
 		local time, text = strsplit("\t", msg)
 		time = tonumber(time or 0)
-		text = tostring(text)
+		text = tContains(localized_TIMER_PULL, tostring(text)) and L.TIMER_PULL or tostring(text) -- Fixes localization of pull bar text
 		if time and text then
 			DBM:CreatePizzaTimer(time, text, nil, sender)
-			if text == tostring(L.TIMER_PULL) and time >= 5 and DBM.Options.AudioPull then
+			if tContains(localized_TIMER_PULL, text) and time >= 5 and DBM.Options.AudioPull then
 				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5to1.mp3", "Master")
 				DBM:Schedule(time, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
 			end
@@ -4606,6 +4625,7 @@ do
 			else
 				self:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is "..tostring(LastInstanceMapID))
 			end
+			self.currentModId = mod.id
 			--check completed. starting combat
 			tinsert(inCombat, mod)
 			if mod.inCombatOnlyEvents and not mod.inCombatOnlyEventsRegistered then
@@ -4783,6 +4803,7 @@ do
 
 	function DBM:EndCombat(mod, wipe, srmIncluded)
 		if removeEntry(inCombat, mod) then
+			self.currentModId = nil
 			if mod.updateInterval then
 				mod:UnregisterOnUpdateHandler()
 			end
