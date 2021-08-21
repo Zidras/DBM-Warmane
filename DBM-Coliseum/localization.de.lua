@@ -166,22 +166,19 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnEmerge				= "Anub'arak taucht auf",
+	WarnEmerge				= "Auftauchen",
 	WarnEmergeSoon			= "Auftauchen in 10 Sekunden",
-	WarnSubmerge			= "Anub'arak taucht unter",
+	WarnSubmerge			= "Abtauchen",
 	WarnSubmergeSoon		= "Abtauchen in 10 Sekunden",
-	specWarnSubmergeSoon	= "Abtauchen in 10 Sekunden!",
-	SpecWarnPursue			= "Du wirst verfolgt - Lauf weg",
-	warnAdds				= "Neue Adds",
-	SpecWarnShadowStrike	= "Schattenhieb - Unterbreche jetzt"
+	warnAdds				= "Neue Adds"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Dieser Ort wird Euch als Grab dienen!",
+	--YellPull				= "Dieser Ort wird Euch als Grab dienen!",
 	Emerge					= "entsteigt dem Boden!",
 	Burrow					= "gräbt sich in den Boden!",
-	PcoldIconSet		= "DKälte-Zeichen {rt%d} auf %s gesetzt",
-	PcoldIconRemoved	= "DKälte-Zeichen von %s entfernt"
+	PcoldIconSet			= "DKälte-Zeichen {rt%d} auf %s gesetzt",
+	PcoldIconRemoved		= "DKälte-Zeichen von %s entfernt"
 }
 
 L:SetOptionLocalization{
@@ -189,18 +186,11 @@ L:SetOptionLocalization{
 	WarnEmergeSoon			= "Zeige Vorwarnung für Auftauchen",
 	WarnSubmerge			= "Zeige Warnung für Abtauchen",
 	WarnSubmergeSoon		= "Zeige Vorwarnung für Abtauchen",
-	specWarnSubmergeSoon	= "Zeige Spezialwarnung für Abtauchen bald",
-	SpecWarnPursue			= "Zeige Spezialwarnung wenn du verfolgt wirst",
 	warnAdds				= "Verkünde neue Adds",
-	timerAdds				= "Zeige Timer für neue Adds",
-	TimerEmerge				= "Zeige Timer für Auftauchen",
-	TimerSubmerge			= "Zeige Timer für Abtauchen",
-	PlaySoundOnPursue		= "Spiele Sound wenn du verfolgt wirst",
-	PursueIcon				= "Setze Zeichen auf verfolgte Spieler",
-	SpecWarnShadowStrike	= "Zeige Spezialwarnung für $spell:66134 (zum Unterbrechen)",
-	RemoveHealthBuffsInP3	= "Entferne lebenspunktesteigernde Buffs in Phase 3",
-	SetIconsOnPCold         = "Setze Zeichen auf Ziele von $spell:68510",
-	AnnouncePColdIcons		= "Verkünde Zeichen von Zielen von $spell:68510 in Raidchat\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)",
-	AnnouncePColdIconsRemoved	= "Verkünde auch, wenn Zeichen für $spell:68510 entfernt werden\n(benötigt obige Option)"
+	timerAdds				= "Zeige Zeit bis neue Adds erscheinen",
+	TimerEmerge				= "Zeige Zeit bis Auftauchen",
+	TimerSubmerge			= "Zeige Zeit bis Abtauchen",
+	AnnouncePColdIcons		= "Verkünde Zeichen für Ziele von $spell:66013 im Schlachtzugchat (nur als Leiter)",
+	AnnouncePColdIconsRemoved	= "Verkünde auch das Entfernen von Zeichen für $spell:66013 (benötigt obige Einstellung)",
+	RemoveHealthBuffsInP3	= "Entferne lebenspunktesteigernde Buffs in Phase 3"
 }
-

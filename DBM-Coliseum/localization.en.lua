@@ -175,14 +175,11 @@ L:SetWarningLocalization{
 	WarnEmergeSoon			= "Emerge in 10 seconds",
 	WarnSubmerge			= "Anub'arak submerges",
 	WarnSubmergeSoon		= "Submerge in 10 seconds",
-	specWarnSubmergeSoon	= "Submerge in 10 seconds!",
-	SpecWarnPursue			= "You are being pursued - Run away",
-	warnAdds				= "New adds",
-	SpecWarnShadowStrike	= "Shadow Strike - Interrupt now"
+	warnAdds				= "New adds"
 }
 
 L:SetMiscLocalization{
-	YellPull			= "This place will serve as your tomb!",
+--	YellPull			= "This place will serve as your tomb!",
 	Emerge				= "emerges from the ground!",
 	Burrow				= "burrows into the ground!",
 	PcoldIconSet		= "PCold icon {rt%d} set on %s",
@@ -190,21 +187,15 @@ L:SetMiscLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnEmerge				= "Show warning for emerge",
-	WarnEmergeSoon			= "Show pre-warning for emerge",
-	WarnSubmerge			= "Show warning for submerge",
-	WarnSubmergeSoon		= "Show pre-warning for submerge",
-	specWarnSubmergeSoon	= "Show special warning for submerge soon",
-	SpecWarnPursue			= "Show special warning when you are being pursued",
-	warnAdds				= "Announce new adds",
-	timerAdds				= "Show timer for new adds",
-	TimerEmerge				= "Show timer for emerge",
-	TimerSubmerge			= "Show timer for submerge",
-	PlaySoundOnPursue		= "Play sound when you are being pursued",
-	PursueIcon				= "Set icons on pursued targets",
-	SpecWarnShadowStrike	= "Show special warning for $spell:66134 (to interrupt)",
-	RemoveHealthBuffsInP3	= "Remove HP buffs at start of Phase 3",
-	SetIconsOnPCold         = "Set icons on $spell:68510 targets",
-	AnnouncePColdIcons		= "Announce icons for $spell:68510 targets to raid chat\n(requires announce to be enabled and leader/promoted status)",
-	AnnouncePColdIconsRemoved	= "Also announce when icons are removed for $spell:68510\n(requires above option)"
+	WarnEmerge					= "Show warning for emerge",
+	WarnEmergeSoon				= "Show pre-warning for emerge",
+	WarnSubmerge				= "Show warning for submerge",
+	WarnSubmergeSoon			= "Show pre-warning for submerge",
+	warnAdds					= "Announce new adds",
+	timerAdds					= "Show timer for new adds",
+	TimerEmerge					= "Show timer for emerge",
+	TimerSubmerge				= "Show timer for submerge",
+	AnnouncePColdIcons			= "Announce icons for $spell:66013 targets to raid chat<br/>(requires raid leader)",
+	AnnouncePColdIconsRemoved	= "Also announce when icons are removed for $spell:66013<br/>(requires above option)",
+	RemoveHealthBuffsInP3		= "Remove HP buffs at start of Phase 3"
 }
