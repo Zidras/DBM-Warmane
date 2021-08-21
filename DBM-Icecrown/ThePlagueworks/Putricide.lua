@@ -187,10 +187,6 @@ function mod:SPELL_CAST_START(args)
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		timerUnstableExperimentCD:Cancel()
-		warnUnstableExperimentSoon:Cancel()
-		warnChokingGasBombSoon:Cancel()
-		soundMalleableGooSoon:Cancel()
-		soundChokingGasSoon:Cancel()
 		timerMalleableGooCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
@@ -362,5 +358,10 @@ function mod:UNIT_HEALTH(uId)
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
 		warnPhase3Soon:Play("nextphasesoon")
+	elseif self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) == 0.35 then
+		warnUnstableExperimentSoon:Cancel()
+		warnChokingGasBombSoon:Cancel()
+		soundMalleableGooSoon:Cancel()
+		soundChokingGasSoon:Cancel()
 	end
 end
