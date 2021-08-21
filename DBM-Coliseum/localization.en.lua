@@ -122,7 +122,7 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	TimerSpecialSpell	= "Next special ability",
-	TimerAnubRoleplay	= "Ground breaks in"
+	TimerAnubRoleplay	= "Floor breaks in"
 }
 
 L:SetWarningLocalization{
@@ -131,12 +131,11 @@ L:SetWarningLocalization{
 	SpecWarnSwitchTarget		= "Switch target",
 	SpecWarnKickNow				= "Interrupt now",
 	WarningTouchDebuff			= "Debuff on >%s<",
-	WarningPoweroftheTwins		= "Power of the Twins - More healing on >%s<",
-	SpecWarnPoweroftheTwins		= "Power of the Twins"
+	WarningPoweroftheTwins2		= "Power of the Twins - More healing on >%s<"
 }
 
 L:SetMiscLocalization{
-	YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
+	--YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
 	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
 	Fjola		= "Fjola Lightbane",
 	Eydis		= "Eydis Darkbane",
@@ -150,11 +149,10 @@ L:SetOptionLocalization{
 	SpecWarnSpecial				= "Show special warning when you have to change color",
 	SpecWarnSwitchTarget		= "Show special warning when the other Twin is casting",
 	SpecWarnKickNow				= "Show special warning when you have to interrupt",
-	SpecialWarnOnDebuff			= "Show special warning when debuffed (to switch debuff)",
+	SpecialWarnOnDebuff			= "Show change color special warning when touch debuffed (to switch debuff)",
 	SetIconOnDebuffTarget		= "Set icons on Touch of Light/Darkness debuff targets (heroic)",
 	WarningTouchDebuff			= "Announce Touch of Light/Darkness debuff targets",
-	WarningPoweroftheTwins		= "Announce Power of the Twins targets",
-	SpecWarnPoweroftheTwins		= "Show special warning when you are tanking an empowered Twin"
+	WarningPoweroftheTwins2		= "Announce Power of the Twins targets"
 }
 
 -----------------

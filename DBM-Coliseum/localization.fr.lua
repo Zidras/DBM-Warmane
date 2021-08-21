@@ -115,40 +115,38 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Prochaine Capacité Spéciale"
+	TimerSpecialSpell	= "Prochaine Capacité Spéciale",
+	TimerAnubRoleplay	= "Pauses de sol en"
 }
 
 L:SetWarningLocalization{
 	WarnSpecialSpellSoon		= "Capacité spéciale Bientôt !",
 	SpecWarnSpecial				= "Changement de couleur !",
-	SpecWarnEmpoweredDarkness	= "Ténèbres surpuissantes",
-	SpecWarnEmpoweredLight		= "Lumière surpuissante",
 	SpecWarnSwitchTarget		= "Changement de cible !",
 	SpecWarnKickNow				= "Casser Maintenant !",
 	WarningTouchDebuff			= "Toucher sur >%s<",
-	WarningPoweroftheTwins		= "Puissance des jumelles - plus de soins sur >%s<",
-	SpecWarnPoweroftheTwins		= "Puissance des jumelles!"
+	WarningPoweroftheTwins2		= "Puissance des jumelles - plus de soins sur >%s<"
 }
 
 L:SetMiscLocalization{
-	YellPull 	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
-	Fjola 		= "Fjola Plaie-lumineuse",
-	Eydis		= "Eydis Plaie-sombre"
+	--YellPull 	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
+	CombatStart	= "Ce n'est qu'en travaillant côte à côte que vous pourrez triompher de l'ultime défi. Venus des profondeurs de la Couronne de glace, voici deux des lieutenants les plus puissants du Fléau : de redoutables val'kyrs, messagères ailées du roi-liche !",
+	Fjola		= "Fjola Plaie-lumineuse",
+	Eydis		= "Eydis Plaie-sombre",
+	AnubRP		= "C'est un rude coup qui vient d'être porté au roi-liche ! Vous avez prouvé que vous êtes aptes à servir comme champions de la Croisade d'argent. Ensemble, nous frapperons la citadelle de la Couronne de glace, et détruirons ce qui reste du Fléau ! Aucun défi ne pourra résister à notre unité !"
 }
 
 L:SetOptionLocalization{
 	TimerSpecialSpell			= "Montre une alerte spéciale pour la prochaine Capacité spéciale",
+	TimerAnubRoleplay			= "Afficher le timer de la durée du roleplay du Le Roi Liche cassant le sol",
 	WarnSpecialSpellSoon		= "Montre une Pré-Alerte pour la prochaine Capacité spéciale",
 	SpecWarnSpecial				= "Montre une alerte spéciale quand vous devez changer de couleur",
-	SpecWarnEmpoweredDarkness	= "Montre une alerte spéciale pour les Ténèbres surpuissantes",
-	SpecWarnEmpoweredLight		= "Montre une alerte spéciale pour la Lumière surpuissante",
 	SpecWarnSwitchTarget		= "Montre une alerte spéciale quand l'autre boss est en train d'incanter",
 	SpecWarnKickNow				= "Montre une alerte spéciale quand vous devez interrompre l'incantation",
 	SpecialWarnOnDebuff			= "Montre une alerte spéciale quand vous avez un Toucher (pour changer de debuff)",
 	SetIconOnDebuffTarget		= "Met des icônes sur les cibles des Toucher (héroique)",
 	WarningTouchDebuff			= "Annoncer les cibles des débuff Toucher de Lumière/des Ténèbres",
-	WarningPoweroftheTwins		= "Annoncer la cible pour Puissance des jumelles",
-	SpecWarnPoweroftheTwins		= "Montre une alerte spéciale quand vous êtes en train de tanker une Jumelle puissante"
+	WarningPoweroftheTwins2		= "Annoncer la cible pour Puissance des jumelles"
 }
 
 -----------------

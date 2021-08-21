@@ -126,12 +126,11 @@ L:SetWarningLocalization{
 	SpecWarnSwitchTarget		= "Смена цели",
 	SpecWarnKickNow				= "Прерывание",
 	WarningTouchDebuff			= "Отрицательный эффект на |3-5(>%s<)",
-	WarningPoweroftheTwins		= "Сила близнецов - больше исцеления на |3-3(>%s<)",
-	SpecWarnPoweroftheTwins		= "Сила близнецов"
+	WarningPoweroftheTwins2		= "Сила близнецов - больше исцеления на |3-3(>%s<)",
 }
 
 L:SetMiscLocalization{
-	YellPull	= "Во имя темного повелителя. Во имя Короля-лича. Вы. Умрете.",
+	--YellPull	= "Во имя темного повелителя. Во имя Короля-лича. Вы. Умрете.",
 	CombatStart	= "Лишь сплотившись, вы сможете пройти последнее испытание. Из глубин Ледяной Короны навстречу вам подымаются две могучие воительницы Плети: жуткие валь'киры, крылатые вестницы Короля-лича!",
 	Fjola		= "Фьола Погибель Света",
 	Eydis		= "Эйдис Погибель Тьмы",
@@ -141,7 +140,6 @@ L:SetMiscLocalization{
 L:SetOptionLocalization{
 	TimerSpecialSpell			= "Отсчет времени до перезарядки спец-способности",
 	TimerAnubRoleplay			= "Таймер представления перед падением (после победы)",
-	SpecialSpellSoundCountdown	= "5-секундный звуковой отсчет до следующей спец-способности",
 	WarnSpecialSpellSoon		= "Предупреждение о следующуюей спец-способность",
 	SpecWarnSpecial				= "Спец-предупреждение для смены цветов",
 	SpecWarnSwitchTarget		= "Спец-предупреждение для других, когда босс читает заклинание",
@@ -149,8 +147,7 @@ L:SetOptionLocalization{
 	SpecialWarnOnDebuff			= "Спец-предупреждение, когда отрицательный эффект",
 	SetIconOnDebuffTarget		= "Установить метку на получившего отрицательный эффект (героический режим)",
 	WarningTouchDebuff			= "Объявлять цели, получившие отрицательный эффект",
-	WarningPoweroftheTwins		= "Объявлять цель под воздействем Силы близнецов",
-	SpecWarnPoweroftheTwins		= "Спец-предупреждение, когда на вас Сила близнецов"
+	WarningPoweroftheTwins2		= "Объявлять цель под воздействем Силы близнецов",
 }
 
 -----------------

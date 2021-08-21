@@ -1,6 +1,7 @@
 -- author: callmejames @《凤凰之翼》 一区藏宝海湾
 -- commit by: yaroot <yaroot AT gmail.com>
 -- modified by: Diablohu < 178.com / ngacn.cc / dreamgen.cn >
+-- Simplified Chinese by hihihaheho@Warmane-Icecrown
 
 if GetLocale() ~= "zhCN" then return end
 
@@ -120,35 +121,38 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell		= "下一次 特殊技能"
+	TimerSpecialSpell		= "下一次 特殊技能",
+	TimerAnubRoleplay		= "坠落"
 }
 
 L:SetWarningLocalization{
-	WarnSpecialSpellSoon		= "特殊技能 即将到来",
+	WarnSpecialSpellSoon	= "特殊技能 即将到来",
 	SpecWarnSpecial			= "立刻变换颜色",
-	SpecWarnSwitchTarget		= "立刻切换目标攻击双生相协",
+	SpecWarnSwitchTarget	= "立刻切换目标攻击双生相协",
 	SpecWarnKickNow			= "立刻打断",
 	WarningTouchDebuff		= "光明或黑暗之触 -> >%s<",
-	WarningPoweroftheTwins2		= "双生之能 - 加大治疗 -> >%s<",
-	SpecWarnPoweroftheTwins		= "双生之能"
+	WarningPoweroftheTwins2	= "双生之能 - 加大治疗 -> >%s<"
 }
 
 L:SetMiscLocalization{
-	Fjola 				= "光明邪使菲奥拉",
-	Eydis				= "黑暗邪使艾蒂丝"
+	--YellPull = "以黑暗之主的名义。为了巫妖王。你必死无疑。",
+	CombatStart	= "你们只有团结才能战胜最终的挑战。来自于冰冠冰川的深处，天灾军团最强的战将：巫妖王的双翼使者，恐怖的瓦格里！",
+	Fjola		= "光明邪使菲奥拉",
+	Eydis		= "黑暗邪使艾蒂丝",
+	AnubRP		= "这是对巫妖王的一次重创！你的实力绝不亚于银色北伐军的勇士。很快，我们将携手攻入冰冠堡垒，消灭天灾军团的残余！只要心齐，我们必将胜利！"
 }
 
 L:SetOptionLocalization{
 	TimerSpecialSpell		= "为下一次特殊技能显示计时器",
-	WarnSpecialSpellSoon		= "为下一次特殊技能显示提前警报",
+	TimerAnubRoleplay		= "计时条：地板破裂前的剧情",
+	WarnSpecialSpellSoon	= "为下一次特殊技能显示提前警报",
 	SpecWarnSpecial			= "当你需要变换颜色时显示特殊警报",
-	SpecWarnSwitchTarget		= "当另一个首领施放双子相协时显示特殊警报",
+	SpecWarnSwitchTarget	= "当另一个首领施放双子相协时显示特殊警报",
 	SpecWarnKickNow			= "当你可以打断时显示特殊警报",
 	SpecialWarnOnDebuff		= "当你中了光明或黑暗之触时显示特殊警报(需切换颜色)",
-	SetIconOnDebuffTarget		= "为光明或黑暗之触的目标设置标记(英雄模式)",
+	SetIconOnDebuffTarget	= "为光明或黑暗之触的目标设置标记(英雄模式)",
 	WarningTouchDebuff		= "提示光明或黑暗之触的目标",
-	WarningPoweroftheTwins2		= "提示双生之能的目标",
-	SpecWarnPoweroftheTwins		= "当你坦克的首领拥有双生之能时显示特殊警报"
+	WarningPoweroftheTwins2	= "提示双生之能的目标"
 }
 
 -----------------

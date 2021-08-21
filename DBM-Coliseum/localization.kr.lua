@@ -116,37 +116,38 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "다음 속성의 소용돌이"
+	TimerSpecialSpell	= "다음 소용돌이/서약",
+	TimerAnubRoleplay	= "바닥 파손"
 }
 
 L:SetWarningLocalization{
-	WarnSpecialSpellSoon		= "곧 속성의 소용돌이!",
-	SpecWarnSpecial				= "속성(빛/어둠) 변경!",
+	WarnSpecialSpellSoon		= "곧 소용돌이 또는 서약",
+	SpecWarnSpecial				= "차원문 클릭하여 반대 속성으로 변경!",
 	SpecWarnSwitchTarget		= "대상 전환!",
 	SpecWarnKickNow				= "지금 차단!",
-	WarningTouchDebuff			= "디버프 : >%s<",
-	WarningPoweroftheTwins		= "쌍둥이의 힘 - 오버힐!!  >%s<",
-	SpecWarnPoweroftheTwins		= "쌍둥이의 힘!"
+	WarningTouchDebuff			= "손길 : >%s<",
+	WarningPoweroftheTwins2		= "쌍둥이의 힘 : %s",
 }
 
 L:SetMiscLocalization{
-	YellPull 	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
-	--CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!", -- Needs translating
-	Fjola 		= "피욜라 라이트베인",
-	Eydis		= "아이디스 다크베인"
+	--YellPull 	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
+	CombatStart	= "함께 힘을 모아야만 마지막 도전을 이겨낼 수 있네. 얼음왕관 심연에서 가장 강력한 스컬지 대리인 둘이 왔네. 무시무시한 발키르, 날개를 단 리치 왕의 전령일세!",
+	Fjola		= "피욜라 라이트베인",
+	Eydis		= "아이디스 다크베인",
+	AnubRP		= "리치 왕에게 큰 타격을 주었군! 그대들은 은빛십자군의 강건한 용사임을 입증했네. 우리는 함께 얼음왕관 성채를 공격하고 남은 스컬지를 물리칠 걸세! 힘을 합친 우리가 이겨내지 못할 도전은 없네!"
 }
 
 L:SetOptionLocalization{
-	TimerSpecialSpell			= "다음 속성의 소용돌이의 타이머 보기",
-	WarnSpecialSpellSoon		= "다음 속성의 소용돌이 사전 경고 보기",
+	TimerSpecialSpell			= "다음 속성의 소용돌이 또는 쌍둥이의 서약 바 보기",
+	TimerAnubRoleplay			= "역할 수행(롤플레이) 지속 시간 타이머 바 보기",
+	WarnSpecialSpellSoon		= "속성의 소용돌이 또는 쌍둥이의 서약 이전에 일림 보기",
 	SpecWarnSpecial				= "속성(색) 변경을 해야할 때 특수 경고 보기",
-	SpecWarnSwitchTarget		= "다른 보스에게 시전해야 할 경우 특수 경고 보기",
-	SpecWarnKickNow				= "당신이 차단을 해야할 경우 특수 경고 보기",
-	SpecialWarnOnDebuff			= "디버프일 경우 특수 경고 보기 (디버프를 바꿀 경우)",
-	SetIconOnDebuffTarget		= "손길 디버프 대상에게 공격대 아이콘 설정하기(영웅 모드)",
-	WarningTouchDebuff			= "빛/어둠의 손길 디버프 대상 알리기",
-	WarningPoweroftheTwins		= "쌍둥이의 힘의 현재 대상 알리기",
-	SpecWarnPoweroftheTwins		= "쌍둥이의 힘의 특수 경고 보기(탱커일 경우)"
+	SpecWarnSwitchTarget		= "쌍둥이의 서약 대상 전환 특수 경고 보기",
+	SpecWarnKickNow				= "쌍둥이의 서약 차단 특수 경고 보기",
+	SpecialWarnOnDebuff			= "빛/어둠의 손길 대상이 된 경우 특수 경고 보기",
+	SetIconOnDebuffTarget		= "빛/어둠의 손길 대상에게 전술 목표 아이콘 설정(영웅 난이도)",
+	WarningTouchDebuff			= "빛/어둠의 손길 대상 알림 보기",
+	WarningPoweroftheTwins2		= "쌍둥이의 힘 대상 알림 보기",
 }
 
 ------------------

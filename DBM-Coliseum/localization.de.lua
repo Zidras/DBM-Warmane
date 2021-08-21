@@ -116,7 +116,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Nächste Spezialfähigkeit"
+	TimerSpecialSpell	= "Nächste Spezialfähigkeit",
+	TimerAnubRoleplay	= "Bodeneinbrüche in"
 }
 
 L:SetWarningLocalization{
@@ -124,28 +125,29 @@ L:SetWarningLocalization{
 	SpecWarnSpecial				= "Farbe wechseln",
 	SpecWarnSwitchTarget		= "Ziel wechseln",
 	SpecWarnKickNow				= "Jetzt unterbrechen",
-	WarningTouchDebuff			= "Debuff auf >%s<",
-	WarningPoweroftheTwins		= "Macht der Zwillinge - Mehr Heilung auf >%s<",
-	SpecWarnPoweroftheTwins		= "Macht der Zwillinge"
+	WarningTouchDebuff			= "Berührung auf >%s<",
+	WarningPoweroftheTwins2		= "Macht der Zwillinge - Mehr Heilung auf >%s<"
 }
 
 L:SetMiscLocalization{
-	YellPull	= "Im Namen unseres dunklen Meisters. Für den Lichkönig. Ihr. Werdet. Sterben.",
+	--YellPull	= "Im Namen unseres dunklen Meisters. Für den Lichkönig. Ihr. Werdet. Sterben.",
+	CombatStart	= "Nur gemeinsam werdet Ihr den letzten Kampf meistern. Aus den Tiefen Eiskrones stammen diese zwei der mächtigsten Kommandanten der Geißel: schreckliche Val'kyr, geflügelte Boten des Lichkönigs!",
 	Fjola		= "Fjola Lichtbann",
-	Eydis		= "Eydis Nachtbann"
+	Eydis		= "Eydis Nachtbann",
+	AnubRP		= "Dem Lichkönig wurde ein schwerer Schlag versetzt! Ihr habt Euch als würdige Champions erwiesen. Gemeinsam werden wir den Angriff auf die Eiskronenzitadelle durchführen und den Rest der Geißel zerstören! Gemeinsam meistern wir alles!"
 }
 
 L:SetOptionLocalization{
-	TimerSpecialSpell			= "Zeige Timer für nächste Spezialfähigkeit",
+	TimerSpecialSpell			= "Zeige Zeit bis nächste Spezialfähigkeit",
+	TimerAnubRoleplay			= "Rollenspiel-Timer für der Lichkönig anzeigen, der das Parkett bricht",
 	WarnSpecialSpellSoon		= "Zeige Vorwarnung für nächste Spezialfähigkeit",
-	SpecWarnSpecial				= "Zeige Spezialwarnung wenn du die Farbe wechseln musst",
-	SpecWarnSwitchTarget		= "Zeige Spezialwarnung wenn der andere Zwilling zaubert",
-	SpecWarnKickNow				= "Zeige Spezialwarnung zum Unterbrechen",
-	SpecialWarnOnDebuff			= "Zeige Spezialwarnung bei Berührung (um Farbe zu wechseln)",
+	SpecWarnSpecial				= "Spezialwarnung, wenn du die Farbe wechseln musst",
+	SpecWarnSwitchTarget		= "Spezialwarnung, wenn der andere Zwilling zaubert",
+	SpecWarnKickNow				= "Spezialwarnung zum Unterbrechen",
+	SpecialWarnOnDebuff			= "Spezialwarnung bei Berührung (um Farbe zu wechseln)",
 	SetIconOnDebuffTarget		= "Setze Zeichen auf Ziele von Berührung des Lichts/der Nacht (heroisch)",
 	WarningTouchDebuff			= "Verkünde Ziele von Berührung des Lichts/der Nacht",
-	WarningPoweroftheTwins		= "Verkünde Ziele von Macht der Zwillinge",
-	SpecWarnPoweroftheTwins		= "Zeige Spezialwarnung wenn du einen gestärkten Zwilling tankst"
+	WarningPoweroftheTwins2		= "Verkünde Ziele von Macht der Zwillinge"
 }
 
 -----------------

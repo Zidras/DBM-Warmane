@@ -120,47 +120,50 @@ L:SetOptionLocalization{
 	PlaySoundOnBladestorm	= "Reproducir sonido en Filotormenta"
 }
 
-------------------
--- Valkyr Twins --
-------------------
+---------------------
+-- Gemelas Val'kyr --
+---------------------
 L = DBM:GetModLocalization("ValkTwins")
 
 L:SetGeneralLocalization{
-	name = "Gemelas Val’kyrs"
+	name = "Gemelas Val'kyr"
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell	= "Siguiente Habilidad especial"
+	TimerSpecialSpell	= "Siguiente facultad especial",
+	TimerAnubRoleplay	= "El piso se rompe en"
 }
 
 L:SetWarningLocalization{
-	WarnSpecialSpellSoon		= "Habilidad especial pronto!",
-	SpecWarnSpecial				= "Cambia color!",
-	SpecWarnSwitchTarget		= "Cambio!",
-	SpecWarnKickNow				= "Cortar ahora!",
-	WarningTouchDebuff			= "Debuff en >%s<",
-	WarningPoweroftheTwins		= "Pacto de las Gemelas - curar mas a >%s<",
-	SpecWarnPoweroftheTwins		= "Pacto de las Gemelas!"
+	WarnSpecialSpellSoon		= "Facultad especial en breve",
+	SpecWarnSpecial				= "Cambia de color",
+	SpecWarnSwitchTarget		= "Cambia de objetivo",
+	SpecWarnKickNow				= "Interrumpe ahora",
+	WarningTouchDebuff			= "Perjuicio en >%s<",
+	WarningPoweroftheTwins2		= "Poder de las Gemelas - ¡más sanación en >%s<!"
 }
 
 L:SetMiscLocalization{
-	YellPull 	= "En el nombre de nuestro oscuro maestro. Por el Rey Exánime. Morirás.",
-	--CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!", -- Needs translating
-	Fjola 		= "Fjola Penívea",
-	Eydis		= "Eydis Penalumbra"
+	--YellPull 	= "En el nombre de nuestro oscuro maestro. Por el Rey Exánime. Morirás.",
+	CombatStart	= "Solo superaréis el reto final si trabajáis juntos. Desde las profundidades de Corona de Hielo, llegan dos de los tenientes más poderosos de la Plaga: las temibles Val'kyr, presagistas aladas del Rey Exánime.",	-- esES
+	--CombatStart	= "Sólo trabajando juntos superarán el desafío final. De las profundidades de Corona de Hielo llegan estos poderosos tenientes de la Plaga: ¡los val'kyres, heraldos alados del Rey Exánime!",	-- esMX
+	Fjola		= "Fjola Penívea",
+	Eydis		= "Eydis Penaumbra",
+	AnubRP		= "¡Se ha asestado un gran golpe al Rey Exánime! Habéis demostrado ser diestros campeones de la Cruzada Argenta. ¡Juntos atacaremos la Ciudadela de la Corona de Hielo y acabaremos con lo que queda de la Plaga! ¡No hay ningún reto al que no podamos enfrentarnos si estamos unidos!" -- esES
+	--AnubRP		= "¡El Rey Exánime ha sufrido un poderoso revés! Han demostrado ser campeones dignos de la Cruzada Argenta. ¡Juntos atacaremos la Ciudadela Corona de Hielo y destruiremos lo que queda de la Plaga! ¡No existe el desafío que no podamos enfrentar unidos!"	-- esMX
 }
 
 L:SetOptionLocalization{
-	TimerSpecialSpell			= "Mostrar tiempo para la siguiente habilidad especial",
-	WarnSpecialSpellSoon		= "Pre-aviso para la siguiente habilidad especial",
-	SpecWarnSpecial				= "Mostrar aviso especial si tienes que cambiar de color",
-	SpecWarnSwitchTarget		= "Mostrar aviso especial si hay que ir al otro boss",
-	SpecWarnKickNow				= "Mostrar aviso especial cuando tienes que cortar el hechizo",
-	SpecialWarnOnDebuff			= "Mostrar aviso especial cuando tienes que cambiar de debuff",
-	SetIconOnDebuffTarget		= "Poner iconos a los objetivos con debuff ( solo heroico )",
-	WarningTouchDebuff			= "Anunciar objetivos del debuff de Toque de Luz/Oscuridad",
-	WarningPoweroftheTwins		= "Anunciar objetivo de Pacto de las Gemelas",
-	SpecWarnPoweroftheTwins		= "Mostrar aviso especial si eres el tank y estas en una gemela con el pacto de las gemelas"
+	TimerSpecialSpell			= "Mostrar temporizador para la siguiente facultad especial",
+	TimerAnubRoleplay			= "Mostrar temporizador de diálogo de El Rey Exánime rompiendo el piso",
+	WarnSpecialSpellSoon		= "Mostrar aviso previo para la siguiente facultad especial",
+	SpecWarnSpecial				= "Mostrar aviso especial cuando debas cambiar de color",
+	SpecWarnSwitchTarget		= "Mostrar aviso especial cuando la otra gemela esté lanzando un hechizo",
+	SpecWarnKickNow				= "Mostrar aviso especial cuando debas interrumpir",
+	SpecialWarnOnDebuff			= "Mostrar aviso especial cuando estés afectado por un perjuicio (para cambiarlo por otro)",
+	SetIconOnDebuffTarget		= "Poner iconos en los objetivos de los perjuicios de $spell:65950 y $spell:66001 (dificultad heroica)",
+	WarningTouchDebuff			= "Anunciar objetivos de los perjuicios de $spell:65950 y $spell:66001",
+	WarningPoweroftheTwins2		= "Anunciar la gemela afectada por $spell:65916"
 }
 
 ------------------

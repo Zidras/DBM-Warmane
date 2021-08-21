@@ -116,36 +116,38 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSpecialSpell		= "下一次 特別技能"
+	TimerSpecialSpell		= "下一次特別技能",
+	TimerAnubRoleplay		= "樓斷裂處"
 }
 
 L:SetWarningLocalization{
-	WarnSpecialSpellSoon	= "特別技能 即將到來",
+	WarnSpecialSpellSoon	= "特別技能即將到來",
 	SpecWarnSpecial			= "快變換顏色",
 	SpecWarnSwitchTarget	= "快換目標打雙子契印",
 	SpecWarnKickNow			= "現在斷法",
-	WarningTouchDebuff		= "光明或黑暗之觸: >%s<",
-	WarningPoweroftheTwins	= "雙子威能 - 加大治療: >%s<",
-	SpecWarnPoweroftheTwins	= "雙子威能"
+	WarningTouchDebuff		= "光明或黑暗之觸:>%s<",
+	WarningPoweroftheTwins2	= "雙子威能 - 對>%s<加大治療"
 }
 
 L:SetMiscLocalization{
-	YellPull 			= "以我們的黑暗君王之名。為了巫妖王。你‧得‧死。",
-	Fjola 				= "菲歐拉·光寂",
-	Eydis				= "艾狄絲·暗寂"
+	--YellPull				= "以我們的黑暗君王之名。為了巫妖王。你‧得‧死。",
+	CombatStart				= "唯有同心協力，你們才能克服最後的難關。來自寒冰皇冠的深處，兩名天譴軍團最強大的副官:令人生畏的華爾琪，披著羽翼的巫妖王先驅。",
+	Fjola					= "菲歐拉·光寂",
+	Eydis					= "艾狄絲·暗寂",
+	AnubRP					= "巫妖王遭受了迎頭痛擊!你們已經證明了你們是銀白十字軍的精銳勇士。我們將聯手攻陷冰冠城塞，並且把天譴軍團消滅殆盡!團結一心，我們將可破除所有難關。"
 }
 
 L:SetOptionLocalization{
-	TimerSpecialSpell		= "為下一次 特別技能顯示計時器",
-	WarnSpecialSpellSoon	= "為下一次 特別技能顯示預先警告",
+	TimerSpecialSpell		= "為下一次特別技能顯示計時器",
+	TimerAnubRoleplay		= "計時條：劇情持續時間",
+	WarnSpecialSpellSoon	= "為下一次特別技能顯示預先警告",
 	SpecWarnSpecial			= "當你需要變換顏色時顯示特別警告",
 	SpecWarnSwitchTarget	= "當另一個首領施放雙子契印時顯示特別警告",
 	SpecWarnKickNow			= "當你可以斷法時顯示特別警告",
 	SpecialWarnOnDebuff		= "當你中了光明或黑暗之觸時顯示特別警告 (需切換顏色)",
 	SetIconOnDebuffTarget	= "為光明或黑暗之觸的目標設置標記 (英雄模式)",
 	WarningTouchDebuff		= "提示光明或黑暗之觸的目標",
-	WarningPoweroftheTwins	= "提示雙子威能的目標",
-	SpecWarnPoweroftheTwins	= "當你坦住的首領擁有雙子威能時顯示特別警告"
+	WarningPoweroftheTwins2	= "提示雙子威能的目標"
 }
 
 -----------------
