@@ -56,7 +56,6 @@ local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
 local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
 local soundEmpoweredShockV		= mod:NewSound(72039)
 local soundEmpoweredFlames		= mod:NewSound(72040)
-local soundTargetSwitchSoon		= mod:NewSoundSoon(70952)
 
 local berserkTimer				= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
 
@@ -77,7 +76,7 @@ end
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	warnTargetSwitchSoon:Schedule(42-delay)
-	soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
+	warnTargetSwitchSoon:Play("swapsoon")
 	timerTargetSwitch:Start(-delay)
 	timerShockVortex:Start(-delay)
 	timerKineticBombCD:Start(20-delay)
@@ -92,7 +91,6 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	soundTargetSwitchSoon:Cancel()
 end
 
 function mod:ShockVortexTarget(targetname, uId)
@@ -147,6 +145,9 @@ function mod:SPELL_CAST_START(args)
 		self:BossTargetScanner(37970, "ShockVortexTarget", 0.05, 6)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
 		specWarnEmpoweredShockV:Show()
+		if not self.Options["Play sound on $spell:72039"] then
+			specWarnEmpoweredShockV:Play("scatter")
+		end
 		timerShockVortex:Start(30)
 		soundEmpoweredShockV:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\EmpoweredVortex.mp3")
 	elseif args.spellId == 71718 then	-- Conjure Flames
@@ -164,7 +165,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:IsInCombat() then
 			warnTargetSwitch:Show(L.Valanar)
 			warnTargetSwitchSoon:Schedule(42)
-			soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
+			warnTargetSwitchSoon:Play("swapsoon")
 			timerTargetSwitch:Start()
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(12)
@@ -173,7 +174,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70981 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Keleseth)
 		warnTargetSwitchSoon:Schedule(42)
-		soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
+		warnTargetSwitchSoon:Play("swapsoon")
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
 		if self.Options.RangeFrame then
@@ -182,7 +183,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70982 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
 		warnTargetSwitchSoon:Schedule(42)
-		soundTargetSwitchSoon:Schedule(42, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\TargetSwitchSoon.mp3")
+		warnTargetSwitchSoon:Play("swapsoon")
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
 		if self.Options.RangeFrame then
@@ -216,6 +217,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnEmpoweredFlames:Show()
+			if not self.Options["Play sound on $spell:72040"] then
+				specWarnEmpoweredFlames:Play("justrun")
+			end
 			soundEmpoweredFlames:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\EmpoweredOrbOnYou.mp3")
 			yellEmpoweredFlames:Yell()
 		else
@@ -234,13 +238,7 @@ function mod:UNIT_TARGET()
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
-	if spellName == GetSpellInfo(72080) and mod:LatencyCheck() then
-		self:SendSync("KineticBomb")
-	end
-end
-
-function mod:OnSync(msg, arg)
-		if msg == "KineticBomb" then
+	if spellName == GetSpellInfo(72080) then
 		warnKineticBomb:Show()
 		soundKineticBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\KineticSpawn.mp3")
 		if self:IsDifficulty("normal10", "heroic10") then
