@@ -13,7 +13,6 @@ mod:RegisterEvents(
 	"SPELL_SUMMON",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_FAILED",
 	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL"
 )
@@ -196,13 +195,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
-	end
-end
-
-function mod:SPELL_CAST_FAILED(args)	-- instant remove DI
-    if args:IsSpellID(72293) and self.Options.RemoveDI then
+	elseif args:IsSpellID(19752) and self:GetUnitCreatureId(uId) == 37813 and self.Options.RemoveDI then	-- instant remove DI
 			CancelUnitBuff("player", (GetSpellInfo(19752)))		-- Divine Intervention
-    end
+	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
