@@ -11,7 +11,7 @@ Arenas:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 Arenas:RegisterEvents("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 
-local timerStart	= Arenas:NewTimer(62, "TimerStart")
+local timerStart	= Arenas:NewTimer(60, "TimerStart")
 local timerShadow	= Arenas:NewTimer(90, "TimerShadow")
 
 function Arenas:CHAT_MSG_BG_SYSTEM_NEUTRAL(args)
@@ -23,14 +23,14 @@ function Arenas:CHAT_MSG_BG_SYSTEM_NEUTRAL(args)
 		if timerStart:GetTime() == 0 then
 			timerStart:Start()
 		end
-		timerStart:Update(31, 62)
+		timerStart:Update(30, 60)
 
 	elseif args == L.Start15 then
 		if timerStart:GetTime() == 0 then
 			timerStart:Start()
 		end
-		timerStart:Update(46, 62)
-		timerShadow:Schedule(16)
+		timerStart:Update(45, 60)
+		timerShadow:Schedule(15)
 	end
 end
 
