@@ -166,36 +166,35 @@ L:SetGeneralLocalization{
 
 L:SetTimerLocalization{
 	TimerEmerge			= "钻地结束",
-	TimerSubmerge			= "钻地",
+	TimerSubmerge		= "钻地",
 	timerAdds			= "下一次 掘地者出现"
 }
 
 L:SetWarningLocalization{
 	WarnEmerge			= "阿努巴拉克钻出地面了",
-	WarnEmergeSoon			= "10秒后 钻出地面",
-	WarnSubmerge			= "阿努巴拉克钻进地里了",
-	WarnSubmergeSoon		= "10秒后 钻进地里",
-	specWarnSubmergeSoon		= "10秒后 钻进地里!",
+	WarnEmergeSoon		= "10秒后 钻出地面",
+	WarnSubmerge		= "阿努巴拉克钻进地里了",
+	WarnSubmergeSoon	= "10秒后 钻进地里",
 	warnAdds			= "掘地者 出现了"
 }
 
 L:SetMiscLocalization{
 	Emerge				= "钻入了地下！",
 	Burrow				= "从地面上升起来了！",
-	PcoldIconSet			= "刺骨之寒{rt%d} -> %s",
-	PcoldIconRemoved		= "移除标记 -> %s"
+	PcoldIconSet		= "刺骨之寒{rt%d} -> %s",
+	PcoldIconRemoved	= "移除标记 -> %s"
 }
 
 L:SetOptionLocalization{
 	WarnEmerge			= "为钻出地面显示警报",
-	WarnEmergeSoon			= "为钻出地面显示提前警报",
-	WarnSubmerge			= "为钻进地里显示警报",
-	WarnSubmergeSoon		= "为钻进地里显示提前警报",
-	specWarnSubmergeSoon		= "为即将钻进地里显示特殊警报",
+	WarnEmergeSoon		= "为钻出地面显示提前警报",
+	WarnSubmerge		= "为钻进地里显示警报",
+	WarnSubmergeSoon	= "为钻进地里显示提前警报",
 	warnAdds			= "提示掘地者出现",
 	timerAdds			= "为下一次掘地者出现显示计时器",
 	TimerEmerge			= "为首领钻地显示计时器",
-	TimerSubmerge			= "为下一次钻地显示计时器",
-	AnnouncePColdIcons		= "公布$spell:68510目标设置的标记到团队频道<br/>(需要团长或助理权限)",
-	AnnouncePColdIconsRemoved	= "当移除$spell:68510的标记时也提示<br/>(需要上述选项)"
+	TimerSubmerge		= "为下一次钻地显示计时器",
+	AnnouncePColdIcons	= "公布$spell:68510目标设置的标记到团队频道<br/>(需要团长或助理权限)",
+	AnnouncePColdIconsRemoved	= "当移除$spell:68510的标记时也提示<br/>(需要上述选项)",
+	RemoveHealthBuffsInP3	= "在第 3 阶段开始时移除健康增益"
 }

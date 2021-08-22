@@ -169,14 +169,11 @@ L:SetWarningLocalization{
 	WarnEmergeSoon			= "Anub'arak Sort du sol dans 10 sec",
 	WarnSubmerge			= "Anub'arak Rentre dans le sol",
 	WarnSubmergeSoon		= "Anub'arak Rentre dans le sol dans 10 sec",
-	SpecWarnPursue			= "Vous êtes poursuivi",
-	warnAdds				= "Les add arrivent",
-	SpecWarnShadowStrike	= "Attaque d'ombre ! Casser Maintenant !",
-	SpecWarnPCold			= "Froid pénétrant"
+	warnAdds				= "Les add arrivent"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Ce terreau sera votre tombeau !",
+--	YellPull				= "Ce terreau sera votre tombeau !",
 	Emerge					= "surgit de la terre",
 	Burrow					= "enfonce dans le sol",
 	PcoldIconSet			= "Pcold Icon {rt%d} set on %s",
@@ -188,17 +185,11 @@ L:SetOptionLocalization{
 	WarnEmergeSoon			= "Montre une alerte avant que le boss sorte du sol",
 	WarnSubmerge			= "Montre une alerte quand le boss rentre dans le sol",
 	WarnSubmergeSoon		= "Montre une alerte avant que le boss ne rentre dans le sol",
-	SpecWarnPursue			= "Montre une alerte quand vous commencez à être suivi",
 	warnAdds				= "Montre une alerte pour l'arrivée des add",
 	timerAdds				= "Montre le timer avant l'arrivée des nouveaux add",
 	TimerEmerge				= "Montre le timer pour la sortie du boss",
 	TimerSubmerge			= "Montre le timer pour la rentrée du boss dans la terre",
-	PlaySoundOnPursue		= "Joue un son quand vous êtes suivi",
-	PursueIcon				= "Met une icône sur la tête du joueur qui est suivi",
-	SpecWarnShadowStrike	= "Montre une alerte spéciale pour les Attaque d'ombre (Pour les casser)",
-	SpecWarnPCold			= "Montre une alerte spéciale pour le Froid pénétrant",
-	RemoveHealthBuffsInP3	= "Enlève les buffs de soins au début de la phase 3",
-	SetIconsOnPCold         = "Met une icone sur la cible du Froid pénétrant",
-	AnnouncePColdIcons		= "Marque les icones des cible du Froid pénétrant dans le chatt (Requiert les annonces activer et être le leader ou avoir une promot)"
+	AnnouncePColdIcons		= "Marque les icones des cible du Froid pénétrant dans le chatt<br/>(Requiert les annonces activer et être le leader ou avoir une promot)",
+	AnnouncePColdIconsRemoved	= "Annoncez également lorsque les icônes sont supprimées pour $spell:66013<br/>(nécessite l'option ci-dessus)",
+	RemoveHealthBuffsInP3	= "Enlève les buffs de soins au début de la phase 3"
 }
-

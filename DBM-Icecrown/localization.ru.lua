@@ -181,8 +181,9 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
-	RunePowerFrame			= "Показывать здоровье босса + индикатор для $spell:72371"
+	RangeFrame			= "Показывать окно проверки дистанции (12 м)",
+	RunePowerFrame		= "Показывать здоровье босса + индикатор для $spell:72371",
+	RemoveDI			= "Удалите $spell:19752, если используется для предотвращения $spell:72293"
 }
 
 L:SetMiscLocalization{

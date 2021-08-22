@@ -180,7 +180,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Zeige Abstandsfenster (12 m)",
-	RunePowerFrame		= "Zeige Boss-Leben und Leiste für $spell:72371"
+	RunePowerFrame		= "Zeige Boss-Leben und Leiste für $spell:72371",
+	RemoveDI			= "Entferne $spell:19752, wenn es verwendet wird, um das Wirken von $spell:72293 zu verhindern."
 }
 
 L:SetMiscLocalization{

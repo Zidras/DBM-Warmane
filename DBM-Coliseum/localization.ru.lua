@@ -170,14 +170,11 @@ L:SetWarningLocalization{
 	WarnEmergeSoon			= "Появление через 10 сек",
 	WarnSubmerge			= "Ануб'арак зарывается",
 	WarnSubmergeSoon		= "Зарывание через 10 сек",
-	specWarnSubmergeSoon	= "Зарывание через 10 сек!",
-	SpecWarnPursue			= "Вас преследуют - бегите",
-	warnAdds				= "Помощники",
-	SpecWarnShadowStrike	= "Теневой удар - прерывание"
+	warnAdds				= "Новые помощники"
 }
 
 L:SetMiscLocalization{
-	YellPull			= "Это место станет вашей могилой!",
+--	YellPull			= "Это место станет вашей могилой!",
 	Emerge				= "вылезает на поверхность!",
 	Burrow				= "зарывается в землю!",
 	PcoldIconSet		= "Метка холода {rt%d} установлена на: %s",
@@ -189,18 +186,11 @@ L:SetOptionLocalization{
 	WarnEmergeSoon			= "Предупреждать заранее о появлении",
 	WarnSubmerge			= "Предупреждение о зарывании",
 	WarnSubmergeSoon		= "Предупреждать заранее о зарывании",
-	specWarnSubmergeSoon	= "Спец-предупреждение о скором зарывании",
-	SpecWarnPursue			= "Спец-предупреждение, когда вас преследуют",
 	warnAdds				= "Предупреждение о призыве помощников",
 	timerAdds				= "Отсчет времени до призыва помощников",
 	TimerEmerge				= "Отсчет времени до появления",
 	TimerSubmerge			= "Отсчет времени до зарывания",
-	PlaySoundOnPursue		= "Звуковой сигнал, если вас преследуют",
-	PursueIcon				= "Устанавливать метки на преследуемых",
-	SpecWarnShadowStrike	= "Спец-предупреждение для $spell:66134 (для прерывания)",
-	RemoveHealthBuffsInP3	= "Удалять усиления здоровья в начале фазы 3",
-	SetIconsOnPCold         = "Устанавливать метки на цели заклинания $spell:68510",
-	AnnouncePColdIcons		= "Объявлять метки целей заклинания $spell:68510 в рейд-чат\n(требуются права лидера или помощника)",
-	AnnouncePColdIconsRemoved	= "Объявлять также о снятии меток с целей заклинания $spell:68510\n(требуется предыдущая опция)"
+	AnnouncePColdIcons		= "Объявлять метки целей заклинания $spell:68510 в рейд-чат<br/>(требуются права лидера или помощника)",
+	AnnouncePColdIconsRemoved	= "Объявлять также о снятии меток с целей заклинания $spell:68510<br/>(требуется предыдущая опция)",
+	RemoveHealthBuffsInP3	= "Удалять усиления здоровья в начале фазы 3"
 }
-

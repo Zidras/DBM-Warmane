@@ -166,9 +166,9 @@ L:SetOptionLocalization{
 	WarningPoweroftheTwins2		= "Anunciar la gemela afectada por $spell:65916"
 }
 
-------------------
+---------------
 -- Anub'arak --
-------------------
+---------------
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization{
@@ -176,46 +176,37 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerEmerge				= "Emerger en",
-	TimerSubmerge			= "Sumersion en",
-	timerAdds				= "Nuevos adds"
+	TimerEmerge				= "Emersión",
+	TimerSubmerge			= "Sumersión",
+	timerAdds				= "Siguientes esbirros"
 }
 
 L:SetWarningLocalization{
-	WarnEmerge				= "Anub'arak emerge",
-	WarnEmergeSoon			= "Emerger en 10 seg",
-	WarnSubmerge			= "Anub'arak se sumerge",
-	WarnSubmergeSoon		= "Sumersion en 10 seg",
-	specWarnSubmergeSoon	= "Sumersion en 10 segundos!",
-	SpecWarnPursue			= "¡Te persigue a ti!",
-	warnAdds				= "Nuevos adds",
-	SpecWarnShadowStrike	= "¡Golpe de sombras! ¡Corta ahora!"
+	WarnEmerge				= "Anub'arak regresa a la superficie",
+	WarnEmergeSoon			= "Emersión en 10 s",
+	WarnSubmerge			= "Anub'arak se entierra en el suelo",
+	WarnSubmergeSoon		= "Sumersión en 10 s",
+	warnAdds				= "Siguientes esbirros"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "¡Este lugar será vuestra tumba!",
-	Emerge					= "emerge",
-	Burrow					= "entierra",
-	PcoldIconSet			= "Icono FrioP {rt%d} puesto en %s",
-	PcoldIconRemoved		= "Icono FrioP eliminado de %s"
+--	YellPull				= "¡Este lugar será vuestra tumba!",
+	Emerge				= "emerge de la tierra!",
+	Burrow				= "se entierra en el suelo!",
+	PcoldIconSet		= "Icono {rt%d} colocado en %s",
+	PcoldIconRemoved	= "Icono quitado en %s"
 }
 
 L:SetOptionLocalization{
-	WarnEmerge					= "Mostrar aviso para Emerger",
-	WarnEmergeSoon				= "Mostrar pre-aviso para Emerger",
-	WarnSubmerge				= "Mostrar aviso para Sumersion",
-	WarnSubmergeSoon			= "Mostrar pre-aviso para Sumersion",
-	specWarnSubmergeSoon		= "Mostrar pre-aviso especial Sumersion",
-	SpecWarnPursue				= "Mostrar aviso especial si te sigue a ti",
-	warnAdds					= "Mostrar aviso para nuevos adds",
-	timerAdds					= "Mostrar tiempo para nuevos adds",
-	TimerEmerge					= "Mostrar tiempo para Emerger",
-	TimerSubmerge				= "Mostrar tiempo para Sumerger",
-	PlaySoundOnPursue			= "Reproducir sonidos si te persigue",
-	PursueIcon					= "Poner icono en jugador",
-	SpecWarnShadowStrike		= "Mostrar aviso especial para Golpe de sombras ( para cortar )",
-	RemoveHealthBuffsInP3		= "Quitar bufos de vida al inicio de la fase 3",
-	SetIconsOnPCold				= "Poner iconos en los objetivos de $spell:68510",
-	AnnouncePColdIcons			= "Anunciar iconos para los ojetivos de $spell:68510 en el chat de banda\n(Requiere 'anunciar' habilitado y lider o ayudante)",
-	AnnouncePColdIconsRemoved	= "También anunciar cuando se eliminen los iconos de los objetivos $spell:68510\n(Necesita la opción anterior)"
+	WarnEmerge				= "Mostrar aviso cuando Anub'arak regrese a la superficie",
+	WarnEmergeSoon			= "Mostrar aviso previo para cuando Anub'arak regrese a la superficie",
+	WarnSubmerge			= "Mostrar aviso cuando Anub'arak se entierre en el suelo",
+	WarnSubmergeSoon		= "Mostrar aviso previo para cuando Anub'arak se entierre en el suelo",
+	warnAdds				= "Anunciar cuando aparezcan esbirros",
+	timerAdds				= "Mostrar temporizador para los siguientes esbirros",
+	TimerEmerge				= "Mostrar temporizador para cuando Anub'arak regrese a la superficie",
+	TimerSubmerge			= "Mostrar temporizador para cuando Anub'arak se entierre en el suelo",
+	AnnouncePColdIcons		= "Anunciar iconos de los objetivos de $spell:66013 en el chat de banda (requiere líder o ayudante)",
+	AnnouncePColdIconsRemoved	= "Anunciar iconos quitados de los objetivos de $spell:66013 (requiere que la opción anterior esté habilitada)",
+	RemoveHealthBuffsInP3	= "Quitar bufos de vida al inicio de la fase 3"
 }

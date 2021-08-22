@@ -160,46 +160,37 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerEmerge			= "持續鑽地",
-	TimerSubmerge		= "下一次 鑽地",
-	timerAdds			= "下一次 中蟲出現"
+	TimerEmerge			= "下一次現身",
+	TimerSubmerge		= "下一次鑽地",
+	timerAdds			= "下一次中蟲出現"
 }
 
 L:SetWarningLocalization{
-	WarnEmerge				= "阿努巴拉克鑽出地面了",
-	WarnEmergeSoon			= "10秒後 鑽出地面",
+	WarnEmerge				= "阿努巴拉克現身了",
+	WarnEmergeSoon			= "10秒後現身",
 	WarnSubmerge			= "阿努巴拉克鑽進地裡了",
-	WarnSubmergeSoon		= "10秒後 鑽進地裡",
-	specWarnSubmergeSoon	= "10秒後 鑽進地裡!",
-	SpecWarnPursue			= "你被追擊了 - 快跑",
-	warnAdds				= "奈幽掘洞者 出現了",
-	SpecWarnShadowStrike	= "暗影打擊 - 現在斷法"
+	WarnSubmergeSoon		= "10秒後鑽進地裡",
+	warnAdds				= "奈幽掘洞者 出現了"
 }
 
 L:SetMiscLocalization{
-	YellPull			= "這裡將會是你們的墳墓!",
+--	YellPull			= "這裡將會是你們的墳墓!",
 	Emerge				= "從地底鑽出!",
 	Burrow				= "鑽進地裡!",
-	PcoldIconSet		= "透骨之寒{rt%d}: %s",
-	PcoldIconRemoved	= "移除標記: %s"
+	PcoldIconSet		= "透骨之寒{rt%d}於%s",
+	PcoldIconRemoved	= "移除標記:%s"
 }
 
 L:SetOptionLocalization{
-	WarnEmerge					= "為鑽出地面顯示警告",
-	WarnEmergeSoon				= "為鑽出地面顯示預先警告",
-	WarnSubmerge				= "為鑽進地裡顯示警告",
-	WarnSubmergeSoon			= "為鑽進地裡顯示預先警告",
-	specWarnSubmergeSoon		= "為即將鑽進地裡顯示特別警告",
-	SpecWarnPursue				= "當你被追擊時顯示特別警告",
-	warnAdds					= "提示奈幽掘洞者出現",
-	timerAdds					= "為下一次 奈幽掘洞者出現顯示計時器",
-	TimerEmerge					= "為持續鑽地顯示計時器",
-	TimerSubmerge				= "為下一次 鑽地顯示計時器",
-	PlaySoundOnPursue			= "當你開始被追擊時播放音效",
-	PursueIcon					= "為被追擊的目標設置標記 (頭顱)",
-	SpecWarnShadowStrike		= "為$spell:66134顯示特別警告 (斷法用)",
-	RemoveHealthBuffsInP3		= "當進入第3階段時移除耐力的增益",
-	SetIconsOnPCold				= "為$spell:68510的目標設置標記",
-	AnnouncePColdIcons			= "公佈$spell:68510目標設置的標記到團隊頻道\n(需要團隊隊長或助理權限)",
-	AnnouncePColdIconsRemoved	= "當移除$spell:68510的標記時也提示\n(需要上述選項)"
+	WarnEmerge				= "為鑽出地面顯示警告",
+	WarnEmergeSoon			= "為鑽出地面顯示預先警告",
+	WarnSubmerge			= "為鑽進地裡顯示警告",
+	WarnSubmergeSoon		= "為鑽進地裡顯示預先警告",
+	warnAdds				= "提示奈幽掘洞者出現",
+	timerAdds				= "為下一次 奈幽掘洞者出現顯示計時器",
+	TimerEmerge				= "為持續鑽地顯示計時器",
+	TimerSubmerge			= "為下一次 鑽地顯示計時器",
+	AnnouncePColdIcons		= "公佈$spell:68510目標設置的標記到團隊頻道<br/>(需要團隊隊長或助理權限)",
+	AnnouncePColdIconsRemoved	= "當移除$spell:68510的標記時也提示<br/>(需要上述選項)",
+	RemoveHealthBuffsInP3	= "當進入第3階段時移除耐力的增益"
 }

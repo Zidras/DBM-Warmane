@@ -156,28 +156,25 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization{
-	name 					= "아눕아락"
+	name 				= "아눕아락"
 }
 
 L:SetTimerLocalization{
-	TimerEmerge				= "출현",
-	TimerSubmerge			= "숨기",
-	timerAdds				= "다음 네루비안 땅무지"
+	TimerEmerge			= "다음 출현",
+	TimerSubmerge		= "다음 잠수",
+	timerAdds			= "다음 네루비안 땅무지"
 }
 
 L:SetWarningLocalization{
-	WarnEmerge				= "아눕아락 출현!",
-	WarnEmergeSoon			= "아눕아락 10초 이내 출현!",
-	WarnSubmerge			= "아눕아락 잠수!",
-	WarnSubmergeSoon		= "아눕아락 10초 이내 잠수!",
-	specWarnSubmergeSoon	= "아눕아락 잠수 10초 전!",
-	SpecWarnPursue			= "당신을 추격 합니다!",
-	warnAdds				= "네루비안 땅무지 추가!",
-	SpecWarnShadowStrike	= "어둠의 일격! 지금 차단!"
+	WarnEmerge				= "아눕아락 출현",
+	WarnEmergeSoon			= "10초 이내 출현",
+	WarnSubmerge			= "아눕아락 잠수",
+	WarnSubmergeSoon		= "10초 이내 잠수",
+	warnAdds				= "네루비안 땅무지"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "여기가 네 무덤이 되리라!",
+--	YellPull				= "여기가 네 무덤이 되리라!",
 --	Swarm					= "착취의 무리가 너희를 덮치리라!",
 	Emerge					= "땅속에서 모습을 드러냅니다!",
 	Burrow					= "땅속으로 숨어버립니다!",
@@ -186,21 +183,15 @@ L:SetMiscLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnEmerge					= "출현 경고 보기",
-	WarnEmergeSoon				= "출현의 사전 경고 보기",
-	WarnSubmerge				= "숨기 경고 보기",
-	WarnSubmergeSoon			= "숨기의 사전 경고 보기",
-	specWarnSubmergeSoon		= "숨기 10초전 특수 경고 보기",
-	SpecWarnPursue				= "당신을 추격하기 시작할 때 특수 경고 알리기",
-	warnAdds					= "새로운 네루비안 땅무지가 추가 될 때 경고 보기",
-	timerAdds					= "새로운 네루비안 땅무지 추가 타이머 보기",
-	TimerEmerge					= "출현 타이머 보기",
-	TimerSubmerge				= "숨기 타이머 보기",
-	PlaySoundOnPursue			= "당신을 추격하기 시작할 때 특수 소리 재생",
-	PursueIcon					= "추격 대상자 공격대 아이콘 설정하기",
-	SetIconsOnPCold				= "$spell:68510 대상자 공격대 아이콘 설정하기",
-	SpecWarnShadowStrike		= "$spell:66134 특수 경고 보기(차단 관련)",
-	RemoveHealthBuffsInP3		= "3 페이즈를 시작할 때 HP 버프 지우기",
-	AnnouncePColdIcons			= "$spell:68510 대상자 및 공격대 아이콘 설정을 공격대 채팅창으로 알리기",
-	AnnouncePColdIconsRemoved	= "$spell:68510의 공격대 아이콘이 언제 사라지는지 알리기 \n(위의 옵션을 포함해야 함)"
+	WarnEmerge					= "출현 알림 보기",
+	WarnEmergeSoon				= "출현 이전에 알림 보기",
+	WarnSubmerge				= "잠수 알림 보기",
+	WarnSubmergeSoon			= "잠수 이전에 알림 보기",
+	warnAdds					= "네루비안 땅무지 알림 보기",
+	timerAdds					= "다음 네루비안 땅무지 바 보기",
+	TimerEmerge					= "다음 출현 바 보기",
+	TimerSubmerge				= "다음 잠수 바 보기",
+	AnnouncePColdIcons			= "$spell:66013 전술 목표 아이콘 설정시 공격대 대화로 알리기(공격대장 권한 필요)",
+	AnnouncePColdIconsRemoved	= "$spell:66013 전술 목표 아이콘 제거시 공격대 대화로 알리기(위 설정 필요)",
+	RemoveHealthBuffsInP3		= "3 페이즈를 시작할 때 HP 버프 지우기"
 }

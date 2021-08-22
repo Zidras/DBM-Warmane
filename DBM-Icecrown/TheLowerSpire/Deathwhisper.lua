@@ -171,7 +171,7 @@ function mod:OnCombatStart(delay)
 	end
 	berserkTimer:Start(-delay)
 	timerAdds:Start(5.5)
-	warnAddsSoon:Schedule(4)			-- 3sec pre-warning on start
+	warnAddsSoon:Schedule(2.5)			-- 3sec pre-warning on start
 	self:Schedule(5.5, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(27.5)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
@@ -180,7 +180,7 @@ function mod:OnCombatStart(delay)
 		end
 		if self.Options.EqUneqWeapons and not self:IsTank() and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
-			self:ScheduleMethod(29, "UnW")
+			self:ScheduleMethod(26.5, "UnW")
 		end
 	end
 	table.wipe(dominateMindTargets)
