@@ -138,6 +138,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "Announce new adds",
 	TimerAdds		= "Show timer for new adds",
+	CancelBuff		= "Supprimer HoP et DS d'un tank qui avait le débuff Cleave Armor",
 	AddsArrive		= "Show timer for adds arrival", --Needs Translating
 	warnCleaveArmor	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(74367, GetSpellInfo(74367) or "unknown")
 })

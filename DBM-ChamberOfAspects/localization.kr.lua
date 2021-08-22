@@ -137,6 +137,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "지원 병력 알림 보기",
 	TimerAdds		= "다음 지원 병력 바 보기",
+	CancelBuff		= "Cleave Armor 디버프가 있는 탱크에서 HoP 및 DS 제거",
 	AddsArrive		= "Show timer for adds arrival", --Needs Translating
 })
 

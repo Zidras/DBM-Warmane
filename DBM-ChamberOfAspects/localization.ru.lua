@@ -138,6 +138,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "Объявлять новых помощников",
 	TimerAdds		= "Отсчет времени до новых помощников",
+	CancelBuff		= "Убрать HoP и DS с танка, у которого был дебафф Cleave Armor.",
 	AddsArrive		= "Отсчет времени до прибытия помощников"
 })
 

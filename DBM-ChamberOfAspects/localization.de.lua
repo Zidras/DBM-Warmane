@@ -138,6 +138,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "Verkünde neue Adds",
 	TimerAdds		= "Zeige Zeit bis neue Adds erscheinen",
+	CancelBuff		= "Entferne HoP und DS von einem Panzer, der den Debuff „Spalte Rüstung“ hatte",
 	AddsArrive		= "Timer für die Ankunft der Adds anzeigen"
 })
 

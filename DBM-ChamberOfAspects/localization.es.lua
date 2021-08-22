@@ -134,6 +134,7 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerAdds	= "Siguientes Ónices clamallamas",
+	CancelBuff		= "Elimina HoP y DS de un tanque que tenía la desventaja Cleave Armor",
 	AddsArrive	= "Adds llegan en"
 })
 
