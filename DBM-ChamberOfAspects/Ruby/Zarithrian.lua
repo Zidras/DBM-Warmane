@@ -10,6 +10,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
+	"SPELL_AURA_REMOVED",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -23,6 +24,15 @@ local timerAddsCD				= mod:NewTimer(45.5, "TimerAdds", 74398, nil, nil, 1)
 local timerAddsTravel			= mod:NewTimer(10, "AddsArrive") -- Timer to indicate when the summoned adds arive
 local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, "Tank|Healer", nil, 5)
 local timerFearCD				= mod:NewCDTimer(37, 74384, nil, nil, nil, 2)--anywhere from 35-40 seconds in between fears.
+
+mod:AddBoolOption("CancelBuff")
+
+function mod:SPELL_AURA_REMOVED(args)
+	if args:IsSpellID(74367) and self.Options.CancelBuff then
+		CancelUnitBuff("player", (GetSpellInfo(10278)))		-- Hand of Protection
+		CancelUnitBuff("player", (GetSpellInfo(642)))		-- Divine Shield
+	end
+end
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(14-delay)--need more pulls to verify consistency
