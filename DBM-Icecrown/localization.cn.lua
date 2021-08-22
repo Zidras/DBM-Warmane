@@ -190,7 +190,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame				= "显示距离框 (12码)",
-	RunePowerFrame			= "显示首领血量及$spell:72371条"
+	RunePowerFrame			= "显示首领血量及$spell:72371条",
+	RemoveDI				= "如果用于阻止 $spell:72293 施法，则清除 $spell:19752"
 }
 
 L:SetMiscLocalization{

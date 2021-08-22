@@ -47,6 +47,7 @@ mod:AddBoolOption("RunePowerFrame", false, "misc")
 mod:AddSetIconOption("BeastIcons", 72173, true, true)
 mod:AddBoolOption("BoilingBloodIcons", false)
 mod:AddInfoFrameOption(72370, false)
+mod:AddBoolOption("RemoveDI")
 mod:RemoveOption("HealthFrame")
 
 mod.vb.warned_preFrenzy = false
@@ -194,6 +195,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
+	elseif args.spellId == 19752 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
+		CancelUnitBuff("player", GetSpellInfo(19752))
 	end
 end
 
