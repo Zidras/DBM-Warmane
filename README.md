@@ -1,18 +1,24 @@
-[![Game Version](https://img.shields.io/badge/wow-3.3.5-blue.svg)](https://github.com/Zidras/DBM-Icecrown/tree/Warmane-Icecrown)
-[![Discord](https://discordapp.com/api/guilds/598993375479463946/widget.png?style=shield)](https://discord.gg/CyVWDWS)
+<div align="center">
 
-# DBM for Warmane-Icecrown
+# DBM-Warmane (3.3.5a)
+
+[![Game Version](https://img.shields.io/badge/wow-3.3.5-blue.svg)](https://github.com/Zidras/DBM-Icecrown)
+[![Discord](https://discordapp.com/api/guilds/598993375479463946/widget.png?style=shield)](https://discord.gg/CyVWDWS)
+[![GitHub Actions](https://github.com/Zidras/DBM-Icecrown/workflows/lint/badge.svg?branch=main&event=push)](https://github.com/Zidras/DBM-Icecrown/actions?query=workflow%3Alint+branch%3Amain)
+
+</div>
 
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle).
 
-This version aims to deliver more accurate timers and features from retail to Warmane-Icecrown server raids.
+This repository aims to deliver more accurate timers and features from retail to all three Warmane WotLK realms - Icecrown, Lordaeron and Frostmourne.
 
 # What's new?
 - Boss modules now have dedicated fields for type of bar and associated voice speech (countdown for bars, and sound on Special Warnings)
 ![image](https://user-images.githubusercontent.com/10605951/120121605-44e74c00-c19c-11eb-809b-7ceaee2336c8.png)
 - Support for Voice Packs:
 ![image](https://user-images.githubusercontent.com/10605951/120121681-bf17d080-c19c-11eb-9c5c-77e131e92c14.png)
-- Integration with Bunny's Weakauras backport;
+- Integration with Bunny's Weakauras backport:
+![image](https://user-images.githubusercontent.com/10605951/130357929-c8cb1cb7-e5ff-40bf-a36f-2587d966bca5.png)
 - And more!
 
 # HOW TO INSTALL FOR THE FIRST TIME
