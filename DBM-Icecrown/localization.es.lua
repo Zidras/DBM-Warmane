@@ -181,8 +181,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Mostrar marco de distancia (12 m)",
-	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
-	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371"
+	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371",
+	RemoveDI			= "Retire $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
 }
 
 L:SetMiscLocalization{

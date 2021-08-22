@@ -180,8 +180,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	MarkCastIcon		= "Met des icones sur les cibles de $spell:72444 durant l'incantation (Experimental)",
-	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
-	RunePowerFrame		= "Montre la barre de vie du boss + la barre de $spell:72371"
+	RunePowerFrame		= "Montre la barre de vie du boss + la barre de $spell:72371",
+	RemoveDI			= "Supprimez $spell:19752 s'il est utilisé pour empêcher le lancement du sort $spell:72293."
 }
 
 L:SetMiscLocalization{

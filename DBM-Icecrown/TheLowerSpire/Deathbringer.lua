@@ -42,12 +42,12 @@ local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
 local enrageTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(420) or mod:NewBerserkTimer(480)
 
-mod:AddBoolOption("RemoveDI")
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
 mod:AddSetIconOption("BeastIcons", 72173, true, true)
 mod:AddBoolOption("BoilingBloodIcons", false)
 mod:AddInfoFrameOption(72370, false)
+mod:AddBoolOption("RemoveDI")
 mod:RemoveOption("HealthFrame")
 
 mod.vb.warned_preFrenzy = false
@@ -195,8 +195,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
-	elseif args:IsSpellID(19752) and self.Options.RemoveDI then	-- instant remove DI
-			CancelUnitBuff("player", (GetSpellInfo(19752)))		-- Divine Intervention
+	elseif args.spellId == 19752 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
+		CancelUnitBuff("player", GetSpellInfo(19752))
 	end
 end
 

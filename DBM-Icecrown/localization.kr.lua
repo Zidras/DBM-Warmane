@@ -180,8 +180,8 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "거리 창 보기 (12 미터)",
-	RemoveDI				= "Remove DI only when DI interrupt cast Mark of the Fallen Champion",
-	RunePowerFrame		= "보스 체력 바와 함께 $spell:72371 바 보기"
+	RunePowerFrame		= "보스 체력 바와 함께 $spell:72371 바 보기",
+	RemoveDI			= "$spell:19752를 지웁니다. $spell:72293이 캐스팅되지 않도록 합니다."
 }
 
 L:SetMiscLocalization{
