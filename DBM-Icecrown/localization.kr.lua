@@ -2,88 +2,6 @@
 
 local L
 
----------------------------
---  Trash - Lower Spire  --
----------------------------
-L = DBM:GetModLocalization("LowerSpireTrash")
-
-L:SetGeneralLocalization{
-	name = "성채 하층부 일반몹"
-}
-
-L:SetWarningLocalization{
-	SpecWarnTrap		= "트랩 활성화! - 죽음에 속박된 감시자!"--creatureid 37007
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap			= "트랩 활성화 특수 경고 보기",
-}
-
-L:SetMiscLocalization{
-	WarderTrap1		= "거기... 누구냐?",
-	WarderTrap2		= "내가... 깨어난다!",
-	WarderTrap3		= "주인님의 성소를 어지럽혔구나!"
-}
-
----------------------------
---  Trash - Plagueworks  --
----------------------------
-L = DBM:GetModLocalization("PlagueworksTrash")
-
-L:SetGeneralLocalization{
-	name = "역병작업장 일반몹"
-}
-
-L:SetWarningLocalization{
-	WarnMortalWound	= "%s : >%s< (%d)",		-- Mortal Wound on >args.destName< (args.amount)
-	SpecWarnTrap	= "트랩 활성화! - 복수의 육신해체자!"--creatureid 37038
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap	= "트랩 활성화 특수 경고 보기",
-}
-
-L:SetMiscLocalization{
-	FleshreaperTrap1		= "서둘러! 저놈들 뒤에서 습격하자!",
-	FleshreaperTrap2		= "우리에게서... 벗어날 수 없다!",
-	FleshreaperTrap3		= "살아있는 놈이... 여기에?!"
-}
-
----------------------------
---  Trash - Crimson Hall  --
----------------------------
-L = DBM:GetModLocalization("CrimsonHallTrash")
-
-L:SetGeneralLocalization{
-	name = "진홍빛 전당 일반몹"
-}
-
----------------------------
---  Trash - Frostwing Hall  --
----------------------------
-L = DBM:GetModLocalization("FrostwingHallTrash")
-
-L:SetGeneralLocalization{
-	name = "서리날개 전당 일반몹"
-}
-
-L:SetWarningLocalization{
-	SpecWarnGosaEvent	= "신드라고사 웨이브"
-}
-
-L:SetTimerLocalization{
-	GosaTimer			= "신비한 강타"
-}
-
-L:SetOptionLocalization{
-	SpecWarnGosaEvent	= "신드라고사 웨이브 특수 경고 보기",
-	GosaTimer			= "신드라고사 신비한 강타 유지 타이머 보기"
-}
-
-L:SetMiscLocalization{
-	SindragosaEvent		= "서리 여왕께 다가가도록 두지 않겠다. 서둘러라! 저들을 막아라!"
-}
-
 ----------------------
 --  Lord Marrowgar  --
 ----------------------
@@ -431,4 +349,35 @@ L:SetMiscLocalization{
 	FrameOrientation		= "Expand upwards", --Needs Translating
 	FrameHide				= "Hide Frame", --Needs Translating
 	FrameClose				= "Close" --Needs Translating
+}
+
+-------------
+--  Trash  --
+-------------
+L = DBM:GetModLocalization("ICCTrash")
+
+L:SetGeneralLocalization{
+	name = "얼음왕관 성채: 일반구간"
+}
+
+L:SetWarningLocalization{
+	SpecWarnTrapL		= "함정 활성화 - 죽음에 속박된 감시자!",
+	SpecWarnTrapP		= "함정 활성화 - 복수의 육신해체자!",
+	SpecWarnGosaEvent	= "신드라고사 수호병 등장!"
+}
+
+L:SetOptionLocalization{
+	SpecWarnTrapL		= "죽음에 속박된 감시자 함정 활성화 특수 경고 보기",
+	SpecWarnTrapP		= "복수의 육신해체자 함정 활성화 특수 경고 보기",
+	SpecWarnGosaEvent	= "신드라고사 수호병 특수 경고 보기"
+}
+
+L:SetMiscLocalization{
+	WarderTrap1			= "거기... 누구냐?",
+	WarderTrap2			= "내가... 깨어난다!",
+	WarderTrap3			= "주인님의 성소를 어지럽혔구나!",
+	FleshreaperTrap1	= "서둘러! 저놈들 뒤에서 습격하자!",
+	FleshreaperTrap2	= "우리에게서... 벗어날 수 없다!",
+	FleshreaperTrap3	= "살아있는 놈이... 여기에?!",
+	SindragosaEvent		= "서리 여왕께 다가가도록 두지 않겠다. 서둘러라! 저들을 막아라!"
 }
