@@ -142,7 +142,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "通报：新的小怪",
 	TimerAdds		= "计时条：新的小怪",
-	CancelBuff		= "从具有顺劈装甲减益效果的坦克中移除 HoP 和 DS",
+	CancelBuff		= "删除 $spell:10278 和 $spell:642 如果用于删除 $spell:74367",
 	AddsArrive		= "计时条：小怪到来"
 })
 
