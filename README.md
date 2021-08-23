@@ -31,7 +31,7 @@ This repository aims to deliver more accurate timers and features from retail to
 **With no remnants of old DBM files we are now ready to start the installation process.**
 
 1. Download the addon from the **main** repository (https://github.com/Zidras/DBM-Warmane/archive/refs/heads/main.zip).
-2. Inside the zip file, open DBM-Warmane-main. Copy/Paste all those folders (DBM-Core, DBM-GUI, etc) into your addons folder (Interface/Addons). DO NOT put the DBM-Icecrown-main folder directly into the addon folder, it will not work.
+2. Inside the zip file, open DBM-Warmane-main. Copy/Paste all those folders (DBM-Core, DBM-GUI, etc) into your addons folder (Interface/Addons). DO NOT put the DBM-Warmane-main folder directly into the addon folder, it will not work.
 3. Load your game client into your character selection screen. On the bottom left corner, click AddOns and enable all the DBM entries like so:
 ![image](https://user-images.githubusercontent.com/10605951/127546459-1dd1eb99-8360-40c2-9ffa-093e365cd01b.png)
 ![image](https://user-images.githubusercontent.com/10605951/127546757-e086103a-34bd-48c5-8555-a734031e1ecc.png)
