@@ -1,7 +1,6 @@
 -- *********************************************************
 -- **               Deadly Boss Mods - Core               **
 -- **            http://www.deadlybossmods.com            **
-
 -- *********************************************************
 --
 -- This addon is written and copyrighted by:
