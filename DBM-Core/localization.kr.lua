@@ -537,6 +537,14 @@ L.AUTO_INFO_FRAME_OPTION_TEXT2	= "전투 전반에 관한 사항을 정보 창�
 L.AUTO_READY_CHECK_OPTION_TEXT	= "보스가 풀링되면 전투 준비 효과음 듣기 (보스를 대상으로 잡지 않아도 재생)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT	= "%s의 완료 신기록 타이머 표시"
 
+--Sounds
+L.AUTO_SOUND_OPTION_TEXT			= "$spell:%d에서 소리를 재생합니다"
+L.AUTO_SOUND_OPTION_TEXT5			= "$spell:%d까지 5초 오디오 카운트다운"
+L.AUTO_SOUND_OPTION_TEXT3			= "$spell:%d까지 3초 오디오 카운트다운"
+L.AUTO_SOUND_OPTION_TEXT_YOU		= "$spell:%d에서 소리 재생"
+L.AUTO_SOUND_OPTION_TEXT_SOON		= "곧 $spell:%d에서 소리 재생"
+L.AUTO_SOUND_OPTION_TEXT_CLOSE		= "주변 $spell:%d에서 소리 재생"
+
 -- New special warnings
 L.MOVE_WARNING_BAR				= "알림 이동"
 L.MOVE_WARNING_MESSAGE			= L.DEADLY_BOSS_MODS .. "를 이용해 주셔셔 감사합니다."

@@ -556,6 +556,14 @@ L.AUTO_INFO_FRAME_OPTION_TEXT2	= "Mostrar marco de información con una vista ge
 L.AUTO_READY_CHECK_OPTION_TEXT	= "Reproducir sonido de comprobación de banda cuando se inicie el encuentro (aunque no lo tengas como objetivo)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT	= "Mostrar temporizador para el récord actual de completar %s"
 
+--Sounds
+L.AUTO_SOUND_OPTION_TEXT			= "Reproducir sonido en $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT5			= "Cuenta atrás de audio de 5 segundos para $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT3			= "Cuenta atrás de audio de 3 segundos para $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT_YOU		= "Reproducir sonido en $spell:%d en ti"
+L.AUTO_SOUND_OPTION_TEXT_SOON		= "Reproducir sonido en $spell:%d en breve"
+L.AUTO_SOUND_OPTION_TEXT_CLOSE		= "Reproducir sonido en $spell:%d cerca de ti"
+
 -- New special warnings
 L.MOVE_WARNING_BAR			= "Anuncio desplazable"
 L.MOVE_WARNING_MESSAGE		= "Gracias por usar Deadly Boss Mods"
