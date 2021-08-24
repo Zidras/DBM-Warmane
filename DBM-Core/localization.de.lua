@@ -492,6 +492,14 @@ L.AUTO_INFO_FRAME_OPTION_TEXT	= "Zeige Infofenster für $spell:%s"
 L.AUTO_INFO_FRAME_OPTION_TEXT2	= "Zeige Infofenster für Kampfübersicht"
 L.AUTO_READY_CHECK_OPTION_TEXT	= "Spiele \"Bereitschaftscheck\"-Sound, wenn der Boss angegriffen wird (auch wenn er nicht als Ziel gesetzt ist)"
 
+--Sounds
+L.AUTO_SOUND_OPTION_TEXT			= "Ton bei $spell:%d abspielen"
+L.AUTO_SOUND_OPTION_TEXT5			= "5-Sekunden-Audio-Countdown bis $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT3			= "3-Sekunden-Audio-Countdown bis $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT_YOU		= "Ton auf $spell:%d auf dir abspielen"
+L.AUTO_SOUND_OPTION_TEXT_SOON		= "Sound abspielen bei $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT_CLOSE		= "Sound auf $spell:%d in deiner Nähe abspielen"
+
 -- New special warnings
 L.MOVE_WARNING_BAR			= "bewegbare Schlachtzugwarnung"
 L.MOVE_WARNING_MESSAGE		= "Danke, dass du Deadly Boss Mods verwendest"

@@ -546,6 +546,7 @@ L.AUTO_INFO_FRAME_OPTION_TEXT		= "Show info frame for $spell:%s"
 L.AUTO_INFO_FRAME_OPTION_TEXT2		= "Show info frame for encounter overview"
 L.AUTO_READY_CHECK_OPTION_TEXT		= "Play ready check sound when boss is pulled (even if it's not targeted)"
 
+--Sounds
 L.AUTO_SOUND_OPTION_TEXT			= "Play sound on $spell:%d"
 L.AUTO_SOUND_OPTION_TEXT5			= "5-second audio countdown to $spell:%d"
 L.AUTO_SOUND_OPTION_TEXT3			= "3-second audio countdown to $spell:%d"

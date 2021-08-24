@@ -546,6 +546,14 @@ L.AUTO_INFO_FRAME_OPTION_TEXT2		= "信息框：战斗总览"
 L.AUTO_READY_CHECK_OPTION_TEXT		= "当首领开打时播放准备检查的音效（即使没有选定目标）"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT		= "为%s显示快速消除计数器"
 
+--Sounds
+L.AUTO_SOUND_OPTION_TEXT			= "在$spell:%d上播放声音"
+L.AUTO_SOUND_OPTION_TEXT5			= "$spell:%d 的 5 秒音频倒计时"
+L.AUTO_SOUND_OPTION_TEXT3			= "$spell:%d 的 3 秒音频倒计时"
+L.AUTO_SOUND_OPTION_TEXT_YOU		= "如果 $spell:%d 出现在你身上，播放声音"
+L.AUTO_SOUND_OPTION_TEXT_SOON		= "在 $spell:%d 上播放声音"
+L.AUTO_SOUND_OPTION_TEXT_CLOSE		= "在您附近的 $spell:%d 上播放声音"
+
 -- New special warnings
 L.MOVE_WARNING_BAR				= "可拖动的团队警报"
 L.MOVE_WARNING_MESSAGE			= "感谢您使用" .. L.DEADLY_BOSS_MODS
