@@ -2,100 +2,6 @@ if GetLocale() ~= "zhCN" then return end
 
 local L
 
----------------------------
---  Trash - Lower Spire  --
----------------------------
-L = DBM:GetModLocalization("LowerSpireTrash")
-
-L:SetGeneralLocalization{
-	name = "城塞大門小怪"
-}
-
-L:SetWarningLocalization{
-	SpecWarnTrap		= "触发陷阱! - 亡缚守卫被释放了"
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap			= "当触发陷阱时显示特別警告",
-	SetIconOnDarkReckoning	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69483),
-	SetIconOnDeathPlague	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(72865)
-}
-
-L:SetMiscLocalization{
-	WarderTrap1			= "谁...在那儿...?",
-	WarderTrap2			= "我...更醒了!",
-	WarderTrap3			= "主人的圣所受到了打扰!",
-}
-
----------------------------
---  Trash - Plagueworks  --
----------------------------
-L = DBM:GetModLocalization("PlagueworksTrash")
-
-L:SetGeneralLocalization{
-	name = "大寶及臭皮"
-}
-
-L:SetWarningLocalization{
-	WarnMortalWound	= "%s: >%s< (%s)",
-	SpecWarnTrap	= "触发陷阱! - 复仇的血肉收割者到来"
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap	= "当触发陷阱时显示特別警告",
-	WarnMortalWound	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(71127)
-}
-
-L:SetMiscLocalization{
-	FleshreaperTrap1	= "快，我们要从后面奇袭他们!",
-	FleshreaperTrap2	= "你无法逃避我们!",
-	FleshreaperTrap3	= "活人? 这儿?!",
-}
-
----------------------------
---  Trash - Crimson Hall  --
----------------------------
-L = DBM:GetModLocalization("CrimsonHallTrash")
-
-L:SetGeneralLocalization{
-	name = "赤紅大廳小怪"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	BloodMirrorIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70451)
-}
-
-L:SetMiscLocalization{
-}
-
----------------------------
---  Trash - Frostwing Hall  --
----------------------------
-L = DBM:GetModLocalization("FrostwingHallTrash")
-
-L:SetGeneralLocalization{
-	name = "霜翼大廳小怪"
-}
-
-L:SetWarningLocalization{
-	SpecWarnGosaEvent	= "辛达苟萨夹道攻击开始!"
-}
-
-L:SetTimerLocalization{
-	GosaTimer			= "時間剩餘"
-}
-
-L:SetOptionLocalization{
-	SpecWarnGosaEvent	= "为辛达苟萨夹道攻击显示特別警告",
-	GosaTimer			= "為辛德拉苟莎夾道攻擊顯示持續時間計時器"
-}
-
-L:SetMiscLocalization{
-	SindragosaEvent		= "你一定不能靠近冰霜之后。快，阻止他们!"
-}
 ----------------------
 --  Lord Marrowgar  --
 ----------------------
@@ -442,4 +348,35 @@ L:SetMiscLocalization{
 	FrameOrientation			= "Expand upwards", --Needs translating
 	FrameHide					= "Hide Frame", --Needs translating
 	FrameClose					= "Close" --Needs translating
+}
+
+-------------
+--  Trash  --
+-------------
+L = DBM:GetModLocalization("ICCTrash")
+
+L:SetGeneralLocalization{
+	name = "Icecrown Trash"
+}
+
+L:SetWarningLocalization{
+	SpecWarnTrapL		= "触发陷阱! - 亡缚守卫被释放了",
+	SpecWarnTrapP		= "触发陷阱! - 复仇的血肉收割者到来",
+	SpecWarnGosaEvent	= "辛达苟萨夹道攻击开始!"
+}
+
+L:SetOptionLocalization{
+	SpecWarnTrapL		= "当触发陷阱时显示特別警告",
+	SpecWarnTrapP		= "当触发陷阱时显示特別警告",
+	SpecWarnGosaEvent	= "为辛达苟萨夹道攻击显示特別警告"
+}
+
+L:SetMiscLocalization{
+	WarderTrap1			= "谁...在那儿...?",
+	WarderTrap2			= "我...更醒了!",
+	WarderTrap3			= "主人的圣所受到了打扰!",
+	FleshreaperTrap1	= "快，我们要从后面奇袭他们!",
+	FleshreaperTrap2	= "你无法逃避我们!",
+	FleshreaperTrap3	= "活人? 这儿?!",
+	SindragosaEvent		= "你一定不能靠近冰霜之后。快，阻止他们!"
 }

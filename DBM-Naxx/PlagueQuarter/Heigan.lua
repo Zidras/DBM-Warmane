@@ -26,7 +26,7 @@ function mod:DancePhase()
 	warnTeleportNow:Schedule(47)
 	soundTeleport5:Schedule(42)
 	self:ScheduleMethod(47, "BackInRoom", 88)
-	self:SetStage(0)
+	self:SetStage(2)
 end
 
 function mod:BackInRoom(time)
@@ -35,5 +35,5 @@ function mod:BackInRoom(time)
 	soundTeleport5:Schedule(time-5)
 	warnTeleportNow:Schedule(time)
 	self:ScheduleMethod(time, "DancePhase")
-	self:SetStage(0)
+	self:SetStage(1)
 end

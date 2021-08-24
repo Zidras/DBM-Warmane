@@ -2,88 +2,6 @@ if GetLocale() ~= "ruRU" then return end
 
 local L
 
----------------------------
---  Trash - Lower Spire  --
----------------------------
-L = DBM:GetModLocalization("LowerSpireTrash")
-
-L:SetGeneralLocalization{
-	name = "Треш-мобы Шпиля"
-}
-
-L:SetWarningLocalization{
-	SpecWarnTrap		= "Ловушка активирована! - Заклятый страж освобожден"--creatureid 37007
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap		= "Спец-предупреждение для активации ловушки",
-}
-
-L:SetMiscLocalization{
-	WarderTrap1		= "Кто... идет?",
-	WarderTrap2		= "Я пробудился...",
-	WarderTrap3		= "В покои господина проникли!"
-}
-
----------------------------
---  Trash - Plagueworks  --
----------------------------
-L = DBM:GetModLocalization("PlagueworksTrash")
-
-L:SetGeneralLocalization{
-	name = "Треш-мобы Чумодельни"
-}
-
-L:SetWarningLocalization{
-	WarnMortalWound	= "%s на |3-5(>%s<) (%d)",		-- Mortal Wound on >args.destName< (args.amount)
-	SpecWarnTrap	= "Ловушка активирована! - приближаются Мстительные свежеватели"--creatureid 37038
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap	= "Спец-предупреждение для активации ловушки",
-}
-
-L:SetMiscLocalization{
-	FleshreaperTrap1		= "Скорей, нападем на них сзади!",
-	FleshreaperTrap2		= "Вам не уйти от нас.",
-	FleshreaperTrap3		= "Живые? Здесь?!"
-}
-
----------------------------
---  Trash - Crimson Hall  --
----------------------------
-L = DBM:GetModLocalization("CrimsonHallTrash")
-
-L:SetGeneralLocalization{
-	name = "Треш-мобы Багрового зала"
-}
-
----------------------------
---  Trash - Frostwing Hall  --
----------------------------
-L = DBM:GetModLocalization("FrostwingHallTrash")
-
-L:SetGeneralLocalization{
-	name = "Треш-мобы Зала Ледокрылых"
-}
-
-L:SetWarningLocalization{
-	SpecWarnGosaEvent	= "Приближаются защитники Синдрагосы!"
-}
-
-L:SetTimerLocalization{
-	GosaTimer			= "Открытие ворот"
-}
-
-L:SetOptionLocalization{
-	SpecWarnGosaEvent	= "Спец-предупреждение для активации защитников Синдрагосы",
-	GosaTimer			= "Отсчет времени до последней волны треш-мобов"
-}
-
-L:SetMiscLocalization{
-	SindragosaEvent		= "Они не должны прорваться к Синдрагосе! Скорее, остановите их!"
-}
-
 ----------------------
 --  Lord Marrowgar  --
 ----------------------
@@ -433,4 +351,35 @@ L:SetMiscLocalization{
 	FrameOrientation		= "Рост вверх",
 	FrameHide				= "Скрыть окно",
 	FrameClose				= "Закрыть"
+}
+
+-------------
+--  Trash  --
+-------------
+L = DBM:GetModLocalization("ICCTrash")
+
+L:SetGeneralLocalization{
+	name = "Icecrown Trash"
+}
+
+L:SetWarningLocalization{
+	SpecWarnTrapL		= "Ловушка активирована! - Заклятый страж освобожден",
+	SpecWarnTrapP		= "Ловушка активирована! - приближаются Мстительные свежеватели",
+	SpecWarnGosaEvent	= "Приближаются защитники Синдрагосы!"
+}
+
+L:SetOptionLocalization{
+	SpecWarnTrapL		= "Спец-предупреждение для активации ловушки",
+	SpecWarnTrapP		= "Спец-предупреждение для активации ловушки",
+	SpecWarnGosaEvent	= "Спец-предупреждение для активации защитников Синдрагосы"
+}
+
+L:SetMiscLocalization{
+	WarderTrap1			= "Кто... идет?",
+	WarderTrap2			= "Я пробудился...",
+	WarderTrap3			= "В покои господина проникли!",
+	FleshreaperTrap1	= "Скорей, нападем на них сзади!",
+	FleshreaperTrap2	= "Вам не уйти от нас.",
+	FleshreaperTrap3	= "Живые? Здесь?!",
+	SindragosaEvent		= "Они не должны прорваться к Синдрагосе! Скорее, остановите их!"
 }

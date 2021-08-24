@@ -15,7 +15,7 @@ end
 L.HOW_TO_USE_MOD					= "Welcome to " .. L.DBM .. ". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. " .. L.DBM .. " will setup defaults for your spec, but you may want to fine tune these."
 L.SILENT_REMINDER					= "Reminder: " .. L.DBM .. " is still in silent mode."
 
-L.UPDATEREMINDER_URL				= "https://github.com/Zidras/DBM-Icecrown/"
+L.UPDATEREMINDER_URL				= "https://github.com/Zidras/DBM-Warmane/"
 
 L.LOAD_MOD_ERROR					= "Error while loading boss mods for %s: %s"
 L.LOAD_MOD_SUCCESS					= "Loaded '%s' mods. For more options such as custom alert sounds and personalized warning notes, type /dbm."

@@ -2,89 +2,6 @@
 
 local L
 
----------------------------
---  Trash - Lower Spire  --
----------------------------
-L = DBM:GetModLocalization("LowerSpireTrash")
-
-L:SetGeneralLocalization{
-	name = "Trash de la Ciudadela Inferior"
-}
-
-L:SetWarningLocalization{
-	SpecWarnTrap		= "¡Trampa activada! ¡Sale un Depositario!"
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap			= "Mostrar aviso especial cuando se active trampa",
-}
-
-L:SetMiscLocalization{
-	WarderTrap1		= "¿Quién... anda ahí?",
-	WarderTrap2		= "Estoy despierto...",
-	WarderTrap3		= "El sagrario del maestro ha sido perturbado."
-}
-
----------------------------
---  Trash - Plagueworks  --
----------------------------
-L = DBM:GetModLocalization("PlagueworksTrash")
-
-L:SetGeneralLocalization{
-	name = "Precioso y Apestoso"
-}
-
-L:SetWarningLocalization{
-	WarnMortalWound	= "%s en >%s< (%d)",
-	SpecWarnTrap	= "¡Trampa activada! ¡Salen Siegacarnes vengativos!"--creatureid 37038
-}
-
-L:SetOptionLocalization{
-	SpecWarnTrap	= "Mostrar aviso especial cuando se active trampa",
-}
-
-L:SetMiscLocalization{
-	FleshreaperTrap1		= "Rápido, ¡atacaremos por la espalda!",
-	FleshreaperTrap2		= "¡No... puedes escapar!",
-	FleshreaperTrap3		= "¿Los vivos? ¿¡Aquí!?"
-}
-
----------------------------
---  Trash - Crimson Hall  --
----------------------------
-L = DBM:GetModLocalization("CrimsonHallTrash")
-
-L:SetGeneralLocalization{
-	name = "Trash de La Sala Carmsesí"
-}
-
----------------------------
---  Trash - Frostwing Hall  --
----------------------------
-L = DBM:GetModLocalization("FrostwingHallTrash")
-
-L:SetGeneralLocalization{
-	name = "Trash de Las Cámaras de Alaescarcha"
-}
-
-L:SetWarningLocalization{
-	SpecWarnGosaEvent	= "¡Guantelete de Sindragosa ha empezado!"
-}
-
-L:SetTimerLocalization{
-	GosaTimer			= "Tiempo restante"
-}
-
-L:SetOptionLocalization{
-	SpecWarnGosaEvent	= "Mostrar aviso especial para el guantelete de Sindragosa",
-	GosaTimer			= "Mostrar tiempo para el evento del guantelete de Sindragosa"
-}
-
-L:SetMiscLocalization{
-	SindragosaEvent		= "No debéis acercaros a la Reina de Escarcha. ¡Detenedlos, rápido!"
-}
-
-
 ------------------
 -- Lord Tuétano --
 ------------------
@@ -432,4 +349,35 @@ L:SetMiscLocalization{
 	FrameOrientation		= "Expand upwards", --Needs Translating
 	FrameHide				= "Hide Frame", --Needs Translating
 	FrameClose				= "Close" --Needs Translating
+}
+
+----------------------
+-- Enemigos menores --
+----------------------
+L = DBM:GetModLocalization("ICCTrash")
+
+L:SetGeneralLocalization{
+	name = "Enemigos menores"
+}
+
+L:SetWarningLocalization{
+	SpecWarnTrapL		= "Trampa activada - ¡se ha liberado un Depositario vinculado a la muerte!",
+	SpecWarnTrapP		= "Trampa activada - ¡se aproximan Siegacarnes vengativos!",
+	SpecWarnGosaEvent	= "¡Emboscada de Sindragosa iniciada!"
+}
+
+L:SetOptionLocalization{
+	SpecWarnTrapL		= "Mostrar aviso especial cuando se active una trampa de Depositario vinculado a la muerte",
+	SpecWarnTrapP		= "Mostrar aviso especial cuando se active una trampa de Siegacarnes vengativos",
+	SpecWarnGosaEvent	= "Mostrar aviso especial cuando comience el evento de la emboscada de Sindragosa"
+}
+
+L:SetMiscLocalization{
+	WarderTrap1			= "¿Quién... anda ahí?",
+	WarderTrap2			= "Estoy despierto...",
+	WarderTrap3			= "El sagrario del maestro ha sido perturbado.",
+	FleshreaperTrap1	= "Rápido, ¡atacaremos por la espalda!",
+	FleshreaperTrap2	= "¡No... puedes escapar!",
+	FleshreaperTrap3	= "¿Los vivos? ¿¡Aquí!?",
+	SindragosaEvent		= "No debéis acercaros a la Reina de Escarcha. ¡Detenedlos, rápido!"
 }
