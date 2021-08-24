@@ -2,8 +2,8 @@
 
 local L
 
-local spell				= "%s"				
-local debuff			= "%s: >%s<"			
+local spell				= "%s"
+local debuff			= "%s: >%s<"
 local spellCD			= "%s 冷卻"
 local spellSoon			= "%s 即將到來"
 local optionWarning		= "為%s顯示警告"
@@ -408,7 +408,7 @@ L:SetOptionLocalization({
 })
 
 -------------------------
---  Drakkari Colossus  --		
+--  Drakkari Colossus  --
 -------------------------
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
