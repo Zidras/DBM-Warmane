@@ -413,7 +413,7 @@ L:SetOptionLocalization({
 })
 
 -------------------------
---  Drakkari Colossus  --		
+--  Drakkari Colossus  --
 -------------------------
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
@@ -431,7 +431,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarningElemental	= "Zeige Warnung für Elementarphase",
-	WarningStone		= "Zeige Warnung für Kolossphase"	
+	WarningStone		= "Zeige Warnung für Kolossphase"
 })
 
 -----------------
@@ -690,9 +690,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "Aufspaltung bald",	
-	WarningSplitNow		= "Aufspaltung",		
-	WarningMerge		= "Fusion"		
+	WarningSplitSoon	= "Aufspaltung bald",
+	WarningSplitNow		= "Aufspaltung",
+	WarningMerge		= "Fusion"
 })
 
 L:SetTimerLocalization({
@@ -700,8 +700,8 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarningSplitSoon	= optionPreWarning:format("Aufspaltung"),
-	WarningSplitNow		= optionWarning:format("Aufspaltung"),	
-	WarningMerge		= optionWarning:format("Fusion"),	
+	WarningSplitNow		= optionWarning:format("Aufspaltung"),
+	WarningMerge		= optionWarning:format("Fusion"),
 })
 
 L:SetMiscLocalization({
@@ -828,7 +828,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningShiftEnd	= "Planarverschiebung endet"		
+	WarningShiftEnd	= "Planarverschiebung endet"
 })
 
 L:SetTimerLocalization({
@@ -1144,7 +1144,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Portal #%d", 
+	TimerPortalIn	= "Portal #%d",
 })
 
 L:SetOptionLocalization({
