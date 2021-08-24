@@ -2,8 +2,8 @@
 
 local L
 
-local spell				= "%s"				
-local debuff			= "%s: >%s<"			
+local spell				= "%s"
+local debuff			= "%s: >%s<"
 local spellCD			= "%s cooldown"
 local spellSoon			= "%s bientôt"
 local optionWarning		= "Activer l'alerte : %s"
@@ -253,7 +253,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerWaveIn		= 	"Prochaine vague (6)", 
+	TimerWaveIn		= 	"Prochaine vague (6)",
 })
 
 L:SetOptionLocalization({
@@ -408,7 +408,7 @@ L:SetOptionLocalization({
 })
 
 -----------------------
--- Drakkari Colossus --		
+-- Drakkari Colossus --
 -----------------------
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
