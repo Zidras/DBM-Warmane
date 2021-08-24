@@ -439,12 +439,18 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	TimerPhase2		= "Rhino phase",
+	TimerPhase1		= "Troll phase"
 })
 
 L:SetTimerLocalization({
+	TimerPhase2		= "Rhino phase",
+	TimerPhase1		= "Troll phase"
 })
 
 L:SetOptionLocalization({
+	TimerPhase2		= "Show warning for Rhino phase",
+	TimerPhase1		= "Show warning for Troll phase"
 })
 
 -----------------------
@@ -693,9 +699,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	SplitTrigger1 	= "Il y en aura assez pour tout le monde.",
-	SplitTrigger2 	= "Vous allez être trop bien servis !",
-	MergeTrigger 	= "Et maintenant finissons le travail !"
+	SplitTrigger1		= "Il y en aura assez pour tout le monde.",
+	SplitTrigger2		= "Vous allez être trop bien servis !",
+	MergeTrigger		= "Et maintenant finissons le travail !"
 })
 
 -----------------
@@ -776,22 +782,16 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningTimeBomb 	= debuff,
-	WarningExplosion 	= spell,
-	SpecWarnBombYou 	= "Bombe sur vous !"
 })
 
 L:SetTimerLocalization({
-	TimerTimeBomb 		= debuff,
-	TimerExplosion 		= spell
 })
 
 L:SetOptionLocalization({
-	WarningTimeBomb 	= optionWarning:format(GetSpellInfo(51121)),
-	WarningExplosion 	= optionWarning:format(GetSpellInfo(51110)),
-	TimerTimeBomb 		= optionTimerDur:format(GetSpellInfo(51121)),
-	TimerExplosion 		= optionTimerDur:format(GetSpellInfo(51110)),
-	SpecWarnBombYou 	= optionSpecWarning:format(GetSpellInfo(51121))
+})
+
+L:SetMiscLocalization({
+	CombatStart		= "Poor blind fools!" --Translating needed
 })
 
 ------------------------
@@ -899,11 +899,11 @@ L:SetMiscLocalization({
 	YellCombatEnd	= "Non ! Je peux faire... mieux, je peux..."
 })
 
-----------------------
--- Utgarde Pinnacle --
 ------------------------
--- Skadi the Ruthless --
-------------------------
+--  Utgarde Pinnacle  --
+--------------------------
+--  Skadi the Ruthless  --
+--------------------------
 L = DBM:GetModLocalization("SkadiTheRuthless")
 
 L:SetGeneralLocalization({
@@ -917,6 +917,11 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+})
+
+L:SetMiscLocalization({
+	CombatStart		= "What mongrels dare intrude here? Look alive, my brothers! A feast for the one that brings me their heads!", --Translating needed
+	Phase2			= "You motherless knaves! Your corpses will make fine morsels for my new drake!" --Translating needed
 })
 
 ------------
@@ -950,9 +955,15 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
+	timerRoleplay		= "Svala Tristetombe active" --Needs Translating
 })
 
 L:SetOptionLocalization({
+	timerRoleplay		= "Show timer for roleplay before Svala Tristetombe becomes active" --Needs Translating
+})
+
+L:SetMiscLocalization({
+	SvalaRoleplayStart	= "My liege! I have done as you asked, and now beseech you for your blessing!" --Needs Translating
 })
 
 ---------------------
@@ -988,9 +999,15 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
+	TimerCombatStart		= "Combat starts"
 })
 
 L:SetOptionLocalization({
+	TimerCombatStart		= "Show timer for start of combat"
+})
+
+L:SetMiscLocalization({
+	CyanArrived	= "A valiant defense, but this city must be razed. I will fulfill Malygos's wishes myself!"
 })
 
 ------------
@@ -1121,7 +1138,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Portail #%d" ,
+	TimerPortalIn	= "Portail #%d",
 })
 
 L:SetOptionLocalization({
@@ -1133,7 +1150,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	yell1 		= "Gardes, nous partons ! Ces aventuriers vont se charger de la suite ! Allez, en route !",
+	Sealbroken	= "Gardes, nous partons ! Ces aventuriers vont se charger de la suite ! Allez, en route !",
 	WavePortal	= "Portails Ouverts : (%d+)/18"
 })
 
@@ -1149,17 +1166,23 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	specWarnDesecration		= "Violation ! Bougez !",
 	warnExplode				= "Séide goule incante explosion ! Bougez !"
 })
+
+L:SetTimerLocalization{
+	TimerCombatStart	= "Combat starts"
+}
 
 L:SetOptionLocalization({
 	specWarnDesecration		= "Montre une alerte spéciale quand vous prenez des dégâts venant de la Violation",
 	warnExplode				= "Montre une alerte quand une Séide goule incante explosion sur elle-même",
-	SetIconOnMarkedTarget	= "Met une icône sur la cible de la mort"
+	SetIconOnMarkedTarget	= "Met une icône sur la cible de la mort",
+	SetIconOnMarkedTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(67823)
 })
 
 L:SetMiscLocalization({
+	Pull				= "Well done. You have proven yourself today-",
+	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s was hit by Ghoul Explode <<",
 	YellCombatEnd			= "Non ! Pas encore... un échec..."
 })
 
@@ -1173,17 +1196,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	specWarnHaste		= "Hâte sur >%s< ! Dispell Maintenant !",
-	specWarnPoison		= "Poison ! Bougez !"
 })
 
 L:SetOptionLocalization({
-	specWarnHaste		= "Montre une alerte spéciale quand le mage gagne la hâte (pour Dispell/Voler)",
-	specWarnPoison		= "Montre une alerte spéciale quand vous subissez des dégâts provenant de la Bouteille de poison"
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd		= "Joli combat ! Votre prochain défi vient directement des rangs de la Croisade. L'épreuve sera de vous mesurer à l'incroyable vituosité de ses cavaliers."
+	YellCombatEnd	= "Joli combat ! Votre prochain défi vient directement des rangs de la Croisade. L'épreuve sera de vous mesurer à l'incroyable vituosité de ses cavaliers."
 })
 
 -------------------
@@ -1196,11 +1215,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	specwarnRenew			= "Rénovation sur >%s<. Dispell Maintenant !"
 })
 
 L:SetOptionLocalization({
-	specwarnRenew			= "Montre une alerte spéciale pour la cible de la rénovation (pour Dispell/Voler)"
 })
 
 L:SetMiscLocalization({
@@ -1217,25 +1234,23 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	specwarnHammerofJustice	= "Marteau de la justice sur >%s<. Dispell Maintenant !",
 	specwarnRadiance		= "Radiance. Retournez vous !"
 })
 
 L:SetOptionLocalization({
-	specwarnHammerofJustice	= "Montre une alerte spéciale pour le Marteau de la justice (pour Dispell)",
 	specwarnRadiance		= "Montre une alerte spéciale pour Radiance.",
-	SetIconOnHammerTarget	= "Met une icône sur la cible du Marteau du vertueux"
+	SetIconOnHammerTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(66940)
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd			= "Grâce ! Je me rends. Excellent travail. Puis-je me débiner, maintenant ?"
+	YellCombatEnd	= "Grâce ! Je me rends. Excellent travail. Puis-je me débiner, maintenant ?"
 })
 
+--------------------
+--  Pit of Saron  --
 ---------------------
--- Pit of Saron --
--------------------
 --  Ick and Krick  --
--------------------
+---------------------
 L = DBM:GetModLocalization("Ick")
 
 L:SetGeneralLocalization({
@@ -1244,21 +1259,13 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	warnPursuit			= "Poursuite dans 5 secondes",
-	specWarnToxic		= "Déchets toxiques ! Bougez !",
-	specWarnPursuit		= "Vous êtes poursuivi ! Courrez !",
-	specWarnPoisonNova	= "Nova de Poison - Courrez !",
-	specWarnMines		= "Barrage Explosif  - Bougez"
+	specWarnPursuit		= "Vous êtes poursuivi ! Courrez !"
 })
 
 L:SetOptionLocalization({
 	warnPursuit				= "Montre une alerte lorsque la Poursuite est pour bientôt",
-	specWarnToxic			= "Montre une alerte spéciale lorsque vous prenez des dégâts des Déchets toxiques",
 	specWarnPursuit			= "Montre une alerte spéciale lorsque vous êtes poursuivi",
-	specWarnPoisonNova		= "Montre une alerte spéciale lorsque la Nova de Poison est incantée (pour s'écarter)",
-	specWarnMines			= "Montre une alerte spéciale lorsque le Barrage Explosif est incanté (pour bouger)",
-	PlaySoundOnPoisonNova	= "Joue un son lors de la Nova de Poison",
-	PlaySoundOnPursuit		= "Joue un son lors de la Poursuite",
-	SetIconOnPursuitTarget	= "Met des icônes sur les cibles de la Poursuite"
+	SetIconOnPursuitTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(68987)
 })
 
 L:SetMiscLocalization({
@@ -1287,11 +1294,14 @@ L:SetOptionLocalization({
 	specWarnSaroniteRock		= "Montre une alerte spéciale lorsque le Lancer de Saronite est sur vous",
 	specWarnSaroniteRockNear	= "Montre une alerte spéciale lorsque le Lancer de Saronite est près de vous",
 	specWarnPermafrost			= "Montre une alerte spéciale lorsque le nombre de charge de Gel prolongé est grand (valeur non fixée)",
-	SetIconOnSaroniteRockTarget	= "Met une icône sur la cible du Rocher de Saronite"
+	SetIconOnSaroniteRockTarget	= "Met une icône sur la cible du Rocher de Saronite",
+	SetIconOnSaroniteRockTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70851)
 })
 
 L:SetMiscLocalization({
-	SaroniteRockThrow			= "%s hurls a massive saronite boulder at you!"
+	SaroniteRockThrow	= "%s hurls a massive saronite boulder at you!",
+	AchievementWarning	= "Warning: %s has %d stacks of Permafrost",
+	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Permafrost <<"
 })
 
 ----------------------------
@@ -1304,10 +1314,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	specWarnIcyBlast		= "Déflagration glaciale ! Bougez !",
 	specWarnHoarfrost		= "Gelée blanche sur vous !",
-	specWarnHoarfrostNear	= "Gelée blanche proche de vous ! Bougez !",
-	specWarnOverlordsBrand	= "Overlords Brand sur vous"
+	specWarnHoarfrostNear	= "Gelée blanche proche de vous ! Bougez !"
 })
 
 L:SetTimerLocalization{
@@ -1315,12 +1323,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization({
-	specWarnIcyBlast			= "Montre une alerte spéciale lorsque vous subissez des dégâts de la Déflagration glaciale ",
 	specWarnHoarfrost			= "Montre une alerte spéciale lorsque la Gelée blanche est sur vous",
 	specWarnHoarfrostNear		= "Montre une alerte spéciale lorsque la Gelée blanche est proche de vous",
-	specWarnOverlordsBrand		= "Montre une alerte spéciale lorsque vous êts affecté par Overlords Brand",
 	TimerCombatStart			= "Affiche un timer pour le début du combat",
-	SetIconOnHoarfrostTarget	= "Met une icône sur la cible de la Gelée blanche"
+	SetIconOnHoarfrostTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69246)
 })
 
 L:SetMiscLocalization({
@@ -1341,12 +1347,10 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	warnSoulstormSoon	= "Tempête d'âme bientôt",
 	specwarnSoulstorm	= "Tempête d'âme ! Allez au centre !"
 })
 
 L:SetOptionLocalization({
-	warnSoulstormSoon	= "Montre une pré-alerte pour la Tempête d'âme (à ~40%)",
 	specwarnSoulstorm	= "Montre une alerte spéciale lorsque Tempête d'âme est lancée (pour aller au centre)"
 })
 
@@ -1361,16 +1365,14 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnMirroredSoul	= "Âme réfléchie ! Stop DPS !",
-	specwarnWailingSouls	= "Âmes gémissantes - Allez derrière",
-	specwarnPhantomBlast	= "Interrompez !"
+	specwarnWailingSouls	= "Âmes gémissantes - Allez derrière"
 })
 
 L:SetOptionLocalization({
 	specwarnMirroredSoul	= "Montre une alerte spéciale pour arrêter le DPS lorsque vous êtes la cible d'Âme réfléchie",
 	specwarnWailingSouls	= "Montre une alerte spéciale lorsque le sort Âmes gémissantes est incanté",
-	specwarnPhantomBlast	= "Montre une alerte spéciale lorsque Phantom Blast est incanté (pour l'interrompre)"
+	SetIconOnMirroredTarget	= "Set icons on $spell:69051 targets"
 })
-
 
 ---------------------------
 --  Halls of Reflection  --
@@ -1436,14 +1438,12 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	SpecWarnWellCorruption	= "Puits de Corruption - Bougez"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SpecWarnWellCorruption	= "Montre une alerte spéciale lorsque vous êtes affecté par le Puits de Corruption"
 })
 
 L:SetMiscLocalization({
@@ -1459,15 +1459,29 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	WarnWave1		= "6 Raging Ghoul, 1 Risen Witch Doctor incoming",--6 Ghoul, 1 WitchDocter
+	WarnWave2		= "6 Raging Ghoul, 2 Risen Witch Doctor, 1 Lumbering Abomination incoming",--6 Ghoul, 2 WitchDocter, 1 Abom
+	WarnWave3		= "6 Raging Ghoul, 2 Risen Witch Doctor, 2 Lumbering Abomination incoming",--6 Ghoul, 2 WitchDocter, 2 Abom
+	WarnWave4		= "12 Raging Ghoul, 4 Risen Witch Doctor, 3 Lumbering Abomination incoming"--12 Ghoul, 3 WitchDocter, 3 Abom
 })
 
 L:SetTimerLocalization({
+	achievementEscape	= "Time to escape"
 })
 
 L:SetOptionLocalization({
+	ShowWaves	= "Show warning for incoming waves"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "Il est trop fort. Il faut vite partir d'ici ! Ma magie ne pourra le retenir qu'un court instant. Venez vite, héros !",
+	Ghoul			= "Raging Ghoul",--creature id 36940. Not sure how to use these in function above to simplify locals though. :\
+	Abom			= "Lumbering Abomination",--creature id 37069
+	WitchDoctor		= "Risen Witch Doctor",--creature id 36941
+	ACombatStart	= "He is too powerful. We must leave this place at once! My magic can hold him in place for only a short time. Come quickly, heroes!",
+	HCombatStart	= "He's... too powerful. Heroes, quickly... come to me! We must leave this place at once! I will do what I can to hold him in place while we flee.",
+	Wave1			= "There is no escape!",
+	Wave2			= "Succumb to the chill of the grave.",
+	Wave3			= "Another dead end.",
+	Wave4			= "How long can you fight it?",
 	YellCombatEnd	= "FEU ! FEU !"
 })

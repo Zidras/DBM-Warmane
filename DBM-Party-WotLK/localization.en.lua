@@ -247,7 +247,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningWaveNow = "Wave %d: %s spawned"
+	WarningWaveNow	= "Wave %d: %s spawned"
 })
 
 L:SetTimerLocalization({
@@ -1271,6 +1271,7 @@ L:SetMiscLocalization({
 	IckPursuit	= "%s is chasing you!",
 	Barrage		= "%s begins rapidly conjuring explosive mines!"
 })
+
 ----------------------------
 --  Forgemaster Garfrost  --
 ----------------------------
