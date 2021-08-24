@@ -1,7 +1,6 @@
 -- *********************************************************
 -- **               Deadly Boss Mods - Core               **
 -- **            http://www.deadlybossmods.com            **
-
 -- *********************************************************
 --
 -- This addon is written and copyrighted by:
@@ -90,10 +89,10 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = ("$Revision: 7005 $"):sub(12, -3),
-	Version = "7.05",
-	DisplayVersion = "7.05 DBM-Icecrown by Zidras, forked from Barsoom's DBM", -- the string that is shown as version
-	ReleaseRevision = 7005 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 7006 $"):sub(12, -3),
+	Version = "7.06",
+	DisplayVersion = "7.06 DBM-Warmane by Zidras", -- the string that is shown as version
+	ReleaseRevision = 7006 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -3321,7 +3320,7 @@ do
 							else
 								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
 								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Zidras/DBM-Icecrown]"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Zidras/DBM-Warmane]"):format(displayVersion, revision))
 							end
 						end
 					end

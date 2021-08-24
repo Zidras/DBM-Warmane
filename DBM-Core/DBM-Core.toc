@@ -15,7 +15,7 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## Author: Barsoom, Bunny67, Zidras, DBM-frostmourne contributors, original DBM team
-## X-Website: https://github.com/Zidras/DBM-Icecrown/
+## X-Website: https://github.com/Zidras/DBM-Warmane/
 
 compat.lua
 
