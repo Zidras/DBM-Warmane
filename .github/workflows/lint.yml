@@ -32,9 +32,9 @@ jobs:
       id: luarockscache
       with:
         path: .luarocks
-        key: ${{ runner.os }}-luarocks-${{ env.LUAROCKS_VERSION }}
+        key: ${{ runner.os }}-luarocks-v2-${{ env.LUAROCKS_VERSION }}
         restore-keys: |
-          ${{ runner.os }}-luarocks-${{ env.LUAROCKS_VERSION }}
+          ${{ runner.os }}-luarocks-v2-${{ env.LUAROCKS_VERSION }}
 
     - name: Install Lua
       if: steps.luacache.outputs.cache-hit != 'true'
