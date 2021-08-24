@@ -2,8 +2,8 @@
 
 local L
 
-local spell				= "%s"				
-local debuff			= "%s: >%s<"			
+local spell				= "%s"
+local debuff			= "%s: >%s<"
 local spellCD			= "%s CD"
 local spellSoon			= "%s Pronto"
 local optionWarning		= "Mostrar cuadno haga %s "
@@ -408,7 +408,7 @@ L:SetOptionLocalization({
 })
 
 -----------------------
--- Drakkari Colossus --		
+-- Drakkari Colossus --
 -----------------------
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
@@ -685,7 +685,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "Dividir pronto",	
+	WarningSplitSoon	= "Dividir pronto",
 	WarningSplitNow		= "Se divide",
 	WarningMerge		= "Se une"
 })
@@ -1141,7 +1141,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Portal Nº%d en" , 
+	TimerPortalIn	= "Portal Nº%d en",
 })
 
 L:SetOptionLocalization({
