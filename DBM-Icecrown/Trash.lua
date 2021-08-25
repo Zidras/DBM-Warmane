@@ -142,6 +142,9 @@ function mod:SPELL_CAST_START(args)
 		warnDisruptingShout:Show()
 		specWarnDisruptingShout:Show()
 		timerDisruptingShout:Start()
+	elseif args.spellId == 71088 then
+		specWarnBlightBomb:Show()
+		timerBlightBomb:Start()
 	end
 end
 
@@ -154,9 +157,6 @@ function mod:SPELL_SUMMON(args)
 		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
 		warnDecimateSoon:Schedule(28)
 		timerDecimate:Start()
-	elseif args.spellId == 71088 then
-		specWarnBlightBomb:Show()
-		timerBlightBomb:Start()
 	end
 end
 
