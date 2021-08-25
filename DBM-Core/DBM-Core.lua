@@ -1425,7 +1425,11 @@ do
 		time = time or 5
 		numAnnounces = numAnnounces or 3
 		for i = 1, numAnnounces do
-			schedule(time - i, func, mod, self, i, ...)
+			--In event time is < number of announces (ie 2 second time, with 3 announces)
+			local validTime = time - i
+			if validTime >= 1 then
+				schedule(validTime, func, mod, self, i, ...)
+			end
 		end
 	end
 
@@ -7587,15 +7591,17 @@ do
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
 			{
-				option = optionName or L.AUTO_SOUND_OPTION_TEXT:format(spellId),
 				mod = self,
 			},
 			mt
 		)
-		if optionName == false then
-			obj.option = nil
-		else
+		if optionName then
+			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
+		elseif not (optionName == false) then
+			obj.option = "Sound"..spellId
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT:format(spellId)
 		end
 		return obj
 	end
@@ -7623,15 +7629,17 @@ do
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
 			{
-				option = optionName or L.AUTO_SOUND_OPTION_TEXT5:format(spellId),
 				mod = self,
 			},
 			mt
 		)
-		if optionName == false then
-			obj.option = nil
-		else
+		if optionName then
+			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
+		elseif not (optionName == false) then
+			obj.option = "Sound"..spellId.."in5"
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT5:format(spellId)
 		end
 		return obj
 	end
@@ -7658,15 +7666,17 @@ do
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
 			{
-				option = optionName or L.AUTO_SOUND_OPTION_TEXT3:format(spellId),
 				mod = self,
 			},
 			mt
 		)
-		if optionName == false then
-			obj.option = nil
-		else
+		if optionName then
+			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
+		elseif not (optionName == false) then
+			obj.option = "Sound"..spellId.."in3"
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT3:format(spellId)
 		end
 		return obj
 	end
@@ -7693,15 +7703,17 @@ do
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
 			{
-				option = optionName or L.AUTO_SOUND_OPTION_TEXT_YOU:format(spellId),
 				mod = self,
 			},
 			mt
 		)
-		if optionName == false then
-			obj.option = nil
-		else
+		if optionName then
+			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
+		elseif not (optionName == false) then
+			obj.option = "Sound"..spellId.."you"
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_YOU:format(spellId)
 		end
 		return obj
 	end
@@ -7728,17 +7740,18 @@ do
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
 			{
-				option = optionName or L.AUTO_SOUND_OPTION_TEXT_SOON:format(spellId),
 				mod = self,
 			},
 			mt
 		)
-		if optionName == false then
-			obj.option = nil
-		else
+		if optionName then
+			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		end
-		return obj
+		elseif not (optionName == false) then
+			obj.option = "Sound"..spellId.."soon"
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_SOON:format(spellId)
+		end		return obj
 	end
 
 	function soundPrototypeSoon:Play(file)
@@ -7763,15 +7776,17 @@ do
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
 			{
-				option = optionName or L.AUTO_SOUND_OPTION_TEXT_CLOSE:format(spellId),
 				mod = self,
 			},
 			mt
 		)
-		if optionName == false then
-			obj.option = nil
-		else
+		if optionName then
+			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
+		elseif not (optionName == false) then
+			obj.option = "Sound"..spellId.."close"
+			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_CLOSE:format(spellId)
 		end
 		return obj
 	end

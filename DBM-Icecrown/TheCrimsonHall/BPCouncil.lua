@@ -145,7 +145,7 @@ function mod:SPELL_CAST_START(args)
 		self:BossTargetScanner(37970, "ShockVortexTarget", 0.05, 6)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
 		specWarnEmpoweredShockV:Show()
-		if not self.Options["Play sound on $spell:72039"] then
+		if not self.Options.Sound72039 then
 			specWarnEmpoweredShockV:Play("scatter")
 		end
 		timerShockVortex:Start(30)
@@ -217,7 +217,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnEmpoweredFlames:Show()
-			if not self.Options["Play sound on $spell:72040"] then
+			if not self.Options.Sound72040 then
 				specWarnEmpoweredFlames:Play("justrun")
 			end
 			soundEmpoweredFlames:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\EmpoweredOrbOnYou.mp3")

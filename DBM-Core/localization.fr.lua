@@ -384,6 +384,14 @@ L.AUTO_RRANGE_OPTION_TEXT_SHORT	= "Afficher la fênetre des distances inversée 
 L.AUTO_INFO_FRAME_OPTION_TEXT    = "Afficher la fênetre d'information pour $spell:%s" --What frame is this?
 L.AUTO_READY_CHECK_OPTION_TEXT   = "Jouer le son du ready check lorsque le boss est engagé (même si ce dernier n'est pas la cible)"
 
+--Sounds
+L.AUTO_SOUND_OPTION_TEXT			= "Jouez le son sur $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT5			= "Compte à rebours audio de 5 secondes jusqu'à $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT3			= "Compte à rebours audio de 3 secondes jusqu'à $spell:%d"
+L.AUTO_SOUND_OPTION_TEXT_YOU		= "Jouer le son sur $spell:%d sur vous"
+L.AUTO_SOUND_OPTION_TEXT_SOON		= "Jouer le son sur $spell:%d bientôt"
+L.AUTO_SOUND_OPTION_TEXT_CLOSE		= "Jouer du son sur $spell:%d près de chez vous"
+
 -- New special warnings
 L.MOVE_SPECIAL_WARNING_BAR	= "Alerte spéciale mobile"
 L.MOVE_WARNING_MESSAGE		= "Merci d'utiliser Deadly Boss Mods"
