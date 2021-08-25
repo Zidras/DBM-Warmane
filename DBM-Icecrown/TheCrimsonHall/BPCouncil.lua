@@ -76,7 +76,7 @@ end
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	warnTargetSwitchSoon:Schedule(42-delay)
-	warnTargetSwitchSoon:Play("swapsoon")
+	warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
 	timerTargetSwitch:Start(-delay)
 	timerShockVortex:Start(-delay)
 	timerKineticBombCD:Start(20-delay)
@@ -165,7 +165,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:IsInCombat() then
 			warnTargetSwitch:Show(L.Valanar)
 			warnTargetSwitchSoon:Schedule(42)
-			warnTargetSwitchSoon:Play("swapsoon")
+			warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
 			timerTargetSwitch:Start()
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(12)
@@ -174,7 +174,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70981 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Keleseth)
 		warnTargetSwitchSoon:Schedule(42)
-		warnTargetSwitchSoon:Play("swapsoon")
+		warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
 		if self.Options.RangeFrame then
@@ -183,7 +183,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 70982 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
 		warnTargetSwitchSoon:Schedule(42)
-		warnTargetSwitchSoon:Play("swapsoon")
+		warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
 		timerTargetSwitch:Start()
 		activePrince = args.destGUID
 		if self.Options.RangeFrame then
