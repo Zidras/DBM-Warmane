@@ -25,28 +25,6 @@ local phasewarn1		= mod:NewAnnounce("TimerPhase1", 4, "Interface\\Icons\\Spell_S
 local phasetimer2		= mod:NewTimer(52, "TimerPhase2", 72262)
 local phasewarn2		= mod:NewAnnounce("TimerPhase2", 4, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
 
-local function switchPhase(self)
-	if self.vb.phase == 1 then
-		self:SetStage(2)
-		phasetimer2:Cancel()
-		phasewarn2:Show()
-		phasetimer1:Start(52)
-		timerVihr:Cancel()
-		timerTopot:Cancel()
-		timerCharge:Cancel()
-		timerTopot:Start(25)
-		timerCharge:Start(21)
-	elseif self.vb.phase == 2 then
-		phasetimer1:Cancel()
-		phasewarn1:Show()
-		phasetimer2:Start(52)
-		timerVihr:Cancel()
-		timerTopot:Cancel()
-		timerCharge:Cancel()
-		timerVihr:Start()
-	end
-end
-
 function mod:Flames_G(time)	-- Flames
 	if self:IsInCombat() then
 		local timer = time or 11
@@ -80,8 +58,25 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == "После этого ничего не останется!" or msg == "Хотите увидеть cилу? Я покажу вам... силу!" or msg == "Ain't gonna be nothin' left after this!" or msg == "You wanna see power? I'm gonna show you power!" then
-		print("phase change", msg)
-		switchPhase()
+	if msg == L.YellPhase2_1 or msg:find(L.YellPhase2_1) or msg == L.YellPhase2_2 or msg:find(L.YellPhase2_2) then
+		if self.vb.phase == 1 then
+			self:SetStage(2)
+			phasetimer2:Cancel()
+			phasewarn2:Show()
+			phasetimer1:Start(52)
+			timerVihr:Cancel()
+			timerTopot:Cancel()
+			timerCharge:Cancel()
+			timerTopot:Start(25)
+			timerCharge:Start(21)
+		elseif self.vb.phase == 2 then
+			phasetimer1:Cancel()
+			phasewarn1:Show()
+			phasetimer2:Start(52)
+			timerVihr:Cancel()
+			timerTopot:Cancel()
+			timerCharge:Cancel()
+			timerVihr:Start()
+		end
 	end
 end

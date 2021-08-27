@@ -18,32 +18,39 @@ local isDispeller = select(2, UnitClass("player")) == "PRIEST"
 				 or select(2, UnitClass("player")) == "PALADIN"
 
 local warnHammerofRighteous		= mod:NewSpellAnnounce(66867, 3)
-local warnVengeance             = mod:NewSpellAnnounce(66889, 3)
-local warnHammerofJustice		= mod:NewTargetAnnounce(66940, 2)
+local warnVengeance             = mod:NewTargetNoFilterAnnounce(66889, 3)
+
+local specwarnRadiance			= mod:NewSpecialWarningLookAway(66935, nil, nil, nil, 2, 2)
+local specwarnHammerofJustice	= mod:NewSpecialWarningDispel(66940, "Healer", nil, nil, 1, 2)
+local specwarnHammerofRighteous	= mod:NewSpecialWarningYou(66905, nil, nil, nil, 1, 2)
+
 local timerVengeance			= mod:NewBuffActiveTimer(6, 66889)
-local specwarnRadiance			= mod:NewSpecialWarning("specwarnRadiance")
-local specwarnHammerofJustice	= mod:NewSpecialWarningDispel(66940, isDispeller)
 
 mod:AddBoolOption("SetIconOnHammerTarget", true)
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(66935) then					-- Radiance Look Away!
-		specwarnRadiance:Show()
-	elseif args:IsSpellID(66867) then				-- Hammer of the Righteous
+	if args.spellId == 66935 then					-- Radiance Look Away!
+		specwarnRadiance:Show(args.sourceName)
+		specwarnRadiance:Play("turnaway")
+	elseif args.spellId == 66867 then				-- Hammer of the Righteous
 		warnHammerofRighteous:Show()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(66940) then								-- Hammer of Justice on <Player>
+	if args.spellId == 66940 then								-- Hammer of Justice on <Player>
 		if self.Options.SetIconOnHammerTarget then
 			self:SetIcon(args.destName, 8, 6)
 		end
-		warnHammerofJustice:Show(args.destName)
-		specwarnHammerofJustice:Show(args.destName)
-	elseif args:IsSpellID(66889) then							-- Vengeance
+		if self:CheckDispelFilter() then
+			specwarnHammerofJustice:Show(args.destName)
+			specwarnHammerofJustice:Play("helpdispel")
+		end
+	elseif args.spellId == 66889 then							-- Vengeance
 		warnVengeance:Show(args.destName)
 		timerVengeance:Start(args.destName)
+	elseif args.spellId == 66905 and args:IsPlayer() then
+		specwarnHammerofRighteous:Show()
+		specwarnHammerofRighteous:Play("useitem")
 	end
 end
-

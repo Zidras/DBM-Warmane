@@ -13,32 +13,41 @@ mod:RegisterEvents(
 )
 
 local warnSoulstormSoon		= mod:NewSoonAnnounce(68872, 2)
-local warnCorruptSoul		= mod:NewTargetAnnounce(68839, 3)
-local specwarnSoulstorm		= mod:NewSpecialWarning("specwarnSoulstorm")
-local timerSoulstormCast	= mod:NewCastTimer(4, 68872)
+local warnCorruptSoul		= mod:NewTargetNoFilterAnnounce(68839, 4)
 
-local warned_preStorm = false
+local specwarnSoulstorm		= mod:NewSpecialWarningSpell(68872, nil, nil, nil, 2, 2)
+local specwarnCorruptedSoul	= mod:NewSpecialWarningMoveTo(68839, nil, nil, nil, 1, 7)
+
+local timerSoulstormCast	= mod:NewCastTimer(4, 68872, nil, nil, nil, 2)
+
+mod.vb.warned_preStorm = false
 
 function mod:OnCombatStart(delay)
-	warned_preStorm = false
+	self.vb.warned_preStorm = false
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(68872) then							-- Soulstorm
+	if args.spellId == 68872 then							-- Soulstorm
 		specwarnSoulstorm:Show()
+		specwarnSoulstorm:Play("aesoon")
 		timerSoulstormCast:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(68839) then							-- Corrupt Soul
-		warnCorruptSoul:Show(args.destName)
+	if args.spellId == 68839 then							-- Corrupt Soul
+		if args:IsPlayer() then
+			specwarnCorruptedSoul:Show(DBM_CORE_L.EDGE)
+			specwarnCorruptedSoul:Play("runtoedge")
+		else
+			warnCorruptSoul:Show(args.destName)
+		end
 	end
 end
 
 function mod:UNIT_HEALTH(uId)
-	if not warned_preStorm and self:GetUnitCreatureId(uId) == 36497 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.40 then
-		warned_preStorm = true
+	if not self.vb.warned_preStorm and self:GetUnitCreatureId(uId) == 36497 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.40 then
+		self.vb.warned_preStorm = true
 		warnSoulstormSoon:Show()
 	end
 end
