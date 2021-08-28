@@ -10,77 +10,90 @@ mod:RegisterCombat("combat")
 mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"CHAT_MSG_RAID_BOSS_WHISPER",
-	"SPELL_PERIODIC_DAMAGE"
+	"SPELL_AURA_REMOVED",
+	"SPELL_PERIODIC_DAMAGE",
+	"SPELL_PERIODIC_MISSED",
+	"UNIT_AURA"
 )
 
 local warnPursuitCast			= mod:NewCastAnnounce(68987, 3)
-local warnPoisonNova			= mod:NewCastAnnounce(68989, 3)
-local warnPursuit				= mod:NewAnnounce("warnPursuit", 4, 68987)
+local warnPursuit				= mod:NewTargetNoFilterAnnounce(68987, 4)
 
-local specWarnToxic				= mod:NewSpecialWarningMove(70436)
-local specWarnMines				= mod:NewSpecialWarningRun(69015)
-local specWarnPursuit			= mod:NewSpecialWarning("specWarnPursuit")
-local specWarnPoisonNova		= mod:NewSpecialWarningRun(68989, mod:IsMelee())
+local specWarnToxic				= mod:NewSpecialWarningMove(69024, nil, nil, nil, 1, 2)
+local specWarnMines				= mod:NewSpecialWarningSpell(69015, nil, nil, nil, 2, 2)
+local specWarnPursuit			= mod:NewSpecialWarningRun(68987, nil, nil, 2, 4, 2)
+local specWarnPoisonNova		= mod:NewSpecialWarningRun(68989, "Melee", nil, 2, 4, 2)
 
+local timerSpecialCD			= mod:NewCDSpecialTimer(20)--Every 20-22 seconds. In rare cases he skips a special though and goes 40 seconds. unsure of cause
 local timerPursuitCast			= mod:NewCastTimer(5, 68987)
 local timerPursuitConfusion		= mod:NewBuffActiveTimer(12, 69029)
-local timerPoisonNova			= mod:NewCastTimer(5, 68989)
+local timerPoisonNova			= mod:NewCastTimer(5, 68989, nil, "Melee", 2, 2)
 
-local soundPoisonNova	= mod:NewSound(68989, nil, mod:IsMelee())
-local soundPursuit		= mod:NewSound(68987)
-mod:AddBoolOption("SetIconOnPursuitTarget", true)
+mod:AddSetIconOption("SetIconOnPursuitTarget", 68987, true, false, {8})
+
+local pursuit = DBM:GetSpellInfo(68987)
+local pursuitTable = {}
+
+function mod:OnCombatStart(delay)
+	table.wipe(pursuitTable)
+	timerSpecialCD:Start()
+end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(68987) then							-- Pursuit
+	if args.spellId == 68987 then							-- Pursuit
 		warnPursuitCast:Show()
 		timerPursuitCast:Start()
+		timerSpecialCD:Start()
 	elseif args:IsSpellID(68989, 70434) then				-- Poison Nova
-		warnPoisonNova:Show()
 		timerPoisonNova:Start()
 		specWarnPoisonNova:Show()
-		soundPoisonNova:Play()
+		specWarnPoisonNova:Play("runout")
+		timerSpecialCD:Start()
+	elseif args.spellId == 69012 then				--Explosive Barrage
+		specWarnMines:Show()
+		specWarnMines:Play("watchstep")
+		timerSpecialCD:Start(22) --Will be 2 seconds longer because of how long barrage lasts
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(69029, 70850) then							-- Pursuit Confusion
-		timerPursuitConfusion:Show(args.destName)
+		timerPursuitConfusion:Start(args.destName)
 	end
 end
 
-do
-	local lasttoxic = 0
-	function mod:SPELL_PERIODIC_DAMAGE(args)
-		if args:IsSpellID(69024, 70436) and args:IsPlayer() and time() - lasttoxic > 2 then
-			specWarnToxic:Show()
-			lasttoxic = time()
+function mod:SPELL_AURA_REMOVED(args)
+	if args.spellId == 69029 then					-- Pursuit Confusion
+		timerPursuitConfusion:Cancel()
+	end
+end
+
+function mod:SPELL_PERIODIC_DAMAGE(args)
+	if args:IsSpellID(69024, 70436) and args:IsPlayer() and self:AntiSpam() then
+		specWarnToxic:Show()
+		specWarnToxic:Play("runaway")
+	end
+end
+mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+
+function mod:UNIT_AURA(uId)
+	local isPursuitDebuff = DBM:UnitDebuff(uId, pursuit)
+	local name = DBM:GetUnitFullName(uId)
+	if not isPursuitDebuff and pursuitTable[name] then
+		pursuitTable[name] = nil
+		if self.Options.SetIconOnPursuitTarget then
+			self:SetIcon(name, 0)
 		end
-	end
-end
-
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg == L.Barrage then
-		specWarnMines:Show()
-	end
-end
-
-function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg)
-	if msg == L.IckPursuit or msg:match(L.IckPursuit) then
-		self:SendSync("Pursuit", UnitName("player"))
-	end
-end
-
-function mod:OnSync(msg, target)
-	if msg == "Pursuit" then
-		warnPursuit:Show(target)
-		if target == UnitName("player") then
+	elseif isPursuitDebuff and not pursuitTable[name] then
+		pursuitTable[name] = true
+		if UnitIsUnit(uId, "player") then
 			specWarnPursuit:Show()
-			soundPursuit:Play()
+			specWarnPursuit:Play("justrun")
+		else
+			warnPursuit:Show(name)
 		end
 		if self.Options.SetIconOnPursuitTarget then
-			self:SetIcon(target, 8, 12)
+			self:SetIcon(name, 8)
 		end
 	end
 end
