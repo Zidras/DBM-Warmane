@@ -7,7 +7,7 @@
 ## SavedVariablesPerCharacter: DBMOnyxia_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
-## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-No-Heroic: 1
 ## X-DBM-Mod-Sort: 3
 ## X-DBM-Mod-Name: Onyxia's Lair

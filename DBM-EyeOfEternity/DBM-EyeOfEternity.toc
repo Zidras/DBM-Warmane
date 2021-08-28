@@ -6,7 +6,7 @@
 ## SavedVariables: DBMEyeOfEternity_AllSavedVars
 ## SavedVariablesPerCharacter: DBMCEyeOfEternity_SavedStats
 ## X-DBM-Mod: 1
-## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Has-Heroic-Mode: 0
 ## X-DBM-Mod-Name: Eye of Eternity
 ## X-DBM-Mod-Name-ruRU: Око Вечности
