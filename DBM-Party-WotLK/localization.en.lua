@@ -255,7 +255,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningElemental	= "Show warning for 2: The Elemental",
+	WarningElemental	= "Show warning for Phase 2: The Elemental",
 	WarningStone		= "Show warning for Phase 1: The Colossus"
 })
 
