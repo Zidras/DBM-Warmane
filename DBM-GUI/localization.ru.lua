@@ -14,9 +14,6 @@ L.OTabBosses				= "Боссы"
 L.OTabOptions				= "Настройки"
 
 L.TabCategory_Options	 	= "Общие параметры"
-L.TabCategory_WOTLK 		= "Гнев Короля Лича"
-L.TabCategory_BC 			= "Пылающий Легион"
-L.TabCategory_CLASSIC		= "Классическая игра"
 L.TabCategory_OTHER    		= "Другие боссы"
 
 L.BossModLoaded 			= "%s - статистика"
