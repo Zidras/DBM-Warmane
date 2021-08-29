@@ -1,4 +1,14 @@
+if GetLocale() ~= "deDE" then return end
+
+-- fehlende Übersetzungen:
+--
+-- PdC: Großchampions, Der Schwarze Ritter
+-- HdR: Lichkönig-Event (Horde)
+
 local L
+
+local optionWarning		= "Zeige Warnung für %s"
+local optionPreWarning	= "Zeige Vorwarnung für %s"
 
 ----------------------------------
 --  Ahn'Kahet: The Old Kingdom  --
@@ -8,7 +18,7 @@ local L
 L = DBM:GetModLocalization("Taldaram")
 
 L:SetGeneralLocalization({
-	name = "Prince Taldaram"
+	name = "Prinz Taldaram"
 })
 
 -------------------
@@ -17,7 +27,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Nadox")
 
 L:SetGeneralLocalization({
-	name = "Elder Nadox"
+	name = "Urahne Nadox"
 })
 
 ---------------------------
@@ -26,7 +36,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("JedogaShadowseeker")
 
 L:SetGeneralLocalization({
-	name = "Jedoga Shadowseeker"
+	name = "Jedoga Schattensucher"
 })
 
 ---------------------
@@ -35,7 +45,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Volazj")
 
 L:SetGeneralLocalization({
-	name = "Herald Volazj"
+	name = "Herold Volazj"
 })
 
 ----------------
@@ -55,7 +65,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Krikthir")
 
 L:SetGeneralLocalization({
-	name = "Krik'thir the Gatewatcher"
+	name = "Krik'thir der Torwächter"
 })
 
 ----------------
@@ -73,7 +83,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Anubarak")
 
 L:SetGeneralLocalization({
-	name = "Anub'arak (Party)"
+	name = "Anub'arak (Gruppe)"
 })
 
 ---------------------------------------
@@ -84,7 +94,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Meathook")
 
 L:SetGeneralLocalization({
-	name = "Meathook"
+	name = "Fleischhaken"
 })
 
 --------------------------------
@@ -93,7 +103,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SalrammTheFleshcrafter")
 
 L:SetGeneralLocalization({
-	name = "Salramm the Fleshcrafter"
+	name = "Salramm der Fleischformer"
 })
 
 -------------------------
@@ -102,7 +112,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ChronoLordEpoch")
 
 L:SetGeneralLocalization({
-	name = "Chrono-Lord Epoch"
+	name = "Chronolord Epoch"
 })
 
 -----------------
@@ -115,7 +125,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Outro	= "Your journey has just begun, young prince. Gather your forces and meet me in the arctic land of Northrend. It is there that we shall settle the score between us. It is there that your true destiny will unfold."
+	Outro	= "Eure Reise hat erst begonnen, junger Prinz. Sammelt Eure Streitmacht und folgt mir in das arktische Land Nordend. Dort werden wir unsere Rechnung begleichen. Dort wird sich Euer wahres Schicksal offenbaren."
 })
 
 -------------------
@@ -124,42 +134,42 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("StratWaves")
 
 L:SetGeneralLocalization({
-	name = "Stratholme Waves"
+	name = "Stratholme-Wellen"
 })
 
 L:SetWarningLocalization({
-	WarningWaveNow	= "Wave %d: %s spawned"
+	WarningWaveNow = "Welle %d: %s erschienen"
 })
 
 L:SetTimerLocalization({
-	TimerWaveIn		= "Next wave (6)",
-	TimerRoleplay	= "Arthas roleplay"
+	TimerWaveIn		= "Nächste Welle (6)",
+	TimerRoleplay	= "Eröffnungsrollenspiel"
 })
 
 L:SetOptionLocalization({
-	WarningWaveNow	= "Show warning for new wave",
-	TimerWaveIn		= "Show timer for next set of waves (after wave 5 boss)",
-	TimerRoleplay	= "Show timer for opening roleplay event."
+	WarningWaveNow	= "Zeige Warnung für neue Welle",
+	TimerWaveIn		= "Zeige Zeit bis die nächste Wellengruppe nach dem ersten Boss kommt",
+	TimerRoleplay	= "Dauer des Eröffnungsrollenspiels anzeigen"
 })
 
 L:SetMiscLocalization({
-	Meathook	= "Meathook",
-	Salramm		= "Salramm the Fleshcrafter",
-	Devouring	= "Devouring Ghoul",
-	Enraged		= "Enraging Ghoul",
-	Necro		= "Necromancer",
-	Fiend		= "Crypt Fiend",
-	Stalker		= "Tomb Stalker",
-	Abom		= "Patchwork Construct",
-	Acolyte		= "Acolyte",
+	Meathook	= "Fleischhaken",
+	Salramm		= "Salramm der Fleischformer",
+	Devouring	= "Verschlingender Ghul",
+	Enraged		= "Aufgebrachter Ghul",
+	Necro		= "Totenbeschwörer",
+	Fiend		= "Gruftbestie",
+	Stalker		= "Grabschleicher",
+	Abom		= "Flickwerkkonstrukt",
+	Acolyte		= "Akolyth",
 	Wave1		= "%d %s",
-	Wave2		= "%d %s and %d %s",
-	Wave3		= "%d %s, %d %s and %d %s",
-	Wave4		= "%d %s, %d %s, %d %s and %d %s",
+	Wave2		= "%d %s und %d %s",
+	Wave3		= "%d %s, %d %s und %d %s",
+	Wave4		= "%d %s, %d %s, %d %s und %d %s",
 	WaveBoss	= "%s",
-	WaveCheck	= "Scourge Wave = (%d+)/10",
-	Roleplay	= "Glad you could make it, Uther.",
-	Roleplay2	= "Everyone looks ready. Remember, these people are all infected with the plague and will die soon. We must purge Stratholme to protect the remainder of Lordaeron from the Scourge. Let's go."
+	WaveCheck	= "Geißelwelle = (%d+)/10",
+	Roleplay	= "Wie schön, dass Ihr es geschafft habt, Uther.",
+	Roleplay2	= "Alle sind bereit. Vergesst nicht, diese Leute sind alle infiziert und werden bald sterben. Wir müssen Stratholme säubern, um den Rest Lordaerons vor der Geißel zu schützen. Los jetzt."
 })
 
 ------------------------
@@ -170,7 +180,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Trollgore")
 
 L:SetGeneralLocalization({
-	name = "Trollgore"
+	name = "Trollgrind"
 })
 
 --------------------------
@@ -179,27 +189,27 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("NovosTheSummoner")
 
 L:SetGeneralLocalization({
-	name = "Novos the Summoner"
+	name = "Novos der Beschwörer"
 })
 
 L:SetWarningLocalization({
-	WarnCrystalHandler	= "Crystal Handler spawned (%d remaining)"
+	WarnCrystalHandler	= "neuer Kristallwirker (%d übrig)"
 })
 
 L:SetTimerLocalization({
-	timerCrystalHandler	= "Crystal Handler spawns"
+	timerCrystalHandler	= "neuer Kristallwirker"
 })
 
 L:SetOptionLocalization({
-	WarnCrystalHandler	= "Show warning when Crystal Handler spawns",
-	timerCrystalHandler	= "Show timer for next Crystal Handler spawn"
+	WarnCrystalHandler	= "Zeige Warnung wenn Kristallwirker erscheint",
+	timerCrystalHandler	= "Zeige Timer für nächsten Kristallwirker"
 })
 
 L:SetMiscLocalization({
-	YellPull		= "The chill you feel is the herald of your doom!",
-	HandlerYell		= "Bolster my defenses! Hurry, curse you!",
-	Phase2			= "Surely you can see the futility of it all!",
-	YellKill		= "Your efforts... are in vain."
+	YellPull		= "Was ihr spürt, ist euer Ende, das naht.",
+	HandlerYell		= "Verstärkt meine Verteidigung! Schnell, verdammt!",
+	Phase2			= "Sicher seht ihr, dass alles vergebens ist!",
+	YellKill		= "Eure Mühen... sind umsonst."
 })
 
 -----------------
@@ -208,7 +218,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("KingDred")
 
 L:SetGeneralLocalization({
-	name = "King Dred"
+	name = "König Dred"
 })
 
 -----------------------------
@@ -217,7 +227,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ProphetTharonja")
 
 L:SetGeneralLocalization({
-	name = "The Prophet Tharon'ja"
+	name = "Der Prophet Tharon'ja"
 })
 
 ---------------
@@ -246,17 +256,17 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
 L:SetGeneralLocalization({
-	name = "Drakkari Colossus"
+	name = "Koloss der Drakkari"
 })
 
 L:SetWarningLocalization({
-	WarningElemental	= "Phase 2: The Elemental",	-- ej6421
-	WarningStone		= "Phase 1: The Colossus"	-- ej6418
+	WarningElemental	= "Phase 2: Der Elementar",
+	WarningStone		= "Phase 1: Der Koloss"
 })
 
 L:SetOptionLocalization({
-	WarningElemental	= "Show warning for Phase 2: The Elemental",
-	WarningStone		= "Show warning for Phase 1: The Colossus"
+	WarningElemental	= "Zeige Warnung für Phase 2: Der Elementar",
+	WarningStone		= "Zeige Warnung für Phase 1: Der Koloss"
 })
 
 -----------------
@@ -269,23 +279,23 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	TimerPhase2		= "Stage 2: The Avatar of Akali",
-	TimerPhase1		= "Stage 1: High Prophet of Akali"
+	TimerPhase2		= "Phase 2: Der Avatar von Akali",
+	TimerPhase1		= "Phase 1: Hochprophet von Akali"
 })
 
 L:SetTimerLocalization({
-	TimerPhase2		= "Stage 2: The Avatar of Akali",
-	TimerPhase1		= "Stage 1: High Prophet of Akali"
+	TimerPhase2		= "Phase 2: Der Avatar von Akali",
+	TimerPhase1		= "Phase 1: Hochprophet von Akali"
 })
 
 L:SetOptionLocalization({
-	TimerPhase2		= "Show warning for Stage 2: The Avatar of Akali",
-	TimerPhase1		= "Show warning for Stage 1: High Prophet of Akali"
+	TimerPhase2		= "Zeige Warnung für Phase 2: Der Avatar von Akali",
+	TimerPhase1		= "Zeige Warnung für Phase 1: Hochprophet von Akali"
 })
 
 L:SetMiscLocalization({
-	YellPhase2_1	= "Ain't gonna be nothin' left after this!",
-	YellPhase2_2	= "You wanna see power? I'm gonna show you power!"
+	YellPhase2_1	= "Hiernach bleibt nichts mehr von euch übrig!",
+	YellPhase2_2	= "Ihr wollt Macht sehen? Ich zeig' euch Macht!"
 })
 
 -------------------------
@@ -294,7 +304,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Eck")
 
 L:SetGeneralLocalization({
-	name = "Eck the Ferocious"
+	name = "Der wilde Eck"
 })
 
 --------------------------
@@ -343,7 +353,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MaidenOfGrief")
 
 L:SetGeneralLocalization({
-	name = "Maiden of Grief"
+	name = "Maid der Trauer"
 })
 
 ------------------
@@ -355,14 +365,13 @@ L:SetGeneralLocalization({
 	name = "Krystallus"
 })
 
-
 ------------------------------
 --  Sjonnir the Ironshaper  --
 ------------------------------
 L = DBM:GetModLocalization("SjonnirTheIronshaper")
 
 L:SetGeneralLocalization({
-	name = "Sjonnir the Ironshaper"
+	name = "Sjonnir der Eisenformer"
 })
 
 --------------------------------------
@@ -371,7 +380,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BrannBronzebeard")
 
 L:SetGeneralLocalization({
-	name = "Brann Escort Event"
+	name = "Brann-Eskorte"
 })
 
 L:SetWarningLocalization({
@@ -379,20 +388,20 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	timerEvent	= "Time remaining"
+	timerEvent	= "Zeit verbleibend"
 })
 
 L:SetOptionLocalization({
-	WarningPhase	= "Show warning for phase change",
-	timerEvent		= "Show timer for event duration"
+	WarningPhase	= "Zeige Warnung für Phasenwechsel",
+	timerEvent		= "Dauer des Ereignisses anzeigen"
 })
 
 L:SetMiscLocalization({
-	Pull	= "Now keep an eye out! I'll have this licked in two shakes of a--",
-	Phase1	= "Security breach in progress. Analysis of historical archives transferred to lower-priority queue. Countermeasures engaged.",
-	Phase2	= "Threat index threshold exceeded.  Celestial archive aborted. Security level heightened.",
-	Phase3	= "Critical threat index. Void analysis diverted. Initiating sanitization protocol.",
-	Kill	= "Alert: security fail-safes deactivated. Beginning memory purge and... "
+	Pull	= "Haltet jetzt die Augen offen! Ich werde die Sache hier im Handumdrehen...",
+	Phase1	= "Sicherheitsverletzung. Setze Analyse historischer Archive auf niedrige Priorität. Leite Gegenmaßnahmen ein.",
+	Phase2	= "Bedrohungsindexgrenze überschritten. Himmelsarchiv abgebrochen. Alarmstufe erhöht.",
+	Phase3	= "Kritischer Bedrohungsindex. Leerenanalyse umgeleitet. Initialisiere Säuberungsprotokoll.",
+	Kill	= "Alarm: Sicherungssysteme deaktiviert. Beginne Speichersäuberung und..."
 })
 
 -----------------
@@ -412,7 +421,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OrmorokTheTreeShaper")
 
 L:SetGeneralLocalization({
-	name = "Ormorok the Tree-Shaper"
+	name = "Ormorok der Baumformer"
 })
 
 ----------------------------
@@ -421,24 +430,24 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GrandMagusTelestra")
 
 L:SetGeneralLocalization({
-	name = "Grand Magus Telestra"
+	name = "Großmagistrix Telestra"
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "Split soon",
-	WarningSplitNow		= "Split",		-- ej7395 ; Mirror Images ; When Grand Magus Telestra reaches 50% health remaining, she splits into 3 mirror images.
-	WarningMerge		= "Merge"
+	WarningSplitSoon	= "Aufspaltung bald",
+	WarningSplitNow		= "Aufspaltung",
+	WarningMerge		= "Fusion"
 })
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Show warning for Split soon",
-	WarningSplitNow		= "Show warning for Split",
-	WarningMerge		= "Show warning for Merge"
+	WarningSplitSoon	= optionPreWarning:format("Aufspaltung"),
+	WarningSplitNow		= optionWarning:format("Aufspaltung"),
+	WarningMerge		= optionWarning:format("Fusion"),
 })
 
 L:SetMiscLocalization({
-	SplitTrigger1		= "There's plenty of me to go around.",
-	SplitTrigger2		= "I'll give you more than you can handle.",
-	MergeTrigger		= "Now to finish the job!"
+	SplitTrigger1		= "Es ist genug von mir für alle da.",
+	SplitTrigger2		= "Ich teile mehr aus, als ihr verkraften könnt!",
+	MergeTrigger		= "Nun bringen wir's zu Ende!"
 })
 
 -------------------
@@ -455,11 +464,11 @@ L:SetGeneralLocalization({
 -----------------------------------
 L = DBM:GetModLocalization("Commander")
 
-local commander = "Unknown"
+local commander = "Eingefrorener Kommandant"
 if UnitFactionGroup("player") == "Alliance" then
-	commander = "Commander Kolurg"
+	commander = "Kommandant Kolurg"
 elseif UnitFactionGroup("player") == "Horde" then
-	commander = "Commander Stoutbeard"
+	commander = "Kommandant Starkbart"
 end
 
 L:SetGeneralLocalization({
@@ -474,15 +483,16 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DrakosTheInterrogator")
 
 L:SetGeneralLocalization({
-	name = "Drakos the Interrogator"
+	name = "Drakos der Befrager"
 })
 
+
 L:SetOptionLocalization({
-	MakeitCountTimer	= "Show timer for Make It Count (achievement)"
+	MakeitCountTimer	= "Zeige Timer für Erfolg 'Jagt ihn!'"
 })
 
 L:SetMiscLocalization({
-	MakeitCountTimer	= "Make It Count"
+	MakeitCountTimer	= "Jagt ihn!"
 })
 
 ----------------------
@@ -491,11 +501,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("MageLordUrom")
 
 L:SetGeneralLocalization({
-	name = "Mage-Lord Urom"
+	name = "Magierlord Urom"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "Poor blind fools!"
+	CombatStart		= "Arme, blinde Narren!"
 })
 
 --------------------------
@@ -504,7 +514,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("VarosCloudstrider")
 
 L:SetGeneralLocalization({
-	name = "Varos Cloudstrider"
+	name = "Varos Wolkenwanderer"
 })
 
 ---------------------------
@@ -513,11 +523,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LeyGuardianEregos")
 
 L:SetGeneralLocalization({
-	name = "Ley-Guardian Eregos"
+	name = "Leywächter Eregos"
 })
 
 L:SetMiscLocalization({
-	MakeitCountTimer	= "Make It Count"
+	MakeitCountTimer	= "Jagt ihn!"
 })
 
 --------------------
@@ -528,7 +538,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Keleseth")
 
 L:SetGeneralLocalization({
-	name = "Prince Keleseth"
+	name = "Prinz Keleseth"
 })
 
 --------------------------------
@@ -547,12 +557,12 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("IngvarThePlunderer")
 
 L:SetGeneralLocalization({
-	name = "Ingvar the Plunderer"
+	name = "Ingvar der Brandschatzer"
 })
 
 L:SetMiscLocalization({
-	YellIngvarPhase2= "I return! A second chance to carve your skull!",
-	YellCombatEnd	= "No! I can do... better! I can..."
+	YellIngvarPhase2	= "Ich kehre wieder! Ahhhh... Eine zweite Chance, Euren Schädel zu zerlegen!",
+	YellCombatEnd		= "Nein! Ich bin... besser, Ich bin..."
 })
 
 ------------------------
@@ -563,12 +573,12 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("SkadiTheRuthless")
 
 L:SetGeneralLocalization({
-	name = "Skadi the Ruthless"
+	name = "Skadi der Skrupellose"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "What mongrels dare intrude here? Look alive, my brothers!  A feast for the one that brings me their heads!",
-	Phase2			= "You motherless knaves! Your corpses will make fine morsels for my new drake!"
+	CombatStart		= "Welche Hunde wagen es, hier einzudringen? Auf sie, meine Brüder! Ein Fest für den, der mir ihre Köpfe bringt!",
+	Phase2			= "Ihr räudigen Halunken! Eure Leichen werden feine Appetithappen für meinen neuen Drachen abgeben!"
 })
 
 -------------------
@@ -577,7 +587,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ymiron")
 
 L:SetGeneralLocalization({
-	name = "King Ymiron"
+	name = "König Ymiron"
 })
 
 -------------------------
@@ -586,19 +596,19 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SvalaSorrowgrave")
 
 L:SetGeneralLocalization({
-	name = "Svala Sorrowgrave"
+	name = "Svala Grabesleid"
 })
 
 L:SetTimerLocalization({
-	timerRoleplay		= "Svala Sorrowgrave active"
+	timerRoleplay		= "Svala Grabesleid aktiv"
 })
 
 L:SetOptionLocalization({
-	timerRoleplay		= "Show timer for roleplay before Svala Sorrowgrave becomes active"
+	timerRoleplay		= "Zeige Dauer des Rollenspiels bevor Svala Grabesleid aktiv wird"
 })
 
 L:SetMiscLocalization({
-	SvalaRoleplayStart	= "My liege! I have done as you asked, and now beseech you for your blessing!"
+	SvalaRoleplayStart	= "Mein Meister! Ich tat, was Ihr verlangtet, und ersuche Euch um Euren Segen!"
 })
 
 -----------------------
@@ -607,7 +617,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("GortokPalehoof")
 
 L:SetGeneralLocalization({
-	name = "Gortok Palehoof"
+	name = "Gortok Bleichhuf"
 })
 
 -----------------------
@@ -622,7 +632,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	CyanArrived	= "A valiant defense, but this city must be razed. I will fulfill Malygos's wishes myself!"
+	CyanArrived	= "Eine beherzte Verteidigung, aber diese Stadt muss dem Erdboden gleichgemacht werden. Ich werde Malygos' Befehle persönlich ausführen!"
 })
 
 --------------
@@ -676,7 +686,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Zuramat")
 
 L:SetGeneralLocalization({
-	name = "Zuramat the Obliterator"
+	name = "Zuramat der Vernichter"
 })
 
 ---------------------
@@ -685,30 +695,30 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("PortalTimers")
 
 L:SetGeneralLocalization({
-	name = "Portal Timers"
+	name = "Portaltimer"
 })
 
 L:SetWarningLocalization({
-	WarningPortalSoon	= "New portal soon",
-	WarningPortalNow	= "Portal #%d",
-	WarningBossNow		= "Boss incoming"
+	WarningPortalSoon	= "Neues Portal bald",
+	WarningPortalNow	= "Portal %d",
+	WarningBossNow		= "Boss kommt"
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Portal #%d",
+	TimerPortalIn	= "Portal %d",
 })
 
 L:SetOptionLocalization({
-	WarningPortalNow		= "Show warning for new portal",
-	WarningPortalSoon		= "Show pre-warning for new portal",
-	WarningBossNow			= "Show warning for boss incoming",
-	TimerPortalIn			= "Show timer for next portal (after Boss)",
-	ShowAllPortalTimers		= "Show timers for all portals (inaccurate)"
+	WarningPortalNow		= "Zeige Warnung für neues Portal",
+	WarningPortalSoon		= "Zeige Vorwarnung für neues Portal",
+	WarningBossNow			= "Zeige Warnung für neuen Boss",
+	TimerPortalIn			= "Zeige Timer für nächstes Portal (nach einem Boss)",
+	ShowAllPortalTimers		= "Zeige Timer für alle Portale (ungenau)"
 })
 
 L:SetMiscLocalization({
-	Sealbroken	= "We've broken through the prison gate! The way into Dalaran is clear! Now we finally put an end to the Nexus War!",
-	WavePortal	= "Portals Opened: (%d+)/18"
+	Sealbroken	= "Wir haben das Gefängnistor durchbrochen! Der Weg nach Dalaran ist frei! Jetzt können wir den Nexuskrieg endlich beenden!",
+	WavePortal	= "Geöffnete Portale: (%d+)/18"
 })
 
 -----------------------------
@@ -719,17 +729,17 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("BlackKnight")
 
 L:SetGeneralLocalization({
-	name = "The Black Knight"
+	name = "Der Schwarze Ritter"
 })
 
 L:SetOptionLocalization({
-	AchievementCheck		= "Announce 'I've Had Worse' achievement failure to party"
+	AchievementCheck		= "Verkünde Fehlschlag des Erfolgs 'Ich hab' schon Schlimmeres gesehen' an Gruppe"
 })
 
 L:SetMiscLocalization({
-	Pull				= "Well done. You have proven yourself today-",
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s was hit by Ghoul Explode <<",
-	YellCombatEnd		= "My congratulations, champions. Through trials both planned and unexpected, you have triumphed."	-- can also be "No! I must not fail... again ..."
+	Pull				= "Gut gemacht. Ihr habt Euch heute bewiesen-",
+	AchievementFailed	= ">> ERFOLG FEHLGESCHLAGEN: %s wurde von Ghulexplosion getroffen <<",
+	YellCombatEnd		= "Meine Glückwünsche, Champions. In Prüfungen sowohl geplant als auch unerwartet habt Ihr triumphiert."	-- can also be "Nein! Ich darf nicht... wieder... versagen..."
 })
 
 -----------------------
@@ -738,11 +748,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("GrandChampions")
 
 L:SetGeneralLocalization({
-	name = "Grand Champions"
+	name = "Großchampions"
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Well fought! Your next challenge comes from the Crusade's own ranks. You will be tested against their considerable prowess."
+	YellCombatEnd	= "Gut gekämpft! Eure nächste Herausforderung kommt aus den eigenen Reihen des Kreuzzugs. Ihr werdet Euch gegen ihre eindrucksvolle Tapferkeit beweisen müssen."
 })
 
 ----------------------------------
@@ -751,11 +761,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Confessor")
 
 L:SetGeneralLocalization({
-	name = "Argent Confessor Paletress"
+	name = "Argentumbeichtpatin Blondlocke"
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Excellent work!"
+	YellCombatEnd	= "Exzellente Arbeit!"
 })
 
 -----------------------
@@ -764,15 +774,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("EadricthePure")
 
 L:SetGeneralLocalization({
-	name = "Eadric the Pure"
-})
-
-L:SetOptionLocalization({
-	SetIconOnHammerTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(66940)
+	name = "Eadric der Reine"
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "I yield! I submit. Excellent work. May I run away now?"
+	YellCombatEnd	= "Ich ergebe mich! Exzellente Arbeit. Darf ich jetzt wegrennen?"
 })
 
 --------------------
@@ -783,7 +789,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ick")
 
 L:SetGeneralLocalization({
-	name = "Ick and Krick"
+	name = "Ick und Krick"
 })
 
 ----------------------------
@@ -792,18 +798,17 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ForgemasterGarfrost")
 
 L:SetGeneralLocalization({
-	name = "Forgemaster Garfrost"
+	name = "Schmiedemeister Garfrost"
 })
 
 L:SetOptionLocalization({
-	AchievementCheck			= "Announce 'Doesn't Go to Eleven' achievement warnings to party",
-	SetIconOnSaroniteRockTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70851)
+	AchievementCheck	= "Verkünde Warnungen für den Erfolg 'Elfer raus!' an Gruppe"
 })
 
 L:SetMiscLocalization({
-	SaroniteRockThrow	= "%s hurls a massive saronite boulder at you!",
-	AchievementWarning	= "Warning: %s has %d stacks of Permafrost",
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Permafrost <<"
+	SaroniteRockThrow	= "%s schleudert Euch einen massiven Saronitstein entgegen!",
+	AchievementWarning	= "Warnung: %s hat %d Stapel von Permafrost",
+	AchievementFailed	= ">> ERFOLG FEHLGESCHLAGEN: %s hat %d Stapel von Permafrost <<"
 })
 
 ----------------------------
@@ -812,13 +817,13 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("ScourgelordTyrannus")
 
 L:SetGeneralLocalization({
-	name = "Scourgelord Tyrannus"
+	name = "Geißelfürst Tyrannus"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "Alas, brave, brave adventurers, your meddling has reached its end. Do you hear the clatter of bone and steel coming up the tunnel behind you? That is the sound of your impending demise.",
-	HoarfrostTarget	= "The frostwyrm Rimefang gazes at (%S+) and readies an icy attack!",
-	YellCombatEnd	= "Impossible.... Rimefang.... warn...."
+	CombatStart		= "Ach, Ihr tapferen, tapferen Helden, Euer kleiner Aufstand endet hier. Hört Ihr das Geklapper von Stahl und Knochen aus dem Tunnel hinter Euch? Das ist das Geräusch Eures Todes.",
+	HoarfrostTarget	= "Der Frostwyrm Raufang wendet sich (%S+) zu und bereitet einen eisigen Angriff vor!",
+	YellCombatEnd	= "Unmöglich... Raufang... warne..."
 })
 
 ----------------------
@@ -838,7 +843,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DevourerofSouls")
 
 L:SetGeneralLocalization({
-	name = "Devourer of Souls"
+	name = "Verschlinger der Seelen"
 })
 
 ---------------------------
@@ -849,29 +854,29 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HoRWaveTimer")
 
 L:SetGeneralLocalization({
-	name = "Wave Timers"
+	name = "Wellentimer"
 })
 
 L:SetWarningLocalization({
-	WarnNewWaveSoon	= "New wave soon",
-	WarnNewWave		= "%s incoming"
+	WarnNewWaveSoon	= "Neue Welle bald",
+	WarnNewWave		= "%s kommt"
 })
 
 L:SetTimerLocalization({
-	TimerNextWave	= "Next wave"
+	TimerNextWave	= "Nächste Welle"
 })
 
 L:SetOptionLocalization({
-	WarnNewWave			= "Show warning for boss incoming",
-	WarnNewWaveSoon		= "Show pre-warning for new wave (after wave 5 boss)",
-	ShowAllWaveWarnings	= "Show warnings for all waves",
-	TimerNextWave		= "Show timer for next set of waves (after wave 5 boss)",
-	ShowAllWaveTimers	= "Show pre-warning and timers for all waves (Inaccurate)"
+	WarnNewWave			= "Zeige Warnung für neuen Boss",
+	WarnNewWaveSoon		= "Zeige Vorwarnung für neue Welle nach dem ersten Boss",
+	ShowAllWaveWarnings	= "Zeige Warnungen für alle Wellen",
+	TimerNextWave		= "Zeige Zeit bis die nächste Wellengruppe nach dem ersten Boss kommt",
+	ShowAllWaveTimers	= "Zeige Vorwarnung und Timer für alle Wellen (ungenau)"
 })
 
 L:SetMiscLocalization({
 	Falric		= "Falric",
-	WaveCheck	= "Spirit Wave = (%d+)/10"
+	WaveCheck	= "Geisterwelle = (%d+)/10"
 })
 
 --------------
@@ -898,27 +903,23 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LichKingEvent")
 
 L:SetGeneralLocalization({
-	name = "Lich King event"
-})
-
-L:SetWarningLocalization({
-	WarnWave		= "%s"
+	name = "Lichkönig-Event"
 })
 
 L:SetTimerLocalization({
-	achievementEscape	= "Time to escape"
+	achievementEscape	= "Zeit zur Flucht"
 })
 
 L:SetOptionLocalization({
-	WarnWave	= "Show warning for incoming waves"
+	WarnWave	= "Zeige Warnung für Monsterwellen"
 })
 
 L:SetMiscLocalization({
-	Ghoul			= "Raging Ghoul",			--creature id 36940. Not sure how to use these in function above to simplify locals though. :\
-	Abom			= "Lumbering Abomination",	--creature id 37069
-	WitchDoctor		= "Risen Witch Doctor",		--creature id 36941
-	Wave1			= "There is no escape!",
-	Wave2			= "Succumb to the chill of the grave.",
-	Wave3			= "Another dead end.",
-	Wave4			= "How long can you fight it?"
+	Ghoul			= "Tobender Ghul",				--creature id 36940. Not sure how to use these in function above to simplify locals though. :\
+	Abom			= "Schwerfällige Monstrosität",	--creature id 37069
+	WitchDoctor		= "Auferstandener Hexendoktor",	--creature id 36941
+	Wave1			= "Es gibt kein Entkommen!",
+	Wave2			= "Ergebt Euch der Grabeskälte!",
+	Wave3			= "Eine weitere Sackgasse!",
+	Wave4			= "Wie lange könnt Ihr Euch noch wehren?"
 })
