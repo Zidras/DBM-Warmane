@@ -133,19 +133,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(70867, 70879, 71473, 71525) or args:IsSpellID(71530, 71531, 71532, 71533) then	--Essence of the Blood Queen
 		warnEssenceoftheBloodQueen:Show(args.destName)
-		if self:IsDifficulty("normal10", "heroic10") then
-			timerEssenceoftheBloodQueen:Start(75)--75 seconds on 10 man
-			warnBloodthirstSoon:Schedule(70)
-		else
-			timerEssenceoftheBloodQueen:Start()--60 seconds on 25 man
-			warnBloodthirstSoon:Schedule(50)
-		end
 		if args:IsPlayer() then
 			specWarnEssenceoftheBloodQueen:Show()
 			specWarnEssenceoftheBloodQueen:Play("targetyou")
 			if self:IsDifficulty("normal10", "heroic10") then
+				timerEssenceoftheBloodQueen:Start(75)--75 seconds on 10 man
 				warnBloodthirstSoon:Schedule(70)
 			else
+				timerEssenceoftheBloodQueen:Start()--60 seconds on 25 man
 				warnBloodthirstSoon:Schedule(55)
 			end
 		end
