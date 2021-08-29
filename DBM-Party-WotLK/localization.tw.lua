@@ -1,3 +1,5 @@
+﻿if GetLocale() ~= "zhTW" then return end
+
 local L
 
 ----------------------------------
@@ -8,7 +10,7 @@ local L
 L = DBM:GetModLocalization("Taldaram")
 
 L:SetGeneralLocalization({
-	name = "Prince Taldaram"
+	name = "泰爾達朗親王"
 })
 
 -------------------
@@ -17,7 +19,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Nadox")
 
 L:SetGeneralLocalization({
-	name = "Elder Nadox"
+	name = "老那杜斯"
 })
 
 ---------------------------
@@ -26,7 +28,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("JedogaShadowseeker")
 
 L:SetGeneralLocalization({
-	name = "Jedoga Shadowseeker"
+	name = "潔杜佳·尋影者"
 })
 
 ---------------------
@@ -35,7 +37,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Volazj")
 
 L:SetGeneralLocalization({
-	name = "Herald Volazj"
+	name = "信使沃菈齊"
 })
 
 ----------------
@@ -44,7 +46,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Amanitar")
 
 L:SetGeneralLocalization({
-	name = "Amanitar"
+	name = "毒蕈魔"
 })
 
 -------------------
@@ -55,7 +57,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Krikthir")
 
 L:SetGeneralLocalization({
-	name = "Krik'thir the Gatewatcher"
+	name = "『守門者』齊力克西爾"
 })
 
 ----------------
@@ -64,7 +66,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Hadronox")
 
 L:SetGeneralLocalization({
-	name = "Hadronox"
+	name = "哈卓諾克斯"
 })
 
 -------------------------
@@ -73,7 +75,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Anubarak")
 
 L:SetGeneralLocalization({
-	name = "Anub'arak (Party)"
+	name = "阿努巴拉克 (隊伍)"
 })
 
 ---------------------------------------
@@ -84,7 +86,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Meathook")
 
 L:SetGeneralLocalization({
-	name = "Meathook"
+	name = "肉鉤"
 })
 
 --------------------------------
@@ -93,7 +95,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SalrammTheFleshcrafter")
 
 L:SetGeneralLocalization({
-	name = "Salramm the Fleshcrafter"
+	name = "『血肉工匠』塞歐朗姆"
 })
 
 -------------------------
@@ -102,7 +104,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ChronoLordEpoch")
 
 L:SetGeneralLocalization({
-	name = "Chrono-Lord Epoch"
+	name = "紀元時間領主"
 })
 
 -----------------
@@ -111,11 +113,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MalGanis")
 
 L:SetGeneralLocalization({
-	name = "Mal'Ganis"
+	name = "瑪爾加尼斯"
 })
 
 L:SetMiscLocalization({
-	Outro	= "Your journey has just begun, young prince. Gather your forces and meet me in the arctic land of Northrend. It is there that we shall settle the score between us. It is there that your true destiny will unfold."
+	Outro	= "你的旅途才剛開始，年輕的王子。召集你的軍隊，到北裂境的嚴寒之地來見我。在那裡，我們可以算算我們之間的新仇舊恨。你將在那裡理解你真正的命運。"
 })
 
 -------------------
@@ -124,42 +126,42 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("StratWaves")
 
 L:SetGeneralLocalization({
-	name = "Stratholme Waves"
+	name = "斯坦波數"
 })
 
 L:SetWarningLocalization({
-	WarningWaveNow	= "Wave %d: %s spawned"
+	WarningWaveNow	= "第%d波: %s出現了"
 })
 
 L:SetTimerLocalization({
-	TimerWaveIn		= "Next wave (6)",
-	TimerRoleplay	= "Arthas roleplay"
+	TimerWaveIn		= "下一波 (6)",
+	TimerRoleplay	= "角色扮演阿薩斯計時"
 })
 
 L:SetOptionLocalization({
-	WarningWaveNow	= "Show warning for new wave",
-	TimerWaveIn		= "Show timer for next set of waves (after wave 5 boss)",
-	TimerRoleplay	= "Show timer for opening roleplay event."
+	WarningWaveNow	= "為新一進攻顯示警告",
+	TimerWaveIn		= "為下一波顯示計時器 (之後5隻小兵波數)",
+	TimerRoleplay	= "為角色扮演事件顯示計時器"
 })
 
 L:SetMiscLocalization({
-	Meathook	= "Meathook",
-	Salramm		= "Salramm the Fleshcrafter",
-	Devouring	= "Devouring Ghoul",
-	Enraged		= "Enraging Ghoul",
-	Necro		= "Necromancer",
-	Fiend		= "Crypt Fiend",
-	Stalker		= "Tomb Stalker",
-	Abom		= "Patchwork Construct",
-	Acolyte		= "Acolyte",
+	Meathook	= "肉鉤",
+	Salramm		= "『血肉工匠』塞歐朗姆",
+	Devouring	= "吞噬食屍鬼",
+	Enraged		= "狂怒食屍鬼",
+	Necro		= "死靈大法師",
+	Fiend		= "地穴惡魔",
+	Stalker		= "墓穴巡者",
+	Abom		= "縫補傀儡",
+	Acolyte		= "侍僧",
 	Wave1		= "%d %s",
-	Wave2		= "%d %s and %d %s",
-	Wave3		= "%d %s, %d %s and %d %s",
-	Wave4		= "%d %s, %d %s, %d %s and %d %s",
+	Wave2		= "%d %s 及 %d %s",
+	Wave3		= "%d %s，%d %s 及 %d %s",
+	Wave4		= "%d %s，%d %s，%d %s 及 %d %s",
 	WaveBoss	= "%s",
-	WaveCheck	= "Scourge Wave = (%d+)/10",
-	Roleplay	= "Glad you could make it, Uther.",
-	Roleplay2	= "Everyone looks ready. Remember, these people are all infected with the plague and will die soon. We must purge Stratholme to protect the remainder of Lordaeron from the Scourge. Let's go."
+	WaveCheck	= "天譴軍波數 = (%d+)/10",
+	Roleplay	= "真高興你趕到了，烏瑟。",
+	Roleplay2	= "大家看來都準備好了。記得，這些人受到恐怖瘟疫所感染，不久人世。我們得淨化斯坦索姆以保護其他百姓免受天譴軍的威脅。出發吧。"
 })
 
 ------------------------
@@ -170,7 +172,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Trollgore")
 
 L:SetGeneralLocalization({
-	name = "Trollgore"
+	name = "血角食人妖"
 })
 
 --------------------------
@@ -179,27 +181,27 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("NovosTheSummoner")
 
 L:SetGeneralLocalization({
-	name = "Novos the Summoner"
+	name = "『召喚者』諾沃司"
 })
 
 L:SetWarningLocalization({
-	WarnCrystalHandler	= "Crystal Handler spawned (%d remaining)"
+	WarnCrystalHandler	= "水晶處理者 出現了 (剩餘%d)"
 })
 
 L:SetTimerLocalization({
-	timerCrystalHandler	= "Crystal Handler spawns"
+	timerCrystalHandler	= "水晶處理者 出現"
 })
 
 L:SetOptionLocalization({
-	WarnCrystalHandler	= "Show warning when Crystal Handler spawns",
-	timerCrystalHandler	= "Show timer for next Crystal Handler spawn"
+	WarnCrystalHandler	= "當水晶處理者出現時顯示警告",
+	timerCrystalHandler	= "為下一次 水晶處理者出現顯示計時器"
 })
 
 L:SetMiscLocalization({
-	YellPull		= "The chill you feel is the herald of your doom!",
-	HandlerYell		= "Bolster my defenses! Hurry, curse you!",
-	Phase2			= "Surely you can see the futility of it all!",
-	YellKill		= "Your efforts... are in vain."
+	YellPull		= "籠罩你的寒氣就是厄運的先兆。",
+	HandlerYell		= "協助防禦!快點，廢物們!",
+	Phase2			= "你一定看得出來，這一切都只是徒勞無功罷了!",
+	YellKill		= "你的努力...全是白費。"
 })
 
 -----------------
@@ -208,7 +210,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("KingDred")
 
 L:SetGeneralLocalization({
-	name = "King Dred"
+	name = "崔德王"
 })
 
 -----------------------------
@@ -217,7 +219,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ProphetTharonja")
 
 L:SetGeneralLocalization({
-	name = "The Prophet Tharon'ja"
+	name = "預言者薩隆杰"
 })
 
 ---------------
@@ -228,7 +230,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Sladran")
 
 L:SetGeneralLocalization({
-	name = "Slad'ran"
+	name = "史拉德銳"
 })
 
 ---------------
@@ -237,7 +239,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Moorabi")
 
 L:SetGeneralLocalization({
-	name = "Moorabi"
+	name = "慕拉比"
 })
 
 -------------------------
@@ -246,17 +248,17 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BloodstoneAnnihilator")
 
 L:SetGeneralLocalization({
-	name = "Drakkari Colossus"
+	name = "德拉克瑞巨像"
 })
 
 L:SetWarningLocalization({
-	WarningElemental	= "Phase 2: The Elemental",	-- ej6421
-	WarningStone		= "Phase 1: The Colossus"	-- ej6418
+	WarningElemental	= "階段二：元素生物",
+	WarningStone		= "階段一：巨像"
 })
 
 L:SetOptionLocalization({
-	WarningElemental	= "Show warning for Phase 2: The Elemental",
-	WarningStone		= "Show warning for Phase 1: The Colossus"
+	WarningElemental	= "為階段二：元素生物顯示警告",
+	WarningStone		= "為階段一：巨像顯示警告"
 })
 
 -----------------
@@ -265,27 +267,27 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Galdarah")
 
 L:SetGeneralLocalization({
-	name = "Gal'darah"
+	name = "蓋爾達拉"
 })
 
 L:SetWarningLocalization({
-	TimerPhase2		= "Stage 2: The Avatar of Akali",
-	TimerPhase1		= "Stage 1: High Prophet of Akali"
+	TimerPhase2		= "階段二：阿卡利的化身",
+	TimerPhase1		= "階段一：阿卡利的高階預言者"
 })
 
 L:SetTimerLocalization({
-	TimerPhase2		= "Stage 2: The Avatar of Akali",
-	TimerPhase1		= "Stage 1: High Prophet of Akali"
+	TimerPhase2		= "階段二：阿卡利的化身",
+	TimerPhase1		= "階段一：阿卡利的高階預言者"
 })
 
 L:SetOptionLocalization({
-	TimerPhase2		= "Show warning for Stage 2: The Avatar of Akali",
-	TimerPhase1		= "Show warning for Stage 1: High Prophet of Akali"
+	TimerPhase2		= "警告：階段二：阿卡利的化身",
+	TimerPhase1		= "警告：階段一：阿卡利的高階預言者"
 })
 
 L:SetMiscLocalization({
-	YellPhase2_1	= "Ain't gonna be nothin' left after this!",
-	YellPhase2_2	= "You wanna see power? I'm gonna show you power!"
+	YellPhase2_1	= "在這之後什麼都不會剩下來!",
+	YellPhase2_2	= "你們想見識真正的力量?那我就讓你們如願以償!"
 })
 
 -------------------------
@@ -294,7 +296,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Eck")
 
 L:SetGeneralLocalization({
-	name = "Eck the Ferocious"
+	name = "『兇猛』埃克"
 })
 
 --------------------------
@@ -305,7 +307,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Gjarngrin")
 
 L:SetGeneralLocalization({
-	name = "General Bjarngrim"
+	name = "畢亞格林將軍"
 })
 
 -------------
@@ -314,7 +316,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ionar")
 
 L:SetGeneralLocalization({
-	name = "Ionar"
+	name = "埃歐納"
 })
 
 ---------------
@@ -323,7 +325,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Volkhan")
 
 L:SetGeneralLocalization({
-	name = "Volkhan"
+	name = "渥克瀚"
 })
 
 -------------
@@ -332,7 +334,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Kronus")
 
 L:SetGeneralLocalization({
-	name = "Loken"
+	name = "洛肯"
 })
 
 ----------------------
@@ -343,7 +345,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MaidenOfGrief")
 
 L:SetGeneralLocalization({
-	name = "Maiden of Grief"
+	name = "悲嘆少女"
 })
 
 ------------------
@@ -352,9 +354,8 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Krystallus")
 
 L:SetGeneralLocalization({
-	name = "Krystallus"
+	name = "克利斯托魯斯"
 })
-
 
 ------------------------------
 --  Sjonnir the Ironshaper  --
@@ -362,7 +363,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SjonnirTheIronshaper")
 
 L:SetGeneralLocalization({
-	name = "Sjonnir the Ironshaper"
+	name = "『塑鐵者』斯雍尼爾"
 })
 
 --------------------------------------
@@ -371,28 +372,28 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BrannBronzebeard")
 
 L:SetGeneralLocalization({
-	name = "Brann Escort Event"
+	name = "布萊恩護衛事件"
 })
 
 L:SetWarningLocalization({
-	WarningPhase	= "Phase %d"
+	WarningPhase	= "第%d階段"
 })
 
 L:SetTimerLocalization({
-	timerEvent	= "Time remaining"
+	timerEvent	= "剩餘時間"
 })
 
 L:SetOptionLocalization({
-	WarningPhase	= "Show warning for phase change",
-	timerEvent		= "Show timer for event duration"
+	WarningPhase	= "為階段改變顯示警告",
+	timerEvent		= "為事件的持續時間顯示計時器"
 })
 
 L:SetMiscLocalization({
-	Pull	= "Now keep an eye out! I'll have this licked in two shakes of a--",
-	Phase1	= "Security breach in progress. Analysis of historical archives transferred to lower-priority queue. Countermeasures engaged.",
-	Phase2	= "Threat index threshold exceeded.  Celestial archive aborted. Security level heightened.",
-	Phase3	= "Critical threat index. Void analysis diverted. Initiating sanitization protocol.",
-	Kill	= "Alert: security fail-safes deactivated. Beginning memory purge and... "
+	Pull	= "幫我看著外頭!我只要三兩下就可以搞定這玩意--",
+	Phase1	= "安全機制突破中，史實資料分析已調至低優先佇列，啟動反制程序。",
+	Phase2	= "已超出威脅指數標準。天界資料庫已中止。安全等級已提昇。",
+	Phase3	= "威脅指數過高。已轉移無效的分析。啟動清潔處理協定。",
+	Kill	= "警告:安全性系統自動修復裝置已被關閉。開始記憶體內容消除與..."
 })
 
 -----------------
@@ -403,7 +404,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Anomalus")
 
 L:SetGeneralLocalization({
-	name = "Anomalus"
+	name = "艾諾瑪路斯"
 })
 
 -------------------------------
@@ -412,7 +413,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OrmorokTheTreeShaper")
 
 L:SetGeneralLocalization({
-	name = "Ormorok the Tree-Shaper"
+	name = "『樹木造形者』歐爾莫洛克"
 })
 
 ----------------------------
@@ -421,24 +422,24 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GrandMagusTelestra")
 
 L:SetGeneralLocalization({
-	name = "Grand Magus Telestra"
+	name = "大魔導師特雷斯翠"
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "Split soon",
-	WarningSplitNow		= "Split",		-- ej7395 ; Mirror Images ; When Grand Magus Telestra reaches 50% health remaining, she splits into 3 mirror images.
-	WarningMerge		= "Merge"
+	WarningSplitSoon	= "分裂 即將到來",
+	WarningSplitNow		= "分裂",
+	WarningMerge		= "融合"
 })
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Show warning for Split soon",
-	WarningSplitNow		= "Show warning for Split",
-	WarningMerge		= "Show warning for Merge"
+	WarningSplitSoon	= "為分裂顯示預先警告",
+	WarningSplitNow		= "為分裂顯示警告",
+	WarningMerge		= "為融合顯示警告"
 })
 
 L:SetMiscLocalization({
-	SplitTrigger1		= "There's plenty of me to go around.",
-	SplitTrigger2		= "I'll give you more than you can handle.",
-	MergeTrigger		= "Now to finish the job!"
+	SplitTrigger1		= "這裡有我千萬個分身。",
+	SplitTrigger2		= "我要讓你們嚐嚐無所適從的滋味!",
+	MergeTrigger		= "現在，最後一步!"
 })
 
 -------------------
@@ -447,7 +448,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Keristrasza")
 
 L:SetGeneralLocalization({
-	name = "Keristrasza"
+	name = "凱瑞史卓莎"
 })
 
 -----------------------------------
@@ -455,11 +456,11 @@ L:SetGeneralLocalization({
 -----------------------------------
 L = DBM:GetModLocalization("Commander")
 
-local commander = "Unknown"
+local commander = "未知"
 if UnitFactionGroup("player") == "Alliance" then
-	commander = "Commander Kolurg"
+	commander = "指揮官寇勒格"
 elseif UnitFactionGroup("player") == "Horde" then
-	commander = "Commander Stoutbeard"
+	commander = "指揮官厚鬚"
 end
 
 L:SetGeneralLocalization({
@@ -474,15 +475,16 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DrakosTheInterrogator")
 
 L:SetGeneralLocalization({
-	name = "Drakos the Interrogator"
+	name = "『審問者』德拉高斯"
 })
 
+
 L:SetOptionLocalization({
-	MakeitCountTimer	= "Show timer for Make It Count (achievement)"
+	MakeitCountTimer	= "為成就:倒數吧顯示計時器"
 })
 
 L:SetMiscLocalization({
-	MakeitCountTimer	= "Make It Count"
+	MakeitCountTimer	= "倒數吧"
 })
 
 ----------------------
@@ -491,11 +493,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("MageLordUrom")
 
 L:SetGeneralLocalization({
-	name = "Mage-Lord Urom"
+	name = "法師領主厄隆"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "Poor blind fools!"
+	CombatStart		= "可憐而無知的蠢貨!"
 })
 
 --------------------------
@@ -504,7 +506,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("VarosCloudstrider")
 
 L:SetGeneralLocalization({
-	name = "Varos Cloudstrider"
+	name = "瓦羅斯·雲行者"
 })
 
 ---------------------------
@@ -513,11 +515,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LeyGuardianEregos")
 
 L:SetGeneralLocalization({
-	name = "Ley-Guardian Eregos"
+	name = "地脈守護者伊瑞茍斯"
 })
 
 L:SetMiscLocalization({
-	MakeitCountTimer	= "Make It Count"
+	MakeitCountTimer	= "倒數吧"
 })
 
 --------------------
@@ -528,7 +530,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Keleseth")
 
 L:SetGeneralLocalization({
-	name = "Prince Keleseth"
+	name = "凱雷希斯親王"
 })
 
 --------------------------------
@@ -538,7 +540,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ConstructorAndController")
 
 L:SetGeneralLocalization({
-	name = "Skarvald & Dalronn"
+	name = "『控制者』達隆恩"
 })
 
 ----------------------------
@@ -547,12 +549,12 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("IngvarThePlunderer")
 
 L:SetGeneralLocalization({
-	name = "Ingvar the Plunderer"
+	name = "『盜掠者』因格瓦"
 })
 
 L:SetMiscLocalization({
-	YellIngvarPhase2= "I return! A second chance to carve your skull!",
-	YellCombatEnd	= "No! I can do... better! I can..."
+	YellIngvarPhase2	= "我回來了!啊...再次割下你頭顱的機會到了!",
+	YellCombatEnd		= "不!不!我還可以…做得更好……"
 })
 
 ------------------------
@@ -563,12 +565,12 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("SkadiTheRuthless")
 
 L:SetGeneralLocalization({
-	name = "Skadi the Ruthless"
+	name = "無情的斯卡迪"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "What mongrels dare intrude here? Look alive, my brothers!  A feast for the one that brings me their heads!",
-	Phase2			= "You motherless knaves! Your corpses will make fine morsels for my new drake!"
+	CombatStart		= "哪來的蠢狗敢入侵此地?打起精神來，我的兄弟們!誰能把他們的頭顱帶來，我會好好的犒賞一番!",
+	Phase2			= "你們這些沒教養的垃圾!你們的屍體剛好拿來當龍的點心!"
 })
 
 -------------------
@@ -577,7 +579,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ymiron")
 
 L:SetGeneralLocalization({
-	name = "King Ymiron"
+	name = "依米倫國王"
 })
 
 -------------------------
@@ -586,19 +588,19 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SvalaSorrowgrave")
 
 L:SetGeneralLocalization({
-	name = "Svala Sorrowgrave"
+	name = "絲瓦拉·悲傷亡墓"
 })
 
 L:SetTimerLocalization({
-	timerRoleplay		= "Svala Sorrowgrave active"
+	timerRoleplay		= "絲瓦拉·悲傷亡墓活動"
 })
 
 L:SetOptionLocalization({
-	timerRoleplay		= "Show timer for roleplay before Svala Sorrowgrave becomes active"
+	timerRoleplay		= "為絲瓦拉·悲傷亡墓能夠活動前的角色扮演顯示計時器"
 })
 
 L:SetMiscLocalization({
-	SvalaRoleplayStart	= "My liege! I have done as you asked, and now beseech you for your blessing!"
+	SvalaRoleplayStart	= "陛下!我已完成您的要求，如今懇求您的祝福!"
 })
 
 -----------------------
@@ -607,7 +609,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("GortokPalehoof")
 
 L:SetGeneralLocalization({
-	name = "Gortok Palehoof"
+	name = "戈托克·白蹄"
 })
 
 -----------------------
@@ -618,11 +620,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Cyanigosa")
 
 L:SetGeneralLocalization({
-	name = "Cyanigosa"
+	name = "霞妮苟莎"
 })
 
 L:SetMiscLocalization({
-	CyanArrived	= "A valiant defense, but this city must be razed. I will fulfill Malygos's wishes myself!"
+	CyanArrived	= "真是一群英勇的衛兵，但這座城市必須被夷平。我必須親自執行瑪里苟斯大人的指令!"
 })
 
 --------------
@@ -631,7 +633,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Erekem")
 
 L:SetGeneralLocalization({
-	name = "Erekem"
+	name = "伊銳坎"
 })
 
 ---------------
@@ -640,7 +642,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ichoron")
 
 L:SetGeneralLocalization({
-	name = "Ichoron"
+	name = "伊仇隆"
 })
 
 -----------------
@@ -649,7 +651,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Lavanthor")
 
 L:SetGeneralLocalization({
-	name = "Lavanthor"
+	name = "拉方索"
 })
 
 --------------
@@ -658,7 +660,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Moragg")
 
 L:SetGeneralLocalization({
-	name = "Moragg"
+	name = "摩拉革"
 })
 
 --------------
@@ -667,7 +669,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Xevoss")
 
 L:SetGeneralLocalization({
-	name = "Xevozz"
+	name = "基沃滋"
 })
 
 -------------------------------
@@ -676,7 +678,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Zuramat")
 
 L:SetGeneralLocalization({
-	name = "Zuramat the Obliterator"
+	name = "『消滅者』舒拉邁特"
 })
 
 ---------------------
@@ -685,30 +687,30 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("PortalTimers")
 
 L:SetGeneralLocalization({
-	name = "Portal Timers"
+	name = "傳送門計時"
 })
 
 L:SetWarningLocalization({
-	WarningPortalSoon	= "New portal soon",
-	WarningPortalNow	= "Portal #%d",
-	WarningBossNow		= "Boss incoming"
+	WarningPortalSoon	= "新傳送門即將到來",
+	WarningPortalNow	= "第%d個傳送門",
+	WarningBossNow		= "首領到來"
 })
 
 L:SetTimerLocalization({
-	TimerPortalIn	= "Portal #%d",
+	TimerPortalIn	= "第%d個傳送門"
 })
 
 L:SetOptionLocalization({
-	WarningPortalNow		= "Show warning for new portal",
-	WarningPortalSoon		= "Show pre-warning for new portal",
-	WarningBossNow			= "Show warning for boss incoming",
-	TimerPortalIn			= "Show timer for next portal (after Boss)",
-	ShowAllPortalTimers		= "Show timers for all portals (inaccurate)"
+	WarningPortalNow		= "為新傳送門顯示警告",
+	WarningPortalSoon		= "為新傳送門顯示預先警告",
+	WarningBossNow			= "為首領到來顯示警告",
+	TimerPortalIn			= "為下一次傳送門顯示計時器 (擊敗首領後)",
+	ShowAllPortalTimers		= "為所有傳送門顯示計時器 (不準確)"
 })
 
 L:SetMiscLocalization({
-	Sealbroken	= "We've broken through the prison gate! The way into Dalaran is clear! Now we finally put an end to the Nexus War!",
-	WavePortal	= "Portals Opened: (%d+)/18"
+	Sealbroken	= "我們攻破了監獄大門!通往達拉然的通道已經暢通了!現在我們終於可以終結奧核戰爭了!",
+	WavePortal	= "傳送門開啟:(%d+)/18"
 })
 
 -----------------------------
@@ -719,17 +721,17 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("BlackKnight")
 
 L:SetGeneralLocalization({
-	name = "The Black Knight"
+	name = "黑騎士"
 })
 
 L:SetOptionLocalization({
-	AchievementCheck		= "Announce 'I've Had Worse' achievement failure to party"
+	AchievementCheck		= "提示 '糟糕透頂' 成就失敗到隊伍頻道"
 })
 
 L:SetMiscLocalization({
-	Pull				= "Well done. You have proven yourself today-",
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s was hit by Ghoul Explode <<",
-	YellCombatEnd		= "My congratulations, champions. Through trials both planned and unexpected, you have triumphed."	-- can also be "No! I must not fail... again ..."
+	Pull				= "幹得好。今天，你已證明了你自己-",
+	AchievementFailed	= ">> 成就失敗: %s 被食屍鬼爆炸炸到了 <<",
+	YellCombatEnd		= "恭喜你，勇士們。儘管試煉隱藏著許多不安的變數，但你們仍然通過了考驗。"
 })
 
 -----------------------
@@ -738,11 +740,12 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("GrandChampions")
 
 L:SetGeneralLocalization({
-	name = "Grand Champions"
+	name = "大勇士們"
 })
 
+
 L:SetMiscLocalization({
-	YellCombatEnd	= "Well fought! Your next challenge comes from the Crusade's own ranks. You will be tested against their considerable prowess."
+	YellCombatEnd	= "精采的戰鬥!你的下一個挑戰者是從十字軍中挑選出來的英勇鬥士。你將會親身面對他們超卓實力的考驗。"
 })
 
 ----------------------------------
@@ -751,11 +754,12 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Confessor")
 
 L:SetGeneralLocalization({
-	name = "Argent Confessor Paletress"
+	name = "銀白告解者帕爾璀絲"
 })
 
+
 L:SetMiscLocalization({
-	YellCombatEnd	= "Excellent work!"
+	YellCombatEnd	= "你們做得很好!"
 })
 
 -----------------------
@@ -764,15 +768,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("EadricthePure")
 
 L:SetGeneralLocalization({
-	name = "Eadric the Pure"
-})
-
-L:SetOptionLocalization({
-	SetIconOnHammerTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(66940)
+	name = "『純淨者』埃卓克"
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "I yield! I submit. Excellent work. May I run away now?"
+	YellCombatEnd	= "我認輸了!我投降。幹得好。我現在可以離場了嗎?"
 })
 
 --------------------
@@ -783,7 +783,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ick")
 
 L:SetGeneralLocalization({
-	name = "Ick and Krick"
+	name = "艾克及克瑞克"
 })
 
 ----------------------------
@@ -792,18 +792,17 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ForgemasterGarfrost")
 
 L:SetGeneralLocalization({
-	name = "Forgemaster Garfrost"
+	name = "鍛造大師加弗羅斯"
 })
 
 L:SetOptionLocalization({
-	AchievementCheck			= "Announce 'Doesn't Go to Eleven' achievement warnings to party",
-	SetIconOnSaroniteRockTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70851)
+	AchievementCheck	= "提示 '別到十一' 的成就警告到隊伍頻道"
 })
 
 L:SetMiscLocalization({
-	SaroniteRockThrow	= "%s hurls a massive saronite boulder at you!",
-	AchievementWarning	= "Warning: %s has %d stacks of Permafrost",
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Permafrost <<"
+	SaroniteRockThrow	= "%s對你丟出一大塊薩鋼巨石!",
+	AchievementWarning	= "小心: %s已擁有%d層極寒冰霜",
+	AchievementFailed	= ">> 成就失敗: %s已超過%d層極寒冰霜 <<"
 })
 
 ----------------------------
@@ -812,13 +811,13 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("ScourgelordTyrannus")
 
 L:SetGeneralLocalization({
-	name = "Scourgelord Tyrannus"
+	name = "天譴領主提朗紐斯"
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "Alas, brave, brave adventurers, your meddling has reached its end. Do you hear the clatter of bone and steel coming up the tunnel behind you? That is the sound of your impending demise.",
-	HoarfrostTarget	= "The frostwyrm Rimefang gazes at (%S+) and readies an icy attack!",
-	YellCombatEnd	= "Impossible.... Rimefang.... warn...."
+	CombatStart		= "終於，勇敢、勇敢的冒險者，你的干擾終到盡頭。你聽見了身後隧道中的金屬與骨頭敲擊聲嗎?這就是你即將面對的死亡之聲。",
+	HoarfrostTarget	= "冰霜巨龍霜牙凝視著(%S+)，準備發動寒冰攻擊!",
+	YellCombatEnd	= "不可能...霜牙...警告..."
 })
 
 ----------------------
@@ -829,7 +828,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Bronjahm")
 
 L:SetGeneralLocalization({
-	name = "Bronjahm"
+	name = "布朗吉姆"
 })
 
 -------------------------
@@ -838,7 +837,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DevourerofSouls")
 
 L:SetGeneralLocalization({
-	name = "Devourer of Souls"
+	name = "眾魂吞噬者"
 })
 
 ---------------------------
@@ -849,29 +848,29 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HoRWaveTimer")
 
 L:SetGeneralLocalization({
-	name = "Wave Timers"
+	name = "波數計時"
 })
 
 L:SetWarningLocalization({
-	WarnNewWaveSoon	= "New wave soon",
-	WarnNewWave		= "%s incoming"
+	WarnNewWaveSoon	= "新一波即將到來",
+	WarnNewWave		= "%s 到來"
 })
 
 L:SetTimerLocalization({
-	TimerNextWave	= "Next wave"
+	TimerNextWave	= "下一波"
 })
 
 L:SetOptionLocalization({
-	WarnNewWave			= "Show warning for boss incoming",
-	WarnNewWaveSoon		= "Show pre-warning for new wave (after wave 5 boss)",
-	ShowAllWaveWarnings	= "Show warnings for all waves",
-	TimerNextWave		= "Show timer for next set of waves (after wave 5 boss)",
-	ShowAllWaveTimers	= "Show pre-warning and timers for all waves (Inaccurate)"
+	WarnNewWave			= "當首領到來時顯示警告",
+	WarnNewWaveSoon		= "為新一波顯示預先警告 (擊敗首領後)",
+	ShowAllWaveWarnings	= "為所有波數顯示警告",
+	TimerNextWave		= "為下一波顯示計時器 (擊敗首領後)",
+	ShowAllWaveTimers	= "為所有波數顯示計時器及預先警告 (不準確)"
 })
 
 L:SetMiscLocalization({
-	Falric		= "Falric",
-	WaveCheck	= "Spirit Wave = (%d+)/10"
+	Falric		= "法勒瑞克",
+	WaveCheck	= "靈魂波數 = (%d+)/10"
 })
 
 --------------
@@ -880,7 +879,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Falric")
 
 L:SetGeneralLocalization({
-	name = "Falric"
+	name = "法勒瑞克"
 })
 
 --------------
@@ -889,7 +888,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Marwyn")
 
 L:SetGeneralLocalization({
-	name = "Marwyn"
+	name = "麥爾溫"
 })
 
 -----------------------
@@ -898,27 +897,23 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LichKingEvent")
 
 L:SetGeneralLocalization({
-	name = "Lich King event"
-})
-
-L:SetWarningLocalization({
-	WarnWave		= "%s"
+	name = "逃離巫妖王事件"
 })
 
 L:SetTimerLocalization({
-	achievementEscape	= "Time to escape"
+	achievementEscape	= "逃離計時"
 })
 
 L:SetOptionLocalization({
-	WarnWave	= "Show warning for incoming waves"
+	WarnWave		= "為下一波到來顯示警告"
 })
 
 L:SetMiscLocalization({
-	Ghoul			= "Raging Ghoul",			--creature id 36940. Not sure how to use these in function above to simplify locals though. :\
-	Abom			= "Lumbering Abomination",	--creature id 37069
-	WitchDoctor		= "Risen Witch Doctor",		--creature id 36941
-	Wave1			= "There is no escape!",
-	Wave2			= "Succumb to the chill of the grave.",
-	Wave3			= "Another dead end.",
-	Wave4			= "How long can you fight it?"
+	Ghoul			= "狂怒食屍鬼",
+	Abom			= "笨拙憎惡體",
+	WitchDoctor		= "復活的巫醫",
+	Wave1			= "無處可逃!",
+	Wave2			= "屈服於墓地的酷寒之下吧!",
+	Wave3			= "又是死路一條!",
+	Wave4			= "你還能支持多久?"
 })

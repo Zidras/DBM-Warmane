@@ -8,9 +8,7 @@ mod:SetZone()
 mod:RegisterCombat("yell", L.YellPull)
 mod:RegisterKill("yell", L.YellKill)
 mod:SetWipeTime(25)
-local isDispeller = select(2, UnitClass("player")) == "MAGE"
-					or select(2, UnitClass("player")) == "DRUID"
-					or select(2, UnitClass("player")) == "SHAMAN"
+
 mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_CAST_SUCCESS",
@@ -22,38 +20,32 @@ local warnPhase2			= mod:NewPhaseAnnounce(2)
 local timerInsanity			= mod:NewCDTimer(35, 57496)
 local timerInsanityDie		= mod:NewCastTimer(5, 57496)
 local specwarnInsanity		= mod:NewSpecialWarningDodge(57496)
-local specwarnCurse			= mod:NewSpecialWarningDispel(59856, isDispeller)
+local specwarnCurse			= mod:NewSpecialWarningDispel(59856, "RemoveCurse")
 local warnCurseTarget		= mod:NewTargetAnnounce(59856)
 local timerNextCurse		= mod:NewCDTimer(20, 59856)
 local specwarnSnow			= mod:NewSpecialWarningMove(59854)
 local timerFrenzy			= mod:NewCDTimer(16, 39249)
 local warnFrenzy			= mod:NewTargetAnnounce(39249)
-local timerCrystalHandler 	= mod:NewTimer(30, "timerCrystalHandler", 72262)
+local timerCrystalHandler 	= mod:NewTimer(30, "timerCrystalHandler", 72262, nil, nil, 1, DBM_CORE_L.DAMAGE_ICON)
 
 mod:AddSetIconOption("SetIconOnEnragedMob", 39249, true, true)
 
-local CrystalHandlers = 4
+mod.vb.CrystalHandlers = 4
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerCrystalHandler:Start(25.5-delay)
 	timerInsanity:Start(20)
 	timerFrenzy:Start(10)
-	CrystalHandlers = 4
+	self.vb.CrystalHandlers = 4
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.HandlerYell then
-		timerCrystalHandler:Cancel()
-		CrystalHandlers = CrystalHandlers - 1
-		if CrystalHandlers > 0 then
-			WarnCrystalHandler:Show(CrystalHandlers)
+		self.vb.CrystalHandlers = self.vb.CrystalHandlers - 1
+		WarnCrystalHandler:Show(self.vb.CrystalHandlers)
+		if self.vb.CrystalHandlers > 0 then
 			timerCrystalHandler:Start()
-		elseif self.vb.phase == 1 and CrystalHandlers < 0 then
-			warnPhase2:Show()
-			self:SetStage(2)
-		elseif CrystalHandlers == 0 then
-			WarnCrystalHandler:Show(CrystalHandlers)
 		end
 	elseif msg == L.Phase2 then
 		warnPhase2:Show()
@@ -80,5 +72,4 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specwarnSnow:Show()
 	end
 end
-
 mod.SPELL_AURA_APPLIED = mod.SPELL_CAST_SUCCESS

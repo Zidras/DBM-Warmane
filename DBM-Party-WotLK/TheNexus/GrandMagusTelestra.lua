@@ -16,20 +16,20 @@ local warningSplitSoon	= mod:NewAnnounce("WarningSplitSoon", 2)
 local warningSplitNow	= mod:NewAnnounce("WarningSplitNow", 3)
 local warningMerge		= mod:NewAnnounce("WarningMerge", 2)
 
-local warnedSplit1		= false
-local warnedSplit2		= false
+mod.vb.warnedSplit1		= false
+mod.vb.warnedSplit2		= false
 
 function mod:OnCombatStart()
-	warnedSplit1 = false
-	warnedSplit2 = false
+	self.vb.warnedSplit1 = false
+	self.vb.warnedSplit2 = false
 end
 
 function mod:UNIT_HEALTH(uId)
-	if not warnedSplit1 and self:GetUnitCreatureId(uId) == 26731 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.58 then
-		warnedSplit1 = true
+	if not self.vb.warnedSplit1 and self:GetUnitCreatureId(uId) == 26731 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.58 then
+		self.vb.warnedSplit1 = true
 		warningSplitSoon:Show()
-	elseif not warnedSplit2 and mod:IsDifficulty("heroic5") and self:GetUnitCreatureId(uId) == 26731 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.19 then
-		warnedSplit2 = true
+	elseif not self.vb.warnedSplit2 and self:IsDifficulty("heroic5") and self:GetUnitCreatureId(uId) == 26731 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.19 then
+		self.vb.warnedSplit2 = true
 		warningSplitSoon:Show()
 	end
 end
