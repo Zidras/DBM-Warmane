@@ -215,8 +215,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.SwarmingShadows) and target then
 		target = DBM:GetUnitFullName(target)
 		timerNextSwarmingShadows:Start()
-		warnSwarmingShadowsSoon:Schedule(25.5-delay)
-		warnSwarmingShadowsSoon:ScheduleVoice(25.5-delay, "specialsoon")
+		warnSwarmingShadowsSoon:Schedule(25.5)
+		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "specialsoon")
 		if target == UnitName("player") then
 			specWarnSwarmingShadows:Show()
 			specWarnSwarmingShadows:Play("runout")
