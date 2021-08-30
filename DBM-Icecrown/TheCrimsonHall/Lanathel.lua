@@ -49,11 +49,13 @@ local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, n
 
 local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(300) or mod:NewBerserkTimer(330)
 
+mod:AddInfoFrameOption(70867, true)
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
 mod:AddBoolOption("RangeFrame", true)
 
+local Essence = DBM:GetSpellInfoNew(70867)
 local pactTargets = {}
 mod.vb.pactIcons = 6
 
@@ -133,6 +135,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(70867, 70879, 71473, 71525) or args:IsSpellID(71530, 71531, 71532, 71533) then	--Essence of the Blood Queen
 		warnEssenceoftheBloodQueen:Show(args.destName)
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:SetHeader(Essence)
+			DBM.InfoFrame:Show(8, "playerdebuffremaining", Essence, 2)
+		end
 		if args:IsPlayer() then
 			specWarnEssenceoftheBloodQueen:Show()
 			specWarnEssenceoftheBloodQueen:Play("targetyou")
