@@ -13,24 +13,29 @@
 ## X-DBM-Mod-Name: Naxxramas
 ## X-DBM-Mod-Name-ruRU: Наксрамас
 ## X-DBM-Mod-Sort: 6
---## X-DBM-Mod-LoadZoneID: 536
+## X-DBM-Mod-MapID: 536
 ## X-DBM-Mod-LoadZone: Naxxramas
 ## X-DBM-Mod-LoadZone-ruRU: Наксрамас
+
 localization.en.lua
 localization.ru.lua
-MapSizes.lua
+
 ArachnidQuarter\Anub'Rekhan.lua
 ArachnidQuarter\Faerlina.lua
 ArachnidQuarter\Maexxna.lua
+
 ConstructQuarter\Patchwerk.lua
 ConstructQuarter\Grobbulus.lua
 ConstructQuarter\Gluth.lua
 ConstructQuarter\Thaddius.lua
+
 PlagueQuarter\Noth.lua
 PlagueQuarter\Heigan.lua
 PlagueQuarter\Loatheb.lua
+
 MilitaryQuarter\Razuvious.lua
 MilitaryQuarter\Gothik.lua
 MilitaryQuarter\Horsemen.lua
+
 FrostwyrmLair\Sapphiron.lua
 FrostwyrmLair\Kel'Thuzad.lua

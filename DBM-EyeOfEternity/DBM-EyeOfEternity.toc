@@ -11,10 +11,11 @@
 ## X-DBM-Mod-Name: Eye of Eternity
 ## X-DBM-Mod-Name-ruRU: Око Вечности
 ## X-DBM-Mod-Sort: 5
---## X-DBM-Mod-LoadZoneID: 528
+## X-DBM-Mod-MapID: 528
 ## X-DBM-Mod-LoadZone: The Eye of Eternity
 ## X-DBM-Mod-LoadZone-ruRU: Око Вечности
+
 localization.en.lua
 localization.ru.lua
-MapSizes.lua
+
 Malygos.lua

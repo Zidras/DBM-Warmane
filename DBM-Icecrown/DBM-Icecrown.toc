@@ -33,7 +33,7 @@
 ## X-DBM-Mod-Name-esES: Ciudadela de la Corona de Hielo
 ## X-DBM-Mod-Name-esMX: Ciudadela de la Corona de Hielo
 ## X-DBM-Mod-Sort: 0
-## X-DBM-Mod-LoadZoneID: 605
+## X-DBM-Mod-MapID: 605
 ## X-DBM-Mod-LoadZone: Icecrown Citadel
 ## X-DBM-Mod-LoadZone-deDE: Eiskronenzitadelle
 ## X-DBM-Mod-LoadZone-frFR: Citadelle de la Couronne de glace
@@ -43,6 +43,7 @@
 ## X-DBM-Mod-LoadZone-zhCN: 冰冠堡垒
 ## X-DBM-Mod-LoadZone-esES: Ciudadela de la Corona de Hielo
 ## X-DBM-Mod-LoadZone-esMX: Ciudadela de la Corona de Hielo
+
 localization.en.lua
 localization.de.lua
 localization.kr.lua
@@ -51,7 +52,7 @@ localization.tw.lua
 localization.cn.lua
 localization.fr.lua
 localization.es.lua
-MapSizes.lua
+
 Trash.lua
 TheLowerSpire\LordMarrowgar.lua
 TheLowerSpire\Deathwhisper.lua
