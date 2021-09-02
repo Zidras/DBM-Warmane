@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 
 mod:RegisterEvents(
-	"UPDATE_UI_WIDGET",
+	"UPDATE_WORLD_STATES",
 	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_YELL"
 )
@@ -29,13 +29,8 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:UPDATE_UI_WIDGET(table)
-	local id = table.widgetID
-	if id ~= (WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 527 or 3120) then
-		return
-	end
-	local widgetInfo = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id)
-	local text = widgetInfo.text
+function mod:UPDATE_WORLD_STATES()
+	local text = select(3, GetWorldStateUIInfo(2))
 	if not text then return end
 	local currentPortal = text:match("(%d+).+18")
 	if not currentPortal then

@@ -33,7 +33,7 @@ local timerSandTrapCD	= mod:NewCDTimer(8, 25656, nil, nil, nil, 3)
 function mod:OnCombatStart(delay)
 	timerSandTrapCD:Start(8-delay)
 --[[	if not self.vb.firstEngageTime then
-		self.vb.firstEngageTime = GetServerTime()
+		self.vb.firstEngageTime = time()
 		if self.Options.FastestClear and self.Options.SpeedClearTimer then
 			--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 			DBT:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)

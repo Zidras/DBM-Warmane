@@ -33,7 +33,7 @@ do
 		local cid = self:GetCIDFromGUID(GUID)
 		if startCreatureIds[cid] then
 			if not self.vb.firstEngageTime then
-				self.vb.firstEngageTime = GetServerTime()
+				self.vb.firstEngageTime = time()
 				if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 					DBT:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
@@ -66,7 +66,7 @@ do
 			self.vb.firstEngageTime = tonumber(startTime)
 			if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-				local adjustment = GetServerTime() - self.vb.firstEngageTime
+				local adjustment = time() - self.vb.firstEngageTime
 				DBT:CreateBar(self.Options.FastestClear2 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 			end
 			--Unregister high CPU combat log events
