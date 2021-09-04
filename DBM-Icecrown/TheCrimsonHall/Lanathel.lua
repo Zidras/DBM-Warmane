@@ -85,7 +85,7 @@ function mod:OnCombatStart(delay)
 	if self:IsDifficulty("normal10", "heroic10") then
 		timerNextInciteTerror:Start(124-delay)
 		warnInciteTerrorSoon:Schedule(119)
-		warnInciteTerrorSoon:ScheduleVoice(95, "fearsoon")
+		warnInciteTerrorSoon:ScheduleVoice(119, "fearsoon")
 	else
 		timerNextInciteTerror:Start(127-delay)
 		warnInciteTerrorSoon:Schedule(122)
