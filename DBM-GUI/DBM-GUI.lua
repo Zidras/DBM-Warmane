@@ -1160,6 +1160,7 @@ do
 
 		button.text:ClearAllPoints()
 		button.text:SetPoint("LEFT", 12 + 8 * element.depth, 2)
+		button.text:SetPoint("RIGHT", 12, 0)
 		button.text:SetFontObject(GameFontNormalSmall)
 		button.toggle:ClearAllPoints()
 		button.toggle:SetPoint("LEFT", 8 * element.depth - 2, 1)

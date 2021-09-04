@@ -65,7 +65,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("GunshipBattle")
 
 L:SetGeneralLocalization{
-	name = "Gunship Battle"
+	name = "Icecrown Gunship Battle"
 }
 
 L:SetWarningLocalization{
