@@ -16,6 +16,7 @@ mod:RegisterEvents(
 
 local warningAdds				= mod:NewAnnounce("WarnAdds", 3, 74398)
 local warnCleaveArmor			= mod:NewStackAnnounce(74367, 2, nil, "Tank|Healer")
+local WarnFearSoon              = mod:NewSoonAnnounce(74384, nil, nil, nil, 2, 2)
 
 local specWarnFear				= mod:NewSpecialWarningSpell(74384, nil, nil, nil, 2, 2)
 local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2, nil, nil, 1, 6)--ability lasts 30 seconds, has a 15 second cd, so tanks should trade at 2 stacks.
@@ -53,16 +54,15 @@ end
 function mod:SPELL_CAST_START(args)
     if args.spellId == 74384 then
         specWarnFear:Show()
-        specWarnFear:ScheduleVoice(27, "fearsoon") -- 3 secs prewarning
+        WarnFearSoon:ScheduleVoice(27, "fearsoon") -- 3 secs prewarning
         timerFearCD:Start()
     end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
     if args.spellId == 74367 then
-        local amount = args.amount or 1
-        CleaveArmorTargets[args.destName] = args.amount
-        DevTools_Dump(CleaveArmorTargets)
+        local amount = arg.amount or 1
+        CleaveArmorTargets[args.destName] = amount
         timerCleaveArmor:Start(args.destName)
         if args:IsPlayer() and amount >= 2 then
             specWarnCleaveArmor:Show(amount)
