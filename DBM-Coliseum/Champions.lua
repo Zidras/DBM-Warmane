@@ -58,8 +58,9 @@ else
 	)
 end
 
-	-- Announce: 1 - target player with CC, 2 - target player no CC, 3 - target self (npc)
+local FACTION_ALLIANCE, FACTION_HORDE = FACTION_ALLIANCE, FACTION_HORDE
 
+-- Announce: 1 - target player with CC, 2 - target player no CC, 3 - target self (npc)
 -- Death Knight
 local warnChainsofIce		= mod:NewTargetAnnounce(66020, 2) 				-- 66020
 local warnDeathgrip			= mod:NewTargetAnnounce(66017, 2)
@@ -115,12 +116,12 @@ local specWarnHellfire		= mod:NewSpecialWarningMove(65816, nil, nil, nil, 1, 2)
 local specWarnHandofProt	= mod:NewSpecialWarningDispel(66009, "RemoveInvulnerabilities", nil, nil, 1, 2)
 local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, "RemoveInvulnerabilities", nil, nil, 1, 2)
 local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, "RemoveInvulnerabilities", nil, nil, 1, 2)
-local specWarnHandofFreedom	= mod:NewSpecialWarningDispel(68758, "MagicDispeller")
+local specWarnHandofFreedom	= mod:NewSpecialWarningDispel(68758, "MagicDispeller", nil, nil, 1, 2)
 local specWarnTranquility 	= mod:NewSpecialWarningInterrupt(66086)
 local specWarnEarthShield	= mod:NewSpecialWarningDispel(66063, "MagicDispeller")
 local specWarnAvengingWrath = mod:NewSpecialWarningDispel(66011, "MagicDispeller")
-local specWarnBloodlust 	= mod:NewSpecialWarningDispel(65980, "MagicDispeller")
-local specWarnHeroism 		= mod:NewSpecialWarningDispel(65983, "MagicDispeller")
+local specWarnBloodlust 	= mod:NewSpecialWarningDispel(65980, "MagicDispeller", nil, nil, 1, 2)
+local specWarnHeroism 		= mod:NewSpecialWarningDispel(65983, "MagicDispeller", nil, nil, 1, 2)
 
 local timerBladestorm		= mod:NewBuffActiveTimer(8, 65947, nil, nil, nil, 2)
 local timerShadowstepCD		= mod:NewCDTimer(30, 66178, nil, nil, nil, 3)
@@ -195,12 +196,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnEarthShield:Show(args.destName)
 	elseif args.spellId == 65983 then
 		warnHeroism:Show()
-		specWarnHeroism:Show()
+		specWarnHeroism:Show(FACTION_ALLIANCE)
 		specWarnHeroism:Play("dispelboss")
 		timerHeroismCD:Start()
 	elseif args.spellId == 65980 then
 		warnBloodlust:Show()
-		specWarnBloodlust:Show()
+		specWarnBloodlust:Show(FACTION_HORDE)
 		specWarnBloodlust:Play("dispelboss")
 		timerBloodlustCD:Start()
 	-- Priest
