@@ -139,7 +139,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEssenceoftheBloodQueen:Show(args.destName)
 		if self.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(Essence)
-			DBM.InfoFrame:Show(8, "playerdebuffremaining", Essence, 2)
+			DBM.InfoFrame:Show(16, "playerdebuffremaining", Essence, 3)
 		end
 		if args:IsPlayer() then
 			specWarnEssenceoftheBloodQueen:Show()
