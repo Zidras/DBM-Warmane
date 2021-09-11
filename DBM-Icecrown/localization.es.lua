@@ -60,7 +60,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("GunshipBattle")
 
 L:SetGeneralLocalization{
-	name = "Batalla de naves de guerra"
+	name = "Batalla aérea"
 }
 
 L:SetWarningLocalization{
