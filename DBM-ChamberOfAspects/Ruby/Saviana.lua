@@ -62,7 +62,7 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 78722 then
-		specWarnTranq:Show()
+		specWarnTranq:Show(args.destName)
 		specWarnTranq:Play("trannow")
 		timerEnrage:Start()
 	elseif args.spellId == 74453 then
