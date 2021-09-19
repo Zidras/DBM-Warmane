@@ -6,7 +6,7 @@ mod:SetCreatureID(24239)
 
 mod:SetZone()
 
-mod:RegisterCombat("combat_yell", L.YellPull)
+mod:RegisterCombat("yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 43501 43421",

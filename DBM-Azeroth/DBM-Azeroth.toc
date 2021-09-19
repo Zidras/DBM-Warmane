@@ -28,7 +28,7 @@
 ## X-DBM-Mod-Name-zhTW: 艾澤拉斯 (經典)
 ## X-DBM-Mod-Name-zhCN: 世界首领 (经典)
 ## X-DBM-Mod-Sort: 1106
-## X-DBM-Mod-MapID: 1, 2
+## X-DBM-Mod-MapID: 182,35,44,27,122
 ## X-DBM-Mod-LoadCID: 14889,14888,14887,14890,6109
 
 localization.en.lua

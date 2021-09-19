@@ -9,7 +9,7 @@ mod.noStatistics = true
 
 local warnVuln			= mod:NewAnnounce("WarnVulnerable", 1, false)
 
-mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
+--mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
 
 local vulnerabilities = {
 	-- [guid] = school
@@ -62,15 +62,15 @@ local function update_vulnerability(self)
 		warnVuln.icon = info[3]
 		warnVuln:Show(name)
 		lastAnnounce[target] = name
-		if self.Options.NPAuraOnVulnerable then
-			DBM.Nameplate:Hide(true, target, 22277, 135924)
-			DBM.Nameplate:Hide(true, target, 22277, 135808)
-			DBM.Nameplate:Hide(true, target, 22277, 136006)
-			DBM.Nameplate:Hide(true, target, 22277, 135846)
-			DBM.Nameplate:Hide(true, target, 22277, 136197)
-			DBM.Nameplate:Hide(true, target, 22277, 136096)
-			DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
-		end
+--		if self.Options.NPAuraOnVulnerable then
+--			DBM.Nameplate:Hide(true, target, 22277, 135924)
+--			DBM.Nameplate:Hide(true, target, 22277, 135808)
+--			DBM.Nameplate:Hide(true, target, 22277, 136006)
+--			DBM.Nameplate:Hide(true, target, 22277, 135846)
+--			DBM.Nameplate:Hide(true, target, 22277, 136197)
+--			DBM.Nameplate:Hide(true, target, 22277, 136096)
+--			DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
+--		end
 	end
 end
 
@@ -109,18 +109,18 @@ function mod:OnCombatStart()
 			"PLAYER_TARGET_CHANGED"
 		)
 		check_target_vulns(self)
-		if self.Options.NPAuraOnVulnerable then
-			DBM:FireEvent("BossMod_EnableHostileNameplates")
-		end
+--		if self.Options.NPAuraOnVulnerable then
+--			DBM:FireEvent("BossMod_EnableHostileNameplates")
+--		end
 	end
 end
 
 function mod:OnCombatEnd()
 	table.wipe(vulnerabilities)
 	self:UnregisterShortTermEvents()
-	if self.Options.NPAuraOnVulnerable  then
-		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)--isGUID, unit, spellId, texture, force, isHostile, isFriendly
-	end
+--	if self.Options.NPAuraOnVulnerable  then
+--		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)--isGUID, unit, spellId, texture, force, isHostile, isFriendly
+--	end
 end
 
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, _, _, spellSchool, amount, _, _, _, _, _, critical)

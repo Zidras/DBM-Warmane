@@ -1,11 +1,11 @@
-local mod	= DBM:NewMod("Magtheridon", "DBM-Outlands")
+local mod	= DBM:NewMod("Magtheridon", "DBM-Magtheridon")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(17257)
 
 mod:SetModelID(18527)
-mod:RegisterCombat("combat_emote", L.DBM_MAG_EMOTE_PULL)
+mod:RegisterCombat("emote", L.DBM_MAG_EMOTE_PULL)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 30528 30616",

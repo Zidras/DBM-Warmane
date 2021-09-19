@@ -6,8 +6,10 @@
 ## SavedVariables: DBMMagtheridon_AllSavedVars
 ## SavedVariablesPerCharacter: DBMMagtheridon_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Has-Single-Format: 1
+## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Magtheridon
 ## X-DBM-Mod-Name-ruRU: Магтеридон
 ## X-DBM-Mod-MapID: 780

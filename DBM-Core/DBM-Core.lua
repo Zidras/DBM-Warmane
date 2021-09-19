@@ -171,6 +171,7 @@ DBM.DefaultOptions = {
 	ShowGuildMessages = true,
 	ShowGuildMessagesPlus = false,
 	AutoRespond = true,
+	EnableWBSharing = true,
 	WhisperStats = false,
 	DisableStatusWhisper = false,
 	DisableGuildStatus = false,
@@ -474,7 +475,7 @@ local AddMsg
 local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
-local handleSync
+--local handleSync
 local targetMonitor = {}
 local wowVersion = select(4, GetBuildInfo())
 
@@ -592,7 +593,31 @@ local function sendSync(prefix, msg)
 	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 4)
 end
 
---
+--Reworked BNet friends to ingame friends since BNet doesn't exist on private servers
+--Sync Object specifically for out in the world sync messages that have different rules than standard syncs
+local function SendWorldSync(self, prefix, msg, noBNet)
+	DBM:Debug("SendWorldSync running for "..prefix)
+	if IsInRaid() then
+		SendAddonMessage("D4", prefix.."\t"..msg, "RAID")
+	elseif IsInGroup(1) then
+		SendAddonMessage("D4", prefix.."\t"..msg, "PARTY")
+	end
+	if IsInGuild() then
+		SendAddonMessage("D4", prefix.."\t"..msg, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
+	end
+	if self.Options.EnableWBSharing and not noBNet then
+		local _, numFriendsOnline = GetNumFriends()
+		--local connectedServers = GetAutoCompleteRealms()
+		for i = 1, numFriendsOnline do
+			local sameRealm = true
+			local name, _, _, _, isOnline = GetFriendInfo(i)
+			if name and isOnline then
+				SendAddonMessage(name, "D4", prefix.."\t"..msg)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
+			end
+		end
+	end
+end
+
 local function strFromTime(time)
 	if type(time) ~= "number" then time = 0 end
 	time = floor(time)
@@ -3422,6 +3447,12 @@ function DBM:LoadMod(mod, force)
 		self:Debug("LoadMod failed because mod table not valid")
 		return false
 	end
+
+	--Block loading world boss mods by zoneID
+	if mod.isWorldBoss and not IsInInstance() and not force then
+		return
+	end
+
 	local _, _, _, enabled = GetAddOnInfo(mod.modId)
 	if not enabled then
 		EnableAddOn(mod.modId)
@@ -3561,6 +3592,7 @@ do
 
 	local syncHandlers = {}
 	local whisperSyncHandlers = {}
+	local guildSyncHandlers = {}
 
 	syncHandlers["DBMv4-Mod"] = function(msg, channel, sender)
 		local mod, revision, event, arg = strsplit("\t", msg)
@@ -4345,6 +4377,52 @@ do
 		end
 	end
 
+	guildSyncHandlers["WBE"] = function(sender, modId, realm, health, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end--We recently got a sync about this boss on this realm, so do nothing.
+		lastBossEngage[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			--modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), sender))
+		end
+	end
+
+	guildSyncHandlers["WBD"] = function(sender, modId, realm, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
+		lastBossDefeat[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, sender))
+		end
+	end
+
+	whisperSyncHandlers["WBE"] = function(sender, modId, realm, health, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
+		lastBossEngage[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			local toonName = sender or L.UNKNOWN
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), toonName))
+		end
+	end
+
+	whisperSyncHandlers["WBD"] = function(sender, modId, realm, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
+		lastBossDefeat[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			local toonName = sender or L.UNKNOWN
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, toonName))
+		end
+	end
+
 	whisperSyncHandlers["DBMv4-RT"] = function(msg, channel, sender)
 		if UnitInBattleground("player") then
 			DBM:SendPVPTimers(sender)
@@ -4388,6 +4466,9 @@ do
 		elseif msg and channel == "WHISPER" and self:GetRaidUnitId(sender) ~= nil then
 			local handler = whisperSyncHandlers[prefix]
 			if handler then handler(msg, channel, sender) end
+		elseif msg and channel == "GUILD" then
+			local handler = guildSyncHandlers[prefix]
+			if handler then handler(channel, sender, strsplit("\t", msg)) end
 		end
 		if msg:find("spell:") and (DBM.Options.DebugLevel > 2) then
 			local spellId = string.match(msg, "spell:(%d+)") or "UNKNOWN"
@@ -5116,6 +5197,11 @@ do
 					mod:OnTimerRecovery()
 				end
 			end
+			if savedDifficulty == "worldboss" and mod.WBEsync then
+				if lastBossEngage[modId..playerRealm] and (GetTime() - lastBossEngage[modId..playerRealm] < 30) then return end--Someone else synced in last 10 seconds so don't send out another sync to avoid needless sync spam.
+				lastBossEngage[modId..playerRealm] = GetTime()--Update last engage time, that way we ignore our own sync
+				SendWorldSync(self, "WBE", modId.."\t"..playerRealm.."\t"..startHp.."\t8\t"..name)
+			end
 		end
 		if DBM.Options.FixCLEUOnCombatStart then
 			CombatLogClearEntries()
@@ -5262,6 +5348,11 @@ do
 					Skada:Report("RAID", "preset", nil, nil, 25)
 				end
 				fireEvent("DBM_Kill", mod)
+				if savedDifficulty == "worldboss" and mod.WBEsync then
+					if lastBossDefeat[modId..playerRealm] and (GetTime() - lastBossDefeat[modId..playerRealm] < 30) then return end--Someone else synced in last 10 seconds so don't send out another sync to avoid needless sync spam.
+					lastBossDefeat[modId..playerRealm] = GetTime()--Update last defeat time before we send it, so we don't handle our own sync
+					SendWorldSync(self, "WBD", modId.."\t"..playerRealm.."\t8\t"..name)
+				end
 				if self.Options.EventSoundVictory2 and self.Options.EventSoundVictory2 ~= "None" and self.Options.EventSoundVictory2 ~= "" then
 					if self.Options.EventSoundVictory2 == "Random" then
 						local rnd = random(3, #DBM.Victory)
@@ -5409,7 +5500,9 @@ end
 
 function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
-	if instanceType == "raid" then
+	if instanceType == "none" then
+		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", difficulty, maxPlayers
+	elseif instanceType == "raid" then
 		if isDynamicInstance then -- Dynamic raids (ICC, RS)
 			if difficulty == 1 then -- 10 players
 				return dynamicDifficulty == 0 and "normal10" or dynamicDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
@@ -10191,6 +10284,9 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	if self.multiMobPullDetection then
 		info.multiMobPullDetection = self.multiMobPullDetection
 	end
+	if self.WBEsync then
+		info.WBEsync = self.WBEsync
+	end
 	local addedKillMobs = false
 	for i = 1, select("#", ...) do
 		local v = select(i, ...)
@@ -10238,6 +10334,13 @@ function bossModPrototype:SetDetectCombatInVehicle(flag)
 		return
 	end
 	self.combatInfo.noCombatInVehicle = not flag
+end
+
+function bossModPrototype:EnableWBEngageSync()
+	self.WBEsync = true
+	if self.combatInfo then
+		self.combatInfo.WBEsync = true
+	end
 end
 
 function bossModPrototype:IsInCombat()

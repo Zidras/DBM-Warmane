@@ -273,6 +273,10 @@ L.BOSSTOGETHER						= "Bosses Together"
 L.BOSSAPART							= "Bosses Apart"
 --Common Locals end
 
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 				= "World Boss"
+--Retail Globals end
+
 L.BOSSHEALTH_HIDE_FRAME				= "Close health frame"
 
 L.BREAK_USAGE						= "Break timer cannot be longer than 60 minutes. Make sure you're inputting time in minutes and not seconds."

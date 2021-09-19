@@ -5,7 +5,7 @@ mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(12017)
 
 mod:SetModelID(14308)
-mod:RegisterCombat("combat_yell", L.Pull)--L.Pull is backup for classic, since classic probably won't have ENCOUNTER_START to rely on and player regen never works for this boss
+mod:RegisterCombat("yell", L.Pull)--L.Pull is backup for classic, since classic probably won't have ENCOUNTER_START to rely on and player regen never works for this boss
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 23331 18670",

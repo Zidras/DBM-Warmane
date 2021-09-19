@@ -36,7 +36,7 @@ local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
 local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.ENRAGE_ICON)
 local timerVuln			= mod:NewTimer(17, "TimerVulnCD")-- seen 16.94 - 25.53, avg 21.8
 
-mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
+--mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
 mod:AddInfoFrameOption(22277, true)
 
 local mydebuffs = 0
@@ -114,15 +114,15 @@ local function update_vulnerability(self)
 				DBM.InfoFrame:Update()
 			end
 		end
-		if self.Options.NPAuraOnVulnerable then
-			DBM.Nameplate:Hide(true, target, 22277, 135924)
-			DBM.Nameplate:Hide(true, target, 22277, 135808)
-			DBM.Nameplate:Hide(true, target, 22277, 136006)
-			DBM.Nameplate:Hide(true, target, 22277, 135846)
-			DBM.Nameplate:Hide(true, target, 22277, 136197)
-			DBM.Nameplate:Hide(true, target, 22277, 136096)
-			DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
-		end
+--		if self.Options.NPAuraOnVulnerable then
+--			DBM.Nameplate:Hide(true, target, 22277, 135924)
+--			DBM.Nameplate:Hide(true, target, 22277, 135808)
+--			DBM.Nameplate:Hide(true, target, 22277, 136006)
+--			DBM.Nameplate:Hide(true, target, 22277, 135846)
+--			DBM.Nameplate:Hide(true, target, 22277, 136197)
+--			DBM.Nameplate:Hide(true, target, 22277, 136096)
+--			DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
+--		end
 	end
 	self:UnregisterShortTermEvents()--Unregister SPELL_DAMAGE until next shimmer emote
 end
@@ -165,18 +165,18 @@ function mod:OnCombatStart(delay)
 			"SPELL_DAMAGE"
 		)
 		check_target_vulns(self)
-		if self.Options.NPAuraOnVulnerable then
-			DBM:FireEvent("BossMod_EnableHostileNameplates")
-		end
+--		if self.Options.NPAuraOnVulnerable then
+--			DBM:FireEvent("BossMod_EnableHostileNameplates")
+--		end
 	end
 end
 
 function mod:OnCombatEnd()
 	table.wipe(vulnerabilities)
 	self:UnregisterShortTermEvents()
-	if self.Options.NPAuraOnVulnerable  then
-		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)--isGUID, unit, spellId, texture, force, isHostile, isFriendly
-	end
+--	if self.Options.NPAuraOnVulnerable  then
+--		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)--isGUID, unit, spellId, texture, force, isHostile, isFriendly
+--	end
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end

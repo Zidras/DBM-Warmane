@@ -5,7 +5,7 @@ mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(11583)
 
 mod:SetModelID(11380)
-mod:RegisterCombat("combat_yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
+mod:RegisterCombat("yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
 mod:SetWipeTime(50)--guesswork
 
 mod:RegisterEvents(

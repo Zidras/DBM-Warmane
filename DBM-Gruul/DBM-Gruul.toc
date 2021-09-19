@@ -5,8 +5,10 @@
 ## SavedVariables: DBMGruul_AllSavedVars
 ## SavedVariablesPerCharacter: DBMGruul_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Has-Single-Format: 1
+## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Gruul
 ## X-DBM-Mod-Name-ruRU: Груул
 ## X-DBM-Mod-MapID: 777

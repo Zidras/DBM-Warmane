@@ -6,7 +6,7 @@ mod:SetCreatureID(6109)--121820 TW ID, 6109 classic ID
 --mod:SetModelID(17887)
 mod:EnableWBEngageSync()--Enable syncing engage in outdoors
 
-mod:RegisterCombat("combat_yell", L.Pull)
+mod:RegisterCombat("yell", L.Pull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 21099",
