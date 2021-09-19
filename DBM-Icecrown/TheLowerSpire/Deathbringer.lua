@@ -195,8 +195,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
-	elseif args.spellId == 19752 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
-		CancelUnitBuff("player", GetSpellInfo(19752))
+	elseif args.spellId == 19753 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
+		CancelUnitBuff("player", GetSpellInfo(19753))
 	end
 end
 

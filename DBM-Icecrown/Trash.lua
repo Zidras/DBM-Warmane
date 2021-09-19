@@ -145,6 +145,11 @@ function mod:SPELL_CAST_START(args)
 	elseif args.spellId == 71088 then
 		specWarnBlightBomb:Show()
 		timerBlightBomb:Start()
+	elseif args.spellId == 71123 then
+		specWarnDecimate:Show()
+		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
+		warnDecimateSoon:Schedule(28)
+		timerDecimate:Start()
 	end
 end
 
@@ -152,11 +157,6 @@ function mod:SPELL_SUMMON(args)
 	if args.spellId == 71159 and self:AntiSpam(5) then
 		warnZombies:Show()
 		timerZombies:Start()
-	elseif args.spellId == 71123 then
-		specWarnDecimate:Show()
-		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
-		warnDecimateSoon:Schedule(28)
-		timerDecimate:Start()
 	end
 end
 
