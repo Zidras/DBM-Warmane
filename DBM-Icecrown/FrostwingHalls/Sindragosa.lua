@@ -117,7 +117,22 @@ local function warnBeaconTargets(self)
 			DBM.RangeCheck:Show(10)
 		end
 	end
-	warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+	if self.vb.phase == 1 then
+		if self:IsDifficulty("normal25") then
+			table.insert(beaconTargets, 3, "\n")
+			table.insert(beaconTargets, 5, "\n")
+			warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+		elseif self:IsDifficulty("heroic25") then
+			table.insert(beaconTargets, 3, "\n")
+			table.insert(beaconTargets, 6, "\n")
+			warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+		elseif self:IsDifficulty("normal10", "heroic10") then
+			warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+		end
+	elseif self.vb.phase == 2 then
+		table.insert(beaconTargets, 2, p2_beacon_num-1)
+		warnFrostBeacon:Show(table.concat(beaconTargets, "< = >"))
+	end
 	table.wipe(beaconTargets)
 	playerBeaconed = false
 end
