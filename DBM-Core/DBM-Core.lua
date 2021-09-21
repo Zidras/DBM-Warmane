@@ -1043,7 +1043,8 @@ do
 		if not registeredEvents[event] then return end
 		local eventSub6 = event:sub(0, 6)
 		if (eventSub6 == "SPELL_" or eventSub6 == "RANGE_") --[[and not unfilteredCLEUEvents[event]--]] and registeredSpellIds[event] then -- why is unfilteredCLEUEvents event count even needed here? Just broke the function altogether
-			if not registeredSpellIds[event][arg9] then return end
+		args.spellId = select(1, ...)
+			if not registeredSpellIds[event][args.spellId] then return end
 		end
 		twipe(args)
 		args.timestamp = timestamp
