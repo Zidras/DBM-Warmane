@@ -901,13 +901,10 @@ do
 						self.registeredUnitEvents = self.registeredUnitEvents or {}
 						self.registeredUnitEvents[event] = args
 					end
-				-- spell events with filter
-			else
-				-- normal events
+				end
+				registeredEvents[event] = registeredEvents[event] or {}
+				tinsert(registeredEvents[event], self)
 				mainFrame:RegisterEvent(event)
-			end
-			registeredEvents[event] = registeredEvents[event] or {}
-			tinsert(registeredEvents[event], self)
 			end
 		end
 	end
