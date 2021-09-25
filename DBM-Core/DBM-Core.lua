@@ -1017,7 +1017,6 @@ do
 							if findEvent then
 								tremove(mods, i)
 								match = true
-								print(match)
 							end
 						end
 					end
