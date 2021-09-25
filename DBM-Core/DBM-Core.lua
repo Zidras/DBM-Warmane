@@ -1012,9 +1012,13 @@ do
 				else
 					local match = false
 					for i = #mods, 1, -1 do
-						if mods[i] == self and checkEntry(self.shortTermRegisterEvents, event) then
-							tremove(mods, i)
-							match = true
+						if mods[i] == self then
+							local findEvent = findRealEvent(self.shortTermRegisterEvents, event)
+							if findEvent then
+								tremove(mods, i)
+								match = true
+								print(match)
+							end
 						end
 					end
 					if #mods == 0 or (match and event:sub(0, 5) == "UNIT_" and event:sub(0, -10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED") then
@@ -1040,7 +1044,7 @@ do
 		if not registeredEvents[event] then return end
 		local eventSub6 = event:sub(0, 6)
 		if (eventSub6 == "SPELL_" or eventSub6 == "RANGE_") --[[and not unfilteredCLEUEvents[event]--]] and registeredSpellIds[event] then -- why is unfilteredCLEUEvents event count even needed here? Just broke the function altogether
-		args.spellId = select(1, ...)
+		args.spellId = ...
 			if not registeredSpellIds[event][args.spellId] then return end
 		end
 		twipe(args)
@@ -6804,7 +6808,7 @@ function bossModPrototype:RegisterEventsInCombat(...)
 	for k, v in pairs(self.inCombatOnlyEvents) do
 		if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
 			-- legacy event, oh noes
-			self.inCombatOnlyEvents[k] = v .. " boss1 boss2 boss3 boss4 target focus"
+			self.inCombatOnlyEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
 		end
 	end
 end
