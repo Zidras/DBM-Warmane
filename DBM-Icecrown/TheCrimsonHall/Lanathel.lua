@@ -19,10 +19,10 @@ mod:RegisterEvents(
 )
 
 local warnPactDarkfallen			= mod:NewTargetAnnounce(71340, 4)
-local warnPactDarkfallenSoon		= mod:NewSoonAnnounce(71340, 4)
+local warnPactDarkfallenSoon		= mod:NewSoonAnnounce(71340, 4, nil, nil, nil, nil, nil, 2)
 local warnBloodMirror				= mod:NewTargetAnnounce(71510, 3, nil, "Tank|Healer")
 local warnSwarmingShadows			= mod:NewTargetAnnounce(71266, 4)
-local warnSwarmingShadowsSoon		= mod:NewSoonAnnounce(71266, 4)
+local warnSwarmingShadowsSoon		= mod:NewSoonAnnounce(71266, 4, nil, nil, nil, nil, nil, 2)
 local warnInciteTerror				= mod:NewSpellAnnounce(73070, 3, nil, nil, nil, nil, nil, 2)
 local warnInciteTerrorSoon			= mod:NewSoonAnnounce(73070, 3, nil, nil, nil, nil, nil, 2)
 local warnVampiricBite				= mod:NewTargetAnnounce(70946, 2)
@@ -55,7 +55,7 @@ mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
 mod:AddBoolOption("RangeFrame", true)
 
-local Essence = DBM:GetSpellInfoNew(70867)
+local essence = DBM:GetSpellInfoNew(70867)
 local pactTargets = {}
 mod.vb.pactIcons = 6
 
@@ -138,8 +138,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(70867, 70879, 71473, 71525) or args:IsSpellID(71530, 71531, 71532, 71533) then	--Essence of the Blood Queen
 		warnEssenceoftheBloodQueen:Show(args.destName)
 		if self.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(Essence)
-			DBM.InfoFrame:Show(16, "playerdebuffremaining", Essence, 3)
+			DBM.InfoFrame:SetHeader(essence)
+			DBM.InfoFrame:Show(16, "playerdebuffremaining", essence, 3)
 		end
 		if args:IsPlayer() then
 			specWarnEssenceoftheBloodQueen:Show()
