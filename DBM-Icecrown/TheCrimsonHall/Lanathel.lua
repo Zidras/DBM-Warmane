@@ -76,7 +76,7 @@ function mod:OnCombatStart(delay)
 	warnPactDarkfallenSoon:ScheduleVoice(10-delay, "linesoon")
 	timerNextSwarmingShadows:Start(-delay)
 	warnSwarmingShadowsSoon:Schedule(25.5-delay)
-	warnSwarmingShadowsSoon:ScheduleVoice(25.5-delay, "specialsoon")
+	warnSwarmingShadowsSoon:ScheduleVoice(25.5-delay, "flamessoon")
 	table.wipe(pactTargets)
 	self.vb.pactIcons = 6
 	if self.Options.RangeFrame then
@@ -184,7 +184,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerInciteTerror:Start()
 		timerNextSwarmingShadows:Start()--This resets the swarming shadows timer
 		warnSwarmingShadowsSoon:Schedule(25.5)
-		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "specialsoon")
+		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "flamessoon")
 		timerNextPactDarkfallen:Start(25)--and the Pact timer also reset -5 seconds
 		warnPactDarkfallenSoon:Schedule(20)
 		warnPactDarkfallenSoon:ScheduleVoice(20, "linesoon")
@@ -219,7 +219,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		target = DBM:GetUnitFullName(target)
 		timerNextSwarmingShadows:Start()
 		warnSwarmingShadowsSoon:Schedule(25.5)
-		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "specialsoon")
+		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "flamessoon")
 		if target == UnitName("player") then
 			specWarnSwarmingShadows:Show()
 			specWarnSwarmingShadows:Play("runout")
