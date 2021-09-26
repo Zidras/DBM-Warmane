@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(1763)
---
+mod:SetModelID(622) -- temporary model, to prevent HD client crash on model preview
 
 mod:RegisterCombat("combat")
 
