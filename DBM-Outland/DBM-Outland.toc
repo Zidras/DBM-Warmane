@@ -1,0 +1,43 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Outland|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0아웃랜드|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Outreterre|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Scherbenwelt|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0外域|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Terrallende|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0外域|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Terrallende|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Запределье|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMOutland_AllSavedVars
+## SavedVariablesPerCharacter: DBMOutland_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-Mod-World-Boss: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Name: Outland
+## X-DBM-Mod-Name-deDE: Scherbenwelt
+## X-DBM-Mod-Name-esES: Terrallende
+## X-DBM-Mod-Name-esMX: Terrallende
+## X-DBM-Mod-Name-frFR: Outreterre
+## X-DBM-Mod-Name-ruRU: Запределье
+## X-DBM-Mod-Name-koKR: 아웃랜드
+## X-DBM-Mod-Name-zhTW: 外域
+## X-DBM-Mod-Name-zhCN: 外域
+## X-DBM-Mod-Sort: 1006
+## X-DBM-Mod-MapID: 474,466,482,162
+## X-DBM-Mod-LoadCID: 17711,18728,18166,20130
+
+localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.tw.lua
+localization.cn.lua
+localization.ru.lua
+localization.kr.lua
+
+Kazzak.lua
+Doomwalker.lua
+Quest.lua

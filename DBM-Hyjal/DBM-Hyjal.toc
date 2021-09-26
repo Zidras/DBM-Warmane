@@ -8,12 +8,13 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: The Battle for Mount Hyjal
 ## X-DBM-Mod-Name-ruRU: Битва за гору Хиджал
---## X-DBM-Mod-LoadZoneID: 776
+## X-DBM-Mod-MapID: 776
 ## X-DBM-Mod-LoadZone: Hyjal Summit
 ## X-DBM-Mod-LoadZone-ruRU: Вершина Хиджала
-MapSizes.lua
+
 localization.en.lua
 localization.ru.lua
+
 RageWinterchill.lua
 Anetheron.lua
 Kazrogal.lua

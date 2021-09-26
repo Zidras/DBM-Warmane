@@ -1,0 +1,28 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Aman|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0줄아만|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariablesPerCharacter: DBMZulAman_SavedVars, DBMZulAman_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-MapID: 782
+## X-DBM-Mod-Sort: 1005
+## X-DBM-Mod-Name: Zul'Aman
+## X-DBM-Mod-Name-ruRU: Зул'Аман
+
+localization.en.lua
+localization.cn.lua
+localization.de.lua
+localization.es.lua
+localization.kr.lua
+localization.ru.lua
+localization.tw.lua
+
+Akil'zon.lua
+Nalorakk.lua
+Jan'alai.lua
+Halazzi.lua
+Malacrass.lua
+Zul'jin.lua
