@@ -19,9 +19,12 @@ mod:RegisterEvents(
 )
 
 local warnPactDarkfallen			= mod:NewTargetAnnounce(71340, 4)
+local warnPactDarkfallenSoon		= mod:NewSoonAnnounce(71340, 4, nil, nil, nil, nil, nil, 2)
 local warnBloodMirror				= mod:NewTargetAnnounce(71510, 3, nil, "Tank|Healer")
 local warnSwarmingShadows			= mod:NewTargetAnnounce(71266, 4)
+local warnSwarmingShadowsSoon		= mod:NewSoonAnnounce(71266, 4, nil, nil, nil, nil, nil, 2)
 local warnInciteTerror				= mod:NewSpellAnnounce(73070, 3, nil, nil, nil, nil, nil, 2)
+local warnInciteTerrorSoon			= mod:NewSoonAnnounce(73070, 3, nil, nil, nil, nil, nil, 2)
 local warnVampiricBite				= mod:NewTargetAnnounce(70946, 2)
 local warnBloodthirstSoon			= mod:NewSoonAnnounce(70877, 2)
 local warnBloodthirst				= mod:NewTargetAnnounce(70877, 3, nil, false)
@@ -37,7 +40,7 @@ local specWarnMindConrolled			= mod:NewSpecialWarningTarget(70923, "-Healer", ni
 
 local timerNextInciteTerror			= mod:NewNextTimer(100, 73070, nil, nil, nil, 6)
 local timerFirstBite				= mod:NewNextTimer(15, 70946, nil, "Dps", nil, 5)
-local timerNextPactDarkfallen		= mod:NewNextTimer(30.5, 71340, nil, nil, nil, 3)
+local timerNextPactDarkfallen		= mod:NewNextTimer(30, 71340, nil, nil, nil, 3)
 local timerNextSwarmingShadows		= mod:NewNextTimer(30.5, 71266, nil, nil, nil, 3)
 local timerInciteTerror				= mod:NewBuffActiveTimer(4, 73070)
 local timerBloodBolt				= mod:NewBuffActiveTimer(6, 71772, nil, nil, nil, 2)
@@ -46,11 +49,13 @@ local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, n
 
 local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(300) or mod:NewBerserkTimer(330)
 
+mod:AddInfoFrameOption(70867, true)
 mod:AddBoolOption("BloodMirrorIcon", false)
 mod:AddBoolOption("SwarmingShadowsIcon", true)
 mod:AddBoolOption("SetIconOnDarkFallen", true)
 mod:AddBoolOption("RangeFrame", true)
 
+local essence = DBM:GetSpellInfoNew(70867)
 local pactTargets = {}
 mod.vb.pactIcons = 6
 
@@ -58,6 +63,8 @@ local function warnPactTargets(self)
 	warnPactDarkfallen:Show(table.concat(pactTargets, "<, >"))
 	table.wipe(pactTargets)
 	timerNextPactDarkfallen:Start(30)
+	warnPactDarkfallenSoon:Schedule(25)
+	warnPactDarkfallenSoon:ScheduleVoice(25, "linesoon")
 	self.vb.pactIcons = 6
 end
 
@@ -65,7 +72,11 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerFirstBite:Start(-delay)
 	timerNextPactDarkfallen:Start(15-delay)
+	warnPactDarkfallenSoon:Schedule(10-delay)
+	warnPactDarkfallenSoon:ScheduleVoice(10-delay, "linesoon")
 	timerNextSwarmingShadows:Start(-delay)
+	warnSwarmingShadowsSoon:Schedule(25.5-delay)
+	warnSwarmingShadowsSoon:ScheduleVoice(25.5-delay, "flamessoon")
 	table.wipe(pactTargets)
 	self.vb.pactIcons = 6
 	if self.Options.RangeFrame then
@@ -73,14 +84,21 @@ function mod:OnCombatStart(delay)
 	end
 	if self:IsDifficulty("normal10", "heroic10") then
 		timerNextInciteTerror:Start(124-delay)
+		warnInciteTerrorSoon:Schedule(119)
+		warnInciteTerrorSoon:ScheduleVoice(119, "fearsoon")
 	else
 		timerNextInciteTerror:Start(127-delay)
+		warnInciteTerrorSoon:Schedule(122)
+		warnInciteTerrorSoon:ScheduleVoice(122, "fearsoon")
 	end
 end
 
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 end
 
@@ -120,6 +138,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(70867, 70879, 71473, 71525) or args:IsSpellID(71530, 71531, 71532, 71533) then	--Essence of the Blood Queen
 		warnEssenceoftheBloodQueen:Show(args.destName)
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:SetHeader(essence)
+			DBM.InfoFrame:Show(16, "playerdebuffremaining", essence, 3)
+		end
 		if args:IsPlayer() then
 			specWarnEssenceoftheBloodQueen:Show()
 			specWarnEssenceoftheBloodQueen:Play("targetyou")
@@ -160,14 +182,21 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 73070 then				--Incite Terror (fear before air phase)
 		warnInciteTerror:Show()
-		warnInciteTerror:Play("fearsoon")
 		timerInciteTerror:Start()
 		timerNextSwarmingShadows:Start()--This resets the swarming shadows timer
+		warnSwarmingShadowsSoon:Schedule(25.5)
+		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "flamessoon")
 		timerNextPactDarkfallen:Start(25)--and the Pact timer also reset -5 seconds
+		warnPactDarkfallenSoon:Schedule(20)
+		warnPactDarkfallenSoon:ScheduleVoice(20, "linesoon")
 		if self:IsDifficulty("normal10", "heroic10") then
 			timerNextInciteTerror:Start(120)--120 seconds in between first and second on 10 man
+			warnInciteTerrorSoon:Schedule(115)
+			warnInciteTerrorSoon:ScheduleVoice(115, "fearsoon")
 		else
 			timerNextInciteTerror:Start()--100 seconds in between first and second on 25 man
+			warnInciteTerrorSoon:Schedule(95)
+			warnInciteTerrorSoon:ScheduleVoice(95, "fearsoon")
 		end
 	end
 end
@@ -190,6 +219,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.SwarmingShadows) and target then
 		target = DBM:GetUnitFullName(target)
 		timerNextSwarmingShadows:Start()
+		warnSwarmingShadowsSoon:Schedule(25.5)
+		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "flamessoon")
 		if target == UnitName("player") then
 			specWarnSwarmingShadows:Show()
 			specWarnSwarmingShadows:Play("runout")

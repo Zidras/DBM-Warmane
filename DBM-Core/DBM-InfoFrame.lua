@@ -1006,10 +1006,10 @@ function infoFrame:Show(modMaxLines, event, ...)
 	currentEvent = event
 	if event == "playerbuff" or event == "playerbaddebuff" or event == "playergooddebuff" then
 		sortMethod = 3 -- Sort by group ID
-	elseif event == "health" or event == "playerdebuffremaining" then
-		sortMethod = 2 -- Sort lowest first
-	elseif (event == "playerdebuffstacks" or event == "table") and value[2] and type(value[2]) == "number" then
+	elseif (event == "playerdebuffstacks" or event == "table" or event == "playerdebuffremaining") and value[2] and type(value[2]) == "number" then
 		sortMethod = value[2]
+	elseif (event == "health" or event == "playerdebuffremaining") then
+		sortMethod = 2 -- Sort lowest first
 	elseif event == "playerpower" and value[5] and type(value[5]) == "number" then
 		sortMethod = value[5]
 	else
