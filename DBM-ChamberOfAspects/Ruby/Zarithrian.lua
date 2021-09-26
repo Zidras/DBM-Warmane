@@ -65,7 +65,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if targetName == DBM:GetMyPlayerInfo() then
 				CancelUnitBuff("player", GetSpellInfo(10278))        -- Hand of Protection
 				CancelUnitBuff("player", GetSpellInfo(642))        -- Divine Shield
-				targetName = nil
+				CleaveArmorTargets[i] = nil
 			end
         end
     end
