@@ -311,6 +311,10 @@ L.BOSSTOGETHER				= "보스 붙이세요"
 L.BOSSAPART					= "보스 떨어트리세요"
 --Common Locals end
 
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 		= "야외 우두머리"
+--Retail Globals end
+
 L.BREAK_USAGE				= "쉬는 시간은 60분을 초과할 수 없습니다. 쉬는 시간은 초단위가 아니라 분단위로 입력해야 합니다."
 L.BREAK_START				= "쉬는 시간 시작 -- %s 받았습니다! (%s|1이;가; 전송)"
 L.BREAK_MIN					= "%s분 후 쉬는 시간이 끝납니다!"

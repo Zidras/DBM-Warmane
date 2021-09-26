@@ -1,0 +1,42 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Karazhan|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0카라잔|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0卡拉赞|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0卡拉贊|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Каражан|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMKarazhan_AllSavedVars
+## SavedVariablesPerCharacter: DBMKarazhan_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-MapID: 800
+## X-DBM-Mod-Sort: 1007
+## X-DBM-Mod-Name: Karazhan
+## X-DBM-Mod-Name-ruRU: Каражан
+
+localization.en.lua
+localization.de.lua
+localization.fr.lua
+localization.kr.lua
+localization.es.lua
+localization.tw.lua
+localization.cn.lua
+localization.ru.lua
+
+Attumen.lua
+Moroes.lua
+MaidenOfVirtue.lua
+BigBadWolf.lua
+RomuloAndJulianne.lua
+WizardOfOz.lua
+Curator.lua
+TerestianIllhoof.lua
+ShadeOfAran.lua
+Netherspite.lua
+Chess.lua
+PrinceMalchezaar.lua
+Nightbane.lua
+NamedBeasts.lua
