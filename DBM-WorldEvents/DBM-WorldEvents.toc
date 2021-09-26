@@ -6,7 +6,7 @@
 ## SavedVariables: DBMWorldEvent_AllSavedVars
 ## SavedVariablesPerCharacter: DBMWorldEvent_SavedStats
 ## X-DBM-Mod: 1
-## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Name: World Events
 ## X-DBM-Mod-Name-ruRU: Игровые события
 ## X-DBM-Mod-Sort: 150

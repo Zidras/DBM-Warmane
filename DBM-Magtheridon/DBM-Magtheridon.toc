@@ -1,0 +1,28 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Magtheridon|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Магтеридон|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMMagtheridon_AllSavedVars
+## SavedVariablesPerCharacter: DBMMagtheridon_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-Mod-Has-Single-Format: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Name: Magtheridon
+## X-DBM-Mod-Name-ruRU: Магтеридон
+## X-DBM-Mod-MapID: 780
+## X-DBM-Mod-Sort: 307
+## X-DBM-Mod-LoadZone: Magtheridon's Lair
+## X-DBM-Mod-LoadZone-ruRU: Логово Магтеридона
+
+localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.tw.lua
+localization.cn.lua
+localization.ru.lua
+localization.kr.lua
+
+Magtheridon.lua

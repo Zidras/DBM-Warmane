@@ -222,25 +222,25 @@ function mod:TrapTarget(targetname, uId)
 	if self.Options.TrapIcon then
 		self:SetIcon(targetname, 8, 4)
 	end
-	if targetname == UnitName("player") then
-		specWarnTrap:Show()
-		specWarnTrap:Play("watchstep")
-		yellTrap:Yell()
-	else
-		if uId then
+	if uId and targetname then
+		if targetname == UnitName("player") then
+			specWarnTrap:Show()
+			specWarnTrap:Play("watchstep")
+			yellTrap:Yell()
+		else
 			local inRange = CheckInteractDistance(uId, 2)
 			if inRange then
 				specWarnTrapNear:Show(targetname)
 				specWarnTrapNear:Play("watchstep")
-				if self.Options.TrapArrow then
-					local x, y = GetPlayerMapPosition(uId)
-						if x == 0 and y == 0 then
-							SetMapToCurrentZone()
-							x, y = GetPlayerMapPosition(uId)
-						end
-					DBM.Arrow:ShowRunAway(x, y, 10, 5)
-				end
 			end
+		end
+		if self.Options.TrapArrow then
+			local x, y = GetPlayerMapPosition(uId)
+				if x == 0 and y == 0 then
+					SetMapToCurrentZone()
+					x, y = GetPlayerMapPosition(uId)
+				end
+			DBM.Arrow:ShowRunAway(x, y, 10, 5)
 		end
 	end
 end

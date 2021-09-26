@@ -1,0 +1,28 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruul|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMGruul_AllSavedVars
+## SavedVariablesPerCharacter: DBMGruul_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-Mod-Has-Single-Format: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Name: Gruul
+## X-DBM-Mod-Name-ruRU: Груул
+## X-DBM-Mod-MapID: 777
+## X-DBM-Mod-Sort: 307
+## X-DBM-Mod-LoadZone: Gruul's Lair
+## X-DBM-Mod-LoadZone-ruRU: Логово Груула
+
+localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.tw.lua
+localization.cn.lua
+localization.ru.lua
+localization.kr.lua
+
+Maulgar.lua
+Gruul.lua

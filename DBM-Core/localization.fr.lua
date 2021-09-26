@@ -214,13 +214,19 @@ L.TIMER_USAGE	= {
 
 L.ERROR_NO_PERMISSION				= "Vous n'avez pas la permission requise pour faire cela."
 
+--Common Locals
 L.UNKNOWN					= "inconnu"
 L.LEFT						= "Gauche"
 L.RIGHT						= "Droite"
 L.BACK						= "Derrière"
-L.MIDDLE						= "Milieu"
+L.MIDDLE					= "Milieu"
 L.FRONT						= "Devant"--"En face"?/In front
 L.INTERMISSION				= "Intermission"--No blizz global for this, and will probably be used in most end tier fights with intermission phases
+--Common Locals end
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 		= "Boss hors instance"
+--Retail Globals end
 
 L.BREAK_USAGE				= "Les timers de pause ne peuvent pas durer plus de 60 minutes. Assurez vous de mettre le temps en minutes et pas secondes."
 L.BREAK_START				= "La pause commence maintenant -- vous avez %s minute(s)!"

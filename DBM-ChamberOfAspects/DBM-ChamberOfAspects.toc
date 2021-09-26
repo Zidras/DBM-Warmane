@@ -13,7 +13,7 @@
 ## SavedVariablesPerCharacter: DBMChamberOfAspects_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
-## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-SubCategories: The Obsidian Sanctum, The Ruby Sanctum
 ## X-DBM-Mod-SubCategories-deDE: Das Obsidiansanktum, Das Rubinsanktum
 ## X-DBM-Mod-SubCategories-ruRU: Обсидиановое святилище, Рубиновое святилище
@@ -33,7 +33,7 @@
 ## X-DBM-Mod-Name-esES: Cámara de los Aspectos
 ## X-DBM-Mod-Name-esMX: Cámara de los Aspectos
 ## X-DBM-Mod-Sort: 1
---## X-DBM-Mod-LoadZoneID: 532,610
+## X-DBM-Mod-MapID: 532,610
 ## X-DBM-Mod-LoadZone: The Obsidian Sanctum,The Ruby Sanctum
 ## X-DBM-Mod-LoadZone-deDE: Das Obsidiansanktum,Das Rubinsanktum
 ## X-DBM-Mod-LoadZone-ruRU: Обсидиановое святилище,Рубиновое святилище
@@ -53,12 +53,11 @@ localization.fr.lua
 localization.es.lua
 localization.cn.lua
 
-Obsidian\MapSizes.lua
 Obsidian\Shadron.lua
 Obsidian\Tenebron.lua
 Obsidian\Vesperon.lua
 Obsidian\Sartharion.lua
-Ruby\MapSizes.lua
+
 Ruby\Baltharus.lua
 Ruby\Saviana.lua
 Ruby\Zarithrian.lua

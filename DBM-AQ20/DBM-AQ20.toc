@@ -1,0 +1,50 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruins of Ahn'Qiraj|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruinen von Ahn'Qiraj|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruinas de Ahn'Qiraj|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruinas de Ahn'Qiraj|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruines d'Ahn'Qiraj|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Руины Ан'Киража|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0안퀴라즈 폐허|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉废墟|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉廢墟|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMAQ20_AllSavedVars
+## SavedVariablesPerCharacter: DBMAQ20_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: Classic
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Name: The Ruins of Ahn'Qiraj
+## X-DBM-Mod-Name-ruRU: Руины Ан'Киража
+## X-DBM-Mod-Name-esES: Ruinas de Ahn'Qiraj
+## X-DBM-Mod-MapID: 718
+## X-DBM-Mod-Sort: 1103
+## X-DBM-Mod-LoadZone: Nitram,Ruins of Ahn'Qiraj
+## X-DBM-Mod-LoadZone-esES: Nitram,Ruinas de Ahn'Qiraj
+## X-DBM-Mod-LoadZone-ruRU: Nitram,Руины Ан'Киража
+## X-DBM-Mod-LoadZone-frFR: Nitram,Ruines d'Ahn'Qiraj
+## X-DBM-Mod-LoadZone-esMX: Nitram,Ruinas de Ahn'Qiraj
+## X-DBM-Mod-LoadZone-zhTW: 安其拉廢墟
+## X-DBM-Mod-LoadZone-zhCN: 安其拉废墟
+## X-DBM-Mod-LoadZone-koKR: 안퀴라즈 폐허
+## X-DBM-Mod-LoadZone-deDE: Nitram,Ruinen von Ahn'Qiraj
+
+localization.en.lua
+localization.de.lua
+localization.fr.lua
+localization.es.lua
+localization.mx.lua
+localization.ru.lua
+localization.kr.lua
+localization.tw.lua
+localization.cn.lua
+
+AQ20Trash.lua
+Kurinnaxx.lua
+Rajaxx.lua
+Moam.lua
+Buru.lua
+Ayamiss.lua
+Ossirian.lua

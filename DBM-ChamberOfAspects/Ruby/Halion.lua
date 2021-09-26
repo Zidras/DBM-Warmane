@@ -17,6 +17,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"UPDATE_WORLD_STATES",
 	"UNIT_HEALTH boss1"
 )
 
@@ -37,6 +38,7 @@ local specWarnFieryCombustion		= mod:NewSpecialWarningRun(74562, nil, nil, nil, 
 local yellFieryCombustion			= mod:NewYellMe(74562)
 local specWarnMeteorStrike			= mod:NewSpecialWarningMove(74648, nil, nil, nil, 1, 2)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(74769, nil, nil, nil, 3, 2)
+local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 1, 2)
 
 local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792, nil, nil, nil, 3)
 local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3)
@@ -56,6 +58,7 @@ mod:AddBoolOption("SetIconOnConsumption", true)
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 local phases = {}
+local previousCorporeality
 
 function mod:OnCombatStart(delay)--These may still need retuning too, log i had didn't have pull time though.
 	table.wipe(phases)
@@ -160,6 +163,41 @@ function mod:UNIT_HEALTH(uId)
 	elseif not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 40142 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.54 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
+	end
+end
+
+function mod:UPDATE_WORLD_STATES()
+	for i = 1, GetNumWorldStateUI() do
+		local _, state, text = GetWorldStateUIInfo(i)
+		if state == 1 and strfind(text, "%%") then
+			local corporeality = tonumber(strmatch(text, "%d+"))
+			if corporeality > 0 and previousCorporeality ~= corporeality then
+				specWarnCorporeality:Show(corporeality)
+				previousCorporeality = corporeality
+				if corporeality > 50 then
+					if self:IsTank() then
+						specWarnCorporeality:Play("defensive")
+					end
+				end
+				if corporeality < 40 then
+					if self:IsDps() then
+						specWarnCorporeality:Play("dpsstop")
+					end
+				elseif corporeality == 40 then
+					if self:IsDps() then
+						specWarnCorporeality:Play("dpsslow")
+					end
+				elseif corporeality == 60 then
+					if self:IsDps() then
+						specWarnCorporeality:Play("dpsmore")
+					end
+				elseif corporeality > 60 then
+					if self:IsDps() then
+						specWarnCorporeality:Play("dpshard")
+					end
+				end
+			end
+		end
 	end
 end
 
