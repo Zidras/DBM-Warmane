@@ -12,7 +12,7 @@
 ## SavedVariables: DBMColiseum_AllSavedVars
 ## SavedVariablesPerCharacter: DBMColiseum_SavedStats
 ## X-DBM-Mod: 1
-## X-DBM-Mod-Category: WotLK
+## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Name: Crusader's Coliseum
 ## X-DBM-Mod-Name-koKR: 십자군의 시험장
 ## X-DBM-Mod-Name-deDE: Kolosseum der Kreuzfahrer
@@ -43,7 +43,6 @@ localization.tw.lua
 localization.es.lua
 localization.cn.lua
 
-MapSizes.lua
 NorthrendBeasts.lua
 Jaraxxus.lua
 Champions.lua

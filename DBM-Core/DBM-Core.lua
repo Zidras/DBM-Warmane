@@ -171,6 +171,7 @@ DBM.DefaultOptions = {
 	ShowGuildMessages = true,
 	ShowGuildMessagesPlus = false,
 	AutoRespond = true,
+	EnableWBSharing = true,
 	WhisperStats = false,
 	DisableStatusWhisper = false,
 	DisableGuildStatus = false,
@@ -474,7 +475,7 @@ local AddMsg
 local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
-local handleSync
+--local handleSync
 local targetMonitor = {}
 local wowVersion = select(4, GetBuildInfo())
 
@@ -592,7 +593,31 @@ local function sendSync(prefix, msg)
 	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 4)
 end
 
---
+--Reworked BNet friends to ingame friends since BNet doesn't exist on private servers
+--Sync Object specifically for out in the world sync messages that have different rules than standard syncs
+local function SendWorldSync(self, prefix, msg, noBNet)
+	DBM:Debug("SendWorldSync running for "..prefix)
+	if IsInRaid() then
+		SendAddonMessage("D4", prefix.."\t"..msg, "RAID")
+	elseif IsInGroup(1) then
+		SendAddonMessage("D4", prefix.."\t"..msg, "PARTY")
+	end
+	if IsInGuild() then
+		SendAddonMessage("D4", prefix.."\t"..msg, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
+	end
+	if self.Options.EnableWBSharing and not noBNet then
+		local _, numFriendsOnline = GetNumFriends()
+		--local connectedServers = GetAutoCompleteRealms()
+		for i = 1, numFriendsOnline do
+			local sameRealm = true
+			local name, _, _, _, isOnline = GetFriendInfo(i)
+			if name and isOnline then
+				SendAddonMessage(name, "D4", prefix.."\t"..msg)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
+			end
+		end
+	end
+end
+
 local function strFromTime(time)
 	if type(time) ~= "number" then time = 0 end
 	time = floor(time)
@@ -716,7 +741,7 @@ do
 		return isUnitEvent
 	end
 
-    local function handleEvent(self, event, ...)
+	local function handleEvent(self, event, ...)
 		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
 		local isUnitEvent = IsUnitEvent(event, "UNIT_DIED", "UNIT_DESTROYED")
 
@@ -734,24 +759,277 @@ do
 		end
 	end
 
+
+	local registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
+	do
+		local frames = {} -- frames that are being used for unit events, one frame per unit id (this could be optimized, as it currently creates a new frame even for a different event, but that's not worth the effort as 90% of all calls are just boss1 anyways)
+
+		function unregisterUnitEvent(mod, event, ...)
+			for i = 1, select("#", ...) do
+				local uId = select(i, ...)
+				if not uId then break end
+				local frame = frames[uId]
+				local refs = (registeredUnitEventIds[event .. uId] or 1) - 1
+				registeredUnitEventIds[event .. uId] = refs
+				if refs <= 0 then
+					registeredUnitEventIds[event .. uId] = nil
+					if frame then
+						frame:UnregisterEvent(event)
+					end
+				end
+				if mod.registeredUnitEvents and mod.registeredUnitEvents[event .. uId] then
+					mod.registeredUnitEvents[event .. uId] = nil
+				end
+			end
+			for i = #registeredEvents[event], 1, -1 do
+				if registeredEvents[event][i] == mod then
+					tremove(registeredEvents[event], i)
+				end
+			end
+			if #registeredEvents[event] == 0 then
+				registeredEvents[event] = nil
+			end
+		end
+
+		function registerSpellId(event, spellId)
+			if type(spellId) == "string" then--Something is screwed up, like SPELL_AURA_APPLIED DOSE
+				DBM:AddMsg("DBM RegisterEvents Error: "..spellId.." is not a number!")
+				return
+			end
+			if spellId and not DBM:GetSpellInfo(spellId) then
+				DBM:AddMsg("DBM RegisterEvents Error: "..spellId.." spell id does not exist!")
+				return
+			end
+			if not registeredSpellIds[event] then
+				registeredSpellIds[event] = {}
+			end
+			registeredSpellIds[event][spellId] = (registeredSpellIds[event][spellId] or 0) + 1
+		end
+
+		function unregisterSpellId(event, spellId)
+			if not registeredSpellIds[event] then return end
+			if spellId and not DBM:GetSpellInfo(spellId) then
+				DBM:AddMsg("DBM unregisterSpellId Error: "..spellId.." spell id does not exist!")
+				return
+			end
+			local refs = (registeredSpellIds[event][spellId] or 1) - 1
+			registeredSpellIds[event][spellId] = refs
+			if refs <= 0 then
+				registeredSpellIds[event][spellId] = nil
+			end
+		end
+
+		--There are 2 tables. unfilteredCLEUEvents and registeredSpellIds table.
+		--unfilteredCLEUEvents saves UNFILTERED cleu event count. this is count table to prevent bad unregister.
+		--registeredSpellIds tables filtered table. this saves event and spell ids. works smiliar with unfilteredCLEUEvents table.
+		function registerCLEUEvent(mod, event)
+			local argTable = {strsplit(" ", event)}
+			-- filtered cleu event. save information in registeredSpellIds table.
+			if #argTable > 1 then
+				event = argTable[1]
+				for i = 2, #argTable do
+					registerSpellId(event, tonumber(argTable[i]))
+				end
+			-- no args. works as unfiltered. save information in unfilteredCLEUEvents table.
+			else
+				unfilteredCLEUEvents[event] = (unfilteredCLEUEvents[event] or 0) + 1
+			end
+			registeredEvents[event] = registeredEvents[event] or {}
+			tinsert(registeredEvents[event], mod)
+		end
+
+		function unregisterCLEUEvent(mod, event)
+			local argTable = {strsplit(" ", event)}
+			local eventCleared = false
+			-- filtered cleu event. save information in registeredSpellIds table.
+			if #argTable > 1 then
+				event = argTable[1]
+				for i = 2, #argTable do
+					unregisterSpellId(event, tonumber(argTable[i]))
+				end
+				local remainingSpellIdCount = 0
+				if registeredSpellIds[event] then
+					for _, _ in pairs(registeredSpellIds[event]) do
+						remainingSpellIdCount = remainingSpellIdCount + 1
+					end
+				end
+				if remainingSpellIdCount == 0 then
+					registeredSpellIds[event] = nil
+					-- if unfilteredCLEUEvents and registeredSpellIds do not exists, clear registeredEvents.
+					if not unfilteredCLEUEvents[event] then
+						eventCleared = true
+					end
+				end
+			-- no args. works as unfiltered. save information in unfilteredCLEUEvents table.
+			else
+				local refs = (unfilteredCLEUEvents[event] or 1) - 1
+				unfilteredCLEUEvents[event] = refs
+				if refs <= 0 then
+					unfilteredCLEUEvents[event] = nil
+					-- if unfilteredCLEUEvents and registeredSpellIds do not exists, clear registeredEvents.
+					if not registeredSpellIds[event] then
+						eventCleared = true
+					end
+				end
+			end
+			for i = #registeredEvents[event], 1, -1 do
+				if registeredEvents[event][i] == mod then
+					registeredEvents[event][i] = {}
+					break
+				end
+			end
+			if eventCleared then
+				registeredEvents[event] = nil
+			end
+		end
+	end
+
+	-- UNIT_* events are special: they can take 'parameters' like this: "UNIT_HEALTH boss1 boss2" which only trigger the event for the given unit ids
 	function DBM:RegisterEvents(...)
 		for i = 1, select("#", ...) do
 			local event = select(i, ...)
+			-- spell events with special care.
+			if event:sub(0, 6) == "SPELL_" and event ~= "SPELL_NAME_UPDATE" or event:sub(0, 6) == "RANGE_" or event:sub(0, 6) == "SWING_" or event == "UNIT_DIED" or event == "UNIT_DESTROYED" or event == "PARTY_KILL" then
+				registerCLEUEvent(self, event)
+			else
+				if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+					local args = {strsplit(" ", event)}
+					event = tremove(args, 1)
+					-- Register valid units for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1")
+					-- separate units with spaces up to 9 units. Otherwise skip unit filter for that event
+					if next(args) then
+						self.registeredUnitEvents = self.registeredUnitEvents or {}
+						self.registeredUnitEvents[event] = args
+					end
+				end
+				registeredEvents[event] = registeredEvents[event] or {}
+				tinsert(registeredEvents[event], self)
+				mainFrame:RegisterEvent(event)
+			end
+		end
+	end
 
-			if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
-				local args = {strsplit(" ", event)}
-				event = tremove(args, 1)
-				-- Register valid units for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1")
-				-- separate units with spaces up to 9 units. Otherwise skip unit filter for that event
-				if next(args) then
-					self.registeredUnitEvents = self.registeredUnitEvents or {}
-					self.registeredUnitEvents[event] = args
+	local function unregisterUEvent(mod, event)
+		if event:sub(0, 5) == "UNIT_" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+			local eventName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", event)
+			if eventName:sub(eventName:len() - 10) == "_UNFILTERED" then
+				mainFrame:UnregisterEvent(eventName:sub(0, -12))
+			else
+				unregisterUnitEvent(mod, eventName, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+			end
+		end
+	end
+
+	local function findRealEvent(t, val)
+		for _, v in ipairs(t) do
+			local event = strsplit(" ", v)
+			if event == val then
+				return v
+			end
+		end
+	end
+
+	function DBM:UnregisterInCombatEvents(srmOnly, srmIncluded)
+		for event, mods in pairs(registeredEvents) do
+			if srmOnly then
+				local i = 1
+				while mods[i] do
+					if mods[i] == self and event == "SPELL_AURA_REMOVED" then
+						local findEvent = findRealEvent(self.inCombatOnlyEvents, "SPELL_AURA_REMOVED")
+						if findEvent then
+							unregisterCLEUEvent(self, findEvent)
+							break
+						end
+					end
+					i = i +1
+				end
+			elseif (event:sub(0, 6) == "SPELL_"and event ~= "SPELL_NAME_UPDATE" or event:sub(0, 6) == "RANGE_") then
+				local i = 1
+				while mods[i] do
+					if mods[i] == self and (srmIncluded or event ~= "SPELL_AURA_REMOVED") then
+						local findEvent = findRealEvent(self.inCombatOnlyEvents, event)
+						if findEvent then
+							unregisterCLEUEvent(self, findEvent)
+							break
+						end
+					end
+					i = i +1
+				end
+			else
+				local match = false
+				for i = #mods, 1, -1 do
+					if mods[i] == self and checkEntry(self.inCombatOnlyEvents, event)  then
+						tremove(mods, i)
+						match = true
+					end
+				end
+				if #mods == 0 or (match and event:sub(0, 5) == "UNIT_" and event:sub(0, -10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED") then -- unit events have their own reference count
+					unregisterUEvent(self, event)
+				end
+				if #mods == 0 then
+					registeredEvents[event] = nil
 				end
 			end
+		end
+	end
 
-			registeredEvents[event] = registeredEvents[event] or {}
-			tinsert(registeredEvents[event], self)
-			mainFrame:RegisterEvent(event)
+	function DBM:RegisterShortTermEvents(...)
+		local _shortTermRegisterEvents = {...}
+		for k, v in pairs(_shortTermRegisterEvents) do
+			if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
+				-- legacy event, oh noes
+				_shortTermRegisterEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
+			end
+		end
+		self.shortTermEventsRegistered = 1
+		self:RegisterEvents(unpack(_shortTermRegisterEvents))
+		-- Fix so we can register multiple short term events. Use at your own risk, as unsucribing will cause
+		-- all short term events to unregister.
+		if not self.shortTermRegisterEvents then
+			self.shortTermRegisterEvents = {}
+		end
+		for k, v in pairs(_shortTermRegisterEvents) do
+			self.shortTermRegisterEvents[k] = v
+		end
+		-- End fix
+	end
+
+	function DBM:UnregisterShortTermEvents()
+		if self.shortTermRegisterEvents then
+			for event, mods in pairs(registeredEvents) do
+				if event:sub(0, 6) == "SPELL_" or event:sub(0, 6) == "RANGE_" then
+					local i = 1
+					while mods[i] do
+						if mods[i] == self then
+							local findEvent = findRealEvent(self.shortTermRegisterEvents, event)
+							if findEvent then
+								unregisterCLEUEvent(self, findEvent)
+								break
+							end
+						end
+						i = i +1
+					end
+				else
+					local match = false
+					for i = #mods, 1, -1 do
+						if mods[i] == self then
+							local findEvent = findRealEvent(self.shortTermRegisterEvents, event)
+							if findEvent then
+								tremove(mods, i)
+								match = true
+							end
+						end
+					end
+					if #mods == 0 or (match and event:sub(0, 5) == "UNIT_" and event:sub(0, -10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED") then
+						unregisterUEvent(self, event)
+					end
+					if #mods == 0 then
+						registeredEvents[event] = nil
+					end
+				end
+			end
+			self.shortTermEventsRegistered = nil
+			self.shortTermRegisterEvents = nil
 		end
 	end
 
@@ -763,6 +1041,11 @@ do
 
 	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
 		if not registeredEvents[event] then return end
+		local eventSub6 = event:sub(0, 6)
+		if (eventSub6 == "SPELL_" or eventSub6 == "RANGE_") --[[and not unfilteredCLEUEvents[event]--]] and registeredSpellIds[event] then -- why is unfilteredCLEUEvents event count even needed here? Just broke the function altogether
+		args.spellId = ...
+			if not registeredSpellIds[event][args.spellId] then return end
+		end
 		twipe(args)
 		args.timestamp = timestamp
 		args.event = event
@@ -993,10 +1276,11 @@ do
 							sort			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or math.huge) or math.huge,
 							type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
 							category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
+							statTypes		= GetAddOnMetadata(i, "X-DBM-StatTypes") or "",
 							name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or "",
-							zone			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZone") or "")},
-							zoneId			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZoneID") or "")},
-							subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
+							zone			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZone") or L.UNKNOWN)},
+							zoneId			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")},
+							subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
 							oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1,
 							hasHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Heroic-Mode") or 1) == 1,
 							noHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Heroic") or 0) == 1,
@@ -1021,6 +1305,12 @@ do
 						if self.AddOns[#self.AddOns].subTabs then
 							for k, v in ipairs(self.AddOns[#self.AddOns].subTabs) do
 								self.AddOns[#self.AddOns].subTabs[k] = (self.AddOns[#self.AddOns].subTabs[k]):trim()
+							end
+						end
+						if GetAddOnMetadata(i, "X-DBM-Mod-LoadCID") then
+							local idTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadCID"))}
+							for j = 1, #idTable do
+								loadcIds[tonumber(idTable[j]) or ""] = addonName
 							end
 						end
 					end
@@ -3072,7 +3362,7 @@ end
 do
 	local function SecondaryLoadCheck(self)
 		local zoneName = GetRealZoneText()
-		local mapID = GetCurrentMapAreaID()
+		local mapID = GetCurrentMapAreaID() > 4 and GetCurrentMapAreaID() or GetCurrentMapContinent() -- workaround to support world bosses mod loading
 		local _, instanceType, difficulty, difficultyName, instanceGroupSize = GetInstanceInfo()
 		local currentDifficulty, currentDifficultyText = self:GetCurrentInstanceDifficulty()
 		if currentDifficulty and currentDifficulty ~= savedDifficulty then -- added currentDifficulty nil check to prevent this from overriding savedDifficulty when outside instance
@@ -3093,13 +3383,13 @@ do
 		if instanceType == "none" then
 			LastInstanceType = "none"
 			if not targetEventsRegistered then
---				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
+				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
 				targetEventsRegistered = true
 			end
 		else
 			LastInstanceType = instanceType
 			if targetEventsRegistered then
---				self:UnregisterShortTermEvents()
+				self:UnregisterShortTermEvents()
 				targetEventsRegistered = false
 			end
 			if savedDifficulty == "worldboss" then
@@ -3162,6 +3452,12 @@ function DBM:LoadMod(mod, force)
 		self:Debug("LoadMod failed because mod table not valid")
 		return false
 	end
+
+	--Block loading world boss mods by zoneID
+	if mod.isWorldBoss and not IsInInstance() and not force then
+		return
+	end
+
 	local _, _, _, enabled = GetAddOnInfo(mod.modId)
 	if not enabled then
 		EnableAddOn(mod.modId)
@@ -3228,7 +3524,65 @@ do
 	end
 end
 
+do
+	local function loadModByUnit(uId)
+		if not uId then
+			uId = "mouseover"
+		else
+			uId = uId.."target"
+		end
+		if IsInInstance() or not UnitIsFriend("player", uId) and UnitIsDead("player") or UnitIsDead(uId) then return end--If you're in an instance no reason to waste cpu. If THE BOSS dead, no reason to load a mod for it. To prevent rare lua error, needed to filter on player dead.
+		local guid = UnitGUID(uId)
+		if guid and DBM:IsCreatureGUID(guid) then
+			local cId = DBM:GetCIDFromGUID(guid)
+			for bosscId, addon in pairs(loadcIds) do
+				local _, _, _, enabled = GetAddOnInfo(addon)
+				if cId and bosscId and cId == bosscId and not IsAddOnLoaded(addon) and enabled ~= 0 then
+					for _, v in ipairs(DBM.AddOns) do
+						if v.modId == addon then
+							DBM:LoadMod(v, true)
+							break
+						end
+					end
+				end
+			end
+		end
+	end
 
+	--Loading routeens hacks for world bosses based on target or mouseover.
+	function DBM:UPDATE_MOUSEOVER_UNIT()
+		loadModByUnit()
+	end
+
+	function DBM:UNIT_TARGET(uId)
+		if targetEventsRegistered then--Allow outdoor mod loading
+			loadModByUnit(uId)
+		end
+		--Debug options for seeing where BossUnitTargetScanner can be used.
+		local transcriptor = _G["Transcriptor"]
+		if (self.Options.DebugLevel > 2 or (transcriptor and transcriptor:IsLogging())) and uId:find("boss") then
+			local targetName = UnitName(uId.."target") or "nil"
+			self:Debug(uId.." changed targets to "..targetName)
+		end
+		--Active BossUnitTargetScanner
+		if targetMonitor[uId] and UnitExists(uId.."target") and UnitPlayerOrPetInRaid(uId.."target") then
+			self:Debug("targetMonitor for this unit exists, target exists", 2)
+			local modId, returnFunc = targetMonitor[uId].modid, targetMonitor[uId].returnFunc
+			self:Debug("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
+			if not targetMonitor[uId].allowTank then
+				local tanking, status = UnitDetailedThreatSituation(uId, uId.."target")--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
+				if tanking or (status == 3) then
+					self:Debug("targetMonitor ending for unit without 'allowTank', ignoring target", 2)
+					return
+				end
+			end
+			local mod = self:GetModByName(modId)
+			self:Debug("targetMonitor success for this unit, a valid target for returnFunc", 2)
+			mod[returnFunc](mod, self:GetUnitFullName(uId.."target"), uId.."target", uId)--Return results to warning function with all variables.
+			targetMonitor[uId] = nil
+		end
+	end
+end
 
 -----------------------------
 --  Handle Incoming Syncs  --
@@ -3243,6 +3597,7 @@ do
 
 	local syncHandlers = {}
 	local whisperSyncHandlers = {}
+	local guildSyncHandlers = {}
 
 	syncHandlers["DBMv4-Mod"] = function(msg, channel, sender)
 		local mod, revision, event, arg = strsplit("\t", msg)
@@ -4027,6 +4382,52 @@ do
 		end
 	end
 
+	guildSyncHandlers["WBE"] = function(sender, modId, realm, health, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end--We recently got a sync about this boss on this realm, so do nothing.
+		lastBossEngage[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			--modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), sender))
+		end
+	end
+
+	guildSyncHandlers["WBD"] = function(sender, modId, realm, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
+		lastBossDefeat[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, sender))
+		end
+	end
+
+	whisperSyncHandlers["WBE"] = function(sender, modId, realm, health, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
+		lastBossEngage[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			local toonName = sender or L.UNKNOWN
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), toonName))
+		end
+	end
+
+	whisperSyncHandlers["WBD"] = function(sender, modId, realm, ver, name)
+		if not ver or not (ver == "8") then return end--Ignore old versions
+		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
+		lastBossDefeat[modId..realm] = GetTime()
+		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
+			local toonName = sender or L.UNKNOWN
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = name or L.UNKNOWN
+			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, toonName))
+		end
+	end
+
 	whisperSyncHandlers["DBMv4-RT"] = function(msg, channel, sender)
 		if UnitInBattleground("player") then
 			DBM:SendPVPTimers(sender)
@@ -4070,6 +4471,9 @@ do
 		elseif msg and channel == "WHISPER" and self:GetRaidUnitId(sender) ~= nil then
 			local handler = whisperSyncHandlers[prefix]
 			if handler then handler(msg, channel, sender) end
+		elseif msg and channel == "GUILD" then
+			local handler = guildSyncHandlers[prefix]
+			if handler then handler(channel, sender, strsplit("\t", msg)) end
 		end
 		if msg:find("spell:") and (DBM.Options.DebugLevel > 2) then
 			local spellId = string.match(msg, "spell:(%d+)") or "UNKNOWN"
@@ -4798,6 +5202,11 @@ do
 					mod:OnTimerRecovery()
 				end
 			end
+			if savedDifficulty == "worldboss" and mod.WBEsync then
+				if lastBossEngage[modId..playerRealm] and (GetTime() - lastBossEngage[modId..playerRealm] < 30) then return end--Someone else synced in last 10 seconds so don't send out another sync to avoid needless sync spam.
+				lastBossEngage[modId..playerRealm] = GetTime()--Update last engage time, that way we ignore our own sync
+				SendWorldSync(self, "WBE", modId.."\t"..playerRealm.."\t"..startHp.."\t8\t"..name)
+			end
 		end
 		if DBM.Options.FixCLEUOnCombatStart then
 			CombatLogClearEntries()
@@ -4807,6 +5216,19 @@ do
 	function DBM:EndCombat(mod, wipe, srmIncluded)
 		if removeEntry(inCombat, mod) then
 			self.currentModId = nil
+			if mod.inCombatOnlyEvents and mod.inCombatOnlyEventsRegistered then
+				if srmIncluded then-- unregister all events including SPELL_AURA_REMOVED events
+					mod:UnregisterInCombatEvents(false, true)
+				else-- unregister all events except for SPELL_AURA_REMOVED events (might still be needed to remove icons etc...)
+					mod:UnregisterInCombatEvents()
+					self:Schedule(2, mod.UnregisterInCombatEvents, mod, true) -- 2 seconds should be enough for all auras to fade
+				end
+				self:Schedule(3, mod.Stop, mod) -- Remove accident started timers.
+				mod.inCombatOnlyEventsRegistered = nil
+				if mod.OnCombatEnd then
+					self:Schedule(3, mod.OnCombatEnd, mod, wipe, true) -- Remove accidentally shown frames
+				end
+			end
 			if mod.updateInterval then
 				mod:UnregisterOnUpdateHandler()
 			end
@@ -4931,6 +5353,11 @@ do
 					Skada:Report("RAID", "preset", nil, nil, 25)
 				end
 				fireEvent("DBM_Kill", mod)
+				if savedDifficulty == "worldboss" and mod.WBEsync then
+					if lastBossDefeat[modId..playerRealm] and (GetTime() - lastBossDefeat[modId..playerRealm] < 30) then return end--Someone else synced in last 10 seconds so don't send out another sync to avoid needless sync spam.
+					lastBossDefeat[modId..playerRealm] = GetTime()--Update last defeat time before we send it, so we don't handle our own sync
+					SendWorldSync(self, "WBD", modId.."\t"..playerRealm.."\t8\t"..name)
+				end
 				if self.Options.EventSoundVictory2 and self.Options.EventSoundVictory2 ~= "None" and self.Options.EventSoundVictory2 ~= "" then
 					if self.Options.EventSoundVictory2 == "Random" then
 						local rnd = random(3, #DBM.Victory)
@@ -5078,7 +5505,9 @@ end
 
 function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
-	if instanceType == "raid" then
+	if instanceType == "none" then
+		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", difficulty, maxPlayers
+	elseif instanceType == "raid" then
 		if isDynamicInstance then -- Dynamic raids (ICC, RS)
 			if difficulty == 1 then -- 10 players
 				return dynamicDifficulty == 0 and "normal10" or dynamicDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
@@ -5109,6 +5538,10 @@ function DBM:GetCurrentInstanceDifficulty()
 			return "heroic5", difficultyName.." - ", difficulty, maxPlayers
 		end
 	end
+end
+
+function DBM:GetCurrentArea()
+	return LastInstanceMapID
 end
 
 function DBM:GetGroupSize()
@@ -5919,7 +6352,10 @@ end
 --  General Methods  --
 -----------------------
 bossModPrototype.RegisterEvents = DBM.RegisterEvents
+bossModPrototype.UnregisterInCombatEvents = DBM.UnregisterInCombatEvents
 bossModPrototype.AddMsg = DBM.AddMsg
+bossModPrototype.RegisterShortTermEvents = DBM.RegisterShortTermEvents
+bossModPrototype.UnregisterShortTermEvents = DBM.UnregisterShortTermEvents
 
 function bossModPrototype:SetZone(...)
 	if select("#", ...) == 0 then
@@ -6371,7 +6807,7 @@ function bossModPrototype:RegisterEventsInCombat(...)
 	for k, v in pairs(self.inCombatOnlyEvents) do
 		if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
 			-- legacy event, oh noes
-			self.inCombatOnlyEvents[k] = v .. " boss1 boss2 boss3 boss4 target focus"
+			self.inCombatOnlyEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
 		end
 	end
 end
@@ -6408,9 +6844,11 @@ function bossModPrototype:IsDifficulty(...)
 	return false
 end
 
-function bossModPrototype:IsTrivial(level)
-	if UnitLevel("player") >= level then
-		return true
+function bossModPrototype:IsTrivial(level) -- needs to be reworked
+	if level then
+		if playerLevel >= level then
+			return true
+		end
 	end
 	return false
 end
@@ -6578,7 +7016,7 @@ function bossModPrototype:IsRanged() --Including healer
 end
 
 function bossModPrototype:IsPhysical()
-	return self:IsMelee() or playerClass == "HUNTER"
+	return bossModPrototype:IsMelee() or playerClass == "HUNTER"
 end
 
 function bossModPrototype:IsRangedDps()
@@ -9704,6 +10142,16 @@ function bossModPrototype:AddReadyCheckOption(questId, default, maxLevel)
 	self:SetOptionCategory("ReadyCheck", "misc")
 end
 
+function bossModPrototype:AddSpeedClearOption(name, default)
+	self.DefaultOptions["SpeedClearTimer"] = (default == nil) or default
+	if default and type(default) == "string" then
+		default = self:GetRoleFlagValue(default)
+	end
+	self.Options["SpeedClearTimer"] = (default == nil) or default
+	self:SetOptionCategory("SpeedClearTimer", "timer")
+	self.localization.options["SpeedClearTimer"] = L.AUTO_SPEEDCLEAR_OPTION_TEXT:format(name)
+end
+
 function bossModPrototype:AddSliderOption(name, minValue, maxValue, valueStep, default, cat, func)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = {type = "slider", value = default or 0}
@@ -9841,6 +10289,9 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	if self.multiMobPullDetection then
 		info.multiMobPullDetection = self.multiMobPullDetection
 	end
+	if self.WBEsync then
+		info.WBEsync = self.WBEsync
+	end
 	local addedKillMobs = false
 	for i = 1, select("#", ...) do
 		local v = select(i, ...)
@@ -9888,6 +10339,13 @@ function bossModPrototype:SetDetectCombatInVehicle(flag)
 		return
 	end
 	self.combatInfo.noCombatInVehicle = not flag
+end
+
+function bossModPrototype:EnableWBEngageSync()
+	self.WBEsync = true
+	if self.combatInfo then
+		self.combatInfo.WBEsync = true
+	end
 end
 
 function bossModPrototype:IsInCombat()
