@@ -122,15 +122,15 @@ local function warnBeaconTargets(self)
 			table.insert(beaconTargets, 1, "\n")
 			table.insert(beaconTargets, 4, "\n")
 			table.insert(beaconTargets, 6, "\n")
-			warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+			warnFrostBeacon:Show(table.concat(beaconTargets, "<   >"))
 		elseif self:IsDifficulty("heroic25") then
 			table.insert(beaconTargets, 1, "\n")
 			table.insert(beaconTargets, 4, "\n")
 			table.insert(beaconTargets, 7, "\n")
-			warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+			warnFrostBeacon:Show(table.concat(beaconTargets, "<   >"))
 		elseif self:IsDifficulty("normal10", "heroic10") then
 			table.insert(beaconTargets, 1, "\n")
-			warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+			warnFrostBeacon:Show(table.concat(beaconTargets, "<   >"))
 		end
 	elseif self.vb.phase == 2 then
 		table.insert(beaconTargets, 2, p2_beacon_num-1)
