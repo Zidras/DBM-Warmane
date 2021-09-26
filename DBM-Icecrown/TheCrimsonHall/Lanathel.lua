@@ -96,7 +96,8 @@ end
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
-	elseif self.Options.InfoFrame then
+	end
+		if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
 end
