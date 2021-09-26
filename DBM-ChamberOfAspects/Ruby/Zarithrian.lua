@@ -29,12 +29,6 @@ local timerFearCD				= mod:NewCDTimer(30, 74384, nil, nil, nil, 2)
 mod:AddBoolOption("CancelBuff")
 local CleaveArmorTargets = {}
 
-function mod:RemoveBuffs(destName)
-    CancelUnitBuff("player", (GetSpellInfo(10278)))        -- Hand of Protection
-    CancelUnitBuff("player", (GetSpellInfo(642)))        -- Divine Shield
-    CleaveArmorTargets[destName] = nil
-end
-
 function mod:OnCombatStart(delay)
     timerFearCD:Start(14-delay)
     warnFearSoon:ScheduleVoice(11, "fearsoon") -- 3 secs prewarning
@@ -43,12 +37,6 @@ end
 
 function mod:OnCombatEnd()
     table.wipe(CleaveArmorTargets)
-end
-
-function mod:SPELL_AURA_REMOVED(args)
-    if args.spellId == 74367 and self.Options.CancelBuff and CleaveArmorTargets[args.destName] > 0 and self:IsInCombat() then
-        self:ScheduleMethod(0.01, "RemoveBuffs", args.destName)
-    end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -61,14 +49,24 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
     if args.spellId == 74367 then
-        local amount = arg.amount or 1
-        CleaveArmorTargets[args.destName] = amount
+		if not tContains(CleaveArmorTargets, args.destName) then
+			CleaveArmorTargets[#CleaveArmorTargets+1] = args.destName
+        end
+		local amount = args.amount or 1
         timerCleaveArmor:Start(args.destName)
         if args:IsPlayer() and amount >= 2 then
             specWarnCleaveArmor:Show(amount)
             specWarnCleaveArmor:Play("stackhigh")
         else
             warnCleaveArmor:Show(args.destName, amount)
+        end
+    elseif args:IsSpellID(10278, 642) and self.Options.CancelBuff and self:IsInCombat() and args:IsPlayer() and #CleaveArmorTargets > 0 then
+		for i = 1, #CleaveArmorTargets do
+			local targetName = CleaveArmorTargets[i]
+			if targetName == DBM:GetMyPlayerInfo() then
+				CancelUnitBuff("player", (GetSpellInfo(10278)))        -- Hand of Protection
+				CancelUnitBuff("player", (GetSpellInfo(642)))        -- Divine Shield
+			end
         end
     end
 end
