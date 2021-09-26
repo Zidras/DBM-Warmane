@@ -138,6 +138,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "Verkünde neue Adds",
 	TimerAdds		= "Zeige Zeit bis neue Adds erscheinen",
+	CancelBuff		= "Entferne $spell:10278 und $spell:642, wenn verwendet, um $spell:74367 zu entfernen",
 	AddsArrive		= "Timer für die Ankunft der Adds anzeigen"
 })
 

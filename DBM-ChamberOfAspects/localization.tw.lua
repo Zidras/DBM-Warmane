@@ -137,6 +137,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "提示新的小怪",
 	TimerAdds		= "為新的小怪顯示計時器",
+	CancelBuff		= "刪除 $spell:10278 和 $spell:642 如果用於刪除 $spell:74367",
 	AddsArrive		= "Show timer for adds arrival" --Needs Translating
 })
 

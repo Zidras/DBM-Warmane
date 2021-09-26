@@ -137,6 +137,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "지원 병력 알림 보기",
 	TimerAdds		= "다음 지원 병력 바 보기",
+	CancelBuff		= "$spell:74367 을 제거하는 데 사용되는 경우 $spell:10278 및 $spell:642 를 제거합니다.",
 	AddsArrive		= "Show timer for adds arrival", --Needs Translating
 })
 

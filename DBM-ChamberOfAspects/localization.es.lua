@@ -140,6 +140,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnAdds		= "Anunciar cuando aparezcan Ónices clamallamas",
 	TimerAdds		= "Mostrar temporizador para los siguientes Ónices clamallamas",
+	CancelBuff		= "Eliminar $spell:10278 y $spell:642 si se usa para eliminar $spell:74367",
 	AddsArrive		= "Mostrar temporizador para a llegada de adds", --Needs Translating
 })
 
