@@ -1,0 +1,48 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classic)|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classic)|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Clásico)|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Clásico)|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classique)|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Азерот (классический)|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0아제로스 (클래식)|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0艾澤拉斯 (經典)|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领 (经典)|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMAzeroth_AllSavedVars
+## SavedVariablesPerCharacter: DBMAzeroth_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: Classic
+## X-DBM-Mod-World-Boss: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Name: Azeroth (Classic)
+## X-DBM-Mod-Name-deDE: Azeroth (Classic)
+## X-DBM-Mod-Name-esES: Azeroth (Clásico)
+## X-DBM-Mod-Name-esMX: Azeroth (Clásico)
+## X-DBM-Mod-Name-frFR: Azeroth (Classique)
+## X-DBM-Mod-Name-ptBR: Azeroth (Clássico)
+## X-DBM-Mod-Name-ruRU: Азерот (классический)
+## X-DBM-Mod-Name-koKR: 아제로스 (클래식)
+## X-DBM-Mod-Name-zhTW: 艾澤拉斯 (經典)
+## X-DBM-Mod-Name-zhCN: 世界首领 (经典)
+## X-DBM-Mod-Sort: 1106
+## X-DBM-Mod-MapID: 182,35,44,27,122
+## X-DBM-Mod-LoadCID: 14889,14888,14887,14890,6109
+
+localization.en.lua
+localization.de.lua
+localization.fr.lua
+localization.es.lua
+localization.mx.lua
+localization.ru.lua
+localization.kr.lua
+localization.tw.lua
+localization.cn.lua
+
+Azuregos.lua
+Taerar.lua
+Ysondre.lua
+Lethon.lua
+Emeriss.lua

@@ -3958,23 +3958,23 @@ do
 		end
 	end
 
-	local Categories = {}
+	local category = {}
 	local subTabId = 0
-	function DBM_GUI:UpdateModList()
-		for z, addon in ipairs(DBM.AddOns) do
-			if not Categories[addon.category] then
-				-- Create a Panel for "Wrath of the Lich King" "Burning Crusade" ...
-				Categories[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_"..addon.category:upper()] or L.TabCategory_Other, nil, (addon.category:upper()=="WOTLK"))
+	local expansions = {
+		"CLASSIC", "BC", "WOTLK"
+	}
 
-				if L["TabCategory_"..addon.category:upper()] then
-					local ptext = Categories[addon.category]:CreateText(L["TabCategory_"..addon.category:upper()])
-					ptext:SetPoint('TOPLEFT', Categories[addon.category].frame, "TOPLEFT", 10, -10)
-				end
+	function DBM_GUI:UpdateModList()
+		for _, addon in ipairs(DBM.AddOns) do
+			local cat = addon.category:upper()
+			if not category[cat] then
+				-- Create a Panel for "Wrath of the Lich King", "The Burning Crusade", "Classic" or "Other"
+				category[cat] = DBM_GUI:CreateNewPanel(_G["EXPANSION_NAME" .. (tIndexOf(expansions, cat) or 99) - 1] or L.TabCategory_OTHER, nil, cat == expansions[GetExpansionLevel() + 1])
 			end
 
 			if not addon.panel then
 				-- Create a Panel for "Naxxramas" "Eye of Eternity" ...
-				addon.panel = Categories[addon.category]:CreateNewPanel(addon.modId or "Error: No-modId", nil, false, nil, addon.name)
+				addon.panel = category[cat]:CreateNewPanel(addon.modId or "Error: No-modId", nil, false, nil, addon.name)
 
 				if not IsAddOnLoaded(addon.modId) then
 					local button = addon.panel:CreateButton(L.Button_LoadMod, 200, 30)
@@ -3984,7 +3984,7 @@ do
 					button.headline:SetPoint("CENTER", button, "CENTER", 0, 80)
 
 					button:SetScript("OnClick", LoadAddOn_Button)
-					button:SetPoint('CENTER', 0, -20)
+					button:SetPoint("CENTER", 0, -20)
 				else
 					CreateBossModTab(addon, addon.panel)
 				end

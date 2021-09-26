@@ -1,0 +1,248 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Dungeons (Classic)|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruppe-Classic|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mazmorras (Clásico)|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Calabozos (Clásico)|r
+## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Masmorras (Clássico)|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Donjons (Classique)|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Подземелье (классический)|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0던전 (클래식)|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-傳統|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0队伍首领(经典旧世)|r
+
+## Author: MysticalOS
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMPartyClassic_AllSavedVars
+## SavedVariablesPerCharacter: DBMPartyClassic_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: PARTY
+## X-DBM-Mod-Category: Classic
+## X-DBM-StatTypes: normal
+
+## X-DBM-Mod-SubCategoriesID: Blackfathom Deeps,Blackrock Depths,Lower Blackrock Spire,Upper Blackrock Spire,The Deadmines,Dire Maul,Gnomeregan,Maraudon,Ragefire Chasm,Razorfen Downs,Razorfen Kraul,Scarlet Monastery,Scholomance,Shadowfang Keep,Stormwind Stockade,Stratholme,Sunken Temple,Uldaman,Wailing Caverns,Zul'Farrak
+## X-DBM-Mod-SubCategoriesID-deDE: Tiefschwarze Grotte,Schwarzfelstiefen,Untere Schwarzfelsspitze,Obere Schwarzfelsspitze,Die Todesminen,Düsterbruch,Gnomeregan,Maraudon,Der Flammenschlund,Hügel der Klingenhauer,Kral der Klingenhauer,Das Scharlachrote Kloster,Scholomance,Burg Schattenfang,Verlies von Sturmwind,Stratholme,Versunkener Tempel,Uldaman,Die Höhlen des Wehklagens,	Zul'Farrak
+## X-DBM-Mod-SubCategoriesID-esES: Cavernas de Brazanegra,Profundidades de Roca Negra,Cumbre de Roca Negra Inferior,Cumbre de Roca Negra Superior,Las Minas de la Muerte,La Masacre,Gnomeregan,Maraudon,Sima Ígnea,Zahúrda Rajacieno,Horado Rajacieno,Monasterio Escarlata,Scholomance,Castillo de Colmillo Oscuro,Mazmorras de Ventormenta,Stratholme,Templo Sumergido,Uldaman,Cuevas de los Lamentos,Zul'Farrak
+## X-DBM-Mod-SubCategoriesID-esMX: Cavernas de Brazanegra,Profundidades de Roca Negra,Cumbre de Roca Negra inferior,Cumbre de Roca Negra superior,Las Minas de la Muerte,La Masacre,Gnomeregan,Maraudon,Sima Ígnea,Zahúrda Rajacieno,Horado Rajacieno,Monasterio Escarlata,Scholomance,Castillo de Colmillo Oscuro,Mazmorras de Ventormenta,Stratholme,Templo Sumergido,Uldaman,Cuevas de los Lamentos,Zul'Farrak
+## X-DBM-Mod-SubCategoriesID-frFR: Profondeurs de Brassenoire,Profondeurs de Rochenoire,Bas du pic Rochenoire,Sommet du pic Rochenoire,Les Mortemines,Hache-Tripes,Gnomeregan,Maraudon,Gouffre de Ragefeu,Souilles de Tranchebauge,Kraal de Tranchebauge,Monastère Écarlate,Scholomance,Donjon d’Ombrecroc,Prison de Hurlevent,Stratholme,Temple englouti,Uldaman,Cavernes des Lamentations,Zul’Farrak
+## X-DBM-Mod-SubCategoriesID-ruRU: Непроглядная Пучина,Глубины Черной горы,Нижняя часть пика Черной горы,Верхняя часть пика Черной горы,Мертвые копи,Забытый город,Гномреган,Мародон,Огненная Пропасть,Курганы Иглошкурых,Лабиринты Иглошкурых,Монастырь Алого ордена,Некроситет,Крепость Темного Клыка,Тюрьма Штормграда,Стратхольм,Затонувший храм,Ульдаман,Пещеры Стенаний,Зул'Фаррак
+## X-DBM-Mod-SubCategoriesID-koKR: 검은심연 나락,검은바위 나락,검은바위 첨탑 하층,검은바위 첨탑 상층,죽음의 폐광,혈투의 전장,놈리건,마라우돈,성난불길 협곡,가시덩굴 구릉,가시덩굴 우리,붉은십자군 수도원,스칼로맨스,그림자송곳니 성채,스톰윈드 지하감옥,스트라솔름,가라앉은 사원,울다만,통곡의 동굴,줄파락
+## X-DBM-Mod-SubCategoriesID-zhTW: 黑澗深淵,黑石深淵,黑石塔下層,黑石塔上層,死亡礦坑,厄運之槌,諾姆瑞根,瑪拉頓,怒焰裂谷,剃刀高地,剃刀沼澤,血色修道院,通靈學院,影牙城堡,暴風城監獄,斯坦索姆,沉沒的神廟,奧達曼,哀嚎洞穴,祖爾法拉克
+## X-DBM-Mod-SubCategoriesID-zhCN: 黑暗深渊,黑石深渊,黑石塔下层,黑石塔上层,死亡矿井,厄运之槌,诺莫瑞根,玛拉顿,怒焰裂谷,剃刀高地,剃刀沼泽,血色修道院,通灵学院,影牙城堡,暴风城监狱,斯坦索姆,沉没的神庙,奥达曼,哀嚎洞穴,祖尔法拉克
+
+## X-DBM-Mod-Name: Dungeons (Classic)
+## X-DBM-Mod-Name-deDE: Gruppe (Classic)
+## X-DBM-Mod-Name-esES: Mazmorras (Clásico)
+## X-DBM-Mod-Name-esMX: Calabozos (Clásico)
+## X-DBM-Mod-Name-ptBR: Masmorras (Clássico)
+## X-DBM-Mod-Name-frFR: Donjons (Classique)
+## X-DBM-Mod-Name-ruRU: Подземелье (классический)
+## X-DBM-Mod-Name-koKR: 던전 (클래식)
+## X-DBM-Mod-Name-zhTW: 隊伍首領 (傳統)
+## X-DBM-Mod-Name-zhCN: 队伍首领(经典旧世)
+## X-DBM-Mod-Sort: 1115
+## X-DBM-Mod-MapID: 689,705,722,757,700,692,751,681,761,762,763,764,765,691,766,688,693,750,687
+
+localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.mx.lua
+localization.fr.lua
+localization.ru.lua
+localization.kr.lua
+localization.tw.lua
+localization.cn.lua
+
+BlackfathomDeeps\GhamooRa.lua
+BlackfathomDeeps\LadySerevess.lua
+BlackfathomDeeps\Gelihast.lua
+BlackfathomDeeps\TwilightLordKelris.lua
+BlackfathomDeeps\OldSerrakis.lua
+BlackfathomDeeps\Akumai.lua
+
+BlackrockDepths\Gerstahn.lua
+BlackrockDepths\LordRoccor.lua
+BlackrockDepths\HoundmasterGrebmar.lua
+BlackrockDepths\RingofLaw.lua
+BlackrockDepths\PyromancerLoregrain.lua
+BlackrockDepths\LordIncendius.lua
+BlackrockDepths\WardenStilgiss.lua
+BlackrockDepths\FineousDarkvire.lua
+BlackrockDepths\BaelGar.lua
+BlackrockDepths\GeneralAngerforge.lua
+BlackrockDepths\GolemLordArgelmach.lua
+BlackrockDepths\HurleyBlackbreath.lua
+BlackrockDepths\Phalanx.lua
+BlackrockDepths\PluggerSpazzring.lua
+BlackrockDepths\AmbassadorFlamelash.lua
+BlackrockDepths\TheSeven.lua
+BlackrockDepths\Magmus.lua
+BlackrockDepths\EmperorDagranThaurissan.lua
+
+LowerBlackrockSpire\HighlordOmokk.lua
+LowerBlackrockSpire\ShadowHunterVoshgajin.lua
+LowerBlackrockSpire\WarMasterVoone.lua
+LowerBlackrockSpire\MotherSmolderweb.lua
+LowerBlackrockSpire\UrokDoomhowl.lua
+LowerBlackrockSpire\QuartermasterZigris.lua
+LowerBlackrockSpire\Halycon.lua
+LowerBlackrockSpire\Gizrul.lua
+LowerBlackrockSpire\OverlordWyrmthalak.lua
+
+UpperBlackrockSpire\PyroguardEmberseer.lua
+UpperBlackrockSpire\SolakarFlamewreath.lua
+UpperBlackrockSpire\GoralukAnvilcrack.lua
+UpperBlackrockSpire\JedRunewatcher.lua
+UpperBlackrockSpire\WarchiefRendBlackhand.lua
+UpperBlackrockSpire\TheBeast.lua
+UpperBlackrockSpire\GeneralDrakkisath.lua
+
+Deadmines\RhahkZor.lua
+Deadmines\MinerJohnson.lua
+Deadmines\SneedsShredder.lua
+Deadmines\Gilnid.lua
+Deadmines\MrSmite.lua
+Deadmines\CaptainGreenskin.lua
+Deadmines\EdwinVanCleef.lua
+Deadmines\Cookie.lua
+
+DireMaul\ZevrimThornhoof.lua
+DireMaul\Hydrospawn.lua
+DireMaul\Lethtendris.lua
+DireMaul\Alzzin.lua
+DireMaul\TendrisWarpwood.lua
+DireMaul\IllyannaRavensoak.lua
+DireMaul\MagisterKelendris.lua
+DireMaul\Immolthar.lua
+DireMaul\PrinceTortheldrin.lua
+DireMaul\GuardMoldar.lua
+DireMaul\StomperKreeg.lua
+DireMaul\GuardFengus.lua
+DireMaul\GuardSlipkik.lua
+DireMaul\CaptainKromcrush.lua
+DireMaul\ChoRush.lua
+DireMaul\KingGordok.lua
+
+Gnomeregan\Grubbis.lua
+Gnomeregan\ViscousFallout.lua
+Gnomeregan\Electrocutioner6000.lua
+Gnomeregan\CrowdPummeler.lua
+Gnomeregan\MekgineerThermaplugg.lua
+
+Maraudon\Noxxion.lua
+Maraudon\Razorlash.lua
+Maraudon\TinkererGizlock.lua
+Maraudon\LordVyletongue.lua
+Maraudon\CelebrastheCursed.lua
+Maraudon\Landslide.lua
+Maraudon\Rotgrip.lua
+Maraudon\PrincessTheradras.lua
+
+RagefireChasm\Oggleflint.lua
+RagefireChasm\Taragaman.lua
+RagefireChasm\Jergosh.lua
+RagefireChasm\Bazzalan.lua
+
+RazorfenDowns\Tutenkash.lua
+RazorfenDowns\MordreshFireEye.lua
+RazorfenDowns\Glutton.lua
+RazorfenDowns\Ragglesnout.lua
+RazorfenDowns\AmnennartheColdbringer.lua
+RazorfenDowns\PlaguemawtheRotting.lua
+
+RazorfenKraul\Roogug.lua
+RazorfenKraul\AggemThorncurse.lua
+RazorfenKraul\DeathSpeakerJargba.lua
+RazorfenKraul\OverlordRamtusk.lua
+RazorfenKraul\AgathelostheRaging.lua
+RazorfenKraul\BlindHunter.lua
+RazorfenKraul\EarthcallerHalmgar.lua
+RazorfenKraul\CharlgaRazorflank.lua
+
+ScarletMonastery\InterrogatorVishas.lua
+ScarletMonastery\BloodmageThalnos.lua
+ScarletMonastery\HoundmasterLoksey.lua
+ScarletMonastery\ArcanistDoan.lua
+ScarletMonastery\Herod.lua
+ScarletMonastery\Mograine_and_Whitemane.lua
+ScarletMonastery\HighInquisitorFairbanks.lua
+
+Scholomance\KirtonostheHerald.lua
+Scholomance\JandiceBarov.lua
+Scholomance\Rattlegore.lua
+Scholomance\MardukBlackpool.lua
+Scholomance\Vectus.lua
+Scholomance\RasFrostwhisper.lua
+Scholomance\InstructorMalicia.lua
+Scholomance\DoctorTheolenKrastinov.lua
+Scholomance\LorekeeperPolkelt.lua
+Scholomance\TheRavenian.lua
+Scholomance\LordAlexeiBarov.lua
+Scholomance\LadyIlluciaBarov.lua
+Scholomance\DarkmasterGandling.lua
+
+Shadowfangkeep\Rethilgore.lua
+Shadowfangkeep\RazorclawtheButcher.lua
+Shadowfangkeep\BaronSilverlaine.lua
+Shadowfangkeep\CommanderSpringvale.lua
+Shadowfangkeep\OdotheBlindwatcher.lua
+Shadowfangkeep\DeathswornCaptain.lua
+Shadowfangkeep\FenrustheDevourer.lua
+Shadowfangkeep\WolfMasterNandos.lua
+Shadowfangkeep\ArchmageArugal.lua
+
+StormwindStockaid\Targorr.lua
+StormwindStockaid\KamDeepfury.lua
+StormwindStockaid\Hamhock.lua
+StormwindStockaid\BazilThredd.lua
+StormwindStockaid\DextrenWard.lua
+StormwindStockaid\BruegalIronknuckle.lua
+
+Stratholme\HearthsingerForresten.lua
+Stratholme\TimmytheCruel.lua
+Stratholme\CommanderMalor.lua
+Stratholme\WilleyHopebreaker.lua
+Stratholme\InstructorGalford.lua
+Stratholme\Balnazzar.lua
+Stratholme\TheUnforgiven.lua
+Stratholme\BaronessAnastari.lua
+Stratholme\Narubenkan.lua
+Stratholme\MalekithePallid.lua
+Stratholme\MagistrateBarthilas.lua
+Stratholme\RamsteintheGorger.lua
+Stratholme\LordAuriusRivendare.lua
+
+SunkenTemple\AvatarofHakkar.lua
+SunkenTemple\JammalantheProphet.lua
+SunkenTemple\Dreamscythe.lua
+SunkenTemple\Weaver.lua
+SunkenTemple\Morphaz.lua
+SunkenTemple\Hazzas.lua
+SunkenTemple\ShadeofEranikus.lua
+
+Uldaman\Revelosh.lua
+Uldaman\TheLostDwarves.lua
+Uldaman\Ironaya.lua
+Uldaman\ObsidianSentinel.lua
+Uldaman\AncientStoneKeeper.lua
+Uldaman\GalgannFirehammer.lua
+Uldaman\Grimlok.lua
+Uldaman\Archaedas.lua
+
+WailingCaverns\LadyAnacondra.lua
+WailingCaverns\LordPythas.lua
+WailingCaverns\LordCobrahn.lua
+WailingCaverns\Kresh.lua
+WailingCaverns\Skum.lua
+WailingCaverns\LordSerpentis.lua
+WailingCaverns\VerantheEverliving.lua
+WailingCaverns\MutanustheDevourer.lua
+WailingCaverns\DeviateFaerieDragon.lua
+
+ZulFarrak\Gahzrilla.lua
+ZulFarrak\Antusul.lua
+ZulFarrak\ThekatheMartyr.lua
+ZulFarrak\WitchDoctorZumrah.lua
+ZulFarrak\HydromancerVelrath.lua
+ZulFarrak\Nekrum_Sezzziz.lua
+ZulFarrak\ChiefUkorzSandscalp.lua

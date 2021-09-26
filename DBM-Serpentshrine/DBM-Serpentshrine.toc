@@ -1,0 +1,35 @@
+## Interface: 30300
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Serpentshrine Cavern|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0불뱀 제단|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Höhle des Schlangenschreins|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Caverna Santuario Serpiente|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0毒蛇神殿|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0毒蛇神殿洞穴|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Змеиное святилище|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMSerpentshrine_AllSavedVars
+## SavedVariablesPerCharacter: DBMSerpentshrine_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal25
+## X-DBM-Mod-MapID: 781
+## X-DBM-Mod-Sort: 1005
+## X-DBM-Mod-Name: Serpentshrine Cavern
+## X-DBM-Mod-Name-ruRU: Змеиное святилище
+
+localization.en.lua
+localization.cn.lua
+localization.de.lua
+localization.es.lua
+localization.kr.lua
+localization.ru.lua
+localization.tw.lua
+
+Hydross.lua
+TheLurkerBelow.lua
+Leotheras.lua
+Fathomlord.lua
+Tidewalker.lua
+Vashj.lua

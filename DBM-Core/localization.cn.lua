@@ -308,6 +308,10 @@ L.BOSSTOGETHER				= "Boss靠近"
 L.BOSSAPART					= "Boss分开"
 --Common Locals end
 
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 		= "世界首领"
+--Retail Globals end
+
 L.BREAK_USAGE				= "休息时间不能超过60分钟。请确保你输入的是分钟而不是秒。"
 L.BREAK_START				= "开始休息 - %s分钟！（由 %s 发送）"
 L.BREAK_MIN					= "%s分钟后休息结束！"

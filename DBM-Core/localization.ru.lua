@@ -251,6 +251,10 @@ L.BOSSTOGETHER						= "Bosses Together"
 L.BOSSAPART							= "Bosses Apart"
 --Common Locals end
 
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 				= "Босс вне подземелья"
+--Retail Globals end
+
 L.BOSSHEALTH_HIDE_FRAME				= "Скрыть"
 
 L.BREAK_USAGE						= "Перерыв не может быть дольше 60 минут. Убедитесь, что вы вводите время в минутах, а не секундах."

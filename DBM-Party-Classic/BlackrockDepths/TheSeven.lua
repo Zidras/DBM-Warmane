@@ -1,0 +1,37 @@
+local mod	= DBM:NewMod(385, "DBM-Party-Classic", 2, 228)
+local L		= mod:GetLocalizedStrings()
+
+mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetCreatureID(9035, 9039, 9040, 9037, 9034, 9038, 9036)--9035 Anger'rel, 9039/doomrel, 9040/doperel, 9037/gloomrel, 9034/haterel, 9038/seethrel, 9036/vilerel
+
+
+mod:RegisterCombat("combat")
+
+--[[
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START"
+)
+
+--local warningSoul	= mod:NewTargetAnnounce(32346, 2)
+
+local specWarnMaddeningCall			= mod:NewSpecialWarningInterrupt(86620, "HasInterrupt", nil, nil, 1, 2)
+
+local timerMaddeningCallCD			= mod:NewAITimer(180, 86620, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+
+function mod:OnCombatStart(delay)
+	timerMaddeningCallCD:Start(1-delay)
+end
+
+function mod:SPELL_CAST_START(args)
+	timerMaddeningCallCD:Start()
+	if args.spellId == 86620 and self:CheckInterruptFilter(args.sourceGUID, false, true) then
+		specWarnMaddeningCall:Show(args.sourceName)
+		specWarnMaddeningCall:Play("kickcast")
+	end
+end
+
+function mod:SPELL_AURA_APPLIED(args)
+	if args.spellId == 32346 then
+		warningSoul:Show(args.destName)
+	end
+end--]]
