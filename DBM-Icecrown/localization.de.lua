@@ -282,6 +282,7 @@ L:SetOptionLocalization{
 	TimerNextGroundphase		= "Zeige Zeit bis nächste Bodenphase",
 	AnnounceFrostBeaconIcons	= "Verkünde Zeichen für Ziele von $spell:70126 im SZ-Chat (nur als Leiter)",
 	ClearIconsOnAirphase		= "Entferne alle Zeichen vor der Luftphase",
+	AssignWarnDirectionsCount	= "Weisen Sie $spell:70126 -Zielen eine Wegbeschreibung zu und zählen Sie auf Phase 2",
 	AchievementCheck			= "Verkünde Warnungen für den Erfolg 'Das Buffet ist eröffnet' an Schlachtzug (nur als Leiter/Assistent)",
 	RangeFrame					= "Zeige dynamisches Abstandsfenster (10 m/20 m) basierend auf zuletzt genutzten Bossfähigkeiten und Spieler-Debuffs"
 }

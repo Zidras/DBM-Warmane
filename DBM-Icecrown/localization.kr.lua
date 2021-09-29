@@ -282,6 +282,7 @@ L:SetOptionLocalization{
 	TimerNextGroundphase	= "신드라고사 착륙 바 보기",
 	AnnounceFrostBeaconIcons= "$spell:70126 전술 목표 아이콘 설정 내역을 공격대 대화로 알리기(공격대장 권한 필요)",
 	ClearIconsOnAirphase	= "공중 단계에서 모든 전술 목표 아이콘 제거",
+	AssignWarnDirectionsCount	= "$spell:70126 대상에 위치를 지정합니다. 2단계에서 $spell:70126을 세십시오",
 	AchievementCheck		= "신비한 아픔 업적 실패시 실패 내용을 공격대 대화로 알리기(공격대장 권한 필요)",
 	RangeFrame				= "강화 또는 약화 효과에 맞추어 거리 창 보기(10/20m)"
 }
