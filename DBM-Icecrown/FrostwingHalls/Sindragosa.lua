@@ -18,6 +18,8 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
+local strupper = strupper
+
 local warnAirphase				= mod:NewAnnounce("WarnAirphase", 2, 43810)
 local warnGroundphaseSoon		= mod:NewAnnounce("WarnGroundphaseSoon", 2, 43810)
 local warnPhase2soon			= mod:NewPrePhaseAnnounce(2)
@@ -58,6 +60,7 @@ mod:AddBoolOption("SetIconOnFrostBeacon", true)
 mod:AddBoolOption("SetIconOnUnchainedMagic", true)
 mod:AddBoolOption("ClearIconsOnAirphase", true)
 mod:AddBoolOption("AnnounceFrostBeaconIcons", false)
+mod:AddBoolOption("AssignWarnDirectionsCount", true)
 mod:AddBoolOption("AchievementCheck", false, "announce")
 mod:AddBoolOption("RangeFrame")
 
@@ -117,7 +120,29 @@ local function warnBeaconTargets(self)
 			DBM.RangeCheck:Show(10)
 		end
 	end
-	warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+	if self.Options.AssignWarnDirectionsCount then
+		if self.vb.phase == 1 then
+			if self:IsDifficulty("normal25") then
+				warnFrostBeacon:Show("\n<   >"..
+				strupper(DBM_CORE_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[2] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_CORE_L.MIDDLE)	..": <".."   >"..(beaconTargets[3] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_CORE_L.RIGHT)	..": <".."   >"..(beaconTargets[4] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[5] or DBM_CORE_L.UNKNOWN))
+			elseif self:IsDifficulty("heroic25") then
+				warnFrostBeacon:Show("\n<   >"..
+				strupper(DBM_CORE_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[2] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_CORE_L.MIDDLE)	..": <".."   >"..(beaconTargets[3] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[4] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_CORE_L.RIGHT)	..": <".."   >"..(beaconTargets[5] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[6] or DBM_CORE_L.UNKNOWN))
+			elseif self:IsDifficulty("normal10", "heroic10") then
+				warnFrostBeacon:Show("\n<   >"..
+				strupper(DBM_CORE_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_CORE_L.RIGHT)	..": <".."   >"..(beaconTargets[2] or DBM_CORE_L.UNKNOWN))
+			end
+		elseif self.vb.phase == 2 then
+			warnFrostBeacon:Show(beaconTargets[1].."< = >"..p2_beacon_num-1)
+		end
+	else
+		warnFrostBeacon:Show(table.concat(beaconTargets, "<, >"))
+	end
 	table.wipe(beaconTargets)
 	playerBeaconed = false
 end

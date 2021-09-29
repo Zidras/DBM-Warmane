@@ -282,6 +282,7 @@ L:SetOptionLocalization{
 	TimerNextGroundphase		= "為下一次 地上階段顯示計時器",
 	AnnounceFrostBeaconIcons	= "公佈$spell:70126目標設置的標記到團隊頻道<br/>(需要團隊隊長)",
 	ClearIconsOnAirphase		= "空中階段前清除所有標記",
+	AssignWarnDirectionsCount	= "为 $spell:70126 目标分配方向并指望第二阶段",
 	AchievementCheck			= "公佈 '吃到飽' 成就警告到團隊頻道<br/>(需助理權限)",
 	RangeFrame					= "根據最後首領使用的技能跟玩家減益顯示動態距離框(10/20碼)"
 }

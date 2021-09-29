@@ -301,6 +301,7 @@ L:SetOptionLocalization{
 	SetIconOnFrostBeacon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70126),
 	SetIconOnUnchainedMagic		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(69762),
 	ClearIconsOnAirphase		= "Clear all icons before air phase",
+	AssignWarnDirectionsCount	= "Assign directions to $spell:70126 targets and count on phase 2",
 	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)",
 	RangeFrame					= "Show dynamic range frame (10/20) based on last used boss ability and player debuffs"
 }

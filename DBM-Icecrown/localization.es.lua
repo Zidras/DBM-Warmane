@@ -282,6 +282,7 @@ L:SetOptionLocalization{
 	TimerNextGroundphase		= "Mostrar temporizador para la siguiente fase en tierra",
 	AnnounceFrostBeaconIcons	= "Anunciar iconos de los objetivos de $spell:70126 en el chat de banda (requiere líder)",
 	ClearIconsOnAirphase		= "Quitar todos los iconos al comenzar la fase aérea",
+	AssignWarnDirectionsCount	= "Asignar direcciones de los objetivos de $spell:70126 y contar en la fase 2",
 	AchievementCheck			= "Anunciar avisos del logro 'Sacúdete' en el chat de banda (requiere líder o ayudante)",
 	RangeFrame					= "Mostrar marco de distancia (10/20 m) dinámico en función de la última habilidad usada por el jefe y los perjuicios de los jugadores"
 }

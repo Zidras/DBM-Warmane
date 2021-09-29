@@ -283,6 +283,7 @@ L:SetOptionLocalization{
 	TimerNextGroundphase		= "Montre un timer pour la prochaine phase au sol",
 	AnnounceFrostBeaconIcons	= "Annonce les icones pour les cibles de $spell:70126 dans le chat de raid (requires announce to be enabled and leader/promoted status)",
 	ClearIconsOnAirphase		= "Retire toutes les icones avant la phase d'envol",
+	AssignWarnDirectionsCount	= "Attribuez des directions aux cibles $spell:70126 et comptez sur la phase 2",
 	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)", --Needs Translating
 	RangeFrame					= "Montre la fenêtre de portée (10 normal, 20 heroic) (Montre uniquement les icones marquer sur les joueurs)"
 }
