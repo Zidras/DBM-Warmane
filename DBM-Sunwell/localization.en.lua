@@ -4,7 +4,7 @@ local L
 --  Kalecgos --
 ---------------
 L = DBM:GetModLocalization("Kal")
-DBM_CORE_L.AUTO_RANGE_OPTION_TEXT			= "Show range frame (%s) for $spell:%s"
+
 L:SetGeneralLocalization{
 	name = "Kalecgos"
 }
@@ -15,18 +15,18 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerNextPortal		= "Портал (%d)"
+	TimerNextPortal		= "Portal (%d)"
 }
 
 L:SetOptionLocalization{
 	WarnPortal			= "Show warning for $spell:46021 target",
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",
-	TimerNextPortal		= "Показывать таймер портала",
-	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021),
+	TimerNextPortal		= "Show portal timer",
 	ShowFrame			= "Show Spectral Realm frame" ,
 	FrameClassColor		= "Use class colors in Spectral Realm frame",
 	FrameUpwards		= "Expand Spectral Realm frame upwards",
-	FrameLocked			= "Set Spectral Realm frame not movable"
+	FrameLocked			= "Set Spectral Realm frame not movable",
+	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
 }
 
 L:SetMiscLocalization{
@@ -60,8 +60,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	Pull			= "Ah, more lambs to the slaughter!",
-	BurnWhisper		= "Огонь на тебе!"
+	Pull			= "Ah, more lambs to the slaughter!"
 }
 
 --------------
@@ -75,23 +74,23 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnPhase		= "%s Phase",
-	WarnPhaseSoon	= "%s фаза через 10 сек",
-	WarnBreath		= "Глубокий Вздох (%d)"
+	WarnPhaseSoon	= "%s Phase after 10 sec",
+	WarnBreath		= "Deep Breath (%d)"
 }
 
 L:SetTimerLocalization{
 	TimerPhase		= "Next %s Phase",
-	TimerBreath		= "Глубокий Вздох"
+	TimerBreath		= "Deep Breath"
 }
 
 L:SetOptionLocalization{
 	WarnPhase		= "Show warning for next phase",
 	TimerPhase		= "Show time for next phase",
-	WarnBreath		= "Показывать предупреждение для Глубокого Вздоха",
-	TimerBreath		= "Показывать время до восстановления Глубокого Вздоха",
+	WarnBreath		= "Show warning for Deep Breath",
+	TimerBreath		= "Show time for next Deep Breath",
 	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
 	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
-	YellOnEncaps	= "Кричать когда на вас $spell:45665"
+	YellOnEncaps	= "Yell on $spell:45665"
 }
 
 L:SetMiscLocalization{
@@ -114,8 +113,8 @@ L:SetOptionLocalization{
 	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
 	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333),
-	NovaWhisper		= "Шепот целям заклинания $spell:45329 target (нужен РЛ)",
-	ConflagWhisper	= "Шепот целям заклинания $spell:45333 target (нужен РЛ)",
+	NovaWhisper		= "Whisper to $spell:45329 target (requires RL)",
+	ConflagWhisper	= "Whisper to $spell:45333 target (requires RL)"
 }
 
 L:SetMiscLocalization{
@@ -138,15 +137,15 @@ L:SetWarningLocalization{
 	WarnHuman		= "Humanoids (%d)",
 	WarnVoid		= "Void Sentinel (%d)",
 	WarnFiend		= "Dark Fiend spawned",
-	specWarnVoid	= "Мрак - РАССЕЙТЕ ЧЕРЕПА!",
-	specWarnBH		= "Черная дыра - РАССЕЙТЕ ЧЕРЕПА!",
-	specWarnVW		= "Часовой Бездны через 5",
-	specWarnDarknessSoon = "Скоро Мрак"
+	specWarnVoid	= "Darkness - Scatter skulls!",
+	specWarnBH		= "Black Hole - Scatter skulls!",
+	specWarnVW		= "Void Sentinels in 5",
+	specWarnDarknessSoon = "Darkness soon"
 }
 
 L:SetTimerLocalization{
 	TimerHuman		= "Next Humanoids (%s)",
-	TimerVoid		= "Next Void Sentinel (%s)",
+	TimerVoid		= "Next Void (%s)",
 	TimerPhase		= "Entropius"
 }
 
@@ -154,14 +153,13 @@ L:SetOptionLocalization{
 	WarnHuman		= "Show warning for Humanoids",
 	WarnVoid		= "Show warning for Void Sentinels",
 	WarnFiend		= "Show warning for Fiends in phase 2",
-	specWarnVoid	= "Показывать спец-предупреждение для Мрака(рассеивания)",
-	specWarnBH		= "Показывать спец-предупреждение для черной дыры(рассеивания)",
-	specWarnVW		= "Показывать спец-предупреждение перед Часовым Бездны",
-	specWarnDarknessSoon = "Показывать спец-предупреждение перед Мраком",
+	specWarnVoid	= "Show special warning for Gloom (scatter)",
+	specWarnBH		= "Show special warning for black hole (scatter)",
+	specWarnVW		= "Show special warning for Void Sentinel",
+	specWarnDarknessSoon = "Show special warning before Darkness",
 	TimerHuman		= "Show timer for Humanoids",
 	TimerVoid		= "Show timer for Void Sentinels",
 	TimerPhase		= "Show time for Phase 2 transition",
-	SoundWarnCountingDS = "Проигрывать звуковой отсчет 5...1 до Мрака"
 }
 
 L:SetMiscLocalization{
@@ -201,7 +199,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	YellPull		= "The expendable have perished. So be it! Now I shall succeed where Sargeras could not! I will bleed this wretched world and secure my place as the true master of the Burning Legion! The end has come! Let the unravelling of this world commence!",
 	YellBloom		= "Bloom on me!",
-	BloomWhisper	= "Огненный цветок на тебе!",
+	BloomWhisper	= "Bloom on you!",
 	OrbYell1		= "I will channel my powers into the orbs! Be ready!",
 	OrbYell2		= "I have empowered another orb! Use it quickly!",
 	OrbYell3		= "Another orb is ready! Make haste!",
