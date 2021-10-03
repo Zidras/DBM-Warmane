@@ -320,7 +320,7 @@ L.TIMER_BREAK				= "休息时间！"
 L.ANNOUNCE_BREAK_OVER		= "休息已结束"
 
 L.TIMER_PULL					= "开怪倒计时"
-L.ANNOUNCE_PULL				= "%d秒后开怪"
+L.ANNOUNCE_PULL				= "%d秒后开怪 （由 %s 发送）"
 L.ANNOUNCE_PULL_NOW			= "开怪！"
 L.ANNOUNCE_PULL_TARGET		= "%2$d秒后开搞%1$s!（由 %3$s 发送）"
 L.ANNOUNCE_PULL_NOW_TARGET	= "开搞 %s！"

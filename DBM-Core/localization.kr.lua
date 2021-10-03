@@ -323,7 +323,7 @@ L.TIMER_BREAK				= "쉬는 시간!"
 L.ANNOUNCE_BREAK_OVER		= "쉬는 시간이 %s에 끝났습니다"
 
 L.TIMER_PULL					= "풀링"
-L.ANNOUNCE_PULL				= "%d초 후 풀링합니다."
+L.ANNOUNCE_PULL				= "%d초 후 풀링합니다. (%s|1이;가; 전송)"
 L.ANNOUNCE_PULL_NOW			= "풀링 시작!"
 L.ANNOUNCE_PULL_TARGET		= "%s|1을;를; %d초 후 풀링합니다. (%s|1이;가; 전송)"
 L.ANNOUNCE_PULL_NOW_TARGET	= "%s 풀링 시작!"

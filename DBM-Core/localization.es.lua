@@ -325,7 +325,7 @@ L.TIMER_BREAK				= "¡Toca descanso!"
 L.ANNOUNCE_BREAK_OVER		= "El descanso ha terminado."
 
 L.TIMER_PULL					= "Iniciando en"
-L.ANNOUNCE_PULL				= "Iniciando en %d s"
+L.ANNOUNCE_PULL				= "Iniciando en %d s (iniciado por %s)"
 L.ANNOUNCE_PULL_NOW			= "¡Iniciad ahora!"
 L.ANNOUNCE_PULL_TARGET		= "Llamando a %s en %d s (iniciado por %s)"
 L.ANNOUNCE_PULL_NOW_TARGET	= "¡Llamando a %s!"

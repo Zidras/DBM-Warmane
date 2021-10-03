@@ -291,7 +291,7 @@ L.TIMER_BREAK				= "Pause!"
 L.ANNOUNCE_BREAK_OVER		= "Pause ist vorbei (seit %s Uhr)"
 
 L.TIMER_PULL				= "Pull in"
-L.ANNOUNCE_PULL				= "Pull in %d Sekunden."
+L.ANNOUNCE_PULL				= "Pull in %d Sekunden. (gesendet von: %s)"
 L.ANNOUNCE_PULL_NOW			= "Pull jetzt!"
 L.ANNOUNCE_PULL_TARGET		= "Pulle %s in %d Sekunden. (gesendet von: %s)"
 L.ANNOUNCE_PULL_NOW_TARGET	= "Pulle %s jetzt!"

@@ -133,42 +133,42 @@ local pixel, ratio = 1, 768 / GetScreenHeight()
 AddOn.mult = (pixel / scale) - ((pixel - ratio) / scale)
 
 function AddOn:Scale(x)
-        local mult = AddOn.mult
-        return mult * floor(x / mult + 0.5)
+	local mult = AddOn.mult
+	return mult * floor(x / mult + 0.5)
 end
 
 local function Size(frame, width, height)
-        assert(width)
-        frame:SetSize(AddOn:Scale(width), AddOn:Scale(height or width))
+	assert(width)
+	frame:SetSize(AddOn:Scale(width), AddOn:Scale(height or width))
 end
 
 local function Width(frame, width)
-        assert(width)
-        frame:SetWidth(AddOn:Scale(width))
+	assert(width)
+	frame:SetWidth(AddOn:Scale(width))
 end
 
 local function Height(frame, height)
-        assert(height)
-        frame:SetHeight(AddOn:Scale(height))
+	assert(height)
+	frame:SetHeight(AddOn:Scale(height))
 end
 
 local function Point(obj, arg1, arg2, arg3, arg4, arg5)
-        if arg2 == nil then arg2 = obj:GetParent() end
+	if arg2 == nil then arg2 = obj:GetParent() end
 
-        if type(arg2) == "number" then arg2 = AddOn:Scale(arg2) end
-        if type(arg3) == "number" then arg3 = AddOn:Scale(arg3) end
-        if type(arg4) == "number" then arg4 = AddOn:Scale(arg4) end
-        if type(arg5) == "number" then arg5 = AddOn:Scale(arg5) end
+	if type(arg2) == "number" then arg2 = AddOn:Scale(arg2) end
+	if type(arg3) == "number" then arg3 = AddOn:Scale(arg3) end
+	if type(arg4) == "number" then arg4 = AddOn:Scale(arg4) end
+	if type(arg5) == "number" then arg5 = AddOn:Scale(arg5) end
 
-        obj:SetPoint(arg1, arg2, arg3, arg4, arg5)
+	obj:SetPoint(arg1, arg2, arg3, arg4, arg5)
 end
 
 local function addapi(object)
-        local mt = getmetatable(object).__index
-        if not object.Size then mt.Size = Size end
-        if not object.Point then mt.Point = Point end
-        if not object.Width then mt.Width = Width end
-        if not object.Height then mt.Height = Height end
+	local mt = getmetatable(object).__index
+	if not object.Size then mt.Size = Size end
+	if not object.Point then mt.Point = Point end
+	if not object.Width then mt.Width = Width end
+	if not object.Height then mt.Height = Height end
 end
 
 local function CreateAlphaAnim(group, order, duration, change, delay, smoothing)
@@ -251,17 +251,17 @@ local function FadeBarOut_OnFinished(self)
 end
 
 function TT:ColorGradient(perc, ...)
-        if perc >= 1 then
-                return select(select("#", ...) - 2, ...)
-        elseif perc <= 0 then
-                return ...
-        end
+	if perc >= 1 then
+		return select(select("#", ...) - 2, ...)
+	elseif perc <= 0 then
+		return ...
+	end
 
-        local num = select("#", ...) / 3
-        local segment, relperc = modf(perc*(num - 1))
-        local r1, g1, b1, r2, g2, b2 = select((segment*3) + 1, ...)
+	local num = select("#", ...) / 3
+	local segment, relperc = modf(perc*(num - 1))
+	local r1, g1, b1, r2, g2, b2 = select((segment*3) + 1, ...)
 
-        return r1 + (r2 - r1)*relperc, g1 + (g2 - g1)*relperc, b1 + (b2 - b1)*relperc
+	return r1 + (r2 - r1)*relperc, g1 + (g2 - g1)*relperc, b1 + (b2 - b1)*relperc
 end
 
 function TT:CreateTimerBar()
@@ -535,13 +535,34 @@ function TT:ReleaseTimers()
 	end
 end
 
-function TT:OnEvent(event, msg)
-	if event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
+function TT:FreeTimerTrackerTimer(timer)
+	timer.time = nil
+	timer.type = nil
+	timer.isFree = true
+	timer.barShowing = false
+	timer:SetScript("OnUpdate", nil)
+	timer.FadeBarOut:Stop()
+	timer.FadeBarIn:Stop()
+	timer.StartNumbers:Stop()
+	timer.GoTextureAnim:Stop()
+	timer.StatusBar:SetAlpha(0)
+end
+
+function TT:OnEvent(event, ...)
+	if event == "START_TIMER" then
+		local timerType, timeSeconds, totalTime  = ...
+		self:CreateTimer(timerType, timeSeconds + 0.1, totalTime + 0.1)
+	elseif event == "CHAT_MSG_BG_SYSTEM_NEUTRAL" then
+		local msg = ...
 		if msg and chatMessage[msg] then
 			self:CreateTimer(unpack(chatMessage[msg]))
 		end
 	elseif event == "PLAYER_ENTERING_WORLD" then
-		self:ReleaseTimers()
+		for _, timer in pairs(self.timerList) do
+			if timer.type == TIMER_TYPE_PLAYER_COUNTDOWN then
+				self:FreeTimerTrackerTimer(timer)
+			end
+		end
 	end
 end
 
@@ -567,12 +588,10 @@ function TT:ToggleState(force)
 		--self:RegisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL", "OnEvent")
 		self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
 
-		self:HookDBM()
 	else
 		--self:UnregisterEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL")
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
-		self:Unhook(DBM, "CreatePizzaTimer")
 		self:ReleaseTimers()
 	end
 end
@@ -588,46 +607,46 @@ local function InitializeCallback()
 end
 
 function AddOn:CallLoadedModule(obj, silent, object, index)
-        local name, func
-        if type(obj) == "table" then name, func = unpack(obj) else name = obj end
-        local module = name and self:GetModule(name, silent)
+	local name, func
+	if type(obj) == "table" then name, func = unpack(obj) else name = obj end
+	local module = name and self:GetModule(name, silent)
 
-        if not module then return end
-        if func and type(func) == "string" then
-                AddOn:RegisterCallback(name, module[func], module)
-        elseif func and type(func) == "function" then
-                AddOn:RegisterCallback(name, func, module)
-        elseif module.Initialize then
-                AddOn:RegisterCallback(name, module.Initialize, module)
-        end
+	if not module then return end
+	if func and type(func) == "string" then
+		AddOn:RegisterCallback(name, module[func], module)
+	elseif func and type(func) == "function" then
+		AddOn:RegisterCallback(name, func, module)
+	elseif module.Initialize then
+		AddOn:RegisterCallback(name, module.Initialize, module)
+	end
 
-        AddOn.callbacks:Fire(name)
+	AddOn.callbacks:Fire(name)
 
-        if object and index then object[index] = nil end
+	if object and index then object[index] = nil end
 end
 
 function AddOn:RegisterInitialModule(name, func)
-        self.RegisteredInitialModules[#self.RegisteredInitialModules + 1] = (func and {name, func}) or name
+	self.RegisteredInitialModules[#self.RegisteredInitialModules + 1] = (func and {name, func}) or name
 end
 
 function AddOn:RegisterModule(name, func)
-        if self.initialized then
-                AddOn:CallLoadedModule((func and {name, func}) or name)
-        else
-                self.RegisteredModules[#self.RegisteredModules + 1] = (func and {name, func}) or name
-        end
+	if self.initialized then
+		AddOn:CallLoadedModule((func and {name, func}) or name)
+	else
+		self.RegisteredModules[#self.RegisteredModules + 1] = (func and {name, func}) or name
+	end
 end
 
 function AddOn:InitializeInitialModules()
-        for index, object in ipairs(AddOn.RegisteredInitialModules) do
-                AddOn:CallLoadedModule(object, true, AddOn.RegisteredInitialModules, index)
-        end
+	for index, object in ipairs(AddOn.RegisteredInitialModules) do
+		AddOn:CallLoadedModule(object, true, AddOn.RegisteredInitialModules, index)
+	end
 end
 
 function AddOn:InitializeModules()
-        for index, object in ipairs(AddOn.RegisteredModules) do
-                AddOn:CallLoadedModule(object, true, AddOn.RegisteredModules, index)
-        end
+	for index, object in ipairs(AddOn.RegisteredModules) do
+		AddOn:CallLoadedModule(object, true, AddOn.RegisteredModules, index)
+	end
 end
 
 if not ElvUI then
@@ -638,12 +657,12 @@ if not ElvUI then
 	addapi(object:CreateFontString())
 	object = EnumerateFrames()
 	while object do
-	        if not handled[object:GetObjectType()] then
-	                addapi(object)
-	                handled[object:GetObjectType()] = true
-	        end
+		if not handled[object:GetObjectType()] then
+			addapi(object)
+			handled[object:GetObjectType()] = true
+		end
 
-	        object = EnumerateFrames(object)
+		object = EnumerateFrames(object)
 	end
 	addapi(GameFontNormal)
 end

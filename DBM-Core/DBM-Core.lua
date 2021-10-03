@@ -475,7 +475,7 @@ local AddMsg
 local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
---local handleSync
+local handleSync
 local targetMonitor = {}
 local wowVersion = select(4, GetBuildInfo())
 
@@ -589,6 +589,8 @@ local function sendSync(prefix, msg)
 		SendAddonMessage(prefix, msg, "RAID")
 	elseif GetRealNumPartyMembers() > 0 then
 		SendAddonMessage(prefix, msg, "PARTY")
+	else
+		handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
 	end
 	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 4)
 end
@@ -598,21 +600,22 @@ end
 local function SendWorldSync(self, prefix, msg, noBNet)
 	DBM:Debug("SendWorldSync running for "..prefix)
 	if IsInRaid() then
-		SendAddonMessage("D4", prefix.."\t"..msg, "RAID")
+		SendAddonMessage(prefix, msg, "RAID")
 	elseif IsInGroup(1) then
-		SendAddonMessage("D4", prefix.."\t"..msg, "PARTY")
+		SendAddonMessage(prefix, msg, "PARTY")
+	else--for solo raid
+		handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
 	end
 	if IsInGuild() then
-		SendAddonMessage("D4", prefix.."\t"..msg, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
+		SendAddonMessage(prefix, msg, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
 	end
 	if self.Options.EnableWBSharing and not noBNet then
 		local _, numFriendsOnline = GetNumFriends()
-		--local connectedServers = GetAutoCompleteRealms()
 		for i = 1, numFriendsOnline do
 			local sameRealm = true
 			local name, _, _, _, isOnline = GetFriendInfo(i)
 			if name and isOnline then
-				SendAddonMessage(name, "D4", prefix.."\t"..msg)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
+				SendAddonMessage(prefix, msg, "WHISPER", name)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
 			end
 		end
 	end
@@ -1210,21 +1213,18 @@ do
 		self:BuildVoiceCountdownCache()
 		--Break timer recovery
 		--Try local settings
-		if self.Options.tempBreak2 then
-			local timer, startTime = string.split("/", self.Options.tempBreak2)
+		if self.Options.RestoreSettingBreakTimer then
+			local timer, startTime = string.split("/", self.Options.RestoreSettingBreakTimer)
 			local elapsed = time() - tonumber(startTime)
 			local remaining = timer - elapsed
 			if remaining > 0 then
 				breakTimerStart(DBM, remaining, playerName)
 			else--It must have ended while we were offline, kill variable.
-				self.Options.tempBreak2 = nil
+				self.Options.RestoreSettingBreakTimer = nil
 			end
 		end
 		if IsInGuild() then
 			SendAddonMessage("DBMv4-GH","Hi!" ,"GUILD")
-		end
-		if DBM and TT then
-			TT:Initialize(true)
 		end
 		if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" then
 			DBM_UseDualProfile = false
@@ -1421,6 +1421,9 @@ do
 				combatInitialized = true
 			end)
 			self:Schedule(10, runDelayedFunctions, self)
+			if DBM and TT then
+				TT:Initialize(true)
+			end
 		end
 	end
 end
@@ -1861,45 +1864,33 @@ do
 		local isTank = UnitGroupRolesAssigned("player")
 		local LFGTankException = IsPartyLFG() and isTank --Tanks in LFG need to be able to send pull timer even if someone refuses to pass lead. LFG locks roles so no one can abuse this.
 		if (DBM:GetRaidRank(playerName) == 0 and IsInGroup() and not LFGTankException) or select(2, IsInInstance()) == "pvp" then
-			local channel = "EMOTE"
-			DBM:CreatePizzaTimer(timer, L.TIMER_PULL, false)
-			SendChatMessage(L.ANNOUNCE_PULL:format(timer), channel)
-			if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, L.ANNOUNCE_PULL:format(7), channel) end
-			if timer > 5 then DBM:Schedule(timer - 5, SendChatMessage, L.ANNOUNCE_PULL:format(5), channel) end
-			if timer > 3 then DBM:Schedule(timer - 3, SendChatMessage, L.ANNOUNCE_PULL:format(3), channel) end
-			if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, L.ANNOUNCE_PULL:format(2), channel) end
-			if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, L.ANNOUNCE_PULL:format(1), channel) end
-			if timer >= 5 and DBM.Options.AudioPull then
-				DBM:Schedule(timer - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-				DBM:Schedule(timer - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-				DBM:Schedule(timer - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-				DBM:Schedule(timer - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-				DBM:Schedule(timer - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-				DBM:Schedule(timer - 0.01, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
-			end
-			DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_PULL_NOW, channel)
 			return DBM:AddMsg(L.ERROR_NO_PERMISSION)
 		end
-		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
-		DBM:CreatePizzaTimer(timer, L.TIMER_PULL, true)
-		SendChatMessage(L.ANNOUNCE_PULL:format(timer), channel)
-		if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, L.ANNOUNCE_PULL:format(7), channel) end
-		if timer > 5 then DBM:Schedule(timer - 5, SendChatMessage, L.ANNOUNCE_PULL:format(5), channel) end
-		if timer > 3 then DBM:Schedule(timer - 3, SendChatMessage, L.ANNOUNCE_PULL:format(3), channel) end
-		if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, L.ANNOUNCE_PULL:format(2), channel) end
-		if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, L.ANNOUNCE_PULL:format(1), channel) end
-		if timer >= 5 and DBM.Options.AudioPull then
-			DBM:Schedule(timer - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
-			DBM:Schedule(timer - 4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\4.mp3", "Master")
-			DBM:Schedule(timer - 3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\3.mp3", "Master")
-			DBM:Schedule(timer - 2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\2.mp3", "Master")
-			DBM:Schedule(timer - 1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\1.mp3", "Master")
-			DBM:Schedule(timer - 0.01, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
+		if timer > 0 and timer < 3 then
+			return DBM:AddMsg(L.TIME_TOO_SHORT)
 		end
-		DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_PULL_NOW, channel)
+		local targetName = (UnitExists("target") and UnitIsEnemy("player", "target")) and UnitName("target") or nil--Filter non enemies in case player isn't targetting bos but another player/pet
+		if targetName then
+			sendSync("DBMv4-PT", timer.."\t"..LastInstanceMapID.."\t"..targetName)
+		else
+			sendSync("DBMv4-PT", timer.."\t"..LastInstanceMapID)
+		end
+		if IsInGroup() then
+			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
+			DBM:Unschedule(SendChatMessage)
+			SendChatMessage(L.ANNOUNCE_PULL:format(timer, playerName), channel)
+			if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, L.ANNOUNCE_PULL:format(7, playerName), channel) end
+			if timer > 5 then DBM:Schedule(timer - 5, SendChatMessage, L.ANNOUNCE_PULL:format(5, playerName), channel) end
+			if timer > 3 then DBM:Schedule(timer - 3, SendChatMessage, L.ANNOUNCE_PULL:format(3, playerName), channel) end
+			if timer > 2 then DBM:Schedule(timer - 2, SendChatMessage, L.ANNOUNCE_PULL:format(2, playerName), channel) end
+			if timer > 1 then DBM:Schedule(timer - 1, SendChatMessage, L.ANNOUNCE_PULL:format(1, playerName), channel) end
+			DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_PULL_NOW, channel)
+		end
 	end
+
+	local stringWorkaround
 	local function Break(timer)
-		if GetNumRaidMembers() == 0 and DBM:GetRaidRank(playerName) == 0 or select(2, IsInInstance()) == "pvp" then--No break timers if not assistant or if it's dungeon/BG
+		if IsInGroup() and (DBM:GetRaidRank(playerName) == 0 or IsPartyLFG()) or select(2, IsInInstance()) == "pvp" then--No break timers if not assistant or if it's dungeon/BG
 			DBM:AddMsg(L.ERROR_NO_PERMISSION)
 			return
 		end
@@ -1908,15 +1899,29 @@ do
 			return
 		end
 		timer = timer * 60
-		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
-		DBM:CreatePizzaTimer(timer, L.TIMER_BREAK, true)
-		DBM:Unschedule(SendChatMessage)
-		SendChatMessage(L.BREAK_START:format(timer/60), channel)
-		if timer/60 > 5 then DBM:Schedule(timer - 5*60, SendChatMessage, L.BREAK_MIN:format(5), channel) end
-		if timer/60 > 2 then DBM:Schedule(timer - 2*60, SendChatMessage, L.BREAK_MIN:format(2), channel) end
-		if timer/60 > 1 then DBM:Schedule(timer - 1*60, SendChatMessage, L.BREAK_MIN:format(1), channel) end
-		if timer > 30 then DBM:Schedule(timer - 30, SendChatMessage, L.BREAK_SEC:format(30), channel) end
-		DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_BREAK_OVER, channel)
+		sendSync("DBMv4-BT", timer)
+		if IsInGroup() then
+			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
+			DBM:Unschedule(SendChatMessage)
+
+			local hour, minute = GetGameTime()
+			minute = minute+(timer/60)
+			if minute >= 60 then
+				hour = hour + 1
+				minute = minute - 60
+			end
+			minute = floor(minute)
+			if minute < 10 then
+				minute = tostring(0 .. minute)
+			end
+			stringWorkaround = stringWorkaround or CreateFrame("Button") -- ugly workaround for SendChatMessage not error with invalid escape sequence | coming from strFromTime; applied below with b:GetText(b:SetFormattedText(strFromTime(timer),3))
+			SendChatMessage(L.BREAK_START:format(stringWorkaround:GetText(stringWorkaround:SetFormattedText(strFromTime(timer),3)).." ("..hour..":"..minute..")", playerName), channel)
+			if timer/60 > 5 then DBM:Schedule(timer - 5*60, SendChatMessage, L.BREAK_MIN:format(5), channel) end
+			if timer/60 > 2 then DBM:Schedule(timer - 2*60, SendChatMessage, L.BREAK_MIN:format(2), channel) end
+			if timer/60 > 1 then DBM:Schedule(timer - 1*60, SendChatMessage, L.BREAK_MIN:format(1), channel) end
+			if timer > 30 then DBM:Schedule(timer - 30, SendChatMessage, L.BREAK_SEC:format(30), channel) end
+			DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_BREAK_OVER, channel)
+		end
 	end
 
 	SLASH_DEADLYBOSSMODS1 = "/dbm"
@@ -1952,10 +1957,10 @@ do
 	SLASH_DEADLYBOSSMODSPULL1 = "/pull"
 	SLASH_DEADLYBOSSMODSBREAK1 = "/break"
 	SlashCmdList["DEADLYBOSSMODSPULL"] = function(msg)
-		Pull(tonumber(msg) or 15)
+		Pull(tonumber(msg) or 10)
 	end
 	SlashCmdList["DEADLYBOSSMODSBREAK"] = function(msg)
-		Break(tonumber(msg) or 5)
+		Break(tonumber(msg) or 10)
 	end
 	SlashCmdList["DEADLYBOSSMODSRPULL"] = function(msg)
 		Pull(30)
@@ -1969,15 +1974,15 @@ do
 		elseif cmd == "unlock" or cmd == "move" then
 			DBM.Bars:ShowMovableBar()
 		elseif cmd == "help2" then
-			for i, v in ipairs(L.SLASHCMD_HELP2) do DBM:AddMsg(v) end
+			for _, v in ipairs(L.SLASHCMD_HELP2) do DBM:AddMsg(v) end
 		elseif cmd == "help" then
-			for i, v in ipairs(L.SLASHCMD_HELP) do DBM:AddMsg(v) end
+			for _, v in ipairs(L.SLASHCMD_HELP) do DBM:AddMsg(v) end
 		elseif cmd:sub(1, 13) == "timer endloop" then
 			DBM:CreatePizzaTimer(time, "", nil, nil, nil, true)
 		elseif cmd:sub(1, 5) == "timer" then
 			local time, text = msg:match("^%w+ ([%d:]+) (.+)$")
 			if not (time and text) then
-				for i, v in ipairs(L.TIMER_USAGE) do DBM:AddMsg(v) end
+				for _, v in ipairs(L.TIMER_USAGE) do DBM:AddMsg(v) end
 				return
 			end
 			local min, sec = string.split(":", time)
@@ -2099,7 +2104,7 @@ do
 				end
 			end
 			if not success then
-				for i, v in ipairs(L.ARROW_ERROR_USAGE	) do
+				for _, v in ipairs(L.ARROW_ERROR_USAGE) do
 					DBM:AddMsg(v)
 				end
 			end
@@ -2114,7 +2119,7 @@ do
 		elseif cmd:sub(1, 10) == "debuglevel" then
 			local level = tonumber(cmd:sub(11)) or 1
 			if level < 1 or level > 5 then
-				DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 4.")
+				DBM:AddMsg("Invalid Value. Debug Level must be between 1 and 5.")
 				return
 			end
 			DBM.Options.DebugLevel = level
@@ -2390,8 +2395,6 @@ function DBM:ShowPizzaInfo(id, sender)
 		self:AddMsg(L.PIZZA_SYNC_INFO:format(sender, id))
 	end
 end
-
-
 
 ------------------
 --  Hyperlinks  --
@@ -3599,8 +3602,8 @@ do
 	local whisperSyncHandlers = {}
 	local guildSyncHandlers = {}
 
-	syncHandlers["DBMv4-Mod"] = function(msg, channel, sender)
-		local mod, revision, event, arg = strsplit("\t", msg)
+	syncHandlers["DBMv4-Mod"] = function(sender, mod, revision, event, ...)
+		local arg = ...
 		mod = DBM:GetModByName(mod or "")
 		if mod and event and arg and revision then
 			revision = tonumber(revision) or 0
@@ -3608,8 +3611,7 @@ do
 		end
 	end
 
-	syncHandlers["DBMv4-NS"] = function(msg, channel, sender)
-		local modid, modvar, text, abilityName = strsplit("\t", msg)
+	syncHandlers["DBMv4-NS"] = function(sender, modid, modvar, text, abilityName)
 		if sender == playerName then return end
 		if DBM.Options.BlockNoteShare or InCombatLockdown() or UnitAffectingCombat("player") or IsFalling() or DBM:GetRaidRank(sender) == 0 then return end
 		local _, zoneType = IsInInstance()
@@ -3628,9 +3630,8 @@ do
 		end
 	end
 
-	syncHandlers["DBMv4-Pull"] = function(msg, channel, sender)
+	syncHandlers["DBMv4-Pull"] = function(sender, delay, mod, revision)
 		if select(2, IsInInstance()) == "pvp" then return end
-		local delay, mod, revision = strsplit("\t", msg)
 		local lag = select(3, GetNetStats()) / 1000
 		delay = tonumber(delay or 0) or 0
 		revision = tonumber(revision or 0) or 0
@@ -3640,94 +3641,19 @@ do
 		end
 	end
 
-	syncHandlers["DBMv4-Kill"] = function(msg, channel, sender)
-		if select(2, IsInInstance()) == "pvp" then return end
-		local cId = tonumber(msg)
-		if cId then DBM:OnMobKill(cId, true) end
-	end
-
-	syncHandlers["DBMv4-Ver"] = function(msg, channel, sender)
-		if msg == "Hi!" then
-			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()),4)
-			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
-		else
-			local revision, version, displayVersion, locale = strsplit("\t", msg)
-			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
-			revision, version = tonumber(revision or ""), tonumber(version or "")
-			if (not tonumber(revision)) or (tonumber(revision) >= 9999) then revision = 4442 end
-			if revision and version and displayVersion and raid[sender] then
-				raid[sender].revision = revision
-				raid[sender].version = version
-				raid[sender].displayVersion = displayVersion
-				raid[sender].locale = locale
-				if version > tonumber(DBM.Version) then
-					if raid[sender].rank >= 1 then
-						enableIcons = false
-					end
-					if not showedUpdateReminder then
-						local found = false
-						for i, v in pairs(raid) do
-							if v.version == version and v ~= raid[sender] then
-								found = true
-								break
-							end
-						end
-						if found then
-							showedUpdateReminder = true
-							if not DBM.Options.BlockVersionUpdatePopup then
-								DBM:ShowUpdateReminder(displayVersion, revision)
-							else
-								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
-								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Zidras/DBM-Warmane]"):format(displayVersion, revision))
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-
-	local localized_TIMER_PULL = { -- Workaround for mismatched clients locales: L.TIMER_PULL would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
-		"开怪倒计时",	 --CN
-		"Pull in",		--DE, EN
-		"Iniciando en",	--ES
-		"Pull dans",	--FR
-		"풀링",			--KR
-		"Атака",		--RU
-		"戰鬥準備"		 --TW
-	}
-
-	syncHandlers["DBMv4-Pizza"] = function(msg, channel, sender)
-		if select(2, IsInInstance()) == "pvp" then return end
-		if DBM:GetRaidRank(sender) == 0 then return end
-		if sender == UnitName("player") then return end
-		local time, text = strsplit("\t", msg)
-		time = tonumber(time or 0)
-		text = tContains(localized_TIMER_PULL, tostring(text)) and L.TIMER_PULL or tostring(text) -- Fixes localization of pull bar text
-		if time and text then
-			DBM:CreatePizzaTimer(time, text, nil, sender)
-			if tContains(localized_TIMER_PULL, text) and time >= 5 and DBM.Options.AudioPull then
-				DBM:Schedule(time - 5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\5to1.mp3", "Master")
-				DBM:Schedule(time, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\sounds\\Alarm.ogg", "Master")
-			end
-		end
-	end
-
-	syncHandlers["DBMv4-DSW"] = function(msg, channel, sender)
+	syncHandlers["DBMv4-DSW"] = function(sender)
 		if (DBM:GetRaidRank(sender) ~= 2 or GetNumPartyMembers() == 0) then return end--If not on group, we're probably sender, don't disable status. IF not leader, someone is trying to spoof this, block that too
 		statusWhisperDisabled = true
 		DBM:Debug("Raid leader has disabled status whispers")
 	end
 
-	syncHandlers["DBMv4-DGP"] = function(msg, channel, sender)
+	syncHandlers["DBMv4-DGP"] = function(sender)
 		if (DBM:GetRaidRank(sender) ~= 2 or GetNumPartyMembers() == 0) then return end--If not on group, we're probably sender, don't disable status. IF not leader, someone is trying to spoof this, block that too
 		statusGuildDisabled = true
 		DBM:Debug("Raid leader has disabled guild progress messages")
 	end
 
-	syncHandlers["DBMv4-IS"] = function(msg, channel, sender)
-		local guid, ver, optionName = strsplit("\t", msg)
+	syncHandlers["DBMv4-IS"] = function(sender, guid, ver, optionName)
 		DBM:Debug(("DBMv4-IS received %s %s %s"):format(guid, ver, optionName),3)
 		ver = tonumber(ver) or 0
 		if ver >= 9999 then
@@ -3747,27 +3673,25 @@ do
 		DBM:AddMsg(name.." was elected icon setter for "..optionName)
 	end
 
-	whisperSyncHandlers["DBMv4-RequestTimers"] = function(msg, channel, sender)
-		DBM:SendTimers(sender)
-	end
-
-	syncHandlers["DBMv4-K"] = function(msg, channel, sender)
-		local cId = msg
+	syncHandlers["DBMv4-Kill"] = function(sender, cId)
 		if select(2, IsInInstance()) == "pvp" or select(2, IsInInstance()) == "none" then return end
 		cId = tonumber(cId or "")
 		if cId then DBM:OnMobKill(cId, true) end
 	end
 
 	local dummyMod -- dummy mod for the pull timer
-	syncHandlers["DBMv4-PT"] = function(msg, channel, sender)
-		local timer, target = strsplit("\t", msg)
+	syncHandlers["DBMv4-PT"] = function(sender, timer, senderMapID, target)
 		if DBM.Options.DontShowUserTimers then return end
-		local LFGTankException = IsPartyLFG() and UnitGroupRolesAssigned(sender) == "TANK"
-		if DBM:GetRaidRank(sender) == 0 or select(2, IsInInstance()) == "pvp" then
+		local isTank = UnitGroupRolesAssigned(sender)
+		local LFGTankException = IsPartyLFG() and isTank
+		if (DBM:GetRaidRank(sender) == 0 and IsInGroup() and not LFGTankException) or select(2, IsInInstance()) == "pvp" then
 			return
 		end
+		--Abort if mapID filter is enabled and sender actually sent a mapID. if no mapID is sent, it's always passed through (IE BW pull timers)
+		if DBM.Options.DontShowPTNoID and senderMapID and tonumber(senderMapID) ~= LastInstanceMapID then return end
 		timer = tonumber(timer or 0)
-		if timer > 60 or (timer > 0 and timer < 3) then
+		--We want to permit 0 itself, but block anything negative number or anything between 0 and 3 or anything longer than minute
+		if timer > 60 or (timer > 0 and timer < 3) or timer < 0 then
 			return
 		end
 		if not dummyMod then
@@ -3780,42 +3704,41 @@ do
 			dummyMod.timer = dummyMod:NewTimer(20, "%s", "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, 0, nil, nil, DBM.Options.DontPlayPTCountdown and 0 or 1, threshold)
 		end
 		--Cancel any existing pull timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
-		if not DBM.Options.DontShowPT2 then--and DBM.Bars:GetBar(L.TIMER_PULL)
+		if not DBM.Options.DontShowPT2 then--and DBT:GetBar(L.TIMER_PULL)
 			dummyMod.timer:Stop()
 		end
+		local timerTrackerRunning = false
 		if not DBM.Options.DontShowPTCountdownText then
-			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions
+			for _, tttimer in pairs(TT.timerList) do
+				if not tttimer.isFree then--Timer event running
+					if tttimer.type == 3 then--Its a pull timer event, this is one we cancel before starting a new pull timer
+						TT:FreeTimerTrackerTimer(tttimer)
+					else--Verify that a TimerTracker event NOT started by DBM isn't running, if it is, prevent executing new TimerTracker events below
+						timerTrackerRunning = true
+					end
+				end
+			end
 		end
 		dummyMod.text:Cancel()
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
 		if not DBM.Options.DontShowPT2 then
 			dummyMod.timer:Start(timer, L.TIMER_PULL)
+			sendSync("DBMv4-Pizza", ("%s\t%s"):format(timer, L.TIMER_PULL)) -- Backwards compatibility so old DBMs can receive pull timers from this DBM
 		end
 		if not DBM.Options.DontShowPTCountdownText then
-			--Start A TimerTracker timer by tricking it to start a BG timer
-			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 1, timer + .9, timer + .9)
-			--Find the timer object DBM just created and hack our own changes into it.
-			local timerObject
-			for a, b in pairs(TimerTracker.timerList) do
-				if b.type == 1 and not b.isFree then
-					timerObject = b
-					break
-				end
-			end
-			if timerObject then
-				--Set end texture to nothing to eliminate pvp logo/hourglass
-				timerObject.faction:SetTexture("")
-				timerObject.factionGlow:SetTexture("")
-				--We don't want the PVP bar, we only want timer text
-				if timer > 10 then
-					--timerObject.startNumbers:Play()
-				--	timerObject.barShowing = false
-				--	timerObject.anchorCenter = false
-					AnimationsToggle_STARTNUMBERS(timerObject)
-					timerObject.bar:Hide()
-				else
-					AnimationsToggle_STARTNUMBERS(timerObject)
-					timerObject.bar:Hide()
+			if not timerTrackerRunning then--if a TimerTracker event is running not started by DBM, block creating one of our own (object gets buggy if it has 2+ events running)
+				--Start A TimerTracker timer using the new countdown type 3 type (ie what C_PartyInfo.DoCountdown triggers, but without sending it to entire group)
+				TT:OnEvent("START_TIMER", 3, timer, timer)
+				--Find the timer object DBM just created and hack our own changes into it.
+				for _, tttimer in pairs(TT.timerList) do
+					if tttimer.type == 3 and not tttimer.isFree then
+						--We don't want the PVP bar, we only want timer text
+						if timer > 10 then
+							--b.startNumbers:Play()
+							tttimer.StatusBar:Hide()
+						end
+						break
+					end
 				end
 			end
 		end
@@ -3829,7 +3752,7 @@ do
 			end
 		end
 		if DBM.Options.RecordOnlyBosses then
-			DBM:StartLogging(timer, checkForActualPull)
+			DBM:StartLogging(timer, checkForActualPull)--Start logging here to catch pre pots.
 		end
 		if DBM.Options.CheckGear then
 			local weapon = GetInventoryItemLink("player", 16)
@@ -3840,7 +3763,7 @@ do
 					fishingPole = true
 				end
 			end
-			if GetNumRaidMembers() > 0 and (not weapon or fishingPole) then
+			if IsInRaid() and (not weapon or fishingPole) then
 				dummyMod.geartext:Show(L.GEAR_WARNING_WEAPON)
 			end
 		end
@@ -3855,18 +3778,19 @@ do
 				dummyMod2 = DBM:NewMod("BreakTimerCountdownDummy", "DBM-PvP")
 				DBM:GetModLocalization("BreakTimerCountdownDummy"):SetGeneralLocalization{ name = L.MINIMAP_TOOLTIP_HEADER }
 				dummyMod2.text = dummyMod2:NewAnnounce("%s", 1, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME")
-				dummyMod2.timer = dummyMod2:NewTimer(20, "%s", "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME", nil, nil, 0, nil, nil, DBM.Options.DontPlayPTCountdown and 0 or 1, threshold)
+				dummyMod2.timer = dummyMod2:NewTimer(20, L.TIMER_BREAK, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME", nil, nil, 0, nil, nil, DBM.Options.DontPlayPTCountdown and 0 or 1, threshold)
 			end
 			--Cancel any existing break timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
 			if not DBM.Options.DontShowPT2 then--and DBM.Bars:GetBar(L.TIMER_BREAK)
 				dummyMod2.timer:Stop()
 			end
 			dummyMod2.text:Cancel()
-			DBM.Options.tempBreak2 = nil
+			DBM.Options.RestoreSettingBreakTimer = nil
 			if timer == 0 then return end--"/dbm break 0" will strictly be used to cancel the break timer (which is why we let above part of code run but not below)
-			self.Options.tempBreak2 = timer.."/"..time()
+			self.Options.RestoreSettingBreakTimer = timer.."/"..time()
 			if not self.Options.DontShowPT2 then
-				dummyMod2.timer:Start(timer, L.TIMER_BREAK)
+				dummyMod2.timer:Start(timer)
+				sendSync("DBMv4-Pizza", ("%s\t%s"):format(timer, L.BREAK_START)) -- Backwards compatibility so old DBMs can receive break timers from this DBM
 			end
 			if not self.Options.DontShowPTText then
 				local hour, minute = GetGameTime()
@@ -3886,23 +3810,21 @@ do
 				if timer/60 > 1 then dummyMod2.text:Schedule(timer - 1*60, L.BREAK_MIN:format(1)) end
 				dummyMod2.text:Schedule(timer, L.ANNOUNCE_BREAK_OVER:format(hour..":"..minute))
 			end
-			AceTimer:ScheduleTimer(function() self.Options.tempBreak2 = nil end, timer)
+			AceTimer:ScheduleTimer(function() self.Options.RestoreSettingBreakTimer = nil end, timer)
 		end
 	end
 
-	syncHandlers["DBMv4-BT"] = function(msg, channel, sender)
-		local timer = msg
+	syncHandlers["DBMv4-BT"] = function(sender, timer)
 		if DBM.Options.DontShowUserTimers then return end
 		timer = tonumber(timer or 0)
 		if timer > 3600 then return end
-		if (DBM:GetRaidRank(sender) == 0 and GetNumPartyMembers() > 0) or select(2, IsInInstance()) == "pvp" then
+		if (DBM:GetRaidRank(sender) == 0 and IsInGroup()) or select(2, IsInInstance()) == "pvp" then
 			return
 		end
 		breakTimerStart(DBM, timer, sender)
 	end
 
-	whisperSyncHandlers["DBMv4-BTR3"] = function(msg, channel, sender)
-		local timer, maxtime, id, text, texture = strsplit("\t", msg)
+	whisperSyncHandlers["DBMv4-BTR3"] = function(sender, timer, maxtime, id, text, texture)
 		timer = tonumber(timer or 0)
 		maxtime = tonumber(maxtime or 0)
 		texture = tonumber(texture) or texture
@@ -3940,7 +3862,7 @@ do
 	end
 
 	local function HandleVersion(revision, version, displayVersion, sender, noRaid)
-		if (version > DBM.Revision) and version < 9999 then -- Update reminder
+		if (version > DBM.ReleaseRevision) and version < 9999 then -- Update reminder
 			if #newerVersionPerson < 4 then
 				if not checkEntry(newerVersionPerson, sender) then
 					newerVersionPerson[#newerVersionPerson + 1] = sender
@@ -3974,26 +3896,67 @@ do
 	end
 
 	-- is there a good reason that version information is broadcasted and not unicasted?
-	syncHandlers["DBMv4-H"] = function(msg, channel, sender)
+	syncHandlers["DBMv4-H"] = function(sender)
 		DBM:Unschedule(SendVersion)--Throttle so we don't needlessly send tons of comms during initial raid invites
 		DBM:Schedule(3, SendVersion)--Send version if 3 seconds have past since last "Hi" sync
 	end
 
-	syncHandlers["DBMv4-GH"] = function(msg, channel, sender)
+	guildSyncHandlers["DBMv4-GH"] = function(sender)
 		if DBM.ReleaseRevision >= DBM.HighestRelease then--Do not send version to guild if it's not up to date, since this is only used for update notifcation
 			DBM:Unschedule(SendVersion, true)--Throttle so we don't needlessly send tons of comms during initial raid invites
 			DBM:Schedule(10, SendVersion, true)--Send version if 10 seconds have past since last "Hi" sync
 		end
 	end
 
-	syncHandlers["DBMv4-V"] = function(msg, channel, sender)
-		local  revision, version, displayVersion, iconEnabled, VPVersion = strsplit("\t", msg)
+	syncHandlers["DBMv4-Ver"] = function(sender, revision, version, displayVersion, locale)
+		if revision == "Hi!" then
+			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()),4)
+			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
+		else
+			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
+			revision, version = tonumber(revision or ""), tonumber(version or "")
+			if (not tonumber(revision)) or (tonumber(revision) >= 9999) then revision = 4442 end
+			if revision and version and displayVersion and raid[sender] then
+				raid[sender].revision = revision
+				raid[sender].version = version
+				raid[sender].displayVersion = displayVersion
+				raid[sender].locale = locale
+				if version > tonumber(DBM.Version) then
+					if raid[sender].rank >= 1 then
+						enableIcons = false
+					end
+					if not showedUpdateReminder then
+						local found = false
+						for i, v in pairs(raid) do
+							if v.version == version and v ~= raid[sender] then
+								found = true
+								break
+							end
+						end
+						if found then
+							showedUpdateReminder = true
+							if not DBM.Options.BlockVersionUpdatePopup then
+								DBM:ShowUpdateReminder(displayVersion, revision)
+							else
+								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
+								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
+								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Zidras/DBM-Warmane]"):format(displayVersion, revision))
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
+	syncHandlers["DBMv4-V"] = function(sender, revision, version, displayVersion, locale, iconEnabled, VPVersion)
 		revision, version = tonumber(revision), tonumber(version)
 		if revision and version and displayVersion and raid[sender] then
 			raid[sender].revision = revision
 			raid[sender].version = version
 			raid[sender].displayVersion = displayVersion
 			raid[sender].VPVersion = VPVersion
+			raid[sender].locale = locale
 			raid[sender].enabledIcons = iconEnabled or "false"
 			DBM:Debug("Received version info from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
 			HandleVersion(revision, version, displayVersion, sender)
@@ -4001,7 +3964,7 @@ do
 		DBM:RAID_ROSTER_UPDATE()
 	end
 
-	syncHandlers["DBMv4-GV"] = function(sender, revision, version, displayVersion)
+	guildSyncHandlers["DBMv4-GV"] = function(sender, revision, version, displayVersion)
 		revision, version = tonumber(revision), tonumber(version)
 		if revision and version and displayVersion then
 			DBM:Debug("Received G version info from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
@@ -4009,15 +3972,29 @@ do
 		end
 	end
 
-	syncHandlers["DBMv4-U"] = function(sender, time, text)
-		if select(2, IsInInstance()) == "pvp" then return end -- no pizza timers in battlegrounds
-		if DBM.Options.DontShowUserTimers then return end
+	local localized_TIMER_PULL = { -- Workaround for mismatched clients locales: L.TIMER_PULL would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
+		"开怪倒计时",	 --CN
+		"Pull in",		--DE, EN
+		"Iniciando en",	--ES
+		"Pull dans",	--FR
+		"풀링",			--KR
+		"Атака",		--RU
+		"戰鬥準備"		 --TW
+	}
+
+	syncHandlers["DBMv4-Pizza"] = function(sender, time, text)
+		if select(2, IsInInstance()) == "pvp" then return end
 		if DBM:GetRaidRank(sender) == 0 then return end
-		if sender == playerName then return end
+		if sender == UnitName("player") then return end
 		time = tonumber(time or 0)
 		text = tostring(text)
 		if time and text then
-			DBM:CreatePizzaTimer(time, text, nil, sender)
+			local pullTimer = tContains(localized_TIMER_PULL, tostring(text)) and L.TIMER_PULL or nil -- Fixes localization of pull bar text
+			if pullTimer then
+				handleSync(nil, sender, "DBMv4-PT", time, text)
+			else
+				DBM:CreatePizzaTimer(time, text, nil, sender)
+			end
 		end
 	end
 
@@ -4121,7 +4098,7 @@ do
 			end
 		end
 
-		syncHandlers["DBMv4-IRE"] = function(msg, channel, sender)
+		syncHandlers["DBMv4-IRE"] = function(sender)
 			local popup = inspopup:IsShown()
 			if popup and savedSender == sender then -- found the popup with the correct data
 				savedSender = nil
@@ -4130,8 +4107,7 @@ do
 			end
 		end
 
-		syncHandlers["DBMv4-GCB"] = function(msg, channel, sender)
-			local  modId, ver, difficulty, name = strsplit("\t", msg)
+		guildSyncHandlers["DBMv4-GCB"] = function(sender, modId, ver, difficulty, name)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or not (ver == "2") then return end--Ignore old versions
 			if DBM:AntiSpam(10, "GCB") then
@@ -4153,8 +4129,7 @@ do
 			end
 		end
 
-		syncHandlers["DBMv4-GCE"] = function(msg, channel, sender)
-			local  modId, ver, wipe, time, difficulty, name, wipeHP = strsplit("\t", msg)
+		guildSyncHandlers["DBMv4-GCE"] = function(sender, modId, ver, wipe, time, difficulty, name, wipeHP)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or not (ver == "5") then return end--Ignore old versions
 			if DBM:AntiSpam(5, "GCE") then
@@ -4428,7 +4403,7 @@ do
 		end
 	end
 
-	whisperSyncHandlers["DBMv4-RT"] = function(msg, channel, sender)
+	whisperSyncHandlers["DBMv4-RequestTimers"] = function(sender)
 		if UnitInBattleground("player") then
 			DBM:SendPVPTimers(sender)
 		else
@@ -4436,8 +4411,7 @@ do
 		end
 	end
 
-	whisperSyncHandlers["DBMv4-CombatInfo"] = function(msg, channel, sender)
-		local mod, time = strsplit("\t", msg)
+	whisperSyncHandlers["DBMv4-CombatInfo"] = function(sender, mod, time)
 		mod = DBM:GetModByName(mod or "")
 		time = tonumber(time or 0)
 		if mod and time then
@@ -4445,18 +4419,16 @@ do
 		end
 	end
 
-	whisperSyncHandlers["DBMv4-TimerInfo"] = function(msg, channel, sender)
-		local mod, timeLeft, totalTime, id = strsplit("\t", msg)
+	whisperSyncHandlers["DBMv4-TimerInfo"] = function(sender, mod, timeLeft, totalTime, id, ...)
 		mod = DBM:GetModByName(mod or "")
 		timeLeft = tonumber(timeLeft or 0)
 		totalTime = tonumber(totalTime or 0)
 		if mod and timeLeft and timeLeft > 0 and totalTime and totalTime > 0 and id then
-			DBM:ReceiveTimerInfo(sender, mod, timeLeft, totalTime, id, select(5, strsplit("\t", msg)))
+			DBM:ReceiveTimerInfo(sender, mod, timeLeft, totalTime, id, ...)
 		end
 	end
 
-	whisperSyncHandlers["DBMv4-VarInfo"] = function(msg, channel, sender)
-		local mod, name, value = strsplit("\t", msg)
+	whisperSyncHandlers["DBMv4-VarInfo"] = function(sender, mod, name, value)
 		mod = DBM:GetModByName(mod or "")
 		value = tonumber(value) or value
 		if mod and name and value then
@@ -4464,16 +4436,29 @@ do
 		end
 	end
 
+	handleSync = function(channel, sender, prefix, ...)
+		if not prefix then
+			return
+		end
+		local handler
+		--Whisper syncs sent from non friends are automatically rejected if not from a friend or someone in your group
+		if channel == "WHISPER" and sender ~= playerName then -- separate between broadcast and unicast, broadcast must not be sent as unicast or vice-versa
+			if DBM:GetRaidUnitId(sender) then--Sender passes safety check, or is in group
+				handler = whisperSyncHandlers[prefix]
+			end
+		elseif channel == "GUILD" then
+			handler = guildSyncHandlers[prefix]
+		else
+			handler = syncHandlers[prefix]
+		end
+		if handler then
+			return handler(sender, ...)
+		end
+	end
+
 	function DBM:CHAT_MSG_ADDON(prefix, msg, channel, sender)
-		if msg and channel ~= "WHISPER" and channel ~= "GUILD" then
-			local handler = syncHandlers[prefix]
-			if handler then handler(msg, channel, sender) end
-		elseif msg and channel == "WHISPER" and self:GetRaidUnitId(sender) ~= nil then
-			local handler = whisperSyncHandlers[prefix]
-			if handler then handler(msg, channel, sender) end
-		elseif msg and channel == "GUILD" then
-			local handler = guildSyncHandlers[prefix]
-			if handler then handler(channel, sender, strsplit("\t", msg)) end
+		if strsub(prefix, 1, 5) == "DBMv4" and msg and (channel == "PARTY" or channel == "RAID" or channel == "BATTLEGROUND" or channel == "WHISPER" or channel == "GUILD") then
+			handleSync(channel, sender, prefix, strsplit("\t", msg))
 		end
 		if msg:find("spell:") and (DBM.Options.DebugLevel > 2) then
 			local spellId = string.match(msg, "spell:(%d+)") or "UNKNOWN"
@@ -4483,7 +4468,6 @@ do
 		end
 	end
 end
-
 
 -----------------------
 --  Update Reminder  --
@@ -5157,7 +5141,7 @@ do
 						BigBrother:ConsumableCheck("SELF")
 					end
 				end
-				--show enage message
+				--show engage message
 				if self.Options.ShowEngageMessage and not mod.noStatistics then
 					self:AddMsg(L.COMBAT_STARTED:format(difficultyText..name))
 					if self:InGuildParty() and not statusGuildDisabled and not self.Options.DisableGuildStatus then
@@ -5169,7 +5153,8 @@ do
 				if dummyMod then--stop pull timer
 					dummyMod.text:Cancel()
 					dummyMod.timer:Stop()
-					TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")
+					TT:OnEvent("PLAYER_ENTERING_WORLD") -- clear TimerTracker (Gold numbers countdown)
+					DBM:Unschedule(SendChatMessage) -- unschedule chat spam on pull
 				end
 				if self.Options.EventSoundEngage2 and self.Options.EventSoundEngage2 ~= "" and self.Options.EventSoundEngage2 ~= "None" then
 					self:PlaySoundFile(self.Options.EventSoundEngage2)
