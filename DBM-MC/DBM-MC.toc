@@ -16,7 +16,7 @@
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: Classic
 ## X-DBM-StatTypes: normal
-## X-DBM-Mod-MapID: 409
+## X-DBM-Mod-MapID: 697
 ## X-DBM-Mod-Sort: 1107
 ## X-DBM-Mod-Name: Molten Core
 ## X-DBM-Mod-Name-ruRU: Огненные Недра
