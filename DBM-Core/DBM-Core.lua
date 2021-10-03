@@ -7111,6 +7111,14 @@ function bossModPrototype:HasTargetedCooldown()
 		or playerClass == "PALADIN" and (getTalentpointsSpent(20234) >= 1 or IsSpellKnown(6940))	-- Improved Lay on Hands / Hand of Sacrifice
 end
 
+function bossModPrototype:UnitClass(uId)
+	if uId then--Return unit requested
+		local _, class = UnitClass(uId)
+		return class
+	end
+	return playerClass--else return "player"
+end
+
 function bossModPrototype:IsTank()
 	return (playerClass == "WARRIOR" and select(3, GetTalentTabInfo(3)) >= 13)
 		or (playerClass == "DEATHKNIGHT" and IsDeathKnightTank())
