@@ -3973,13 +3973,15 @@ do
 	end
 
 	local localized_TIMER_PULL = { -- Workaround for mismatched clients locales: L.TIMER_PULL would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
-		"开怪倒计时",	 --CN
+		"开怪倒计时",	--CN
 		"Pull in",		--DE, EN
 		"Iniciando en",	--ES
+		"Pull en",		-- ES (old DBM)
 		"Pull dans",	--FR
 		"풀링",			--KR
+		"풀링 중 입니다",--KR (old DBM)
 		"Атака",		--RU
-		"戰鬥準備"		 --TW
+		"戰鬥準備"		--TW
 	}
 
 	syncHandlers["DBMv4-Pizza"] = function(sender, time, text)
