@@ -12,6 +12,7 @@
 ## X-DBM-Mod-No-Heroic: 1
 ## X-DBM-Mod-Name: Vault of Archavon
 ## X-DBM-Mod-Name-ruRU: Склеп Аркавона
+## X-DBM-Mod-Name-esES: La Cámara de Archavon
 ## X-DBM-Mod-Sort: 7
 ## X-DBM-Mod-MapID: 533
 ## X-DBM-Mod-LoadZone: Vault of Archavon

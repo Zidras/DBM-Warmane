@@ -8,6 +8,7 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: Sunwell Plateau
 ## X-DBM-Mod-Name-ruRU: Плато Солнечного Колодца
+## X-DBM-Mod-Name-esES: Meseta de La Fuente del Sol
 ## X-DBM-Mod-MapID: 790
 ## X-DBM-Mod-LoadZone: Sunwell Plateau
 ## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца

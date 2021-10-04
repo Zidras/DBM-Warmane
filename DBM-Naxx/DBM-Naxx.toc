@@ -10,6 +10,7 @@
 ## X-DBM-Mod-No-Heroic: 1
 ## X-DBM-Mod-SubCategories: Arachnid Quarter,Construct Quarter,Plague Quarter,Military Quarter,Frostwyrm Lair
 ## X-DBM-Mod-SubCategories-ruRU: Паучий квартал,Квартал Мерзости,Чумной квартал,Военный квартал,Логово ледяного змея
+## X-DBM-Mod-SubCategories-esES: El Arrabal Arácnido,El Arrabal de los Ensamblaje,El Arrabal de la Peste,El Arrabal Militar,Guarida Helada
 ## X-DBM-Mod-Name: Naxxramas
 ## X-DBM-Mod-Name-ruRU: Наксрамас
 ## X-DBM-Mod-Sort: 6
