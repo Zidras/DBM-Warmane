@@ -12,9 +12,9 @@
 ## X-DBM-Mod-Name-ruRU: PvP
 ## X-DBM-Mod-Sort: 1500
 ## X-DBM-Mod-MapID: 462,444,402,541,483,611,861,916
-## X-DBM-Mod-LoadZone: Arathi Basin,Warsong Gulch,Alterac Valley,Eye of the Storm,Isle of Conquest,Slavery Valley,Silvershard Mines,The Battle for Gilneas
+## X-DBM-Mod-LoadZone: Arathi Basin,Warsong Gulch,Alterac Valley,Eye of the Storm,Isle of Conquest
 ## X-DBM-Mod-LoadZone-ruRU: Низина Арати,Ущелье Песни Войны,Альтеракская долина,Око Бури,Остров Завоеваний,Долина Узников,Сверкающие копи,Битва за Гилнеас
-## X-DBM-Mod-LoadZone-esES: Cuenca de Arathi,Garganta Grito de Guerra,Valle de Alterac,Ojo de la Tormenta,Isla de la Conquista,Slavery Valley,Silvershard Mines,The Battle for Gilneas
+## X-DBM-Mod-LoadZone-esES: Cuenca de Arathi,Garganta Grito de Guerra,Valle de Alterac,Ojo de la Tormenta,Isla de la Conquista
 
 localization.en.lua
 localization.ru.lua
