@@ -39,7 +39,7 @@ L:SetOptionLocalization{
 	WeaponsStatus				= "Advertencia especial al inicio del combate si la función desequipar/equipar está habilitada", --Needs Translating
 	ShieldHealthFrame			= "Mostrar barra de vida del boss con una barra de vida para $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
-	RemoveDruidBuff				= "Quitar buff MotW / GotW 24 segundos después de la pelea", --Needs Translating
+	RemoveDruidBuff				= "Quitar $spell:48469 / $spell:48470 24 segundos después de la pelea", --Needs Translating
 	EqUneqWeapons				= "Desequipar/equipar armas si se lanza Control mental sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.", --Needs Translating
 	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no al lanzarlas (si el ping es alto). La opción anterior debe estar habilitada.", --Needs Translating
 	BlockWeapons				= "Bloquear completamente las funciones de desequipar/equipar arriba" --Needs Translating
@@ -99,7 +99,7 @@ L:SetGeneralLocalization{
 L:SetOptionLocalization{
 	RangeFrame			= "Mostrar marco de distancia (12 m)",
 	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371",
-	RemoveDI			= "Retire $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
+	RemoveDI			= "Quitar $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
 }
 
 L:SetMiscLocalization{
