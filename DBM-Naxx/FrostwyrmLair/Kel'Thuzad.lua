@@ -31,7 +31,7 @@ local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnManaClose   		= mod:NewSpecialWarning("manaNear")
 local warnManaOnYou   		= mod:NewSpecialWarningYou(27819)
 local warnChainsTargets		= mod:NewTargetAnnounce(28410, 2)
-local warnMindControl 		= mod:NewAnnounce("Скоро Цепи Кел'Тузада", 4)
+local warnMindControl 		= mod:NewSoonAnnounce(28410, 4)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 
