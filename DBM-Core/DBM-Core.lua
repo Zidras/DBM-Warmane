@@ -3723,7 +3723,7 @@ do
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
 		if not DBM.Options.DontShowPT2 then
 			dummyMod.timer:Start(timer, L.TIMER_PULL)
-			sendSync("DBMv4-Pizza", ("%s\t%s"):format(timer, L.TIMER_PULL)) -- Backwards compatibility so old DBMs can receive pull timers from this DBM
+			sendSync("DBMv4-Pizza", ("%s\t%s\t%s"):format(timer, L.TIMER_PULL, tostring(true))) -- Backwards compatibility so old DBMs can receive pull timers from this DBM
 		end
 		if not DBM.Options.DontShowPTCountdownText then
 			if not timerTrackerRunning then--if a TimerTracker event is running not started by DBM, block creating one of our own (object gets buggy if it has 2+ events running)
@@ -3790,7 +3790,7 @@ do
 			self.Options.RestoreSettingBreakTimer = timer.."/"..time()
 			if not self.Options.DontShowPT2 then
 				dummyMod2.timer:Start(timer)
-				sendSync("DBMv4-Pizza", ("%s\t%s"):format(timer, L.BREAK_START)) -- Backwards compatibility so old DBMs can receive break timers from this DBM
+				sendSync("DBMv4-Pizza", ("%s\t%s\t%s"):format(timer, L.BREAK_START, tostring(true))) -- Backwards compatibility so old DBMs can receive break timers from this DBM
 			end
 			if not self.Options.DontShowPTText then
 				local hour, minute = GetGameTime()
@@ -3984,7 +3984,7 @@ do
 		"戰鬥準備"		--TW
 	}
 
-	syncHandlers["DBMv4-Pizza"] = function(sender, time, text)
+	syncHandlers["DBMv4-Pizza"] = function(sender, time, text, new)
 		if select(2, IsInInstance()) == "pvp" then return end
 		if DBM:GetRaidRank(sender) == 0 then return end
 		if sender == UnitName("player") then return end
@@ -3993,6 +3993,7 @@ do
 		if time and text then
 			local pullTimer = tContains(localized_TIMER_PULL, tostring(text)) and L.TIMER_PULL or nil -- Fixes localization of pull bar text
 			if pullTimer then
+				if new then return end
 				handleSync(nil, sender, "DBMv4-PT", time, text)
 			else
 				DBM:CreatePizzaTimer(time, text, nil, sender)
