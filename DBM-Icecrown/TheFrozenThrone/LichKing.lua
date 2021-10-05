@@ -32,7 +32,7 @@ local warnDrudgeGhouls		= mod:NewSpellAnnounce(70358, 2) --Phase 1 Add
 local warnShamblingEnrage	= mod:NewTargetAnnounce(72143, 3, nil, "Tank|Healer|RemoveEnrage") --Phase 1 Add Ability
 local warnNecroticPlague	= mod:NewTargetAnnounce(70337, 3) --Phase 1+ Ability
 local warnNecroticPlagueJump= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 70337) --Phase 1+ Ability
-local warnInfest			= mod:NewSpellAnnounce(73779, 3, nil, "Healer|RaidCooldown") --Phase 1 & 2 Ability
+local warnInfest			= mod:NewCountAnnounce(73779, 3, nil, "Healer|RaidCooldown") --Phase 1 & 2 Ability
 local warnPhase2Soon		= mod:NewPrePhaseAnnounce(2)
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 local valkyrWarning			= mod:NewAnnounce("ValkyrWarning", 3, 71844)--Phase 2 Ability
@@ -74,7 +74,7 @@ local timerSoulreaper	 	= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|Targe
 local timerSoulreaperCD	 	= mod:NewNextTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerHarvestSoul	 	= mod:NewTargetTimer(6, 68980)
 local timerHarvestSoulCD	= mod:NewNextTimer(75, 68980, nil, nil, nil, 6)
-local timerInfestCD			= mod:NewNextTimer(22.5, 70541, nil, "Healer|RaidCooldown", nil, 5, nil, DBM_CORE_L.HEALER_ICON, nil, nil, 4)
+local timerInfestCD			= mod:NewNextCountTimer(22.5, 70541, nil, "Healer|RaidCooldown", nil, 5, nil, DBM_CORE_L.HEALER_ICON, nil, nil, 4)
 local timerNecroticPlagueCleanse = mod:NewTimer(5, "TimerNecroticPlagueCleanse", 70337, "Healer", nil, 5, DBM_CORE_L.HEALER_ICON)
 local timerNecroticPlagueCD	= mod:NewNextTimer(30, 70337, nil, nil, nil, 3)
 local timerDefileCD			= mod:NewNextTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON, nil, 2, 4)
@@ -125,6 +125,7 @@ local warnedValkyrGUIDs = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 local plagueExpires = {}
 local lastPlague
+local infest_num = 0
 
 local soulshriek = GetSpellInfo(69242)
 
@@ -140,6 +141,7 @@ end
 local function NextPhase(self)
 	self:SetStage(0)
 	if self.vb.phase == 1 then
+		infest_num = 0
 		berserkTimer:Start()
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
@@ -151,6 +153,7 @@ local function NextPhase(self)
 			timerNecroticPlagueCD:Start(27)
 		end
 	elseif self.vb.phase == 2 then
+		infest_num = 0
 		warnPhase2:Show()
 		warnPhase2:Play("phasechange")
 		if self.Options.ShowFrame then
@@ -160,7 +163,7 @@ local function NextPhase(self)
 		timerSoulreaperCD:Start(40)
 		soundSoulReaperSoon:Schedule(40-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(38)
-		timerInfestCD:Start(14)
+		timerInfestCD:Start(14, infest_num+1)
 		soundInfestSoon:Schedule(14-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 		warnDefileSoon:Schedule(33)
 		warnDefileSoon:ScheduleVoice(33, "scatter") -- Voice Pack - Scatter.ogg: "Spread!"
@@ -286,9 +289,10 @@ function mod:SPELL_CAST_START(args)
 		warnSummonVileSpirit:Show()
 		timerVileSpirit:Start()
 	elseif args:IsSpellID(70541, 73779, 73780, 73781) then -- Infest
-		warnInfest:Show()
+		infest_num = infest_num + 1
+		warnInfest:Show(infest_num)
 		specWarnInfest:Show()
-		timerInfestCD:Start()
+		timerInfestCD:Start(22.5, infest_num+1)
 		soundInfestSoon:Cancel()
 		soundInfestSoon:Schedule(22.5-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 	elseif args.spellId == 72762 then -- Defile
@@ -504,9 +508,11 @@ function mod:UNIT_HEALTH(uId)
 	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.73 then
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
+		warnPhase2Soon:Play("nextphasesoon")
 	elseif self.vb.phase == 2 and not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 36597 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.43 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
+		warnPhase3Soon:Play("nextphasesoon")
 	end
 end
 
