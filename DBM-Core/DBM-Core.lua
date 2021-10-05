@@ -451,7 +451,7 @@ local watchFrameRestore = false
 local bossHealth = {}
 local bossHealthuIdCache = {}
 local bossuIdCache = {}
-local savedDifficulty, difficultyText, difficultyIndex
+local savedDifficulty, difficultyText, difficultyIndex, encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex
 local lastBossEngage = {}
 local lastBossDefeat = {}
 local timerRequestInProgress = false
@@ -5036,6 +5036,7 @@ do
 				mod.ignoreBestkill = false
 			end
 			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
+			encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex = savedDifficulty, difficultyText, difficultyIndex
 			local name = mod.combatInfo.name
 			local modId = mod.id
 			mod.inCombat = true
@@ -5238,6 +5239,9 @@ do
 			if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
 				savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = DBM:GetCurrentInstanceDifficulty()
 			end
+			if encounterDifficulty and encounterDifficultyText and encounterDifficultyIndex and (encounterDifficulty ~= savedDifficulty or encounterDifficultyText ~= difficultyText or encounterDifficultyIndex ~= difficultyIndex) then
+				savedDifficulty, difficultyText, difficultyIndex = encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex
+			end
 			local name = mod.combatInfo.name
 			local modId = mod.id
 			if wipe and mod.stats and not mod.noStatistics then
@@ -5391,6 +5395,9 @@ do
 				twipe(iconSetRevision)
 				twipe(iconSetPerson)
 				twipe(addsGUIDs)
+
+				encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex = nil, nil, nil
+
 				self:CreatePizzaTimer(time, "", nil, nil, nil, true)--Auto Terminate infinite loop timers on combat end
 			end
 		end
