@@ -2960,14 +2960,14 @@ function DBM:LoadModOptions(modId, inCombat, first)
 							self:Debug("Migrated "..option.." to option defaults")
 						end
 					--Fix options for custom special warning sounds not in addons folder that are not using soundkit IDs
-					elseif option:find("SWSound") then
+					--[[elseif option:find("SWSound") then
 						if savedOptions[id][profileNum][option] and (type(savedOptions[id][profileNum][option]) == "string") and (savedOptions[id][profileNum][option] ~= "") and (savedOptions[id][profileNum][option] ~= "None") then
 							local searchMsg = (savedOptions[id][profileNum][option]):lower()
 							if not searchMsg:find("addons") then
 								savedOptions[id][profileNum][option] = mod.DefaultOptions[option]
 								self:Debug("Migrated "..option.." to option defaults")
 							end
-						end
+						end]]
 					end
 				end
 			end
