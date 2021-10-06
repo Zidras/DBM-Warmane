@@ -763,7 +763,7 @@ do
 	end
 
 
-	local registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
+	local unregisterUnitEvent, registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
 	do
 		local frames = {} -- frames that are being used for unit events, one frame per unit id (this could be optimized, as it currently creates a new frame even for a different event, but that's not worth the effort as 90% of all calls are just boss1 anyways)
 
@@ -961,7 +961,8 @@ do
 			else
 				local match = false
 				for i = #mods, 1, -1 do
-					if mods[i] == self and checkEntry(self.inCombatOnlyEvents, event)  then
+					local findEvent = findRealEvent(self.inCombatOnlyEvents, event)
+					if mods[i] == self and findEvent then
 						tremove(mods, i)
 						match = true
 					end
