@@ -54,7 +54,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 	if spellId == 30533 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnVoid:Show(spellName)
 		specWarnVoid:Play("watchfeet")

@@ -274,7 +274,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, _, _, spellSchool, amount, _, _, _, _, _, critical)
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, _, _, spellSchool, amount, _, _, _, _, _, critical)
 	check_spell_damage(self, destGUID, amount, spellSchool, critical)
 end
 

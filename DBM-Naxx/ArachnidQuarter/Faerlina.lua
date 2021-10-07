@@ -8,8 +8,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_DAMAGE"
+	"SPELL_AURA_APPLIED"
 )
 
 local warnEmbraceActive		= mod:NewSpellAnnounce(28732, 1)

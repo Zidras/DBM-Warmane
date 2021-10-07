@@ -1043,122 +1043,90 @@ do
 		return handleEvent(nil, "CHAT_MSG_RAID_BOSS_EMOTE_FILTERED", msg:gsub("\124c%x+(.-)\124r", "%1"), ...)
 	end
 
-	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+	local noArgTableEvents = {
+		SWING_DAMAGE = true,
+		SWING_MISSED = true,
+		RANGE_DAMAGE = true,
+		RANGE_MISSED = true,
+		SPELL_DAMAGE = true,
+		SPELL_BUILDING_DAMAGE = true,
+		SPELL_MISSED = true,
+		SPELL_ABSORBED = true,
+		SPELL_HEAL = true,
+		SPELL_ENERGIZE = true,
+		SPELL_PERIODIC_ENERGIZE = true,
+		SPELL_PERIODIC_MISSED = true,
+		SPELL_PERIODIC_DAMAGE = true,
+		SPELL_PERIODIC_DRAIN = true,
+		SPELL_PERIODIC_LEECH = true,
+		SPELL_DRAIN = true,
+		SPELL_LEECH = true,
+		SPELL_CAST_FAILED = true
+	}
+	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, extraArg1, extraArg2, extraArg3, extraArg4, extraArg5, extraArg6, extraArg7, extraArg8, extraArg9, extraArg10, extraArg11, extraArg12)
 		if not registeredEvents[event] then return end
 		local eventSub6 = event:sub(0, 6)
 		if (eventSub6 == "SPELL_" or eventSub6 == "RANGE_") --[[and not unfilteredCLEUEvents[event]--]] and registeredSpellIds[event] then -- why is unfilteredCLEUEvents event count even needed here? Just broke the function altogether
-		args.spellId = ...
-			if not registeredSpellIds[event][args.spellId] then return end
+			if not registeredSpellIds[event][extraArg1] then return end
 		end
-		twipe(args)
-		args.timestamp = timestamp
-		args.event = event
-		args.sourceGUID = sourceGUID
-		args.sourceName = sourceName
-		args.sourceFlags = sourceFlags
-		args.destGUID = destGUID
-		args.destName = destName
-		args.destFlags = destFlags
-		-- taken from Blizzard_CombatLog.lua
-		if event == "SWING_DAMAGE" then
-			args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(1, ...)
-		elseif event == "SWING_MISSED" then
-			args.spellName = ACTION_SWING
-			args.missType = select(1, ...)
-		elseif event:sub(1, 5) == "RANGE" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			if event == "RANGE_DAMAGE" then
-				args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-			elseif event == "RANGE_MISSED" then
-				args.missType = select(4, ...)
-			end
-		elseif event:sub(1, 5) == "SPELL" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			if event == "SPELL_DAMAGE" then
-				args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-			elseif event == "SPELL_MISSED" then
-				args.missType, args.amountMissed = select(4, ...)
-			elseif event == "SPELL_HEAL" then
-				args.amount, args.overheal, args.absorbed, args.critical = select(4, ...)
-				args.school = args.spellSchool
-			elseif event == "SPELL_ENERGIZE" then
-				args.valueType = 2
-				args.amount, args.powerType = select(4, ...)
-			elseif event:sub(1, 14) == "SPELL_PERIODIC" then
-				if event == "SPELL_PERIODIC_MISSED" then
-					args.missType = select(4, ...)
-				elseif event == "SPELL_PERIODIC_DAMAGE" then
-					args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-				elseif event == "SPELL_PERIODIC_HEAL" then
-					args.amount, args.overheal, args.absorbed, args.critical = select(4, ...)
-					args.school = args.spellSchool
-				elseif event == "SPELL_PERIODIC_DRAIN" then
-					args.amount, args.powerType, args.extraAmount = select(4, ...)
-					args.valueType = 2
-				elseif event == "SPELL_PERIODIC_LEECH" then
-					args.amount, args.powerType, args.extraAmount = select(4, ...)
-					args.valueType = 2
-				elseif event == "SPELL_PERIODIC_ENERGIZE" then
-					args.amount, args.powerType = select(4, ...)
-					args.valueType = 2
+		-- process some high volume events without building the whole table which is somewhat faster
+		-- this prevents work-around with mods that used to have their own event handler to prevent this overhead
+		if noArgTableEvents[event] then
+			return handleEvent(nil, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, extraArg1, extraArg2, extraArg3, extraArg4, extraArg5, extraArg6, extraArg7, extraArg8, extraArg9, extraArg10, extraArg11, extraArg12)
+		else
+			twipe(args)
+			args.timestamp = timestamp
+			args.event = event
+			args.sourceGUID = sourceGUID
+			args.sourceName = sourceName
+			args.sourceFlags = sourceFlags
+			args.destGUID = destGUID
+			args.destName = destName
+			args.destFlags = destFlags
+			-- taken from Blizzard_CombatLog.lua
+			if eventSub6 == "SPELL_" then
+				args.spellId, args.spellName, args.spellSchool = extraArg1, extraArg2, extraArg3
+				if event == "SPELL_AURA_APPLIED" or event == "SPELL_AURA_REFRESH" or event == "SPELL_AURA_REMOVED" or event == "SPELL_AURA_BROKEN" then
+					args.auraType = extraArg4
+					if not args.sourceName then
+						args.sourceName = args.destName
+						args.sourceGUID = args.destGUID
+						args.sourceFlags = args.destFlags
+					end
+				elseif event == "SPELL_AURA_APPLIED_DOSE" or event == "SPELL_AURA_REMOVED_DOSE" then
+					args.auraType = extraArg4
+					args.amount = extraArg5
+					if not args.sourceName then
+						args.sourceName = args.destName
+						args.sourceGUID = args.destGUID
+						args.sourceFlags = args.destFlags
+					end
+				elseif event == "SPELL_CAST_FAILED" then
+					args.failedType = extraArg4
+				elseif event == "SPELL_INTERRUPT" or event == "SPELL_DISPEL_FAILED" then
+					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = extraArg4, extraArg5, extraArg6
+				elseif event == "SPELL_EXTRA_ATTACKS" then
+					args.amount = extraArg4
+				elseif event == "SPELL_DISPEL" or event == "SPELL_STOLEN" or event == "SPELL_AURA_BROKEN_SPELL" then
+					args.extraSpellId, args.extraSpellName, args.extraSpellSchool, args.auraType = extraArg4, extraArg5, extraArg6, extraArg7
 				end
-			elseif event == "SPELL_DRAIN" then
-				args.amount, args.powerType, args.extraAmount = select(4, ...)
-				args.valueType = 2
-			elseif event == "SPELL_LEECH" then
-				args.amount, args.powerType, args.extraAmount = select(4, ...)
-				args.valueType = 2
-			elseif event == "SPELL_INTERRUPT" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-			elseif event == "SPELL_EXTRA_ATTACKS" then
-				args.amount = select(4, ...)
-			elseif event == "SPELL_DISPEL_FAILED" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-			elseif event == "SPELL_AURA_DISPELLED" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-				args.auraType = select(7, ...)
-			elseif event == "SPELL_AURA_STOLEN" then
-				args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-				args.auraType = select(7, ...)
-			elseif event == "SPELL_AURA_APPLIED" or event == "SPELL_AURA_REMOVED" then
-				args.auraType = select(4, ...)
+			elseif event == "DAMAGE_SHIELD" or event == "DAMAGE_SPLIT" then
+				args.spellId, args.spellName, args.spellSchool, args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = extraArg1, extraArg2, extraArg3, extraArg4, extraArg5, extraArg6, extraArg7, extraArg8, extraArg9, extraArg10, extraArg11, extraArg12
+			elseif event == "DAMAGE_SHIELD_MISSED" then
+				args.spellId, args.spellName, args.spellSchool, args.missType = extraArg1, extraArg2, extraArg3, extraArg4
+			elseif event == "ENCHANT_APPLIED" or event == "ENCHANT_REMOVED" then
+				args.spellName,	args.itemId, args.itemName = extraArg1, extraArg2, extraArg3
+			elseif event == "UNIT_DIED" or event == "UNIT_DESTROYED" then
 				args.sourceName = args.destName
 				args.sourceGUID = args.destGUID
 				args.sourceFlags = args.destFlags
-			elseif event == "SPELL_AURA_APPLIED_DOSE" or event == "SPELL_AURA_REMOVED_DOSE" then
-				args.auraType, args.amount = select(4, ...)
-				args.sourceName = args.destName
-				args.sourceGUID = args.destGUID
-				args.sourceFlags = args.destFlags
-			elseif event == "SPELL_CAST_FAILED" then
-				args.missType = select(4, ...)
+			elseif event == "ENVIRONMENTAL_DAMAGE" then
+				args.environmentalType, args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = extraArg1, extraArg2, extraArg3, extraArg4, extraArg5, extraArg6, extraArg7, extraArg8, extraArg9, extraArg10
+				args.spellName = _G["ACTION_"..event.."_"..args.environmentalType]
+				args.spellSchool = args.school
 			end
-		elseif event == "DAMAGE_SHIELD" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
-		elseif event == "DAMAGE_SHIELD_MISSED" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			args.missType = select(4, ...)
-		elseif event == "ENCHANT_APPLIED" then
-			args.spellName = select(1,...)
-			args.itemId, args.itemName = select(2,...)
-		elseif event == "ENCHANT_REMOVED" then
-			args.spellName = select(1,...)
-			args.itemId, args.itemName = select(2,...)
-		elseif event == "UNIT_DIED" or event == "UNIT_DESTROYED" then
-			args.sourceName = args.destName
-			args.sourceGUID = args.destGUID
-			args.sourceFlags = args.destFlags
-		elseif event == "ENVIRONMENTAL_DAMAGE" then
-			args.environmentalType = select(1,...)
-			args.amount, args.overkill, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(2, ...)
-			args.spellName = _G["ACTION_"..event.."_"..args.environmentalType]
-			args.spellSchool = args.school
-		elseif event == "DAMAGE_SPLIT" then
-			args.spellId, args.spellName, args.spellSchool = select(1, ...)
-			args.amount, args.school, args.resisted, args.blocked, args.absorbed, args.critical, args.glancing, args.crushing = select(4, ...)
+			return handleEvent(nil, event, args)
 		end
-		return handleEvent(nil, event, args)
 	end
 	mainFrame:SetScript("OnEvent", handleEvent)
 end

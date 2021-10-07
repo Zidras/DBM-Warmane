@@ -86,7 +86,7 @@ do
 				self.vb.firstEngageTime = time()
 				if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
+					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 54536)
 				end
 				self:SendSync("AQ40Started", self.vb.firstEngageTime)--Also sync engage time
 			end
@@ -103,7 +103,7 @@ do
 
 	-- todo: thorns
 	local playerGUID = UnitGUID("player")
-	function mod:SPELL_DAMAGE(_, sourceName, _, _, destGUID, _, _, _, spellId)
+	function mod:SPELL_DAMAGE(_, sourceName, _, destGUID, _, _, spellId)
 		if spellId == 26555 and destGUID == playerGUID and self:AntiSpam(3, 3) then
 			specWarnShadowStorm:Show(sourceName)
 			specWarnShadowStorm:Play("findshelter")
@@ -112,7 +112,7 @@ do
 			checkFirstPull(self, destGUID or 0)
 		end
 	end
-	function mod:SPELL_MISSED(sourceGUID, _, _, _, destGUID, destName, _, _, _, _, spellSchool, missType)
+	function mod:SPELL_MISSED(sourceGUID, _, _, destGUID, destName, _, _, _, spellSchool, missType)
 		if (missType == "REFLECT" or missType == "DEFLECT") and sourceGUID == playerGUID then
 			if (spellSchool == 32 or spellSchool == 16) and self:AntiSpam(3, 1) then
 				specWarnShadowFrostReflect:Show(destName)
@@ -127,12 +127,12 @@ do
 		end
 	end
 
-	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID)
+	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-	function mod:SWING_DAMAGE(_, _, _, _, destGUID)
+	function mod:SWING_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SWING_MISSED = mod.SWING_DAMAGE
@@ -176,7 +176,7 @@ do
 			if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
 				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 				local adjustment = time() - self.vb.firstEngageTime
-				DBT:CreateBar(self.Options.FastestClear3 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
+				DBT:CreateBar(self.Options.FastestClear3 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 54536)
 			end
 			--Unregister high CPU combat log events
 			self:UnregisterShortTermEvents()

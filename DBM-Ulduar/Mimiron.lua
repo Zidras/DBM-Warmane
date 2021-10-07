@@ -17,8 +17,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"UNIT_SPELLCAST_CHANNEL_STOP boss1",
 	"CHAT_MSG_LOOT",
-	"SPELL_SUMMON",
-	"SPELL_DAMAGE"
+	"SPELL_SUMMON"
 )
 
 local blastWarn					= mod:NewTargetAnnounce(64529, 4)

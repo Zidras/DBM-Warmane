@@ -38,7 +38,7 @@ end
 do
 	local player = UnitGUID("player")
 
-	function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
+	function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 		if (spellId == 36121 or spellId == 39004) and destGUID == player and self:AntiSpam(4, 1) then--Flame Crash
 			specWarnGTFO:Show(spellName)
 			specWarnGTFO:Play("watchfeet")

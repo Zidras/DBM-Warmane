@@ -160,8 +160,8 @@ function mod:SPELL_SUMMON(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args.spellId == 70305 and args.destGUID == UnitGUID("player") and self:AntiSpam() then
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if spellId == 70305 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnBlade:Show()
 	end
 end

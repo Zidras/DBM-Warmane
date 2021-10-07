@@ -68,8 +68,8 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(args)
-	if args:IsSpellID(69024, 70436) and args:IsPlayer() and self:AntiSpam() then
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 69024 or spellId == 70436) and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnToxic:Show()
 		specWarnToxic:Play("runaway")
 	end

@@ -110,8 +110,8 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(64459, 64675) and args:IsPlayer() then -- Feral Defender Void Zone
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 64459 or spellId == 64675) and destGUID == UnitGUID("player") then -- Feral Defender Void Zone
 		specWarnVoid:Show()
 	end
 end

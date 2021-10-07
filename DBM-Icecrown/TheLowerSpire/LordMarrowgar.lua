@@ -87,8 +87,8 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(args)
-	if args:IsSpellID(69146, 70823, 70824, 70825) and args:IsPlayer() and self:AntiSpam() then		-- Coldflame, MOVE!
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 69146 or spellId == 70823 or spellId == 70824 or spellId == 70825) and destGUID == UnitGUID("player") and self:AntiSpam() then		-- Coldflame, MOVE!
 		specWarnColdflame:Show()
 		specWarnColdflame:Play("runaway")
 	end

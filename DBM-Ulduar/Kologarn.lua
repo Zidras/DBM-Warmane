@@ -69,11 +69,11 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
+function mod:SPELL_DAMAGE(_, _, _, destGUID, destName, _, spellId)
+	if (spellId == 63783 or spellId == 63982) and destGUID == UnitGUID("player") then	-- Shockwave
 		timerNextShockwave:Start()
-	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
-		specWarnEyebeamNear:Show(args.destName)
+	elseif (spellId == 63346 or spellId == 63976) and destGUID == UnitGUID("player") and self:AntiSpam(2, 2) then
+		specWarnEyebeamNear:Show(destName)
 	end
 end
 

@@ -171,9 +171,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args.spellId == 45680 and not orbGUIDs[args.sourceGUID] then
-		orbGUIDs[args.sourceGUID] = true
+function mod:SPELL_DAMAGE(sourceGUID, _, _, _, _, _, spellId)
+	if spellId == 45680 and not orbGUIDs[sourceGUID] then
+		orbGUIDs[sourceGUID] = true
 		warnDarkOrb:Show()
 		specWarnDarkOrb:Show()
 	end

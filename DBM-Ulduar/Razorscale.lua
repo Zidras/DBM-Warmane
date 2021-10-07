@@ -58,9 +58,9 @@ function mod:OnCombatStart(delay)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(64733, 64704) and args:IsPlayer() then
-		specWarnDevouringFlame:Show()
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 64733 or spellId == 64704) and destGUID == UnitGUID("player") and self:AntiSpam() then
+			specWarnDevouringFlame:Show()
 		if self.Options.PlaySoundOnDevouringFlame then
 			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 		end

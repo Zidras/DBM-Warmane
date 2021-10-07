@@ -72,8 +72,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, mob, _, _, target)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(72635) and args:IsPlayer() and self:AntiSpam(1) then
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if spellId == 72635 and destGUID == UnitGUID("player") and self:AntiSpam(1) then
 		specwarnResidue:Show()
 	end
 end

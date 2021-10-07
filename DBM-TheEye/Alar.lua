@@ -114,8 +114,8 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 --Target scanning is more accurate for finding phase 2 well before the heal, HOWEVER, fails if soloing alar and you aren't targeting him.
-function mod:SPELL_HEAL(args)
-	if args.spellId == 34342 then
+function mod:SPELL_HEAL(_, _, _, _, _, _, spellId)
+	if spellId == 34342 then
 		phase2 = GetTime()
 		warnPhase2:Show()
 		berserkTimer:Start()
@@ -125,7 +125,7 @@ function mod:SPELL_HEAL(args)
 end
 
 --[[
-function mod:SPELL_DAMAGE(_, _, _, _, _, _, _, _, spellId)
+function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
 	if (spellId == 35181 or spellId == 45680) and self:AntiSpam(30, 2) then
 	end
 end

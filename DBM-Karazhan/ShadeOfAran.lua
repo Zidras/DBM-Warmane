@@ -125,7 +125,7 @@ function mod:SPELL_SUMMON(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 	if spellId == 29951 and destGUID == UnitGUID("player") and self:AntiSpam(2.5, 2) then
 		specWarnBlizzard:Show(spellName)
 		specWarnBlizzard:Play("watchfeet")

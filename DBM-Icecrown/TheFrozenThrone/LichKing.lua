@@ -488,8 +488,8 @@ do
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(68983, 73791, 73792, 73793) and args:IsPlayer() and self:AntiSpam(2, 3) then		-- Remorseless Winter
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 68983 or spellId == 73791 or spellId == 73792 or spellId == 73793) and destGUID == UnitGUID("player") and self:AntiSpam(2, 3) then		-- Remorseless Winter
 		specWarnWinter:Show()
 		specWarnWinter:Play("runaway")
 	end

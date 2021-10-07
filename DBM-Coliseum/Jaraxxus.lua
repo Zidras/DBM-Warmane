@@ -78,11 +78,11 @@ function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(66877, 67070, 67071, 67072) and args:IsPlayer() and self:AntiSpam(3, 1) then		-- Legion Flame
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 66877 or spellId == 67070 or spellId == 67071 or spellId == 67072) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then		-- Legion Flame
 		specWarnFlameGTFO:Show()
 		specWarnFlameGTFO:Play("runaway")
-	elseif args:IsSpellID(66496, 68716, 68717, 68718) and args:IsPlayer() and self:AntiSpam(3, 1) then	-- Fel Inferno
+	elseif (spellId == 66496 or spellId == 68716 or spellId == 68717 or spellId == 68718) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then	-- Fel Inferno
 		specWarnFelInferno:Show()
 		specWarnFelInferno:Play("runaway")
 	end
@@ -108,9 +108,9 @@ do
 		return math.max(1, math.floor(healed / maxAbsorb * 100))
 	end
 
-	function mod:SPELL_HEAL(args)
-		if args.destGUID == incinerateTarget then
-			healed = healed + (args.absorbed or 0)
+	function mod:SPELL_HEAL(_, _, _, destGUID, _, _, _, _, _, _, _, absorbed)
+		if destGUID == incinerateTarget then
+			healed = healed + (absorbed or 0)
 		end
 	end
 	mod.SPELL_PERIODIC_HEAL = mod.SPELL_HEAL
