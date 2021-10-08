@@ -479,26 +479,26 @@ L.AUTO_TIMER_TEXTS = {
 }
 
 L.AUTO_TIMER_OPTIONS = {
-	target							= "Show timer for $spell:%s debuff",
-	targetcount						= "Show timer (with count) for $spell:%s debuff",
-	cast							= "Show timer for $spell:%s cast",
-	castcount						= "Show timer (with count) for $spell:%s cast",
-	castsource						= "Show timer (with source) for $spell:%s cast",
-	active							= "Show timer for $spell:%s duration",
-	fades							= "Show timer for when $spell:%s fades from players",
-	ai								= "Show AI timer for $spell:%s cooldown",
-	cd								= "Show timer for $spell:%s cooldown",
-	cdcount							= "Show timer for $spell:%s cooldown",
-	cdsource						= "Show timer (with source) for $spell:%s cooldown",--Maybe better wording?
+	target							= "Show timer for $spell:%s debuff (%ds)",
+	targetcount						= "Show timer (with count) for $spell:%s debuff (%ds)",
+	cast							= "Show timer for $spell:%s cast (%ds)",
+	castcount						= "Show timer (with count) for $spell:%s cast (%ds)",
+	castsource						= "Show timer (with source) for $spell:%s cast (%ds)",
+	active							= "Show timer for $spell:%s duration (%ds)",
+	fades							= "Show timer for when $spell:%s fades from players (%ds)",
+	ai								= "Show AI timer for $spell:%s cooldown (%ds)",
+	cd								= "Show timer for $spell:%s cooldown (%ds)",
+	cdcount							= "Show timer for $spell:%s cooldown (%ds)",
+	cdsource						= "Show timer (with source) for $spell:%s cooldown (%ds)",--Maybe better wording?
 	cdspecial						= "Show timer for special ability cooldown",
-	next							= "Show timer for next $spell:%s",
-	nextcount						= "Show timer for next $spell:%s",
-	nextsource						= "Show timer (with source) for next $spell:%s",--Maybe better wording?
+	next							= "Show timer for next $spell:%s (%ds)",
+	nextcount						= "Show timer for next $spell:%s (%ds)",
+	nextsource						= "Show timer (with source) for next $spell:%s (%ds)",--Maybe better wording?
 	nextspecial						= "Show timer for next special ability",
-	achievement						= "Show timer for %s",
+	achievement						= "Show timer for %s (%ds)",
 	stage							= "Show timer for next stage",
-	adds							= "Show timer for incoming adds",
-	addscustom						= "Show timer for incoming adds",
+	adds							= "Show timer for incoming adds (%ds)",
+	addscustom						= "Show timer for incoming adds (%ds)",
 	roleplay						= "Show timer for roleplay duration"--This does need localizing though.
 }
 
