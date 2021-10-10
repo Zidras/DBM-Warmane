@@ -161,8 +161,7 @@ function mod:UNIT_HEALTH(uId)
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
 	elseif not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 40142 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.54 then
-		self.vb.warned_preP3 = true
-		warnPhase3Soon:Show()
+		self:SendSync("Phase3soon")
 	end
 end
 
@@ -289,5 +288,8 @@ function mod:OnSync(msg, target)
 		warnPhase3:Show()
 		timerMeteorCD:Start(30) --These i'm not sure if they start regardless of drake aggro, or if it varies as well.
 		timerFieryConsumptionCD:Start(20)--not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this
+	elseif msg == "Phase3soon" and not self.vb.warned_preP3 then
+		self.vb.warned_preP3 = true
+		warnPhase3Soon:Show()
 	end
 end
