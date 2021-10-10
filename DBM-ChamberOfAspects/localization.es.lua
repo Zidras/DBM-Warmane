@@ -59,7 +59,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	PlaySoundOnFireWall		= "Reproducir sonido para \"Muro de Fuego\"",
-	AnnounceFails			= "Anunciar jugadores que reciban daño de &spell:57491 y $spell:57579 en el chat de banda (requiere líder o ayudante)",
+	AnnounceFails			= "Anunciar jugadores que reciban daño de $spell:57491 y $spell:57579 en el chat de banda (requiere líder o ayudante)",
 	TimerTenebron			= "Mostrar temporizador para la llegada de Tenebron",
 	TimerShadron			= "Mostrar temporizador para la llegada de Shadron",
 	TimerVesperon			= "Mostrar temporizador para la llegada de Vesperon",
