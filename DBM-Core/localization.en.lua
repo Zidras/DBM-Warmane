@@ -191,7 +191,6 @@ L.INFOFRAME_MAIN					= "Main:"--Main power
 L.INFOFRAME_ALT						= "Alt:"--Alternate Power
 
 L.LFG_INVITE						= "LFG Invite"
-L.LFG_CD							= "LFG cooldown"
 L.PHASE								= "Phase %d"
 
 L.SLASHCMD_HELP						= {

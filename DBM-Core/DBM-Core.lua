@@ -3295,11 +3295,12 @@ function DBM:LFG_PROPOSAL_SHOW()
 	end
 end
 
-function DBM:LFG_PROPOSAL_SUCCEEDED()
-	DBM.Bars:CreateBar(900, L.LFG_CD, "Interface\\Icons\\Spell_Holy_SurgeOfLight")
+function DBM:LFG_PROPOSAL_FAILED()
+	self.Bars:CancelBar(L.LFG_INVITE)
+	fireEvent("DBM_TimerStop", "DBMLFGTimer")
 end
 
-function DBM:LFG_PROPOSAL_FAILED()
+function DBM:LFG_PROPOSAL_SUCCEEDED()
 	self.Bars:CancelBar(L.LFG_INVITE)
 	fireEvent("DBM_TimerStop", "DBMLFGTimer")
 end

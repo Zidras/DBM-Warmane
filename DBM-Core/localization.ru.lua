@@ -179,7 +179,6 @@ L.INFOFRAME_MAIN					= "Main:"--Main power
 L.INFOFRAME_ALT						= "Alt:"--Alternate Power
 
 L.LFG_INVITE						= "Приглашение в подземелье"
-L.LFG_CD							= "Восстановление ПП"
 L.PHASE								= "%d-я фаза"
 
 L.SLASHCMD_HELP						= {
