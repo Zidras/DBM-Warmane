@@ -282,9 +282,9 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsPlayer() and args:IsSpellID(65817, 68142, 68143, 68144) and self:AntiSpam() then
-		specWarnHellfire:Show(args.sourceName)
+function mod:SPELL_DAMAGE(_, sourceName, _, destGUID, _, _, spellId)
+	if (spellId == 65817 or spellId ==  68142 or spellId == 68143 or spellId == 68144) and destGUID == UnitGUID("player") and self:AntiSpam() then
+		specWarnHellfire:Show(sourceName)
 		specWarnHellfire:Play("runaway")
 	end
 end

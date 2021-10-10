@@ -27,7 +27,7 @@ local timerFist		= mod:NewBuffActiveTimer(4, 20277, nil, false, 2, 3)
 
 function mod:OnCombatStart(delay)
 	timerCurse:Start(6-delay)
-	if self:IsEvent() or not self:IsTrivial() then
+	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_PERIODIC_DAMAGE 19717",
 			"SPELL_PERIODIC_MISSED 19717"
@@ -55,7 +55,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId, spellName)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 	if spellId == 19717 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnGTFO:Show(spellName)
 		specWarnGTFO:Play("watchfeet")

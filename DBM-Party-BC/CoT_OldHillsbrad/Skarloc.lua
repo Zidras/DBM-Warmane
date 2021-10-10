@@ -42,7 +42,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
 	if spellId == 38385 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnConsecration:Show()
 		specWarnConsecration:Play("runaway")

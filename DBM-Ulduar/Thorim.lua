@@ -23,6 +23,8 @@ local warnUnbalancingStrike		= mod:NewTargetAnnounce(62130, 4)	-- nice blizzard,
 local warningBomb				= mod:NewTargetAnnounce(62526, 4)
 
 local specWarnOrb				= mod:NewSpecialWarningMove(62017)
+local specWarnLightningShock	= mod:NewSpecialWarningMove(62017, nil, nil, nil, 1, 2)
+
 
 mod:AddBoolOption("AnnounceFails", false, "announce")
 
@@ -112,18 +114,17 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-local spam = 0
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(62017) then -- Lightning Shock
-		if bit.band(args.destFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0
-		and bit.band(args.destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0
-		and GetTime() - spam > 5 then
-			spam = GetTime()
-			specWarnOrb:Show()
+function mod:SPELL_DAMAGE(_, _, _, _, destName, destFlags, spellId)
+	if spellId == 62017 then -- Lightning Shock
+		if bit.band(destFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0
+		and bit.band(destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0
+		and self:AntiSpam(5) then
+			specWarnLightningShock:Show()
+			specWarnLightningShock:Play("runaway")
 		end
-	elseif self.Options.AnnounceFails and args:IsSpellID(62466) and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(args.destName) ~= nil and args.destName then
-		lastcharge[args.destName] = (lastcharge[args.destName] or 0) + 1
-		SendChatMessage(L.ChargeOn:format(args.destName), "RAID")
+	elseif self.Options.AnnounceFails and spellId == 62466 and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(destName) ~= "none" and destName then
+		lastcharge[destName] = (lastcharge[destName] or 0) + 1
+		SendChatMessage(L.ChargeOn:format(destName), "RAID")
 	end
 end
 

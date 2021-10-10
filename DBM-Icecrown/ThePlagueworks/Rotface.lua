@@ -153,28 +153,28 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(69761, 71212, 73026, 73027) and args:IsPlayer() and self:AntiSpam(3, 1) then
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, destGUID, _, _, spellId)
+	if (spellId == 69761 or spellId == 71212 or spellId == 73026 or spellId == 73027) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
 		specWarnRadiatingOoze:Show()
 		specWarnRadiatingOoze:Play("runaway")
-	elseif args:GetDestCreatureID() == 36899 and args:IsSrcTypePlayer() and not args:IsSpellID(53189, 53190, 53194, 53195) then--Any spell damage except for starfall (ranks 3 and 4)
-		if args.sourceName ~= UnitName("player") then
+	elseif (spellId ~= 53189 or spellId ~= 53190 or spellId ~= 53194 or spellId ~= 53195) and self:GetCIDFromGUID(destGUID) == 36899 and bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0 and self:IsInCombat() then--Any spell damage except for starfall (ranks 3 and 4)
+		if sourceGUID ~= UnitGUID("player") then
 			if self.Options.TankArrow then
-				DBM.Arrow:ShowRunTo(args.sourceName, 0, 0)
+				DBM.Arrow:ShowRunTo(sourceName, 0, 0)
 			end
 		end
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-function mod:SWING_DAMAGE(args)
-	if args:GetSrcCreatureID() == 36897 and args:IsPlayer() and self:AntiSpam(3, 2) then --Little ooze hitting you
+function mod:SWING_DAMAGE(sourceGUID, sourceName, sourceFlags, destGUID)
+	if self:GetCIDFromGUID(sourceGUID) == 36897 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then --Little ooze hitting you
 		specWarnLittleOoze:Show()
 		specWarnLittleOoze:Play("keepmove")
-	elseif args:GetDestCreatureID() == 36899 and args:IsSrcTypePlayer() then
-		if args.sourceName ~= UnitName("player") then
+	elseif self:GetCIDFromGUID(destGUID) == 36899 and bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0 and self:IsInCombat() then
+		if sourceGUID ~= UnitGUID("player") then
 			if self.Options.TankArrow then
-				DBM.Arrow:ShowRunTo(args.sourceName, 0, 0)
+				DBM.Arrow:ShowRunTo(sourceName, 0, 0)
 			end
 		end
 	end

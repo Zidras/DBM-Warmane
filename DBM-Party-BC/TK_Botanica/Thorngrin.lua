@@ -41,7 +41,7 @@ end
 do
 	local player = UnitGUID("player")
 
-	function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
+	function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 		if spellId == 34660 and destGUID == player and self:AntiSpam(4, 1) then--Hellfire
 			specWarnGTFO:Show(spellName)
 			specWarnGTFO:Play("watchfeet")

@@ -89,8 +89,8 @@ end
 
 
 
-function mod:SPELL_PERIODIC_DAMAGE(args)
-	if args:IsSpellID(69238, 69628) and args:IsPlayer() and self:AntiSpam() then		-- Icy Blast, MOVE!
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 69238 or spellId == 69628) and destGUID == UnitGUID("player") and self:AntiSpam() then		-- Icy Blast, MOVE!
 		specWarnIcyBlast:Show()
 		specWarnIcyBlast:Play("runaway")
 	end

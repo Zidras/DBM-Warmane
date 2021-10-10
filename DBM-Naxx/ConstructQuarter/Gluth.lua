@@ -8,16 +8,15 @@ mod:RegisterCombat("combat")
 
 mod:EnableModel()
 
-mod:RegisterEvents(
-	"SPELL_DAMAGE"
+mod:RegisterEventsInCombat(
+	"SPELL_DAMAGE 28375"
 )
-
 
 local warnDecimateSoon	= mod:NewSoonAnnounce(54426, 2)
 local warnDecimateNow	= mod:NewSpellAnnounce(54426, 3)
 
 local enrageTimer		= mod:NewBerserkTimer(420)
-local timerDecimate		= mod:NewCDTimer(104, 54426)
+local timerDecimate		= mod:NewCDTimer(104, 54426, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(420 - delay)
@@ -25,10 +24,8 @@ function mod:OnCombatStart(delay)
 	warnDecimateSoon:Schedule(100 - delay)
 end
 
-local decimateSpam = 0
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(28375) and (GetTime() - decimateSpam) > 20 then
-		decimateSpam = GetTime()
+function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
+	if spellId == 28375 and self:AntiSpam(20) then
 		warnDecimateNow:Show()
 		timerDecimate:Start()
 		warnDecimateSoon:Schedule(96)

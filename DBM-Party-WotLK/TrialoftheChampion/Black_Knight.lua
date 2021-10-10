@@ -42,13 +42,13 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(67781, 67876) and args:IsPlayer() and self:AntiSpam(3, 1) then		-- Desecration
+function mod:SPELL_DAMAGE(_, _, _, destGUID, destName, _, spellId)
+	if (spellId == 67781 or spellId == 67876) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then		-- Desecration
 		specWarnDesecration:Show()
 		specWarnDesecration:Play("watchfeet")
-	elseif args:IsSpellID(67886) then
+	elseif spellId == 67729 or spellId == 67886 then
 		if self.Options.AchievementCheck and not warnedfailed then
-			SendChatMessage(L.AchievementFailed:format(args.destName), "PARTY")
+			SendChatMessage(L.AchievementFailed:format(destName), "PARTY")
 			warnedfailed = true
 		end
 	end

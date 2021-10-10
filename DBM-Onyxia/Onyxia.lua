@@ -99,8 +99,8 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(68867, 69286) and args:IsPlayer() then		-- Tail Sweep
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 68867 or spellId == 69286) and destGUID == UnitGUID("player") then		-- Tail Sweep
 		sndFunny:Play("Interface\\AddOns\\DBM-Onyxia\\sounds\\watch-the-tail.mp3")
 	end
 end

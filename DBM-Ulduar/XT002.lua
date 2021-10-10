@@ -11,7 +11,8 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_DAMAGE"
+	"SPELL_DAMAGE",
+	"SPELL_MISSED"
 )
 
 local warnLightBomb					= mod:NewTargetAnnounce(65121, 3)
@@ -103,12 +104,10 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-do
-	local lastConsumption = 0
-	function mod:SPELL_DAMAGE(args)
-		if args:IsSpellID(64208, 64206) and args:IsPlayer() and time() - lastConsumption > 2 then		-- Hard mode void zone
-			specWarnConsumption:Show()
-			lastConsumption = time()
-		end
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 64208 or spellId == 64206) and destGUID == UnitGUID("player") and self:AntiSpam() then
+		specWarnConsumption:Show()
+		specWarnConsumption:Play("runaway")
 	end
 end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE

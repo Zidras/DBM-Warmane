@@ -126,7 +126,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(_, _, _, _, _, _, _, _, spellId)
+function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
 	if spellId == 41545 and self:AntiSpam(3, 1) then
 		warnSoul:Show()
 		timerNextSoul:Start()

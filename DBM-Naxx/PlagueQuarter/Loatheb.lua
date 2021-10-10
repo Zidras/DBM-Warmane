@@ -64,16 +64,16 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 --Spore loser function. Credits to Forte guild and their old discontinued dbm plugins. Sad to see that guild disband, best of luck to them!
-function mod:SPELL_DAMAGE(args)
-	if self.Options.SporeDamageAlert and args.destName == "Spore" and args.spellId ~= 62124 and self:IsInCombat() then
-		SendChatMessage(args.sourceName..", You are damaging a Spore!!! ("..args.amount.." damage)", "RAID_WARNING")
-		SendChatMessage(args.sourceName..", You are damaging a Spore!!! ("..args.amount.." damage)", "WHISPER", nil, args.sourceName)
+function mod:SPELL_DAMAGE(_, sourceName, _, _, destName, _, spellId, _, _, amount)
+	if self.Options.SporeDamageAlert and destName == "Spore" and spellId ~= 62124 and self:IsInCombat() then
+		SendChatMessage(sourceName..", You are damaging a Spore!!! ("..amount.." damage)", "RAID_WARNING")
+		SendChatMessage(sourceName..", You are damaging a Spore!!! ("..amount.." damage)", "WHISPER", nil, sourceName)
 	end
 end
 
-function mod:SWING_DAMAGE(args)
-	if self.Options.SporeDamageAlert and args.destName == "Spore" and self:IsInCombat() then
-		SendChatMessage(args.sourceName..", You are damaging a Spore!!! ("..args.amount.." damage)", "RAID_WARNING")
-		SendChatMessage(args.sourceName..", You are damaging a Spore!!! ("..args.amount.." damage)", "WHISPER", nil, args.sourceName)
+function mod:SWING_DAMAGE(_, sourceName, _, _, destName, _, _, _, _, amount)
+	if self.Options.SporeDamageAlert and destName == "Spore" and self:IsInCombat() then
+		SendChatMessage(sourceName..", You are damaging a Spore!!! ("..amount.." damage)", "RAID_WARNING")
+		SendChatMessage(sourceName..", You are damaging a Spore!!! ("..amount.." damage)", "WHISPER", nil, sourceName)
 	end
 end

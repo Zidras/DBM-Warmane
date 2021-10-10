@@ -201,14 +201,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(71726, 71727, 71728, 71729) and args:GetSrcCreatureID() == 37955 then	-- Vampiric Bite (first bite only, hers)
-		warnVampiricBite:Show(args.destName)
+function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destName, _, spellId)
+	if (spellId == 71726 or spellId == 71727 or spellId == 71728 or spellId == 71729) and self:GetCIDFromGUID(sourceGUID) == 37955 then	-- Vampiric Bite (first bite only, hers)
+		warnVampiricBite:Show(destName)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(args)
-	if args:IsPlayer() and args:IsSpellID(71277, 72638, 72639, 72640) and self:AntiSpam() then		--Swarn of Shadows (spell damage, you're standing in it.)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 71277 or spellId == 72638 or spellId == 72639 or spellId == 72640) and destGUID == UnitGUID("player") and self:AntiSpam() then		--Swarn of Shadows (spell damage, you're standing in it.)
 		specWarnSwarmingShadows:Show()
 		specWarnSwarmingShadows:Play("runaway")
 	end

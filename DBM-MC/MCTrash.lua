@@ -36,7 +36,7 @@ do
 				self.vb.firstEngageTime = time()
 				if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBT:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
+					DBT:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 54536)
 				end
 				self:SendSync("MCStarted", self.vb.firstEngageTime)--Also sync engage time
 			end
@@ -45,17 +45,17 @@ do
 		end
 	end
 
-	function mod:SPELL_DAMAGE(_, _, _, _, destGUID)
+	function mod:SPELL_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID)
+	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-	function mod:SWING_DAMAGE(_, _, _, _, destGUID)
+	function mod:SWING_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SWING_MISSED = mod.SWING_DAMAGE

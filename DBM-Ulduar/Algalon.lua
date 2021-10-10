@@ -117,11 +117,11 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(65108, 64122) and self:AntiSpam(2, args.spellId .. args.sourceGUID) then 	-- Black Hole Explosion
+function mod:SPELL_DAMAGE(sourceGUID, _, _, _, _, _, spellId)
+	if (spellId == 65108 or spellId == 64122) and self:AntiSpam(2, spellId .. sourceGUID) then 	-- Black Hole Explosion
 		announceBlackHole:Show()
-		if stars[args.sourceGUID] then
-			local id = stars[args.sourceGUID]
+		if stars[sourceGUID] then
+			local id = stars[sourceGUID]
 			DBM.BossHealth:RemoveBoss(id)
 		else
 			DBM.BossHealth:RemoveLowest()

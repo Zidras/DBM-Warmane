@@ -26,7 +26,7 @@ local timerFearCD		= mod:NewCDTimer(20.5, 26580, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(10-delay)
-	if self:IsEvent() or not self:IsTrivial() then
+	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_AURA_APPLIED 25786 25989",
 			"SPELL_PERIODIC_DAMAGE 25786 25989",
@@ -66,7 +66,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId, spellName)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, destName, _, spellId, spellName)
 	if (spellId == 25786 or spellId == 25989) and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
 		specWarnGTFO:Show(spellName)
 		specWarnGTFO:Play("watchfeet")

@@ -63,12 +63,9 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-do
-	local lastbitingcold = 0
-	function mod:SPELL_DAMAGE(args)
-		if args:IsSpellID(62038, 62188) and args:IsPlayer() and time() - lastbitingcold > 4 then		-- Biting Cold
-			specWarnBitingCold:Show()
-			lastbitingcold = time()
-		end
+function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if (spellId == 62038 or spellId == 62188) and destGUID == UnitGUID("player") and self:AntiSpam(4) then
+		specWarnBitingCold:Show()
+		specWarnBitingCold:Play("keepmove")
 	end
 end

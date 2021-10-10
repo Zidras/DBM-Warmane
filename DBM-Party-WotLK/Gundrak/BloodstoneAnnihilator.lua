@@ -7,34 +7,27 @@ mod:SetCreatureID(29307)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_DAMAGE"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 54850 54878",
+	"SPELL_PERIODIC_DAMAGE 59451"
 )
 
-local warningElemental	= mod:NewAnnounce("WarningElemental", 3, 54850)
-local warningStone		= mod:NewAnnounce("WarningStone", 3, 54878)
-local timerBarrage		= mod:NewCDTimer(6, 67994)
+local warningElemental		= mod:NewAnnounce("WarningElemental", 3, 54850)
+local warningStone			= mod:NewAnnounce("WarningStone", 3, 54878)
 
-function mod:OnCombatStart()
-	timerBarrage:Start()
-end
-
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 67994 then
-		timerBarrage:Start()
-	end
-end
+local specWarnPurpleShit	= mod:NewSpecialWarningMove(59451, nil, nil, nil, 1, 2)
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(54850) then
+	if args.spellId == 54850 then
 		warningElemental:Show()
-		timerBarrage:Cancel()
-	elseif args:IsSpellID(54878) then
+	elseif args.spellId == 54878 then
 		warningStone:Show()
-		timerBarrage:Start()
 	end
 end
 
-mod.SPELL_DAMAGE = mod.SPELL_CAST_SUCCESS
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+	if spellId == 59451 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) and not self:IsTrivial() then
+		specWarnPurpleShit:Show()
+		specWarnPurpleShit:Play("runaway")
+	end
+end

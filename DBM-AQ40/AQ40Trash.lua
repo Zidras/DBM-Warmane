@@ -86,7 +86,7 @@ do
 				self.vb.firstEngageTime = time()
 				if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
+					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 54536)
 				end
 				self:SendSync("AQ40Started", self.vb.firstEngageTime)--Also sync engage time
 			end
@@ -103,7 +103,7 @@ do
 
 	-- todo: thorns
 	local playerGUID = UnitGUID("player")
-	function mod:SPELL_DAMAGE(_, sourceName, _, _, destGUID, _, _, _, spellId)
+	function mod:SPELL_DAMAGE(_, sourceName, _, destGUID, _, _, spellId)
 		if spellId == 26555 and destGUID == playerGUID and self:AntiSpam(3, 3) then
 			specWarnShadowStorm:Show(sourceName)
 			specWarnShadowStorm:Play("findshelter")
@@ -112,7 +112,7 @@ do
 			checkFirstPull(self, destGUID or 0)
 		end
 	end
-	function mod:SPELL_MISSED(sourceGUID, _, _, _, destGUID, destName, _, _, _, _, spellSchool, missType)
+	function mod:SPELL_MISSED(sourceGUID, _, _, destGUID, destName, _, _, _, spellSchool, missType)
 		if (missType == "REFLECT" or missType == "DEFLECT") and sourceGUID == playerGUID then
 			if (spellSchool == 32 or spellSchool == 16) and self:AntiSpam(3, 1) then
 				specWarnShadowFrostReflect:Show(destName)
@@ -127,17 +127,17 @@ do
 		end
 	end
 
-	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID)
+	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-	function mod:SWING_DAMAGE(_, _, _, _, destGUID)
+	function mod:SWING_DAMAGE(_, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SWING_MISSED = mod.SWING_DAMAGE
 
-	local function updateDefeatedBosses(self, encounterId)
+--[[ 	local function updateDefeatedBosses(self, encounterId)
 		if self:AntiSpam(10, encounterId) then
 			if encounterId == 710 or encounterId == 713 or encounterId == 716 or encounterId == 717 or encounterId == 714 then
 				self.vb.requiredBosses = self.vb.requiredBosses + 1
@@ -165,18 +165,18 @@ do
 			end
 		end
 	end
-
+ ]]
 	function mod:OnSync(msg, timeOrEncounter, sender)
 		--Sync recieved with start time and ours is currently not started
 		--The reason this doesn't just check self.vb.firstEngageTime is nil, because it might not be if SendVariableInfo send it first
-		if msg == "AQ40Started" and timeOrEncounter and not DBT:GetBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT) then
+		if msg == "AQ40Started" and timeOrEncounter --[[ and not DBT:GetBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT) ]] then
 			if not self.vb.firstEngageTime then
 				self.vb.firstEngageTime = tonumber(timeOrEncounter)
 			end
 			if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
 				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 				local adjustment = time() - self.vb.firstEngageTime
-				DBT:CreateBar(self.Options.FastestClear3 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
+				DBT:CreateBar(self.Options.FastestClear3 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 54536)
 			end
 			--Unregister high CPU combat log events
 			self:UnregisterShortTermEvents()
@@ -187,8 +187,8 @@ do
 			--This is sadly still going to generate a LOT of comm traffic on zone in. upwards of 4-117 syncs, per player zone in
 			--Reviewing code, it's hard to do this in less comms, it's either don't support recovering the speed clear timer in all situations (disconnect, reloadui, zoning in late) or cause a burst of syncs :\
 			DBM:SendVariableInfo(self, sender)
-		elseif msg == "EncounterEnd" and timeOrEncounter then
-			updateDefeatedBosses(self, timeOrEncounter)--In case player misses event (ie they released or are outside the raid for that particular boss
+		--[[ elseif msg == "EncounterEnd" and timeOrEncounter then
+			updateDefeatedBosses(self, timeOrEncounter)--In case player misses event (ie they released or are outside the raid for that particular boss ]]
 		end
 	end
 
