@@ -580,6 +580,7 @@ L.ARROW_ERROR_USAGE					= {
 }
 
 L.SPEED_KILL_TIMER_TEXT				= "Record Victory"
+L.SPEED_CLEAR_TIMER_TEXT			= "Best Clear"
 L.TIMER_RESPAWN						= "%s Respawn"
 
 L.REQ_INSTANCE_ID_PERMISSION		= "%s requested to see your current instance IDs and progress.\nDo you want to send this information to %s? He or she will be able to request this information during your current session (i. e. until you relog)."
