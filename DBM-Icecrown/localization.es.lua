@@ -36,13 +36,13 @@ L:SetOptionLocalization{
 	WarnReanimating				= "Mostrar aviso cuando se esté reanimando a un esbirro",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Mostrar temporizador para los siguientes esbirros",
 	SpecWarnVengefulShade		= "Mostrar aviso especial cuando te ataque una Sombra vengativa",--creatureid 38222
-	WeaponsStatus				= "Advertencia especial al inicio del combate si la función desequipar/equipar está habilitada", --Needs Translating
+	WeaponsStatus				= "Advertencia especial al inicio del combate si la función desequipar/equipar está habilitada",
 	ShieldHealthFrame			= "Mostrar barra de vida del boss con una barra de vida para $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
-	RemoveDruidBuff				= "Quitar $spell:48469 / $spell:48470 24 segundos después de la pelea", --Needs Translating
-	EqUneqWeapons				= "Desequipar/equipar armas si se lanza Control mental sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.", --Needs Translating
-	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no al lanzarlas (si el ping es alto). La opción anterior debe estar habilitada.", --Needs Translating
-	BlockWeapons				= "Bloquear completamente las funciones de desequipar/equipar arriba" --Needs Translating
+	RemoveDruidBuff				= "Quitar $spell:48469 / $spell:48470 24 segundos después de la pelea",
+	EqUneqWeapons				= "Desequipar/equipar armas si se lanza Control mental sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.",
+	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no al lanzarlas (si el ping es alto). La opción anterior debe estar habilitada.",
+	BlockWeapons				= "Bloquear completamente las funciones de desequipar/equipar arriba"
 }
 
 L:SetMiscLocalization{
