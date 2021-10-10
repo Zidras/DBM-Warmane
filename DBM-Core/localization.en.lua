@@ -490,16 +490,16 @@ L.AUTO_TIMER_OPTIONS = {
 	cd								= "Show timer for $spell:%s cooldown (%ds)",
 	cdcount							= "Show timer for $spell:%s cooldown (%ds)",
 	cdsource						= "Show timer (with source) for $spell:%s cooldown (%ds)",--Maybe better wording?
-	cdspecial						= "Show timer for special ability cooldown",
+	cdspecial						= "Show timer for special ability cooldown (%ds)",
 	next							= "Show timer for next $spell:%s (%ds)",
 	nextcount						= "Show timer for next $spell:%s (%ds)",
 	nextsource						= "Show timer (with source) for next $spell:%s (%ds)",--Maybe better wording?
-	nextspecial						= "Show timer for next special ability",
+	nextspecial						= "Show timer for next special ability (%ds)",
 	achievement						= "Show timer for %s (%ds)",
-	stage							= "Show timer for next stage",
+	stage							= "Show timer for next stage (%ds)",
 	adds							= "Show timer for incoming adds (%ds)",
 	addscustom						= "Show timer for incoming adds (%ds)",
-	roleplay						= "Show timer for roleplay duration"--This does need localizing though.
+	roleplay						= "Show timer for roleplay duration (%ds)"--This does need localizing though.
 }
 
 
