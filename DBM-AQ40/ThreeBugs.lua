@@ -26,7 +26,7 @@ local timerFearCD		= mod:NewCDTimer(20.5, 26580, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(10-delay)
-	if self:IsEvent() or not self:IsTrivial() then
+	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_AURA_APPLIED 25786 25989",
 			"SPELL_PERIODIC_DAMAGE 25786 25989",

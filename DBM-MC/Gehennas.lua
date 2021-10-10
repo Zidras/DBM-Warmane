@@ -27,7 +27,7 @@ local timerFist		= mod:NewBuffActiveTimer(4, 20277, nil, false, 2, 3)
 
 function mod:OnCombatStart(delay)
 	timerCurse:Start(6-delay)
-	if self:IsEvent() or not self:IsTrivial() then
+	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_PERIODIC_DAMAGE 19717",
 			"SPELL_PERIODIC_MISSED 19717"

@@ -40,7 +40,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerMagicReflect:Start()
 		timerShieldCD:Start()
 	elseif args.spellId == 21075 then
-		if self.Options.SpecWarn21075reflect and (self:IsEvent() or not self:IsTrivial()) then--Not a threat to high level melee
+		if self.Options.SpecWarn21075reflect and not self:IsTrivial() then--Not a threat to high level melee
 			specWarnDamageShield:Show(BOSS)
 			specWarnDamageShield:Play("stopattack")
 		else

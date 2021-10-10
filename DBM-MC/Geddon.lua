@@ -52,7 +52,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnBomb:Show()
 			specWarnBomb:Play("runout")
-			if self:IsEvent() or not self:IsTrivial() then
+			if not self:IsTrivial() then
 				yellBomb:Yell()
 				yellBombFades:Countdown(20475)
 			end
@@ -79,7 +79,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 19695 then
-		if self:IsEvent() or not self:IsTrivial() then
+		if not self:IsTrivial() then
 			specWarnInferno:Show()
 			specWarnInferno:Play("aesoon")
 		else
