@@ -330,11 +330,11 @@ L:SetOptionLocalization{
 	AnnounceValkGrabs			= "Anunciar jugadores agarrados por las Guardias de las Sombras Val'kyr en el chat de banda (requiere líder o ayudante)",
 	SpecWarnValkyrLow			= "Mostrar aviso especial cuando una Guardia de las Sombras Val'kyr esté por debajo del 55% de salud",
 	AnnouncePlagueStack			= "Anunciar acumulaciones de $spell:70337 en el chat de banda (al llegar a 10 y tras cada 5; requiere líder o ayudante)",
-	ShowFrame					= "Mostrar marco de objetivos de Val'Kyr", --Needs Translating
-	FrameClassColor				= "Usar colores de clase en el marco de objetivos de Val'Kyr", --Needs Translating
-	FrameUpwards				= "Expande el marco de Val'Kyr hacia arriba", --Needs Translating
-	FrameLocked					= "Bloquear el marco de los objetivos de Val'Kyr", --Needs Translating
-	RemoveImmunes				= "Eliminar los hechizos de inmunidad antes de salir de la habitación Frostmourne" --Needs Translating
+	ShowFrame					= "Mostrar marco de objetivos de Val'Kyr",
+	FrameClassColor				= "Usar colores de clase en el marco de objetivos de Val'Kyr",
+	FrameUpwards				= "Expande el marco de Val'Kyr hacia arriba",
+	FrameLocked					= "Bloquear el marco de los objetivos de Val'Kyr",
+	RemoveImmunes				= "Eliminar los hechizos de inmunidad antes de salir de la habitación Frostmourne"
 }
 
 L:SetMiscLocalization{
