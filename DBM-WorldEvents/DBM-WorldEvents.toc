@@ -9,6 +9,7 @@
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Name: World Events
 ## X-DBM-Mod-Name-ruRU: Игровые события
+## X-DBM-Mod-Name-esES: Eventos del Mundo
 ## X-DBM-Mod-Sort: 150
 ## X-DBM-Mod-LoadZone: Blackrock Depths,Scarlet Monastery,Shadowfang Keep,The Slave Pens
 ## X-DBM-Mod-LoadZone-ruRU: Глубины Черной горы,Монастырь Алого ордена,Крепость Темного Клыка,Узилище

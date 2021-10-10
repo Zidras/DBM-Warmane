@@ -36,13 +36,13 @@ L:SetOptionLocalization{
 	WarnReanimating				= "Mostrar aviso cuando se esté reanimando a un esbirro",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Mostrar temporizador para los siguientes esbirros",
 	SpecWarnVengefulShade		= "Mostrar aviso especial cuando te ataque una Sombra vengativa",--creatureid 38222
-	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
+	WeaponsStatus				= "Advertencia especial al inicio del combate si la función desequipar/equipar está habilitada",
 	ShieldHealthFrame			= "Mostrar barra de vida del boss con una barra de vida para $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
-	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight", --Needs Translating
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
-	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.", --Needs Translating
-	BlockWeapons				= "Completely block the unequip/equip functions above" --Needs Translating
+	RemoveDruidBuff				= "Quitar $spell:48469 / $spell:48470 24 segundos después de la pelea",
+	EqUneqWeapons				= "Desequipar/equipar armas si se lanza Control mental sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.",
+	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no al lanzarlas (si el ping es alto). La opción anterior debe estar habilitada.",
+	BlockWeapons				= "Bloquear completamente las funciones de desequipar/equipar arriba"
 }
 
 L:SetMiscLocalization{
@@ -99,7 +99,7 @@ L:SetGeneralLocalization{
 L:SetOptionLocalization{
 	RangeFrame			= "Mostrar marco de distancia (12 m)",
 	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371",
-	RemoveDI			= "Retire $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
+	RemoveDI			= "Quitar $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
 }
 
 L:SetMiscLocalization{
@@ -330,11 +330,11 @@ L:SetOptionLocalization{
 	AnnounceValkGrabs			= "Anunciar jugadores agarrados por las Guardias de las Sombras Val'kyr en el chat de banda (requiere líder o ayudante)",
 	SpecWarnValkyrLow			= "Mostrar aviso especial cuando una Guardia de las Sombras Val'kyr esté por debajo del 55% de salud",
 	AnnouncePlagueStack			= "Anunciar acumulaciones de $spell:70337 en el chat de banda (al llegar a 10 y tras cada 5; requiere líder o ayudante)",
-	ShowFrame					= "Show Val'Kyr Targets frame", --Needs Translating
-	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame", --Needs Translating
-	FrameUpwards				= "Expand Val'Kyr target frame upwards", --Needs Translating
-	FrameLocked					= "Lock Val'Kyr Targets frame", --Needs Translating
-	RemoveImmunes				= "Remove immunity spells before exiting Frostmourne room" --Needs Translating
+	ShowFrame					= "Mostrar marco de objetivos de Val'Kyr",
+	FrameClassColor				= "Usar colores de clase en el marco de objetivos de Val'Kyr",
+	FrameUpwards				= "Expande el marco de Val'Kyr hacia arriba",
+	FrameLocked					= "Bloquear el marco de los objetivos de Val'Kyr",
+	RemoveImmunes				= "Eliminar los hechizos de inmunidad antes de salir de la habitación Frostmourne"
 }
 
 L:SetMiscLocalization{
