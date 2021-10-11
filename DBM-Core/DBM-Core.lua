@@ -3395,7 +3395,7 @@ do
 		timerRequestInProgress = false
 		self:Debug("ZONE_CHANGED_NEW_AREA fired")
 		self:Unschedule(SecondaryLoadCheck)
-		self:Schedule(3, SecondaryLoadCheck, self)
+		self:Schedule(1, SecondaryLoadCheck, self)
 		if DBM.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
 			DBM:Debug("Scheduled FixCLEU")
