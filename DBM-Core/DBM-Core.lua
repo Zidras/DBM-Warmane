@@ -1889,7 +1889,7 @@ do
 			if timer/60 > 2 then DBM:Schedule(timer - 2*60, SendChatMessage, L.BREAK_MIN:format(2), channel) end
 			if timer/60 > 1 then DBM:Schedule(timer - 1*60, SendChatMessage, L.BREAK_MIN:format(1), channel) end
 			if timer > 30 then DBM:Schedule(timer - 30, SendChatMessage, L.BREAK_SEC:format(30), channel) end
-			DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_BREAK_OVER, channel)
+			DBM:Schedule(timer, SendChatMessage, L.ANNOUNCE_BREAK_OVER:format(hour..":"..minute), channel)
 		end
 	end
 
