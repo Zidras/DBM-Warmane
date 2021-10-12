@@ -6325,12 +6325,16 @@ bossModPrototype.UnregisterShortTermEvents = DBM.UnregisterShortTermEvents
 function bossModPrototype:SetZone(...)
 	if select("#", ...) == 0 then
 		self.zones = {}
-		if self.addon and self.addon.zone and #self.addon.zone > 0 or self.addon.zoneId and #self.addon.zoneId > 0 then
-			for _, v in ipairs(self.addon.zone) do
-				self.zones[#self.zones + 1] = v
+		if self.addon then
+			if self.addon.zone and #self.addon.zone > 0 then
+				for _, v in ipairs(self.addon.zone) do
+					self.zones[#self.zones + 1] = v
+				end
 			end
-			for i, v in ipairs(self.addon.zoneId) do
-				self.zones[#self.zones + 1] = v
+			if self.addon.zoneId and #self.addon.zoneId > 0 then
+				for i, v in ipairs(self.addon.zoneId) do
+					self.zones[#self.zones + 1] = v
+				end
 			end
 		end
 	elseif select(1, ...) ~= DBM_DISABLE_ZONE_DETECTION then
