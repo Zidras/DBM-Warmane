@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4398 $"):sub(12, -3))
-mod:SetMinSyncRevision(4398)
+mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
 
-mod:RegisterCombat("yell", L.CombatStart)
+mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
@@ -54,7 +54,7 @@ local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_C
 local timerNextImpale		= mod:NewNextTimer(10, 66331, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636, nil, nil, nil, 1)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758, nil, nil, nil, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerNextCrash		= mod:NewCDTimer(70, 66683, nil, nil, nil, 2, nil, DBM_CORE_L.MYTHIC_ICON) -- Original timer. The second Massive Crash should happen 70 seconds after the first
+local timerNextCrash		= mod:NewCDTimer(55, 66683, nil, nil, nil, 2, nil, DBM_CORE_L.MYTHIC_ICON)
 local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, "Melee", nil, 3)
 local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, "Melee", nil, 3)
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
@@ -96,8 +96,7 @@ local function updateHealthFrame(phase)
 	end
 end
 
--- Warmane workaround: there is no combat start specific event for this encounter, so schedule the entire function
-function mod:combatStartFix()
+function mod:OnCombatStart(delay)
 	table.wipe(bileTargets)
 	table.wipe(toxinTargets)
 	table.wipe(phases)
@@ -106,19 +105,17 @@ function mod:combatStartFix()
 	self.vb.DreadscaleDead = false
 	self.vb.AcidmawDead = false
 	self:SetStage(1)
-	specWarnSilence:Schedule(14)
-	specWarnSilence:ScheduleVoice(14, "silencesoon")
+	specWarnSilence:Schedule(14-delay)
+	specWarnSilence:ScheduleVoice(14-delay, "silencesoon")
 	if self:IsHeroic() then
-		timerNextBoss:Start(152)
+		timerNextBoss:Start(152-delay)
 		timerNextBoss:Schedule(147)
+		timerRisingAnger:Start(18-delay)
+	else
+		timerRisingAnger:Start(30-delay)
 	end
-	timerNextStomp:Start(15)
-	timerRisingAnger:Start(25)
+	timerNextStomp:Start(15-delay)
 	updateHealthFrame(1)
-end
-
-function mod:OnCombatStart(delay)
-	self:ScheduleMethod(23-delay, "combatStartFix")	-- Warmane workaround
 end
 
 function mod:OnCombatEnd()
@@ -142,8 +139,8 @@ function mod:WormsEmerge()
 	timerSubmerge:Show()
 	if not self.vb.AcidmawDead then
 		if self.vb.DreadscaleActive then
-			timerSweepCD:Start(16)
-			timerParalyticSprayCD:Start(20)
+			timerSweepCD:Start(24)
+			timerParalyticSprayCD:Start(27)
 		else
 			timerSlimePoolCD:Start(14)
 			timerParalyticBiteCD:Start(5)
@@ -153,7 +150,7 @@ function mod:WormsEmerge()
 	if not self.vb.DreadscaleDead then
 		if self.vb.DreadscaleActive then
 			timerSlimePoolCD:Start(14)
-			timerMoltenSpewCD:Start(16)
+			timerMoltenSpewCD:Start(26)
 			timerBurningBiteCD:Start(5)
 		else
 			timerSweepCD:Start(16)
@@ -329,8 +326,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.CombatStart or msg:find(L.CombatStart) then
 		timerCombatStart:Start()
 	elseif msg == L.Phase2 or msg:find(L.Phase2) then
-		self:ScheduleMethod(17, "WormsEmerge")
-		timerCombatStart:Start(12.5)
+		self:ScheduleMethod(16, "WormsEmerge")
+		timerCombatStart:Start(15)
 		updateHealthFrame(2)
 		self:SetStage(2)
 		if self.Options.RangeFrame then
@@ -344,8 +341,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		self:UnscheduleMethod("WormsSubmerge")
 		self:UnscheduleMethod("WormsEmerge")
-		timerCombatStart:Start(9)
-		timerNextCrash:Start(52)
+		timerCombatStart:Start(13)
+		timerNextCrash:Start(65)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
 		timerEmerge:Cancel()

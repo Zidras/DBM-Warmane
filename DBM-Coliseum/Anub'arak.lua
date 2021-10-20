@@ -32,8 +32,8 @@ local specWarnShadowStrike	= mod:NewSpecialWarningSpell(66134, "Tank", nil, 2, 1
 local specWarnPCold			= mod:NewSpecialWarningYou(66013, false, nil, nil, 1, 2)
 
 local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_CORE_L.TANK_ICON)
-local timerSubmerge			= mod:NewTimer(75, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
-local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
+local timerSubmerge			= mod:NewTimer(80, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
+local timerEmerge			= mod:NewTimer(68.5, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
 local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerPCold			= mod:NewBuffActiveTimer(15, 68509, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
 local timerShadowStrike		= mod:NewNextTimer(30.5, 66134, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON, nil, 3)
@@ -86,25 +86,6 @@ function mod:ShadowStrike()
 		preWarnShadowStrike:Cancel()
 		preWarnShadowStrike:Schedule(25.5)
 		self:ScheduleMethod(30.5, "ShadowStrike")
-	end
-end
-
--- Warmane workaround, since emerge boss emote is not being fired
-function mod:EmergeFix()
-	self:SetStage(1)
-	self.vb.Burrowed = false
-	timerEmerge:Cancel()
-	timerAdds:Start(5)
-	warnAdds:Schedule(5)
-	self:ScheduleMethod(5, "Adds")
-	warnEmerge:Show()
-	warnSubmergeSoon:Schedule(65)
-	timerSubmerge:Start()
-	if self:IsHeroic() then
-		timerShadowStrike:Stop()
-		preWarnShadowStrike:Cancel()
-		self:UnscheduleMethod("ShadowStrike")
-		self:ScheduleMethod(5.0, "ShadowStrike")
 	end
 end
 
@@ -216,19 +197,17 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerAdds:Cancel()
 		warnAdds:Cancel()
 		warnSubmerge:Show()
-		warnEmergeSoon:Schedule(55)
+		warnEmergeSoon:Schedule(58.5)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
-		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
 	elseif msg and msg:find(L.Emerge) then
-		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		self:SetStage(1)
 		self.vb.Burrowed = false
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
 		self:ScheduleMethod(5, "Adds")
 		warnEmerge:Show()
-		warnSubmergeSoon:Schedule(65)
+		warnSubmergeSoon:Schedule(70)
 		timerSubmerge:Start()
 		if self:IsHeroic() then
 			timerShadowStrike:Stop()
