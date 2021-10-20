@@ -26,17 +26,23 @@ local timerOvercharge		= mod:NewNextTimer(45, 64218)
 local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217)
 
 local timerEmalonEnrage		= mod:NewTimer(360, "EmalonEnrage", 26662)
+local overchargedMob
 
 mod:AddBoolOption("NovaSound")
 mod:AddBoolOption("RangeFrame", true)
 
+local function ResetRange(self)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:DisableBossMode()
+	end
+end
 
-local overchargedMob
 function mod:OnCombatStart(delay)
 	overchargedMob = nil
 	timerOvercharge:Start(-delay)
 	timerNovaCD:Start(20-delay)
 	timerEmalonEnrage:Start(-delay)
+
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end
@@ -54,8 +60,20 @@ function mod:SPELL_CAST_START(args)
 		timerNovaCD:Start()
 		warnNova:Show()
 		specWarnNova:Show()
+
 		if self.Options.NovaSound then
 			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
+		end
+
+		if self.Options.RangeFrame then
+			-- On 10m you receive no damage outside 20 yards,
+			-- on 25m you receive damage either way but 25 yards should be safe
+			DBM.RangeCheck:SetBossRange(
+				self:IsDifficulty("normal10", "heroic10") and 20 or 25,
+				self:GetBossUnitByCreatureId(33993)
+			)
+			-- 5s cast
+			self:Schedule(5.5, ResetRange, self)
 		end
 	end
 end

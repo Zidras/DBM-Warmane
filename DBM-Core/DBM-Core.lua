@@ -2129,28 +2129,26 @@ do
 			DBM.RangeCheck:Hide(true)
 		else
 			if r and (r < 201) then
-				DBM.RangeCheck:Show(r, nil, true, nil, reverse)
+				DBM.RangeCheck:Show(r, nil)
 			else
-				DBM.RangeCheck:Show(10, nil, true, nil, reverse)
+				DBM.RangeCheck:Show(10, nil)
 			end
 		end
 	end
 	SLASH_DBMRANGE1 = "/range"
 	SLASH_DBMRANGE2 = "/distance"
-	SLASH_DBMHUDAR1 = "/hudar"
-	SLASH_DBMRRANGE1 = "/rrange"
-	SLASH_DBMRRANGE2 = "/rdistance"
+	SLASH_DBMBOSSRANGE1 = "/bossrange"
 	SlashCmdList["DBMRANGE"] = function(msg)
 		local r = tonumber(msg) or 10
 		updateRangeFrame(r, false)
 	end
-	SlashCmdList["DBMHUDAR"] = function(msg)
-		local r = tonumber(msg) or 10
-		DBMHudMap:ToggleHudar(r)
-	end
-	SlashCmdList["DBMRRANGE"] = function(msg)
-		local r = tonumber(msg) or 10
-		updateRangeFrame(r, true)
+	SlashCmdList["DBMBOSSRANGE"] = function(msg)
+		local r = tonumber(msg)
+		if not r then
+			DBM.RangeCheck:DisableBossMode()
+		else
+			DBM.RangeCheck:SetBossRange(r or 10, "target")
+		end
 	end
 end
 
@@ -6498,6 +6496,16 @@ do
 			end
 		end
 		return name, uid, bossuid
+	end
+
+	function bossModPrototype:GetBossUnitByCreatureId(cid)
+		for i = 1, 4 do
+			local uId = "boss"..i
+			if self:GetUnitCreatureId(uId) == cid then
+				return uId
+			end
+		end
+		return "target"
 	end
 
 	function bossModPrototype:GetBossTarget(cidOrGuid, scanOnlyBoss)

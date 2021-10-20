@@ -188,6 +188,12 @@ local function directionBeaconTargets(self, index)
 	end
 end
 
+local function ResetRange(self)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:DisableBossMode()
+	end
+end
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
@@ -335,6 +341,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnBlisteringCold:Play("runout")
 		timerBlisteringCold:Start()
 		timerNextBlisteringCold:Start()
+
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:SetBossRange(25, self:GetBossUnitByCreatureId(36853))
+			self:Schedule(5.5, ResetRange, self)
+		end
 	end
 end
 
