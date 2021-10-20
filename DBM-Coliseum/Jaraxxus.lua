@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4346 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34780)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
@@ -17,7 +18,6 @@ mod:RegisterEvents(
 	"SPELL_HEAL",
 	"SPELL_MISSED",
 	"SPELL_PERIODIC_HEAL",
-	"SPELL_SUMMON",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -35,7 +35,7 @@ local specWarnFelInferno		= mod:NewSpecialWarningMove(66496, nil, nil, nil, 1, 2
 local SpecWarnFelFireball		= mod:NewSpecialWarningInterrupt(66532, "HasInterrupt", nil, 2, 1, 2)
 local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66532, "RemoveMagic", nil, 2, 1, 2)
 
-local timerCombatStart			= mod:NewCombatTimer(76.5)--roleplay for first pull
+local timerCombatStart			= mod:NewCombatTimer(62.5)--roleplay for first pull
 local timerFlame 				= mod:NewTargetTimer(8, 66197, nil, nil, nil, 3)--There are 8 debuff Ids. Since we detect first to warn, use an 8sec timer to cover duration of trigger spell and damage debuff.
 local timerFlameCD				= mod:NewCDTimer(30, 66197, nil, nil, nil, 3)
 local timerNetherPowerCD		= mod:NewCDTimer(42.5, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_CORE_L.MAGIC_ICON)
@@ -159,10 +159,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			DBM.InfoFrame:Show(6, "function", updateInfoFrame, false, true)
 		end
 		setIncinerateTarget(self, args.destGUID, args.destName)
-	elseif args:IsSpellID(66228, 67108, 67106, 67107) and self:GetCIDFromGUID(args.destGUID) == 34780 then	-- Nether Power. Warmane Workaround, since it doesn't fire SPELL_CAST_SUCCESS for this ability. https://www.warmane.com/bugtracker/report/104316
-		timerNetherPowerCD:Start()
-		specWarnNetherPower:Show(args.destName)
-		specWarnNetherPower:Play("dispelboss")
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
 		if args:IsPlayer() then
 			specWarnFlame:Show()
@@ -203,25 +199,18 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 67009  then	-- Nether Power. Broken on Warmane (checked on 08/08/2021; report: https://www.warmane.com/bugtracker/report/104316)
+	if args:IsSpellID(66228, 67106, 67107, 67108) then			-- Nether Power
 		specWarnNetherPower:Show(args.sourceName)
 		specWarnNetherPower:Play("dispelboss")
 		timerNetherPowerCD:Start()
 	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Volcano
 		timerVolcanoCD:Start()
 		warnVolcanoSoon:Schedule(110)
-	elseif args:IsSpellID(66269, 67898, 67899, 67900) then		-- Nether Portal. Broken on Warmane (checked on 10/08/2021); report: https://www.warmane.com/bugtracker/report/104340)
+	elseif args:IsSpellID(66269, 67898, 67899, 67900) then		-- Nether Portal
 		timerPortalCD:Start()
 		warnPortalSoon:Schedule(110)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
 		warnFlame:Show(args.destName)
-	end
-end
-
-function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(66269, 67898, 67899, 67900) then			-- Nether Portal. Warmane workaround since there is no CLEU:SCSuccess event being fired
-		timerPortalCD:Start()
-		warnPortalSoon:Schedule(110)
 	end
 end
 
