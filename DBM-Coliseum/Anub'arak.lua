@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("Anub'arak_Coliseum", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4435 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34564)
 mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
 
