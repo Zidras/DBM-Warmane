@@ -18,7 +18,7 @@
 ## X-DBM-Mod-Category: Classic
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Sort: 1104
-## X-DBM-Mod-MapID: 38
+## X-DBM-Mod-MapID: 698
 ## X-DBM-Mod-Name: Zul'Gurub
 ## X-DBM-Mod-Name-ruRU: Зул'Гуруб
 ## X-DBM-Mod-LoadZone: Zul'Gurub
