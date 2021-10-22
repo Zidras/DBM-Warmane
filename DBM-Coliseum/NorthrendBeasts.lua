@@ -256,9 +256,6 @@ function mod:SPELL_CAST_START(args)
 		timerParalyticSprayCD:Start()
 	elseif args:IsSpellID(66902, 67627, 67628, 67629) then		-- Burning Spray
 		timerBurningSprayCD:Start()
-	elseif args:IsSpellID(66683, 67660, 67661, 67662) then		-- Warmane workaound: Icehowl Massive Crash
-		timerNextCrash:Cancel()
-		timerNextCrash:Start()
 	end
 end
 
@@ -342,7 +339,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:UnscheduleMethod("WormsSubmerge")
 		self:UnscheduleMethod("WormsEmerge")
 		timerCombatStart:Start(13)
-		timerNextCrash:Start(65)
+		timerNextCrash:Start(52)
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
 		timerEmerge:Cancel()
