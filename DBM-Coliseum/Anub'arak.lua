@@ -34,10 +34,10 @@ local specWarnPCold			= mod:NewSpecialWarningYou(66013, false, nil, nil, 1, 2)
 
 local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_CORE_L.TANK_ICON)
 local timerSubmerge			= mod:NewTimer(80, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
-local timerEmerge			= mod:NewTimer(68.5, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
+local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_CORE_L.IMPORTANT_ICON, nil, 1)
 local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerPCold			= mod:NewBuffActiveTimer(15, 68509, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
-local timerShadowStrike		= mod:NewNextTimer(30.5, 66134, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON, nil, 3)
+local timerShadowStrike		= mod:NewNextTimer(30, 66134, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON, nil, 3)
 local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, nil, nil, 5) --So we will track bops to make this easier.
 
 local enrageTimer			= mod:NewBerserkTimer(570)
@@ -58,14 +58,14 @@ function mod:OnCombatStart(delay)
 	warnAdds:Schedule(10-delay)
 	self:ScheduleMethod(10-delay, "Adds")
 	warnSubmergeSoon:Schedule(70-delay)
-	timerSubmerge:Start(80-delay)
+	timerSubmerge:Start(-delay)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(-delay)
 	table.wipe(PColdTargets)
 	if self:IsHeroic() then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
-		self:ScheduleMethod(30.5-delay, "ShadowStrike")
+		self:ScheduleMethod(30-delay, "ShadowStrike")
 	end
 end
 
@@ -86,7 +86,7 @@ function mod:ShadowStrike()
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Cancel()
 		preWarnShadowStrike:Schedule(25.5)
-		self:ScheduleMethod(30.5, "ShadowStrike")
+		self:ScheduleMethod(30, "ShadowStrike")
 	end
 end
 
@@ -210,12 +210,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmerge:Show()
 		warnSubmergeSoon:Schedule(70)
 		timerSubmerge:Start()
-		if self:IsHeroic() then
-			timerShadowStrike:Stop()
-			preWarnShadowStrike:Cancel()
-			self:UnscheduleMethod("ShadowStrike")
-			self:ScheduleMethod(5.5, "ShadowStrike")
-		end
+		self:ShadowStrike()
 	end
 end
 

@@ -135,8 +135,8 @@ L:SetWarningLocalization{
 }
 
 L:SetMiscLocalization{
-	--YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
-	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
+--	YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
+--	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
 	Fjola		= "Fjola Lightbane",
 	Eydis		= "Eydis Darkbane",
 	AnubRP		= "A mighty blow has been dealt to the Lich King! You have proven yourselves as able bodied champions of the Argent Crusade. Together we will strike against Icecrown Citadel and destroy what remains of the Scourge! There is no challenge that we cannot face united!"

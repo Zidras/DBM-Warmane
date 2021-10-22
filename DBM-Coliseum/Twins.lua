@@ -38,7 +38,6 @@ local timerHeal						= mod:NewCastTimer(15, 65875, nil, nil, nil, 4, nil, DBM_CO
 local timerLightTouch				= mod:NewTargetTimer(20, 65950, nil, false, 2, 3)
 local timerDarkTouch				= mod:NewTargetTimer(20, 66001, nil, false, 2, 3)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815)
-local timerCombatStart				= mod:NewCombatTimer(35)
 
 local timerAnubRoleplay				= mod:NewTimer(52, "TimerAnubRoleplay", 43827, nil, nil, 6)
 
@@ -256,9 +255,7 @@ function mod:SPELL_INTERRUPT(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.CombatStart or msg:find(L.CombatStart) then
-		timerCombatStart:Start()
-	elseif msg == L.AnubRP or msg:find(L.AnubRP) then
+	if msg == L.AnubRP or msg:find(L.AnubRP) then
 		timerAnubRoleplay:Start()
 	end
 end
