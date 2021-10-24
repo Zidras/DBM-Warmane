@@ -54,8 +54,8 @@ local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_C
 local timerNextImpale		= mod:NewNextTimer(10, 66331, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636, nil, nil, nil, 1)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758, nil, nil, nil, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerNextCrash		= mod:NewCDTimer(55, 66683, nil, nil, nil, 2, nil, DBM_CORE_L.MYTHIC_ICON)
-local timerSweepCD			= mod:NewCDTimer(17, 66794, nil, "Melee", nil, 3)
+local timerNextCrash		= mod:NewCDTimer(51, 66683, nil, nil, nil, 2, nil, DBM_CORE_L.MYTHIC_ICON)
+local timerSweepCD			= mod:NewCDTimer(21, 66794, nil, "Melee", nil, 3)
 local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, "Melee", nil, 3)
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerMoltenSpewCD		= mod:NewCDTimer(21, 66820, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
@@ -112,7 +112,7 @@ function mod:OnCombatStart(delay)
 		timerNextBoss:Schedule(147)
 		timerRisingAnger:Start(18-delay)
 	else
-		timerRisingAnger:Start(30-delay)
+		timerRisingAnger:Start(27-delay)
 	end
 	timerNextStomp:Start(15-delay)
 	updateHealthFrame(1)
@@ -139,8 +139,8 @@ function mod:WormsEmerge()
 	timerSubmerge:Show()
 	if not self.vb.AcidmawDead then
 		if self.vb.DreadscaleActive then
-			timerSweepCD:Start(24)
-			timerParalyticSprayCD:Start(27)
+			timerSweepCD:Start(22)			-- Log review: 22-24s (N/H?)
+			timerParalyticSprayCD:Start(18)	-- Log review: 18-20s (N/H?)
 		else
 			timerSlimePoolCD:Start(14)
 			timerParalyticBiteCD:Start(5)
@@ -149,7 +149,7 @@ function mod:WormsEmerge()
 	end
 	if not self.vb.DreadscaleDead then
 		if self.vb.DreadscaleActive then
-			timerSlimePoolCD:Start(14)
+			timerSlimePoolCD:Start(15)
 			timerMoltenSpewCD:Start(26)
 			timerBurningBiteCD:Start(5)
 		else
@@ -285,7 +285,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg:match(L.Charge) or msg:find(L.Charge)) and target then
 		target = DBM:GetUnitFullName(target)
 		warnCharge:Show(target)
-		timerNextCrash:Start()
+		if self:isHeroic() then -- Need more logs to confirm
+			timerNextCrash:Start()
+		else
+			timerNextCrash:Start(59)
+		end
 		if self.Options.ClearIconsOnIceHowl then
 			self:ClearIcons()
 		end
@@ -323,8 +327,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.CombatStart or msg:find(L.CombatStart) then
 		timerCombatStart:Start()
 	elseif msg == L.Phase2 or msg:find(L.Phase2) then
-		self:ScheduleMethod(16, "WormsEmerge")
-		timerCombatStart:Start(15)
+		self:ScheduleMethod(13.5, "WormsEmerge")
+		timerCombatStart:Start(13.5)
 		updateHealthFrame(2)
 		self:SetStage(2)
 		if self.Options.RangeFrame then
@@ -338,8 +342,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 		self:UnscheduleMethod("WormsSubmerge")
 		self:UnscheduleMethod("WormsEmerge")
-		timerCombatStart:Start(13)
-		timerNextCrash:Start(52)
+		timerCombatStart:Start(10)
+		timerNextCrash:Start() -- 10 + 41
 		timerNextBoss:Cancel()
 		timerSubmerge:Cancel()
 		timerEmerge:Cancel()

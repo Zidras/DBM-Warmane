@@ -129,8 +129,8 @@ L:SetWarningLocalization{
 }
 
 L:SetMiscLocalization{
-	--YellPull 	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
-	CombatStart	= "Ce n'est qu'en travaillant côte à côte que vous pourrez triompher de l'ultime défi. Venus des profondeurs de la Couronne de glace, voici deux des lieutenants les plus puissants du Fléau : de redoutables val'kyrs, messagères ailées du roi-liche !",
+--	YellPull 	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
+--	CombatStart	= "Ce n'est qu'en travaillant côte à côte que vous pourrez triompher de l'ultime défi. Venus des profondeurs de la Couronne de glace, voici deux des lieutenants les plus puissants du Fléau : de redoutables val'kyrs, messagères ailées du roi-liche !",
 	Fjola		= "Fjola Plaie-lumineuse",
 	Eydis		= "Eydis Plaie-sombre",
 	AnubRP		= "C'est un rude coup qui vient d'être porté au roi-liche ! Vous avez prouvé que vous êtes aptes à servir comme champions de la Croisade d'argent. Ensemble, nous frapperons la citadelle de la Couronne de glace, et détruirons ce qui reste du Fléau ! Aucun défi ne pourra résister à notre unité !"

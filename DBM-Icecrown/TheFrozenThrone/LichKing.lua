@@ -171,7 +171,7 @@ local function NextPhase(self)
 		timerSoulreaperCD:Start(37.5)
 		soundSoulReaperSoon:Schedule(37.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(33.5)
-		timerHarvestSoulCD:Start(12)
+		timerHarvestSoulCD:Start(14)
 		warnDefileSoon:Schedule(30)
 		warnDefileSoon:ScheduleVoice(30, "scatter")
 	end
