@@ -90,6 +90,20 @@ function mod:ShadowStrike()
 	end
 end
 
+-- Warmane workaround, since emerge boss emote is not being fired
+function mod:EmergeFix()
+	self:SetStage(1)
+	self.vb.Burrowed = false
+	timerEmerge:Cancel()
+	timerAdds:Start(5)
+	warnAdds:Schedule(5)
+	self:ScheduleMethod(5, "Adds")
+	warnEmerge:Show()
+	warnSubmergeSoon:Schedule(70)
+	timerSubmerge:Start()
+	self:ShadowStrike()
+end
+
 local function ClearPcoldTargets()
 	table.wipe(PColdTargets)
 end
@@ -201,9 +215,12 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(58.5)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
+		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
 	elseif msg and msg:find(L.Emerge) then
+		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		self:SetStage(1)
 		self.vb.Burrowed = false
+		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
 		self:ScheduleMethod(5, "Adds")
