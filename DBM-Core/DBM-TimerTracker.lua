@@ -566,21 +566,6 @@ function TT:OnEvent(event, ...)
 	end
 end
 
-function TT:HookDBM()
-	if not DBM then return end
-	if DBM then
-		self:SecureHook(DBM, "CreatePizzaTimer", function(_, time, text)
-			if (text == L.TIMER_PULL or text:match("Pull") or text:match("pull") or text:match("Атака")) and DBM.Options.BigTimerNumbers then
-				--DBM.Bars:CancelBar(text)
-				time = (tonumber(time) or 10) + 0.1
-				self:CreateTimer(dbmTimerType, time, time)
-			end
-		end)
-	else
-		self:Unhook(DBM, "CreatePizzaTimer")
-	end
-end
-
 function TT:ToggleState(force)
 	if DBM or force then
 		self.timerList = self.timerList or {}
