@@ -1,16 +1,13 @@
 local mod	= DBM:NewMod("Maexxna", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 2943 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(15952)
-
 mod:RegisterCombat("combat")
 
-mod:EnableModel()
-
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_CAST_SUCCESS"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 28622",
+	"SPELL_CAST_SUCCESS 29484 54125"
 )
 
 local warnWebWrap		= mod:NewTargetAnnounce(28622, 2)
@@ -19,15 +16,15 @@ local warnWebSprayNow	= mod:NewSpellAnnounce(29484, 3)
 local warnSpidersSoon	= mod:NewAnnounce("WarningSpidersSoon", 2, 17332)
 local warnSpidersNow	= mod:NewAnnounce("WarningSpidersNow", 4, 17332)
 
-local timerWebSpray		= mod:NewNextTimer(29.5, 29484)
-local timerSpider		= mod:NewTimer(30, "TimerSpider", 17332)
-local soundWebSpray		= mod:NewSound3(29484)
+local specWarnWebWrap	= mod:NewSpecialWarningSwitch(28622, "RangedDps", nil, nil, 1, 2)
+local yellWebWrap		= mod:NewYellMe(28622)
 
+local timerWebSpray		= mod:NewNextTimer(40.5, 29484, nil, nil, nil, 2)
+local timerSpider		= mod:NewTimer(30, "TimerSpider", 17332, nil, nil, 1)
 
 function mod:OnCombatStart(delay)
 	warnWebSpraySoon:Schedule(35.5 - delay)
 	timerWebSpray:Start(40.5 - delay)
-	soundWebSpray:Schedule(37.5 - delay)
 	warnSpidersSoon:Schedule(25 - delay)
 	warnSpidersNow:Schedule(30 - delay)
 	timerSpider:Start(30 - delay)
@@ -42,10 +39,13 @@ function mod:OnCombatEnd(wipe)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(28622) then -- Web Wrap
-		warnWebWrap:Show(args.destName)
+	if args.spellId == 28622 then -- Web Wrap
+		warnWebWrap:CombinedShow(0.5, args.destName)
 		if args.destName == UnitName("player") then
-			SendChatMessage(L.YellWebWrap, "YELL")
+			yellWebWrap:Yell()
+		elseif not DBM:UnitDebuff("player", args.spellName) and self:AntiSpam(3, 1) then
+			specWarnWebWrap:Show()
+			specWarnWebWrap:Play("targetchange")
 		end
 	end
 end
@@ -55,7 +55,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnWebSprayNow:Show()
 		warnWebSpraySoon:Schedule(35.5)
 		timerWebSpray:Start()
-		soundWebSpray:Schedule(26.5)
 		warnSpidersSoon:Schedule(25)
 		warnSpidersNow:Schedule(30)
 		timerSpider:Start()

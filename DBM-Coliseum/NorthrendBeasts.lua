@@ -285,7 +285,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg:match(L.Charge) or msg:find(L.Charge)) and target then
 		target = DBM:GetUnitFullName(target)
 		warnCharge:Show(target)
-		if self:isHeroic() then -- Need more logs to confirm
+		if self:IsHeroic() then -- Need more logs to confirm
 			timerNextCrash:Start()
 		else
 			timerNextCrash:Start(59)
