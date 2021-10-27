@@ -20,8 +20,10 @@
 ## X-DBM-Mod-Sort: 1104
 ## X-DBM-Mod-MapID: 698
 ## X-DBM-Mod-Name: Zul'Gurub
+## X-DBM-Mod-Name-zhCN: 祖尔格拉布
 ## X-DBM-Mod-Name-ruRU: Зул'Гуруб
 ## X-DBM-Mod-LoadZone: Zul'Gurub
+## X-DBM-Mod-LoadZone-zhCN: 祖尔格拉布
 ## X-DBM-Mod-LoadZone-ruRU: Зул'Гуруб
 
 localization.en.lua

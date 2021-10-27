@@ -15,7 +15,9 @@
 ## X-DBM-Mod-MapID: 800
 ## X-DBM-Mod-Sort: 1007
 ## X-DBM-Mod-Name: Karazhan
+## X-DBM-Mod-Name-zhCN: 卡拉赞
 ## X-DBM-Mod-Name-ruRU: Каражан
+## X-DBM-Mod-LoadZone-zhCN: 卡拉赞
 
 localization.en.lua
 localization.de.lua

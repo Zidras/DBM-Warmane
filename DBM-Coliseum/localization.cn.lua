@@ -62,7 +62,7 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	IncinerateTarget		= "血肉成灰 -> %s",
-	FirstPull				= "大术士威尔弗雷德·菲斯巴恩将会召唤你们的下一个挑战者。等待他的登场吧。"
+	FirstPull				= "高阶术士威尔弗雷德·菲兹班将是你们的下一个对手。等待他的上场吧。"
 }
 
 -------------------------

@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruul|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0格鲁尔的巢穴|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMGruul_AllSavedVars
@@ -10,10 +11,12 @@
 ## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Gruul
+## X-DBM-Mod-Name-zhCN: 格鲁尔
 ## X-DBM-Mod-Name-ruRU: Груул
 ## X-DBM-Mod-MapID: 777
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Gruul's Lair
+## X-DBM-Mod-LoadZone-zhCN: 格鲁尔的巢穴
 ## X-DBM-Mod-LoadZone-ruRU: Логово Груула
 
 localization.en.lua

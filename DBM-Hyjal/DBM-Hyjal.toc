@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mount Hyjal|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0海加尔山|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMHyjal_AllSavedVars
@@ -7,10 +8,12 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: The Battle for Mount Hyjal
+## X-DBM-Mod-Name-zhCN: 海加尔之战
 ## X-DBM-Mod-Name-ruRU: Битва за гору Хиджал
 ## X-DBM-Mod-Name-esES: Monte Hyjal
 ## X-DBM-Mod-MapID: 776
 ## X-DBM-Mod-LoadZone: Hyjal Summit
+## X-DBM-Mod-LoadZone-zhCN: 海加尔峰
 ## X-DBM-Mod-LoadZone-ruRU: Вершина Хиджала
 
 localization.en.lua

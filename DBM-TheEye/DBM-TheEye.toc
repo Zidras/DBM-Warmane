@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0The Eye|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0风暴要塞|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMTheEye_AllSavedVars
@@ -7,10 +8,12 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: Tempest Keep - The Eye
+## X-DBM-Mod-Name-zhCN: 风暴要塞
 ## X-DBM-Mod-Name-ruRU: Крепость Бурь - Око
 ## X-DBM-Mod-Name-esES: El Castillo de la Tempestad
 ## X-DBM-Mod-MapID: 776
 ## X-DBM-Mod-LoadZone: Tempest Keep
+## X-DBM-Mod-LoadZone-zhCN: 风暴要塞
 ## X-DBM-Mod-LoadZone-ruRU: Крепость Бурь
 MapSizes.lua
 localization.en.lua

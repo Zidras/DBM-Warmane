@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Naxxramas|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0纳克萨玛斯|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Наксрамас|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -12,13 +13,16 @@
 ## X-DBM-Mod-SubCategories-ruRU: Паучий квартал,Квартал Мерзости,Чумной квартал,Военный квартал,Логово ледяного змея
 ## X-DBM-Mod-SubCategories-esES: El Arrabal Arácnido,El Arrabal de los Ensamblajes,El Arrabal de la Peste,El Arrabal Militar,Guarida Helada
 ## X-DBM-Mod-Name: Naxxramas
+## X-DBM-Mod-Name-zhCN: 纳克萨玛斯
 ## X-DBM-Mod-Name-ruRU: Наксрамас
 ## X-DBM-Mod-Sort: 6
 ## X-DBM-Mod-MapID: 536
 ## X-DBM-Mod-LoadZone: Naxxramas
+## X-DBM-Mod-LoadZone-zhCN: 纳克萨玛斯
 ## X-DBM-Mod-LoadZone-ruRU: Наксрамас
 
 localization.en.lua
+localization.cn.lua
 localization.ru.lua
 
 ArachnidQuarter\Anub'Rekhan.lua

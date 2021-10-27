@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Onyxia|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0奥妮克希亚|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ониксия|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -12,11 +13,14 @@
 ## X-DBM-Mod-Sort: 3
 ## X-DBM-Mod-MapID: 719
 ## X-DBM-Mod-Name: Onyxia's Lair
+## X-DBM-Mod-Name-zhCN: 奥妮克希亚的巢穴
 ## X-DBM-Mod-Name-ruRU: Логово Ониксии
 ## X-DBM-Mod-LoadZone: Onyxia's Lair
+## X-DBM-Mod-LoadZone-zhCN: 奥妮克希亚的巢穴
 ## X-DBM-Mod-LoadZone-ruRU: Логово Ониксии
 
 localization.en.lua
+localization.cn.lua
 localization.ru.lua
 
 Onyxia.lua

@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太阳井|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMSunwell_AllSavedVars
@@ -7,10 +8,12 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: BC
 ## X-DBM-Mod-Name: Sunwell Plateau
+## X-DBM-Mod-Name-zhCN: 太阳之井高地
 ## X-DBM-Mod-Name-ruRU: Плато Солнечного Колодца
 ## X-DBM-Mod-Name-esES: Meseta de La Fuente del Sol
 ## X-DBM-Mod-MapID: 790
 ## X-DBM-Mod-LoadZone: Sunwell Plateau
+## X-DBM-Mod-LoadZone-zhCN: 太阳之井高地
 ## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца
 
 localization.en.lua

@@ -17,7 +17,9 @@
 ## X-DBM-Mod-MapID: 797
 ## X-DBM-Mod-Sort: 1002
 ## X-DBM-Mod-Name: Black Temple
+## X-DBM-Mod-Name-zhCN: 黑暗神殿
 ## X-DBM-Mod-Name-ruRU: Черный храм
+## X-DBM-Mod-LoadZone-zhCN: 黑暗神殿
 
 localization.en.lua
 localization.cn.lua

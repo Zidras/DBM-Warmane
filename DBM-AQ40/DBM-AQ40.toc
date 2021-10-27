@@ -19,7 +19,9 @@
 ## X-DBM-Mod-MapID: 767
 ## X-DBM-Mod-Sort: 1102
 ## X-DBM-Mod-Name: The Temple of Ahn'Qiraj
+## X-DBM-Mod-Name-zhCN: 安其拉神殿
 ## X-DBM-Mod-Name-ruRU: Храм Ан'Киража
+## X-DBM-Mod-LoadZone-zhCN: 安其拉神殿
 
 localization.en.lua
 localization.de.lua

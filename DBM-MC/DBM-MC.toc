@@ -19,7 +19,9 @@
 ## X-DBM-Mod-MapID: 697
 ## X-DBM-Mod-Sort: 1107
 ## X-DBM-Mod-Name: Molten Core
+## X-DBM-Mod-Name-zhCN: 熔火之心
 ## X-DBM-Mod-Name-ruRU: Огненные Недра
+## X-DBM-Mod-LoadZone-zhCN: 熔火之心
 
 localization.en.lua
 localization.es.lua
