@@ -177,6 +177,7 @@ L:SetMiscLocalization{
 	--YellPull				= "Dieser Ort wird Euch als Grab dienen!",
 	Emerge					= "entsteigt dem Boden!",
 	Burrow					= "gräbt sich in den Boden!",
+	YellBurrow				= "Auum na-l ak-k-k-k, isshhh. Erhebt euch, Diener. Verschlingt...",
 	PcoldIconSet			= "DKälte-Zeichen {rt%d} auf %s gesetzt",
 	PcoldIconRemoved		= "DKälte-Zeichen von %s entfernt"
 }

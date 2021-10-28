@@ -14,6 +14,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
+	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -211,8 +212,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg and msg:find(L.Burrow) then
+function mod:CHAT_MSG_MONSTER_YELL(msg) -- Warmane workaround since submerge emote sometimes is not being fired
+	if msg and msg == L.YellBurrow then
 		self:SetStage(2)
 		self.vb.Burrowed = true
 		timerAdds:Cancel()
@@ -221,8 +222,25 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmergeSoon:Schedule(58.5)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
+		self:UnscheduleMethod("ShadowStrike")
+		timerShadowStrike:Cancel()
+		preWarnShadowStrike:Cancel()
 		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
-	elseif msg and msg:find(L.Emerge) then
+	end
+end
+
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+	-- if msg and msg:find(L.Burrow) then
+	-- 	self:SetStage(2)
+	-- 	self.vb.Burrowed = true
+	-- 	timerAdds:Cancel()
+	-- 	warnAdds:Cancel()
+	-- 	warnSubmerge:Show()
+	-- 	warnEmergeSoon:Schedule(58.5)
+	-- 	timerEmerge:Start()
+	-- 	timerFreezingSlash:Stop()
+	-- 	self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
+	if msg and msg:find(L.Emerge) then
 		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
 		self:SetStage(1)
 		self.vb.Burrowed = false

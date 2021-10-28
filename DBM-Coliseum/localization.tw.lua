@@ -177,6 +177,7 @@ L:SetMiscLocalization{
 --	YellPull			= "這裡將會是你們的墳墓!",
 	Emerge				= "從地底鑽出!",
 	Burrow				= "鑽進地裡!",
+	YellBurrow			= "(蟲族語)靠上來，兄弟們。起來，爪牙們，吞噬...",
 	PcoldIconSet		= "透骨之寒{rt%d}於%s",
 	PcoldIconRemoved	= "移除標記:%s"
 }

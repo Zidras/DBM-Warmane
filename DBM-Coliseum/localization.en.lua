@@ -182,6 +182,7 @@ L:SetMiscLocalization{
 --	YellPull			= "This place will serve as your tomb!",
 	Emerge				= "emerges from the ground!",
 	Burrow				= "burrows into the ground!",
+	YellBurrow			= "Auum na-l ak-k-k-k, isshhh. Rise, minions. Devour...",
 	PcoldIconSet		= "PCold icon {rt%d} set on %s",
 	PcoldIconRemoved	= "PCold icon removed from %s"
 }
