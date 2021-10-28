@@ -13,6 +13,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_REFRESH",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -60,7 +61,7 @@ function mod:OnCombatStart(delay)
 	warnSubmergeSoon:Schedule(70-delay)
 	timerSubmerge:Start(-delay)
 	enrageTimer:Start(-delay)
-	timerFreezingSlash:Start(-delay)
+	timerFreezingSlash:Start(15-delay)
 	table.wipe(PColdTargets)
 	if self:IsHeroic() then
 		timerShadowStrike:Start()
@@ -157,7 +158,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 66012 then							-- Freezing Slash
 		warnFreezingSlash:Show(args.destName)
-		timerFreezingSlash:Start()
 	elseif args.spellId == 10278 and self:IsInCombat() then		-- Hand of Protection
 		warnHoP:Show(args.destName)
 		timerHoP:Start(args.destName)
@@ -202,6 +202,12 @@ function mod:SPELL_CAST_START(args)
 		else
 			warnShadowStrike:Show()
 		end
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 66012 then							-- Freezing Slash (caught one log where AURA_APPLIED was not present in one of the casts, so start timer on cast success instead)
+		timerFreezingSlash:Start()
 	end
 end
 
