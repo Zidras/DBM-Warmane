@@ -13,8 +13,9 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_DAMAGE",
-	"SPELL_PERIODIC_DAMAGE",
-	"SPELL_PERIODIC_MISSED",
+	"SPELL_MISSED",
+	-- "SPELL_PERIODIC_DAMAGE",
+	-- "SPELL_PERIODIC_MISSED",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -201,19 +202,23 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destName, _, spellId)
+function mod:SPELL_DAMAGE(sourceGUID, _, _, destGUID, destName, _, spellId, spellName)
 	if (spellId == 71726 or spellId == 71727 or spellId == 71728 or spellId == 71729) and self:GetCIDFromGUID(sourceGUID) == 37955 then	-- Vampiric Bite (first bite only, hers)
 		warnVampiricBite:Show(destName)
-	end
-end
-
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
-	if (spellId == 71277 or spellId == 72638 or spellId == 72639 or spellId == 72640) and destGUID == UnitGUID("player") and self:AntiSpam() then		--Swarn of Shadows (spell damage, you're standing in it.)
+	elseif (spellId == 71277 or spellId == 72638 or spellId == 72639 or spellId == 72640 or spellId == 72637) and destGUID == UnitGUID("player") and self:AntiSpam() then		--Swarming Shadows (spell damage, you're standing in it.)
 		specWarnSwarmingShadows:Show()
 		specWarnSwarmingShadows:Play("runaway")
 	end
 end
-mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
+
+-- function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+-- 	if (spellId == 71277 or spellId == 72638 or spellId == 72639 or spellId == 72640 or spellId == 72637) and destGUID == UnitGUID("player") and self:AntiSpam() then		--Swarn of Shadows (spell damage, you're standing in it.)
+-- 		specWarnSwarmingShadows:Show()
+-- 		specWarnSwarmingShadows:Play("runaway")
+-- 	end
+-- end
+-- mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:match(L.SwarmingShadows) and target then
