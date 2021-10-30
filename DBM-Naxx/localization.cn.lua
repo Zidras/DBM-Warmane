@@ -372,9 +372,6 @@ L:SetOptionLocalization({
     TimerPhase2 = "为第二阶段显示计时条",
     specwarnP2Soon = "为克尔苏加德攻击前10秒显示特别警报",
     warnAddsSoon = "为寒冰皇冠卫士显示提前警报",
-    SetIconOnMC = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(28410),
-    SetIconOnManaBomb = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(27819),
-    SetIconOnFrostTomb = DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(27808),
     ShowRange = "当第二阶段开始时显示距离监视框"
 })
 
