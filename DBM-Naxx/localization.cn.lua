@@ -181,7 +181,6 @@ L:SetWarningLocalization({
     SpecialWarningInjection = "你中了变异注射 - 快跑开"
 })
 
-L:SetTimerLocalization({})
 -------------
 --  Gluth  --
 -------------
