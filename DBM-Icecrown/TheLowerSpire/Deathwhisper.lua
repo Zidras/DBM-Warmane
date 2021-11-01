@@ -56,11 +56,11 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
 mod:AddBoolOption("ShieldHealthFrame", false, "misc")
 mod:AddInfoFrameOption(70842, false)
 mod:RemoveOption("HealthFrame")
-mod:AddBoolOption("EqUneqWeapons", (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")))
+mod:AddBoolOption("EqUneqWeapons", mod:IsMeleeDps())
 mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
 
-if mod.Options.EqUneqWeapons and (mod:IsWeaponDependent() or isHunter) and not mod:IsTank() and (mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25")) and not mod:IsEquipmentSetAvailable("pve") then
+if mod.Options.EqUneqWeapons and mod:IsHeroic() and not mod:IsEquipmentSetAvailable("pve") then
 	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 		if frame.AddMessage then
@@ -86,19 +86,22 @@ local function has_value(tab, val)
 end
 
 function mod:UnW()
-	if self:IsWeaponDependent() and self.Options.EqUneqWeapons and not self.Options.BlockWeapons and not self:IsTank() and self:IsEquipmentSetAvailable("pve") then
+	if self.Options.EqUneqWeapons and not self.Options.BlockWeapons and self:IsEquipmentSetAvailable("pve") then
 		PickupInventoryItem(16)
 		PutItemInBackpack()
 		PickupInventoryItem(17)
 		PutItemInBackpack()
-	elseif isHunter and self.Options.EqUneqWeapons and not self.Options.BlockWeapons and not self:IsTank() and self:IsEquipmentSetAvailable("pve") then
-		PickupInventoryItem(18)
-		PutItemInBackpack()
+		DBM:Debug("MH and OH unequipped",2)
+		if isHunter then
+			PickupInventoryItem(18)
+			PutItemInBackpack()
+			DBM:Debug("Ranged unequipped",2)
+		end
 	end
 end
 
 function mod:EqW()
-	if self.Options.EqUneqWeapons and not self.Options.BlockWeapons and not self:IsTank() and self:IsEquipmentSetAvailable("pve") then
+	if self.Options.EqUneqWeapons and not self.Options.BlockWeapons and self:IsEquipmentSetAvailable("pve") then
 		DBM:Debug("trying to equip pve",1)
 		UseEquipmentSet("pve")
 		CancelUnitBuff("player", (GetSpellInfo(25780))) -- Righteous Fury
@@ -115,7 +118,7 @@ local function showDominateMindWarning(self)
 	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 	timerDominateMind:Start()
 	timerDominateMindCD:Start()
-	if (not has_value(dominateMindTargets,UnitName("player")) and self.Options.EqUneqWeapons and not self:IsTank()) then
+	if (not has_value(dominateMindTargets,UnitName("player")) and self.Options.EqUneqWeapons and self:IsDps()) then
 		DBM:Debug("Equipping scheduled",1)
 		self:ScheduleMethod(0.1, "EqW")
 		self:ScheduleMethod(1.7, "EqW")
@@ -126,8 +129,8 @@ local function showDominateMindWarning(self)
 	end
 	table.wipe(dominateMindTargets)
 	self.vb.dominateMindIcon = 6
-	if mod.Options.EqUneqWeapons and not mod:IsTank() and mod.Options.EqUneqTimer then
-		mod:ScheduleMethod(39, "UnW")
+	if self.Options.EqUneqWeapons and self:IsDps() and self.Options.EqUneqTimer then
+		self:ScheduleMethod(39, "UnW")
 	end
 end
 
@@ -178,7 +181,7 @@ function mod:OnCombatStart(delay)
 		if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
 			self:ScheduleMethod(24, "RemoveBuffs")
 		end
-		if self.Options.EqUneqWeapons and not self:IsTank() and self.Options.EqUneqTimer then
+		if self.Options.EqUneqWeapons and self:IsDps() and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
 			self:ScheduleMethod(26.5, "UnW")
 		end
@@ -240,7 +243,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 71289 then
 		timerDominateMindCD:Start()
 		DBM:Debug("MC on "..args.destName,2)
-		if self.Options.EqUneqWeapons and args.destName == UnitName("player") then
+		if self.Options.EqUneqWeapons and args.destName == UnitName("player") and self:IsDps() then
 			self:UnW()
 			self:UnW()
 			self:ScheduleMethod(0.01, "UnW")
@@ -303,7 +306,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			DBM.InfoFrame:Hide()
 		end
     elseif args:IsSpellID(71289) then
-		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and not self:IsTank() then
+		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and self:IsDps() then
 	        self:ScheduleMethod(0.1, "EqW")
 	        self:ScheduleMethod(1.7, "EqW")
 	        self:ScheduleMethod(3.3, "EqW")
