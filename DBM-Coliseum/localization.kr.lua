@@ -178,6 +178,7 @@ L:SetMiscLocalization{
 --	Swarm					= "착취의 무리가 너희를 덮치리라!",
 	Emerge					= "땅속에서 모습을 드러냅니다!",
 	Burrow					= "땅속으로 숨어버립니다!",
+	YellBurrow				= "아움 날락크, 쉬. 일어나라, 부하들아. 먹어치워라...",
 	PcoldIconSet			= "냉기 관통 아이콘{rt%d} : %s",
 	PcoldIconRemoved		= "냉기 관통 아이콘 제거 : %s"
 }

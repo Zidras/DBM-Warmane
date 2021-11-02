@@ -193,6 +193,8 @@ L:SetMiscLocalization{
 --	YellPull				= "¡Este lugar será vuestra tumba!",
 	Emerge				= "emerge de la tierra!",
 	Burrow				= "se entierra en el suelo!",
+	YellBurrow			= "Auum na-l ak-k-k-k, isshhh. Alzaos, esbirros. Devorad…",
+--	YellBurrow			= "Auum na-l ak-k-k-k, isshhh. Despierten, lacayos. Devoren…" --esMX
 	PcoldIconSet		= "Icono {rt%d} colocado en %s",
 	PcoldIconRemoved	= "Icono quitado en %s"
 }
