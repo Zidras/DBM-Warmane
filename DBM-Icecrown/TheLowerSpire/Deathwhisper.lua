@@ -56,7 +56,7 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
 mod:AddBoolOption("ShieldHealthFrame", false, "misc")
 mod:AddInfoFrameOption(70842, false)
 mod:RemoveOption("HealthFrame")
-mod:AddBoolOption("EqUneqWeapons", mod:IsMeleeDps())
+mod:AddBoolOption("EqUneqWeapons", mod:IsDps())
 mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
 

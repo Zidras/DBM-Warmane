@@ -45,7 +45,7 @@ local timerPossibleMC		= mod:NewTimer(20, "MCImminent", 28410)
 
 mod:AddBoolOption("BlastAlarm", true)
 mod:AddBoolOption("ShowRange", true)
-mod:AddBoolOption("EqUneqWeaponsKT", mod:IsMeleeDps())
+mod:AddBoolOption("EqUneqWeaponsKT", mod:IsDps())
 mod:AddBoolOption("EqUneqWeaponsKT2")
 
 if mod.Options.EqUneqWeaponsKT and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
