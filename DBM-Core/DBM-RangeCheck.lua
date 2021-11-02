@@ -837,7 +837,7 @@ function onUpdate(self, elapsed)
 	if initRangeCheck(self.range) then
 		if self.bossMode then
 			local uId = self.bossUnit
-			if uId and not UnitIsDead(uId) and enemyCheckFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
+			if uId and enemyCheckFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
 				color = NORMAL_FONT_COLOR
 				local text = UnitName(uId)
 				self:AddLine(text, color.r, color.g, color.b)
