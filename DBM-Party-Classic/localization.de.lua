@@ -578,6 +578,10 @@ L:SetGeneralLocalization{
 	name 		= "Robogenieur Thermaplugg"
 }
 
+L:SetMiscLocalization{
+	YellBomb 	= "Explosionen! MEHR Explosionen! Ich brauche mehr Explosionen!"
+}
+
 -------------------------
 --  Maraudon-232J/349M (6L/8C)  --
 -----------------------------

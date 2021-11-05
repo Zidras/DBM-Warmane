@@ -575,6 +575,10 @@ L:SetGeneralLocalization{
 	name 		= "麥克尼爾·瑟瑪普拉格"
 }
 
+L:SetMiscLocalization{
+	YellBomb	= "炸藥!更多的炸藥!我要更多的炸藥!"
+}
+
 -------------------------
 --  Maraudon-232J/349M (6L/8C)  --
 -----------------------------

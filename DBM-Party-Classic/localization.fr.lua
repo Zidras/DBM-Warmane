@@ -578,6 +578,10 @@ L:SetGeneralLocalization{
 	name 		= "Mekgénieur Thermojoncteur"
 }
 
+L:SetMiscLocalization{
+	YellBomb	= "Des explosions ! ENCORE des explosions ! Je veux plus d'explosions !"
+}
+
 -------------------------
 --  Maraudon-232J/349M (6L/8C)  --
 -----------------------------

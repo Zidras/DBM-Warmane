@@ -578,6 +578,10 @@ L:SetGeneralLocalization{
 	name 		= "麦克尼尔·瑟玛普拉格"
 }
 
+L:SetMiscLocalization{
+	YellBomb 	= "爆炸！更多爆炸！我需要更多爆炸！"
+}
+
 -------------------------
 --  Maraudon-232J/349M (6L/8C)  --
 -----------------------------

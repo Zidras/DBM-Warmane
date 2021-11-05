@@ -581,6 +581,10 @@ L:SetGeneralLocalization{
 	name 		= "멕기니어 텔마플러그"
 }
 
+L:SetMiscLocalization{
+	YellBomb	= "폭탄! 폭탄이 필요해! 폭탄 더 가져와!"
+}
+
 -------------------------
 --  Maraudon-232J/349M (6L/8C)  --
 -----------------------------
