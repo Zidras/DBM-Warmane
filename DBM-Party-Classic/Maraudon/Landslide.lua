@@ -19,7 +19,7 @@ local warningTrample				= mod:NewSpellAnnounce(5568, 2)
 
 local specWarnWrath					= mod:NewSpecialWarningInterrupt(21807, "HasInterrupt", nil, nil, 1, 2)
 
-local timerLandslideCD				= mod:NewAITimer(180, 21808, 2, nil, nil, nil, 1)
+local timerLandslideCD				= mod:NewAITimer(180, 21808, nil, nil, nil, 1)
 local timerKnockAwayCD				= mod:NewCDTimer(15.9, 11130, nil, nil, nil, 2)
 local timerTrampleCD				= mod:NewCDTimer(13.4, 5568, nil, nil, nil, 2)
 
