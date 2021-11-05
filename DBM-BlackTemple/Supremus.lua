@@ -10,17 +10,16 @@ mod:SetUsedIcons(8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 41951",
 	"RAID_BOSS_EMOTE"
 )
 
 --TODO, see if CLEU method is reliable enough to scrap scan method. scan method may still have been faster.
 local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
-local warnFixate		= mod:NewTargetNoFilterAnnounce(41951, 3)
+local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
 
 local specWarnMolten	= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
 local specWarnVolcano	= mod:NewSpecialWarningMove(42052, nil, nil, nil, 1, 2)
-local specWarnFixate	= mod:NewSpecialWarningRun(41951, nil, nil, nil, 4, 2)
+local specWarnFixate	= mod:NewSpecialWarningRun(41295, nil, nil, nil, 4, 2)
 
 local timerPhase		= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
 
@@ -31,7 +30,6 @@ mod:AddBoolOption("KiteIcon", true)
 --mod.vb.phase2 = false
 mod.vb.lastTarget = "None"
 
---[[
 local function ScanTarget(self)
 	local target, uId = self:GetBossTarget(22898)
 	if target then
@@ -50,7 +48,6 @@ local function ScanTarget(self)
 		end
 	end
 end
---]]
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
@@ -71,24 +68,6 @@ function mod:OnCombatEnd()
 	end
 end
 
-function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 41951 then
-		if self.vb.lastTarget ~= args.destName then
-			self.vb.lastTarget = args.destName
-			if args:IsPlayer() and not self:IsTrivial() then
-				specWarnFixate:Show()
-				specWarnFixate:Play("justrun")
-				specWarnFixate:ScheduleVoice(1, "keepmove")
-			else
-				warnFixate:Show(args.destName)
-			end
-			if self.Options.KiteIcon then
-				self:SetIcon(args.destName, 8)
-			end
-		end
-	end
-end
-
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 	if spellId == 40265 and destGUID == UnitGUID("player") and self:AntiSpam(4, 1) and not self:IsTrivial() then
 		specWarnMolten:Show()
@@ -104,8 +83,8 @@ function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.PhaseKite or msg:find(L.PhaseKite) then
 		warnPhase:Show(L.Kite)
 		timerPhase:Start(L.Tank)
-		--self:Unschedule(ScanTarget)
-		--self:Schedule(4, ScanTarget, self)
+		self:Unschedule(ScanTarget)
+		self:Schedule(4, ScanTarget, self)
 		if self.vb.lastTarget ~= "None" then
 			self:SetIcon(self.vb.lastTarget, 0)
 		end
@@ -118,12 +97,12 @@ function mod:RAID_BOSS_EMOTE(msg)
 	elseif msg == L.PhaseTank or msg:find(L.PhaseTank) then
 		warnPhase:Show(L.Tank)
 		timerPhase:Start(L.Kite)
-		--self:Unschedule(ScanTarget)
+		self:Unschedule(ScanTarget)
 		if self.vb.lastTarget ~= "None" then
 			self:SetIcon(self.vb.lastTarget, 0)
 		end
-	--elseif msg == L.ChangeTarget or msg:find(L.ChangeTarget) then
-		--self:Unschedule(ScanTarget)
-		--self:Schedule(0.5, ScanTarget, self)
+	elseif msg == L.ChangeTarget or msg:find(L.ChangeTarget) then
+		self:Unschedule(ScanTarget)
+		self:Schedule(0.5, ScanTarget, self)
 	end
 end
