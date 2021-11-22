@@ -105,10 +105,21 @@ local TIMER_TYPE_PVP = 1
 local TIMER_TYPE_CHALLENGE_MODE = 2
 local TIMER_TYPE_PLAYER_COUNTDOWN = 3
 
+-- SOUND KITS
+local SOUNDKIT = {
+	UI_COUNTDOWN_BAR_STATE_STARTS = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\TempMono.ogg", -- 158958
+	UI_COUNTDOWN_BAR_STATE_FINISHED = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\TempMono.ogg", -- 158959
+	UI_COUNTDOWN_MEDIUM_NUMBER_FINISHED = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\TempMono.ogg", -- 158960
+	UI_COUNTDOWN_TIMER = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\UI_BattlegroundCountdown_Timer.ogg", -- 158565
+	UI_COUNTDOWN_FINISHED = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\UI_BattlegroundCountdown_End.ogg", -- 158566
+	UI_BATTLEGROUND_COUNTDOWN_TIMER = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\UI_BattlegroundCountdown_Timer.ogg", -- 25477
+	UI_BATTLEGROUND_COUNTDOWN_FINISHED = "Interface\\AddOns\\DBM-Core\\sounds\\Timer\\UI_BattlegroundCountdown_End.ogg", -- 25478
+}
+
 local TIMER_DATA = {
 	[1] = {mediumMarker = 11, largeMarker = 6, updateInterval = 10},
 	[2] = {mediumMarker = 100, largeMarker = 100, updateInterval = 100},
-	[3] = {mediumMarker = 31, largeMarker = 11, updateInterval = 10}
+	[3] = {mediumMarker = 31, largeMarker = 11, updateInterval = 10, finishedSoundKitID = SOUNDKIT.UI_COUNTDOWN_FINISHED, bigNumberSoundKitID = SOUNDKIT.UI_COUNTDOWN_TIMER, mediumNumberFinishedSoundKitID = SOUNDKIT.UI_COUNTDOWN_MEDIUM_NUMBER_FINISHED, barShowSoundKitID = SOUNDKIT.UI_COUNTDOWN_BAR_STATE_STARTS, barHideSoundKitID = SOUNDKIT.UI_COUNTDOWN_BAR_STATE_FINISHED}
 }
 
 local TIMER_NUMBERS_SETS = {}
@@ -230,6 +241,13 @@ local function StartNumbers_OnFinished(self)
 		timer.StartNumbers:Play()
 		timer.StartGlowNumbers:Play()
 	else
+		if DBM.Options.PlayTTCountdownFinished then
+			if TIMER_DATA[timer.type].finishedSoundKitID then
+				PlaySoundFile(TIMER_DATA[timer.type].finishedSoundKitID)
+			else
+				PlaySoundFile(SOUNDKIT.UI_BATTLEGROUND_COUNTDOWN_FINISHED)
+			end
+		end
 		timer.anchorCenter = false
 		timer.isFree = true
 		timer.GoTextureAnim:Play()
@@ -429,6 +447,9 @@ function TT:BigNumberOnUpdate(elapsed)
 		if self.barShowing then
 			self.barShowing = false
 			self.FadeBarOut:Play()
+			if TIMER_DATA[self.type].barHideSoundKitID then
+				PlaySoundFile(TIMER_DATA[self.type].barHideSoundKitID)
+			end
 		else
 			self.StartNumbers:Play()
 			self.StartGlowNumbers:Play()
@@ -436,6 +457,9 @@ function TT:BigNumberOnUpdate(elapsed)
 	elseif not self.barShowing then
 		self.FadeBarIn:Play()
 		self.barShowing = true
+		if TIMER_DATA[self.type].barShowSoundKitID then
+			PlaySoundFile(TIMER_DATA[self.type].barShowSoundKitID)
+		end
 	elseif self.updateTime <= 0 then
 		self.updateTime = TIMER_DATA[self.type].updateInterval
 	end
@@ -488,6 +512,13 @@ function TT:SetTexNumbers(timer, ...)
 	end
 
 	if numberOffset > 0 then
+		if DBM.Options.PlayTTCountdown then
+			if TIMER_DATA[timer.type].bigNumberSoundKitID and numShown < TIMER_DATA[timer.type].largeMarker then
+				PlaySoundFile(TIMER_DATA[timer.type].bigNumberSoundKitID)
+			else
+				PlaySoundFile(SOUNDKIT.UI_BATTLEGROUND_COUNTDOWN_TIMER)
+			end
+		end
 		digits[1]:ClearAllPoints()
 
 		if timer.anchorCenter then
@@ -526,6 +557,9 @@ function TT:SwitchToLargeDisplay(timer)
 	timer.Digit1.width = timer.style.w
 	timer.Digit2.width = timer.style.w
 	timer.anchorCenter = true
+	if TIMER_DATA[timer.type].mediumNumberFinishedSoundKitID then
+		PlaySoundFile(TIMER_DATA[timer.type].mediumNumberFinishedSoundKitID)
+	end
 end
 
 function TT:ReleaseTimers()
