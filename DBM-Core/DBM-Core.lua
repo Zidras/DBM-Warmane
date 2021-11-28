@@ -312,6 +312,8 @@ DBM.DefaultOptions = {
 	DontShowPTText = false,
 	DontShowPTNoID = false,
 	PTCountThreshold2 = 5,
+	PlayTTCountdown = false,
+	PlayTTCountdownFinished = false,
 	LatencyThreshold = 250,
 	BigBrotherAnnounceToRaid = false,
 	SettingsMessageShown = false,
@@ -458,8 +460,8 @@ local showConstantReminder = 0
 local tooltipsHidden = false
 local SWFilterDisabed = 3
 local currentSpecName, currentSpecGroup
---local cSyncSender = {}
---local cSyncReceived = 0
+local cSyncSender = {}
+local cSyncReceived = 0
 local canSetIcons = {}
 local iconSetRevision = {}
 local iconSetPerson = {}
@@ -2410,6 +2412,13 @@ end
 do
 	local callOnLoad = {}
 	function DBM:LoadGUI()
+		if not dbmIsEnabled then
+			self:AddMsg(L.UPDATEREMINDER_DISABLE)
+			return
+		end
+		if self.NewerVersion and showConstantReminder >= 1 then
+			AddMsg(self, L.UPDATEREMINDER_HEADER:format(self.NewerVersion, showRealDate(self.HighestRelease)))
+		end
 		if not IsAddOnLoaded("DBM-GUI") then
 			local _, _, _, enabled = GetAddOnInfo("DBM-GUI")
 			if not enabled then
@@ -2418,7 +2427,7 @@ do
 			local loaded, reason = LoadAddOn("DBM-GUI")
 			if not loaded then
 				if reason then
-					self:AddMsg(L.LOAD_GUI_ERROR:format(tostring(_G[("ADDON_"..reason) or ""])))
+					self:AddMsg(L.LOAD_GUI_ERROR:format(tostring(_G["ADDON_"..reason or ""])))
 				else
 					self:AddMsg(L.LOAD_GUI_ERROR:format(L.UNKNOWN))
 				end
@@ -3606,14 +3615,46 @@ do
 		end
 	end
 
-	syncHandlers["DBMv4-Pull"] = function(sender, delay, mod, revision)
-		if select(2, IsInInstance()) == "pvp" then return end
-		local lag = select(3, GetNetStats()) / 1000
-		delay = tonumber(delay or 0) or 0
-		revision = tonumber(revision or 0) or 0
-		mod = DBM:GetModByName(mod or "")
-		if mod and delay and (not mod.zones or #mod.zones == 0 or checkEntry(mod.zones, GetRealZoneText()) or checkEntry(mod.zones, GetCurrentMapAreaID())) and (not mod.minSyncRevision or revision >= mod.minSyncRevision) then
-			DBM:StartCombat(mod, delay + lag, true)
+	syncHandlers["DBMv4-Pull"] = function(sender, delay, mod, modRevision, startHp, dbmRevision, modHFRevision, event)
+		if not dbmIsEnabled or sender == playerName then return end
+		if LastInstanceType == "pvp" then return end
+		if LastInstanceType == "none" and (not UnitAffectingCombat("player") or #inCombat > 0) then--world boss
+			local senderuId = DBM:GetRaidUnitId(sender)
+			if not senderuId then return end--Should never happen, but just in case. If happens, MANY "C" syncs are sent. losing 1 no big deal.
+			local x, y = GetPlayerMapPosition(senderuId)
+			if x == 0 and y == 0 then return end--not same zone
+			local range = DBM.RangeCheck:GetDistance("player", senderuId)--Same zone, so check range
+			if not range or range > 120 then return end
+		end
+		if not cSyncSender[sender] then
+			cSyncSender[sender] = true
+			cSyncReceived = cSyncReceived + 1
+			if cSyncReceived > 2 then -- need at least 3 sync to combat start. (for security)
+				local lag = select(3, GetNetStats()) / 1000
+				delay = tonumber(delay or 0) or 0
+				mod = DBM:GetModByName(mod or "")
+				modRevision = tonumber(modRevision or 0) or 0
+				dbmRevision = tonumber(dbmRevision or 0) or 0
+				modHFRevision = tonumber(modHFRevision or 0) or 0
+				startHp = tonumber(startHp or -1) or -1
+				--if dbmRevision < 10481 then return end
+				if mod and delay and (not mod.zones or mod.zones[LastInstanceMapID]) and (not mod.minSyncRevision or modRevision >= mod.minSyncRevision) then
+					DBM:StartCombat(mod, delay + lag, "SYNC from - "..sender, true, startHp, event)
+					if mod.revision < modHFRevision then--mod.revision because we want to compare to OUR revision not senders
+						--There is a newer RELEASE version of DBM out that has this mods fixes that we do not possess
+						if DBM.HighestRelease >= modHFRevision and DBM.ReleaseRevision < modHFRevision then
+							showConstantReminder = 2
+							if DBM:AntiSpam(3, "HOTFIX") then
+								AddMsg(DBM, L.UPDATEREMINDER_HOTFIX)
+							end
+						else--This mods fixes are in an alpha version
+							if DBM:AntiSpam(3, "HOTFIX") then
+								AddMsg(DBM, L.UPDATEREMINDER_HOTFIX_ALPHA)
+							end
+						end
+					end
+				end
+			end
 		end
 	end
 
@@ -4524,7 +4565,7 @@ do
 	end
 
 	function DBM:ShowUpdateReminder(newVersion, newRevision, text, url)
-		urlText = url or L.UPDATEREMINDER_URL or "http://www.deadlybossmods.com"
+		urlText = url or L.UPDATEREMINDER_URL or "https://github.com/Zidras/DBM-Warmane"
 		if not frame then
 			createFrame()
 		else
@@ -4739,7 +4780,7 @@ do
 		if not checkEntry(inCombat, mod) then
 			buildTargetList()
 			if targetList[mob] and UnitAffectingCombat(targetList[mob]) then
-				DBM:StartCombat(mod, 3)
+				DBM:StartCombat(mod, 3, "PLAYER_REGEN_DISABLED")
 			end
 			clearTargetList()
 		end
@@ -4813,8 +4854,8 @@ do
 		if timerRequestInProgress then return end--do not start ieeu combat if timer request is progressing. (not to break Timer Recovery stuff)
 		local combat = combatInfo[GetRealZoneText()] or combatInfo[GetCurrentMapAreaID()]
 		if dbmIsEnabled and combat then
-			DBM:Debug("INSTANCE_ENCOUNTER_ENGAGE_UNIT combatInfo check fired")
-			for i, v in ipairs(combat) do
+			self:Debug("INSTANCE_ENCOUNTER_ENGAGE_UNIT event fired for zoneId"..LastInstanceMapID, 3)
+			for _, v in ipairs(combat) do
 				if v.type:find("combat") and isBossEngaged(v.multiMobPullDetection or v.mob) then
 					self:StartCombat(v.mod, 0, "IEEU")
 				end
@@ -4841,7 +4882,7 @@ do
 		if dbmIsEnabled and combatInfo[GetRealZoneText()] then
 			for i, v in ipairs(combatInfo[GetRealZoneText()]) do
 				if v.type == type and checkEntry(v.msgs, msg) then
-					self:StartCombat(v.mod, 0)
+					self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 				end
 			end
 		end
@@ -4849,7 +4890,7 @@ do
 		if dbmIsEnabled and combatInfo[GetCurrentMapAreaID()] then
 			for i, v in ipairs(combatInfo[GetCurrentMapAreaID()]) do
 				if v.type == type and checkEntry(v.msgs, msg) then
-					self:StartCombat(v.mod, 0)
+					self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 				end
 			end
 		end
@@ -4981,8 +5022,8 @@ do
 	}
 
 	function DBM:StartCombat(mod, delay, event, synced, syncedStartHp, syncedEvent)
-		--cSyncSender = {}
-		--cSyncReceived = 0
+		cSyncSender = {}
+		cSyncReceived = 0
 		if not checkEntry(inCombat, mod) then
 			-- - HACK: гарантирует, что мы не обнаружим ложное притяжение, если событие сработает снова, когда босс умрет ...
 			if mod.lastKillTime and GetTime() - mod.lastKillTime < 10 then return end
@@ -4991,9 +5032,10 @@ do
 				return
 			end
 			if event then
-				self:Debug("StartCombat called by : "..tostring(event)..". LastInstanceMapID is "..tostring(LastInstanceMapID))
+				self:Debug("StartCombat called by : "..event..". LastInstanceMapID is "..LastInstanceMapID)
 			else
-				self:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is "..tostring(LastInstanceMapID))
+				self:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is "..LastInstanceMapID)
+				event = ""
 			end
 			self.currentModId = mod.id
 			--check completed. starting combat
@@ -5133,7 +5175,14 @@ do
 				if dummyMod then--stop pull timer
 					dummyMod.text:Cancel()
 					dummyMod.timer:Stop()
-					TT:OnEvent("PLAYER_ENTERING_WORLD") -- clear TimerTracker (Gold numbers countdown)
+					if not self.Options.DontShowPTCountdownText then
+						for _, tttimer in pairs(TT.timerList) do
+							if tttimer.type == 3 and not tttimer.isFree then
+								TT:FreeTimerTrackerTimer(tttimer)
+								break
+							end
+						end
+					end
 					DBM:Unschedule(SendChatMessage) -- unschedule chat spam on pull
 				end
 				if self.Options.EventSoundEngage2 and self.Options.EventSoundEngage2 ~= "" and self.Options.EventSoundEngage2 ~= "None" then
@@ -5832,7 +5881,7 @@ do
 			return
 		end
 		local mod
-		for i, v in ipairs(inCombat) do
+		for _, v in ipairs(inCombat) do
 			mod = not v.isCustomMod and v
 		end
 		mod = mod or inCombat[1]
@@ -5843,17 +5892,18 @@ do
 	function DBM:SendPVPTimers(target)
 		self:Debug("SendPVPTimers requested by "..target, 2)
 		local spamForTarget = spamProtection[target] or 0
+		local time = GetTime()
 		-- just try to clean up the table, that should keep the hash table at max. 4 entries or something :)
 		for k, v in pairs(spamProtection) do
-			if GetTime() - v >= 1 then
+			if time - v >= 1 then
 				spamProtection[k] = nil
 			end
 		end
-		if GetTime() - spamForTarget < 1 then -- just to prevent players from flooding this on purpose
+		if time - spamForTarget < 1 then -- just to prevent players from flooding this on purpose
 			return
 		end
-		spamProtection[target] = GetTime()
-		local mod = self:GetModByName("z"..tostring(LastInstanceMapID))
+		spamProtection[target] = time
+		local mod = self:GetModByName("PvPGeneral")
 		if mod then
 			self:SendTimerInfo(mod, target)
 		end
@@ -5865,7 +5915,7 @@ function DBM:SendCombatInfo(mod, target)
 end
 
 function DBM:SendTimerInfo(mod, target)
-	for i, v in ipairs(mod.timers) do
+	for _, v in ipairs(mod.timers) do
 		--Pass on any timer that has no type, or has one that isn't an ai timer
 		if not v.type or v.type and v.type ~= "ai" then
 			for _, uId in ipairs(v.startedTimers) do
@@ -6002,6 +6052,39 @@ do
 	end
 end
 
+--This completely unregisteres or registers distruptive events so they don't obstruct combat
+--Toggle is for if we are turning off or on.
+--Custom is for external mods to call function without duplication and allowing pvp mods custom toggle.
+do
+	local unregisteredEvents = {}
+	local function DisableEvent(frameName, eventName)
+		if frameName:IsEventRegistered(eventName) then
+			frameName:UnregisterEvent(eventName)
+			unregisteredEvents[eventName] = true
+		end
+	end
+	local function EnableEvent(frameName, eventName)
+		if unregisteredEvents[eventName] then
+			frameName:RegisterEvent(eventName)
+			unregisteredEvents[eventName] = nil
+		end
+	end
+	function DBM:HideBlizzardEvents(toggle, custom)
+		if toggle == 1 then
+			if (self.Options.HideBossEmoteFrame2 or custom) then
+				DisableEvent(RaidBossEmoteFrame, "CHAT_MSG_RAID_BOSS_EMOTE")
+				DisableEvent(RaidBossEmoteFrame, "CHAT_MSG_RAID_BOSS_WHISPER")
+				-- SOUNDKIT.UI_RAID_BOSS_WHISPER_WARNING = 999999 --Commented out and not backported since I don't want to touch blizzard function to edit out the PlaySound("RaidBossEmoteWarning"). Since blizzard can still play the sound via RaidBossEmoteFrame_OnEvent (line 137) via encounter scripts in certain cases despite the frame having no registered events
+			end
+		elseif toggle == 0 then
+			if (self.Options.HideBossEmoteFrame2 or custom) then
+				EnableEvent(RaidBossEmoteFrame, "CHAT_MSG_RAID_BOSS_EMOTE")
+				EnableEvent(RaidBossEmoteFrame, "CHAT_MSG_RAID_BOSS_WHISPER")
+				-- SOUNDKIT.UI_RAID_BOSS_WHISPER_WARNING = 37666 --restore it
+			end
+		end
+	end
+end
 
 -------------------
 --  Chat Filter  --

@@ -309,6 +309,10 @@ L.DontShowPTCountdownText	= "Не отображать текст отсчета
 L.DontPlayPTCountdown		= "Не воспроизводить звук отсчета таймера пулла/боя/пользов."
 L.PT_Threshold				= "Не отображать текст отсчета таймера пулла/боя/пользов. больше: %d"
 
+L.Area_TimerTracker			= "Параметры TimerTracker"
+L.PlayTTCountdown			= "Воспроизвести звук обратного отсчета TimerTracker"
+L.PlayTTCountdownFinished	= "Воспроизвести звук окончания обратного отсчета TimerTracker"
+
 L.Panel_HideBlizzard		= "Скрыть Blizzard"
 L.Area_HideBlizzard			= "Настройки скрытия Blizzard"
 L.HideBossEmoteFrame		= "Скрывать окно эмоций рейдового босса во время боя с боссом"

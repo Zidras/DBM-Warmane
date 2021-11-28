@@ -401,6 +401,10 @@ L.DontShowPTCountdownText	= "Ocultar texto de cuenta atrás de temporizadores de
 L.DontPlayPTCountdown		= "Desactivar sonidos de cuenta atrás de temporizadores de inicio de encuentro, descanso, combate y personalizados"
 L.PT_Threshold				= "Ocultar temporizadores por encima de: %d s"
 
+L.Area_TimerTracker			= "Opciones de TimerTracker"
+L.PlayTTCountdown			= "Reproducir sonidos de TimerTracker"
+L.PlayTTCountdownFinished	= "Reproducir sonidos de TimerTracker finalizado"
+
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "Interfaz y funciones de Blizzard"
 L.Area_HideBlizzard			= "Opciones de interfaz y funciones de Blizzard"

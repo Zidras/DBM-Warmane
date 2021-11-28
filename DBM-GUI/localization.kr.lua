@@ -415,6 +415,10 @@ L.DontShowPTCountdownText	= "풀링 초읽기 숫자 표시 안함"
 L.DontPlayPTCountdown		= "풀링/휴식/전투/사용자 지정 초읽기 전구간 음성 재생 안함"
 L.PT_Threshold				= "휴식/전투/사용자 지정 타이머 초읽기 음성 재생 안함: %d초 까지"
 
+L.Area_TimerTracker			= "TimerTracker 옵션"
+L.PlayTTCountdown			= "TimerTracker 카운트다운 사운드 재생"
+L.PlayTTCountdownFinished	= "TimerTracker 카운트다운 종료 사운드 재생"
+
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "블리자드 기능"
 L.Area_HideBlizzard			= "블리자드 기능 끄기 및 숨김 설정"

@@ -3422,6 +3422,10 @@ local function CreateOptionsMenu()
 		PTSlider:HookScript("OnShow", function(self) self:SetValue(mfloor(DBM.Options.PTCountThreshold2)) end)
 		PTSlider:HookScript("OnValueChanged", function(self) DBM.Options.PTCountThreshold2 = mfloor(self:GetValue()) end)
 
+		local spamTTArea = spamPanel:CreateArea(L.Area_TimerTracker, nil, 80, true)
+		spamTTArea:CreateCheckButton(L.PlayTTCountdown, true, nil, "PlayTTCountdown")
+		spamTTArea:CreateCheckButton(L.PlayTTCountdownFinished, true, nil, "PlayTTCountdownFinished")
+
 		spamPTArea:AutoSetDimension()
 		spamRestoreArea:AutoSetDimension()
 		spamArea:AutoSetDimension()

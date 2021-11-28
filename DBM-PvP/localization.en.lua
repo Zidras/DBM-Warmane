@@ -3,191 +3,122 @@ local L
 --------------------------
 --  General BG Options  --
 --------------------------
-L = DBM:GetModLocalization("Battlegrounds")
+L = DBM:GetModLocalization("PvPGeneral")
 
 L:SetGeneralLocalization({
-	name = "General Options"
+	name	= "General Options"
 })
 
 L:SetTimerLocalization({
-	TimerInvite = "%s"
+	TimerCap		= "%s",
+	TimerFlag		= "Flag respawn",
+	TimerShadow		= "Shadow Sight",
+	TimerStart		= "Starting in",
+	TimerWin		= "Victory in"
 })
 
 L:SetOptionLocalization({
-	ColorByClass	= "Set name color to class color in the score frame",
-	ShowInviteTimer	= "Show battleground join timer",
-	AutoSpirit		= "Auto-release spirit"
+	AutoSpirit			= "Auto-release spirit",
+	ColorByClass		= "Set name color to class color in the score frame",
+	HideBossEmoteFrame	= "Hide the raid boss emote frame and garrison/Guild toasts during battlegrounds",
+	ShowBasesToWin		= "Show bases required to win",
+	ShowEstimatedPoints	= "Show estimated points on win/loss",
+	ShowFlagCarrier		= "Show flag carrier",
+	ShowRelativeGameTime= "Fill win timer relative to BG start time (If disabled, bar just always looks full)",
+	TimerCap			= "Show capture timer",
+	TimerFlag			= "Show flag respawn timer",
+	TimerShadow			= "Show timer for Shadow Sight",
+	TimerStart			= "Show timer till match start",
+	TimerWin			= "Show win timer"
 })
 
 L:SetMiscLocalization({
-	ArenaInvite	= "Arena invite"
-})
-
---------------
---  Arenas  --
---------------
-L = DBM:GetModLocalization("Arenas")
-
-L:SetGeneralLocalization({
-	name = "Arenas"
-})
-
-L:SetTimerLocalization({
-	TimerStart	= "Game starts",
-	TimerShadow	= "Shadow Sight"
-})
-
-L:SetOptionLocalization({
-	TimerStart	= "Show start timer",
-	TimerSoundStart	= "5-second audio countdown to start",
-	TimerShadow = "Show timer for Shadow Sight"
-})
-
-L:SetMiscLocalization({
-	Start60	= "One minute until the Arena battle begins!",
-	Start30	= "Thirty seconds until the Arena battle begins!",
-	Start15	= "Fifteen seconds until the Arena battle begins!"
+	BgStart120			= "2 minutes",
+	BgStart60			= "1 minute",
+	BgStart30			= "30 seconds",
+	ArenaInvite			= "Arena invite",
+	Start60				= "One minute until the Arena battle begins!",
+	Start30				= "Thirty seconds until the Arena battle begins!",
+	Start15				= "Fifteen seconds until the Arena battle begins!",
+	BasesToWin			= "Bases to win: %d",
+	WinBarText			= "%s wins",
+	-- TODO: Implement the flag carrying system
+	Flag				= "Flag",
+	FlagReset			= "The flag has been reset.",
+	FlagTaken			= "(.+) has taken the flag!",
+	FlagCaptured		= "The .+ ha%w+ captured the flag!",
+	FlagDropped			= "The flag has been dropped.",
+	--
+	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!", -- Unused
+	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
+	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!", -- Unused
+	ScoreExpr			= "(%d+)/1600",
+	Vulnerable1			= "The flag carriers have become vulnerable to attack!",
+	Vulnerable2			= "The flag carriers have become increasingly vulnerable to attack!",
+	-- Alterac/IsleOfConquest bosses
+	InfoFrameHeader		= "Boss Health",
+	HordeBoss			= "Horde Boss",
+	AllianceBoss		= "Alliance Boss",
+	Galvangar			= "Galvangar",
+	Balinda				= "Balinda",
+	Ivus				= "Ivus",
+	Lokholar			= "Lokholar",
 })
 
 ----------------------
 --  Alterac Valley  --
 ----------------------
-L = DBM:GetModLocalization("z402")
+L = DBM:GetModLocalization("AlteracValley")
 
 L:SetGeneralLocalization({
 	name = "Alterac Valley"
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Game starts",
-	TimerTower	= "%s",
-	TimerGY		= "%s"
-})
-
-L:SetMiscLocalization({
-	BgStart60	= "1 minute until the battle for Alterac Valley begins.",
-	BgStart30	= "30 seconds until the battle for Alterac Valley begins.",
-	ZoneName	= "Alterac Valley"
+	TimerBoss	= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerStart	= "Show start timer",
-	TimerTower	= "Show tower capture timer",
-	TimerGY		= "Show graveyard capture timer",
-	AutoTurnIn	= "Automatically turn-in quests"
+	AutoTurnIn	= "Automatically turn-in quests",
+	TimerBoss	= "Show boss remaining timer"
+})
+
+L:SetMiscLocalization({
+	BossHorde	= "WHO DARES SUMMON LOKHOLAR?",
+	BossAlly	= "Wicked, wicked, mortals! The forest weeps. The elements recoil at the destruction. Ivus must purge you from this world!"
 })
 
 --------------------
 --  Arathi Basin  --
 --------------------
-L = DBM:GetModLocalization("z462")
+L = DBM:GetModLocalization("ArathiBasin")
 
 L:SetGeneralLocalization({
 	name = "Arathi Basin"
 })
 
-L:SetMiscLocalization({
-	BgStart60	= "The Battle for Arathi Basin begins in 1 minute.",
-	BgStart30	= "The Battle for Arathi Basin begins in 30 seconds. Prepare yourselves!",
-	ZoneName	= "Arathi Basin",
-	ScoreExpr	= "(%d+)/1600",
-	Alliance	= "Alliance",
-	Horde		= "Horde",
-	WinBarText	= "%s wins",
-	BasesToWin	= "Bases to win: %d",
-	Flag		= "Flag"
-})
-
-L:SetTimerLocalization({
-	TimerStart	= "Game starts",
-	TimerCap	= "%s"
-})
-
-L:SetOptionLocalization({
-	TimerStart				= "Show start timer",
-	TimerWin				= "Show win timer",
-	TimerCap				= "Show capture timer",
-	ShowAbEstimatedPoints	= "Show estimated points on win/loss",
-	ShowAbBasesToWin		= "Show bases required to win"
-})
-
 ------------------------
 --  Eye of the Storm  --
 ------------------------
-L = DBM:GetModLocalization("z541")
+L = DBM:GetModLocalization("EyeoftheStorm")
 
 L:SetGeneralLocalization({
 	name = "Eye of the Storm"
 })
 
-L:SetMiscLocalization({
-	BgStart60		= "The battle begins in 1 minute!",
-	BgStart30		= "The battle begins in 30 seconds!",
-	ZoneName		= "Eye of the Storm",
-	ScoreExpr		= "(%d+)/1600",
-	Alliance 		= "Alliance",
-	Horde 			= "Horde",
-	WinBarText 		= "Final: %d - %d",
-	Flag			= "Flag",
-	FlagReset 		= "The flag has been reset!",
-	FlagTaken 		= "(.+) has taken the flag!",
-	FlagCaptured	= "The .+ ha%w+ captured the flag!",
-	FlagDropped		= "The flag has been dropped!"
-
-})
-
-L:SetTimerLocalization({
-	TimerStart	= "Game starts",
-	TimerFlag	= "Flag respawn"
-})
-
-L:SetOptionLocalization({
-	TimerStart		= "Show start timer",
-	TimerWin 		= "Show win timer",
-	TimerFlag 		= "Show flag respawn timer",
-	ShowPointFrame	= "Show flag carrier and estimated points"
-})
-
 ---------------------
 --  Warsong Gulch  --
 ---------------------
-L = DBM:GetModLocalization("z444")
+L = DBM:GetModLocalization("WarsongGulch")
 
 L:SetGeneralLocalization({
 	name = "Warsong Gulch"
 })
 
-L:SetMiscLocalization({
-	BgStart60 			= "The battle for Warsong Gulch begins in 1 minute.",
-	BgStart30 			= "The battle for Warsong Gulch begins in 30 seconds. Prepare yourselves!",
-	ZoneName 			= "Warsong Gulch",
-	Alliance 			= "Alliance",
-	Horde 				= "Horde",
-	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
-	ExprFlagPickUp		= "The (.+) .lag was picked up by (.+)!",
-	ExprFlagDropped		= "The (.+) .lag was dropped by (%w+)!",
-	ExprFlagCaptured	= "(.+) captured the (%w+) .lag!",
-	FlagAlliance		= "Alliance Flag: ",
-	FlagHorde			= "Horde Flag: ",
-	FlagBase			= "Base"
-})
-
-L:SetTimerLocalization({
-	TimerStart	= "Game starts",
-	TimerFlag	= "Flag respawn"
-})
-
-L:SetOptionLocalization({
-	TimerStart					= "Show start timer",
-	TimerFlag					= "Show flag respawn timer",
-	ShowFlagCarrier				= "Show flag carrier",
-	ShowFlagCarrierErrorNote	= "Show flag carrier error message while in combat"
-})
-
 ------------------------
 --  Isle of Conquest  --
 ------------------------
-L = DBM:GetModLocalization("z483")
+L = DBM:GetModLocalization("IsleofConquest")
 
 L:SetGeneralLocalization({
 	name = "Isle of Conquest"
@@ -199,27 +130,21 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerStart			= "Game starts",
-	TimerPOI			= "%s",
 	TimerSiegeEngine	= "Siege Engine ready"
 })
 
 L:SetOptionLocalization({
-	TimerStart			= "Show start timer",
-	TimerPOI			= "Show capture timer",
 	TimerSiegeEngine	= "Show timer for Siege Engine construction",
 	WarnSiegeEngine		= "Show warning when Siege Engine is ready",
-	WarnSiegeEngineSoon	= "Show warning when Siege Engine is almost ready"
+	WarnSiegeEngineSoon	= "Show warning when Siege Engine is almost ready",
+	ShowGatesHealth		= "Show the health of damaged gates (health values may be wrong after joining an already ongoing battleground!)"
 })
 
 L:SetMiscLocalization({
-	ZoneName				= "Isle of Conquest",
-	BgStart60				= "The battle will begin in 60 seconds.",
-	BgStart30				= "The battle will begin in 30 seconds.",
-	BgStart15				= "The battle will begin in 15 seconds.",
+	GatesHealthFrame		= "Damaged gates",
 	SiegeEngine				= "Siege Engine",
 	GoblinStartAlliance		= "See those seaforium bombs? Use them on the gates while I repair the siege engine!",
-	GoblinStartHorde		= "I'll work on the siege engine, just watch my back.  Use those seaforium bombs on the gates if you need them!",
+	GoblinStartHorde		= "I'll work on the siege engine, just watch my back. Use those seaforium bombs on the gates if you need them!",
 	GoblinHalfwayAlliance	= "I'm halfway there! Keep the Horde away from here.  They don't teach fighting in engineering school!",
 	GoblinHalfwayHorde		= "I'm about halfway done! Keep the Alliance away - fighting's not in my contract!",
 	GoblinFinishedAlliance	= "My finest work so far! This siege engine is ready for action!",
@@ -227,4 +152,3 @@ L:SetMiscLocalization({
 	GoblinBrokenAlliance	= "It's broken already?! No worries. It's nothing I can't fix.",
 	GoblinBrokenHorde		= "It's broken again?! I'll fix it... just don't expect the warranty to cover this"
 })
-
