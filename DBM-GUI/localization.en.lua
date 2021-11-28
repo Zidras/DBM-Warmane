@@ -304,6 +304,10 @@ L.DontShowPTCountdownText	= "Do not show Pull countdown text"
 L.DontPlayPTCountdown		= "Do not play Pull/Break/Combat/Custom Timer countdown audio at all"
 L.PT_Threshold				= "Do not play Pull/Break/Combat/Custom Timer countdown audio above: %d"
 
+L.Area_TimerTracker			= "TimerTracker Options"
+L.PlayTTCountdown			= "Play TimerTracker countdown sound"
+L.PlayTTCountdownFinished	= "Play TimerTracker countdown finished sound"
+
 L.Panel_HideBlizzard		= "Blizzard Disable & Hide"
 L.Area_HideBlizzard			= "Blizzard Disable & Hide Options"
 L.HideBossEmoteFrame		= "Hide raid boss emote frame during boss fights"

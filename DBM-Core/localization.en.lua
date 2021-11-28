@@ -143,6 +143,8 @@ L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS.. " is out
 L.UPDATEREMINDER_FOOTER				= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 L.UPDATEREMINDER_FOOTER_GENERIC		= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
 L.UPDATEREMINDER_DISABLE			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being too out of date, it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
+L.UPDATEREMINDER_HOTFIX				= L.DBM .. " version you are on has known issues during this boss encounter that are corrected if you update to latest release"
+L.UPDATEREMINDER_HOTFIX_ALPHA		= L.DBM .. " version you are on has known issues during this boss encounter that are corrected in an upcoming release (or latest alpha version)"
 L.UPDATE_REQUIRES_RELAUNCH			= "WARNING: This " .. L.DBM .. " update will not work correctly if you don't fully restart your game client. This update contains new files or .toc file changes that cannot be loaded via ReloadUI. You may encounter broken functionality or errors if you continue without a client restart."
 
 L.MOVABLE_BAR						= "Drag me!"

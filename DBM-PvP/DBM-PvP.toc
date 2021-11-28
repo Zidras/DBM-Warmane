@@ -1,6 +1,15 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Author: Nitram/Tandanu
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JcJ|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JcJ|r
+## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JxJ|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Author: Nitram/Tandanu/Arta
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMPvP_AllSavedVars
@@ -9,20 +18,34 @@
 ## X-DBM-Mod-Category: OTHER
 ## X-DBM-Mod-No-Statistics: 1
 ## X-DBM-Mod-Name: PvP
+## X-DBM-Mod-Name-deDE: PvP
+## X-DBM-Mod-Name-frFR: PvP
 ## X-DBM-Mod-Name-ruRU: PvP
+## X-DBM-Mod-Name-zhTW: PvP
+## X-DBM-Mod-Name-zhCN: PvP
+## X-DBM-Mod-Name-koKR: PvP
+## X-DBM-Mod-Name-esES: JcJ
+## X-DBM-Mod-Name-esMX: JcJ
 ## X-DBM-Mod-Sort: 1500
 ## X-DBM-Mod-MapID: 462,444,402,541,483
+## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-LoadZone: Arathi Basin,Warsong Gulch,Alterac Valley,Eye of the Storm,Isle of Conquest
 ## X-DBM-Mod-LoadZone-ruRU: Низина Арати,Ущелье Песни Войны,Альтеракская долина,Око Бури,Остров Завоеваний
 ## X-DBM-Mod-LoadZone-esES: Cuenca de Arathi,Garganta Grito de Guerra,Valle de Alterac,Ojo de la Tormenta,Isla de la Conquista
 
 localization.en.lua
+localization.cn.lua
+localization.de.lua
+localization.es.lua
+localization.fr.lua
+localization.kr.lua
 localization.ru.lua
+localization.tw.lua
 
-Battlegrounds\Battlegrounds.lua
+PvPGeneral.lua
+
 Battlegrounds\Alterac.lua
 Battlegrounds\Arathi.lua
 Battlegrounds\EyeOfTheStorm.lua
 Battlegrounds\IsleOfConquest.lua
 Battlegrounds\Warsong.lua
-Arenas\Arenas.lua

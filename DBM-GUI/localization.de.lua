@@ -314,6 +314,10 @@ L.DontPlayPTCountdown		= "Spiele keinen akustischen Countdown für Pull-, Pausen
 L.DontShowPTCountdownText	= "Zeige keinen optischen Countdown für Pull-Timer"
 L.PT_Threshold				= "Zeige keinen opt. Countd. für Pausen-/Kampf-/Nutzer-Timer über: %d"
 
+L.Area_TimerTracker			= "TimerTracker-Optionen"
+L.PlayTTCountdown			= "TimerTracker-akustischen Countdown abspielen"
+L.PlayTTCountdownFinished	= "TimerTracker Countdown beendet akustischen abspielen"
+
 L.Panel_HideBlizzard		= "Deaktivierung von Spielelementen"
 L.Area_HideBlizzard			= "Einstellungen zum Deaktivieren und Verbergen von Spielelementen"
 L.HideBossEmoteFrame		= "Verberge das Fenster \"RaidBossEmoteFrame\" während Bosskämpfen"

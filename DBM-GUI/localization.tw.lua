@@ -414,6 +414,10 @@ L.DontShowPTCountdownText	= "不要顯示開怪計時倒數文字"
 L.DontPlayPTCountdown		= "完全不要播放開怪/休息/開戰/自訂計時器倒數音效"
 L.PT_Threshold				= "不要播放高於%d秒以上的休息/開戰/自訂倒數計時器音效"
 
+L.Area_TimerTracker			= "TimerTracker 選項"
+L.PlayTTCountdown			= "播放 TimerTracker 倒計時聲音"
+L.PlayTTCountdownFinished	= "播放 TimerTracker 倒計時完成聲音"
+
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "暴雪內建功能設置"
 L.Area_HideBlizzard			= "禁用及隱藏暴雪功能選項"

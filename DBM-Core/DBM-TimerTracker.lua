@@ -78,7 +78,9 @@ local chatMessage = {
 	["The battle for Eye of the Storm begins in 2 minutes."] = timerTypes["120-120"],
 	-- AV
 	["The Battle for Alterac Valley begins in 30 seconds. Prepare yourselves!"] = timerTypes["30-120"],
+	["30 seconds until the battle for Alterac Valley begins."] = timerTypes["30-120"],
 	["The Battle for Alterac Valley begins in 1 minute."] = timerTypes["60-120"],
+	["1 minute until the battle for Alterac Valley begins."] = timerTypes["60-120"],
 	["The Battle for Alterac Valley begins in 2 minutes."] = timerTypes["120-120"],
 	-- SotA
 	["The battle for Strand of the Ancients begins in 30 seconds. Prepare yourselves!."] = timerTypes["30-120"],
@@ -593,7 +595,7 @@ function TT:OnEvent(event, ...)
 		end
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		for _, timer in pairs(self.timerList) do
-			if timer.type == TIMER_TYPE_PLAYER_COUNTDOWN then
+			if timer.type == TIMER_TYPE_PVP then
 				self:FreeTimerTrackerTimer(timer)
 			end
 		end

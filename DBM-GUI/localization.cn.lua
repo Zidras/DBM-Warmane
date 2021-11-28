@@ -417,6 +417,10 @@ L.DontPlayPTCountdown		= "不播放开怪倒计时语音"
 L.DontShowPTCountdownText	= "不显示开怪倒计时动画"
 L.PT_Threshold				= "不显示高于 %d 秒的倒计时动画"
 
+L.Area_TimerTracker			= "TimerTracker 选项"
+L.PlayTTCountdown			= "播放 TimerTracker 倒计时声音"
+L.PlayTTCountdownFinished	= "播放 TimerTracker 倒计时完成声音"
+
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "隐藏游戏自带内容"
 L.Area_HideBlizzard			= "隐藏游戏自带提示选项"

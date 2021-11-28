@@ -250,6 +250,10 @@ L.DontPlayPTCountdown		= "Ne pas jouer le son du compte à rebours du chrono de 
 L.DontShowPTCountdownText	= "Ne pas afficher le texte du compte à rebours du chrono de pull"
 L.PT_Threshold				= "Ne pas afficher le texte du compte à rebours s'il reste plus de: %d sec."
 
+L.Area_TimerTracker			= "Options de TimerTracker"
+L.PlayTTCountdown			= "Jouer le son du compte à rebours TimerTracker"
+L.PlayTTCountdownFinished	= "Jouer le son du compte à rebours TimerTracker terminé"
+
 L.Panel_HideBlizzard		= "Masquer Blizzard"
 L.Area_HideBlizzard			= "Options pour masquer Blizzard"
 L.SpamBlockRaidWarning		= "Filtrer les annonces venant d'autres boss mods"
