@@ -29,6 +29,7 @@
 ## X-DBM-Mod-Name-frFR: Citadelle de la Couronne de glace
 ## X-DBM-Mod-Name-koKR: 얼음왕관 성채
 ## X-DBM-Mod-Name-ruRU: Цитадель Ледяной Короны
+## X-DBM-Mod-Name-zhCN: 冰冠堡垒
 ## X-DBM-Mod-Name-zhTW: 冰冠城塞
 ## X-DBM-Mod-Name-esES: Ciudadela de la Corona de Hielo
 ## X-DBM-Mod-Name-esMX: Ciudadela de la Corona de Hielo

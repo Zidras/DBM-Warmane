@@ -17,6 +17,7 @@
 ## X-DBM-Mod-Category: Classic
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: The Ruins of Ahn'Qiraj
+## X-DBM-Mod-Name-zhCN: 安其拉废墟
 ## X-DBM-Mod-Name-ruRU: Руины Ан'Киража
 ## X-DBM-Mod-Name-esES: Ruinas de Ahn'Qiraj
 ## X-DBM-Mod-MapID: 718

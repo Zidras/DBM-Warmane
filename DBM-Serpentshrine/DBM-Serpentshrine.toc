@@ -17,7 +17,9 @@
 ## X-DBM-Mod-MapID: 781
 ## X-DBM-Mod-Sort: 1005
 ## X-DBM-Mod-Name: Serpentshrine Cavern
+## X-DBM-Mod-Name-zhCN: 毒蛇神殿
 ## X-DBM-Mod-Name-ruRU: Змеиное святилище
+## X-DBM-Mod-LoadZone-zhCN: 毒蛇神殿
 
 localization.en.lua
 localization.cn.lua

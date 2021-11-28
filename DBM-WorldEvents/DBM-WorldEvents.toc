@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0World Events|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Игровые события|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -8,13 +9,17 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Name: World Events
+## X-DBM-Mod-Name-zhCN: 世界事件
 ## X-DBM-Mod-Name-ruRU: Игровые события
 ## X-DBM-Mod-Name-esES: Eventos del Mundo
 ## X-DBM-Mod-Sort: 150
 ## X-DBM-Mod-LoadZone: Blackrock Depths,Scarlet Monastery,Shadowfang Keep,The Slave Pens
+## X-DBM-Mod-LoadZone-zhCN: 黑石深渊,血色修道院,影牙城堡,奴隶围栏
 ## X-DBM-Mod-LoadZone-ruRU: Глубины Черной горы,Монастырь Алого ордена,Крепость Темного Клыка,Узилище
 localization.en.lua
+localization.cn.lua
 localization.ru.lua
+
 ApothecaryTrio.lua
 Ahune.lua
 CorenDirebrew.lua

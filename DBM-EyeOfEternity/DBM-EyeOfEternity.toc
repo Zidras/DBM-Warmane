@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Eye of Eternity|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0永恒之眼|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Око Вечности|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -9,14 +10,17 @@
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Has-Heroic-Mode: 0
 ## X-DBM-Mod-Name: Eye of Eternity
+## X-DBM-Mod-Name-zhCN: 永恒之眼
 ## X-DBM-Mod-Name-ruRU: Око Вечности
 ## X-DBM-Mod-Name-esES: El Ojo de la Eternidad
 ## X-DBM-Mod-Sort: 5
 ## X-DBM-Mod-MapID: 528
 ## X-DBM-Mod-LoadZone: The Eye of Eternity
+## X-DBM-Mod-LoadZone-zhCN: 永恒之眼
 ## X-DBM-Mod-LoadZone-ruRU: Око Вечности
 
 localization.en.lua
+localization.cn.lua
 localization.ru.lua
 
 Malygos.lua

@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Vault of Archavon|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0阿尔卡冯的宝库|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Склеп Аркавона|r
 ## Author: Nitram/Tandanu
 ## LoadOnDemand: 1
@@ -11,11 +12,13 @@
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-No-Heroic: 1
 ## X-DBM-Mod-Name: Vault of Archavon
+## X-DBM-Mod-Name-zhCN: 阿尔卡冯的宝库
 ## X-DBM-Mod-Name-ruRU: Склеп Аркавона
 ## X-DBM-Mod-Name-esES: La Cámara de Archavon
 ## X-DBM-Mod-Sort: 7
 ## X-DBM-Mod-MapID: 533
 ## X-DBM-Mod-LoadZone: Vault of Archavon
+## X-DBM-Mod-LoadZone-zhCN: 阿尔卡冯的宝库
 ## X-DBM-Mod-LoadZone-ruRU: Склеп Аркавона
 
 localization.en.lua

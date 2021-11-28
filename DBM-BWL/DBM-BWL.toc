@@ -19,7 +19,9 @@
 ## X-DBM-Mod-MapID: 756
 ## X-DBM-Mod-Sort: 1105
 ## X-DBM-Mod-Name: Blackwing Lair
+## X-DBM-Mod-Name-zhCN: 黑翼之巢
 ## X-DBM-Mod-Name-ruRU: Логово Крыла Тьмы
+## X-DBM-Mod-LoadZone-zhCN: 黑翼之巢
 
 localization.en.lua
 localization.de.lua

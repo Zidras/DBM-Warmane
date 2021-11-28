@@ -30,6 +30,7 @@
 ## X-DBM-Mod-LoadZone-deDE: Ulduar
 
 localization.en.lua
+localization.cn.lua
 localization.de.lua
 localization.fr.lua
 localization.ru.lua
