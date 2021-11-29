@@ -94,6 +94,15 @@ L:SetGeneralLocalization({
 	name = "Ущелье Песни Войны"
 })
 
+------------------------------
+--  Strand of the Ancients  --
+------------------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "Берег Древних"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------

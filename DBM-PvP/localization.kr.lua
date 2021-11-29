@@ -94,6 +94,15 @@ L:SetGeneralLocalization({
 	name = "전쟁노래 협곡"
 })
 
+------------------------------
+--  Strand of the Ancients  --
+------------------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "고대의 해안"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------

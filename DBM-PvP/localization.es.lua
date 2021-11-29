@@ -94,6 +94,15 @@ L:SetGeneralLocalization({
 	name = "Garganta Grito de Guerra"
 })
 
+------------------------------
+--  Strand of the Ancients  --
+------------------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "Playa de los Ancestros"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------
