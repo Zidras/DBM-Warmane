@@ -332,7 +332,7 @@ do
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
 	local allyFlag, hordeFlag
 
-	local flagTimer			= mod:NewTimer(12, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
+	local flagTimer			= mod:NewTimer(7, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
 	local startTimer		= mod:NewTimer(120, "TimerStart", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01", nil, nil, nil, nil, nil, 1, 5)
 	local vulnerableTimer	= mod:NewNextTimer(60, 46392)
 	local timerShadow		= mod:NewNextTimer(90, 34709)
@@ -342,7 +342,7 @@ do
 			return
 		end
 		if msg == L.ExprFlagCaptured or msg:match(L.ExprFlagCaptured) then
-			flagTimer:Start()
+			flagTimer:Start(23)
 			if msg:find(FACTION_ALLIANCE) or msg:find("Alliance") then -- workaround to Warmane's missing BG localizations
 				flagTimer:SetColor({r=0, g=0, b=1})
 				flagTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_02")
@@ -555,7 +555,9 @@ do
 					enemyFinal = mfloor((enemyLast + mfloor(baseLowest * resPerSec[numObjectives - 3] + 0.5)) / 10) * 10
 					friendlyFinal = mfloor((friendlyLast + mfloor(baseLowest * resPerSec[i] + 0.5)) / 10) * 10
 					if friendlyFinal >= maxScore and enemyFinal < maxScore then
-						scoreFrameToWinText:SetText(L.BasesToWin:format(i))
+						if scoreFrameToWinText then
+							scoreFrameToWinText:SetText(L.BasesToWin:format(i))
+						end
 						break
 					end
 				end
