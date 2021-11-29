@@ -97,6 +97,15 @@ L:SetGeneralLocalization({
 	name = "战歌峡谷"
 })
 
+------------------------------
+--  Strand of the Ancients  --
+------------------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "远古海滩"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------

@@ -116,6 +116,15 @@ L:SetGeneralLocalization({
 	name = "Warsong Gulch"
 })
 
+------------------------------
+--  Strand of the Ancients  --
+------------------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "Strand of the Ancients"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------

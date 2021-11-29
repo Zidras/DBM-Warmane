@@ -124,6 +124,15 @@ L:SetGeneralLocalization({
 	name = "Kriegshymnenschlucht"
 })
 
+------------------------------
+--  Strand of the Ancients  --
+------------------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "Strand der Uralten"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------

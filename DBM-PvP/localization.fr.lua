@@ -94,6 +94,15 @@ L:SetGeneralLocalization({
 	name = "Goulet des Chanteguerres"
 })
 
+---------------------
+--  Strand of the Ancients  --
+---------------------
+L = DBM:GetModLocalization("StrandoftheAncients")
+
+L:SetGeneralLocalization({
+	name = "Rivage des Anciens"
+})
+
 ------------------------
 --  Isle of Conquest  --
 ------------------------
