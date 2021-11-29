@@ -14,7 +14,7 @@ L:SetGeneralLocalization({
 L:SetTimerLocalization({
 	TimerFlag		= "Bandera Restablecida",
 	TimerShadow		= "Visión de las Sombras",
-	TimerStart		= "La batalla comezara en",
+	TimerStart		= "La batalla comienza en",
 	TimerWin		= "Victoria en"
 })
 
