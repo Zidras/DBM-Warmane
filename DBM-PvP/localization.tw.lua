@@ -44,14 +44,14 @@ L:SetMiscLocalization({
 	WinBarText			= "%s 勝利",
 	-- TODO: Implement the flag carrying system
 	Flag 				= "旗幟",
-	FlagReset			= "旗幟已重置！",
-	FlagTaken			= "(.+) 佔據了旗幟！",
-	FlagCaptured		= " .+ ha%w+ 佔據旗幟！",
-	FlagDropped			= "旗幟已經掉落！",
+--	FlagReset			= "旗幟已重置！",
+--	FlagTaken			= "(.+) 佔據了旗幟！",
+--	FlagCaptured		= " .+ ha%w+ 佔據旗幟！",
+--	FlagDropped			= "旗幟已經掉落！",
 	--
-	ExprFlagPickUp		= " (%w+) 的旗幟。被 (.+) 拔掉了！",
-	ExprFlagCaptured	= "(.+) 佔據了 (%w+) 的旗幟！",
-	ExprFlagReturn		= " (%w+) 的旗幟，被 (.+) 還到了它的基地",
+--	ExprFlagPickUp		= " (%w+) 的旗幟。被 (.+) 拔掉了！",
+--	ExprFlagCaptured	= "(.+) 佔據了 (%w+) 的旗幟！",
+--	ExprFlagReturn		= " (%w+) 的旗幟，被 (.+) 還到了它的基地",
 	Vulnerable1			= "旗幟攜帶者變得脆弱了！",
 	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！"
 })
