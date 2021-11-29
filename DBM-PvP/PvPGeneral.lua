@@ -3,7 +3,26 @@ local L		= mod:GetLocalizedStrings()
 
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
-local UnitFactionGroup = UnitFactionGroup
+local GetDefaultLanguage = GetDefaultLanguage
+local orcishLocales = {
+	"Orcish", -- enUS
+	"오크어", -- koKR
+	"Orc", -- frFR
+	"Orcisch", -- deDE
+	"兽人语", -- zhCN
+	"Orco", -- esES + esMX
+	"獸人語", -- zhTW
+	"орочий" -- ruRU
+}
+local UnitFactionGroup = function(unit) -- workaround to detect faction in Mercenary Mode
+	if unit ~= "player" then return UnitFactionGroup(unit) end
+	local language = GetDefaultLanguage()
+	if tContains(orcishLocales, language) then
+		return "Horde"
+	else
+		return "Alliance"
+	end
+end
 
 mod:SetRevision("20211117210231")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)

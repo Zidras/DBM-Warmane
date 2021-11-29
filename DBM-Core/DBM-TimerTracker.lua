@@ -12,7 +12,26 @@ local floor, fmod, modf = math.floor, math.fmod, math.modf
 local L = DBM_CORE_L
 local LSM = DBM.LSM
 local GetTime = GetTime
-local UnitFactionGroup = UnitFactionGroup
+local GetDefaultLanguage = GetDefaultLanguage
+local orcishLocales = {
+	"Orcish", -- enUS
+	"오크어", -- koKR
+	"Orc", -- frFR
+	"Orcisch", -- deDE
+	"兽人语", -- zhCN
+	"Orco", -- esES + esMX
+	"獸人語", -- zhTW
+	"орочий" -- ruRU
+}
+local UnitFactionGroup = function(unit) -- workaround to detect faction in Mercenary Mode
+	if unit ~= "player" then return UnitFactionGroup(unit) end
+	local language = GetDefaultLanguage()
+	if tContains(orcishLocales, language) then
+		return "Horde"
+	else
+		return "Alliance"
+	end
+end
 local dbmTimerType = 3
 local media = {}
 LSM:Register("statusbar", "ElvUI Norm", [[Interface\AddOns\DBM-Core\textures\NormTex2.tga]])
