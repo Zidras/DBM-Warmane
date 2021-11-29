@@ -33,6 +33,10 @@ end
 
 -- Utility functions
 local format, split = string.format, string.split
+local hooksecurefunc = hooksecurefunc
+local IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore = IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore
+local MAX_WORLDSTATE_SCORE_BUTTONS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS = MAX_WORLDSTATE_SCORE_BUTTONS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
+
 local playerName = UnitName("player")
 
 hooksecurefunc("WorldStateScoreFrame_Update", function()
@@ -457,8 +461,8 @@ do
 end
 
 do
-	local ipairs, pairs, select, tonumber, type, mfloor, mmin, sformat, smatch = ipairs, pairs, select, tonumber, type, math.floor, math.min, string.format, string.match
-	local GetMapLandmarkInfo, GetWorldStateUIInfo = GetMapLandmarkInfo, GetWorldStateUIInfo
+	local pairs, select, tonumber, mfloor, mmin, sformat, smatch = pairs, select, tonumber, math.floor, math.min, string.format, string.match
+	local GetMapLandmarkInfo, GetNumMapLandmarks, GetWorldStateUIInfo = GetMapLandmarkInfo, GetNumMapLandmarks, GetWorldStateUIInfo
 	local FACTION_HORDE, FACTION_ALLIANCE = FACTION_HORDE, FACTION_ALLIANCE
 
 	local winTimer = mod:NewTimer(30, "TimerWin", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
