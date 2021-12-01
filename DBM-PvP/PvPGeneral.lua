@@ -457,10 +457,13 @@ do
 		TT:OnEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL", msg) -- TimerTracker
 		if msg == L.BgStart120 or msg:find(L.BgStart120) then
 			startTimer:Update(0, 120)
+			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.BgStart60 or msg:find(L.BgStart60) then
 			startTimer:Update(60, 120)
+			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.BgStart30 or msg:find(L.BgStart30) then
 			startTimer:Update(90, 120)
+			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2) then
 			vulnerableTimer:Start()
 		-- Arenas
