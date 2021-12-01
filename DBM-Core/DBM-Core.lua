@@ -3402,7 +3402,7 @@ do
 	function DBM:ZONE_CHANGED_NEW_AREA()
 		SetMapToCurrentZone()
 		timerRequestInProgress = false
-		self:Debug("ZONE_CHANGED_NEW_AREA fired")
+		self:Debug("ZONE_CHANGED_NEW_AREA fired on zoneID: "..GetCurrentMapAreaID())
 		self:Unschedule(SecondaryLoadCheck)
 		self:Schedule(1, SecondaryLoadCheck, self)
 		if DBM.Options.FixCLEUOnCombatStart then
