@@ -5166,7 +5166,7 @@ do
 			end
 		end
 		if DBM.Options.FixCLEUOnCombatStart then
-			CombatLogClearEntries()
+			self:Schedule(0.5, CombatLogClearEntries) -- schedule prevents client crash with DBM:StartCombat function (tested on Leotheras)
 		end
 	end
 
