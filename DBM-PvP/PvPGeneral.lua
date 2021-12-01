@@ -30,7 +30,8 @@ mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
 	"PLAYER_ENTERING_WORLD",
-	"PLAYER_DEAD"
+	"PLAYER_DEAD",
+	"CHAT_MSG_BG_SYSTEM_NEUTRAL"
 )
 
 mod:AddBoolOption("ColorByClass", true)
@@ -212,8 +213,7 @@ function mod:SubscribeAssault(mapID, objectsCount)
 	self:RegisterShortTermEvents(
 		"UPDATE_WORLD_STATES",
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
-		"CHAT_MSG_BG_SYSTEM_HORDE",
-		"CHAT_MSG_BG_SYSTEM_NEUTRAL"
+		"CHAT_MSG_BG_SYSTEM_HORDE"
 	)
 	subscribedMapID = mapID
 	objectivesStore = {}
@@ -224,8 +224,7 @@ end
 function mod:SubscribeFlags()
 	self:RegisterShortTermEvents(
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
-		"CHAT_MSG_BG_SYSTEM_HORDE",
-		"CHAT_MSG_BG_SYSTEM_NEUTRAL"
+		"CHAT_MSG_BG_SYSTEM_HORDE"
 	)
 end
 
