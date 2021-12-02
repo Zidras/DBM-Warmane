@@ -105,7 +105,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 	end
 end)
 
-local CreateFrame, AlwaysUpFrame1, AlwaysUpFrame2 = CreateFrame, AlwaysUpFrame1, AlwaysUpFrame2
+local CreateFrame = CreateFrame
 local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText
 
 local function ShowEstimatedPoints()
@@ -165,6 +165,21 @@ local function HideBasesToWin()
 	end
 end
 
+mod:AddBoolOption("ShowEstimatedPoints", true, nil, function()
+	if mod.Options.ShowEstimatedPoints then
+		ShowEstimatedPoints()
+	else
+		HideEstimatedPoints()
+	end
+end)
+mod:AddBoolOption("ShowBasesToWin", true, nil, function()
+	if mod.Options.ShowBasesToWin then
+		ShowBasesToWin()
+	else
+		HideBasesToWin()
+	end
+end)
+
 local getGametime, updateGametime
 do
 	local time, GetTime, GetBattlefieldInstanceRunTime = time, GetTime, GetBattlefieldInstanceRunTime
@@ -190,20 +205,6 @@ local subscribedMapID, prevAScore, prevHScore, warnAtEnd, hasWarns = 0, 0, 0, {}
 local numObjectives, objectivesStore
 
 function mod:SubscribeAssault(mapID, objectsCount)
-	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
-		if self.Options.ShowEstimatedPoints then
-			ShowEstimatedPoints()
-		else
-			HideEstimatedPoints()
-		end
-	end)
-	self:AddBoolOption("ShowBasesToWin", true, nil, function()
-		if self.Options.ShowBasesToWin then
-			ShowBasesToWin()
-		else
-			HideBasesToWin()
-		end
-	end)
 	if self.Options.ShowEstimatedPoints then
 		ShowEstimatedPoints()
 	end
@@ -576,16 +577,12 @@ do
 					enemyFinal = mfloor((enemyLast + mfloor(baseLowest * resPerSec[numObjectives - 3] + 0.5)) / 10) * 10
 					friendlyFinal = mfloor((friendlyLast + mfloor(baseLowest * resPerSec[i] + 0.5)) / 10) * 10
 					if friendlyFinal >= maxScore and enemyFinal < maxScore then
-						if scoreFrameToWinText then
-							scoreFrameToWinText:SetText(L.BasesToWin:format(i))
-						end
+						scoreFrameToWinText:SetText(L.BasesToWin:format(i))
 						break
 					end
 				end
 			else
-				if scoreFrameToWinText then
-					scoreFrameToWinText:SetText("")
-				end
+				scoreFrameToWinText:SetText("")
 			end
 		end
 	end
@@ -713,7 +710,7 @@ do
 						hordeBases = hordeBases + 1
 					end
 				end
-				self:UpdateWinTimer(1600, tonumber(smatch((select(3, GetWorldStateUIInfo(1)) or ""), L.ScoreExpr)) or 0, tonumber(smatch((select(3, GetWorldStateUIInfo(2)) or ""), L.ScoreExpr)) or 0, allyBases, hordeBases)
+				self:UpdateWinTimer(1600, tonumber(smatch((select(3, GetWorldStateUIInfo(1)) or ""), "(%d+)/1600")) or 0, tonumber(smatch((select(3, GetWorldStateUIInfo(2)) or ""), "(%d+)/1600")) or 0, allyBases, hordeBases)
 			end
 		end
 	end

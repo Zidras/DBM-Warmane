@@ -53,7 +53,6 @@ L:SetMiscLocalization({
 	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
 --	ExprFlagCaptured	= "(.+) captured the (%w+) Flag!", -- TrinityCore
 	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!", -- Unused
-	ScoreExpr			= "(%d+)/1600",
 	Vulnerable1			= "The flag carriers have become vulnerable to attack!",
 	Vulnerable2			= "The flag carriers have become increasingly vulnerable to attack!",
 	-- Alterac/IsleOfConquest bosses
