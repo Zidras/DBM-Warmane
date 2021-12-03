@@ -32,7 +32,6 @@ local UnitFactionGroup = function(unit) -- workaround to detect faction in Merce
 		return "Alliance"
 	end
 end
-local dbmTimerType = 3
 local media = {}
 LSM:Register("statusbar", "ElvUI Norm", [[Interface\AddOns\DBM-Core\textures\NormTex2.tga]])
 LSM:Register("background", "ElvUI Blank", [[Interface\BUTTONS\WHITE8X8]])
@@ -542,6 +541,10 @@ function TT:CreateTimer(timerType, timeSeconds, totalTime)
 			end
 		end
 
+		if timer and timer.type == TIMER_TYPE_PLAYER_COUNTDOWN then
+			self:FreeTimerTrackerTimer(timer)
+		end
+
 		if not timer then
 			timer = self:CreateTimerBar()
 			self.timerList[#self.timerList + 1] = timer
@@ -723,7 +726,7 @@ function TT:FreeTimerTrackerTimer(timer)
 	timer.FadeBarIn:Stop()
 	timer.StartNumbers:Stop()
 	timer.GoTextureAnim:Stop()
-	timer.StatusBar:SetAlpha(0)
+	timer.StatusBar:Hide()
 end
 
 function TT:OnEvent(event, ...)
