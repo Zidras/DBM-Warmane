@@ -34,12 +34,23 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	BgStart60			= "Début de la bataille pour le goulet des Chanteguerres dans 1 minute.",
---	BgStart30			= "Début de la bataille pour le goulet des Chanteguerres dans 30 secondes. Préparez-vous!",
+	--BG 2 minutes
+	BgStart120TC		= "La bataille commence dans 2 minutes !",
+	--BG 1 minute
+	BgStart60TC			= "La bataille commence dans 1 minute !",
+	BgStart60AlteracTC	= "La bataille pour la vallée d’Alterac commence dans 1 minute.",
+	BgStart60SotA2TC	= "Deuxième manche de la bataille du rivage des Anciens dans 1 minute.",
+	BgStart60WarsongTC	= "La bataille pour le goulet des Chanteguerres commence dans 1 minute.",
+	-- BG 30 seconds
+	BgStart30TC			= "La bataille commence dans 30 secondes !",
+	BgStart30AlteracTC	= "La bataille pour la vallée d’Alterac commence dans 30 secondes.",
+	BgStart30SotA2TC	= "Début de la deuxième manche dans 30 secondes. Préparez-vous !",
+	BgStart30WarsongTC	= "La bataille pour le goulet des Chanteguerres commence dans 30 secondes. Préparez-vous !",
+	--
 	ArenaInvite			= "Invitation d'arène",
---	Start60				= "Une minute avant de début de l'arène !",
---	Start30				= "Trente secondes avant de début de l'arène !",
---	Start15				= "Quinze secondes avant de début de l'arène !",
+	Start60TC			= "Le combat d’arène commence dans une minute !",
+	Start30TC			= "Le combat d’arène commence dans trente secondes !",
+	Start15TC			= "Le combat commence dans quinze secondes !",
 	BasesToWin			= "Bases pour gagner: %d",
 	WinBarText			= "%s Gagne",
 	Flag				= "Drapeau",

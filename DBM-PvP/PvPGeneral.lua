@@ -52,7 +52,7 @@ do
 end
 
 -- Utility functions
-local format, split = string.format, string.split
+local format, strsplit = string.format, strsplit
 local hooksecurefunc = hooksecurefunc
 local IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore = IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore
 local MAX_WORLDSTATE_SCORE_BUTTONS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS = MAX_WORLDSTATE_SCORE_BUTTONS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
@@ -70,7 +70,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 		name, _, _, _, _, faction, _, _, _, classToken = GetBattlefieldScore(offset + i)
 
 		if name then
-			name, realm = split("-", name, 2)
+			name, realm = strsplit("-", name, 2)
 
 			if name == playerName then
 				name = playerName
@@ -279,7 +279,7 @@ do
 end
 
 do
-	local pairs, strsplit, tostring, format, twipe = pairs, strsplit, tostring, string.format, table.wipe
+	local pairs, tostring, twipe = pairs, tostring, table.wipe
 	local UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage = UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage
 	local healthScan, trackedUnits, trackedUnitsCount, syncTrackedUnits = nil, {}, 0, {}
 
@@ -348,6 +348,7 @@ do
 end
 
 do
+	local gsub, smatch = string.gsub, string.match
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
 	local allyFlag, hordeFlag
 
@@ -382,7 +383,7 @@ do
 				if not oldText or oldText == "" then
 					newText = "Flag: "..allyFlag
 				else
-					newText = string.gsub(oldText, "%((%d+)%).*", "%(%1%)  "..L.Flag..": "..allyFlag)
+					newText = gsub(oldText, "%((%d+)%).*", "%(%1%)  "..L.Flag..": "..allyFlag)
 				end
 			elseif oldText and oldText ~= "" then
 				newText = ""
@@ -395,7 +396,7 @@ do
 				if not oldText or oldText == "" then
 					newText = "Flag: "..hordeFlag
 				else
-					newText = string.gsub(oldText, "%((%d+)%).*", "%(%1%)  "..L.Flag..": "..hordeFlag)
+					newText = gsub(oldText, "%((%d+)%).*", "%(%1%)  "..L.Flag..": "..hordeFlag)
 				end
 			elseif oldText and oldText ~= "" then
 				newText = ""
@@ -408,18 +409,18 @@ do
 		updateflagcarrier(self, ...)
 		if self.Options.ShowEstimatedPoints then
 			local msg = ...
-			if string.match(msg, L.FlagTaken) then
-				local name = string.match(msg, L.FlagTaken)
+			if smatch(msg, L.FlagTaken) then
+				local name = smatch(msg, L.FlagTaken)
 				if name then
 					allyFlag = name
 					hordeFlag = nil
 					updateflagdisplay()
 				end
-			elseif string.match(msg, L.FlagDropped) then
+			elseif smatch(msg, L.FlagDropped) then
 				allyFlag = nil
 				hordeFlag = nil
 				updateflagdisplay()
-			elseif string.match(msg, L.FlagCaptured) then
+			elseif smatch(msg, L.FlagCaptured) then
 				flagTimer:Start()
 				allyFlag = nil
 				hordeFlag = nil
@@ -433,18 +434,18 @@ do
 		updateflagcarrier(self, ...)
 		if self.Options.ShowEstimatedPoints then
 			local msg = ...
-			if string.match(msg, L.FlagTaken) then
-				local name = string.match(msg, L.FlagTaken)
+			if smatch(msg, L.FlagTaken) then
+				local name = smatch(msg, L.FlagTaken)
 				if name then
 					allyFlag = nil
 					hordeFlag = name
 					updateflagdisplay()
 				end
-			elseif string.match(msg, L.FlagDropped) then
+			elseif smatch(msg, L.FlagDropped) then
 				allyFlag = nil
 				hordeFlag = nil
 				updateflagdisplay()
-			elseif string.match(msg, L.FlagCaptured) then
+			elseif smatch(msg, L.FlagCaptured) then
 				flagTimer:Start()
 				allyFlag = nil
 				hordeFlag = nil
@@ -455,26 +456,26 @@ do
 
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
 		TT:OnEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL", msg) -- TimerTracker
-		if msg == L.BgStart120 or msg:find(L.BgStart120) then
+		if msg == L.BgStart120TC or msg == L.BgStart120Alterac or msg == L.BgStart120Arathi or msg == L.BgStart120EotS or msg == L.BgStart120IoConquest or msg == L.BgStart120SotA or msg == L.BgStart120Warsong then
 			startTimer:Update(0, 120)
 			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
-		elseif msg == L.BgStart60 or msg:find(L.BgStart60) then
+		elseif msg == L.BgStart60TC or msg == L.BgStart60Alterac or msg == L.BgStart60AlteracTC or msg == L.BgStart60Arathi or msg == L.BgStart60EotS or msg == L.BgStart60IoConquest or msg == L.BgStart60SotA or msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC or msg == L.BgStart60Warsong or msg == L.BgStart60WarsongTC then
 			startTimer:Update(60, 120)
 			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
-		elseif msg == L.BgStart30 or msg:find(L.BgStart30) then
+		elseif msg == L.BgStart30TC or msg == L.BgStart30Alterac or msg == L.BgStart30AlteracTC or msg == L.BgStart30Arathi or msg == L.BgStart30EotS or msg == L.BgStart30IoConquest or msg == L.BgStart30SotA or msg == L.BgStart30SotA2 or msg == L.BgStart30SotA2TC or msg == L.BgStart30Warsong or msg == L.BgStart30WarsongTC then
 			startTimer:Update(90, 120)
 			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2) then
 			vulnerableTimer:Start()
 		-- Arenas
-		elseif msg == L.Start60 then
+		elseif msg == L.Start60 or msg == L.Start60TC then
 			startTimer:Start(60)
-		elseif msg == L.Start30 then
+		elseif msg == L.Start30 or msg == L.Start30TC then
 			startTimer:Update(30, 60)
-		elseif msg == L.Start15 then
+		elseif msg == L.Start15 or msg == L.Start15TC then
 			startTimer:Update(45, 60)
 			timerShadow:Schedule(15)
-		elseif self.Options.ShowEstimatedPoints and string.match(msg, L.FlagReset) then
+		elseif self.Options.ShowEstimatedPoints and smatch(msg, L.FlagReset) then
 			allyFlag = nil
 			hordeFlag = nil
 			updateflagdisplay()
@@ -483,7 +484,7 @@ do
 end
 
 do
-	local pairs, select, tonumber, mfloor, mmin, sformat, smatch = pairs, select, tonumber, math.floor, math.min, string.format, string.match
+	local pairs, select, tonumber, mfloor, mmin, smatch = pairs, select, tonumber, math.floor, math.min, string.match
 	local GetMapLandmarkInfo, GetNumMapLandmarks, GetWorldStateUIInfo = GetMapLandmarkInfo, GetNumMapLandmarks, GetWorldStateUIInfo
 	local FACTION_HORDE, FACTION_ALLIANCE = FACTION_HORDE, FACTION_ALLIANCE
 
@@ -498,7 +499,7 @@ do
 		-- Start debug
 		if prevAScore ~= allianceScore then
 			if resPerSec[allianceBases + 1] == 1000 then
-				local key = sformat("%d,%d", allianceScore - prevAScore, allianceBases)
+				local key = format("%d,%d", allianceScore - prevAScore, allianceBases)
 				local warnCount = warnAtEnd[key] or 0
 				warnAtEnd[key] = warnCount + 1
 				if warnCount > 2 then
@@ -506,13 +507,13 @@ do
 				end
 			end
 			if allianceScore < maxScore then
-				DBM:Debug(sformat("Alliance: +%d (%d)", allianceScore - prevAScore, allianceBases), 3)
+				DBM:Debug(format("Alliance: +%d (%d)", allianceScore - prevAScore, allianceBases), 3)
 			end
 			prevAScore = allianceScore
 		end
 		if prevHScore ~= hordeScore then
 			if resPerSec[hordeBases + 1] == 1000 then
-				local key = sformat("%d,%d", hordeScore - prevHScore, hordeBases)
+				local key = format("%d,%d", hordeScore - prevHScore, hordeBases)
 				local warnCount = warnAtEnd[key] or 0
 				warnAtEnd[key] = warnCount + 1
 				if warnCount > 2 then
@@ -520,7 +521,7 @@ do
 				end
 			end
 			if hordeScore < maxScore then
-				DBM:Debug(sformat("Horde: +%d (%d)", hordeScore - prevHScore, hordeBases), 3)
+				DBM:Debug(format("Horde: +%d (%d)", hordeScore - prevHScore, hordeBases), 3)
 			end
 			prevHScore = hordeScore
 		end

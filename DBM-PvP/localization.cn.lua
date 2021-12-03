@@ -34,12 +34,23 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	BgStart60			= "战斗将在1分钟内开始。",
---	BgStart30			= "战斗将在30秒钟内开始。做好准备！",
+	--BG 2 minutes
+	BgStart120TC		= "战斗将在2分钟后开始！",
+	--BG 1 minute
+	BgStart60TC			= "战斗将在1分钟后开始！",
+	BgStart60AlteracTC	= "奥特兰克山谷的战斗将在1分钟之后开始。",
+	BgStart60SotA2TC	= "远古海滩的第2轮比赛将在1分钟后开始。",
+	BgStart60WarsongTC	= "战歌峡谷战斗将在1分钟内开始。",
+	-- BG 30 seconds
+	BgStart30TC			= "战斗将在30秒后开始！",
+	BgStart30AlteracTC	= "奥特兰克山谷的战斗将在30秒之后开始。",
+	BgStart30SotA2TC	= "第2轮比赛将在30秒后开始。备战！",
+	BgStart30WarsongTC	= "战歌峡谷战斗将在30秒钟内开始。做好准备！",
+	--
 	ArenaInvite			= "竞技场邀请",
---	Start60				= "竞技场战斗将在一分钟后开始！",
---	Start30				= "竞技场战斗将在三十秒后开始！",
---	Start15				= "竞技场战斗将在十五秒后开始！",
+	Start60TC			= "竞技场战斗将在一分钟后开始！",
+	Start30TC			= "竞技场战斗将在三十秒后开始！",
+	Start15TC			= "竞技场战斗将在十五秒后开始！",
 	BasesToWin			= "胜利需要占领资源点: %d",
 	WinBarText			= "%s 获胜",
 	-- TODO: Implement the flag carrying system

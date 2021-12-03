@@ -34,12 +34,23 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	BgStart60		= "1분 후 전투가 시작됩니다!",
---	BgStart30		= "30초 후 전투가 시작됩니다!",
+	--BG 2 minutes
+	BgStart120TC		= "2분 후 전투가 시작됩니다!",
+	--BG 1 minute
+	BgStart60TC			= "1분 후 전투가 시작됩니다!",
+	BgStart60AlteracTC	= "알터랙 계곡 전투 개시 1분 전...",
+	BgStart60SotA2TC	= "1분 후 고대의 해안 두 번째 전투가 시작됩니다.",
+	BgStart60WarsongTC	= "1분 후 전쟁노래 협곡 전투가 시작됩니다!",
+	-- BG 30 seconds
+	BgStart30TC			= "30초 후 전투가 시작됩니다!",
+	BgStart30AlteracTC	= "알터랙 계곡 전투 개시 30초 전...",
+	BgStart30SotA2TC	= "30초 후 두 번째 전투가 시작됩니다. 준비하세요!",
+	BgStart30WarsongTC	= "30초 후 전쟁노래 협곡 전투가 시작됩니다. 준비하십시오!",
+	--
 	ArenaInvite		= "전투 참여",
---	Start60			= "투기장 전투 시작 1분 전입니다!",
---	Start30			= "투기장 전투 시작 30초 전입니다!",
---	Start15			= "투기장 전투 시작 15초 전입니다!".
+	Start60TC		= "투기장 전투 시작 1분 전입니다!",
+	Start30TC		= "투기장 전투 시작 30초 전입니다!",
+	Start15TC		= "투기장 전투 시작 15초 전입니다!",
 	BasesToWin		= "필요 점령 갯수 : %d",
 	WinBarText 		= "%s 획득",
 	Flag			= "깃발",

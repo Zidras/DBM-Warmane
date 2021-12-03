@@ -33,9 +33,35 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart120			= "2 minutes",
-	BgStart60			= "1 minute",
-	BgStart30			= "30 seconds",
+	--BG 2 minutes
+	BgStart120TC		= "The battle begins in 2 minutes!",
+	BgStart120Alterac	= "The Battle for Alterac Valley begins in 2 minutes.",
+	BgStart120Arathi	= "The battle for Arathi Basin begins in 2 minutes.",
+	BgStart120EotS		= "The battle for Eye of the Storm begins in 2 minutes.",
+	BgStart120IoConquest= "The battle will begin in two minutes.",
+	BgStart120SotA		= "The battle for Strand of the Ancients begins in 2 minutes.",
+	BgStart120Warsong	= "The battle for Warsong Gulch begins in 2 minutes.",
+	--BG 1 minute
+	BgStart60TC			= "The battle begins in 1 minute!",
+	BgStart60Alterac	= "The Battle for Alterac Valley begins in 1 minute.",
+	BgStart60AlteracTC	= "1 minute until the battle for Alterac Valley begins.",
+	BgStart60Arathi		= "The Battle for Arathi Basin begins in 1 minute.",
+	BgStart60EotS		= "The Battle for Eye of the Storm begins in 1 minute.",
+	BgStart60IoConquest	= "The battle will begin in 1 minute.",
+	BgStart60SotA		= "The battle for Strand of the Ancients begins in 1 minute.",
+	BgStart60SotA2		= "Round 2 of the Battle for the Strand of the Ancients begins in 1 minute.",
+	BgStart60Warsong	= "The battle for Warsong Gulch begins in 1 minute.",
+	-- BG 30 seconds
+	BgStart30TC			= "The battle begins in 30 seconds!",
+	BgStart30Alterac	= "The Battle for Alterac Valley begins in 30 seconds. Prepare yourselves!",
+	BgStart30AlteracTC	= "30 seconds until the battle for Alterac Valley begins.",
+	BgStart30Arathi		= "The Battle for Arathi Basin begins in 30 seconds. Prepare yourselves!",
+	BgStart30EotS		= "The Battle for Eye of the Storm begins in 30 seconds.",
+	BgStart30IoConquest	= "The battle will begin in 30 seconds!",
+	BgStart30SotA		= "The battle for Strand of the Ancients begins in 30 seconds. Prepare yourselves!.",
+	BgStart30SotA2		= "Round 2 begins in 30 seconds. Prepare yourselves!",
+	BgStart30Warsong	= "The battle for Warsong Gulch begins in 30 seconds. Prepare yourselves!",
+	--
 	ArenaInvite			= "Arena invite",
 	Start60				= "One minute until the Arena battle begins!",
 	Start30				= "Thirty seconds until the Arena battle begins!",
@@ -50,8 +76,7 @@ L:SetMiscLocalization({
 	FlagDropped			= "The flag has been dropped.",
 	--
 	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!", -- Unused
-	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
---	ExprFlagCaptured	= "(.+) captured the (%w+) Flag!", -- TrinityCore
+	ExprFlagCaptured	= "(.+) captured the (%w+) .lag!",
 	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!", -- Unused
 	Vulnerable1			= "The flag carriers have become vulnerable to attack!",
 	Vulnerable2			= "The flag carriers have become increasingly vulnerable to attack!",
