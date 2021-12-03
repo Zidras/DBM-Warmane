@@ -34,12 +34,23 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	BgStart60			= "La batalla comienza en 1 minuto.",
---	BgStart30			= "La batalla comienza en 30 segundos. ¡Preparaos!",
+	--BG 2 minutes
+	BgStart120TC		= "¡La batalla comienza en dos minutos!",
+	--BG 1 minute
+	BgStart60TC			= "¡La batalla comienza en un minuto!",
+	BgStart60AlteracTC	= "1 minuto para que dé comienzo la batalla por el Valle de Alterac.",
+	BgStart60SotA2TC	= "La ronda 2 de la batalla por la Playa de los Ancestros comenzará en 1 minuto.",
+	BgStart60WarsongTC	= "La batalla por la Garganta Grito de Guerra comenzará en 1 minuto.",
+	-- BG 30 seconds
+	BgStart30TC			= "¡La batalla comienza en treinta segundos!",
+	BgStart30AlteracTC	= "30 segundos para que dé comienzo la batalla por el Valle de Alterac.",
+	BgStart30SotA2TC	= "La ronda 2 comenzará en 30 segundos. ¡Preparaos!",
+	BgStart30WarsongTC	= "La batalla por la Garganta Grito de Guerra comenzará en 30 segundos. ¡Preparaos!",
+	--
 	ArenaInvite			= "Invitación a la arena",
---	Start60				= "¡Un minuto hasta que comience la batalla en la arena!",
---	Start30				= "¡Treinta segundos hasta que comience la batalla en arena!",
---	Start15				= "¡Quince segundos hasta que comience la batalla en arena!",
+	Start60TC			= "¡Un minuto hasta que dé comienzo la batalla en arena!",
+	Start30TC			= "¡Treinta segundos hasta que comience la batalla de arena!",
+	Start15TC			= "¡Quince segundos para que comience la batalla de arena!",
 	BasesToWin			= "Bases necesarias para ganar: %d",
 	WinBarText			= "%s ganara en",
 	Flag				= "Bandera",

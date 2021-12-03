@@ -34,12 +34,23 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	BgStart60			= "Die Schlacht beginnt in 1 Minute.",
---	BgStart30			= "Die Schlacht beginnt in 30 Sekunden. Macht Euch bereit!",
+	--BG 2 minutes
+	BgStart120TC		= "Die Schlacht beginnt in 2 Minuten!",
+	--BG 1 minute
+	BgStart60TC			= "Die Schlacht beginnt in 1 Minute!",
+	BgStart60AlteracTC	= "Der Kampf um das Alteractal beginnt in 1 Minute.",
+	BgStart60SotA2TC	= "Runde 2 der Schlacht um den Strand der Uralten beginnt in 1 Minute.",
+	BgStart60WarsongTC	= "Der Kampf um die Kriegshymnenschlucht beginnt in 1 Minute.",
+	-- BG 30 seconds
+	BgStart30TC			= "Die Schlacht beginnt in 30 Sekunden!",
+	BgStart30AlteracTC	= "Der Kampf um das Alteractal beginnt in 30 Sekunden.",
+	BgStart30SotA2TC	= "Runde 2 beginnt in 30 Sekunden. Macht Euch bereit!",
+	BgStart30WarsongTC	= "Der Kampf um die Kriegshymnenschlucht beginnt in 30 Sekunden. Haltet Euch bereit!",
+	--
 	ArenaInvite			= "Arena-Einladung",
---	Start60				= "Noch eine Minute bis der Arenakampf beginnt!",
---	Start30				= "Noch dreißig Sekunden bis der Arenakampf beginnt!",
---	Start15				= "Noch fünfzehn Sekunden bis der Arenakampf beginnt!",
+	Start60TC			= "Noch eine Minute bis der Arenakampf beginnt!",
+	Start30TC			= "Noch dreißig Sekunden bis der Arenakampf beginnt!",
+	Start15TC			= "Noch fünfzehn Sekunden bis der Arenakampf beginnt!",
 	BasesToWin			= "Punkte nötig um zu gewinnen: %d",
 	WinBarText			= "%s gewinnt",
 	Flag				= "Flagge",
