@@ -490,15 +490,28 @@ do
 
 	local winTimer = mod:NewTimer(30, "TimerWin", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 	local resourcesPerSec = {
-		[4] = {1e-300, 0.5, 1, 2, 5}, -- EyeOfTheStorm
-		[5] = {1e-300, 10/12, 10/9, 10/6, 10/3, 30} -- Arathi
+		[4] = { -- Eye of the Storm
+			[0] = 1e-300,
+			[1] = 0.5,
+			[2] = 1,
+			[3] = 2,
+			[4] = 5
+		},
+		[5] = { -- Arathi Basin
+			[0] = 1e-300,
+			[1] = 10/12,
+			[2] = 10/9,
+			[3] = 10/6,
+			[4] = 10/3,
+			[5] = 30
+		}
 	}
 
 	function mod:UpdateWinTimer(maxScore, allianceScore, hordeScore, allianceBases, hordeBases)
 		local resPerSec = resourcesPerSec[numObjectives]
 		-- Start debug
 		if prevAScore ~= allianceScore then
-			if resPerSec[allianceBases + 1] == 1000 then
+			if resPerSec[allianceBases] == 1000 then
 				local key = format("%d,%d", allianceScore - prevAScore, allianceBases)
 				local warnCount = warnAtEnd[key] or 0
 				warnAtEnd[key] = warnCount + 1
@@ -512,7 +525,7 @@ do
 			prevAScore = allianceScore
 		end
 		if prevHScore ~= hordeScore then
-			if resPerSec[hordeBases + 1] == 1000 then
+			if resPerSec[hordeBases] == 1000 then
 				local key = format("%d,%d", hordeScore - prevHScore, hordeBases)
 				local warnCount = warnAtEnd[key] or 0
 				warnAtEnd[key] = warnCount + 1
@@ -527,8 +540,8 @@ do
 		end
 		-- End debug
 		local gameTime = getGametime()
-		local allyTime = mfloor(mmin(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1]))
-		local hordeTime = mfloor(mmin(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1]))
+		local allyTime = mfloor(mmin(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases]))
+		local hordeTime = mfloor(mmin(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases]))
 		if allyTime == hordeTime or allyTime == 0 or hordeTime == 0 then
 			winTimer:Stop()
 			if scoreFrame1Text then
@@ -537,7 +550,7 @@ do
 			end
 		elseif allyTime > hordeTime then
 			if scoreFrame1Text and scoreFrame2Text then
-				scoreFrame1Text:SetText("(" .. mfloor(mfloor(((hordeTime * resPerSec[allianceBases + 1]) + allianceScore) / 10) * 10) .. ")")
+				scoreFrame1Text:SetText("(" .. mfloor(mfloor(((hordeTime * resPerSec[allianceBases]) + allianceScore) / 10) * 10) .. ")")
 				scoreFrame2Text:SetText("(" .. maxScore .. ")")
 			end
 			winTimer:Update(gameTime, gameTime + hordeTime)
@@ -547,7 +560,7 @@ do
 			winTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_01")
 		elseif hordeTime > allyTime then
 			if scoreFrame1Text and scoreFrame2Text then
-				scoreFrame2Text:SetText("(" .. mfloor(mfloor(((allyTime * resPerSec[hordeBases + 1]) + hordeScore) / 10) * 10) .. ")")
+				scoreFrame2Text:SetText("(" .. mfloor(mfloor(((allyTime * resPerSec[hordeBases]) + hordeScore) / 10) * 10) .. ")")
 				scoreFrame1Text:SetText("(" .. maxScore .. ")")
 			end
 			winTimer:Update(gameTime, gameTime + allyTime)
@@ -569,13 +582,13 @@ do
 				friendlyBases = hordeBases
 				enemyBases = allianceBases
 			end
-			if (maxScore - friendlyLast) / resPerSec[friendlyBases + 1] > (maxScore - enemyLast) / resPerSec[enemyBases + 1] then
+			if (maxScore - friendlyLast) / resPerSec[friendlyBases] > (maxScore - enemyLast) / resPerSec[enemyBases] then
 				local enemyTime, friendlyTime, baseLowest, enemyFinal, friendlyFinal
 				for i = 1, numObjectives do
 					enemyTime = (maxScore - enemyLast) / resPerSec[numObjectives - i]
 					friendlyTime = (maxScore - friendlyLast) / resPerSec[i]
 					baseLowest = friendlyTime < enemyTime and friendlyTime or enemyTime
-					enemyFinal = mfloor((enemyLast + mfloor(baseLowest * resPerSec[numObjectives - 3] + 0.5)) / 10) * 10
+					enemyFinal = mfloor((enemyLast + mfloor(baseLowest * resPerSec[numObjectives - i] + 0.5)) / 10) * 10
 					friendlyFinal = mfloor((friendlyLast + mfloor(baseLowest * resPerSec[i] + 0.5)) / 10) * 10
 					if friendlyFinal >= maxScore and enemyFinal < maxScore then
 						scoreFrameToWinText:SetText(L.BasesToWin:format(i))
