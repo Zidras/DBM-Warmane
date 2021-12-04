@@ -23,7 +23,7 @@ do
 	local function Init(self)
 		SetMapToCurrentZone()
 		local zoneID = GetCurrentMapAreaID()
-		if not bgzone and zoneID == 483 then
+		if not bgzone and zoneID == 541 then
 			bgzone = true
 			self:RegisterShortTermEvents(
 				"CHAT_MSG_MONSTER_YELL",
@@ -34,7 +34,7 @@ do
 			generalMod:TrackHealth(34922, "HordeBoss")
 			generalMod:TrackHealth(34924, "AllianceBoss")
 			-- TODO: Add gate health
-		elseif bgzone and zoneID ~= 483 then
+		elseif bgzone and zoneID ~= 541 then
 			bgzone = false
 			self:UnregisterShortTermEvents()
 			self:Stop()

@@ -16,12 +16,12 @@ do
 	local function Init()
 		SetMapToCurrentZone()
 		local zoneID = GetCurrentMapAreaID()
-		if not bgzone and zoneID == 541 then
+		if not bgzone and zoneID == 483 then
 			bgzone = true
 			local generalMod = DBM:GetModByName("PvPGeneral")
 			generalMod:SubscribeAssault(zoneID, 4)
 			generalMod:SubscribeFlags()
-		elseif bgzone and zoneID ~= 541 then
+		elseif bgzone and zoneID ~= 483 then
 			bgzone = false
 		end
 	end
