@@ -34,7 +34,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	--BG 2 minutes
-	BgStart120TC		= "The battle begins in 2 minutes!",
+	BGStart120			= "The battle begins in 2 minutes!",
 	BgStart120Alterac	= "The Battle for Alterac Valley begins in 2 minutes.",
 	BgStart120Arathi	= "The battle for Arathi Basin begins in 2 minutes.",
 	BgStart120EotS		= "The battle for Eye of the Storm begins in 2 minutes.",
