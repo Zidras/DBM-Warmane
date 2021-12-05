@@ -38,6 +38,7 @@ mod:AddBoolOption("ColorByClass", true)
 mod:AddBoolOption("HideBossEmoteFrame", false)
 mod:AddBoolOption("AutoSpirit", false)
 mod:AddBoolOption("ShowRelativeGameTime", true)
+mod:AddBoolOption("ShowGatesHealth", true)
 mod:RemoveOption("HealthFrame")
 
 do
@@ -281,7 +282,7 @@ end
 do
 	local pairs, tostring, twipe = pairs, tostring, table.wipe
 	local UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage = UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage
-	local healthScan, trackedUnits, trackedUnitsCount, syncTrackedUnits = nil, {}, 0, {}
+	local healthScan, trackedUnits, trackedUnitsCount, syncTrackedUnits, gatesHP = nil, {}, 0, {}, {}
 
 	local function updateInfoFrame()
 		local lines, sortedLines = {}, {}
@@ -313,15 +314,28 @@ do
 		end
 	end
 
-	function mod:TrackHealth(cid, name)
+	function mod:TrackHealth(cid, name, gateHP)
 		if not healthScan then
 			healthScan = AceTimer:ScheduleRepeatingTimer(healthScanFunc, 1)
+			-- workaround to register only once, instead of every TrackHealth call
+			self:RegisterShortTermEvents("CHAT_MSG_ADDON")
+			if gateHP and self.Options.ShowGatesHealth then
+				self:RegisterShortTermEvents(
+					"SPELL_BUILDING_DAMAGE",
+					"CHAT_MSG_RAID_BOSS_EMOTE"
+				)
+			end
 		end
-		trackedUnits[tostring(cid)] = L[name] or name
+		trackedUnits[cid] = L[name] or name
+
+		if gateHP and self.Options.ShowGatesHealth then
+			syncTrackedUnits[cid] = 100 -- fills the infoFrame with all the gates
+			gatesHP[cid] = {gateHP, gateHP, L[name] or name} -- {GateHealth, GateHealthMax, GatePOITexture}
+		end
+
 		trackedUnitsCount = trackedUnitsCount + 1
-		self:RegisterShortTermEvents("CHAT_MSG_ADDON")
 		if not DBM.InfoFrame:IsShown() then
-			DBM.InfoFrame:SetHeader(L.InfoFrameHeader)
+			DBM.InfoFrame:SetHeader((gateHP and self.Options.ShowGatesHealth and L.GatesHealthFrame) or L.InfoFrameHeader)
 			DBM.InfoFrame:Show(42, "function", updateInfoFrame, false, false)
 			DBM.InfoFrame:SetColumns(1)
 		end
@@ -334,8 +348,90 @@ do
 		end
 		twipe(trackedUnits)
 		twipe(syncTrackedUnits)
+		twipe(gatesHP)
 		self:UnregisterShortTermEvents()
 		DBM.InfoFrame:Hide()
+	end
+
+	function mod:GatesHPReset()
+		for cid, _ in pairs(syncTrackedUnits) do
+			trackedUnits[cid] = gatesHP[cid][3] -- resets POI icon
+			syncTrackedUnits[cid] = 100 -- resets gate HP percentage
+			gatesHP[cid][1] = gatesHP[cid][2] -- resets gate HP
+			DBM:Debug("Gate "..cid.." reset with HP "..gatesHP[cid][1])
+		end
+	end
+
+	function mod:SPELL_BUILDING_DAMAGE(sourceGUID, _, _, destGUID, destName, _, _, _, _, amount)
+		if sourceGUID == nil or destName == nil or destGUID == nil or amount == nil then
+			return
+		end
+		local cId = DBM:GetCIDFromGUID(destGUID)
+		if gatesHP[cId][1] == nil then -- first hit
+			if self.Options.ShowGatesHealth then
+				if not DBM.InfoFrame:IsShown() then
+					DBM.InfoFrame:Show(7, "function", updateInfoFrame, false, false, true)
+				else
+					DBM.InfoFrame:Update()
+				end
+			end
+		end
+		if gatesHP[cId][1] > amount then
+			gatesHP[cId][1] = gatesHP[cId][1] - amount
+		else
+			gatesHP[cId][1] = 0
+		end
+		if self.Options.ShowGatesHealth then
+			DBM.InfoFrame:Update()
+		end
+		SendAddonMessage("DBM-PvP", format("%s:%.1f", cId, gatesHP[cId][1] / gatesHP[cId][2] * 100), "BATTLEGROUND")
+	end
+
+	function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+		if not DBM.InfoFrame:IsShown() then return end
+		-- Gate of the Green Emerald
+		if msg == L.GreenEmeraldAttacked then
+			trackedUnits[59650] = L.GreenEmeraldAttackedTex
+		elseif msg == L.GreenEmeraldDestroyed then
+			trackedUnits[59650] = L.GreenEmeraldDestroyedTex
+			syncTrackedUnits[59650] = 0
+			gatesHP[59650][1] = 0
+		-- Gate of the Blue Sapphire
+		elseif msg == L.BlueSapphireAttacked then
+			trackedUnits[59652] = L.BlueSapphireAttackedTex
+		elseif msg == L.BlueSapphireDestroyed then
+			trackedUnits[59652] = L.BlueSapphireDestroyedTex
+			syncTrackedUnits[59652] = 0
+			gatesHP[59652][1] = 0
+		-- Gate of the Purple Amethyst
+		elseif msg == L.PurpleAmethystAttacked then
+			trackedUnits[59651] = L.PurpleAmethystAttackedTex
+		elseif msg == L.PurpleAmethystDestroyed then
+			trackedUnits[59651] = L.PurpleAmethystDestroyedTex
+			syncTrackedUnits[59651] = 0
+			gatesHP[59651][1] = 0
+		-- Gate of the Red Sun
+		elseif msg == L.RedSunAttacked then
+			trackedUnits[59654] = L.RedSunAttackedTex
+		elseif msg == L.RedSunDestroyed then
+			trackedUnits[59654] = L.RedSunDestroyedTex
+			syncTrackedUnits[59654] = 0
+			gatesHP[59654][1] = 0
+		-- Gate of the Yellow Moon
+		elseif msg == L.YellowMoonAttacked then
+			trackedUnits[59655] = L.YellowMoonAttackedTex
+		elseif msg == L.YellowMoonDestroyed then
+			trackedUnits[59655] = L.YellowMoonDestroyedTex
+			syncTrackedUnits[59655] = 0
+			gatesHP[59655][1] = 0
+		-- Chamber of Ancient Relics
+		elseif msg == L.ChamberAncientRelicsAttacked then
+			trackedUnits[61477] = L.ChamberAncientRelicsAttackedTex
+		elseif msg == L.ChamberAncientRelicsDestroyed then
+			trackedUnits[61477] = L.ChamberAncientRelicsDestroyedTex
+			syncTrackedUnits[61477] = 0
+			gatesHP[61477][1] = 0
+		end
 	end
 
 	function mod:CHAT_MSG_ADDON(prefix, msg, channel)
@@ -343,7 +439,7 @@ do
 			return
 		end
 		local cid, hp = strsplit(":", msg)
-		syncTrackedUnits[cid] = hp
+		syncTrackedUnits[tonumber(cid)] = hp
 	end
 end
 
@@ -462,6 +558,11 @@ do
 		elseif msg == L.BgStart60TC or msg == L.BgStart60Alterac or msg == L.BgStart60AlteracTC or msg == L.BgStart60Arathi or msg == L.BgStart60EotS or msg == L.BgStart60IoConquest or msg == L.BgStart60SotA or msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC or msg == L.BgStart60Warsong or msg == L.BgStart60WarsongTC then
 			startTimer:Update(60, 120)
 			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
+			if msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC then
+				if DBM.InfoFrame:IsShown() then
+					self:GatesHPReset()
+				end
+			end
 		elseif msg == L.BgStart30TC or msg == L.BgStart30Alterac or msg == L.BgStart30AlteracTC or msg == L.BgStart30Arathi or msg == L.BgStart30EotS or msg == L.BgStart30IoConquest or msg == L.BgStart30SotA or msg == L.BgStart30SotA2 or msg == L.BgStart30SotA2TC or msg == L.BgStart30Warsong or msg == L.BgStart30WarsongTC then
 			startTimer:Update(90, 120)
 			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")

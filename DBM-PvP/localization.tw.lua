@@ -25,6 +25,7 @@ L:SetOptionLocalization({
 	ShowBasesToWin		= "顯示勝利需要的基地數量",
 	ShowEstimatedPoints	= "顯示戰鬥結束時雙方資源預計值",
 	ShowFlagCarrier		= "顯示旗幟攜帶者",
+	ShowGatesHealth		= "顯示受損大門的耐久值(當加入一個正在進行的戰場大門耐久值可能會不準確！)",
 	ShowRelativeGameTime= "相對於BG開始時間的獲勝計時器（如果禁用，則欄總是看起來滿了）",
 	TimerCap			= "顯示奪取計時器",
 	TimerFlag			= "顯示旗幟重生計時器",
@@ -64,7 +65,24 @@ L:SetMiscLocalization({
 --	ExprFlagCaptured	= "(.+) 佔據了 (%w+) 的旗幟！",
 --	ExprFlagReturn		= " (%w+) 的旗幟，被 (.+) 還到了它的基地",
 	Vulnerable1			= "旗幟攜帶者變得脆弱了！",
-	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！"
+	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！",
+	-- Gates
+	GatesHealthFrame	= "受損的大門",
+	HordeGate			= "部落大門",
+	AllianceGate		= "聯盟大門",
+	-- Gates Emotes
+	GreenEmeraldAttacked			= "碧翠之門遭到攻擊!",
+	GreenEmeraldDestroyed			= "碧翠之門被摧毀!",
+	BlueSapphireAttacked			= "藍晶之門遭到攻擊!",
+	BlueSapphireDestroyed			= "藍晶之門被摧毀!",
+	PurpleAmethystAttacked			= "紫晶之門遭到攻擊!",
+	PurpleAmethystDestroyed			= "紫晶之門被摧毀!",
+	RedSunAttacked					= "紅日之門遭到攻擊!",
+	RedSunDestroyed					= "紅日之門被摧毀!",
+	YellowMoonAttacked				= "黃月之門遭到攻擊!",
+	YellowMoonDestroyed				= "黃月之門被摧毀!",
+	ChamberAncientRelicsAttacked	= "聖物間遭受攻擊!",
+	ChamberAncientRelicsDestroyed	= "聖物間已經被攻破了!泰坦聖物十分危急!",
 })
 
 ----------------------
@@ -138,12 +156,10 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerSiegeEngine	= "為攻城機具的修復顯示計時器",
 	WarnSiegeEngine		= "當攻城機具準備好時顯示警告",
-	WarnSiegeEngineSoon	= "當攻城機具接近準備好時顯示警告",
-	ShowGatesHealth		= "顯示受損大門的耐久值(當加入一個正在進行的戰場大門耐久值可能會不準確！)"
+	WarnSiegeEngineSoon	= "當攻城機具接近準備好時顯示警告"
 })
 
 L:SetMiscLocalization({
-	GatesHealthFrame		= "受損的大門",
 	SiegeEngine				= "攻城機具",
 	GoblinStartAlliance		= "看到那些爆鹽炸彈了嗎?當我維修攻城機具的時候用它們來轟破大門！",
 	GoblinStartHorde		= "修理攻城機具的工作就交給我，幫我看著點就夠了。如果你想要轟破大門的話，儘管把那些爆鹽炸彈拿去用吧！",

@@ -25,6 +25,7 @@ L:SetOptionLocalization({
 	ShowBasesToWin		= "Zeige benötigte Anzahl an Punkten zum Sieg",
 	ShowEstimatedPoints	= "Zeige geschätzte Kampf-Endpunkte",
 	ShowFlagCarrier		= "Zeige Flaggenträger",
+	ShowGatesHealth		= "Zeige Erhaltungsgrad beschädigter Tore (kann nach dem Beitritt<br/>zu einem bereits laufenden Schlachtfeld falsche Werte liefern!)",
 	ShowRelativeGameTime= "Füllen Sie den Gewinn-Timer relativ zur Startzeit des Schlachtfelds (Wenn deaktiviert, sieht die Leiste einfach immer voll aus)",
 	TimerCap			= "Zeige Eroberungstimer",
 	TimerFlag			= "Zeige Timer für Flaggen-Respawn",
@@ -62,7 +63,24 @@ L:SetMiscLocalization({
 --	ExprFlagCaptured	= "(.+) hat die Flagge der (%w+) errungen!",
 --	ExprFlagReturn		= "Die Flagge der (%w+) wurde von (.+) zu ihrem Stützpunkt zurückgebracht!",
 	Vulnerable1			= "Eure Angriffe verursachen nun schwerere Verletzungen bei Flaggenträgern!",
-	Vulnerable2			= "Eure Angriffe verursachen nun sehr schwere Verletzungen bei Flaggenträgern!"
+	Vulnerable2			= "Eure Angriffe verursachen nun sehr schwere Verletzungen bei Flaggenträgern!",
+	-- Gates
+	GatesHealthFrame	= "Beschädigte Tore",
+	HordeGate			= "Hordentor",
+	AllianceGate		= "Allianztor",
+	-- Gates Emotes
+	GreenEmeraldAttacked			= "Das Tor des Smaragdhorizonts wird angegriffen!",
+	GreenEmeraldDestroyed			= "Das Tor des Smaragdhorizonts ist zerstört worden!",
+	BlueSapphireAttacked			= "Das Tor des Saphirhimmels wird angegriffen!",
+	BlueSapphireDestroyed			= "Das Tor des Saphirhimmels ist zerstört worden!",
+	PurpleAmethystAttacked			= "Das Tor des Amethyststerns wird angegriffen!",
+	PurpleAmethystDestroyed			= "Das Tor des Amethyststerns ist zerstört worden!",
+	RedSunAttacked					= "Das Tor der Rubinsonne wird angegriffen!",
+	RedSunDestroyed					= "Das Tor der Rubinsonne ist zerstört worden!",
+	YellowMoonAttacked				= "Das Tor des Goldmondes wird angegriffen!",
+	YellowMoonDestroyed				= "Das Tor des Goldmondes ist zerstört worden!",
+	ChamberAncientRelicsAttacked	= "Die Reliktkammer wird angegriffen!",
+	ChamberAncientRelicsDestroyed	= "In die Kammer wurde eingebrochen! Der Titan ist in Gefahr!",
 })
 
 --------------
@@ -165,12 +183,10 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerSiegeEngine	= "Zeige Zeit bis Belagerungsmaschine bereit ist",
 	WarnSiegeEngine		= "Zeige Warnung, wenn Belagerungsmaschine bereit ist",
-	WarnSiegeEngineSoon	= "Zeige Warnung, wenn Belagerungsmaschine fast bereit ist",
-	ShowGatesHealth		= "Zeige Erhaltungsgrad beschädigter Tore (kann nach dem Beitritt<br/>zu einem bereits laufenden Schlachtfeld falsche Werte liefern!)"
+	WarnSiegeEngineSoon	= "Zeige Warnung, wenn Belagerungsmaschine fast bereit ist"
 })
 
 L:SetMiscLocalization({
-	GatesHealthFrame		= "Beschädigte Tore",
 	SiegeEngine				= "Belagerungsmaschine",
 	GoblinStartAlliance		= "Seht Ihr diese Zephyriumbomben? Benutzt sie an den Toren, während ich die Belagerungsmaschine repariere!",
 	GoblinStartHorde		= "Ich arbeite an der Belagerungsmaschine. Haltet mir einfach nur den Rücken frei. Benutzt diese Zephyriumbomben an den Toren, solltet Ihr sie brauchen!",
