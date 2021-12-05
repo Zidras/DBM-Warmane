@@ -25,6 +25,7 @@ L:SetOptionLocalization({
 	ShowBasesToWin		= "显示获胜需要占领的资源点",
 	ShowEstimatedPoints	= "显示战斗开始/结束时双方资源统计",
 	ShowFlagCarrier		= "显示旗帜携带者",
+	ShowGatesHealth		= "生命值框：城门破损状况（中途加入战场，该数据可能不准确）",
 	ShowRelativeGameTime= "计时条：战场开始到获胜的计时（如果禁用，则计时条总是看起来满了）",
 	TimerCap			= "计时条：占领资源",
 	TimerFlag			= "计时条：旗帜重置",
@@ -64,7 +65,24 @@ L:SetMiscLocalization({
 --	ExprFlagCaptured	= "(.+) 夺取了 (%w+) 的旗帜！",
 --	ExprFlagReturn		= " (%w+) 的旗帜！被 (.+) 还到了它的基地中！",
 	Vulnerable1			= "旗帜携带者已变的容易受到攻击！",
-	Vulnerable2			= "旗帜携带者越来越容易受到攻击！"
+	Vulnerable2			= "旗帜携带者越来越容易受到攻击！",
+	-- Gates
+	GatesHealthFrame	= "城门破损状况",
+	HordeGate			= "部落大门",
+	AllianceGate		= "联盟大门",
+	-- Gates Emotes
+	GreenEmeraldAttacked			= "翡翠之门遭到攻击！",
+	GreenEmeraldDestroyed			= "翡翠之门被摧毁了！",
+	BlueSapphireAttacked			= "蓝玉之门遭到攻击！",
+	BlueSapphireDestroyed			= "蓝玉之门被摧毁了！",
+	PurpleAmethystAttacked			= "紫晶之门遭到攻击！",
+	PurpleAmethystDestroyed			= "紫晶之门被摧毁了！",
+	RedSunAttacked					= "红日之门遭到攻击！",
+	RedSunDestroyed					= "红日之门被摧毁了！",
+	YellowMoonAttacked				= "金月之门遭到攻击！",
+	YellowMoonDestroyed				= "金月之门被摧毁了！",
+	ChamberAncientRelicsAttacked	= "宝库遭到了攻击！",
+	ChamberAncientRelicsDestroyed	= "宝库被攻破了！泰坦圣物失去了保护！",
 })
 
 
@@ -134,12 +152,10 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerSiegeEngine	= "计时条：攻城器的建造",
 	WarnSiegeEngine		= "警报：攻城器准备就绪",
-	WarnSiegeEngineSoon	= "预警：攻城器准备就绪",
-	ShowGatesHealth		= "生命值框：城门破损状况（中途加入战场，该数据可能不准确）"
+	WarnSiegeEngineSoon	= "预警：攻城器准备就绪"
 })
 
 L:SetMiscLocalization({
-	GatesHealthFrame		= "城门破损状况",
 	SiegeEngine				= "攻城器",
 	GoblinStartAlliance		= "看到那些爆盐炸弹了吗？当我维修攻城机具的时候用它们来轰破大门！",
 	GoblinStartHorde		= "修理攻城机具的工作就交给我，帮我看着点就够了。如果你想要轰破大门的话，尽管把那些爆盐炸弹拿去用吧！",

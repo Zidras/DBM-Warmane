@@ -15,21 +15,28 @@ mod:RegisterEvents(
 do
 	local bgzone = false
 
-	local function Init()
+	local function Init(self)
 		SetMapToCurrentZone()
 		local zoneID = GetCurrentMapAreaID()
 		if not bgzone and zoneID == 513 then
 			bgzone = true
 			local generalMod = DBM:GetModByName("PvPGeneral")
 			generalMod:SubscribeAssault(zoneID, 0)
-			-- TODO: Add gate health
+			generalMod:TrackHealth(59650, "GreenEmerald", 11000)
+			generalMod:TrackHealth(59652, "BlueSapphire", 11000)
+			generalMod:TrackHealth(59651, "PurpleAmethyst", 13000)
+			generalMod:TrackHealth(59654, "RedSun", 13000)
+			generalMod:TrackHealth(59655, "YellowMoon", 14000)
+			generalMod:TrackHealth(61477, "ChamberAncientRelics", 10000)
 		elseif bgzone and zoneID ~= 513 then
 			bgzone = false
+			self:Stop()
+			DBM:GetModByName("PvPGeneral"):StopTrackHealth()
 		end
 	end
 
 	function mod:ZONE_CHANGED_NEW_AREA()
-		Init()
+		Init(self)
 	end
 	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
 	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA

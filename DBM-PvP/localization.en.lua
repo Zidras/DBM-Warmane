@@ -24,6 +24,7 @@ L:SetOptionLocalization({
 	ShowBasesToWin		= "Show bases required to win",
 	ShowEstimatedPoints	= "Show estimated points on win/loss",
 	ShowFlagCarrier		= "Show flag carrier",
+	ShowGatesHealth		= "Show the health of damaged gates (health values may be wrong after joining an already ongoing battleground!)",
 	ShowRelativeGameTime= "Fill win timer relative to BG start time (If disabled, bar just always looks full)",
 	TimerCap			= "Show capture timer",
 	TimerFlag			= "Show flag respawn timer",
@@ -88,6 +89,41 @@ L:SetMiscLocalization({
 	Balinda				= "Balinda",
 	Ivus				= "Ivus",
 	Lokholar			= "Lokholar",
+	-- Gates
+	GatesHealthFrame	= "Damaged gates",
+	GreenEmerald					= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:181:197:127:142|t",
+	GreenEmeraldAttackedTex			= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:199:215:127:142|t",
+	GreenEmeraldDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:217:233:127:142|t",
+	BlueSapphire					= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:181:197:92:107|t",
+	BlueSapphireAttackedTex			= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:199:215:92:107|t",
+	BlueSapphireDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:217:233:92:107|t",
+	PurpleAmethyst					= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:127:143:127:142|t",
+	PurpleAmethystAttackedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:145:161:127:142|t",
+	PurpleAmethystDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:163:179:127:142|t",
+	RedSun							= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:127:143:92:107|t",
+	RedSunAttackedTex				= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:145:161:92:107|t",
+	RedSunDestroyedTex				= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:163:179:92:107|t",
+	YellowMoon						= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:73:89:127:142|t",
+	YellowMoonAttackedTex			= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:91:107:127:142|t",
+	YellowMoonDestroyedTex			= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:109:125:127:142|t",
+	ChamberAncientRelics			= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:73:89:92:107|t",
+	ChamberAncientRelicsAttackedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:91:107:92:107|t",
+	ChamberAncientRelicsDestroyedTex= "|TInterface\\MINIMAP\\POIICONS.BLP:20:20:0:0:256:256:109:125:92:107|t",
+	HordeGate						= "Horde Gate",
+	AllianceGate					= "Alliance Gate",
+	-- Gates Emotes
+	GreenEmeraldAttacked			= "The Gate of the Green Emerald is under attack!",
+	GreenEmeraldDestroyed			= "The Gate of the Green Emerald was destroyed!",
+	BlueSapphireAttacked			= "The Gate of the Blue Sapphire is under attack!",
+	BlueSapphireDestroyed			= "The Gate of the Blue Sapphire was destroyed!",
+	PurpleAmethystAttacked			= "The Gate of the Purple Amethyst is under attack!",
+	PurpleAmethystDestroyed			= "The Gate of the Purple Amethyst was destroyed!",
+	RedSunAttacked					= "The Gate of the Red Sun is under attack!",
+	RedSunDestroyed					= "The Gate of the Red Sun was destroyed!",
+	YellowMoonAttacked				= "The Gate of the Yellow Moon is under attack!",
+	YellowMoonDestroyed				= "The Gate of the Yellow Moon was destroyed!",
+	ChamberAncientRelicsAttacked	= "The relic chamber is under attack!",
+	ChamberAncientRelicsDestroyed	= "The chamber has been breached! The titan relic is vulnerable!",
 })
 
 ----------------------
@@ -170,12 +206,10 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerSiegeEngine	= "Show timer for Siege Engine construction",
 	WarnSiegeEngine		= "Show warning when Siege Engine is ready",
-	WarnSiegeEngineSoon	= "Show warning when Siege Engine is almost ready",
-	ShowGatesHealth		= "Show the health of damaged gates (health values may be wrong after joining an already ongoing battleground!)"
+	WarnSiegeEngineSoon	= "Show warning when Siege Engine is almost ready"
 })
 
 L:SetMiscLocalization({
-	GatesHealthFrame		= "Damaged gates",
 	SiegeEngine				= "Siege Engine",
 	GoblinStartAlliance		= "See those seaforium bombs? Use them on the gates while I repair the siege engine!",
 	GoblinStartHorde		= "I'll work on the siege engine, just watch my back. Use those seaforium bombs on the gates if you need them!",

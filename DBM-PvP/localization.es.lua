@@ -25,6 +25,7 @@ L:SetOptionLocalization({
 	ShowBasesToWin		= "Mostrar bases para ganar",
 	ShowEstimatedPoints	= "Mostrar recursos estimados a ganar",
 	ShowFlagCarrier		= "Mostrar por donde va la bandera",
+	ShowGatesHealth		= "Mostrar salud de puertas dañadas (¡puede dar resultados erróneos al unirse a una batalla en curso!)",
 	ShowRelativeGameTime= "Llene el temporizador de victorias en relación con la hora de inicio del campo de batalla (si está deshabilitado, la barra siempre se ve llena)",
 	TimerCap			= "Mostrar tiempo que tarda en conquistar",
 	TimerFlag			= "Mostrar tiempo que tarda en restablecer la Bandera",
@@ -62,7 +63,24 @@ L:SetMiscLocalization({
 --	ExprFlagCaptured	= "¡(.+) ha capturado la bandera de la (%w+)!",
 --	ExprFlagReturn		= "¡(.+) ha devuelto la bandera de la (%w+) a su base!",
 	Vulnerable1			= "¡Los portadores de las banderas se han vuelto vulnerables a los ataques!",
-	Vulnerable2			= "¡Los portadores de las banderas se han vuelto más vulnerables a los ataques!"
+	Vulnerable2			= "¡Los portadores de las banderas se han vuelto más vulnerables a los ataques!",
+	-- Gates
+	GatesHealthFrame	= "Puertas dañadas",
+	HordeGate			= "Puerta de la Horda",
+	AllianceGate		= "Puerta de la Alianza",
+	-- Gates Emotes
+	GreenEmeraldAttacked			= "¡Están atacando la Puerta de la Esmeralda Verde!",
+	GreenEmeraldDestroyed			= "¡La Puerta de la Esmeralda Verde ha sido destruida!",
+	BlueSapphireAttacked			= "¡Están atacando la Puerta del Zafiro Azul!",
+	BlueSapphireDestroyed			= "¡La Puerta del Zafiro Azul ha sido destruida!",
+	PurpleAmethystAttacked			= "¡Están atacando la Puerta de la Amatista Púrpura!",
+	PurpleAmethystDestroyed			= "¡La Puerta de la Amatista Púrpura ha sido destruida!",
+	RedSunAttacked					= "¡Están atacando la Puerta del Sol Rojo!",
+	RedSunDestroyed					= "¡La Puerta del Sol Rojo ha sido destruida!",
+	YellowMoonAttacked				= "¡Están atacando la Puerta de la Luna Amarilla!",
+	YellowMoonDestroyed				= "¡La Puerta de la Luna Amarilla ha sido destruida!",
+	ChamberAncientRelicsAttacked	= "¡Están atacando la Cámara de las Reliquias!",
+	ChamberAncientRelicsDestroyed	= "¡Han atravesado la fortaleza! ¡La reliquia de titán es vulnerable!",
 })
 
 ----------------------
@@ -136,12 +154,10 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerSiegeEngine	= "Mostrar temporizador para construcción de máquinas de asedio",
 	WarnSiegeEngine		= "Mostrar aviso cuando una máquina de asedio esté lista",
-	WarnSiegeEngineSoon	= "Mostrar aviso cuando una máquina de asedio esté casi lista",
-	ShowGatesHealth		= "Mostrar salud de puertas dañadas (¡puede dar resultados erróneos al unirse a una batalla en curso!)"
+	WarnSiegeEngineSoon	= "Mostrar aviso cuando una máquina de asedio esté casi lista"
 })
 
 L:SetMiscLocalization({
-	GatesHealthFrame		= "Puertas dañadas",
 	SiegeEngine				= "Máquina de asedio",
 	GoblinStartAlliance		= "¿Ves esas bombas de seforio? Úsalas en las puertas mientras reparo la máquina de asedio.",
 	GoblinStartHorde		= "Trabajaré en la máquina de asedio, solo cúbreme las espaldas. ¡Usa esas bombas de seforio en las puertas si las necesitas!",

@@ -25,6 +25,7 @@ L:SetOptionLocalization({
 	ShowBasesToWin		= "필요 점령 갯수 보기",
 	ShowEstimatedPoints	= "승/패 예상 포인트 보기",
 	ShowFlagCarrier		= "깃발 운반자 보기",
+	ShowGatesHealth		= "관문 체력 바 보기(진행 도중인 전장에 진입한경우 맞지 않음)",
 	ShowRelativeGameTime= "전장 시작 시간을 기준으로 승리 타이머 채우기(비활성화하면 막대가 항상 가득 찬 것처럼 보입니다)",
 	TimerCap			= "깃발 점령 타이머 보기",
 	TimerFlag			= "깃발 재생성 타이머 보기",
@@ -52,7 +53,7 @@ L:SetMiscLocalization({
 	Start30TC		= "투기장 전투 시작 30초 전입니다!",
 	Start15TC		= "투기장 전투 시작 15초 전입니다!",
 	BasesToWin		= "필요 점령 갯수 : %d",
-	WinBarText 		= "%s 획득",
+	WinBarText		= "%s 획득",
 	Flag			= "깃발",
 --	FlagReset		= "깃발이 다시 제자리로 돌아갔습니다.",
 --	FlagTaken		= "^(.+)|1이;가; 깃발을 차지했습니다!",
@@ -62,7 +63,24 @@ L:SetMiscLocalization({
 --	ExprFlagCaptured	= "(.+)|1이;가; (.+) 깃발 쟁탈에 성공했습니다!",
 --	ExprFlagReturn		= "(.+)|1이;가; (.+) 깃발을 되찾았습니다!",
 	Vulnerable1			= "약해져서",
-	Vulnerable2			= "약해져서"
+	Vulnerable2			= "약해져서",
+	-- Gates
+	GatesHealthFrame	= "피해 입은 관문",
+	HordeGate			= "호드 관문",
+	AllianceGate		= "얼라이언스 관문",
+	-- Gates Emotes
+	GreenEmeraldAttacked			= "초록 에메랄드 관문이 공격받고 있습니다!",
+	GreenEmeraldDestroyed			= "초록 에메랄드 관문이 무너졌습니다!",
+	BlueSapphireAttacked			= "푸른 사파이어 관문이 공격받고 있습니다!",
+	BlueSapphireDestroyed			= "푸른 사파이어 관문이 무너졌습니다!",
+	PurpleAmethystAttacked			= "보라 자수정 관문이 공격받고 있습니다!",
+	PurpleAmethystDestroyed			= "보라 자수정 관문이 무너졌습니다!",
+	RedSunAttacked					= "붉은 태양 관문이 공격받고 있습니다!",
+	RedSunDestroyed					= "붉은 태양 관문이 무너졌습니다!",
+	YellowMoonAttacked				= "노란 달 관문이 공격받고 있습니다!",
+	YellowMoonDestroyed				= "노란 달 관문이 무너졌습니다!",
+	ChamberAncientRelicsAttacked	= "유물의 방이 공격받고 있습니다!",
+	ChamberAncientRelicsDestroyed	= "유물의 방 방어선이 깨졌습니다! 티탄 유물이 위험합니다!",
 })
 
 ----------------------
@@ -135,12 +153,10 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerSiegeEngine	= "공성 전차 준비 바 보기",
 	WarnSiegeEngine		= "공성 전차 준비 완료 알림 보기",
-	WarnSiegeEngineSoon	= "공성 전차 준비 완료 이전에 알림 보기",
-	ShowGatesHealth		= "관문 체력 바 보기(진행 도중인 전장에 진입한경우 맞지 않음)"
+	WarnSiegeEngineSoon	= "공성 전차 준비 완료 이전에 알림 보기"
 })
 
 L:SetMiscLocalization({
-	GatesHealthFrame		= "피해 입은 관문",
 	SiegeEngine				= "공성 전차",
 	GoblinStartAlliance		= "저기 시포리움 폭탄 보이세요? 제가 공성 전차를 수리하는 동안엔 그걸 사용해서 관문을 공격하세요!",
 	GoblinStartHorde		= "공성 전차를 수리하는 동안 날 좀 지켜 달라고. 필요하면 저기 있는 시포리움 폭탄을 관문에 사용해!",
