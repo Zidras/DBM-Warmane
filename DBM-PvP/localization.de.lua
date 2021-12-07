@@ -65,10 +65,20 @@ L:SetMiscLocalization({
 	Vulnerable1			= "Eure Angriffe verursachen nun schwerere Verletzungen bei Flaggenträgern!",
 	Vulnerable2			= "Eure Angriffe verursachen nun sehr schwere Verletzungen bei Flaggenträgern!",
 	-- Gates
-	GatesHealthFrame	= "Beschädigte Tore",
-	HordeGate			= "Hordentor",
-	AllianceGate		= "Allianztor",
-	-- Gates Emotes
+	GatesHealthFrame				= "Beschädigte Tore",
+	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Vorderes Tor",
+	HordeGateFrontDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Vorderes Tor",
+	HordeGateWest					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Westliches Tor",
+	HordeGateWestDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Westliches Tor",
+	HordeGateEast					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Östliches Tor",
+	HordeGateEastDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Östliches Tor",
+	AllianceGateFront				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Vorderes Tor",
+	AllianceGateFrontDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Vorderes Tor",
+	AllianceGateWest				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Westliches Tor",
+	AllianceGateWestDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Westliches Tor",
+	AllianceGateEast				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Östliches Tor",
+	AllianceGateEastDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Östliches Tor",
+	-- Strands of the Ancients Gates emotes
 	GreenEmeraldAttacked			= "Das Tor des Smaragdhorizonts wird angegriffen!",
 	GreenEmeraldDestroyed			= "Das Tor des Smaragdhorizonts ist zerstört worden!",
 	BlueSapphireAttacked			= "Das Tor des Saphirhimmels wird angegriffen!",
@@ -81,6 +91,13 @@ L:SetMiscLocalization({
 	YellowMoonDestroyed				= "Das Tor des Goldmondes ist zerstört worden!",
 	ChamberAncientRelicsAttacked	= "Die Reliktkammer wird angegriffen!",
 	ChamberAncientRelicsDestroyed	= "In die Kammer wurde eingebrochen! Der Titan ist in Gefahr!",
+	-- Isle of Conquest Gates CHAT_MSG_BG_SYSTEM_NEUTRAL messages
+	HordeGateFrontDestroyedTC		= "Das vordere Tor der Hordenfestung ist zerstört worden!",
+	HordeGateWestDestroyedTC		= "Das westliche Tor der Hordenfestung ist zerstört worden!",
+	HordeGateEastDestroyedTC		= "Das östliche Tor der Hordenfestung ist zerstört worden!",
+	AllianceGateFrontDestroyedTC	= "Das vordere Tor der Allianzfestung ist zerstört worden!",
+	AllianceGateWestDestroyedTC		= "Das westliche Tor der Allianzfestung ist zerstört worden!",
+	AllianceGateEastDestroyedTC		= "Das östliche Tor der Allianzfestung ist zerstört worden!",
 })
 
 --------------

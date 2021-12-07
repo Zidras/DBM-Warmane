@@ -279,10 +279,11 @@ do
 	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
 end
 
+local trackedUnits, syncTrackedUnits, gatesHP = {}, {}, {}
 do
 	local pairs, tostring, twipe = pairs, tostring, table.wipe
 	local UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage = UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage
-	local healthScan, trackedUnits, trackedUnitsCount, syncTrackedUnits, gatesHP = nil, {}, 0, {}, {}
+	local healthScan, trackedUnitsCount, gatesEventsRegistered = nil, 0, false
 
 	local function updateInfoFrame()
 		local lines, sortedLines = {}, {}
@@ -314,17 +315,20 @@ do
 		end
 	end
 
-	function mod:TrackHealth(cid, name, gateHP)
+	function mod:TrackHealth(cid, name, gateHP, onlyGUID)
 		if not healthScan then
 			healthScan = AceTimer:ScheduleRepeatingTimer(healthScanFunc, 1)
 			-- workaround to register only once, instead of every TrackHealth call
 			self:RegisterShortTermEvents("CHAT_MSG_ADDON")
-			if gateHP and self.Options.ShowGatesHealth then
-				self:RegisterShortTermEvents(
-					"SPELL_BUILDING_DAMAGE",
-					"CHAT_MSG_RAID_BOSS_EMOTE"
-				)
-			end
+		end
+		if gateHP and self.Options.ShowGatesHealth and not gatesEventsRegistered then
+			gatesEventsRegistered = true
+			self:UnregisterShortTermEvents() -- Apparently I can't have register multiple times, CHAT_MSG_ADDON was getting duplicated on each BG.
+			self:RegisterShortTermEvents(
+				"CHAT_MSG_ADDON",
+				"SPELL_BUILDING_DAMAGE",
+				"CHAT_MSG_RAID_BOSS_EMOTE"
+			)
 		end
 		trackedUnits[cid] = L[name] or name
 
@@ -348,17 +352,20 @@ do
 		end
 		twipe(trackedUnits)
 		twipe(syncTrackedUnits)
-		twipe(gatesHP)
+		if gatesEventsRegistered then
+			twipe(gatesHP)
+			gatesEventsRegistered = false
+		end
 		self:UnregisterShortTermEvents()
 		DBM.InfoFrame:Hide()
 	end
 
 	function mod:GatesHPReset()
 		for cid, _ in pairs(syncTrackedUnits) do
-			trackedUnits[cid] = gatesHP[cid][3] -- resets POI icon
+			trackedUnits[cid] = gatesHP[cid][3] -- resets POI icon/name
 			syncTrackedUnits[cid] = 100 -- resets gate HP percentage
 			gatesHP[cid][1] = gatesHP[cid][2] -- resets gate HP
-			DBM:Debug("Gate "..cid.." reset with HP "..gatesHP[cid][1])
+			DBM:Debug(gatesHP[cid][3]..cid.." reset with HP: "..gatesHP[cid][1])
 		end
 	end
 
@@ -384,7 +391,7 @@ do
 		if self.Options.ShowGatesHealth then
 			DBM.InfoFrame:Update()
 		end
-		SendAddonMessage("DBM-PvP", format("%s:%.1f", cId, gatesHP[cId][1] / gatesHP[cId][2] * 100), "BATTLEGROUND")
+		SendAddonMessage("DBM-PvP", format("%s:%.1f:%d", cId, gatesHP[cId][1] / gatesHP[cId][2] * 100, gatesHP[cId][1]), "BATTLEGROUND")
 	end
 
 	function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
@@ -434,12 +441,25 @@ do
 		end
 	end
 
-	function mod:CHAT_MSG_ADDON(prefix, msg, channel)
+	function mod:CHAT_MSG_ADDON(prefix, msg, channel, sender)
 		if channel ~= "BATTLEGROUND" or (prefix ~= "DBM-PvP" and prefix ~= "Capping") then -- Lets listen to capping as well, for extra data.
 			return
 		end
-		local cid, hp = strsplit(":", msg)
-		syncTrackedUnits[tonumber(cid)] = hp
+		local cid, hpPerc, hpRaw = strsplit(":", msg)
+		local cId, hpPercN, hpRawN = tonumber(cid), tonumber(hpPerc), tonumber(hpRaw)
+
+		-- Update gatesHP table, since only the person inside the vehicle sees the CLEU event
+		if gatesHP[cId] and gatesHP[cId][1] > hpRawN then
+			gatesHP[cId][1] = hpRawN
+			DBM:Debug("GatesHP table synced. "..gatesHP[cId][3]..", cId: "..cid..", now has "..gatesHP[cId][1].." HP")
+		end
+
+		if syncTrackedUnits[cId] and tonumber(syncTrackedUnits[cId]) < hpPercN then
+			--TO DO: sync gates on BG join
+			DBM:Debug(sender.." is not synced and is sending wrong information about cId: "..cid..". Received ".. hpPerc.."% and "..hpRaw.." HP, while cached table already having ".. syncTrackedUnits[cId])
+		else
+			syncTrackedUnits[cId] = hpPerc
+		end
 	end
 end
 
@@ -580,6 +600,39 @@ do
 			allyFlag = nil
 			hordeFlag = nil
 			updateflagdisplay()
+		-- Isle of Conquest Gates
+		elseif self.Options.ShowGatesHealth then
+			-- Horde Front Gate
+			if msg == L.HordeGateFrontDestroyed or msg == L.HordeGateFrontDestroyedTC then
+				trackedUnits[64422] = L.HordeGateFrontDestroyedTex
+				syncTrackedUnits[64422] = 0
+				gatesHP[64422][1] = 0
+			-- Horde West Gate
+			elseif msg == L.HordeGateWestDestroyed or msg == L.HordeGateWestDestroyedTC then
+				trackedUnits[64423] = L.HordeGateWestDestroyedTex
+				syncTrackedUnits[64423] = 0
+				gatesHP[64423][1] = 0
+			-- Horde East Gate
+			elseif msg == L.HordeGateEastDestroyed or msg == L.HordeGateEastDestroyedTC then
+				trackedUnits[64424] = L.HordeGateEastDestroyedTex
+				syncTrackedUnits[64424] = 0
+				gatesHP[64424][1] = 0
+			-- Alliance East Gate
+			elseif msg == L.AllianceGateEastDestroyed or msg == L.AllianceGateEastDestroyedTC then
+				trackedUnits[64626] = L.AllianceGateEastDestroyedTex
+				syncTrackedUnits[64626] = 0
+				gatesHP[64626][1] = 0
+			-- Alliance West Gate
+			elseif msg == L.AllianceGateWestDestroyed or msg == L.AllianceGateWestDestroyedTC then
+				trackedUnits[64627] = L.AllianceGateWestDestroyedTex
+				syncTrackedUnits[64627] = 0
+				gatesHP[64627][1] = 0
+			-- Alliance Front Gate
+			elseif msg == L.AllianceGateFrontDestroyed or msg == L.AllianceGateFrontDestroyedTC then
+				trackedUnits[64628] = L.AllianceGateFrontDestroyedTex
+				syncTrackedUnits[64628] = 0
+				gatesHP[64628][1] = 0
+			end
 		end
 	end
 end

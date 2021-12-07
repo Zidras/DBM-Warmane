@@ -65,10 +65,20 @@ L:SetMiscLocalization({
 	Vulnerable1			= "Персонажи, несущие флаг, стали более уязвимы!",
 	Vulnerable2			= "Персонажи, несущие флаг, стали еще более уязвимы!",
 	-- Gates
-	GatesHealthFrame	= "Поврежденные ворота",
-	HordeGate			= "Врата крепости Орды",
-	AllianceGate		= "Врата крепости Альянса",
-	-- Gates Emotes
+	GatesHealthFrame				= "Поврежденные ворота",
+	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Главные врата",
+	HordeGateFrontDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Главные врата",
+	HordeGateWest					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Западные врата",
+	HordeGateWestDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Западные врата",
+	HordeGateEast					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Восточные врата",
+	HordeGateEastDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Восточные врата",
+	AllianceGateFront				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Главные врата",
+	AllianceGateFrontDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Главные врата",
+	AllianceGateWest				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Западные врата",
+	AllianceGateWestDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Западные врата",
+	AllianceGateEast				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Восточные врата",
+	AllianceGateEastDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Восточные врата",
+	-- Strands of the Ancients Gates emotes
 	GreenEmeraldAttacked			= "Врата Зеленого Изумруда подверглись нападению!",
 	GreenEmeraldDestroyed			= "Врата Зеленого Изумруда разрушены!",
 	BlueSapphireAttacked			= "Врата Синего Сапфира подверглись нападению!",
@@ -81,6 +91,13 @@ L:SetMiscLocalization({
 	YellowMoonDestroyed				= "Врата Желтой Луны разрушены!",
 	ChamberAncientRelicsAttacked	= "Крепость атакуют!",
 	ChamberAncientRelicsDestroyed	= "В стене пролом! Реликвии грозит опасность!",
+	-- Isle of Conquest Gates CHAT_MSG_BG_SYSTEM_NEUTRAL messages
+	HordeGateFrontDestroyedTC		= "Главные врата крепости Орды разрушены!",
+	HordeGateWestDestroyedTC		= "Западные врата крепости Орды разрушены!",
+	HordeGateEastDestroyedTC		= "Восточные врата крепости Орды разрушены!",
+	AllianceGateFrontDestroyedTC	= "Главные врата крепости Альянса разрушены!",
+	AllianceGateWestDestroyedTC		= "Западные врата крепости Альянса разрушены!",
+	AllianceGateEastDestroyedTC		= "Восточные врата крепости Альянса разрушены!",
 })
 
 ----------------------

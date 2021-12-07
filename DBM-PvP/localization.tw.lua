@@ -67,10 +67,20 @@ L:SetMiscLocalization({
 	Vulnerable1			= "旗幟攜帶者變得脆弱了！",
 	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！",
 	-- Gates
-	GatesHealthFrame	= "受損的大門",
-	HordeGate			= "部落大門",
-	AllianceGate		= "聯盟大門",
-	-- Gates Emotes
+	GatesHealthFrame				= "受損的大門",
+	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t 前門",
+	HordeGateFrontDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t 前門",
+	HordeGateWest					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t 西門",
+	HordeGateWestDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t 西門",
+	HordeGateEast					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t 東門",
+	HordeGateEastDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t 東門",
+	AllianceGateFront				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t 前門",
+	AllianceGateFrontDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t 前門",
+	AllianceGateWest				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t 西門",
+	AllianceGateWestDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t 西門",
+	AllianceGateEast				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t 東門",
+	AllianceGateEastDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t 東門",
+	-- Strands of the Ancients Gates emotes
 	GreenEmeraldAttacked			= "碧翠之門遭到攻擊!",
 	GreenEmeraldDestroyed			= "碧翠之門被摧毀!",
 	BlueSapphireAttacked			= "藍晶之門遭到攻擊!",
@@ -83,6 +93,13 @@ L:SetMiscLocalization({
 	YellowMoonDestroyed				= "黃月之門被摧毀!",
 	ChamberAncientRelicsAttacked	= "聖物間遭受攻擊!",
 	ChamberAncientRelicsDestroyed	= "聖物間已經被攻破了!泰坦聖物十分危急!",
+	-- Isle of Conquest Gates CHAT_MSG_BG_SYSTEM_NEUTRAL messages
+	HordeGateFrontDestroyedTC		= "部落要塞的正門已經被摧毀了!",
+	HordeGateWestDestroyedTC		= "部落要塞的西門已經被摧毀了!",
+	HordeGateEastDestroyedTC		= "部落要塞的東門已經被摧毀了!",
+	AllianceGateFrontDestroyedTC	= "聯盟要塞的正門已經被摧毀了!",
+	AllianceGateWestDestroyedTC		= "聯盟要塞的西門已經被摧毀了!",
+	AllianceGateEastDestroyedTC		= "聯盟要塞的東門已經被摧毀了!",
 })
 
 ----------------------

@@ -33,7 +33,12 @@ do
 			generalMod:SubscribeAssault(zoneID, 5)
 			generalMod:TrackHealth(34922, "HordeBoss")
 			generalMod:TrackHealth(34924, "AllianceBoss")
-			-- TODO: Add gate health
+			generalMod:TrackHealth(64422, "HordeGateFront", 600000)		-- Horde Front Gate
+			generalMod:TrackHealth(64423, "HordeGateWest", 600000)		-- Horde West Gate
+			generalMod:TrackHealth(64424, "HordeGateEast", 600000)		-- Horde East Gate
+			generalMod:TrackHealth(64626, "AllianceGateEast", 600000)	-- Alliance East Gate
+			generalMod:TrackHealth(64627, "AllianceGateWest", 600000)	-- Alliance West Gate
+			generalMod:TrackHealth(64628, "AllianceGateFront", 600000)	-- Alliance Front Gate
 		elseif bgzone and zoneID ~= 541 then
 			bgzone = false
 			self:UnregisterShortTermEvents()

@@ -65,10 +65,20 @@ L:SetMiscLocalization({
 	Vulnerable1			= "약해져서",
 	Vulnerable2			= "약해져서",
 	-- Gates
-	GatesHealthFrame	= "피해 입은 관문",
-	HordeGate			= "호드 관문",
-	AllianceGate		= "얼라이언스 관문",
-	-- Gates Emotes
+	GatesHealthFrame				= "피해 입은 관문",
+	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t 정문",
+	HordeGateFrontDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t 정문",
+	HordeGateWest					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t 서문",
+	HordeGateWestDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t 서문",
+	HordeGateEast					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t 동문",
+	HordeGateEastDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t 동문",
+	AllianceGateFront				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t 정문",
+	AllianceGateFrontDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t 정문",
+	AllianceGateWest				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t 서문",
+	AllianceGateWestDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t 서문",
+	AllianceGateEast				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t 동문",
+	AllianceGateEastDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t 동문",
+	-- Strands of the Ancients Gates emotes
 	GreenEmeraldAttacked			= "초록 에메랄드 관문이 공격받고 있습니다!",
 	GreenEmeraldDestroyed			= "초록 에메랄드 관문이 무너졌습니다!",
 	BlueSapphireAttacked			= "푸른 사파이어 관문이 공격받고 있습니다!",
@@ -81,6 +91,13 @@ L:SetMiscLocalization({
 	YellowMoonDestroyed				= "노란 달 관문이 무너졌습니다!",
 	ChamberAncientRelicsAttacked	= "유물의 방이 공격받고 있습니다!",
 	ChamberAncientRelicsDestroyed	= "유물의 방 방어선이 깨졌습니다! 티탄 유물이 위험합니다!",
+	-- Isle of Conquest Gates CHAT_MSG_BG_SYSTEM_NEUTRAL messages
+	HordeGateFrontDestroyedTC		= "호드 요새 정문이 파괴되었습니다!",
+	HordeGateWestDestroyedTC		= "호드 요새 서문이 파괴되었습니다!",
+	HordeGateEastDestroyedTC		= "호드 요새 동문이 파괴되었습니다!",
+	AllianceGateFrontDestroyedTC	= "얼라이언스 요새 정문이 파괴되었습니다!",
+	AllianceGateWestDestroyedTC		= "얼라이언스 요새 서문이 파괴되었습니다!",
+	AllianceGateEastDestroyedTC		= "얼라이언스 요새 동문이 파괴되었습니다!",
 })
 
 ----------------------
