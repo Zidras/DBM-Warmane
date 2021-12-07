@@ -29,11 +29,12 @@ local soundFissure			= mod:NewSound(27810)
 local specwarnfissure		= mod:NewSpecialWarning("fissure")
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnManaClose   		= mod:NewSpecialWarning("manaNear")
-local warnManaOnYou   		= mod:NewSpecialWarningYou(27819)
 local warnChainsTargets		= mod:NewTargetAnnounce(28410, 2)
 local warnMindControl 		= mod:NewSoonAnnounce(28410, 4)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
+local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
+local yellManaBomb			= mod:NewShortYell(27819)
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808)
 local timerPhase2			= mod:NewTimer(227, "TimerPhase2")
@@ -130,7 +131,7 @@ function mod:SPELL_SUMMON(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(27808) then -- Frost Blast
+	if args.spellId == 27808 then -- Frost Blast
 		table.insert(frostBlastTargets, args.destName)
 		self:UnscheduleMethod("AnnounceBlastTargets")
 		self:ScheduleMethod(0.5, "AnnounceBlastTargets")
@@ -139,13 +140,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		blastTimer:Start()
 		frostBlastCD:Start()
-	elseif args:IsSpellID(27819) then -- Detonate Mana
+	elseif args.spellId == 27819 then -- Detonate Mana
 		warnMana:Show(args.destName)
 		self:SetIcon(args.destName, 8, 5.5)
 		if self:GetDetonateRange(args.destName) <= 12 then
-			if UnitName("player") == args.destName then
-				warnManaOnYou:Show()
-				SendChatMessage("Взрыв маны на мне!","SAY")
+			if args:IsPlayer() then
+				specWarnManaBomb:Show()
+				specWarnManaBomb:Play("scatter")
+				yellManaBomb:Yell()
 			else
 				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
 				warnManaClose:Show()
