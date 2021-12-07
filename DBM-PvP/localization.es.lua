@@ -65,10 +65,20 @@ L:SetMiscLocalization({
 	Vulnerable1			= "¡Los portadores de las banderas se han vuelto vulnerables a los ataques!",
 	Vulnerable2			= "¡Los portadores de las banderas se han vuelto más vulnerables a los ataques!",
 	-- Gates
-	GatesHealthFrame	= "Puertas dañadas",
-	HordeGate			= "Puerta de la Horda",
-	AllianceGate		= "Puerta de la Alianza",
-	-- Gates Emotes
+	GatesHealthFrame				= "Puertas dañadas",
+	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Puerta Principal",
+	HordeGateFrontDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Puerta Principal",
+	HordeGateWest					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Puerta Oeste",
+	HordeGateWestDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Puerta Oeste",
+	HordeGateEast					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Puerta Este",
+	HordeGateEastDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Puerta Este",
+	AllianceGateFront				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Puerta Principal",
+	AllianceGateFrontDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Puerta Principal",
+	AllianceGateWest				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Puerta Oeste",
+	AllianceGateWestDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Puerta Oeste",
+	AllianceGateEast				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Puerta Este",
+	AllianceGateEastDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Puerta Este",
+	-- Strands of the Ancients Gates emotes
 	GreenEmeraldAttacked			= "¡Están atacando la Puerta de la Esmeralda Verde!",
 	GreenEmeraldDestroyed			= "¡La Puerta de la Esmeralda Verde ha sido destruida!",
 	BlueSapphireAttacked			= "¡Están atacando la Puerta del Zafiro Azul!",
@@ -81,6 +91,13 @@ L:SetMiscLocalization({
 	YellowMoonDestroyed				= "¡La Puerta de la Luna Amarilla ha sido destruida!",
 	ChamberAncientRelicsAttacked	= "¡Están atacando la Cámara de las Reliquias!",
 	ChamberAncientRelicsDestroyed	= "¡Han atravesado la fortaleza! ¡La reliquia de titán es vulnerable!",
+	-- Isle of Conquest Gates CHAT_MSG_BG_SYSTEM_NEUTRAL messages
+	HordeGateFrontDestroyedTC		= "La puerta principal de la fortaleza de la Horda ha sido destruida.",
+	HordeGateWestDestroyedTC		= "La puerta oeste de la fortaleza de la Horda ha sido destruida.",
+	HordeGateEastDestroyedTC		= "La puerta este de la fortaleza de la Horda ha sido destruida.",
+	AllianceGateFrontDestroyedTC	= "La puerta principal de la fortaleza de la Alianza ha sido destruida.",
+	AllianceGateWestDestroyedTC		= "La puerta oeste de la fortaleza de la Alianza ha sido destruida.",
+	AllianceGateEastDestroyedTC		= "La puerta este de la fortaleza de la Alianza ha sido destruida.",
 })
 
 ----------------------

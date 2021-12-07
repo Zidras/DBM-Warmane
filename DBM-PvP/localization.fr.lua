@@ -65,10 +65,20 @@ L:SetMiscLocalization({
 	Vulnerable1			= "Le porteur du drapeau est vulnérable aux attaques!",
 	Vulnerable2			= "Le porteur du drapeau devient encore plus vulnérable aux attaques!",
 	-- Gates
-	GatesHealthFrame	= "Portes endommagées",
-	HordeGate			= "Porte de la Horde",
-	AllianceGate		= "Porte de l'Alliance",
-	-- Gates Emotes
+	GatesHealthFrame				= "Portes endommagées",
+	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Porte principale",
+	HordeGateFrontDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Porte principale",
+	HordeGateWest					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Porte de l'Ouest",
+	HordeGateWestDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Porte de l'Ouest",
+	HordeGateEast					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Porte de l'Est",
+	HordeGateEastDestroyedTex		= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:163:179:92:107|t Porte de l'Est",
+	AllianceGateFront				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Porte principale",
+	AllianceGateFrontDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Porte principale",
+	AllianceGateWest				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Porte de l'Ouest",
+	AllianceGateWestDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Porte de l'Ouest",
+	AllianceGateEast				= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:181:197:92:107|t Porte de l'Est",
+	AllianceGateEastDestroyedTex	= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:217:233:92:107|t Porte de l'Est",
+	-- Strands of the Ancients Gates emotes
 	GreenEmeraldAttacked			= "La porte de l'Émeraude verte est attaquée !",
 	GreenEmeraldDestroyed			= "La porte de l'Émeraude verte est détruite !",
 	BlueSapphireAttacked			= "La porte du Saphir bleu est attaquée !",
@@ -81,6 +91,13 @@ L:SetMiscLocalization({
 	YellowMoonDestroyed				= "La porte de la Lune jaune est détruite !",
 	ChamberAncientRelicsAttacked	= "La salle de la relique est attaquée !",
 	ChamberAncientRelicsDestroyed	= "La salle est envahie ! La relique des titans est vulnérable !",
+	-- Isle of Conquest Gates CHAT_MSG_BG_SYSTEM_NEUTRAL messages
+	HordeGateFrontDestroyedTC		= "La grande porte du donjon de la Horde est détruite !",
+	HordeGateWestDestroyedTC		= "La porte ouest du donjon de la Horde est détruite !",
+	HordeGateEastDestroyedTC		= "La porte est du donjon de la Horde est détruite !",
+	AllianceGateFrontDestroyedTC	= "La grande porte du donjon de l'Alliance est détruite !",
+	AllianceGateWestDestroyedTC		= "La porte ouest du donjon de l'Alliance est détruite !",
+	AllianceGateEastDestroyedTC		= "La porte est du donjon de l'Alliance est détruite !",
 })
 
 ----------------------
