@@ -15,8 +15,7 @@ mod:RegisterEvents(
 do
 	local bgzone = false
 
-	local function Init(self)
-		SetMapToCurrentZone()
+	local function Init()
 		local zoneID = GetCurrentMapAreaID()
 		if not bgzone and zoneID == 513 then
 			bgzone = true
@@ -30,13 +29,12 @@ do
 			generalMod:TrackHealth(61477, "ChamberAncientRelics", 10000)
 		elseif bgzone and zoneID ~= 513 then
 			bgzone = false
-			self:Stop()
 			DBM:GetModByName("PvPGeneral"):StopTrackHealth()
 		end
 	end
 
 	function mod:ZONE_CHANGED_NEW_AREA()
-		Init(self)
+		Init()
 	end
 	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
 	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA

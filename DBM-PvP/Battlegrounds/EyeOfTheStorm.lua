@@ -13,8 +13,8 @@ mod:RemoveOption("HealthFrame")
 
 do
 	local bgzone = false
+
 	local function Init()
-		SetMapToCurrentZone()
 		local zoneID = GetCurrentMapAreaID()
 		if not bgzone and zoneID == 483 then
 			bgzone = true

@@ -16,7 +16,6 @@ do
 	local bgzone = false
 
 	local function Init()
-		SetMapToCurrentZone()
 		local zoneID = GetCurrentMapAreaID()
 		if not bgzone and zoneID == 462 then
 			bgzone = true

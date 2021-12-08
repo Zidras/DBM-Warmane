@@ -993,7 +993,13 @@ do
 			self.shortTermRegisterEvents = {}
 		end
 		for k, v in pairs(_shortTermRegisterEvents) do
-			self.shortTermRegisterEvents[k] = v
+			if #self.shortTermRegisterEvents ~= 0 then
+				if not checkEntry(self.shortTermRegisterEvents, v) then -- check to prevent event duplication
+					tinsert(self.shortTermRegisterEvents, v) -- use tinsert instead to achieve numeric order for checkEntry ipairs to work
+				end
+			else
+				self.shortTermRegisterEvents[k] = v
+			end
 		end
 		-- End fix
 	end
