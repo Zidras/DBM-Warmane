@@ -333,7 +333,7 @@ do
 				if trackedUnits[cid] and not syncs[cid] then
 					syncs[cid] = true
 					syncCount = syncCount + 1
-					SendAddonMessage("DBM-PvP", format("%s:%.1f", cid, UnitHealth(target) / UnitHealthMax(target) * 100), "BATTLEGROUND")
+					SendAddonMessage("DBM-PvP", format("%s:%.1f:%d", cid, UnitHealth(target) / UnitHealthMax(target) * 100, UnitHealth(target)), "BATTLEGROUND")
 				end
 			end
 		end
@@ -475,7 +475,7 @@ do
 			DBM:Debug("GatesHP table synced. "..gatesHP[cId][3]..", cId: "..cid..", now has "..gatesHP[cId][1].." HP")
 		end
 
-		if syncTrackedUnits[cId] and tonumber(syncTrackedUnits[cId]) < hpPercN then
+		if gatesHP[cId] and syncTrackedUnits[cId] and tonumber(syncTrackedUnits[cId]) < hpPercN then
 			--TO DO: sync gates on BG join
 			DBM:Debug(sender.." is not synced and is sending wrong information about cId: "..cid..". Received ".. hpPerc.."% and "..hpRaw.." HP, while cached table already having ".. syncTrackedUnits[cId])
 		else
