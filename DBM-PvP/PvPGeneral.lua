@@ -232,19 +232,42 @@ end
 
 do
 	local pairs = pairs
-	local IsInInstance, SendAddonMessage, SetMapToCurrentZone = IsInInstance, SendAddonMessage, SetMapToCurrentZone
-	local bgzone = false
+	local IsInInstance, SendAddonMessage, GetCurrentMapAreaID = IsInInstance, SendAddonMessage, GetCurrentMapAreaID
+	local bgzone, currentBGzone, lastBGzone = false, 0, 0
 
 	local function Init(self)
 		local _, instanceType = IsInInstance()
 		if instanceType == "pvp" or instanceType == "arena" then
+			if bgzone and currentBGzone ~= lastBGzone then
+				lastBGzone = GetCurrentMapAreaID()
+				if hasWarns then
+					DBM:AddMsg("DBM-PvP missing data, please report to our discord.")
+					DBM:AddMsg("Battleground: " .. (subscribedMapID or "Unknown"))
+					for k, v in pairs(warnAtEnd) do
+						DBM:AddMsg(v .. "x " .. k)
+					end
+					DBM:AddMsg("Thank you for making DBM-PvP a better addon.")
+				end
+				self:UnregisterShortTermEvents()
+				self:Stop()
+				warnAtEnd = {}
+				hasWarns = false
+				HideEstimatedPoints()
+				HideBasesToWin()
+				subscribedMapID = nil
+				prevAScore, prevHScore = 0, 0
+				if mod.Options.HideBossEmoteFrame then
+					DBM:HideBlizzardEvents(0, true)
+				end
+				TT:OnEvent("PLAYER_ENTERING_WORLD")
+			end
 			if not bgzone then
 				SendAddonMessage("DBMv4-H", "", "BATTLEGROUND")
 				self:Schedule(3, DBM.RequestTimers, DBM)
-				SetMapToCurrentZone()
 				if self.Options.HideBossEmoteFrame then
 					DBM:HideBlizzardEvents(1, true)
 				end
+				lastBGzone = GetCurrentMapAreaID()
 			end
 			bgzone = true
 		elseif bgzone then
@@ -273,7 +296,8 @@ do
 	end
 
 	function mod:ZONE_CHANGED_NEW_AREA()
-		self:Schedule(0.5, Init, self)
+		currentBGzone = GetCurrentMapAreaID()
+		Init(self)
 	end
 	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
 	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
@@ -323,9 +347,7 @@ do
 		end
 		if gateHP and self.Options.ShowGatesHealth and not gatesEventsRegistered then
 			gatesEventsRegistered = true
-			self:UnregisterShortTermEvents() -- Apparently I can't have register multiple times, CHAT_MSG_ADDON was getting duplicated on each BG.
 			self:RegisterShortTermEvents(
-				"CHAT_MSG_ADDON",
 				"SPELL_BUILDING_DAMAGE",
 				"CHAT_MSG_RAID_BOSS_EMOTE"
 			)
@@ -356,7 +378,6 @@ do
 			twipe(gatesHP)
 			gatesEventsRegistered = false
 		end
-		self:UnregisterShortTermEvents()
 		DBM.InfoFrame:Hide()
 	end
 
