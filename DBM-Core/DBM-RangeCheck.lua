@@ -1120,9 +1120,20 @@ do
 
 				local playerX, playerY = GetPlayerMapPosition("player")
 				if playerX == 0 and playerY == 0 then
-					setFrames(self, "text")
-					DBM:AddMsg("Radar is unavailable in this location: GetPlayerMapPosition(\"player\") = 0, 0")
-				return end		-- Somehow we can't get the correct position?
+					SetMapToCurrentZone() -- refreshes zone so that radar frame can properly check player position
+					playerX, playerY = GetPlayerMapPosition("player")
+					if playerX == 0 and playerY == 0 then
+						DBM:Schedule(1, function() -- attempt a second time after 1 second to recache zone
+							SetMapToCurrentZone()
+							playerX, playerY = GetPlayerMapPosition("player")
+							if playerX == 0 and playerY == 0 then
+								setFrames(self, "text")
+								DBM:AddMsg("Radar is unavailable in this location: GetPlayerMapPosition(\"player\") = 0, 0")
+								return
+							end
+						end)
+					end
+				end
 
 				for i=1, numPlayers do
 					local uId = unitID:format(i)

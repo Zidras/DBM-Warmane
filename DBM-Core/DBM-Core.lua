@@ -1359,6 +1359,8 @@ do
 			self:RegisterEvents(
 				"COMBAT_LOG_EVENT_UNFILTERED",
 				"ZONE_CHANGED_NEW_AREA",
+				"ZONE_CHANGED_INDOORS",
+				"ZONE_CHANGED",
 				"RAID_ROSTER_UPDATE",
 				"PARTY_MEMBERS_CHANGED",
 				"CHAT_MSG_ADDON",
@@ -3399,6 +3401,12 @@ do
 			DBM:Debug("Scheduled FixCLEU")
 		end
 	end
+
+	function DBM:ZONE_CHANGED_INDOORS()
+		SetMapToCurrentZone()
+		self:Debug("Indoor/SubZone changed on zoneID: "..GetCurrentMapAreaID().." and subZone: "..GetSubZoneText())
+	end
+	DBM.ZONE_CHANGED = DBM.ZONE_CHANGED_INDOORS
 
 	function DBM:LoadModsOnDemand(checkTable, checkValue)
 		self:Debug("LoadModsOnDemand fired")
