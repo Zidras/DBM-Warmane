@@ -672,7 +672,7 @@ do
 			[3] = 2,
 			[4] = 5
 		},
-		[5] = { -- Arathi Basin
+		[5] = { -- Arathi Basin/Isle of Conquest
 			[0] = 1e-300,
 			[1] = 10/12,
 			[2] = 10/9,
@@ -891,7 +891,7 @@ do
 					end
 				end
 			end
-			if subscribedMapID == 462 or subscribedMapID == 541 then -- Arathi Basin | Eye of the Storm
+			if subscribedMapID == 462 or subscribedMapID == 483 then -- Arathi Basin | Eye of the Storm
 				for _, v in pairs(objectivesStore) do
 					if icons[v] == State.ALLY_CONTROLLED then
 						allyBases = allyBases + 1
