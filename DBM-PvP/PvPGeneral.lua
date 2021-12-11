@@ -106,26 +106,27 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 	end
 end)
 
-local CreateFrame = CreateFrame
-local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText
+local CreateFrame, GetCurrentMapAreaID = CreateFrame, GetCurrentMapAreaID
+local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText, flagFrame1, flagFrame2, flagFrame1Text, flagFrame2Text
+local allyFlag, hordeFlag
 
 local function ShowEstimatedPoints()
 	if AlwaysUpFrame1 and AlwaysUpFrame2 then
 		if not scoreFrame1 then
-			scoreFrame1 = CreateFrame("Frame", nil, AlwaysUpFrame1)
+			scoreFrame1 = CreateFrame("Frame", "DBM_ScoreFrame1", AlwaysUpFrame1)
 			scoreFrame1:SetHeight(10)
-			scoreFrame1:SetWidth(100)
+			scoreFrame1:SetWidth(35)
 			scoreFrame1:SetPoint("LEFT", "AlwaysUpFrame1Text", "RIGHT", 4, 0)
-			scoreFrame1Text = scoreFrame1:CreateFontString(nil, nil, "GameFontNormalSmall")
+			scoreFrame1Text = scoreFrame1:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
 			scoreFrame1Text:SetAllPoints(scoreFrame1)
 			scoreFrame1Text:SetJustifyH("LEFT")
 		end
 		if not scoreFrame2 then
-			scoreFrame2 = CreateFrame("Frame", nil, AlwaysUpFrame2)
+			scoreFrame2 = CreateFrame("Frame", "DBM_ScoreFrame2", AlwaysUpFrame2)
 			scoreFrame2:SetHeight(10)
-			scoreFrame2:SetWidth(100)
+			scoreFrame2:SetWidth(35)
 			scoreFrame2:SetPoint("LEFT", "AlwaysUpFrame2Text", "RIGHT", 4, 0)
-			scoreFrame2Text = scoreFrame2:CreateFontString(nil, nil, "GameFontNormalSmall")
+			scoreFrame2Text = scoreFrame2:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
 			scoreFrame2Text:SetAllPoints(scoreFrame2)
 			scoreFrame2Text:SetJustifyH("LEFT")
 		end
@@ -133,6 +134,79 @@ local function ShowEstimatedPoints()
 		scoreFrame1:Show()
 		scoreFrame2Text:SetText("")
 		scoreFrame2:Show()
+	end
+end
+
+local function ShowFlagDisplay()
+	if (scoreFrame1Text and scoreFrame2Text) or AlwaysUpFrame2DynamicIconButton or AlwaysUpFrame3DynamicIconButton then
+
+		if not flagFrame1 then
+			if GetCurrentMapAreaID() == 444 and AlwaysUpFrame2DynamicIconButton then -- WG specific
+				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", AlwaysUpFrame2DynamicIconButton)
+				flagFrame1:SetPoint("LEFT", "AlwaysUpFrame2DynamicIconButton", "RIGHT", 4, 0)
+			elseif scoreFrame1 then
+				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", scoreFrame1)
+				flagFrame1:SetPoint("LEFT", "DBM_ScoreFrame1Text", "RIGHT", 4, 0)
+			elseif AlwaysUpFrame1 then
+				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", AlwaysUpFrame1)
+				flagFrame1:SetPoint("LEFT", "AlwaysUpFrame1Text", "RIGHT", 4, 0)
+			end
+			flagFrame1:SetHeight(10)
+			flagFrame1:SetWidth(100)
+			flagFrame1Text = flagFrame1:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
+			flagFrame1Text:SetAllPoints(flagFrame1)
+			flagFrame1Text:SetJustifyH("LEFT")
+		end
+		if not flagFrame2 then
+			if GetCurrentMapAreaID() == 444 and AlwaysUpFrame3DynamicIconButton then -- WG specific
+				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", AlwaysUpFrame3DynamicIconButton)
+				flagFrame2:SetPoint("LEFT", "AlwaysUpFrame3DynamicIconButton", "RIGHT", 4, 0)
+			elseif scoreFrame2 then
+				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", scoreFrame2)
+				flagFrame2:SetPoint("LEFT", "DBM_ScoreFrame2Text", "RIGHT", 4, 0)
+			elseif AlwaysUpFrame2 then
+				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", AlwaysUpFrame2)
+				flagFrame2:SetPoint("LEFT", "AlwaysUpFrame2Text", "RIGHT", 4, 0)
+			end
+			flagFrame2:SetHeight(10)
+			flagFrame2:SetWidth(100)
+			flagFrame2Text = flagFrame2:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
+			flagFrame2Text:SetAllPoints(flagFrame2)
+			flagFrame2Text:SetJustifyH("LEFT")
+		end
+		flagFrame1Text:SetText("")
+		flagFrame1:Show()
+		flagFrame2Text:SetText("")
+		flagFrame2:Show()
+	end
+end
+
+local function HideFlagDisplay()
+	if flagFrame1 and flagFrame2 then
+		if flagFrame1Text then
+			flagFrame1Text:SetText("")
+			flagFrame1 = nil
+			print("f1", flagFrame1 )
+		end
+		if flagFrame2Text then
+			flagFrame2Text:SetText("")
+			flagFrame2 = nil
+			print("f2", flagFrame2 )
+		end
+	end
+end
+
+local function UpdateFlagDisplay()
+	if allyFlag then
+		flagFrame1Text:SetText(L.Flag..": "..allyFlag)
+	else
+		flagFrame1Text:SetText("")
+	end
+
+	if hordeFlag then
+		flagFrame2Text:SetText(L.Flag..": "..hordeFlag)
+	else
+		flagFrame2Text:SetText("")
 	end
 end
 
@@ -180,6 +254,13 @@ mod:AddBoolOption("ShowBasesToWin", true, nil, function()
 		HideBasesToWin()
 	end
 end)
+mod:AddBoolOption("ShowFlagCarrier", true, nil, function()
+	if mod.Options.ShowFlagCarrier then
+		ShowFlagDisplay()
+	else
+		HideFlagDisplay()
+	end
+end)
 
 local getGametime, updateGametime
 do
@@ -224,6 +305,9 @@ function mod:SubscribeAssault(mapID, objectsCount)
 end
 
 function mod:SubscribeFlags()
+	if self.Options.ShowFlagCarrier then
+		ShowFlagDisplay()
+	end
 	self:RegisterShortTermEvents(
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
 		"CHAT_MSG_BG_SYSTEM_HORDE"
@@ -232,7 +316,7 @@ end
 
 do
 	local pairs = pairs
-	local IsInInstance, SendAddonMessage, GetCurrentMapAreaID = IsInInstance, SendAddonMessage, GetCurrentMapAreaID
+	local IsInInstance, SendAddonMessage = IsInInstance, SendAddonMessage
 	local bgzone, currentBGzone, lastBGzone = false, 0, 0
 
 	local function Init(self)
@@ -254,6 +338,7 @@ do
 				hasWarns = false
 				HideEstimatedPoints()
 				HideBasesToWin()
+				HideFlagDisplay()
 				subscribedMapID = nil
 				prevAScore, prevHScore = 0, 0
 				if mod.Options.HideBossEmoteFrame then
@@ -286,6 +371,7 @@ do
 			hasWarns = false
 			HideEstimatedPoints()
 			HideBasesToWin()
+			HideFlagDisplay()
 			subscribedMapID = nil
 			prevAScore, prevHScore = 0, 0
 			if mod.Options.HideBossEmoteFrame then
@@ -487,9 +573,8 @@ end
 do
 	local gsub, smatch = string.gsub, string.match
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
-	local allyFlag, hordeFlag
 
-	local flagTimer			= mod:NewTimer(7, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
+	local flagTimer			= mod:NewTimer(8, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
 	local startTimer		= mod:NewTimer(120, "TimerStart", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01", nil, nil, nil, nil, nil, 1, 5)
 	local vulnerableTimer	= mod:NewNextTimer(60, 46392)
 	local timerShadow		= mod:NewNextTimer(90, 34709)
@@ -511,57 +596,35 @@ do
 		end
 	end
 
-	local function updateflagdisplay()
-		if scoreFrame1Text and scoreFrame2Text then
-
-			local newText
-			local oldText = scoreFrame1Text:GetText()
-			if allyFlag then
-				if not oldText or oldText == "" then
-					newText = "Flag: "..allyFlag
-				else
-					newText = gsub(oldText, "%((%d+)%).*", "%(%1%)  "..L.Flag..": "..allyFlag)
-				end
-			elseif oldText and oldText ~= "" then
-				newText = ""
-			end
-			scoreFrame1Text:SetText(newText)
-
-			newText = nil
-			oldText = scoreFrame2Text:GetText()
-			if hordeFlag then
-				if not oldText or oldText == "" then
-					newText = "Flag: "..hordeFlag
-				else
-					newText = gsub(oldText, "%((%d+)%).*", "%(%1%)  "..L.Flag..": "..hordeFlag)
-				end
-			elseif oldText and oldText ~= "" then
-				newText = ""
-			end
-			scoreFrame2Text:SetText(newText)
-		end
-	end
-
 	function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(...)
 		updateflagcarrier(self, ...)
-		if self.Options.ShowEstimatedPoints then
+		if self.Options.ShowFlagCarrier then
 			local msg = ...
-			if smatch(msg, L.FlagTaken) then
+			if smatch(msg, L.FlagTaken) then -- Eye of the Storm
 				local name = smatch(msg, L.FlagTaken)
 				if name then
 					allyFlag = name
 					hordeFlag = nil
-					updateflagdisplay()
+					UpdateFlagDisplay()
 				end
-			elseif smatch(msg, L.FlagDropped) then
+			elseif smatch(msg, L.ExprFlagPickUp) then -- Warsong Gulch
+				local _, name = smatch(msg, L.ExprFlagPickUp)
+				if name then
+					allyFlag = name
+					UpdateFlagDisplay()
+				end
+			elseif smatch(msg, L.FlagDropped) then -- Eye of the Storm
 				allyFlag = nil
 				hordeFlag = nil
-				updateflagdisplay()
-			elseif smatch(msg, L.FlagCaptured) then
+				UpdateFlagDisplay()
+			elseif smatch(msg, L.ExprFlagDropped) then -- Warsong Gulch
+				hordeFlag = nil
+				UpdateFlagDisplay()
+			elseif smatch(msg, L.FlagCaptured) or smatch(msg, L.ExprFlagCaptured) then
 				flagTimer:Start()
 				allyFlag = nil
 				hordeFlag = nil
-				updateflagdisplay()
+				UpdateFlagDisplay()
 			end
 		end
 
@@ -569,24 +632,33 @@ do
 
 	function mod:CHAT_MSG_BG_SYSTEM_HORDE(...)
 		updateflagcarrier(self, ...)
-		if self.Options.ShowEstimatedPoints then
+		if self.Options.ShowFlagCarrier then
 			local msg = ...
 			if smatch(msg, L.FlagTaken) then
 				local name = smatch(msg, L.FlagTaken)
 				if name then
 					allyFlag = nil
 					hordeFlag = name
-					updateflagdisplay()
+					UpdateFlagDisplay()
+				end
+			elseif smatch(msg, L.ExprFlagPickUp) then
+				local _, name = smatch(msg, L.ExprFlagPickUp)
+				if name then
+					hordeFlag = name
+					UpdateFlagDisplay()
 				end
 			elseif smatch(msg, L.FlagDropped) then
 				allyFlag = nil
 				hordeFlag = nil
-				updateflagdisplay()
-			elseif smatch(msg, L.FlagCaptured) then
+				UpdateFlagDisplay()
+			elseif smatch(msg, L.ExprFlagDropped) then -- Warsong Gulch
+				allyFlag = nil
+				UpdateFlagDisplay()
+			elseif smatch(msg, L.FlagCaptured) or smatch(msg, L.ExprFlagCaptured) then
 				flagTimer:Start()
 				allyFlag = nil
 				hordeFlag = nil
-				updateflagdisplay()
+				UpdateFlagDisplay()
 			end
 		end
 	end
@@ -617,10 +689,10 @@ do
 		elseif msg == L.Start15 or msg == L.Start15TC then
 			startTimer:Update(45, 60)
 			timerShadow:Schedule(15)
-		elseif self.Options.ShowEstimatedPoints and smatch(msg, L.FlagReset) then
+		elseif self.Options.ShowFlagCarrier and smatch(msg, L.FlagReset) then
 			allyFlag = nil
 			hordeFlag = nil
-			updateflagdisplay()
+			UpdateFlagDisplay()
 		-- Isle of Conquest Gates
 		elseif self.Options.ShowGatesHealth then
 			-- Horde Front Gate
@@ -899,7 +971,7 @@ do
 						hordeBases = hordeBases + 1
 					end
 				end
-				self:UpdateWinTimer(1600, tonumber(smatch((select(3, GetWorldStateUIInfo(1)) or ""), "(%d+)/1600")) or 0, tonumber(smatch((select(3, GetWorldStateUIInfo(2)) or ""), "(%d+)/1600")) or 0, allyBases, hordeBases)
+				self:UpdateWinTimer(1600, tonumber(smatch((select(3, GetWorldStateUIInfo(subscribedMapID == 483 and 2 or 1)) or ""), "(%d+)/1600")) or 0, tonumber(smatch((select(3, GetWorldStateUIInfo(subscribedMapID == 483 and 3 or 2)) or ""), "(%d+)/1600")) or 0, allyBases, hordeBases)
 			end
 		end
 	end
