@@ -144,15 +144,18 @@ local function ShowFlagDisplay()
 			if GetCurrentMapAreaID() == 444 and AlwaysUpFrame2DynamicIconButton then -- WG specific
 				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", AlwaysUpFrame2DynamicIconButton)
 				flagFrame1:SetPoint("LEFT", "AlwaysUpFrame2DynamicIconButton", "RIGHT", 4, 0)
+				DBM:Debug("DBM_FlagFrame1 anchored to AlwaysUpFrame2DynamicIconButton")
 			elseif scoreFrame1 then
 				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", scoreFrame1)
 				flagFrame1:SetPoint("LEFT", "DBM_ScoreFrame1Text", "RIGHT", 4, 0)
+				DBM:Debug("DBM_FlagFrame1 anchored to scoreFrame1")
 			elseif AlwaysUpFrame1 then
 				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", AlwaysUpFrame1)
 				flagFrame1:SetPoint("LEFT", "AlwaysUpFrame1Text", "RIGHT", 4, 0)
+				DBM:Debug("DBM_FlagFrame1 anchored to AlwaysUpFrame1")
 			end
 			flagFrame1:SetHeight(10)
-			flagFrame1:SetWidth(100)
+			flagFrame1:SetWidth(150)
 			flagFrame1Text = flagFrame1:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
 			flagFrame1Text:SetAllPoints(flagFrame1)
 			flagFrame1Text:SetJustifyH("LEFT")
@@ -161,15 +164,18 @@ local function ShowFlagDisplay()
 			if GetCurrentMapAreaID() == 444 and AlwaysUpFrame3DynamicIconButton then -- WG specific
 				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", AlwaysUpFrame3DynamicIconButton)
 				flagFrame2:SetPoint("LEFT", "AlwaysUpFrame3DynamicIconButton", "RIGHT", 4, 0)
+				DBM:Debug("DBM_FlagFrame2 anchored to AlwaysUpFrame3DynamicIconButton")
 			elseif scoreFrame2 then
 				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", scoreFrame2)
 				flagFrame2:SetPoint("LEFT", "DBM_ScoreFrame2Text", "RIGHT", 4, 0)
+				DBM:Debug("DBM_FlagFrame2 anchored to scoreFrame2")
 			elseif AlwaysUpFrame2 then
 				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", AlwaysUpFrame2)
 				flagFrame2:SetPoint("LEFT", "AlwaysUpFrame2Text", "RIGHT", 4, 0)
+				DBM:Debug("DBM_FlagFrame2 anchored to AlwaysUpFrame2")
 			end
 			flagFrame2:SetHeight(10)
-			flagFrame2:SetWidth(100)
+			flagFrame2:SetWidth(150)
 			flagFrame2Text = flagFrame2:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
 			flagFrame2Text:SetAllPoints(flagFrame2)
 			flagFrame2Text:SetJustifyH("LEFT")
@@ -196,13 +202,21 @@ end
 
 local function UpdateFlagDisplay()
 	if allyFlag then
-		flagFrame1Text:SetText(L.Flag..": "..allyFlag)
+		if GetCurrentMapAreaID() == 483 then -- EotS
+			flagFrame1Text:SetText(L.Flag..": "..allyFlag)
+		else
+			flagFrame1Text:SetText(allyFlag)
+		end
 	else
 		flagFrame1Text:SetText("")
 	end
 
 	if hordeFlag then
-		flagFrame2Text:SetText(L.Flag..": "..hordeFlag)
+		if GetCurrentMapAreaID() == 483 then -- EotS
+			flagFrame2Text:SetText(L.Flag..": "..hordeFlag)
+		else
+			flagFrame2Text:SetText(hordeFlag)
+		end
 	else
 		flagFrame2Text:SetText("")
 	end
@@ -304,7 +318,7 @@ end
 
 function mod:SubscribeFlags()
 	if self.Options.ShowFlagCarrier then
-		ShowFlagDisplay()
+		self:Schedule(0.5, ShowFlagDisplay) -- Applied 0.5s delay to give time for the game to create AlwaysUpFrame3DynamicIconButton. Added debug lines on the Flag frames creation to validate this delay is enough.
 	end
 	self:RegisterShortTermEvents(
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
@@ -569,7 +583,7 @@ do
 end
 
 do
-	local gsub, smatch = string.gsub, string.match
+	local select, gsub, smatch = select, string.gsub, string.match
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
 
 	local flagTimer			= mod:NewTimer(8, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
@@ -581,8 +595,12 @@ do
 		if not self.Options.TimerFlag then
 			return
 		end
-		if msg == L.ExprFlagCaptured or msg:match(L.ExprFlagCaptured) then
-			flagTimer:Start(23)
+		if smatch(msg, L.FlagCaptured) or smatch(msg, L.FlagCapturedTC) or (L.FlagCapturedATC and smatch(msg, L.FlagCapturedATC)) or (L.FlagCapturedHTC and smatch(msg, L.FlagCapturedHTC)) or smatch(msg, L.ExprFlagCaptured) or smatch(msg, L.ExprFlagCapturedTC) then
+			if smatch(msg, L.ExprFlagCaptured) or smatch(msg, L.ExprFlagCapturedTC) then -- Warsong Gulch
+				flagTimer:Start(20)
+			else
+				flagTimer:Start()
+			end
 			if msg:find(FACTION_ALLIANCE) or msg:find("Alliance") then -- workaround to Warmane's missing BG localizations
 				flagTimer:SetColor({r=0, g=0, b=1})
 				flagTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_02")
@@ -597,29 +615,27 @@ do
 	function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(...)
 		updateflagcarrier(self, ...)
 		if self.Options.ShowFlagCarrier then
-			local msg = ...
-			if smatch(msg, L.FlagTaken) then -- Eye of the Storm
-				local name = smatch(msg, L.FlagTaken)
-				if name then
-					allyFlag = name
+			local msg, _, _, _, name = ...
+			if smatch(msg, L.FlagTaken) or smatch(msg, L.FlagTakenTC) then -- Eye of the Storm
+				local carrier = (name ~= "" and name) or smatch(msg, L.FlagTaken) or smatch(msg, L.FlagTakenTC) -- Missng arg5 on Warmane events
+				if carrier then
+					allyFlag = carrier
 					hordeFlag = nil
 					UpdateFlagDisplay()
 				end
-			elseif smatch(msg, L.ExprFlagPickUp) then -- Warsong Gulch
-				local _, name = smatch(msg, L.ExprFlagPickUp)
+			elseif smatch(msg, L.ExprFlagPickUp) or smatch(msg, L.ExprFlagPickUpTC) or (L.ExprFlagPickUpHTC and smatch(msg, L.ExprFlagPickUpHTC)) then -- Warsong Gulch
 				if name then
 					allyFlag = name
 					UpdateFlagDisplay()
 				end
-			elseif smatch(msg, L.FlagDropped) then -- Eye of the Storm
+			elseif smatch(msg, L.FlagDropped) or smatch(msg, L.FlagDroppedTC) then -- Eye of the Storm
 				allyFlag = nil
 				hordeFlag = nil
 				UpdateFlagDisplay()
-			elseif smatch(msg, L.ExprFlagDropped) then -- Warsong Gulch
+			elseif smatch(msg, L.ExprFlagDropped) or smatch(msg, L.ExprFlagDroppedTC) or (L.ExprFlagDroppedATC and smatch(msg, L.ExprFlagDroppedATC)) or (L.ExprFlagDroppedHTC and smatch(msg, L.ExprFlagDroppedHTC)) then -- Warsong Gulch
 				hordeFlag = nil
 				UpdateFlagDisplay()
-			elseif smatch(msg, L.FlagCaptured) or smatch(msg, L.ExprFlagCaptured) then
-				flagTimer:Start()
+			elseif smatch(msg, L.FlagCaptured) or smatch(msg, L.FlagCapturedTC) or (L.FlagCapturedATC and smatch(msg, L.FlagCapturedATC)) or smatch(msg, L.ExprFlagCaptured) or smatch(msg, L.ExprFlagCapturedTC) then
 				allyFlag = nil
 				hordeFlag = nil
 				UpdateFlagDisplay()
@@ -631,29 +647,27 @@ do
 	function mod:CHAT_MSG_BG_SYSTEM_HORDE(...)
 		updateflagcarrier(self, ...)
 		if self.Options.ShowFlagCarrier then
-			local msg = ...
-			if smatch(msg, L.FlagTaken) then
-				local name = smatch(msg, L.FlagTaken)
-				if name then
+			local msg, _, _, _, name = ...
+			if smatch(msg, L.FlagTaken) or smatch(msg, L.FlagTakenTC) then -- Eye of the Storm
+				local carrier = (name ~= "" and name) or smatch(msg, L.FlagTaken) or smatch(msg, L.FlagTakenTC) -- Missng arg5 on Warmane events
+				if carrier then
 					allyFlag = nil
-					hordeFlag = name
+					hordeFlag = carrier
 					UpdateFlagDisplay()
 				end
-			elseif smatch(msg, L.ExprFlagPickUp) then
-				local _, name = smatch(msg, L.ExprFlagPickUp)
+			elseif smatch(msg, L.ExprFlagPickUp) or smatch(msg, L.ExprFlagPickUpTC) or (L.ExprFlagPickUpATC and smatch(msg, L.ExprFlagPickUpATC)) then -- Warsong Gulch
 				if name then
 					hordeFlag = name
 					UpdateFlagDisplay()
 				end
-			elseif smatch(msg, L.FlagDropped) then
+			elseif smatch(msg, L.FlagDropped) or smatch(msg, L.FlagDroppedTC) then -- Eye of the Storm
 				allyFlag = nil
 				hordeFlag = nil
 				UpdateFlagDisplay()
-			elseif smatch(msg, L.ExprFlagDropped) then -- Warsong Gulch
+			elseif smatch(msg, L.ExprFlagDropped) or smatch(msg, L.ExprFlagDroppedTC) or (L.ExprFlagDroppedATC and smatch(msg, L.ExprFlagDroppedATC)) or (L.ExprFlagDroppedHTC and smatch(msg, L.ExprFlagDroppedHTC)) then -- Warsong Gulch
 				allyFlag = nil
 				UpdateFlagDisplay()
-			elseif smatch(msg, L.FlagCaptured) or smatch(msg, L.ExprFlagCaptured) then
-				flagTimer:Start()
+			elseif smatch(msg, L.FlagCaptured) or smatch(msg, L.FlagCapturedTC) or (L.FlagCapturedHTC and smatch(msg, L.FlagCapturedHTC)) or smatch(msg, L.ExprFlagCaptured) or smatch(msg, L.ExprFlagCapturedTC) then
 				allyFlag = nil
 				hordeFlag = nil
 				UpdateFlagDisplay()
@@ -687,7 +701,7 @@ do
 		elseif msg == L.Start15 or msg == L.Start15TC then
 			startTimer:Update(45, 60)
 			timerShadow:Schedule(15)
-		elseif self.Options.ShowFlagCarrier and smatch(msg, L.FlagReset) then
+		elseif self.Options.ShowFlagCarrier and (smatch(msg, L.FlagReset) or smatch(msg, L.FlagResetTC)) then
 			allyFlag = nil
 			hordeFlag = nil
 			UpdateFlagDisplay()

@@ -54,16 +54,19 @@ L:SetMiscLocalization({
 	Start15TC			= "竞技场战斗将在十五秒后开始！",
 	BasesToWin			= "胜利需要占领资源点: %d",
 	WinBarText			= "%s 获胜",
-	-- TODO: Implement the flag carrying system
+	-- Flag carrying system
 	Flag				= "旗帜",
---	FlagReset			= "旗帜被重新放置了！",
---	FlagTaken			= "(.+) 夺走了旗帜！",
---	FlagCaptured		= " .+ ha%w+ 夺得了旗帜！",
---	FlagDropped			= "旗帜被扔掉了！",
+	FlagResetTC			= "旗帜被重新放置了。",
+	FlagTakenTC			= "(.+) 夺走了旗帜！",
+	FlagCapturedTC		= "(%w+)夺得了旗帜！",
+	FlagDroppedTC		= "旗帜被扔掉了！",
 	--
---	ExprFlagPickUp		= " (%w+) 的旗帜。被 (.+) 拔起了！",
---	ExprFlagCaptured	= "(.+) 夺取了 (%w+) 的旗帜！",
---	ExprFlagReturn		= " (%w+) 的旗帜！被 (.+) 还到了它的基地中！",
+	ExprFlagPickUpATC	= "联盟的旗帜被(.+)拔起了",
+	ExprFlagPickUpHTC	= "(.+)拾起了部落军旗！",
+	ExprFlagCapturedTC	= "(.+)获得了(%w+)军旗！",
+	ExprFlagReturnTC	= "(.+)将(%w+)军旗放回到旗座上了！",
+	ExprFlagDroppedATC	= "联盟的旗帜被(.+)丢掉了！", -- Alliance TrinityCore string was too different to use patterns
+	ExprFlagDroppedHTC	= "(.+)掉落了部落军旗！", -- Horde
 	Vulnerable1			= "旗帜携带者已变的容易受到攻击！",
 	Vulnerable2			= "旗帜携带者越来越容易受到攻击！",
 	-- Gates
