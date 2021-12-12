@@ -75,8 +75,8 @@ L:SetMiscLocalization({
 	FlagResetTC			= "The flag has been reset.",
 	FlagTaken			= "(.+) has taken the flag!",
 	FlagTakenTC			= "(.+) has taken the flag!",
-	FlagCaptured		= "The .+ ha%w+ captured the flag!",
-	FlagCapturedTC		= "The .+ ha%w+ captured the flag!",
+	FlagCaptured		= "The (%w+) have captured the flag!",
+	FlagCapturedTC		= "The (%w+) have captured the flag!",
 	FlagDropped			= "The flag has been dropped.",
 	FlagDroppedTC		= "The flag has been dropped.",
 	--
