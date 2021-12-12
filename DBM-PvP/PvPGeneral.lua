@@ -186,12 +186,10 @@ local function HideFlagDisplay()
 		if flagFrame1Text then
 			flagFrame1Text:SetText("")
 			flagFrame1 = nil
-			print("f1", flagFrame1 )
 		end
 		if flagFrame2Text then
 			flagFrame2Text:SetText("")
 			flagFrame2 = nil
-			print("f2", flagFrame2 )
 		end
 	end
 end
