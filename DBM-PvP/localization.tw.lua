@@ -54,16 +54,18 @@ L:SetMiscLocalization({
 	Start15TC			= "15秒後競技場戰鬥開始!",
 	BasesToWin			= "勝利需要基地: %d",
 	WinBarText			= "%s 勝利",
-	-- TODO: Implement the flag carrying system
+	-- Flag carrying system
 	Flag 				= "旗幟",
---	FlagReset			= "旗幟已重置！",
---	FlagTaken			= "(.+) 佔據了旗幟！",
---	FlagCaptured		= " .+ ha%w+ 佔據旗幟！",
---	FlagDropped			= "旗幟已經掉落！",
+	FlagResetTC			= "旗幟已重置。",
+	FlagTakenTC			= "(.+)已經奪走了旗幟!",
+	FlagCapturedTC		= "(%w+)已奪得旗幟!",
+	FlagDroppedTC		= "旗幟已經掉落!",
 	--
---	ExprFlagPickUp		= " (%w+) 的旗幟。被 (.+) 拔掉了！",
---	ExprFlagCaptured	= "(.+) 佔據了 (%w+) 的旗幟！",
---	ExprFlagReturn		= " (%w+) 的旗幟，被 (.+) 還到了它的基地",
+	ExprFlagPickUpATC	= "聯盟的旗幟被(.+)拔掉了!",
+	ExprFlagPickUpHTC	= "部落的旗幟被(.+)拔起了!",
+	ExprFlagCapturedTC	= "(.+)奪取了(%w+)的旗幟!",
+	ExprFlagReturnTC	= "(%w+)的旗幟被(.+)歸還到它的基地了!",
+	ExprFlagDroppedTC	= "(%w+)的旗幟被(.+)丟掉了!",
 	Vulnerable1			= "旗幟攜帶者變得脆弱了！",
 	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！",
 	-- Gates

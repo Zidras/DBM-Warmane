@@ -69,17 +69,25 @@ L:SetMiscLocalization({
 	Start15				= "Fifteen seconds until the Arena battle begins!",
 	BasesToWin			= "Bases to win: %d",
 	WinBarText			= "%s wins",
-	-- TODO: Implement the flag carrying system
+	-- Flag carrying system
 	Flag				= "Flag",
 	FlagReset			= "The flag has been reset.",
+	FlagResetTC			= "The flag has been reset.",
 	FlagTaken			= "(.+) has taken the flag!",
+	FlagTakenTC			= "(.+) has taken the flag!",
 	FlagCaptured		= "The .+ ha%w+ captured the flag!",
+	FlagCapturedTC		= "The .+ ha%w+ captured the flag!",
 	FlagDropped			= "The flag has been dropped.",
+	FlagDroppedTC		= "The flag has been dropped.",
 	--
 	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
+	ExprFlagPickUpTC	= "The (%w+) .lag was picked up by (.+)!",
 	ExprFlagCaptured	= "(.+) captured the (%w+) .lag!",
+	ExprFlagCapturedTC	= "(.+) captured the (%w+) .lag!",
 	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
+	ExprFlagReturnTC	= "The (%w+) .lag was returned to its base by (.+)!",
 	ExprFlagDropped		= "The (%w+) .lag was dropped by (.+)!",
+	ExprFlagDroppedTC	= "The (%w+) .lag was dropped by (.+)!",
 	Vulnerable1			= "The flag carriers have become vulnerable to attack!",
 	Vulnerable2			= "The flag carriers have become increasingly vulnerable to attack!",
 	-- Alterac/IsleOfConquest bosses
