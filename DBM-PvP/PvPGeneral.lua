@@ -597,7 +597,7 @@ do
 		end
 		if smatch(msg, L.FlagCaptured) or smatch(msg, L.FlagCapturedTC) or (L.FlagCapturedATC and smatch(msg, L.FlagCapturedATC)) or (L.FlagCapturedHTC and smatch(msg, L.FlagCapturedHTC)) or smatch(msg, L.ExprFlagCaptured) or smatch(msg, L.ExprFlagCapturedTC) then
 			if smatch(msg, L.ExprFlagCaptured) or smatch(msg, L.ExprFlagCapturedTC) then -- Warsong Gulch
-				flagTimer:Start(20)
+				flagTimer:Start(23)
 			else
 				flagTimer:Start()
 			end
