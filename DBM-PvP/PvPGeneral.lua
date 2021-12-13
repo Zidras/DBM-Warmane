@@ -34,6 +34,8 @@ mod:RegisterEvents(
 	"CHAT_MSG_BG_SYSTEM_NEUTRAL"
 )
 
+local vulnerableTimer	= mod:NewNextTimer(600, 46392)
+
 mod:AddBoolOption("ColorByClass", true)
 mod:AddBoolOption("HideBossEmoteFrame", false)
 mod:AddBoolOption("AutoSpirit", false)
@@ -219,6 +221,11 @@ local function UpdateFlagDisplay()
 		end
 	else
 		flagFrame2Text:SetText("")
+	end
+	if allyFlag and hordeFlag then
+		vulnerableTimer:Start()
+	else
+		vulnerableTimer:Cancel()
 	end
 end
 
@@ -588,7 +595,6 @@ do
 
 	local flagTimer			= mod:NewTimer(8, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
 	local startTimer		= mod:NewTimer(120, "TimerStart", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01", nil, nil, nil, nil, nil, 1, 5)
-	local vulnerableTimer	= mod:NewNextTimer(60, 46392)
 	local timerShadow		= mod:NewNextTimer(90, 34709)
 
 	local function updateflagcarrier(self, msg)
@@ -691,8 +697,9 @@ do
 		elseif msg == L.BgStart30TC or msg == L.BgStart30Alterac or msg == L.BgStart30AlteracTC or msg == L.BgStart30Arathi or msg == L.BgStart30EotS or msg == L.BgStart30IoConquest or msg == L.BgStart30SotA or msg == L.BgStart30SotA2 or msg == L.BgStart30SotA2TC or msg == L.BgStart30Warsong or msg == L.BgStart30WarsongTC then
 			startTimer:Update(90, 120)
 			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
-		elseif msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2) then
-			vulnerableTimer:Start()
+		elseif msg == L.Vulnerable1 or msg:find(L.Vulnerable1) then
+			vulnerableTimer:Start(300)
+			vulnerableTimer:UpdateIcon(46393)
 		-- Arenas
 		elseif msg == L.Start60 or msg == L.Start60TC then
 			startTimer:Start(60)
