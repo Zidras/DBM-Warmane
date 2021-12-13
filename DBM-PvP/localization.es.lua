@@ -53,7 +53,7 @@ L:SetMiscLocalization({
 	Start30TC			= "¡Treinta segundos hasta que comience la batalla de arena!",
 	Start15TC			= "¡Quince segundos para que comience la batalla de arena!",
 	BasesToWin			= "Bases necesarias para ganar: %d",
-	WinBarText			= "%s ganara en",
+	WinBarText			= "%s ganará en",
 	-- Flag carrying system
 	Flag				= "Bandera",
 	FlagResetTC			= "La bandera se ha restablecido.",
