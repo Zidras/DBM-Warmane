@@ -24,7 +24,7 @@ L:SetOptionLocalization({
 	HideBossEmoteFrame	= "Ocultar marco de jefe de banda y botón de ciudadela en campos de batalla",
 	ShowBasesToWin		= "Mostrar bases para ganar",
 	ShowEstimatedPoints	= "Mostrar recursos estimados a ganar",
-	ShowFlagCarrier		= "Mostrar por donde va la bandera",
+	ShowFlagCarrier		= "Mostrar el nombre del portador de la bandera",
 	ShowGatesHealth		= "Mostrar salud de puertas dañadas (¡puede dar resultados erróneos al unirse a una batalla en curso!)",
 	ShowRelativeGameTime= "Llene el temporizador de victorias en relación con la hora de inicio del campo de batalla (si está deshabilitado, la barra siempre se ve llena)",
 	TimerCap			= "Mostrar tiempo que tarda en conquistar",
