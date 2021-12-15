@@ -119,7 +119,7 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Montre la fenêtre de portée (8 Mètres)",
-	AnnounceSporeIcons	= "Annonce les icônnes pour les cibles de $spell:69279 au chat de raid<br/>(nécessite le raid lead)",
+	AnnounceSporeIcons	= "Annonce les icônes pour les cibles de $spell:69279 au chat de raid<br/>(nécessite le raid lead)",
 	AchievementCheck	= "Annonce l'échec du haut-fait 'Pénurie de vaccins' au raid<br/>(nécessite un statut promu)"
 }
 
@@ -248,7 +248,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Montre une timer pour voir quand Valithria ouvre des portails.",
 	TimerPortalsClose			= "Afficher le timer lorsque Portail cauchemardesque est fermé",
 	TimerBlazingSkeleton		= "Afficher le timer pour l'apparition du prochain Squelette flamboyant",
-	TimerAbom					= "Afficher le timer pour l'apparition du Abomination gloutonne (Expérimental)"
+	TimerAbom					= "Afficher le timer pour l'apparition de l'Abomination gloutonne (Expérimental)"
 }
 
 L:SetMiscLocalization{
@@ -281,11 +281,11 @@ L:SetOptionLocalization{
 	WarnGroundphaseSoon			= "Montre une pré-alerte pour la phase au sol",
 	TimerNextAirphase			= "Montre un timer pour la prochaine phase dans les airs",
 	TimerNextGroundphase		= "Montre un timer pour la prochaine phase au sol",
-	AnnounceFrostBeaconIcons	= "Annonce les icones pour les cibles de $spell:70126 dans le chat de raid (requires announce to be enabled and leader/promoted status)",
+	AnnounceFrostBeaconIcons	= "Annonce les icônes pour les cibles de $spell:70126 dans le chat de raid (requires announce to be enabled and leader/promoted status)",
 	ClearIconsOnAirphase		= "Retire toutes les icones avant la phase d'envol",
 	AssignWarnDirectionsCount	= "Attribuez des directions aux cibles $spell:70126 et comptez sur la phase 2",
 	AchievementCheck			= "Annonce les alertes du haut-fait 'Tout ce que vous pouvez rafler' au raid<br/>(nécessite un statut promu)",
-	RangeFrame					= "Montre la fenêtre de portée (10 normal, 20 heroic) (Montre uniquement les icones marquer sur les joueurs)"
+	RangeFrame					= "Montre la fenêtre de portée (10 normal, 20 heroic) (Montre uniquement les icônes marquer sur les joueurs)"
 }
 
 L:SetMiscLocalization{
@@ -293,9 +293,9 @@ L:SetMiscLocalization{
 	YellPhase2			= "Sentez maintenant le pouvoir infini de mon",
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
-	BeaconIconSet		= "Icone de Guide de givre {rt%d} mis sur %s",
-	AchievementWarning	= "Alerte : %s a 5 stacks de Rafale mystique",
-	AchievementFailed	= ">> HAUT-FAIT ÉCHOUÉ : %s a %d stacks de Rafale mystique <<",
+	BeaconIconSet		= "Icône de Guide de givre {rt%d} mis sur %s",
+	AchievementWarning	= "Alerte : %s à 5 stacks de Rafale mystique",
+	AchievementFailed	= ">> HAUT-FAIT ÉCHOUÉ : %s à %d stacks de Rafale mystique <<",
 }
 
 ---------------------
@@ -315,13 +315,13 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerRoleplay				= "Jeux de role",
+	TimerRoleplay				= "Jeux de rôle",
 	PhaseTransition				= "Phase de transition",
 	TimerNecroticPlagueCleanse	= "Peste nécrotique Dispell"
 }
 
 L:SetOptionLocalization{
-	TimerRoleplay				= "Montre le timer pour l'event de role",
+	TimerRoleplay				= "Montre le timer pour l'event de rôle",
 	WarnNecroticPlagueJump		= "Annonce sur qui saute la $spell:73912",
 	TimerNecroticPlagueCleanse	= "Montre le timer pour dispell la Peste nécrotique avant le premier tic",
 	PhaseTransition				= "Montre le timer pour la phase de transition",
@@ -334,7 +334,7 @@ L:SetOptionLocalization{
 	ShowFrame					= "Affiche une fenêtre des cibles des Val'Kyr",
 	FrameClassColor				= "Utiliser les couleurs de classes dans la fenêtre des cibles de Val'Kyr",
 	FrameUpwards				= "Étendre la fenêtre des cibles Val'Kyr vers le haut",
-	FrameLocked					= "Vérouiller la fenêtre des cibles Val'Kyr",
+	FrameLocked					= "Verouiller la fenêtre des cibles Val'Kyr",
 	RemoveImmunes				= "Enlève les sorts d'immunité avant de sortir de la chambre de Deuillegivre"
 }
 
@@ -344,7 +344,7 @@ L:SetMiscLocalization{
 	ValkGrabbedIcon			= "Gardes de l'ombre val'kyr {rt%d} a pris %s",
 	ValkGrabbed				= "Gardes de l'ombre val'kyr a pris %s",
 	PlagueStackWarning		= "Alerte : %s a %d stacks de Peste nécrotique",
-	AchievementCompleted	= ">> HAUT-FAIT ÉCHOUÉ: %s a %d stacks de Peste nécrotique <<",
+	AchievementCompleted	= ">> HAUT-FAIT ÉCHOUÉ : %s a %d stacks de Peste nécrotique <<",
 	FrameTitle				= "Cibles Valkyr",
 	FrameLock				= "Vérouiller fenêtre",
 	FrameClassColor			= "Utiliser couleurs de Classes",
@@ -364,7 +364,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	SpecWarnTrapL		= "Piège Activé! - Gardien lié par la mort libéré",
-	SpecWarnTrapP		= "Trap Activated! - arrivé de Fauche-chair vengeurs",
+	SpecWarnTrapP		= "Piège Activé! - arrivé de Fauche-chair vengeurs",
 	SpecWarnGosaEvent	= "Le défi de Sindragosa commencé !"
 }
 

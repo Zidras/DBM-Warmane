@@ -170,7 +170,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	NextCollapsingStar		= "Prochain choc cosmique",
+	NextCollapsingStar		= "Prochain Choc cosmique",
 	NextCosmicSmash			= "Prochain Choc cosmique possible",
 	TimerCombatStart		= "Le combat débute dans"
 }
@@ -184,7 +184,7 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	WarningPhasePunch		= "Annoncer la cible du Coup de poing phasique",
-	NextCollapsingStar		= "Montre un timer pour le prochain choque cosmique",
+	NextCollapsingStar		= "Montre un timer pour le prochain choc cosmique",
 	WarningCosmicSmash 		= "Annonce le Choc cosmique",
 	NextCosmicSmash			= "Montre le timer pour un possible Choc cosmique",
 	TimerCombatStart		= "Montre le timer avant le début du combat",
@@ -363,7 +363,7 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnSimulKill	= "Annonce la mort du premier mob",
-	PlaySoundOnFury = "Joue un sons quand vous êtes affecter par la Fureur de la nature",
+	PlaySoundOnFury = "Joue un sons quand vous êtes affecté par la Fureur de la nature",
 	WarnBeamsSoon	= "Afficher une alerte lorsque $spell:62865 arrive",
 	TimerSimulKill	= "Montre le timer de la résurrection des mobs"
 }
@@ -402,7 +402,7 @@ L:SetWarningLocalization{
 	MagneticCore		= ">%s< vient de loot le Core Magnétique",
 	WarningShockBlast	= "Horion explosif - BOUGEZ",
 	WarnBombSpawn		= "Robot Bombe vient de pop",
-	WarningFlamesIn5Sec = "Flames dans 5 sec."
+	WarningFlamesIn5Sec = "Flammes dans 5 sec."
 }
 
 L:SetTimerLocalization{
@@ -428,8 +428,8 @@ L:SetOptionLocalization{
 	RangeFrame				= "Affiche la fenêtre de portée pour la phase 1",
 	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
 	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Afficher une alerte spéciale : Flames dans 5 sec.",
-	SoundWarnCountingFlames = "Jouer un compte-à-rebours de 5 sec. pour les prochaines flames"
+	WarnFlamesIn5Sec 		= "Afficher une alerte spéciale : Flammes dans 5 sec.",
+	SoundWarnCountingFlames = "Jouer un compte-à-rebours de 5 sec. pour les prochaines flammes"
 }
 
 L:SetMiscLocalization{
@@ -472,7 +472,7 @@ L:SetOptionLocalization{
 	SpecialWarningLLNear			= "Montre une alerte spéciale quand la $spell:63276 est à côté de vous",
 	YellOnLifeLeech					= "Crie pour la $spell:63276",
 	YellOnShadowCrash				= "Crie pour la $spell:62660",
-	hardmodeSpawn					= "Montre le timer pour l'arriver d'Animus de saronite (Hard Mode)",
+	hardmodeSpawn					= "Montre le timer pour l'arrivée d'Animus de saronite (Hard Mode)",
 	CrashArrow						= "Afficher la flèche DBM lorsque $spell:62660 est proche de vous",
 	BypassLatencyCheck				= "Don't use latency based sync check for $spell:62660\n(only use this if you're having problems otherwise)"
 }
@@ -496,7 +496,7 @@ L:SetMiscLocalization{
 	YellPull 			= "Il sera bientôt temps de frapper la tête de la bête ! Concentrez votre rage et votre haine sur ses laquais !",
 	YellPhase2			= "Je suis le rêve éveillé",
 	Sara 				= "Sara",
-	WarningYellSqueeze	= "Ecrasement sur moi ! Aidez-moi !"
+	WarningYellSqueeze	= "Écrasement sur moi ! Aidez-moi !"
 }
 
 L:SetWarningLocalization{
@@ -504,7 +504,7 @@ L:SetWarningLocalization{
 	WarningCrusherTentacleSpawned	= "Une Tentacule écraseur vient d'arriver",
 	WarningSanity 					= "%d de Santé mentale restant",
 	SpecWarnSanity 					= "%d de Santé mentale restant",
-	SpecWarnGuardianLow				= "Arretez d'attaquer ce gardien !",
+	SpecWarnGuardianLow				= "Arrêtez d'attaquer ce gardien !",
 	SpecWarnMadnessOutNow			= "Incantation de Susciter la folie fini - SORTEZ",
 	WarnBrainPortalSoon				= "Portail dans 3 sec",
 	SpecWarnFervor					= "Ferveur de Sara sur VOUS",
@@ -528,11 +528,11 @@ L:SetOptionLocalization{
 	SetIconOnFearTarget				= "Met une icône sur la cible du $spell:63881",
 	SpecWarnFervorCast				= "Montre une alerte spéciale quand la $spell:63138 commence a cast sur vous (Il faut avoir Sara en Target/Focus)",
 	specWarnBrainPortalSoon			= "Annonce l'arrivée d'un portail",
-	WarningSqueeze					= "Annonce la cible d'Ecrasement",
+	WarningSqueeze					= "Annonce la cible d'Écrasement",
 	NextPortal						= "Montre un timer avant le prochain portail",
 	SetIconOnFervorTarget			= "Met une icône sur les cible de la $spell:63138",
 	ShowSaraHealth					= "Montre la vie de Sara durant la P1 (Doit être sélectionnée par au moins un membre du raid)",
 	SpecWarnMaladyNear				= "Montre une alerte spéciale si une personne à côté de vous est victime du $spell:63881",
-	SetIconOnBrainLinkTarget		= "Met une icone sur la cible des Cerveaux liés",
+	SetIconOnBrainLinkTarget		= "Met une icône sur la cible des Cerveaux liés",
 	MaladyArrow						= "Afficher la flèche DBM lorsque $spell:63881 est proche de vous"
 }
