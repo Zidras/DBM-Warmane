@@ -16,7 +16,7 @@ L:SetTimerLocalization{
 
 L:SetMiscLocalization{
 	YellPull	= "Entités hostiles détectées. Protocole d'estimation de menace actif. Acquisition de la cible primaire. Décompte avant réévaluation : 30 secondes.",
-	YellPull2	= "Orbital countermeasures enabled.", --Needs Translating
+	YellPull2	= "Contre-mesures orbitales activées.",
 	Emote		= "%%s poursuit (%S+)%."
 }
 
@@ -110,13 +110,13 @@ L:SetTimerLocalization{
 }
 
 L:SetWarningLocalization{
-	WarningTTIn10Sec			= "Tympanic Tantrum in 10 sec." --Needs Translating
+	WarningTTIn10Sec			= "Colère assourdissante dans 10 sec."
 }
 
 L:SetOptionLocalization{
 	SetIconOnLightBombTarget		= "Mettre un icône sur la cible de la bombe de lumière",
 	SetIconOnGravityBombTarget		= "Mettre un icône sur la cible de la bombe à gravité",
-	WarningTympanicTantrumIn10Sec	= "Show special pre-warning (10 sec.) for $spell:62776 " --Needs Translating
+	WarningTympanicTantrumIn10Sec	= "Montrer une alerte spéciale (10 sec.) pour $spell:62776"
 }
 
 --------------------
@@ -148,16 +148,16 @@ L:SetMiscLocalization{
 	Steelbreaker				= "Brise-acier",
 	RunemasterMolgeim			= "Maître des runes Molgeim",
 	StormcallerBrundir			= "Mande-foudre Brundir",
-	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!", --Needs Translating
-	YellPull2					= "Nothing short of total decimation will suffice.", --Needs Translating
-	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!", --Needs Translating
-	YellRuneOfDeath				= "Decipher this!", --Needs Translating
-	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!", --Needs Translating
-	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.", --Needs Translating
-	YellStormcallerBrundirDied	= "The power of the storm lives on...", --Needs Translating
-	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!", --Needs Translating
-	YellSteelbreakerDied		= "My death only serves to hasten your demise.", --Needs Translating
-	YellSteelbreakerDied2		= "Impossible!" --Needs Translating
+	YellPull1					= "Que vous soyez les plus grandes punaises ou les plus grands héros de ce monde, vous n'êtes jamais que des mortels.",
+	YellPull2					= "Seule votre extermination complète me conviendra.",
+	YellPull3					= "Vous ne vaincrez pas si facilement l'assemblée du Fer, envahisseurs !",
+	YellRuneOfDeath				= "Déchiffrez donc ça !",
+	YellRunemasterMolgeimDied	= "Que vous apporte ma chute ? Votre destin n'en est pas moins scellé, mortels.",
+	YellRunemasterMolgeimDied2	= "L’héritage des tempêtes ne sera pas anéanti...",
+	YellStormcallerBrundirDied	= "La puissance de la tempête survivra.",
+	YellStormcallerBrundirDied2	= "Vous courez tout droit dans la gueule de la folie !!",
+	YellSteelbreakerDied		= "Ma mort ne fera que hâter votre perte.",
+	YellSteelbreakerDied2		= "Impossible..."
 }
 
 ----------------------------
@@ -178,8 +178,8 @@ L:SetTimerLocalization{
 L:SetWarningLocalization{
 	WarningPhasePunch		= "Coup de poing phasique sur >%s<",
 	WarningCosmicSmash 		= "Choc cosmique - Explosion dans 4 sec",
-	WarnPhase2Soon			= "Phase 2 soon", --Needs Translating
-	warnStarLow				= "Collapsing Star is low" --Needs Translating
+	WarnPhase2Soon			= "Phase 2 arrive bientôt",
+	warnStarLow				= "Effondrement d'étoile est bas"
 }
 
 L:SetOptionLocalization{
@@ -188,17 +188,17 @@ L:SetOptionLocalization{
 	WarningCosmicSmash 		= "Annonce le Choc cosmique",
 	NextCosmicSmash			= "Montre le timer pour un possible Choc cosmique",
 	TimerCombatStart		= "Montre le timer avant le début du combat",
-	WarnPhase2Soon			= "Show pre-warning for Phase 2 (at ~23%)", --Needs Translating
-	warnStarLow				= "Show special warning when Collapsing Star is low (at ~25%)" --Needs Translating
+	WarnPhase2Soon			= "Affiche une pré-alerte pour la Phase 2 (à ~23%)",
+	warnStarLow				= "Affiche une alerte spéciale lorsque Effondrement d'étoile est bas (à ~25%)"
 }
 
 L:SetMiscLocalization{
 	YellPull				= "Vos actions sont illogiques. Tous les résultats possibles de cette rencontre ont été calculés. Le panthéon recevra le message de l'Observateur quelque soit l'issue.",
-	YellPull2 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.", --Needs Translating
-	YellKill				= "I have seen worlds bathed in the Makers' flames, their denizens fading without as much as a whimper. Entire planetary systems born and razed in the time that it takes your mortal hearts to beat once. Yet all throughout, my own heart devoid of emotion... of empathy. I. Have. Felt. Nothing. A million-million lives wasted. Had they all held within them your tenacity? Had they all loved life as you do?", --Needs Translating
+	YellPull2 				= "Vos actions sont illogiques. Tous les résultats possibles de cette rencontre ont été calculés. Le Panthéon recevra le message de l’Observateur quelle que soit l’issue.",
+	YellKill				= "J’ai vu des mondes baignés dans les flammes des Faiseurs. Leurs occupants s’évaporer sans même un gémissement. Des systèmes planétaires entiers créés et détruits dans le temps qu’il faut à un cœur mortel pour battre une fois. Et devant tout cela, dans mon propre cœur, pas la moindre émotion... la moindre empathie. Je. Ne. Ressentais. Rien. Mille milliards de vies gâchées. Avaient-elles toutes possédé une telle ténacité ? Aimaient-elles la vie autant que vous ?",
 	Emote_CollapsingStar	= "commence à lancer un effondrement",
-	Phase2					= "Behold the tools of creation", --Needs Translating
-	CollapsingStar			= "Collapsing Star", --Needs Translating
+	Phase2					= "Découvrez les outils de la création !",
+	CollapsingStar			= "Effondrement d'étoile",
 	PullCheck				= "Signal de détresse d'Algalon transmis dans= (%d+) min."
 }
 
@@ -226,21 +226,21 @@ L:SetOptionLocalization{
 	achievementDisarmed		= "Afficher un timer pour le Haut Fait Désarmement",
 	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
 	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "Play sound on $spell:63346", --Needs Translating
-	YellOnBeam				= "Yell on $spell:63346" --Needs Translating
+	PlaySoundOnEyebeam		= "Jouer un son au $spell:63346",
+	YellOnBeam				= "Crier au $spell:63346"
 }
 
 L:SetMiscLocalization{
 	Yell_Trigger_arm_left	= "Juste une éraflure !",
 	Yell_Trigger_arm_right	= "Une blessure superficielle !",
-	YellEncounterStart		= "None shall pass!", --Needs Translating
-	YellLeftArmDies			= "Just a scratch!", --Needs Translating
-	YellRightArmDies		= "Only a flesh wound!", --Needs Translating
+	YellEncounterStart		= "On ne passe pas !",
+	YellLeftArmDies			= "Juste une éraflure !",
+	YellRightArmDies		= "Une blessure superficielle !",
 	Health_Body				= "Torse de Kologarn",
 	Health_Right_Arm		= "Bras droit",
 	Health_Left_Arm			= "Bras gauche",
 	FocusedEyebeam			= "%s concentre son regard sur vous !",
-	YellBeam				= "Focused Eyebeam on me!"
+	YellBeam				= "Rayon de l'œil focalisé sur moi !"
 }
 
 ---------------
@@ -345,16 +345,16 @@ L:SetMiscLocalization{
 	Snaplasher			= "Flagellant mordant",
 	StormLasher			= "Flagellant des tempêtes",
 	YellKill			= "Son emprise sur moi se dissipe. J'y vois à nouveau clair. Merci, héros.",
-	YellAdds1			= "Eonar, your servant requires aid!", --Needs Translating
-	YellAdds2			= "The swarm of the elements shall overtake you!", --Needs Translating
-	EmoteLGift			= "begins to grow!", --Needs Translating
+	YellAdds1			= "Eonar, ta servante a besoin d'aide !",
+	YellAdds2			= "La nuée des éléments va vous submerger !",
+	EmoteLGift			= "commence à grandir !",
 	TrashRespawnTimer	= "Respawn des Trashs de Freya"
 }
 
 L:SetWarningLocalization{
 	WarnSimulKill		= "Premier add mort - Résurrection dans 1 minute",
-	WarningBeamsSoon	= "Beams soon", --Needs Translating
-	EonarsGift			= "Target Change - switch to Eonar's Gift" --Needs Translating
+	WarningBeamsSoon	= "Rayons bientôt",
+	EonarsGift			= "Changement de Cible - basculer vers Cadeau d'Eonar"
 }
 
 L:SetTimerLocalization{
@@ -364,7 +364,7 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	WarnSimulKill	= "Annonce la mort du premier mob",
 	PlaySoundOnFury = "Joue un sons quand vous êtes affecter par la Fureur de la nature",
-	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon", --Needs Translating
+	WarnBeamsSoon	= "Afficher une alerte lorsque $spell:62865 arrive",
 	TimerSimulKill	= "Montre le timer de la résurrection des mobs"
 }
 
@@ -402,7 +402,7 @@ L:SetWarningLocalization{
 	MagneticCore		= ">%s< vient de loot le Core Magnétique",
 	WarningShockBlast	= "Horion explosif - BOUGEZ",
 	WarnBombSpawn		= "Robot Bombe vient de pop",
-	WarningFlamesIn5Sec = "Flames in 5 sec." --Needs Translating
+	WarningFlamesIn5Sec = "Flames dans 5 sec."
 }
 
 L:SetTimerLocalization{
@@ -428,8 +428,8 @@ L:SetOptionLocalization{
 	RangeFrame				= "Affiche la fenêtre de portée pour la phase 1",
 	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
 	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.", --Needs Translating
-	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames" --Needs Translating
+	WarnFlamesIn5Sec 		= "Afficher une alerte spéciale : Flames dans 5 sec.",
+	SoundWarnCountingFlames = "Jouer un compte-à-rebours de 5 sec. pour les prochaines flames"
 }
 
 L:SetMiscLocalization{
@@ -441,7 +441,7 @@ L:SetMiscLocalization{
 	YellPhase2		= "MERVEILLEUX ! Résultats parfaitement formidables !",
 	YellPhase3		= "Merci, les amis !",
 	YellPhase4		= "Fin de la phase d'essais préliminaires",
-	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.", --Needs Translating
+	YellKilled		= "Il semblerait que j'aie pu faire une minime erreur de calcul. J'ai permis à mon esprit de se laisser corrompre par ce démon dans la prison qui a désactivé ma directive principale. Tous les systèmes fonctionnent à nouveau. Terminé.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
 }
 
@@ -467,13 +467,13 @@ L:SetWarningLocalization{
 L:SetOptionLocalization{
 	SetIconOnShadowCrash			= "met une icône sur la cible des Déferlante d'ombre ( Tête de mort )",
 	SetIconOnLifeLeach				= "Met une icône sur la cible de la Marque du Sans-visage ( Croix )",
-	SpecialWarningShadowCrash		= "Show special warning for $spell:62660\n(must be targeted or focused by at least one raid member)", --Needs Translating
+	SpecialWarningShadowCrash		= "Afficher une alerte spéciale pour $spell:62660\n(doit être en ciblé ou focus par au moins un membre du raid)",
 	SpecialWarningShadowCrashNear	= "Montre une alerte spéciale quand la $spell:62660 à côté de vous",
 	SpecialWarningLLNear			= "Montre une alerte spéciale quand la $spell:63276 est à côté de vous",
 	YellOnLifeLeech					= "Crie pour la $spell:63276",
 	YellOnShadowCrash				= "Crie pour la $spell:62660",
 	hardmodeSpawn					= "Montre le timer pour l'arriver d'Animus de saronite (Hard Mode)",
-	CrashArrow						= "Show DBM arrow when $spell:62660 is near you", --Needs Translating
+	CrashArrow						= "Afficher la flèche DBM lorsque $spell:62660 est proche de vous",
 	BypassLatencyCheck				= "Don't use latency based sync check for $spell:62660\n(only use this if you're having problems otherwise)"
 }
 
@@ -534,5 +534,5 @@ L:SetOptionLocalization{
 	ShowSaraHealth					= "Montre la vie de Sara durant la P1 (Doit être sélectionnée par au moins un membre du raid)",
 	SpecWarnMaladyNear				= "Montre une alerte spéciale si une personne à côté de vous est victime du $spell:63881",
 	SetIconOnBrainLinkTarget		= "Met une icone sur la cible des Cerveaux liés",
-	MaladyArrow						= "Show DBM arrow when $spell:63881 is near you" --Needs Translating
+	MaladyArrow						= "Afficher la flèche DBM lorsque $spell:63881 est proche de vous"
 }

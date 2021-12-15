@@ -28,21 +28,21 @@ L:SetWarningLocalization{
 	WarnReanimating				= "Les adds revivent",
 	WarnAddsSoon				= "Nouveaux adds bientôt",
 	SpecWarnVengefulShade		= "Ombre vengeresse vous attaque - COUREZ",
-	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
+	WeaponsStatus				= "Auto-déséquipement activé"
 }
 
 L:SetOptionLocalization{
 	WarnAddsSoon				= "Montre une pré-alerte avant que les adds arrivent",
-	WarnReanimating				= "Montre une alerte quand les adds vont revenir a la vie",
+	WarnReanimating				= "Montre une alerte quand les adds vont revenir à la vie",
 	TimerAdds					= "Montre le timer pour les nouveaux adds",
 	SpecWarnVengefulShade		= "Montre une alerte spéciale quand vous êtes attaquer par une Ombre vengeresse",
-	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
+	WeaponsStatus				= "Alerte spéciale si la fonction de déséquipement n'est pas active au début du combat",
 	ShieldHealthFrame			= "Montre la vie du boss avec une barre de vie pour la $spell:70842",
-	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
-	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight", --Needs Translating
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
-	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.", --Needs Translating
-	BlockWeapons				= "Completely block the unequip/equip functions above" --Needs Translating
+	SoundWarnCountingMC			= "Jouer un son à 5 secondes du Contrôle mental",
+	RemoveDruidBuff				= "Retire MotW / GotW 24 secondes après le début du combat",
+	EqUneqWeapons				= "Retire/équipe les armes si le Cntrôle mental est lancé sur vous. Pour que cela fonctionne, créez un set appellé 'pve'.",
+	EqUneqTimer					= "Retire les armes à CHAQUE fois selon le timer (si votre ping est élevé). L'option de dessus doit être active.",
+	BlockWeapons				= "Bloquer complètement la fonction de déséquipement"
 }
 
 L:SetMiscLocalization{
@@ -51,7 +51,7 @@ L:SetMiscLocalization{
 	Fanatic1				= "Membres du culte",
 	Fanatic2				= "Fanatique déformé",
 	Fanatic3				= "Fanatique réanimé",
-	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
+	setMissing				= "ATTENTION! DBM auto-déséquipement d'arme ne fonctionnera pas tant que vous n'aurez pas créer un set apellé pve"
 }
 
 ----------------------
@@ -97,7 +97,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	MarkCastIcon		= "Met des icones sur les cibles de $spell:72444 durant l'incantation (Experimental)",
+	MarkCastIcon		= "Met des icônes sur les cibles de $spell:72444 durant l'incantation (Experimental)",
 	RunePowerFrame		= "Montre la barre de vie du boss + la barre de $spell:72371",
 	RemoveDI			= "Supprimez $spell:19752 s'il est utilisé pour empêcher le lancement du sort $spell:72293."
 }
@@ -119,13 +119,13 @@ L:SetGeneralLocalization{
 
 L:SetOptionLocalization{
 	RangeFrame			= "Montre la fenêtre de portée (8 Mètres)",
-	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat<br/>(requires raid leader)", --Needs Translating
-	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)" --Needs Translating
+	AnnounceSporeIcons	= "Annonce les icônnes pour les cibles de $spell:69279 au chat de raid<br/>(nécessite le raid lead)",
+	AchievementCheck	= "Annonce l'échec du haut-fait 'Pénurie de vaccins' au raid<br/>(nécessite un statut promu)"
 }
 
 L:SetWarningLocalization{
-	SporeSet			= "Gas Spore icon {rt%d} set on %s", --Needs Translating
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Inoculated <<" --Needs Translating
+	SporeSet			= "Icône de Spore gazeuse {rt%d} mise sur %s",
+	AchievementFailed	= ">> HAUT-FAIT ÉCHOUÉ : %s a %d stacks d'Inoculé <<"
 }
 
 ---------------
@@ -147,7 +147,7 @@ L:SetOptionLocalization{
 	WarnOozeSpawn				= "Montre une alerte pour l'arrivée des Limons",
 	SpecWarnLittleOoze			= "Montre une alerte spéciale quand vous êtes attaquer par des Limons",
 	RangeFrame					= "Montre la fenêtre de portée (8 Mètres)",
-	TankArrow					= "Show DBM arrow for Big Ooze kiter (Experimental)" --Needs translating
+	TankArrow					= "Afficher la flèche DBM pour le kiter du Grand limon (Expérimental)"
 }
 
 L:SetMiscLocalization{
@@ -165,8 +165,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	MalleableGooIcon			= "Met une icone sur la première cible de $spell:72295",
-	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
+	MalleableGooIcon			= "Met une icône sur la première cible de $spell:72295",
+	GooArrow					= "Afficher la flèche DBM lorsque $spell:72295 est proche de vous"
 }
 
 ----------------------------
@@ -193,7 +193,7 @@ L:SetOptionLocalization{
 	TimerTargetSwitch		= "Montre un timer pour le changement de cible",
 	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux).",
 	RangeFrame				= "Montre la fenêtre de portée (12 Mètres)",
-	VortexArrow				= "Show DBM arrow when $spell:72037 is near you" --Needs Translating
+	VortexArrow				= "Afficher la flèche DBM lorsque $spell:72037 est proche de vous"
 }
 
 L:SetMiscLocalization{
@@ -243,12 +243,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	SetIconOnBlazingSkeleton	= "Met une icone sur le Squelette flamboyant (Tête de mort)",
+	SetIconOnBlazingSkeleton	= "Met une icône sur le Squelette flamboyant (Tête de mort)",
 	WarnPortalOpen				= "Prévient via une alerte quand Valithria ouvre des portails.",
 	TimerPortalsOpen			= "Montre une timer pour voir quand Valithria ouvre des portails.",
-	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
-	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn", --Needs Translating
-	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)" --Needs Translating
+	TimerPortalsClose			= "Afficher le timer lorsque Portail cauchemardesque est fermé",
+	TimerBlazingSkeleton		= "Afficher le timer pour l'apparition du prochain Squelette flamboyant",
+	TimerAbom					= "Afficher le timer pour l'apparition du Abomination gloutonne (Expérimental)"
 }
 
 L:SetMiscLocalization{
@@ -267,13 +267,13 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnAirphase			= "Phase dans les airs",
-	WarnGroundphaseSoon		= "Sindragosa atterrie bientôt"
+	WarnGroundphaseSoon		= "Sindragosa atterrit bientôt"
 }
 
 L:SetTimerLocalization{
 	TimerNextAirphase		= "Prochaine phase dans les airs",
 	TimerNextGroundphase	= "Prochaine phase sur le sol",
-	AchievementMystic		= "Time to clear Mystic stacks"
+	AchievementMystic		= "Enlevez les stacks Mystiques"
 }
 
 L:SetOptionLocalization{
@@ -284,7 +284,7 @@ L:SetOptionLocalization{
 	AnnounceFrostBeaconIcons	= "Annonce les icones pour les cibles de $spell:70126 dans le chat de raid (requires announce to be enabled and leader/promoted status)",
 	ClearIconsOnAirphase		= "Retire toutes les icones avant la phase d'envol",
 	AssignWarnDirectionsCount	= "Attribuez des directions aux cibles $spell:70126 et comptez sur la phase 2",
-	AchievementCheck			= "Announce 'All You Can Eat' achievement warnings to raid<br/>(requires promoted status)", --Needs Translating
+	AchievementCheck			= "Annonce les alertes du haut-fait 'Tout ce que vous pouvez rafler' au raid<br/>(nécessite un statut promu)",
 	RangeFrame					= "Montre la fenêtre de portée (10 normal, 20 heroic) (Montre uniquement les icones marquer sur les joueurs)"
 }
 
@@ -294,8 +294,8 @@ L:SetMiscLocalization{
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	BeaconIconSet		= "Icone de Guide de givre {rt%d} mis sur %s",
-	AchievementWarning	= "Warning: %s has 5 stacks of Mystic Buffet", --Needs Translating
-	AchievementFailed	= ">> ACHIEVEMENT FAILED: %s has %d stacks of Mystic Buffet <<", --Needs Translating
+	AchievementWarning	= "Alerte : %s a 5 stacks de Rafale mystique",
+	AchievementFailed	= ">> HAUT-FAIT ÉCHOUÉ : %s a %d stacks de Rafale mystique <<",
 }
 
 ---------------------
@@ -308,10 +308,10 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	ValkyrWarning			= ">%s< has been grabbed!", --Needs Translating
-	SpecWarnYouAreValkd		= "You have been grabbed", --Needs Translating
+	ValkyrWarning			= ">%s< est saisi !",
+	SpecWarnYouAreValkd		= "Vous avez été saisi",
 	WarnNecroticPlagueJump	= "La Peste nécrotique a sauter sur >%s<",
-	SpecWarnValkyrLow		= "Valkyr below 55%" --Needs Translating
+	SpecWarnValkyrLow		= "Valkyr sous les 55%"
 }
 
 L:SetTimerLocalization{
@@ -325,38 +325,37 @@ L:SetOptionLocalization{
 	WarnNecroticPlagueJump		= "Annonce sur qui saute la $spell:73912",
 	TimerNecroticPlagueCleanse	= "Montre le timer pour dispell la Peste nécrotique avant le premier tic",
 	PhaseTransition				= "Montre le timer pour la phase de transition",
-	ValkyrWarning				= "Announce who has been grabbed by Val'kyr Shadowguards", --Needs Translating
-	SpecWarnYouAreValkd			= "Show special warning when you have been grabbed by a Val'kyr Shadowguard",--npc36609 --Needs Translating
+	ValkyrWarning				= "Annonce qui a été saisi par les Gardes de l'ombre val'kyr",
+	SpecWarnYouAreValkd			= "Affiche une alerte spéciale lorsque vous avez été pris par une Garde de l'ombre val'kyr",--npc36609
 	TrapArrow					= "Montre les flèches de DBM quand $spell:73539 est à coter de vous",
-	AnnounceValkGrabs			= "Announce Val'kyr Shadowguard grab targets to raid chat\n(requires announce to be enabled and promoted status)",  --Needs Translating
-	SpecWarnValkyrLow			= "Show special warning when Valkyr is below 55% HP",
-	AnnouncePlagueStack			= "Announce $spell:73912 stacks to raid (10 stacks, every 5 after 10)\n(requires promoted status)",  --Needs Translating
-	ShowFrame					= "Show Val'Kyr Targets frame", --Needs Translating
-	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame", --Needs Translating
-	FrameUpwards				= "Expand Val'Kyr target frame upwards", --Needs Translating
-	FrameLocked					= "Lock Val'Kyr Targets frame", --Needs Translating
-	RemoveImmunes				= "Remove immunity spells before exiting Frostmourne room" --Needs Translating
+	AnnounceValkGrabs			= "Annonce les cibles prises par les Gardes de l'ombre val'kyr\n(nécessite un statut promu)",
+	SpecWarnValkyrLow			= "Affiche une alerte spéciale lorsque la Garde de l'ombre val'kyr est sous les 55% PDV",
+	AnnouncePlagueStack			= "Annonce les $spell:73912 stacks au raid (10 stacks, toutes les 5 après 10)\n(nécessite un statut promu)",
+	ShowFrame					= "Affiche une fenêtre des cibles des Val'Kyr",
+	FrameClassColor				= "Utiliser les couleurs de classes dans la fenêtre des cibles de Val'Kyr",
+	FrameUpwards				= "Étendre la fenêtre des cibles Val'Kyr vers le haut",
+	FrameLocked					= "Vérouiller la fenêtre des cibles Val'Kyr",
+	RemoveImmunes				= "Enlève les sorts d'immunité avant de sortir de la chambre de Deuillegivre"
 }
 
 L:SetMiscLocalization{
 	LKPull					= "Voici donc qu’arrive la fameuse justice de la Lumière ? Dois-je déposer Deuillegivre et me jeter à tes pieds en implorant pitié, Fordring ?",
 	LKRoleplay				= "Est-ce vraiment la justice qui vous anime ? Je me demande…",
-	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s", -- Needs Translating
-	ValkGrabbed				= "Valkyr Shadowguard grabbed %s", -- Needs Translating
-	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague", -- Needs Translating
-	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<", -- Needs Translating
-	FrameTitle				= "Valkyr targets", -- Needs Translating
-	FrameLock				= "Frame Lock", -- Needs Translating
-	FrameClassColor			= "Use Class Colors", -- Needs Translating
-	FrameOrientation		= "Expand upwards", -- Needs Translating
-	FrameHide				= "Hide Frame", -- Needs Translating
-	FrameClose				= "Close" -- Needs Translating
+	ValkGrabbedIcon			= "Gardes de l'ombre val'kyr {rt%d} a pris %s",
+	ValkGrabbed				= "Gardes de l'ombre val'kyr a pris %s",
+	PlagueStackWarning		= "Alerte : %s a %d stacks de Peste nécrotique",
+	AchievementCompleted	= ">> HAUT-FAIT ÉCHOUÉ: %s a %d stacks de Peste nécrotique <<",
+	FrameTitle				= "Cibles Valkyr",
+	FrameLock				= "Vérouiller fenêtre",
+	FrameClassColor			= "Utiliser couleurs de Classes",
+	FrameOrientation		= "Étendre vers le haut",
+	FrameHide				= "Cacher fenêtre",
+	FrameClose				= "Fermer"
 }
 
 -------------
 --  Trash  --
 -------------
--- NEEDS TRANSLATION
 L = DBM:GetModLocalization("ICCTrash")
 
 L:SetGeneralLocalization{
@@ -364,23 +363,23 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	SpecWarnTrapL		= "Trap Activated! - Deathbound Ward released",
-	SpecWarnTrapP		= "Trap Activated! - Vengeful Fleshreapers incoming",
-	SpecWarnGosaEvent	= "Sindragosa gauntlet started!"
+	SpecWarnTrapL		= "Piège Activé! - Gardien lié par la mort libéré",
+	SpecWarnTrapP		= "Trap Activated! - arrivé de Fauche-chair vengeurs",
+	SpecWarnGosaEvent	= "Le défi de Sindragosa commencé !"
 }
 
 L:SetOptionLocalization{
-	SpecWarnTrapL		= "Show special warning for Deathbound Ward trap activation",
-	SpecWarnTrapP		= "Show special warning for engeful Fleshreapers trap activation",
-	SpecWarnGosaEvent	= "Show special warning for Sindragosa gauntlet event"
+	SpecWarnTrapL		= "Afficher une alerte spéciale pour l'activation du piège Gardien lié par la mort",
+	SpecWarnTrapP		= "Afficher une alerte spéciale pour l'activation du piège Fauche-chair vengeurs",
+	SpecWarnGosaEvent	= "Afficher une alerte spéciale pour le défi de Sindragosa"
 }
 
 L:SetMiscLocalization{
-	WarderTrap1			= "Who... goes there...?",
-	WarderTrap2			= "I... awaken!",
-	WarderTrap3			= "The master's sanctum has been disturbed!",
-	FleshreaperTrap1	= "Quickly! We'll ambush them from behind!",
-	FleshreaperTrap2	= "You... cannot escape us!",
-	FleshreaperTrap3	= "The living... here?!",
-	SindragosaEvent		= "You must not approach the Frost Queen. Quickly, stop them!"
+	WarderTrap1			= "Qui... va là ?",
+	WarderTrap2			= "Je... m’éveille...",
+	WarderTrap3			= "Le sanctuaire du maître a été dérangé.",
+	FleshreaperTrap1	= "Vite, on va les prendre en embuscade par derrière !",
+	FleshreaperTrap2	= "Vous ne pouvez pas nous échapper !",
+	FleshreaperTrap3	= "Les vivants ? Ici ?!",
+	SindragosaEvent		= "Nul n'approche la reine du Givre. Arrêtez-les, vite !"
 }
