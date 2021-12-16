@@ -44,10 +44,12 @@ local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, n
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
+local specWarnGaseousBloatCast		= mod:NewSpecialWarningMove(72833, nil, nil, nil, 1, 2)		-- Gaseous Bloat (cast)
 local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2)		-- Heroic Ability
 local yellUnboundPlague				= mod:NewYellMe(70911, false)
 
 local timerGaseousBloat				= mod:NewTargetTimer(20, 70672, nil, nil, nil, 3)			-- Duration of debuff
+local timerGaseousBloatCast			= mod:NewCastTimer(3, 70672, nil, nil, nil, 3)				-- Cast duration
 local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)				-- Approx
 local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1, nil, DBM_CORE_L.DEADLY_ICON)			-- Used every 38 seconds exactly except after phase changes
 local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
@@ -77,6 +79,7 @@ mod:AddBoolOption("MalleableGooIcon")
 mod:AddBoolOption("UnboundPlagueIcon")
 --mod:AddBoolOption("GooArrow")
 
+local redOozeGUIDsCasts = {}
 local PuddleTime = 0
 local GooTime = 0
 local ChokingTime = 0
@@ -90,6 +93,7 @@ function mod:OnCombatStart(delay)
 	timerSlimePuddleCD:Start(10-delay)
 	timerUnstableExperimentCD:Start(30-delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
+	table.wipe(redOozeGUIDsCasts)
 	local PuddleTime = 0
 	local GooTime = 0
 	local ChokingTime = 0
@@ -184,6 +188,17 @@ function mod:SPELL_CAST_START(args)
 			timerChokingGasBombCD:Start(30.5)
 			soundChokingGasSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(30.5-5)
+		end
+	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
+		timerGaseousBloatCast:Start()
+		if not redOozeGUIDsCasts[args.sourceGUID] then
+			redOozeGUIDsCasts[args.sourceGUID] = 1
+		else
+			redOozeGUIDsCasts[args.sourceGUID] = redOozeGUIDsCasts[args.sourceGUID] + 1
+		end
+		if redOozeGUIDsCasts[args.sourceGUID] > 1 then -- Red Ooze retarget
+			specWarnGaseousBloatCast:Show()
+			specWarnGaseousBloatCast:Play("targetchange")
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		timerUnstableExperimentCD:Cancel()
