@@ -31,13 +31,13 @@
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-LoadZone: Blade's Edge Arena,Dalaran Arena,Nagrand Arena,Ruins of Lordaeron,The Ring of Valor
 ## X-DBM-Mod-LoadZone-deDE:Arena des Schergrats,Arena von Dalaran,Arena von Nagrand,Ruinen von Lordaeron,Der Ring der Ehre
-## X-DBM-Mod-LoadZone-esES: Arena Filospada,Arena de Dalaran,Arena de Nagrand,Ruinas de Lordaeron,El Anillo del Valor
-## X-DBM-Mod-LoadZone-esMX: Arena Filospada,Arena de Dalaran,Arena de Nagrand,Ruinas de Lordaeron,El Anillo del Valor
-## X-DBM-Mod-LoadZone-frFR:Arène des Tranchantes,Arène de Dalaran,Arène de Nagrand,Ruines de Lordaeron,L'Arène des valeureux
+## X-DBM-Mod-LoadZone-esES: Arena Filospada,Arena de Dalaran,Arena de Nagrand,Ruinas de Lordaeron,El Círculo del Valor
+## X-DBM-Mod-LoadZone-esMX: Arena Filospada,Arena de Dalaran,Arena de Nagrand,Ruinas de Lordaeron,El Círculo del Valor
+## X-DBM-Mod-LoadZone-frFR:Arène des Tranchantes,Arène de Dalaran,Arène de Nagrand,Ruines de Lordaeron,L’arène des Valeureux
 ## X-DBM-Mod-LoadZone-koKR:칼날 투기장,달라란 투기장,나그란드 투기장,로데론의 폐허,용맹의 투기장
-## X-DBM-Mod-LoadZone-ruRU:Арена Острогорья,Арена Даларана,Арена Награнда,Руины Лордерона,Круг Доблести
+## X-DBM-Mod-LoadZone-ruRU:Арена Острогорья,Арена Даларана,Арена Награнда,Руины Лордерона,Арена Доблести
 ## X-DBM-Mod-LoadZone-zhCN:刀锋山竞技场,达拉然竞技场,纳格兰竞技场,洛丹伦废墟,勇气竞技场
-## X-DBM-Mod-LoadZone-zhTW:劍刃競技場,達拉然競技場,納葛蘭競技場,羅德隆廢墟,勇武之環
+## X-DBM-Mod-LoadZone-zhTW:劍刃競技場,達拉然競技場,納葛蘭競技場,羅德隆廢墟,勇武競技場
 
 localization.en.lua
 localization.cn.lua
