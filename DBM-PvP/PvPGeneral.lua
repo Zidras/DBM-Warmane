@@ -201,29 +201,31 @@ local function HideFlagDisplay()
 end
 
 local function UpdateFlagDisplay()
-	if allyFlag then
-		if GetCurrentMapAreaID() == 483 then -- EotS
-			flagFrame1Text:SetText(L.Flag..": "..allyFlag)
+	if flagFrame1Text and flagFrame2Text then
+		if allyFlag then
+			if GetCurrentMapAreaID() == 483 then -- EotS
+				flagFrame1Text:SetText(L.Flag..": "..allyFlag)
+			else
+				flagFrame1Text:SetText(allyFlag)
+			end
 		else
-			flagFrame1Text:SetText(allyFlag)
+			flagFrame1Text:SetText("")
 		end
-	else
-		flagFrame1Text:SetText("")
-	end
 
-	if hordeFlag then
-		if GetCurrentMapAreaID() == 483 then -- EotS
-			flagFrame2Text:SetText(L.Flag..": "..hordeFlag)
+		if hordeFlag then
+			if GetCurrentMapAreaID() == 483 then -- EotS
+				flagFrame2Text:SetText(L.Flag..": "..hordeFlag)
+			else
+				flagFrame2Text:SetText(hordeFlag)
+			end
 		else
-			flagFrame2Text:SetText(hordeFlag)
+			flagFrame2Text:SetText("")
 		end
-	else
-		flagFrame2Text:SetText("")
-	end
-	if allyFlag and hordeFlag then
-		vulnerableTimer:Start()
-	else
-		vulnerableTimer:Cancel()
+		if allyFlag and hordeFlag then
+			vulnerableTimer:Start()
+		else
+			vulnerableTimer:Cancel()
+		end
 	end
 end
 
