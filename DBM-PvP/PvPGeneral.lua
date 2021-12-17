@@ -3,26 +3,6 @@ local L		= mod:GetLocalizedStrings()
 
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
-local GetDefaultLanguage = GetDefaultLanguage
-local orcishLocales = {
-	"Orcish", -- enUS
-	"오크어", -- koKR
-	"Orc", -- frFR
-	"Orcisch", -- deDE
-	"兽人语", -- zhCN
-	"Orco", -- esES + esMX
-	"獸人語", -- zhTW
-	"орочий" -- ruRU
-}
-local UnitFactionGroup = function(unit) -- workaround to detect faction in Mercenary Mode
-	if unit ~= "player" then return UnitFactionGroup(unit) end
-	local language = GetDefaultLanguage()
-	if tContains(orcishLocales, language) then
-		return "Horde"
-	else
-		return "Alliance"
-	end
-end
 
 mod:SetRevision("20211117210231")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
@@ -57,10 +37,28 @@ end
 -- Utility functions
 local format, strsplit = string.format, strsplit
 local hooksecurefunc = hooksecurefunc
-local IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore = IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore
+local IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore, GetNumBattlefieldScores, GetUnitName, UnitFactionGroup, UnitName = IsActiveBattlefieldArena, FauxScrollFrame_GetOffset, GetBattlefieldScore, GetNumBattlefieldScores, GetUnitName, UnitFactionGroup, UnitName
 local MAX_WORLDSTATE_SCORE_BUTTONS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS = MAX_WORLDSTATE_SCORE_BUTTONS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
-
 local playerName = UnitName("player")
+
+local function GetBattlefieldFaction(unit) -- workaround to detect faction in Cross-Faction BG
+	if not unit then return UnitFactionGroup("player") end
+	local numScores = GetNumBattlefieldScores()
+	if numScores == 0 then return UnitFactionGroup("player")
+	else
+		local unitName = GetUnitName(unit, true)
+		for i = 1, numScores do
+			local name, _, _, _, _, faction = GetBattlefieldScore(i)
+			if name == unitName then
+				if faction == 0 then
+					return "Horde"
+				else
+					return "Alliance"
+				end
+			end
+		end
+	end
+end
 
 hooksecurefunc("WorldStateScoreFrame_Update", function()
 	if not mod.Options.ColorByClass then return	end
@@ -335,12 +333,13 @@ end
 
 do
 	local pairs = pairs
-	local IsInInstance, SendAddonMessage = IsInInstance, SendAddonMessage
+	local IsInInstance, SendAddonMessage, RequestBattlefieldScoreData = IsInInstance, SendAddonMessage, RequestBattlefieldScoreData
 	local bgzone, currentBGzone, lastBGzone = false, 0, 0
 
 	local function Init(self)
 		local _, instanceType = IsInInstance()
 		if instanceType == "pvp" or instanceType == "arena" then
+			RequestBattlefieldScoreData() -- for Cross-Faction UnitFactionGroup
 			if bgzone and currentBGzone ~= lastBGzone then
 				lastBGzone = GetCurrentMapAreaID()
 				if hasWarns then
@@ -594,7 +593,7 @@ do
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
 
 	local flagTimer			= mod:NewTimer(8, "TimerFlag", "Interface\\Icons\\INV_Banner_02")
-	local startTimer		= mod:NewTimer(120, "TimerStart", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01", nil, nil, nil, nil, nil, 1, 5)
+	local startTimer		= mod:NewTimer(120, "TimerStart", GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01", nil, nil, nil, nil, nil, 1, 5)
 	local timerShadow		= mod:NewNextTimer(90, 34709)
 
 	local function updateflagcarrier(self, msg)
@@ -685,10 +684,10 @@ do
 		TT:OnEvent("CHAT_MSG_BG_SYSTEM_NEUTRAL", msg) -- TimerTracker
 		if msg == L.BGStart120 or msg == L.BgStart120TC or msg == L.BgStart120Alterac or msg == L.BgStart120Arathi or msg == L.BgStart120EotS or msg == L.BgStart120IoConquest or msg == L.BgStart120SotA or msg == L.BgStart120Warsong then
 			startTimer:Update(0, 120)
-			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
+			startTimer:UpdateIcon(GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.BgStart60TC or msg == L.BgStart60Alterac or msg == L.BgStart60AlteracTC or msg == L.BgStart60Arathi or msg == L.BgStart60EotS or msg == L.BgStart60IoConquest or msg == L.BgStart60SotA or msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC or msg == L.BgStart60Warsong or msg == L.BgStart60WarsongTC then
 			startTimer:Update(60, 120)
-			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
+			startTimer:UpdateIcon(GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 			if msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC then
 				if DBM.InfoFrame:IsShown() then
 					self:GatesHPReset()
@@ -696,7 +695,7 @@ do
 			end
 		elseif msg == L.BgStart30TC or msg == L.BgStart30Alterac or msg == L.BgStart30AlteracTC or msg == L.BgStart30Arathi or msg == L.BgStart30EotS or msg == L.BgStart30IoConquest or msg == L.BgStart30SotA or msg == L.BgStart30SotA2 or msg == L.BgStart30SotA2TC or msg == L.BgStart30Warsong or msg == L.BgStart30WarsongTC then
 			startTimer:Update(90, 120)
-			startTimer:UpdateIcon(UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
+			startTimer:UpdateIcon(GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.Vulnerable1 or msg:find(L.Vulnerable1) then
 			vulnerableTimer:Start(300)
 			vulnerableTimer:UpdateIcon(46393)
@@ -754,7 +753,7 @@ do
 	local GetMapLandmarkInfo, GetNumMapLandmarks, GetWorldStateUIInfo = GetMapLandmarkInfo, GetNumMapLandmarks, GetWorldStateUIInfo
 	local FACTION_HORDE, FACTION_ALLIANCE = FACTION_HORDE, FACTION_ALLIANCE
 
-	local winTimer = mod:NewTimer(30, "TimerWin", UnitFactionGroup("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
+	local winTimer = mod:NewTimer(30, "TimerWin", GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 	local resourcesPerSec = {
 		[4] = { -- Eye of the Storm
 			[0] = 1e-300,
@@ -837,7 +836,7 @@ do
 		end
 		if self.Options.ShowBasesToWin then
 			local friendlyLast, enemyLast, friendlyBases, enemyBases
-			if UnitFactionGroup("player") == "Alliance" then
+			if GetBattlefieldFaction("player") == "Alliance" then
 				friendlyLast = allianceScore
 				enemyLast = hordeScore
 				friendlyBases = allianceBases
