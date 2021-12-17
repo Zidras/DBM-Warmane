@@ -58,7 +58,8 @@ L:SetMiscLocalization({
 	Flag				= "Флаг",
 	FlagResetTC			= "Флаг возвращен на базу.",
 	FlagTakenTC			= "(.+) захватывает флаг!",
-	FlagCapturedTC		= "(%w+) захватил флаг!",
+	FlagCapturedATC		= "Альянс захватил флаг!",
+	FlagCapturedHTC		= "Орда захватила флаг!",
 	FlagDroppedTC		= "Флаг уронили!",
 	--
 	ExprFlagPickUpATC	= "Флаг Альянса у |3-1((.+))!",
