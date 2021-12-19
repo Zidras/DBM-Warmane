@@ -60,14 +60,14 @@ L:SetMiscLocalization({
 	Flag				= "Флаг",
 	FlagResetTC			= "Флаг возвращен на базу.",
 	FlagTakenTC			= "(.+) захватывает флаг!",
-	FlagCapturedTC		= "(%w+) захватил флаг!",
+	FlagCapturedTC		= ".+ захватил.* флаг!",
 	FlagDroppedTC		= "Флаг уронили!",
 	--
 	ExprFlagPickUpATC	= "Флаг Альянса у |3-1((.+))!",
 	ExprFlagPickUpHTC	= "(.+) несет флаг Орды!",
-	ExprFlagCapturedTC	= "(.+) захватывает флаг (%w+)!",
-	ExprFlagReturnTC	= "(.+) возвращает на базу флаг (%w+)!",
-	ExprFlagDroppedTC	= "(.+) роняет флаг (%w+)!",
+	ExprFlagCapturedTC	= "(.+) захватывает флаг .+!",
+	ExprFlagReturnTC	= "(.+) возвращает на базу флаг .+!",
+	ExprFlagDroppedTC	= "(.+) роняет флаг .+!",
 	Vulnerable1			= "Персонажи, несущие флаг, стали более уязвимы!",
 	Vulnerable2			= "Персонажи, несущие флаг, стали еще более уязвимы!",
 	-- Gates

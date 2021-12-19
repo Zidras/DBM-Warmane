@@ -58,14 +58,14 @@ L:SetMiscLocalization({
 	Flag 				= "旗幟",
 	FlagResetTC			= "旗幟已重置。",
 	FlagTakenTC			= "(.+)已經奪走了旗幟!",
-	FlagCapturedTC		= "(%w+)已奪得旗幟!",
+	FlagCapturedTC		= ".+已奪得旗幟!",
 	FlagDroppedTC		= "旗幟已經掉落!",
 	--
 	ExprFlagPickUpATC	= "聯盟的旗幟被(.+)拔掉了!",
 	ExprFlagPickUpHTC	= "部落的旗幟被(.+)拔起了!",
-	ExprFlagCapturedTC	= "(.+)奪取了(%w+)的旗幟!",
-	ExprFlagReturnTC	= "(%w+)的旗幟被(.+)歸還到它的基地了!",
-	ExprFlagDroppedTC	= "(%w+)的旗幟被(.+)丟掉了!",
+	ExprFlagCapturedTC	= "(.+)奪取了.+的旗幟!",
+	ExprFlagReturnTC	= ".+的旗幟被(.+)歸還到它的基地了!",
+	ExprFlagDroppedTC	= ".+的旗幟被(.+)丟掉了!",
 	Vulnerable1			= "旗幟攜帶者變得脆弱了！",
 	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！",
 	-- Gates

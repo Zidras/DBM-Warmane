@@ -58,13 +58,13 @@ L:SetMiscLocalization({
 	Flag			= "깃발",
 	FlagResetTC		= "깃발이 다시 제자리로 돌아갔습니다.",
 	FlagTakenTC		= "(.+)|1이;가; 깃발을 차지했습니다!",
-	FlagCapturedTC	= "(%w+)가 깃발을 차지했습니다!",
+	FlagCapturedTC	= ".+가 깃발을 차지했습니다!",
 	FlagDroppedTC	= "깃발이 떨어졌습니다!",
 	--
-	ExprFlagPickUpTC	= "(.+)|1이;가; (%w+) 깃발을 손에 넣었습니다!",
-	ExprFlagCapturedTC	= "(.+)|1이;가; (%w+) 깃발 쟁탈에 성공했습니다!",
-	ExprFlagReturnTC	= "(.+)|1이;가; (%w+) 깃발을 되찾았습니다!",
-	ExprFlagDroppedTC	= "(.+)|1이;가; (%w+) 깃발을 떨어뜨렸습니다!",
+	ExprFlagPickUpTC	= "(.+)|1이;가; .+ 깃발을 손에 넣었습니다!",
+	ExprFlagCapturedTC	= "(.+)|1이;가; .+ 깃발 쟁탈에 성공했습니다!",
+	ExprFlagReturnTC	= "(.+)|1이;가; .+ 깃발을 되찾았습니다!",
+	ExprFlagDroppedTC	= "(.+)|1이;가; .+ 깃발을 떨어뜨렸습니다!",
 	Vulnerable1			= "약해져서",
 	Vulnerable2			= "약해져서",
 	-- Gates
