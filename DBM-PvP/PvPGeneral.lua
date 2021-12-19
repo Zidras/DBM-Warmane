@@ -687,7 +687,7 @@ do
 		if msg == L.BGStart120 or msg == L.BgStart120TC or msg == L.BgStart120Alterac or msg == L.BgStart120Arathi or msg == L.BgStart120EotS or msg == L.BgStart120IoConquest or msg == L.BgStart120SotA or msg == L.BgStart120Warsong then
 			startTimer:Update(0, 120)
 			startTimer:UpdateIcon(GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
-		elseif msg == L.BgStart60TC or msg == L.BgStart60Alterac or msg == L.BgStart60AlteracTC or msg == L.BgStart60Arathi or msg == L.BgStart60ArathiOLD or msg == L.BgStart60EotS or msg == L.BgStart60IoConquest or msg == L.BgStart60SotA or msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC or msg == L.BgStart60Warsong or msg == L.BgStart60WarsongTC then
+		elseif msg == L.BgStart60TC or msg == L.BgStart60Alterac or msg == L.BgStart60AlteracTC or msg == L.BgStart60Arathi or msg == L.BgStart60ArathiOLD or msg == L.BgStart60EotS or msg == L.BgStart60IoConquest or msg == L.BgStart60SotA or msg == L.BgStart60SotAOLD or msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC or msg == L.BgStart60Warsong or msg == L.BgStart60WarsongTC then
 			startTimer:Update(60, 120)
 			startTimer:UpdateIcon(GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 			if msg == L.BgStart60SotA2 or msg == L.BgStart60SotA2TC then
@@ -695,7 +695,7 @@ do
 					self:GatesHPReset()
 				end
 			end
-		elseif msg == L.BgStart30TC or msg == L.BgStart30Alterac or msg == L.BgStart30AlteracTC or msg == L.BgStart30Arathi or msg == L.BgStart30ArathiOLD or msg == L.BgStart30EotS or msg == L.BgStart30IoConquest or msg == L.BgStart30SotA or msg == L.BgStart30SotA2 or msg == L.BgStart30SotA2TC or msg == L.BgStart30Warsong or msg == L.BgStart30WarsongTC then
+		elseif msg == L.BgStart30TC or msg == L.BgStart30Alterac or msg == L.BgStart30AlteracTC or msg == L.BgStart30Arathi or msg == L.BgStart30ArathiOLD or msg == L.BgStart30EotS or msg == L.BgStart30IoConquest or msg == L.BgStart30SotA or msg == L.BgStart30SotAOLD or msg == L.BgStart30SotA2 or msg == L.BgStart30SotA2TC or msg == L.BgStart30Warsong or msg == L.BgStart30WarsongTC then
 			startTimer:Update(90, 120)
 			startTimer:UpdateIcon(GetBattlefieldFaction("player") == "Alliance" and "Interface\\Icons\\INV_BannerPVP_02" or "Interface\\Icons\\INV_BannerPVP_01")
 		elseif msg == L.Vulnerable1 or msg:find(L.Vulnerable1) then
