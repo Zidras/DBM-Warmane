@@ -70,6 +70,14 @@ L:SetMiscLocalization({
 	ExprFlagDroppedTC	= "(.+) роняет флаг .+!",
 	Vulnerable1			= "Персонажи, несущие флаг, стали более уязвимы!",
 	Vulnerable2			= "Персонажи, несущие флаг, стали еще более уязвимы!",
+	-- Alterac/IsleOfConquest bosses
+	InfoFrameHeader		= "Здоровье босса",
+	HordeBoss			= "Босс Орды",
+	AllianceBoss		= "Босс Альянса",
+	Galvangar			= "Гальвангар",
+	Balinda				= "Балинда",
+	Ivus				= "Ивус",
+	Lokholar			= "Локолар",
 	-- Gates
 	GatesHealthFrame				= "Поврежденные ворота",
 	HordeGateFront					= "|TInterface\\MINIMAP\\POIICONS.BLP:16:16:0:0:256:256:127:143:92:107|t Главные врата",
