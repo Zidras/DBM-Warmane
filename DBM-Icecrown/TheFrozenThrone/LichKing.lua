@@ -1,6 +1,8 @@
 local mod	= DBM:NewMod("LichKing", "DBM-Icecrown", 5)
 local L		= mod:GetLocalizedStrings()
 
+local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
+
 mod:SetRevision(("$Revision: 4425 $"):sub(12, -3))
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(2, 3, 4, 5, 6, 7, 8)
@@ -33,6 +35,7 @@ local warnShamblingEnrage	= mod:NewTargetAnnounce(72143, 3, nil, "Tank|Healer|Re
 local warnNecroticPlague	= mod:NewTargetAnnounce(70337, 3) --Phase 1+ Ability
 local warnNecroticPlagueJump= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 70337) --Phase 1+ Ability
 local warnInfest			= mod:NewSpellAnnounce(73779, 3, nil, "Healer|RaidCooldown") --Phase 1 & 2 Ability
+local warnIceSpheresTarget	= mod:NewTargetAnnounce(69103, 3, 69712, nil, 69090) -- icon: spell_frost_frozencore; shortText "Ice Sphere"
 local warnPhase2Soon		= mod:NewPrePhaseAnnounce(2)
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 local valkyrWarning			= mod:NewAnnounce("ValkyrWarning", 3, 71844)--Phase 2 Ability
@@ -50,6 +53,7 @@ local warnRestoreSoul		= mod:NewCastAnnounce(73650, 2) --Phase 3 Heroic
 local specWarnSoulreaper	= mod:NewSpecialWarningDefensive(69409, nil, nil, nil, 1, 2) --Phase 1+ Ability
 local specWarnNecroticPlague= mod:NewSpecialWarningMoveAway(70337, nil, nil, nil, 1, 2) --Phase 1+ Ability
 local specWarnRagingSpirit	= mod:NewSpecialWarningYou(69200, nil, nil, nil, 1, 2) --Transition Add
+local specWarnIceSpheresYou	= mod:NewSpecialWarningMoveAway(69103, nil, 69090, nil, 1, 2) -- shortText "Ice Sphere"
 local specWarnYouAreValkd	= mod:NewSpecialWarning("SpecWarnYouAreValkd", nil, nil, nil, 1, 2) --Phase 2+ Ability
 local specWarnDefileCast	= mod:NewSpecialWarningMoveAway(72762, nil, nil, nil, 3, 2) --Phase 2+ Ability
 local yellDefile			= mod:NewYellMe(72762)
@@ -121,12 +125,14 @@ mod:AddEditboxOption("FrameY", -50)
 local warnedAchievement = false
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
+local iceSpheresGUIDs = {}
 local warnedValkyrGUIDs = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 local plagueExpires = {}
 local lastPlague
 
 local soulshriek = GetSpellInfo(69242)
+local summonIceSphere = GetSpellInfo(69103)
 
 function mod:RemoveImmunes()
 	if mod.Options.RemoveImmunes then -- cancelaura bop bubble iceblock Dintervention
@@ -187,11 +193,13 @@ function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	NextPhase(self)
+	table.wipe(iceSpheresGUIDs)
 	table.wipe(warnedValkyrGUIDs)
 	table.wipe(plagueExpires)
 end
 
 function mod:OnCombatEnd()
+	self:UnregisterShortTermEvents()
 	self:DestroyFrame()
 end
 
@@ -274,6 +282,7 @@ function mod:SPELL_CAST_START(args)
 		warnQuake:Show()
 		timerRagingSpiritCD:Cancel()
 		NextPhase(self)
+		self:UnregisterShortTermEvents()
 	elseif args.spellId == 70372 then -- Shambling Horror
 		warnShamblingSoon:Cancel()
 		warnShamblingHorror:Show()
@@ -550,6 +559,11 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 	if spellName == soulshriek and mod:LatencyCheck() then
 		self:SendSync("SoulShriek", UnitGUID(uId))
+	elseif spellName == summonIceSphere then
+		self:RegisterShortTermEvents(
+			"UPDATE_MOUSEOVER_UNIT",
+			"UNIT_TARGET"
+		)
 	end
 end
 
@@ -557,10 +571,43 @@ function mod:UNIT_EXITING_VEHICLE(uId)
 	mod:RemoveEntry(UnitName(uId))
 end
 
-function mod:OnSync(msg, target)
+function mod:UPDATE_MOUSEOVER_UNIT()
+	if DBM:GetUnitCreatureId("mouseover") == 36633 then -- Ice Sphere
+		local sphereGUID = UnitGUID("mouseover")
+		local sphereTarget = UnitName("mouseovertarget")
+		if sphereGUID and sphereTarget and not iceSpheresGUIDs[sphereGUID] then
+			iceSpheresGUIDs[sphereGUID] = sphereTarget
+			self:SendSync("SphereTarget", sphereTarget, sphereGUID)
+		end
+	end
+end
+
+function mod:UNIT_TARGET(uId)
+	if DBM:GetUnitCreatureId(uId.."target") == 36633 then -- Ice Sphere
+		local sphereGUID = UnitGUID(uId.."target")
+		local sphereTarget = UnitName(uId.."targettarget")
+		if sphereGUID and sphereTarget and not iceSpheresGUIDs[sphereGUID] then
+			iceSpheresGUIDs[sphereGUID] = sphereTarget
+			warnIceSpheresTarget:Show(sphereTarget)
+			if sphereTarget == UnitName("player") then
+				specWarnIceSpheresYou:Show()
+				specWarnIceSpheresYou:Play("161411") -- Ice orb. Move away!
+			end
+		end
+	end
+end
+
+function mod:OnSync(msg, target, guid)
 	if msg == "CombatStart" then
 		timerCombatStart:Start()
 	elseif msg == "SoulShriek" then
 		timerSoulShriekCD:Start(target)
+	elseif msg == "SphereTarget" and not iceSpheresGUIDs[guid] then
+		iceSpheresGUIDs[guid] = target
+		warnIceSpheresTarget:Show(target)
+		if target == UnitName("player") then
+			specWarnIceSpheresYou:Show()
+			specWarnIceSpheresYou:Play("161411") -- Ice orb. Move away!
+		end
 	end
 end
