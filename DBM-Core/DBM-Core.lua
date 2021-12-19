@@ -3813,7 +3813,7 @@ do
 			self.Options.RestoreSettingBreakTimer = timer.."/"..time()
 			if not self.Options.DontShowPT2 then
 				dummyMod2.timer:Start(timer)
-				sendSync("DBMv4-Pizza", ("%s\t%s\t%s"):format(timer, L.BREAK_START, tostring(true))) -- Backwards compatibility so old DBMs can receive break timers from this DBM
+				sendSync("DBMv4-Pizza", ("%s\t%s\t%s"):format(timer, L.TIMER_BREAK, tostring(true))) -- Backwards compatibility so old DBMs can receive break timers from this DBM
 			end
 			if not self.Options.DontShowPTText then
 				local hour, minute = GetGameTime()
@@ -3995,7 +3995,8 @@ do
 		end
 	end
 
-	local localized_TIMER_PULL = { -- Workaround for mismatched clients locales: L.TIMER_PULL would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
+	-- Workaround for mismatched clients locales: L.TIMER_PULL and L.TIMER_BREAK would be different and therefore would not play sounds since the receiver locale would be different than sender locale.
+	local localized_TIMER_PULL = {
 		"开怪倒计时",	--CN
 		"Pull in",		--DE, EN
 		"Iniciando en",	--ES
@@ -4006,6 +4007,18 @@ do
 		"Атака",		--RU
 		"戰鬥準備"		--TW
 	}
+	local localized_TIMER_BREAK = {
+		"休息时间！",		-- CN
+		"Pause!",			-- DE
+		"Pause",			-- DE (old DBM)
+		"Break time!",		-- EN, FR (old DBM)
+		"¡Toca descanso!",	-- ES
+		"¡Descanso!",		-- ES (old DBM)
+		"Pause !",			-- FR
+		"쉬는 시간!",		-- KR
+		"Перерыв!",			-- RU
+		"休息時間!"			-- TW
+	}
 
 	syncHandlers["DBMv4-Pizza"] = function(sender, time, text, new)
 		if select(2, IsInInstance()) == "pvp" then return end
@@ -4015,9 +4028,13 @@ do
 		text = tostring(text)
 		if time and text then
 			local pullTimer = tContains(localized_TIMER_PULL, tostring(text)) and L.TIMER_PULL or nil -- Fixes localization of pull bar text
+			local breakTimer = tContains(localized_TIMER_BREAK, tostring(text)) and L.TIMER_BREAK or nil -- Fixes localization of break bar text
 			if pullTimer then
 				if new then return end
 				handleSync(nil, sender, "DBMv4-PT", time, text)
+			elseif breakTimer then
+				if new then return end
+				handleSync(nil, sender, "DBMv4-BT", time, text)
 			else
 				DBM:CreatePizzaTimer(time, text, nil, sender)
 			end
