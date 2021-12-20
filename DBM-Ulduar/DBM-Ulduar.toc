@@ -2,13 +2,14 @@
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ulduar|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ульдуар|r
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0울두아르|r
-## Title-zhtw:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0奧杜亞|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0奧杜亞|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ulduar|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMUlduar_AllSavedVars
 ## SavedVariablesPerCharacter: DBMUlduar_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Has-Heroic-Mode: 0
 ## X-DBM-Mod-Name: Ulduar
@@ -30,7 +31,6 @@
 ## X-DBM-Mod-LoadZone-deDE: Ulduar
 
 localization.en.lua
-localization.cn.lua
 localization.de.lua
 localization.fr.lua
 localization.ru.lua
@@ -38,7 +38,7 @@ localization.tw.lua
 localization.kr.lua
 localization.tw.lua
 localization.es.lua
-
+localization.cn.lua
 FlameLeviathan.lua
 Ignis.lua
 Razorscale.lua
