@@ -218,6 +218,7 @@ L.RANGECHECK_OPTION_RADAR		= "顯示雷達框架"
 L.RANGECHECK_OPTION_TEXT		= "顯示文字框"
 L.RANGECHECK_OPTION_BOTH		= "兩者都顯示"
 L.RANGERADAR_HEADER				= "測距雷達(%d碼)"
+L.RANGERADAR_BOSS_HEADER		= "首領範圍%d碼"
 L.RANGERADAR_RHEADER			= "反距離:%d玩家:%d"
 L.RANGERADAR_IN_RANGE_TEXT		= "%d在範圍內(%0.1f碼)"--Multi
 L.RANGECHECK_IN_RANGE_TEXT		= "%d在範圍內"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways

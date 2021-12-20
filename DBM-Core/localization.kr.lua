@@ -215,6 +215,7 @@ L.RANGECHECK_OPTION_RADAR	= "레이더 창 표시"
 L.RANGECHECK_OPTION_TEXT		= "텍스트 창 표시"
 L.RANGECHECK_OPTION_BOTH		= "모두 표시"
 L.RANGERADAR_HEADER			= "범위 레이더 (%d m)"
+L.RANGERADAR_BOSS_HEADER		= "보스 범위 (%d m)"
 L.RANGERADAR_RHEADER			= "반전-거리:%d 플레이어:%d"
 L.RANGERADAR_IN_RANGE_TEXT	= "거리 내 %d명 (%0.1f m)"
 L.RANGECHECK_IN_RANGE_TEXT	= "거리 내 %d명"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways

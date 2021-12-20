@@ -201,6 +201,7 @@ L.RANGECHECK_OPTION_RADAR	= "Zeige Radarfenster"
 L.RANGECHECK_OPTION_TEXT		= "Zeige Textfenster"
 L.RANGECHECK_OPTION_BOTH		= "Zeige beide Fenster"
 L.RANGERADAR_HEADER			= "Reichweite Radar (%d m)"
+L.RANGERADAR_BOSS_HEADER		= "Boss-Reichweite (%d yd)"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d in Reichweite (%0.1f m)"
 L.RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1f m)"
 

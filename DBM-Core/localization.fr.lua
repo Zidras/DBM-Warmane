@@ -176,6 +176,7 @@ L.RANGECHECK_OPTION_RADAR	= "Afficher le cadre du radar"
 L.RANGECHECK_OPTION_TEXT		= "Afficher le cadre textuel"
 L.RANGECHECK_OPTION_BOTH		= "Afficher les deux cadres"
 L.RANGERADAR_HEADER			= "Radar de portée (%d m)"
+L.RANGERADAR_BOSS_HEADER		= "Portée du boss (%d m)"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d joueurs à portée"
 L.RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1fm)"--One target
 
