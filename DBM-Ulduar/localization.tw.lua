@@ -49,10 +49,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	warnTurretsReadySoon		= "20秒後 最後一座砲塔完成",
-	warnTurretsReady			= "最後一座砲塔已完成",
-	SpecWarnDevouringFlameCast	= "你中了吞噬烈焰",
-	WarnDevouringFlameCast		= "吞噬烈焰: >%s<"
+	warnTurretsReadySoon	= "20秒後 最後一座砲塔完成",
+	warnTurretsReady		= "最後一座砲塔已完成"
 }
 
 L:SetTimerLocalization{
@@ -64,23 +62,20 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "Play sound when you are affected by $spell:64733", --Needs Translating
-	warnTurretsReadySoon		= "為砲塔顯示預先警告",
-	warnTurretsReady			= "為砲塔顯示警告",
-	SpecWarnDevouringFlameCast	= "當你中了$spell:64733時顯示特別警告",
-	timerTurret1				= "為砲塔1顯示計時器",
-	timerTurret2				= "為砲塔2顯示計時器",
-	timerTurret3				= "為砲塔3顯示計時器 (25人)",
-	timerTurret4				= "為砲塔4顯示計時器 (25人)",
-	OptionDevouringFlame		= "提示$spell:64733的目標 (不準確)",
-	timerGrounded				= "為地上階段顯示計時器"
+	warnTurretsReadySoon	= "為砲塔顯示預先警告",
+	warnTurretsReady		= "為砲塔顯示警告",
+	timerTurret1			= "為砲塔1顯示計時器",
+	timerTurret2			= "為砲塔2顯示計時器",
+	timerTurret3			= "為砲塔3顯示計時器 (25人)",
+	timerTurret4			= "為砲塔4顯示計時器 (25人)",
+	timerGrounded			= "為地上階段顯示計時器"
 }
 
 L:SetMiscLocalization{
 	YellAir				= "給我們一點時間來準備建造砲塔。",
 	YellAir2			= "火熄了!讓我們重建砲塔!",
 	YellGround			= "快!她可不會在地面上待太久!",
-	EmotePhase2			= "%%s再也飛不動了!"
+	EmotePhase2			= "再也飛不動了!"
 }
 
 ----------------------------

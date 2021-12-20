@@ -50,9 +50,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	warnTurretsReadySoon		= "Гарпунные пушки будут собраны через 20 секунд",
-	warnTurretsReady			= "Гарпунные пушки собраны",
-	SpecWarnDevouringFlameCast	= "Лавовая бомба на вас",
-	WarnDevouringFlameCast		= "Лавовая бомба на |3-5(>%s<)"
+	warnTurretsReady			= "Гарпунные пушки собраны"
 }
 
 L:SetTimerLocalization{
@@ -64,15 +62,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "Звуковой сигнал, когда на вас $spell:64733",
 	warnTurretsReadySoon		= "Пред-предупреждение для пушек",
 	warnTurretsReady			= "Предупреждение для пушек",
-	SpecWarnDevouringFlameCast	= "Спец-предупреждение, когда $spell:64733 применяется на вас",
 	timerTurret1				= "Отсчет времени до пушки 1",
 	timerTurret2				= "Отсчет времени до пушки 2",
 	timerTurret3				= "Отсчет времени до пушки 3 (25 чел.)",
 	timerTurret4				= "Отсчет времени до пушки 4 (25 чел.)",
-	OptionDevouringFlame		= "Объявлять цели заклинания $spell:64733 (неточно)",
 	timerGrounded			    = "Отсчет времени для наземной фазы"
 }
 

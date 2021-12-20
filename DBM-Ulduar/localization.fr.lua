@@ -50,29 +50,24 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	warnTurretsReadySoon		= "Quatrième tourelle à harpon prête dans 20 Sec",
-	warnTurretsReady			= "Quatrième tourelle à harpon prête",
-	SpecWarnDevouringFlameCast	= "Flamme dévorante sur Vous",
-	WarnDevouringFlameCast		= "Flamme dévorante sur >%s<"
+	warnTurretsReady			= "Quatrième tourelle à harpon prête"
 }
 
 L:SetTimerLocalization{
-	timerTurret1	= "Tourelle 1",
-	timerTurret2	= "Tourelle 2",
-	timerTurret3	= "Tourelle 3",
-	timerTurret4	= "Tourelle 4",
-	timerGrounded	= "Sur le sol"
+	timerTurret1			= "Tourelle 1",
+	timerTurret2			= "Tourelle 2",
+	timerTurret3			= "Tourelle 3",
+	timerTurret4			= "Tourelle 4",
+	timerGrounded			= "Sur le sol"
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "Jouer un son quand vous êtes affecté par la Flamme dévorante",
 	warnTurretsReadySoon		= "Activer le pré-avertissement pour les tourelles",
 	warnTurretsReady			= "Activer l'avertissement pour les tourelles",
-	SpecWarnDevouringFlameCast	= "Montre une alerte spéciale quand les Flammes dévorantes sont cast sur Vous",
 	timerTurret1				= "Montre le timer pour la tourelle 1",
 	timerTurret2				= "Montre le timer pour la tourelle 2",
-	timerTurret3				= "Montre le timer pour la tourelle 3 (Héroique)",
-	timerTurret4				= "Montre le timer pour la tourelle 4 (Héroique)",
-	OptionDevouringFlame		= "Annonce la cible des Flammes dévorantes (Incertain)",
+	timerTurret3				= "Montre le timer pour la tourelle 3 (25 joueurs)",
+	timerTurret4				= "Montre le timer pour la tourelle 4 (25 joueurs)",
 	timerGrounded				= "Montre le timer pour la phase au sol"
 }
 

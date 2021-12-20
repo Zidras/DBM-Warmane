@@ -48,9 +48,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	warnTurretsReadySoon		= "Last turret ready in 20 seconds",
-	warnTurretsReady			= "Last turret ready",
-	SpecWarnDevouringFlameCast	= "Devouring Flame on you",
-	WarnDevouringFlameCast		= "Devouring Flame on >%s<"
+	warnTurretsReady			= "Last turret ready"
 }
 
 L:SetTimerLocalization{
@@ -62,15 +60,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "Play sound when you are affected by $spell:64733",
 	warnTurretsReadySoon		= "Show pre-warning for turrets",
 	warnTurretsReady			= "Show warning for turrets",
-	SpecWarnDevouringFlameCast	= "Show special warning when $spell:64733 is cast on you",
 	timerTurret1				= "Show timer for turret 1",
 	timerTurret2				= "Show timer for turret 2",
 	timerTurret3				= "Show timer for turret 3 (25 player)",
 	timerTurret4				= "Show timer for turret 4 (25 player)",
-	OptionDevouringFlame		= "Announce $spell:64733 targets (unreliable)",
 	timerGrounded				= "Show timer for ground phase duration"
 }
 
@@ -78,8 +73,7 @@ L:SetMiscLocalization{
 	YellAir				= "Give us a moment to prepare to build the turrets.",
 	YellAir2			= "Fires out! Let's rebuild those turrets!",
 	YellGround			= "Move quickly! She won't remain grounded for long!",
-	EmotePhase2			= "%%s grounded permanently!",
-	FlamecastUnknown	= DBM_CORE_L.UNKNOWN
+	EmotePhase2			= "%%s grounded permanently!"
 }
 
 ----------------------------

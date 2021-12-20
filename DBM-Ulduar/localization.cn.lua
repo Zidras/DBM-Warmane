@@ -43,43 +43,39 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Razorscale")
 
 L:SetGeneralLocalization{
-    name = "Razorscale"
+	name = "锋鳞"
 }
 
 L:SetWarningLocalization{
-    warnTurretsReadySoon = "Last turret ready in 20 seconds",
-    warnTurretsReady = "Last turret ready",
-    SpecWarnDevouringFlameCast = "Devouring Flame on you",
-    WarnDevouringFlameCast = "Devouring Flame on >%s<"
+	warnTurretsReadySoon		= "20秒后 最后一座炮塔完成",
+	warnTurretsReady			= "最后一座炮塔已完成",
+	SpecWarnDevouringFlameCast	= "你中了噬体烈焰",
+	WarnDevouringFlameCast		= "噬体烈焰 -> >%s<"
 }
 
 L:SetTimerLocalization{
-    timerTurret1 = "Turret 1",
-    timerTurret2 = "Turret 2",
-    timerTurret3 = "Turret 3",
-    timerTurret4 = "Turret 4",
-    timerGrounded = "On the ground"
+	timerTurret1			= "炮塔1",
+	timerTurret2			= "炮塔2",
+	timerTurret3			= "炮塔3",
+	timerTurret4			= "炮塔4",
+	timerGrounded			= "地面阶段"
 }
 
 L:SetOptionLocalization{
-    PlaySoundOnDevouringFlame = "Play sound when you are affected by $spell:64733",
-    warnTurretsReadySoon = "Show pre-warning for turrets",
-    warnTurretsReady = "Show warning for turrets",
-    SpecWarnDevouringFlameCast = "Show special warning when $spell:64733 is cast on you",
-    timerTurret1 = "Show timer for turret 1",
-    timerTurret2 = "Show timer for turret 2",
-    timerTurret3 = "Show timer for turret 3 (25 player)",
-    timerTurret4 = "Show timer for turret 4 (25 player)",
-    OptionDevouringFlame = "Announce $spell:64733 targets (unreliable)",
-    timerGrounded = "Show timer for ground phase duration"
+	warnTurretsReadySoon	= "为炮塔显示提前警报",
+	warnTurretsReady		= "为炮塔显示警报",
+	timerTurret1			= "为炮塔1显示计时条",
+	timerTurret2			= "为炮塔2显示计时条",
+	timerTurret3			= "为炮塔3显示计时条 (25人)",
+	timerTurret4			= "为炮塔4显示计时条 (25人)",
+	timerGrounded			= "为地面阶段显示计时条"
 }
 
 L:SetMiscLocalization{
-    YellAir = "给我们一点时间，做好建筑炮台的准备。",
-    YellAir2 = "火灭了！准备重建炮台！",
-    YellGround = "快一点！她马上就要挣脱了！",
-    EmotePhase2 = "%%s被永久地禁锢在地面上！",
-    FlamecastUnknown = DBM_CORE_L.UNKNOWN
+	YellAir				= "给我们一点时间，做好建筑炮台的准备。",
+	YellAir2			= "火灭了！准备重建炮台！",
+	YellGround			= "快一点！她马上就要挣脱了！",
+	EmotePhase2			= "%%s被永久地禁锢在地面上！"
 }
 
 ----------------------------
