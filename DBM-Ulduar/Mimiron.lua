@@ -133,6 +133,13 @@ function mod:Flames()	-- Flames
 		self:ScheduleMethod(27, "ToFlames1")
 	end
 end
+
+local function ResetRange(self)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:DisableBossMode()
+	end
+end
+
 -- SOUND FUNCTIONS
 function mod:ToFlames5()
 	PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\5.mp3", "Master")
@@ -193,6 +200,10 @@ function mod:SPELL_CAST_START(args)
 		timerNextShockblast:Start()
 		if self.Options.PlaySoundOnShockBlast then
 			PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
+		end
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(33432))
+			self:Schedule(4.5, ResetRange, self)
 		end
 	elseif args:IsSpellID(64529, 62997) then	-- Plasma Blast
 		timerPlasmaBlastCD:Start()

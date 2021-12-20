@@ -475,9 +475,12 @@ do
 		rangeCheck:Show(range)
 	end
 
-	local sound0 = "none"
-	local sound1 = "Interface\\AddOns\\DBM-Core\\Sounds\\blip_8.ogg"
-	local sound2 = "Interface\\AddOns\\DBM-Core\\Sounds\\alarmclockbeeps.ogg"
+	local sounds = {
+		"none",
+		"Interface\\AddOns\\DBM-Core\\Sounds\\blip_8.ogg",
+		"Interface\\AddOns\\DBM-Core\\Sounds\\alarmclockbeeps.ogg"
+	}
+
 	local function setSound(self, option, sound)
 		DBM.Options[option] = sound
 		if sound ~= "none" then
@@ -551,124 +554,18 @@ do
 
 		elseif level == 2 then
 			if menu == "range" then
+				local ranges = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 28}
 
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(5)
-					info.func = setRange
-					info.arg1 = 5
-					info.checked = (frame.range == 5)
-					UIDropDownMenu_AddButton(info, 2)
+				for _, r in pairs(ranges) do
+					if initRangeCheck(r) then
+						info = UIDropDownMenu_CreateInfo()
+						info.text = L.RANGECHECK_SETRANGE_TO:format(r)
+						info.func = setRange
+						info.arg1 = r
+						info.checked = (frame.range == r)
+						UIDropDownMenu_AddButton(info, 2)
+					end
 				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(6)
-					info.func = setRange
-					info.arg1 = 6
-					info.checked = (frame.range == 6)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(7)
-					info.func = setRange
-					info.arg1 = 7
-					info.checked = (frame.range == 7)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(8)
-					info.func = setRange
-					info.arg1 = 8
-					info.checked = (frame.range == 8)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(9)
-					info.func = setRange
-					info.arg1 = 9
-					info.checked = (frame.range == 9)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(10)
-					info.func = setRange
-					info.arg1 = 10
-					info.checked = (frame.range == 10)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(11)
-					info.func = setRange
-					info.arg1 = 11
-					info.checked = (frame.range == 11)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(12)
-					info.func = setRange
-					info.arg1 = 12
-					info.checked = (frame.range == 12)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(13)
-					info.func = setRange
-					info.arg1 = 13
-					info.checked = (frame.range == 13)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(14)
-					info.func = setRange
-					info.arg1 = 14
-					info.checked = (frame.range == 14)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(15)
-					info.func = setRange
-					info.arg1 = 15
-					info.checked = (frame.range == 15)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(20)
-					info.func = setRange
-					info.arg1 = 20
-					info.checked = (frame.range == 20)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
-				if initRangeCheck() then
-					info = UIDropDownMenu_CreateInfo()
-					info.text = L.RANGECHECK_SETRANGE_TO:format(28)
-					info.func = setRange
-					info.arg1 = 28
-					info.checked = (frame.range == 28)
-					UIDropDownMenu_AddButton(info, 2)
-				end
-
 
 			elseif menu == "sounds" then
 				info = UIDropDownMenu_CreateInfo()
@@ -729,29 +626,17 @@ do
 			end
 		elseif level == 3 then
 			local option = menu
-			info = UIDropDownMenu_CreateInfo()
-			info.text = L.RANGECHECK_SOUND_0
-			info.func = setSound
-			info.arg1 = option
-			info.arg2 = sound0
-			info.checked = (DBM.Options[option] == sound0)
-			UIDropDownMenu_AddButton(info, 3)
 
-			info = UIDropDownMenu_CreateInfo()
-			info.text = L.RANGECHECK_SOUND_1
-			info.func = setSound
-			info.arg1 = option
-			info.arg2 = sound1
-			info.checked = (DBM.Options[option] == sound1)
-			UIDropDownMenu_AddButton(info, 3)
+			for k, s in ipairs(sounds) do
+				info = UIDropDownMenu_CreateInfo()
+				info.text = L["RANGECHECK_SOUND_"..tostring(k - 1)]
+				info.func = setSound
+				info.arg1 = option
+				info.arg2 = s
+				info.checked = (DBM.Options[option] == s)
+				UIDropDownMenu_AddButton(info, 3)
+			end
 
-			info = UIDropDownMenu_CreateInfo()
-			info.text = L.RANGECHECK_SOUND_2
-			info.func = setSound
-			info.arg1 = option
-			info.arg2 = sound2
-			info.checked = (DBM.Options[option] == sound2)
-			UIDropDownMenu_AddButton(info, 3)
 		end
 	end
 end
@@ -948,33 +833,42 @@ function onUpdate(self, elapsed)
 	local color
 	local j = 0
 	self:ClearLines()
-	self:SetText(L.RANGECHECK_HEADER:format(self.range), 1, 1, 1)
+	self:SetText((self.bossMode and L.RANGERADAR_BOSS_HEADER or L.RANGECHECK_HEADER):format(self.range), 1, 1, 1)
 	if initRangeCheck(self.range) then
-		if GetNumRaidMembers() > 0 then
-			for i = 1, GetNumRaidMembers() do
-				local uId = "raid"..i
-				if not UnitIsUnit(uId, "player") and not UnitIsDeadOrGhost(uId) and self.checkFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
-					j = j + 1
-					color = RAID_CLASS_COLORS[select(2, UnitClass(uId))] or NORMAL_FONT_COLOR
-					local icon = GetRaidTargetIndex(uId)
-					local text = icon and ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t %s"):format(icon, UnitName(uId)) or UnitName(uId)
-					self:AddLine(text, color.r, color.g, color.b)
-					if j >= 5 then
-						break
+		if self.bossMode then
+			local uId = self.bossUnit
+			if uId and enemyCheckFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
+				color = NORMAL_FONT_COLOR
+				local text = UnitName(uId)
+				self:AddLine(text, color.r, color.g, color.b)
+			end
+		else
+			if GetNumRaidMembers() > 0 then
+				for i = 1, GetNumRaidMembers() do
+					local uId = "raid"..i
+					if not UnitIsUnit(uId, "player") and not UnitIsDeadOrGhost(uId) and self.checkFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
+						j = j + 1
+						color = RAID_CLASS_COLORS[select(2, UnitClass(uId))] or NORMAL_FONT_COLOR
+						local icon = GetRaidTargetIndex(uId)
+						local text = icon and ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t %s"):format(icon, UnitName(uId)) or UnitName(uId)
+						self:AddLine(text, color.r, color.g, color.b)
+						if j >= 5 then
+							break
+						end
 					end
 				end
-			end
-		elseif GetNumPartyMembers() > 0 then
-			for i = 1, GetNumPartyMembers() do
-				local uId = "party"..i
-				if not UnitIsUnit(uId, "player") and not UnitIsDeadOrGhost(uId) and self.checkFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
-					j = j + 1
-					color = RAID_CLASS_COLORS[select(2, UnitClass(uId))] or NORMAL_FONT_COLOR
-					local icon = GetRaidTargetIndex(uId)
-					local text = icon and ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t %s"):format(icon, UnitName(uId)) or UnitName(uId)
-					self:AddLine(text, color.r, color.g, color.b)
-					if j >= 5 then
-						break
+			elseif GetNumPartyMembers() > 0 then
+				for i = 1, GetNumPartyMembers() do
+					local uId = "party"..i
+					if not UnitIsUnit(uId, "player") and not UnitIsDeadOrGhost(uId) and self.checkFunc(uId, self.range) and (not self.filter or self.filter(uId)) then
+						j = j + 1
+						color = RAID_CLASS_COLORS[select(2, UnitClass(uId))] or NORMAL_FONT_COLOR
+						local icon = GetRaidTargetIndex(uId)
+						local text = icon and ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t %s"):format(icon, UnitName(uId)) or UnitName(uId)
+						self:AddLine(text, color.r, color.g, color.b)
+						if j >= 5 then
+							break
+						end
 					end
 				end
 			end
@@ -991,7 +885,7 @@ function onUpdate(self, elapsed)
 end
 
 do
-	local rotation, pixelsperyard, prevNumPlayers, range, isInSupportedArea
+	local rotation, pixelsperyard, prevNumPlayers, range, bossMode, isInSupportedArea
 	local function createDot(id)
 		local dot = radarFrame:CreateTexture("DBMRangeCheckRadarDot"..id, "OVERLAY")
 		dot:SetTexture([[Interface\AddOns\DBM-Core\textures\blip]])
@@ -1070,9 +964,10 @@ do
 			pixelsperyard = min(radarFrame:GetWidth(), radarFrame:GetHeight()) / (frame.range * 3)
 			radarFrame.circle:SetSize(frame.range * pixelsperyard * 2, frame.range * pixelsperyard * 2)
 
-			if frame.range ~= (range or 0) then
+			if frame.range ~= (range or 0) or bossMode ~= frame.bossMode then
 				range = frame.range
-				radarFrame.text:SetText(L.RANGERADAR_HEADER:format(range))
+				bossMode = frame.bossMode
+				radarFrame.text:SetText((bossMode and L.RANGERADAR_BOSS_HEADER or L.RANGERADAR_HEADER):format(range))
 			end
 
 			local mapName = GetMapInfo()
@@ -1095,12 +990,14 @@ do
 				rotation = (2 * math.pi) - GetPlayerFacing()
 				local numPlayers = 0
 				local unitID = "raid%d"
-				if GetNumRaidMembers() > 0 then
-					unitID = "raid%d"
-					numPlayers = GetNumRaidMembers()
-				elseif GetNumPartyMembers() > 0 then
-					unitID = "party%d"
-					numPlayers = GetNumPartyMembers()
+				if not bossMode then
+					if GetNumRaidMembers() > 0 then
+						unitID = "raid%d"
+						numPlayers = GetNumRaidMembers()
+					elseif GetNumPartyMembers() > 0 then
+						unitID = "party%d"
+						numPlayers = GetNumPartyMembers()
+					end
 				end
 				if numPlayers < (prevNumPlayers or 0) then
 					for i=numPlayers, prevNumPlayers do
@@ -1161,10 +1058,16 @@ do
 				end
 
 				local playerTooClose = false
-				for i,v in pairs(dots) do
-					if v.tooClose then
+				if bossMode then
+					if enemyCheckFunc(frame.bossUnit, frame.range) then
 						playerTooClose = true
-						break;
+					end
+				else
+					for i,v in pairs(dots) do
+						if v.tooClose then
+							playerTooClose = true
+							break
+						end
 					end
 				end
 				if UnitIsDeadOrGhost("player") then
@@ -1198,13 +1101,12 @@ end
 -----------------------
 --  Check functions  --
 -----------------------
-checkFuncs[11] = function(uId)
-	return CheckInteractDistance(uId, 2)
-end
-
-
 checkFuncs[10] = function(uId)
 	return CheckInteractDistance(uId, 3)
+end
+
+checkFuncs[11] = function(uId)
+	return CheckInteractDistance(uId, 2)
 end
 
 checkFuncs[28] = function(uId)
@@ -1282,15 +1184,79 @@ do
 	})
 end
 
-do
-	local bandages = {21991, 34721, 34722, 53049, 53050, 53051}  -- you should have one of these bandages in your cache
+local HarmItems = {
+	[5] = {
+		37727, -- Ruby Acorn
+	},
+	[8] = {
+		34368, -- Attuned Crystal Cores
+		33278, -- Burning Torch
+	},
+	[10] = {
+		32321, -- Sparrowhawk Net
+	},
+	[15] = {
+		33069, -- Sturdy Rope
+	},
+	[20] = {
+		10645, -- Gnomish Death Ray
+	},
+	[25] = {
+		24268, -- Netherweave Net
+		41509, -- Frostweave Net
+		31463, -- Zezzak's Shard
+	},
+	[30] = {
+		835, -- Large Rope Net
+		7734, -- Six Demon Bag
+		34191, -- Handful of Snowflakes
+	},
+	[35] = {
+		24269, -- Heavy Netherweave Net
+		18904, -- Zorbin's Ultra-Shrinker
+	},
+	[40] = {
+		28767, -- The Decapitator
+	},
+	[45] = {
+		32698, -- Wrangling Rope
+	},
+	[60] = {
+		32825, -- Soul Cannon
+		37887, -- Seeds of Nature's Wrath
+	},
+	[80] = {
+		35278, -- Reinforced Net
+	},
+}
 
-	checkFuncs[15] = function(uId)
-		for i, v in ipairs(bandages) do
+function enemyCheckFunc(uId, range)
+	local items = HarmItems[range]
+	if items then
+		for i, v in ipairs(items) do
 			if IsItemInRange(v, uId) == 1 then
 				return true
 			elseif IsItemInRange(v, uId) == 0 then
 				return false
+			end
+		end
+	end
+	return false
+end
+
+do
+	local bandages = {21991, 34721, 34722, 53049, 53050, 53051}  -- you should have one of these bandages in your cache
+
+	checkFuncs[15] = function(uId)
+		if UnitIsEnemy("player", uId) then
+			return enemyCheckFunc(uId, 15)
+		else
+			for i, v in ipairs(bandages) do
+				if IsItemInRange(v, uId) == 1 then
+					return true
+				elseif IsItemInRange(v, uId) == 0 then
+					return false
+				end
 			end
 		end
 	end
@@ -1299,7 +1265,7 @@ end
 ---------------
 --  Methods  --
 ---------------
-function rangeCheck:Show(range, filter)
+function rangeCheck:Show(range, filter, bossUnit)
 	SetMapToCurrentZone()--Set map to current zone before checking other stuff, work around annoying bug i hope?
 	if type(range) == "function" then -- the first argument is optional
 		return self:Show(nil, range)
@@ -1309,6 +1275,10 @@ function rangeCheck:Show(range, filter)
 	frame = frame or createFrame()
 	radarFrame = radarFrame or createRadarFrame()
 	frame.checkFunc = checkFuncs[range] or error(("Range \"%d yd\" is not supported."):format(range), 2)
+	frame.previousRange = frame.range or range
+	frame.previouslyShown = true
+	frame.bossUnit = bossUnit
+	frame.bossMode = bossUnit ~= nil
 	frame.range = range
 	frame.filter = filter
 	local level = GetCurrentMapDungeonLevel()
@@ -1324,8 +1294,29 @@ function rangeCheck:Show(range, filter)
 	end
 end
 
+function rangeCheck:SetBossRange(range, bossUnit)
+	if not HarmItems[range] then
+		error(("Boss mode range \"%d yd\" is not supported."):format(range), 2)
+	end
+	self:Show(range, nil, bossUnit)
+end
+
+function rangeCheck:DisableBossMode()
+	if frame and frame.bossMode then
+		frame.bossMode = false
+		frame.bossUnit = nil
+		frame.range = frame.previousRange
+		if not frame.previouslyShown then
+			self:Hide()
+		end
+	end
+end
+
 function rangeCheck:Hide()
-	if frame then frame:Hide() end
+	if frame then
+		frame.previouslyShown = false
+		frame:Hide()
+	end
 	if radarFrame then radarFrame:Hide() end
 end
 

@@ -220,6 +220,7 @@ L.RANGECHECK_OPTION_RADAR	= "Mostrar marco de radar"
 L.RANGECHECK_OPTION_TEXT		= "Mostrar marco de texto"
 L.RANGECHECK_OPTION_BOTH		= "Mostrar ambos"
 L.RANGERADAR_HEADER			= "Radar de distancia (%d m)"
+L.RANGERADAR_BOSS_HEADER		= "Distancia de jefe (%d m)"
 L.RANGERADAR_RHEADER			= "Distancia inversa: %d / Jugadores: %d"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d a distancia (%0.1fm)"--Multi
 L.RANGECHECK_IN_RANGE_TEXT	= "%d a distancia"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways
