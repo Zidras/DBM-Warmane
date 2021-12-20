@@ -49,10 +49,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	warnTurretsReadySoon		= "La torreta estara lista en 20 segundos",
-	warnTurretsReady			= "La torreta esta LISTA",
-	SpecWarnDevouringFlameCast	= "Llava devoradora en Ti",
-	WarnDevouringFlameCast		= "Llama devoradora en >%s<"
+	warnTurretsReadySoon		= "Última torreta lista en 20 s",
+	warnTurretsReady			= "Última torreta lista"
 }
 
 L:SetTimerLocalization{
@@ -60,27 +58,24 @@ L:SetTimerLocalization{
 	timerTurret2	= "Torreta 2",
 	timerTurret3	= "Torreta 3",
 	timerTurret4	= "Torreta 4",
-	timerGrounded	= "En el suelo"
+	timerGrounded	= "En tierra"
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "Mostrar aviso por sonido si pisas la Llama devoradora.",
-	warnTurretsReadySoon		= "Mostrar aviso antes de que las torretas esten listas",
-	warnTurretsReady			= "Mostrar aviso si estan listas las torretas.",
-	SpecWarnDevouringFlameCast	= "Mostrar aviso especial cuando Llama devoradora se lanze a ti.",
-	timerTurret1				= "Mostrar aviso para Torreta 1",
-	timerTurret2				= "Mostrar aviso para Torreta 2",
-	timerTurret3				= "Mostrar aviso para Torreta 3 ( solo en banda 25 ).",
-	timerTurret4				= "Mostrar aviso para Torreta 4 ( solo en banda 25 ).",
-	OptionDevouringFlame		= "Mostrar aviso a quien lanza la Llama devoradora ( poco fiable )",
-	timerGrounded				= "Mostrar cuanto durara en el suelo."
+	warnTurretsReadySoon		= "Mostrar aviso previo para cuando las torretas estén listas",
+	warnTurretsReady			= "Mostrar aviso cuando las torretas estén listas",
+	timerTurret1				= "Mostrar temporizador para la primera torreta",
+	timerTurret2				= "Mostrar temporizador para la segunda torreta",
+	timerTurret3				= "Mostrar temporizador para la tercera torreta (25 jugadores)",
+	timerTurret4				= "Mostrar temporizador para la cuarta torreta (25 jugadores)",
+	timerGrounded				= "Mostrar temporizador para la duración de la fase en tierra"
 }
 
 L:SetMiscLocalization{
-	YellAir				= "Danos un momento para que nos preparemos para construir las torretas.",
-	YellAir2			= "Listos para salir, ¡impedid que esos enanos se peguen a nuestra espalda!!",
-	YellGround			= "¡Moveros! ¡No seguira mucho mas en el suelo!",
-	EmotePhase2			= "¡%%s ha aterrizado permanentemente!"
+	YellAir						= "Danos un momento para que nos preparemos para construir las torretas.",
+	YellAir2					= "Listos para salir, ¡impedid que esos enanos se peguen a nuestra espalda!",
+	YellGround					= "¡Moveos! ¡No seguirá mucho más en el suelo!",
+	EmotePhase2					= "¡%%s ha aterrizado permanentemente!"
 }
 
 ----------------------------

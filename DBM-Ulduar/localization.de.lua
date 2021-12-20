@@ -49,38 +49,33 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	warnTurretsReadySoon		= "letzer Turm bereit in 20 Sek",
-	warnTurretsReady			= "letzer Turm bereit",
-	SpecWarnDevouringFlameCast	= "Verschlingende Flamme auf dir",
-	WarnDevouringFlameCast		= "Verschlingende Flamme auf >%s<"
+	warnTurretsReadySoon		= "Letzes Geschütz bereit in 20 Sekunden",
+	warnTurretsReady			= "Letzes Geschütz bereit"
 }
 
 L:SetTimerLocalization{
-	timerTurret1	= "Turm 1",
-	timerTurret2	= "Turm 2",
-	timerTurret3	= "Turm 3",
-	timerTurret4	= "Turm 4",
-	timerGrounded	= "auf dem Boden"
+	timerTurret1	= "Geschütz 1",
+	timerTurret2	= "Geschütz 2",
+	timerTurret3	= "Geschütz 3",
+	timerTurret4	= "Geschütz 4",
+	timerGrounded	= "Bodenphase"
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "Spiele Sound wenn betroffen durch Verschlingende Flamme",
-	warnTurretsReadySoon		= "Zeige Vorwarnung für Turmfertigstellung",
-	warnTurretsReady			= "Zeige Warnung für fertige Türme",
-	SpecWarnDevouringFlameCast	= "Zeige Spezialwarnung wenn Verschlingende Flamme auf dich gezaubert wird",
-	timerTurret1				= "Zeige Timer für Turm 1",
-	timerTurret2				= "Zeige Timer für Turm 2",
-	timerTurret3				= "Zeige Timer für Turm 3 (25 Spieler)",
-	timerTurret4				= "Zeige Timer für Turm 4 (25 Spieler)",
-	OptionDevouringFlame		= "Verkünde Ziel der Verschlingenden Flamme (nicht verlässlich)",
-	timerGrounded			    = "Zeige Timer für Dauer der Bodenphase"
+	warnTurretsReadySoon		= "Zeige Vorwarnung für Fertigstellung des letzten Harpunengeschützes",
+	warnTurretsReady			= "Zeige Warnung bei Fertigstellung des letzten Harpunengeschützes",
+	timerTurret1				= "Zeige Zeit bis erstes Harpunengeschütz einsatzbereit ist",
+	timerTurret2				= "Zeige Zeit bis zweites Harpunengeschütz einsatzbereit ist",
+	timerTurret3				= "Zeige Zeit bis drittes Harpunengeschütz einsatzbereit ist (25 Spieler)",
+	timerTurret4				= "Zeige Zeit bis viertes Harpunengeschütz einsatzbereit ist (25 Spieler)",
+	timerGrounded				= "Dauer der Bodenphase anzeigen"
 }
 
 L:SetMiscLocalization{
 	YellAir				= "Gebt uns einen Moment, damit wir uns auf den Bau der Geschütze vorbereiten können.",
 	YellAir2			= "Feuer einstellen! Lasst uns diese Geschütze reparieren!",
 	YellGround			= "Beeilt Euch! Sie wird nicht lange am Boden bleiben!",
-	EmotePhase2			= "%%s grounded permanently!"
+	EmotePhase2			= "ist dauerhaft an den Boden gebunden!"
 }
 
 ----------------------------

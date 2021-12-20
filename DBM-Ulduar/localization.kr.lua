@@ -50,30 +50,25 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	warnTurretsReadySoon		= "마지막 포탑 20초 전",
-	warnTurretsReady			= "마지막 포탑 준비",
-	SpecWarnDevouringFlameCast	= "당신에게 파멸의 불길!",
-	WarnDevouringFlameCast		= "파멸의 불길 : >%s<"
+	warnTurretsReady			= "마지막 포탑 준비"
 }
 
 L:SetTimerLocalization{
-	timerTurret1	= "1 번째 포탑",
-	timerTurret2	= "2 번째 포탑",
-	timerTurret3	= "3 번째 포탑",
-	timerTurret4	= "4 번째 포탑",
-	timerGrounded	= "지상 착지"
+	timerTurret1			= "1 번째 포탑",
+	timerTurret2			= "2 번째 포탑",
+	timerTurret3			= "3 번째 포탑",
+	timerTurret4			= "4 번째 포탑",
+	timerGrounded			= "지상 착지 종료"
 }
 
 L:SetOptionLocalization{
-	PlaySoundOnDevouringFlame	= "파멸의 불길 데미지를 받을 때 사운드 재생",
-	warnTurretsReadySoon		= "포탑 사전 경고 보기",
-	warnTurretsReady			= "포탑 경고 보기",
-	SpecWarnDevouringFlameCast	= "파멸의 불길 대상이 되었을 때 특수 경고 보기",
-	timerTurret1				= "첫번째 포탑 타이머 보기",
-	timerTurret2				= "두번째 포탑 타이머 보기",
-	timerTurret3				= "세번째 포탑 타이머 보기(25인)",
-	timerTurret4				= "네번째 포탑 타이머 보기(25인)",
-	OptionDevouringFlame		= "파멸의 불길 대상 알리기 (부정확함)",
-	timerGrounded				= "지상 착지 유지 시간 보기"
+	warnTurretsReadySoon		= "마지막 포탑 이전에 알림 보기",
+	warnTurretsReady			= "마지막 포탑 알림 보기",
+	timerTurret1				= "첫번째 포탑 바 보기",
+	timerTurret2				= "두번째 포탑 바 보기",
+	timerTurret3				= "세번째 포탑 바 보기(25인)",
+	timerTurret4				= "네번째 포탑 바 보기(25인)",
+	timerGrounded				= "지상 착지 유지시간 바 보기"
 }
 
 L:SetMiscLocalization{
