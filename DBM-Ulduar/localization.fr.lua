@@ -11,15 +11,6 @@ L:SetGeneralLocalization{
 	name = "Léviathan des flammes"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetMiscLocalization{
-	YellPull	= "Entités hostiles détectées. Protocole d'estimation de menace actif. Acquisition de la cible primaire. Décompte avant réévaluation : 30 secondes.",
-	YellPull2	= "Contre-mesures orbitales activées.",
-	Emote		= "%%s poursuit (%S+)%."
-}
-
 L:SetWarningLocalization{
 	PursueWarn				= "Poursuit >%s<!",
 	warnNextPursueSoon		= "Changement de cible dans 5 Sec",
@@ -32,6 +23,11 @@ L:SetOptionLocalization{
 	PursueWarn				= "Afficher l'avertissement quand vous êtes poursuivi",
 	warnNextPursueSoon		= "Prévenir avant la prochaine poursuite",
 	warnWardofLife			= "Montre une alerte quand un Gardien de Vie arrive"
+}
+
+L:SetMiscLocalization{
+	YellPull		= "Entités hostiles détectées. Protocole d'estimation de menace actif. Acquisition de la cible primaire. Décompte avant réévaluation : 30 secondes.",
+	Emote			= "%%s poursuit (%S+)%."
 }
 
 --------------------------------

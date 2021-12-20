@@ -11,27 +11,23 @@ L:SetGeneralLocalization{
 	name = "Flammenleviathan"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetMiscLocalization{
-	YellPull	= "Feindeinheiten erkannt. Bedrohungsbewertung aktiv. Hauptziel erfasst. Neubewertung in T minus 30 Sekunden.",
-	YellPull2	= "Orbital countermeasures enabled.", --Needs Translating
-	Emote		= "%%s verfolgt (%S+)%."
-}
-
 L:SetWarningLocalization{
-	PursueWarn				= "Verfolgt >%s<!",
-	warnNextPursueSoon		= "Zielwechsel in 5 Sek",
-	SpecialPursueWarnYou	= "Du wirst verfolgt - lauf weg",
+	PursueWarn				= "Verfolgt >%s<",
+	warnNextPursueSoon		= "Zielwechsel in 5 Sekunden",
+	SpecialPursueWarnYou	= "Du wirst verfolgt - Lauf weg!",
 	warnWardofLife			= "Zauberschutz des Lebens erscheint"
 }
 
 L:SetOptionLocalization{
-	SpecialPursueWarnYou	= "Zeige Spezialwarnung bei Verfolgung",
-	PursueWarn				= "Verkünde Verfolgung eines Spielers",
-	warnNextPursueSoon		= "Zeige Vorwarnung vor nächstem Verfolgen",
-	warnWardofLife			= "Zeige Spezialwarnung für Erscheinen von Zauberschutz des Lebens"
+	SpecialPursueWarnYou	= "Spezialwarnung, wenn du $spell:62374 wirst",
+	PursueWarn				= "Verkünde Ziele von $spell:62374",
+	warnNextPursueSoon		= "Zeige Vorwarnung für nächstes $spell:62374",
+	warnWardofLife			= "Spezialwarnung, wenn Zauberschutz des Lebens erscheint"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "Feindeinheiten erkannt. Bedrohungsbewertung aktiv. Hauptziel erfasst. Neubewertung in T minus 30 Sekunden.",
+	Emote		= "%%s verfolgt (%S+)%."
 }
 
 --------------------------------

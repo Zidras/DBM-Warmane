@@ -11,27 +11,23 @@ L:SetGeneralLocalization{
 	name = "烈焰戰輪"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetMiscLocalization{
-	YellPull	= "發現敵意實體。啟動威脅評估協定。首要目標接近中。30秒後將再度評估。",
-	YellPull2	= "Orbital countermeasures enabled.", --Needs Translating
-	Emote		= "%%s緊追(%S+)%。"
-}
-
 L:SetWarningLocalization{
 	PursueWarn				= "獵殺: >%s<",
-	warnNextPursueSoon		= "5秒後 獵殺轉換",
+	warnNextPursueSoon		= "5秒後獵殺轉換",
 	SpecialPursueWarnYou	= "你中了獵殺 - 快跑",
-	warnWardofLife			= "生命結界 出現"
+	warnWardofLife			= "生命結界出現"
 }
 
 L:SetOptionLocalization{
 	SpecialPursueWarnYou	= "當你中了獵殺時顯示特別警告",
 	PursueWarn				= "提示獵殺的目標",
-	warnNextPursueSoon		= "為下一次 獵殺顯示預先警告",
-	warnWardofLife			= "為生命結界 出現顯示特別警告"
+	warnNextPursueSoon		= "為下一次獵殺顯示預先警告",
+	warnWardofLife			= "為生命結界出現顯示特別警告"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "發現敵意實體。啟動威脅評估協定。首要目標接近中。30秒後將再度評估。",
+	Emote		= "%%s緊追(%S+)%。"
 }
 
 --------------------------------

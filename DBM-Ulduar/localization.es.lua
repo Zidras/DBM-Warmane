@@ -11,27 +11,23 @@ L:SetGeneralLocalization{
 	name = "Leviatán de llamas"
 }
 
-L:SetTimerLocalization{
+L:SetWarningLocalization{
+	PursueWarn				= "Persiguiendo a >%s<",
+	warnNextPursueSoon		= "Cambio de objetivo en 5 s",
+	SpecialPursueWarnYou	= "El leviatán te persigue - ¡huye!",
+	warnWardofLife			= "Guarda de vida"
+}
+
+L:SetOptionLocalization{
+	SpecialPursueWarnYou	= "Mostrar aviso especial cuando te afecte $spell:62374",
+	PursueWarn				= "Anunciar objetivos de $spell:62374",
+	warnNextPursueSoon		= "Mostrar aviso previo para el siguiente $spell:62374",
+	warnWardofLife			= "Mostrar aviso especial cuando aparezcan Guardas de vida"
 }
 
 L:SetMiscLocalization{
 	YellPull	= "Entidades hostiles detectadas. Protocolo de evaluación de amenaza activado. Objetivo principal fijado. Tiempo restante para re-evaluación: 30 segundos.",
-	YellPull2	= "Orbital countermeasures enabled.", --Needs Translating
 	Emote		= "%%s persigue a (%S+)%."
-}
-
-L:SetWarningLocalization{
-	PursueWarn				= "Persigue a >%s<!",
-	warnNextPursueSoon		= "Cambiara de objetivo en 5 seg",
-	SpecialPursueWarnYou	= "¡Te persigue a ti!",
-	warnWardofLife			= "Sale un Guarda de Vida"
-}
-
-L:SetOptionLocalization{
-	SpecialPursueWarnYou	= "Mostrar aviso especial cuando te persiga a ti.",
-	PursueWarn				= "Mostrar aviso a quien persigue.",
-	warnNextPursueSoon		= "Mostrar cuando va cambiar de objetivo.",
-	warnWardofLife			= "Mostrar aviso cuando salga un Guarda de Vida"
 }
 
 --------------------------------
