@@ -6497,7 +6497,7 @@ do
 	end
 
 	function bossModPrototype:GetBossUnitByCreatureId(cid)
-		for i = 1, 4 do
+		for i = 1, 5 do
 			local uId = "boss"..i
 			if self:GetUnitCreatureId(uId) == cid then
 				return uId
