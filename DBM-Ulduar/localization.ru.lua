@@ -11,19 +11,10 @@ L:SetGeneralLocalization{
 	name = "Огненный Левиафан"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetMiscLocalization{
-	YellPull	= "Обнаружены противники. Запуск протокола оценки угрозы. Главная цель выявлена. Повторный анализ через 30 секунд.",
-	YellPull2	= "Система орбитального подавления включена.",
-	Emote		= "%%s наводится на (%S+)%."
-}
-
 L:SetWarningLocalization{
 	PursueWarn				= "Преследуется >%s<",
 	warnNextPursueSoon		= "Смена цели через 5 секунд",
-	SpecialPursueWarnYou	= "Преследует вас - бегите",
+	SpecialPursueWarnYou	= "Вас преследуют - бегите",
 	warnWardofLife			= "Призыв Защитника жизни"
 }
 
@@ -32,6 +23,11 @@ L:SetOptionLocalization{
 	PursueWarn				= "Объявлять цели заклинания $spell:62374",
 	warnNextPursueSoon		= "Предупреждать заранее о следующем $spell:62374",
 	warnWardofLife			= "Спец-предупреждение для призыва Защитника жизни"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "Обнаружены противники. Запуск протокола оценки угрозы. Главная цель выявлена. Повторный анализ через 30 секунд.",
+	Emote		= "%%s наводится на (%S+)%."
 }
 
 --------------------------------

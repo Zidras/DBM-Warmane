@@ -6,29 +6,26 @@ local L
 L = DBM:GetModLocalization("FlameLeviathan")
 
 L:SetGeneralLocalization{
-    name = "Flame Leviathan"
-}
-
-L:SetTimerLocalization{}
-
-L:SetMiscLocalization{
-    YellPull = "检测到敌对实体。威胁评定协议启动。向主要目标发动攻击。30秒后重新评估。",
-    YellPull2 = "Orbital countermeasures enabled.",
-    Emote = "%%s开始追赶(%S+)%。"
+	name 				= "烈焰巨兽"
 }
 
 L:SetWarningLocalization{
-    PursueWarn = "Pursuing >%s<",
-    warnNextPursueSoon = "Target change in 5 seconds",
-    SpecialPursueWarnYou = "You are being pursued - Run away",
-    warnWardofLife = "Ward of Life spawned"
+	PursueWarn			= "追踪 -> >%s<",
+	warnNextPursueSoon	= "5秒后 更换目标",
+	SpecialPursueWarnYou= "你被追踪 - 快跑",
+	warnWardofLife		= "生命结界 出现"
 }
 
 L:SetOptionLocalization{
-    SpecialPursueWarnYou = "Show special warning when you are being $spell:62374",
-    PursueWarn = "Announce $spell:62374 targets",
-    warnNextPursueSoon = "Show pre-warning for next $spell:62374",
-    warnWardofLife = "Show special warning for Ward of Life spawn"
+	SpecialPursueWarnYou= "当你被追踪时显示特别警报",
+	PursueWarn			= "提示追踪的目标",
+	warnNextPursueSoon	= "为下一次追踪显示提前警报",
+	warnWardofLife		= "为生命结界出现显示特别警报"
+}
+
+L:SetMiscLocalization{
+	YellPull			= "检测到敌对实体。威胁评定协议启动。向主要目标发动攻击。30秒后重新评估。",
+	Emote				= "%%s开始追赶(%S+)%。"
 }
 
 --------------------------------

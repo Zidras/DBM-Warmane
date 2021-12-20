@@ -11,27 +11,23 @@ L:SetGeneralLocalization{
 	name = "거대 화염전차"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetMiscLocalization{
-	YellPull	= "적대적인 존재 감지. 위협 수준 평가 체제 가동. 주 목표물과 교전. 위협 수준 재평가까지 30초.",
-	YellPull2	= "Orbital countermeasures enabled.", --Needs Translating
-	Emote		= "%%s 추적중 (%S+)%."
-}
-
 L:SetWarningLocalization{
-	PursueWarn				= "추적 >%s<!",
+	PursueWarn				= "추적 : >%s<",
 	warnNextPursueSoon		= "추적 전환 5 초전",
-	SpecialPursueWarnYou	= "거대 화염전차가 당신을 추적합니다!",
-	warnWardofLife			= "생명지기 덩굴손 등장"
+	warnWardofLife			= "생명지기 덩굴손 등장!",
+	SpecialPursueWarnYou	= "거대 화염전차가 당신을 추적합니다!"
 }
 
 L:SetOptionLocalization{
-	SpecialPursueWarnYou	= "추적자 특수 경고 보기",
-	PursueWarn				= "추적 플레이어 레이드 경고로 보기",
-	warnNextPursueSoon		= "다음 추적 경고 보기",
-	warnWardofLife			= "생명지기 덩굴손 등장 특수 경고 보기"
+	SpecialPursueWarnYou	= "$spell:62374 대상이 된 경우 특수 경고 보기",
+	PursueWarn				= "$spell:62374 대상 알림 보기",
+	warnNextPursueSoon		= "$spell:62374 이전에 알림 보기",
+	warnWardofLife			= "생명지기 덩굴손 등장시 특수 경고 보기"
+}
+
+L:SetMiscLocalization{
+	YellPull				= "적대적인 존재 감지. 위협 수준 평가 체제 가동. 주 목표물과 교전. 위협 수준 재평가까지 30초.",
+	Emote					= "%%s 추적중 (%S+)%."
 }
 
 --------------------------------
