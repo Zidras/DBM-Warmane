@@ -34,14 +34,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Ignis")
 
 L:SetGeneralLocalization{
-    name = "Ignis the Furnace Master"
-}
-
-L:SetTimerLocalization{}
-L:SetWarningLocalization{}
-
-L:SetOptionLocalization{
-    SlagPotIcon = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63477)
+	name = "掌炉者伊格尼斯"
 }
 
 ------------------

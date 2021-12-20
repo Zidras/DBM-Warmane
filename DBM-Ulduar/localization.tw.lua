@@ -39,16 +39,6 @@ L:SetGeneralLocalization{
 	name = "『火爐之主』伊格尼司"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	SlagPotIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63477)
-}
-
 ------------------
 --  Razorscale  --
 ------------------
