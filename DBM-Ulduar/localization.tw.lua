@@ -93,39 +93,17 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("IronCouncil")
 
 L:SetGeneralLocalization{
-	name = "鐵之集會所"
-}
-
-L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "RoD in ~10 sec."
-}
-
-L:SetTimerLocalization{
+	name = "鐵之集會"
 }
 
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "為$spell:63486播放音效",
-	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
-	AlwaysWarnOnOverload		= "總是對$spell:63481顯示警告(否則只有當目標是風暴召喚者的時候顯示)",
-	PlaySoundOnOverload			= "當$spell:63481施放時播放音效",
-	PlaySoundDeathRune			= "當$spell:63490施放時播放音效"
+	AlwaysWarnOnOverload	= "總是對$spell:63481顯示警告(否則只有當目標是風暴召喚者的時候顯示)"
 }
 
 L:SetMiscLocalization{
-	Steelbreaker				= "破鋼者",
-	RunemasterMolgeim			= "符文大師墨吉姆",
-	StormcallerBrundir			= "風暴召喚者布倫迪爾",
-	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!", --Needs Translating
-	YellPull2					= "Nothing short of total decimation will suffice.", --Needs Translating
-	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!", --Needs Translating
-	YellRuneOfDeath				= "Decipher this!", --Needs Translating
-	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!", --Needs Translating
-	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.", --Needs Translating
-	YellStormcallerBrundirDied	= "The power of the storm lives on...", --Needs Translating
-	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!", --Needs Translating
-	YellSteelbreakerDied		= "My death only serves to hasten your demise.", --Needs Translating
-	YellSteelbreakerDied2		= "Impossible!" --Needs Translating
+	Steelbreaker			= "破鋼者",
+	RunemasterMolgeim		= "符文大師墨吉姆",
+	StormcallerBrundir		= "風暴召喚者布倫迪爾"
 }
 
 ----------------------------

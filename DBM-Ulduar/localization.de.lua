@@ -96,36 +96,14 @@ L:SetGeneralLocalization{
 	name = "Versammlung des Eisens"
 }
 
-L:SetWarningLocalization{
-	WarningSupercharge			= "Superladung auf Boss"
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "Spiele Sound bei Blitzranken",
-	SetIconOnOverwhelmingPower	= "Setze Zeichen auf Ziel von Überwältigende Kraft",
-	SetIconOnStaticDisruption	= "Setze Zeichen auf Ziel von Statische Störung",
-	AlwaysWarnOnOverload		= "Warne immer bei Überladen (ansonsten nur wenn Boss im Ziel)",
-	PlaySoundOnOverload			= "Spiele Sound bei Überladen",
-	PlaySoundDeathRune			= "Spiele Sound bei Rune des Todes"
+	AlwaysWarnOnOverload		= "Warne immer bei $spell:63481 (sonst nur wenn Sturmrufer Brundir im Ziel)"
 }
 
 L:SetMiscLocalization{
-	Steelbreaker				= "Stahlbrecher",
-	RunemasterMolgeim			= "Runenmeister Molgeim",
-	StormcallerBrundir			= "Sturmrufer Brundir",
-	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!", --Needs Translating
-	YellPull2					= "Nothing short of total decimation will suffice.", --Needs Translating
-	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!", --Needs Translating
-	YellRuneOfDeath				= "Decipher this!", --Needs Translating
-	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!", --Needs Translating
-	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.", --Needs Translating
-	YellStormcallerBrundirDied	= "The power of the storm lives on...", --Needs Translating
-	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!", --Needs Translating
-	YellSteelbreakerDied		= "My death only serves to hasten your demise.", --Needs Translating
-	YellSteelbreakerDied2		= "Impossible!" --Needs Translating
+	Steelbreaker		= "Stahlbrecher",
+	RunemasterMolgeim	= "Runenmeister Molgeim",
+	StormcallerBrundir	= "Sturmrufer Brundir"
 }
 
 ----------------------------

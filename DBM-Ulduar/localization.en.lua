@@ -91,39 +91,27 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("IronCouncil")
 
 L:SetGeneralLocalization{
-	name = "Iron Council"
-}
-
-L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "RoD in ~10 sec."
-}
-
-L:SetTimerLocalization{
+	name = "The Iron Council"
 }
 
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "Play sound on $spell:63486",
-	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
-	AlwaysWarnOnOverload		= "Always warn on $spell:63481 (otherwise, only when targeted)",
-	PlaySoundOnOverload			= "Play sound on $spell:63481",
-	PlaySoundDeathRune			= "Play sound on $spell:63490"
+	AlwaysWarnOnOverload		= "Always warn on $spell:63481 (otherwise, only when targeted)"
 }
 
 L:SetMiscLocalization{
-	Steelbreaker				= "Steelbreaker",
-	RunemasterMolgeim			= "Runemaster Molgeim",
-	StormcallerBrundir			= "Stormcaller Brundir",
-	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!",
-	YellPull2					= "Nothing short of total decimation will suffice.",
-	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!",
-	YellRuneOfDeath				= "Decipher this!",
-	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!",
-	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.",
-	YellStormcallerBrundirDied	= "The power of the storm lives on...",
-	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!",
-	YellSteelbreakerDied		= "My death only serves to hasten your demise.",
-	YellSteelbreakerDied2		= "Impossible!"
+	Steelbreaker		= "Steelbreaker",
+	RunemasterMolgeim	= "Runemaster Molgeim",
+	StormcallerBrundir	= "Stormcaller Brundir"
+--	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!",
+--	YellPull2					= "Nothing short of total decimation will suffice.",
+--	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!",
+--	YellRuneOfDeath				= "Decipher this!",
+--	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!",
+--	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.",
+--	YellStormcallerBrundirDied	= "The power of the storm lives on...",
+--	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!",
+--	YellSteelbreakerDied		= "My death only serves to hasten your demise.",
+--	YellSteelbreakerDied2		= "Impossible!"
 }
 
 ----------------------------

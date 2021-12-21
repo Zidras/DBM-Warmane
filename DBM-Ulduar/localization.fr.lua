@@ -93,39 +93,27 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("IronCouncil")
 
 L:SetGeneralLocalization{
-	name = "Assemblée du Fer"
-}
-
-L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "Rune de mort ~10 sec."
-}
-
-L:SetTimerLocalization{
+	name = "Assemblée du fer"
 }
 
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "Jouer un son pour les Vrilles d'éclair",
-	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
-	AlwaysWarnOnOverload		= "Toujours alerter pour la surcharge (sinon seulement quand ciblé)",
-	PlaySoundOnOverload			= "Joue un son à la surcharge",
-	PlaySoundDeathRune			= "Joue un son pour les runes de mort"
+	AlwaysWarnOnOverload		= "Toujours alerter pour la $spell:63481 (sinon seulement quand ciblé)"
 }
 
 L:SetMiscLocalization{
-	Steelbreaker				= "Brise-acier",
-	RunemasterMolgeim			= "Maître des runes Molgeim",
-	StormcallerBrundir			= "Mande-foudre Brundir",
-	YellPull1					= "Que vous soyez les plus grandes punaises ou les plus grands héros de ce monde, vous n'êtes jamais que des mortels.",
-	YellPull2					= "Seule votre extermination complète me conviendra.",
-	YellPull3					= "Vous ne vaincrez pas si facilement l'assemblée du Fer, envahisseurs !",
-	YellRuneOfDeath				= "Déchiffrez donc ça !",
-	YellRunemasterMolgeimDied	= "Que vous apporte ma chute ? Votre destin n'en est pas moins scellé, mortels.",
-	YellRunemasterMolgeimDied2	= "L’héritage des tempêtes ne sera pas anéanti...",
-	YellStormcallerBrundirDied	= "La puissance de la tempête survivra.",
-	YellStormcallerBrundirDied2	= "Vous courez tout droit dans la gueule de la folie !!",
-	YellSteelbreakerDied		= "Ma mort ne fera que hâter votre perte.",
-	YellSteelbreakerDied2		= "Impossible..."
+	Steelbreaker		= "Brise-acier",
+	RunemasterMolgeim	= "Maître des runes Molgeim",
+	StormcallerBrundir	= "Mande-foudre Brundir"
+--	YellPull1					= "Que vous soyez les plus grandes punaises ou les plus grands héros de ce monde, vous n'êtes jamais que des mortels.",
+--	YellPull2					= "Seule votre extermination complète me conviendra.",
+--	YellPull3					= "Vous ne vaincrez pas si facilement l'assemblée du Fer, envahisseurs !",
+--	YellRuneOfDeath				= "Déchiffrez donc ça !",
+--	YellRunemasterMolgeimDied	= "Que vous apporte ma chute ? Votre destin n'en est pas moins scellé, mortels.",
+--	YellRunemasterMolgeimDied2	= "L’héritage des tempêtes ne sera pas anéanti...",
+--	YellStormcallerBrundirDied	= "La puissance de la tempête survivra.",
+--	YellStormcallerBrundirDied2	= "Vous courez tout droit dans la gueule de la folie !!",
+--	YellSteelbreakerDied		= "Ma mort ne fera que hâter votre perte.",
+--	YellSteelbreakerDied2		= "Impossible..."
 }
 
 ----------------------------

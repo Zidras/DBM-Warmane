@@ -96,36 +96,14 @@ L:SetGeneralLocalization{
 	name = "무쇠 평의회"
 }
 
-L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "RoD in ~10 sec." --Needs Translating
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "번개 덩굴일 때 소리 재생",
-	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
-	AlwaysWarnOnOverload		= "과부하 일 때 지속적인 경고 알리기(타겟일 경우만)",
-	PlaySoundOnOverload			= "과부화 일 때 소리 재생",
-	PlaySoundDeathRune			= "죽음의 룬일 때 소리 재생",
+	AlwaysWarnOnOverload		= "$spell:63481 특수 경고를 항상 보기(해제하면 브룬디르가 대상일때만 알림)"
 }
 
 L:SetMiscLocalization{
-	Steelbreaker				= "강철파괴자",
-	RunemasterMolgeim			= "룬술사 몰가임",
-	StormcallerBrundir			= "폭풍소환사 브룬디르",
-	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!", --Needs Translating
-	YellPull2					= "Nothing short of total decimation will suffice.", --Needs Translating
-	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!", --Needs Translating
-	YellRuneOfDeath				= "Decipher this!", --Needs Translating
-	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!", --Needs Translating
-	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.", --Needs Translating
-	YellStormcallerBrundirDied	= "The power of the storm lives on...", --Needs Translating
-	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!", --Needs Translating
-	YellSteelbreakerDied		= "My death only serves to hasten your demise.", --Needs Translating
-	YellSteelbreakerDied2		= "Impossible!" --Needs Translating
+	Steelbreaker			= "강철파괴자",
+	RunemasterMolgeim		= "룬술사 몰가임",
+	StormcallerBrundir		= "폭풍소환사 브룬디르"
 }
 
 ----------------------------

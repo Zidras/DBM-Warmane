@@ -96,36 +96,14 @@ L:SetGeneralLocalization{
 	name = "La Asamblea de Hierro"
 }
 
-L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "RoD in ~10 sec."
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "Sonido para Zarcillos de relampagos",
-	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
-	AlwaysWarnOnOverload		= "Siempre avisar Sobrecarga",
-	PlaySoundOnOverload			= "Reproducir sonido para $spell:63481",
-	PlaySoundDeathRune			= "Reproducir sonido para $spell:63490"
+	AlwaysWarnOnOverload		= "Mostrar siempre aviso para $spell:63481 (de lo contrario, solo se muestra cuando eres el objetivo)"
 }
 
 L:SetMiscLocalization{
-	Steelbreaker				= "Rompeacero",
-	RunemasterMolgeim			= "Maestro de runas Molgeim",
-	StormcallerBrundir			= "Clamatormentas Brundir",
-	YellPull1					= "Whether the world's greatest gnats or the world's greatest heroes, you're still only mortal!", --Needs Translating
-	YellPull2					= "Nothing short of total decimation will suffice.", --Needs Translating
-	YellPull3					= "You will not defeat the Assembly of Iron so easily, invaders!", --Needs Translating
-	YellRuneOfDeath				= "Decipher this!", --Needs Translating
-	YellRunemasterMolgeimDied	= "What have you gained from my defeat? You are no less doomed, mortals!", --Needs Translating
-	YellRunemasterMolgeimDied2	= "The legacy of storms shall not be undone.", --Needs Translating
-	YellStormcallerBrundirDied	= "The power of the storm lives on...", --Needs Translating
-	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!", --Needs Translating
-	YellSteelbreakerDied		= "My death only serves to hasten your demise.", --Needs Translating
-	YellSteelbreakerDied2		= "Impossible!" --Needs Translating
+	Steelbreaker		= "Rompeacero",
+	RunemasterMolgeim	= "Maestro de runas Molgeim",
+	StormcallerBrundir	= "Clamatormentas Brundir"
 }
 
 ----------------------------

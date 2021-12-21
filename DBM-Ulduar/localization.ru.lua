@@ -93,39 +93,27 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("IronCouncil")
 
 L:SetGeneralLocalization{
-	name = "Железное Собрание"
-}
-
-L:SetWarningLocalization{
-	WarningRuneofDeathIn10Sec = "Руна смерти через ~10сек"
-}
-
-L:SetTimerLocalization{
+	name = "Железное собрание"
 }
 
 L:SetOptionLocalization{
-	PlaySoundLightningTendrils	= "Звуковой сигнал при $spell:63486",
-	SetIconOnOverwhelmingPower	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61888),
-	SetIconOnStaticDisruption	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(61912),
-	AlwaysWarnOnOverload		= "Всегда предупреждать при $spell:63481\n(иначе, только когда босс в цели)",
-	PlaySoundOnOverload			= "Звуковой сигнал при $spell:63481",
-	PlaySoundDeathRune			= "Звуковой сигнал при $spell:63490"
+	AlwaysWarnOnOverload		= "Всегда предупреждать при $spell:63481<br/>(иначе, только когда босс в цели)"
 }
 
 L:SetMiscLocalization{
 	Steelbreaker		= "Сталелом",
 	RunemasterMolgeim	= "Мастер рун Молгейм",
-	StormcallerBrundir 	= "Буревестник Брундир",
-	YellPull1			= "Кто бы вы ни были – жалкие бродяги или великие герои... Вы всего лишь смертные!",
-	YellPull2			= "Я буду спокоен, лишь когда окончательно истреблю вас.",
-	YellPull3			= "Чужаки! Вам не одолеть Железное Собрание!",
-	YellRuneOfDeath		= "Расшифруйте вот это!",
-	YellRunemasterMolgeimDied = "И что вам дало мое поражение? Вы все так же обречены, смертные.",
-	YellRunemasterMolgeimDied2 = "Наследие бурь не умрет вместе со мной.",
-	YellStormcallerBrundirDied = "Никто не превзойдет силу шторма.",
-	YellStormcallerBrundirDied2 = "Вас ждет бездна безумия!",
-	YellSteelbreakerDied = "Мое поражение лишь приблизит вашу погибель.",
-	YellSteelbreakerDied2 = "Не может быть!"
+	StormcallerBrundir	= "Буревестник Брундир"
+--	YellPull1			= "Кто бы вы ни были – жалкие бродяги или великие герои... Вы всего лишь смертные!",
+--	YellPull2			= "Я буду спокоен, лишь когда окончательно истреблю вас.",
+--	YellPull3			= "Чужаки! Вам не одолеть Железное Собрание!",
+--	YellRuneOfDeath		= "Расшифруйте вот это!",
+--	YellRunemasterMolgeimDied = "И что вам дало мое поражение? Вы все так же обречены, смертные.",
+--	YellRunemasterMolgeimDied2 = "Наследие бурь не умрет вместе со мной.",
+--	YellStormcallerBrundirDied = "Никто не превзойдет силу шторма.",
+--	YellStormcallerBrundirDied2 = "Вас ждет бездна безумия!",
+--	YellSteelbreakerDied = "Мое поражение лишь приблизит вашу погибель.",
+--	YellSteelbreakerDied2 = "Не может быть!"
 }
 
 ----------------------------
