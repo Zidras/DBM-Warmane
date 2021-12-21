@@ -332,10 +332,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	MagneticCore		= ">%s< 拿到了磁能之核",
-	WarningShockBlast	= "震爆 - 快跑開",
-	WarnBombSpawn		= "炸彈機器人出現了",
-	WarningFlamesIn5Sec = "Flames in 5 sec." --Needs Translating
+	MagneticCore		= ">%s<拿到了磁能之核",
+	WarnBombSpawn		= "炸彈機器人出現了"
 }
 
 L:SetTimerLocalization{
@@ -350,19 +348,9 @@ L:SetOptionLocalization{
 	TimeToPhase3			= "為第3階段開始顯示計時器",
 	TimeToPhase4			= "為第4階段開始顯示計時器",
 	MagneticCore			= "提示磁能之核的拾取者",
-	HealthFramePhase4		= "顯示第4階段的首領血量框架",
 	AutoChangeLootToFFA		= "第3階段自動轉換拾取方式為自由拾取",
 	WarnBombSpawn			= "為炸彈機器人顯示警告",
-	TimerHardmode			= "為困難模式顯示計時器",
-	PlaySoundOnShockBlast	= "當$spell:63631施放時播放音效",
-	PlaySoundOnDarkGlare	= "當$spell:63414施放前播放音效",
-	ShockBlastWarningInP1	= "為第1階段的$spell:63631顯示特別警告",
-	ShockBlastWarningInP4	= "為第4階段的$spell:63631顯示特別警告",
-	RangeFrame				= "在第1階段顯示距離框",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.", --Needs Translating
-	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames" --Needs Translating
+	TimerHardmode			= "為困難模式顯示計時器"
 }
 
 L:SetMiscLocalization{
@@ -370,11 +358,11 @@ L:SetMiscLocalization{
 	MobPhase2		= "VX-001",
 	MobPhase3		= "空中指揮裝置",
 	YellPull		= "我們沒有太多時間，朋友們!你們要幫我測試我最新也是最偉大的創作。在你們改變心意之前，別忘了就是你們把XT-002搞得一團糟，你們欠我一次。",
-	YellHardPull	= "為什麼你要做出這種事?難道你沒看見標示上寫著「請勿觸碰這個按鈕!」嗎?現在自爆裝置已經啟動了，我們要怎麼完成測試呢?",
+	YellHardPull	= "自毀程序已展開。",
 	YellPhase2		= "太好了!絕妙的良好結果!外殼完整度98.9%!幾乎只有一點擦痕!繼續下去。",
 	YellPhase3		= "感謝你，朋友們!我們的努力讓我獲得了一些絕佳的資料!現在，我把東西放在哪兒了--噢，在這裡。",
 	YellPhase4		= "初步測試階段完成。現在要玩真的啦!",
-	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.", --Needs Translating
+	YellKilled		= "看來我還是產生了些許計算錯誤。任由我的心智受到囚牢中魔鬼的腐化，棄我的首要職責於不顧。所有的系統看起來都正常運作。報告完畢。",
 	LootMsg			= "(.+)拾取了物品:.*Hitem:(%d+)"
 }
 

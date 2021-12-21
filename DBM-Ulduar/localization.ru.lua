@@ -346,9 +346,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	MagneticCore		= "Магнитное ядро у |3-1(>%s<)",
-	WarningShockBlast	= "Шоковый удар - бегите",
-	WarnBombSpawn		= "Бомбот",
-	WarningFlamesIn5Sec = "Новое Пламя через 5с",
+	WarnBombSpawn		= "Бомбот"
 }
 
 L:SetTimerLocalization{
@@ -363,19 +361,9 @@ L:SetOptionLocalization{
 	TimeToPhase3			= "Отсчет времени для фазы 3",
 	TimeToPhase4			= "Отсчет времени для фазы 4",
 	MagneticCore			= "Объявлять подобравших Магнитное ядро",
-	HealthFramePhase4		= "Отображать индикатор здоровья в фазе 4",
 	AutoChangeLootToFFA		= "Смена режима добычи на Каждый за себя в фазе 3",
 	WarnBombSpawn			= "Предупреждение о Бомботах",
-	TimerHardmode			= "Отсчет времени для сложного режима",
-	PlaySoundOnShockBlast	= "Звуковой сигнал при $spell:63631",
-	PlaySoundOnDarkGlare	= "Звуковой сигнал при $spell:63414",
-	ShockBlastWarningInP1	= "Спец-предупреждение для $spell:63631 в фазе 1",
-	ShockBlastWarningInP4	= "Спец-предупреждение для $spell:63631 в фазе 4",
-	RangeFrame				= "Показывать окно проверки дистанции в фазе 1 (6 м)",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Спец-предупреждение: Пламя через 5 сек.",
-	SoundWarnCountingFlames = "Проигрывать звуковой отсчет 5...1 до следующего Пламени"
+	TimerHardmode			= "Отсчет времени для сложного режима"
 }
 
 L:SetMiscLocalization{

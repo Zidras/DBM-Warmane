@@ -332,37 +332,25 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	MagneticCore		= "자기 증폭기 획득 : >%s<",
-	WarningShockBlast	= "충격파 - 움직이세요!",
-	WarnBombSpawn		= "폭탄 로봇 생성!",
-	WarningFlamesIn5Sec = "Flames in 5 sec."
+	MagneticCore			= "자기 증폭기 획득 : >%s<",
+	WarnBombSpawn			= "폭탄 로봇 생성!"
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "하드 모드 - 자폭장치 가동",
-	TimeToPhase2	= "2 페이즈",
-	TimeToPhase3	= "3 페이즈",
-	TimeToPhase4	= "4 페이즈"
+	TimerHardmode			= "광폭화",
+	TimeToPhase2			= "2 단계",
+	TimeToPhase3			= "3 단계",
+	TimeToPhase4			= "4 단계"
 }
 
 L:SetOptionLocalization{
-	TimeToPhase2			= "페이즈 2 시작 알리기",
-	TimeToPhase3			= "페이즈 3 시작 알리기",
-	TimeToPhase4			= "페이즈 4 시작 알리기",
-	MagneticCore			= "자기 증폭기 획득자 알리기",
-	HealthFramePhase4		= "페이즈 4 의 체력 프레임 보기",
+	TimeToPhase2			= "2 단계 바 보기",
+	TimeToPhase3			= "3 단계 바 보기",
+	TimeToPhase4			= "4 단계 바 보기",
+	MagneticCore			= "자기 증폭기 획득자 알림 보기",
 	AutoChangeLootToFFA		= "3 페이즈에서 루팅 옵션 자동 변경하기",
-	WarnBombSpawn			= "폭탄 로봇 생성 알리기",
-	TimerHardmode			= "하드 모드를 위한 타이머 보기",
-	PlaySoundOnShockBlast	= "Play sound on $spell:63631", --Needs Translating
-	PlaySoundOnDarkGlare	= "Play sound on $spell:63414", --Needs Translating
-	ShockBlastWarningInP1	= "1 페이즈 충격파의 특수 경고 보기(근접 딜러)",
-	ShockBlastWarningInP4	= "4 페이즈 충격파의 특수 경고 보기(근접 딜러)",
-	RangeFrame				= "1 페이즈에서 거리 프레임 보기(6 미터)",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.", --Needs Translating
-	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames" --Needs Translating
+	WarnBombSpawn			= "폭탄 로봇 생성 알림 보기",
+	TimerHardmode			= "영웅 난이도 광폭화 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -370,11 +358,11 @@ L:SetMiscLocalization{
 	MobPhase2		= "VX-001",
 	MobPhase3		= "공중지휘기",
 	YellPull		= "시간이 없어, 친구들! 내가 최근에 만든 기막힌 발명품을 시험하게 도와 주겠지? 자, 마음 바꿀 생각은 말라고. XT-002를 그 꼬락서니로 만들었으니, 너흰 나한테 빚진 셈이란 걸 잊지 마!",
-	YellHardPull	= "아니, 대체 왜 그런 짓을 한 게지? \"누르지 마시오.\"라고 쓰인 경고 문구 못 봤나? 자폭 장치를 활성화해 놓으면, 도대체 어떻게 발명품을 시험하지?",
+	YellHardPull	= "자폭 절차를 시작합니다.",
 	YellPhase2		= "멋지군! 참으로 경이적인 결과야! 차체 내구도 98.9 퍼센트라! 손상이라고 보기도 어렵지! 계속하자고.",
 	YellPhase3		= "고맙다, 친구들! 너희 덕분에 멋진 자료를 좀 얻었어! 자, 그걸 어디 뒀더라... 아, 여기 있군.",
 	YellPhase4		= "예비 시험은 이걸로 끝이다. 자 이제부터가 진짜라고!",
-	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.", --Needs Translating
+	YellKilled		= "내가 계산을 좀 잘못한 것 같군. 감옥에 갇힌 마귀가 내 마음을 타락시키고 제1지시를 재정의하고 말았다. 이제 모든 시스템이 제 기능을 찾았다. 정상이다.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
 }
 

@@ -333,36 +333,24 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	MagneticCore		= ">%s< tiene Núcleo magnético",
-	WarningShockBlast	= "¡Explosión de choque! ¡Muévete!",
-	WarnBombSpawn		= "Robot bum sale",
-	WarningFlamesIn5Sec = "Flames in 5 sec." --Needs Translating
+	WarnBombSpawn		= "Bombabot"
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "Modo Difícil - Autodestrucción",
+	TimerHardmode	= "Autodestrucción",
 	TimeToPhase2	= "Fase 2",
 	TimeToPhase3	= "Fase 3",
 	TimeToPhase4	= "Fase 4"
 }
 
 L:SetOptionLocalization{
-	TimeToPhase2			= "Mostrar tiempo para Fase 2",
-	TimeToPhase3			= "Mostrar tiempo para Fase 3",
-	TimeToPhase4			= "Mostrar tiempo para Fase 4",
-	MagneticCore			= "Anunciar quen lootea Núcleo magnético",
-	HealthFramePhase4		= "Mostrar barra de vida en la fase 4",
-	AutoChangeLootToFFA		= "Canviar el loot a Botín Libre en la fase 3",
-	WarnBombSpawn			= "Mostrar aviso para Robot bum",
-	TimerHardmode			= "Mostrar tiempo para Modo Difícil",
-	PlaySoundOnShockBlast	= "Reproducir sonido en Explosión de choque",
-	PlaySoundOnDarkGlare	= "Reproducir sonido en Tromba de láseres",
-	ShockBlastWarningInP1	= "Mostrar aviso especial para Explosión de choque en Fase 1",
-	ShockBlastWarningInP4	= "Mostrar aviso especial para Explosión de choque en Fase 4",
-	RangeFrame				= "Mostrar distáncia en Fase 1 (6 yardas)",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.", --Needs Translating
-	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames" --Needs Translating
+	TimeToPhase2			= "Mostrar temporizador para el cambio a Fase 2",
+	TimeToPhase3			= "Mostrar temporizador para el cambio a Fase 3",
+	TimeToPhase4			= "Mostrar temporizador para el cambio a Fase 4",
+	MagneticCore			= "Anunciar jugadores que despojen Núcleos magnéticos",
+	AutoChangeLootToFFA		= "Cambiar el loot a Botín Libre en la fase 3",
+	WarnBombSpawn			= "Mostrar aviso cuando aparezcan Bombabots",
+	TimerHardmode			= "Mostrar temporizador para la autodestrucción del modo difícil"
 }
 
 L:SetMiscLocalization{
@@ -370,11 +358,13 @@ L:SetMiscLocalization{
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Unidad de mando aérea",
 	YellPull		= "¡No tenemos mucho tiempo, amigos! Vais a ayudarme a probar mi última y mayor creación. Ahora, antes de que cambiéis de parecer, recordad que en cierta forma, me lo debéis después del desastre que causasteis con el XA-002.",
-	YellHardPull	= "Secuencia de autodestrucción iniciada",
+	YellHardPull	= "Secuencia de autodestrucción iniciada.", -- esES
+--	YellHardPull	= "Fase de autodestrucción iniciada." -- esMX
 	YellPhase2		= "¡Contemplad el cañón de asalto antipersonal VX-001! Puede que queráis poneros a cubierto.",
 	YellPhase3		= "¡Gracias amigos! ¡Vuestros esfuerzos me han proporcionado unos datos fantásticos! Veamos, ¿dónde puse?...ah, ahí está.",
 	YellPhase4		= "Fase de prueba preliminar completada. ¡Ahora comienza la verdadera prueba!",
-	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.", --Needs Translating
+	YellKilled		= "Parece que me he equivocado en los cálculos. Permití que el demonio de la prisión corrompiera mi mente y se sobrepusiera a mi directiva principal. Ahora parece que todos los sistemas funcionan. Evidente.", -- esES
+--	YellKilled		= "Aparentemente cometí un error de cálculos. Permití que mi mente fuera corrompida por el enemigo en la prisión, descartando mi directiva primaria. Todos los sistemas parecen estar funcionando nuevamente. Cambio." -- esMX
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
 }
 

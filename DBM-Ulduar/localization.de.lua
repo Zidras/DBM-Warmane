@@ -332,10 +332,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	MagneticCore		= ">%s< hat Magnetischen Kern",
-	WarningShockBlast	= "Schockschlag - LAUF WEG",
-	WarnBombSpawn		= "neuer Bombenbot",
-	WarningFlamesIn5Sec = "Flames in 5 sec." --Needs Translating
+	MagneticCore		= ">%s< hat den Magnetischen Kern",
+	WarnBombSpawn		= "Bombenbot erschienen"
 }
 
 L:SetTimerLocalization{
@@ -346,35 +344,25 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	TimeToPhase2			= "Zeige Timer für Beginn der 2. Phase",
-	TimeToPhase3			= "Zeige Timer für Beginn der 3. Phase",
-	TimeToPhase4			= "Zeige Timer für Beginn der 4. Phase",
-	MagneticCore			= "Verkünde Looter des Magnetischen Kerns",
-	HealthFramePhase4		= "Zeige Lebensanzeige in Phase 4",
+	TimeToPhase2			= "Zeige Zeit bis Phase 2",
+	TimeToPhase3			= "Zeige Zeit bis Phase 3",
+	TimeToPhase4			= "Zeige Zeit bis Phase 4",
+	MagneticCore			= "Verkünde Spieler, die Magnetische Kerne plündern",
 	AutoChangeLootToFFA		= "Automatisch in Phase 3 Plündern auf 'Jeder gegen jeden' einstellen",
 	WarnBombSpawn			= "Zeige Warnung für Bombenbot",
-	TimerHardmode			= "Zeige Timer für Hard Mode",
-	PlaySoundOnShockBlast	= "Spiele Sound bei Schockschlag",
-	PlaySoundOnDarkGlare	= "Spiele Sound bei Lasersalve",
-	ShockBlastWarningInP1	= "Zeige Spezialwarnung für Schockschlag in Phase 1",
-	ShockBlastWarningInP4	= "Zeige Spezialwarnung für Schockschlag in Phase 4",
-	RangeFrame				= "Zeige Abstandsfenster in Phase 1 (6 m)",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.", --Needs Translating
-	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames" --Needs Translating
+	TimerHardmode			= "Zeige Timer für Hard Mode"
 }
 
 L:SetMiscLocalization{
 	MobPhase1		= "Leviathan Mk II",
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Luftkommandoeinheit",
-	YellPull		= "Wir haben nicht viel Zeit, Freunde! Ihr werdet mir dabei helfen, meine neueste und großartigste Kreation zu testen. Bevor Ihr nun Eure Meinung ändert, denkt daran, dass Ihr mir etwas schuldig seid, nach dem Unfug, den Ihr mit dem XT-002 angestellt habt",
-	YellHardPull		= "Warum habt Ihr das denn jetzt gemacht? Habt Ihr das Schild nicht gesehen, auf dem steht \"DIESEN KNOPF NICHT DRÜCKEN!\"? Wie sollen wir die Tests abschließen, solange der Selbstzerstörungsmechanismus aktiv ist?",
+	YellPull		= "Wir haben nicht viel Zeit, Freunde! Ihr werdet mir dabei helfen, meine neueste und großartigste Kreation zu testen. Bevor Ihr nun Eure Meinung ändert, denkt daran, dass Ihr mir etwas schuldig seid, nach dem Unfug, den Ihr mit dem XT-002 angestellt habt.",
+	YellHardPull	= "Selbstzerstörungssequenz eingeleitet.",
 	YellPhase2		= "WUNDERBAR! Das sind Ergebnisse nach meinem Geschmack! Integrität der Hülle bei 98,9 Prozent! So gut wie keine Dellen! Und weiter geht's.",
 	YellPhase3		= "Danke Euch, Freunde! Eure Anstrengungen haben fantastische Daten geliefert! So, wo habe ich noch gleich... Ah, hier ist…",
 	YellPhase4		= "Vorversuchsphase abgeschlossen. Jetzt kommt der eigentliche Test!",
-	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.", --Needs Translating
+	YellKilled		= "Es scheint, als wäre mir eine klitzekleine Fehlkalkulation unterlaufen. Ich habe zugelassen, dass das Scheusal im Gefängnis meine Primärdirektive überschreibt. Alle Systeme nun funktionstüchtig.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
 }
 
