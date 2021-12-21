@@ -165,9 +165,6 @@ L:SetGeneralLocalization{
 	name = "Kologarn"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
 	timerLeftArm		= "Left Arm respawn",
 	timerRightArm		= "Right Arm respawn",
@@ -177,24 +174,19 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	timerLeftArm			= "Show timer for Left Arm respawn",
 	timerRightArm			= "Show timer for Right Arm respawn",
-	achievementDisarmed		= "Show timer for Disarm achievement",
-	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "Play sound on $spell:63346",
-	YellOnBeam				= "Yell on $spell:63346"
+	achievementDisarmed		= "Show timer for Disarm achievement"
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "Just a scratch!",
-	Yell_Trigger_arm_right	= "Only a flesh wound!",
-	YellEncounterStart		= "None shall pass!",
-	YellLeftArmDies			= "Just a scratch!",
-	YellRightArmDies		= "Only a flesh wound!",
+--	Yell_Trigger_arm_left	= "Just a scratch!",
+--	Yell_Trigger_arm_right	= "Only a flesh wound!",
+--	YellEncounterStart		= "None shall pass!",
+--	YellLeftArmDies			= "Just a scratch!",
+--	YellRightArmDies		= "Only a flesh wound!",
 	Health_Body				= "Kologarn Body",
 	Health_Right_Arm		= "Right Arm",
 	Health_Left_Arm			= "Left Arm",
-	FocusedEyebeam			= "his eyes on you",
-	YellBeam				= "Focused Eyebeam on me!"
+	FocusedEyebeam			= "his eyes on you"
 }
 
 ---------------

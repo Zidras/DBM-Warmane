@@ -157,36 +157,25 @@ L:SetGeneralLocalization{
 	name = "柯洛剛恩"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	timerLeftArm		= "左臂 重生",
-	timerRightArm		= "右臂 重生",
-	achievementDisarmed	= "卸除手臂 計時器"
+	timerLeftArm			= "左臂重生",
+	timerRightArm			= "右臂重生",
+	achievementDisarmed		= "卸除手臂計時器"
 }
 
 L:SetOptionLocalization{
 	timerLeftArm			= "為左臂重生顯示計時器",
 	timerRightArm			= "為右臂重生顯示計時器",
-	achievementDisarmed		= "為成就:卸除手臂顯示計時器",
-	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "為$spell:63346播放音效",
-	YellOnBeam				= "當你中了$spell:63346時大喊"
+	achievementDisarmed		= "為成就:卸除手臂顯示計時器"
 }
 
 L:SetMiscLocalization{
 	Yell_Trigger_arm_left	= "小小的擦傷!",
 	Yell_Trigger_arm_right	= "只是皮肉之傷!",
-	YellEncounterStart		= "None shall pass!", --Needs Translating
-	YellLeftArmDies			= "Just a scratch!", --Needs Translating
-	YellRightArmDies		= "Only a flesh wound!", --Needs Translating
 	Health_Body				= "柯洛剛恩身體",
 	Health_Right_Arm		= "右臂",
 	Health_Left_Arm			= "左臂",
-	FocusedEyebeam			= "正在注視著你",
-	YellBeam				= "柯洛剛恩正在注視我!"
+	FocusedEyebeam			= "正在注視著你"
 }
 
 ---------------

@@ -157,9 +157,6 @@ L:SetGeneralLocalization{
 	name = "Kologarn"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
 	timerLeftArm		= "Nachwachsen linker Arm",
 	timerRightArm		= "Nachwachsen rechter Arm",
@@ -167,26 +164,18 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	timerLeftArm			= "Zeige Timer für Arm-Nachwachsen (links)",
-	timerRightArm			= "Zeige Timer für Arm-Nachwachsen (rechts)",
-	achievementDisarmed		= "Zeige Timer für Erfolg 'Arm dran, weil Arm ab'",
-	SetIconOnGripTarget		= "Setze Zeichen auf Steinerner-Griff-Ziele",
-	SetIconOnEyebeamTarget	= "Setze Zeichen auf Ziele von Fokussierter Augenstrahl (Mond)",
-	PlaySoundOnEyebeam		= "Spiele Sound bei Fokussiertem Augenstrahl",
-	YellOnBeam				= "Yell on $spell:63346"  --Needs Translating
+	timerLeftArm			= "Zeige Zeit bis der linke Arm nachwächst",
+	timerRightArm			= "Zeige Zeit bis der rechte Arm nachwächst",
+	achievementDisarmed		= "Zeige Timer für Erfolg 'Arm dran, weil Arm ab'"
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "Das ist nur ein Kratzer!",
-	Yell_Trigger_arm_right	= "Ist nur 'ne Fleischwunde!",
-	YellEncounterStart		= "None shall pass!", --Needs Translating
-	YellLeftArmDies			= "Just a scratch!", --Needs Translating
-	YellRightArmDies		= "Only a flesh wound!", --Needs Translating
+--	Yell_Trigger_arm_left	= "Das ist nur ein Kratzer!",
+--	Yell_Trigger_arm_right	= "Ist nur 'ne Fleischwunde!",
 	Health_Body				= "Kologarn",
 	Health_Right_Arm		= "Rechter Arm",
 	Health_Left_Arm			= "Linker Arm",
-	FocusedEyebeam			= "%s fokussiert seinen Blick auf Euch!",
-	YellBeam				= "Focused Eyebeam on me!" --Needs Translating
+	FocusedEyebeam			= "%s fokussiert seinen Blick auf Euch!"
 }
 
 ---------------

@@ -157,36 +157,25 @@ L:SetGeneralLocalization{
 	name = "콜로간"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	timerLeftArm		= "왼쪽 팔 재생성",
-	timerRightArm		= "오른쪽 팔 재생성",
-	achievementDisarmed	= "무장해제 업적"
+	timerLeftArm			= "왼쪽 팔 재생성",
+	timerRightArm			= "오른쪽 팔 재생성",
+	achievementDisarmed		= "무장해제 업적 가능"
 }
 
 L:SetOptionLocalization{
-	timerLeftArm			= "왼쪽 팔 재생성 타이머 보기",
-	timerRightArm			= "오른쪽 팔 재생성 타이머 보기",
-	achievementDisarmed		= "무장해제 타이머 보기",
-	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "안광 집중 특수 소리 재생",
-	YellOnBeam				= "Yell on $spell:63346" --Needs Translating
+	timerLeftArm			= "왼쪽 팔 재생성 바 보기",
+	timerRightArm			= "오른쪽 팔 재생성 바 보기",
+	achievementDisarmed		= "무장해제 업적 바 보기"
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "얕은 상처야!",
-	Yell_Trigger_arm_right	= "꽉꽉 쥐어짜 주마!",
-	YellEncounterStart		= "None shall pass!", --Needs Translating
-	YellLeftArmDies			= "Just a scratch!", --Needs Translating
-	YellRightArmDies		= "Only a flesh wound!", --Needs Translating
+--	Yell_Trigger_arm_left	= "얕은 상처야!",
+--	Yell_Trigger_arm_right	= "꽉꽉 쥐어짜 주마!",
 	Health_Body				= "콜로간 몸통",
 	Health_Right_Arm		= "오른쪽 팔",
 	Health_Left_Arm			= "왼쪽 팔",
-	FocusedEyebeam			= "당신에게 안광을 집중합니다!",
-	YellBeam				= "Focused Eyebeam on me!" --Needs Translating
+	FocusedEyebeam			= "당신에게 안광을 집중합니다!"
 }
 
 ---------------
