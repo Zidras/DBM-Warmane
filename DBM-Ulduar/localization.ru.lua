@@ -200,26 +200,24 @@ L:SetGeneralLocalization{
 	name = "Ауриайа"
 }
 
-L:SetMiscLocalization{
-	Defender = "Дикий эащитник (%d)",
-	YellPull = "Вы зря сюда заявились!"
+L:SetWarningLocalization{
+	WarnCatDied		= "Дикий эащитник погибает (осталось %d жизней)",
+	WarnCatDiedOne	= "Дикий эащитник погибает (осталась 1 жизнь)"
 }
 
 L:SetTimerLocalization{
 	timerDefender	= "Возрождение Дикого защитника"
 }
 
-L:SetWarningLocalization{
-	SpecWarnBlast	= "Удар часового - прерывание",
-	WarnCatDied		= "Дикий эащитник погибает (осталось %d жизней)",
-	WarnCatDiedOne	= "Дикий эащитник погибает (осталась 1 жизнь)",
-}
-
 L:SetOptionLocalization{
-	SpecWarnBlast	= "Спец-предупреждение об Ударе часового (для прерывания)",
 	WarnCatDied		= "Предупреждение, когда Дикий защитник погибает",
 	WarnCatDiedOne	= "Предупреждение, когда у Дикого защитника остается 1 жизнь",
 	timerDefender	= "Отсчет времени до возрождения Дикого защитника"
+}
+
+L:SetMiscLocalization{
+	Defender = "Дикий эащитник (%d)",
+	YellPull = "Вы зря сюда заявились!"
 }
 
 -------------

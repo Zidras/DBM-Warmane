@@ -198,26 +198,24 @@ L:SetGeneralLocalization{
 	name = "Auriaya"
 }
 
-L:SetMiscLocalization{
-	Defender = "Feral Defender (%d)",
-	YellPull = "Some things are better left alone!"
+L:SetWarningLocalization{
+	WarnCatDied		= "Feral Defender down (%d lives remaining)",
+	WarnCatDiedOne	= "Feral Defender down (1 life remaining)"
 }
 
 L:SetTimerLocalization{
 	timerDefender	= "Feral Defender activates"
 }
 
-L:SetWarningLocalization{
-	SpecWarnBlast	= "Sentinel Blast - Interrupt now",
-	WarnCatDied		= "Feral Defender down (%d lives remaining)",
-	WarnCatDiedOne	= "Feral Defender down (1 life remaining)",
-}
-
 L:SetOptionLocalization{
-	SpecWarnBlast	= "Show special warning for Sentinel Blast (to interrupt)",
 	WarnCatDied		= "Show warning when Feral Defender dies",
 	WarnCatDiedOne	= "Show warning when Feral Defender has 1 life remaining",
 	timerDefender	= "Show timer for when Feral Defender is activated"
+}
+
+L:SetMiscLocalization{
+	Defender = "Feral Defender (%d)",
+	YellPull = "Some things are better left alone!"
 }
 
 -------------

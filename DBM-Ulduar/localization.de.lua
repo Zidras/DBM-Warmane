@@ -187,26 +187,24 @@ L:SetGeneralLocalization{
 	name = "Auriaya"
 }
 
-L:SetMiscLocalization{
-	Defender = "Wilder Verteidiger (%d)",
-	YellPull = "In manche Dinge mischt man sich besser nicht ein!"
+L:SetWarningLocalization{
+	WarnCatDied		= "Wilder Verteidiger tot (%d Leben übrig)",
+	WarnCatDiedOne	= "Wilder Verteidiger tot (1 Leben übrig)"
 }
 
 L:SetTimerLocalization{
 	timerDefender	= "Wilder Verteidiger wird aktiviert"
 }
 
-L:SetWarningLocalization{
-	SpecWarnBlast	= "Schildwachenschlag - Unterbrechen!",
-	WarnCatDied		= "Wilder Verteidiger tot (%d Leben übrig)",
-	WarnCatDiedOne	= "Wilder Verteidiger tot (1 Leben übrig)"
+L:SetOptionLocalization{
+	WarnCatDied		= "Zeige Warnung, wenn der Wilde Verteidiger stirbt",
+	WarnCatDiedOne	= "Zeige Warnung, wenn der Wilde Verteidiger nur noch 1 Leben übrig hat",
+	timerDefender	= "Zeige Zeit bis zur Aktivierung des Wilden Verteidigers"
 }
 
-L:SetOptionLocalization{
-	SpecWarnBlast	= "Zeige Spezialwarnung bei Schildwachenschlag (zum Unterbrechen)",
-	WarnCatDied		= "Zeige Warnung wenn ein Wilder Verteidiger stirbt",
-	WarnCatDiedOne	= "Zeige Warnung wenn Wilder Verteidiger 1 Leben übrig hat",
-	timerDefender	= "Zeige Timer für Aktivierung des Wilden Verteidigers"
+L:SetMiscLocalization{
+	Defender = "Wilder Verteidiger (%d)",
+	YellPull = "In manche Dinge mischt man sich besser nicht ein!"
 }
 
 -------------

@@ -187,26 +187,24 @@ L:SetGeneralLocalization{
 	name = "아우리아야"
 }
 
-L:SetMiscLocalization{
-	Defender = "수호 야수 (%d)",
-	YellPull = "내버려두는 편이 나았을 텐데!"
+L:SetWarningLocalization{
+	WarnCatDied			= "수호 야수 죽음 (%d 번 남음)",
+	WarnCatDiedOne		= "수호 야수 죽음 (1 번 남음)"
 }
 
 L:SetTimerLocalization{
-	timerDefender	= "수호 야수 활성"
-}
-
-L:SetWarningLocalization{
-	SpecWarnBlast	= "수호 야수 폭발 - 차단!",
-	WarnCatDied		= "수호 야수 죽음 (%d 번 남음)",
-	WarnCatDiedOne	= "수호 야수 죽음 (1 번 남음)"
+	timerDefender		= "수호 야수 활성"
 }
 
 L:SetOptionLocalization{
-	SpecWarnBlast	= "수호 야수 폭발 특수 경고 보기",
-	WarnCatDied		= "수호 야수의 남은 부활 횟수 경고 보기",
-	WarnCatDiedOne	= "마지막 수호 야수 경고 보기(1 번 남음)",
-	timerDefender	= "다음 수호 야수 활성 타이머 보기"
+	WarnCatDied			= "수호 야수의 남은부활 횟수 알림 보기",
+	WarnCatDiedOne		= "수호 야수 부활 횟수가 1번 남았을 때 알림 보기",
+	timerDefender		= "다음 수호 야수 활성 바 보기"
+}
+
+L:SetMiscLocalization{
+	Defender			= "수호 야수 (%d)",
+	YellPull			= "내버려두는 편이 나았을 텐데!"
 }
 
 -------------

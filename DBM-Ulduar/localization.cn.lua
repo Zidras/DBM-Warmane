@@ -184,29 +184,27 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Auriaya")
 
 L:SetGeneralLocalization{
-    name = "Auriaya"
-}
-
-L:SetMiscLocalization{
-    Defender = "野性防御者 (%d)",
-    YellPull = "有些东西，最好永远都不去碰！"
-}
-
-L:SetTimerLocalization{
-    timerDefender = "Feral Defender activates"
+	name				= "欧尔莉亚"
 }
 
 L:SetWarningLocalization{
-    SpecWarnBlast = "Sentinel Blast - Interrupt now",
-    WarnCatDied = "Feral Defender down (%d lives remaining)",
-    WarnCatDiedOne = "Feral Defender down (1 life remaining)",
+	WarnCatDied 			= "野性防御者倒下(剩余%d只)",
+	WarnCatDiedOne 			= "野性防御者倒下(剩下最后一只)"
+}
+
+L:SetTimerLocalization{
+	timerDefender		= "野性防御者复活"
 }
 
 L:SetOptionLocalization{
-    SpecWarnBlast = "Show special warning for Sentinel Blast (to interrupt)",
-    WarnCatDied = "Show warning when Feral Defender dies",
-    WarnCatDiedOne = "Show warning when Feral Defender has 1 life remaining",
-    timerDefender = "Show timer for when Feral Defender is activated"
+	WarnCatDied				= "当野性防御者死亡时显示警报",
+	WarnCatDiedOne			= "当野性防御者剩下最后一只时显示警报",
+	timerDefender			= "当野性防御者准备复活时显示计时条"
+}
+
+L:SetMiscLocalization{
+	Defender			= "野性防御者(%d)",
+	YellPull			= "有些东西，最好永远都不去碰！"
 }
 
 -------------
