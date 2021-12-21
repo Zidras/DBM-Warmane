@@ -346,16 +346,14 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	MagneticCore		= ">%s< vient de loot le Core Magnétique",
-	WarningShockBlast	= "Horion explosif - BOUGEZ",
-	WarnBombSpawn		= "Robot Bombe vient de pop",
-	WarningFlamesIn5Sec = "Flammes dans 5 sec."
+	WarnBombSpawn		= "Robot Bombe vient de pop"
 }
 
 L:SetTimerLocalization{
-	TimerHardmode	= "Hard Mode - Autodestruction",
-	TimeToPhase2	= "Phase 2",
-	TimeToPhase3	= "Phase 3",
-	TimeToPhase4	= "Phase 4"
+	TimerHardmode		= "Hard Mode - Autodestruction",
+	TimeToPhase2		= "Phase 2",
+	TimeToPhase3		= "Phase 3",
+	TimeToPhase4		= "Phase 4"
 }
 
 L:SetOptionLocalization{
@@ -363,19 +361,9 @@ L:SetOptionLocalization{
 	TimeToPhase3			= "Montre le timer pour la Phase 3",
 	TimeToPhase4			= "Montre le timer pour la Phase 4",
 	MagneticCore			= "Annonce qui a loot le Core Magnétique",
-	HealthFramePhase4		= "Montre les barres de vie dans la phase 4",
 	AutoChangeLootToFFA		= "Met le butin en accès libre durant la phase 3",
 	WarnBombSpawn			= "Annonce les Robots Bombes",
-	TimerHardmode			= "Montre le timer pour le Hard Mode",
-	PlaySoundOnShockBlast	= "Joue un son lors des Horions explosifs",
-	PlaySoundOnDarkGlare	= "Joue un son au Barrage laser",
-	ShockBlastWarningInP1	= "Montre une alerte spéciale pour les Horions explosifs durant la Phase 1",
-	ShockBlastWarningInP4	= "Montre une alerte spéciale pour les Horions explosifs durant la Phase 4",
-	RangeFrame				= "Affiche la fenêtre de portée pour la phase 1",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Afficher une alerte spéciale : Flammes dans 5 sec.",
-	SoundWarnCountingFlames = "Jouer un compte-à-rebours de 5 sec. pour les prochaines flammes"
+	TimerHardmode			= "Montre le timer pour le Hard Mode"
 }
 
 L:SetMiscLocalization{
@@ -383,7 +371,7 @@ L:SetMiscLocalization{
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Unité de commandement aérien",
 	YellPull		= "Nous n'avons pas beaucoup de temps, les amis ! Vous allez m'aider à tester ma dernière création en date, la plus grande de toutes. Avant de changer d'avis, n'oubliez pas que que vous me devez bien ça après m'avoir complètement déglingué le XT-002.",
-	YellHardPull	= "Mais, pourquoi",
+	YellHardPull	= "Initialisation de la séquence d'autodestruction.",
 	YellPhase2		= "MERVEILLEUX ! Résultats parfaitement formidables !",
 	YellPhase3		= "Merci, les amis !",
 	YellPhase4		= "Fin de la phase d'essais préliminaires",

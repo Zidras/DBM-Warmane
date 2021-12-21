@@ -344,9 +344,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	MagneticCore		= ">%s< has Magnetic Core",
-	WarningShockBlast	= "Shock Blast - Run away",
-	WarnBombSpawn		= "Bomb Bot spawned",
-	WarningFlamesIn5Sec = "Flames in 5 sec."
+	WarnBombSpawn		= "Bomb Bot spawned"
 }
 
 L:SetTimerLocalization{
@@ -361,19 +359,9 @@ L:SetOptionLocalization{
 	TimeToPhase3			= "Show timer for Phase 3",
 	TimeToPhase4			= "Show timer for Phase 4",
 	MagneticCore			= "Announce Magnetic Core looters",
-	HealthFramePhase4		= "Show health frame in Phase 4",
 	AutoChangeLootToFFA		= "Switch loot mode to Free for All in Phase 3",
 	WarnBombSpawn			= "Show warning for Bomb Bots",
-	TimerHardmode			= "Show timer for hard mode",
-	PlaySoundOnShockBlast	= "Play sound on $spell:63631",
-	PlaySoundOnDarkGlare	= "Play sound on $spell:63414",
-	ShockBlastWarningInP1	= "Show special warning for $spell:63631 in Phase 1",
-	ShockBlastWarningInP4	= "Show special warning for $spell:63631 in Phase 4",
-	RangeFrame				= "Show range frame in Phase 1 (6 yards)",
-	SetIconOnNapalm			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-	SetIconOnPlasmaBlast	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-	WarnFlamesIn5Sec 		= "Show special warning: Flames in 5 sec.",
-	SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames"
+	TimerHardmode			= "Show timer for hard mode"
 }
 
 L:SetMiscLocalization{

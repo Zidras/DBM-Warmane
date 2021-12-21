@@ -323,54 +323,42 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Mimiron")
 
 L:SetGeneralLocalization{
-    name = "Mimiron"
+	name				= "米米尔隆"
 }
 
 L:SetWarningLocalization{
-    MagneticCore = ">%s< has Magnetic Core",
-    WarningShockBlast = "Shock Blast - Run away",
-    WarnBombSpawn = "Bomb Bot spawned",
-    WarningFlamesIn5Sec = "Flames in 5 sec."
+	MagneticCore			= ">%s< 拿到了磁核",
+	WarnBombSpawn			= "炸弹机器人出现了"
 }
 
 L:SetTimerLocalization{
-    TimerHardmode = "Hard mode - Self-destruct",
-    TimeToPhase2 = "Phase 2",
-    TimeToPhase3 = "Phase 3",
-    TimeToPhase4 = "Phase 4"
+	TimerHardmode			= "困难模式 - 自毁程序",
+	TimeToPhase2			= "第2阶段开始",
+	TimeToPhase3			= "第3阶段开始",
+	TimeToPhase4			= "第4阶段开始"
 }
 
 L:SetOptionLocalization{
-    TimeToPhase2 = "Show timer for Phase 2",
-    TimeToPhase3 = "Show timer for Phase 3",
-    TimeToPhase4 = "Show timer for Phase 4",
-    MagneticCore = "Announce Magnetic Core looters",
-    HealthFramePhase4 = "Show health frame in Phase 4",
-    AutoChangeLootToFFA = "Switch loot mode to Free for All in Phase 3",
-    WarnBombSpawn = "Show warning for Bomb Bots",
-    TimerHardmode = "Show timer for hard mode",
-    PlaySoundOnShockBlast = "Play sound on $spell:63631",
-    PlaySoundOnDarkGlare = "Play sound on $spell:63414",
-    ShockBlastWarningInP1 = "Show special warning for $spell:63631 in Phase 1",
-    ShockBlastWarningInP4 = "Show special warning for $spell:63631 in Phase 4",
-    RangeFrame = "Show range frame in Phase 1 (6 yards)",
-    SetIconOnNapalm = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65026),
-    SetIconOnPlasmaBlast = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(62997),
-    WarnFlamesIn5Sec = "Show special warning: Flames in 5 sec.",
-    SoundWarnCountingFlames = "Play a 5 second audio countdown for next flames"
+	TimeToPhase2			= "为第2阶段开始显示计时条",
+	TimeToPhase3			= "为第3阶段开始显示计时条",
+	TimeToPhase4			= "为第4阶段开始显示计时条",
+	MagneticCore			= "提示磁核的拾取者",
+	AutoChangeLootToFFA		= "在第 3 阶段将战利品模式切换为对所有人免费",
+	WarnBombSpawn			= "为炸弹机器人显示警报",
+	TimerHardmode			= "为困难模式显示计时条"
 }
 
 L:SetMiscLocalization{
-    MobPhase1 = "巨兽二型",
-    MobPhase2 = "VX-001",
-    MobPhase3 = "空中指挥单位",
-    YellPull = "我们时间不多了，朋友们！来帮忙测试一下我所发明的最新型、最强大的机体吧。在你们改变主意之前，请允许我提醒一下，你们把XT-002搞得一团糟，应该算是欠我个人情吧。",
-    YellHardPull = "嘿，你们为什么要这么做啊？没看到上面写着“不要按这个按钮”吗？你们激活了自毁系统，还怎么完成测试呀？",
-    YellPhase2 = "太棒了！测试结果非常好！外壳完整率百分之九十八点九！几乎没有划伤！继续。",
-    YellPhase3 = "非常感谢，朋友们！你们的帮助使我获得了一些极其珍贵的数据！下面，我要让你们——咦，我把它放哪去了？哦！这里。",
-    YellPhase4 = "初步测试阶段完成。真正的测试开始啦！",
-    YellKilled = "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.",
-    LootMsg = "(.+)获得了物品：.*Hitem:(%d+)"
+	MobPhase1			= "巨兽二型",
+	MobPhase2			= "VX-001",
+	MobPhase3			= "空中指挥单位",
+	YellPull			= "我们时间不多了，朋友们！来帮忙测试一下我所发明的最新型、最强大的机体吧。在你们改变主意之前，请允许我提醒一下，你们把XT-002搞得一团糟，应该算是欠我个人情吧。",
+	YellHardPull		= "自毁程序已经启动。",
+	YellPhase2			= "太棒了！测试结果非常好！外壳完整率百分之九十八点九！几乎没有划伤！继续。",
+	YellPhase3			= "非常感谢，朋友们！你们的帮助使我获得了一些极其珍贵的数据！下面，我要让你们——咦，我把它放哪去了？哦！这里。",
+	YellPhase4			= "初步测试阶段完成。真正的测试开始啦！",
+	YellKilled			= "看起来我的计算有一点小小的偏差。监狱中的恶魔侵蚀了我的思维，篡改了我的主要指令。所有系统都已恢复正常。完毕。",
+	LootMsg				= "(.+)获得了物品：.*Hitem:(%d+)"
 }
 
 ---------------------
