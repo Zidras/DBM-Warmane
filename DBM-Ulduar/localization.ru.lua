@@ -167,9 +167,6 @@ L:SetGeneralLocalization{
 	name = "Кологарн"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
 	timerLeftArm		= "Возрождение левой руки",
 	timerRightArm		= "Возрождение правой руки",
@@ -179,24 +176,19 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	timerLeftArm			= "Отсчет времени до Возрождения левой руки",
 	timerRightArm			= "Отсчет времени до Возрождения правой руки",
-	achievementDisarmed		= "Отсчет времени для достижения Обезоружен",
-	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "Звуковой сигнал при $spell:63346",
-	YellOnBeam				= "Кричать, когда на вас $spell:63346",
+	achievementDisarmed		= "Отсчет времени для достижения Обезоружен"
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "Царапина...",
-	Yell_Trigger_arm_right	= "Всего лишь плоть!",
-	YellEncounterStart		= "Вам не пройти!",
-	YellLeftArmDies			= "Царапина...",
-	YellRightArmDies		= "Всего лишь плоть!",
+--	Yell_Trigger_arm_left	= "Царапина...",
+--	Yell_Trigger_arm_right	= "Всего лишь плоть!",
+--	YellEncounterStart		= "Вам не пройти!",
+--	YellLeftArmDies			= "Царапина...",
+--	YellRightArmDies		= "Всего лишь плоть!",
 	Health_Body				= "Кологарн",
 	Health_Right_Arm		= "Правая рука",
 	Health_Left_Arm			= "Левая рука",
-	FocusedEyebeam			= "%s устремляет на вас свой взгляд!",
-	YellBeam				= "Сосредоточенный взгляд на мне!"
+	FocusedEyebeam			= "%s устремляет на вас свой взгляд!"
 }
 
 ---------------

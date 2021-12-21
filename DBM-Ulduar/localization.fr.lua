@@ -167,36 +167,28 @@ L:SetGeneralLocalization{
 	name = "Kologarn"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	timerLeftArm		= "Repop du bras gauche",
-	timerRightArm		= "Repop du bras droit",
-	achievementDisarmed	= "Temps pour Désarmement"
+	timerLeftArm			= "Repop du bras gauche",
+	timerRightArm			= "Repop du bras droit",
+	achievementDisarmed		= "Temps pour Désarmement"
 }
 
 L:SetOptionLocalization{
 	timerLeftArm			= "Afficher un timer pour le repop du bras gauche",
 	timerRightArm			= "Afficher un timer pour le repop du bras droit",
-	achievementDisarmed		= "Afficher un timer pour le Haut Fait Désarmement",
-	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "Jouer un son au $spell:63346",
-	YellOnBeam				= "Crier au $spell:63346"
+	achievementDisarmed		= "Afficher un timer pour le Haut Fait Désarmement"
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "Juste une éraflure !",
-	Yell_Trigger_arm_right	= "Une blessure superficielle !",
-	YellEncounterStart		= "On ne passe pas !",
-	YellLeftArmDies			= "Juste une éraflure !",
-	YellRightArmDies		= "Une blessure superficielle !",
+--	Yell_Trigger_arm_left	= "Juste une éraflure !",
+--	Yell_Trigger_arm_right	= "Une blessure superficielle !",
+--	YellEncounterStart		= "On ne passe pas !",
+--	YellLeftArmDies			= "Juste une éraflure !",
+--	YellRightArmDies		= "Une blessure superficielle !",
 	Health_Body				= "Torse de Kologarn",
 	Health_Right_Arm		= "Bras droit",
 	Health_Left_Arm			= "Bras gauche",
-	FocusedEyebeam			= "%s concentre son regard sur vous !",
-	YellBeam				= "Rayon de l'œil focalisé sur moi !"
+	FocusedEyebeam			= "%s concentre son regard sur vous !"
 }
 
 ---------------

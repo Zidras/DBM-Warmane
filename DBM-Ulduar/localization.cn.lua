@@ -154,38 +154,28 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Kologarn")
 
 L:SetGeneralLocalization{
-    name = "Kologarn"
+	name = "科隆加恩"
 }
 
-L:SetWarningLocalization{}
-
 L:SetTimerLocalization{
-    timerLeftArm = "Left Arm respawn",
-    timerRightArm = "Right Arm respawn",
-    achievementDisarmed = "Timer for Disarm"
+	timerLeftArm		= "左臂重生",
+	timerRightArm		= "右臂重生",
+	achievementDisarmed	= "成就计时：断其臂膀"
 }
 
 L:SetOptionLocalization{
-    timerLeftArm = "Show timer for Left Arm respawn",
-    timerRightArm = "Show timer for Right Arm respawn",
-    achievementDisarmed = "Show timer for Disarm achievement",
-    SetIconOnGripTarget = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-    SetIconOnEyebeamTarget = DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-    PlaySoundOnEyebeam = "Play sound on $spell:63346",
-    YellOnBeam = "Yell on $spell:63346"
+	timerLeftArm		= "为左臂重生显示计时条",
+	timerRightArm		= "为右臂重生显示计时条",
+	achievementDisarmed	= "为成就：断其臂膀显示计时条"
 }
 
 L:SetMiscLocalization{
-    Yell_Trigger_arm_left = "不疼不痒！",
-    Yell_Trigger_arm_right = "只是轻伤而已！",
-    YellEncounterStart = "None shall pass!",
-    YellLeftArmDies = "Just a scratch!",
-    YellRightArmDies = "Only a flesh wound!",
-    Health_Body = "科隆加恩身体",
-    Health_Right_Arm = "右臂",
-    Health_Left_Arm = "左臂",
-    FocusedEyebeam = "在注视着你",
-    YellBeam = "科隆加恩正在注视我！"
+--	Yell_Trigger_arm_left = "不疼不痒！",
+--	Yell_Trigger_arm_right = "只是轻伤而已！",
+	Health_Body			= "科隆加恩身体",
+	Health_Right_Arm	= "右臂",
+	Health_Left_Arm		= "左臂",
+	FocusedEyebeam		= "在注视着你"
 }
 
 ---------------

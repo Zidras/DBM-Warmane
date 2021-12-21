@@ -157,36 +157,25 @@ L:SetGeneralLocalization{
 	name = "Kologarn"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	timerLeftArm		= "Reaparición del brazo izquierdo",
-	timerRightArm		= "Reaparición del brazo derecho",
-	achievementDisarmed	= "Tiempo para desarmar"
+	timerLeftArm		= "Brazo izquierdo reaparece",
+	timerRightArm		= "Brazo derecho reaparece",
+	achievementDisarmed	= "Logro: Desarmado"
 }
 
 L:SetOptionLocalization{
-	timerLeftArm			= "Mostrar tiempo para Brazo izquierdo",
-	timerRightArm			= "Mostrar tiempo para Brazo derecho",
-	achievementDisarmed		= "Mostrar tiempo para el logro Desarmar",
-	SetIconOnGripTarget		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64292),
-	SetIconOnEyebeamTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(63346),
-	PlaySoundOnEyebeam		= "Reproducir sonido al ser ojetivo de Haz ocular",
-	YellOnBeam				= "Gritar cuando tengas $spell:63346",
+	timerLeftArm			= "Mostrar temporizador para la regeneración del Brazo izquierdo",
+	timerRightArm			= "Mostrar temporizador para la regeneración del Brazo derecho",
+	achievementDisarmed		= "Mostrar temporizador para el logro 'Desarmado'"
 }
 
 L:SetMiscLocalization{
-	Yell_Trigger_arm_left	= "¡No es más que un arañazo!",
-	Yell_Trigger_arm_right	= "¡No es más que un arañazo!",
-	YellEncounterStart		= "None shall pass!", --Needs Translating
-	YellLeftArmDies			= "Just a scratch!", --Needs Translating
-	YellRightArmDies		= "Only a flesh wound!", --Needs Translating
+--	Yell_Trigger_arm_left	= "¡No es más que un arañazo!",
+--	Yell_Trigger_arm_right	= "¡Una herida superficial!",
 	Health_Body				= "Kologarn",
 	Health_Right_Arm		= "Brazo derecho",
 	Health_Left_Arm			= "Brazo izquierdo",
-	FocusedEyebeam			= "sus ojos en ti",
-	YellBeam				= "¡Haz ocular enfocado en mi!"
+	FocusedEyebeam			= "sus ojos en ti"
 }
 
 ---------------
