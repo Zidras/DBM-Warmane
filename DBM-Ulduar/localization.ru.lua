@@ -87,19 +87,6 @@ L:SetGeneralLocalization{
 	name = "Разрушитель XT-002"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
-	WarningTTIn10Sec			= "Раскаты ярости через 10 сек."
-}
-
-L:SetOptionLocalization{
-	SetIconOnLightBombTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(65121),
-	SetIconOnGravityBombTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(64234),
-	WarningTympanicTantrumIn10Sec = "Спец-предупреждение (10 сек.) для $spell:62776"
-}
-
 --------------------
 --  Iron Council  --
 --------------------

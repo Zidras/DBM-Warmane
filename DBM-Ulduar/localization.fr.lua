@@ -87,19 +87,6 @@ L:SetGeneralLocalization{
 	name = "Déconstructeur XT-002"
 }
 
-L:SetTimerLocalization{
-}
-
-L:SetWarningLocalization{
-	WarningTTIn10Sec			= "Colère assourdissante dans 10 sec."
-}
-
-L:SetOptionLocalization{
-	SetIconOnLightBombTarget		= "Mettre un icône sur la cible de la bombe de lumière",
-	SetIconOnGravityBombTarget		= "Mettre un icône sur la cible de la bombe à gravité",
-	WarningTympanicTantrumIn10Sec	= "Montrer une alerte spéciale (10 sec.) pour $spell:62776"
-}
-
 --------------------
 --  Iron Council  --
 --------------------
