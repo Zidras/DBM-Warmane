@@ -200,26 +200,24 @@ L:SetGeneralLocalization{
 	name = "Auriaya"
 }
 
-L:SetMiscLocalization{
-	Defender = "Défenseur farouche (%d)",
-	YellPull = "Certaines choses ne doivent pas être dérangées !"
+L:SetWarningLocalization{
+	WarnCatDied			= "Défenseur farouche mort (%d vies restantes)",
+	WarnCatDiedOne		= "Défenseur farouche mort (1 vie en moins)",
 }
 
 L:SetTimerLocalization{
-	timerDefender	= "Défenseur farouche activé"
-}
-
-L:SetWarningLocalization{
-	SpecWarnBlast	= "Déflagration du factionnaire - Interrompu!",
-	WarnCatDied		= "Défenseur farouche mort (%d vies restantes)",
-	WarnCatDiedOne	= "Défenseur farouche mort (1 vie en moins)"
+	timerDefender		= "Défenseur farouche activé"
 }
 
 L:SetOptionLocalization{
-	SpecWarnBlast	= "Activer l'avertissement spécial pour les Déflagration du factionnaire",
-	WarnCatDied		= "Activer l'avertissement quand un défenseur farouche meurt",
-	WarnCatDiedOne	= "Montre une alerte spéciale quand un Défenseur farouche meurt",
-	timerDefender	= "Montre un timer quand le Défenseur farouche est activé"
+	WarnCatDied			= "Activer l'avertissement quand un défenseur farouche meurt",
+	WarnCatDiedOne		= "Montre une alerte spéciale quand un Défenseur farouche meurt",
+	timerDefender		= "Montre un timer quand le Défenseur farouche est activé"
+}
+
+L:SetMiscLocalization{
+	Defender			= "Défenseur farouche (%d)",
+	YellPull			= "Certaines choses ne doivent pas être dérangées !"
 }
 
 -------------

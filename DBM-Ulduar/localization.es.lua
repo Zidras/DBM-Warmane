@@ -187,26 +187,24 @@ L:SetGeneralLocalization{
 	name = "Auriaya"
 }
 
-L:SetMiscLocalization{
-	Defender = "Defensor feral (%d)",
-	YellPull = "¡Es mejor dejar ciertas cosas tal como están!"
+L:SetWarningLocalization{
+	WarnCatDied		= "Defensor feral muerto (%d vidas restantes)",
+	WarnCatDiedOne	= "Defensor feral muerto (1 vida restante)"
 }
 
 L:SetTimerLocalization{
-	timerDefender	= "Se activa Defensor feral"
-}
-
-L:SetWarningLocalization{
-	SpecWarnBlast	= "Explosión de centinela - Interrumpe!",
-	WarnCatDied		= "Defensor feral muerto (Le quedan %d vidas)",
-	WarnCatDiedOne	= "Defensor feral muerto (Le queda 1 vida)"
+	timerDefender	= "Defensor feral activo"
 }
 
 L:SetOptionLocalization{
-	SpecWarnBlast	= "Mostrar aviso especial para Explosión de centinela",
-	WarnCatDied		= "Mostrar aviso cuando Defensor Feral muere",
-	WarnCatDiedOne	= "Mostrar aviso cuando Defensor Feral muere",
-	timerDefender	= "Mostrar tiempo para activación de Defensor feral"
+	WarnCatDied		= "Mostrar aviso cuando muera el Defensor feral",
+	WarnCatDiedOne	= "Mostrar aviso cuando el Defensor feral solo tenga una vida restante",
+	timerDefender	= "Mostrar temporizador para cuando aparezca o reviva el Defensor feral"
+}
+
+L:SetMiscLocalization{
+	Defender = "Defensor feral (%d)",
+	YellPull = "¡Es mejor dejar ciertas cosas tal como están!"
 }
 
 -------------

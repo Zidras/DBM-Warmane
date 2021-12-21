@@ -187,26 +187,24 @@ L:SetGeneralLocalization{
 	name = "奧芮雅"
 }
 
-L:SetMiscLocalization{
-	Defender = "野性防衛者 (%d)",
-	YellPull = "有些事情不該公諸於世!"
+L:SetWarningLocalization{
+	WarnCatDied 	= "野性防衛者倒下 (剩餘%d隻)",
+	WarnCatDiedOne 	= "野性防衛者倒下 (剩下最後一隻)"
 }
 
 L:SetTimerLocalization{
 	timerDefender	= "野性防衛者復活"
 }
 
-L:SetWarningLocalization{
-	SpecWarnBlast	= "哨兵衝擊 - 現在斷法",
-	WarnCatDied		= "野性防衛者倒下 (剩餘%d隻)",
-	WarnCatDiedOne	= "野性防衛者倒下 (剩下最後一隻)"
-}
-
 L:SetOptionLocalization{
-	SpecWarnBlast	= "為哨兵衝擊顯示特別警告 (斷法用)",
 	WarnCatDied		= "當野性防衛者死亡時顯示警告",
 	WarnCatDiedOne	= "當野性防衛者剩下最後一隻時顯示警告",
-	timerDefender	= "當野性防衛者準備復活時顯示計時器"
+	timerDefender   = "當野性防衛者準備復活時顯示計時器"
+}
+
+L:SetMiscLocalization{
+	Defender = "野性防衛者 (%d)",
+	YellPull = "有些事情不該公諸於世!"
 }
 
 -------------
