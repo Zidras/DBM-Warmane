@@ -285,22 +285,8 @@ L:SetGeneralLocalization{
 	name = "Фрейя"
 }
 
-L:SetMiscLocalization{
-	SpawnYell          = "Помогите мне, дети мои!",
-	WaterSpirit        = "Древний дух воды",
-	Snaplasher         = "Хватоплет",
-	StormLasher        = "Грозовой плеточник",
-	YellKill           = "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
-	YellAdds1          = "Эонар, твоей прислужнице нужна помощь!",
-	YellAdds2          = "Вас захлестнет сила стихий!",
-	EmoteLGift         = "начинает расти!",
-	TrashRespawnTimer  = "Возрождение монстров"
-}
-
 L:SetWarningLocalization{
-	WarnSimulKill	= "Первый помощник погиб - воскрешение через ~12 сек.",
-	WarningBeamsSoon = "Скоро Лучи",
-	EonarsGift = "Смена цели - переключитесь на Дар Эонара"
+	WarnSimulKill	= "Первый помощник погиб - воскрешение через ~12 сек."
 }
 
 L:SetTimerLocalization{
@@ -309,9 +295,19 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnSimulKill	= "Объявлять, когда первый монстр погибает",
-	PlaySoundOnFury = "Звуковой сигнал, когда на вас $spell:63571",
-	WarnBeamsSoon	= "Спец-предупреждение для скорых $spell:62865",
 	TimerSimulKill	= "Отсчет времени до воскрешения монстров"
+}
+
+L:SetMiscLocalization{
+	SpawnYell          = "Помогите мне, дети мои!",
+	WaterSpirit        = "Древний дух воды",
+	Snaplasher         = "Хватоплет",
+	StormLasher        = "Грозовой плеточник",
+	YellKill           = "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
+	YellAdds1          = "Эонар, твоей прислужнице нужна помощь!",
+	YellAdds2          = "Вас захлестнет сила стихий!",
+	EmoteLGift         = "начинает расти!", -- |cFF00FFFFДар Хранительницы жизни|r начинает расти!
+	TrashRespawnTimer  = "Возрождение монстров"
 }
 
 ----------------------
@@ -323,16 +319,12 @@ L:SetGeneralLocalization{
 	name = "Древни Фрейи"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "Отсчет времени до возрождения монстров"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "Возрождение монстров",
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "Звуковой сигнал при Каменных кулаках",
-	TrashRespawnTimer		= "Отсчет времени до возрождения монстров"
 }
 
 ---------------
