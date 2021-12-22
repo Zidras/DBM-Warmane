@@ -369,50 +369,39 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("YoggSaron")
 
 L:SetGeneralLocalization{
-    name = "Yogg-Saron"
-}
-
-L:SetMiscLocalization{
-    YellPull = "攻击这头野兽要害的时刻即将来临！将你们的愤怒和仇恨倾泻到它的爪牙身上！",
-    YellPhase2 = "我是清醒的梦境。",
-    Sara = "萨拉",
-    WarningYellSqueeze = "我被触须抓住了 - 快救我"
+	name 				= "尤格萨隆"
 }
 
 L:SetWarningLocalization{
-    WarningGuardianSpawned = "Guardian %d spawned",
-    WarningCrusherTentacleSpawned = "Crusher Tentacle spawned",
-    WarningSanity = "%d Sanity remaining",
-    SpecWarnSanity = "%d Sanity remaining",
-    SpecWarnGuardianLow = "Stop attacking this Guardian",
-    SpecWarnMadnessOutNow = "Induce Madness ending - Move out",
-    WarnBrainPortalSoon = "Brain Portal in 3 seconds",
-    SpecWarnFervor = "Sara's Fervor on you",
-    SpecWarnFervorCast = "Sara's Fervor is being cast on you",
-    SpecWarnMaladyNear = "Malady of the Mind on %s near you",
-    specWarnBrainPortalSoon = "Brain Portal soon"
+	WarningGuardianSpawned			= "尤格萨隆的卫士 %d 出现了",
+	WarningCrusherTentacleSpawned	= "重压触须 出现了",
+	WarningSanity					= "剩余理智：%d",
+	SpecWarnSanity					= "剩余理智：%d",
+	SpecWarnGuardianLow				= "停止攻击这只守护者",
+	SpecWarnMadnessOutNow			= "疯狂诱导即将结束 - 立刻传送出去",
+	WarnBrainPortalSoon				= "3秒后 脑部传送门",
+	SpecWarnBrainPortalSoon			= "脑部传送门 即将出现"
 }
 
 L:SetTimerLocalization{
-    NextPortal = "Brain Portal"
+	NextPortal						= "下一次 脑部传送门"
 }
 
 L:SetOptionLocalization{
-    WarningGuardianSpawned = "Show warning for Guardian spawns",
-    WarningCrusherTentacleSpawned = "Show warning for Crusher Tentacle spawns",
-    WarningSanity = "Show warning when $spell:63050 is low",
-    SpecWarnSanity = "Show special warning when $spell:63050 is very low",
-    SpecWarnGuardianLow = "Show special warning when Guardian (Phase 1) is low (for DDs)",
-    WarnBrainPortalSoon = "Show pre-warning for Brain Portal",
-    SpecWarnMadnessOutNow = "Show special warning shortly before $spell:64059 ends",
-    SetIconOnFearTarget = "Set icons on $spell:63881 targets",
-    SpecWarnFervorCast = "Show special warning when $spell:63138 is being cast on you (must be targeted or focused by at least one raid member)",
-    specWarnBrainPortalSoon = "Show special warning for next Brain Portal",
-    WarningSqueeze = "Yell on Squeeze",
-    NextPortal = "Show timer for next Brain Portal",
-    SetIconOnFervorTarget = "Set icons on $spell:63138 targets",
-    ShowSaraHealth = "Show health frame for Sara in Phase 1 (must be targeted or focused by at least one raid member)",
-    SpecWarnMaladyNear = "Show special warning for $spell:63881 near you",
-    SetIconOnBrainLinkTarget = "Set icons on $spell:63802 targets",
-    MaladyArrow = "Show DBM arrow when $spell:63881 is near you"
+	WarningGuardianSpawned			= "为尤格萨隆的卫士出现显示警报",
+	WarningCrusherTentacleSpawned	= "为重压触须出现显示警报",
+	WarningSanity					= "当理智剩下50时显示警报",
+	SpecWarnSanity					= "当理智过低(35,25,15)时显示特别警报",
+	SpecWarnGuardianLow				= "当尤格萨隆的卫士(第1阶段)血量过低时显示特别警报 (输出职业用)",
+	WarnBrainPortalSoon				= "为脑部传送门显示提前警报",
+	SpecWarnMadnessOutNow			= "为疯狂诱导结束前显示特别警报",
+	SpecWarnBrainPortalSoon			= "为下一次脑部传送门显示特别警报",
+	NextPortal						= "为下一次传送门显示计时条",
+	ShowSaraHealth					= "显示萨拉在第1阶段的血量 (必须至少有一名团队成员设置首领为焦点目标)",
+	MaladyArrow						= "当你附近的人中了$spell:63881时显示DBM箭头"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "攻击这头野兽要害的时刻即将来临！将你们的愤怒和仇恨倾泻到它的爪牙身上！",
+	Sara		= "萨拉"
 }

@@ -383,13 +383,6 @@ L:SetGeneralLocalization{
 	name = "Yogg-Saron"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",
-	YellPhase2			= "I am the lucid dream.",
-	Sara 				= "Sara",
-	WarningYellSqueeze	= "Squeeze on me! Help me!"
-}
-
 L:SetWarningLocalization{
 	WarningGuardianSpawned 			= "Guardian %d spawned",
 	WarningCrusherTentacleSpawned	= "Crusher Tentacle spawned",
@@ -398,10 +391,7 @@ L:SetWarningLocalization{
 	SpecWarnGuardianLow				= "Stop attacking this Guardian",
 	SpecWarnMadnessOutNow			= "Induce Madness ending - Move out",
 	WarnBrainPortalSoon				= "Brain Portal in 3 seconds",
-	SpecWarnFervor					= "Sara's Fervor on you",
-	SpecWarnFervorCast				= "Sara's Fervor is being cast on you",
-	SpecWarnMaladyNear				= "Malady of the Mind on %s near you",
-	specWarnBrainPortalSoon			= "Brain Portal soon"
+	SpecWarnBrainPortalSoon			= "Brain Portal soon"
 }
 
 L:SetTimerLocalization{
@@ -413,17 +403,16 @@ L:SetOptionLocalization{
 	WarningCrusherTentacleSpawned	= "Show warning for Crusher Tentacle spawns",
 	WarningSanity					= "Show warning when $spell:63050 is low",
 	SpecWarnSanity					= "Show special warning when $spell:63050 is very low",
-	SpecWarnGuardianLow				= "Show special warning when Guardian (Phase 1) is low (for DDs)",
+	SpecWarnGuardianLow				= "Show special warning when Guardian (Phase 1) is low (for DPS)",
 	WarnBrainPortalSoon				= "Show pre-warning for Brain Portal",
 	SpecWarnMadnessOutNow			= "Show special warning shortly before $spell:64059 ends",
-	SetIconOnFearTarget				= "Set icons on $spell:63881 targets",
-	SpecWarnFervorCast				= "Show special warning when $spell:63138 is being cast on you (must be targeted or focused by at least one raid member)",
-	specWarnBrainPortalSoon			= "Show special warning for next Brain Portal",
-	WarningSqueeze					= "Yell on Squeeze",
+	SpecWarnBrainPortalSoon			= "Show special warning for next Brain Portal",
 	NextPortal						= "Show timer for next Brain Portal",
-	SetIconOnFervorTarget			= "Set icons on $spell:63138 targets",
 	ShowSaraHealth					= "Show health frame for Sara in Phase 1 (must be targeted or focused by at least one raid member)",
-	SpecWarnMaladyNear				= "Show special warning for $spell:63881 near you",
-	SetIconOnBrainLinkTarget		= "Set icons on $spell:63802 targets",
 	MaladyArrow						= "Show DBM arrow when $spell:63881 is near you"
+}
+
+L:SetMiscLocalization{
+	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",
+	Sara 				= "Sara"
 }

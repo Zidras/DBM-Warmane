@@ -372,47 +372,36 @@ L:SetGeneralLocalization{
 	name = "尤格薩倫"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "我們即將有機會打擊怪物的首腦!現在將你的憤怒與仇恨貫注在他的爪牙上!",
-	YellPhase2			= "我是清醒的夢境。",
-	Sara 				= "薩拉",
-	WarningYellSqueeze	= "我被觸手抓住了 - 快救我"
-}
-
 L:SetWarningLocalization{
-	WarningGuardianSpawned 			= "尤格薩倫守護者 %d 出現了",
-	WarningCrusherTentacleSpawned	= "粉碎觸手 出現了",
-	WarningSanity 					= "剩下 %d 理智",
-	SpecWarnSanity 					= "剩下 %d 理智",
+	WarningGuardianSpawned 			= "第%d個尤格薩倫守護者出現了",
+	WarningCrusherTentacleSpawned	= "粉碎觸手出現了",
+	WarningSanity 					= "剩下%d理智",
+	SpecWarnSanity 					= "剩下%d理智",
 	SpecWarnGuardianLow				= "停止攻擊這隻守護者",
 	SpecWarnMadnessOutNow			= "瘋狂誘陷即將結束 - 快傳送出去",
-	WarnBrainPortalSoon				= "3秒後 腦部傳送門",
-	SpecWarnFervor					= "你中了薩拉的熱誠",
-	SpecWarnFervorCast				= "薩拉的熱誠正在對你施放",
-	SpecWarnMaladyNear				= "你附近的%s中了心靈缺陷",
-	specWarnBrainPortalSoon			= "腦部傳送門 即將到來"
+	WarnBrainPortalSoon				= "3秒後腦部傳送門",
+	SpecWarnBrainPortalSoon			= "腦部傳送門即將到來"
 }
 
 L:SetTimerLocalization{
-	NextPortal	= "下一次 腦部傳送門"
+	NextPortal	= "下一次腦部傳送門"
 }
 
 L:SetOptionLocalization{
 	WarningGuardianSpawned			= "為尤格薩倫守護者出現顯示警告",
 	WarningCrusherTentacleSpawned	= "為粉碎觸手出現顯示警告",
 	WarningSanity					= "當理智剩下50時顯示警告",
-	SpecWarnSanity					= "當理智過低(25,15,5)時顯示特別警告",
-	SpecWarnGuardianLow				= "當守護者(第1階段)血量過低時顯示特別警告 (DD用)",
+	SpecWarnSanity					= "當理智過低(35,25,15)時顯示特別警告",
+	SpecWarnGuardianLow				= "當守護者(第1階段)血量過低時顯示特別警告 (DPS用)",
 	WarnBrainPortalSoon				= "為腦部傳送門顯示預先警告",
 	SpecWarnMadnessOutNow			= "為瘋狂誘陷結束前顯示特別警告",
-	SetIconOnFearTarget				= "為心靈缺陷的目標設置標記 (頭顱)",
-	SpecWarnFervorCast				= "當薩拉的熱誠正在對你施放時顯示特別警告 (必須有最少一名團隊成員設置目標或專注目標)",
-	specWarnBrainPortalSoon			= "為下一次 腦部傳送門顯示特別警告",
-	WarningSqueeze					= "當你中了壓榨 (觸手綁人)時大喊",
-	NextPortal						= "為下一次 傳送門顯示計時器",
-	SetIconOnFervorTarget			= "為薩拉的熱誠的目標設置標記 (三角)",
+	SpecWarnBrainPortalSoon			= "為下一次腦部傳送門顯示特別警告",
+	NextPortal						= "為下一次傳送門顯示計時器",
 	ShowSaraHealth					= "顯示薩拉在第1階段的血量 (必須有最少一名團隊成員設置目標或專注目標)",
-	SpecWarnMaladyNear				= "當你附近的人中了心靈缺陷時顯示特別警告",
-	SetIconOnBrainLinkTarget		= "Set icons on $spell:63802 targets", --Needs Translating
 	MaladyArrow						= "當你附近的人中了$spell:63881時顯示DBM箭頭"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "我們即將有機會打擊怪物的首腦!現在將你的憤怒與仇恨貫注在他的爪牙上!",
+	Sara		= "薩拉"
 }

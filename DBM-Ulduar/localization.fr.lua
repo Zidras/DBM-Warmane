@@ -385,12 +385,6 @@ L:SetGeneralLocalization{
 	name = "Yogg-Saron"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "Il sera bientôt temps de frapper la tête de la bête ! Concentrez votre rage et votre haine sur ses laquais !",
-	YellPhase2			= "Je suis le rêve éveillé",
-	Sara 				= "Sara",
-	WarningYellSqueeze	= "Écrasement sur moi ! Aidez-moi !"
-}
 
 L:SetWarningLocalization{
 	WarningGuardianSpawned 			= "Un gardien vient d'arriver",
@@ -400,10 +394,7 @@ L:SetWarningLocalization{
 	SpecWarnGuardianLow				= "Arrêtez d'attaquer ce gardien !",
 	SpecWarnMadnessOutNow			= "Incantation de Susciter la folie fini - SORTEZ",
 	WarnBrainPortalSoon				= "Portail dans 3 sec",
-	SpecWarnFervor					= "Ferveur de Sara sur VOUS",
-	SpecWarnFervorCast				= "Ferveur de Sara commence a incanter sur vous",
-	SpecWarnMaladyNear				= "Mal de la raison à côté de vous sur >%s<",
-	specWarnBrainPortalSoon			= "Portail bientôt"
+	SpecWarnBrainPortalSoon			= "Portail bientôt"
 }
 
 L:SetTimerLocalization{
@@ -418,14 +409,13 @@ L:SetOptionLocalization{
 	SpecWarnGuardianLow				= "Montre une alerte spéciale quand les gardiens (P1) n'a plus beaucoup de vie",
 	WarnBrainPortalSoon				= "Annonce les Portails",
 	SpecWarnMadnessOutNow			= "Montre une alerte spéciale avant la fin du cast de Susciter la folie",
-	SetIconOnFearTarget				= "Met une icône sur la cible du $spell:63881",
-	SpecWarnFervorCast				= "Montre une alerte spéciale quand la $spell:63138 commence a cast sur vous (Il faut avoir Sara en Target/Focus)",
-	specWarnBrainPortalSoon			= "Annonce l'arrivée d'un portail",
-	WarningSqueeze					= "Annonce la cible d'Écrasement",
+	SpecWarnBrainPortalSoon			= "Annonce l'arrivée d'un portail",
 	NextPortal						= "Montre un timer avant le prochain portail",
-	SetIconOnFervorTarget			= "Met une icône sur les cible de la $spell:63138",
 	ShowSaraHealth					= "Montre la vie de Sara durant la P1 (Doit être sélectionnée par au moins un membre du raid)",
-	SpecWarnMaladyNear				= "Montre une alerte spéciale si une personne à côté de vous est victime du $spell:63881",
-	SetIconOnBrainLinkTarget		= "Met une icône sur la cible des Cerveaux liés",
 	MaladyArrow						= "Afficher la flèche DBM lorsque $spell:63881 est proche de vous"
+}
+
+L:SetMiscLocalization{
+	YellPull1	= "Il sera bientôt temps de frapper la tête de la bête ! Concentrez votre rage et votre haine sur ses laquais !",
+	Sara		= "Sara"
 }

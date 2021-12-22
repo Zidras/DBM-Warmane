@@ -385,13 +385,6 @@ L:SetGeneralLocalization{
 	name = "Йогг-Сарон"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "Скоро мы сразимся с главарем этих извергов! Обратите гнев и ненависть против его прислужников!",
-	YellPhase2	 		= "Я – это сон наяву.",
-	Sara 				= "Сара",
-	WarningYellSqueeze	= "Выдавливание на мне! Помогите!"
-}
-
 L:SetWarningLocalization{
 	WarningGuardianSpawned 			= "Страж %d",
 	WarningCrusherTentacleSpawned	= "Тяжелое щупальце",
@@ -400,10 +393,7 @@ L:SetWarningLocalization{
 	SpecWarnGuardianLow				= "Прекратите атаковать этого Стража",
 	SpecWarnMadnessOutNow			= "Доведение до помешательства заканчивается - выбегайте",
 	WarnBrainPortalSoon				= "Провал Безумия через 3 секунды",
-	SpecWarnFervor					= "Рвение Сары на вас",
-	SpecWarnFervorCast				= "Рвение Сары накладывается на вас",
-	SpecWarnMaladyNear				= "Душевная болезнь на |3-5(%s) около вас",
-	specWarnBrainPortalSoon			= "Скоро Провал Безумия"
+	SpecWarnBrainPortalSoon			= "Скоро Провал Безумия"
 }
 
 L:SetTimerLocalization{
@@ -418,14 +408,13 @@ L:SetOptionLocalization{
 	SpecWarnGuardianLow				= "Спец-предупреждение, когда у Стража (в фазе 1) мало здоровья (для бойцов)",
 	WarnBrainPortalSoon				= "Предупреждать заранее о Провале Безумия",
 	SpecWarnMadnessOutNow			= "Спец-предупреждение незадолго до окончания $spell:64059",
-	SetIconOnFearTarget				= "Устанавливать метки на цели заклинания $spell:63881",
-	SpecWarnFervorCast				= "Спец-предупреждение, когда на вас накладывается $spell:63138\n(должна быть в цели или фокусе хотя бы у одного члена рейда)",
-	specWarnBrainPortalSoon			= "Спец-предупреждение о следующем Провале Безумия",
-	WarningSqueeze					= "Кричать, когда на вас Выдавливание",
+	SpecWarnBrainPortalSoon			= "Спец-предупреждение о следующем Провале Безумия",
 	NextPortal						= "Отсчет времени до следующего Провала Безумия",
-	SetIconOnFervorTarget			= "Устанавливать метки на цели заклинания $spell:63138",
 	ShowSaraHealth					= "Показывать здоровье Сары в фазе 1 (должна быть в цели или фокусе хотя бы у одного члена рейда)",
-	SpecWarnMaladyNear				= "Спец-предупреждение о $spell:63881 около вас",
-	SetIconOnBrainLinkTarget		= "Устанавливать метки на цели заклинания $spell:63802",
 	MaladyArrow						= "Показывать стрелку, когда $spell:63881 около вас"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "Скоро мы сразимся с главарем этих извергов! Обратите гнев и ненависть против его прислужников!",
+	Sara		= "Сара"
 }
