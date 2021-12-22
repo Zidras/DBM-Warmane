@@ -123,37 +123,27 @@ L:SetGeneralLocalization{
 	name = "Algalon the Observer"
 }
 
-L:SetTimerLocalization{
-	NextCollapsingStar		= "Next Collapsing Star",
-	NextCosmicSmash			= "Next Cosmic Smash",
-	TimerCombatStart		= "Combat starts"
-}
-
 L:SetWarningLocalization{
-	WarningPhasePunch		= "Phase Punch on >%s< - Stack %d",
-	WarningCosmicSmash 		= "Cosmic Smash - Explosion in 4 seconds",
-	WarnPhase2Soon			= "Phase 2 soon",
 	warnStarLow				= "Collapsing Star is low"
 }
 
+L:SetTimerLocalization{
+	NextCollapsingStar		= "Next Collapsing Star"
+}
+
 L:SetOptionLocalization{
-	WarningPhasePunch		= "Announce Phase Punch targets",
 	NextCollapsingStar		= "Show timer for next Collapsing Star",
-	WarningCosmicSmash 		= "Show warning for Cosmic Smash",
-	NextCosmicSmash			= "Show timer for next Cosmic Smash",
-	TimerCombatStart		= "Show timer for start of combat",
-	WarnPhase2Soon			= "Show pre-warning for Phase 2 (at ~23%)",
 	warnStarLow				= "Show special warning when Collapsing Star is low (at ~25%)"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
-	YellPull2 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.",
+--	HealthInfo				= "Heal for star",
+--	FirstPull				= "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
+--	YellPull 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.",
 	YellKill				= "I have seen worlds bathed in the Makers' flames, their denizens fading without as much as a whimper. Entire planetary systems born and razed in the time that it takes your mortal hearts to beat once. Yet all throughout, my own heart devoid of emotion... of empathy. I. Have. Felt. Nothing. A million-million lives wasted. Had they all held within them your tenacity? Had they all loved life as you do?",
 	Emote_CollapsingStar	= "%s begins to Summon Collapsing Stars!",
-	Phase2					= "Behold the tools of creation",
-	CollapsingStar			= "Collapsing Star",
-	PullCheck				= "Time until Algalon transmits distress signal= (%d+) min."
+--	Phase2					= "Behold the tools of creation",
+	CollapsingStar			= "Collapsing Star"
 }
 
 ----------------

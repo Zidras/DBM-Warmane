@@ -115,37 +115,26 @@ L:SetGeneralLocalization{
 	name = "관찰자 알갈론"
 }
 
-L:SetTimerLocalization{
-	NextCollapsingStar		= "다음 붕괴의 별",
-	NextCosmicSmash			= "다음 우주의 강타",
-	TimerCombatStart		= "전투 시작"
-}
-
 L:SetWarningLocalization{
-	WarningPhasePunch		= "위상의 주먹 : >%s< - %d 중첩",
-	WarningCosmicSmash 		= "우주의 강타 - 폭발 4초 전",
-	WarnPhase2Soon			= "곧 2 페이즈",
 	warnStarLow				= "붕괴의 별 체력 낮음"
 }
 
+L:SetTimerLocalization{
+	NextCollapsingStar		= "다음 붕괴의 별",
+}
+
 L:SetOptionLocalization{
-	WarningPhasePunch		= "위상의 주먹 대상 알리기",
-	NextCollapsingStar		= "다음 붕괴의 별 시전 타이머 보기",
-	WarningCosmicSmash 		= "우주의 강타 알리기",
-	NextCosmicSmash			= "다음 우주의 강타 시전 타이머 보기",
-	TimerCombatStart		= "전투 시작 타이머 보기",
-	WarnPhase2Soon			= "2 페이즈 사전 경고 보기(23% 이하)",
-	warnStarLow				= "붕괴의 별 체력이 낮을 경우 특수 경고 보기(25% 이하)"
+	NextCollapsingStar			= "다음 붕괴의 별 바 보기",
+	warnStarLow					= "붕괴의 별 체력이 낮을 경우 특수 경고 보기(25% 이하)"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "너희 행동은 비논리적이다. 이 전투에서 가능한 결말은 모두 계산되었다. 결과와 상관없이 판테온은 관찰자의 전갈을 받을 것이다.",
-	YellPull2 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.", --Needs Translating
-	YellKill				= "나는 창조주의 불길이 씻어내린 세상을 보았다. 모두 변변히 저항도 못하고 사그라졌지. 너희 필멸자의 심장이 단 한번 뛸 시간에 전 행성계가 탄생하고 무너졌다. 그러나 그 모든 시간 동안, 나는 공감이란 감정을... 몰랐다. 나는, 아무것도, 느끼지, 못했다. 무수한, 무수한 생명이 꺼졌다. 그들이 모두 너희처럼 강인했더냐? 그들이 모두 너희처럼 삶을 사랑했단 말이냐?",
-	Emote_CollapsingStar	= "붕괴의 별을 시전 합니다!",
-	Phase2					= "창조의 도구를 바라보아라!",
-	CollapsingStar			= "Collapsing Star",
-	PullCheck				= "(%d+)분 후에 알갈론이 신호 전송을 시작합니다."
+--	FirstPull				= "내 눈을 통해 너희 세상을 보아라. 측정할 수 없이 광활한 우주를... 너희 지성으로는 절대 이해할 수 없다.",
+--	YellPull				= "너희 행동은 비논리적이다. 이 전투에서 가능한 결말은 모두 계산되었다. 결과와 상관없이 판테온은 관찰자의 전갈을 받을 것이다.",
+	YellKill				= "나는 창조주의 불길이 씻어내린 세상을 보았다. 모두 변변히 저항도 못하고 사그라졌지. 너희 필멸자의 심장이 단 한 번 뛸 시간에 전 행성계가 탄생하고 무너졌다. 그러나 그 모든 시간 동안, 나는 공감이란 감정을... 몰랐다. 나는, 아무것도, 느끼지, 못했다. 무수한, 무수한 생명이 꺼졌다. 그들이 모두 너희처럼 강인했더냐? 그들이 모두 너희처럼 삶을 사랑했단 말이냐?",
+	Emote_CollapsingStar	= "%s|1이;가; 붕괴하는 별을 소환하기 시작합니다!",
+--	Phase2					= "창조의 도구를 바라보아라!",
+	CollapsingStar			= "붕괴하는 별"
 }
 
 ----------------
