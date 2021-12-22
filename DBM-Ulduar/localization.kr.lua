@@ -242,25 +242,21 @@ L:SetGeneralLocalization{
 	name = "토림"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	TimerHardmode	= "하드 모드"
+	TimerHardmode			= "영웅 난이도 진입 가능"
 }
 
 L:SetOptionLocalization{
-	TimerHardmode	= "하드 모드를 위한 타이머 보기",
-	RangeFrame		= "거리 창 보기",
-	AnnounceFails	= "번개 충전을 피하지 못했을 경우 공격대에 알리기\n(번개 충전 알리기/공대장 권한이 있을 경우)"
+	TimerHardmode			= "영웅 난이도 진입 가능 바 보기",
+	AnnounceFails			= "$spell:62017 주문에 피해를 입은 대상을 공격대 대화로 알림(승급 권한 필요)"
 }
 
 L:SetMiscLocalization{
-	YellPhase1	= "침입자라니! 감히 내 취미 생활을 방해하는 놈들은 쓴맛을 단단히... 잠깐... 너는...",
-	YellPhase2	= "건방진 젖먹이 같으니... 감히 여기까지 기어올라와 내게 도전해? 내 손으로 쓸어버리겠다!",
-	YellKill	= "무기를 거둬라! 내가 졌다!",
-	ChargeOn	= "번개 충전: %s",
-	Charge		= "번개 충전 실패 (현재 트라이): %s"
+	YellPhase1				= "침입자라니! 감히 내 취미 생활을 방해하는 놈들은 쓴맛을 단단히... 잠깐... 너는...",
+	YellPhase2				= "건방진 젖먹이 같으니... 감히 여기까지 기어올라와 내게 도전해? 내 손으로 쓸어버리겠다!",
+	YellKill				= "무기를 거둬라! 내가 졌다!",
+	ChargeOn				= "번개 충전: %s",
+	Charge					= "번개 충전 맞음 (이번 시도): %s"
 }
 
 -------------

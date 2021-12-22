@@ -242,21 +242,17 @@ L:SetGeneralLocalization{
 	name = "索林姆"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	TimerHardmodeThorim	= "困難模式"
+	TimerHardmode	= "困難模式"
 }
 
 L:SetOptionLocalization{
 	TimerHardmode	= "為困難模式顯示計時器",
-	RangeFrame		= "顯示距離框",
-	AnnounceFails	= "公佈中了閃電充能的玩家到團隊頻道\n(需要團隊隊長或助理權限)"
+	AnnounceFails	= "公佈中了閃電充能的玩家到團隊頻道<br/>(需要團隊隊長或助理權限)"
 }
 
 L:SetMiscLocalization{
-	YellPhase1	= "擅闖者!像你們這種膽敢干涉我好事的凡人將付出…等等--你……",
+	YellPhase1	= "擅闖者!像你們這種膽敢干涉我好事的凡人將付出...等等--你...",
 	YellPhase2	= "無禮的小輩，你竟敢在我的王座之上挑戰我?我會親手碾碎你們!",
 	YellKill	= "住手!我認輸了!",
 	ChargeOn	= "閃電充能: %s",

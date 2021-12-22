@@ -236,27 +236,24 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Thorim")
 
 L:SetGeneralLocalization{
-    name = "Thorim"
+	name 				= "托里姆"
 }
 
-L:SetWarningLocalization{}
-
 L:SetTimerLocalization{
-    TimerHardmodeThorim = "Sif's Presence",
+	TimerHardmode		= "困难模式"
 }
 
 L:SetOptionLocalization{
-    TimerHardmode = "Show timer for hard mode",
-    RangeFrame = "Show range frame",
-    AnnounceFails = "Post player fails for $spell:62017 to raid chat\n(requires announce to be enabled and leader/promoted status)"
+	TimerHardmode		= "为困难模式显示计时条",
+	AnnounceFails		= "公布中了闪电充能的玩家到团队频道<br/>(需要团长或助理权限)"
 }
 
 L:SetMiscLocalization{
-    YellPhase1 = "入侵者！你们这些凡人竟敢坏了我的兴致，看我怎么……等等，你们……",
-    YellPhase2 = "狂妄的小崽子们，竟敢在我的地盘上挑战我？我要亲自碾碎你们！",
-    YellKill = "住手！我认输了！",
-    ChargeOn = "闪电充能: %s",
-    Charge = "中了闪电充能(这一次): %s"
+	YellPhase1			= "入侵者！你们这些凡人竟敢坏了我的兴致，看我怎么……等等，你们……",
+	YellPhase2			= "狂妄的小崽子们，竟敢在我的地盘上挑战我？我要亲自碾碎你们！",
+	YellKill			= "住手！我认输了！",
+	ChargeOn			= "闪电充能 -> %s",
+	Charge				= "中了闪电充能(这一次): %s"
 }
 
 -------------

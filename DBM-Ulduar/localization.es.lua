@@ -242,25 +242,21 @@ L:SetGeneralLocalization{
 	name = "Thorim"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	TimerHardmodeThorim	= "Hard mode"
+	TimerHardmode	= "Modo difícil"
 }
 
 L:SetOptionLocalization{
-	TimerHardmode	= "Mostrar tiempo para hard mode",
-	RangeFrame		= "Mostrar distancia",
-	AnnounceFails	= "Anunciar los fallos de Cargar relámpago en el chat de banda\n(require 'anunciar' habilitado y líder o ayudante de banda)"
+	TimerHardmode	= "Mostrar temporizador para el modo difícil",
+	AnnounceFails	= "Anunciar jugadores que reciban daño de $spell:62017 en el chat de banda (requiere líder o ayudante)"
 }
 
 L:SetMiscLocalization{
-	YellPhase1	= "¡Intrusos! Vosotros, mortales que osáis interferir en mi diversión, pagareis... Un momento...",
+	YellPhase1	= "¡Intrusos! Vosotros, mortales que osáis interferir en mi diversión, pagaréis... Un momento...",
 	YellPhase2	= "Gusanos impertinentes, ¿cómo osáis desafiarme en mi pedestal? ¡Os machacaré con mis propias manos!",
 	YellKill	= "¡Guardad las armas! ¡Me rindo!",
-	ChargeOn	= "Cargar relámpago: %s",
-	Charge		= "Fallos de Cargar relámpago (este try): %s"
+	ChargeOn	= "Carga relámpago: %s",
+	Charge		= "Fallos en Carga relámpago (en este intento): %s"
 }
 
 -------------
