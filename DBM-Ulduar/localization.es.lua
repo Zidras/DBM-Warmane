@@ -376,47 +376,36 @@ L:SetGeneralLocalization{
 	name = "Yogg-Saron"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "¡Pronto llegará la hora de golpear la cabeza del monstruo! ¡Centrad vuestra ira y odio en sus esbirros!",
-	YellPhase2			= "Soy un sueño lúcido.",
-	Sara 				= "Sara",
-	WarningYellSqueeze	= "¡Exprimir en mi! ¡Ayudadme!"
-}
-
 L:SetWarningLocalization{
-	WarningGuardianSpawned 			= "Guardián %d sale",
-	WarningCrusherTentacleSpawned	= "Tentáculo triturador sale",
-	WarningSanity 					= "%d Cordura restante",
-	SpecWarnSanity 					= "%d Cordura restante",
-	SpecWarnGuardianLow				= "Deja de atacar a este Guardián",
-	SpecWarnMadnessOutNow			= "Inducir a la locura terminando. Muévete!",
-	WarnBrainPortalSoon				= "Portal cerebral en 3 segundos",
-	SpecWarnFervor					= "Fervor de Sara en ti",
-	SpecWarnFervorCast				= "Fervor de Sara esta siendo casteado en ti",
-	SpecWarnMaladyNear				= "Mal de la mente en %s cerca de ti",
-	specWarnBrainPortalSoon			= "Portal cerebral pronto"
+	WarningGuardianSpawned 			= "Guardián (%d)",
+	WarningCrusherTentacleSpawned	= "Tentáculo triturador",
+	WarningSanity 					= "%d de Cordura restante",
+	SpecWarnSanity 					= "%d de Cordura restante",
+	SpecWarnGuardianLow				= "Guardián a poca salud - ¡deja de atacar!",
+	SpecWarnMadnessOutNow			= "Inducir a la locura en breve - ¡sal ya!",
+	WarnBrainPortalSoon				= "Portales en 3 s",
+	SpecWarnBrainPortalSoon			= "Portal en breve"
 }
 
 L:SetTimerLocalization{
-	NextPortal	= "Portal cerebral"
+	NextPortal	= "Siguientes portales"
 }
 
 L:SetOptionLocalization{
-	WarningGuardianSpawned			= "Mostrar aviso cuando salga Guardián",
-	WarningCrusherTentacleSpawned	= "Mostrar aviso cuando salga Tentáculo triturador",
-	WarningSanity					= "Mostrar aviso cuando tengas poca $spell:63050",
-	SpecWarnSanity					= "Mostrar aviso especial cuando tengas muy poca $spell:63050",
-	SpecWarnGuardianLow				= "Mostrar aviso especial cuando el Guardián esté a punto de morir (Fase 1)",
-	WarnBrainPortalSoon				= "Mostrar pre-aviso para Portal cerebral",
-	SpecWarnMadnessOutNow			= "Mostrar aviso especial poco antes de que $spell:64059 termine",
-	SetIconOnFearTarget				= "Poner iconos en los objetivos de $spell:63881",
-	SpecWarnFervorCast				= "Mostrar aviso especial cuando $spell:63138 esté siendo casteado en ti/n(Tiene que ser el objetivo o el foco de al menos un personaje de la banda)",
-	specWarnBrainPortalSoon			= "Mostrar aviso especial para siguiente Portal cerebral",
-	WarningSqueeze					= "Gritar si te afecta Exprimir",
-	NextPortal						= "Mostrar tiempo para siguiente Portal cerebral",
-	SetIconOnFervorTarget			= "Poner iconos en los objetivos de $spell:63138",
+	WarningGuardianSpawned			= "Mostrar aviso cuando aparezca un Guardián de Yogg-Saron",
+	WarningCrusherTentacleSpawned	= "Mostrar aviso cuando aparezca un Tentáculo triturador",
+	WarningSanity					= "Mostrar aviso cuando te quede poca $spell:63050",
+	SpecWarnSanity					= "Mostrar aviso especial cuando te quede muy poca $spell:63050",
+	SpecWarnGuardianLow				= "Mostrar aviso especial cuando a un Guardián de Yogg-Saron le quede poca vida (solo para DPS)",
+	WarnBrainPortalSoon				= "Mostrar aviso previo para los siguientes portales",
+	SpecWarnMadnessOutNow			= "Mostrar aviso especial cuando $spell:64059 esté a punto de lanzarse",
+	SpecWarnBrainPortalSoon			= "Mostrar aviso especial para los siguientes portales",
+	NextPortal						= "Mostrar temporizador para los siguientes portales",
 	ShowSaraHealth					= "Mostrar barra de vida de Sara en Fase 1",
-	SpecWarnMaladyNear				= "Mostrar aviso especial para $spell:63881 cerca de ti",
-	SetIconOnBrainLinkTarget		= "Poner iconos en los objetivos de $spell:63802",
-	MaladyArrow						= "Mostrar flecha cuando $spell:63881 está cerca de ti"
+	MaladyArrow						= "Mostrar flecha cuando $spell:63881 ocurra cerca de ti"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "¡Pronto llegará la hora de golpear la cabeza del monstruo! ¡Centrad vuestra ira y odio en sus esbirros!",
+	Sara		= "Sara"
 }

@@ -372,47 +372,36 @@ L:SetGeneralLocalization{
 	name = "요그사론"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "짐승의 대장을 칠 때가 곧 다가올 거예요! 놈의 졸개들에게 노여움과 미움을 쏟아부으세요!",
-	YellPhase2			= "나는, 살아 있는 꿈이다.",
-	Sara 				= "사라",
-	WarningYellSqueeze	= "압착의 촉수에 붙잡혔어요! 살려주세요!"
-}
-
 L:SetWarningLocalization{
-	WarningGuardianSpawned 			= "요그사론의 수호자 %d 소환!",
-	WarningCrusherTentacleSpawned	= "분쇄의 촉수가 생성되었습니다!",
-	WarningSanity 					= "> %d < 이성이 낮습니다.",
-	SpecWarnSanity 					= ">> %d << 이성이 매우 낮습니다. 채우세요!",
-	SpecWarnGuardianLow				= "수호자 딜 주의하세요! - 공격 주의!",
-	SpecWarnMadnessOutNow			= "광기 유발이 끝났습니다. - 밖으로 이동!",
-	WarnBrainPortalSoon				= "3 초 후 내부 포탈이 열립니다.",
-	SpecWarnFervor					= "당신에게 사라의 열정",
-	SpecWarnFervorCast				= "당신에게 사라의 열정을 시전했습니다.",
-	SpecWarnMaladyNear				= ">%s< 의 주변에 병든 정신",
-	specWarnBrainPortalSoon			= "곧 내부 포탈이 열립니다!",
+	WarningGuardianSpawned			= "요그사론의 수호자 소환 (%d)",
+	WarningCrusherTentacleSpawned	= "분쇄의 촉수 생성",
+	WarningSanity					= "%d 이성 남음",
+	SpecWarnSanity					= "%d 이성 남음!",
+	SpecWarnGuardianLow				= "수호자 체력 낮음 - 주의!",
+	SpecWarnMadnessOutNow			= "광기 유발 종료 직전 - 밖으로 나가세요!",
+	WarnBrainPortalSoon				= "3초 후 차원문",
+	SpecWarnBrainPortalSoon			= "곧 차원문!"
 }
 
 L:SetTimerLocalization{
-	NextPortal	= "내부 차원문"
+	NextPortal	= "차원문"
 }
 
 L:SetOptionLocalization{
-	WarningGuardianSpawned			= "요그사론의 수호자 소환 알리기",
-	WarningCrusherTentacleSpawned	= "분쇄의 촉수 생성 알리기",
-	WarningSanity					= "이성이 낮은 경우 경고 보기",
-	SpecWarnSanity					= "이성이 매우 낮은 경우 특수 경고 보기",
-	SpecWarnGuardianLow				= "수호자의 생명력이 낮을 때 특수 경고 보기(1페이즈 / 딜러)",
-	WarnBrainPortalSoon				= "내부 차원문 알리기",
-	SpecWarnMadnessOutNow			= "광기 유발이 끝나기 전 특수 경고 알리기",
-	SetIconOnFearTarget				= "병든 정신 타겟 아이콘 설정하기",
-	SpecWarnFervorCast				= "당신에게 사라의 열정을 시전 할 때 특수 경고 보기(사라 대상/주시 일 경우)",
-	specWarnBrainPortalSoon			= "내부 차원문 특수 경고 알리기",
-	WarningSqueeze					= "압착의 촉수의 대상이 됏을 경우 외치기",
-	NextPortal						= "다음 내부 차원문 알리기",
-	SetIconOnFervorTarget			= "사라의 열정 타겟 아이콘 설정하기",
+	WarningGuardianSpawned			= "요그사론의 수호자 소환 알림 보기",
+	WarningCrusherTentacleSpawned	= "분쇄의 촉수 생성 알림 보기",
+	WarningSanity					= "$spell:63050이 낮은 경우 알림 보기",
+	SpecWarnSanity					= "$spell:63050이 매우 낮은 경우 특수 경고 보기",
+	SpecWarnGuardianLow				= "수호자의 생명력이 낮을 때 특수 경고 보기(1 단계만)",
+	WarnBrainPortalSoon				= "차원문 이전에 알림 보기",
+	SpecWarnMadnessOutNow			= "$spell:64059이 끝나기 전 특수 경고 보기",
+	SpecWarnBrainPortalSoon			= "차원문 이전에 특수 경고 보기",
+	NextPortal						= "다음 차원문 바 보기",
 	ShowSaraHealth					= "사라 체력 보기(공대원 중 사라 대상/주시 일 경우)",
-	SpecWarnMaladyNear				= "병든 정신이 걸린 플레이어가 근처에 있을 경우 특수 경고 알리기(병든 정신 종료 후)",
-	SetIconOnBrainLinkTarget		= "두뇌 연결 대상 공격대 아이콘 설정",
-	MaladyArrow						= "$spell:63881 걸린 공대원이 주변에 있을 경우 화살표 보기"
+	MaladyArrow						= "$spell:63881 대상이 가까이 있을 경우 DBM 화살표 보기"
+}
+
+L:SetMiscLocalization{
+	YellPull	= "짐승의 대장을 칠 때가 곧 다가올 거예요! 놈의 졸개들에게 노여움과 미움을 쏟아부으세요!",
+	Sara		= "사라"
 }

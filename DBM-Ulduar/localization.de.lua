@@ -372,25 +372,15 @@ L:SetGeneralLocalization{
 	name = "Yogg-Saron"
 }
 
-L:SetMiscLocalization{
-	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",	--to be translated
-	YellPhase2			= "I am the lucid dream.",	--to be translated
-	Sara 				= "Sara",
-	WarningYellSqueeze	= "Quetschen auf mir! Hilfe!"
-}
-
 L:SetWarningLocalization{
-	WarningGuardianSpawned 			= "neuer Wächter",
-	WarningCrusherTentacleSpawned	= "neues Schmettertentakel",
+	WarningGuardianSpawned 			= "Wächter %d erschienen",
+	WarningCrusherTentacleSpawned	= "Schmettertentakel erschienen",
 	WarningSanity 					= "%d Geistige Gesundheit übrig",
 	SpecWarnSanity 					= "%d Geistige Gesundheit übrig",
 	SpecWarnGuardianLow				= "Wächter nicht mehr angreifen!",
-	SpecWarnMadnessOutNow			= "Wahnsinn hervorrufen - LAUF RAUS",
+	SpecWarnMadnessOutNow			= "Wahnsinn hervorrufen - LAUF RAUS!",
 	WarnBrainPortalSoon				= "Gehirnportale in 3 Sek",
-	SpecWarnFervor					= "Saras Eifer auf dir!",
-	SpecWarnFervorCast				= "Saras Eifer wird auf dich gezaubert",
-	SpecWarnMaladyNear				= "Geisteskrankheit auf %s in deiner Nähe",
-	specWarnBrainPortalSoon			= "Gehirnportale bald"
+	SpecWarnBrainPortalSoon			= "Gehirnportale bald"
 }
 
 L:SetTimerLocalization{
@@ -398,21 +388,20 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarningGuardianSpawned			= "Zeige Warnung für neue Wächter",
-	WarningCrusherTentacleSpawned	= "Zeige Warnung für neue Schmettertentakel",
-	WarningSanity					= "Zeige Warnung wenn Geistige Gesundheit niedrig ist",
-	SpecWarnSanity					= "Zeige Spezialwarnung wenn Geistige Gesundheit sehr niedrig ist",
+	WarningGuardianSpawned			= "Zeige Warnung, wenn ein Wächter des Yogg-Saron erscheint",
+	WarningCrusherTentacleSpawned	= "Zeige Warnung, wenn ein Schmettertentakel erscheint",
+	WarningSanity					= "Zeige Warnung, wenn deine $spell:63050 niedrig ist",
+	SpecWarnSanity					= "Spezialwarnung, wenn deine $spell:63050 sehr niedrig ist",
 	SpecWarnGuardianLow				= "Zeige Spezialwarnung wenn Wächter (P1) fast tot ist (für DDs)",
 	WarnBrainPortalSoon				= "Zeige Vorwarnung für Gehirnportale",
-	SpecWarnMadnessOutNow			= "Zeige Spezialwarnung kurz vor Ende von Wahnsinn hervorrufen",
-	SetIconOnFearTarget				= "Setze Zeichen auf Ziele von Geisteskrankheit",
-	SpecWarnFervorCast				= "Zeige Spezialwarnung wenn Saras Eifer auf dich gezaubert wird (muss anvisiert oder im Fokus eines Schlachtzugsmitglieds sein)",
-	specWarnBrainPortalSoon			= "Zeige Spezialwarnung für nächste Gehirnportale",
-	WarningSqueeze					= "Schreie bei Quetschen",
-	NextPortal						= "Zeige Timer für nächste Gehirnportale",
-	SetIconOnFervorTarget			= "Setze Zeichen auf Spieler mit Saras Eifer",
+	SpecWarnMadnessOutNow			= "Spezialwarnung kurz bevor $spell:64059 zu Ende gewirkt wird",
+	SpecWarnBrainPortalSoon			= "Spezialwarnung für nächste Gehirnportale",
+	NextPortal						= "Zeige Zeit bis nächste Gehirnportale",
 	ShowSaraHealth					= "Zeige Lebensanzeige für Sara in Phase 1 (muss anvisiert oder im Fokus eines Schlachtzugsmitglieds sein)",
-	SpecWarnMaladyNear				= "Zeige Spezialwarnung für Geisteskrankheit in deiner Nähe",
-	SetIconOnBrainLinkTarget		= "Setze Zeichen auf Ziele von Gehirnverbindung",
 	MaladyArrow						= "Zeige Pfeil wenn $spell:63881 in deiner Nähe ist"
+}
+
+L:SetMiscLocalization{
+	YellPull 			= "Bald ist die Zeit gekommen, dem Untier den Kopf abzuschlagen! Konzentriert Euren Zorn und Euren Hass auf seine Diener!",
+	Sara 				= "Sara"
 }
