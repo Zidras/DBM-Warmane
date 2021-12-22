@@ -229,21 +229,8 @@ L:SetGeneralLocalization{
 	name = "Ходир"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "Звуковой сигнал при применении $spell:61968",
-	YellOnStormCloud		= "Кричать, когда на вас $spell:65133",
-	SetIconOnStormCloud		= "Устанавливать метки на цели заклинания $spell:65133",
-}
-
 L:SetMiscLocalization{
-	YellKill	= "Наконец-то я... свободен от его оков…",
-	YellCloud	= "На мне Грозовая Туча!"
+	YellKill	= "Наконец-то я... свободен от его оков…"
 }
 
 --------------

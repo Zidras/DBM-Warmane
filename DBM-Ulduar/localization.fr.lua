@@ -229,21 +229,8 @@ L:SetGeneralLocalization{
 	name = "Hodir"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "Jouer un son lors de l'incantation du gel instantané",
-	YellOnStormCloud		= "Crie quand la tempête de glace est active",
-	SetIconOnStormCloud		= "Met une icône sur la cible de la tempête de glace"
-}
-
 L:SetMiscLocalization{
-	YellKill	= "Je suis... libéré de son emprise... enfin.",
-	YellCloud	= "Tempête de glace sur moi!"
+	YellKill		= "Je suis... libéré de son emprise... enfin.",
 }
 
 --------------

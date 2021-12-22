@@ -216,21 +216,8 @@ L:SetGeneralLocalization{
 	name = "호디르"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "Play sound on $spell:61968 cast", --Needs Translating
-	YellOnStormCloud		= "Yell on $spell:65133", --Needs Translating
-	SetIconOnStormCloud		= "Set icons on $spell:65133 targets" --Needs Translating
-}
-
 L:SetMiscLocalization{
-	YellKill	= "드디어... 드디어 그의 손아귀를... 벗어나는구나.",
-	YellCloud	= "폭풍 구름! 비벼요!!"
+	YellKill		= "드디어... 드디어 그의 손아귀를... 벗어나는구나."
 }
 
 --------------

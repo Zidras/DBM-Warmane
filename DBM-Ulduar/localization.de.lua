@@ -216,21 +216,8 @@ L:SetGeneralLocalization{
 	name = "Hodir"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "Spiele Sound bei Blitzeis-Zauber",
-	YellOnStormCloud		= "Schreie bei Sturmwolke auf dir",
-	SetIconOnStormCloud		= "Setze Zeichen auf Spieler mit Sturmwolke"
-}
-
 L:SetMiscLocalization{
-	YellKill	= "Ich... bin von ihm befreit... endlich.",
-	YellCloud	= "Sturmwolke auf mir!"
+	YellKill	= "Ich... bin von ihm befreit... endlich."
 }
 
 --------------

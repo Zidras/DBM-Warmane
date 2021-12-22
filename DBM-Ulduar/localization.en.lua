@@ -227,21 +227,8 @@ L:SetGeneralLocalization{
 	name = "Hodir"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "Play sound on $spell:61968 cast",
-	YellOnStormCloud		= "Yell on $spell:65133",
-	SetIconOnStormCloud		= "Set icons on $spell:65133 targets"
-}
-
 L:SetMiscLocalization{
-	YellKill	= "I... I am released from his grasp... at last.",
-	YellCloud	= "Storm Cloud on me!"
+	YellKill	= "I... I am released from his grasp... at last."
 }
 
 --------------

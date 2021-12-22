@@ -216,21 +216,8 @@ L:SetGeneralLocalization{
 	name = "霍迪爾"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "當施放$spell:61968時播放音效",
-	YellOnStormCloud		= "當你中了$spell:65133時大喊",
-	SetIconOnStormCloud		= "為$spell:65133的目標設置標記",
-}
-
 L:SetMiscLocalization{
-	YellKill	= "我…我終於從他的掌控中…解脫了。",
-	YellCloud	= "我中了風暴雷雲 快接近我!"
+	YellKill	= "我...我終於從他的掌控中...解脫了。"
 }
 
 --------------

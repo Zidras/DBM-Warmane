@@ -213,21 +213,11 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Hodir")
 
 L:SetGeneralLocalization{
-    name = "Hodir"
-}
-
-L:SetWarningLocalization{}
-L:SetTimerLocalization{}
-
-L:SetOptionLocalization{
-    PlaySoundOnFlashFreeze = "Play sound on $spell:61968 cast",
-    YellOnStormCloud = "Yell on $spell:65133",
-    SetIconOnStormCloud = "Set icons on $spell:65133 targets"
+	name 				= "霍迪尔"
 }
 
 L:SetMiscLocalization{
-    YellKill = "我……我终于从他的魔掌中……解脱了。",
-    YellCloud = "我中了风暴雷云 快接近我！"
+	YellKill			= "我……我终于从他的魔掌中……解脱了。"
 }
 
 --------------

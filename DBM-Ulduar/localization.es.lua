@@ -216,21 +216,8 @@ L:SetGeneralLocalization{
 	name = "Hodir"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFlashFreeze	= "Reproducir sonido cuando castee Congelación apresurada",
-	YellOnStormCloud		= "Gritar cuando tengas Nube tormentosa",
-	SetIconOnStormCloud		= "Poner iconos en los objetivos de Nube tormentosa"
-}
-
 L:SetMiscLocalization{
-	YellKill	= "Estoy... estoy libre de sus garras... al fin.",
-	YellCloud	= "Nube tormentosa en mi!"
+	YellKill	= "Estoy... estoy libre de sus garras... al fin."
 }
 
 --------------
