@@ -272,33 +272,29 @@ L:SetGeneralLocalization{
 	name = "프레이야"
 }
 
+L:SetWarningLocalization{
+	WarnSimulKill		= "첫번째 소환수 죽음 - 12초 후 부활"
+}
+
+L:SetTimerLocalization{
+	TimerSimulKill 		= "소환수 부활"
+}
+
+L:SetOptionLocalization{
+	WarnSimulKill		= "첫번째 소환수 죽음 알림 보기",
+	TimerSimulKill		= "소환수 부활 바 보기"
+}
+
 L:SetMiscLocalization{
 	SpawnYell			= "얘들아, 날 도와라!",
 	WaterSpirit			= "고대 물의 정령",
 	Snaplasher 			= "악어덩굴손",
 	StormLasher 		= "폭풍덩굴손",
 	YellKill			= "내게서 그의 지배력이 걷혔다. 다시 온전한 정신을 찾았도다. 영웅들이여, 고맙다.",
-	YellAdds1			= "Eonar, your servant requires aid!", --Needs Translating
-	YellAdds2			= "The swarm of the elements shall overtake you!", --Needs Translating
-	EmoteLGift			= "begins to grow!", --Needs Translating
+	YellAdds1			= "이오나여, 당신의 종이 도움을 청합니다!",
+	YellAdds2			= "정령의 무리가 너희를 덮치리라!",
+	EmoteLGift			= "이 자라기 시작합니다!", -- |cFF00FFFF생명의 어머니의 선물|r이 자라기 시작합니다!
 	TrashRespawnTimer	= "프레이야 지역 리젠타임"
-}
-
-L:SetWarningLocalization{
-	WarnSimulKill		= "첫번째 소환수 죽음 - 12초 후 부활",
-	WarningBeamsSoon	= "Beams soon", --Needs Translating
-	EonarsGift			= "Target Change - switch to Eonar's Gift" --Needs Translating
-}
-
-L:SetTimerLocalization{
-	TimerSimulKill	= "소환수 부활"
-}
-
-L:SetOptionLocalization{
-	WarnSimulKill	= "첫번째 소환수 죽음 알리기",
-	PlaySoundOnFury	= "자연의 격노 특수 사운드 재생",
-	WarningTremor  	= "지진 시전 특수 경고 보기 (하드 모드)",
-	TimerSimulKill	= "소환수 부활 타이머 보기"
 }
 
 ----------------------
@@ -310,16 +306,12 @@ L:SetGeneralLocalization{
 	name = "프레이야의 장로"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "프레이야 지역 리젠 타이머 보기"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "프레이야 지역 리젠타임"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "돌덩이 주먹 특수 사운드 재생",
-	TrashRespawnTimer		= "프레이야 지역 리젠 타이머 보기"
 }
 
 ---------------

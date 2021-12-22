@@ -272,22 +272,8 @@ L:SetGeneralLocalization{
 	name = "芙蕾雅"
 }
 
-L:SetMiscLocalization{
-	SpawnYell			= "孩子們，協助我!",
-	WaterSpirit			= "上古水之靈",
-	Snaplasher			= "猛攫鞭笞者",
-	StormLasher			= "風暴鞭笞者",
-	YellKill			= "他對我的操控已然退散。我已再次恢復神智了。感激不盡，英雄們。",
-	YellAdds1			= "Eonar, your servant requires aid!", --Needs Translating
-	YellAdds2			= "The swarm of the elements shall overtake you!", --Needs Translating
-	EmoteLGift			= "begins to grow!", --Needs Translating
-	TrashRespawnTimer	= "芙蕾雅的小怪重生"
-}
-
 L:SetWarningLocalization{
-	WarnSimulKill		= "第一隻元素死亡 - 大約12秒後復活",
-	WarningBeamsSoon	= "Beams soon", --Needs Translating
-	EonarsGift			= "Target Change - switch to Eonar's Gift" --Needs Translating
+	WarnSimulKill	= "第一隻元素死亡 - 大約12秒後復活"
 }
 
 L:SetTimerLocalization{
@@ -296,9 +282,19 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnSimulKill	= "提示第一隻元素死亡",
-	PlaySoundOnFury	= "當你中了$spell:63571時播放音效",
-	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon", --Needs Translating
 	TimerSimulKill	= "為三元素復活顯示計時器"
+}
+
+L:SetMiscLocalization{
+	SpawnYell			= "孩子們，協助我!",
+	WaterSpirit			= "上古水之靈",
+	Snaplasher			= "猛攫鞭笞者",
+	StormLasher			= "風暴鞭笞者",
+	YellKill			= "他對我的操控已然退散。我已再次恢復神智了。感激不盡，英雄們。",
+	YellAdds1			= "伊歐娜，你的僕從需要協助!",
+	YellAdds2			= "元素們將襲捲你們!",
+	EmoteLGift			= "開始生長!", -- 一個|cFF00FFFF生命守縛者之禮|r開始生長!
+	TrashRespawnTimer	= "芙蕾雅的小怪重生"
 }
 
 ----------------------
@@ -310,16 +306,12 @@ L:SetGeneralLocalization{
 	name = "芙蕾雅的長者們"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "為芙蕾雅的小怪重生顯示計時器"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "芙蕾雅的小怪重生"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "為石拳連擊播放音效",
-	TrashRespawnTimer		= "為芙蕾雅的小怪重生顯示計時器"
 }
 
 ---------------

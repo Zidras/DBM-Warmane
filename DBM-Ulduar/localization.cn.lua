@@ -265,36 +265,32 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Freya")
 
 L:SetGeneralLocalization{
-    name = "Freya"
-}
-
-L:SetMiscLocalization{
-    SpawnYell = "孩子们，帮帮我！",
-    WaterSpirit = "古代水之精魂",
-    Snaplasher = "迅疾鞭笞者",
-    StormLasher = "风暴鞭笞者",
-    YellKill = "他对我的控制已经不复存在了。我又一次恢复了理智。谢谢你们，英雄们。",
-    YellAdds1 = "Eonar, your servant requires aid!",
-    YellAdds2 = "The swarm of the elements shall overtake you!",
-    EmoteLGift = "开始生长！",
-    TrashRespawnTimer = "弗蕾亚的小怪重生"
+	name 				= "弗蕾亚"
 }
 
 L:SetWarningLocalization{
-    WarnSimulKill = "First add down - Resurrection in ~12 seconds",
-    WarningBeamsSoon = "Beams soon",
-    EonarsGift = "Target Change - switch to Eonar's Gift"
+	WarnSimulKill		= "第一只元素死亡 - 约12秒后复活"
 }
 
 L:SetTimerLocalization{
-    TimerSimulKill = "Resurrection"
+	TimerSimulKill		= "复活"
 }
 
 L:SetOptionLocalization{
-    WarnSimulKill = "Announce first mob down",
-    PlaySoundOnFury = "Play sound when you are affected by $spell:63571",
-    WarnBeamsSoon = "Show a warning for $spell:62865 is soon",
-    TimerSimulKill = "Show timer for mob resurrection"
+	WarnSimulKill			= "提示第一只元素死亡",
+	TimerSimulKill			= "为三元素复活显示计时条"
+}
+
+L:SetMiscLocalization{
+	SpawnYell			= "孩子们，帮帮我！",
+	WaterSpirit			= "古代水之精魂",
+	Snaplasher			= "迅疾鞭笞者",
+	StormLasher			= "风暴鞭笞者",
+	YellKill			= "他对我的控制已经不复存在了。我又一次恢复了理智。谢谢你们，英雄们。",
+	YellAdds1			= "艾欧娜尔，您的仆人需要帮助！",
+	YellAdds2			= "元素之潮会击垮你们！",
+	EmoteLGift			= "开始生长！", -- |cFF00FFFF生命缚誓者的礼物|r开始生长！
+	TrashRespawnTimer	= "弗蕾亚的小怪重生"
 }
 
 ----------------------
@@ -303,18 +299,15 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Freya_Elders")
 
 L:SetGeneralLocalization{
-    name = "Freya's Elders"
+	name				= "弗蕾亚的长者"
+}
+
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "为弗蕾亚的小怪重生显示计时条"
 }
 
 L:SetMiscLocalization{
-    TrashRespawnTimer = "弗蕾亚的小怪重生"
-}
-
-L:SetWarningLocalization{}
-
-L:SetOptionLocalization{
-    PlaySoundOnFistOfStone = "Play sound on Fists of Stone",
-    TrashRespawnTimer = "Show timer for trash respawn"
+	TrashRespawnTimer	= "弗蕾亚的小怪重生"
 }
 
 ---------------

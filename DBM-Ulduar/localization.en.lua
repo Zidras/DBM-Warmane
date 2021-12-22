@@ -283,22 +283,8 @@ L:SetGeneralLocalization{
 	name = "Freya"
 }
 
-L:SetMiscLocalization{
-	SpawnYell			= "Children, assist me!",
-	WaterSpirit			= "Ancient Water Spirit",
-	Snaplasher			= "Snaplasher",
-	StormLasher			= "Storm Lasher",
-	YellKill			= "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
-	YellAdds1			= "Eonar, your servant requires aid!",
-	YellAdds2			= "The swarm of the elements shall overtake you!",
-	EmoteLGift			= "begins to grow!",
-	TrashRespawnTimer	= "Freya trash respawn"
-}
-
 L:SetWarningLocalization{
-	WarnSimulKill		= "First add down - Resurrection in ~12 seconds",
-	WarningBeamsSoon	= "Beams soon",
-	EonarsGift			= "Target Change - switch to Eonar's Gift"
+	WarnSimulKill		= "First add down - Resurrection in ~12 seconds"
 }
 
 L:SetTimerLocalization{
@@ -307,9 +293,19 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnSimulKill	= "Announce first mob down",
-	PlaySoundOnFury	= "Play sound when you are affected by $spell:63571",
-	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon",
 	TimerSimulKill	= "Show timer for mob resurrection"
+}
+
+L:SetMiscLocalization{
+	SpawnYell			= "Children, assist me!",
+	WaterSpirit			= "Ancient Water Spirit",
+	Snaplasher			= "Snaplasher",
+	StormLasher			= "Storm Lasher",
+	YellKill			= "His hold on me dissipates. I can see clearly once more. Thank you, heroes.",
+	YellAdds1			= "Eonar, your servant requires aid!",
+	YellAdds2			= "The swarm of the elements shall overtake you!",
+	EmoteLGift			= "begins to grow!", -- A |cFF00FFFFLifebinder's Gift|r begins to grow!
+	TrashRespawnTimer	= "Freya trash respawn"
 }
 
 ----------------------
@@ -321,16 +317,12 @@ L:SetGeneralLocalization{
 	name = "Freya's Elders"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "Show timer for trash respawn"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "Freya trash respawn"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "Play sound on Fists of Stone",
-	TrashRespawnTimer		= "Show timer for trash respawn"
 }
 
 ---------------

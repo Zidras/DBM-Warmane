@@ -272,33 +272,31 @@ L:SetGeneralLocalization{
 	name = "Freya"
 }
 
+L:SetWarningLocalization{
+	WarnSimulKill	= "Primer esbirro muerto - Resurrección en ~12 segundos"
+}
+
+L:SetTimerLocalization{
+	TimerSimulKill	= "Resurrección"
+}
+
+L:SetOptionLocalization{
+	WarnSimulKill	= "Anunciar primer esbirro muerto",
+	TimerSimulKill	= "Mostrar temporizador para la resurrección de esbirros"
+}
+
 L:SetMiscLocalization{
 	SpawnYell			= "¡Hijos, ayudadme!",
 	WaterSpirit			= "Espíritu de agua antiguo",
 	Snaplasher			= "Quiebrazotador",
 	StormLasher			= "Azotador de tormenta",
 	YellKill			= "Su control sobre mí se disipa. Vuelvo a ver con claridad. Gracias, héroes.",
-	YellAdds1			= "Eonar, your servant requires aid!", --Needs Translating
-	YellAdds2			= "The swarm of the elements shall overtake you!", --Needs Translating
-	EmoteLGift			= "begins to grow!", --Needs Translating
+	YellAdds1			= "¡Eonar, tus sirvientes requieren tu ayuda!", -- esES
+--	YellAdds1			= "¡Eonar, tu siervo necesita ayuda!", -- esMX
+	YellAdds2			= "¡El azote de los elementos podrá con vosotros!", -- esES
+--	YellAdds2			= "¡La horda de elementos te atrapará!", -- esMX
+	EmoteLGift			= "comienza a crecer!", -- ¡Un |cFF00FFFFDon de la Protectora|r comienza a crecer!
 	TrashRespawnTimer	= "Reaparicion de Adds de Freya"
-}
-
-L:SetWarningLocalization{
-	WarnSimulKill		= "Primer add muerto - Resurrección en ~12 seg",
-	WarningBeamsSoon	= "Beams soon", --Needs Translating
-	EonarsGift			= "Target Change - switch to Eonar's Gift" --Needs Translating
-}
-
-L:SetTimerLocalization{
-	TimerSimulKill	= "Resurrección",
-}
-
-L:SetOptionLocalization{
-	WarnSimulKill	= "Anunciar primer mob muerto",
-	PlaySoundOnFury	= "Reproducir sonido cuando te afecte Furia de la naturaleza",
-	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon", --Needs Translating
-	TimerSimulKill	= "Mostrar resureccion de los mobs"
 }
 
 ----------------------
@@ -310,16 +308,12 @@ L:SetGeneralLocalization{
 	name = "Ancestros de Freya"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "Mostrar tiempo para reaparición de adds"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "Reaparicion de Adds de Freya"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "Reproducir sonido cuando castee Puños de piedra",
-	TrashRespawnTimer		= "Mostrar tiempo para reaparición de adds"
 }
 
 ---------------

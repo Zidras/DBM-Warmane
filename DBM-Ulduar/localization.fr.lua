@@ -285,22 +285,8 @@ L:SetGeneralLocalization{
 	name = "Freya"
 }
 
-L:SetMiscLocalization{
-	SpawnYell			= "Mes enfants, venez m'aider !",
-	WaterSpirit			= "Esprit de l'eau ancien",
-	Snaplasher			= "Flagellant mordant",
-	StormLasher			= "Flagellant des tempêtes",
-	YellKill			= "Son emprise sur moi se dissipe. J'y vois à nouveau clair. Merci, héros.",
-	YellAdds1			= "Eonar, ta servante a besoin d'aide !",
-	YellAdds2			= "La nuée des éléments va vous submerger !",
-	EmoteLGift			= "commence à grandir !",
-	TrashRespawnTimer	= "Respawn des Trashs de Freya"
-}
-
 L:SetWarningLocalization{
-	WarnSimulKill		= "Premier add mort - Résurrection dans 1 minute",
-	WarningBeamsSoon	= "Rayons bientôt",
-	EonarsGift			= "Changement de Cible - basculer vers Cadeau d'Eonar"
+	WarnSimulKill	= "Premier add mort - Résurrection dans 1 minute"
 }
 
 L:SetTimerLocalization{
@@ -309,9 +295,19 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnSimulKill	= "Annonce la mort du premier mob",
-	PlaySoundOnFury = "Joue un sons quand vous êtes affecté par la Fureur de la nature",
-	WarnBeamsSoon	= "Afficher une alerte lorsque $spell:62865 arrive",
 	TimerSimulKill	= "Montre le timer de la résurrection des mobs"
+}
+
+L:SetMiscLocalization{
+	SpawnYell			= "Mes enfants, venez m'aider !",
+	WaterSpirit			= "Esprit de l'eau ancien",
+	Snaplasher			= "Flagellant mordant",
+	StormLasher			= "Flagellant des tempêtes",
+	YellKill			= "Son emprise sur moi se dissipe. J'y vois à nouveau clair. Merci, héros.",
+	YellAdds1			= "Eonar, ta servante a besoin d'aide !",
+	YellAdds2			= "La nuée des éléments va vous submerger !",
+	EmoteLGift			= "commence à pousser !", -- Un |cFF00FFFFdon de la Lieuse-de-vie|r commence à pousser !
+	TrashRespawnTimer	= "Respawn des Trashs de Freya"
 }
 
 ----------------------
@@ -323,16 +319,12 @@ L:SetGeneralLocalization{
 	name = "Freya's Elders"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "Montre le timer du repop des trashs"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "Respawn des Trashs de Freya"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "Joue un son à l'incantation des poings de pierre",
-	TrashRespawnTimer		= "Montre le timer du repop des trashs"
 }
 
 ---------------

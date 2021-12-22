@@ -272,33 +272,29 @@ L:SetGeneralLocalization{
 	name = "Freya"
 }
 
+L:SetWarningLocalization{
+	WarnSimulKill	= "Erster Elementar tot - Wiederbelebung in ~12 Sekunden"
+}
+
+L:SetTimerLocalization{
+	TimerSimulKill	= "Wiederbelebung"
+}
+
+L:SetOptionLocalization{
+	WarnSimulKill	= "Verkünde Tod des ersten Elementars",
+	TimerSimulKill	= "Zeige Zeit bis zur Wiederbelebung der Elementare"
+}
+
 L:SetMiscLocalization{
 	SpawnYell			= "Helft mir, Kinder!",
 	WaterSpirit			= "Uralter Wassergeist",
 	Snaplasher			= "Knallpeitscher",
 	StormLasher			= "Sturmpeitscher",
 	YellKill			= "Seine Macht über mich beginnt zu schwinden. Endlich kann ich wieder klar sehen. Ich danke Euch, Helden.",
-	YellAdds1			= "Eonar, your servant requires aid!", --Needs Translating
-	YellAdds2			= "The swarm of the elements shall overtake you!", --Needs Translating
-	EmoteLGift			= "begins to grow!", --Needs Translating
+	YellAdds1			= "Eonar, Eure Dienerin braucht Hilfe!",
+	YellAdds2			= "Der Schwarm der Elemente soll über Euch kommen!",
+	EmoteLGift			= "fängt an zu wachsen!", -- Ein |cFF00FFFFGeschenk der Lebensbinderin|r fängt an zu wachsen!
 	TrashRespawnTimer	= "Freya-Trash-Respawn"
-}
-
-L:SetWarningLocalization{
-	WarnSimulKill		= "Erster tot - Wiederbelebung in ~12 sec",
-	WarningBeamsSoon	= "Beams soon", --Needs Translating
-	EonarsGift			= "Target Change - switch to Eonar's Gift" --Needs Translating
-}
-
-L:SetTimerLocalization{
-	TimerSimulKill	= "Wiederbelebung",
-}
-
-L:SetOptionLocalization{
-	WarnSimulKill	= "Verkünde Tod des Ersten der Dreiergruppe",
-	PlaySoundOnFury	= "Spiele Sound wenn du von Furor der Natur betroffen bist",
-	WarnBeamsSoon	= "Show a warning for $spell:62865 is soon", --Needs Translating
-	TimerSimulKill	= "Zeige Timer für Gegner-Wiederbelebung"
 }
 
 ----------------------
@@ -310,16 +306,12 @@ L:SetGeneralLocalization{
 	name = "Freyas Älteste"
 }
 
+L:SetOptionLocalization{
+	TrashRespawnTimer	= "Zeige Timer für Trash-Respawn"
+}
+
 L:SetMiscLocalization{
 	TrashRespawnTimer	= "Freya-Trash-Respawn"
-}
-
-L:SetWarningLocalization{
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnFistOfStone	= "Spiele Sound bei Fäuste aus Stein",
-	TrashRespawnTimer		= "Zeige Timer für Trash-Respawn"
 }
 
 ---------------
