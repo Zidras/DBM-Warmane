@@ -367,29 +367,13 @@ L:SetTimerLocalization{
 	hardmodeSpawn = "Саронитовый враг"
 }
 
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "Темное сокрушение на вас - отбегите",
-	SpecialWarningShadowCrashNear	= "Темное сокрушение около вас - остерегайтесь",
-	SpecialWarningLLNear			= "Вытягивание жизни на |3-5(%s) около вас"
-}
-
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "Устанавливать метки на цели заклинания $spell:62660 (череп)",
-	SetIconOnLifeLeach				= "Устанавливать метки на цели заклинания $spell:63276 (крест)",
-	SpecialWarningShadowCrash		= "Спец-предупреждение для $spell:62660\n(должен быть в цели или фокусе хотя бы у одного члена рейда)",
-	SpecialWarningShadowCrashNear	= "Спец-предупреждение о $spell:62660 около вас",
-	SpecialWarningLLNear			= "Спец-предупреждение о $spell:63276 около вас",
-	YellOnLifeLeech					= "Кричать, когда на вас $spell:63276",
-	YellOnShadowCrash				= "Кричать, когда на вас $spell:62660",
 	hardmodeSpawn					= "Отсчет времени до появления Саронитового врага (сложный режим)",
-	CrashArrow						= "Показывать стрелку, когда $spell:62660 около вас",
-	BypassLatencyCheck				= "Отключить синхр-цию для $spell:62660\n(используйте только в случае возникновения проблем)"
+	CrashArrow						= "Показывать стрелку, когда $spell:62660 около вас"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "Поблизости начинают возникать саронитовые испарения!",
-	YellLeech			= "Вытягивание жизни на мне!",
-	YellCrash			= "Темное сокрушение на мне!"
+	EmoteSaroniteVapors	= "Поблизости начинают возникать саронитовые испарения!"
 }
 
 ------------------

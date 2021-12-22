@@ -365,29 +365,13 @@ L:SetTimerLocalization{
 	hardmodeSpawn = "Saronite Animus spawn"
 }
 
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "Shadow Crash on you - Move away",
-	SpecialWarningShadowCrashNear	= "Shadow Crash near you - Watch out",
-	SpecialWarningLLNear			= "Mark of the Faceless on %s near you"
-}
-
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "Set icons on $spell:62660 targets (skull)",
-	SetIconOnLifeLeach				= "Set icons on $spell:63276 targets (cross)",
-	SpecialWarningShadowCrash		= "Show special warning for $spell:62660\n(must be targeted or focused by at least one raid member)",
-	SpecialWarningShadowCrashNear	= "Show special warning for $spell:62660 near you",
-	SpecialWarningLLNear			= "Show special warning for $spell:63276 near you",
-	YellOnLifeLeech					= "Yell on $spell:63276",
-	YellOnShadowCrash				= "Yell on $spell:62660",
 	hardmodeSpawn					= "Show timer for Saronite Animus spawn (hard mode)",
-	CrashArrow						= "Show DBM arrow when $spell:62660 is near you",
-	BypassLatencyCheck				= "Don't use latency based sync check for $spell:62660\n(only use this if you're having problems otherwise)"
+	CrashArrow						= "Show DBM arrow when $spell:62660 is near you"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "A cloud of saronite vapors coalesces nearby!",
-	YellLeech			= "Mark of the Faceless on me!",
-	YellCrash			= "Shadow Crash on me!"
+	EmoteSaroniteVapors	= "A cloud of saronite vapors coalesces nearby!"
 }
 
 ------------------

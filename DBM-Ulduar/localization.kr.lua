@@ -351,32 +351,16 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	hardmodeSpawn = "사로나이트 원혼 생성"
-}
-
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "당신에게 어둠 붕괴 - 이동하세요!",
-	SpecialWarningShadowCrashNear	= "당신 주변에 어둠 붕괴!",
-	SpecialWarningLLNear			= ">%s< 에게 가까운 당신에게 생명력 흡수 시전!"
+	hardmodeSpawn = "사로나이트 원혼 생성 중"
 }
 
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "어둠 붕괴 대상 공격대 아이콘 설정하기(해골)",
-	SetIconOnLifeLeach				= "얼굴 없는 자의 징표 대상 공격대 아이콘 설정하기(엑스)",
-	SpecialWarningShadowCrash		= "어둠 붕괴 특수 경고 보기(공대원 중 베작스 대상/주시 일 경우)",
-	SpecialWarningShadowCrashNear	= "주변에 어둠 붕괴일 때 특수 경고 보기",
-	SpecialWarningLLNear			= "생명력 흡수 주변 특수 경고 보기",
-	YellOnLifeLeech					= "생명력 흡수를 당할 때 외치기",
-	YellOnShadowCrash				= "어둠 붕괴일 때 외치기",
-	hardmodeSpawn					= "사로나이드 원혼 생성 타이머 보기(하드모드)",
-	CrashArrow						= "$spell:62660의 방향을 DBM Arrow로 표시하기(당신 주변일 경우)",
-	BypassLatencyCheck				= "$spell:62660의 동기화를 사용하지 않거나 네트워크 체크를 하지 않습니다.\n(만약 DBM 사용에 문제가 생기면 사용하세요.)",
+	hardmodeSpawn		= "사로나이드 원혼 생성 바 보기(영웅 난이도 진입용)",
+	CrashArrow			= "$spell:62660 대상이 가까이 있을 경우 DBM 화살표 보기"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "가까운 사로나이트 증기 구름이 합쳐집니다!",
-	YellLeech			= "저에게 생명력 흡수 시전!",
-	YellCrash			= "저에게 어둠 붕괴! 피하세요!"
+	EmoteSaroniteVapors	= "가까운 사로나이트 증기 구름이 합쳐집니다!"
 }
 
 ------------------

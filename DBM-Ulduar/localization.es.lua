@@ -355,32 +355,16 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	hardmodeSpawn = "Animus de saronita sale"
-}
-
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "¡Fragor de sombra en ti! ¡Muévete!",
-	SpecialWarningShadowCrashNear	= "Fragor de sombra cerca de ti!",
-	SpecialWarningLLNear			= "Drenar vida en %s cerca de ti"
+	hardmodeSpawn = "Animus de saronita"
 }
 
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "Poner iconos en los objetivos de $spell:62660 (calavera)",
-	SetIconOnLifeLeach				= "Poner iconos en los objetivos de $spell:63276 (cruz)",
-	SpecialWarningShadowCrash		= "Mostrar aviso especial para $spell:62660/n(Tiene que ser el objetivo o el foco de al menos un personaje de la banda)",
-	SpecialWarningShadowCrashNear	= "Mostrar aviso especial para $spell:62660 cerca de ti",
-	SpecialWarningLLNear			= "Mostrar aviso especial para $spell:63276 cerca de ti",
-	YellOnLifeLeech					= "Gritar si tienes $spell:63276",
-	YellOnShadowCrash				= "Gritar si eres objetivo de $spell:62660",
-	hardmodeSpawn					= "Mostrar tiempo para salida de Animus de saronita (Modo Difícil)",
-	CrashArrow						= "Mostrar una flecha cuando $spell:62660 va a caer cerca de ti",
-	BypassLatencyCheck				= "No usar la comprobación de sincronización basada en latencia para $spell:62660\n(sólo usar esta opción si tienes problemas de otro modo)"
+	hardmodeSpawn		= "Mostrar temporizador para cuando aparezca el Animus de saronita (modo difícil)",
+	CrashArrow			= "Mostrar flecha cuando $spell:62660 ocurra cerca de ti"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "¡Cerca se forma una nube de vapores de saronita!",
-	YellLeech			= "¡Drenar vida en mi!",
-	YellCrash			= "¡Fragor de sombra en mi!"
+	EmoteSaroniteVapors	= "¡Cerca se forma una nube de vapores de saronita!"
 }
 
 ------------------
