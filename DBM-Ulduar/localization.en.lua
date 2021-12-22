@@ -253,22 +253,18 @@ L:SetGeneralLocalization{
 	name = "Thorim"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	TimerHardmodeThorim	= "Sif's Presence",
+	TimerHardmode	= "Hard mode"
 }
 
 L:SetOptionLocalization{
 	TimerHardmode	= "Show timer for hard mode",
-	RangeFrame		= "Show range frame",
-	AnnounceFails	= "Post player fails for $spell:62017 to raid chat\n(requires announce to be enabled and leader/promoted status)"
+	AnnounceFails	= "Post player fails for $spell:62017 to raid chat<br/>(requires announce to be enabled and leader/promoted status)"
 }
 
 L:SetMiscLocalization{
 	YellPhase1	= "Interlopers! You mortals who dare to interfere with my sport will pay.... Wait--you...",
-	YellPhase2	= "Impertinent whelps! You dare challenge me atop my pedestal! I will crush you myself!",
+	YellPhase2	= "Impertinent whelps, you dare challenge me atop my pedestal? I will crush you myself!",
 	YellKill	= "Stay your arms! I yield!",
 	ChargeOn	= "Lightning Charge: %s",
 	Charge		= "Lightning Charge fails (this try): %s"

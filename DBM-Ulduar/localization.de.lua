@@ -242,17 +242,13 @@ L:SetGeneralLocalization{
 	name = "Thorim"
 }
 
-L:SetWarningLocalization{
-}
-
 L:SetTimerLocalization{
-	TimerHardmodeThorim	= "Hard Mode"
+	TimerHardmode	= "Hard Mode"
 }
 
 L:SetOptionLocalization{
 	TimerHardmode	= "Zeige Timer für Hard Mode",
-	RangeFrame		= "Zeige Abstandsfenster (10 m)",
-	AnnounceFails	= "Poste Spielerfehler für Blitzladung in Raidchat\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)"
+	AnnounceFails	= "Verkünde Spieler im Schlachtzugchat, die bei $spell:62466 scheitern (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)"
 }
 
 L:SetMiscLocalization{
@@ -260,7 +256,7 @@ L:SetMiscLocalization{
 	YellPhase2	= "Ihr unverschämtes Geschmeiß! Ihr wagt es, mich in meinem Refugium herauszufordern? Ich werde Euch eigenhändig zerschmettern!",
 	YellKill	= "Senkt Eure Waffen! Ich ergebe mich!",
 	ChargeOn	= "Blitzladung: %s",
-	Charge		= "Blitzladung-Fehler (dieser Versuch): %s"
+	Charge		= "Fehler bei Blitzladung (dieser Versuch): %s"
 }
 
 -------------
