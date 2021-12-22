@@ -112,40 +112,30 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Algalon")
 
 L:SetGeneralLocalization{
-    name = "Algalon the Observer"
-}
-
-L:SetTimerLocalization{
-    NextCollapsingStar = "Next Collapsing Star",
-    NextCosmicSmash = "Next Cosmic Smash",
-    TimerCombatStart = "Combat starts"
+	name 				= "观察者奥尔加隆"
 }
 
 L:SetWarningLocalization{
-    WarningPhasePunch = "Phase Punch on >%s< - Stack %d",
-    WarningCosmicSmash = "Cosmic Smash - Explosion in 4 seconds",
-    WarnPhase2Soon = "Phase 2 soon",
-    warnStarLow = "Collapsing Star is low"
+	warnStarLow			= "坍缩星血量低"
+}
+
+L:SetTimerLocalization{
+	NextCollapsingStar		= "下一次 坍缩星",
 }
 
 L:SetOptionLocalization{
-    WarningPhasePunch = "Announce Phase Punch targets",
-    NextCollapsingStar = "Show timer for next Collapsing Star",
-    WarningCosmicSmash = "Show warning for Cosmic Smash",
-    NextCosmicSmash = "Show timer for next Cosmic Smash",
-    TimerCombatStart = "Show timer for start of combat",
-    WarnPhase2Soon = "Show pre-warning for Phase 2 (at ~23%)",
-    warnStarLow = "Show special warning when Collapsing Star is low (at ~25%)"
+	NextCollapsingStar		= "为下一次坍缩星显示计时条",
+	warnStarLow			= "当坍缩星血量低(大约25%)时显示特别警报"
 }
 
 L:SetMiscLocalization{
-    YellPull = "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
-    YellPull2 = "你们的行动不合逻辑。这场战斗所有可能产生的结果都已被计算在内。无论结果如何，万神殿都会收到观察者发出的信息。",
-    YellKill = "我曾经看过尘世沉浸在造物者的烈焰之中，众生连一声悲泣都无法呼出，就此凋零。整个星系在弹指之间历经了毁灭与重生。然而在这段历程之中，我的心却无法感受到丝毫的…恻隐之念。我‧感‧受‧不‧到。成千上万的生命就这么消逝。他们是否拥有与你同样坚韧的生命?他们是否与你同样热爱生命?",
-    Emote_CollapsingStar = "%s开始召唤坍缩星！",
-    Phase2 = "瞧瞧泰坦造物的能耐吧!",
-    CollapsingStar = "Collapsing Star",
-    PullCheck = "奥尔加隆发送危险信号的倒计时 = (%d+)分钟。"
+--	HealthInfo			= "为星星疗伤",
+--	FirstPull			= "通过我的双眼来观察你们的世界吧：一个广袤无垠的宇宙，即使是你们当中最睿智的人，也无法理解这一切。",
+--	YellPull			= "你们的行动不合逻辑。这场战斗所有可能产生的结果都已被计算在内。无论结果如何，万神殿都会收到观察者发出的信息。",
+	YellKill			= "我曾见证过无数个世界被造物者的烈焰吞噬，那些世界中的人们甚至来不及发出一声悲鸣就永远消逝了。整个星球从诞生到毁灭，不过是弹指一挥间。但是从始至终，我都没有为之动容……我，毫无，感觉。千亿的生命被毁灭。他们是否都像你们一样坚强？他们是否都像你们一样热爱生命？",
+	Emote_CollapsingStar= "%s开始召唤坍缩之星！",
+--	Phase2				= "看吧，这创世的神器！!",
+	CollapsingStar		= "坍缩之星"
 }
 
 ----------------

@@ -115,37 +115,30 @@ L:SetGeneralLocalization{
 	name = "Algalon el Observador"
 }
 
-L:SetTimerLocalization{
-	NextCollapsingStar		= "Siguiente Estrella en colapso",
-	NextCosmicSmash			= "Posible siguiente Machaque cósmico",
-	TimerCombatStart		= "Empieza el combate"
+L:SetWarningLocalization{
+	warnStarLow				= "Estrella en colapso a poca salud"
 }
 
-L:SetWarningLocalization{
-	WarningPhasePunch		= "Cambiar de fase en >%s< - Stack %d",
-	WarningCosmicSmash 		= "Machaque cósmico - Explosion en 4 segundos",
-	WarnPhase2Soon			= "Fase 2 pronto",
-	warnStarLow				= "Estrella en colapso a punto de morir"
+L:SetTimerLocalization{
+	NextCollapsingStar		= "Siguiente Estrella en colapso",
 }
 
 L:SetOptionLocalization{
-	WarningPhasePunch		= "Anunciar objetivos de Cambiar de fase",
-	NextCollapsingStar		= "Mostrar tiempo para siguiente Estrella en colapso",
-	WarningCosmicSmash 		= "Mostrar aviso para Machaque cósmico",
-	NextCosmicSmash			= "Mostrar tiempo para posible siguiente Machaque cósmico",
-	TimerCombatStart		= "Mostrar tiempo para el inicio del combate",
-	WarnPhase2Soon			= "Mostrar pre-aviso para Fase 2 (al ~23%)",
-	warnStarLow				= "Mostrar aviso especial cuando una Estrella en colapso esté a punto de morir (al ~25%)"
+	NextCollapsingStar		= "Mostrar temporizador para la siguiente Estrella en colapso",
+	warnStarLow				= "Mostrar aviso especial cuando una Estrella en colapso tenga la salud baja (25%)"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Vuestros actos carecen de lógica. Se ha calculado cualquier posible resultado de este encuentro. El Panteón recibirá el mensaje del Observador sean cuales sean las consecuencias.",
-	YellPull2 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.", --Needs Translating
-	YellKill				= "I have seen worlds bathed in the Makers' flames. Their denizens fading without so much as a whimper. Entire planetary systems born and raised in the time that it takes your mortal hearts to beat once. Yet all throughout, my own heart, devoid of emotion... of empathy. I... have... felt... NOTHING! A million, million lives wasted. Had they all held within them your tenacity? Had they all loved life as you do?",--translate
+--	FirstPull				= "Mirad vuestro mundo a través de mis ojos: un universo tan vasto que es inconmensurable, incompresible incluso para vuestras grandes mentes.", -- esES
+--	FirstPull				= "Vean su mundo a través de mis ojos: un universo tan vasto que es inconmensurable... Incomprensible aún para sus mentes más brillantes.", -- esMX
+--	YellPull				= "Vuestros actos carecen de lógica. Se ha calculado cualquier posible resultado de este encuentro. El Panteón recibirá el mensaje del Observador sean cuales sean las consecuencias.", -- esES
+--	YellPull				= "Tus acciones son ilógicas. Todos los resultados posibles de este encuentro han sido calculados. El Panteón recibirá el mensaje del Observador más allá del resultado.", -- esMX
+	YellKill				= "He visto mundos hundirse en las llamas de los Creadores, como se desvanecían sus habitantes sin apenas un gemido. He visto sistemas planetarios enteros crearse y ser arrasados en lo que vuestros mortales corazones laten una sola vez. Y mi corazón permaneció desprovisto de emoción... de empatía. Yo... no... sentí... nada. Millones de vidas malgastadas ¿Acaso compartían vuestra tenacidad? ¿Amaban la vida como vosotros?", -- esES
+--	YellKill				= "He visto mundos enteros bañados en las llamas del Creador, a sus habitantes esfumarse dejando menos que un quejido. Sistemas planetarios nacen y son arrasados en lo que les lleva a sus corazones mortales dar un latido. Y aún después de todo, mi propio corazón carece de emoción... de compasión. Nunca. He. Sentido. Nada. Un millón de millones de vidas desperdiciadas. ¿Acaso todas ellas llevaban dentro tu tenacidad? ¿Todas amaban la vida como tú?", -- esMX
 	Emote_CollapsingStar	= "¡%s comienza a invocar estrellas en colapso!",
-	Phase2					= "¡Observad las herramientas de la creación!",
-	CollapsingStar			= "Collapsing Star", --Needs Translating
-	PullCheck				= "Tiempo hasta que Algalon transmita la señal de auxilio= (%d+) min."
+--	Phase2					= "¡Observad las herramientas de la creación!", -- esES
+--	Phase2					= "¡Contempla las herramientas de la creación!", -- esMX
+	CollapsingStar			= "Estrella en colapso"
 }
 
 ----------------

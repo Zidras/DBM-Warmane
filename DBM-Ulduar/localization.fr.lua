@@ -125,37 +125,26 @@ L:SetGeneralLocalization{
 	name = "Algalon l'Observateur"
 }
 
-L:SetTimerLocalization{
-	NextCollapsingStar		= "Prochain Choc cosmique",
-	NextCosmicSmash			= "Prochain Choc cosmique possible",
-	TimerCombatStart		= "Le combat débute dans"
-}
-
 L:SetWarningLocalization{
-	WarningPhasePunch		= "Coup de poing phasique sur >%s<",
-	WarningCosmicSmash 		= "Choc cosmique - Explosion dans 4 sec",
-	WarnPhase2Soon			= "Phase 2 arrive bientôt",
 	warnStarLow				= "Effondrement d'étoile est bas"
 }
 
+L:SetTimerLocalization{
+	NextCollapsingStar		= "Prochain Choc cosmique",
+}
+
 L:SetOptionLocalization{
-	WarningPhasePunch		= "Annoncer la cible du Coup de poing phasique",
 	NextCollapsingStar		= "Montre un timer pour le prochain choc cosmique",
-	WarningCosmicSmash 		= "Annonce le Choc cosmique",
-	NextCosmicSmash			= "Montre le timer pour un possible Choc cosmique",
-	TimerCombatStart		= "Montre le timer avant le début du combat",
-	WarnPhase2Soon			= "Affiche une pré-alerte pour la Phase 2 (à ~23%)",
 	warnStarLow				= "Affiche une alerte spéciale lorsque Effondrement d'étoile est bas (à ~25%)"
 }
 
 L:SetMiscLocalization{
-	YellPull				= "Vos actions sont illogiques. Tous les résultats possibles de cette rencontre ont été calculés. Le panthéon recevra le message de l'Observateur quelque soit l'issue.",
-	YellPull2 				= "Vos actions sont illogiques. Tous les résultats possibles de cette rencontre ont été calculés. Le Panthéon recevra le message de l’Observateur quelle que soit l’issue.",
-	YellKill				= "J’ai vu des mondes baignés dans les flammes des Faiseurs. Leurs occupants s’évaporer sans même un gémissement. Des systèmes planétaires entiers créés et détruits dans le temps qu’il faut à un cœur mortel pour battre une fois. Et devant tout cela, dans mon propre cœur, pas la moindre émotion... la moindre empathie. Je. Ne. Ressentais. Rien. Mille milliards de vies gâchées. Avaient-elles toutes possédé une telle ténacité ? Aimaient-elles la vie autant que vous ?",
-	Emote_CollapsingStar	= "commence à lancer un effondrement",
-	Phase2					= "Découvrez les outils de la création !",
-	CollapsingStar			= "Effondrement d'étoile",
-	PullCheck				= "Signal de détresse d'Algalon transmis dans= (%d+) min."
+--	FirstPull				= "Voyez votre monde comme je le vois : un univers si vaste qu'il est incommensurable - impossible à appréhender même par vos plus grands esprits.",
+--	YellPull				= "Vos actions sont illogiques. Tous les résultats possibles de cette rencontre ont été calculés. Le Panthéon recevra le message de l'Observateur quelle que soit l'issue.",
+	YellKill				= "J'ai vu des mondes baignés dans les flammes des Faiseurs. Leurs occupants s'évaporer sans même un gémissement. Des systèmes planétaires entiers créés et détruits dans le temps qu'il faut à un cœur mortel pour battre une fois. Et devant tout cela, dans mon propre cœur, pas la moindre émotion... la moindre empathie. Je. Ne. Ressentais. Rien. Mille milliards de vies gâchées. Avaient-elles toutes possédé une telle ténacité ? Aimaient-elles la vie autant que vous ?",
+	Emote_CollapsingStar	= "%s commence à lancer un effondrement d'étoiles !",
+--	Phase2					= "Découvrez les outils de la création !",
+	CollapsingStar			= "Effondrement d'étoile"
 }
 
 ----------------
