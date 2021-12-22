@@ -354,29 +354,13 @@ L:SetTimerLocalization{
 	hardmodeSpawn = "Saronitanimus erscheint"
 }
 
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "Schattengeschoss auf dir",
-	SpecialWarningShadowCrashNear	= "Schattengeschoss in deiner Nähe!",
-	SpecialWarningLLNear			= "Mal der Gesichtslosen auf >%s< in deiner Nähe!"
-}
-
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "Setze Zeichen auf Ziele von Schattengeschoss (Totenkopf)",
-	SetIconOnLifeLeach				= "Setze Zeichen auf Ziele von Mal der Gesichtslosen (Lebensentzug) (Kreuz)",
-	SpecialWarningShadowCrash		= "Zeige Spezialwarnung für Schattengeschoss (muss anvisiert oder im Fokus eines Schlachtzugsmitglieds sein)",
-	SpecialWarningShadowCrashNear	= "Zeige Spezialwarnung bei Schattengeschoss in deiner Nähe",
-	SpecialWarningLLNear			= "Zeige Spezialwarnung für Mal der Gesichtslosen (Lebensentzug) in deiner Nähe",
-	YellOnLifeLeech					= "Schreie bei $spell:63276",
-	YellOnShadowCrash				= "Schreie bei $spell:62660",
-	hardmodeSpawn					= "Zeige Timer für Spawn des Saronitanimus (Hard Mode)",
-	CrashArrow						= "Show DBM arrow when $spell:62660 is near you", --Needs Translating
-	BypassLatencyCheck				= "Don't use latency based sync check for $spell:62660\n(only use this if you're having problems otherwise)" --Needs Translating
+	hardmodeSpawn		= "Zeige Zeit bis zum Erscheinen des Saronitanimus (Hard Mode)",
+	CrashArrow			= "DBM-Pfeil anzeigen, wenn $spell:62660 in Ihrer Nähe ist"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "A cloud of saronite vapors coalesces nearby!", --Needs Translating
-	YellLeech			= "Mal der Gesichtslosen auf mir!",
-	YellCrash			= "Schattengeschoss auf mir!"
+	EmoteSaroniteVapors	= "Eine Wolke Saronitdämpfe bildet sich in der Nähe!"
 }
 
 ------------------

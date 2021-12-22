@@ -351,32 +351,16 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	hardmodeSpawn = "薩倫聚惡體 出現"
-}
-
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "你中了暗影暴擊 - 快跑開",
-	SpecialWarningShadowCrashNear	= "你附近有人中暗影暴擊 - 快遠離",
-	SpecialWarningLLNear			= "你附近的%s中了無面者印記"
+	hardmodeSpawn = "薩倫聚惡體出現"
 }
 
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "為$spell:62660的目標設置標記 (頭顱)",
-	SetIconOnLifeLeach				= "為$spell:63276的目標設置標記 (十字)",
-	SpecialWarningShadowCrash		= "為$spell:62660顯示特別警告(必須有最少一名團隊成員設置目標或專注目標)",
-	SpecialWarningShadowCrashNear	= "當你附近的人中了$spell:62660時顯示特別警告",
-	SpecialWarningLLNear			= "當你附近的人中了$spell:63276時顯示特別警告",
-	YellOnLifeLeech					= "當你中了$spell:63276時大喊",
-	YellOnShadowCrash				= "當你中了$spell:62660時大喊",
-	hardmodeSpawn					= "為薩倫聚惡體出現顯示計時器 (困難模式)",
-	CrashArrow						= "當你附近的人中了$spell:62660時顯示DBM箭頭",
-	BypassLatencyCheck				= "不對$spell:62660使用同步延遲查詢\n(只有出現問題時才使用這個)"
+	hardmodeSpawn		= "為薩倫聚惡體出現顯示計時器 (困難模式)",
+	CrashArrow			= "當你附近的人中了$spell:62660時顯示DBM箭頭"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "一片薩倫煙霧在附近聚合",
-	YellLeech			= "我中了無面者印記 - 遠離我",
-	YellCrash			= "我中了暗影暴擊 - 遠離我"
+	EmoteSaroniteVapors	= "一片薩倫煙霧在附近聚合!"
 }
 
 ------------------

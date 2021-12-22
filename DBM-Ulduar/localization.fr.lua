@@ -367,29 +367,13 @@ L:SetTimerLocalization{
 	hardmodeSpawn = "Arriver d'Animus de saronite"
 }
 
-L:SetWarningLocalization{
-	SpecialWarningShadowCrash		= "Déferlante d'ombre sur VOUS",
-	SpecialWarningShadowCrashNear	= "Déferlante d'ombre à côté de VOUS!",
-	SpecialWarningLLNear			= "Marque du Sans-visage sur %s à côté de VOUS!"
-}
-
 L:SetOptionLocalization{
-	SetIconOnShadowCrash			= "met une icône sur la cible des Déferlante d'ombre ( Tête de mort )",
-	SetIconOnLifeLeach				= "Met une icône sur la cible de la Marque du Sans-visage ( Croix )",
-	SpecialWarningShadowCrash		= "Afficher une alerte spéciale pour $spell:62660\n(doit être en ciblé ou focus par au moins un membre du raid)",
-	SpecialWarningShadowCrashNear	= "Montre une alerte spéciale quand la $spell:62660 à côté de vous",
-	SpecialWarningLLNear			= "Montre une alerte spéciale quand la $spell:63276 est à côté de vous",
-	YellOnLifeLeech					= "Crie pour la $spell:63276",
-	YellOnShadowCrash				= "Crie pour la $spell:62660",
-	hardmodeSpawn					= "Montre le timer pour l'arrivée d'Animus de saronite (Hard Mode)",
-	CrashArrow						= "Afficher la flèche DBM lorsque $spell:62660 est proche de vous",
-	BypassLatencyCheck				= "Don't use latency based sync check for $spell:62660\n(only use this if you're having problems otherwise)"
+	hardmodeSpawn		= "Montre le timer pour l'arrivée d'Animus de saronite (Hard Mode)",
+	CrashArrow			= "Afficher la flèche DBM lorsque $spell:62660 est proche de vous"
 }
 
 L:SetMiscLocalization{
-	EmoteSaroniteVapors	= "nuage de vapeurs saronitiques",
-	YellLeech			= "Marque du Sans-visage sur moi !",
-	YellCrash			= "Déferlante d'ombre sur moi !"
+	EmoteSaroniteVapors	= "nuage de vapeurs saronitiques"
 }
 
 ------------------
