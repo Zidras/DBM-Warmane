@@ -15,9 +15,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobie",
-	Pull1				= "Rennt! Das bringt das Blut in Wallung!",
-	Pull2				= "Nur einmal kosten..." --needs to be verified (wowhead-captured translation)
+	ArachnophobiaTimer	= "Arachnophobie"
+--	Pull1				= "Rennt! Das bringt das Blut in Wallung!",
+--	Pull2				= "Nur einmal kosten..." --needs to be verified (wowhead-captured translation)
 })
 
 ----------------------------

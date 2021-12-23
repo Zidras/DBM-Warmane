@@ -1,29 +1,27 @@
 ﻿-- author: callmejames @《凤凰之翼》 一区藏宝海湾
 -- commit by: yaroot <yaroot AT gmail.com>
 if GetLocale() ~= "zhCN" then return end
+
 local L
+
 -------------------
 --  Anub'Rekhan  --
 -------------------
 L = DBM:GetModLocalization("Anub'Rekhan")
 
 L:SetGeneralLocalization({
-    name = "阿努布雷坎"
-})
-
-L:SetWarningLocalization({
-    SpecialLocust = "虫群风暴",
-    WarningLocustFaded = "虫群风暴结束"
+	name 				= "阿努布雷坎"
 })
 
 L:SetOptionLocalization({
-    SpecialLocust = "为虫群风暴显示特别警报",
-    WarningLocustFaded = "当虫群风暴结束时显示警报",
-    ArachnophobiaTimer = "为蜘蛛克星(成就)显示计时条"
+	ArachnophobiaTimer		= "为蜘蛛克星(成就)显示计时条"
 })
 
 L:SetMiscLocalization({
-    ArachnophobiaTimer = "蜘蛛克星"
+	ArachnophobiaTimer		= "蜘蛛克星",
+--	Pull1					= "对，跑吧！那样伤口出血就更多了！",
+--	Pull2					= "一些小点心……",
+--	Pull3					= "你们逃不掉的。"
 })
 
 ----------------------------

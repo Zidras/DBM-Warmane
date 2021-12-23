@@ -11,19 +11,12 @@ L:SetGeneralLocalization({
 	name = "Anub'Rekhan"
 })
 
-L:SetWarningLocalization({
-	SpecialLocust		= "Nuée de sauterelles!",
-	WarningLocustFaded	= "Fin de la nuée de sauterelles"
-})
-
 L:SetOptionLocalization({
-	SpecialLocust		= "Activer l'avertissement special pour la Nuée de sauterelles",
-	WarningLocustFaded	= "Avertir à la fin de la Nuée de sauterelles",
-	TimerLocustFade 	= "Afficher le timer pour la fin de la Nuée de sauterelles"
+	ArachnophobiaTimer	= "Activer le timer pour l'arachnophobie (HAUT-FAIT)"
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobia"
+	ArachnophobiaTimer	= "Arachnophobie"
 })
 
 ----------------------------

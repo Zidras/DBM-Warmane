@@ -15,9 +15,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "蜘蛛恐懼症",
-	Pull1				= "對，跑吧!那樣傷口出血就更多了!",
-	Pull2				= "一些小點心..."
+	ArachnophobiaTimer	= "蜘蛛恐懼症"
+--	Pull1				= "對，跑吧!那樣傷口出血就更多了!",
+--	Pull2				= "一些小點心..."
 })
 
 ----------------------------
