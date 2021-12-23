@@ -1189,13 +1189,15 @@ do
 		--Break timer recovery
 		--Try local settings
 		if self.Options.RestoreSettingBreakTimer then
-			local timer, startTime = string.split("/", self.Options.RestoreSettingBreakTimer)
-			local elapsed = time() - tonumber(startTime)
-			local remaining = timer - elapsed
-			if remaining > 0 then
-				breakTimerStart(DBM, remaining, playerName)
-			else--It must have ended while we were offline, kill variable.
-				self.Options.RestoreSettingBreakTimer = nil
+			if not DBM.Bars:GetBar(L.TIMER_BREAK) then -- Already recovered. Prevent duplicate recovery
+				local timer, startTime = string.split("/", self.Options.RestoreSettingBreakTimer)
+				local elapsed = time() - tonumber(startTime)
+				local remaining = timer - elapsed
+				if remaining > 0 then
+					breakTimerStart(DBM, remaining, playerName)
+				else--It must have ended while we were offline, kill variable.
+					self.Options.RestoreSettingBreakTimer = nil
+				end
 			end
 		end
 		if IsInGuild() then
@@ -3845,22 +3847,15 @@ do
 		breakTimerStart(DBM, timer, sender)
 	end
 
-	whisperSyncHandlers["DBMv4-BTR3"] = function(sender, timer, maxtime, id, text, texture)
+	whisperSyncHandlers["DBMv4-BTR3"] = function(sender, timer)
+		if DBM.Options.DontShowUserTimers then return end
 		timer = tonumber(timer or 0)
-		maxtime = tonumber(maxtime or 0)
-		texture = tonumber(texture) or texture
 		if timer > 3600 then return end
-		if id   == nil then id = L.TIMER_BREAK end--old ver compat
-		if text == nil then text = L.TIMER_BREAK end--old ver compat
-		if texture and type(texture)=="number" then texture = select(3, GetSpellInfo(texture)) end
-		local combaticon = texture or "Interface\\Icons\\Spell_Nature_WispSplode"
 		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
 		if #inCombat >= 1 then return end
-		if DBM.Bars:GetBar(id) then return end--Already recovered. Prevent duplicate recovery
-		DBM:Debug("Calling createbar "..maxtime..id.." icon "..combaticon,3)
-		DBM.Bars:CreateBar(maxtime, id, combaticon)
-		DBM.Bars:GetBar(id):SetText(text)
-		DBM.Bars:UpdateBar(id, maxtime-timer, maxtime)
+		if DBM.Bars:GetBar(L.TIMER_BREAK) then return end--Already recovered. Prevent duplicate recovery
+		DBM:Debug("BTR3 calling breakTimerStart from "..sender.." with remaining "..timer,3)
+		breakTimerStart(DBM, timer, sender)
 	end
 
 	local function SendVersion(guild)
@@ -5892,12 +5887,8 @@ do
 			local breakBar = self.Bars:GetBar("%s\t"..L.TIMER_BREAK) or self.Bars:GetBar(L.TIMER_BREAK)
 			if breakBar then
 				self:Debug("Sending Break timer to "..target, 2)
-				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s\t"):format(breakBar.timer, breakBar.totalTime, breakBar.id, L.TIMER_BREAK, 52800), "WHISPER", target)
-			end
-			breakBar = self.Bars:GetBar("TimerCombatStart")
-			if breakBar then
-				self:Debug("Sending TimerCombatStart to "..target, 2)
-				SendAddonMessage("DBMv4-BTR3", ("%s\t%s\t%s\t%s\t%s"):format(breakBar.timer, breakBar.totalTime, breakBar.id, L.GENERIC_TIMER_COMBAT, 2457), "WHISPER", target)
+				SendAddonMessage("DBMv4-BTR3", ("%s"):format(breakBar.timer), "WHISPER", target)
+				SendAddonMessage("DBMv4-Pizza", ("%s\t%s\t%s"):format(breakBar.timer, L.TIMER_BREAK, tostring(true))) -- Backwards compatibility so old DBMs can receive break timers from this DBM
 			end
 			return
 		end
