@@ -51,27 +51,26 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Maexxna")
 
 L:SetGeneralLocalization({
-    name = "迈克斯纳"
+	name 					= "迈克斯纳"
 })
 
 L:SetWarningLocalization({
-    WarningSpidersSoon = "迈克斯纳之子 5秒后出现",
-    WarningSpidersNow = "迈克斯纳之子出现了"
+	WarningSpidersSoon		= "迈克斯纳之子 5秒后出现",
+	WarningSpidersNow		= "迈克斯纳之子出现了"
 })
 
 L:SetTimerLocalization({
-    TimerSpider = "下一次 迈克斯纳之子"
+	TimerSpider				= "下一次 迈克斯纳之子"
 })
 
 L:SetOptionLocalization({
-    WarningSpidersSoon = "为迈克斯纳之子显示提前警报",
-    WarningSpidersNow = "为迈克斯纳之子显示警报",
-    TimerSpider = "为下一次迈克斯纳之子显示计时条"
+	WarningSpidersSoon		= "为迈克斯纳之子显示提前警报",
+	WarningSpidersNow		= "为迈克斯纳之子显示警报",
+	TimerSpider				= "为下一次迈克斯纳之子显示计时条"
 })
 
 L:SetMiscLocalization({
-    YellWebWrap = "我被缠绕住了！救我！",
-    ArachnophobiaTimer = "蜘蛛克星"
+	ArachnophobiaTimer		= "蜘蛛克星"
 })
 
 ------------------------------
