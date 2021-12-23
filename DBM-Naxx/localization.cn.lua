@@ -111,23 +111,27 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Heigan")
 
 L:SetGeneralLocalization({
-    name = "肮脏的希尔盖"
+	name 				= "肮脏的希尔盖"
 })
 
 L:SetWarningLocalization({
-    WarningTeleportNow = "传送",
-    WarningTeleportSoon = "%d秒后 传送"
+	WarningTeleportNow		= "传送",
+	WarningTeleportSoon		= "%d秒后 传送"
 })
 
 L:SetTimerLocalization({
-    TimerTeleport = "传送"
+	TimerTeleport			= "传送"
 })
 
 L:SetOptionLocalization({
-    WarningTeleportNow = "为传送显示警报",
-    WarningTeleportSoon = "为传送显示提前警报",
-    TimerTeleport = "为传送显示计时条"
+	WarningTeleportNow		= "为传送显示警报",
+	WarningTeleportSoon		= "为传送显示提前警报",
+	TimerTeleport			= "为传送显示计时条"
 })
+
+--L:SetMiscLocalization({
+--	Pull				= "你是我的了。"
+--})
 
 ---------------
 --  Loatheb  --

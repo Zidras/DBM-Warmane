@@ -128,10 +128,6 @@ L:SetOptionLocalization({
 	TimerTeleport			= "다음 순간이동 바 보기"
 })
 
-L:SetMiscLocalization({
-	Pull				= "You are mine now."--확인필요
-})
-
 ----------------
 --  로데브  --
 ----------------

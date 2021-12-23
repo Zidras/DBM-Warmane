@@ -113,7 +113,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerTeleport	= "Телепортация",
+	TimerTeleport	= "Телепортация"
 })
 
 L:SetOptionLocalization({
@@ -121,6 +121,10 @@ L:SetOptionLocalization({
 	WarningTeleportSoon	= "Предупреждать перед следующей телепортацией",
 	TimerTeleport		= "Отсчет времени до телепортации"
 })
+
+--L:SetMiscLocalization({
+--	Pull				= "You are mine now."
+--})
 
 ---------------
 --  Loatheb  --

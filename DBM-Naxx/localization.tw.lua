@@ -121,9 +121,6 @@ L:SetOptionLocalization({
 	TimerTeleport		= "為傳送顯示計時器"
 })
 
-L:SetMiscLocalization({
-})
-
 ---------------
 --  Loatheb  --
 ---------------

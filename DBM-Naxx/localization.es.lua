@@ -125,9 +125,9 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Mostrar aviso para Teletransporte"
 })
 
-L:SetMiscLocalization({
-	Pull				= "Ahora me perteneces."
-})
+--L:SetMiscLocalization({
+--	Pull				= "Ahora me perteneces."
+--})
 
 -------------
 -- Loatheb --
