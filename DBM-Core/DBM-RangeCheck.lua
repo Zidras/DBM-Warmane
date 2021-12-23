@@ -67,7 +67,8 @@ DBM:RegisterMapSize("AzjolNerub",				-- Azjol-Nerub (Party-WotLK)
 DBM:RegisterMapSize("AzuremystIsle",		0, 4070.8330078, 2714.58300781)
 DBM:RegisterMapSize("Badlands",				0, 2487.5, 1658.3334961)
 DBM:RegisterMapSize("Barrens",				0, 10133.33300782, 6756.24987793)
-DBM:RegisterMapSize("BlackTemple",			-- Black Temple (Raid-BC)
+DBM:RegisterMapSize("BlackTemple",			-- Black Temple (Raid-BC). Has DungeonUsesTerrainMap()
+	0, 783,3333435, 522,916626,
 	1, 1252.2495784784999, 834.833007813,
 	2, 975, 650,
 	3, 1005, 670,
@@ -127,7 +128,10 @@ DBM:RegisterMapSize("Dalaran",
 DBM:RegisterMapSize("Darkshore",			0, 6549.99975586, 4366.6665039000009)
 DBM:RegisterMapSize("Darnassis",			0, 1058.3332519500002, 705.72949223999967)
 DBM:RegisterMapSize("DeadwindPass",			0, 2499.9999389619998, 1666.6669921699995)
-DBM:RegisterMapSize("DeeprunTram",			1, 312, 208)
+DBM:RegisterMapSize("DeeprunTram",
+	1, 312, 208,
+	2, 309, 208
+)
 DBM:RegisterMapSize("Desolace",				0, 4495.83300781, 2997.916564938)
 DBM:RegisterMapSize("DireMaul",				-- Dire Maul (Party-Classic)
 	1, 1275, 850,
