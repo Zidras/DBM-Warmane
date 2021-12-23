@@ -124,6 +124,10 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Show timer for Teleport"
 })
 
+--L:SetMiscLocalization({
+--	Pull				= "You are mine now."
+--})
+
 ---------------
 --  Loatheb  --
 ---------------

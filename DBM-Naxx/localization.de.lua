@@ -125,9 +125,9 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Zeige Zeit bis Teleport"
 })
 
-L:SetMiscLocalization({
-	Pull				= "Ihr gehört mir..."
-})
+--L:SetMiscLocalization({
+--	Pull				= "Ihr gehört mir..."
+--})
 
 ---------------
 --  Loatheb  --

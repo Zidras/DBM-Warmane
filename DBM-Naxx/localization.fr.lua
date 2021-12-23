@@ -96,7 +96,7 @@ L:SetMiscLocalization({
 	AddsTwo				= "lève encore d'autres squelettes !"
 })
 
-	--------------------------
+--------------------------
 --  Heigan the Unclean  --
 --------------------------
 L = DBM:GetModLocalization("Heigan")
