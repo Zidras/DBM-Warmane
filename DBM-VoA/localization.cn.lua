@@ -57,23 +57,9 @@ L:SetGeneralLocalization{
 	name 				= "火焰看守者科拉隆"
 }
 
-L:SetWarningLocalization{
-	BurningFury			= "燃烧之怒 >%d<"
-}
-
-L:SetTimerLocalization{
-	KoralonEnrage			= "科拉隆狂暴"
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnCinder		= "当你中了$spell:67332时播放音效",
-	BurningFury			= "为$spell:66721显示警报",
-	KoralonEnrage			= "为$spell:26662显示计时条"
-}
-
-L:SetMiscLocalization{
-	Meteor				= "%s开始施放流星拳！"
-}
+L:SetTimerLocalization({
+	KoralonEnrage		= "科拉隆狂暴"
+})
 
 -------------------------------
 --  Toravon the Ice Watcher  --

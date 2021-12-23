@@ -48,27 +48,13 @@ L:SetOptionLocalization({
 ---------------------------------
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Koralon the Flame Watcher"
-}
+})
 
-L:SetWarningLocalization{
-	BurningFury		= "Burning Fury >%d<"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	KoralonEnrage	= "Koralon berserk"
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnCinder	= "Play sound when you are affected by $spell:67332",
-	BurningFury			= "Show warning for $spell:66721",
-	KoralonEnrage		= "Show timer for $spell:26662"
-}
-
-L:SetMiscLocalization{
-	Meteor	= "%s casts Meteor Fists!"
-}
+})
 
 -------------------------------
 --  Toravon the Ice Watcher  --
