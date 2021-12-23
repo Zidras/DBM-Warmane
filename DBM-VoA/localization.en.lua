@@ -30,24 +30,18 @@ L:SetMiscLocalization({
 --------------------------------
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Emalon the Storm Watcher"
-}
+})
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge	= "Overcharge explosion",
 	EmalonEnrage		= "Emalon berserk"
-}
+})
 
-L:SetOptionLocalization{
-	NovaSound			= "Play sound on $spell:65279",
-	timerMobOvercharge	= "Show timer for Overcharged mob (stacking debuff)",
-	EmalonEnrage		= "Show timer for $spell:26662",
-	RangeFrame			= "Show range frame (10)"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "Show timer for Overcharged mob (stacking debuff)"
+})
 
 ---------------------------------
 --  Koralon the Flame Watcher  --

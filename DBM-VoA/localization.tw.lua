@@ -34,20 +34,18 @@ L:SetMiscLocalization({
 
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "『風暴看守者』艾瑪隆"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge	= "超載爆炸",
 	EmalonEnrage		= "艾瑪隆狂暴"
-}
+})
 
-L:SetOptionLocalization{
-	timerMobOvercharge	= "為超載的小兵顯示計時器(減益疊加)",
-	EmalonEnrage		= "為$spell:26662顯示計時器",
-	RangeFrame			= "顯示距離框(10碼)"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "為超載的小兵顯示計時器(減益疊加)"
+})
 
 ---------------------------------
 --  Koralon the Flame Watcher  --

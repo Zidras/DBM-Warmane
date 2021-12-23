@@ -31,20 +31,18 @@ L:SetMiscLocalization({
 --------------------------------
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Emalon der Sturmwächter"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge	= "Überladener Schlag",
 	EmalonEnrage		= "Berserker (Emalon)"
-}
+})
 
-L:SetOptionLocalization{
-	timerMobOvercharge	= "Zeige Zeit bis $spell:64219 (erfolgt bei 10 Stapeln von $spell:64217)",
-	EmalonEnrage		= "Zeige Zeit bis $spell:26662",
-	RangeFrame			= "Zeige Abstandsfenster (10m)"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "Zeige Zeit bis $spell:64219 (erfolgt bei 10 Stapeln von $spell:64217)"
+})
 
 ---------------------------------
 --  Koralon the Flame Watcher  --

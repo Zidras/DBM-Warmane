@@ -34,24 +34,18 @@ L:SetMiscLocalization({
 
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "폭풍의 감시자 에말론"
-}
+})
 
-L:SetWarningLocalization{
---	specWarnNova 		= "번개 회오리 - 피하세요!"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge	= "과충전 폭발",
 	EmalonEnrage		= "에말론 광폭화"
-}
+})
 
-L:SetOptionLocalization{
-	timerMobOvercharge	= "과충전 폭발까지 남은시간 바 보기",
-	EmalonEnrage		= "$spell:26662 바 보기",
-	RangeFrame			= "거리 창 보기(10m)"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "과충전 폭발까지 남은시간 바 보기"
+})
 
 ---------------
 --  Koralon  --
