@@ -99,7 +99,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull				= "Die, trespasser!"--확인필요
+--	Pull				= "죽어라, 침입자들아!",
+	Adds				= "해골 전사를 소환합니다!",
+	AddsTwo				= "해골을 계속 일으킵니다!"
 })
 
 --------------------------

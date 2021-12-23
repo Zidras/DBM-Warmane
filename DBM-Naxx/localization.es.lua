@@ -96,7 +96,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull				= "¡Muere, intruso!"
+--	Pull				= "¡Muere, intruso!",
+	Adds				= "invoca a guerreros esqueletos!",
+	AddsTwo				= "alza más esqueletos!"
 })
 
 ----------------------

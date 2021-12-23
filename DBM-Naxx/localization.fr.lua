@@ -90,7 +90,13 @@ L:SetOptionLocalization({
 	TimerTeleportBack		= "Activer le timer pour le retour de North"
 })
 
---------------------------
+L:SetMiscLocalization({
+--	Pull				= "Die, trespasser!",
+	Adds				= "invoque des guerriers squelettes !",
+	AddsTwo				= "lève encore d'autres squelettes !"
+})
+
+	--------------------------
 --  Heigan the Unclean  --
 --------------------------
 L = DBM:GetModLocalization("Heigan")
