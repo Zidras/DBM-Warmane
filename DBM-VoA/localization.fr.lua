@@ -13,22 +13,19 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningShards	= "Eclats de pierre sur >%s<",
 	WarningGrab		= "Archavon a Empalé >%s<"
 })
 
 L:SetTimerLocalization({
-	TimerShards 	= "Eclats de pierre: %s"
-})
-
-L:SetMiscLocalization({
-	TankSwitch		 = "%%s lunges for (%S+)!"
+	ArchavonEnrage 	= "Enrage (Archavon)"
 })
 
 L:SetOptionLocalization({
-	TimerShards 	= "Montre le timer pour les Eclats de pierre",
-	WarningShards 	= "Montre les alertes pour les Eclats de pierre",
-	WarningGrab 	= "Montre l'alerte pour le tank qui a été empalé"
+	WarningGrab		= "Montre l'alerte pour le tank qui a été empalé"
+})
+
+L:SetMiscLocalization({
+	TankSwitch		= "%%s lunges for (%S+)!"
 })
 
 --------------

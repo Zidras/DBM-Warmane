@@ -11,20 +11,19 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGrab	= "Archavon durchbohrt >%s<"
+	WarningGrab		= "Archavon durchbohrt >%s<"
 })
 
 L:SetTimerLocalization({
 	ArchavonEnrage	= "Berserker (Archavon)"
 })
 
-L:SetMiscLocalization({
-	TankSwitch	= "%%s stürzt sich auf (%S+)!"
+L:SetOptionLocalization({
+	WarningGrab		= "Verkünde Ziele von $spell:58666"
 })
 
-L:SetOptionLocalization({
-	WarningGrab		= "Verkünde Ziele von $spell:58666",
-	ArchavonEnrage	= "Zeige Zeit bis $spell:26662"
+L:SetMiscLocalization({
+	TankSwitch		= "%%s stürzt sich auf (%S+)!"
 })
 
 --------------------------------

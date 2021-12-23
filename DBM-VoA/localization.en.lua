@@ -17,13 +17,12 @@ L:SetTimerLocalization({
 	ArchavonEnrage	= "Archavon berserk"
 })
 
-L:SetMiscLocalization({
-	TankSwitch	= "%%s lunges for (%S+)!"
+L:SetOptionLocalization({
+	WarningGrab		= "Announce grab targets"
 })
 
-L:SetOptionLocalization({
-	WarningGrab		= "Announce grab targets",
-	ArchavonEnrage	= "Show timer for $spell:26662"
+L:SetMiscLocalization({
+	TankSwitch		= "%%s lunges for (%S+)!",
 })
 
 --------------------------------

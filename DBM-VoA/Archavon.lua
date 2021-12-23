@@ -6,10 +6,10 @@ mod:SetCreatureID(31125)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 58663 60880",
+	"SPELL_CAST_SUCCESS 58963 60895",
+	"SPELL_AURA_APPLIED 58678 58941",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -18,14 +18,13 @@ mod:RegisterEvents(
 
 local warnShards			= mod:NewTargetAnnounce(58678, 2)
 local warnGrab				= mod:NewAnnounce("WarningGrab", 4, 53041)
-local timerShards			= mod:NewBuffActiveTimer(4, 58678)
-
 local warnLeap				= mod:NewSpellAnnounce(60894, 3)
 local warnStomp				= mod:NewSpellAnnounce(60880, 3)
 local warnStompSoon			= mod:NewPreWarnAnnounce(60880, 5, 2)
-local timerNextStomp		= mod:NewNextTimer(45, 60880)
 
-local timerArchavonEnrage	= mod:NewTimer(300, "ArchavonEnrage", 26662)
+local timerNextStomp		= mod:NewNextTimer(45, 60880, nil, nil, nil, 2)
+local timerShards			= mod:NewTargetTimer(4, 58678, nil, nil, nil, 3)
+local timerArchavonEnrage	= mod:NewBerserkTimer(300, nil, "ArchavonEnrage")
 
 function mod:OnCombatStart(delay)
 	timerArchavonEnrage:Start()
@@ -42,8 +41,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-  if args:IsSpellID(58963, 60895) then
-    warnLeap:Show()
+	if args:IsSpellID(58963, 60895) then
+		warnLeap:Show()
 	end
 end
 
@@ -54,9 +53,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	local target = msg and msg:match(L.TankSwitch) or msg:find(L.TankSwitch)
-	if target then
-		warnGrab:Show(target)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
+	if msg and msg:match(L.TankSwitch) or msg:find(L.TankSwitch) then
+		warnGrab:Show(DBM:GetUnitFullName(target))
 	end
 end
