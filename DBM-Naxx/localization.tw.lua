@@ -30,16 +30,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "寡婦之擁5秒後結束",
-	WarningEmbraceExpired	= "寡婦之擁結束"
+	WarningEmbraceExpire	= "寡婦之擁5秒後結束"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "為寡婦之擁結束顯示預先警告",
-	WarningEmbraceExpired	= "為寡婦之擁結束顯示警告"
-})
-
-L:SetMiscLocalization({
+	WarningEmbraceExpire	= "為寡婦之擁結束顯示預先警告"
 })
 
 ---------------

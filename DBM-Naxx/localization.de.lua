@@ -30,18 +30,16 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "Umarmung endet in 5 Sek",
-	WarningEmbraceExpired	= "Umarmung Ende"
+	WarningEmbraceExpire	= "Umarmung endet in 5 Sek"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Zeige Vorwarnung für das Ende von $spell:28732",
-	WarningEmbraceExpired	= "Zeige Warnung, wenn $spell:28732 endet"
+	WarningEmbraceExpire	= "Zeige Vorwarnung für das Ende von $spell:28732"
 })
 
-L:SetMiscLocalization({
-	Pull					= "Kniet nieder, Wurm!" --needs to be verified (wowhead-captured translation)
-})
+--L:SetMiscLocalization({
+--	Pull					= "Kniet nieder, Wurm!" --needs to be verified (wowhead-captured translation)
+--})
 
 ---------------
 --  Maexxna  --

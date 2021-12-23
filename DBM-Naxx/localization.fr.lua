@@ -29,13 +29,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "Fin du baisé de la veuve dans 5 sec",
-	WarningEmbraceExpired	= "Baisé de la veuve terminé"
+	WarningEmbraceExpire	= "Fin du baisé de la veuve dans 5 sec"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Activer l'avertissement de fin du baisé de la veuve",
-	WarningEmbraceExpired	= "Afficher un avertissement quand le baisé de la veuve va se terminer"
+	WarningEmbraceExpire	= "Activer l'avertissement de fin du baisé de la veuve"
 })
 
 ---------------
