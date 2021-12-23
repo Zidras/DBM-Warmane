@@ -11,19 +11,14 @@ L:SetGeneralLocalization({
 	name = "Ануб'Рекан"
 })
 
-L:SetWarningLocalization({
-	SpecialLocust		= "Жуки-трупоеды",
-	WarningLocustFaded	= "Жуки-трупоеды исчезают"
-})
-
 L:SetOptionLocalization({
-	SpecialLocust		= "Cпец-предупреждение для Жуков-трупоедов",
-	WarningLocustFaded	= "Предупреждение для исчезновения Жуков-трупоедов",
 	ArachnophobiaTimer	= "Отсчет времени для Арахнофобия (достижение)"
 })
 
 L:SetMiscLocalization({
 	ArachnophobiaTimer	= "Арахнофобия"
+--	Pull1				= "Yes, run! It makes the blood pump faster!",
+--	Pull2				= "Just a little taste..."
 })
 
 ----------------------------

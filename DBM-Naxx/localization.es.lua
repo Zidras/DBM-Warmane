@@ -10,21 +10,14 @@ L:SetGeneralLocalization({
 	name = "Anub'Rekhan"
 })
 
-L:SetWarningLocalization({
-	SpecialLocust		= "Enjambre de langostas",
-	WarningLocustFaded	= "Enjambre de langostas ha terminado"
-})
-
 L:SetOptionLocalization({
-	SpecialLocust		= "Mostrar aviso especial para $spell:28785",
-	WarningLocustFaded	= "Mostrar aviso cuando termine $spell:28785",
 	ArachnophobiaTimer	= "Mostrar temporizador para el logro 'Aracnofobia'"
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Logro: Aracnofobia",
-	Pull1				= "¡Eso, corred! ¡Así la sangre circula más rápido!",
-	Pull2				= "Solo un bocado..."
+	ArachnophobiaTimer	= "Logro: Aracnofobia"
+--	Pull1				= "¡Eso, corred! ¡Así la sangre circula más rápido!",
+--	Pull2				= "Solo un bocado..."
 })
 
 -------------------------

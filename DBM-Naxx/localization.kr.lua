@@ -14,21 +14,14 @@ L:SetGeneralLocalization({
 	name = "아눕레칸"
 })
 
-L:SetWarningLocalization({
-	SpecialLocust		= "메뚜기 떼!",
-	WarningLocustFaded	= "메뚜기 떼 종료"
-})
-
 L:SetOptionLocalization({
-	SpecialLocust		= "메뚜기 떼 특수 경고 보기",
-	WarningLocustFaded	= "메뚜기 떼 종료 알림 보기",
 	ArachnophobiaTimer	= "거미의 공포 업적 가능 바 보기"
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "거미의 공포 업적 가능",
-	Pull1				= "Yes, run! It makes the blood pump faster!",--확인필요
-	Pull2				= "Just a little taste..."--확인필요
+	ArachnophobiaTimer	= "거미의 공포 업적 가능"
+--	Pull1				= "그래, 도망쳐! 더 신선한 피가 솟구칠 테니!",
+--	Pull2				= "어디 맛 좀 볼까..."
 })
 
 ---------------------

@@ -9,19 +9,14 @@ L:SetGeneralLocalization({
 	name = "Anub'Rekhan"
 })
 
-L:SetWarningLocalization({
-	SpecialLocust		= "Locust Swarm",
-	WarningLocustFaded	= "Locust Swarm faded"
-})
-
 L:SetOptionLocalization({
-	SpecialLocust		= "Show special warning for Locust Swarm",
-	WarningLocustFaded	= "Show warning for Locust Swarm fade",
 	ArachnophobiaTimer	= "Show timer for Arachnophobia (achievement)"
 })
 
 L:SetMiscLocalization({
 	ArachnophobiaTimer	= "Arachnophobia"
+--	Pull1				= "Yes, run! It makes the blood pump faster!",
+--	Pull2				= "Just a little taste..."
 })
 
 ----------------------------
