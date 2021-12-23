@@ -35,24 +35,18 @@ L:SetMiscLocalization({
 --------------------------------
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 				= "风暴看守者埃玛尔隆"
-}
+})
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge		= "超载爆炸",
 	EmalonEnrage			= "埃玛尔隆狂暴"
-}
+})
 
-L:SetOptionLocalization{
-	NovaSound			= "为$spell:65279播放音效",
-	timerMobOvercharge		= "为能量超载的小怪显示爆炸倒计时(debuff叠加)",
-	EmalonEnrage			= "为$spell:26662显示计时条",
-	RangeFrame			= "显示距离框 (10码)"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge		= "为能量超载的小怪显示爆炸倒计时(debuff叠加)"
+})
 
 ---------------------------------
 --  Koralon the Flame Watcher  --

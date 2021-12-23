@@ -34,27 +34,18 @@ L:SetMiscLocalization({
 
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Emalon le guetteur d’orage"
-}
+})
 
-L:SetWarningLocalization{
-	specWarnNova		= "Nova de foudre",
-	warnNova 			= "Alerte pour la Nova de foudre",
-	warnOverCharge		= "Surcharger"
-}
+L:SetTimerLocalization({
+	timerMobOvercharge	= "Explosion de Surcharge",
+	EmalonEnrage		= "Enrage (Emalon)"
+})
 
-L:SetTimerLocalization{
-	timerMobOvercharge	= "Explosion de Surcharge"
-}
-
-L:SetOptionLocalization{
-	specWarnNova 		= ("Montre une alerte spéciale pour |cff71d5ff|Hspell:%d|h%s|h|r"):format(64216, "Nova de foudre"),
-	warnNova 			= ("Montre une alerte pour |cff71d5ff|Hspell:%d|h%s|h|r"):format(64216, "Nova de foudre"),
-	warnOverCharge 		= ("Montre une alerte pour |cff71d5ff|Hspell:%d|h%s|h|r"):format(64218, "Surcharge explosive"),
-	timerMobOvercharge	= "Montre le timer pour le séide surchargé (debuff empilable)",
-	RangeFrame			= "Montre la fenêtre de portée"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "Montre le timer pour le séide surchargé (debuff empilable)"
+})
 
 ---------------
 --  Koralon  --

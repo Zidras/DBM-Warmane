@@ -32,24 +32,18 @@ L:SetMiscLocalization({
 --------------------------------
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Эмалон Страж Бури"
-}
+})
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge	= "Взрыв в результате перегрузки",
 	EmalonEnrage		= "Берсерк Эмалона"
-}
+})
 
-L:SetOptionLocalization{
-	NovaSound			= "Звуковой сигнал при $spell:65279",
-	timerMobOvercharge	= "Отсчет времени для Перегрузки (суммирующийся отрицательный эффект)",
-	EmalonEnrage		= "Отсчет времени до $spell:26662",
-	RangeFrame			= "Показывать окно проверки дистанции"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "Отсчет времени для моба с Перегрузкой (стакающего дебафф)"
+})
 
 ---------------------------------
 --  Koralon the Flame Watcher  --

@@ -31,20 +31,18 @@ L:SetMiscLocalization({
 ------------------------------------
 L = DBM:GetModLocalization("Emalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Emalon el Vigía de la Tormenta"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerMobOvercharge	= "Explosión de Sobrecarga",
 	EmalonEnrage		= "Rabia (Emalon)"
-}
+})
 
-L:SetOptionLocalization{
-	timerMobOvercharge	= "Mostrar temporizador para la explosión del Esbirro tempestuoso afectado por Sobrecarga",
-	EmalonEnrage		= "Mostrar temporizador para $spell:26662",
-	RangeFrame			= "Mostrar marco de distancia (10 m)"
-}
+L:SetOptionLocalization({
+	timerMobOvercharge	= "Mostrar temporizador para la explosión del Esbirro tempestuoso afectado por Sobrecarga"
+})
 
 ------------------------------------
 -- Koralon el Vigía de las Llamas --
