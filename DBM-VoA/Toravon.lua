@@ -6,22 +6,22 @@ mod:SetCreatureID(38433)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 72096 72034 72095 72091",
+	"SPELL_CAST_SUCCESS 72104 72090",
+	"SPELL_AURA_APPLIED 72098 72004",
+	"SPELL_AURA_APPLIED_DOSE 72098 72004"
 )
 
-local warnFreezingGround	= mod:NewSpellAnnounce(72104, 1)
-local warnWhiteout			= mod:NewSpellAnnounce(72096, 2)
-local warnOrb				= mod:NewSpellAnnounce(72095, 3)
-local WarnFrostbite			= mod:NewAnnounce("Frostbite", 2, 72098, mod:IsHealer() or mod:IsTank())
+local warnFreezingGround	= mod:NewSpellAnnounce(72090, 1)
+local warnWhiteout			= mod:NewSpellAnnounce(72034, 2)
+local warnOrb				= mod:NewSpellAnnounce(72091, 3)
+local warnFrostbite			= mod:NewStackAnnounce(72004, 2, nil, "Tank|Healer")
 
-local timerNextFrostbite	= mod:NewNextTimer(5, 72098, nil, mod:IsTank())
-local timerFrostbite		= mod:NewTargetTimer(20, 72098, nil, mod:IsHealer() or mod:IsTank())
-local timerWhiteout			= mod:NewNextTimer(38, 72096)
-local timerNextOrb			= mod:NewNextTimer(32, 72095)
+local timerNextFrostbite	= mod:NewNextTimer(5, 72004, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerFrostbite		= mod:NewTargetTimer(20, 72004, nil, "Tank|Healer", nil, 5)
+local timerWhiteout			= mod:NewNextTimer(38, 72034, nil, nil, nil, 2)
+local timerNextOrb			= mod:NewNextTimer(32, 72091, nil, nil, nil, 1)
 
 --local timerToravonEnrage	= mod:NewTimer(300, "ToravonEnrage", 26662)
 
@@ -49,10 +49,9 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(72098, 72004) then		-- Frostbite (tanks only debuff)
-		WarnFrostbite:Show(args.destName, args.amount or 1)
+		warnFrostbite:Show(args.destName, args.amount or 1)
 		timerNextFrostbite:Start()
 		timerFrostbite:Start(args.destName)
 	end
 end
-
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED

@@ -60,3 +60,17 @@ L:SetGeneralLocalization{
 L:SetTimerLocalization({
 	KoralonEnrage	= "Enrage (Koralon)"
 })
+
+---------------
+--  Toravon  --
+---------------
+
+L = DBM:GetModLocalization("Toravon")
+
+L:SetGeneralLocalization({
+	name = "Toravon la Sentinelle de glace"
+})
+
+L:SetTimerLocalization({
+	ToravonEnrage	= "Enrage (Toravon)"
+})

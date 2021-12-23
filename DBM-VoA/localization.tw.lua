@@ -66,22 +66,10 @@ L:SetTimerLocalization({
 -------------------------------
 L = DBM:GetModLocalization("Toravon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "『寒冰看守者』拓拉梵"
-}
+})
 
-L:SetWarningLocalization{
-	Frostbite	= "霜寒刺骨: >%s<(%d)"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	ToravonEnrage	= "拓拉梵狂暴"
-}
-
-L:SetOptionLocalization{
-	Frostbite	= "為$spell:72098顯示警告"
-}
-
-L:SetMiscLocalization{
-	ToravonEnrage	= "為$spell:26662顯示計時器"
-}
+})

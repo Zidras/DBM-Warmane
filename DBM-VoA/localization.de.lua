@@ -62,22 +62,10 @@ L:SetTimerLocalization({
 -------------------------------
 L = DBM:GetModLocalization("Toravon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Toravon der Eiswächter"
-}
+})
 
-L:SetWarningLocalization{
-	Frostbite	= "Erfrierung auf >%s< (%d)"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	ToravonEnrage	= "Berserker (Toravon)"
-}
-
-L:SetOptionLocalization{
-	Frostbite	= "Zeige Warnung für $spell:72004"
-}
-
-L:SetMiscLocalization{
-	ToravonEnrage	= "Zeige Zeit bis $spell:26662"
-}
+})
