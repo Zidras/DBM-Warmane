@@ -30,18 +30,16 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "Abrazo de la viuda expirando en 5 s",
-	WarningEmbraceExpired	= "Abrazo de la viuda ha expirado"
+	WarningEmbraceExpire	= "Abrazo de la viuda expirando en 5 s"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda",
-	WarningEmbraceExpired	= "Mostrar aviso cuando expire Abrazo de la viuda"
+	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda"
 })
 
-L:SetMiscLocalization({
-	Pull					= "¡Arrodíllate ante mí, sabandija!"--Not actually pull trigger, but often said on pull
-})
+--L:SetMiscLocalization({
+--	Pull					= "¡Arrodíllate ante mí, sabandija!"--Not actually pull trigger, but often said on pull
+--})
 
 -------------
 -- Maexxna --

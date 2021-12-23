@@ -31,13 +31,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "Объятие Вдовы через 5 секунд",
-	WarningEmbraceExpired	= "Объятие Вдовы исчезает"
+	WarningEmbraceExpire	= "Объятие Вдовы через 5 секунд"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Предупреждение, когда Объятие Вдовы исчезает",
-	WarningEmbraceExpired	= "Предупреждение, когда Объятие Вдовы закончится"
+	WarningEmbraceExpire	= "Предупреждение, когда Объятие Вдовы исчезает"
 })
 
 ---------------

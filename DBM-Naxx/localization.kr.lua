@@ -34,17 +34,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "귀부인의 은총 종료 5초 전",
-	WarningEmbraceExpired	= "귀부인의 은총 종료"
+	WarningEmbraceExpire	= "귀부인의 은총 종료 5초 전"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "귀부인의 은총 종료 이전에 알림 보기",
-	WarningEmbraceExpired	= "귀부인의 은총 종료 알림 보기"
-})
-
-L:SetMiscLocalization({
-	Pull					= "Kneel before me, worm!"--Not actually pull trigger, but often said on pull
+	WarningEmbraceExpire	= "귀부인의 은총 종료 이전에 알림 보기"
 })
 
 ---------------
