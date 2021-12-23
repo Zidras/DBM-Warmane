@@ -20,13 +20,12 @@ L:SetTimerLocalization({
 	ArchavonEnrage	= "아카본 광폭화"
 })
 
-L:SetMiscLocalization({
-	TankSwitch 		= "(%S+)에게 돌진합니다!"
+L:SetOptionLocalization({
+	WarningGrab		= "분쇄의 도약 대상 알림 보기"
 })
 
-L:SetOptionLocalization({
-	WarningGrab 	= "분쇄의 도약 대상 알림 보기",
-	ArchavonEnrage	= "$spell:26662 바 보기"
+L:SetMiscLocalization({
+	TankSwitch		= "(%S+)에게 돌진합니다!"
 })
 
 --------------

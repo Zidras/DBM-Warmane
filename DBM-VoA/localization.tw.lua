@@ -13,20 +13,19 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGrab	= "亞夏梵擒握 >%s<"
+	WarningGrab		= "亞夏梵擒握 >%s<"
 })
 
 L:SetTimerLocalization({
 	ArchavonEnrage	= "亞夏梵狂暴"
 })
 
-L:SetMiscLocalization({
-	TankSwitch	= "%%s撲向(%S+)!"
+L:SetOptionLocalization({
+	WarningGrab		= "提示擒握的目標"
 })
 
-L:SetOptionLocalization({
-	WarningGrab 	= "提示擒握的目標",
-	ArchavonEnrage	= "為$spell:26662顯示計時器"
+L:SetMiscLocalization({
+	TankSwitch		= "%%s撲向(%S+)!"
 })
 
 --------------------------------

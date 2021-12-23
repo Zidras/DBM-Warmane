@@ -19,16 +19,15 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	ArchavonEnrage			= "阿尔卡冯狂暴"
+	ArchavonEnrage		= "阿尔卡冯狂暴"
+})
+
+L:SetOptionLocalization({
+	WarningGrab			= "提示抓取的目标"
 })
 
 L:SetMiscLocalization({
 	TankSwitch			= "%%s向(%S+)冲来！"
-})
-
-L:SetOptionLocalization({
-	WarningGrab 			= "提示抓取的目标",
-	ArchavonEnrage			= "为$spell:26662显示计时条"
 })
 
 --------------------------------

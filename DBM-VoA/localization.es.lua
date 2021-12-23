@@ -11,20 +11,19 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGrab	= "Archavon agarra a >%s<"
+	WarningGrab		= "Archavon agarra a >%s<"
 })
 
 L:SetTimerLocalization({
 	ArchavonEnrage	= "Rabia (Archavon)"
 })
 
-L:SetMiscLocalization({
-	TankSwitch	= "%%s se abalanza sobre (%S+)"
+L:SetOptionLocalization({
+	WarningGrab		= "Anunciar objetivo de $spell:58666"
 })
 
-L:SetOptionLocalization({
-	WarningGrab		= "Anunciar objetivo de $spell:58666",
-	ArchavonEnrage	= "Mostrar temporizador para $spell:26662"
+L:SetMiscLocalization({
+	TankSwitch		= "%%s se abalanza sobre (%S+)"
 })
 
 ------------------------------------

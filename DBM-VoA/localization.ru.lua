@@ -12,20 +12,19 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGrab	= "Аркавон хватает |3-1(>%s<)"
+	WarningGrab		= "Аркавон хватает |3-1(>%s<)"
 })
 
 L:SetTimerLocalization({
 	ArchavonEnrage	= "Берсерк Аркавона"
 })
 
-L:SetMiscLocalization({
-	TankSwitch	= "%%s бросается к (%S+)!"
+L:SetOptionLocalization({
+	WarningGrab		= "Объявлять о захвате цели"
 })
 
-L:SetOptionLocalization({
-	WarningGrab		= "Объявлять о захвате цели",
-	ArchavonEnrage	= "Отсчет времени до $spell:26662"
+L:SetMiscLocalization({
+	TankSwitch		= "%%s бросается к (%S+)!"
 })
 
 --------------------------------
