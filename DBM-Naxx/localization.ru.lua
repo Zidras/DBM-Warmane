@@ -92,6 +92,12 @@ L:SetOptionLocalization({
 	TimerTeleportBack	= "Отсчет времени до обратной телепортации"
 })
 
+L:SetMiscLocalization({
+--	Pull				= "Смерть чужакам!",
+	Adds				= "призывает скелетов-воинов!",
+	AddsTwo				= "поднимает новых скелетов!"
+})
+
 --------------------------
 --  Heigan the Unclean  --
 --------------------------

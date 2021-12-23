@@ -97,8 +97,8 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull				= "Sterbt, Eindringling!",
-	Adds				= "summons forth Skeletal Warriors!",--translate (trigger)
-	AddsTwo				= "raises more skeletons!"--translate (trigger)
+	Adds				= "beschwört Skelettkrieger!",
+	AddsTwo				= "%s belebt mehr Skelette!"
 })
 
 --------------------------

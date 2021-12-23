@@ -79,24 +79,30 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Noth")
 
 L:SetGeneralLocalization({
-    name = "药剂师诺斯"
+	name 					= "药剂师诺斯"
 })
 
 L:SetWarningLocalization({
-    WarningTeleportNow = "传送",
-    WarningTeleportSoon = "20秒后 传送"
+	WarningTeleportNow		= "传送",
+	WarningTeleportSoon		= "20秒后 传送"
 })
 
 L:SetTimerLocalization({
-    TimerTeleport = "传送",
-    TimerTeleportBack = "传送回来"
+	TimerTeleport			= "传送",
+	TimerTeleportBack		= "传送回来"
 })
 
 L:SetOptionLocalization({
-    WarningTeleportNow = "为传送显示警报",
-    WarningTeleportSoon = "为传送显示提前警报",
-    TimerTeleport = "为传送显示计时条",
-    TimerTeleportBack = "为传送回来显示计时条"
+	WarningTeleportNow		= "为传送显示警报",
+	WarningTeleportSoon		= "为传送显示预警",
+	TimerTeleport			= "为传送显示计时条",
+	TimerTeleportBack		= "为传送回来显示计时条"
+})
+
+L:SetMiscLocalization({
+--	Pull				= "死吧，入侵者！",
+	Adds				= "召唤出骷髅战士！",
+	AddsTwo				= "召唤出更多的骷髅！"
 })
 
 --------------------------

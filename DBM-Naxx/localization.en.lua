@@ -94,6 +94,12 @@ L:SetOptionLocalization({
 	TimerTeleportBack	= "Show timer for Teleport back"
 })
 
+L:SetMiscLocalization({
+--	Pull				= "Die, trespasser!",
+	Adds				= "summons forth Skeletal Warriors!",
+	AddsTwo				= "raises more skeletons!"
+})
+
 --------------------------
 --  Heigan the Unclean  --
 --------------------------

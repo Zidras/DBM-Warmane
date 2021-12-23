@@ -92,6 +92,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+--	Pull				= "死吧，入侵者!",
+	Adds				= "召喚了骷髏戰士!",
+	AddsTwo				= "喚醒了更多骷髏!"
 })
 
 --------------------------
