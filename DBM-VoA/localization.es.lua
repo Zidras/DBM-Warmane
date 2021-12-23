@@ -49,26 +49,13 @@ L:SetOptionLocalization({
 ------------------------------------
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Koralon el Vigía de las Llamas"
-}
+})
 
-L:SetWarningLocalization{
-	BurningFury		= "Furia ardiente >%d<"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	KoralonEnrage	= "Rabia (Koralon)"
-}
-
-L:SetOptionLocalization{
-	BurningFury			= "Mostrar aviso para $spell:66721",
-	KoralonEnrage		= "Mostrar temporizador para $spell:26662"
-}
-
-L:SetMiscLocalization{
-	Meteor	= "¡%s lanza Puños meteóricos!"
-}
+})
 
 -------------------------------
 -- Toravon el Vigía de Hielo --

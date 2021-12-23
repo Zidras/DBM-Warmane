@@ -53,27 +53,13 @@ L:SetOptionLocalization({
 
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "『烈焰看守者』寇拉隆"
-}
+})
 
-L:SetWarningLocalization{
-	BurningFury	= "燃燒烈怒 >%d<"
-}
-
-
-L:SetTimerLocalization{
-	KoralonEnrage= "寇拉隆狂暴"
-}
-
-L:SetOptionLocalization{
-	BurningFury		= "為$spell:66721顯示警告",
-	KoralonEnrage	= "為$spell:26662顯示計時器"
-}
-
-L:SetMiscLocalization{
-	Meteor	= "%s施展隕石之拳!"
-}
+L:SetTimerLocalization({
+	KoralonEnrage	= "寇拉隆狂暴"
+})
 
 -------------------------------
 --  Toravon the Ice Watcher  --

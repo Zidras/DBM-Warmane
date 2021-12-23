@@ -50,27 +50,13 @@ L:SetOptionLocalization({
 ---------------------------------
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Коралон Страж Огня"
-}
+})
 
-L:SetWarningLocalization{
-	BurningFury		= "Пылающая ярость >%d<"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	KoralonEnrage	= "Берсерк Коралона"
-}
-
-L:SetOptionLocalization{
-	PlaySoundOnCinder	= "Звуковой сигнал, когда под вами $spell:67332",
-	BurningFury			= "Предупреждение для $spell:66721",
-	KoralonEnrage		= "Отсчет времени до $spell:26662"
-}
-
-L:SetMiscLocalization{
-	Meteor	= "%s применяет заклинание \"Кулаки-метеоры\"!"
-}
+})
 
 -------------------------------
 --  Toravon the Ice Watcher  --

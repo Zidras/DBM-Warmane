@@ -57,17 +57,6 @@ L:SetGeneralLocalization{
 	name = "Koralon"
 }
 
-L:SetWarningLocalization{
-	SpecWarnCinder		= "Vous êtes sur une Braise enflammée ! BOUGEZ !"
-}
-
-L:SetTimerLocalization{
-}
-
-L:SetOptionLocalization{
-	SpecWarnCinder		= "Montre une alerte spéciale quand vous êtes dans les Braises enflammées"
-}
-
-L:SetMiscLocalization{
-	Meteor				= "%s lance Poings météoriques !"
-}
+L:SetTimerLocalization({
+	KoralonEnrage	= "Enrage (Koralon)"
+})

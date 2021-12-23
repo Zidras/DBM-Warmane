@@ -49,26 +49,13 @@ L:SetOptionLocalization({
 ---------------------------------
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Koralon der Flammenwächter"
-}
+})
 
-L:SetWarningLocalization{
-	BurningFury		= "Brennender Atem >%d<"
-}
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	KoralonEnrage	= "Berserker (Koralon)"
-}
-
-L:SetOptionLocalization{
-	BurningFury			= "Zeige Warnung für $spell:66721",
-	KoralonEnrage		= "Zeige Zeit bis $spell:26662"
-}
-
-L:SetMiscLocalization{
-	Meteor	= "%s wirkt 'Meteorfäuste'!"
-}
+})
 
 -------------------------------
 --  Toravon the Ice Watcher  --
