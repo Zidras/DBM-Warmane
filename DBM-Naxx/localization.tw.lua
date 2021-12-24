@@ -137,7 +137,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningHealSoon		= "為3秒後可以治療顯示預先警告",
-	WarningHealNow		= "為現在治療顯示警告"
+	WarningHealNow		= "為現在治療顯示警告",
+	SporeDamageAlert	= "在團隊中提示誰殺死了孢子並發送密語給兇手\n(需要團隊隊長或助理權限)"
 })
 
 -----------------
