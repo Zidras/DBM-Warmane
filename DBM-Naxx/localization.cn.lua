@@ -319,36 +319,34 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Sapphiron")
 
 L:SetGeneralLocalization({
-    name = "萨菲隆"
-})
-
-L:SetOptionLocalization({
-    WarningAirPhaseSoon = "为空中阶段显示提前警报",
-    WarningAirPhaseNow = "提示空中阶段",
-    WarningLanded = "提示地上阶段",
-    TimerAir = "为空中阶段显示计时条",
-    TimerLanding = "为降落显示计时条",
-    TimerIceBlast = "为冰霜吐息显示计时条",
-    WarningDeepBreath = "为冰霜吐息显示特别警报",
-    WarningIceblock = "当你中了冰箱时大喊"
-})
-
-L:SetMiscLocalization({
-    EmoteBreath = "%s深深地吸了一口气。",
-    WarningYellIceblock = "我是冰块！"
+	name 				= "萨菲隆"
 })
 
 L:SetWarningLocalization({
-    WarningAirPhaseSoon = "10秒后 空中阶段",
-    WarningAirPhaseNow = "空中阶段",
-    WarningLanded = "萨菲隆降落了",
-    WarningDeepBreath = "冰霜吐息"
+	WarningAirPhaseSoon		= "10秒后 空中阶段",
+	WarningAirPhaseNow		= "空中阶段",
+	WarningLanded			= "萨菲隆降落了",
+	WarningDeepBreath		= "冰霜吐息"
 })
 
 L:SetTimerLocalization({
-    TimerAir = "空中阶段",
-    TimerLanding = "降落",
-    TimerIceBlast = "冰霜吐息"
+	TimerAir			= "空中阶段",
+	TimerLanding			= "降落",
+	TimerIceBlast			= "冰霜吐息"
+})
+
+L:SetOptionLocalization({
+	WarningAirPhaseSoon		= "为空中阶段显示提前警报",
+	WarningAirPhaseNow		= "提示空中阶段",
+	WarningLanded			= "提示地上阶段",
+	TimerAir			= "为空中阶段显示计时条",
+	TimerLanding			= "为降落显示计时条",
+	TimerIceBlast			= "为冰霜吐息显示计时条",
+	WarningDeepBreath		= "为冰霜吐息显示特别警报"
+})
+
+L:SetMiscLocalization({
+	EmoteBreath			= "%s深深地吸了一口气。"
 })
 
 ------------------

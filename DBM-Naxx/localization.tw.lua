@@ -310,6 +310,19 @@ L:SetGeneralLocalization({
 	name = "薩菲隆"
 })
 
+L:SetWarningLocalization({
+	WarningAirPhaseSoon	= "10秒後 空中階段",
+	WarningAirPhaseNow	= "空中階段",
+	WarningLanded		= "薩菲隆降落了",
+	WarningDeepBreath	= "冰息術"
+})
+
+L:SetTimerLocalization({
+	TimerAir		= "空中階段",
+	TimerLanding	= "降落",
+	TimerIceBlast	= "冰息術"
+})
+
 L:SetOptionLocalization({
 	WarningAirPhaseSoon	= "為空中階段顯示預先警告",
 	WarningAirPhaseNow	= "提示空中階段",
@@ -322,19 +335,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	EmoteBreath			= "%s深深地吸了一口氣。",
-})
-
-L:SetWarningLocalization({
-	WarningAirPhaseSoon	= "10秒後 空中階段",
-	WarningAirPhaseNow	= "空中階段",
-	WarningLanded		= "薩菲隆降落了",
-	WarningDeepBreath	= "冰息術"
-})
-
-L:SetTimerLocalization({
-	TimerAir		= "空中階段",
-	TimerLanding	= "降落",
-	TimerIceBlast	= "冰息術"
 })
 
 ------------------
