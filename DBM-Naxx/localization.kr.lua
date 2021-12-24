@@ -160,9 +160,14 @@ L:SetGeneralLocalization({
 	name = "패치워크"
 })
 
+L:SetOptionLocalization({
+	WarningHateful = "증오의 일격 대상자를 공격대 채팅창에 알리기\n(만약 당신이 공대장의 권한이 있거나, 승급을 받은 유저라면 이 기능을 사용할 수 있습니다.)"
+})
+
 L:SetMiscLocalization({
 	yell1 = "패치워크랑 놀아줘!",
-	yell2 = "켈투자드님이 패치워크 싸움꾼으로 만들었다."
+	yell2 = "켈투자드님이 패치워크 싸움꾼으로 만들었다.",
+	HatefulStrike = "증오의 일격 --> %s [%s]"
 })
 
 -----------------

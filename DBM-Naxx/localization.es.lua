@@ -159,11 +159,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
+	WarningHateful = "Avisar por chat de banda los Golpes de Odio (necesitas ser ayudante o lider para eso)"
 })
 
 L:SetMiscLocalization({
 	yell1 = "¡Remendejo quiere jugar!",
-	yell2 = "¡Remendejo es la encarnación de guerra de Kel'Thuzad!"
+	yell2 = "¡Remendejo es la encarnación de guerra de Kel'Thuzad!",
+	HatefulStrike = "Golpe de Odio --> %s [%s]"
 })
 
 ---------------

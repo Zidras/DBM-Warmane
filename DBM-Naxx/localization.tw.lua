@@ -151,11 +151,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
+	WarningHateful = "公佈憎恨打擊的目標到團隊頻道\n(需要團隊隊長或助理權限)"
 })
 
 L:SetMiscLocalization({
 	yell1 = "縫補者要跟你玩!",
-	yell2 = "科爾蘇加德讓縫補者成為戰爭的化身!"
+	yell2 = "科爾蘇加德讓縫補者成為戰爭的化身!",
+	HatefulStrike = "憎恨打擊 --> %s [%s]"
 })
 
 -----------------

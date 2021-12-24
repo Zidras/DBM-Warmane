@@ -3,20 +3,18 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 2869 $"):sub(12, -3))
 mod:SetCreatureID(16028)
-
+--mod:RegisterCombat("combat_yell", L.yell1, L.yell2)
 mod:RegisterCombat("yell", L.yell1, L.yell2)
 
-mod:EnableModel()
-
-mod:RegisterEvents(
-	"SPELL_DAMAGE",
-	"SPELL_MISSED"
+mod:RegisterEventsInCombat(
+	"SPELL_DAMAGE 28308 59192",
+	"SPELL_MISSED 28308 59192"
 )
 
-mod:AddBoolOption("WarningHateful", false, "announce")
-
 local enrageTimer	= mod:NewBerserkTimer(360)
-local timerAchieve	= mod:NewAchievementTimer(180, 1857, "TimerSpeedKill")
+local timerAchieve	= mod:NewAchievementTimer(180, 1857)
+
+mod:AddBoolOption("WarningHateful", false, "announce")
 
 local function announceStrike(target, damage)
 	SendChatMessage(L.HatefulStrike:format(target, damage), "RAID")
@@ -38,4 +36,3 @@ function mod:SPELL_MISSED(_, _, _, _, destName, _, spellId, _, _, missType)
 		announceStrike(destName, getglobal("ACTION_SPELL_MISSED_"..(missType)) or "")
 	end
 end
-

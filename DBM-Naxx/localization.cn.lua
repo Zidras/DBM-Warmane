@@ -159,17 +159,17 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Patchwerk")
 
 L:SetGeneralLocalization({
-    name = "帕奇维克"
+	name				= "帕奇维克"
 })
 
 L:SetOptionLocalization({
-    WarningHateful = "公布仇恨打击的目标到团队频道\n(需要团长或助理权限)"
+	WarningHateful		= "公布仇恨打击的目标到团队频道\n(需要团长或助理权限)"
 })
 
 L:SetMiscLocalization({
-    yell1 = "帕奇维克要跟你玩！",
-    yell2 = "帕奇维克是克尔苏加德的战神！",
-    HatefulStrike = "仇恨打击 --> %s [%s]"
+	yell1				= "帕奇维克要跟你玩！",
+	yell2				= "帕奇维克是克尔苏加德的战神！",
+	HatefulStrike		= "仇恨打击 --> %s [%s]"
 })
 
 -----------------
