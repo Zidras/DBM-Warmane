@@ -158,7 +158,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RemoveHealthBuffsOnCombatStart	= "Remove HP buffs at start of the encounter",
 	WarningHateful	= "Post Hateful Strike targets to raid chat\n(requires announce to be enabled and leader/promoted status)"
 })
 

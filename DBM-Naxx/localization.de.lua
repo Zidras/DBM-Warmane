@@ -159,11 +159,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
+	WarningHateful	= "Verkünde Hasserfüllte Stöße im Raidchat\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)"
 })
 
 L:SetMiscLocalization({
 	yell1			= "Flickwerk spielen möchte!",
-	yell2			= "Kel’Thuzad macht Flickwerk zu seinem Abgesandten des Kriegs!"
+	yell2			= "Kel’Thuzad macht Flickwerk zu seinem Abgesandten des Kriegs!",
+	HatefulStrike	= "Hasserfüllter Stoß --> %s [%s]"
 })
 
 -----------------
