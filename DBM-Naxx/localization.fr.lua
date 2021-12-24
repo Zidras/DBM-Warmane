@@ -243,6 +243,19 @@ L:SetGeneralLocalization({
 	name = "Gothik"
 })
 
+L:SetWarningLocalization({
+	WarningWaveSoon		= "Vague %d: %s dans 3 sec",
+	WarningWaveSpawned	= "Vague %d: %s arrivée",
+	WarningRiderDown	= "Cavalier down",
+	WarningKnightDown	= "Chevalier down",
+	WarningPhase2		= "Phase 2"
+})
+
+L:SetTimerLocalization({
+	TimerWave			= "Vague #%d",
+	TimerPhase2			= "Phase 2"
+})
+
 L:SetOptionLocalization({
 	TimerWave			= "Afficher le timer des vagues",
 	TimerPhase2			= "Afficher le timer pour la Phase 2",
@@ -251,19 +264,6 @@ L:SetOptionLocalization({
 	WarningRiderDown	= "Avertir quand un Cavalier meurt",
 	WarningKnightDown	= "Avertir quand un Chevalier meurt",
 	WarningPhase2		= "Activer l'avertissement pour la Phase 2"
-})
-
-L:SetTimerLocalization({
-	TimerWave			= "Vague #%d",
-	TimerPhase2			= "Phase 2"
-})
-
-L:SetWarningLocalization({
-	WarningWaveSoon		= "Vague %d: %s dans 3 sec",
-	WarningWaveSpawned	= "Vague %d: %s arrivée",
-	WarningRiderDown	= "Cavalier down",
-	WarningKnightDown	= "Chevalier down",
-	WarningPhase2		= "Phase 2"
 })
 
 L:SetMiscLocalization({

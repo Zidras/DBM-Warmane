@@ -252,39 +252,39 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Gothik")
 
 L:SetGeneralLocalization({
-    name = "收割者戈提克"
-})
-
-L:SetOptionLocalization({
-    TimerWave = "为下一波小怪显示计时条",
-    TimerPhase2 = "为第二阶段显示计时条",
-    WarningWaveSoon = "为小怪出现显示提前警报",
-    WarningWaveSpawned = "为小怪出现显示警报",
-    WarningRiderDown = "当冷酷的骑兵死亡时显示警报",
-    WarningKnightDown = "当冷酷的死亡骑士死亡时显示警报"
-})
-
-L:SetTimerLocalization({
-    TimerWave = "第 %d 波",
-    TimerPhase2 = "第2阶段"
+	name 				= "收割者戈提克"
 })
 
 L:SetWarningLocalization({
-    WarningWaveSoon = "3秒后 第%d波: %s",
-    WarningWaveSpawned = "第%d波: %s 出现了",
-    WarningRiderDown = "骑兵已死亡",
-    WarningKnightDown = "死亡骑士已死亡",
-    WarningPhase2 = "第二阶段"
+	WarningWaveSoon			= "3秒后 第%d波: %s",
+	WarningWaveSpawned		= "第%d波: %s 出现了",
+	WarningRiderDown		= "骑兵已死亡",
+	WarningKnightDown		= "死亡骑士已死亡",
+	WarningPhase2			= "第二阶段"
+})
+
+L:SetTimerLocalization({
+	TimerWave			= "第 %d 波",
+	TimerPhase2			= "第2阶段"
+})
+
+L:SetOptionLocalization({
+	TimerWave			= "为下一波小怪显示计时条",
+	TimerPhase2			= "为第二阶段显示计时条",
+	WarningWaveSoon			= "为小怪出现显示提前警报",
+	WarningWaveSpawned		= "为小怪出现显示警报",
+	WarningRiderDown		= "当冷酷的骑兵死亡时显示警报",
+	WarningKnightDown		= "当冷酷的死亡骑士死亡时显示警报"
 })
 
 L:SetMiscLocalization({
-    yell = "你们这些蠢货已经主动步入了陷阱。",
-    WarningWave1 = "%d %s",
-    WarningWave2 = "%d %s 和 %d %s",
-    WarningWave3 = "%d %s, %d %s 和 %d %s",
-    Trainee = "学徒",
-    Knight = "死亡骑士",
-    Rider = "骑兵"
+	yell				= "你们这些蠢货已经主动步入了陷阱。",
+	WarningWave1		= "%d %s",
+	WarningWave2		= "%d %s 和 %d %s",
+	WarningWave3		= "%d %s, %d %s 和 %d %s",
+	Trainee				= "学徒",
+	Knight				= "死亡骑士",
+	Rider				= "骑兵"
 })
 
 ---------------------
