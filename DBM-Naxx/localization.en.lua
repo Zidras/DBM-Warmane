@@ -292,19 +292,14 @@ L:SetGeneralLocalization({
 	name = "Four Horsemen"
 })
 
-L:SetOptionLocalization({
-	WarningMarkSoon				= "Show pre-warning for Mark",
-	WarningMarkNow				= "Show warning for Mark",
-	SpecialWarningMarkOnPlayer	= "Show special warning when you are affected by more than 4 marks"
-})
-
-L:SetTimerLocalization({
-})
-
 L:SetWarningLocalization({
 	WarningMarkSoon				= "Mark %d in 3 seconds",
-	WarningMarkNow				= "Mark %d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
+})
+
+L:SetOptionLocalization({
+	WarningMarkSoon				= "Show pre-warning for Mark",
+	SpecialWarningMarkOnPlayer	= "Show special warning when you are affected by more than 4 marks"
 })
 
 L:SetMiscLocalization({

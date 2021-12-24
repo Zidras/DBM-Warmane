@@ -285,21 +285,14 @@ L:SetGeneralLocalization({
 	name = "Les quatre Cavaliers"
 })
 
-L:SetOptionLocalization({
-	TimerMark					= "Afficher le timer des Marques",
-	WarningMarkSoon				= "Activer le pré-avertissement des Marques",
-	WarningMarkNow				= "Activer l'avertissement des Marques",
-	SpecialWarningMarkOnPlayer	= "Avertissement spécial quand vous avez plus de 4 marques sur vous"
-})
-
-L:SetTimerLocalization({
-	TimerMark 					= "Marque %d"
-})
-
 L:SetWarningLocalization({
 	WarningMarkSoon				= "Marque %d dans 3 sec",
-	WarningMarkNow				= "Marque %d!",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
+})
+
+L:SetOptionLocalization({
+	WarningMarkSoon				= "Activer le pré-avertissement des Marques",
+	SpecialWarningMarkOnPlayer	= "Avertissement spécial quand vous avez plus de 4 marques sur vous"
 })
 
 L:SetMiscLocalization({

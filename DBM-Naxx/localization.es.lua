@@ -292,19 +292,14 @@ L:SetGeneralLocalization({
 	name = "Los Cuatro Jinetes"
 })
 
-L:SetOptionLocalization({
-	WarningMarkSoon				= "Mostrar aviso previo para las marcas",
-	WarningMarkNow				= "Mostrar aviso para las marcas",
-	SpecialWarningMarkOnPlayer	= "Mostrar aviso especial cuando estés afectado por más de cuatro marcas"
-})
-
-L:SetTimerLocalization({
-})
-
 L:SetWarningLocalization({
 	WarningMarkSoon				= "Marca %d en 3 s",
-	WarningMarkNow				= "Marca %d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
+})
+
+L:SetOptionLocalization({
+	WarningMarkSoon				= "Mostrar aviso previo para las marcas",
+	SpecialWarningMarkOnPlayer	= "Mostrar aviso especial cuando estés afectado por más de cuatro marcas"
 })
 
 L:SetMiscLocalization({

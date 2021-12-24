@@ -292,19 +292,14 @@ L:SetGeneralLocalization({
 	name = "Die vier Reiter"
 })
 
-L:SetOptionLocalization({
-	WarningMarkSoon				= "Zeige Vorwarnung für Mal",
-	WarningMarkNow				= "Zeige Warnung für Mal",
-	SpecialWarningMarkOnPlayer	= "Spezialwarnung, wenn sich ein Mal mehr als 4-mal auf dir stapelt"
-})
-
-L:SetTimerLocalization({
-})
-
 L:SetWarningLocalization({
 	WarningMarkSoon				= "Mal %d in 3 Sekunden",
-	WarningMarkNow				= "Mal %d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
+})
+
+L:SetOptionLocalization({
+	WarningMarkSoon				= "Zeige Vorwarnung für Mal",
+	SpecialWarningMarkOnPlayer	= "Spezialwarnung, wenn sich ein Mal mehr als 4-mal auf dir stapelt"
 })
 
 L:SetMiscLocalization({
