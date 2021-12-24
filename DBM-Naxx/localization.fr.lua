@@ -219,19 +219,19 @@ L:SetGeneralLocalization({
 	name = "Razuvious"
 })
 
-L:SetMiscLocalization({
-	Yell1 					= "Pas de quartier !",
-	Yell2 					= "Les cours sont terminés ! Montrez-moi ce que vous avez appris !",
-	Yell3 					= "Faites ce que vous ai appris !",
-	Yell4 					= "Frappe-le à la jambe"
+L:SetWarningLocalization({
+	WarningShieldWallSoon	= "Mur de Bouclier expire dans 5 sec"
 })
 
 L:SetOptionLocalization({
 	WarningShieldWallSoon	= "Activer l'avertissement du Mur de Bouclier"
 })
 
-L:SetWarningLocalization({
-	WarningShieldWallSoon	= "Mur de Bouclier expire dans 5 sec"
+L:SetMiscLocalization({
+	Yell1					= "Pas de quartier !",
+	Yell2					= "Les cours sont terminés ! Montrez-moi ce que vous avez appris !",
+	Yell3					= "Faites ce que vous ai appris !",
+	Yell4					= "Frappe-le à la jambe"
 })
 
 --------------

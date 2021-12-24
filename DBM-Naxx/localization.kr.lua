@@ -242,10 +242,10 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Yell1 = "Show them no mercy!",--확인필요
-	Yell2 = "The time for practice is over! Show me what you have learned!",--확인필요
-	Yell3 = "Do as I taught you!",--확인필요
-	Yell4 = "Sweep the leg... Do you have a problem with that?"--확인필요
+	Yell1 = "절대 봐주지 마라!",
+	Yell2 = "훈련은 끝났다! 배운 걸 보여줘라!",
+	Yell3 = "훈련받은 대로 해!",
+	Yell4 = "다리를 후려 차라! 무슨 문제 있나?"
 })
 
 ------------------------

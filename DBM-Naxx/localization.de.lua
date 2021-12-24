@@ -227,19 +227,19 @@ L:SetGeneralLocalization({
 	name = "Instrukteur Razuvious"
 })
 
-L:SetMiscLocalization({
-	Yell1 = "Lasst keine Gnade walten!",
-	Yell2 = "Die Zeit des Übens ist vorbei! Zeigt mir, was ihr gelernt habt!",
-	Yell3 = "Befolgt meine Befehle!",
-	Yell4 = "Streckt sie nieder... oder habt ihr ein Problem damit?"
+L:SetWarningLocalization({
+	WarningShieldWallSoon	= "Knochenbarriere endet in 5 Sekunden"
 })
 
 L:SetOptionLocalization({
 	WarningShieldWallSoon	= "Zeige Vorwarnung, wenn $spell:29061 endet"
 })
 
-L:SetWarningLocalization({
-	WarningShieldWallSoon	= "Knochenbarriere endet in 5 Sekunden"
+L:SetMiscLocalization({
+	Yell1 = "Lasst keine Gnade walten!",
+	Yell2 = "Die Zeit des Übens ist vorbei! Zeigt mir, was ihr gelernt habt!",
+	Yell3 = "Befolgt meine Befehle!",
+	Yell4 = "Streckt sie nieder... oder habt ihr ein Problem damit?"
 })
 
 ----------------------------
