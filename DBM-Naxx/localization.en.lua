@@ -176,18 +176,6 @@ L:SetGeneralLocalization({
 	name = "Grobbulus"
 })
 
-L:SetOptionLocalization({
-	SpecialWarningInjection		= "Show special warning when you are affected by Mutating Injection",
-	SetIconOnInjectionTarget	= "Set icons on Mutating Injection targets"
-})
-
-L:SetWarningLocalization({
-	SpecialWarningInjection	= "Mutating Injection on you"
-})
-
-L:SetTimerLocalization({
-})
-
 -------------
 --  Gluth  --
 -------------
