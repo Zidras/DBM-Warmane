@@ -348,13 +348,11 @@ L:SetOptionLocalization({
 	TimerAir				= "비행 단계 유지시간 바 보기",
 	TimerLanding			= "착지 중 바 보기",
 	TimerIceBlast			= "냉기 숨결 시전 바 보기",
-	WarningDeepBreath		= "냉기 숨결 특수 경고 보기",
-	WarningIceblock			= "얼음 방패 대상이 된 경우 대화로 알리기"
+	WarningDeepBreath		= "냉기 숨결 특수 경고 보기"
 })
 
 L:SetMiscLocalization({
-	EmoteBreath				= "숨을 깊게 들이마십니다.",
-	WarningYellIceblock		= "저 얼음 방패! 제 뒤에 숨으세요!!"
+	EmoteBreath				= "숨을 깊게 들이마십니다."
 })
 
 ------------------

@@ -318,22 +318,6 @@ L:SetGeneralLocalization({
 	name = "Sapphiron"
 })
 
-L:SetOptionLocalization({
-	WarningAirPhaseSoon	= "Mostrar aviso previo para el cambio a fase aérea",
-	WarningAirPhaseNow	= "Anunciar cambio a fase aérea",
-	WarningLanded		= "Anunciar cambio a fase en tierra",
-	TimerAir			= "Mostrar temporizador para el cambio a fase aérea",
-	TimerLanding		= "Mostrar temporizador para el cambio a fase en tierra",
-	TimerIceBlast		= "Mostrar temporizador para $spell:28524",
-	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524",
-	WarningIceblock		= "Gritar cuando te afecte $spell:28522"
-})
-
-L:SetMiscLocalization({
-	EmoteBreath			= "%s respira hondo.",
-	WarningYellIceblock	= "¡Soy un bloque de hielo!"
-})
-
 L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "Fase aérea en 10 s",
 	WarningAirPhaseNow	= "Fase aérea",
@@ -345,6 +329,20 @@ L:SetTimerLocalization({
 	TimerAir		= "Fase aérea",
 	TimerLanding	= "Fase en tierra",
 	TimerIceBlast	= "Aliento de Escarcha"
+})
+
+L:SetOptionLocalization({
+	WarningAirPhaseSoon	= "Mostrar aviso previo para el cambio a fase aérea",
+	WarningAirPhaseNow	= "Anunciar cambio a fase aérea",
+	WarningLanded		= "Anunciar cambio a fase en tierra",
+	TimerAir			= "Mostrar temporizador para el cambio a fase aérea",
+	TimerLanding		= "Mostrar temporizador para el cambio a fase en tierra",
+	TimerIceBlast		= "Mostrar temporizador para $spell:28524",
+	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524"
+})
+
+L:SetMiscLocalization({
+	EmoteBreath			= "%s respira hondo."
 })
 
 ----------------

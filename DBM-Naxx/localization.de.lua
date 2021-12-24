@@ -318,6 +318,19 @@ L:SetGeneralLocalization({
 	name = "Saphiron"
 })
 
+L:SetWarningLocalization({
+	WarningAirPhaseSoon	= "Luftphase in 10 Sek",
+	WarningAirPhaseNow	= "Luftphase",
+	WarningLanded		= "Bodenphase",
+	WarningDeepBreath	= "Frostatem"
+})
+
+L:SetTimerLocalization({
+	TimerAir		= "Nächste Luftphase",
+	TimerLanding	= "Nächste Bodenphase",
+	TimerIceBlast	= "Frostatem"
+})
+
 L:SetOptionLocalization({
 	WarningAirPhaseSoon	= "Zeige Vorwarnung, wenn Saphiron bald abhebt",
 	WarningAirPhaseNow	= "Zeige Warnung, wenn Saphiron abhebt",
@@ -330,19 +343,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	EmoteBreath			= "%s holt tief Luft."
-})
-
-L:SetWarningLocalization({
-	WarningAirPhaseSoon	= "Luftphase in 10 Sek",
-	WarningAirPhaseNow	= "Luftphase",
-	WarningLanded		= "Bodenphase",
-	WarningDeepBreath	= "Frostatem"
-})
-
-L:SetTimerLocalization({
-	TimerAir		= "Nächste Luftphase",
-	TimerLanding	= "Nächste Bodenphase",
-	TimerIceBlast	= "Frostatem"
 })
 
 ------------------

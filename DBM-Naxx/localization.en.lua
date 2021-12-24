@@ -318,6 +318,19 @@ L:SetGeneralLocalization({
 	name = "Sapphiron"
 })
 
+L:SetWarningLocalization({
+	WarningAirPhaseSoon	= "Air phase in 10 seconds",
+	WarningAirPhaseNow	= "Air phase",
+	WarningLanded		= "Sapphiron landed",
+	WarningDeepBreath	= "Frost Breath"
+})
+
+L:SetTimerLocalization({
+	TimerAir		= "Air phase",
+	TimerLanding	= "Landing",
+	TimerIceBlast	= "Frost Breath"
+})
+
 L:SetOptionLocalization({
 	WarningAirPhaseSoon	= "Show pre-warning for air phase",
 	WarningAirPhaseNow	= "Announce air phase",
@@ -325,28 +338,11 @@ L:SetOptionLocalization({
 	TimerAir			= "Show timer for air phase",
 	TimerLanding		= "Show timer for landing",
 	TimerIceBlast		= "Show timer for Frost Breath",
-	WarningDeepBreath	= "Show special warning for Frost Breath",
-	WarningIceblock		= "Yell on Ice Block",
-	SpecWarnSapphLow 	= "Special warning for 10% execute phase (cancel air phase)"
+	WarningDeepBreath	= "Show special warning for Frost Breath"
 })
 
 L:SetMiscLocalization({
-	EmoteBreath			= "%s takes a deep breath.",
-	WarningYellIceblock	= "I'm an Ice Block!"
-})
-
-L:SetWarningLocalization({
-	WarningAirPhaseSoon	= "Air phase in 10 seconds",
-	WarningAirPhaseNow	= "Air phase",
-	WarningLanded		= "Sapphiron landed",
-	WarningDeepBreath	= "Frost Breath",
-	SpecWarnSapphLow 	= "Sapphiron can't fly!"
-})
-
-L:SetTimerLocalization({
-	TimerAir		= "Air phase",
-	TimerLanding	= "Landing",
-	TimerIceBlast	= "Frost Breath"
+	EmoteBreath			= "%s takes a deep breath."
 })
 
 ------------------
