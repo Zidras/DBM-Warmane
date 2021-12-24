@@ -248,6 +248,19 @@ L:SetGeneralLocalization({
 	name = "Готик Жнец"
 })
 
+L:SetWarningLocalization({
+	WarningWaveSoon		= "Волна %d: %s через 3 секунды",
+	WarningWaveSpawned	= "Волна %d: %s призван",
+	WarningRiderDown	= "Всадник мертв",
+	WarningKnightDown	= "Рыцарь мертв",
+	WarningPhase2		= "Фаза 2"
+})
+
+L:SetTimerLocalization({
+	TimerWave	= "Волна %d",
+	TimerPhase2	= "Фаза 2"
+})
+
 L:SetOptionLocalization({
 	TimerWave			= "Отсчет времени до волны",
 	TimerPhase2			= "Отсчет времени до фазы 2",
@@ -257,19 +270,6 @@ L:SetOptionLocalization({
 	WarningKnightDown	= "Предупреждение, когда рыцарь мертв"
 })
 
-L:SetTimerLocalization({
-	TimerWave	= "Волна %d",
-	TimerPhase2	= "Фаза 2"
-})
-
-L:SetWarningLocalization({
-	WarningWaveSoon		= "Волна %d: %s через 3 секунды",
-	WarningWaveSpawned	= "Волна %d: %s призван",
-	WarningRiderDown	= "Всадник мертв",
-	WarningKnightDown	= "Рыцарь мертв",
-	WarningPhase2		= "Фаза 2"
-})
-
 L:SetMiscLocalization({
 	yell			= "Глупо было искать свою смерть.",
 	WarningWave1	= "%d %s",
@@ -277,7 +277,7 @@ L:SetMiscLocalization({
 	WarningWave3	= "%d %s, %d %s и %d %s",
 	Trainee			= "Ученика",
 	Knight			= "Рыцаря",
-	Rider			= "Всадника",
+	Rider			= "Всадника"
 })
 
 ---------------------

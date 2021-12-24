@@ -251,13 +251,12 @@ L:SetGeneralLocalization({
 	name = "Gothik der Ernter"
 })
 
-L:SetOptionLocalization({
-	TimerWave			= "Zeige Zeit bis nächste Welle",
-	TimerPhase2			= "Zeige Zeit bis Phase 2",
-	WarningWaveSoon		= "Warne, wenn bald eine neue Welle kommt",
-	WarningWaveSpawned	= "Warne, wenn eine neue Welle kommt",
-	WarningRiderDown	= "Zeige Warnung, wenn ein Unerbittlicher Reiter stirbt",
-	WarningKnightDown	= "Zeige Warnung, wenn ein Unerbittlicher Todesritter stirbt"
+L:SetWarningLocalization({
+	WarningWaveSoon		= "Welle %d: %s in 3 Sek",
+	WarningWaveSpawned	= "Welle %d: %s erschienen",
+	WarningRiderDown	= "Reiter tot",
+	WarningKnightDown	= "Ritter tot",
+	WarningPhase2		= "Phase 2"
 })
 
 L:SetTimerLocalization({
@@ -265,12 +264,13 @@ L:SetTimerLocalization({
 	TimerPhase2	= "Phase 2"
 })
 
-L:SetWarningLocalization({
-	WarningWaveSoon		= "Welle %d: %s in 3 Sek",
-	WarningWaveSpawned	= "Welle %d: %s erschienen",
-	WarningRiderDown	= "Reiter tot",
-	WarningKnightDown	= "Ritter tot",
-	WarningPhase2		= "Phase 2"
+L:SetOptionLocalization({
+	TimerWave			= "Zeige Zeit bis nächste Welle",
+	TimerPhase2			= "Zeige Zeit bis Phase 2",
+	WarningWaveSoon		= "Warne, wenn bald eine neue Welle kommt",
+	WarningWaveSpawned	= "Warne, wenn eine neue Welle kommt",
+	WarningRiderDown	= "Zeige Warnung, wenn ein Unerbittlicher Reiter stirbt",
+	WarningKnightDown	= "Zeige Warnung, wenn ein Unerbittlicher Todesritter stirbt"
 })
 
 L:SetMiscLocalization({

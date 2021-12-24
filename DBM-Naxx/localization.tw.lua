@@ -243,13 +243,12 @@ L:SetGeneralLocalization({
 	name = "『收割者』高希"
 })
 
-L:SetOptionLocalization({
-	TimerWave			= "為下一波顯示計時器",
-	TimerPhase2			= "為第二階段顯示計時器",
-	WarningWaveSoon		= "為波數顯示預先警告",
-	WarningWaveSpawned	= "為波數出現顯示警告",
-	WarningRiderDown	= "當無情的騎兵死亡時顯示警告",
-	WarningKnightDown	= "當無情的死亡騎士死亡時顯示警告"
+L:SetWarningLocalization({
+	WarningWaveSoon		= "3秒後第%d波: %s",
+	WarningWaveSpawned	= "第%d波: %s出現了",
+	WarningRiderDown	= "騎兵已死亡",
+	WarningKnightDown	= "死亡騎士已死亡",
+	WarningPhase2		= "第二階段"
 })
 
 L:SetTimerLocalization({
@@ -257,12 +256,13 @@ L:SetTimerLocalization({
 	TimerPhase2	= "第2階段"
 })
 
-L:SetWarningLocalization({
-	WarningWaveSoon		= "3秒後第%d波: %s",
-	WarningWaveSpawned	= "第%d波: %s出現了",
-	WarningRiderDown	= "騎兵已死亡",
-	WarningKnightDown	= "死亡騎士已死亡",
-	WarningPhase2		= "第二階段"
+L:SetOptionLocalization({
+	TimerWave			= "為下一波顯示計時器",
+	TimerPhase2			= "為第二階段顯示計時器",
+	WarningWaveSoon		= "為波數顯示預先警告",
+	WarningWaveSpawned	= "為波數出現顯示警告",
+	WarningRiderDown	= "當無情的騎兵死亡時顯示警告",
+	WarningKnightDown	= "當無情的死亡騎士死亡時顯示警告"
 })
 
 L:SetMiscLocalization({

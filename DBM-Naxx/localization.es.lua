@@ -251,13 +251,12 @@ L:SetGeneralLocalization({
 	name = "Gothik el Cosechador"
 })
 
-L:SetOptionLocalization({
-	TimerWave			= "Mostrar temporizador para la siguiente oleada de esbirros",
-	TimerPhase2			= "Mostrar temporizador para el cambio a Fase 2",
-	WarningWaveSoon		= "Mostrar aviso previo para la siguiente oleada de esbirros",
-	WarningWaveSpawned	= "Mostrar aviso cuando comience una oleada de esbirros",
-	WarningRiderDown	= "Mostrar aviso cuando muera un Jinete inflexible",
-	WarningKnightDown	= "Mostrar aviso cuando muera un Caballero de la Muerte inflexible"
+L:SetWarningLocalization({
+	WarningWaveSoon		= "Oleada %d: %s en 3 s",
+	WarningWaveSpawned	= "Oleada %d: %s",
+	WarningRiderDown	= "Jinete muerto",
+	WarningKnightDown	= "Caballero muerto",
+	WarningPhase2		= "Fase 2"
 })
 
 L:SetTimerLocalization({
@@ -265,12 +264,13 @@ L:SetTimerLocalization({
 	TimerPhase2	= "Fase 2"
 })
 
-L:SetWarningLocalization({
-	WarningWaveSoon		= "Oleada %d: %s en 3 s",
-	WarningWaveSpawned	= "Oleada %d: %s",
-	WarningRiderDown	= "Jinete muerto",
-	WarningKnightDown	= "Caballero muerto",
-	WarningPhase2		= "Fase 2"
+L:SetOptionLocalization({
+	TimerWave			= "Mostrar temporizador para la siguiente oleada de esbirros",
+	TimerPhase2			= "Mostrar temporizador para el cambio a Fase 2",
+	WarningWaveSoon		= "Mostrar aviso previo para la siguiente oleada de esbirros",
+	WarningWaveSpawned	= "Mostrar aviso cuando comience una oleada de esbirros",
+	WarningRiderDown	= "Mostrar aviso cuando muera un Jinete inflexible",
+	WarningKnightDown	= "Mostrar aviso cuando muera un Caballero de la Muerte inflexible"
 })
 
 L:SetMiscLocalization({

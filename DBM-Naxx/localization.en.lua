@@ -251,13 +251,12 @@ L:SetGeneralLocalization({
 	name = "Gothik the Harvester"
 })
 
-L:SetOptionLocalization({
-	TimerWave			= "Show timer for next wave",
-	TimerPhase2			= "Show timer for Phase 2",
-	WarningWaveSoon		= "Show pre-warning for wave",
-	WarningWaveSpawned	= "Show warning for wave spawned",
-	WarningRiderDown	= "Show warning when an Unrelenting Rider dies",
-	WarningKnightDown	= "Show warning when an Unrelenting Death Knight dies"
+L:SetWarningLocalization({
+	WarningWaveSoon		= "Wave %d: %s in 3 sec",
+	WarningWaveSpawned	= "Wave %d: %s spawned",
+	WarningRiderDown	= "Rider down",
+	WarningKnightDown	= "Knight down",
+	WarningPhase2		= "Phase 2"
 })
 
 L:SetTimerLocalization({
@@ -265,12 +264,13 @@ L:SetTimerLocalization({
 	TimerPhase2	= "Phase 2"
 })
 
-L:SetWarningLocalization({
-	WarningWaveSoon		= "Wave %d: %s in 3 sec",
-	WarningWaveSpawned	= "Wave %d: %s spawned",
-	WarningRiderDown	= "Rider down",
-	WarningKnightDown	= "Knight down",
-	WarningPhase2		= "Phase 2"
+L:SetOptionLocalization({
+	TimerWave			= "Show timer for next wave",
+	TimerPhase2			= "Show timer for Phase 2",
+	WarningWaveSoon		= "Show pre-warning for wave",
+	WarningWaveSpawned	= "Show warning for wave spawned",
+	WarningRiderDown	= "Show warning when an Unrelenting Rider dies",
+	WarningKnightDown	= "Show warning when an Unrelenting Death Knight dies"
 })
 
 L:SetMiscLocalization({
