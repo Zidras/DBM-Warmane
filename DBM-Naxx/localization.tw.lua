@@ -284,19 +284,14 @@ L:SetGeneralLocalization({
 	name = "四騎士"
 })
 
-L:SetOptionLocalization({
-	WarningMarkSoon				= "為印記顯示預先警告",
-	WarningMarkNow				= "為印記顯示警告",
-	SpecialWarningMarkOnPlayer	= "當你印記堆疊多於四層時顯示特別警告"
-})
-
-L:SetTimerLocalization({
-})
-
 L:SetWarningLocalization({
 	WarningMarkSoon			= "3秒後印記 %d",
-	WarningMarkNow			= "印記:%d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
+})
+
+L:SetOptionLocalization({
+	WarningMarkSoon				= "為印記顯示預先警告",
+	SpecialWarningMarkOnPlayer	= "當你印記堆疊多於四層時顯示特別警告"
 })
 
 L:SetMiscLocalization({

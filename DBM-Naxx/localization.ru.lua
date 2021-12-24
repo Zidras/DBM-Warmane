@@ -289,19 +289,14 @@ L:SetGeneralLocalization({
 	name = "Четыре Всадника"
 })
 
-L:SetOptionLocalization({
-	WarningMarkSoon				= "Предупреждать перед следующими знаками",
-	WarningMarkNow				= "Предупреждение для знаков",
-	SpecialWarningMarkOnPlayer	= "Спец-предупреждение, когда >4 знаков на вас"
-})
-
-L:SetTimerLocalization({
-})
-
 L:SetWarningLocalization({
 	WarningMarkSoon				= "Знак %d через 3 секунды",
-	WarningMarkNow				= "Знак %d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
+})
+
+L:SetOptionLocalization({
+	WarningMarkSoon				= "Предупреждать перед следующими знаками",
+	SpecialWarningMarkOnPlayer	= "Спец-предупреждение, когда >4 знаков на вас"
 })
 
 L:SetMiscLocalization({

@@ -301,13 +301,11 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarningMarkSoon				= "3초 후 징표 #%d",
-	WarningMarkNow				= "징표 #%d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
 })
 
 L:SetOptionLocalization({
 	WarningMarkSoon				= "징표 이전에 알림 보기",
-	WarningMarkNow				= "징표 알림 보기",
 	SpecialWarningMarkOnPlayer	= "징표가 4 중첩 이상시 특수 경고 보기"
 })
 

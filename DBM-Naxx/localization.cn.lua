@@ -293,28 +293,24 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Horsemen")
 
 L:SetGeneralLocalization({
-    name = "四骑士"
+	name 				= "四骑士"
 })
 
 L:SetOptionLocalization({
-    WarningMarkSoon = "为印记显示提前警报",
-    WarningMarkNow = "为印记显示警报",
-    SpecialWarningMarkOnPlayer = "当你印记叠加多于四层时显示特别警报"
+	WarningMarkSoon			= "为印记显示提前警报",
+	SpecialWarningMarkOnPlayer	= "当你印记叠加多于四层时显示特别警报"
 })
 
-L:SetTimerLocalization({})
-
 L:SetWarningLocalization({
-    WarningMarkSoon = "3秒后 印记 %d",
-    WarningMarkNow = "印记 #%d",
-    SpecialWarningMarkOnPlayer = "%s: %s"
+	WarningMarkSoon			= "3秒后 印记 %d",
+	SpecialWarningMarkOnPlayer	= "%s: %s"
 })
 
 L:SetMiscLocalization({
-    Korthazz = "库尔塔兹领主",
-    Rivendare = "瑞文戴尔男爵",
-    Blaumeux = "女公爵布劳缪克丝",
-    Zeliek = "瑟里耶克爵士"
+	Korthazz			= "库尔塔兹领主",
+	Rivendare			= "瑞文戴尔男爵",
+	Blaumeux			= "女公爵布劳缪克丝",
+	Zeliek				= "瑟里耶克爵士"
 })
 
 -----------------
