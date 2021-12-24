@@ -174,18 +174,6 @@ L:SetGeneralLocalization({
 	name = "Гроббулус"
 })
 
-L:SetOptionLocalization({
-	SpecialWarningInjection		= "Cпец-предупреждение для Мутагенного укола",
-	SetIconOnInjectionTarget	= "Устанавливать метки на цели заклинания Мутагенный укол"
-})
-
-L:SetWarningLocalization({
-	SpecialWarningInjection	= "Вам сделали мутагенный укол."
-})
-
-L:SetTimerLocalization({
-})
-
 -------------
 --  Gluth  --
 -------------
