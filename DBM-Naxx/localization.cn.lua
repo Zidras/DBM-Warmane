@@ -196,34 +196,30 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Thaddius")
 
 L:SetGeneralLocalization({
-    name = "塔迪乌斯"
-})
-
-L:SetMiscLocalization({
-    Yell = "斯塔拉格要碾碎你！",
-    Emote = "%s超载了！",
-    Emote2 = "电磁圈超载了！",
-    Boss1 = "费尔根",
-    Boss2 = "斯塔拉格",
-    Charge1 = "负极",
-    Charge2 = "正极"
-})
-
-L:SetOptionLocalization({
-    WarningChargeChanged = "当你的极性改变时显示特别警报",
-    WarningChargeNotChanged = "当你的极性没有改变时显示特别警报",
-    ArrowsEnabled = "显示箭头 (正常 \"两边\" 站位打法)",
-    ArrowsRightLeft = "显示左/右箭头 给 \"四角\" 站位打法 (如果极性改变显示左箭头, 没变显示右箭头)",
-    ArrowsInverse = "显示反转的 \"四角\" 站位打法 (如果极性改变显示右箭头, 没变显示左箭头)"
+	name 				= "塔迪乌斯"
 })
 
 L:SetWarningLocalization({
-    WarningChargeChanged = "极性变为%s",
-    WarningChargeNotChanged = "极性没有改变"
+	WarningChargeChanged		= "极性变为%s",
+	WarningChargeNotChanged		= "极性没有改变"
 })
 
-L:SetOptionCatLocalization({
-    Arrows = "箭头"
+L:SetOptionLocalization({
+	WarningChargeChanged		= "当你的极性改变时显示特别警报",
+	WarningChargeNotChanged		= "当你的极性没有改变时显示特别警报",
+	ArrowsEnabled			= "显示箭头 (正常 \"两边\" 站位打法)",
+	ArrowsRightLeft			= "显示左/右箭头 给 \"四角\" 站位打法 (如果极性改变显示左箭头, 没变显示右箭头)",
+	ArrowsInverse			= "显示反转的 \"四角\" 站位打法 (如果极性改变显示右箭头, 没变显示左箭头)"
+})
+
+L:SetMiscLocalization({
+	Yell				= "斯塔拉格要碾碎你！",
+	Emote				= "%s超载了！",
+	Emote2				= "电磁圈超载了！",
+	Boss1				= "费尔根",
+	Boss2				= "斯塔拉格",
+	Charge1				= "负极",
+	Charge2				= "正极"
 })
 
 ----------------------------

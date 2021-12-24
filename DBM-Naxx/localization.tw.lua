@@ -187,14 +187,9 @@ L:SetGeneralLocalization({
 	name = "泰迪斯"
 })
 
-L:SetMiscLocalization({
-	Yell	= "斯塔拉格要碾碎你!",
-	Emote	= "%s超過負荷!",
-	Emote2	= "泰斯拉線圈超過負荷!",
-	Boss1 	= "伏晨",
-	Boss2 	= "斯塔拉格",
-	Charge1 = "負極",
-	Charge2 = "正極"
+L:SetWarningLocalization({
+	WarningChargeChanged	= "極性變為%s",
+	WarningChargeNotChanged	= "極性沒有改變"
 })
 
 L:SetOptionLocalization({
@@ -205,9 +200,14 @@ L:SetOptionLocalization({
 	ArrowsInverse			= "顯示倒轉的 \"四角\" 站位打法 (如果極性改變顯示左箭頭, 沒變顯示右箭頭)"
 })
 
-L:SetWarningLocalization({
-	WarningChargeChanged	= "極性變為%s",
-	WarningChargeNotChanged	= "極性沒有改變"
+L:SetMiscLocalization({
+	Yell	= "斯塔拉格要碾碎你!",
+	Emote	= "%s超過負荷!",
+	Emote2	= "泰斯拉線圈超過負荷!",
+	Boss1 	= "伏晨",
+	Boss2 	= "斯塔拉格",
+	Charge1 = "負極",
+	Charge2 = "正極"
 })
 
 ----------------------------

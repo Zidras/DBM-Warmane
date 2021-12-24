@@ -195,14 +195,9 @@ L:SetGeneralLocalization({
 	name = "Thaddius"
 })
 
-L:SetMiscLocalization({
-	Yell	= "Stalagg zerquetschen!",
-	Emote	= "%s überlädt!",
-	Emote2	= "Teslaspule überlädt!",
-	Boss1	= "Feugen",
-	Boss2	= "Stalagg",
-	Charge1 = "negativ",
-	Charge2 = "positiv"
+L:SetWarningLocalization({
+	WarningChargeChanged	= "Polarität geändert zu %s",
+	WarningChargeNotChanged	= "Polarität hat sich nicht geändert"
 })
 
 L:SetOptionLocalization({
@@ -213,9 +208,14 @@ L:SetOptionLocalization({
 	ArrowsInverse			= "Umgedrehte \"4-Camps\"-Strategie<br/>(Rechtspfeil bei Polaritätsänderung, Linkspfeil bei keiner Änderung)"
 })
 
-L:SetWarningLocalization({
-	WarningChargeChanged	= "Polarität geändert zu %s",
-	WarningChargeNotChanged	= "Polarität hat sich nicht geändert"
+L:SetMiscLocalization({
+	Yell	= "Stalagg zerquetschen!",
+	Emote	= "%s überlädt!",
+	Emote2	= "Teslaspule überlädt!",
+	Boss1	= "Feugen",
+	Boss2	= "Stalagg",
+	Charge1 = "negativ",
+	Charge2 = "positiv"
 })
 
 ----------------------------
