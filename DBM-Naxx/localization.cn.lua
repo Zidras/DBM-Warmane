@@ -187,7 +187,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Gluth")
 
 L:SetGeneralLocalization({
-    name = "格拉斯"
+	name = "格拉斯"
 })
 
 ----------------
