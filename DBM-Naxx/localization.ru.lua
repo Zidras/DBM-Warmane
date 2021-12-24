@@ -192,14 +192,9 @@ L:SetGeneralLocalization({
 	name = "Таддиус"
 })
 
-L:SetMiscLocalization({
-	Yell	= "Сталагг сокрушить вас!",
-	Emote	= "%s перезагружается!",
-	Emote2	= "%s теряет связь!",
-	Boss1	= "Фойген",
-	Boss2	= "Сталагг",
-	Charge1 = "отрицательную",
-	Charge2 = "положительную"
+L:SetWarningLocalization({
+	WarningChargeChanged	= "Полярность изменена на %s",
+	WarningChargeNotChanged	= "Полярность не изменена"
 })
 
 L:SetOptionLocalization({
@@ -207,17 +202,17 @@ L:SetOptionLocalization({
 	WarningChargeNotChanged	= "Предупреждение, когда ваша полярность не изменена",
 	ArrowsEnabled			= "Отображать стрелки (обычная \"2-сторонняя\" стратегия)",
 	ArrowsRightLeft			= "Стрелки влево/вправо для \"4-сторонней\" стратегии",
-	ArrowsInverse			= "Обратная \"4-сторонняя\" стратегия (вправо, если полярность изменена, влево, если нет)",
-	SoundWarnCountingShift	= "Проигрывать звуковой отсчет 5...1 до смены полярности"
+	ArrowsInverse			= "Обратная \"4-сторонняя\" стратегия (вправо, если полярность изменена, влево, если нет)"
 })
 
-L:SetWarningLocalization({
-	WarningChargeChanged	= "Полярность изменена на %s",
-	WarningChargeNotChanged	= "Полярность не изменена"
-})
-
-L:SetOptionCatLocalization({
-	Arrows	= "Стрелки"
+L:SetMiscLocalization({
+	Yell	= "Сталагг сокрушить вас!",
+	Emote	= "%s перезагружается!",
+	Emote2	= "Катушка Теслы перезагружается!",
+	Boss1	= "Фойген",
+	Boss2	= "Сталагг",
+	Charge1 = "отрицательную",
+	Charge2 = "положительную"
 })
 
 ----------------------------

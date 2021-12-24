@@ -195,14 +195,9 @@ L:SetGeneralLocalization({
 	name = "Thaddius"
 })
 
-L:SetMiscLocalization({
-	Yell	= "¡Stalagg aplasta!",
-	Emote	= "¡%s se sobrecarga!",
-	Emote2	= "¡Espiral Tesla se sobrecarga!",
-	Boss1	= "Feugen",
-	Boss2	= "Stalagg",
-	Charge1 = "negativo",
-	Charge2 = "positivo"
+L:SetWarningLocalization({
+	WarningChargeChanged	= "Polaridad cambiada a %s",
+	WarningChargeNotChanged	= "Tu polaridad no ha cambiado"
 })
 
 L:SetOptionLocalization({
@@ -213,9 +208,14 @@ L:SetOptionLocalization({
 	ArrowsInverse			= "Mostrar flechas de izquierda y derecha inversas (estrategia de cuatro grupos; muestra la flecha derecha si cambia la polaridad, y la izquierda si no cambia)"
 })
 
-L:SetWarningLocalization({
-	WarningChargeChanged	= "Polaridad cambiada a %s",
-	WarningChargeNotChanged	= "Tu polaridad no ha cambiado"
+L:SetMiscLocalization({
+	Yell	= "¡Stalagg aplasta!",
+	Emote	= "¡%s se sobrecarga!",
+	Emote2	= "¡Espiral Tesla se sobrecarga!",
+	Boss1	= "Feugen",
+	Boss2	= "Stalagg",
+	Charge1 = "negativo",
+	Charge2 = "positivo"
 })
 
 --------------------------
