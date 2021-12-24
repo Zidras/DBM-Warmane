@@ -219,19 +219,19 @@ L:SetGeneralLocalization({
 	name = "講師拉祖維斯"
 })
 
-L:SetMiscLocalization({
-	Yell1 = "絕不留情!",
-	Yell2 = "練習時間到此為止!都拿出真本事來!",
-	Yell3 = "照我教你的做!",
-	Yell4 = "絆腿……有什麼問題嗎?"
+L:SetWarningLocalization({
+	WarningShieldWallSoon	= "5秒後盾牆結束"
 })
 
 L:SetOptionLocalization({
 	WarningShieldWallSoon	= "為盾牆結束顯示預先警告"
 })
 
-L:SetWarningLocalization({
-	WarningShieldWallSoon	= "5秒後盾牆結束"
+L:SetMiscLocalization({
+	Yell1 = "絕不留情!",
+	Yell2 = "練習時間到此為止!都拿出真本事來!",
+	Yell3 = "照我教你的做!",
+	Yell4 = "絆腿……有什麼問題嗎?"
 })
 
 ----------------------------

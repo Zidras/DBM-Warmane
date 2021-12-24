@@ -228,22 +228,22 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Razuvious")
 
 L:SetGeneralLocalization({
-    name = "教官拉苏维奥斯"
-})
-
-L:SetMiscLocalization({
-    Yell1 = "仁慈无用！",
-    Yell2 = "练习时间到此为止！都拿出真本事来！",
-    Yell3 = "按我教导的去做！",
-    Yell4 = "绊腿……有什么问题吗？"
-})
-
-L:SetOptionLocalization({
-    WarningShieldWallSoon = "为盾墙结束显示提前警报"
+	name				= "教官拉苏维奥斯"
 })
 
 L:SetWarningLocalization({
-    WarningShieldWallSoon = "5秒后 盾墙结束"
+	WarningShieldWallSoon		= "5秒后 盾墙结束"
+})
+
+L:SetOptionLocalization({
+	WarningShieldWallSoon		= "为盾墙结束显示提前警报"
+})
+
+L:SetMiscLocalization({
+	Yell1				= "仁慈无用！",
+	Yell2				= "练习时间到此为止！都拿出真本事来！",
+	Yell3				= "按我教导的去做！",
+	Yell4				= "绊腿……有什么问题吗？"
 })
 
 ----------------------------

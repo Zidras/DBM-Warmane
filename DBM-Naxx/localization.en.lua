@@ -227,19 +227,19 @@ L:SetGeneralLocalization({
 	name = "Instructor Razuvious"
 })
 
-L:SetMiscLocalization({
-	Yell1 = "Show them no mercy!",
-	Yell2 = "The time for practice is over! Show me what you have learned!",
-	Yell3 = "Do as I taught you!",
-	Yell4 = "Sweep the leg... Do you have a problem with that?"
+L:SetWarningLocalization({
+	WarningShieldWallSoon	= "Shield Wall ends in 5 seconds"
 })
 
 L:SetOptionLocalization({
 	WarningShieldWallSoon	= "Show pre-warning for Shield Wall ending"
 })
 
-L:SetWarningLocalization({
-	WarningShieldWallSoon	= "Shield Wall ends in 5 seconds"
+L:SetMiscLocalization({
+	Yell1 = "Show them no mercy!",
+	Yell2 = "The time for practice is over! Show me what you have learned!",
+	Yell3 = "Do as I taught you!",
+	Yell4 = "Sweep the leg... Do you have a problem with that?"
 })
 
 ----------------------------

@@ -227,19 +227,19 @@ L:SetGeneralLocalization({
 	name = "Instructor Razuvious"
 })
 
-L:SetMiscLocalization({
-	Yell1 = "¡No tengáis piedad!",
-	Yell2 = "¡El tiempo de practicar ha pasado! ¡Quiero ver lo que habéis aprendido!",
-	Yell3 = "¡Poned en práctica lo que os he enseñado!",
-	Yell4 = "Un barrido con pierna... ¿Tienes algún problema?"
+L:SetWarningLocalization({
+	WarningShieldWallSoon	= "Barrera de huesos termina en 5 s"
 })
 
 L:SetOptionLocalization({
 	WarningShieldWallSoon	= "Mostrar aviso previo para cuando termine $spell:29061"
 })
 
-L:SetWarningLocalization({
-	WarningShieldWallSoon	= "Barrera de huesos termina en 5 s"
+L:SetMiscLocalization({
+	Yell1 = "¡No tengáis piedad!",
+	Yell2 = "¡El tiempo de practicar ha pasado! ¡Quiero ver lo que habéis aprendido!",
+	Yell3 = "¡Poned en práctica lo que os he enseñado!",
+	Yell4 = "Un barrido con pierna... ¿Tienes algún problema?"
 })
 
 --------------------------

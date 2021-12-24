@@ -224,19 +224,19 @@ L:SetGeneralLocalization({
 	name = "Инструктор Разувий"
 })
 
-L:SetMiscLocalization({
-	Yell1 = "Покажите мне, на что способны!",
-	Yell2 = "Обучение окончено! Покажите мне, что вы усвоили!",
-	Yell3 = "Вспомните, чему я вас учил!",
-	Yell4 = "Выше ногу! Или у тебя с этим проблемы?"
+L:SetWarningLocalization({
+	WarningShieldWallSoon	= "Стена костей закончится через 5 секунд"
 })
 
 L:SetOptionLocalization({
 	WarningShieldWallSoon	= "Предупреждать о скором исчезновении Стены костей"
 })
 
-L:SetWarningLocalization({
-	WarningShieldWallSoon	= "Стена костей закончится через 5 секунд"
+L:SetMiscLocalization({
+	Yell1 = "Покажите мне, на что способны!",
+	Yell2 = "Обучение окончено! Покажите мне, что вы усвоили!",
+	Yell3 = "Вспомните, чему я вас учил!",
+	Yell4 = "Выше ногу! Или у тебя с этим проблемы?"
 })
 
 ----------------------------
