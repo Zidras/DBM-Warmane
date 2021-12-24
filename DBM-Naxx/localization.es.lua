@@ -145,7 +145,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningHealSoon		= "Mostrar aviso previo para la franja de sanación",
-	WarningHealNow		= "Mostrar aviso para la franja de sanación"
+	WarningHealNow		= "Mostrar aviso para la franja de sanación",
+	SporeDamageAlert	= "Enviar susurros y avisar a la banda de los jugadores que estén dañando esporas\n(necesita 'anunciar' activado y lider/ayudante)"
 })
 
 ---------------

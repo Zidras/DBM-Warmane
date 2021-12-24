@@ -136,13 +136,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningHealSoon	= "Исцеление через 3 секунды",
-	WarningHealNow	= "Исцеление"
+	WarningHealSoon	= "Можно исцелять через 3 секунды",
+	WarningHealNow	= "Исцеляйте сейчас"
 })
 
 L:SetOptionLocalization({
-	WarningHealSoon		= "Предупреждать перед следующим исцелением",
-	WarningHealNow		= "Предупреждение для исцеления",
+	WarningHealSoon		= "Предупреждать заранее перед 3-х секундным окном исцеления",
+	WarningHealNow		= "Предупреждение для 3-х секундного окна исцеления",
 	SporeDamageAlert	= "Сообщать шепотом и объявлять в рейд игроков, наносящих урон спорам\n(требуются права лидера или помощника)"
 })
 

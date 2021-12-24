@@ -120,9 +120,9 @@ L:SetOptionLocalization({
 	TimerTeleport			= "Activer le timer pour la Téléporation"
 })
 
-----------------
---  Lolotheb  --
-----------------
+---------------
+--  Loatheb  --
+---------------
 L = DBM:GetModLocalization("Loatheb")
 
 L:SetGeneralLocalization({
@@ -136,7 +136,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningHealSoon		= "Activer l'avertissement \"Soins dans 3 sec\" ",
-	WarningHealNow		= "Activer l'avertissement \"SOIGNEZ MAINTENANT\" "
+	WarningHealNow		= "Activer l'avertissement \"SOIGNEZ MAINTENANT\" ",
+	SporeDamageAlert	= "Envoyer un murmure et annoncer aux joueurs de raid qui endommagent les spores\n(nécessite que l'annonce soit activée et le statut de leader/promu)"
 })
 
 -----------------

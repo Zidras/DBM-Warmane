@@ -144,7 +144,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningHealSoon		= "치유 가능 이전에 알림 보기",
-	WarningHealNow		= "치유 가능 알림 보기"
+	WarningHealNow		= "치유 가능 알림 보기",
+	SporeDamageAlert	= "포자에게 데미지를 주는 공격대원에게 귓속말 보내기 및 알리기\n(공대장 및 경보 권한이 있을 경우)"
 })
 
 -----------------

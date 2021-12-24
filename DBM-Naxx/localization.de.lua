@@ -145,7 +145,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningHealSoon		= "Zeige Vorwarnung für 3-Sekunden-Heilfenster",
-	WarningHealNow		= "Zeige Warnung für 3-Sekunden-Heilfenster"
+	WarningHealNow		= "Zeige Warnung für 3-Sekunden-Heilfenster",
+	SporeDamageAlert	= "Sende Flüsternachricht und verkünde Spieler in Raid die Sporen beschädigen\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)"
 })
 
 -----------------

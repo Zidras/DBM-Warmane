@@ -139,18 +139,18 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Loatheb")
 
 L:SetGeneralLocalization({
-    name = "洛欧塞布"
+	name 				= "洛欧塞布"
 })
 
 L:SetWarningLocalization({
-    WarningHealSoon = "3秒后可以治疗",
-    WarningHealNow = "现在治疗"
+	WarningHealSoon			= "3秒后可以治疗",
+	WarningHealNow			= "现在治疗"
 })
 
 L:SetOptionLocalization({
-    WarningHealSoon = "为3秒后可以治疗显示提前警报",
-    WarningHealNow = "为现在治疗显示警报",
-    SporeDamageAlert = "在团队中提示谁杀死了孢子并发送悄悄话给该玩家\n(需要团长或助理权限)"
+	WarningHealSoon			= "为3秒后可以治疗显示提前警报",
+	WarningHealNow			= "为现在治疗显示警报",
+	SporeDamageAlert		= "在团队中提示谁杀死了孢子并发送悄悄话给该玩家\n(需要团长或助理权限)"
 })
 
 -----------------
