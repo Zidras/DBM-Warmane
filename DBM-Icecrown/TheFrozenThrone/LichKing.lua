@@ -132,7 +132,6 @@ local plagueExpires = {}
 local lastPlague
 
 local soulshriek = GetSpellInfo(69242)
-local summonIceSphere = GetSpellInfo(69103)
 
 function mod:RemoveImmunes()
 	if mod.Options.RemoveImmunes then -- cancelaura bop bubble iceblock Dintervention
@@ -271,6 +270,10 @@ function mod:SPELL_CAST_START(args)
 		warnDefileSoon:CancelVoice()
 		timerSoulreaperCD:Cancel()
 		soundSoulReaperSoon:Cancel()
+		self:RegisterShortTermEvents(
+			"UPDATE_MOUSEOVER_UNIT",
+			"UNIT_TARGET"
+		)
 		self:DestroyFrame()
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		timerEnrageCD:Cancel(args.sourceGUID)
@@ -559,11 +562,6 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 	if spellName == soulshriek and mod:LatencyCheck() then
 		self:SendSync("SoulShriek", UnitGUID(uId))
-	elseif spellName == summonIceSphere then
-		self:RegisterShortTermEvents(
-			"UPDATE_MOUSEOVER_UNIT",
-			"UNIT_TARGET"
-		)
 	end
 end
 
@@ -576,8 +574,8 @@ function mod:UPDATE_MOUSEOVER_UNIT()
 		local sphereGUID = UnitGUID("mouseover")
 		local sphereTarget = UnitName("mouseovertarget")
 		if sphereGUID and sphereTarget and not iceSpheresGUIDs[sphereGUID] then
-			iceSpheresGUIDs[sphereGUID] = sphereTarget
-			self:SendSync("SphereTarget", sphereTarget, sphereGUID)
+			local sphereString = ("%s\t%s"):format(sphereTarget, sphereGUID)
+			self:SendSync("SphereTarget", sphereString)
 		end
 	end
 end
@@ -597,17 +595,20 @@ function mod:UNIT_TARGET(uId)
 	end
 end
 
-function mod:OnSync(msg, target, guid)
+function mod:OnSync(msg, target)
 	if msg == "CombatStart" then
 		timerCombatStart:Start()
 	elseif msg == "SoulShriek" then
 		timerSoulShriekCD:Start(target)
-	elseif msg == "SphereTarget" and not iceSpheresGUIDs[guid] then
-		iceSpheresGUIDs[guid] = target
-		warnIceSpheresTarget:Show(target)
-		if target == UnitName("player") then
-			specWarnIceSpheresYou:Show()
-			specWarnIceSpheresYou:Play("161411") -- Ice orb. Move away!
+	elseif msg == "SphereTarget" then
+		local sphereTarget, sphereGUID = strsplit("\t", target)
+		if sphereTarget and sphereGUID and not iceSpheresGUIDs[sphereGUID] then
+			iceSpheresGUIDs[sphereGUID] = sphereTarget
+			warnIceSpheresTarget:Show(sphereTarget)
+			if sphereTarget == UnitName("player") then
+				specWarnIceSpheresYou:Show()
+				specWarnIceSpheresYou:Play("161411") -- Ice orb. Move away!
+			end
 		end
 	end
 end
