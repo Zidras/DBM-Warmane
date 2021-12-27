@@ -982,7 +982,7 @@ do
 		for k, v in pairs(_shortTermRegisterEvents) do
 			if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
 				-- legacy event, oh noes
-				_shortTermRegisterEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
+				_shortTermRegisterEvents[k] = v--[[ .. " boss1 boss2 boss3 boss4 boss5 target focus"]] -- don't preassign units if the event does not state them. LK Ice Spheres scanner requires listening to the entire raid units
 			end
 		end
 		self.shortTermEventsRegistered = 1
@@ -6885,7 +6885,7 @@ function bossModPrototype:RegisterEventsInCombat(...)
 	for k, v in pairs(self.inCombatOnlyEvents) do
 		if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
 			-- legacy event, oh noes
-			self.inCombatOnlyEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
+			self.inCombatOnlyEvents[k] = v--[[ .. " boss1 boss2 boss3 boss4 boss5 target focus"]] -- same as ShortTermEvents - don't preassign units if the event does not state them
 		end
 	end
 end
