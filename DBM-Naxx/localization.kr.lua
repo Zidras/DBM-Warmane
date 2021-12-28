@@ -376,9 +376,12 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerPhase2			= "2 단계 바 보기",
 	specwarnP2Soon		= "2 단계 10초 전에 특수 경고 보기",
-	warnAddsSoon		= "얼음왕관의 수호자 이전에 알림 보기"
+	warnAddsSoon		= "얼음왕관의 수호자 이전에 알림 보기",
+	EqUneqWeaponsKT		= "$spell:28410 전후에 자동으로 무기를 장착 해제하고 장착합니다. \"pve\"라는 장비 세트가 필요합니다.",
+	EqUneqWeaponsKT2	= "$spell:28410이 당신에게 시전되면 자동으로 무기를 장착 해제하고 장착합니다."
 })
 
 L:SetMiscLocalization({
-	Yell 				= "어둠의 문지기와 하수인, 그리고 병사들이여! 나 켈투자드가 부르니 명을 받들라!"
+	Yell		= "어둠의 문지기와 하수인, 그리고 병사들이여! 나 켈투자드가 부르니 명을 받들라!",
+	setMissing	= "주목! DBM 자동 무기 해제/장착은 pve라는 장비 세트를 생성할 때까지 작동하지 않습니다."
 })

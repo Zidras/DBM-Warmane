@@ -340,21 +340,10 @@ L:SetMiscLocalization({
 ------------------
 --  Kel'Thuzad  --
 ------------------
-
 L = DBM:GetModLocalization("Kel'Thuzad")
 
 L:SetGeneralLocalization({
 	name = "科爾蘇加德"
-})
-
-L:SetOptionLocalization({
-	TimerPhase2			= "為第二階段顯示計時器",
-	specwarnP2Soon		= "為科爾蘇加德攻擊前10秒顯示特別警告",
-	warnAddsSoon		= "為寒冰皇冠守護者顯示預先警告"
-})
-
-L:SetMiscLocalization({
-	Yell = "僕從們，侍衛們，隸屬於黑暗與寒冷的戰士們!聽從科爾蘇加德的召喚!"
 })
 
 L:SetWarningLocalization({
@@ -366,3 +355,15 @@ L:SetTimerLocalization({
 	TimerPhase2	= "第二階段"
 })
 
+L:SetOptionLocalization({
+	TimerPhase2			= "為第二階段顯示計時器",
+	specwarnP2Soon		= "為科爾蘇加德攻擊前10秒顯示特別警告",
+	warnAddsSoon		= "為寒冰皇冠守護者顯示預先警告",
+	EqUneqWeaponsKT		= "在 $spell:28410 之前和之後自動取消裝備和裝備武器。 需要名為“pve”的裝備套裝",
+	EqUneqWeaponsKT2	= "對你施放 $spell:28410 時自動解除和裝備武器"
+})
+
+L:SetMiscLocalization({
+	Yell = "僕從們，侍衛們，隸屬於黑暗與寒冷的戰士們!聽從科爾蘇加德的召喚!",
+	setMissing	= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用"
+})

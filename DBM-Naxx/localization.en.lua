@@ -348,41 +348,32 @@ L:SetMiscLocalization({
 ------------------
 --  Kel'Thuzad  --
 ------------------
-
 L = DBM:GetModLocalization("Kel'Thuzad")
 
 L:SetGeneralLocalization({
 	name = "Kel'Thuzad"
 })
 
-L:SetOptionLocalization({
-	TimerPhase2		= "Show timer for Phase 2",
-	MCImminent		= "MC Imminent! (20s)",
-	specwarnP2Soon	= "Show special warning 10 seconds before Kel'Thuzad engages",
-	fissure 		= "Show special warning for Shadow Fissure",
-	manaNear		= "Show special warning when Detonate Mana is nearby",
-	warnAddsSoon	= "Show pre-warning for Guardians of Icecrown",
-	BlastAlarm		= "Play custom siren sound when Frost Blast is being cast",
-	EqUneqWeaponsKT	= "Automatically unequip and equip weapons before and after Mind Control. Create equip. set named 'pve' for re-equipping",
-	EqUneqWeaponsKT2= "Automatically unequip and equip weapons when MC is cast on YOU",
-	ShowRange		= "Show range frame when Phase 2 starts"
-})
-
-L:SetMiscLocalization({
-	Yell		= "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
-	YellMC1		= "Your soul is bound to me, now!",
-	YellMC2		= "There will be no escape!",
-	setMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve"
-})
-
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Kel'Thuzad engages in 10 Seconds",
-	fissure 		= "Shadow Fissure",
-	manaNear		= "Detonate Mana nearby",
 	warnAddsSoon	= "Guardians of Icecrown incoming soon"
 })
 
 L:SetTimerLocalization({
-	TimerPhase2	= "Phase 2",
-	MCImminent	= "MC Imminent! (20s)"
+	TimerPhase2	= "Phase 2"
+})
+
+L:SetOptionLocalization({
+	TimerPhase2			= "Show timer for Phase 2",
+	specwarnP2Soon		= "Show special warning 10 seconds before Kel'Thuzad engages",
+	warnAddsSoon		= "Show pre-warning for Guardians of Icecrown",
+	EqUneqWeaponsKT		= "Automatically unequip and equip weapons before and after $spell:28410. Requires equipment set named \"pve\"",
+	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU"
+})
+
+L:SetMiscLocalization({
+	Yell		= "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
+--	YellMC1		= "Your soul is bound to me, now!",
+--	YellMC2		= "There will be no escape!",
+	setMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve"
 })
