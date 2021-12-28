@@ -355,25 +355,27 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Kel'Thuzad")
 
 L:SetGeneralLocalization({
-    name = "克尔苏加德"
-})
-
-L:SetOptionLocalization({
-    TimerPhase2 = "为第二阶段显示计时条",
-    specwarnP2Soon = "为克尔苏加德攻击前10秒显示特别警报",
-    warnAddsSoon = "为寒冰皇冠卫士显示提前警报",
-    ShowRange = "当第二阶段开始时显示距离监视框"
-})
-
-L:SetMiscLocalization({
-    Yell = "仆从们，侍卫们，隶属于黑暗与寒冷的战士们！听从克尔苏加德的召唤！"
+	name 				= "克尔苏加德"
 })
 
 L:SetWarningLocalization({
-    specwarnP2Soon = "10秒后克尔苏加德开始攻击",
-    warnAddsSoon = "寒冰皇冠卫士即将出现"
+	specwarnP2Soon		= "10秒后克尔苏加德开始攻击",
+	warnAddsSoon		= "寒冰皇冠卫士即将出现"
 })
 
 L:SetTimerLocalization({
-    TimerPhase2 = "第二阶段"
+	TimerPhase2			= "第二阶段"
+})
+
+L:SetOptionLocalization({
+	TimerPhase2			= "为第二阶段显示计时条",
+	specwarnP2Soon		= "为克尔苏加德攻击前10秒显示特别警报",
+	warnAddsSoon		= "为寒冰皇冠卫士显示提前警报",
+	EqUneqWeaponsKT		= "在 $spell:28410 之前和之后自动取消装备和装备武器。 需要名为“pve”的装备套装",
+	EqUneqWeaponsKT2	= "对你施放 $spell:28410 时自动解除和装备武器"
+})
+
+L:SetMiscLocalization({
+	Yell				= "仆从们，侍卫们，隶属于黑暗与寒冷的战士们！听从克尔苏加德的召唤！",
+	setMissing			= "注意力！ 在您创建名为 pve 的装备集之前，DBM 自动武器卸载/装备将不起作用"
 })

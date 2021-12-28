@@ -341,24 +341,14 @@ L:SetMiscLocalization({
 ------------------
 --  Kel'thuzad  --
 ------------------
-
 L = DBM:GetModLocalization("Kel'Thuzad")
 
 L:SetGeneralLocalization({
 	name = "Kel'Thuzad"
 })
 
-L:SetOptionLocalization({
-	TimerPhase2				= "Afficher le timer pour la Phase 2",
-	specwarnP2Soon 			= "Montre un timer pour prévenir 10 secondes avant l'arrivée de Kel'Thuzad"
-})
-
-L:SetMiscLocalization({
-	Yell 					= "Serviteurs, valets et soldats des ténèbres glaciales ! Répondez à l'appel de Kel'Thuzad !"
-})
-
 L:SetWarningLocalization({
-	specwarnP2Soon  		= "Kel'Thuzad sera actif dans 10 secondes"
+	specwarnP2Soon		= "Kel'Thuzad sera actif dans 10 secondes"
 })
 
 L:SetTimerLocalization({
@@ -366,3 +356,14 @@ L:SetTimerLocalization({
 	BlastTimer				= "Heal Maintenant !"
 })
 
+L:SetOptionLocalization({
+	TimerPhase2			= "Afficher le timer pour la Phase 2",
+	specwarnP2Soon		= "Montre un timer pour prévenir 10 secondes avant l'arrivée de Kel'Thuzad",
+	EqUneqWeaponsKT		= "Déséquipez et équipez automatiquement les armes avant et après $spell:28410. Nécessite un ensemble d'équipement nommé \"pve\"",
+	EqUneqWeaponsKT2	= "Déséquiper et équiper automatiquement les armes lorsque $spell:28410 est lancé sur VOUS"
+})
+
+L:SetMiscLocalization({
+	Yell		= "Serviteurs, valets et soldats des ténèbres glaciales ! Répondez à l'appel de Kel'Thuzad !",
+	setMissing	= "ATTENTION! Le déséquipement/équipement automatique des armes DBM ne fonctionnera pas tant que vous n'aurez pas créé un ensemble d'équipement nommé pve"
+})

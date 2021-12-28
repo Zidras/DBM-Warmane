@@ -1,55 +1,61 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
+local tContains = tContains
+local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
+
 mod:SetRevision(("$Revision: 4911 $"):sub(12, -3))
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
+--mod:RegisterCombat("combat_yell", L.Yell)
 mod:RegisterCombat("yell", L.Yell)
 
-mod:EnableModel()
-
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_SUCCESS",
-	"UNIT_HEALTH",
-	"CHAT_MSG_MONSTER_YELL",
-	"SPELL_SUMMON"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 27808 27819 28410",
+	"SPELL_AURA_REMOVED 28410",
+	"SPELL_CAST_SUCCESS 27810 27819 27808 28410",
+	"UNIT_HEALTH boss1"
 )
 
-local isHunter 				= select(2, UnitClass("player")) == "HUNTER"
-local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1)
+local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1, "Interface\\Icons\\INV_Misc_MonsterSpiderCarapace_01")
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
-local warnFissure			= mod:NewSpellAnnounce(27810, 3)
-local soundFissure			= mod:NewSound(27810)
-local specwarnfissure		= mod:NewSpecialWarning("fissure")
+local warnFissure			= mod:NewSpellAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
-local warnManaClose   		= mod:NewSpecialWarning("manaNear")
-local warnChainsTargets		= mod:NewTargetAnnounce(28410, 2)
-local warnMindControl 		= mod:NewSoonAnnounce(28410, 4)
+local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
+local warnMindControlSoon 	= mod:NewSoonAnnounce(28410, 4)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
+local specWarnManaBombNear	= mod:NewSpecialWarningClose(27819, nil, nil, nil, 1, 2)
+local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
 local yellManaBomb			= mod:NewShortYell(27819)
 
-local blastTimer			= mod:NewBuffActiveTimer(4, 27808)
-local timerPhase2			= mod:NewTimer(227, "TimerPhase2")
-local mindControlCD 		= mod:NewNextTimer(60, 28410)
-local frostBlastCD   		= mod:NewCDTimer(25, 27808)
-local fissureCD  			= mod:NewCDTimer(14, 27810)
+local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
+local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
+local timerFissureCD  		= mod:NewCDTimer(14, 27810)
+local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON)--40-46 (retail 40.1)
+local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
+local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
+local timerPhase2			= mod:NewTimer(227, "TimerPhase2", nil, nil, nil, 6)
 
-local timerPossibleMC		= mod:NewTimer(20, "MCImminent", 28410)
-
-mod:AddBoolOption("BlastAlarm", true)
-mod:AddBoolOption("ShowRange", true)
+mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
+mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
+mod:AddSetIconOption("SetIconOnFrostTomb", 28169, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
+mod:AddRangeFrameOption(10, 27819)
 mod:AddBoolOption("EqUneqWeaponsKT", mod:IsDps())
 mod:AddBoolOption("EqUneqWeaponsKT2")
 
-if mod.Options.EqUneqWeaponsKT and (mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25")) and not mod:IsEquipmentSetAvailable("pve") then
+mod.vb.warnedAdds = false
+mod.vb.MCIcon = 1
+local frostBlastTargets = {}
+local chainsTargets = {}
+local isHunter = select(2, UnitClass("player")) == "HUNTER"
+
+if mod.Options.EqUneqWeaponsKT and not mod:IsEquipmentSetAvailable("pve") then
 	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 		if frame.AddMessage then
@@ -59,33 +65,7 @@ if mod.Options.EqUneqWeaponsKT and (mod:IsDifficulty("heroic25") or mod:IsDiffic
 	mod:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
 end
 
-
-local warnedAdds = false
-
-function mod:OnCombatStart(delay)
-	if self.Options.ShowRange then
-		self:ScheduleMethod(217-delay, "RangeToggle", true)
-	end
-	warnedAdds = false
-	specwarnP2Soon:Schedule(217-delay)
-	timerPhase2:Start()
-	frostBlastCD:Start(247)
-	warnPhase2:Schedule(227)
-	self:ScheduleMethod(226, "StartPhase2")
-	self:SetStage(1)
-	if mod:IsDifficulty("heroic25") or mod:IsDifficulty("normal25") then
-		mindControlCD:Start(287)
-		timerPossibleMC:Schedule(287)
-		warnMindControl:Schedule(282)
-		if self.Options.EqUneqWeaponsKT and self:IsDps() then
-			self:ScheduleMethod(286.0, "UnWKT")
-			self:ScheduleMethod(286.5, "UnWKT")
-		end
-	end
-	self:Schedule(227, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
-end
-
-function mod:UnWKT()
+local function UnWKT(self)
 	if (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsEquipmentSetAvailable("pve") then
 		PickupInventoryItem(16)
 		PutItemInBackpack()
@@ -100,7 +80,7 @@ function mod:UnWKT()
 	end
 end
 
-function mod:EqWKT()
+local function EqWKT(self)
 	if (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsEquipmentSetAvailable("pve") then
 		DBM:Debug("trying to equip pve",1)
 		UseEquipmentSet("pve")
@@ -108,172 +88,160 @@ function mod:EqWKT()
 	end
 end
 
-function mod:OnCombatEnd()
-	if self.Options.ShowRange then
-		self:RangeToggle(false)
-	end
-end
-
-function mod:StartPhase2()
-	self:SetStage(2)
-end
-
-local frostBlastTargets = {}
-local chainsTargets = {}
-
-function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(27810) and self:AntiSpam(2, 1) then
-		warnFissure:Show()
-		specwarnfissure:Show()
-		soundFissure:Play("Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-		fissureCD:Start()
-	end
-end
-
-function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 27808 then -- Frost Blast
-		table.insert(frostBlastTargets, args.destName)
-		self:UnscheduleMethod("AnnounceBlastTargets")
-		self:ScheduleMethod(0.5, "AnnounceBlastTargets")
-		if self.Options.BlastAlarm then
-			PlaySoundFile("Interface\\Addons\\DBM-Core\\sounds\\alarm1.wav")
-		end
-		blastTimer:Start()
-		frostBlastCD:Start()
-	elseif args.spellId == 27819 then -- Detonate Mana
-		warnMana:Show(args.destName)
-		self:SetIcon(args.destName, 8, 5.5)
-		if self:GetDetonateRange(args.destName) <= 12 then
-			if args:IsPlayer() then
-				specWarnManaBomb:Show()
-				specWarnManaBomb:Play("scatter")
-				yellManaBomb:Yell()
-			else
-				PlaySoundFile("Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
-				warnManaClose:Show()
-			end
-		end
-	elseif args:IsSpellID(28410) then -- Chains of Kel'Thuzad
-		table.insert(chainsTargets, args.destName)
-		mindControlCD:Start()
-		warnMindControl:Schedule(60)
-		self:UnscheduleMethod("AnnounceChainsTargets")
-		if #chainsTargets >= 3 then
-			self:AnnounceChainsTargets()
-		else
-			self:ScheduleMethod(1.0, "AnnounceChainsTargets")
-		end
-		if self.Options.EqUneqWeaponsKT and self:IsDps() then
-			self:ScheduleMethod(58.0, "UnWKT")
-			self:ScheduleMethod(58.5, "UnWKT")
-		end
-	end
-end
-
-function mod:has_value(tab, val)
-    for _, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
-end
-
-function mod:AnnounceChainsTargets()
+local function AnnounceChainsTargets(self)
 	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
-	if (not self:has_value(chainsTargets,UnitName("player")) and self.Options.EqUneqWeaponsKT and self:IsDps()) then
+	if (not tContains(chainsTargets, UnitName("player")) and self.Options.EqUneqWeaponsKT and self:IsDps()) then
 		DBM:Debug("Equipping scheduled",2)
-        self:ScheduleMethod(1.0, "EqWKT")
-		self:ScheduleMethod(2.0, "EqWKT")
-		self:ScheduleMethod(3.6, "EqWKT")
-		self:ScheduleMethod(5.0, "EqWKT")
-		self:ScheduleMethod(6.0, "EqWKT")
-        self:ScheduleMethod(8.0, "EqWKT")
-		self:ScheduleMethod(10.0,"EqWKT")
-		self:ScheduleMethod(12.0,"EqWKT")
+        self:Schedule(1.0, EqWKT, self)
+		self:Schedule(2.0, EqWKT, self)
+		self:Schedule(3.6, EqWKT, self)
+		self:Schedule(5.0, EqWKT, self)
+		self:Schedule(6.0, EqWKT, self)
+        self:Schedule(8.0, EqWKT, self)
+		self:Schedule(10.0, EqWKT, self)
+		self:Schedule(12.0, EqWKT, self)
 	end
 	table.wipe(chainsTargets)
+	self.vb.MCIcon = 1
 end
 
-function mod:AnnounceBlastTargets()
-	warnBlastTargets:Show(table.concat(frostBlastTargets, "< >"))
-	for i = #frostBlastTargets, 1, -1 do
-		self:SetIcon(frostBlastTargets[i], 8 - i, 4.5)
-		frostBlastTargets[i] = nil
+local function AnnounceBlastTargets(self)
+	if self.Options.SpecWarn27808target then
+		specWarnBlast:Show(table.concat(frostBlastTargets, "< >"))
+		specWarnBlast:Play("healall")
+	else
+		warnBlastTargets:Show(table.concat(frostBlastTargets, "< >"))
+	end
+	blastTimer:Start(3.5)
+	if self.Options.SetIconOnFrostTomb then
+		for i = #frostBlastTargets, 1, -1 do
+			self:SetIcon(frostBlastTargets[i], 8 - i, 4.5)
+			frostBlastTargets[i] = nil
+		end
+	end
+end
+
+local function StartPhase2(self)
+	if self.vb.phase == 1 then
+		self:SetStage(2)
+		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
+		if self:IsDifficulty("normal25") then
+			timerMCCD:Start(61)
+			warnMindControlSoon:Schedule(56)
+			if self.Options.EqUneqWeaponsKT and self:IsDps() then
+				self:Schedule(60, UnWKT, self)
+				self:Schedule(60.5, UnWKT, self)
+			end
+		end
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(10)
+		end
+	end
+end
+
+function mod:OnCombatStart(delay)
+	self:SetStage(1)
+	table.wipe(chainsTargets)
+	table.wipe(frostBlastTargets)
+	self.vb.warnedAdds = false
+	self.vb.MCIcon = 1
+	specwarnP2Soon:Schedule(217-delay)
+	timerPhase2:Start()
+	self:Schedule(226, StartPhase2, self)
+end
+
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(27810) then
+	local spellId = args.spellId
+	if spellId == 27810 then
 		warnFissure:Show()
-		specwarnfissure:Show()
-		soundFissure:Cancel()
-		soundFissure:Schedule(0.01, "Interface\\AddOns\\DBM-Core\\sounds\\beware.ogg")
-		fissureCD:Start()
-	elseif args:IsSpellID(27808) then
-		frostBlastCD:Start()
+		warnFissure:Play("watchstep")
+		timerFissureCD:Start()
 	elseif args.spellId == 28410 then
-		mindControlCD:Start()
-		timerPossibleMC:Cancel()
-		timerPossibleMC:Schedule(60)
+		timerMCCD:Start()
 		DBM:Debug("MC on "..args.destName,2)
-		if mod.Options.EqUneqWeaponsKT2 and args.destName == UnitName("player") then
-			mod:UnWKT()
-			mod:UnWKT()
+		if self.Options.EqUneqWeaponsKT2 and args.destName == UnitName("player") then
+			UnWKT(self)
+			self:Schedule(0.05, UnWKT, self)
 			DBM:Debug("Unequipping",2)
+		end
+	elseif spellId == 27819 then
+		timerManaBomb:Start()
+	elseif spellId == 27808 then
+		timerFrostBlast:Start()
+	end
+end
+
+function mod:SPELL_AURA_APPLIED(args)
+	local spellId = args.spellId
+	if spellId == 27808 then -- Frost Blast
+		table.insert(frostBlastTargets, args.destName)
+		self:Unschedule(AnnounceBlastTargets)
+		self:Schedule(0.5, AnnounceBlastTargets, self)
+	elseif spellId == 27819 then -- Detonate Mana
+		if self.Options.SetIconOnManaBomb then
+			self:SetIcon(args.destName, 8, 5.5)
+		end
+		if args:IsPlayer() then
+			specWarnManaBomb:Show()
+			specWarnManaBomb:Play("bombrun")
+			yellManaBomb:Yell()
+		elseif self:CheckNearby(12, args.destName) then
+			specWarnManaBombNear:Show()
+			specWarnManaBombNear:Play("scatter")
+		else
+			warnMana:Show(args.destName)
+		end
+	elseif spellId == 28410 then -- Chains of Kel'Thuzad
+		chainsTargets[#chainsTargets + 1] = args.destName
+		if self:AntiSpam() then
+			timerMC:Start()
+			timerMCCD:Start()
+			warnMindControlSoon:Schedule(60)
+		end
+		if self.Options.SetIconOnMC then
+			self:SetIcon(args.destName, self.vb.MCIcon)
+		end
+		self.vb.MCIcon = self.vb.MCIcon + 1
+		self:Unschedule(AnnounceChainsTargets)
+		if #chainsTargets >= 3 then
+			AnnounceChainsTargets(self)
+		else
+			self:Schedule(1.0, AnnounceChainsTargets, self)
+		end
+		if self.Options.EqUneqWeaponsKT and self:IsDps() then
+			self:Schedule(58.0, UnWKT, self)
+			self:Schedule(58.5, UnWKT, self)
+		end
+	end
+end
+
+function mod:SPELL_AURA_REMOVED(args)
+	if args.spellId == 28410 then
+		if self.Options.SetIconOnMC then
+			self:SetIcon(args.destName, 0)
+		end
+		if (args.destName == UnitName("player") or args:IsPlayer()) and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsDps() then
+			DBM:Debug("Equipping scheduled",2)
+	        self:Schedule(0.1, EqWKT, self)
+			self:Schedule(1.7, EqWKT, self)
+			self:Schedule(3.7, EqWKT, self)
+	        self:Schedule(7.0, EqWKT, self)
+			self:Schedule(9.0, EqWKT, self)
+			self:Schedule(11.0, EqWKT, self)
 		end
 	end
 end
 
 function mod:UNIT_HEALTH(uId)
-	if not warnedAdds and self:GetUnitCreatureId(uId) == 15990 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.48 then
-		warnedAdds = true
+	if not self.vb.warnedAdds and self:GetUnitCreatureId(uId) == 15990 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.48 then
+		self.vb.warnedAdds = true
 		warnAddsSoon:Show()
-	end
-end
-
-function mod:SPELL_AURA_REMOVED(args)
-    if args:IsSpellID(28410) then
-		if (args.destName == UnitName("player") or args:IsPlayer()) and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsDps() then
-			DBM:Debug("Equipping scheduled",2)
-	        self:ScheduleMethod(0.1, "EqWKT")
-			self:ScheduleMethod(1.7, "EqWKT")
-			self:ScheduleMethod(3.7, "EqWKT")
-	        self:ScheduleMethod(7.0, "EqWKT")
-			self:ScheduleMethod(9.0, "EqWKT")
-			self:ScheduleMethod(11.0,"EqWKT")
-		end
-	end
-end
-
-function mod:RangeToggle(show)
-	if show then
-		DBM.RangeCheck:Show(12)
-	else
-		DBM.RangeCheck:Hide()
-	end
-end
-
-function mod:GetDetonateRange(playerName)
-	local uId
-	for i= 1, GetNumRaidMembers()  do
-		uId = "raid"..i
-		if UnitName(uId) == playerName then
-			return DBM.RangeCheck:GetDistance(uId, GetPlayerMapPosition("player"))
-		end
-	end
-	return 100 --dummy number
-end
-
-function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if (msg == L.YellMC1 or msg:find(L.YellMC1) or msg == L.YellMC2 or msg:find(L.YellMC2)) then
-		if mod.Options.EqUneqWeaponsKT and self:IsDps() then
-			mod:UnWKT()
-			mod:UnWKT()
-			self:ScheduleMethod(59, "UnWKT")
-		end
-		timerPossibleMC:Cancel()
-		mindControlCD:Start()
-		timerPossibleMC:Schedule(60)
 	end
 end

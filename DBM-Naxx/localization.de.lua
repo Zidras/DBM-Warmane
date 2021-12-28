@@ -348,21 +348,10 @@ L:SetMiscLocalization({
 ------------------
 --  Kel'Thuzad  --
 ------------------
-
 L = DBM:GetModLocalization("Kel'Thuzad")
 
 L:SetGeneralLocalization({
 	name = "Kel'Thuzad"
-})
-
-L:SetOptionLocalization({
-	TimerPhase2			= "Zeige Zeit bis Phase 2",
-	specwarnP2Soon		= "Spezialwarnung 10 Sekunden bevor Kel'Thuzad angreift",
-	warnAddsSoon		= "Zeige Vorwarnung für Wächter von Eiskrone"
-})
-
-L:SetMiscLocalization({
-	Yell = "Lakaien, Diener, Soldaten der eisigen Finsternis! Folgt dem Ruf von Kel'Thuzad!"
 })
 
 L:SetWarningLocalization({
@@ -374,3 +363,15 @@ L:SetTimerLocalization({
 	TimerPhase2	= "Phase 2"
 })
 
+L:SetOptionLocalization({
+	TimerPhase2			= "Zeige Zeit bis Phase 2",
+	specwarnP2Soon		= "Spezialwarnung 10 Sekunden bevor Kel'Thuzad angreift",
+	warnAddsSoon		= "Zeige Vorwarnung für Wächter von Eiskrone",
+	EqUneqWeaponsKT		= "Waffen vor und nach $spell:28410 automatisch aus- und ausrüsten. Benötigt Ausrüstungsset namens \"pve\"",
+	EqUneqWeaponsKT2	= "Waffen automatisch ablegen und ausrüsten, wenn $spell:28410 auf DICH gewirkt wird"
+})
+
+L:SetMiscLocalization({
+	Yell = "Lakaien, Diener, Soldaten der eisigen Finsternis! Folgt dem Ruf von Kel'Thuzad!",
+	setMissing	= "AUFMERKSAMKEIT! Das automatische Ausrüsten/Ausrüsten von DBM-Waffen funktioniert erst, wenn Sie ein Ausrüstungsset namens pve . erstellen"
+})

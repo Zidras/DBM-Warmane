@@ -348,21 +348,10 @@ L:SetMiscLocalization({
 ----------------
 -- Kel'Thuzad --
 ----------------
-
 L = DBM:GetModLocalization("Kel'Thuzad")
 
 L:SetGeneralLocalization({
 	name = "Kel'Thuzad"
-})
-
-L:SetOptionLocalization({
-	TimerPhase2			= "Mostrar temporizador para el cambio a Fase 2",
-	specwarnP2Soon		= "Mostrar aviso especial 10 s antes del cambio a Fase 2",
-	warnAddsSoon		= "Mostrar aviso previo para cuando aparezcan los Guardianes de Corona de Hielo"
-})
-
-L:SetMiscLocalization({
-	Yell = "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!"
 })
 
 L:SetWarningLocalization({
@@ -374,3 +363,15 @@ L:SetTimerLocalization({
 	TimerPhase2	= "Fase 2"
 })
 
+L:SetOptionLocalization({
+	TimerPhase2			= "Mostrar temporizador para el cambio a Fase 2",
+	specwarnP2Soon		= "Mostrar aviso especial 10 s antes del cambio a Fase 2",
+	warnAddsSoon		= "Mostrar aviso previo para cuando aparezcan los Guardianes de Corona de Hielo",
+	EqUneqWeaponsKT		= "Desequipar y equipar armas automáticamente antes y después del $spell:28410. Requiere equipamiento llamado \"pve\"",
+	EqUneqWeaponsKT2	= "Desequipar y equipar armas automáticamente cuando se lanza $spell:28410 sobre USTED"
+})
+
+L:SetMiscLocalization({
+	Yell		= "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!",
+	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve"
+})
