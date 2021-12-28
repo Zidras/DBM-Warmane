@@ -1,17 +1,25 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Eye of Eternity|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0永恒之眼|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Das Auge der Ewigkeit|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Око Вечности|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0永恆之眼|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0永恒之眼|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0영원의 눈|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0El Ojo de la Eternidad|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMEyeOfEternity_AllSavedVars
-## SavedVariablesPerCharacter: DBMCEyeOfEternity_SavedStats
+## SavedVariablesPerCharacter: DBMEyeOfEternity_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-Mod-Has-Heroic-Mode: 0
 ## X-DBM-Mod-Name: Eye of Eternity
-## X-DBM-Mod-Name-zhCN: 永恒之眼
+## X-DBM-Mod-Name-deDE: Das Auge der Ewigkeit
 ## X-DBM-Mod-Name-ruRU: Око Вечности
+## X-DBM-Mod-Name-zhTW: 永恆之眼
+## X-DBM-Mod-Name-zhCN: 永恒之眼
+## X-DBM-Mod-Name-koKR: 영원의 눈
 ## X-DBM-Mod-Name-esES: El Ojo de la Eternidad
 ## X-DBM-Mod-Sort: 5
 ## X-DBM-Mod-MapID: 528
@@ -20,7 +28,12 @@
 ## X-DBM-Mod-LoadZone-ruRU: Око Вечности
 
 localization.en.lua
-localization.cn.lua
+localization.fr.lua
+localization.de.lua
 localization.ru.lua
+localization.tw.lua
+localization.kr.lua
+localization.es.lua
+localization.cn.lua
 
 Malygos.lua
