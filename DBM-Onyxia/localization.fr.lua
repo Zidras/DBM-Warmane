@@ -26,7 +26,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	YellPull = "Quelle chance ! D'habitude, je dois quitter mon repaire pour me nourrir.",
 	YellP2 = "exercice dénué de sens",
 	YellP3 = "semble que vous ayez besoin"
 }
-
