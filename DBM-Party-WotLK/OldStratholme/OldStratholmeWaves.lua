@@ -8,9 +8,11 @@ mod:RegisterEvents(
 	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_SAY"
 )
+mod.noStatistics = true
 
 local warningWaveNow	= mod:NewAnnounce("WarningWaveNow", 3)
-local timerWaveIn		= mod:NewTimer(20, "TimerWaveIn")
+
+local timerWaveIn		= mod:NewTimer(20, "TimerWaveIn", 57687, nil, nil, 1)
 local timerRoleplay		= mod:NewTimer(162, "TimerRoleplay")
 
 local wavesNormal = {
@@ -42,8 +44,13 @@ local wavesHeroic = {
 local waves		= wavesNormal
 local lastWave	= 0
 
-local function getWaveString(wave)
+local function getWaveString(self, wave)
 	local waveInfo = waves[wave]
+	if self:IsDifficulty("heroic5") then
+		waveInfo = wavesHeroic[wave]
+	else
+		waveInfo = wavesNormal[wave]
+	end
 	if #waveInfo == 1 then
 		return L.WaveBoss:format(unpack(waveInfo))
 	elseif #waveInfo == 2 then
@@ -58,11 +65,6 @@ local function getWaveString(wave)
 end
 
 function mod:UPDATE_WORLD_STATES(args)
-	if mod:IsDifficulty("heroic5") then
-		waves = wavesHeroic
-	else
-		waves = wavesNormal
-	end
 	local text = select(3, GetWorldStateUIInfo(2))
 	if not text then return end
 	local _, _, wave = string.find(text, L.WaveCheck)
@@ -75,15 +77,15 @@ function mod:UPDATE_WORLD_STATES(args)
 		lastWave = 0
 	end
 	if wave > lastWave then
-		warningWaveNow:Show(wave, getWaveString(wave))
+		warningWaveNow:Show(wave, getWaveString(self, wave))
 		lastWave = wave
 	end
 end
 
 function mod:UNIT_DIED(args)
 	if bit.band(args.destGUID:sub(0, 5), 0x00F) == 3 then
-		local z = mod:GetCIDFromGUID(args.destGUID)
-		if z == 26529 then
+		local cid = self:GetCIDFromGUID(args.destGUID)
+		if cid == 26529 then
 			timerWaveIn:Start()
 		end
 	end

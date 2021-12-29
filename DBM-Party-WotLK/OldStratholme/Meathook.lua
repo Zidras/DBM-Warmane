@@ -3,17 +3,17 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 2250 $"):sub(12, -3))
 mod:SetCreatureID(26529)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_SUCCESS 52696 58823"
 )
 
-local warningChains		= mod:NewTargetAnnounce(52696, 4)
-local timerChains		= mod:NewTargetTimer(5, 52696)
-local timerChainsCD		= mod:NewCDTimer(15, 52696)
+local warningChains		= mod:NewTargetNoFilterAnnounce(52696, 4)
+
+local timerChains		= mod:NewTargetTimer(5, 52696, nil, nil, nil, 3)
+local timerChainsCD		= mod:NewCDTimer(15, 52696, nil, nil, nil, 3)
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(52696, 58823) then
