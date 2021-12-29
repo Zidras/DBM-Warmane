@@ -46,27 +46,40 @@ L:SetWarningLocalization({
 	WarningShadron			= "Shadron se aproxima",
 	WarningVesperon			= "Vesperon se aproxima",
 	WarningFireWall			= "¡Muro de Fuego!",
+	WarningWhelpsSoon		= "Crías de Tenebron pronto",
+	WarningPortalSoon		= "Portal de Shadron pronto",
+	WarningReflectSoon		= "Vesperon Reflexiona pronto",
 	WarningVesperonPortal	= "¡Portal de Vesperon!",
 	WarningTenebronPortal	= "¡Portal de Tenebron!",
 	WarningShadronPortal	= "¡Portal de Shadron!"
 })
 
 L:SetTimerLocalization({
-	TimerTenebron	= "Tenebron llega",
-	TimerShadron	= "Shadron llega",
-	TimerVesperon	= "Vesperon llega"
+	TimerTenebron			= "Tenebron llega",
+	TimerShadron			= "Shadron llega",
+	TimerVesperon			= "Vesperon llega",
+	TimerTenebronWhelps		= "Crías de Tenebron",
+	TimerShadronPortal		= "Portal de Shadron",
+	TimerVesperonPortal		= "Portal Vesperon",
+	TimerVesperonPortal2	= "Portal Vesperon 2"
 })
 
 L:SetOptionLocalization({
-	PlaySoundOnFireWall		= "Reproducir sonido para \"Muro de Fuego\"",
 	AnnounceFails			= "Anunciar jugadores que reciban daño de $spell:57491 y $spell:57579 en el chat de banda (requiere líder o ayudante)",
 	TimerTenebron			= "Mostrar temporizador para la llegada de Tenebron",
 	TimerShadron			= "Mostrar temporizador para la llegada de Shadron",
 	TimerVesperon			= "Mostrar temporizador para la llegada de Vesperon",
+	TimerTenebronWhelps		= "Mostrar temporizador para crías de Tenebrón",
+	TimerShadronPortal		= "Mostrar temporizador para Shadron Portal",
+	TimerVesperonPortal		= "Mostrar temporizador para Vesperon Portal",
+	TimerVesperonPortal2	= "Mostrar temporizador para Vesperon Portal 2",
 	WarningFireWall			= "Mostrar aviso especial para $spell:57491",
 	WarningTenebron			= "Anunciar cuando Tenebron se aproxime",
 	WarningShadron			= "Anunciar cuando Shadron se aproxime",
 	WarningVesperon			= "Anunciar cuando Vesperon se aproxime",
+	WarningWhelpsSoon		= "Anunciar pronto crías de Tenebrón",
+	WarningPortalSoon		= "Anunciar Shadron Portal pronto",
+	WarningReflectSoon		= "Anunciar Vesperon Reflect pronto",
 	WarningTenebronPortal	= "Mostrar aviso especial cuando aparezca el portal de Tenebron",
 	WarningShadronPortal	= "Mostrar aviso especial cuando aparezca el portal de Shadron",
 	WarningVesperonPortal	= "Mostrar aviso especial cuando aparezca el portal de Vesperon"

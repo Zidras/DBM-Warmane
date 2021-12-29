@@ -45,27 +45,40 @@ L:SetWarningLocalization({
 	WarningShadron			= "Shadron kommt",
 	WarningVesperon			= "Vesperon kommt",
 	WarningFireWall			= "Feuerwand",
+	WarningWhelpsSoon		= "Tenebron Welpen bald",
+	WarningPortalSoon		= "Shadron-Portal in Kürze",
+	WarningReflectSoon		= "Vesperon Reflect Bald",
 	WarningVesperonPortal	= "Vesperons Portal",
 	WarningTenebronPortal	= "Tenebrons Portal",
 	WarningShadronPortal	= "Shadrons Portal"
 })
 
 L:SetTimerLocalization({
-	TimerTenebron	= "Tenebron kommt",
-	TimerShadron	= "Shadron kommt",
-	TimerVesperon	= "Vesperon kommt"
+	TimerTenebron			= "Tenebron kommt",
+	TimerShadron			= "Shadron kommt",
+	TimerVesperon			= "Vesperon kommt",
+	TimerTenebronWhelps		= "Tenebron Welpen",
+	TimerShadronPortal		= "Shadron-Portal",
+	TimerVesperonPortal		= "Vesperon-Portal",
+	TimerVesperonPortal2	= "Vesperon-Portal 2"
 })
 
 L:SetOptionLocalization({
-	PlaySoundOnFireWall		= "Spiele Sound bei Feuerwand",
 	AnnounceFails			= "Verkünde Spieler im SZ-Chat, die bei Feuerwand und Schattenspalt scheitern (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)",
 	TimerTenebron			= "Zeige Zeit bis Tenebron in den Kampf eingreift",
 	TimerShadron			= "Zeige Zeit bis Shadron in den Kampf eingreift",
 	TimerVesperon			= "Zeige Zeit bis Vesperon in den Kampf eingreift",
+	TimerTenebronWhelps		= "Timer für Tenebron Welpen anzeigen",
+	TimerShadronPortal		= "Timer für Shadron-Portal anzeigen",
+	TimerVesperonPortal		= "Timer für Vesperon Portal anzeigen",
+	TimerVesperonPortal2	= "Timer für Vesperon Portal 2 anzeigen",
 	WarningFireWall			= "Spezialwarnung für Feuerwand",
 	WarningTenebron			= "Verkünde das Eingreifen von Tenebron in den Kampf",
 	WarningShadron			= "Verkünde das Eingreifen von Shadron in den Kampf",
 	WarningVesperon			= "Verkünde das Eingreifen von Vesperon in den Kampf",
+	WarningWhelpsSoon		= "Kündigen Tenebron Whelps bald an",
+	WarningPortalSoon		= "Shadron-Portal bald ankündigen",
+	WarningReflectSoon		= "Vesperon Reflect bald ankündigen",
 	WarningTenebronPortal	= "Spezialwarnung für Tenebrons Portal",
 	WarningShadronPortal	= "Spezialwarnung für Shadrons Portal",
 	WarningVesperonPortal	= "Spezialwarnung für Vesperons Portal"
