@@ -21,8 +21,7 @@ L:SetOptionLocalization({
 	ShowFrame			= "Mostrar marco del reino espectral" ,
 	FrameClassColor		= "Usar colores de clase en el marco del reino espectral",
 	FrameUpwards		= "Expandir marco del reino espectral hacia arriba",
-	FrameLocked			= "Bloquear marco del reino espectral",
-	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
+	FrameLocked			= "Bloquear marco del reino espectral"
 })
 
 L:SetMiscLocalization({

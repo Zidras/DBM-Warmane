@@ -30,7 +30,7 @@
 				self:StopMovingOrSizing()
 				DBM:GetModByName("Kal"):SaveFramePosition()
 				if button == "RightButton" then
-					UIDropDownMenu_Initialize(DBMKalMenu, DBM:GetModByName("Kal").InitializeMenu, "MENU")
+					UIDropDownMenu_Initialize(DBMKalMenu, DBM:GetModByName("Kal").InitializeMenu)
 					ToggleDropDownMenu(1, nil, DBMKalMenu, "DBMKalMenu", 30, 50)
 				end
 			</OnMouseUp>
@@ -51,7 +51,7 @@
 			</Anchor>
 		</Anchors>
 	</Frame>
-	
+
 	<Frame name="DBMKalFrameTemplate" enableMouse="true" virtual="true" frameStrata="MEDIUM" topLevel="true">
 		<Size>
 			<AbsDimension x="130" y="20"/>
@@ -132,7 +132,7 @@
 								DBMKalFrameDrag:StopMovingOrSizing()
 								DBM:GetModByName("Kal"):SaveFramePosition()
 								if button == "RightButton" then
-									UIDropDownMenu_Initialize(DBMKalMenu, DBM:GetModByName("Kal").InitializeMenu, "MENU")
+									UIDropDownMenu_Initialize(DBMKalMenu, DBM:GetModByName("Kal").InitializeMenu)
 									ToggleDropDownMenu(1, nil, DBMKalMenu, "DBMKalMenu", 30, 50)
 								end
 							</OnMouseUp>
@@ -169,7 +169,7 @@
 				self.moving = false
 				DBMKalFrameDrag:StopMovingOrSizing()
 				if button == "RightButton" then
-					UIDropDownMenu_Initialize(DBMKalMenu, DBM:GetModByName("Kal").InitializeMenu, "MENU")
+					UIDropDownMenu_Initialize(DBMKalMenu, DBM:GetModByName("Kal").InitializeMenu)
 					ToggleDropDownMenu(1, nil, DBMKalMenu, "DBMKalMenu", 30, 50)
 				end
 			</OnMouseUp>
@@ -181,4 +181,4 @@
 			</OnHide>
 		</Scripts>
 	</Frame>
-</Ui>	
+</Ui>

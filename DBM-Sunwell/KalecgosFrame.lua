@@ -2,49 +2,48 @@ local Kal 	= DBM:GetModByName("Kal")
 local L		= Kal:GetLocalizedStrings()
 
 function Kal:InitializeMenu()
-	self = Kal -- this function will be called by UIDropDownMenu_Initialize()
-	local info = UIDropDownMenu_CreateInfo()
-	info.text = L.name
-	info.notClickable = 1
-	info.isTitle = 1
-	info.notCheckable = 1
-	UIDropDownMenu_AddButton(info, 1)
-
 	local info1 = UIDropDownMenu_CreateInfo()
-	info1.text = L.FrameLock
-	info1.value = self.Options.FrameLocked
-	info1.func = function() self.Options.FrameLocked = not self.Options.FrameLocked end
-	info1.checked = self.Options.FrameLocked
-	info1.keepShownOnClick = 1
+	info1.text = L.name
+	info1.notClickable = 1
+	info1.isTitle = 1
+	info1.notCheckable = 1
 	UIDropDownMenu_AddButton(info1, 1)
 
 	local info2 = UIDropDownMenu_CreateInfo()
-	info2.text = L.FrameClassColor
-	info2.value = self.Options.FrameClassColor
-	info2.func = function() self.Options.FrameClassColor = not self.Options.FrameClassColor self:UpdateColors() end
-	info2.checked = self.Options.FrameClassColor
+	info2.text = L.FrameLock
+	info2.value = self.Options.FrameLocked
+	info2.func = function() self.Options.FrameLocked = not self.Options.FrameLocked end
+	info2.checked = self.Options.FrameLocked
 	info2.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info2, 1)
 
 	local info3 = UIDropDownMenu_CreateInfo()
-	info3.text = L.FrameOrientation
-	info3.value = self.Options.FrameUpwards
-	info3.func = function() self.Options.FrameUpwards = not self.Options.FrameUpwards self:ChangeFrameOrientation() end
-	info3.checked = self.Options.FrameUpwards
+	info3.text = L.FrameClassColor
+	info3.value = self.Options.FrameClassColor
+	info3.func = function() self.Options.FrameClassColor = not self.Options.FrameClassColor self:UpdateColors() end
+	info3.checked = self.Options.FrameClassColor
 	info3.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info3, 1)
 
 	local info4 = UIDropDownMenu_CreateInfo()
-	info4.text = L.FrameHide
-	info4.func = function() DBMKalFrameDrag:Hide() end
-	info4.notCheckable = 1
+	info4.text = L.FrameOrientation
+	info4.value = self.Options.FrameUpwards
+	info4.func = function() self.Options.FrameUpwards = not self.Options.FrameUpwards self:ChangeFrameOrientation() end
+	info4.checked = self.Options.FrameUpwards
+	info4.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info4, 1)
 
 	local info5 = UIDropDownMenu_CreateInfo()
-	info5.text = L.FrameClose
-	info5.func = function() end
+	info5.text = L.FrameHide
+	info5.func = function() _G["DBMKalFrameDrag"]:Hide() end
 	info5.notCheckable = 1
 	UIDropDownMenu_AddButton(info5, 1)
+
+	local info6 = UIDropDownMenu_CreateInfo()
+	info6.text = L.FrameClose
+	info6.func = function() end
+	info6.notCheckable = 1
+	UIDropDownMenu_AddButton(info6, 1)
 end
 
 local firstEntry = nil
@@ -59,7 +58,7 @@ local function createBarFrame(name)
 		frames[#frames] = nil
 		frame:Show()
 	else
-		frame = CreateFrame("Frame", "DBMKalFrame"..fCounter, DBMKalFrameDrag, "DBMKalFrameTemplate")
+		frame = CreateFrame("Frame", "DBMKalFrame"..fCounter, _G["DBMKalFrameDrag"], "DBMKalFrameTemplate")
 		fCounter = fCounter + 1
 	end
 	_G[frame:GetName().."BarName"]:SetText(name)
@@ -120,9 +119,9 @@ function barMethods:SetPosition()
 	self.data.frame:ClearAllPoints()
 	if self == firstEntry then
 		if Kal.Options.FrameUpwards then
-			self.data.frame:SetPoint("BOTTOM", DBMKalFrameDrag, "TOP", 0, -10)
+			self.data.frame:SetPoint("BOTTOM", _G["DBMKalFrameDrag"], "TOP", 0, -10)
 		else
-			self.data.frame:SetPoint("TOP", DBMKalFrameDrag, "BOTTOM", 0, 0)
+			self.data.frame:SetPoint("TOP", _G["DBMKalFrameDrag"], "BOTTOM", 0, 0)
 		end
 	else
 		if Kal.Options.FrameUpwards then
@@ -146,7 +145,7 @@ function barMethods:GetSpark()
 end
 
 function Kal:CreateFrame()
-	DBMKalFrameDragTitle:SetText(L.FrameTitle)
+	_G["DBMKalFrameDragTitle"]:SetText(L.FrameTitle)
 	if firstEntry then
 		local entry = firstEntry
 		while entry do
@@ -158,21 +157,21 @@ function Kal:CreateFrame()
 		firstEntry = nil
 		lastEntry = nil
 	end
-	DBMKalFrameDrag:Show()
+	_G["DBMKalFrameDrag"]:Show()
 	if self.Options.FramePoint then
-		DBMKalFrameDrag:SetPoint(self.Options.FramePoint, nil, self.Options.FramePoint, self.Options.FrameX, self.Options.FrameY)
+		_G["DBMKalFrameDrag"]:SetPoint(self.Options.FramePoint, nil, self.Options.FramePoint, self.Options.FrameX, self.Options.FrameY)
 	end
 end
 
 function Kal:SaveFramePosition()
-	local point, _, _, x, y = DBMKalFrameDrag:GetPoint()
+	local point, _, _, x, y = _G["DBMKalFrameDrag"]:GetPoint()
 	self.Options.FramePoint = point
 	self.Options.FrameX = x
 	self.Options.FrameY = y
 end
 
 function Kal:DestroyFrame()
-	DBMKalFrameDrag:Hide()
+	_G["DBMKalFrameDrag"]:Hide()
 end
 
 function Kal:ChangeFrameOrientation()

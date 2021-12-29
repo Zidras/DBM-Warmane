@@ -1,54 +1,54 @@
 local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
+local Kal 	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 530 $"):sub(12, -3))
 mod:SetCreatureID(24850)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 44799",
+	"SPELL_CAST_SUCCESS 45018",
+	"SPELL_AURA_APPLIED 44978 45001 45002 45004 45006 45010 45029 46021 45018",
+	"SPELL_AURA_APPLIED_DOSE 45018",
 	"UNIT_DIED"
 )
 
 local warnPortal		= mod:NewAnnounce("WarnPortal", 4, 46021)
-local warnBuffet		= mod:NewSpellAnnounce(45018, 3)
+local warnBuffet		= mod:NewSpellAnnounce(45018, 3, nil, false, 2)
 local warnBreath		= mod:NewSpellAnnounce(44799, 3, nil, false)
 local warnCorrupt		= mod:NewTargetAnnounce(45029, 3)
 
-local specWarnBuffet	= mod:NewSpecialWarningStack(45018, nil, 10)
+local specWarnBuffet	= mod:NewSpecialWarningStack(45018, nil, 10, nil, nil, 1, 6)
 local specWarnWildMagic	= mod:NewSpecialWarning("SpecWarnWildMagic")
 
-local timerNextPortal	= mod:NewNextCountTimer(25, 46021)
-local timerBreathCD		= mod:NewCDTimer(15, 44799, false)
-local timerBuffetCD		= mod:NewCDTimer(4, 45018)
-local timerPorted		= mod:NewBuffActiveTimer(60, 46021)
-local timerExhausted	= mod:NewBuffActiveTimer(60, 44867)
+local timerNextPortal	= mod:NewNextCountTimer(25, 46021, nil, nil, nil, 5)
+local timerBreathCD		= mod:NewCDTimer(15, 44799, nil, false, nil, 5, nil, DBM_CORE_L.TANK_ICON)--Tanks?
+local timerBuffetCD		= mod:NewCDTimer(8, 45018, nil, nil, nil, 2)
+local timerPorted		= mod:NewBuffActiveTimer(60, 46021, nil, nil, nil, 6)
+local timerExhausted	= mod:NewBuffActiveTimer(60, 44867, nil, nil, nil, 6)
 
-mod:AddBoolOption("HealthFrame", true)
-mod:AddBoolOption("RangeFrame", true)
+mod:AddRangeFrameOption("12")
 mod:AddBoolOption("ShowFrame", true)
 mod:AddBoolOption("FrameLocked", false)
 mod:AddBoolOption("FrameClassColor", true, nil, function()
-	mod:UpdateColors()
+	Kal:UpdateColors()
 end)
 mod:AddBoolOption("FrameUpwards", false, nil, function()
-	mod:ChangeFrameOrientation()
+	Kal:ChangeFrameOrientation()
 end)
-mod:AddEditboxOption("FramePoint", "CENTER")
-mod:AddEditboxOption("FrameX", 150)
-mod:AddEditboxOption("FrameY", -50)
 
-local portCount = 1
+Kal.Options.FramePoint = "CENTER"
+Kal.Options.FrameX = 150
+Kal.Options.FrameY = -50
+
+mod.vb.portCount = 1
 
 function mod:OnCombatStart(delay)
-	portCount = 1
+	self.vb.portCount = 1
 	if self.Options.ShowFrame then
-		self:CreateFrame()
+		Kal:CreateFrame()
 	end
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
@@ -61,10 +61,9 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-	self:DestroyFrame()
+	Kal:DestroyFrame()
 	DBM.RangeCheck:Hide()
 end
-
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 44978 and args:IsPlayer() and self:IsHealer() then
@@ -102,15 +101,16 @@ function mod:SPELL_AURA_APPLIED(args)
 				grp = 0
 				class = select(2, UnitClass("player"))
 			end
-			self:AddEntry(("%s (%d)"):format(args.destName, grp or 0), class)
-			warnPortal:Show(portCount, args.destName, grp or 0)
-			portCount = portCount + 1
-			timerNextPortal:Start(nil, portCount)
+			Kal:AddEntry(("%s (%d)"):format(args.destName, grp or 0), class)
+			warnPortal:Show(self.vb.portCount, args.destName, grp or 0)
+			self.vb.portCount = self.vb.portCount + 1
+			timerNextPortal:Start(nil, self.vb.portCount)
 		end
 	elseif args.spellId == 45018 and args:IsPlayer() then
 		local amount = args.amount or 1
-		if amount >= 15 and amount % 2 == 0 then
+		if amount >= 10 and amount % 2 == 0 then
 			specWarnBuffet:Show(amount)
+			specWarnBuffet:Play("stackhigh")
 		end
 	end
 end
@@ -147,6 +147,6 @@ function mod:UNIT_DIED(args)
 		else
 			grp = 0
 		end
-		self:RemoveEntry(("%s (%d)"):format(args.destName, grp or 0))
+		Kal:RemoveEntry(("%s (%d)"):format(args.destName, grp or 0))
 	end
 end

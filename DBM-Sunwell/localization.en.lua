@@ -14,19 +14,13 @@ L:SetWarningLocalization({
 	SpecWarnWildMagic	= "Wild Magic - %s!"
 })
 
-L:SetTimerLocalization({
-	TimerNextPortal		= "Portal (%d)"
-})
-
 L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",
-	TimerNextPortal		= "Show portal timer",
 	ShowFrame			= "Show Spectral Realm frame" ,
 	FrameClassColor		= "Use class colors in Spectral Realm frame",
 	FrameUpwards		= "Expand Spectral Realm frame upwards",
-	FrameLocked			= "Set Spectral Realm frame not movable",
-	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
+	FrameLocked			= "Set Spectral Realm frame not movable"
 })
 
 L:SetMiscLocalization({
