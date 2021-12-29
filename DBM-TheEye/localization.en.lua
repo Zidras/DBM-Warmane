@@ -56,8 +56,7 @@ L:SetOptionLocalization({
 	WarnPriest		= "Show warning for Priests and Solarian spawn",
 	TimerSplit		= "Show timer for Split",
 	TimerAgent		= "Show timer for Agents spawn",
-	TimerPriest		= "Show timer for Priests and Solarian spawn",
-	WrathIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(42783)
+	TimerPriest		= "Show timer for Priests and Solarian spawn"
 })
 
 L:SetMiscLocalization({

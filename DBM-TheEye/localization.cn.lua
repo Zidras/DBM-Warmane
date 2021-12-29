@@ -64,9 +64,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	WrathWhisper	= "星术师之怒！",
-	YellSplit1		= "我要让你们自以为是的错觉荡然无存！",--Translate
-	YellSplit2		= "你们势单力薄！",--Translate
-	YellPhase2		= "我受够了！"--Translate
+	YellSplit1		= "我要让你们自以为是的错觉荡然无存！",
+	YellSplit2		= "你们势单力薄！",
+	YellPhase2		= "我受够了！"
 })
 
 ---------------------------
