@@ -6,10 +6,10 @@ mod:SetCreatureID(36497)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"UNIT_HEALTH"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 68872",
+	"SPELL_AURA_APPLIED 68839",
+	"UNIT_HEALTH boss1"
 )
 
 local warnSoulstormSoon		= mod:NewSoonAnnounce(68872, 2)
