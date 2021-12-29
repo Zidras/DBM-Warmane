@@ -49,15 +49,8 @@ L:SetGeneralLocalization({
 	name = "Бруталл"
 })
 
-L:SetOptionLocalization({
-	BurnIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(46394),
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(4, 46394),
-	BurnWhisper		= "Шепот целям заклинания $spell:46394 (нужен РЛ)"
-})
-
 L:SetMiscLocalization({
-	Pull			= "Аа, новые овечки на заклание?",
-	BurnWhisper		= "Огонь на тебе!"
+	Pull			= "Аа, новые овечки на заклание?"
 })
 
 --------------
