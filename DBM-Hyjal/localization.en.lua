@@ -9,10 +9,6 @@ L:SetGeneralLocalization({
 	name = "Rage Winterchill"
 })
 
-L:SetOptionLocalization{
-	IceBoltIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(31249)
-}
-
 -----------------
 --  Anetheron  --
 -----------------
