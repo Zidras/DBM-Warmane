@@ -16,7 +16,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	NextPlatform	= "Show timer for when Al'ar changes platforms"
+	NextPlatform	= "Показывать таймер, когда Ал'ар меняет платформу"
 })
 
 ------------------
