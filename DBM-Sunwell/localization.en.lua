@@ -90,14 +90,6 @@ L:SetGeneralLocalization({
 	name = "Eredar Twins"
 })
 
-L:SetOptionLocalization({
-	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333),
-	NovaWhisper		= "Whisper to $spell:45329 target (requires RL)",
-	ConflagWhisper	= "Whisper to $spell:45333 target (requires RL)"
-})
-
 L:SetMiscLocalization({
 	Nova			= "directs Shadow Nova at (.+)%.",
 	Conflag			= "directs Conflagration at (.+)%.",

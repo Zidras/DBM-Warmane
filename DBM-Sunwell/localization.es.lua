@@ -91,12 +91,6 @@ L:SetGeneralLocalization({
 	name = "Las gemelas eredar"
 })
 
-L:SetOptionLocalization({
-	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333)
-})
-
 L:SetMiscLocalization({
 	Nova			= "dirige Nova de las Sombras hacia (.+)%.",
 	Conflag			= "dirige Conflagración hacia (.+)%.",

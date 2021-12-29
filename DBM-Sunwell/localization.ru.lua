@@ -91,20 +91,6 @@ L:SetGeneralLocalization({
 	name = "Близнецы"
 })
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= "Показывать окно проверки дистанции (10 м)",
-	NovaWhisper		= "Шепот целям заклинания $spell:45329 target (нужен РЛ)",
-	ConflagWhisper	= "Шепот целям заклинания $spell:45333 target (нужен РЛ)",
-})
-
 L:SetMiscLocalization({
 	NovaWhisper		= "Кольцо тьмы на тебе!",
 	ConflagWhisper	= "Воспламенение на тебе!",
