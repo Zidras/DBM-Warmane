@@ -6,51 +6,51 @@ local L
 -----------
 L = DBM:GetModLocalization("Alar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "歐爾"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextPlatform	= "最長平台停留時間"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NextPlatform	= "為歐爾最長平台可能停留時間顯示計時器(可能會提早離開不過不會大於這個時間)"
-}
+})
 
 ------------------
 --  Void Reaver --
 ------------------
 L = DBM:GetModLocalization("VoidReaver")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "虛無搶奪者"
-}
+})
 
 --------------------------------
 --  High Astromancer Solarian --
 --------------------------------
 L = DBM:GetModLocalization("Solarian")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "高階星術師索拉瑞恩"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSplit		= "分裂!",
 	WarnSplitSoon	= "5秒後分裂",
 	WarnAgent		= "密探出現了",
 	WarnPriest		= "牧師和索拉瑞恩出現了"
 
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSplit		= "下一次分裂",
 	TimerAgent		= "密探即將到來",
 	TimerPriest		= "牧師和索拉瑞恩即將到來"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnSplit		= "為分裂顯示警告",
 	WarnSplitSoon	= "為分裂顯示警告顯示預先警告",
 	WarnAgent		= "為密探出現顯示警告",
@@ -58,39 +58,39 @@ L:SetOptionLocalization{
 	TimerSplit		= "為分裂顯示計時器",
 	TimerAgent		= "為密探出現顯示計時器",
 	TimerPriest		= "為牧師和索拉瑞恩出現顯示計時器"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellSplit1		= "我會粉碎你那偉大的夢想",
 	YellSplit2		= "我的實力遠勝於你!",
 	YellPhase2		= "夠了!現在我要呼喚宇宙中失衡的能量。"
-}
+})
 
 ---------------------------
 --  Kael'thas Sunstrider --
 ---------------------------
 L = DBM:GetModLocalization("KaelThas")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "凱爾薩斯·逐日者"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnGaze		= ">%s<被凝視了",
 	WarnMobDead		= "%s倒下",
 	WarnEgg			= "鳳凰蛋出現",
 	SpecWarnGaze	= "你被凝視了!快跑!",
 	SpecWarnEgg		= "鳳凰蛋出現! - 快換目標!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "下個階段",
 	TimerPhase1mob	= "%s",
 	TimerNextGaze	= "下一個凝視目標",
 	TimerRebirth	= "鳳凰重生"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnGaze		= "為薩拉瑞德凝視的目標顯示警告",
 	WarnMobDead		= "為第2階段小怪倒下顯示警告",
 	WarnEgg			= "為鳳凰蛋出現顯示警告",
@@ -101,9 +101,9 @@ L:SetOptionLocalization{
 	TimerNextGaze	= "為薩拉瑞德凝視目標改變顯示計時器",
 	TimerRebirth	= "為鳳凰蛋重生顯示計時器",
 	GazeIcon		= "標記薩拉瑞德注視的目標"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPhase2	= "你們看，我的個人收藏中有許多武器...",
 	YellPhase3	= "也許我低估了你。要你一次對付四位諫言者也許對你來說是不太公平，但是...我的人民從未得到公平的對待。我只是以牙還牙而已。",
 	YellPhase4	= "唉，有些時候，有些事情，必須得親自解決才行。(薩拉斯語)受死吧!",
@@ -124,4 +124,4 @@ L:SetMiscLocalization{
 	Shield		= "相位壁壘",
 	Staff		= "瓦解之杖",
 	Egg			= "鳳凰蛋"
-}
+})
