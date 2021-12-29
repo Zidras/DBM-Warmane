@@ -7,68 +7,72 @@ local L
 ------------------------
 L = DBM:GetModLocalization("Rage")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "雷基·冬寒"
-}
+})
 
 -----------------
 --  Anetheron  --
 -----------------
 L = DBM:GetModLocalization("Anetheron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "安纳塞隆"
-}
+})
 
 ----------------
 --  Kazrogal  --
 ----------------
 L = DBM:GetModLocalization("Kazrogal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "卡兹洛加"
-}
+})
 
 ---------------
 --  Azgalor  --
 ---------------
 L = DBM:GetModLocalization("Azgalor")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "阿兹加洛"
-}
+})
 
 ------------------
 --  Archimonde  --
 ------------------
 L = DBM:GetModLocalization("Archimonde")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "阿克蒙德"
-}
+})
 
 ----------------
 -- WaveTimers --
 ----------------
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "普通怪物"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnWave	= "%s",
 	WarnWaveSoon= "下一波敌人即将到来"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerWave	= "Next wave"--Translate
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnWave		= "Warn when a new wave is incoming",--Translate
 	WarnWaveSoon	= "Warn when a new wave is incoming soon",--Translate
 	DetailedWave	= "Detailed warning when a new wave is incoming (which mobs)",--Translate
 	TimerWave		= "Show a timer for next wave"--Translate
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	HyjalZoneName	= "海加尔峰",
 	Thrall			= "萨尔",
 	Jaina			= "吉安娜·普罗德摩尔",
@@ -95,4 +99,4 @@ L:SetMiscLocalization{
 	Wyrm			= "冰霜巨龙",
 	Stalker			= "恶魔猎犬",
 	Infernal		= "地狱火"
-}
+})
