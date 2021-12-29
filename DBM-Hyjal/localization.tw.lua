@@ -7,66 +7,70 @@ local L
 ------------------------
 L = DBM:GetModLocalization("Rage")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "瑞齊·凜冬"
-}
+})
 
 -----------------
 --  Anetheron  --
 -----------------
 L = DBM:GetModLocalization("Anetheron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "安納塞隆"
-}
+})
 
 ----------------
 --  Kazrogal  --
 ----------------
 L = DBM:GetModLocalization("Kazrogal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "卡茲洛加"
-}
+})
 
 ---------------
 --  Azgalor  --
 ---------------
 L = DBM:GetModLocalization("Azgalor")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "亞茲加洛"
-}
+})
 
 ------------------
 --  Archimonde  --
 ------------------
 L = DBM:GetModLocalization("Archimonde")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "阿克蒙德"
-}
+})
 
 ----------------
 -- WaveTimers --
 ----------------
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "小怪模組"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnWave	= "%s"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerWave	= "下一波"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnWave		= "當新一波進攻到來時顯示警告",
 	DetailedWave	= "當新一波進攻到來時顯示詳細警告(何種怪)",
 	TimerWave		= "為下一波進攻顯示計時器"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	HyjalZoneName	= "海加爾山",
 	Thrall			= "索爾",
 	Jaina			= "珍娜·普勞德摩爾女士",
@@ -94,4 +98,5 @@ L:SetMiscLocalization{
 	Wyrm			= "冰龍",
 	Stalker			= "惡魔捕獵者",
 	Infernal		= "巨型地獄火"
-}
+})
+

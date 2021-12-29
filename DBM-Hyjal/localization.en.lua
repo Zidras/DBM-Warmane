@@ -5,9 +5,9 @@ local L
 ------------------------
 L = DBM:GetModLocalization("Rage")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Rage Winterchill"
-}
+})
 
 L:SetOptionLocalization{
 	IceBoltIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(31249)
@@ -18,65 +18,69 @@ L:SetOptionLocalization{
 -----------------
 L = DBM:GetModLocalization("Anetheron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Anetheron"
-}
+})
 
 ----------------
 --  Kazrogal  --
 ----------------
 L = DBM:GetModLocalization("Kazrogal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kaz'rogal"
-}
+})
 
 ---------------
 --  Azgalor  --
 ---------------
 L = DBM:GetModLocalization("Azgalor")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Azgalor"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	DoomIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(31347)
-}
+})
 
 ------------------
 --  Archimonde  --
 ------------------
 L = DBM:GetModLocalization("Archimonde")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Archimonde"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	BurstIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(32014)
-}
+})
 
 ----------------
 -- WaveTimers --
 ----------------
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "Wave Features"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnWave	= "%s",
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerWave	= "Next wave"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnWave		= "Warn when a new wave is incoming",
 	DetailedWave	= "Detailed warning when a new wave is incoming (which mobs)",
 	TimerWave		= "Show a timer for next wave"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	HyjalZoneName	= "Hyjal Summit",
 	Thrall			= "Thrall",
 	Jaina			= "Lady Jaina Proudmoore",
@@ -105,4 +109,4 @@ L:SetMiscLocalization{
 	Wyrm			= "Frost Wyrm",
 	Stalker			= "Fel Stalkers",
 	Infernal		= "Infernals"
-}
+})

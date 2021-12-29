@@ -11,18 +11,28 @@
 ## SavedVariables: DBMHyjal_AllSavedVars
 ## SavedVariablesPerCharacter: DBMHyjal_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal25
 ## X-DBM-Mod-Name: The Battle for Mount Hyjal
+## X-DBM-Mod-Name-koKR: 하이잘 정상
+## X-DBM-Mod-Name-deDE: Die Schlacht um den Hyjal
+## X-DBM-Mod-Name-esES: La Batalla del Monte Hyjal
 ## X-DBM-Mod-Name-zhCN: 海加尔之战
+## X-DBM-Mod-Name-zhTW: 海加爾山之戰
 ## X-DBM-Mod-Name-ruRU: Битва за гору Хиджал
-## X-DBM-Mod-Name-esES: Monte Hyjal
 ## X-DBM-Mod-MapID: 776
 ## X-DBM-Mod-LoadZone: Hyjal Summit
 ## X-DBM-Mod-LoadZone-zhCN: 海加尔峰
 ## X-DBM-Mod-LoadZone-ruRU: Вершина Хиджала
 
 localization.en.lua
+localization.de.lua
+localization.cn.lua
+localization.tw.lua
 localization.ru.lua
+localization.es.lua
+localization.kr.lua
 
 RageWinterchill.lua
 Anetheron.lua
