@@ -72,9 +72,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarnPhase		= "Anunciar cambios de fase",
-	TimerPhase		= "Mostrar temporizador para los cambios de fase",
-	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665)
+	TimerPhase		= "Mostrar temporizador para los cambios de fase"
 })
 
 L:SetMiscLocalization({

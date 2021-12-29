@@ -63,25 +63,16 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnPhase		= "%s фаза",
-	WarnPhaseSoon	= "%s фаза через 10 сек",
-	WarnBreath		= "Глубокий Вздох (%d)"
+	WarnPhase		= "%s фаза"
 })
 
 L:SetTimerLocalization({
-	TimerPhase		= "Следующая %s фаза",
-	TimerBreath		= "Глубокий Вздох"
+	TimerPhase		= "Следующая %s фаза"
 })
 
 L:SetOptionLocalization({
 	WarnPhase		= "Показывать предупреждение для следующей фазы",
-	WarnPhaseSoon	= "Предупреждать заранее(10сек) о следующей фазе",
-	WarnBreath		= "Показывать предупреждение для Глубокого Вздоха",
-	TimerPhase		= "Показывать таймер фаз",
-	TimerBreath		= "Показывать время до восстановления Глубокого Вздоха",
-	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
-	YellOnEncaps	= "Кричать когда на вас $spell:45665"
+	TimerPhase		= "Показывать таймер фаз"
 })
 
 L:SetMiscLocalization({
