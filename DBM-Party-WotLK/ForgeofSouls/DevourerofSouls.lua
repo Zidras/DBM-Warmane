@@ -6,10 +6,10 @@ mod:SetCreatureID(36502)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 68982 70322 68820 68939 68899 70324",
+	"SPELL_AURA_APPLIED 69051 68939",
+	"SPELL_AURA_REMOVED 69051"
 )
 
 local warnUnleashedSouls		= mod:NewSpellAnnounce(68939, 3)
