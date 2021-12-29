@@ -36,10 +36,6 @@ L:SetGeneralLocalization({
 	name = "Azgalor"
 })
 
-L:SetOptionLocalization({
-	DoomIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(31347)
-})
-
 ------------------
 --  Archimonde  --
 ------------------
