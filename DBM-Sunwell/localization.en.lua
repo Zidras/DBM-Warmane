@@ -132,7 +132,7 @@ L:SetOptionLocalization({
 	specWarnDarknessSoon = "Show special warning before Darkness",
 	TimerHuman		= "Show timer for Humanoids",
 	TimerVoid		= "Show timer for Void Sentinels",
-	TimerPhase		= "Show time for Phase 2 transition",
+	TimerPhase		= "Show timer for Phase 2 transition"
 })
 
 L:SetMiscLocalization({

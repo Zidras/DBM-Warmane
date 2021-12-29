@@ -3,7 +3,6 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 527 $"):sub(12, -3))
 mod:SetCreatureID(25741)--25741 Muru, 25840 Entropius
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
@@ -60,7 +59,7 @@ local function phase2(self)
 	self:Unschedule(HumanSpawn)
 	self:Unschedule(VoidSpawn)
 	timerBlackHoleCD:Start(17)
-	if mod.Options.HealthFrame then
+	if self.Options.HealthFrame then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(25840, L.Entropius)
 	end
