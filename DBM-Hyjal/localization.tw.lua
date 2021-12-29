@@ -79,6 +79,7 @@ L:SetMiscLocalization({
 	Anetheron		= "安納塞隆到來",
 	Kazrogal		= "卡茲洛加到來",
 	Azgalor			= "亞茲加洛到來",
+	WaveCheck		= "目前波數 = (%d+)/8",
 	WarnWave_0		= "第%s/8波",
 	WarnWave_1		= "第%s/8波 - %s %s",
 	WarnWave_2		= "第%s/8波 - %s %s 和 %s %s",
@@ -99,4 +100,3 @@ L:SetMiscLocalization({
 	Stalker			= "惡魔捕獵者",
 	Infernal		= "巨型地獄火"
 })
-

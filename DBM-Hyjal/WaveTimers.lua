@@ -15,11 +15,10 @@ mod.noStatistics = true
 local warnWave			= mod:NewAnnounce("WarnWave", 1)
 local warnCannibalize	= mod:NewSpellAnnounce(31538, 2)
 
-local timerWave			= mod:NewTimer(125, "TimerWave")
+local timerWave			= mod:NewTimer(125, "TimerWave", nil, nil, nil, 1)
 
 mod:AddBoolOption("DetailedWave")
 mod:RemoveOption("HealthFrame")
-mod:RemoveOption("SpeedKillTimer")
 
 local lastWave = 0
 local boss = 0
@@ -54,7 +53,7 @@ end
 mod.QUEST_PROGRESS = mod.GOSSIP_SHOW
 
 function mod:UPDATE_WORLD_STATES()
-	local _,_,text = GetWorldStateUIInfo(3)
+	local _, _, text = GetWorldStateUIInfo(3)
 	if not text then return end
 	local currentWave = text:match(L.WaveCheck)
 	if not currentWave then
@@ -134,7 +133,7 @@ function mod:WaveFunction(currentWave)
 				elseif currentWave == 6 then
 					warnWave:Show(L.WarnWave_3:format(currentWave, 6, L.Ghoul, 2, L.Abomination, 4, L.Necromancer))
 				elseif currentWave == 7 then
-					warnWave:Show(L.WarnWave_4:format(currentWave, 2, L.Ghoul, 4, L.Fiend, 4, L.Abomination, 2, L.Banshee))
+					warnWave:Show(L.WarnWave_4:format(currentWave, 2, L.Ghoul, 4, L.Fiend, 4, L.Abomination, 4, L.Banshee))
 				elseif currentWave == 8 then
 					warnWave:Show(L.WarnWave_5:format(currentWave, 3, L.Ghoul, 3, L.Fiend, 4, L.Abomination, 2, L.Necromancer, 2, L.Banshee))
 				end
@@ -177,9 +176,9 @@ function mod:WaveFunction(currentWave)
 				elseif currentWave == 2 then
 					warnWave:Show(L.WarnWave_3:format(currentWave, 5, L.Ghoul, 8, L.Gargoyle, 1, L.Wyrm))
 				elseif currentWave == 3 then
-					warnWave:Show(L.WarnWave_2:format(currentWave, 4, L.Ghoul, 8, L.Infernal))
+					warnWave:Show(L.WarnWave_2:format(currentWave, 6, L.Ghoul, 8, L.Infernal))
 				elseif currentWave == 4 then
-					warnWave:Show(L.WarnWave_2:format(currentWave, 8, L.Stalker, 6, L.Infernal))
+					warnWave:Show(L.WarnWave_2:format(currentWave, 6, L.Stalker, 8, L.Infernal))
 				elseif currentWave == 5 then
 					warnWave:Show(L.WarnWave_3:format(currentWave, 4, L.Abomination, 4, L.Necromancer, 6, L.Stalker))
 				elseif currentWave == 6 then
@@ -187,7 +186,7 @@ function mod:WaveFunction(currentWave)
 				elseif currentWave == 7 then
 					warnWave:Show(L.WarnWave_4:format(currentWave, 2, L.Ghoul, 2, L.Fiend, 2, L.Stalker, 8, L.Infernal))
 				elseif currentWave == 8 then
-					warnWave:Show(L.WarnWave_5:format(currentWave, 4, L.Abomination, 4, L.Fiend, 2, L.Necromancer, 4, L.Stalker, 2, L.Banshee))
+					warnWave:Show(L.WarnWave_5:format(currentWave, 4, L.Abomination, 4, L.Fiend, 2, L.Necromancer, 2, L.Stalker, 4, L.Banshee))
 				end
 			else
 				warnWave:Show(L.WarnWave_0:format(currentWave))

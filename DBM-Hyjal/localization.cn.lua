@@ -80,6 +80,7 @@ L:SetMiscLocalization({
 	Anetheron		= "安纳塞隆",
 	Kazrogal		= "卡兹洛加",
 	Azgalor			= "阿兹加洛",
+	WaveCheck		= "当前波次：(%d+)/8",
 	WarnWave_0		= "第%s/8波",
 	WarnWave_1		= "第%s/8波 - %s%s",
 	WarnWave_2		= "第%s/8波 - %s%s 和 %s%s",
