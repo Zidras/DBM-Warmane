@@ -3,19 +3,19 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 2250 $"):sub(12, -3))
 mod:SetCreatureID(29120)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 53472 59433"
 )
 
 local warningPound		= mod:NewSpellAnnounce(53472, 3)
-local timerAchieve		= mod:NewAchievementTimer(240, 1860, "TimerSpeedKill")
+
+local timerAchieve		= mod:NewAchievementTimer(240, 1860)
 
 function mod:OnCombatStart(delay)
-	if mod:IsDifficulty("heroic5") then
+	if not self:IsDifficulty("normal5") then
 		timerAchieve:Start(-delay)
 	end
 end
