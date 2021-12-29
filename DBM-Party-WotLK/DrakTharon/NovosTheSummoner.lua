@@ -3,40 +3,32 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 3635 $"):sub(12, -3))
 mod:SetCreatureID(26631)
-mod:SetZone()
 
 mod:RegisterCombat("yell", L.YellPull)
 mod:RegisterKill("yell", L.YellKill)
 mod:SetWipeTime(25)
 
-mod:RegisterEvents(
-	"CHAT_MSG_MONSTER_YELL",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_SUCCESS 59856 59854",
+	"SPELL_AURA_APPLIED 59856 59854",
+	"CHAT_MSG_MONSTER_YELL"
 )
 
-local WarnCrystalHandler 	= mod:NewAnnounce("WarnCrystalHandler", 1, "Interface\\Icons\\Spell_Shadow_ShadesOfDarkness")
-local warnPhase2			= mod:NewPhaseAnnounce(2)
-local timerInsanity			= mod:NewCDTimer(35, 57496)
-local timerInsanityDie		= mod:NewCastTimer(5, 57496)
-local specwarnInsanity		= mod:NewSpecialWarningDodge(57496)
-local specwarnCurse			= mod:NewSpecialWarningDispel(59856, "RemoveCurse")
-local warnCurseTarget		= mod:NewTargetAnnounce(59856)
-local timerNextCurse		= mod:NewCDTimer(20, 59856)
-local specwarnSnow			= mod:NewSpecialWarningMove(59854)
-local timerFrenzy			= mod:NewCDTimer(16, 39249)
-local warnFrenzy			= mod:NewTargetAnnounce(39249)
-local timerCrystalHandler 	= mod:NewTimer(30, "timerCrystalHandler", 72262, nil, nil, 1, DBM_CORE_L.DAMAGE_ICON)
+local WarnCrystalHandler 		= mod:NewAnnounce("WarnCrystalHandler", 2, 59910)
+local warnPhase2				= mod:NewPhaseAnnounce(2)
+local warnCurseTarget			= mod:NewTargetAnnounce(59856)
 
-mod:AddSetIconOption("SetIconOnEnragedMob", 39249, true, true)
+local specwarnCurse				= mod:NewSpecialWarningDispel(59856, "RemoveCurse")
+local specwarnSnow				= mod:NewSpecialWarningMove(59854)
+
+local timerCrystalHandler 		= mod:NewTimer(20, "timerCrystalHandler", 59910, nil, nil, 1, DBM_CORE_L.DAMAGE_ICON)
+local timerNextCurse			= mod:NewCDTimer(20, 59856)
 
 mod.vb.CrystalHandlers = 4
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerCrystalHandler:Start(25.5-delay)
-	timerInsanity:Start(20)
-	timerFrenzy:Start(10)
 	self.vb.CrystalHandlers = 4
 end
 
@@ -48,23 +40,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerCrystalHandler:Start()
 		end
 	elseif msg == L.Phase2 then
-		warnPhase2:Show()
 		self:SetStage(2)
+		warnPhase2:Show()
 	end
 end
 
+-- need transcriptor logs to validate this. Seems unnecessary to have this event duplication
 function mod:SPELL_CAST_SUCCESS(args)
-	if (args.spellId == 57496  or args.spellId == 6767) and not self:IsCreatureGUID(args.destGUID) and self:AntiSpam(1,1) then
-		timerInsanity:Start()
-		timerInsanityDie:Start()
-		specwarnInsanity:Show()
-	elseif args.spellId == 39249 then
-		warnFrenzy:Show(args.destName)
-		if self.Options.SetIconOnEnragedMob then
-			self:ScanForMobs(args.destGUID, nil, nil, nil, nil, nil, "SetIconOnEnragedMob")
-		end
-		timerFrenzy:Start()
-	elseif args.spellId == 59856 then
+	if args.spellId == 59856 then
 		warnCurseTarget:Show(args.destName)
 		specwarnCurse:Show()
 		timerNextCurse:Start()

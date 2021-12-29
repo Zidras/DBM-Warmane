@@ -178,6 +178,10 @@ L:SetGeneralLocalization({
 	name = "Кровотролль"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "Труп бдыжь!"
+})
+
 --------------------------
 --  Novos the Summoner  --
 --------------------------

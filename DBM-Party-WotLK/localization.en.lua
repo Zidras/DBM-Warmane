@@ -173,6 +173,10 @@ L:SetGeneralLocalization({
 	name = "Trollgore"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "Corpse go boom!"
+})
+
 --------------------------
 --  Novos the Summoner  --
 --------------------------
