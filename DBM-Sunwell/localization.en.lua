@@ -164,20 +164,13 @@ L:SetOptionLocalization({
 	WarnBlueOrb		= "Show warning for Dragon Orbs",
 	SpecWarnDarkOrb	= "Show special warning for Dark Orbs",
 	SpecWarnBlueOrb	= "Show special warning for Dragon Orbs",
-	TimerBlueOrb	= "Show timer form Dragon Orbs activate",
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
-	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
+	TimerBlueOrb	= "Show timer form Dragon Orbs activate"
 })
 
 L:SetMiscLocalization({
 	YellPull		= "The expendable have perished. So be it! Now I shall succeed where Sargeras could not! I will bleed this wretched world and secure my place as the true master of the Burning Legion! The end has come! Let the unravelling of this world commence!",
-	YellBloom		= "Bloom on me!",
-	BloomWhisper	= "Bloom on you!",
 	OrbYell1		= "I will channel my powers into the orbs! Be ready!",
 	OrbYell2		= "I have empowered another orb! Use it quickly!",
 	OrbYell3		= "Another orb is ready! Make haste!",
-	OrbYell4		= "I have channeled all I can! The power is in your hands!",
-	ReflectionYell1	= "Who can you trust!",
-	ReflectionYell2 = "The enemy is among you!"
-
+	OrbYell4		= "I have channeled all I can! The power is in your hands!"
 })

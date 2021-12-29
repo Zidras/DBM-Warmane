@@ -157,16 +157,13 @@ L:SetOptionLocalization({
 	WarnBlueOrb		= "Mostrar aviso cuando se active un orbe azul",
 	SpecWarnDarkOrb	= "Mostrar aviso especial cuando aparezcan Orbes escudo",
 	SpecWarnBlueOrb	= "Mostrar aviso especial cuando se active un orbe azul",
-	TimerBlueOrb	= "Mostrar temporizador para la activación de los orbes azules",
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
-	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
+	TimerBlueOrb	= "Mostrar temporizador para la activación de los orbes azules"
 })
 
 L:SetMiscLocalization({
-	YellPull		= "Los prescindibles han muerto. ¡Que así sea! ¡Ahora triunfaré donde Sargeras no lo logró! ¡Desangraré este despreciable mundo y me aseguraré mi puesto como verdadero maestro de la Legión Ardiente! ¡El final ha llegado! ¡Dejad que se desvele el misterio de este mundo!",
+	YellPull		= "Los prescindibles han muerto. ¡Qué así sea! ¡Ahora triunfaré donde Sargeras no lo logró! ¡Desangraré este despreciable mundo y me aseguraré mi puesto como verdadero maestro de la Legión Ardiente! ¡El final ha llegado! ¡Dejad que se desvele el misterio de este mundo!",
 	OrbYell1		= "¡Canalizaré mi poder en los orbes! ¡Preparaos!",
 	OrbYell2		= "¡He otorgado mi poder a otro orbe! ¡Usadlo rápido!",
 	OrbYell3		= "¡Otro orbe preparado! ¡Daos prisa!",
 	OrbYell4		= "¡He canalizado todo lo que puedo! ¡El poder está en vuestras manos!"
-
 })

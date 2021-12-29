@@ -161,20 +161,13 @@ L:SetOptionLocalization({
 	WarnBlueOrb		= "Show warning for Dragon Orbs",--Translate
 	SpecWarnDarkOrb	= "Show special warning for Dark Orbs",--Translate
 	SpecWarnBlueOrb	= "Show special warning for Dragon Orbs",--Translate
-	TimerBlueOrb	= "Show timer form Dragon Orbs activate",--Translate
-	RangeFrame		= "Show range frame (10 yards)",--Translate
-	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641),
-	YellOnBloom		= "Yell on $spell:45641",--Translate
-	BloomWhisper	= "Send whisper to $spell:45641 target (requires Raid Leader)"--Translate
+	TimerBlueOrb	= "Show timer form Dragon Orbs activate"--Translate
 })
 
 L:SetMiscLocalization({
-	YellPull		= "这个消耗品已经没用了，不管她了！现在我已经做到了连萨格拉斯都没有做到的事情！我要彻底毁灭这个世界，真正成",
-	YellBloom		= "我中了火焰之花！",
-	BloomWhisper	= "火焰之花！",
-	OrbYell1		= "I will channel my powers into the orbs! Be ready!",--Translate
-	OrbYell2		= "I have empowered another orb! Use it quickly!",--Translate
-	OrbYell3		= "Another orb is ready! Make haste!",--Translate
-	OrbYell4		= "I have channeled all I can! The power is in your hands!"--Translate
-
+	YellPull		= "这个消耗品已经没用了！不管它了！现在我已经做到了连萨格拉斯都没有做到的事情！我要彻底毁灭这个世界，真正成为燃烧军团的主宰者！末日已经到来啦！让这个世界就此支离破碎吧！",
+	OrbYell1		= "我会将我的力量导入宝珠中！准备好！",
+	OrbYell2		= "我又将能量灌入了另一颗宝珠！快去使用它！",
+	OrbYell3		= "又有一颗宝珠准备好了！快点行动！",
+	OrbYell4		= "这是我所能做的一切了！力量现在掌握在你们的手中！"
 })
