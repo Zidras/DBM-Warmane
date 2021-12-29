@@ -5,7 +5,7 @@ local L
 --  Kalecgos --
 ---------------
 L = DBM:GetModLocalization("Kal")
-DBM_CORE_L.AUTO_RANGE_OPTION_TEXT = "Показывать окно проверки дистанции (%s м) для $spell:%s"
+
 L:SetGeneralLocalization({
 	name = "Калесгос"
 })
@@ -15,15 +15,9 @@ L:SetWarningLocalization({
 	SpecWarnWildMagic	= "Дикая магия - %s!"
 })
 
-L:SetTimerLocalization({
-	TimerNextPortal		= "Портал (%d)"
-})
-
 L:SetOptionLocalization({
 	WarnPortal			= "Показывать предупреждение для цели $spell:46021",
 	SpecWarnWildMagic	= "Показывать спец-предупреждение для Дикой Магии",
-	TimerNextPortal		= "Показывать таймер портала",
-	RangeFrame			= "Показывать окно проверки дистанции (10 м)",
 	ShowFrame			= "Показать фрейм Призрачного мира",
 	FrameClassColor		= "Использовать цвета классов в фрейме Призрачного мира",
 	FrameUpwards		= "Рост фрейма Призрачного мира ВВЕРХ",

@@ -15,15 +15,9 @@ L:SetWarningLocalization({
 	SpecWarnWildMagic	= "狂野魔法 - %s!"
 })
 
-L:SetTimerLocalization({
-	TimerNextPortal		= "传送 (%d)"
-})
-
 L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",--Translate
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",--Translate
-	TimerNextPortal		= "Show timer for portals",--Translate
-	RangeFrame			= "Show range frame (10 yards)",--Translate
 	ShowFrame			= "Show Spectral Realm frame" ,--Translate
 	FrameClassColor		= "Use class colors in Spectral Realm frame",--Translate
 	FrameUpwards		= "Expand Spectral Realm frame upwards",--Translate
