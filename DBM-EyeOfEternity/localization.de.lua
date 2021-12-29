@@ -17,4 +17,3 @@ L:SetMiscLocalization({
 	YellBreath	= "Solange ich atme, werdet ihr nicht obsiegen!",
 	YellPhase3	= "Eure Wohltäter sind eingetroffen, doch sie kommen zu spät! Die hier gespeicherten Energien reichen aus, die Welt zehnmal zu zerstören. Was, denkt ihr, werden sie mit euch machen?"
 })
-

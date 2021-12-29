@@ -17,4 +17,3 @@ L:SetMiscLocalization({
 	YellBreath	= "¡No lo conseguiréis mientras me quede aliento!",
 	YellPhase3	= "Ahora aparecen vuestros benefactores, ¡pero llegan demasiado tarde!"
 })
-
