@@ -178,6 +178,10 @@ L:SetGeneralLocalization({
 	name = "托尔戈"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "要爆炸啦！"
+})
+
 --------------------------
 --  Novos the Summoner  --
 --------------------------

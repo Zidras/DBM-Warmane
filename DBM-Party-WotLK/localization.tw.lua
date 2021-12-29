@@ -175,6 +175,10 @@ L:SetGeneralLocalization({
 	name = "血角食人妖"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "屍體要爆炸啦!"
+})
+
 --------------------------
 --  Novos the Summoner  --
 --------------------------

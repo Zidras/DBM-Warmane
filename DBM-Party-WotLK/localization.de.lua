@@ -183,6 +183,10 @@ L:SetGeneralLocalization({
 	name = "Trollgrind"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "Leiche macht Bumm!"
+})
+
 --------------------------
 --  Novos the Summoner  --
 --------------------------

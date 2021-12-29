@@ -180,6 +180,10 @@ L:SetGeneralLocalization({
 	name = "Cuernotrol"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "¡Cueh'po háse bum!"
+})
+
 ------------------------
 -- Novos el Invocador --
 ------------------------

@@ -177,6 +177,10 @@ L:SetGeneralLocalization({
 	name = "Trollétripe"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "Cadavre fait boum !"
+})
+
 ------------------------
 -- Novos the Summoner --
 ------------------------

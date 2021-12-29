@@ -175,6 +175,10 @@ L:SetGeneralLocalization({
 	name = "송곳아귀"
 })
 
+L:SetMiscLocalization({
+	YellExplosion = "터져라, 뻥!"
+})
+
 -------------------
 -- 소환사 노보스 --
 -------------------
