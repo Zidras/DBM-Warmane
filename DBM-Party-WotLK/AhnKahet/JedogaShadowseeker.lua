@@ -1,17 +1,20 @@
 local mod	= DBM:NewMod("JedogaShadowseeker", "DBM-Party-WotLK", 1)
 local L		= mod:GetLocalizedStrings()
 
+mod.statTypes = "normal,heroic"
+
 mod:SetRevision(("$Revision: 2250 $"):sub(12, -3))
 mod:SetCreatureID(29310)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS",
-	"SPELL_CAST_START"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_SUCCESS 56926 60029",
+	"SPELL_CAST_START 56855 60030"
 )
 
+--TODO, GTFO for thundershock shit on ground
+--TODO, switch warning for add
 local warningThundershock	= mod:NewSpellAnnounce(56926, 3)
 local warningCycloneStrike	= mod:NewSpellAnnounce(56855, 3)
 
