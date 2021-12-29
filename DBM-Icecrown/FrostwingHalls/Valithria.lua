@@ -221,7 +221,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
-	if spellId == 71086 and destGUID == UnitGUID("player") and self:AntiSpam(2, 2) then		-- Mana Void
+	if (spellId == 71086 or spellId == 71743 or spellId == 71086 or spellId == 72030) and destGUID == UnitGUID("player") and self:AntiSpam(2, 2) then		-- Mana Void
 		specWarnManaVoid:Show()
 		specWarnManaVoid:Play("runaway")
 	end
