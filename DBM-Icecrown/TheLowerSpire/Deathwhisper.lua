@@ -56,19 +56,38 @@ mod:AddBoolOption("SetIconOnEmpoweredAdherent", true)
 mod:AddBoolOption("ShieldHealthFrame", false, "misc")
 mod:AddInfoFrameOption(70842, false)
 mod:RemoveOption("HealthFrame")
-mod:AddBoolOption("EqUneqWeapons", mod:IsDps())
+
+local RaidWarningFrame = RaidWarningFrame
+local GetFramesRegisteredForEvent, RaidNotice_AddMessage = GetFramesRegisteredForEvent, RaidNotice_AddMessage
+local function selfWarnMissingSet()
+	if mod.Options.EqUneqWeapons and mod:IsHeroic() and not mod:IsEquipmentSetAvailable("pve") then
+		for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
+			local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
+			if frame.AddMessage then
+				frame.AddMessage(frame, L.setMissing)
+			end
+		end
+		RaidNotice_AddMessage(RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
+	end
+end
+
+mod:AddMiscLine(L.EqUneqLineDescription)
+mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, selfWarnMissingSet)
 mod:AddBoolOption("EqUneqTimer", false)
 mod:AddBoolOption("BlockWeapons", false)
 
-if mod.Options.EqUneqWeapons and mod:IsHeroic() and not mod:IsEquipmentSetAvailable("pve") then
-	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
-		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
-		if frame.AddMessage then
-			mod:Schedule(10, frame.AddMessage, frame, L.setMissing)
+local function selfSchedWarnMissingSet(self)
+	if self.Options.EqUneqWeapons and self:IsHeroic() and not self:IsEquipmentSetAvailable("pve") then
+		for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
+			local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
+			if frame.AddMessage then
+				self:Schedule(10, frame.AddMessage, frame, L.setMissing)
+			end
 		end
+		self:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
 	end
-	mod:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
 end
+mod:Schedule(0.5, selfSchedWarnMissingSet, mod) -- mod options default values were being read before SV ones, so delay this
 
 local dominateMindTargets = {}
 mod.vb.dominateMindIcon = 6

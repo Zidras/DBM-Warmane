@@ -51,7 +51,8 @@ L:SetMiscLocalization{
 	Fanatic1				= "Fanático del Culto",
 	Fanatic2				= "Fanático deformado",
 	Fanatic3				= "Fanático reanimado",
-	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
+	setMissing				= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",
+	EqUneqLineDescription	= "Equipar/desequipar automático"
 }
 
 --------------------------------

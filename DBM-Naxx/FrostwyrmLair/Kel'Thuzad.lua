@@ -46,24 +46,43 @@ mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
 mod:AddSetIconOption("SetIconOnFrostTomb", 28169, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(10, 27819)
-mod:AddBoolOption("EqUneqWeaponsKT", mod:IsDps())
+
+local RaidWarningFrame = RaidWarningFrame
+local GetFramesRegisteredForEvent, RaidNotice_AddMessage = GetFramesRegisteredForEvent, RaidNotice_AddMessage
+local function selfWarnMissingSet()
+	if mod.Options.EqUneqWeaponsKT and not mod:IsEquipmentSetAvailable("pve") then
+		for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
+			local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
+			if frame.AddMessage then
+				frame.AddMessage(frame, L.setMissing)
+			end
+		end
+		RaidNotice_AddMessage(RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
+	end
+end
+
+mod:AddMiscLine(L.EqUneqLineDescription)
+mod:AddBoolOption("EqUneqWeaponsKT", mod:IsDps(), nil, selfWarnMissingSet)
 mod:AddBoolOption("EqUneqWeaponsKT2")
+
+local function selfSchedWarnMissingSet(self)
+	if self.Options.EqUneqWeaponsKT and not self:IsEquipmentSetAvailable("pve") then
+		for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
+			local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
+			if frame.AddMessage then
+				self:Schedule(10, frame.AddMessage, frame, L.setMissing)
+			end
+		end
+		self:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
+	end
+end
+mod:Schedule(0.5, selfSchedWarnMissingSet, mod) -- mod options default values were being read before SV ones, so delay this
 
 mod.vb.warnedAdds = false
 mod.vb.MCIcon = 1
 local frostBlastTargets = {}
 local chainsTargets = {}
 local isHunter = select(2, UnitClass("player")) == "HUNTER"
-
-if mod.Options.EqUneqWeaponsKT and not mod:IsEquipmentSetAvailable("pve") then
-	for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
-		local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
-		if frame.AddMessage then
-			mod:Schedule(10, frame.AddMessage, frame, L.setMissing)
-		end
-	end
-	mod:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
-end
 
 local function UnWKT(self)
 	if (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsEquipmentSetAvailable("pve") then

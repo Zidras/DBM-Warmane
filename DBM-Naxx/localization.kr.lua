@@ -383,5 +383,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "어둠의 문지기와 하수인, 그리고 병사들이여! 나 켈투자드가 부르니 명을 받들라!",
-	setMissing	= "주목! DBM 자동 무기 해제/장착은 pve라는 장비 세트를 생성할 때까지 작동하지 않습니다."
+	setMissing	= "주목! DBM 자동 무기 해제/장착은 pve라는 장비 세트를 생성할 때까지 작동하지 않습니다.",
+	EqUneqLineDescription	= "자동 장착/장비 해제"
 })

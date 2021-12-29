@@ -373,5 +373,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!",
-	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve"
+	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",
+	EqUneqLineDescription	= "Equipar/desequipar automático"
 })

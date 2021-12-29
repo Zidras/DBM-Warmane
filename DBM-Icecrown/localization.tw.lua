@@ -51,7 +51,8 @@ L:SetMiscLocalization{
 	Fanatic1				= "神教狂熱者",
 	Fanatic2				= "畸形的狂熱者",
 	Fanatic3				= "再活化的狂熱者",
-	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
+	setMissing				= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用",
+	EqUneqLineDescription	= "自動裝備/取消裝備"
 }
 
 ----------------------

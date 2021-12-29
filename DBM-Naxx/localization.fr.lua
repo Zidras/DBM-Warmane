@@ -365,5 +365,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "Serviteurs, valets et soldats des ténèbres glaciales ! Répondez à l'appel de Kel'Thuzad !",
-	setMissing	= "ATTENTION! Le déséquipement/équipement automatique des armes DBM ne fonctionnera pas tant que vous n'aurez pas créé un ensemble d'équipement nommé pve"
+	setMissing	= "ATTENTION! DBM auto-déséquipement d'arme ne fonctionnera pas tant que vous n'aurez pas créer un set apellé pve",
+	EqUneqLineDescription	= "Équiper/Déséquiper automatiquement"
 })

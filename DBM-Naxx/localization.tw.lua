@@ -365,5 +365,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell = "僕從們，侍衛們，隸屬於黑暗與寒冷的戰士們!聽從科爾蘇加德的召喚!",
-	setMissing	= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用"
+	setMissing	= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用",
+	EqUneqLineDescription	= "自動裝備/取消裝備"
 })

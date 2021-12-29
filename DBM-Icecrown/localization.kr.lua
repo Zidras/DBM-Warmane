@@ -51,7 +51,8 @@ L:SetMiscLocalization{
 	Fanatic1				= "교단 광신자",
 	Fanatic2				= "변형된 광신자",
 	Fanatic3				= "되살아난 광신자",
-	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve" --Needs Translating
+	setMissing				= "주목! DBM 자동 무기 해제/장착은 pve라는 장비 세트를 생성할 때까지 작동하지 않습니다.",
+	EqUneqLineDescription	= "자동 장착/장비 해제"
 }
 
 ----------------------
