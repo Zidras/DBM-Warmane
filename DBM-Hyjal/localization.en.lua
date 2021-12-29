@@ -45,10 +45,6 @@ L:SetGeneralLocalization({
 	name = "Archimonde"
 })
 
-L:SetOptionLocalization({
-	BurstIcon	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(32014)
-})
-
 ----------------
 -- WaveTimers --
 ----------------
