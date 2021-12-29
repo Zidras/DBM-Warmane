@@ -3,61 +3,54 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4436 $"):sub(12, -3))
 mod:SetCreatureID(24882)
-mod:SetZone()
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
-mod:RegisterCombat("combat")
-mod:RegisterCombat("yell", L.YellPull)
-
+mod:RegisterCombat("yell", L.Pull)
 mod.disableHealthCombat = true
 
-
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED",
-	"SPELL_MISSED",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_DIED"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 45150",
+	"SPELL_AURA_APPLIED 46394 45185 45150",
+	"SPELL_AURA_APPLIED_DOSE 45150",
+	"SPELL_AURA_REMOVED 46394",
+	"SPELL_MISSED 46394"
 )
 
 local warnMeteor		= mod:NewSpellAnnounce(45150, 3)
-local warnBurn			= mod:NewTargetAnnounce(46394, 3)
-local warnStomp			= mod:NewTargetAnnounce(45185, 3)
+local warnBurn			= mod:NewTargetAnnounce(46394, 3, nil, false, 2)
+local warnStomp			= mod:NewTargetAnnounce(45185, 3, nil, "Tank", 2)
 
-local specwarnStompYou	= mod:NewSpecialWarningYou(45185, mod:IsTank())
-local specwarnStomp		= mod:NewSpecialWarningTaunt(45185, mod:IsTank())
-local specWarnMeteor	= mod:NewSpecialWarningStack(45150, nil, 4)
-local specWarnBurn		= mod:NewSpecialWarningYou(46394)
+local specwarnStompYou	= mod:NewSpecialWarningYou(45185, "Tank")
+local specwarnStomp		= mod:NewSpecialWarningTaunt(45185, "Tank")
+local specWarnMeteor	= mod:NewSpecialWarningStack(45150, nil, 4, nil, nil, 1, 6)
+local specWarnBurn		= mod:NewSpecialWarningYou(46394, nil, nil, nil, 1, 2)
+local yellBurn			= mod:NewYell(46394)
 
-local timerMeteorCD		= mod:NewCDTimer(10, 45150)
-local timerStompCD		= mod:NewCDTimer(30, 45185)
-local timerBurn			= mod:NewTargetTimer(59, 46394)
-local timerBurnCD		= mod:NewCDTimer(59, 46394)
+local timerMeteorCD		= mod:NewCDTimer(12, 45150, nil, nil, nil, 3)
+local timerStompCD		= mod:NewCDTimer(31, 45185, nil, nil, nil, 2)
+local timerBurn			= mod:NewTargetTimer(60, 46394, nil, "false", 2, 3)
+local timerBurnCD		= mod:NewCDTimer(20, 46394, nil, nil, nil, 3)
 
 local berserkTimer		= mod:NewBerserkTimer(360)
 
-mod:AddBoolOption("BurnIcon", true)
-mod:AddBoolOption("RangeFrame", true)
+mod:AddSetIconOption("BurnIcon", 46394, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
+mod:AddRangeFrameOption(4, 46394)
 
-local burnIcon = 8
+mod.vb.burnIcon = 8
+local debuffName = DBM:GetSpellInfo(46394)
 
 local DebuffFilter
 do
 	DebuffFilter = function(uId)
-		return UnitDebuff(uId, GetSpellInfo(46394))
+		return DBM:UnitDebuff(uId, debuffName)
 	end
 end
 
 function mod:OnCombatStart(delay)
-	burnIcon = 8
+	self.vb.burnIcon = 8
 	timerBurnCD:Start(-delay)
 	timerStompCD:Start(-delay)
 	berserkTimer:Start(-delay)
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(5, nil)
-	end
 end
 
 function mod:OnCombatEnd()
@@ -74,29 +67,38 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerBurnCD:Start()
 		end
 		if self.Options.BurnIcon then
-			self:SetIcon(args.destName, burnIcon)
-			if burnIcon == 1 then
-				burnIcon = 8
-			else
-				burnIcon = burnIcon - 1
-			end
+			self:SetIcon(args.destName, self.vb.burnIcon)
+		end
+		if self.vb.burnIcon == 1 then
+			self.vb.burnIcon = 8
+		else
+			self.vb.burnIcon = self.vb.burnIcon - 1
 		end
 		if args:IsPlayer() then
 			specWarnBurn:Show()
-			SendChatMessage("Огонь на МНЕ!", "YELL")
+			specWarnBurn:Play("targetyou")
+			yellBurn:Yell()
+		end
+		if self.Options.RangeFrame then
+			if DBM:UnitDebuff("player", args.spellName) then--You have debuff, show everyone
+				DBM.RangeCheck:Show(4, nil)
+			else--You do not have debuff, only show players who do
+				DBM.RangeCheck:Show(4, DebuffFilter)
+			end
 		end
 	elseif args.spellId == 45185 then
-		warnStomp:Show(args.destName)
-		if not args:IsPlayer() then
-			specwarnStomp:Show(args.destName)
-		else
+		if args:IsPlayer() then
 			specwarnStompYou:Show()
+		else
+			specwarnStomp:Show(args.destName)
+			warnStomp:Show(args.destName)
 		end
 		timerStompCD:Start()
 	elseif args.spellId == 45150 and args:IsPlayer() then
 		local amount = args.amount or 1
-		if amount >= 2 then
+		if amount >= 4 then
 			specWarnMeteor:Show(amount)
+			specWarnMeteor:Play("stackhigh")
 		end
 	end
 end
@@ -125,8 +127,4 @@ function mod:SPELL_MISSED(_, _, _, _, _, _, spellId)
 			timerBurnCD:Start()
 		end
 	end
-end
-
-function mod:UNIT_DIED(args)
-	timerBurn:Cancel(args.destName)
 end

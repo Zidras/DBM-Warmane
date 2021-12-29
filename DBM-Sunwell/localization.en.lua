@@ -48,11 +48,6 @@ L:SetGeneralLocalization({
 	name = "Brutallus"
 })
 
-L:SetOptionLocalization({
-	BurnIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(46394),
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(4, 46394)
-})
-
 L:SetMiscLocalization({
 	Pull			= "Ah, more lambs to the slaughter!"
 })
