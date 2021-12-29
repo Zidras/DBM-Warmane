@@ -64,9 +64,9 @@ L:SetOptionLocalization({--Translate
 
 L:SetMiscLocalization({
 	WrathWhisper	= "Гнев на вас!",
-	YellSplit1		= "Я навсегда избавлю вас от мании величия!",--Translate
-	YellSplit2		= "Вы безнадежно слабы!	",--Translate
-	YellPhase2		= "Я сольюсь... с БЕЗДНОЙ!"--Translate
+	YellSplit1		= "Я навсегда избавлю вас от мании величия!",
+	YellSplit2		= "Вы безнадежно слабы!	",
+	YellPhase2		= "Я сольюсь... с БЕЗДНОЙ!"
 })
 
 ---------------------------
