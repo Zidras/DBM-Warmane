@@ -63,32 +63,22 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnPhase		= "%s阶段",
-	WarnPhaseSoon	= "%s阶段 in 10 sec",
-	WarnBreath		= "深呼吸 (%d)"
+	WarnPhase		= "%s阶段"
 })
 
 L:SetTimerLocalization({
-	TimerPhase		= "%s阶段",
-	TimerBreath		= "深呼吸"
+	TimerPhase		= "%s阶段"
 })
 
 L:SetOptionLocalization({
-	WarnPhase		= "Show warning for next phase",--Translate
-	WarnPhaseSoon	= "Show pre-warning for next phase",--Translate
-	WarnBreath		= "Show warning for Deep Breath",--Translate
-	TimerPhase		= "Show time for next phase",--Translate
-	TimerBreath		= "Show timer for Deep Breath cooldown",--Translate
-	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
-	YellOnEncaps	= "Yell on $spell:45665"
+	WarnPhase		= "显示下一阶段的警告",
+	TimerPhase		= "显示下一阶段的计时器"
 })
 
 L:SetMiscLocalization({
 	Air				= "空中",
 	Ground			= "地面",
-	YellEncaps		= "Encapsulate on me! Run away!",--Change to generic so we don't have to translate?
-	AirPhase		= "I am stronger than ever before!",--Translate
+	AirPhase		= "我比以前更强大了！",
 	Breath			= "%s深深地吸了一口气。"
 })
 

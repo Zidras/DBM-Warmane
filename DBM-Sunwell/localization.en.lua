@@ -62,24 +62,16 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnPhase		= "%s Phase",
-	WarnPhaseSoon	= "%s Phase after 10 sec",
-	WarnBreath		= "Deep Breath (%d)"
+	WarnPhase		= "%s Phase"
 })
 
 L:SetTimerLocalization({
-	TimerPhase		= "Next %s Phase",
-	TimerBreath		= "Deep Breath"
+	TimerPhase		= "Next %s Phase"
 })
 
 L:SetOptionLocalization({
 	WarnPhase		= "Show warning for next phase",
-	TimerPhase		= "Show time for next phase",
-	WarnBreath		= "Show warning for Deep Breath",
-	TimerBreath		= "Show time for next Deep Breath",
-	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
-	YellOnEncaps	= "Yell on $spell:45665"
+	TimerPhase		= "Show time for next phase"
 })
 
 L:SetMiscLocalization({
