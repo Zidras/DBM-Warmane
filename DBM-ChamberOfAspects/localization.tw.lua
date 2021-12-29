@@ -45,27 +45,40 @@ L:SetWarningLocalization({
 	WarningShadron			= "夏德朗到來",
 	WarningVesperon			= "維斯佩朗到來",
 	WarningFireWall			= "火焰障壁",
+	WarningWhelpsSoon		= "鐵粉幼崽 很快",
+	WarningPortalSoon		= "莎德龍傳送門很快",
+	WarningReflectSoon		= "維斯佩朗 反映很快",
 	WarningVesperonPortal	= "維斯佩朗的傳送門",
 	WarningTenebronPortal	= "坦納伯朗的傳送門",
 	WarningShadronPortal	= "夏德朗的傳送門"
 })
 
 L:SetTimerLocalization({
-	TimerTenebron		= "坦納伯朗到來",
-	TimerShadron		= "夏德朗到來",
-	TimerVesperon		= "維斯佩朗到來"
+	TimerTenebron			= "坦納伯朗到來",
+	TimerShadron			= "夏德朗到來",
+	TimerVesperon			= "維斯佩朗到來",
+	TimerTenebronWhelps		= "鐵粉幼崽",
+	TimerShadronPortal		= "沙龍傳送門",
+	TimerVesperonPortal		= "維斯佩朗 傳送門",
+	TimerVesperonPortal2	= "維斯佩朗 傳送門 2"
 })
 
 L:SetOptionLocalization({
-	PlaySoundOnFireWall		= "為火焰障壁播放音效",
 	AnnounceFails			= "公佈踩中暗影裂縫和撞上火焰障壁的玩家到團隊頻道 (需要團隊隊長或助理權限)",
 	TimerTenebron			= "為坦納伯朗到來顯示計時器",
 	TimerShadron			= "為夏德朗到來顯示計時器",
 	TimerVesperon			= "為維斯佩朗到來顯示計時器",
+	TimerTenebronWhelps		= "顯示 鐵粉幼崽 的計時器",
+	TimerShadronPortal		= "顯示 沙龍傳送門 的計時器",
+	TimerVesperonPortal		= "顯示 維斯佩朗 傳送門 的計時器",
+	TimerVesperonPortal2	= "顯示 維斯佩朗 傳送門 2 的計時器",
 	WarningFireWall			= "為火焰障壁顯示特別警告",
 	WarningTenebron			= "提示坦納伯朗到來",
 	WarningShadron			= "提示夏德朗到來",
 	WarningVesperon			= "提示維斯佩朗到來",
+	WarningWhelpsSoon		= "很快宣布 鐵粉幼崽",
+	WarningPortalSoon		= "很快宣布沙龍傳送門",
+	WarningReflectSoon		= "宣布 維斯佩朗 反映很快",
 	WarningTenebronPortal	= "為坦納伯朗的傳送門顯示特別警告",
 	WarningShadronPortal	= "為夏德朗的傳送門顯示特別警告",
 	WarningVesperonPortal	= "為維斯佩朗的傳送門顯示特別警告"

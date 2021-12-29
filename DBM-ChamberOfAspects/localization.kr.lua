@@ -45,27 +45,40 @@ L:SetWarningLocalization({
 	WarningShadron			= "샤드론 진입",
 	WarningVesperon			= "베스페론 진입",
 	WarningFireWall			= "화염의 벽!",
+	WarningWhelpsSoon		= "테네브론 새끼용 순",
+	WarningPortalSoon		= "곧 샤드론 차원문",
+	WarningReflectSoon		= "베스페론 은 곧 반영",
 	WarningVesperonPortal	= "베스페론의 차원문 생성!!",
 	WarningTenebronPortal	= "테네브론의 차원문 생성!!",
 	WarningShadronPortal	= "샤드론의 차원문 생성!!"
 })
 
 L:SetTimerLocalization({
-	TimerTenebron		= "테네브론 진입",
-	TimerShadron		= "샤드론 진입",
-	TimerVesperon		= "베스페론 진입"
+	TimerTenebron			= "테네브론 진입",
+	TimerShadron			= "샤드론 진입",
+	TimerVesperon			= "베스페론 진입",
+	TimerTenebronWhelps		= "테네브론 새끼용",
+	TimerShadronPortal		= "샤드론 차원문",
+	TimerVesperonPortal		= "베스페론 포털",
+	TimerVesperonPortal2	= "베스페론 포털 2"
 })
 
 L:SetOptionLocalization({
-	PlaySoundOnFireWall		= "화염의 벽 특수 소리 듣기",
 	AnnounceFails			= "화염의 벽 및 어둠의 균열을 피하지 못한 공대원을 대화창에 알리기(승급 권한 필요)",
 	TimerTenebron			= "테네브론 진입 바 보기",
 	TimerShadron			= "샤드론 진입 바 보기",
 	TimerVesperon			= "베스페론 진입 바 보기",
+	TimerTenebronWhelps		= "테네브론 새끼용의 타이머 표시",
+	TimerShadronPortal		= "샤드론 차원문의 타이머 표시",
+	TimerVesperonPortal		= "베스페론 포털의 타이머 표시",
+	TimerVesperonPortal2	= "베스페론 포털 2의 타이머 표시",
 	WarningFireWall			= "화염의 벽 특수 경고 보기",
 	WarningTenebron			= "테네브론 진입 알림",
 	WarningShadron			= "샤드론 진입 알림",
 	WarningVesperon			= "베스페론 진입 알림",
+	WarningWhelpsSoon		= "곧 테네브론 새끼용 발표",
+	WarningPortalSoon		= "곧 샤드론 차원문 발표",
+	WarningReflectSoon		= "곧 베스페론 리플렉트 발표",
 	WarningTenebronPortal	= "테네브론의 차원문 특수 경고 보기",
 	WarningShadronPortal	= "샤드론의 차원문 특수 경고 보기",
 	WarningVesperonPortal	= "베스페론의 차원문 특수 경고 보기"

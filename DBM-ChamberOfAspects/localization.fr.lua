@@ -45,27 +45,40 @@ L:SetWarningLocalization({
 	WarningShadron			= "Obscuron Arrive",
 	WarningVesperon			= "Vespéron Arrive",
 	WarningFireWall			= "Tsunami de flammes !",
+	WarningWhelpsSoon		= "Bientôt des petits de Tenebron",
+	WarningPortalSoon		= "Bientôt le portail de Shadron",
+	WarningReflectSoon		= "Vesperon Réfléchir bientôt",
 	WarningVesperonPortal	= "Portail de Vespéron",
 	WarningTenebronPortal	= "Portail de Ténébron",
 	WarningShadronPortal	= "Portail d'Obscuron"
 })
 
 L:SetTimerLocalization({
-	TimerTenebron	= "Ténébron Arrive",
-	TimerShadron	= "Obscuron Arrive",
-	TimerVesperon	= "Vespéron Arrive"
+	TimerTenebron			= "Ténébron Arrive",
+	TimerShadron			= "Obscuron Arrive",
+	TimerVesperon			= "Vespéron Arrive",
+	TimerTenebronWhelps		= "Dragonnets de Ténébron",
+	TimerShadronPortal		= "Portail Shadron",
+	TimerVesperonPortal		= "Portail Vesperon",
+	TimerVesperonPortal2	= "Portail Vesperon 2"
 })
 
 L:SetOptionLocalization({
-	PlaySoundOnFireWall		= "Joue un son pour les Tsunamis de flammes",
 	AnnounceFails			= "Affiche les joueurs qui n'ont pas évité les zones de vide / Tsunamis de flammes (Nécessite l'activation des annonces et être promu ou leader)",
 	TimerTenebron			= "Montre le timer pour Ténébron",
 	TimerShadron			= "Montre le timer pour Obscuron",
 	TimerVesperon			= "Montre le timer pour Vespéron",
+	TimerTenebronWhelps		= "Montrer la minuterie pour les dragonnets Tenebron",
+	TimerShadronPortal		= "Afficher la minuterie pour le portail Shadron",
+	TimerVesperonPortal		= "Montrer la minuterie pour Vesperon Portal",
+	TimerVesperonPortal2	= "Montrer la minuterie pour Vesperon Portal 2",
 	WarningFireWall			= "Montre une alerte spéciale pour les Tsunamis de flammes",
 	WarningTenebron			= "Montre le timer avant que Ténébron arrive",
 	WarningShadron			= "Montre le timer avant qu'Obscuron arrive",
 	WarningVesperon			= "Montre le timer avant que Vespéron arrive",
+	WarningWhelpsSoon		= "Annoncer les dragonnets Tenebron bientôt",
+	WarningPortalSoon		= "Annoncer le portail Shadron bientôt",
+	WarningReflectSoon		= "Annonce Vesperon Reflect bientôt",
 	WarningTenebronPortal	= "Montre une alerte spéciale pour les portails de Ténébron",
 	WarningShadronPortal	= "Montre une alerte spéciale pour les portails d'Obscuron",
 	WarningVesperonPortal	= "Montre une alerte spéciale pour les portails de Vespéron"
