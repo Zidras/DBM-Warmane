@@ -6,20 +6,20 @@ local L
 ---------------
 L = DBM:GetModLocalization("Kal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "卡雷苟斯"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPortal			= "传送 #%d : >%s< (%d组)",
 	SpecWarnWildMagic	= "狂野魔法 - %s!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextPortal		= "传送 (%d)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",--Translate
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",--Translate
 	TimerNextPortal		= "Show timer for portals",--Translate
@@ -28,9 +28,9 @@ L:SetOptionLocalization{
 	FrameClassColor		= "Use class colors in Spectral Realm frame",--Translate
 	FrameUpwards		= "Expand Spectral Realm frame upwards",--Translate
 	FrameLocked			= "Set Spectral Realm frame not movable"--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Demon				= "腐蚀者萨索瓦尔",
 	Heal				= "+100%治疗效果",
 	Haste				= "+100%施法时间",
@@ -44,42 +44,42 @@ L:SetMiscLocalization{
 	FrameOrientation	= "灵魂世界框体向上延伸",
 	FrameHide			= "隐藏框体",
 	FrameClose			= "Close"--Translate
-}
+})
 
 ----------------
 --  Brutallus --
 ----------------
 L = DBM:GetModLocalization("Brutallus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "布鲁塔卢斯"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull			= "啊，又来了一群小绵羊！"
-}
+})
 
 --------------
 --  Felmyst --
 --------------
 L = DBM:GetModLocalization("Felmyst")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "菲米丝"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPhase		= "%s阶段",
 	WarnPhaseSoon	= "%s阶段 in 10 sec",
 	WarnBreath		= "深呼吸 (%d)"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "%s阶段",
 	TimerBreath		= "深呼吸"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPhase		= "Show warning for next phase",--Translate
 	WarnPhaseSoon	= "Show pre-warning for next phase",--Translate
 	WarnBreath		= "Show warning for Deep Breath",--Translate
@@ -88,70 +88,70 @@ L:SetOptionLocalization{
 	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
 	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
 	YellOnEncaps	= "Yell on $spell:45665"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Air				= "空中",
 	Ground			= "地面",
 	YellEncaps		= "Encapsulate on me! Run away!",--Change to generic so we don't have to translate?
 	AirPhase		= "I am stronger than ever before!",--Translate
 	Breath			= "%s深深地吸了一口气。"
-}
+})
 
 -----------------------
 --  The Eredar Twins --
 -----------------------
 L = DBM:GetModLocalization("Twins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "艾瑞达双子"
-}
+})
 
-L:SetWarningLocalization{
-}
+L:SetWarningLocalization({
+})
 
-L:SetTimerLocalization{
-}
+L:SetTimerLocalization({
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
 	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
 	RangeFrame		= "Show range frame (10 yards)",--Translate
 	NovaWhisper		= "Send whisper to $spell:45329 target (requires Raid Leader)",--Translate
 	ConflagWhisper	= "Send whisper to $spell:45333 target (requires Raid Leader)",--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	NovaWhisper		= "暗影新星！",
 	ConflagWhisper	= "燃烧！",
 	Nova			= "萨洛拉丝向([^%s]+)施放暗影新星。",--Verify
 	Conflag			= "奥蕾塞丝向([^%s]+)施放燃烧。"--Verify
-}
+})
 
 ------------
 --  M'uru --
 ------------
 L = DBM:GetModLocalization("Muru")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "穆鲁"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnHuman		= "暗誓精灵 (%d)",
 	WarnHumanSoon	= "暗誓精灵 - 5秒后出现 (%d)",
 	WarnVoid		= "虚空戒卫 (%d)",
 	WarnVoidSoon	= "虚空戒卫 - 5秒后出现 (%d)",
 	WarnFiend		= "黑暗魔出现"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHuman		= "暗誓精灵 (%s)",
 	TimerVoid		= "虚空戒卫 (%s)",
 	TimerPhase		= "熵魔"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnHuman		= "Show warning for Humanoids",--Translate
 	WarnHumanSoon	= "Show pre-warning for Humanoids",--Translate
 	WarnVoid		= "Show warning for Void Sentinels",--Translate
@@ -160,33 +160,33 @@ L:SetOptionLocalization{
 	TimerHuman		= "Show timer for Humanoids",--Translate
 	TimerVoid		= "Show timer for Void Sentinels",--Translate
 	TimerPhase		= "Show time for Phase 2 transition"--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Entropius		= "熵魔"
-}
+})
 
 ----------------
 --  Kil'jeden --
 ----------------
 L = DBM:GetModLocalization("Kil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "基尔加丹"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnDarkOrb		= "Dark Orbs Spawned",--Translate
 	WarnBlueOrb		= "Dragon Orb activated",--Translate
 	SpecWarnDarkOrb	= "Dark Orbs Spawned!",--Translate
 	SpecWarnBlueOrb	= "Dragon Orbs Activated!"--Translate
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerBlueOrb	= "Dragon Orbs activate"--Translate
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnDarkOrb		= "Show warning for Dark Orbs",--Translate
 	WarnBlueOrb		= "Show warning for Dragon Orbs",--Translate
 	SpecWarnDarkOrb	= "Show special warning for Dark Orbs",--Translate
@@ -196,9 +196,9 @@ L:SetOptionLocalization{
 	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641),
 	YellOnBloom		= "Yell on $spell:45641",--Translate
 	BloomWhisper	= "Send whisper to $spell:45641 target (requires Raid Leader)"--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull		= "这个消耗品已经没用了，不管她了！现在我已经做到了连萨格拉斯都没有做到的事情！我要彻底毁灭这个世界，真正成",
 	YellBloom		= "我中了火焰之花！",
 	BloomWhisper	= "火焰之花！",
@@ -207,4 +207,4 @@ L:SetMiscLocalization{
 	OrbYell3		= "Another orb is ready! Make haste!",--Translate
 	OrbYell4		= "I have channeled all I can! The power is in your hands!"--Translate
 
-}
+})

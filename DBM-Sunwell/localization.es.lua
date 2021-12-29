@@ -6,16 +6,16 @@ local L
 ---------------
 L = DBM:GetModLocalization("Kal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kalecgos"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPortal			= "Portal %d: >%s< (grupo %d)",
 	SpecWarnWildMagic	= "¡Magia salvaje - %s!"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPortal			= "Anunciar objetivo de $spell:46021",
 	SpecWarnWildMagic	= "Mostrar aviso especial para Magia salvaje",
 	ShowFrame			= "Mostrar marco del reino espectral" ,
@@ -23,9 +23,9 @@ L:SetOptionLocalization{
 	FrameUpwards		= "Expandir marco del reino espectral hacia arriba",
 	FrameLocked			= "Bloquear marco del reino espectral",
 	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Demon				= "Sathrovarr el Corruptor",
 	Heal				= "Sanación realizada +100%",
 	Haste				= "Celeridad con hechizos +100%",
@@ -39,129 +39,129 @@ L:SetMiscLocalization{
 	FrameOrientation	= "Expandir hacia arriba",
 	FrameHide			= "Ocultar marco",
 	FrameClose			= "Cerrar"
-}
+})
 
 ----------------
 --  Brutallus --
 ----------------
 L = DBM:GetModLocalization("Brutallus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Brutallus"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull			= "¡Ah, más corderos al matadero!"
-}
+})
 
 --------------
 --  Felmyst --
 --------------
 L = DBM:GetModLocalization("Felmyst")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Brumavil"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPhase		= "Fase %s"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "Siguiente fase %s"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPhase		= "Anunciar cambios de fase",
 	TimerPhase		= "Mostrar temporizador para los cambios de fase",
 	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
 	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Air				= "aérea",
 	Ground			= "en tierra",
 	AirPhase		= "¡Soy más fuerte que nunca!",
 	Breath			= "%s respira hondo."
-}
+})
 
 -----------------------
 --  The Eredar Twins --
 -----------------------
 L = DBM:GetModLocalization("Twins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Las gemelas eredar"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
 	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Nova			= "dirige Nova de las Sombras hacia (.+)%.",
 	Conflag			= "dirige Conflagración hacia (.+)%.",
 	Sacrolash		= "Lady Sacrolash",
 	Alythess		= "Bruja suprema Alythess"
-}
+})
 
 ------------
 --  M'uru --
 ------------
 L = DBM:GetModLocalization("Muru")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "M'uru"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnHuman		= "Humanoides (%d)",
 	WarnVoid		= "Centinela del vacío (%d)",
 	WarnFiend		= "Maligno oscuro"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHuman		= "Siguientes humanoides (%s)",
 	TimerVoid		= "Siguiente centinela (%s)",
 	TimerPhase		= "Entropius"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnHuman		= "Mostrar aviso cuando aparezcan humanoides",
 	WarnVoid		= "Mostrar aviso cuando aparezca un Centinela del vacío",
 	WarnFiend		= "Mostrar aviso cuando aparezcan Malignos oscuros en Fase 2",
 	TimerHuman		= "Mostrar temporizador para los siguientes humanoides",
 	TimerVoid		= "Mostrar temporizador para el siguiente Centinela del vacío",
 	TimerPhase		= "Mostrar temporizador para la transición a Fase 2"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Entropius		= "Entropius"
-}
+})
 
 ----------------
 --  Kil'jeden --
 ----------------
 L = DBM:GetModLocalization("Kil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kil'jaeden"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnDarkOrb		= "Orbes escudo",
 	WarnBlueOrb		= "Orbe azul activado",
 	SpecWarnBlueOrb	= "¡Orbe azul activado!",
 	SpecWarnDarkOrb	= "¡Orbes escudo!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerBlueOrb	= "Orbe azules activo"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnDarkOrb		= "Mostrar aviso cuando aparezcan Orbes escudo",
 	WarnBlueOrb		= "Mostrar aviso cuando se active un orbe azul",
 	SpecWarnDarkOrb	= "Mostrar aviso especial cuando aparezcan Orbes escudo",
@@ -169,13 +169,13 @@ L:SetOptionLocalization{
 	TimerBlueOrb	= "Mostrar temporizador para la activación de los orbes azules",
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
 	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull		= "Los prescindibles han muerto. ¡Que así sea! ¡Ahora triunfaré donde Sargeras no lo logró! ¡Desangraré este despreciable mundo y me aseguraré mi puesto como verdadero maestro de la Legión Ardiente! ¡El final ha llegado! ¡Dejad que se desvele el misterio de este mundo!",
 	OrbYell1		= "¡Canalizaré mi poder en los orbes! ¡Preparaos!",
 	OrbYell2		= "¡He otorgado mi poder a otro orbe! ¡Usadlo rápido!",
 	OrbYell3		= "¡Otro orbe preparado! ¡Daos prisa!",
 	OrbYell4		= "¡He canalizado todo lo que puedo! ¡El poder está en vuestras manos!"
 
-}
+})

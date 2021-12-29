@@ -5,20 +5,20 @@ local L
 ---------------
 L = DBM:GetModLocalization("Kal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kalecgos"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPortal			= "Portal #%d : >%s< (Group %d)",
 	SpecWarnWildMagic	= "Wild Magic - %s!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextPortal		= "Portal (%d)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",
 	TimerNextPortal		= "Show portal timer",
@@ -27,9 +27,9 @@ L:SetOptionLocalization{
 	FrameUpwards		= "Expand Spectral Realm frame upwards",
 	FrameLocked			= "Set Spectral Realm frame not movable",
 	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Demon				= "Sathrovarr the Corruptor",
 	Heal				= "Healing + 100%",
 	Haste				= "Spell Haste + 100%",
@@ -43,47 +43,47 @@ L:SetMiscLocalization{
 	FrameOrientation	= "Expand upwards",
 	FrameHide			= "Hide Frame",
 	FrameClose			= "Close"
-}
+})
 
 ----------------
 --  Brutallus --
 ----------------
 L = DBM:GetModLocalization("Brutallus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Brutallus"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	BurnIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(46394),
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(4, 46394)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull			= "Ah, more lambs to the slaughter!"
-}
+})
 
 --------------
 --  Felmyst --
 --------------
 L = DBM:GetModLocalization("Felmyst")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Felmyst"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPhase		= "%s Phase",
 	WarnPhaseSoon	= "%s Phase after 10 sec",
 	WarnBreath		= "Deep Breath (%d)"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "Next %s Phase",
 	TimerBreath		= "Deep Breath"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPhase		= "Show warning for next phase",
 	TimerPhase		= "Show time for next phase",
 	WarnBreath		= "Show warning for Deep Breath",
@@ -91,49 +91,49 @@ L:SetOptionLocalization{
 	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
 	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
 	YellOnEncaps	= "Yell on $spell:45665"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Air				= "Air",
 	Ground			= "Ground",
 	AirPhase		= "I am stronger than ever before!",
 	Breath			= "%s takes a deep breath."
-}
+})
 
 -----------------------
 --  The Eredar Twins --
 -----------------------
 L = DBM:GetModLocalization("Twins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Eredar Twins"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
 	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333),
 	NovaWhisper		= "Whisper to $spell:45329 target (requires RL)",
 	ConflagWhisper	= "Whisper to $spell:45333 target (requires RL)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Nova			= "directs Shadow Nova at (.+)%.",
 	Conflag			= "directs Conflagration at (.+)%.",
 	Sacrolash		= "Lady Sacrolash",
 	Alythess		= "Grand Warlock Alythess"
-}
+})
 
 ------------
 --  M'uru --
 ------------
 L = DBM:GetModLocalization("Muru")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "M'uru"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnHuman		= "Humanoids (%d)",
 	WarnVoid		= "Void Sentinel (%d)",
 	WarnFiend		= "Dark Fiend spawned",
@@ -141,15 +141,15 @@ L:SetWarningLocalization{
 	specWarnBH		= "Black Hole - Scatter skulls!",
 	specWarnVW		= "Void Sentinels in 5",
 	specWarnDarknessSoon = "Darkness soon"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHuman		= "Next Humanoids (%s)",
 	TimerVoid		= "Next Void (%s)",
 	TimerPhase		= "Entropius"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnHuman		= "Show warning for Humanoids",
 	WarnVoid		= "Show warning for Void Sentinels",
 	WarnFiend		= "Show warning for Fiends in phase 2",
@@ -160,33 +160,33 @@ L:SetOptionLocalization{
 	TimerHuman		= "Show timer for Humanoids",
 	TimerVoid		= "Show timer for Void Sentinels",
 	TimerPhase		= "Show time for Phase 2 transition",
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Entropius		= "Entropius"
-}
+})
 
 ----------------
 --  Kil'jeden --
 ----------------
 L = DBM:GetModLocalization("Kil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kil'jaeden"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnDarkOrb		= "Dark Orbs Spawned",
 	WarnBlueOrb		= "Dragon Orb activated",
 	SpecWarnDarkOrb	= "Dark Orbs Spawned!",
 	SpecWarnBlueOrb	= "Dragon Orbs Activated!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerBlueOrb	= "Dragon Orbs activate"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnDarkOrb		= "Show warning for Dark Orbs",
 	WarnBlueOrb		= "Show warning for Dragon Orbs",
 	SpecWarnDarkOrb	= "Show special warning for Dark Orbs",
@@ -194,9 +194,9 @@ L:SetOptionLocalization{
 	TimerBlueOrb	= "Show timer form Dragon Orbs activate",
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
 	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull		= "The expendable have perished. So be it! Now I shall succeed where Sargeras could not! I will bleed this wretched world and secure my place as the true master of the Burning Legion! The end has come! Let the unravelling of this world commence!",
 	YellBloom		= "Bloom on me!",
 	BloomWhisper	= "Bloom on you!",
@@ -207,4 +207,4 @@ L:SetMiscLocalization{
 	ReflectionYell1	= "Who can you trust!",
 	ReflectionYell2 = "The enemy is among you!"
 
-}
+})
