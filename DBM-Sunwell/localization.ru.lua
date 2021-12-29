@@ -137,8 +137,7 @@ L:SetOptionLocalization({
 	specWarnDarknessSoon = "Показывать спец-предупреждение перед Мраком",
 	TimerHuman		= "Показывать таймер аддов-гуманоидов",
 	TimerVoid		= "Показывать таймер Часовых Бездны",
-	TimerPhase		= "Показывать таймер перехода во 2 фазу",
-	SoundWarnCountingDS = "Проигрывать звуковой отсчет 5...1 до Мрака",
+	TimerPhase		= "Показывать таймер перехода во 2 фазу"
 })
 
 L:SetMiscLocalization({
