@@ -5,51 +5,51 @@ local L
 -----------
 L = DBM:GetModLocalization("Alar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Al'ar"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextPlatform	= "Max Platform length"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NextPlatform	= "Show timer for when how long Al'ar may stay at platform (May leave sooner but almost never any later)"
-}
+})
 
 ------------------
 --  Void Reaver --
 ------------------
 L = DBM:GetModLocalization("VoidReaver")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Void Reaver"
-}
+})
 
 --------------------------------
 --  High Astromancer Solarian --
 --------------------------------
 L = DBM:GetModLocalization("Solarian")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "High Astromancer Solarian"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSplit		= "Split",
 	WarnSplitSoon	= "Split in 5 seconds",
 	WarnAgent		= "Agents spawned",
 	WarnPriest		= "Priests and Solarian spawned"
 
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSplit		= "Next Split",
 	TimerAgent		= "Agents incoming",
 	TimerPriest		= "Priests & Solarian incoming"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnSplit		= "Show warning for Split",
 	WarnSplitSoon	= "Show pre-warning for Split",
 	WarnAgent		= "Show warning for Agents spawn",
@@ -58,39 +58,39 @@ L:SetOptionLocalization{
 	TimerAgent		= "Show timer for Agents spawn",
 	TimerPriest		= "Show timer for Priests and Solarian spawn",
 	WrathIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(42783)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellSplit1		= "I will crush your delusions of grandeur!",
 	YellSplit2		= "You are hopelessly outmatched!",
 	YellPhase2		= "I become"
-}
+})
 
 ---------------------------
 --  Kael'thas Sunstrider --
 ---------------------------
 L = DBM:GetModLocalization("KaelThas")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kael'thas Sunstrider"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnGaze		= "Gaze on >%s<",
 	WarnMobDead		= "%s down",
 	WarnEgg			= "Phoenix Egg spawned",
 	SpecWarnGaze	= "Gaze on YOU - Run away!",
 	SpecWarnEgg		= "Phoenix Egg spawned - Change Target!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "Next Phase",
 	TimerPhase1mob	= "%s",
 	TimerNextGaze	= "New Gaze target",
 	TimerRebirth	= "Phoenix Rebirth"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnGaze		= "Show warning for Thaladred's Gaze target",
 	WarnMobDead		= "Show warning for Phase 2 mob down",
 	WarnEgg			= "Show warning when Phoenix Egg spawn",
@@ -103,9 +103,9 @@ L:SetOptionLocalization{
 	GazeIcon		= "Set icon on Thaladred's Gaze target",
 	MCIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(36797),
 	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 37018)
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull1	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome... to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",
 	YellPull2	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",--Apparently a variation exists and either can be used?
 	YellPhase2	= "As you see, I have many weapons in my arsenal....",
@@ -128,4 +128,4 @@ L:SetMiscLocalization{
 	Shield		= "Phaseshift Bulwark",
 	Staff		= "Staff of Disintegration",
 	Egg			= "Phoenix Egg"
-}
+})

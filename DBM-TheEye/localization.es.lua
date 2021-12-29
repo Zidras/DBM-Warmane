@@ -6,51 +6,51 @@ local L
 -----------
 L = DBM:GetModLocalization("Alar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Al'ar"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextPlatform	= "Siguiente plataforma (max.)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NextPlatform	= "Mostrar temporizador para el tiempo máximo que Al'ar puede permanecer en una plataforma"
-}
+})
 
 ------------------
 --  Void Reaver --
 ------------------
 L = DBM:GetModLocalization("VoidReaver")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Atracador del vacío"
-}
+})
 
 --------------------------------
 --  High Astromancer Solarian --
 --------------------------------
 L = DBM:GetModLocalization("Solarian")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Gran astromante Solarian"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSplit		= "Separación de banda",
 	WarnSplitSoon	= "Separación de banda en 5 s",
 	WarnAgent		= "Agentes",
 	WarnPriest		= "Sacerdotes y Solarian"
 
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSplit		= "Siguiente separación",
 	TimerAgent		= "Siguientes agentes",
 	TimerPriest		= "Sacerdotes y Solarian"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnSplit		= "Mostrar aviso para la separación de banda",
 	WarnSplitSoon	= "Mostrar aviso previo para la separación de banda",
 	WarnAgent		= "Mostrar aviso cuando aparezcan Agentes Solarium",
@@ -58,39 +58,39 @@ L:SetOptionLocalization{
 	TimerSplit		= "Mostrar temporizador para la separación de banda",
 	TimerAgent		= "Mostrar temporizador para los siguientes Agentes Solarium",
 	TimerPriest		= "Mostrar temporizador para cuando vuelva a aparecer la Gran astromante Solarian con los Sacerdotes Solarium"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellSplit1		= "¡Aplastaré vuestros delirios de grandeza!",
 	YellSplit2		= "¡Os superamos con creces!",
 	YellPhase2		= "Me FUNDO... ¡con el VACÍO!"
-}
+})
 
 ---------------------------
 --  Kael'thas Sunstrider --
 ---------------------------
 L = DBM:GetModLocalization("KaelThas")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kael'thas Caminante del Sol"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnGaze		= "Mirada en >%s<",
 	WarnMobDead		= "%s muerto",
 	WarnEgg			= "Huevo de fénix",
 	SpecWarnGaze	= "Mirada en ti - ¡huye!",
 	SpecWarnEgg		= "Huevo de Fénix - ¡cambia de objetivo!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "Siguiente fase",
 	TimerPhase1mob	= "%s",
 	TimerNextGaze	= "Mirada: Cambio de objetivo",
 	TimerRebirth	= "Fénix: Renacimiento"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnGaze		= "Anunciar objetivos de la Mirada de Thaladred",
 	WarnMobDead		= "Mostrar aviso cuando muera un esbirro en Fase 2",
 	WarnEgg			= "Mostrar aviso cuando aparezca un Huevo de fénix",
@@ -101,9 +101,9 @@ L:SetOptionLocalization{
 	TimerNextGaze	= "Show timer for Thaladred's Gaze target changes",
 	TimerRebirth	= "Mostrar temporizador para el renacimiento de los Huevos de fénix",
 	GazeIcon		= "Poner icono en el objetivo de la Mirada de Thaladred"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPhase2	= "Como veis, dispongo de un amplio arsenal...",
 	YellPhase3	= "Quizás os subestimé. Sería injusto que os enfrentarais a los cuatro consejeros al mismo tiempo, pero... nunca se le ha brindado un trato justo a mi gente. Así que os devuelvo el favor.",
 	YellPhase4	= "Desafortunadamente hay veces en las que tienes que hacer las cosas con tus propias manos. ¡Balamore shanal!",
@@ -124,4 +124,4 @@ L:SetMiscLocalization{
 	Shield		= "Baluarte de cambio de fase",
 	Staff		= "Bastón de desintegración",
 	Egg			= "Huevo de fénix"
-}
+})

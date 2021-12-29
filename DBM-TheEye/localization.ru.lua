@@ -7,51 +7,51 @@ local L
 -----------
 L = DBM:GetModLocalization("Alar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ал'ар"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextPlatform	= "Следующая платформа"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NextPlatform	= "Show timer for when Al'ar changes platforms"
-}
+})
 
 ------------------
 --  Void Reaver --
 ------------------
 L = DBM:GetModLocalization("VoidReaver")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Страж Бездны"
-}
+})
 
 --------------------------------
 --  High Astromancer Solarian --
 --------------------------------
 L = DBM:GetModLocalization("Solarian")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Верховный звездочет Солариан"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSplit		= "*** Приспешники на подходе ***",
 	WarnSplitSoon	= "*** Разделение через 5 секунд ***",
 	WarnAgent		= "*** Пособники появились ***",
 	WarnPriest		= "*** Жрецы и Солариан появились ***"
 
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSplit		= "Разделение",
 	TimerAgent		= "Пособники",
 	TimerPriest		= "Жрецы и Солариан"
-}
+})
 
-L:SetOptionLocalization{--Translate
+L:SetOptionLocalization({--Translate
 	WarnSplit		= "Show warning for Split",
 	WarnSplitSoon	= "Show pre-warning for Split",
 	WarnAgent		= "Show warning for Agents spawn",
@@ -60,40 +60,40 @@ L:SetOptionLocalization{--Translate
 	TimerAgent		= "Show timer for Agents spawn",
 	TimerPriest		= "Show timer for Priests and Solarian spawn",
 	WrathWhisper	= "Сообщить шепотом цели, если Гнев на нем"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	WrathWhisper	= "Гнев на вас!",
 	YellSplit1		= "Я навсегда избавлю вас от мании величия!",--Translate
 	YellSplit2		= "Вы безнадежно слабы!	",--Translate
 	YellPhase2		= "Я сольюсь... с БЕЗДНОЙ!"--Translate
-}
+})
 
 ---------------------------
 --  Kael'thas Sunstrider --
 ---------------------------
 L = DBM:GetModLocalization("KaelThas")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Кель'тас Солнечный Скиталец"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnGaze		= "*** Таладред бросает взор на >%s< ***",
 	WarnMobDead		= "%s down",--Translate
 	WarnEgg			= "*** Феникс убит - появляется яйцо ***",
 	SpecWarnGaze	= "Бегите!",
 	SpecWarnEgg		= "*** Феникс убит - появляется яйцо ***"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "Следующая Фаза",--Translate
 	TimerPhase1mob	= "%s",
 	TimerNextGaze	= "Восстановление взгляда",
 	TimerRebirth	= "Возрождение"
-}
+})
 
-L:SetOptionLocalization{--Translate
+L:SetOptionLocalization({--Translate
 	WarnGaze		= "Show warning for Thaladred's Gaze target",
 	WarnMobDead		= "Show warning for Phase 2 mob down",
 	WarnEgg			= "Show warning when Phoenix Egg spawn",
@@ -106,9 +106,9 @@ L:SetOptionLocalization{--Translate
 	RangeFrame		= "Контрольное окно придельной дистанции",
 	GazeWhisper		= "Сообщить шепотом цели, если Таладред на нем",
 	GazeIcon		= "Установить метку на цель Таладред"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull1	= "Энергия. Сила. Мои люди без них не могут... Эта зависимость возникла после уничтожения Солнечного Колодца. Добро пожаловать... в будущее. Мне очень жаль, но вы не сможете ничего изменить. Теперь меня никто не остановит! Селама ашаль-аноре!",--Translate
 	YellPhase2	= "Как видите, оружия у меня предостаточно...",--Translate
 	YellPhase3	= "Возможно, я недооценил вас. Было бы несправедливо заставлять вас драться с четырьмя советниками сразу, но... Мои люди тоже никогда не знали справедливости. Я лишь возвращаю долг.",--Translate
@@ -131,4 +131,4 @@ L:SetMiscLocalization{
 	Shield		= "Фазовый щит",--Translate
 	Staff		= "Посох Распыления",--Translate
 	Egg			= "Яйцо феникса"
-}
+})
