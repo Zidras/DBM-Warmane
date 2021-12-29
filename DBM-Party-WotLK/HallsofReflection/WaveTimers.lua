@@ -11,8 +11,9 @@ mod:RegisterEvents(
 )
 
 local warnNewWaveSoon	= mod:NewAnnounce("WarnNewWaveSoon", 2)
-local warnNewWave	= mod:NewAnnounce("WarnNewWave", 3)
-local timerNextWave	= mod:NewTimer(150, "TimerNextWave")
+local warnNewWave		= mod:NewAnnounce("WarnNewWave", 3)
+
+local timerNextWave		= mod:NewTimer(150, "TimerNextWave")
 
 mod:AddBoolOption("ShowAllWaveWarnings", true, "announce")
 mod:AddBoolOption("ShowAllWaveTimers", false, "timer")

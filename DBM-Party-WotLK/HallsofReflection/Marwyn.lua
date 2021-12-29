@@ -6,37 +6,35 @@ mod:SetCreatureID(38113)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_CAST_SUCCESS"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 72362 72436 72363",
+	"SPELL_CAST_SUCCESS 72362"
 )
 
 local warnWellCorruption		= mod:NewSpellAnnounce(72362, 3)
-local warnCorruptedFlesh		= mod:NewSpellAnnounce(72436, 3)
+local warnCorruptedFlesh		= mod:NewSpellAnnounce(72363, 3)
 
-local timerWellCorruptionCD		= mod:NewCDTimer(13, 72362)
-local timerCorruptedFlesh		= mod:NewBuffActiveTimer(8, 72436)
-local timerCorruptedFleshCD		= mod:NewCDTimer(20, 72436)
+local specWarnWellCorruption	= mod:NewSpecialWarningMove(72362, nil, nil, nil, 1, 8)
 
-local specWarnWellCorruption	= mod:NewSpecialWarningMove(72362)
-
-local spam = 0
+local timerWellCorruptionCD		= mod:NewCDTimer(13, 72362, nil, nil, nil, 3)
+local timerCorruptedFlesh		= mod:NewBuffActiveTimer(8, 72363, nil, nil, nil, 5)
+local timerCorruptedFleshCD		= mod:NewCDTimer(20, 72363, nil, nil, nil, 2)
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(72362) and args:IsPlayer() then
+	if args.spellId == 72362 and args:IsPlayer() then
 		specWarnWellCorruption:Show()
+		specWarnWellCorruption:Play("watchfeet")
 	elseif args:IsSpellID(72436, 72363) then
-		if GetTime() - spam > 5 then
+		if self:AntiSpam(5) then
 			warnCorruptedFlesh:Show()
 			timerCorruptedFlesh:Start()
 			timerCorruptedFleshCD:Start()
-			spam = GetTime()
 		end
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(72362) then
+	if args.spellId == 72362 then
 		warnWellCorruption:Show()
 		timerWellCorruptionCD:Start()
 	end
