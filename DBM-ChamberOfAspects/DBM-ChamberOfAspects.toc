@@ -18,7 +18,7 @@
 ## X-DBM-Mod-SubCategories-deDE: Das Obsidiansanktum, Das Rubinsanktum
 ## X-DBM-Mod-SubCategories-ruRU: Обсидиановое святилище, Рубиновое святилище
 ## X-DBM-Mod-SubCategories-zhTW: 黑曜聖所, 晶紅聖所
-## X-DBM-Mod-SubCategories-zhCN: 黑曜石圣殿, The Ruby Sanctum
+## X-DBM-Mod-SubCategories-zhCN: 黑曜石圣殿, 红玉圣殿
 ## X-DBM-Mod-SubCategories-koKR: 흑요석 성소, 루비 성소
 ## X-DBM-Mod-SubCategories-frFR: Le sanctum Obsidien,Le sanctum Rubis
 ## X-DBM-Mod-SubCategories-esES: El Sagrario Obsidiana, El Sagrario Rubí
