@@ -74,6 +74,7 @@ L:SetMiscLocalization({
 	Anetheron		= "아네테론 등장",
 	Kazrogal		= "카즈로갈 등장",
 	Azgalor			= "아즈갈로 등장",
+	WaveCheck		= "현재 공격 = (%d+)/8",
 	WarnWave_0		= "공격 %s/8",
 	WarnWave_1		= "공격 %s/8 - %s %s",
 	WarnWave_2		= "공격 %s/8 - %s %s, %s %s",
@@ -94,4 +95,3 @@ L:SetMiscLocalization({
 	Stalker			= "지옥사냥개",
 	Infernal		= "지옥불정령"
 })
-

@@ -78,6 +78,7 @@ L:SetMiscLocalization({
 	Anetheron		= "Anetheron kommt",
 	Kazrogal		= "Kaz'rogal kommt",
 	Azgalor			= "Azgalor kommt",
+	WaveCheck		= "Derzeitige Welle = (%d+) von 8",
 	WarnWave_0		= "Welle %s/8",
 	WarnWave_1		= "Welle %s/8 - %s %s",
 	WarnWave_2		= "Welle %s/8 - %s %s und %s %s",
@@ -98,4 +99,3 @@ L:SetMiscLocalization({
 	Stalker			= "Teufelspirscher",
 	Infernal		= "Höllenbestien"
 })
-
