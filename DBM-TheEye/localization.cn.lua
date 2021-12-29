@@ -87,22 +87,22 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPhase		= "下一次阶段",--Translate
+	TimerPhase		= "下一次阶段",
 	TimerPhase1mob	= "%s",
 	TimerNextGaze	= "凝视冷却",
 	TimerRebirth	= "复生"
 })
 
 L:SetOptionLocalization({
-	WarnGaze		= "显示萨拉德雷凝视玩家时发出警报",--Translate
-	WarnMobDead		= "显示第二阶段的警报",--Translate
-	WarnEgg			= "显示凤凰卵重生的警报",--Translate
-	SpecWarnGaze	= "显示特别警报：凝视你时",--Translate
-	SpecWarnEgg		= "显示特殊警告：凤凰卵重生时",--Translate
-	TimerPhase		= "显示下一阶段的时间",--Translate
-	TimerPhase1mob	= "显示第一阶段首领的时间",--Translate
-	TimerNextGaze	= "显示萨拉德雷凝视玩家的时间",--Translate
-	TimerRebirth	= "显示剩余凤凰卵重生的时间",--Translate
+	WarnGaze		= "显示萨拉德雷凝视玩家时发出警报",
+	WarnMobDead		= "显示第二阶段的警报",
+	WarnEgg			= "显示凤凰卵重生的警报",
+	SpecWarnGaze	= "显示特别警报：凝视你时",
+	SpecWarnEgg		= "显示特殊警告：凤凰卵重生时",
+	TimerPhase		= "显示下一阶段的时间",
+	TimerPhase1mob	= "显示第一阶段首领的时间",
+	TimerNextGaze	= "显示萨拉德雷凝视玩家的时间",
+	TimerRebirth	= "显示剩余凤凰卵重生的时间",
 	GazeWhisper		= "对萨拉德雷的目标发送密语",
 	GazeIcon		= "对萨拉德雷的目标添加标注"
 })

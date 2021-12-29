@@ -99,14 +99,12 @@ L:SetOptionLocalization({
 	TimerPhase1mob	= "Show time for Phase 1 mob active",
 	TimerNextGaze	= "Show timer for Thaladred's Gaze target changes",
 	TimerRebirth	= "Show timer for Phoenix Egg rebirth remaining",
-	GazeIcon		= "Set icon on Thaladred's Gaze target",
-	MCIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(36797),
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 37018)
+	GazeIcon		= "Set icon on Thaladred's Gaze target"
 })
 
 L:SetMiscLocalization({
-	YellPull1	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome... to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",
-	YellPull2	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",--Apparently a variation exists and either can be used?
+--	YellPull1	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome... to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",
+--	YellPull2	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",--Apparently a variation exists and either can be used?
 	YellPhase2	= "As you see, I have many weapons in my arsenal....",
 	YellPhase3	= "Perhaps I underestimated you. It would be unfair to make you fight all four advisors at once, but... fair treatment was never shown to my people. I'm just returning the favor.",
 	YellPhase4	= "Alas, sometimes one must take matters into one's own hands. Balamore shanal!",
