@@ -316,7 +316,7 @@ L:SetGeneralLocalization({
 --------------------------
 --  General Bjarngrim  --
 -------------------------
-L = DBM:GetModLocalization("Gjarngrin")
+L = DBM:GetModLocalization("Bjarngrin")
 
 L:SetGeneralLocalization({
 	name = "General Bjarngrim"
@@ -343,7 +343,7 @@ L:SetGeneralLocalization({
 -------------
 --  Loken  --
 -------------
-L = DBM:GetModLocalization("Kronus")
+L = DBM:GetModLocalization("Loken")
 
 L:SetGeneralLocalization({
 	name = "Loken"

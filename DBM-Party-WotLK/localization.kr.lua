@@ -308,7 +308,7 @@ L:SetGeneralLocalization({
 ---------------------
 -- 장군 비야른그림 --
 ---------------------
-L = DBM:GetModLocalization("Gjarngrin")
+L = DBM:GetModLocalization("Bjarngrin")
 
 L:SetGeneralLocalization({
 	name = "장군 비야른그림"
@@ -335,7 +335,7 @@ L:SetGeneralLocalization({
 ----------
 -- 로켄 --
 ----------
-L = DBM:GetModLocalization("Kronus")
+L = DBM:GetModLocalization("Loken")
 
 L:SetGeneralLocalization({
 	name = "로켄"
