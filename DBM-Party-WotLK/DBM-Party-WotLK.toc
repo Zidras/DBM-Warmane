@@ -80,10 +80,10 @@ Gundrak\BloodstoneAnnihilator.lua
 Gundrak\Galdarah.lua
 Gundrak\Eck.lua
 
-HallsOfLightning\Gjarngrin.lua
+HallsOfLightning\Bjarngrin.lua
 HallsOfLightning\Volkhan.lua
 HallsOfLightning\Ionar.lua
-HallsOfLightning\Kronus.lua
+HallsOfLightning\Loken.lua
 
 HallsOfReflection\WaveTimers.lua
 HallsOfReflection\Falric.lua
