@@ -91,20 +91,6 @@ L:SetGeneralLocalization({
 	name = "艾瑞达双子"
 })
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization({
-})
-
-L:SetOptionLocalization({
-	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= "Show range frame (10 yards)",--Translate
-	NovaWhisper		= "Send whisper to $spell:45329 target (requires Raid Leader)",--Translate
-	ConflagWhisper	= "Send whisper to $spell:45333 target (requires Raid Leader)",--Translate
-})
-
 L:SetMiscLocalization({
 	NovaWhisper		= "暗影新星！",
 	ConflagWhisper	= "燃烧！",
