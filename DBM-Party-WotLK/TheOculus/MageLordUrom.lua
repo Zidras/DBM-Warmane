@@ -7,21 +7,24 @@ mod:SetMinSyncRevision(2824)
 
 mod:RegisterCombat("yell", L.CombatStart)
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_CAST_START"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 51121 59376",
+	"SPELL_CAST_START 51110 59377"
 )
 
-local warningTimeBomb		= mod:NewTargetAnnounce(51121, 2)
-local warningExplosion		= mod:NewCastAnnounce(51110, 3)
-local timerTimeBomb			= mod:NewTargetTimer(6, 51121)
-local timerExplosion		= mod:NewTargetTimer(8, 51110)
+local warningTimeBomb		= mod:NewTargetNoFilterAnnounce(51121, 4)
+
+local specWarnExplosion		= mod:NewSpecialWarningMoveTo(51110, nil, nil, nil, 3, 2)
 local specWarnBombYou		= mod:NewSpecialWarningYou(51121)
+
+local timerTimeBomb			= mod:NewTargetTimer(6, 51121, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
+local timerExplosion		= mod:NewCastTimer(8, 51110, nil, nil, nil, 2, nil, DBM_CORE_L.DEADLY_ICON)
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(51110, 59377) then
-		warningExplosion:Show()
-		timerExplosion:Start(args.destName)
+		specWarnExplosion:Show(DBM_CORE_L.BREAK_LOS)
+		specWarnExplosion:Play("findshelter")
+		timerExplosion:Start()
 		if args:IsPlayer() then
 			specWarnBombYou:Show()
 		end

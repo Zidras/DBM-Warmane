@@ -3,12 +3,11 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 2481 $"):sub(12, -3))
 mod:SetCreatureID(27656)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 51162 51170"
 )
 
 local warningShift		= mod:NewSpellAnnounce(51162, 4)
