@@ -3,17 +3,17 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 2250 $"):sub(12, -3))
 mod:SetCreatureID(27447)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 51054 59371",
+	"SPELL_AURA_REMOVED 51054 59371"
 )
 
-local warningAmplify	= mod:NewTargetAnnounce(51054, 2)
-local timerAmplify		= mod:NewTargetTimer(30, 51054)
+local warningAmplify	= mod:NewTargetNoFilterAnnounce(51054, 2)
+
+local timerAmplify		= mod:NewTargetTimer(30, 51054, nil, "Healer", nil, 5, nil, DBM_CORE_L.HEALER_ICON..DBM_CORE_L.MAGIC_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(51054, 59371) then
@@ -24,6 +24,6 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(51054, 59371) then
-		timerAmplify:Cancel()
+		timerAmplify:Cancel(args.destName)
 	end
 end
