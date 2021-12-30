@@ -1,18 +1,20 @@
 local mod	= DBM:NewMod("Ick", "DBM-Party-WotLK", 15)
 local L		= mod:GetLocalizedStrings()
 
+mod.statTypes = "normal,heroic"
+
 mod:SetRevision(("$Revision: 4342 $"):sub(12, -3))
 mod:SetCreatureID(36476)
 mod:SetUsedIcons(8)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
-	"SPELL_PERIODIC_DAMAGE",
-	"SPELL_PERIODIC_MISSED",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 68987 68989 70434 69012",
+	"SPELL_AURA_APPLIED 69029 70850",
+	"SPELL_AURA_REMOVED 69029 70850",
+	"SPELL_PERIODIC_DAMAGE 69024 70436",
+	"SPELL_PERIODIC_MISSED 69024 70436",
 	"UNIT_AURA"
 )
 
@@ -63,7 +65,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 69029 then					-- Pursuit Confusion
+	if args:IsSpellID(69029, 70850) then					-- Pursuit Confusion
 		timerPursuitConfusion:Cancel()
 	end
 end

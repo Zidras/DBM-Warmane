@@ -1,17 +1,18 @@
 local mod	= DBM:NewMod("ForgemasterGarfrost", "DBM-Party-WotLK", 15)
 local L		= mod:GetLocalizedStrings()
 
+mod.statTypes = "normal,heroic"
+
 mod:SetRevision(("$Revision: 4430 $"):sub(12, -3))
 mod:SetCreatureID(36494)
 mod:SetUsedIcons(8)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_CREATE",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 68788",
+	"SPELL_AURA_APPLIED 70381 72930 68785 70335",
+	"SPELL_AURA_APPLIED_DOSE 68786 70336",
 	"CHAT_MSG_RAID_BOSS_WHISPER"
 )
 
@@ -28,13 +29,13 @@ local timerSaroniteRockCD		= mod:NewCDTimer(15.5, 68789, nil, nil, nil, 3)--15.5
 local timerDeepFreezeCD			= mod:NewCDTimer(19, 70381, nil, "Healer", 2, 5, nil, DBM_CORE_L.HEALER_ICON)
 local timerDeepFreeze			= mod:NewTargetTimer(14, 70381, nil, false, 3, 5)
 
-mod:AddBoolOption("SetIconOnSaroniteRockTarget", true)
+mod:AddSetIconOption("SetIconOnSaroniteRockTarget", 68789, true, false, {8})
 mod:AddBoolOption("AchievementCheck", false, "announce")
 
-local warnedfailed = false
+mod.vb.warnedfailed = false
 
 function mod:OnCombatStart(delay)
-	warnedfailed = false
+	self.vb.warnedfailed = false
 end
 
 function mod:SPELL_CAST_START(args)
@@ -60,14 +61,12 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 			specWarnPermafrost:Show(amount)
 			specWarnPermafrost:Play("stackhigh")
 		end
-		if args:IsDestTypePlayer() then
-			if self.Options.AchievementCheck and not warnedfailed then
-				if amount == 9 or amount == 10 then
-					SendChatMessage(L.AchievementWarning:format(args.destName, amount), "PARTY")
-				elseif amount > 11 then
-					SendChatMessage(L.AchievementFailed:format(args.destName, amount), "PARTY")
-					warnedfailed = true
-				end
+		if self.Options.AchievementCheck and not self.vb.warnedfailed then
+			if amount == 9 or amount == 10 then
+				SendChatMessage(L.AchievementWarning:format(args.destName, amount), "PARTY")
+			elseif amount > 11 then
+				SendChatMessage(L.AchievementFailed:format(args.destName, amount), "PARTY")
+				self.vb.warnedfailed = true
 			end
 		end
 	end
