@@ -9,11 +9,14 @@ mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellCombatEnd)
 
 mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_DAMAGE",
-	"SPELL_MISSED",
 	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 67729 67886",
+	"SPELL_AURA_APPLIED 67823 67882 67751",
+	"SPELL_DAMAGE 67781 67876 67729 67886",
+	"SPELL_MISSED 67781 67876 67729 67886"
 )
 
 local warnMarked			= mod:NewTargetNoFilterAnnounce(67823, 3)

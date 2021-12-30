@@ -771,10 +771,6 @@ L:SetGeneralLocalization({
 	name = "Eadric the Pure"
 })
 
-L:SetOptionLocalization({
-	SetIconOnHammerTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(66940)
-})
-
 L:SetMiscLocalization({
 	YellCombatEnd	= "I yield! I submit. Excellent work. May I run away now?"
 })

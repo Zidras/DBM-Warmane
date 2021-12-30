@@ -4,18 +4,14 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision(("$Revision: 3726 $"):sub(12, -3))
 mod:SetCreatureID(35119)
 mod:SetUsedIcons(8)
---mod:SetZone()
 
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellCombatEnd)
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 66935 66867",
+	"SPELL_AURA_APPLIED 66940 66889 66905"
 )
-
-local isDispeller = select(2, UnitClass("player")) == "PRIEST"
-				 or select(2, UnitClass("player")) == "PALADIN"
 
 local warnHammerofRighteous		= mod:NewSpellAnnounce(66867, 3)
 local warnVengeance             = mod:NewTargetNoFilterAnnounce(66889, 3)
@@ -26,7 +22,7 @@ local specwarnHammerofRighteous	= mod:NewSpecialWarningYou(66905, nil, nil, nil,
 
 local timerVengeance			= mod:NewBuffActiveTimer(6, 66889)
 
-mod:AddBoolOption("SetIconOnHammerTarget", true)
+mod:AddSetIconOption("SetIconOnHammerTarget", 66940, true, true, {8})
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 66935 then					-- Radiance Look Away!

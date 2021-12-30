@@ -5,26 +5,23 @@ mod:SetRevision(("$Revision: 4265 $"):sub(12, -3))
 mod:SetCreatureID(34657, 34701, 34702, 34703, 34705, 35569, 35570, 35571, 35572, 35617)
 
 mod:RegisterCombat("combat")
+mod:SetWipeTime(60)--prevent wipe for no vehicle user
 mod:SetDetectCombatInVehicle(false)
 
 mod:RegisterKill("yell", L.YellCombatEnd)
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 68318 67528",
+	"SPELL_CAST_SUCCESS 66045",
+	"SPELL_AURA_APPLIED 66043 68311 67534 67594 68316"
 )
 
-local isDispeller = select(2, UnitClass("player")) == "MAGE"
-				 or select(2, UnitClass("player")) == "PRIEST"
-				 or select(2, UnitClass("player")) == "SHAMAN"
-
-local warnHealingWave		= mod:NewSpellAnnounce(68318, 2)
-local warnHaste				= mod:NewTargetAnnounce(66045, 2)
+local warnHealingWave		= mod:NewSpellAnnounce(67528, 2)
 local warnPolymorph			= mod:NewTargetAnnounce(66043, 1)
-local warnHexOfMending		= mod:NewTargetAnnounce(67534, 1)
-local specWarnPoison		= mod:NewSpecialWarningMove(68316)
-local specWarnHaste			= mod:NewSpecialWarningDispel(66045, isDispeller)
+
+local specWarnPoison		= mod:NewSpecialWarningMove(67594, nil, nil, nil, 1, 8)
+local specWarnHaste			= mod:NewSpecialWarningDispel(66045, "MagicDispeller", nil, nil, 1, 2)
+local specWarnHex			= mod:NewSpecialWarningDispel(67534, "RemoveCurse", nil, nil, 1, 2)
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68318, 67528) then								-- Healing Wave
@@ -33,19 +30,20 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(66045) and not args:IsDestTypePlayer() then		-- Haste
-		warnHaste:Show(args.destName)
+	if args.spellId == 66045 and not args:IsDestTypePlayer() then		-- Haste
 		specWarnHaste:Show(args.destName)
+		specWarnHaste:Play("dispelboss")
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(66043, 68311) then								-- Polymorph on <x>
 		warnPolymorph:Show(args.destName)
-	elseif args:IsSpellID(67534) then									-- Hex of Mending on <x>
-		warnHexOfMending:Show(args.destName)
+	elseif args.spellId == 67534 and self:CheckDispelFilter() then		-- Hex of Mending on <x>
+		specWarnHex:Show(args.destName)
+		specWarnHex:Play("helpdispel")
 	elseif args:IsSpellID(67594, 68316) and args:IsPlayer() then		-- Standing in Poison Bottle.
 		specWarnPoison:Show()
+		specWarnPoison:Play("watchfeet")
 	end
 end
-
