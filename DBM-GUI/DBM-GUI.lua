@@ -4099,6 +4099,9 @@ do
 						elseif mod.buttons and mod.buttons[v] then
 							local but = mod.buttons[v]
 							catbutton = catpanel:CreateButton(v, but.width, but.height, but.onClick, but.fontObject)
+							if not addSpacer then
+								catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -25)
+							end
 						elseif mod.editboxes and mod.editboxes[v] then
 							local editBox = mod.editboxes[v]
 							catbutton = catpanel:CreateEditBox(mod.localization.options[v], mod.Options[v], editBox.width, editBox.height)
@@ -4107,6 +4110,9 @@ do
 									mod.optionFuncs[v]()
 								end
 							end)
+							if not addSpacer then
+								catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -25)
+							end
 						elseif mod.sliders and mod.sliders[v] then
 							local slider = mod.sliders[v]
 							catbutton = catpanel:CreateSlider(mod.localization.options[v], slider.minValue, slider.maxValue, slider.valueStep)
@@ -4118,6 +4124,9 @@ do
 									mod.optionFuncs[v]()
 								end
 							end)
+							if not addSpacer then
+								catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -35)
+							end
 						elseif mod.dropdowns and mod.dropdowns[v] then
 							local dropdownOptions = {}
 							for i, val in ipairs(mod.dropdowns[v]) do

@@ -110,6 +110,7 @@ mod:AddBoolOption("AnnounceValkGrabs", false)
 mod:AddBoolOption("AnnouncePlagueStack", false, "announce")
 mod:AddBoolOption("TrapArrow")
 mod:AddBoolOption("RemoveImmunes")
+mod:AddMiscLine(L.FrameGUIDesc)
 mod:AddBoolOption("ShowFrame", true)
 mod:AddBoolOption("FrameLocked", false)
 mod:AddBoolOption("FrameClassColor", true, nil, function()
@@ -118,9 +119,7 @@ end)
 mod:AddBoolOption("FrameUpwards", false, nil, function()
 	mod:ChangeFrameOrientation()
 end)
-mod:AddEditboxOption("FramePoint", "CENTER")
-mod:AddEditboxOption("FrameX", 150)
-mod:AddEditboxOption("FrameY", -50)
+mod:AddButton(L.FrameGUIMoveMe, function() mod:CreateFrame() end, nil, 130, 20)
 
 local warnedAchievement = false
 mod.vb.warned_preP2 = false

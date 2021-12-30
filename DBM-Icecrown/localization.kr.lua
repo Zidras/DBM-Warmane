@@ -350,7 +350,9 @@ L:SetMiscLocalization{
 	FrameClassColor			= "Use Class Colors", --Needs Translating
 	FrameOrientation		= "Expand upwards", --Needs Translating
 	FrameHide				= "Hide Frame", --Needs Translating
-	FrameClose				= "Close" --Needs Translating
+	FrameClose				= "Close", --Needs Translating
+	FrameGUIDesc			= "발키르 프레임",
+	FrameGUIMoveMe			= "발키르 프레임 이동"
 }
 
 -------------

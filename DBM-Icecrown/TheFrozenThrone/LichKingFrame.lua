@@ -160,16 +160,14 @@ function LichKing:CreateFrame()
 		lastEntry = nil
 	end
 	DBMLichKingFrameDrag:Show()
-	if self.Options.FramePoint then
-		DBMLichKingFrameDrag:SetPoint(self.Options.FramePoint, nil, self.Options.FramePoint, self.Options.FrameX, self.Options.FrameY)
-	end
+	DBMLichKingFrameDrag:SetPoint(self.Options.PermanentFramePoint or "CENTER", nil, self.Options.PermanentFramePoint or "CENTER", self.Options.PermanentFrameX or 150, self.Options.PermanentFrameY or -50)
 end
 
 function LichKing:SaveFramePosition()
 	local point, _, _, x, y = DBMLichKingFrameDrag:GetPoint()
-	self.Options.FramePoint = point
-	self.Options.FrameX = x
-	self.Options.FrameY = y
+	self.Options.PermanentFramePoint = point
+	self.Options.PermanentFrameX = x
+	self.Options.PermanentFrameY = y
 end
 
 function LichKing:DestroyFrame()

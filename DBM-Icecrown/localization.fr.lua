@@ -351,7 +351,9 @@ L:SetMiscLocalization{
 	FrameClassColor			= "Utiliser couleurs de Classes",
 	FrameOrientation		= "Étendre vers le haut",
 	FrameHide				= "Cacher fenêtre",
-	FrameClose				= "Fermer"
+	FrameClose				= "Fermer",
+	FrameGUIDesc			= "Cadre Val'Kyr",
+	FrameGUIMoveMe			= "Déplacer le cadre Val'Kyr"
 }
 
 -------------

@@ -158,16 +158,14 @@ function Kal:CreateFrame()
 		lastEntry = nil
 	end
 	_G["DBMKalFrameDrag"]:Show()
-	if self.Options.FramePoint then
-		_G["DBMKalFrameDrag"]:SetPoint(self.Options.FramePoint, nil, self.Options.FramePoint, self.Options.FrameX, self.Options.FrameY)
-	end
+	_G["DBMKalFrameDrag"]:SetPoint(self.Options.PermanentFramePoint or "CENTER", nil, self.Options.PermanentFramePoint or "CENTER", self.Options.PermanentFrameX or 150, self.Options.PermanentFrameY or -50)
 end
 
 function Kal:SaveFramePosition()
 	local point, _, _, x, y = _G["DBMKalFrameDrag"]:GetPoint()
-	self.Options.FramePoint = point
-	self.Options.FrameX = x
-	self.Options.FrameY = y
+	self.Options.PermanentFramePoint = point
+	self.Options.PermanentFrameX = x
+	self.Options.PermanentFrameY = y
 end
 
 function Kal:DestroyFrame()

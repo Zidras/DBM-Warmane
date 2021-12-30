@@ -37,7 +37,8 @@ L:SetMiscLocalization({
 	FrameClassColor		= "使用职业颜色",
 	FrameOrientation	= "灵魂世界框体向上延伸",
 	FrameHide			= "隐藏框体",
-	FrameClose			= "Close"--Translate
+	FrameClose			= "Close", --Translate
+	FrameGUIMoveMe		= "移动我"
 })
 
 ----------------

@@ -37,7 +37,8 @@ L:SetMiscLocalization({
 	FrameClassColor		= "Использовать цвета классов",
 	FrameOrientation	= "Рост вверх",
 	FrameHide			= "Скрыть рамку",
-	FrameClose			= "Закрыть"
+	FrameClose			= "Закрыть",
+	FrameGUIMoveMe		= "Передвинь меня"
 })
 
 ----------------

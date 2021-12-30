@@ -350,7 +350,9 @@ L:SetMiscLocalization{
 	FrameClassColor			= "Use Class Colors", --Needs Translating
 	FrameOrientation		= "Expand upwards", --Needs Translating
 	FrameHide				= "Hide Frame", --Needs Translating
-	FrameClose				= "Close" --Needs Translating
+	FrameClose				= "Close", --Needs Translating
+	FrameGUIDesc			= "瓦格里框架",
+	FrameGUIMoveMe			= "移動瓦格里框架"
 }
 
 -------------

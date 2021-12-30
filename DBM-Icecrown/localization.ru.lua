@@ -352,7 +352,9 @@ L:SetMiscLocalization{
 	FrameClassColor			= "Использовать цвета классов",
 	FrameOrientation		= "Рост вверх",
 	FrameHide				= "Скрыть окно",
-	FrameClose				= "Закрыть"
+	FrameClose				= "Закрыть",
+	FrameGUIDesc			= "Рамка Вал'Кира",
+	FrameGUIMoveMe			= "Переместить каркас Вал'Кира"
 }
 
 -------------

@@ -37,7 +37,8 @@ L:SetMiscLocalization({
 	FrameClassColor		= "使用職業顏色",
 	FrameOrientation	= "向上延伸",
 	FrameHide			= "隱藏框架",
-	FrameClose			= "關閉"
+	FrameClose			= "關閉",
+	FrameGUIMoveMe		= "移動"
 })
 
 ----------------

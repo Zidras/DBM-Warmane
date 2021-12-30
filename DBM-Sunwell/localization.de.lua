@@ -37,7 +37,8 @@ L:SetMiscLocalization({
 	FrameClassColor		= "Benutze Klassenfarben",
 	FrameOrientation	= "Erweitere nach oben",
 	FrameHide			= "Verberge Fenster",
-	FrameClose			= "Schließen"
+	FrameClose			= "Schließen",
+	FrameGUIMoveMe		= "Positionieren"
 })
 
 ----------------

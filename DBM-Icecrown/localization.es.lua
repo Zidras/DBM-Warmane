@@ -350,7 +350,9 @@ L:SetMiscLocalization{
 	FrameClassColor			= "Use Class Colors", --Needs Translating
 	FrameOrientation		= "Expand upwards", --Needs Translating
 	FrameHide				= "Hide Frame", --Needs Translating
-	FrameClose				= "Close" --Needs Translating
+	FrameClose				= "Close", --Needs Translating
+	FrameGUIDesc			= "Marco Val'Kyr",
+	FrameGUIMoveMe			= "Mover marco Val'Kyr"
 }
 
 ----------------------

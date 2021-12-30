@@ -38,10 +38,7 @@ end)
 mod:AddBoolOption("FrameUpwards", false, nil, function()
 	Kal:ChangeFrameOrientation()
 end)
-
-Kal.Options.FramePoint = "CENTER"
-Kal.Options.FrameX = 150
-Kal.Options.FrameY = -50
+mod:AddButton(L.FrameGUIMoveMe, function() Kal:CreateFrame() end, nil, 130, 20)
 
 mod.vb.portCount = 1
 

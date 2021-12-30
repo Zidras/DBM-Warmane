@@ -374,7 +374,9 @@ L:SetMiscLocalization{
 	FrameClassColor			= "Use Class Colors",
 	FrameOrientation		= "Expand upwards",
 	FrameHide				= "Hide Frame",
-	FrameClose				= "Close"
+	FrameClose				= "Close",
+	FrameGUIDesc			= "Val'Kyr Frame",
+	FrameGUIMoveMe			= "Move Val'Kyr Frame"
 }
 
 -------------
