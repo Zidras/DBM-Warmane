@@ -800,7 +800,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnSaroniteRockTarget	= "Met une icône sur la cible du Rocher de Saronite"
+	AchievementCheck	= "Annoncer les avertissements de réussite « Ne va pas à onze » pour faire la fête"
 })
 
 L:SetMiscLocalization({

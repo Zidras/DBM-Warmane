@@ -800,8 +800,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	AchievementCheck			= "Announce 'Doesn't Go to Eleven' achievement warnings to party",
-	SetIconOnSaroniteRockTarget	= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(70851)
+	AchievementCheck			= "Announce 'Doesn't Go to Eleven' achievement warnings to party"
 })
 
 L:SetMiscLocalization({

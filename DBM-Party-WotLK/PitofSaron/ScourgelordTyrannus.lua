@@ -5,18 +5,24 @@ mod:SetRevision(("$Revision: 4373 $"):sub(12, -3))
 mod:SetCreatureID(36658, 36661)
 mod:SetUsedIcons(8)
 
-mod:RegisterCombat("yell", L.CombatStart)
-mod:RegisterKill("yell", L.YellCombatEnd)
-mod:SetMinCombatTime(40)
+-- mod:RegisterCombat("yell", L.CombatStart)
+-- mod:RegisterKill("yell", L.YellCombatEnd)
+mod:RegisterCombat("combat")
+-- mod:SetMinCombatTime(40)
 
 mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_PERIODIC_DAMAGE",
-	"SPELL_PERIODIC_MISSED",
+	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 69629 69167",
+	"SPELL_CAST_SUCCESS 69155 69627",
+	"SPELL_AURA_APPLIED 69172",
+	"SPELL_AURA_REMOVED 69172",
+	"SPELL_PERIODIC_DAMAGE 69238 69628",
+	"SPELL_PERIODIC_MISSED 69238 69628",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"SPELL_PERIODIC_DAMAGE"
+	"UNIT_DIED"
 )
 
 local warnForcefulSmash			= mod:NewSpellAnnounce(69155, 2, nil, "Tank")
@@ -41,10 +47,9 @@ mod:AddSetIconOption("SetIconOnHoarfrostTarget", 69246, true, false, {8})
 mod:AddRangeFrameOption(8, 69246)
 
 function mod:OnCombatStart(delay)
-	timerCombatStart:Start(-delay)
-	timerForcefulSmash:Start(60-delay)
-	timerOverlordsBrandCD:Start(63-delay)
-	timerHoarfrostCD:Start(82.5-delay)--Verify
+	timerForcefulSmash:Start(9-delay)--Sems like a WTF
+	timerOverlordsBrandCD:Start(-delay)
+	timerHoarfrostCD:Start(31.5-delay)--Verify
 end
 
 function mod:OnCombatEnd()
@@ -87,8 +92,6 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-
-
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
 	if (spellId == 69238 or spellId == 69628) and destGUID == UnitGUID("player") and self:AntiSpam() then		-- Icy Blast, MOVE!
 		specWarnIcyBlast:Show()
@@ -97,11 +100,18 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:UNIT_DIED(args)
+	if self:GetCIDFromGUID(args.destGUID) == 36658 then
+		DBM:EndCombat(self)
+	end
+end
+
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg == L.HoarfrostTarget or msg:find(L.HoarfrostTarget) then--Probably don't need this, verify
-		local target = msg and msg:match(L.HoarfrostTarget)
+		target = target or msg and msg:match(L.HoarfrostTarget)
 		if not target then return end
 		timerHoarfrostCD:Start()
+		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnHoarfrost:Show()
 			specWarnHoarfrost:Play("targetyou")
@@ -118,5 +128,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		if self.Options.SetIconOnHoarfrostTarget then
 			self:SetIcon(target, 8, 5)
 		end
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if (msg == L.CombatStart or msg == L.CombatStart) then
+		timerCombatStart:Start()
 	end
 end
