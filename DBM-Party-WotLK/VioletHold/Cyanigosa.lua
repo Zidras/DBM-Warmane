@@ -3,15 +3,17 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 3389 $"):sub(12, -3))
 mod:SetCreatureID(31134)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
 	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_SUCCESS 58694 58693 59369",
+	"SPELL_AURA_APPLIED 59374",
+	"SPELL_AURA_REMOVED 59374"
 )
 
 local warningVacuum		= mod:NewSpellAnnounce(58694, 1)
@@ -49,7 +51,7 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 59374 then
-		timerMana:Cancel()
+		timerMana:Cancel(args.destName)
 	end
 end
 

@@ -3,12 +3,11 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 2250 $"):sub(12, -3))
 mod:SetCreatureID(29314)
-mod:SetZone()
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED"
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 59743 54361 54343 59745 54524"
 )
 
 local warningVoidShift			= mod:NewTargetNoFilterAnnounce(59743, 2)
