@@ -267,6 +267,7 @@ L.TIMER_BREAK						= "Перерыв!"
 L.ANNOUNCE_BREAK_OVER				= "Перерыв закончился в %s"
 
 L.TIMER_PULL						= "Атака"
+L.ANNOUNCE_PULL_MODE				= "Атака режим: %s"
 L.ANNOUNCE_PULL						= "Атака через %d сек. (отправил %s)"
 L.ANNOUNCE_PULL_NOW					= "Атака!"
 L.ANNOUNCE_PULL_TARGET				= "Атакуем %s через %d сек. (отправил %s)"

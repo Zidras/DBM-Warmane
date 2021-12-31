@@ -1857,6 +1857,13 @@ do
 		if IsInGroup() then
 			local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
 			DBM:Unschedule(SendChatMessage)
+			-- Pull announcer
+			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = DBM:GetCurrentInstanceDifficulty()
+			if savedDifficulty:find("heroic") then
+				SendChatMessage("{rt8} "..L.ANNOUNCE_PULL_MODE:format(PLAYER_DIFFICULTY2).." {rt8}", channel)
+			elseif savedDifficulty:find("normal") then
+				SendChatMessage(L.ANNOUNCE_PULL_MODE:format(PLAYER_DIFFICULTY1), channel)
+			end
 			SendChatMessage(L.ANNOUNCE_PULL:format(timer, playerName), channel)
 			if timer > 7 then DBM:Schedule(timer - 7, SendChatMessage, L.ANNOUNCE_PULL:format(7, playerName), channel) end
 			if timer > 5 then DBM:Schedule(timer - 5, SendChatMessage, L.ANNOUNCE_PULL:format(5, playerName), channel) end

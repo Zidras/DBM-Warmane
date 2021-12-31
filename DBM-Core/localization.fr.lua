@@ -237,6 +237,7 @@ L.TIMER_BREAK				= "Pause !"
 L.ANNOUNCE_BREAK_OVER		= "La pause est terminée"
 
 L.TIMER_PULL				= "Pull dans"
+L.ANNOUNCE_PULL_MODE		= "Pull mode: %s"
 L.ANNOUNCE_PULL				= "Pull dans %d sec. (Envoyé par %s)"
 L.ANNOUNCE_PULL_NOW			= "Pull maintenant !"
 L.GEAR_WARNING				= "Attention: Vérification d'équipement. Votre ilvl équippé est de %d plus bas que celui dans vos sacs"

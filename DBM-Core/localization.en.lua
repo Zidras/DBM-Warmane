@@ -289,6 +289,7 @@ L.TIMER_BREAK						= "Break time!"
 L.ANNOUNCE_BREAK_OVER				= "Break has ended at %s"
 
 L.TIMER_PULL						= "Pull in"
+L.ANNOUNCE_PULL_MODE				= "Pull mode: %s"
 L.ANNOUNCE_PULL						= "Pull in %d sec. (Sent by %s)"
 L.ANNOUNCE_PULL_NOW					= "Pull now!"
 L.ANNOUNCE_PULL_TARGET				= "Pulling %s in %d sec. (Sent by %s)"

@@ -327,6 +327,7 @@ L.TIMER_BREAK					= "休息時間!"
 L.ANNOUNCE_BREAK_OVER			= "休息結束於%s"
 
 L.TIMER_PULL					= "戰鬥準備"
+L.ANNOUNCE_PULL_MODE			= "難度：%s"
 L.ANNOUNCE_PULL					= "%d秒後拉怪 (%s發起)"
 L.ANNOUNCE_PULL_NOW				= "拉怪囉!"
 L.ANNOUNCE_PULL_TARGET			= "%2$d秒後開打%1$s! (%3$s 發起)"
