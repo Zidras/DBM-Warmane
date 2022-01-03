@@ -18,6 +18,8 @@ mod:RegisterEvents(
 	"UNIT_HEALTH boss1"
 )
 
+local myRealm = select(3, DBM:GetMyPlayerInfo())
+
 local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
 local warnUnstableExperimentSoon	= mod:NewSoonAnnounce(70351, 3)
 local warnUnstableExperiment		= mod:NewSpellAnnounce(70351, 4)
@@ -71,7 +73,7 @@ local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
 local soundChokingGasSoon 			= mod:NewSoundSoon(71255, nil, "Melee")
 local soundSlimePuddle 				= mod:NewSound(70341)
 
-local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(480) or mod:NewBerserkTimer(600)
+local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 480 or 600)
 
 mod:AddBoolOption("OozeAdhesiveIcon")
 mod:AddBoolOption("GaseousBloatIcon")

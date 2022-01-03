@@ -19,6 +19,8 @@ mod:RegisterEvents(
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
+local myRealm = select(3, DBM:GetMyPlayerInfo())
+
 local warnPactDarkfallen			= mod:NewTargetAnnounce(71340, 4)
 local warnPactDarkfallenSoon		= mod:NewSoonAnnounce(71340, 4, nil, nil, nil, nil, nil, 2)
 local warnBloodMirror				= mod:NewTargetAnnounce(71510, 3, nil, "Tank|Healer")
@@ -48,7 +50,7 @@ local timerBloodBolt				= mod:NewBuffActiveTimer(6, 71772, nil, nil, nil, 2)
 local timerBloodThirst				= mod:NewBuffFadesTimer(10, 70877, nil, nil, nil, 5)
 local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, nil, 5)
 
-local berserkTimer					= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(300) or mod:NewBerserkTimer(330)
+local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 300 or 330)
 
 mod:AddInfoFrameOption(70867, true)
 mod:AddBoolOption("BloodMirrorIcon", false)

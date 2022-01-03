@@ -16,6 +16,8 @@ mod:RegisterEvents(
 	"SPELL_SUMMON"
 )
 
+local myRealm = select(3, DBM:GetMyPlayerInfo())
+
 local preWarnWhirlwind		= mod:NewSoonAnnounce(69076, 3)
 local warnBoneSpike			= mod:NewCastAnnounce(69057, 2)
 local warnImpale			= mod:NewTargetAnnounce(72669, 3)
@@ -33,7 +35,7 @@ local timerWhirlwindStart	= mod:NewCastTimer(69076)
 local soundBoneSpike		= mod:NewSound(69057)
 local soundBoneStorm		= mod:NewSound(69076)
 
-local berserkTimer			= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
+local berserkTimer			= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
 mod:AddBoolOption("SetIconOnImpale", true)
 

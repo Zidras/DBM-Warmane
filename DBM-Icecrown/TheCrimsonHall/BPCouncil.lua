@@ -25,6 +25,8 @@ mod:RegisterEvents(
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
 )
 
+local myRealm = select(3, DBM:GetMyPlayerInfo())
+
 local warnTargetSwitch			= mod:NewAnnounce("WarnTargetSwitch", 3, 70952)
 local warnTargetSwitchSoon		= mod:NewAnnounce("WarnTargetSwitchSoon", 2, 70952)
 local warnConjureFlames			= mod:NewCastAnnounce(71718, 2)
@@ -58,7 +60,7 @@ local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
 local soundEmpoweredShockV		= mod:NewSound(72039)
 local soundEmpoweredFlames		= mod:NewSound(72040)
 
-local berserkTimer				= select(3, DBM:GetMyPlayerInfo()) == "Lordaeron" and mod:NewBerserkTimer(360) or mod:NewBerserkTimer(600)
+local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
 mod:AddBoolOption("EmpoweredFlameIcon", true)
 mod:AddBoolOption("ActivePrinceIcon", false)
