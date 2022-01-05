@@ -2787,6 +2787,36 @@ do
 		end
 	end
 end
+
+function DBM:GetNumGroupMembers()
+	return IsInGroup() and GetNumGroupMembers() or 1
+end
+
+--For returning the number of players actually in zone with us for status functions
+--This is very touchy though and will fail if everyone isn't in same SUB zone (ie same room/area)
+--It should work for pretty much any case but outdoor
+function DBM:GetNumRealGroupMembers()
+	if not IsInInstance() then--Not accurate outside of instances (such as world bosses)
+		return IsInGroup() and GetNumGroupMembers() or 1--So just return regular group members.
+	end
+	local playerCurrentZone = GetRealZoneText()
+	local realGroupMembers = 0
+	if GetNumRaidMembers() > 0 then
+		for i = 1, GetNumRaidMembers() do
+			local _, _, _, _, _, _, targetCurrentZone = GetRaidRosterInfo(i)
+			if targetCurrentZone == playerCurrentZone then
+				realGroupMembers = realGroupMembers + 1
+			end
+		end
+	elseif GetNumPartyMembers() > 0 then
+		local numPartyMembers = GetRealNumPartyMembers() -- this function return is terrible, but I didn't find any workaround to check unit zone, so for now this will do
+		realGroupMembers = numPartyMembers
+	else
+		return 1
+	end
+	return realGroupMembers
+end
+
 function DBM:GetUnitCreatureId(uId)
 	local guid = UnitGUID(uId)
 	return self:GetCIDFromGUID(guid)
