@@ -6035,6 +6035,30 @@ do
 		return alive
 	end
 
+	local function getNumRealAlivePlayers()
+		local alive = 0
+		local playerCurrentZone = GetRealZoneText() or L.UNKNOWN
+		if IsInRaid() then
+			for i = 1, GetNumRaidMembers() do
+				local _, _, _, _, _, _, zone = GetRaidRosterInfo(i)
+				if zone == playerCurrentZone then
+					alive = alive + ((UnitIsDeadOrGhost("raid"..i) and 0) or 1)
+				end
+			end
+		else
+			alive = (UnitIsDeadOrGhost("player") and 0) or 1
+			for i = 1, GetNumPartyMembers() do
+				if UnitInRange("party"..i) then -- this is VERY conservative to check for same zone. Might remove if too many false negatives
+					alive = alive + ((UnitIsDeadOrGhost("party"..i) and 0) or 1)
+				end
+			end
+		end
+		return alive
+	end
+	function DBM:NumRealAlivePlayers()
+		return getNumRealAlivePlayers()
+	end
+
 	local function isOnSameServer(presenceId)
 		local toonID, client = select(5, BNGetFriendInfoByID(presenceId))
 		if client ~= "WoW" then
