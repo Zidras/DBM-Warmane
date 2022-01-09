@@ -239,7 +239,6 @@ L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portale offen",
 	TimerPortalsClose			= "Portale geschlossen",
 	TimerBlazingSkeleton		= "Loderndes Skelett",
-	TimerAbom					= "Nächste Monstrosität"
 }
 
 L:SetOptionLocalization{
@@ -248,7 +247,6 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Zeige Zeit bis Alptraumportale geöffnet sind",
 	TimerPortalsClose			= "Zeige Zeit bis Alptraumportale geschlossen sind",
 	TimerBlazingSkeleton		= "Zeige Zeit bis nächstes Loderndes Skelett erscheint",
-	TimerAbom					= "Zeige Zeit bis nächste Gefräßige Monstrosität erscheint (experimentell)"
 }
 
 L:SetMiscLocalization{
