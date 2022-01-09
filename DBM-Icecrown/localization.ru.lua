@@ -241,6 +241,7 @@ L:SetTimerLocalization{
 	TimerPortalsOpen		= "Открытие порталов",
 	TimerPortalsClose		= "закрытие порталов", -- Needs review
 	TimerBlazingSkeleton	= "Исторгающий пламя скелет",
+	TimerAbom				= "След. поганище?"
 }
 
 L:SetOptionLocalization{
@@ -249,6 +250,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
 	TimerPortalsClose			= "Обратный отсчет до закрытия порталов", -- Needs review
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета",
+	TimerAbom					= "Отсчет времени до след. Прожорливого поганища (экспериментальный)"
 }
 
 L:SetMiscLocalization{
