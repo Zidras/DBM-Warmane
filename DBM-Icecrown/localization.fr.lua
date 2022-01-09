@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "frFR" then return end
+if GetLocale() ~= "frFR" then return end
 
 local L
 
@@ -240,6 +240,7 @@ L:SetTimerLocalization{
 	TimerPortalsOpen			= "Arrivée des portails",
 	TimerPortalsClose			= "Portals close",
 	TimerBlazingSkeleton		= "Next Blazing Skeleton",
+	TimerAbom					= "Next Abomination"
 }
 
 L:SetOptionLocalization{
@@ -248,6 +249,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Montre une timer pour voir quand Valithria ouvre des portails.",
 	TimerPortalsClose			= "Afficher le timer lorsque Portail cauchemardesque est fermé",
 	TimerBlazingSkeleton		= "Afficher le timer pour l'apparition du prochain Squelette flamboyant",
+	TimerAbom					= "Afficher le timer pour l'apparition de l'Abomination gloutonne (Expérimental)"
 }
 
 L:SetMiscLocalization{
