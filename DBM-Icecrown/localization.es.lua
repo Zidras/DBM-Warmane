@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
+if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
 
 local L
 
@@ -239,6 +239,7 @@ L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portales abiertos",
 	TimerPortalsClose			= "Portales cerrados",
 	TimerBlazingSkeleton		= "Siguiente Esqueleto llameante",
+	TimerAbom					= "Siguiente Abominación glotona"
 }
 
 L:SetOptionLocalization{
@@ -247,6 +248,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "Mostrar temporizador para cuando se abran los portales",
 	TimerPortalsClose			= "Mostrar temporizador para cuando se cierren los portales",
 	TimerBlazingSkeleton		= "Mostrar temporizador para el siguiente Esqueleto llameante",
+	TimerAbom					= "Mostrar temporizador para la siguiente Abominación glotona"
 }
 
 L:SetMiscLocalization{
