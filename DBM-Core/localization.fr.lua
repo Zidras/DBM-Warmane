@@ -441,3 +441,6 @@ L.LAG_CHECKING               = "Vérification de la latence du raid..."
 L.LAG_HEADER                 = "Deadly Boss Mods - Résultats sur la latence"
 L.LAG_ENTRY                  = "%s: délai monde [%d ms] / délai domicile [%d ms]"
 L.LAG_FOOTER                 = "Pas de réponse: %s"
+
+--LDB
+L.SILENTMODE_IS		= "Le mode silencieux est "

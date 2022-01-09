@@ -622,6 +622,7 @@ L.LAG_FOOTER					= "Sin respuesta: %s"
 --LDB
 L.LDB_TOOLTIP_HELP1	= "Clic izquierdo para abrir DBM"
 L.LDB_TOOLTIP_HELP2	= "Clic derecho para el menú de configuración"
+L.SILENTMODE_IS		= "El modo silencioso es "
 
 L.LDB_LOAD_MODS		= "Cargar módulo"
 

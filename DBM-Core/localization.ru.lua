@@ -564,3 +564,4 @@ L.LAG_FOOTER						= "Нет ответа: %s"
 
 --LDB
 L.LDB_TOOLTIP_HELP1					= "Левый клик, чтобы открыть " .. L.DBM
+L.SILENTMODE_IS						= "Тихий режим "

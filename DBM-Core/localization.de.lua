@@ -558,6 +558,7 @@ L.LAG_FOOTER					= "Keine Antwort: %s"
 --LDB
 L.LDB_TOOLTIP_HELP1	= "Links-Klick, um DBM zu öffnen."
 L.LDB_TOOLTIP_HELP2	= "Rechts-Klick, um das Konfigurationsmenü zu öffnen."
+L.SILENTMODE_IS		= "Lautlos-Modus ist "
 
 L.LDB_LOAD_MODS		= "Lade Boss Mod"
 

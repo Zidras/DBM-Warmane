@@ -640,3 +640,4 @@ L.ENRAGE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:2
 
 --LDB
 L.LDB_TOOLTIP_HELP1					= "Click to open " .. L.DBM
+L.SILENTMODE_IS						= "SilentMode is "
