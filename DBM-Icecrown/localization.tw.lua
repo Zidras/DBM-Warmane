@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "zhTW" then return end
+if GetLocale() ~= "zhTW" then return end
 
 local L
 
@@ -239,6 +239,7 @@ L:SetTimerLocalization{
 	TimerPortalsOpen			= "傳送門開啟",
 	TimerPortalsClose			= "Portals close", --Needs Translating
 	TimerBlazingSkeleton		= "下一次 熾熱骷髏",
+	TimerAbom					= "下一次 憎惡體?"
 }
 
 L:SetOptionLocalization{
@@ -247,6 +248,7 @@ L:SetOptionLocalization{
 	TimerPortalsOpen			= "當夢魘之門開啟時顯示計時器",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
 	TimerBlazingSkeleton		= "為下一次熾熱骷髏出現顯示計時器",
+	TimerAbom					= "為下一次貪吃的憎惡體出現顯示計時器"
 }
 
 L:SetMiscLocalization{
