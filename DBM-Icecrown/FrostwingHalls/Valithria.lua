@@ -41,7 +41,7 @@ local timerHealerBuff		= mod:NewBuffFadesTimer(40, 70873, nil, nil, nil, 5, nil,
 local timerGutSpray			= mod:NewTargetTimer(12, 70633, nil, "Tank|Healer", nil, 5)
 local timerCorrosion		= mod:NewTargetTimer(6, 70751, nil, false, nil, 3)
 local timerBlazingSkeleton	= mod:NewTimer(50, "TimerBlazingSkeleton", 17204, nil, nil, 1)
-local timerAbom				= mod:NewNextCountTimer(50, "TimerAbom", 43392, nil, nil, 1)
+local timerAbom				= mod:NewNextCountTimer(50, 70915, "TimerAbom", nil, nil, 1)
 local timerSuppressers		= mod:NewNextCountTimer(60, 70935, nil, nil, nil, 1)
 
 local soundSpecWarnSuppressers	= mod:NewSound(70935)
@@ -104,15 +104,15 @@ end
 function mod:StartAbomTimer()
 	self.vb.AbomSpawn = self.vb.AbomSpawn + 1
 	if self.vb.AbomSpawn == 1 then
-		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn)--Timer is 60 seconds after first early abom, it's set to 60 on combat start.
-		self:ScheduleMethod(self.vb.AbomTimer, "StartAbomTimer" + 1)
+		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Timer is 60 seconds after first early abom, it's set to 60 on combat start.
+		self:ScheduleMethod(self.vb.AbomTimer, "StartAbomTimer")
 		self.vb.AbomTimer = self.vb.AbomTimer - 5--Right after first abom timer starts, change it from 60 to 55.
 	elseif self.vb.AbomSpawn == 2 or self.vb.AbomSpawn == 3 then
-		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn)--Start first and second 55 second timer
-		self:ScheduleMethod(self.vb.AbomTimer, "StartAbomTimer" + 1)
+		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Start first and second 55 second timer
+		self:ScheduleMethod(self.vb.AbomTimer, "StartAbomTimer")
 	elseif self.vb.AbomSpawn >= 4 then--after 4th abom, the timer starts subtracting again.
-		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn)--Start third 55 second timer before subtracking from it again.
-		self:ScheduleMethod(self.vb.AbomTimer, "StartAbomTimer" + 1)
+		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Start third 55 second timer before subtracking from it again.
+		self:ScheduleMethod(self.vb.AbomTimer, "StartAbomTimer")
 		if self.vb.AbomTimer >= 10 then--Keep it from dropping below 5
 			self.vb.AbomTimer = self.vb.AbomTimer - 5--Rest of timers after 3rd 55 second timer will be 5 less than previous until they come every 5 seconds.
 		end
@@ -130,9 +130,9 @@ function mod:OnCombatStart(delay)
 	self.vb.AbomTimer = 60
 	self.vb.AbomSpawn = 0
 	self:ScheduleMethod(30-delay, "StartBlazingSkeletonTimer")
-	self:ScheduleMethod(5-delay, "StartAbomTimer" + 1)
+	self:ScheduleMethod(5-delay, "StartAbomTimer")
 	timerBlazingSkeleton:Start(30-delay)
-	timerAbom:Start(5-delay, self.vb.AbomSpawn)
+	timerAbom:Start(5-delay, self.vb.AbomSpawn + 1)
 	self.vb.blazingSkeleton = nil
 	self.vb.SuppressersWave = 1
 	timerSuppressers:Start(30-delay, self.vb.SuppressersWave)
