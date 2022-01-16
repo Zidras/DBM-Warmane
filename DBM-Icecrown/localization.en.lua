@@ -256,7 +256,7 @@ L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portals open",
 	TimerPortalsClose			= "Portals close",
 	TimerBlazingSkeleton		= "Next Blazing Skeleton",
-	TimerAbom					= "Next Abomination"
+	TimerAbom					= "Next Abomination (%s)"
 }
 
 L:SetOptionLocalization{
@@ -264,8 +264,7 @@ L:SetOptionLocalization{
 	WarnPortalOpen				= "Show warning when Nightmare Portals are opened up",
 	TimerPortalsOpen			= "Show timer when Nightmare Portals are opened up",
 	TimerPortalsClose			= "Show timer when Nightmare Portals are closed",
-	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn",
-	TimerAbom					= "Show timer for next Gluttonous Abomination spawn (Experimental)"
+	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn"
 }
 
 L:SetMiscLocalization{

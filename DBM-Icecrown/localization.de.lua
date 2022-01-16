@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "deDE" then return end
+if GetLocale() ~= "deDE" then return end
 
 local L
 
@@ -239,7 +239,7 @@ L:SetTimerLocalization{
 	TimerPortalsOpen			= "Portale offen",
 	TimerPortalsClose			= "Portale geschlossen",
 	TimerBlazingSkeleton		= "Loderndes Skelett",
-	TimerAbom					= "Nächste Monstrosität"
+	TimerAbom					= "Nächste Monstrosität (%s)"
 }
 
 L:SetOptionLocalization{
@@ -247,8 +247,7 @@ L:SetOptionLocalization{
 	WarnPortalOpen				= "Zeige Warnung, wenn Alptraumportale geöffnet sind",
 	TimerPortalsOpen			= "Zeige Zeit bis Alptraumportale geöffnet sind",
 	TimerPortalsClose			= "Zeige Zeit bis Alptraumportale geschlossen sind",
-	TimerBlazingSkeleton		= "Zeige Zeit bis nächstes Loderndes Skelett erscheint",
-	TimerAbom					= "Zeige Zeit bis nächste Gefräßige Monstrosität erscheint (experimentell)"
+	TimerBlazingSkeleton		= "Zeige Zeit bis nächstes Loderndes Skelett erscheint"
 }
 
 L:SetMiscLocalization{
