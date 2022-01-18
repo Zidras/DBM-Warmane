@@ -33,7 +33,7 @@ local timerBlackHoleCD		= mod:NewCDTimer(15, 46282)
 local timerPhase			= mod:NewTimer(10, "TimerPhase", 46087, nil, nil, 6)
 local timerSingularity		= mod:NewNextTimer(3.2, 46238)
 
-local berserkTimer			= mod:NewBerserkTimer(600)
+local berserkTimer			= mod:NewBerserkTimer(mod:IsHeroic() and 450 or 600)
 
 mod.vb.humanCount = 1
 mod.vb.voidCount = 1

@@ -43,7 +43,7 @@ local timerNovaCD			= mod:NewCDTimer(31, 45329, nil, nil, nil, 3)
 local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
-local berserkTimer			= mod:NewBerserkTimer(360)
+local berserkTimer			= mod:NewBerserkTimer(mod:IsHeroic() and 300 or 360)
 
 mod:AddRangeFrameOption("12")
 mod:AddSetIconOption("ConflagIcon", 45333, false, false, {7})

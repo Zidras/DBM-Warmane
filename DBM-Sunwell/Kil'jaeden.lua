@@ -41,7 +41,7 @@ local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_CORE_L
 local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
 local timerBlueOrb		= mod:NewTimer(37, "TimerBlueOrb", 45109, nil, nil, 5)
 
-local berserkTimer		= mod:NewBerserkTimer(900)
+local berserkTimer		= mod:NewBerserkTimer(mod:IsHeroic() and 600 or 900)
 
 mod:AddRangeFrameOption("12")
 mod:AddSetIconOption("BloomIcon", 45641, true, false, {4, 5, 6, 7, 8})
