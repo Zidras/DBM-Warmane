@@ -3010,6 +3010,8 @@ function DBM:LoadModOptions(modId, inCombat, first)
 			stats.normal25Pulls = stats.normal25Pulls or 0
 			stats.heroic25Kills = stats.heroic25Kills or 0
 			stats.heroic25Pulls = stats.heroic25Pulls or 0
+			stats.timewalkerKills = stats.timewalkerKills or 0
+			stats.timewalkerPulls = stats.timewalkerPulls or 0
 			mod.stats = stats
 			--run OnInitialize function
 			if mod.OnInitialize then mod:OnInitialize(mod) end
@@ -3301,6 +3303,8 @@ function DBM:ClearAllStats(modId)
 		defaultStats.normal25Pulls = 0
 		defaultStats.heroic25Kills = 0
 		defaultStats.heroic25Pulls = 0
+		defaultStats.timewalkerKills = 0
+		defaultStats.timewalkerPulls = 0
 		mod.stats = {}
 		mod.stats = defaultStats
 		_G[savedStatsName][id] = {}
@@ -5119,6 +5123,7 @@ do
 		["normal"] = "normal",
 		["heroic"] = "heroic",
 		["worldboss"] = "normal",
+		["timewalker"] = "timewalker",
 		--Legacy
 		["normal10"] = "normal",
 		["normal20"] = "normal",
@@ -5651,7 +5656,13 @@ function DBM:GetCurrentInstanceDifficulty()
 			end
 		else -- Non-dynamic raids
 			if difficulty == 1 then
-				return maxPlayers and "normal"..maxPlayers or "normal10", difficultyName.." - ", difficulty, maxPlayers
+				-- check for Timewalking instance (workaround using GetRaidDifficulty since on Warmane all the usual APIs fail and return "normal" difficulty)
+				local raidDifficulty = GetRaidDifficulty()
+				if raidDifficulty ~= difficulty and (raidDifficulty == 2 or raidDifficulty == 4) then -- extra checks due to lack of tests and no access to a timewalking server
+					return "timewalker", difficultyName.." - ", raidDifficulty, maxPlayers
+				else
+					return maxPlayers and "normal"..maxPlayers or "normal10", difficultyName.." - ", difficulty, maxPlayers
+				end
 			elseif difficulty == 2 then
 				return "normal25", difficultyName.." - ", difficulty, maxPlayers
 			elseif difficulty == 3 then
@@ -7078,6 +7089,15 @@ end
 function bossModPrototype:IsHeroic()
 	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "heroic5" or diff == "heroic10" or diff == "heroic25" then
+		return true
+	end
+	return false
+end
+
+-- Timewalking
+function bossModPrototype:IsTimewalking()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	if diff == "timewalker" then
 		return true
 	end
 	return false

@@ -29,7 +29,7 @@ local timerBuffetCD		= mod:NewCDTimer(8, 45018, nil, nil, nil, 2)
 local timerPorted		= mod:NewBuffActiveTimer(60, 46021, nil, nil, nil, 6)
 local timerExhausted	= mod:NewBuffActiveTimer(60, 44867, nil, nil, nil, 6)
 
-if mod:IsHeroic() then
+if mod:IsTimewalking() then
 	local berserkTimer	= mod:NewBerserkTimer(300) -- Doesn't exist on retail
 end
 
