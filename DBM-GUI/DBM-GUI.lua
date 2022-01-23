@@ -53,7 +53,7 @@ local PanelPrototype = {}
 DBM_GUI = {}
 setmetatable(PanelPrototype, {__index = DBM_GUI})
 
-local L 	= DBM_GUI_Translations
+local L		= DBM_GUI_Translations
 local CL	= DBM_CORE_L
 
 local modelFrameCreated = false

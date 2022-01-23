@@ -36,7 +36,7 @@ local timerEncapsCD			= mod:NewCDTimer(50, 45665, nil, nil, nil, 3)
 local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON)
 local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
-local berserkTimer			= mod:NewBerserkTimer(mod:IsHeroic() and 500 or 600)
+local berserkTimer			= mod:NewBerserkTimer(mod:IsTimewalking() and 500 or 600)
 
 mod:AddSetIconOption("EncapsIcon", 45665, true, false, {7})
 mod:AddSetIconOption("VaporIcon", 45402, true, true, {8})

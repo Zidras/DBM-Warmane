@@ -31,7 +31,7 @@ local timerStompCD		= mod:NewCDTimer(31, 45185, nil, nil, nil, 2)
 local timerBurn			= mod:NewTargetTimer(60, 46394, nil, "false", 2, 3)
 local timerBurnCD		= mod:NewCDTimer(20, 46394, nil, nil, nil, 3)
 
-local berserkTimer		= mod:NewBerserkTimer(mod:IsHeroic() and 300 or 360)
+local berserkTimer		= mod:NewBerserkTimer(mod:IsTimewalking() and 300 or 360)
 
 mod:AddSetIconOption("BurnIcon", 46394, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(4, 46394)
@@ -96,7 +96,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerStompCD:Start()
 	elseif args.spellId == 45150 and args:IsPlayer() then
 		local amount = args.amount or 1
-		if (amount >= 4) or (amount >= 2 and self:IsHeroic()) then
+		if (amount >= 4) or (amount >= 2 and self:IsTimewalking()) then
 			specWarnMeteor:Show(amount)
 			specWarnMeteor:Play("stackhigh")
 		end
