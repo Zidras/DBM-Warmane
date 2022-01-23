@@ -10,7 +10,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 45230 45347 45348",
 	"SPELL_AURA_APPLIED_DOSE 45347 45348",
-	"SPELL_CAST_START 45248",
+	"SPELL_CAST_START 45248 45329 45342",
 	"SPELL_DAMAGE 45256",
 	"SPELL_MISSED 45256",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
@@ -93,15 +93,59 @@ function mod:SPELL_MISSED(_, _, _, _, _, _, spellId)
 	end
 end
 
+function mod:ShadowNovaTarget(targetname, uId)
+	if not targetname then return end
+	if targetname == UnitName("player") then
+		specWarnNova:Show()
+		specWarnNova:Play("targetyou")
+		yellNova:Yell()
+	elseif self:CheckNearby(2, targetname) then
+		specWarnNovaNear:Show(targetname)
+		specWarnNovaNear:Play("runaway")
+	else
+		warnNova:Show(targetname)
+	end
+	if self.Options.NovaIcon then
+		self:SetIcon(targetname, 7, 5)
+	end
+end
+
+function mod:ConflagrationTarget(targetname, uId)
+	if not targetname then return end
+	if targetname == UnitName("player") then
+		specWarnConflag:Show()
+		specWarnConflag:Play("targetyou")
+		yellConflag:Yell()
+	elseif self:CheckNearby(2, targetname) then
+		specWarnConflagNear:Show(targetname)
+		specWarnConflagNear:Play("runaway")
+	else
+		warnConflag:Show(targetname)
+	end
+	if self.Options.ConflagIcon then
+		self:SetIcon(targetname, 8, 5)
+	end
+end
+
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 45248 then
 		warnBlade:Show()
 		timerBladeCD:Start()
+	elseif args.spellId == 45329 then -- Shadow Nova
+		timerNova:Start()
+		timerNovaCD:Start()
+		self:BossTargetScanner(25165, "ShadowNovaTarget", 0.05, 6)
+	elseif args.spellId == 45342 then -- Conflagration
+		timerConflag:Start()
+		timerConflagCD:Start()
+		self:BossTargetScanner(25166, "ConflagrationTarget", 0.05, 6)
 	end
 end
 
+-- CHAT_MSG_RAID_BOSS_EMOTE bugged on Warmane: https://www.warmane.com/bugtracker/report/106891
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg == L.Nova or msg:find(L.Nova)) and target then
+		DBM:AddMsg("Nova emote is working again. Notify me (Zidras) on discord or open a bug report.")
 		target = DBM:GetUnitFullName(target)
 		timerNova:Start()
 		timerNovaCD:Start()
@@ -119,6 +163,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			self:SetIcon(target, 7, 5)
 		end
 	elseif (msg == L.Conflag or msg:find(L.Conflag)) and target then
+		DBM:AddMsg("Conflagration emote is working again. Notify me (Zidras) on discord or open a bug report.")
 		target = DBM:GetUnitFullName(target)
 		timerConflag:Start()
 		timerConflagCD:Start()
