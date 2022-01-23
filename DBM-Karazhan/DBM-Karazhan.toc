@@ -11,7 +11,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
-## X-DBM-StatTypes: normal
+## X-DBM-StatTypes: normal, timewalker
 ## X-DBM-Mod-MapID: 800
 ## X-DBM-Mod-Sort: 1007
 ## X-DBM-Mod-Name: Karazhan
