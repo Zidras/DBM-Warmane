@@ -21,8 +21,8 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
- 	if (spellId == 53400 or spellId == 59419) and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) and not self:IsTrivial() then
- 		specWarningCloud:Show()
- 		specWarningCloud:Play("runaway")
+	if (spellId == 53400 or spellId == 59419) and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) and not self:IsTrivial() then
+		specWarningCloud:Show()
+		specWarningCloud:Play("runaway")
 	end
 end
