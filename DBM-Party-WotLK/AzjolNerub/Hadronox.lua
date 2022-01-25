@@ -8,7 +8,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 53030 59417",
-    "SPELL_PERIODIC_DAMAGE 53400 59419"
+	"SPELL_PERIODIC_DAMAGE 53400 59419"
 )
 
 local specWarningCloud	= mod:NewSpecialWarningMove(53400, nil, nil, nil, 1, 2)
