@@ -4244,9 +4244,9 @@ do
 				local bossName = name or L.UNKNOWN
 				local difficultyName = L.UNKNOWN
 				if difficulty == 4 then
-					difficultyName = PLAYER_DIFFICULTY4
+					difficultyName = RAID_DIFFICULTY4
 				elseif difficulty == 3 then
-					difficultyName = PLAYER_DIFFICULTY3
+					difficultyName = RAID_DIFFICULTY3
 				elseif difficulty == 2 then
 					difficultyName = PLAYER_DIFFICULTY2
 				else
@@ -4267,9 +4267,9 @@ do
 				local bossName = name or L.UNKNOWN
 				local difficultyName = L.UNKNOWN
 				if difficulty == 4 then
-					difficultyName = PLAYER_DIFFICULTY4
+					difficultyName = RAID_DIFFICULTY4
 				elseif difficulty == 3 then
-					difficultyName = PLAYER_DIFFICULTY3
+					difficultyName = RAID_DIFFICULTY3
 				elseif difficulty == 2 then
 					difficultyName = PLAYER_DIFFICULTY2
 				else
