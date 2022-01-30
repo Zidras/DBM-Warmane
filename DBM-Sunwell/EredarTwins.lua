@@ -138,7 +138,7 @@ function mod:SPELL_CAST_START(args)
 	elseif args.spellId == 45342 then -- Conflagration
 		timerConflag:Start()
 		timerConflagCD:Start()
-		self:BossTargetScanner(25166, "ConflagrationTarget", 0.05, 6)
+		self:BossTargetScanner(self:GetCIDFromGUID(args.sourceGUID), "ConflagrationTarget", 0.05, 6)
 	end
 end
 
