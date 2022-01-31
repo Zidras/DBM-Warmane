@@ -26,6 +26,9 @@ A clear and concise description of what you expected to happen.
 **Video**
 If applicable, add a video to help explain your problem.
 
+**Transcriptor**
+If bug is related to a raid mechanic/timer, add a Transcriptor log (https://github.com/Zidras/Transcriptor-WOTLK#how-to-use).
+
 **Additional context**
 Add any other context about the problem here.
 
