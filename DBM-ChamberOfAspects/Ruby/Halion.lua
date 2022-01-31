@@ -9,12 +9,13 @@ mod:SetUsedIcons(7, 8)
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.Kill)
 
-mod:RegisterEvents(
+mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"SPELL_DAMAGE",
+	"SPELL_MISSED",
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UPDATE_WORLD_STATES",
@@ -52,23 +53,32 @@ local timerFieryBreathCD			= mod:NewCDTimer(16, 74525, nil, "Tank|Healer", nil, 
 
 local berserkTimer					= mod:NewBerserkTimer(480)
 
+mod:AddSetIconOption("SetIconOnConsumption", 74792, true, false, {7, 8})
 mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
-mod:AddBoolOption("SetIconOnConsumption", true)
 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 local phases = {}
-local previousCorporeality
+local playerInShadowRealm = false
+local previousCorporeality = 0
 
 function mod:OnCombatStart(delay)--These may still need retuning too, log i had didn't have pull time though.
 	table.wipe(phases)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self:SetStage(1)
+	playerInShadowRealm = false
+	previousCorporeality = 0
 	berserkTimer:Start(-delay)
 	timerMeteorCD:Start(20-delay)
 	timerFieryConsumptionCD:Start(15-delay)
 	timerFieryBreathCD:Start(10-delay)
+end
+
+function mod:OnCombatEnd()
+	if self.Options.HealthFrame then
+		DBM.BossHealth:Hide()
+	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -153,8 +163,20 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 	if (spellId == 75952 or spellId == 75951 or spellId == 75950 or spellId == 75949 or spellId == 75948 or spellId ==  75947) and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnMeteorStrike:Show()
 		specWarnMeteorStrike:Play("runaway")
+	-- Physical/Shadow Realm detection:
+	-- OnCombatStarts already defines playerInShadowRealm as false.
+	-- Code below is meant to handle P2 and P3
+	elseif self:GetCIDFromGUID(destGUID) == 39863 and self.Options.HealthFrame and playerInShadowRealm then -- check if Physical Realm boss exists and playerInShadowRealm is still cached as true
+		playerInShadowRealm = false
+		DBM.BossHealth:Clear()
+		DBM.BossHealth:AddBoss(39863, L.NormalHalion)
+	elseif self:GetCIDFromGUID(destGUID) == 40142 and self.Options.HealthFrame and not playerInShadowRealm then -- check if Shadow Realm boss exists
+		playerInShadowRealm = true
+		DBM.BossHealth:Clear()
+		DBM.BossHealth:AddBoss(40142, L.TwilightHalion)
 	end
 end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:UNIT_HEALTH(uId)
 	if not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 39863 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.79 then

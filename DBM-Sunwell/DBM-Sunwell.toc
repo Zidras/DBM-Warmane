@@ -13,7 +13,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
-## X-DBM-StatTypes: normal25
+## X-DBM-StatTypes: normal25, timewalker
 ## X-DBM-Mod-Name: Sunwell Plateau
 ## X-DBM-Mod-Name-koKR: 태양샘 고원
 ## X-DBM-Mod-Name-deDE: Der Sonnenbrunnen
