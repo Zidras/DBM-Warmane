@@ -49,6 +49,12 @@ L:SetGeneralLocalization({
 	name = "Brutallus"
 })
 
+L:SetOptionLocalization({
+	RangeFrameActivation= "Range frame activation",
+	AlwaysOn			= "On encounter start. Ignores filter",
+	OnDebuff			= "On debuff. Applies debuff filter"
+})
+
 L:SetMiscLocalization({
 	Pull			= "Ah, more lambs to the slaughter!"
 })

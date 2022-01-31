@@ -50,6 +50,12 @@ L:SetGeneralLocalization({
 	name = "Brutallus"
 })
 
+L:SetOptionLocalization({
+	RangeFrameActivation= "Range-Frame-Aktivierung",
+	AlwaysOn			= "Beim Start der Begegnung. Ignoriert den Filter",
+	OnDebuff			= "Ein Debuff. Wendet Debuff-Filter an"
+})
+
 L:SetMiscLocalization({
 	Pull			= "Ah, mehr Lämmer zum Schlachten!",
 })

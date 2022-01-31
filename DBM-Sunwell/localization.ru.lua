@@ -50,6 +50,12 @@ L:SetGeneralLocalization({
 	name = "Бруталл"
 })
 
+L:SetOptionLocalization({
+	RangeFrameActivation= "Активация рамки диапазона",
+	AlwaysOn			= "В начале встречи. Игнорирует фильтр",
+	OnDebuff			= "При дебаффе. Применяет фильтр дебаффа"
+})
+
 L:SetMiscLocalization({
 	Pull			= "Аа, новые овечки на заклание?"
 })

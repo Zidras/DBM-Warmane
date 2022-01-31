@@ -50,6 +50,12 @@ L:SetGeneralLocalization({
 	name = "브루탈루스"
 })
 
+L:SetOptionLocalization({
+	RangeFrameActivation= "범위 프레임 활성화",
+	AlwaysOn			= "만남 시작 시. 필터 무시",
+	OnDebuff			= "디버프 시. 디버프 필터를 적용합니다."
+})
+
 L:SetMiscLocalization({
 	Pull			= "하, 새끼 양이 잔뜩 몰려오는구나!"
 })
