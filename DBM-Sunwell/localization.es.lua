@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "Anunciar objetivo de $spell:46021",
 	SpecWarnWildMagic	= "Mostrar aviso especial para Magia salvaje",
+	ShowRespawn			= "Mostrar temporizador para la reaparición de jefe tras cada derrota",
 	ShowFrame			= "Mostrar marco del reino espectral" ,
 	FrameClassColor		= "Usar colores de clase en el marco del reino espectral",
 	FrameUpwards		= "Expandir marco del reino espectral hacia arriba",

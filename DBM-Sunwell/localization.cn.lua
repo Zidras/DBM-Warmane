@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",--Translate
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",--Translate
+	ShowRespawn			= "Boss战斗未完成时显示Boss刷新计时条",
 	ShowFrame			= "Show Spectral Realm frame" ,--Translate
 	FrameClassColor		= "Use class colors in Spectral Realm frame",--Translate
 	FrameUpwards		= "Expand Spectral Realm frame upwards",--Translate

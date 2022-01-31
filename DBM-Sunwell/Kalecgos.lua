@@ -7,6 +7,10 @@ mod:SetCreatureID(24850)
 
 mod:RegisterCombat("combat")
 
+mod:RegisterEvents(
+	"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
+)
+
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 44799",
 	"SPELL_CAST_SUCCESS 45018",
@@ -35,6 +39,7 @@ if mod:IsTimewalking() then
 end
 
 mod:AddRangeFrameOption("12")
+mod:AddBoolOption("ShowRespawn", true)
 mod:AddBoolOption("ShowFrame", true)
 mod:AddBoolOption("FrameLocked", false)
 mod:AddBoolOption("FrameClassColor", true, nil, function()
@@ -153,5 +158,11 @@ function mod:UNIT_DIED(args)
 			grp = 0
 		end
 		Kal:RemoveEntry(("%s (%d)"):format(args.destName, grp or 0))
+	end
+end
+
+function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+	if self:IsInCombat() and not UnitExists("boss1") and self.Options.ShowRespawn then
+		DBM.Bars:CreateBar(30, DBM_CORE_L.TIMER_RESPAWN:format(L.name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
 	end
 end

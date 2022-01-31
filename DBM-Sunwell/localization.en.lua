@@ -17,6 +17,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",
+	ShowRespawn			= "Show boss respawn timer after a wipe",
 	ShowFrame			= "Show Spectral Realm frame" ,
 	FrameClassColor		= "Use class colors in Spectral Realm frame",
 	FrameUpwards		= "Expand Spectral Realm frame upwards",

@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "Показывать предупреждение для цели $spell:46021",
 	SpecWarnWildMagic	= "Показывать спец-предупреждение для Дикой Магии",
+	ShowRespawn			= "Отсчет времени до появления босса после вайпа",
 	ShowFrame			= "Показать фрейм Призрачного мира",
 	FrameClassColor		= "Использовать цвета классов в фрейме Призрачного мира",
 	FrameUpwards		= "Рост фрейма Призрачного мира ВВЕРХ",

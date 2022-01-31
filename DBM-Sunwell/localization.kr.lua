@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "$spell:46021 대상 경고 보기",
 	SpecWarnWildMagic	= "마법 폭주 특수 경고 보기",
+	ShowRespawn			= "전멸 후 보스 재생성 타이머 표시",
 	ShowFrame			= "정신 세계 공대원 창 보기" ,
 	FrameClassColor		= "정신 세계 창에 직업 색상 사용",
 	FrameUpwards		= "정신 세계 창을 위쪽으로 확장",
