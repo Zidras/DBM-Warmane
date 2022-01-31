@@ -13,7 +13,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 45248 45329 45342",
 	"SPELL_DAMAGE 45256",
 	"SPELL_MISSED 45256",
-	"CHAT_MSG_RAID_BOSS_EMOTE"
+	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"UNIT_DIED"
 )
 
 mod:SetBossHealthInfo(
@@ -38,7 +39,7 @@ local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, false, 5, nil, nil,
 
 local timerBladeCD			= mod:NewCDTimer(11.5, 45248, nil, "Melee", 2, 2)
 local timerBlowCD			= mod:NewCDTimer(20, 45256, nil, nil, nil, 3)
-local timerConflagCD		= mod:NewCDTimer(31, 45333, nil, nil, nil, 3)
+local timerConflagCD		= mod:NewCDTimer(31, 45333, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration
 local timerNovaCD			= mod:NewCDTimer(31, 45329, nil, nil, nil, 3)
 local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
@@ -50,7 +51,9 @@ mod:AddSetIconOption("ConflagIcon", 45333, false, false, {7})
 mod:AddSetIconOption("NovaIcon", 45329, false, false, {8})
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
+	timerConflagCD:Start(18) -- variable (18-22?)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
 	end
@@ -180,5 +183,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		if self.Options.ConflagIcon then
 			self:SetIcon(target, 8, 5)
 		end
+	end
+end
+
+function mod:UNIT_DIED(args)
+	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
+		self:SetStage(2)
 	end
 end
