@@ -12,8 +12,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_PERIODIC_MISSED 53400 59419"
 )
 
-local specWarningCloudGTFO	= mod:NewSpecialWarningMove(53400, nil, nil, 2, 4, 2)
 local warningLeech	= mod:NewSpellAnnounce(53030, 1)
+
+local specWarnGTFO	= mod:NewSpecialWarningGTFO(53400, nil, nil, nil, 1, 8)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(53030, 59417) and args:IsPlayer() then
@@ -21,10 +22,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 	if (spellId == 53400 or spellId == 59419) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
-		specWarningCloudGTFO:Show()
-		specWarningCloudGTFO:Play("runaway")
+		specWarnGTFO:Show(spellName)
+		specWarnGTFO:Play("watchfeet")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE

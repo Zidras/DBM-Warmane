@@ -10,15 +10,22 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 52592 59368"
 )
 
-local warningCurse	= mod:NewSpellAnnounce(52592, 2)
+local warnCurse	= mod:NewSpellAnnounce(52592, 2, nil, false)
+
+local specWarnCurse	= mod:NewSpecialWarningYou(52592, nil, nil, nil, 1, 2)
+local yellCurse		= mod:NewYell(52592)
 
 local timerCurseCD	= mod:NewCDTimer(10, 52592, nil, nil, nil, 2)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(52592, 59368) then
-		if args:IsPlayer() then
-			warningCurse:Show()
-		end
 		timerCurseCD:Start()
+		if args:IsPlayer() then
+			specWarnCurse:Show()
+			specWarnCurse:Play("targetyou")
+			yellCurse:Yell()
+		else
+			warnCurse:Show()
+		end
 	end
 end
