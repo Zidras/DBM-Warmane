@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "Show warning for $spell:46021 target",--Translate
 	SpecWarnWildMagic	= "Show special warning for Wild Magic",--Translate
+	ShowRespawn			= "Boss战斗未完成时显示Boss刷新计时条",
 	ShowFrame			= "Show Spectral Realm frame" ,--Translate
 	FrameClassColor		= "Use class colors in Spectral Realm frame",--Translate
 	FrameUpwards		= "Expand Spectral Realm frame upwards",--Translate
@@ -48,6 +49,12 @@ L = DBM:GetModLocalization("Brutallus")
 
 L:SetGeneralLocalization({
 	name = "布鲁塔卢斯"
+})
+
+L:SetOptionLocalization({
+	RangeFrameActivation= "範圍框架激活",
+	AlwaysOn			= "在遭遇開始時。忽略過濾器",
+	OnDebuff			= "開啟減益。應用減益過濾器"
 })
 
 L:SetMiscLocalization({

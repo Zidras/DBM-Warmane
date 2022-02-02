@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "Zeige Warnung für Ziel von $spell:46021",
 	SpecWarnWildMagic	= "Spezialwarnung für Wilde Magie",
+	ShowRespawn			= "Zeige Zeit bis zum Wiedererscheinen des Bosses nach einer Niederlage",
 	ShowFrame			= "Zeige Spektralreichfenster",
 	FrameClassColor		= "Benutze Klassenfarben in Spektralreichfenster",
 	FrameUpwards		= "Erweitere Spektralreichfenster nach oben",
@@ -48,6 +49,12 @@ L = DBM:GetModLocalization("Brutallus")
 
 L:SetGeneralLocalization({
 	name = "Brutallus"
+})
+
+L:SetOptionLocalization({
+	RangeFrameActivation= "Range-Frame-Aktivierung",
+	AlwaysOn			= "Beim Start der Begegnung. Ignoriert den Filter",
+	OnDebuff			= "Ein Debuff. Wendet Debuff-Filter an"
 })
 
 L:SetMiscLocalization({

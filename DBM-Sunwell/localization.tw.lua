@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "為$spell:46021的目標顯示警告",
 	SpecWarnWildMagic	= "為野性魔法顯示特別警告",
+	ShowRespawn			= "顯示下一次首領重生計時器",
 	ShowFrame			= "顯示鬼靈國度框架",
 	FrameClassColor		= "在鬼靈國度框架使用職業顏色",
 	FrameUpwards		= "向上延伸鬼靈國度框架",
@@ -48,6 +49,12 @@ L = DBM:GetModLocalization("Brutallus")
 
 L:SetGeneralLocalization({
 	name = "布魯托魯斯"
+})
+
+L:SetOptionLocalization({
+	RangeFrameActivation= "範圍框架激活",
+	AlwaysOn			= "在遭遇開始時。忽略過濾器",
+	OnDebuff			= "開啟減益。應用減益過濾器"
 })
 
 L:SetMiscLocalization({

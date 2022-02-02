@@ -18,6 +18,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnPortal			= "$spell:46021 대상 경고 보기",
 	SpecWarnWildMagic	= "마법 폭주 특수 경고 보기",
+	ShowRespawn			= "전멸 후 보스 재생성 타이머 표시",
 	ShowFrame			= "정신 세계 공대원 창 보기" ,
 	FrameClassColor		= "정신 세계 창에 직업 색상 사용",
 	FrameUpwards		= "정신 세계 창을 위쪽으로 확장",
@@ -48,6 +49,12 @@ L = DBM:GetModLocalization("Brutallus")
 
 L:SetGeneralLocalization({
 	name = "브루탈루스"
+})
+
+L:SetOptionLocalization({
+	RangeFrameActivation= "범위 프레임 활성화",
+	AlwaysOn			= "만남 시작 시. 필터 무시",
+	OnDebuff			= "디버프 시. 디버프 필터를 적용합니다."
 })
 
 L:SetMiscLocalization({
