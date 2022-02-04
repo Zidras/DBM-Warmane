@@ -7,7 +7,6 @@ mod:SetCreatureID(12056)
 mod:SetModelID(12129)
 mod:SetUsedIcons(8)
 
-
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(

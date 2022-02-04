@@ -7,31 +7,31 @@ local L
 ------------------
 L = DBM:GetModLocalization("LordMarrowgar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Lord Tuétano"
-}
+})
 
 ------------------------
 -- Lady Susurramuerte --
 ------------------------
 L = DBM:GetModLocalization("Deathwhisper")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Lady Susurramuerte"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerAdds	= "Siguientes esbirros"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnReanimating				= "Esbirro reanimado",			-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Esbirros en breve",
 	SpecWarnVengefulShade		= "¡Sombra vengativa te ataca! ¡Corre!",--creatureid 38222
 	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnAddsSoon				= "Mostrar aviso previo para cuando aparezcan esbirros",
 	WarnReanimating				= "Mostrar aviso cuando se esté reanimando a un esbirro",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Mostrar temporizador para los siguientes esbirros",
@@ -43,9 +43,9 @@ L:SetOptionLocalization{
 	EqUneqWeapons				= "Desequipar/equipar armas si se lanza Control mental sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.",
 	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no al lanzarlas (si el ping es alto). La opción anterior debe estar habilitada.",
 	BlockWeapons				= "Bloquear completamente las funciones de desequipar/equipar arriba"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellReanimatedFanatic	= "¡Álzate y goza de tu verdadera forma!",
 	ShieldPercent			= "Barrera de maná",
 	Fanatic1				= "Fanático del Culto",
@@ -53,31 +53,31 @@ L:SetMiscLocalization{
 	Fanatic3				= "Fanático reanimado",
 	setMissing				= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",
 	EqUneqLineDescription	= "Equipar/desequipar automático"
-}
+})
 
 --------------------------------
 -- Batalla de naves de guerra --
 --------------------------------
 L = DBM:GetModLocalization("GunshipBattle")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Batalla aérea"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnAddsSoon	= "Esbirros en breve"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnAddsSoon		= "Mostrar aviso previo para cuando aparezcan esbirros",
 	TimerAdds			= "Mostrar temporizador para los siguientes esbirros"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerAdds			= "Siguientes esbirros"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	PullAlliance	= "¡Arrancad los motores! ¡Tenemos una cita con el destino, muchachos!",
 	PullHorde		= "¡Alzaos, hijos e hijas de la Horda! ¡Hoy nos enfrentamos a un odiado enemigo de la Horda! ¡LOK'TAR OGAR!",
 	AddsAlliance	= "¡Atracadores, sargentos, atacad!",
@@ -86,196 +86,196 @@ L:SetMiscLocalization{
 	MageHorde		= "Nos están dañando el casco, ¡traed un brujo aquí para acabar con esos cañones!",
 	KillAlliance	= "¡No digáis que no lo avisé, sinvergüenzas! Adelante, hermanos.",
 	KillHorde		= "La Alianza retrocede. ¡Hacia el Rey Exánime!"
-}
+})
 
 ------------------------------
 -- Libramorte Colmillosauro --
 ------------------------------
 L = DBM:GetModLocalization("Deathbringer")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Libramorte Colmillosauro"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	RangeFrame			= "Mostrar marco de distancia (12 m)",
 	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371",
 	RemoveDI			= "Quitar $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	RunePower			= "Poder de sangre",
 	PullAlliance		= "Por cada soldado de la Horda que matasteis... Por cada perro de la Alianza que cayó, el ejército del Rey Exánime creció. Ahora, hasta las Val'kyr alzan a los caídos para la Plaga.",
 	PullHorde			= "¡Kor'kron, vámonos! Campeones, vigilad vuestra retaguardia. La Plaga ha sido..."
-}
+})
 
 ------------------
 -- Panzachancro --
 ------------------
 L = DBM:GetModLocalization("Festergut")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Panzachancro"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	RangeFrame			= "Mostrar marco de distancia (8 m)",
 	AnnounceSporeIcons	= "Anunciar iconos de los objetivos de $spell:69279 en el chat de banda (requiere líder o ayudante)",
 	AchievementCheck	= "Anunciar si se falla el logro 'Sin vacunas' en el chat de banda (requiere líder o ayudante)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	SporeSet			= "Icono {rt%d} de Espora de gas en %s",
 	AchievementFailed	= ">> LOGRO FALLADO: %s tiene %d acumulaciones de Inoculado <<"
-}
+})
 
 ----------------
 -- Carapútrea --
 ----------------
 L = DBM:GetModLocalization("Rotface")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Carapútrea"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnOozeSpawn				= "Moco pequeño",
 	SpecWarnLittleOoze			= "Te está atacando un Moco pequeño - ¡huye!"--creatureid 36897
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnOozeSpawn				= "Mostrar aviso cuando aparezca un Moco pequeño",
 	SpecWarnLittleOoze			= "Mostrar aviso especial cuando te ataque un Moco pequeño",--creatureid 36897
 	RangeFrame					= "Mostrar marco de distancia (8 m)",
 	TankArrow					= "Mostrar flecha hacia el tanque del Moco grande (Experimental)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellSlimePipes1	= "¡Buenas noticias, amigos! He arreglado las tuberías de babosas venenosas.",	-- Professor Putricide
 	YellSlimePipes2	= "¡Grandes noticias, amigos! Las babosas vuelven a fluir."	-- Professor Putricide
-}
+})
 
 -------------------------
 -- Profesor Putricidio --
 -------------------------
 L = DBM:GetModLocalization("Putricide")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Profesor Putricidio"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	MalleableGooIcon			= "Poner icono en el primer objetivo de $spell:72295",
 	GooArrow					= "Mostrar flecha cuando $spell:72295 esté cerca de ti"
-}
+})
 
 ------------------------------------
 -- Consejo de Príncipes de Sangre --
 ------------------------------------
 L = DBM:GetModLocalization("BPCouncil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Consejo de Príncipes de Sangre"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnTargetSwitch		= "Cambio de objetivo: %s",
 	WarnTargetSwitchSoon	= "Cambio de objetivo en breve"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerTargetSwitch		= "Cambio de objetivo"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnTargetSwitch		= "Mostrar aviso cuando haya que cambiar de objetivo",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Mostrar aviso previo para cuando haya que cambiar de objetivo",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Mostrar temporizador para el siguiente cambio de objetivo",
 	ActivePrinceIcon		= "Poner icono (calavera) en el príncipe potenciado",
 	RangeFrame				= "Mostrar marco de distancia (12 m)",
 	VortexArrow				= "Mostrar flecha cuando $spell:72037 esté cerca de ti"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Keleseth			= "Príncipe Keleseth",
 	Taldaram			= "Príncipe Taldaram",
 	Valanar				= "Príncipe Valanar",
 	FirstPull			= "Estúpidos. ¿Pensasteis que nos derrotaríais tan fácilmente? Los San'layn son los soldados inmortales del Rey Exánime. ¡Ahora os enfrentaréis a todos juntos!",
 	EmpoweredFlames		= "¡Llamas potenciadas arremeten contra (%S+)!"
-}
+})
 
 -------------------------------
 -- Reina de Sangre Lana'thel --
 -------------------------------
 L = DBM:GetModLocalization("Lanathel")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Reina de Sangre Lana'thel"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	RangeFrame				= "Mostrar marco de distancia (8 m)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	SwarmingShadows			= "¡Las sombras se acumulan alrededor de (%S+)!",
 	YellFrenzy				= "¡Tengo hambre!"
-}
+})
 
 ----------------------------
 -- Valithria Caminasueños --
 ----------------------------
 L = DBM:GetModLocalization("Valithria")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Valithria Caminasueños"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPortalOpen	= "Siguientes portales"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPortalsOpen			= "Portales abiertos",
 	TimerPortalsClose			= "Portales cerrados",
 	TimerBlazingSkeleton		= "Siguiente Esqueleto llameante",
 	TimerAbom					= "Siguiente Abominación glotona (%s)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	SetIconOnBlazingSkeleton	= "Poner icono (calavera) en Esqueleto llameante",
 	WarnPortalOpen				= "Mostrar aviso cuando se abran los portales",
 	TimerPortalsOpen			= "Mostrar temporizador para cuando se abran los portales",
 	TimerPortalsClose			= "Mostrar temporizador para cuando se cierren los portales",
 	TimerBlazingSkeleton		= "Mostrar temporizador para el siguiente Esqueleto llameante"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull		= "Han entrado intrusos en el Sagrario Interior. Apresuraos en acabar con el dragón verde. ¡Dejad solo huesos y tendones para la reanimación!",
 	YellPortals		= "He abierto un portal al Sueño. Vuestra salvación está dentro, héroes..."
-}
+})
 
 ----------------
 -- Sindragosa --
 ----------------
 L = DBM:GetModLocalization("Sindragosa")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Sindragosa"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnAirphase			= "Fase aérea",
 	WarnGroundphaseSoon		= "Fase en tierra en breve"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextAirphase		= "Siguiente fase aérea",
 	TimerNextGroundphase	= "Siguiente fase en tierra",
 	AchievementMystic		= "Logro: Sacúdete"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnAirphase				= "Anunciar cambio a fase aérea",
 	WarnGroundphaseSoon			= "Mostrar aviso previo para el cambio a fase en tierra",
 	TimerNextAirphase			= "Mostrar temporizador para la siguiente fase aérea",
@@ -285,9 +285,9 @@ L:SetOptionLocalization{
 	AssignWarnDirectionsCount	= "Asignar direcciones de los objetivos de $spell:70126 y contar en la fase 2",
 	AchievementCheck			= "Anunciar avisos del logro 'Sacúdete' en el chat de banda (requiere líder o ayudante)",
 	RangeFrame					= "Mostrar marco de distancia (10/20 m) dinámico en función de la última habilidad usada por el jefe y los perjuicios de los jugadores"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellAirphase		= "¡Aquí termina vuestra incursión! ¡Nadie sobrevivirá!",
 	YellPhase2			= "¡Ahora sentid el poder sin fin de mi maestro y desesperad!",
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
@@ -295,31 +295,31 @@ L:SetMiscLocalization{
 	BeaconIconSet		= "Icono {rt%d} de Señal de Escarcha en %s",
 	AchievementWarning	= "Aviso: %s tiene 5 acumulaciones de Sacudida mística",
 	AchievementFailed	= ">> LOGRO FALLADO: %s tiene %d acumulaciones de Sacudida mística <<"
-}
+})
 
 --------------------
 -- El Rey Exánime --
 --------------------
 L = DBM:GetModLocalization("LichKing")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "El Rey Exánime"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	ValkyrWarning			= "¡>%s< ha sido agarrado!",
 	SpecWarnYouAreValkd		= "¡Te han agarrado!!",
 	WarnNecroticPlagueJump	= "Plaga necrótica salta a >%s<",
 	SpecWarnValkyrLow		= "Val'kyr por debajo del 55%"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerRoleplay				= "Diálogo",
 	PhaseTransition				= "Intermedio",
 	TimerNecroticPlagueCleanse	= "Purgar Plaga necrótica"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerRoleplay				= "Mostrar temporizador para los diálogos",
 	WarnNecroticPlagueJump		= "Anunciar objetivos de los saltos de $spell:70337",
 	TimerNecroticPlagueCleanse	= "Mostrar temporizador para purgar Plaga necrótica antes del primer pulso",
@@ -335,9 +335,9 @@ L:SetOptionLocalization{
 	FrameUpwards				= "Expande el marco de Val'Kyr hacia arriba",
 	FrameLocked					= "Bloquear el marco de los objetivos de Val'Kyr",
 	RemoveImmunes				= "Eliminar los hechizos de inmunidad antes de salir de la habitación Frostmourne"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	LKPull					= "¿Así que por fin ha llegado la elogiada justicia de la Luz? ¿Debería deponer la Agonía de Escarcha y confiar en tu piedad, Vadín?",
 	LKRoleplay				= "¿Me pregunto si de verdad os mueve la... rectitud?",
 	ValkGrabbedIcon			= "Una Val'kyr ha agarrado a %s {rt%d}",
@@ -352,30 +352,30 @@ L:SetMiscLocalization{
 	FrameClose				= "Close", --Needs Translating
 	FrameGUIDesc			= "Marco Val'Kyr",
 	FrameGUIMoveMe			= "Mover marco Val'Kyr"
-}
+})
 
 ----------------------
 -- Enemigos menores --
 ----------------------
 L = DBM:GetModLocalization("ICCTrash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Enemigos menores"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	SpecWarnTrapL		= "Trampa activada - ¡se ha liberado un Depositario vinculado a la muerte!",
 	SpecWarnTrapP		= "Trampa activada - ¡se aproximan Siegacarnes vengativos!",
 	SpecWarnGosaEvent	= "¡Emboscada de Sindragosa iniciada!"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	SpecWarnTrapL		= "Mostrar aviso especial cuando se active una trampa de Depositario vinculado a la muerte",
 	SpecWarnTrapP		= "Mostrar aviso especial cuando se active una trampa de Siegacarnes vengativos",
 	SpecWarnGosaEvent	= "Mostrar aviso especial cuando comience el evento de la emboscada de Sindragosa"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	WarderTrap1			= "¿Quién... anda ahí?",
 	WarderTrap2			= "Estoy despierto...",
 	WarderTrap3			= "El sagrario del maestro ha sido perturbado.",
@@ -383,4 +383,4 @@ L:SetMiscLocalization{
 	FleshreaperTrap2	= "¡No... puedes escapar!",
 	FleshreaperTrap3	= "¿Los vivos? ¿¡Aquí!?",
 	SindragosaEvent		= "No debéis acercaros a la Reina de Escarcha. ¡Detenedlos, rápido!"
-}
+})

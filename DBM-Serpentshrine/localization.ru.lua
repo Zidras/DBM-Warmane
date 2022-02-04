@@ -6,174 +6,168 @@ local L
 ---------------------------
 L = DBM:GetModLocalization("Hydross")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Гидросс Нестабильный"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnMark 		= "%s : %s",
 	WarnPhase		= "%s Phase",--Translate
 	SpecWarnMark	= "%s : %s"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerMark	= "Next %s : %s"--Translate
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnMark		= "Объявить знаки",
 	WarnPhase		= "Объявить фазы",
 	SpecWarnMark	= "Show warning when Marks debuff damage over 100%",--Translate
 	TimerMark		= "Show timer for next Marks"--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Frost	= "Гидросса",
 	Nature	= "порчи"
-}
+})
 
 -----------------------
 --  The Lurker Below --
 -----------------------
 L = DBM:GetModLocalization("LurkerBelow")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Скрытень из глубин"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSubmerge		= "Погружение",
 	WarnSubmergeSoon	= "Погружение in 10 sec",--Verify
 	WarnEmerge			= "Появление",
 	WarnEmergeSoon		= "Появление in 10 sec"--Verify
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSubmerge		= "Погружение",
 	TimerEmerge			= "Появление"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnSubmerge		= "Show warning when submerge",--Translate
 	WarnSubmergeSoon	= "Show pre-warning for submerge",--Translate
 	WarnEmerge			= "Show warning when emerge",--Translate
 	WarnEmergeSoon		= "Show pre-warning for emerge",--Translate
 	TimerSubmerge		= "Show time for submerge",--Translate
 	TimerEmerge			= "Show time for emerge"--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Spout	= "Скрытень из глубин глубоко вздыхает!"
-}
+})
 
 --------------------------
 --  Leotheras the Blind --
 --------------------------
 L = DBM:GetModLocalization("Leotheras")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Леотерас Слепец"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPhase		= "%s Phase",--Translate
 	WarnPhaseSoon	= "%s Phase in 5 sec"--Translate
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase	= "Next %s Phase"--Translate
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPhase		= "Show warning for next phase",--Translate
 	WarnPhaseSoon	= "Show pre-warning for next phase",--Translate
 	TimerPhase		= "Show time for next phase"--Translate
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Human		= "Human",--Translate
 	Demon		= "Demon",--Translate
 	YellDemon	= "Be gone, trifling elf%.%s*I am in control now!",--Translate
 	YellPhase2	= "No... no! What have you done? I am the master! Do you hear me? I am... aaggh! Can't... contain him."--Translate
-}
+})
 
 -----------------------------
 --  Fathom-Lord Karathress --
 -----------------------------
 L = DBM:GetModLocalization("Fathomlord")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Повелитель глубин Каратресс"
-}
+})
 
-L:SetWarningLocalization{
-}
 
-L:SetTimerLocalization{
-}
 
-L:SetOptionLocalization{
-}
 
-L:SetMiscLocalization{
+
+
+
+L:SetMiscLocalization({
 	Caribdis	= "Fathom-Guard Caribdis",--Translate
 	Tidalvess	= "Fathom-Guard Tidalvess",--Translate
 	Sharkkis	= "Fathom-Guard Sharkkis"--Translate
-}
+})
 
 --------------------------
 --  Morogrim Tidewalker --
 --------------------------
 L = DBM:GetModLocalization("Tidewalker")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Морогрим Волноступ"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnMurlocs		= "Мурлоки",
 	SpecWarnMurlocs	= "Мурлоки!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerMurlocs	= "Мурлоки"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnMurlocs		= "Объявить Мурлоки",
 	SpecWarnMurlocs	= "Show special warning when Murlocs spawning",--Translate
 	TimerMurlocs	= "Show timer for Murlocs spawning",--Translate
 	GraveIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38049)
-}
-
-L:SetMiscLocalization{
-}
+})
 
 -----------------
 --  Lady Vashj --
 -----------------
 L = DBM:GetModLocalization("Vashj")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Леди Вайш"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnElemental		= "Нечистый элементаль через 5 секунд (%s)",
 	WarnStrider			= "Долгоног через 5 секунд (%s)",
 	WarnNaga			= "Нага через 5 секунд (%s)",
 	WarnShield			= "Магический барьер - деактивировано %d/4",
 	WarnLoot			= ">%s< получил порченую магму",
 	SpecWarnElemental	= "Нечистый элементаль через 5 секунд!"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerElemental		= "Нечистый элементаль (%d)",--Verify
 	TimerStrider		= "Долгоног (%d)",--Verify
 	TimerNaga			= "Нага (%d)"--Verify
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnElemental		= "Show pre-warning for next Tainted Elemental",--Translate
 	WarnStrider			= "Show pre-warning for next Strider",--Translate
 	WarnNaga			= "Show pre-warning for next Naga",--Translate
@@ -185,9 +179,9 @@ L:SetOptionLocalization{
 	SpecWarnElemental	= "Show special warning when Tainted Elemental coming",--Translate
 	ChargeIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38280),
 	AutoChangeLootToFFA		= "Смена режима добычи на Каждый за себя в фазе 2"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	DBM_VASHJ_YELL_PHASE2				= "Время пришло! Не оставляйте никого в живых!",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
-}
+})

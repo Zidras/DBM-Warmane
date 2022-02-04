@@ -4,7 +4,6 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(10812, 10813)--10812 Grand Crusader Dathrohan (stage 1 classic, on live the boss starts out as Balnazzar)
 
-
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(

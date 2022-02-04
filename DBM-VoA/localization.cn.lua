@@ -53,9 +53,9 @@ L:SetOptionLocalization({
 ---------------------------------
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 				= "火焰看守者科拉隆"
-}
+})
 
 L:SetTimerLocalization({
 	KoralonEnrage		= "科拉隆狂暴"

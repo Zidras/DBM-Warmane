@@ -36,4 +36,3 @@ function mod:CHAT_MSG_MONSTER_SAY(msg)
 		warnHorsemanSoldiers:Show()
 	end
 end
-

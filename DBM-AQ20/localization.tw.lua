@@ -6,25 +6,28 @@ local L
 ---------------
 L = DBM:GetModLocalization("Kurinnaxx")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "庫林納克斯"
-}
+})
 
 ------------
 -- Rajaxx --
 ------------
 L = DBM:GetModLocalization("Rajaxx")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "拉賈克斯將軍"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnWave	= "進攻波數%s",
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnWave	= "為下一次波進攻顯示提示"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Wave12		= "記得嗎，拉賈克斯，上次我說會殺了你？",
 	Wave12Alt	= "它們來了。盡量別被它們幹掉，新兵。",
 	Wave3		= "我們復仇的時刻就在眼前！讓黑暗掌控敵人的內心吧！",
@@ -33,71 +36,77 @@ L:SetMiscLocalization{
 	Wave6		= "鹿盔會為了活命而哭著乞求，就像他的兒子一樣！千年來的不公不義會在今天昭雪！",
 	Wave7		= "范達爾！時候到了！躲進翡翠夢境，祈禱我們永遠不會找到你吧！",
 	Wave8		= "不要臉的笨蛋！我要親手殺了你！"
-}
+})
 
 ----------
 -- Moam --
 ----------
 L = DBM:GetModLocalization("Moam")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "莫阿姆"
-}
+})
 
 ----------
 -- Buru --
 ----------
 L = DBM:GetModLocalization("Buru")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "『暴食者』布魯"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnPursue		= ">%s<被追擊了",
 	SpecWarnPursue	= "你被追擊了",
 	WarnDismember	= ">%2$s<中了%1$s(%s)"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnPursue		= "提示被追擊的目標",
 	SpecWarnPursue	= "當你被追擊的時候顯示特別警告"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	PursueEmote 	= "%s凝視著"
-}
+})
 
 -------------
 -- Ayamiss --
 -------------
 L = DBM:GetModLocalization("Ayamiss")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "『狩獵者』阿亞米斯"
-}
+})
 
 --------------
 -- Ossirian --
 --------------
 L = DBM:GetModLocalization("Ossirian")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 		= "『無疤者』奧斯里安"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnVulnerable	= "%s"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerVulnerable	= "%s"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnVulnerable	= "提示虛弱",
 	TimerVulnerable	= "為虛弱顯示計時器"
-}
+})
 
 ----------------
 -- AQ20 Trash --
 ----------------
 L = DBM:GetModLocalization("AQ20Trash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "AQ20：全程計時"
-}
+})

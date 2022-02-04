@@ -7,58 +7,63 @@ local L
 ------------
 L = DBM:GetModLocalization("Skeram")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Пророк Скерам"
-}
+})
 
 ----------------
 -- Three Bugs --
 ----------------
 L = DBM:GetModLocalization("ThreeBugs")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Семейство жуков"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Yauj = "Принцесса Яудж",
 	Vem = "Вем",
 	Kri = "Лорд Кри"
-}
+})
 
 -------------
 -- Sartura --
 -------------
 L = DBM:GetModLocalization("Sartura")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Боевой страж Сартура"
-}
+})
 
 --------------
 -- Fankriss --
 --------------
 L = DBM:GetModLocalization("Fankriss")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Фанкрисс Непреклонный"
-}
+})
+
 --------------
 -- Viscidus --
 --------------
 L = DBM:GetModLocalization("Viscidus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Нечистотон"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnFreeze	= "Заморожен: %d/3",
 	WarnShatter	= "Расколот: %d/3"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnFreeze	= "Объявлять статус Заморозки",
 	WarnShatter	= "Объявлять статус Раскола"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Slow 		= "замедляется!",
 	Freezing 	= "замораживается!",
 	Frozen	 	= "застывает!",
@@ -69,51 +74,57 @@ L:SetMiscLocalization{
 	HitsRemain	= "Ударов Осталось",
 	Frost		= "Лёд",
 	Physical	= "Физический урон"
-}
+})
+
 -------------
 -- Huhuran --
 -------------
 L = DBM:GetModLocalization("Huhuran")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Принцесса Хухуран"
-}
+})
+
 ---------------
 -- Twin Emps --
 ---------------
 L = DBM:GetModLocalization("TwinEmpsAQ")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Императоры-близнецы"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Veklor = "Император Век'лор",
 	Veknil = "Император Век'нилаш"
-}
+})
 
 ------------
 -- C'Thun --
 ------------
 L = DBM:GetModLocalization("CThun")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "К'Тун"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnEyeTentacle 	= "Глазной отросток",
 	WarnClawTentacle2	= "Когтещупальце",
 	WarnGiantEyeTentacle	= "Огромное глазастое щупальце",
 	WarnGiantClawTentacle	= "Гигантский когтещуп",
 	WarnWeakened 		= "К'Тун ослаблен!"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerEyeTentacle	= "Глазной отросток",
 	TimerGiantEyeTentacle	= "Огромное глазастое щупальце",
 	TimerClawTentacle	= "Когтещупальце",
 	TimerGiantClawTentacle	= "Гигантский когтещуп",
 	TimerWeakened		= "Ослаблен закончен"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnEyeTentacle			= "Показывать предупреждение для Глазного отростка",
 	WarnClawTentacle2		= "Показывать предупреждение для Когтещупальца",
 	WarnGiantEyeTentacle	= "Показывать предупреждение для Огромного глазастого щупальца",
@@ -125,41 +136,47 @@ L:SetOptionLocalization{
 	TimerGiantClawTentacle	= "Показывать таймер до следующего Гигантского когтещупа",
 	TimerWeakened			= "Показывать таймер продолжительности ослабления босса",
 	RangeFrame				= "Показывать индикатор расстояния (10)"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Stomach		= "Живот",
 	Eye			= "Око К'Туна",
 	FleshTent	= "Мясистое щупальце",--Localized so it shows on frame in users language, not senders
 	Weakened 	= "ослаблен!",
 	NotValid	= "АК40 частично зачищен. %s необязательные боссы остались."
-}
+})
+
 ----------------
 -- Ouro --
 ----------------
 L = DBM:GetModLocalization("Ouro")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Оуро"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnSubmerge		= "Закапывание",
 	WarnEmerge			= "Появление"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerSubmerge		= "Закапывание",
 	TimerEmerge			= "Появление"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnSubmerge		= "Показывать предупреждение о закапывании",
 	TimerSubmerge		= "Показывать таймер до закапывания",
 	WarnEmerge			= "Показывать предупреждение о появлении",
 	TimerEmerge			= "Показывать таймер до появления"
-}
+})
+
 ----------------
 -- AQ40 Trash --
 ----------------
 L = DBM:GetModLocalization("AQ40Trash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "АК40: Треш"
-}
+})

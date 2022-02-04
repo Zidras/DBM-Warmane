@@ -5,25 +5,24 @@ local L
 --Maulgar
 L = DBM:GetModLocalization("Maulgar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Король Молгар"
-}
-
+})
 
 --Gruul the Dragonkiller
 L = DBM:GetModLocalization("Gruul")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Груул Драконобой"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnGrowth	= "%s (%d)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnGrowth		= "Показывать предупреждение для $spell:36300",
 	RangeDistance	= "Фрейм дистанции для |cff71d5ff|Hspell:33654|hДробление|h|r",
 	Smaller			= "Маленькая дистанция (11)",
 	Safe			= "Безопасная дистанция (18)"
-}
+})

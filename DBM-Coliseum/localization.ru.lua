@@ -7,21 +7,21 @@ local L
 ------------------------
 L = DBM:GetModLocalization("NorthrendBeasts")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Чудовища Нордскола"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarningSnobold		= "Призыв снобольда-вассала на >%s<",
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextBoss		= "Прибытие следующего босса",
 	TimerEmerge			= "Появление",
 	TimerSubmerge		= "Зарывание"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarningSnobold		= "Предупреждение о призыве Снобольда-вассала",
 	PingCharge			= "Показать на миникарте место, куда попадает Ледяной Рев, если он избрал вас целью",
 	ClearIconsOnIceHowl	= "Снимать все иконки перед Топотом",
@@ -29,9 +29,9 @@ L:SetOptionLocalization{
 	TimerEmerge			= "Отсчет времени до появления",
 	TimerSubmerge		= "Отсчет времени до зарывания",
 	IcehowlArrow		= "Показывать стрелку, когда Ледяной Рев готовится сделать рывок на цель рядом с вами"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Charge				= "^%%s глядит на (%S+) и испускает гортанный вой!",
 	CombatStart			= "Из самых глубоких и темных пещер Грозовой Гряды был призван Гормок Пронзающий Бивень! В бой, герои!",
 	Phase2				= "Приготовьтесь к схватке с близнецами-чудовищами, Кислотной Утробой и Жуткой Чешуей!",
@@ -40,36 +40,36 @@ L:SetMiscLocalization{
 	Acidmaw				= "Кислотная Утроба",
 	Dreadscale			= "Жуткая Чешуя",
 	Icehowl				= "Ледяной Рев"
-}
+})
 
 ---------------------
 --  Lord Jaraxxus  --
 ---------------------
 L = DBM:GetModLocalization("Jaraxxus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Лорд Джараксус"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	IncinerateShieldFrame	= "Показать здоровье босса с индикатором здоровья для Испепеления плоти"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	IncinerateTarget		= "Испепеление плоти: %s",
 	FirstPull				= "Сейчас великий чернокнижник Вилфред Непопамс призовет вашего нового противника. Готовьтесь к бою!"
-}
+})
 
 -------------------------
 --  Faction Champions  --
 -------------------------
 L = DBM:GetModLocalization("Champions")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Чемпионы фракций"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	--Horde NPCs
 	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Горгрим Темный Раскол",			-- 34458
 	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Бирана Штормовое Копыто",		-- 34451
@@ -104,40 +104,40 @@ L:SetMiscLocalization{
 	AllianceVictory		= "СЛАВА АЛЬЯНСУ!",
 	HordeVictory		= "Это было лишь пробой того, что ждет нас в будущем! ЗА ОРДУ!"
 	--YellKill			= "Пустая и горькая победа. После сегодняшних потерь мы стали слабее как целое. Кто еще, кроме Короля-лича, выиграет от подобной глупости? Пали великие воины. И ради чего? Истинная опасность еще впереди – нас ждет битва с Королем-личом."
-}
+})
 
 ---------------------
 --  Val'kyr Twins  --
 ---------------------
 L = DBM:GetModLocalization("ValkTwins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Валь'киры-близнецы"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSpecialSpell	= "Следующая спец-способность",
 	TimerAnubRoleplay	= "Представление перед падением"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "Скоро спец-способность",
 	SpecWarnSpecial				= "Смена цвета",
 	SpecWarnSwitchTarget		= "Смена цели",
 	SpecWarnKickNow				= "Прерывание",
 	WarningTouchDebuff			= "Отрицательный эффект на |3-5(>%s<)",
 	WarningPoweroftheTwins2		= "Сила близнецов - больше исцеления на |3-3(>%s<)",
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	YellPull	= "Во имя темного повелителя. Во имя Короля-лича. Вы. Умрете.",
 --	CombatStart	= "Лишь сплотившись, вы сможете пройти последнее испытание. Из глубин Ледяной Короны навстречу вам подымаются две могучие воительницы Плети: жуткие валь'киры, крылатые вестницы Короля-лича!",
 	Fjola		= "Фьола Погибель Света",
 	Eydis		= "Эйдис Погибель Тьмы",
 	AnubRP		= "Король-лич понес тяжелую потерю! Вы проявили себя как бесстрашные герои Серебряного Авангарда! Мы вместе нанесем удар по Цитадели Ледяной Короны и разнесем в клочья остатки Плети! Нет такого испытания, которое мы бы не могли пройти сообща!"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerSpecialSpell			= "Отсчет времени до перезарядки спец-способности",
 	TimerAnubRoleplay			= "Таймер представления перед падением (после победы)",
 	WarnSpecialSpellSoon		= "Предупреждение о следующуюей спец-способность",
@@ -148,41 +148,41 @@ L:SetOptionLocalization{
 	SetIconOnDebuffTarget		= "Установить метку на получившего отрицательный эффект (героический режим)",
 	WarningTouchDebuff			= "Объявлять цели, получившие отрицательный эффект",
 	WarningPoweroftheTwins2		= "Объявлять цель под воздействем Силы близнецов",
-}
+})
 
 -----------------
 --  Anub'arak  --
 -----------------
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name					= "Ануб'арак"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerEmerge				= "Появление через",
 	TimerSubmerge			= "Зарывание через",
 	timerAdds				= "Призыв помощников через"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnEmerge				= "Ануб'арак появляется",
 	WarnEmergeSoon			= "Появление через 10 сек",
 	WarnSubmerge			= "Ануб'арак зарывается",
 	WarnSubmergeSoon		= "Зарывание через 10 сек",
 	warnAdds				= "Новые помощники"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	YellPull			= "Это место станет вашей могилой!",
 	Emerge				= "вылезает на поверхность!",
 	Burrow				= "зарывается в землю!",
 	YellBurrow			= "Ауум на-л ак-к-к-к, ишшш. Вставайте, слуги мои. Время пожирать...",
 	PcoldIconSet		= "Метка холода {rt%d} установлена на: %s",
 	PcoldIconRemoved	= "Метка холода снята с: %s"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnEmerge				= "Предупреждение о появлении",
 	WarnEmergeSoon			= "Предупреждать заранее о появлении",
 	WarnSubmerge			= "Предупреждение о зарывании",
@@ -194,4 +194,4 @@ L:SetOptionLocalization{
 	AnnouncePColdIcons		= "Объявлять метки целей заклинания $spell:68510 в рейд-чат<br/>(требуются права лидера или помощника)",
 	AnnouncePColdIconsRemoved	= "Объявлять также о снятии меток с целей заклинания $spell:68510<br/>(требуется предыдущая опция)",
 	RemoveHealthBuffsInP3	= "Удалять усиления здоровья в начале фазы 3"
-}
+})

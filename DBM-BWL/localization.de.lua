@@ -6,73 +6,78 @@ local L
 -----------------
 L = DBM:GetModLocalization("Razorgore")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Razorgore der Ungezähmte"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerAddsSpawn	= "Adds erscheinen"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	TimerAddsSpawn	= "Zeige Zeit bis die ersten Adds erscheinen"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Phase2Emote	= "flieht während die kontrollierenden Kräfte der Kugel schwinden.",
 	YellEgg1 = "Ihr werdet dafür bezahlen, dass Ihr mich zu soetwas gezwungen habt!",
 	YellEgg2 = "Narren! Diese Eier sind weit wertvoller als Ihr glaubt!",
 	YellEgg3 = "Nein - nicht noch einer! Für diese Gräueltat werdet Ihr mit Euren Köpfen bezahlen!",
 	YellPull 	= "Eindringlinge sind in die Brutstätte vorgestoßen! Schlagt Alarm! Beschützt die Eier um jeden Preis!"
-}
+})
+
 -------------------
 --  Vaelastrasz  --
 -------------------
 L = DBM:GetModLocalization("Vaelastrasz")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name				= "Vaelastrasz der Verdorbene"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Event				= "Zu spät, Freunde! Nefarius üble Macht wirkt bereits... Ich habe mich nicht... nicht mehr unter Kontrolle.."
-}
+})
+
 -----------------
 --  Broodlord  --
 -----------------
 L = DBM:GetModLocalization("Broodlord")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name	= "Brutwächter Dreschbringer"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull	= "Eures Gleichen sollte nicht hier sein! Ich werde Euch vernichten!"
-}
+})
 
 ---------------
 --  Firemaw  --
 ---------------
 L = DBM:GetModLocalization("Firemaw")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Feuerschwinge"
-}
+})
 
 ---------------
 --  Ebonroc  --
 ---------------
 L = DBM:GetModLocalization("Ebonroc")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Schattenschwinge"
-}
+})
 
 ----------------
 --  Flamegor  --
 ----------------
 L = DBM:GetModLocalization("Flamegor")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Flammenmaul"
-}
+})
 
 -----------------------
 --  Vulnerabilities  --
@@ -80,48 +85,56 @@ L:SetGeneralLocalization{
 -- Chromaggus, Death Talon Overseer and Death Talon Wyrmguard
 L = DBM:GetModLocalization("TalonGuards")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Todeskrallenwache"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnVulnerable = "%sverwundbarkeit"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnVulnerable = "Zeige Warnung für Zauberverwundbarkeit"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Fire = "Feuer",
 	Nature = "Natur",
 	Frost = "Frost",
 	Shadow = "Schatten",
 	Arcane = "Arkan",
 	Holy = "Heilig"
-}
+})
+
 ------------------
 --  Chromaggus  --
 ------------------
 L = DBM:GetModLocalization("Chromaggus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Chromaggus"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnBreath = "%s",
 	WarnVulnerable = "%sverwundbarkeit"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerBreathCD = "Abklingzeit der %s",
 	TimerBreath = "%s Zauber",
 	TimerVulnCD = "Abklingzeit der Verwundbarkeit"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnBreath = "Zeige Warnung, wenn Chromaggus einen seiner Atem wirkt",
 	WarnVulnerable = "Zeige Warnung für Zauberverwundbarkeit",
 	TimerBreathCD = "Abklingzeit des Atem anzeigen",
 	TimerBreath = "Zeige Atem Zauber",
 	TimerVulnCD = "Zeige Abklingzeit der Verwundbarkeit"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Breath1 = "Erster Atem",
 	Breath2 = "Zweiter Atem",
 	VulnEmote = "%s weicht zurück, als die Haut schimmert.",
@@ -132,31 +145,35 @@ L:SetMiscLocalization{
 	Shadow = "Schatten",
 	Arcane = "Arkan",
 	Holy = "Heilig"
-}
+})
 
 ----------------
 --  Nefarian  --
 ----------------
 L = DBM:GetModLocalization("Nefarian-Classic")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Nefarian"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnAddsLeft = "%d ausstehende Tötungen",
 	WarnClassCall = "%s Ruf",
 	specwarnClassCall = "Klassenruf auf Dir!"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerClassCall = "%s Ruf endet"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	TimerClassCall = "Dauer der Klassenrufe anzeigen",
 	WarnAddsLeft = "Kündige verbleibend Tötungen an bis 2 Phase ausgelöst ist.",
 	WarnClassCall = "Verkünde Klassenrufe",
 	specwarnClassCall = "Zeige besondere Warnung wenn Du von einem Klassenruf betroffen bist"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	YellP1		= "Lasst die Spiele beginnen!",
 	YellP2		= "Sehr gut, meine Diener. Der Mut der Sterblichen scheint zu schwinden! Nun lasst uns sehen, wie sie sich gegen den wahren Herrscher des Blackrock behaupten werden!",
 	YellP3		= "Unmöglich! Erhebt euch meine Diener! Kämpft erneut für Euren Meister!",
@@ -171,4 +188,4 @@ L:SetMiscLocalization{
 	YellMage	= "Auch Magier? Ihr solltet vorsichtiger sein, wenn Ihr mit Magie spielt...",
 	YellDK		= "Todesritter... kommt hierher!",
 	YellMonk	= "Mönche, macht Euch dieses Herumrollen denn nicht schwindlig?"--needs to be verified (wowhead-captured translation)
-}
+})

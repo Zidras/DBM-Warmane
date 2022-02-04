@@ -7,21 +7,21 @@ local L
 ------------------------
 L = DBM:GetModLocalization("NorthrendBeasts")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Bestien von Nordend"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarningSnobold		= "Schneeboldvasall erschienen auf >%s<"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextBoss		= "Nächster Boss",
 	TimerEmerge			= "Auftauchen",
 	TimerSubmerge		= "Abtauchen"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarningSnobold		= "Zeige Warnung, wenn ein Schneeboldvasall erscheint",
 	PingCharge			= "Ping die Minimap wenn Eisheuler dich niedertrampeln will",
 	ClearIconsOnIceHowl	= "Entferne alle Zeichen vor dem Trampeln",
@@ -29,9 +29,9 @@ L:SetOptionLocalization{
 	TimerEmerge			= "Zeige Zeit bis Auftauchen",
 	TimerSubmerge		= "Zeige Zeit bis Abtauchen",
 	IcehowlArrow		= "Zeige DBM-Pfeil, wenn Eisheuler jemand in deiner Nähe niedertrampeln will"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Charge				= "%%s sieht (%S+) zornig an und lässt einen gewaltigen Schrei ertönen!",
 	CombatStart			= "Er kommt aus den tiefsten, dunkelsten Höhlen der Sturmgipfel - Gormok der Pfähler! Voran, Helden!",
 	Phase2				= "Stählt Euch, Helden, denn die Zwillingsschrecken Ätzschlund und Schreckensmaul erscheinen in der Arena!",
@@ -40,36 +40,36 @@ L:SetMiscLocalization{
 	Acidmaw				= "Ätzschlund",
 	Dreadscale			= "Schreckensmaul",
 	Icehowl				= "Eisheuler"
-}
+})
 
 ---------------------
 --  Lord Jaraxxus  --
 ---------------------
 L = DBM:GetModLocalization("Jaraxxus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Lord Jaraxxus"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	IncinerateShieldFrame	= "Zeige Lebensanzeige mit einem Balken für Fleisch einäschern"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	IncinerateTarget		= "Fleisch einäschern: %s",
 	FirstPull				= "Großhexenmeister Wilfred Zischknall wird Eure nächste Herausforderung beschwören. Harrt seiner Ankunft."
-}
+})
 
 -------------------------
 --  Faction Champions  --
 -------------------------
 L = DBM:GetModLocalization("Champions")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Fraktionschampions"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	--Horde NPCs
 	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Gorgrim Schattenspalter",	-- 34458
 	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Birana Sturmhuf",			-- 34451
@@ -104,40 +104,40 @@ L:SetMiscLocalization{
 	AllianceVictory    = "EHRE DER ALLIANZ!",
 	HordeVictory       = "Das ist nur ein Vorgeschmack auf die Zukunft. FÜR DIE HORDE!"
 	--YellKill           = "Ein tragischer Sieg. Wir wurden schwächer durch die heutigen Verluste. Wer außer dem Lichkönig profitiert von solchen Torheiten? Große Krieger gaben ihr Leben. Und wofür? Die wahre Bedrohung erwartet uns noch - der Lichkönig erwartet uns alle im Tod."
-}
+})
 
 ---------------------
 --  Val'kyr Twins  --
 ---------------------
 L = DBM:GetModLocalization("ValkTwins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Zwillingsval'kyr"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSpecialSpell	= "Nächste Spezialfähigkeit",
 	TimerAnubRoleplay	= "Bodeneinbrüche in"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "Spezialfähigkeit bald",
 	SpecWarnSpecial				= "Farbe wechseln",
 	SpecWarnSwitchTarget		= "Ziel wechseln",
 	SpecWarnKickNow				= "Jetzt unterbrechen",
 	WarningTouchDebuff			= "Berührung auf >%s<",
 	WarningPoweroftheTwins2		= "Macht der Zwillinge - Mehr Heilung auf >%s<"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	YellPull	= "Im Namen unseres dunklen Meisters. Für den Lichkönig. Ihr. Werdet. Sterben.",
 --	CombatStart	= "Nur gemeinsam werdet Ihr den letzten Kampf meistern. Aus den Tiefen Eiskrones stammen diese zwei der mächtigsten Kommandanten der Geißel: schreckliche Val'kyr, geflügelte Boten des Lichkönigs!",
 	Fjola		= "Fjola Lichtbann",
 	Eydis		= "Eydis Nachtbann",
 	AnubRP		= "Dem Lichkönig wurde ein schwerer Schlag versetzt! Ihr habt Euch als würdige Champions erwiesen. Gemeinsam werden wir den Angriff auf die Eiskronenzitadelle durchführen und den Rest der Geißel zerstören! Gemeinsam meistern wir alles!"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerSpecialSpell			= "Zeige Zeit bis nächste Spezialfähigkeit",
 	TimerAnubRoleplay			= "Rollenspiel-Timer für der Lichkönig anzeigen, der das Parkett bricht",
 	WarnSpecialSpellSoon		= "Zeige Vorwarnung für nächste Spezialfähigkeit",
@@ -148,41 +148,41 @@ L:SetOptionLocalization{
 	SetIconOnDebuffTarget		= "Setze Zeichen auf Ziele von Berührung des Lichts/der Nacht (heroisch)",
 	WarningTouchDebuff			= "Verkünde Ziele von Berührung des Lichts/der Nacht",
 	WarningPoweroftheTwins2		= "Verkünde Ziele von Macht der Zwillinge"
-}
+})
 
 -----------------
 --  Anub'arak  --
 -----------------
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 					= "Anub'arak"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerEmerge				= "Auftauchen",
 	TimerSubmerge			= "Abtauchen",
 	timerAdds				= "Neue Adds"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnEmerge				= "Auftauchen",
 	WarnEmergeSoon			= "Auftauchen in 10 Sekunden",
 	WarnSubmerge			= "Abtauchen",
 	WarnSubmergeSoon		= "Abtauchen in 10 Sekunden",
 	warnAdds				= "Neue Adds"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	--YellPull				= "Dieser Ort wird Euch als Grab dienen!",
 	Emerge					= "entsteigt dem Boden!",
 	Burrow					= "gräbt sich in den Boden!",
 	YellBurrow				= "Auum na-l ak-k-k-k, isshhh. Erhebt euch, Diener. Verschlingt...",
 	PcoldIconSet			= "DKälte-Zeichen {rt%d} auf %s gesetzt",
 	PcoldIconRemoved		= "DKälte-Zeichen von %s entfernt"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnEmerge				= "Zeige Warnung für Auftauchen",
 	WarnEmergeSoon			= "Zeige Vorwarnung für Auftauchen",
 	WarnSubmerge			= "Zeige Warnung für Abtauchen",
@@ -194,4 +194,4 @@ L:SetOptionLocalization{
 	AnnouncePColdIcons		= "Verkünde Zeichen für Ziele von $spell:66013 im Schlachtzugchat (nur als Leiter)",
 	AnnouncePColdIconsRemoved	= "Verkünde auch das Entfernen von Zeichen für $spell:66013 (benötigt obige Einstellung)",
 	RemoveHealthBuffsInP3	= "Entferne lebenspunktesteigernde Buffs in Phase 3"
-}
+})

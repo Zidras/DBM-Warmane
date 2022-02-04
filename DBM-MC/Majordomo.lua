@@ -6,7 +6,6 @@ mod:SetCreatureID(12018, 11663, 11664)
 
 mod:SetModelID(12029)
 
-
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.Kill)
 

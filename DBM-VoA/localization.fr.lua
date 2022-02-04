@@ -53,9 +53,9 @@ L:SetOptionLocalization({
 
 L = DBM:GetModLocalization("Koralon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Koralon"
-}
+})
 
 L:SetTimerLocalization({
 	KoralonEnrage	= "Enrage (Koralon)"

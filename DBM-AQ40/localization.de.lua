@@ -6,59 +6,63 @@ local L
 ------------
 L = DBM:GetModLocalization("Skeram")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Der Prophet Skeram"
-}
+})
 
 ----------------
 -- Three Bugs --
 ----------------
 L = DBM:GetModLocalization("ThreeBugs")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Adel der Silithiden"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Yauj = "Prinzessin Yauj",
 	Vem = "Vem",
 	Kri = "Lord Kri"
-}
+})
 
 -------------
 -- Sartura --
 -------------
 L = DBM:GetModLocalization("Sartura")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Schlachtwache Sartura"
-}
+})
 
 --------------
 -- Fankriss --
 --------------
 L = DBM:GetModLocalization("Fankriss")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Fankriss der Unnachgiebige"
-}
+})
 
 --------------
 -- Viscidus --
 --------------
 L = DBM:GetModLocalization("Viscidus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Viscidus"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnFreeze	= "Eingefroren: %d/3",
 	WarnShatter	= "Zerspringen: %d/3"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnFreeze	= "Verkünde Eingefroren Status",
 	WarnShatter	= "Verkünde Zerspringen Status"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Slow	= "wird langsamer!",
 	Freezing= "friert ein!",
 	Frozen	= "ist tiefgefroren!",
@@ -69,51 +73,57 @@ L:SetMiscLocalization{
 	HitsRemain	= "Verbleibende Treffer",
 	Frost		= "Frost",
 	Physical	= "Körperlich"
-}
+})
+
 -------------
 -- Huhuran --
 -------------
 L = DBM:GetModLocalization("Huhuran")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Prinzessin Huhuran"
-}
+})
+
 ---------------
 -- Twin Emps --
 ---------------
 L = DBM:GetModLocalization("TwinEmpsAQ")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Zwillingsimperatoren"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Veklor = "Imperator Vek'lor",
 	Veknil = "Imperator Vek'nilash"
-}
+})
 
 ------------
 -- C'Thun --
 ------------
 L = DBM:GetModLocalization("CThun")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "C'Thun"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnEyeTentacle			= "Augententakel erscheinen",
 	WarnClawTentacle2		= "Klauententakel erscheinen",
 	WarnGiantEyeTentacle	= "Riesiges Augententakel erscheinen",
 	WarnGiantClawTentacle	= "Riesiges Klauententakel erscheinen",
 	SpecWarnWeakened		= "C'Thun ist geschwächt!"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerEyeTentacle		= "Nächstes Augententakel",
 	TimerClawTentacle		= "Nächstes Klauententakel",
 	TimerGiantEyeTentacle	= "Nächstes Riesiges Augententakel",
 	TimerGiantClawTentacle	= "Nächstes Riesiges Klauententakel",
 	TimerWeakened			= "Schwäche endet"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnEyeTentacle			= "Zeige Warnung, wenn Augententakel erscheinen",
 	WarnClawTentacle2		= "Zeige Warnung, wenn Klauententakel erscheinen",
 	WarnGiantEyeTentacle	= "Zeige Warnung, wenn Riesiges Augententakel erscheinen",
@@ -125,33 +135,38 @@ L:SetOptionLocalization{
 	TimerGiantClawTentacle	= "Zeige Zeit bis die nächsten Riesiges Klauententakel erscheinen",
 	TimerWeakened			= "Dauer der Schwäche von C'Thun anzeigen",
 	RangeFrame				= "Zeige Abstandsfenster (10m)"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Stomach		= "Magen",
 	Eye			= "Auge von C'Thun",
 	FleshTent	= "Fleischtentakel",
 	Weakened 	= "ist geschwächt!",
 	NotValid	= "AQ40 teilweise gelöscht. % s optionale Bosse bleiben erhalten."
-}
+})
+
 ----------------
 -- Ouro --
 ----------------
 L = DBM:GetModLocalization("Ouro")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ouro"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnSubmerge		= "Abtauchen",
 	WarnEmerge			= "Auftauchen"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerSubmerge		= "Abtauchen",
 	TimerEmerge			= "Auftauchen"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnSubmerge		= "Zeige Warnung für Abtauchen",
 	TimerSubmerge		= "Zeige Zeit bis Abtauchen",
 	WarnEmerge			= "Zeige Warnung für Auftauchen",
 	TimerEmerge			= "Zeige Zeit bis Auftauchen"
-}
+})

@@ -10,59 +10,63 @@ local L
 ------------
 L = DBM:GetModLocalization("Skeram")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "预言者斯克拉姆"
-}
+})
 
 ----------------
 -- Three Bugs --
 ----------------
 L = DBM:GetModLocalization("ThreeBugs")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "安其拉三宝"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Yauj = "亚尔基公主",
 	Vem = "维姆",
 	Kri = "克里勋爵"
-}
+})
 
 -------------
 -- Sartura --
 -------------
 L = DBM:GetModLocalization("Sartura")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "沙尔图拉"
-}
+})
 
 --------------
 -- Fankriss --
 --------------
 L = DBM:GetModLocalization("Fankriss")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "顽强的范克瑞斯"
-}
+})
 
 --------------
 -- Viscidus --
 --------------
 L = DBM:GetModLocalization("Viscidus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "维希度斯"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnFreeze	= "冰冻进度:%d/3",
 	WarnShatter	= "打碎进度:%d/3"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnFreeze	= "提示冰冻状态",
 	WarnShatter	= "提示打碎状态"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Slow	 = "的速度慢下来了！",
 	Freezing = "冻结了！",
 	Frozen	 = "变成了坚硬的固体！",
@@ -72,51 +76,57 @@ L:SetMiscLocalization{
 	HitsRemain	= "剩余攻击",
 	Frost		= "冰霜",
 	Physical	= "物理"
-}
+})
+
 -------------
 -- Huhuran --
 -------------
 L = DBM:GetModLocalization("Huhuran")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "哈霍兰公主"
-}
+})
+
 ---------------
 -- Twin Emps --
 ---------------
 L = DBM:GetModLocalization("TwinEmpsAQ")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "双子皇帝"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Veklor = "维克洛尔大帝",
 	Veknil = "维克尼拉斯大帝"
-}
+})
 
 ------------
 -- C'Thun --
 ------------
 L = DBM:GetModLocalization("CThun")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "克苏恩"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnEyeTentacle			= "眼球触须",
 	WarnClawTentacle2		= "利爪触须",
 	WarnGiantEyeTentacle	= "巨眼触须",
 	WarnGiantClawTentacle	= "巨钩触须",
 	SpecWarnWeakened		= "克苏恩的力量被削弱了！"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerEyeTentacle		= "下一次眼球触须",
 	TimerClawTentacle		= "下一次利爪触须",
 	TimerGiantEyeTentacle	= "下一次巨眼触须",
 	TimerGiantClawTentacle	= "下一次巨钩触须",
 	TimerWeakened			= "虚弱结束"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnEyeTentacle			= "为眼球触须显示警报",
 	WarnClawTentacle2		= "为利爪触须显示警报",
 	WarnGiantEyeTentacle	= "为巨眼触须显示警报",
@@ -129,41 +139,47 @@ L:SetOptionLocalization{
 	TimerGiantClawTentacle	= "为下一次巨钩触须显示计时器",
 	TimerWeakened			= "为克苏恩虚弱時间显示计时器",
 	RangeFrame				= "显示距离框架(10码)"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Stomach		= "内场",
 	Eye			= "克苏恩之眼",
 	FleshTent	= "血肉触须",--Localized so it shows on frame in users language, not senders
 	Weakened 	= "削弱了",
     NotValid	= "AQ40 击杀信息： %s 可选Boss未击杀。"
-}
+})
+
 ----------------
 -- Ouro --
 ----------------
 L = DBM:GetModLocalization("Ouro")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "奥罗"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnSubmerge		= "钻地",
 	WarnEmerge			= "现身"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerSubmerge		= "强制钻地",
 	TimerEmerge			= "现身"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnSubmerge		= "为钻地显示警报",
 	TimerSubmerge		= "为钻地显示计时器，提示何时强制钻地。注意：如果近战都离开了奥罗近战范围，它随时可能钻地。",
 	WarnEmerge			= "为现身显示警报",
 	TimerEmerge			= "为现身显示计时器"
-}
+})
+
 ----------------
 -- AQ40 Trash --
 ----------------
 L = DBM:GetModLocalization("AQ40Trash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "AQ40：全程计时"
-}
+})

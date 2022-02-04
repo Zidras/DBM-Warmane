@@ -5,61 +5,61 @@ local L
 -----------------------
 L = DBM:GetModLocalization("FlameLeviathan")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Flame Leviathan"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull	= "Hostile entities detected. Threat assessment protocol active. Primary target engaged. Time minus 30 seconds to re-evaluation.",
 	Emote		= "%%s pursues (%S+)%."
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	PursueWarn				= "Pursuing >%s<",
 	warnNextPursueSoon		= "Target change in 5 seconds",
 	SpecialPursueWarnYou	= "You are being pursued - Run away",
 	warnWardofLife			= "Ward of Life spawned"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	SpecialPursueWarnYou	= "Show special warning when you are being $spell:62374",
 	PursueWarn				= "Announce $spell:62374 targets",
 	warnNextPursueSoon		= "Show pre-warning for next $spell:62374",
 	warnWardofLife			= "Show special warning for Ward of Life spawn"
-}
+})
 
 --------------------------------
 --  Ignis the Furnace Master  --
 --------------------------------
 L = DBM:GetModLocalization("Ignis")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ignis the Furnace Master"
-}
+})
 
 ------------------
 --  Razorscale  --
 ------------------
 L = DBM:GetModLocalization("Razorscale")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Razorscale"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	warnTurretsReadySoon		= "Last turret ready in 20 seconds",
 	warnTurretsReady			= "Last turret ready"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerTurret1	= "Turret 1",
 	timerTurret2	= "Turret 2",
 	timerTurret3	= "Turret 3",
 	timerTurret4	= "Turret 4",
 	timerGrounded	= "On the ground"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	warnTurretsReadySoon		= "Show pre-warning for turrets",
 	warnTurretsReady			= "Show warning for turrets",
 	timerTurret1				= "Show timer for turret 1",
@@ -67,38 +67,38 @@ L:SetOptionLocalization{
 	timerTurret3				= "Show timer for turret 3 (25 player)",
 	timerTurret4				= "Show timer for turret 4 (25 player)",
 	timerGrounded				= "Show timer for ground phase duration"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellAir				= "Give us a moment to prepare to build the turrets.",
 	YellAir2			= "Fires out! Let's rebuild those turrets!",
 	YellGround			= "Move quickly! She won't remain grounded for long!",
 	EmotePhase2			= "%%s grounded permanently!"
-}
+})
 
 ----------------------------
 --  XT-002 Deconstructor  --
 ----------------------------
 L = DBM:GetModLocalization("XT002")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "XT-002 Deconstructor"
-}
+})
 
 --------------------
 --  Iron Council  --
 --------------------
 L = DBM:GetModLocalization("IronCouncil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "The Iron Council"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	AlwaysWarnOnOverload		= "Always warn on $spell:63481 (otherwise, only when targeted)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Steelbreaker		= "Steelbreaker",
 	RunemasterMolgeim	= "Runemaster Molgeim",
 	StormcallerBrundir	= "Stormcaller Brundir"
@@ -112,31 +112,31 @@ L:SetMiscLocalization{
 --	YellStormcallerBrundirDied2	= "You rush headlong into the maw of madness!",
 --	YellSteelbreakerDied		= "My death only serves to hasten your demise.",
 --	YellSteelbreakerDied2		= "Impossible!"
-}
+})
 
 ----------------------------
 --  Algalon the Observer  --
 ----------------------------
 L = DBM:GetModLocalization("Algalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Algalon the Observer"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	warnStarLow				= "Collapsing Star is low"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextCollapsingStar		= "Next Collapsing Star"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NextCollapsingStar		= "Show timer for next Collapsing Star",
 	warnStarLow				= "Show special warning when Collapsing Star is low (at ~25%)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	HealthInfo				= "Heal for star",
 --	FirstPull				= "See your world through my eyes: A universe so vast as to be immeasurable - incomprehensible even to your greatest minds.",
 --	YellPull 				= "Your actions are illogical. All possible results for this encounter have been calculated. The Pantheon will receive the Observer's message regardless of outcome.",
@@ -144,30 +144,30 @@ L:SetMiscLocalization{
 	Emote_CollapsingStar	= "%s begins to Summon Collapsing Stars!",
 --	Phase2					= "Behold the tools of creation",
 	CollapsingStar			= "Collapsing Star"
-}
+})
 
 ----------------
 --  Kologarn  --
 ----------------
 L = DBM:GetModLocalization("Kologarn")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Kologarn"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerLeftArm		= "Left Arm respawn",
 	timerRightArm		= "Right Arm respawn",
 	achievementDisarmed	= "Timer for Disarm"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	timerLeftArm			= "Show timer for Left Arm respawn",
 	timerRightArm			= "Show timer for Right Arm respawn",
 	achievementDisarmed		= "Show timer for Disarm achievement"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	Yell_Trigger_arm_left	= "Just a scratch!",
 --	Yell_Trigger_arm_right	= "Only a flesh wound!",
 --	YellEncounterStart		= "None shall pass!",
@@ -177,99 +177,99 @@ L:SetMiscLocalization{
 	Health_Right_Arm		= "Right Arm",
 	Health_Left_Arm			= "Left Arm",
 	FocusedEyebeam			= "his eyes on you"
-}
+})
 
 ---------------
 --  Auriaya  --
 ---------------
 L = DBM:GetModLocalization("Auriaya")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Auriaya"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnCatDied		= "Feral Defender down (%d lives remaining)",
 	WarnCatDiedOne	= "Feral Defender down (1 life remaining)"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerDefender	= "Feral Defender activates"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnCatDied		= "Show warning when Feral Defender dies",
 	WarnCatDiedOne	= "Show warning when Feral Defender has 1 life remaining",
 	timerDefender	= "Show timer for when Feral Defender is activated"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Defender = "Feral Defender (%d)",
 	YellPull = "Some things are better left alone!"
-}
+})
 
 -------------
 --  Hodir  --
 -------------
 L = DBM:GetModLocalization("Hodir")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Hodir"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellKill	= "I... I am released from his grasp... at last."
-}
+})
 
 --------------
 --  Thorim  --
 --------------
 L = DBM:GetModLocalization("Thorim")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Thorim"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHardmode	= "Hard mode"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerHardmode	= "Show timer for hard mode",
 	AnnounceFails	= "Post player fails for $spell:62017 to raid chat<br/>(requires announce to be enabled and leader/promoted status)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPhase1	= "Interlopers! You mortals who dare to interfere with my sport will pay.... Wait--you...",
 	YellPhase2	= "Impertinent whelps, you dare challenge me atop my pedestal? I will crush you myself!",
 	YellKill	= "Stay your arms! I yield!",
 	ChargeOn	= "Lightning Charge: %s",
 	Charge		= "Lightning Charge fails (this try): %s"
-}
+})
 
 -------------
 --  Freya  --
 -------------
 L = DBM:GetModLocalization("Freya")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Freya"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSimulKill		= "First add down - Resurrection in ~12 seconds"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSimulKill	= "Resurrection"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnSimulKill	= "Announce first mob down",
 	TimerSimulKill	= "Show timer for mob resurrection"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	SpawnYell			= "Children, assist me!",
 	WaterSpirit			= "Ancient Water Spirit",
 	Snaplasher			= "Snaplasher",
@@ -279,47 +279,47 @@ L:SetMiscLocalization{
 	YellAdds2			= "The swarm of the elements shall overtake you!",
 	EmoteLGift			= "begins to grow!", -- A |cFF00FFFFLifebinder's Gift|r begins to grow!
 	TrashRespawnTimer	= "Freya trash respawn"
-}
+})
 
 ----------------------
 --  Freya's Elders  --
 ----------------------
 L = DBM:GetModLocalization("Freya_Elders")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Freya's Elders"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TrashRespawnTimer	= "Show timer for trash respawn"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	TrashRespawnTimer	= "Freya trash respawn"
-}
+})
 
 ---------------
 --  Mimiron  --
 ---------------
 L = DBM:GetModLocalization("Mimiron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Mimiron"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	MagneticCore		= ">%s< has Magnetic Core",
 	WarnBombSpawn		= "Bomb Bot spawned"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHardmode	= "Hard mode - Self-destruct",
 	TimeToPhase2	= "Phase 2",
 	TimeToPhase3	= "Phase 3",
 	TimeToPhase4	= "Phase 4"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimeToPhase2			= "Show timer for Phase 2",
 	TimeToPhase3			= "Show timer for Phase 3",
 	TimeToPhase4			= "Show timer for Phase 4",
@@ -327,9 +327,9 @@ L:SetOptionLocalization{
 	AutoChangeLootToFFA		= "Switch loot mode to Free for All in Phase 3",
 	WarnBombSpawn			= "Show warning for Bomb Bots",
 	TimerHardmode			= "Show timer for hard mode"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	MobPhase1		= "Leviathan Mk II",
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Aerial Command Unit",
@@ -340,40 +340,40 @@ L:SetMiscLocalization{
 	YellPhase4		= "Preliminary testing phase complete. Now comes the true test!",
 	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
-}
+})
 
 ---------------------
 --  General Vezax  --
 ---------------------
 L = DBM:GetModLocalization("GeneralVezax")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "General Vezax"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	hardmodeSpawn = "Saronite Animus spawn"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	hardmodeSpawn					= "Show timer for Saronite Animus spawn (hard mode)",
 	CrashArrow						= "Show DBM arrow when $spell:62660 is near you"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	EmoteSaroniteVapors	= "A cloud of saronite vapors coalesces nearby!"
-}
+})
 
 ------------------
 --  Yogg-Saron  --
 ------------------
 L = DBM:GetModLocalization("YoggSaron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Yogg-Saron"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarningGuardianSpawned 			= "Guardian %d spawned",
 	WarningCrusherTentacleSpawned	= "Crusher Tentacle spawned",
 	WarningSanity 					= "%d Sanity remaining",
@@ -382,13 +382,13 @@ L:SetWarningLocalization{
 	SpecWarnMadnessOutNow			= "Induce Madness ending - Move out",
 	WarnBrainPortalSoon				= "Brain Portal in 3 seconds",
 	SpecWarnBrainPortalSoon			= "Brain Portal soon"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextPortal	= "Brain Portal"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarningGuardianSpawned			= "Show warning for Guardian spawns",
 	WarningCrusherTentacleSpawned	= "Show warning for Crusher Tentacle spawns",
 	WarningSanity					= "Show warning when $spell:63050 is low",
@@ -400,9 +400,9 @@ L:SetOptionLocalization{
 	NextPortal						= "Show timer for next Brain Portal",
 	ShowSaraHealth					= "Show health frame for Sara in Phase 1 (must be targeted or focused by at least one raid member)",
 	MaladyArrow						= "Show DBM arrow when $spell:63881 is near you"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",
 	Sara 				= "Sara"
-}
+})

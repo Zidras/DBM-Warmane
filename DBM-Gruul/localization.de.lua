@@ -4,22 +4,21 @@ local L
 --Maulgar
 L = DBM:GetModLocalization("Maulgar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Hochkönig Maulgar"
-}
-
+})
 
 --Gruul the Dragonkiller
 L = DBM:GetModLocalization("Gruul")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Gruul der Drachenschlächter"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnGrowth	= "%s (%d)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnGrowth	= "Zeige Warnung für $spell:36300"
-}
+})

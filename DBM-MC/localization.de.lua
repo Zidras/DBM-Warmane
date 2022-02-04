@@ -6,120 +6,126 @@ local L
 ----------------
 L = DBM:GetModLocalization("Lucifron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Lucifron"
-}
+})
 
 ----------------
 --  Magmadar  --
 ----------------
 L = DBM:GetModLocalization("Magmadar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Magmadar"
-}
+})
 
 ----------------
 --  Gehennas  --
 ----------------
 L = DBM:GetModLocalization("Gehennas")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Gehennas"
-}
+})
 
 ------------
 --  Garr  --
 ------------
 L = DBM:GetModLocalization("Garr-Classic")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Garr"
-}
+})
 
 --------------
 --  Geddon  --
 --------------
 L = DBM:GetModLocalization("Geddon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Baron Geddon"
-}
+})
 
 ----------------
 --  Shazzrah  --
 ----------------
 L = DBM:GetModLocalization("Shazzrah")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Shazzrah"
-}
+})
 
 ----------------
 --  Sulfuron  --
 ----------------
 L = DBM:GetModLocalization("Sulfuron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Sulfuronherold"
-}
+})
 
 ----------------
 --  Golemagg  --
 ----------------
 L = DBM:GetModLocalization("Golemagg")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Golemagg der Verbrenner"
-}
+})
 
 -----------------
 --  Majordomo  --
 -----------------
 L = DBM:GetModLocalization("Majordomo")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Majordomus Executus"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	timerShieldCD		= "Nächstes Schild"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	timerShieldCD		= "Zeige Zeit für den nächsten Schadenschild/Magiereflexion"
-}
+})
 
 ----------------
 --  Ragnaros  --
 ----------------
 L = DBM:GetModLocalization("Ragnaros-Classic")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ragnaros"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnSubmerge		= "Abtauchen",
 	WarnEmerge			= "Auftauchen"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerSubmerge		= "Abtauchen",
 	TimerEmerge			= "Auftauchen"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnSubmerge		= "Zeige Warnung für Abtauchen",
 	TimerSubmerge		= "Zeige Zeit bis Abtauchen",
 	WarnEmerge			= "Zeige Warnung für Auftauchen",
 	TimerEmerge			= "Zeige Zeit bis Auftauchen"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Submerge	= "KOMMT HERBEI, MEINE DIENER! VERTEIDIGT EUREN HERRN!",
 	Pull		= "Unverschämte Welpen! Ihr seid sehenden Auges dem Tod in die Arme gelaufen! Seht her, der Meister regt sich!"
-}
+})
 
 -----------------
 --  MC: Trash  --
 -----------------
 L = DBM:GetModLocalization("MCTrash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "GK: Trash"
-}
+})

@@ -5,74 +5,78 @@ local L
 -----------------
 L = DBM:GetModLocalization("Razorgore")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Razorgore the Untamed"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerAddsSpawn	= "Adds spawning"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	TimerAddsSpawn	= "Show timer for first adds spawning"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Phase2Emote	= "flee as the controlling power of the orb is drained.",
 	YellEgg1 = "You'll pay for forcing me to do this!",
 	YellEgg2 = "Fools! These eggs are more precious than you know!",
 	YellEgg3 = "No - not another one! I'll have your heads for this atrocity!",
 	YellPull 	= "Intruders have breached the hatchery! Sound the alarm! Protect the eggs at all costs!\r\n"--Yes this yell actually has a return and new line in it. as grabbed by transcriptor
-}
+})
+
 -------------------
 --  Vaelastrasz  --
 -------------------
 L = DBM:GetModLocalization("Vaelastrasz")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name				= "Vaelastrasz the Corrupt"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Event				= "Too late, friends! Nefarius' corruption has taken hold...I cannot...control myself."
-}
+})
+
 -----------------
 --  Broodlord  --
 -----------------
 L = DBM:GetModLocalization("Broodlord")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name	= "Broodlord Lashlayer"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull	= "None of your kind should be here!  You've doomed only yourselves!"
-}
+})
 
 ---------------
 --  Firemaw  --
 ---------------
 L = DBM:GetModLocalization("Firemaw")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Firemaw"
-}
+})
 
 ---------------
 --  Ebonroc  --
 ---------------
 L = DBM:GetModLocalization("Ebonroc")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ebonroc"
-}
+})
 
 ----------------
 --  Flamegor  --
 ----------------
 L = DBM:GetModLocalization("Flamegor")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Flamegor"
-}
-
+})
 
 -----------------------
 --  Vulnerabilities  --
@@ -80,50 +84,56 @@ L:SetGeneralLocalization{
 -- Chromaggus, Death Talon Overseer and Death Talon Wyrmguard
 L = DBM:GetModLocalization("TalonGuards")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Talon Guards"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnVulnerable		= "%s Vulnerability"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnVulnerable		= "Show warning for spell vulnerabilities"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Fire		= "Fire",
 	Nature		= "Nature",
 	Frost		= "Frost",
 	Shadow		= "Shadow",
 	Arcane		= "Arcane",
 	Holy		= "Holy"
-}
-
+})
 
 ------------------
 --  Chromaggus  --
 ------------------
 L = DBM:GetModLocalization("Chromaggus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Chromaggus"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnBreath		= "%s",
 	WarnVulnerable	= "%s Vulnerability"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerBreathCD	= "%s CD",
 	TimerBreath		= "%s cast",
 	TimerVulnCD		= "Vulnerability CD"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnBreath		= "Show warning when Chromaggus casts one of his Breaths",
 	WarnVulnerable	= "Show warning for spell vulnerabilities",
 	TimerBreathCD	= "Show Breath CD",
 	TimerBreath		= "Show Breath cast",
 	TimerVulnCD		= "Show Vulnerability CD"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Breath1		= "First Breath",
 	Breath2		= "Second Breath",
 	VulnEmote	= "%s flinches as its skin shimmers.",
@@ -134,31 +144,35 @@ L:SetMiscLocalization{
 	Shadow		= "Shadow",
 	Arcane		= "Arcane",
 	Holy		= "Holy"
-}
+})
 
 ----------------
 --  Nefarian  --
 ----------------
 L = DBM:GetModLocalization("Nefarian-Classic")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Nefarian"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnAddsLeft		= "%d kills remaining",
 	WarnClassCall		= "%s call",
 	specwarnClassCall	= "Class call on you!"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerClassCall		= "%s call ends"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	TimerClassCall		= "Show timer for class call duration",
 	WarnAddsLeft		= "Announce kills remaining until Stage 2 is triggered",
 	WarnClassCall		= "Announce class calls",
 	specwarnClassCall	= "Show Special warning when you are affected by class call"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	YellP1		= "Let the games begin!",
 	YellP2		= "Well done, my minions. The mortals' courage begins to wane! Now, let's see how they contend with the true Lord of Blackrock Spire!!!",
 	YellP3		= "Impossible! Rise my minions!  Serve your master once more!",
@@ -173,4 +187,4 @@ L:SetMiscLocalization{
 	YellMage	= "Mages too? You should be more careful when you play with magic...",
 	YellDK		= "Death Knights... get over here!",
 	YellMonk	= "Monk"
-}
+})

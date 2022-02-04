@@ -9,39 +9,40 @@ local L
 -------------------
 L = DBM:GetModLocalization("Venoxis")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "高阶祭司温诺希斯"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	RangeFrame		= "显示范围框"
-}
+})
 
 -------------------
 --  Jeklik  --
 -------------------
 L = DBM:GetModLocalization("Jeklik")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "高阶祭司耶克里克"
-}
+})
 
 -------------------
 --  Marli  --
 -------------------
 L = DBM:GetModLocalization("Marli")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "高阶祭司玛尔里"
-}
+})
 
 -------------------
 --  Thekal  --
 -------------------
 L = DBM:GetModLocalization("Thekal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "高阶祭司塞卡尔"
-}
+})
 
 L:SetWarningLocalization({
 	WarnSimulKill	= "大约15秒内复活"
@@ -70,61 +71,63 @@ L:SetMiscLocalization({
 -------------------
 L = DBM:GetModLocalization("Arlokk")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "高阶祭司娅尔罗"
-}
+})
 
 -------------------
 --  Hakkar  --
 -------------------
 L = DBM:GetModLocalization("Hakkar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "哈卡"
-}
+})
 
 -------------------
 --  Bloodlord  --
 -------------------
 L = DBM:GetModLocalization("Bloodlord")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "血领主曼多基尔"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Bloodlord 	= "血领主曼多基尔",
 	Ohgan		= "奥根"
-}
+})
 
 -------------------
 --  Edge of Madness  --
 -------------------
 L = DBM:GetModLocalization("EdgeOfMadness")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "疯狂之缘"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Hazzarah = "哈札拉尔",
 	Renataki = "雷纳塔基",
 	Wushoolay = "乌苏雷",
 	Grilek = "格里雷克"
-}
+})
 
 -------------------
 --  Gahz'ranka  --
 -------------------
 L = DBM:GetModLocalization("Gahzranka")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "加兹兰卡"
-}
+})
 
 -------------------
 --  Jindo  --
 -------------------
 L = DBM:GetModLocalization("Jindo")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "妖术师金度"
-}
+})

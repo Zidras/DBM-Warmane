@@ -5,53 +5,53 @@ local L
 -----------------
 L = DBM:GetModLocalization("Najentus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "High Warlord Naj'entus"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	HealthInfo	= "Health Info"
-}
+})
 
 ----------------
 -- Supremus --
 ----------------
 L = DBM:GetModLocalization("Supremus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Supremus"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPhase		= "%s Phase"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPhase		= "Next %s phase"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnPhase		= "Show warning for next phase",
 	TimerPhase		= "Show time for next phase",
 	KiteIcon		= "Set icon on Kite target"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	PhaseTank		= "punches the ground in anger!",
 	PhaseKite		= "The ground begins to crack open!",
 	ChangeTarget	= "acquires a new target",
 	Kite			= "Kite",
 	Tank			= "Tank"
-}
+})
 
 -------------------------
 --  Shade of Akama  --
 -------------------------
 L = DBM:GetModLocalization("Akama")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Shade of Akama"
-}
+})
 
 L:SetWarningLocalization({
 	warnAshtongueDefender	= "Ashtongue Defender",
@@ -75,130 +75,130 @@ L:SetOptionLocalization({
 -------------------------
 L = DBM:GetModLocalization("TeronGorefiend")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Teron Gorefiend"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerVengefulSpirit		= "Ghost : %s"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerVengefulSpirit		= "Show timer for Ghost durations"
-}
+})
 
 ----------------------------
 --  Gurtogg Bloodboil  --
 ----------------------------
 L = DBM:GetModLocalization("Bloodboil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Gurtogg Bloodboil"
-}
+})
 
 --------------------------
 --  Essence Of Souls  --
 --------------------------
 L = DBM:GetModLocalization("Souls")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Essence of Souls"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnMana		= "Zero Mana in 30 sec"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerMana		= "Mana 0"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnMana		= "Show warning from zero mana in Phase 2",
 	TimerMana		= "Show timer for zero mana in Phase 2"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Suffering		= "Essence of Suffering",
 	Desire			= "Essence of Desire",
 	Anger			= "Essence of Anger",
 	Phase1End		= "I don't want to go back!",
 	Phase2End		= "I won't be far!"
-}
+})
 
 -----------------------
 --  Mother Shahraz --
 -----------------------
 L = DBM:GetModLocalization("Shahraz")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Mother Shahraz"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerAura	= "%s"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	timerAura	= "Show timer for Prismatic Aura"
-}
+})
 
 ----------------------
 --  Illidari Council  --
 ----------------------
 L = DBM:GetModLocalization("Council")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Illidari Council"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	Immune			= "Malande - %s immune for 15 sec"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	Immune			= "Show warning when Manalde becomes spell or melee immune"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Gathios			= "Gathios the Shatterer",
 	Malande			= "Lady Malande",
 	Zerevor			= "High Nethermancer Zerevor",
 	Veras			= "Veras Darkshadow",
 	Melee			= "Melee",
 	Spell			= "Spell"
-}
+})
 
 -------------------------
 --  Illidan Stormrage --
 -------------------------
 L = DBM:GetModLocalization("Illidan")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Illidan Stormrage"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnHuman		= "Human Phase",
 	WarnDemon		= "Demon Phase"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextHuman		= "Next Human Phase",
 	TimerNextDemon		= "Next Demon Phase"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnHuman		= "Show warning for Human Phase",
 	WarnDemon		= "Show warning for Demon Phase",
 	TimerNextHuman	= "Show time for Next Human Phase",
 	TimerNextDemon	= "Show time for Demon Human Phase",
 	RangeFrame		= "Show range frame (10 yards) in Phase 3 and 4"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull			= "Akama. Your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.",
 	Eyebeam			= "Stare into the eyes of the Betrayer!",
 	Demon			= "Behold the power... of the demon within!",
 	Phase4			= "Is this it, mortals? Is this all the fury you can muster?"
-}
+})

@@ -7,31 +7,31 @@ local L
 ----------------------
 L = DBM:GetModLocalization("LordMarrowgar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Лорд Ребрад"
-}
+})
 
 -------------------------
 --  Lady Deathwhisper  --
 -------------------------
 L = DBM:GetModLocalization("Deathwhisper")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Леди Смертный Шепот"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerAdds	= "Призыв помощников"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnReanimating				= "Помощник воскрешается",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Скоро призыв помощников",
 	SpecWarnVengefulShade		= "Мстительный дух атакует вас - бегите", --creatureid 38222
 	WeaponsStatus				= "Cнятие оружий включено"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnAddsSoon				= "Предупреждать заранее о призыве помощников",
 	WarnReanimating				= "Предупреждение при воскрешении помощников",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Отсчет времени до призыва помощников",
@@ -43,9 +43,9 @@ L:SetOptionLocalization{
 	EqUneqWeapons				= "Снимать/надевать оружия если в вас кастанулся контроль. Для надевания создайте компл. экип. 'pve'. Для снятия не нужен.",
 	EqUneqTimer					= "Снимать оружия по таймеру ВСЕГДА, а не в каст(если высокий пинг). Опция выше должна быть вкл.",
 	BlockWeapons				= "Полностью заблокировать функции снятия/надевания выше"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellReanimatedFanatic	= "Восстань и обрети истинную форму!",
 	ShieldPercent			= "Барьер маны",
 	Fanatic1				= "Фанатик культа",
@@ -53,31 +53,31 @@ L:SetMiscLocalization{
 	Fanatic3				= "Воскрешенный фанатик",
 	setMissing				= "ВНИМАНИЕ! DBM: автоматическое снимание/надевание оружия не будет работать пока вы не создадите набор экипировки pve",
 	EqUneqLineDescription	= "Автоматическое оснащение/снятие оборудования"
-}
+})
 
 ----------------------
 --  Gunship Battle  --
 ----------------------
 L = DBM:GetModLocalization("GunshipBattle")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Бой на кораблях"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnAddsSoon	= "Скоро новые помощники"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnAddsSoon		= "Предупреждать заранее о призыве помощников",
 	TimerAdds			= "Отсчет времени до новых помощников"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerAdds			= "Призыв помощников"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	PullAlliance	= "Запускайте двигатели! Летим навстречу судьбе.",
 	PullHorde		= "Воспряньте, сыны и дочери Орды! Сегодня мы будем биться со смертельным врагом! ЛОК'ТАР ОГАР!",
 	--CombatAlliance	= "Ах вы псы трусливые! Напали исподтишка!",
@@ -88,196 +88,196 @@ L:SetMiscLocalization{
 	MageHorde		= "Корабль под обстрелом! Заклинателя сюда, пусть заткнет эти пушки!",
 	KillAlliance	= "Ну не говорите потом, что я не предупреждал. В атаку, братья и сестры!",
 	KillHorde		= "Альянс повержен. Вперед, к Королю-личу!"
-}
+})
 
 -----------------------------
 --  Deathbringer Saurfang  --
 -----------------------------
 L = DBM:GetModLocalization("Deathbringer")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Саурфанг Смертоносный"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	RangeFrame			= "Показывать окно проверки дистанции (12 м)",
 	RunePowerFrame		= "Показывать здоровье босса + индикатор для $spell:72371",
 	RemoveDI			= "Удалите $spell:19752, если используется для предотвращения $spell:72293"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	RunePower			= "Сила крови",
 	PullAlliance		= "Все павшие воины Орды, все дохлые псы Альянса – все пополнят армию Короля-лича. Даже сейчас валь'киры воскрешают ваших покойников, чтобы те стали частью Плети!",
 	PullHorde			= "Кор'крон, выдвигайтесь! Герои, будьте начеку. Плеть только что..."
-}
+})
 
 -----------------
 --  Festergut  --
 -----------------
 L = DBM:GetModLocalization("Festergut")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Тухлопуз"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	RangeFrame			= "Показывать окно проверки дистанции (8 м)",
 	AnnounceSporeIcons	= "Объявлять метки целей заклинания $spell:69279 в рейд-чат<br/>(требуются права помощника)",
 	AchievementCheck	= "Объявлять о провале достижения 'Масок нет!' в рейд-чат<br/>(требуются права помощника)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	SporeSet			= "Метка Газообразных спор {rt%d} установлена на: %s",
 	AchievementFailed	= ">> ДОСТИЖЕНИЕ ПРОВАЛЕНО: %s получил %d стаков Невосприимчивости к гнили <<"
-}
+})
 
 ---------------
 --  Rotface  --
 ---------------
 L = DBM:GetModLocalization("Rotface")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Гниломорд"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnOozeSpawn				= "Малый слизнюк",
 	SpecWarnLittleOoze			= "Малый слизнюк атакует вас - бегите"--creatureid 36897
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnOozeSpawn				= "Предупреждение при появлении Малого слизнюка",
 	SpecWarnLittleOoze			= "Спец-предупреждение, когда вас атакует Малый слизнюк",--creatureid 36897
 	RangeFrame					= "Показывать окно проверки дистанции (8 м)",
 	TankArrow					= "Показывать стрелку для кайтера Большого слизнюка (экспериментально)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellSlimePipes1	= "Отличные новости, народ! Я починил трубы для подачи ядовитой слизи!",	-- Professor Putricide
 	YellSlimePipes2	= "Отличные новости, народ! Слизь снова потекла!"	-- Professor Putricide
-}
+})
 
 ---------------------------
 --  Professor Putricide  --
 ---------------------------
 L = DBM:GetModLocalization("Putricide")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Профессор Мерзоцид"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	MalleableGooIcon			= "Устанавливать метку на первую цель заклинания $spell:72295",
 	GooArrow					= "Показывать стрелку, когда $spell:72295 около вас"
-}
+})
 
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------
 L = DBM:GetModLocalization("BPCouncil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Кровавый Совет"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnTargetSwitch		= "Смените цель на: %s",
 	WarnTargetSwitchSoon	= "Скоро смена цели"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerTargetSwitch		= "Смена цели"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnTargetSwitch		= "Предупреждение о смене цели",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Предупреждать заранее о смене цели",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Отсчет времени до смены цели",
 	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)",
 	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
 	VortexArrow				= "Показывать стрелку, когда $spell:72037 около вас"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Keleseth			= "Принц Келесет",
 	Taldaram			= "Принц Талдарам",
 	Valanar				= "Принц Валанар",
 	FirstPull			= "Глупые смертные. Думали, что одолели нас? Сан'лейн – непобедимые воины Короля-лича. Теперь наши силы едины!",
 	EmpoweredFlames		= "Жаркое пламя тянется к (%S+)!"
-}
+})
 
 -----------------------------
 --  Blood-Queen Lana'thel  --
 -----------------------------
 L = DBM:GetModLocalization("Lanathel")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Королева Лана'тель"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	RangeFrame				= "Показывать окно проверки дистанции (8 м)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	SwarmingShadows			= "Тени собираются и окружают (%S+)!",
 	YellFrenzy				= "Я голоден!"
-}
+})
 
 -----------------------------
 --  Valithria Dreamwalker  --
 -----------------------------
 L = DBM:GetModLocalization("Valithria")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Валитрия Сноходица"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnPortalOpen	= "Открытие порталов"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerPortalsOpen		= "Открытие порталов",
 	TimerPortalsClose		= "закрытие порталов", -- Needs review
 	TimerBlazingSkeleton	= "Исторгающий пламя скелет",
 	TimerAbom				= "След. поганище (%s)"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	SetIconOnBlazingSkeleton	= "Устанавливать метку на Исторгающего пламя скелета (череп)",
 	WarnPortalOpen				= "Предупреждение об открытии порталов",
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
 	TimerPortalsClose			= "Обратный отсчет до закрытия порталов", -- Needs review
 	TimerBlazingSkeleton		= "Отсчет времени до Исторгающего пламя скелета"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull		= "Чужаки ворвались во внутренние покои. Уничтожьте зеленого дракона! Пусть останутся лишь кости и прах для воскрешения!",
 	YellPortals		= "Я открыла портал в Изумрудный Сон. Там вы найдете спасение, герои..."
-}
+})
 
 ------------------
 --  Sindragosa  --
 ------------------
 L = DBM:GetModLocalization("Sindragosa")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Синдрагоса"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnAirphase			= "Воздушная фаза",
 	WarnGroundphaseSoon		= "Синдрагоса скоро приземлится"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextAirphase		= "След. воздушная фаза",
 	TimerNextGroundphase	= "След. наземная фаза",
 	AchievementMystic		= "Время для устранения Таинственной энергии"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnAirphase			= "Объявлять воздушную фазу",
 	WarnGroundphaseSoon		= "Предупреждать заранее о наземной фазе",
 	TimerNextAirphase		= "Отсчет времени до следующей воздушной фазы",
@@ -287,9 +287,9 @@ L:SetOptionLocalization{
 	AssignWarnDirectionsCount	= "Назначьте направления для целей $spell:70126 и рассчитывайте на фазе 2",
 	AchievementCheck		= "Объявлять предупреждения для достижения 'Таинственная дама'<br/>в рейд-чат (требуются права помощника)",
 	RangeFrame				= "Показывать игроков с метками в окне проверки дистанции (10 норм., 20 гер.)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellAirphase		= "Здесь ваше вторжение и окончится! Никто не уцелеет.",
 	YellPhase2			= "А теперь почувствуйте всю мощь господина и погрузитесь в отчаяние!",
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
@@ -297,31 +297,31 @@ L:SetMiscLocalization{
 	BeaconIconSet		= "Ледяная метка {rt%d} установлена на: %s",
 	AchievementWarning	= "Предупреждение: %s получил 5 стаков Таинственной энергии",
 	AchievementFailed	= ">> ДОСТИЖЕНИЕ ПРОВАЛЕНО: %s получил %d стаков Таинственной энергии <<"
-}
+})
 
 ---------------------
 --  The Lich King  --
 ---------------------
 L = DBM:GetModLocalization("LichKing")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Король-лич"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	ValkyrWarning			= "|3-3(>%s<) схватили!",
 	SpecWarnYouAreValkd		= "Вас схватили",
 	WarnNecroticPlagueJump	= "Мертвящая чума перепрыгнула на |3-3(>%s<)",
 	SpecWarnValkyrLow		= "У Валь'киры меньше 55%"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerRoleplay				= "Представление",
 	PhaseTransition				= "Переходная фаза",
 	TimerNecroticPlagueCleanse	= "Очищение Мертвящей чумы"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerRoleplay				= "Отсчет времени для представления",
 	WarnNecroticPlagueJump		= "Объявлять цели прыжков $spell:73912",
 	TimerNecroticPlagueCleanse	= "Отсчет времени для очищения Мертвящей чумы до первого тика",
@@ -337,9 +337,9 @@ L:SetOptionLocalization{
 	FrameUpwards				= "Рост окна целей Валь'Кир вверх",
 	FrameLocked					= "Зафиксировать окно целей Валь'Кир",
 	RemoveImmunes				= "Снимать заклинания иммунитета перед выходом из комнаты Ледяной Скорби"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	LKPull					= "Неужели прибыли наконец хваленые силы Света? Мне бросить Ледяную Скорбь и сдаться на твою милость, Фордринг?",
 	LKRoleplay				= "Что движет вами?.. Праведность? Не знаю...",
 	ValkGrabbedIcon			= "Валь'кира {rt%d} схватила %s",
@@ -354,30 +354,30 @@ L:SetMiscLocalization{
 	FrameClose				= "Закрыть",
 	FrameGUIDesc			= "Рамка Вал'Кира",
 	FrameGUIMoveMe			= "Переместить каркас Вал'Кира"
-}
+})
 
 -------------
 --  Trash  --
 -------------
 L = DBM:GetModLocalization("ICCTrash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Icecrown Trash"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	SpecWarnTrapL		= "Ловушка активирована! - Заклятый страж освобожден",
 	SpecWarnTrapP		= "Ловушка активирована! - приближаются Мстительные свежеватели",
 	SpecWarnGosaEvent	= "Приближаются защитники Синдрагосы!"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	SpecWarnTrapL		= "Спец-предупреждение для активации ловушки",
 	SpecWarnTrapP		= "Спец-предупреждение для активации ловушки",
 	SpecWarnGosaEvent	= "Спец-предупреждение для активации защитников Синдрагосы"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	WarderTrap1			= "Кто... идет?",
 	WarderTrap2			= "Я пробудился...",
 	WarderTrap3			= "В покои господина проникли!",
@@ -385,4 +385,4 @@ L:SetMiscLocalization{
 	FleshreaperTrap2	= "Вам не уйти от нас.",
 	FleshreaperTrap3	= "Живые? Здесь?!",
 	SindragosaEvent		= "Они не должны прорваться к Синдрагосе! Скорее, остановите их!"
-}
+})

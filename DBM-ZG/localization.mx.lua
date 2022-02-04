@@ -6,36 +6,36 @@ local L
 -------------------
 L = DBM:GetModLocalization("Venoxis")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Sumo sacerdote Venoxis"
-}
+})
 
 -------------------
 --  Jeklik  --
 -------------------
 L = DBM:GetModLocalization("Jeklik")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Suma sacerdotisa Jeklik"
-}
+})
 
 -------------------
 --  Marli  --
 -------------------
 L = DBM:GetModLocalization("Marli")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Suma sacerdotisa Mar'li"
-}
+})
 
 -------------------
 --  Thekal  --
 -------------------
 L = DBM:GetModLocalization("Thekal")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Sumo sacerdote Thekal"
-}
+})
 
 L:SetWarningLocalization({
 	WarnSimulKill	= "Primer esbirro muerto - Resurrección en ~15 segundos"
@@ -64,62 +64,64 @@ L:SetMiscLocalization({
 -------------------
 L = DBM:GetModLocalization("Arlokk")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Suma sacerdotisa Arlokk"
-}
+})
 
 -------------------
 --  Hakkar  --
 -------------------
 L = DBM:GetModLocalization("Hakkar")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Hakkar"
-}
+})
 
 -------------------
 --  Bloodlord  --
 -------------------
 L = DBM:GetModLocalization("Bloodlord")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Señor sangriento Mandokir"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Bloodlord 	= "Señor sangriento Mandokir",
 	Ohgan		= "Ohgan",
 	GazeYell	= "Te estoy vigilando"
-}
+})
 
 -------------------
 --  Edge of Madness  --
 -------------------
 L = DBM:GetModLocalization("EdgeOfMadness")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Cabo de la Locura"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Hazzarah = "Hazza'rah",
 	Renataki = "Renataki",
 	Wushoolay = "Wushoolay",
 	Grilek = "Gri'lek"
-}
+})
 
 -------------------
 --  Gahz'ranka  --
 -------------------
 L = DBM:GetModLocalization("Gahzranka")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Gahz'ranka"
-}
+})
 
 -------------------
 --  Jindo  --
 -------------------
 L = DBM:GetModLocalization("Jindo")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Jin'do el Aojador"
-}
+})

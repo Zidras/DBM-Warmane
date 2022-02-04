@@ -222,7 +222,7 @@
 			<TexCoords left="0.25" right="0.75" top="0.125" bottom="0.875"/>
 		</ThumbTexture>
 	</Slider>
-	
+
 	<Frame name="DBM_GUI_OptionsFrameListTemplate" virtual="true">
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -331,7 +331,7 @@
 					<BackgroundInsets>
 						<AbsInset left="0" right="0" top="5" bottom="5"/>
 					</BackgroundInsets>
-				</Backdrop>				
+				</Backdrop>
 				<Scripts>
 					<OnLoad>
 						self:SetBackdropBorderColor(.6, .6, .6, .6)
@@ -341,13 +341,13 @@
 						local scrollbar = _G[self:GetName().."ScrollBar"]
 						scrollbar:SetMinMaxValues(0, 0)
 						scrollbar:SetValue(0)
-						self.offset = 0	
+						self.offset = 0
 					</OnLoad>
 					<OnVerticalScroll>
 						local scrollbar = _G[self:GetName().."ScrollBar"]
 						scrollbar:SetValue(offset)
 						self.offset = floor((offset / 18) + 0.5)
-						DBM_GUI_OptionsFrame:UpdateMenuFrame(self:GetParent())						
+						DBM_GUI_OptionsFrame:UpdateMenuFrame(self:GetParent())
 					</OnVerticalScroll>
 				</Scripts>
 				<Frames>
@@ -362,7 +362,7 @@
 								<Offset>
 									<AbsDimension x="0" y="19"/>
 								</Offset>
-							</Anchor>	
+							</Anchor>
 						</Anchors>
 					</Slider>
 					<Frame name="$parentScrollChildFrame" hidden="true"/>
@@ -377,7 +377,7 @@
 				else
 					scrollBar:SetValue(scrollBar:GetValue() + (scrollBar:GetHeight() / 2))
 				end
-				DBM_GUI_OptionsFrame:UpdateMenuFrame(self)	
+				DBM_GUI_OptionsFrame:UpdateMenuFrame(self)
 			</OnMouseWheel>
 		</Scripts>
 	</Frame>
@@ -594,7 +594,7 @@
 								</Offset>
 							</Anchor>
 						</Anchors>
-						<Frames>		
+						<Frames>
 							<Slider name="$parentScrollBar" inherits="DBM_GUI_PanelScrollBarTemplate">
 								<Anchors>
 									<Anchor point="TOPRIGHT">
@@ -606,13 +606,13 @@
 										<Offset>
 											<AbsDimension x="15" y="13"/>
 										</Offset>
-									</Anchor>	
+									</Anchor>
 								</Anchors>
 								<Scripts>
 									<OnLoad>
 										self:SetMinMaxValues(0, 0)
 										self:SetValue(0)
-										self.offset = 0	
+										self.offset = 0
 									</OnLoad>
 									<OnVerticalScroll>
 										self:SetValue(offset);
@@ -701,7 +701,7 @@
 						_G[self:GetName().."BossMods"]:Show()
 						_G[self:GetName().."DBMOptions"]:Hide()
 
-					else 
+					else
 						_G[self:GetName().."Tab1Left"]:Show()
 						_G[self:GetName().."Tab1Right"]:Show()
 						_G[self:GetName().."Tab1Middle"]:Show()
@@ -741,7 +741,7 @@
 			</OnDragStop>
 		</Scripts>
 	</Frame>
-	
+
 	<Button name="DBM_GUI_FrameButtonTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="185" y="18"/>
@@ -797,12 +797,12 @@
 		<HighlightFont style="GameFontHighlight"/>
 		<HighlightTexture file="Interface\QuestFrame\UI-QuestLogTitleHighlight" alphaMode="ADD">
 			<Anchors>
-				<Anchor point="TOPLEFT">	
+				<Anchor point="TOPLEFT">
 					<Offset>
 						<AbsDimension x="0" y="1"/>
 					</Offset>
 				</Anchor>
-				<Anchor point="BOTTOMRIGHT">	
+				<Anchor point="BOTTOMRIGHT">
 					<Offset>
 						<AbsDimension x="0" y="1"/>
 					</Offset>
@@ -816,12 +816,12 @@
 			<Layer level="BACKGROUND">
 				<Texture name="$parentLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left">
 					<Size>
-						<AbsDimension x="32" y="32"/> 
+						<AbsDimension x="32" y="32"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT">
 							<Offset>
-								<AbsDimension x="-14" y="0"/> 
+								<AbsDimension x="-14" y="0"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -829,12 +829,12 @@
 				</Texture>
 				<Texture name="$parentRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right">
 					<Size>
-						<AbsDimension x="32" y="32"/> 
+						<AbsDimension x="32" y="32"/>
 					</Size>
 					<Anchors>
 						<Anchor point="RIGHT">
 							<Offset>
-								<AbsDimension x="6" y="0" /> 
+								<AbsDimension x="6" y="0" />
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -875,4 +875,3 @@
 	</EditBox>
 
 </Ui>
-

@@ -60,14 +60,11 @@ L:SetGeneralLocalization({
 	name = "Трое аптекарей"
 })
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	HummelActive	= "Хаммел вступает в бой",
 	BaxterActive	= "Бакстер вступает в бой",
 	FryeActive		= "Фрай вступает в бой"
-}
+})
 
 L:SetOptionLocalization({
 	TrioActiveTimer		= "Отсчет времени до вступления Троих аптекарей в бой"
@@ -92,11 +89,11 @@ L:SetWarningLocalization({
 	specWarnAttack	= "Ахун уязвим - атакуйте сейчас!"
 })
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	SubmergTimer	= "Исчезновение",
 	EmergeTimer		= "Появление",
 	TimerCombat		= "Начало боя"
-}
+})
 
 L:SetOptionLocalization({
 	Submerged		= "Предупреждение, когда Ахун исчезает",

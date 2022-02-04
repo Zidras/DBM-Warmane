@@ -7,75 +7,78 @@ local L
 -----------------
 L = DBM:GetModLocalization("Razorgore")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Бритвосмерт Неукротимый"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerAddsSpawn	= "Появление аддов"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	TimerAddsSpawn	= "Показывать таймер до первого появления аддов"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Phase2Emote = "убегает, как только сила сферы пошла на спад.",
 	YellEgg1 = "Ты заплатишь за то, что принуждал меня к этому!",
 	YellEgg2 = "Недоумки! Эти яйца ценнее, чем вы думаете!",
 	YellEgg3 = "Да сколько же можно?! Вы заплатите за это головой!",
 	YellPull = "Враги в инкубаторе! Бейте тревогу! Защищайте яйца любой ценой!"
-}
+})
+
 -------------------
 --  Vaelastrasz  --
 -------------------
 L = DBM:GetModLocalization("Vaelastrasz")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Валестраз Порочный"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Event = "Слишком поздно, друзья мои! Порча Нефария подчинила меня... Я не могу... справиться с собой."
-}
+})
 
 -----------------
 --  Broodlord  --
 -----------------
 L = DBM:GetModLocalization("Broodlord")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Предводитель драконов Разящий Бич"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Pull = "Таких, как вы, здесь быть не должно! Смерть грозит лишь вам!"
-}
+})
 
 ---------------
 --  Firemaw  --
 ---------------
 L = DBM:GetModLocalization("Firemaw")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Огнечрев"
-}
+})
 
 ---------------
 --  Ebonroc  --
 ---------------
 L = DBM:GetModLocalization("Ebonroc")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Черноскал"
-}
+})
 
 ----------------
 --  Flamegor  --
 ----------------
 L = DBM:GetModLocalization("Flamegor")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Пламегор"
-}
-
+})
 
 -----------------------
 --  Vulnerabilities  --
@@ -83,45 +86,50 @@ L:SetGeneralLocalization{
 -- Chromaggus, Death Talon Overseer and Death Talon Wyrmguard
 L = DBM:GetModLocalization("TalonGuards")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Стражи Когтя Смерти"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnVulnerable		= "Уязвимость к %s"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnVulnerable		= "Показывать предупреждение об уязвимости к заклинаниям"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Fire		= "Огню",
 	Nature		= "силам Природы",
 	Frost		= "магии Льда",
 	Shadow		= "Темной магии",
 	Arcane		= "Тайной магии",
 	Holy		= "Светлой магии"
-}
-
+})
 
 ------------------
 --  Chromaggus  --
 ------------------
 L = DBM:GetModLocalization("Chromaggus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Хромаггус"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnBreathSoon	= "Скоро дыхание",
 	WarnBreath		= "%s",
 	WarnVulnerable	= "Уязвимость к %s",
 	WarnPhase2Soon	= "Скоро 2-ая фаза"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerBreathCD	= "%s восстановление",
 	TimerBreath		= "Применение %s",
 	TimerVulnCD		= "Восстановление уязвимости"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnBreathSoon	= "Предварительное предупреждение Дыхания Хромаггуса",
 	WarnBreath		= "Показывать предупреждение о дыханиях Хромаггуса",
 	WarnVulnerable	= "Показывать предупреждение об уязвимости к заклинаниям",
@@ -129,8 +137,9 @@ L:SetOptionLocalization{
 	TimerBreath		= "Показывать применение Дыхания",
 	TimerVulnCD		= "Показывать восстановление уязвимости",
 	WarnPhase2Soon	= "Предупреждать о второй фазе"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Breath1		= "Первое Дыхание",
 	Breath2		= "Второе Дыхание",
 	VulnEmote	= "%s уходит, мерцая.",
@@ -141,36 +150,40 @@ L:SetMiscLocalization{
 	Shadow		= "Темной магии",
 	Arcane		= "Тайной магии",
 	Holy		= "Светлой магии"
-}
+})
 
 ----------------
 --  Nefarian  --
 ----------------
 L = DBM:GetModLocalization("Nefarian-Classic")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Нефариан"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnAddsLeft		= "Осталось %d убийств",
 	WarnClassCallSoon	= "Скоро вызов класса",
 	WarnClassCall		= "Дебафф на %s",
 	WarnPhaseSoon		= "Скоро фаза %s",
 	WarnPhase			= "Фаза %s",
 	specwarnClassCall	= "Классовый зов на тебе!"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerClassCall		= "%s зов заканчивается"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	TimerClassCall		= "Показывать таймер классовых вызовов",
 	WarnClassCallSoon	= "Предупреждение классовых вызовов",
 	WarnClassCall		= "Объявлять классовый вызов",
 	WarnPhaseSoon		= "Объявлять, когда следующая фаза скоро начнется",
 	WarnPhase			= "Объявлять смену фаз",
 	specwarnClassCall	= "Показывать специальное предупреждение, когда вы подвержены классовому зову"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	YellP1		= "Да начнутся игры!",
 	YellP2		= "Браво, слуги мои! Смертные утрачивают мужество! Поглядим же, как они справятся с истинным Повелителем Черной горы!!!",
 	YellP3		= "Не может быть! Восстаньте, мои прислужники! Послужите господину еще раз!",
@@ -183,4 +196,4 @@ L:SetMiscLocalization{
 	YellWarlock	= "Чернокнижники, ну не беритесь вы за волшебство, которого сами не понимаете! Видите, что получилось?",
 	YellHunter	= "Охотники со своими жалкими пугачами!",
 	YellMage	= "И маги тоже? Осторожнее надо быть, когда играешь с магией…"
-}
+})

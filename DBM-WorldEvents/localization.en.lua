@@ -58,14 +58,11 @@ L:SetGeneralLocalization({
 	name = "Apothecary Trio"
 })
 
-L:SetWarningLocalization({
-})
-
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	HummelActive	= "Hummel becomes active",
 	BaxterActive	= "Baxter becomes active",
 	FryeActive		= "Frye becomes active"
-}
+})
 
 L:SetOptionLocalization({
 	TrioActiveTimer		= "Show timers for when Apothecary Trio becomes active"
@@ -90,11 +87,11 @@ L:SetWarningLocalization({
 	specWarnAttack	= "Ahune is vulnerable - Attack now!"
 })
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	SubmergTimer	= "Submerge",
 	EmergeTimer		= "Emerge",
 	TimerCombat		= "Combat starts"
-}
+})
 
 L:SetOptionLocalization({
 	Submerged		= "Show warning when Ahune submerges",

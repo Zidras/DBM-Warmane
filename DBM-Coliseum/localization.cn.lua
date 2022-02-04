@@ -12,21 +12,21 @@ local L
 ------------------------
 L = DBM:GetModLocalization("NorthrendBeasts")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "诺森德猛兽"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarningSnobold		= "狗头人奴隶 出现了"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextBoss		= "下一场战斗",
 	TimerEmerge			= "钻地结束",
 	TimerSubmerge		= "钻地"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarningSnobold		= "为狗头人奴隶出现显示警报",
 	PingCharge			= "当冰吼即将向你你冲锋时自动点击小地图",
 	ClearIconsOnIceHowl	= "冲锋前清除所有标记",
@@ -34,9 +34,9 @@ L:SetOptionLocalization{
 	TimerEmerge			= "显示钻地计时",
 	TimerSubmerge		= "显示钻地结束计时",
 	IcehowlArrow		= "当冰吼即将向你附近冲锋时显示DBM箭头"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Charge				= "%%s等着(%S+)，发出一阵震耳欲聋的怒吼！",
 	CombatStart			= "他来自风暴峭壁最幽深，最黑暗的洞穴，穿刺者戈莫克！准备战斗，英雄们！",
 	Phase2				= "做好准备，英雄们，两头猛兽已经进入了竞技场！它们是酸喉和恐鳞！",
@@ -45,36 +45,36 @@ L:SetMiscLocalization{
 	Acidmaw				= "酸喉",
 	Dreadscale			= "恐鳞",
 	Icehowl				= "冰吼"
-}
+})
 
 ---------------------
 --  Lord Jaraxxus  --
 ---------------------
 L = DBM:GetModLocalization("Jaraxxus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "加拉克苏斯大王"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	IncinerateShieldFrame	= "在首领血量里显示血肉成灰目标的血量"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	IncinerateTarget		= "血肉成灰 -> %s",
 	FirstPull				= "高阶术士威尔弗雷德·菲兹班将是你们的下一个对手。等待他的上场吧。"
-}
+})
 
 -------------------------
 --  Faction Champions  --
 -------------------------
 L = DBM:GetModLocalization("Champions")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "阵营冠军"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	--Horde NPCs
 	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t 戈瑞姆·影斩",				-- 34458
 	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 比莱纳·雷蹄",				-- 34451
@@ -109,40 +109,40 @@ L:SetMiscLocalization{
 	AllianceVictory			= "荣耀属于联盟！",
 	HordeVictory			= "这只是一个小小的开始。为了部落！",
 	--YellKill			= "肤浅且可悲的胜利。今天的内耗让我们又一次被削弱了。这种愚蠢的行为只能让巫妖王受益！伟大的战士们就这样白白牺牲，而真正的威胁却步步逼近。巫妖王正计算着我们的死期。"
-}
+})
 
 ---------------------
 --  Val'kyr Twins  --
 ---------------------
 L = DBM:GetModLocalization("ValkTwins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "瓦格里双子"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSpecialSpell		= "下一次 特殊技能",
 	TimerAnubRoleplay		= "坠落"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSpecialSpellSoon	= "特殊技能 即将到来",
 	SpecWarnSpecial			= "立刻变换颜色",
 	SpecWarnSwitchTarget	= "立刻切换目标攻击双生相协",
 	SpecWarnKickNow			= "立刻打断",
 	WarningTouchDebuff		= "光明或黑暗之触 -> >%s<",
 	WarningPoweroftheTwins2	= "双生之能 - 加大治疗 -> >%s<"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	YellPull = "以黑暗之主的名义。为了巫妖王。你必死无疑。",
 --	CombatStart	= "你们只有团结才能战胜最终的挑战。来自于冰冠冰川的深处，天灾军团最强的战将：巫妖王的双翼使者，恐怖的瓦格里！",
 	Fjola		= "光明邪使菲奥拉",
 	Eydis		= "黑暗邪使艾蒂丝",
 	AnubRP		= "这是对巫妖王的一次重创！你的实力绝不亚于银色北伐军的勇士。很快，我们将携手攻入冰冠堡垒，消灭天灾军团的残余！只要心齐，我们必将胜利！"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerSpecialSpell		= "为下一次特殊技能显示计时器",
 	TimerAnubRoleplay		= "计时条：地板破裂前的剧情",
 	WarnSpecialSpellSoon	= "为下一次特殊技能显示提前警报",
@@ -153,40 +153,40 @@ L:SetOptionLocalization{
 	SetIconOnDebuffTarget	= "为光明或黑暗之触的目标设置标记(英雄模式)",
 	WarningTouchDebuff		= "提示光明或黑暗之触的目标",
 	WarningPoweroftheTwins2	= "提示双生之能的目标"
-}
+})
 
 -----------------
 --  Anub'arak  --
 -----------------
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 				= "阿努巴拉克"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerEmerge			= "钻地结束",
 	TimerSubmerge		= "钻地",
 	timerAdds			= "下一次 掘地者出现"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnEmerge			= "阿努巴拉克钻出地面了",
 	WarnEmergeSoon		= "10秒后 钻出地面",
 	WarnSubmerge		= "阿努巴拉克钻进地里了",
 	WarnSubmergeSoon	= "10秒后 钻进地里",
 	warnAdds			= "掘地者 出现了"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Emerge				= "钻入了地下！",
 	Burrow				= "从地面上升起来了！",
 	YellBurrow			= "Auum na-l ak-k-k-k, isshhh。起来，奴仆们，吃吧……",
 	PcoldIconSet		= "刺骨之寒{rt%d} -> %s",
 	PcoldIconRemoved	= "移除标记 -> %s"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnEmerge			= "为钻出地面显示警报",
 	WarnEmergeSoon		= "为钻出地面显示提前警报",
 	WarnSubmerge		= "为钻进地里显示警报",
@@ -198,4 +198,4 @@ L:SetOptionLocalization{
 	AnnouncePColdIcons	= "公布$spell:68510目标设置的标记到团队频道<br/>(需要团长或助理权限)",
 	AnnouncePColdIconsRemoved	= "当移除$spell:68510的标记时也提示<br/>(需要上述选项)",
 	RemoveHealthBuffsInP3	= "在第 3 阶段开始时移除健康增益"
-}
+})

@@ -7,61 +7,61 @@ local L
 -----------------------
 L = DBM:GetModLocalization("FlameLeviathan")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Огненный Левиафан"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	PursueWarn				= "Преследуется >%s<",
 	warnNextPursueSoon		= "Смена цели через 5 секунд",
 	SpecialPursueWarnYou	= "Вас преследуют - бегите",
 	warnWardofLife			= "Призыв Защитника жизни"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	SpecialPursueWarnYou	= "Спец-предупреждение, когда на вас $spell:62374",
 	PursueWarn				= "Объявлять цели заклинания $spell:62374",
 	warnNextPursueSoon		= "Предупреждать заранее о следующем $spell:62374",
 	warnWardofLife			= "Спец-предупреждение для призыва Защитника жизни"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull	= "Обнаружены противники. Запуск протокола оценки угрозы. Главная цель выявлена. Повторный анализ через 30 секунд.",
 	Emote		= "%%s наводится на (%S+)%."
-}
+})
 
 --------------------------------
 --  Ignis the Furnace Master  --
 --------------------------------
 L = DBM:GetModLocalization("Ignis")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Повелитель Горнов Игнис"
-}
+})
 
 ------------------
 --  Razorscale  --
 ------------------
 L = DBM:GetModLocalization("Razorscale")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Острокрылая"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	warnTurretsReadySoon		= "Гарпунные пушки будут собраны через 20 секунд",
 	warnTurretsReady			= "Гарпунные пушки собраны"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerTurret1	= "Гарпунная пушка 1",
 	timerTurret2	= "Гарпунная пушка 2",
 	timerTurret3	= "Гарпунная пушка 3",
 	timerTurret4	= "Гарпунная пушка 4",
 	timerGrounded	= "на земле"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	warnTurretsReadySoon		= "Пред-предупреждение для пушек",
 	warnTurretsReady			= "Предупреждение для пушек",
 	timerTurret1				= "Отсчет времени до пушки 1",
@@ -69,38 +69,38 @@ L:SetOptionLocalization{
 	timerTurret3				= "Отсчет времени до пушки 3 (25 чел.)",
 	timerTurret4				= "Отсчет времени до пушки 4 (25 чел.)",
 	timerGrounded			    = "Отсчет времени для наземной фазы"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellAir				= "Дайте время подготовить пушки.",
 	YellAir2			= "Огонь прекратился! Надо починить пушки!",
 	YellGround			= "Быстрее! Сейчас она снова взлетит!",
 	EmotePhase2			= "%%s обессилела и больше не может летать!"
-}
+})
 
 ----------------------------
 --  XT-002 Deconstructor  --
 ----------------------------
 L = DBM:GetModLocalization("XT002")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Разрушитель XT-002"
-}
+})
 
 --------------------
 --  Iron Council  --
 --------------------
 L = DBM:GetModLocalization("IronCouncil")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Железное собрание"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	AlwaysWarnOnOverload		= "Всегда предупреждать при $spell:63481<br/>(иначе, только когда босс в цели)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Steelbreaker		= "Сталелом",
 	RunemasterMolgeim	= "Мастер рун Молгейм",
 	StormcallerBrundir	= "Буревестник Брундир"
@@ -114,61 +114,61 @@ L:SetMiscLocalization{
 --	YellStormcallerBrundirDied2 = "Вас ждет бездна безумия!",
 --	YellSteelbreakerDied = "Мое поражение лишь приблизит вашу погибель.",
 --	YellSteelbreakerDied2 = "Не может быть!"
-}
+})
 
 ----------------------------
 --  Algalon the Observer  --
 ----------------------------
 L = DBM:GetModLocalization("Algalon")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Алгалон Наблюдатель"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextCollapsingStar		= "Вспыхивающая звезда",
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	warnStarLow				= "У Вспыхивающей звезды мало здоровья"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	NextCollapsingStar		= "Отсчет времени до появления Вспыхивающей звезды",
 	warnStarLow				= "Спец-предупреждение, когда у Вспыхивающей звезды мало здоровья (на ~25%)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	FirstPull				= "Взгляните на мир моими глазами: узрите необъятную вселенную, непостижимую даже для величайших умов.",
 --	YellPull				= "Ваши действия нелогичны. Все возможные исходы этой схватки просчитаны. Пантеон получит сообщение от Наблюдателя в любом случае.",
 	YellKill				= "Я видел миры, охваченные пламенем Творцов. Их жители гибли, не успев издать ни звука. Я был свидетелем того, как галактики рождались и умирали в мгновение ока. И все время я оставался холодным... и безразличным. Я. Не чувствовал. Ничего. Триллионы загубленных судеб. Неужели все они были подобны вам? Неужели все они так же любили жизнь?",
 	Emote_CollapsingStar	= "%s призывает взрывающиеся звезды!",
 --	Phase2					= "Узрите чудо созидания!",
 	CollapsingStar			= "Вспыхивающая звезда"
-}
+})
 
 ----------------
 --  Kologarn  --
 ----------------
 L = DBM:GetModLocalization("Kologarn")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Кологарн"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerLeftArm		= "Возрождение левой руки",
 	timerRightArm		= "Возрождение правой руки",
 	achievementDisarmed	= "Обезоружен"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	timerLeftArm			= "Отсчет времени до Возрождения левой руки",
 	timerRightArm			= "Отсчет времени до Возрождения правой руки",
 	achievementDisarmed		= "Отсчет времени для достижения Обезоружен"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	Yell_Trigger_arm_left	= "Царапина...",
 --	Yell_Trigger_arm_right	= "Всего лишь плоть!",
 --	YellEncounterStart		= "Вам не пройти!",
@@ -178,99 +178,99 @@ L:SetMiscLocalization{
 	Health_Right_Arm		= "Правая рука",
 	Health_Left_Arm			= "Левая рука",
 	FocusedEyebeam			= "%s устремляет на вас свой взгляд!"
-}
+})
 
 ---------------
 --  Auriaya  --
 ---------------
 L = DBM:GetModLocalization("Auriaya")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ауриайа"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnCatDied		= "Дикий эащитник погибает (осталось %d жизней)",
 	WarnCatDiedOne	= "Дикий эащитник погибает (осталась 1 жизнь)"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	timerDefender	= "Возрождение Дикого защитника"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnCatDied		= "Предупреждение, когда Дикий защитник погибает",
 	WarnCatDiedOne	= "Предупреждение, когда у Дикого защитника остается 1 жизнь",
 	timerDefender	= "Отсчет времени до возрождения Дикого защитника"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Defender = "Дикий эащитник (%d)",
 	YellPull = "Вы зря сюда заявились!"
-}
+})
 
 -------------
 --  Hodir  --
 -------------
 L = DBM:GetModLocalization("Hodir")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ходир"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellKill	= "Наконец-то я... свободен от его оков…"
-}
+})
 
 --------------
 --  Thorim  --
 --------------
 L = DBM:GetModLocalization("Thorim")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Торим"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHardmode	= "Сложный режим"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerHardmode	= "Отсчет времени для сложного режима",
 	AnnounceFails	= "Объявлять игроков, попавших под $spell:62017, в рейд-чат<br/>(требуются права лидера или помощника)"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPhase1	= "Незваные гости! Вы заплатите за то, что посмели вмешаться... Погодите, вы...",
 	YellPhase2	= "Бесстыжие выскочки, вы решили бросить вызов мне лично? Я сокрушу вас всех!",
 	YellKill	= "Придержите мечи! Я сдаюсь.",
 	ChargeOn	= "Разряд молнии: %s",
 	Charge		= "Попали под Разряд молнии (в этом бою): %s"
-}
+})
 
 -------------
 --  Freya  --
 -------------
 L = DBM:GetModLocalization("Freya")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Фрейя"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSimulKill	= "Первый помощник погиб - воскрешение через ~12 сек."
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSimulKill	= "Воскрешение"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnSimulKill	= "Объявлять, когда первый монстр погибает",
 	TimerSimulKill	= "Отсчет времени до воскрешения монстров"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	SpawnYell          = "Помогите мне, дети мои!",
 	WaterSpirit        = "Древний дух воды",
 	Snaplasher         = "Хватоплет",
@@ -280,47 +280,47 @@ L:SetMiscLocalization{
 	YellAdds2          = "Вас захлестнет сила стихий!",
 	EmoteLGift         = "начинает расти!", -- |cFF00FFFFДар Хранительницы жизни|r начинает расти!
 	TrashRespawnTimer  = "Возрождение монстров"
-}
+})
 
 ----------------------
 --  Freya's Elders  --
 ----------------------
 L = DBM:GetModLocalization("Freya_Elders")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Древни Фрейи"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TrashRespawnTimer	= "Отсчет времени до возрождения монстров"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	TrashRespawnTimer	= "Возрождение монстров",
-}
+})
 
 ---------------
 --  Mimiron  --
 ---------------
 L = DBM:GetModLocalization("Mimiron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Мимирон"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	MagneticCore		= "Магнитное ядро у |3-1(>%s<)",
 	WarnBombSpawn		= "Бомбот"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerHardmode	= "Сложный режим - Самоуничтожение",
 	TimeToPhase2	= "Фаза 2",
 	TimeToPhase3	= "Фаза 3",
 	TimeToPhase4	= "Фаза 4"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimeToPhase2			= "Отсчет времени для фазы 2",
 	TimeToPhase3			= "Отсчет времени для фазы 3",
 	TimeToPhase4			= "Отсчет времени для фазы 4",
@@ -328,9 +328,9 @@ L:SetOptionLocalization{
 	AutoChangeLootToFFA		= "Смена режима добычи на Каждый за себя в фазе 3",
 	WarnBombSpawn			= "Предупреждение о Бомботах",
 	TimerHardmode			= "Отсчет времени для сложного режима"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	MobPhase1		= "Левиафан II",
 	MobPhase2		= "VX-001 <Противопехотная пушка>",
 	MobPhase3		= "Воздушное судно",
@@ -341,40 +341,40 @@ L:SetMiscLocalization{
 	YellPhase4		= "Фаза предварительной проверки завершена. Пора начать главный тест!",
 	YellKilled		= "Очевидно, я совершил небольшую ошибку в расчетах. Пленный злодей затуманил мой разум и заставил меня отклониться от инструкций. Сейчас все системы в норме. Конец связи.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"
-}
+})
 
 ---------------------
 --  General Vezax  --
 ---------------------
 L = DBM:GetModLocalization("GeneralVezax")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Генерал Везакс"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	hardmodeSpawn = "Саронитовый враг"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	hardmodeSpawn					= "Отсчет времени до появления Саронитового врага (сложный режим)",
 	CrashArrow						= "Показывать стрелку, когда $spell:62660 около вас"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	EmoteSaroniteVapors	= "Поблизости начинают возникать саронитовые испарения!"
-}
+})
 
 ------------------
 --  Yogg-Saron  --
 ------------------
 L = DBM:GetModLocalization("YoggSaron")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Йогг-Сарон"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarningGuardianSpawned 			= "Страж %d",
 	WarningCrusherTentacleSpawned	= "Тяжелое щупальце",
 	WarningSanity 					= "Осталось %d Здравомыслия",
@@ -383,13 +383,13 @@ L:SetWarningLocalization{
 	SpecWarnMadnessOutNow			= "Доведение до помешательства заканчивается - выбегайте",
 	WarnBrainPortalSoon				= "Провал Безумия через 3 секунды",
 	SpecWarnBrainPortalSoon			= "Скоро Провал Безумия"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	NextPortal	= "Провал Безумия"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarningGuardianSpawned			= "Предупреждение о появлении Стража",
 	WarningCrusherTentacleSpawned	= "Предупреждение о появлении Тяжелого щупальца",
 	WarningSanity					= "Предупреждение, когда у вас мало $spell:63050",
@@ -401,9 +401,9 @@ L:SetOptionLocalization{
 	NextPortal						= "Отсчет времени до следующего Провала Безумия",
 	ShowSaraHealth					= "Показывать здоровье Сары в фазе 1 (должна быть в цели или фокусе хотя бы у одного члена рейда)",
 	MaladyArrow						= "Показывать стрелку, когда $spell:63881 около вас"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	YellPull	= "Скоро мы сразимся с главарем этих извергов! Обратите гнев и ненависть против его прислужников!",
 	Sara		= "Сара"
-}
+})

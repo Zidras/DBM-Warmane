@@ -4,21 +4,21 @@ local L
 -- Doom Lord Kazzak
 L = DBM:GetModLocalization("Kazzak")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Verdammnislord Kazzak"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	DBM_KAZZAK_EMOTE_ENRAGE		= "%s wird wütend!" --guessed translation / currently unused (r335)
-}
+})
 
 -- Doomwalker
 L = DBM:GetModLocalization("Doomwalker")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Verdammniswandler"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	DBM_DOOMW_EMOTE_ENRAGE	= "%s wird wütend!" --guessed translation / currently unused (r335)
-}
+})

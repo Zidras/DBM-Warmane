@@ -7,21 +7,21 @@ local L
 ------------------------
 L = DBM:GetModLocalization("NorthrendBeasts")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "노스렌드의 야수"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarningSnobold			= "스노볼트 부하 생성 : >%s<"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerNextBoss			= "곧 다음 우두머리",
 	TimerEmerge				= "출현",
 	TimerSubmerge			= "숨기"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarningSnobold			= "스노볼트 부하 생성 알림 보기",
 	PingCharge				= "얼음울음에게 사나운 돌진의 대상이 될 경우 미니맵에 핑 표시하기",
 	ClearIconsOnIceHowl		= "사나운 돌진 전에 모든 전술 목표 아이콘 지움",
@@ -29,9 +29,9 @@ L:SetOptionLocalization{
 	TimerEmerge				= "출현 바 보기",
 	TimerSubmerge			= "숨기 바 보기",
 	IcehowlArrow			= "사나운 돌진 대상이 가까이 있을 경우 DBM 화살표 보기"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	Charge					= "노려보며 큰 소리로 울부짖습니다.",
 	CombatStart				= "폭풍우 봉우리의 가장 깊고 어두운 동굴에서 온, 꿰뚫는 자 고르목일세! 영웅들이여, 전투에 임하게!",
 	Phase2					= "마음을 단단히 먹게, 영웅들이여. 두 배의 공포, 산성아귀와 공포비늘이 투기장으로 들어온다네!",
@@ -40,36 +40,36 @@ L:SetMiscLocalization{
 	Acidmaw					= "산성아귀",
 	Dreadscale				= "공포비늘",
 	Icehowl					= "얼음울음"
-}
+})
 
 -------------------
 -- Lord Jaraxxus --
 -------------------
 L = DBM:GetModLocalization("Jaraxxus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "군주 자락서스"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	IncinerateShieldFrame	= "우두머리 체력 바 사용시 살점 소각 치유량 바 함께 보기"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	IncinerateTarget		= "살점 소각: %s",
 	FirstPull				= "대흑마법사 윌프레드 피즐뱅이 다음 상대를 소환할 걸세. 기다리고 있게나."
-}
+})
 
 -----------------------
 -- Faction Champions --
 -----------------------
 L = DBM:GetModLocalization("Champions")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "진영 대표 용사"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 	--Horde NPCs
 	Gorgrim				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t 고르그림 섀도클리브",		-- 34458
 	Birana				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 비라나 스톰후프",			-- 34451
@@ -104,40 +104,40 @@ L:SetMiscLocalization{
 	AllianceVictory 	= "얼라이언스에 영광을!",
 	HordeVictory		= "앞으로 일어날 일의 맛보기일 뿐이다. 호드를 위하여!"
 	--YellKill			= "상처뿐인 승리로군. 오늘 받은 손해로 우리 전력은 약해졌네. 이런 어리석은 짓으로 리치 왕 말고 또 누가 이득을 보겠나? 위대한 용사들이 목숨을 잃었네. 무엇을 위해서였나? 진짜 위협은 저 앞에 있네. 리치 왕이 우리 모두를 죽음 안에서 기다린다네.",
-}
+})
 
 ------------------
 -- Valkyr Twins --
 ------------------
 L = DBM:GetModLocalization("ValkTwins")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "발키르 쌍둥이"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerSpecialSpell	= "다음 소용돌이/서약",
 	TimerAnubRoleplay	= "바닥 파손"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "곧 소용돌이 또는 서약",
 	SpecWarnSpecial				= "차원문 클릭하여 반대 속성으로 변경!",
 	SpecWarnSwitchTarget		= "대상 전환!",
 	SpecWarnKickNow				= "지금 차단!",
 	WarningTouchDebuff			= "손길 : >%s<",
 	WarningPoweroftheTwins2		= "쌍둥이의 힘 : %s",
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	YellPull 	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
 --	CombatStart	= "함께 힘을 모아야만 마지막 도전을 이겨낼 수 있네. 얼음왕관 심연에서 가장 강력한 스컬지 대리인 둘이 왔네. 무시무시한 발키르, 날개를 단 리치 왕의 전령일세!",
 	Fjola		= "피욜라 라이트베인",
 	Eydis		= "아이디스 다크베인",
 	AnubRP		= "리치 왕에게 큰 타격을 주었군! 그대들은 은빛십자군의 강건한 용사임을 입증했네. 우리는 함께 얼음왕관 성채를 공격하고 남은 스컬지를 물리칠 걸세! 힘을 합친 우리가 이겨내지 못할 도전은 없네!"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	TimerSpecialSpell			= "다음 속성의 소용돌이 또는 쌍둥이의 서약 바 보기",
 	TimerAnubRoleplay			= "역할 수행(롤플레이) 지속 시간 타이머 바 보기",
 	WarnSpecialSpellSoon		= "속성의 소용돌이 또는 쌍둥이의 서약 이전에 일림 보기",
@@ -148,32 +148,32 @@ L:SetOptionLocalization{
 	SetIconOnDebuffTarget		= "빛/어둠의 손길 대상에게 전술 목표 아이콘 설정(영웅 난이도)",
 	WarningTouchDebuff			= "빛/어둠의 손길 대상 알림 보기",
 	WarningPoweroftheTwins2		= "쌍둥이의 힘 대상 알림 보기",
-}
+})
 
 ------------------
 -- Anub'arak --
 ------------------
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name 				= "아눕아락"
-}
+})
 
-L:SetTimerLocalization{
+L:SetTimerLocalization({
 	TimerEmerge			= "다음 출현",
 	TimerSubmerge		= "다음 잠수",
 	timerAdds			= "다음 네루비안 땅무지"
-}
+})
 
-L:SetWarningLocalization{
+L:SetWarningLocalization({
 	WarnEmerge				= "아눕아락 출현",
 	WarnEmergeSoon			= "10초 이내 출현",
 	WarnSubmerge			= "아눕아락 잠수",
 	WarnSubmergeSoon		= "10초 이내 잠수",
 	warnAdds				= "네루비안 땅무지"
-}
+})
 
-L:SetMiscLocalization{
+L:SetMiscLocalization({
 --	YellPull				= "여기가 네 무덤이 되리라!",
 --	Swarm					= "착취의 무리가 너희를 덮치리라!",
 	Emerge					= "땅속에서 모습을 드러냅니다!",
@@ -181,9 +181,9 @@ L:SetMiscLocalization{
 	YellBurrow				= "아움 날락크, 쉬. 일어나라, 부하들아. 먹어치워라...",
 	PcoldIconSet			= "냉기 관통 아이콘{rt%d} : %s",
 	PcoldIconRemoved		= "냉기 관통 아이콘 제거 : %s"
-}
+})
 
-L:SetOptionLocalization{
+L:SetOptionLocalization({
 	WarnEmerge					= "출현 알림 보기",
 	WarnEmergeSoon				= "출현 이전에 알림 보기",
 	WarnSubmerge				= "잠수 알림 보기",
@@ -195,4 +195,4 @@ L:SetOptionLocalization{
 	AnnouncePColdIcons			= "$spell:66013 전술 목표 아이콘 설정시 공격대 대화로 알리기(공격대장 권한 필요)",
 	AnnouncePColdIconsRemoved	= "$spell:66013 전술 목표 아이콘 제거시 공격대 대화로 알리기(위 설정 필요)",
 	RemoveHealthBuffsInP3		= "3 페이즈를 시작할 때 HP 버프 지우기"
-}
+})

@@ -6,59 +6,63 @@ local L
 ------------
 L = DBM:GetModLocalization("Skeram")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Le Prophète Skeram"
-}
+})
 
 ----------------
 -- Three Bugs --
 ----------------
 L = DBM:GetModLocalization("ThreeBugs")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Trio d'insectes"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Yauj = "Princesse Yauj",
 	Vem = "Vem",
 	Kri = "Seigneur Kri"
-}
+})
 
 -------------
 -- Sartura --
 -------------
 L = DBM:GetModLocalization("Sartura")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Garde de guerre Sartura"
-}
+})
 
 --------------
 -- Fankriss --
 --------------
 L = DBM:GetModLocalization("Fankriss")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Fankriss l'Inflexible"
-}
+})
 
 --------------
 -- Viscidus --
 --------------
 L = DBM:GetModLocalization("Viscidus")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Viscidus"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnFreeze	= "Gel : %d/3",
 	WarnShatter	= "Briser : %d/3"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnFreeze	= "Annoncer l'état de Gel",
 	WarnShatter	= "Annoncer l'état de Briser"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Slow	= "commence à ralentir !",
 	Freezing= "est gelé !",
 	Frozen	= "est congelé !",
@@ -69,51 +73,57 @@ L:SetMiscLocalization{
 	HitsRemain	= "Touche restante",
 	Frost		= "Givre",
 	Physical	= "Physique"
-}
+})
+
 -------------
 -- Huhuran --
 -------------
 L = DBM:GetModLocalization("Huhuran")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Princesse Huhuran"
-}
+})
+
 ---------------
 -- Twin Emps --
 ---------------
 L = DBM:GetModLocalization("TwinEmpsAQ")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Empereurs Jumeaux"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Veklor = "Empereur Vek'lor",
 	Veknil = "Empereur Vek'nilash"
-}
+})
 
 ------------
 -- C'Thun --
 ------------
 L = DBM:GetModLocalization("CThun")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "C'Thun"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnEyeTentacle			= "Tentacule oculaire",
 	WarnClawTentacle2		= "Tentacule griffu",
 	WarnGiantEyeTentacle	= "Tentacule oculaire géant",
 	WarnGiantClawTentacle	= "Tentacule griffu géant",
 	SpecWarnWeakened		= "C'Thun est affaibli !"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerEyeTentacle		= "Prochain Tentacule oculaire",
 	TimerClawTentacle		= "Prochain Tentacule griffu",
 	TimerGiantEyeTentacle	= "Prochain Tentacule oculaire géant",
 	TimerGiantClawTentacle	= "Prochain Tentacule griffu géant",
 	TimerWeakened			= "Faiblesse terminé"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnEyeTentacle			= "Afficher l'avertissement pour Tentacule oculaire",
 	WarnClawTentacle2		= "Afficher l'avertissement pour Tentacule griffu",
 	WarnGiantEyeTentacle	= "Afficher l'avertissement pour Tentacule oculaire géant",
@@ -125,42 +135,47 @@ L:SetOptionLocalization{
 	TimerGiantClawTentacle	= "Afficher le timer pour le prochain Tentacule griffu géant",
 	TimerWeakened			= "Afficher le timer pour la durée d'affaiblissement du boss",
 	RangeFrame				= "Afficher le cadre de portée (10 m)"
-}
-L:SetMiscLocalization{
+})
+
+L:SetMiscLocalization({
 	Stomach		= "Estomac",
 	Eye			= "Oeil de C'Thun",
 	FleshTent	= "Tentacule de chair",
 	Weakened 	= "est affaibli !",
 	NotValid	= "AQ40 partiellement effacé. %s bosses optionnels restent."
-}
+})
+
 ----------------
 -- Ouro --
 ----------------
 L = DBM:GetModLocalization("Ouro")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "Ouro"
-}
-L:SetWarningLocalization{
+})
+
+L:SetWarningLocalization({
 	WarnSubmerge		= "Submerger",
 	WarnEmerge			= "Émerger"
-}
-L:SetTimerLocalization{
+})
+
+L:SetTimerLocalization({
 	TimerSubmerge		= "Submerger",
 	TimerEmerge			= "Émerger"
-}
-L:SetOptionLocalization{
+})
+
+L:SetOptionLocalization({
 	WarnSubmerge		= "Afficher l'avertissement pour submerger",
 	TimerSubmerge		= "Afficher le timer pour submerger",
 	WarnEmerge			= "Afficher l'avertissement pour émerger",
 	TimerEmerge			= "Afficher le timer pour émerger"
-}
+})
 
 ----------------
 -- AQ40 Trash --
 ----------------
 L = DBM:GetModLocalization("AQ40Trash")
 
-L:SetGeneralLocalization{
+L:SetGeneralLocalization({
 	name = "AQ40: Ennemis communs"
-}
+})
