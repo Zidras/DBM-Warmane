@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4408 $"):sub(12, -3))
 mod:SetCreatureID(37970, 37972, 37973)
-mod:SetUsedIcons(1, 8)
+mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
 
 mod:SetBossHealthInfo(
@@ -64,9 +64,11 @@ local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm =
 
 mod:AddRangeFrameOption("12")
 mod:AddSetIconOption("EmpoweredFlameIcon", 72040, true, false, {1})
+mod:AddSetIconOption("SetIconOnKineticBomb", 72053, true, true, {5, 6, 7})
 mod:AddArrowOption("VortexArrow", 72037, true, 2)
 mod:AddBoolOption("ActivePrinceIcon", false)
 
+mod.vb.kineticIcon = 7
 local activePrince
 local glitteringSparksTargets	= {}
 
@@ -77,6 +79,7 @@ local function warnGlitteringSparksTargets()
 end
 
 function mod:OnCombatStart(delay)
+	self.vb.kineticIcon = 7
 	berserkTimer:Start(-delay)
 	warnTargetSwitchSoon:Schedule(42-delay)
 	warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
@@ -275,6 +278,13 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 			timerKineticBombCD:Start(27)
 		else
 			timerKineticBombCD:Start()
+		end
+		if self.Options.SetIconOnKineticBomb then
+			self:ScanForMobs(38454, 2, self.vb.kineticIcon, 5, nil, 12, "SetIconOnKineticBomb", false, nil, true)
+			self.vb.kineticIcon = self.vb.kineticIcon - 1
+			if self.vb.kineticIcon < 5 then
+				self.vb.kineticIcon = 7
+			end
 		end
 	end
 end
