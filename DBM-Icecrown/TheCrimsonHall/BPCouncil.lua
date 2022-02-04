@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 4408 $"):sub(12, -3))
 mod:SetCreatureID(37970, 37972, 37973)
-mod:SetUsedIcons(7, 8)
+mod:SetUsedIcons(1, 8)
 mod:SetBossHPInfoToHighest()
 
 mod:SetBossHealthInfo(
@@ -62,10 +62,10 @@ local soundEmpoweredFlames		= mod:NewSound(72040)
 
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
-mod:AddBoolOption("EmpoweredFlameIcon", true)
+mod:AddRangeFrameOption("12")
+mod:AddSetIconOption("EmpoweredFlameIcon", 72040, true, false, {1})
+mod:AddArrowOption("VortexArrow", 72037, true, 2)
 mod:AddBoolOption("ActivePrinceIcon", false)
-mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("VortexArrow")
 
 local activePrince
 local glitteringSparksTargets	= {}
@@ -93,6 +93,9 @@ end
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+	end
+	if self.Options.VortexArrow then
+		DBM.Arrow:Hide()
 	end
 end
 
@@ -133,7 +136,7 @@ function mod:TrySetTarget()
 		for uId in DBM:GetGroupMembers() do
 			if UnitGUID(uId.."target") == activePrince then
 				activePrince = nil
-				SetRaidTarget(uId.."target", 8)
+				self:SetIcon(uId.."target", 8)
 			end
 			if not (activePrince) then
 				break
@@ -253,7 +256,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			warnEmpoweredFlames:Show(target)
 		end
 		if self.Options.EmpoweredFlameIcon then
-			self:SetIcon(target, 7, 10)
+			self:SetIcon(target, 1, 10)
 		end
 	end
 end

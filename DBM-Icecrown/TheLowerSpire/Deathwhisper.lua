@@ -176,10 +176,10 @@ local function TrySetTarget(self)
 		for uId in DBM:GetGroupMembers() do
 			if UnitGUID(uId.."target") == deformedFanatic and self.Options.SetIconOnDeformedFanatic then
 				deformedFanatic = nil
-				SetRaidTarget(uId.."target", 8)
+				self:SetIcon(uId.."target", 8)
 			elseif UnitGUID(uId.."target") == empoweredAdherent and self.Options.SetIconOnEmpoweredAdherent then
 				empoweredAdherent = nil
-				SetRaidTarget(uId.."target", 7)
+				self:SetIcon(uId.."target", 7)
 			end
 			if not (deformedFanatic or empoweredAdherent) then
 				break

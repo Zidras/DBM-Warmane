@@ -160,7 +160,7 @@ function mod:TrySetTarget()
 		for uId in DBM:GetGroupMembers() do
 			if UnitGUID(uId.."target") == self.vb.blazingSkeleton then
 				self.vb.blazingSkeleton = nil
-				SetRaidTarget(uId.."target", 8)
+				self:SetIcon(uId.."target", 8)
 			end
 			if not self.vb.blazingSkeleton then
 				break
