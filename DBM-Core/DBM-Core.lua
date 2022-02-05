@@ -56,6 +56,7 @@ f:SetScript("OnUpdate", fCLFix)
 --]]
 
 local L = DBM_CORE_L
+local CL = DBM_COMMON_L
 
 -------------------------------
 --  Globals/Default Options  --
@@ -639,7 +640,7 @@ do
 	-- also, the end of the format directive is not detected in all cases, but handles everything that occurs in our boss mods ;)
 	--> not suitable for general-purpose use, just for our warnings and timers (where an argument like a spell-target might be nil due to missing target information from unreliable detection methods)
 	local function replace(cap1, cap2)
-		return cap1 == "%" and L.UNKNOWN
+		return cap1 == "%" and CL.UNKNOWN
 	end
 
 	function pformat(fstr, ...)
@@ -1255,7 +1256,7 @@ do
 							category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
 							statTypes		= GetAddOnMetadata(i, "X-DBM-StatTypes") or "",
 							name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or "",
-							zone			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZone") or L.UNKNOWN)},
+							zone			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZone") or CL.UNKNOWN)},
 							zoneId			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")},
 							subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
 							oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1,
@@ -1763,7 +1764,7 @@ end
 
 function DBM:ApplyProfile(name)
 	if not name or not DBM_AllSavedOptions[name] then
-		self:AddMsg(L.PROFILE_APPLY_ERROR:format(name or L.UNKNOWN))
+		self:AddMsg(L.PROFILE_APPLY_ERROR:format(name or CL.UNKNOWN))
 		return
 	end
 	usedProfile = name
@@ -1778,7 +1779,7 @@ end
 
 function DBM:CopyProfile(name)
 	if not name or not DBM_AllSavedOptions[name] then
-		self:AddMsg(L.PROFILE_COPY_ERROR:format(name or L.UNKNOWN))
+		self:AddMsg(L.PROFILE_COPY_ERROR:format(name or CL.UNKNOWN))
 		return
 	elseif name == usedProfile then
 		self:AddMsg(L.PROFILE_COPY_ERROR_SELF)
@@ -1795,7 +1796,7 @@ end
 
 function DBM:DeleteProfile(name)
 	if not name or not DBM_AllSavedOptions[name] then
-		self:AddMsg(L.PROFILE_DELETE_ERROR:format(name or L.UNKNOWN))
+		self:AddMsg(L.PROFILE_DELETE_ERROR:format(name or CL.UNKNOWN))
 		return
 	elseif name == "Default" then-- Default profile cannot be deleted.
 		self:AddMsg(L.PROFILE_CANNOT_DELETE)
@@ -2446,7 +2447,7 @@ do
 				if reason then
 					self:AddMsg(L.LOAD_GUI_ERROR:format(tostring(_G["ADDON_"..reason or ""])))
 				else
-					self:AddMsg(L.LOAD_GUI_ERROR:format(L.UNKNOWN))
+					self:AddMsg(L.LOAD_GUI_ERROR:format(CL.UNKNOWN))
 				end
 				return false
 			end
@@ -2716,7 +2717,7 @@ do
 				return unitId
 			end
 		end
-		return L.UNKNOWN
+		return CL.UNKNOWN
 	end
 
 	function DBM:GetPlayerGUIDByName(name)
@@ -3033,7 +3034,7 @@ function DBM:LoadModOptions(modId, inCombat, first)
 	_G[savedVarsName][fullname] = savedOptions
 	if profileNum > 0 then
 		_G[savedVarsName][fullname]["talent"..profileNum] = currentSpecName
-		self:Debug("LoadModOptions: Finished loading "..(_G[savedVarsName][fullname]["talent"..profileNum] or L.UNKNOWN))
+		self:Debug("LoadModOptions: Finished loading "..(_G[savedVarsName][fullname]["talent"..profileNum] or CL.UNKNOWN))
 	end
 	_G[savedStatsName] = savedStats
 	if not first and DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
@@ -3703,7 +3704,7 @@ do
 		local _, zoneType = IsInInstance()
 		if zoneType == "pvp" or zoneType == "arena" then return end
 		local mod = DBM:GetModByName(modid or "")
-		local ability = abilityName or L.UNKNOWN
+		local ability = abilityName or CL.UNKNOWN
 		if mod and modvar and text and text ~= "" then
 			if DBM:AntiSpam(5, modvar) then--Don't allow calling same note more than once per 5 seconds
 				DBM:AddMsg(L.NOTE_SHARE_SUCCESS:format(sender, abilityName))
@@ -3786,7 +3787,7 @@ do
 		else--Not from self, it means someone with a higher version than us probably sent it
 			canSetIcons[optionName] = false
 		end
-		local name = DBM:GetFullPlayerNameByGUID(iconSetPerson[optionName]) or L.UNKNOWN
+		local name = DBM:GetFullPlayerNameByGUID(iconSetPerson[optionName]) or CL.UNKNOWN
 		DBM:Debug(name.." was elected icon setter for "..optionName, 2)
 		DBM:AddMsg(name.." was elected icon setter for "..optionName)
 	end
@@ -4245,8 +4246,8 @@ do
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				difficulty = tonumber(difficulty)
 				if not DBM.Options.ShowGuildMessagesPlus then return end
-				local bossName = name or L.UNKNOWN
-				local difficultyName = L.UNKNOWN
+				local bossName = name or CL.UNKNOWN
+				local difficultyName = CL.UNKNOWN
 				if difficulty == 4 then
 					difficultyName = RAID_DIFFICULTY4
 				elseif difficulty == 3 then
@@ -4268,8 +4269,8 @@ do
 				difficulty = tonumber(difficulty)
 				if not DBM.Options.ShowGuildMessagesPlus then return end
 				modId = tonumber(modId)
-				local bossName = name or L.UNKNOWN
-				local difficultyName = L.UNKNOWN
+				local bossName = name or CL.UNKNOWN
+				local difficultyName = CL.UNKNOWN
 				if difficulty == 4 then
 					difficultyName = RAID_DIFFICULTY4
 				elseif difficulty == 3 then
@@ -4302,7 +4303,7 @@ do
 			if not result then
 				return
 			end
-			name = name or L.UNKNOWN
+			name = name or CL.UNKNOWN
 			id = id or ""
 			diff = tonumber(diff or 0) or 0
 			maxPlayers = tonumber(maxPlayers or 0) or 0
@@ -4494,7 +4495,7 @@ do
 		lastBossEngage[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
 			--modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or L.UNKNOWN
+			local bossName = name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), sender))
 		end
 	end
@@ -4505,7 +4506,7 @@ do
 		lastBossDefeat[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
 			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or L.UNKNOWN
+			local bossName = name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, sender))
 		end
 	end
@@ -4515,9 +4516,9 @@ do
 		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
 		lastBossEngage[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
-			local toonName = sender or L.UNKNOWN
+			local toonName = sender or CL.UNKNOWN
 			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or L.UNKNOWN
+			local bossName = name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), toonName))
 		end
 	end
@@ -4527,9 +4528,9 @@ do
 		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
 		lastBossDefeat[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
-			local toonName = sender or L.UNKNOWN
+			local toonName = sender or CL.UNKNOWN
 			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or L.UNKNOWN
+			local bossName = name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, toonName))
 		end
 	end
@@ -5386,7 +5387,7 @@ do
 				--Fix for "attempt to perform arithmetic on field 'pull' (a nil value)" (which was actually caused by stats being nil, so we never did getTime on pull, fixing one SHOULD fix the other)
 				local thisTime = GetTime() - mod.combatInfo.pull
 				local hp = mod.highesthealth and mod:GetHighestBossHealth() or mod:GetLowestBossHealth()
-				local wipeHP = mod.CustomHealthUpdate and mod:CustomHealthUpdate() or hp and ("%d%%"):format(hp) or L.UNKNOWN
+				local wipeHP = mod.CustomHealthUpdate and mod:CustomHealthUpdate() or hp and ("%d%%"):format(hp) or CL.UNKNOWN
 				if mod.vb.phase then
 					wipeHP = wipeHP.." ("..L.PHASE:format(mod.vb.phase)..")"
 				end
@@ -5451,7 +5452,7 @@ do
 					local msg = ""
 					local thisTimeString = thisTime and strFromTime(thisTime)
 					if not mod.combatInfo.pull then--was a bad pull so we ignored thisTime, should never happen
-						msg = L.BOSS_DOWN:format(difficultyText..name, L.UNKNOWN)
+						msg = L.BOSS_DOWN:format(difficultyText..name, CL.UNKNOWN)
 					elseif mod.ignoreBestkill then--Should never happen in a scenario so no need for scenario check.
 						msg = L.BOSS_DOWN_I:format(difficultyText..name, totalKills)
 					elseif not lastTime then
@@ -6104,7 +6105,7 @@ do
 
 	local function getNumRealAlivePlayers()
 		local alive = 0
-		local playerCurrentZone = GetRealZoneText() or L.UNKNOWN
+		local playerCurrentZone = GetRealZoneText() or CL.UNKNOWN
 		if IsInRaid() then
 			for i = 1, GetNumRaidMembers() do
 				local _, _, _, _, _, _, zone = GetRaidRosterInfo(i)
@@ -6147,7 +6148,7 @@ do
 			end
 			mod = mod or inCombat[1]
 			local hp = mod.highesthealth and mod:GetHighestBossHealth() or mod:GetLowestBossHealth()
-			local hpText = mod.CustomHealthUpdate and mod:CustomHealthUpdate() or hp and ("%d%%"):format(hp) or L.UNKNOWN
+			local hpText = mod.CustomHealthUpdate and mod:CustomHealthUpdate() or hp and ("%d%%"):format(hp) or CL.UNKNOWN
 			if mod.vb.phase then
 				hpText = hpText.." ("..L.PHASE:format(mod.vb.phase)..")"
 			end
@@ -6166,7 +6167,7 @@ do
 			end
 			mod = mod or inCombat[1]
 			local hp = mod.highesthealth and mod:GetHighestBossHealth() or mod:GetLowestBossHealth()
-			local hpText = mod.CustomHealthUpdate and mod:CustomHealthUpdate() or hp and ("%d%%"):format(hp) or L.UNKNOWN
+			local hpText = mod.CustomHealthUpdate and mod:CustomHealthUpdate() or hp and ("%d%%"):format(hp) or CL.UNKNOWN
 			if mod.vb.phase then
 				hpText = hpText.." ("..L.PHASE:format(mod.vb.phase)..")"
 			end
@@ -6839,7 +6840,7 @@ do
 		local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
 		DBM:Debug("Boss target scan "..targetScanCount[cidOrGuid].." of "..scanTimes..", found target "..(targetname or "nil").." using "..(bossuid or "nil"), 3)--Doesn't hurt to keep this, as level 3
 		--Do scan
-		if targetname and targetname ~= L.UNKNOWN and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
+		if targetname and targetname ~= CL.UNKNOWN and (not targetFilter or (targetFilter and targetFilter ~= targetname)) then
 			if not IsInRaid() then scanTimes = 1 end--Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
 			if (isEnemyScan and UnitIsFriend("player", targetuid) or (onlyPlayers and not UnitIsPlayer("player", targetuid)) or self:IsTanking(targetuid, bossuid)) and not isFinalScan then--On player scan, ignore tanks. On enemy scan, ignore friendly player. On Only player, ignore npcs and pets
 				if targetScanCount[cidOrGuid] < scanTimes then--Make sure no infinite loop.
@@ -7873,7 +7874,7 @@ do
 	local cachedColorFunctions = setmetatable({}, {__mode = "kv"})
 
 	local function setText(announceType, spellId, castTime, preWarnTime)
-		local spellName = (spellId or 0) >= 6 and DBM:GetSpellInfo(spellId) or L.UNKNOWN
+		local spellName = (spellId or 0) >= 6 and DBM:GetSpellInfo(spellId) or CL.UNKNOWN
 		local text
 		if announceType == "cast" then
 			local spellHaste = select(7, DBM:GetSpellInfo(53142)) / 10000 -- 53142 = Dalaran Portal, should have 10000 ms cast time
@@ -8490,12 +8491,12 @@ do
 		end
 		local displayText
 		if not yellText then
-			displayText = L.AUTO_YELL_ANNOUNCE_TEXT[yellType]:format(DBM:GetSpellInfo(spellId) or L.UNKNOWN)
+			displayText = L.AUTO_YELL_ANNOUNCE_TEXT[yellType]:format(DBM:GetSpellInfo(spellId) or CL.UNKNOWN)
 		end
 		--Passed spellid as yellText.
 		--Auto localize spelltext using yellText instead
 		if yellText and type(yellText) == "number" then
-			displayText = L.AUTO_YELL_ANNOUNCE_TEXT[yellType]:format(DBM:GetSpellInfo(yellText) or L.UNKNOWN)
+			displayText = L.AUTO_YELL_ANNOUNCE_TEXT[yellType]:format(DBM:GetSpellInfo(yellText) or CL.UNKNOWN)
 		end
 		local obj = setmetatable(
 			{
@@ -8805,7 +8806,7 @@ do
 	local textureCode = " |T%s:12:12|t "
 
 	local function setText(announceType, spellId, stacks)
-		local spellName = (spellId or 0) >= 2 and DBM:GetSpellInfo(spellId) or L.UNKNOWN
+		local spellName = (spellId or 0) >= 2 and DBM:GetSpellInfo(spellId) or CL.UNKNOWN
 		local text
 		if announceType == "prewarn" then
 			if type(stacks) == "string" then
@@ -10600,7 +10601,7 @@ function bossModPrototype:GetBossHPString(cId)
 			return floor(UnitHealth(unitId)/UnitHealthMax(unitId) * 100).."%"
 		end
 	end
-	return L.UNKNOWN
+	return CL.UNKNOWN
 end
 
 function bossModPrototype:GetHP()

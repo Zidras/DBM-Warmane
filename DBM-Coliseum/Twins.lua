@@ -34,7 +34,7 @@ local specWarnEmpoweredLight		= mod:NewSpecialWarningYou(65748)--No voice ideas 
 
 local enrageTimer					= mod:NewBerserkTimer(360)
 local timerSpecial					= mod:NewTimer(45, "TimerSpecialSpell", "Interface\\Icons\\INV_Enchant_EssenceMagicLarge", nil, nil, 6)
-local timerHeal						= mod:NewCastTimer(15, 65875, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerHeal						= mod:NewCastTimer(15, 65875, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerLightTouch				= mod:NewTargetTimer(20, 65950, nil, false, 2, 3)
 local timerDarkTouch				= mod:NewTargetTimer(20, 66001, nil, false, 2, 3)
 local timerAchieve					= mod:NewAchievementTimer(180, 3815)

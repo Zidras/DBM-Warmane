@@ -23,7 +23,7 @@ local warningHolyFire		= mod:NewTargetNoFilterAnnounce(29522, 2)
 
 local timerRepentance		= mod:NewBuffActiveTimer(12.6, 29511, nil, nil, nil, 2)
 local timerRepentanceCD		= mod:NewCDTimer(29.1, 29511, nil, nil, nil, 6)--29.1-49
-local timerHolyFire			= mod:NewTargetTimer(12, 29522, nil, nil, nil, 5, nil, DBM_CORE_L.MAGIC_ICON)
+local timerHolyFire			= mod:NewTargetTimer(12, 29522, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 
 mod:AddRangeFrameOption(10, 29522)
 

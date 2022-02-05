@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local warningSlow			= mod:NewTargetNoFilterAnnounce(246, 2)
 
-local timerSlowCD			= mod:NewAITimer(180, 246, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerSlowCD			= mod:NewAITimer(180, 246, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:OnCombatStart(delay)
 	timerSlowCD:Start(1-delay)

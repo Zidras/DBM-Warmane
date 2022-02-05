@@ -22,7 +22,7 @@ local specWarnInjection		= mod:NewSpecialWarningYou(28169, nil, nil, nil, 1, 2)
 local yellInjection			= mod:NewYellMe(28169, nil, false)
 
 local timerInjection		= mod:NewTargetTimer(10, 28169, nil, nil, nil, 3)
-local timerCloud			= mod:NewNextTimer(15, 28240, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerCloud			= mod:NewNextTimer(15, 28240, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerSlimeSpray		= mod:NewNextTimer(32, 54364, nil, nil, nil, 2)
 local enrageTimer			= mod:NewBerserkTimer(720)
 

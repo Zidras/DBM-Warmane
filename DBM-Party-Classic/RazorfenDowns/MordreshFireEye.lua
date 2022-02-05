@@ -15,8 +15,8 @@ local warningFireNova			= mod:NewSpellAnnounce(12470, 2)
 
 local specWarnFireball			= mod:NewSpecialWarningInterrupt(12466, "HasInterrupt", nil, nil, 1, 2)
 
-local timerFireballCD			= mod:NewAITimer(180, 12466, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
-local timerFireNovaCD			= mod:NewAITimer(180, 12470, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
+local timerFireballCD			= mod:NewAITimer(180, 12466, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerFireNovaCD			= mod:NewAITimer(180, 12470, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 
 function mod:OnCombatStart(delay)
 	timerFireballCD:Start(1-delay)

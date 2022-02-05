@@ -35,7 +35,7 @@ end
 function mod:ShadowCrashTarget(targetname, uId)
 	if not targetname then
 		if DBM.Options.DebugMode then
-			warnShadowCrash:Show(DBM_CORE_L.UNKNOWN)
+			warnShadowCrash:Show(DBM_COMMON_L.UNKNOWN)
 		end
 		return
 	end

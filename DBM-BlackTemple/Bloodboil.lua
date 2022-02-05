@@ -30,9 +30,9 @@ local specWarnRage		= mod:NewSpecialWarningYou(40604, nil, nil, nil, 1, 2)
 local yellRage			= mod:NewYell(40604)
 
 local timerBlood		= mod:NewCDTimer(10, 42005, nil, nil, nil, 5)--10-12. Most of time it's 11 but I have seen as low as 10.1
-local timerStrikeCD		= mod:NewCDTimer(25, 40491, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)--25-82? Is this even a CD timer?
+local timerStrikeCD		= mod:NewCDTimer(25, 40491, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)--25-82? Is this even a CD timer?
 local timerRageCD		= mod:NewCDTimer(52, 40604, nil, nil, nil, 3)--Verify?
-local timerRageEnd		= mod:NewBuffActiveTimer(28, 40604, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
+local timerRageEnd		= mod:NewBuffActiveTimer(28, 40604, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 

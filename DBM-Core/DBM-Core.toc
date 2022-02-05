@@ -53,6 +53,14 @@ localization.tw.lua
 localization.kr.lua
 localization.es.lua
 
+commonlocal.en.lua
+commonlocal.tw.lua
+commonlocal.cn.lua
+commonlocal.de.lua
+commonlocal.es.lua
+commonlocal.fr.lua
+commonlocal.kr.lua
+commonlocal.ru.lua
 
 DBM-Core.lua
 DBM-RangeCheck.lua

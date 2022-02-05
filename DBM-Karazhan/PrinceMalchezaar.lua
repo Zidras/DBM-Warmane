@@ -32,7 +32,7 @@ local specWarnNova				= mod:NewSpecialWarningRun(30852, "Melee", nil, nil, 4, 2)
 local timerNovaCD				= mod:NewCDTimer(18.1, 30852, nil, nil, nil, 2)--18.1-30
 local timerNextInfernal			= mod:NewCDTimer(45, 37277, nil, nil, nil, 1)--Spawning
 local timerHellfire				= mod:NewCDTimer(14.5, 30859, nil, nil, nil, 3)--Landing/activating Hellfire
-local timerEnfeebleCD			= mod:NewNextTimer(30, 30843, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON)
+local timerEnfeebleCD			= mod:NewNextTimer(30, 30843, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerEnfeeble				= mod:NewBuffFadesTimer(9, 30843)
 
 function mod:OnCombatStart(delay)

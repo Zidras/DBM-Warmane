@@ -246,40 +246,6 @@ L.TIMER_USAGE	= {
 
 L.ERROR_NO_PERMISSION		= "Du hast nicht die benötigte Berechtigung für diesen Befehl!"
 
---Common Locals
-L.NEXT						= "Nächste %s"
-L.COOLDOWN					= "%s CD"
-L.UNKNOWN					= "unbekannt"
-L.LEFT						= "Links"
-L.RIGHT						= "Rechts"
-L.BOTH						= "Beide"
-L.BACK						= "Hinten"
-L.SIDE						= "Seite"
-L.TOP						= "Oben"
-L.BOTTOM					= "Unten"
-L.MIDDLE					= "Mitte"
-L.FRONT						= "Vorne"
-L.EAST						= "Osten"
-L.WEST						= "Westen"
-L.NORTH						= "Norden"
-L.SOUTH						= "Süden"
-L.INTERMISSION				= "Übergang"
-L.ORB						= "Kugel"
-L.CHEST						= "Kiste"
-L.NO_DEBUFF					= "Kein %s"
-L.ALLY						= "Verbündeten"
-L.ADD						= "Add"
-L.ADDS						= "Adds"
-L.ROOM_EDGE					= "Rand des Raums"
-L.FAR_AWAY					= "Weit weg"
-L.BREAK_LOS					= "Meide Sichtlinie"
-L.SAFE						= "Sicher"
-L.SHIELD					= "Schutzschild"
-L.INCOMING					= "%s kommt"
-L.BOSSTOGETHER				= "Bosses Together"
-L.BOSSAPART					= "Bosses Apart"
---Common Locals end
-
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS 		= "Weltboss"
 --Retail Globals end

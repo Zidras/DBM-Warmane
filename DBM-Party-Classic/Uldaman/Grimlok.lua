@@ -19,9 +19,9 @@ local warningCrystallineSlumber		= mod:NewTargetNoFilterAnnounce(3636, 4, nil, "
 local specWarnChainBolt				= mod:NewSpecialWarningInterrupt(8292, "HasInterrupt", nil, nil, 1, 2)
 local specWarnLightningBolt			= mod:NewSpecialWarningInterrupt(12167, false, nil, nil, 1, 2)
 
-local timerChainBoltCD				= mod:NewAITimer(180, 8292, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
-local timerLightningBoltCD			= mod:NewAITimer(180, 12167, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
-local timerBloodlustCD				= mod:NewAITimer(180, 6742, nil, nil, nil, 5, nil, DBM_CORE_L.MAGIC_ICON)
+local timerChainBoltCD				= mod:NewAITimer(180, 8292, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerLightningBoltCD			= mod:NewAITimer(180, 12167, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerBloodlustCD				= mod:NewAITimer(180, 6742, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:OnCombatStart(delay)
 	timerChainBoltCD:Start(1-delay)

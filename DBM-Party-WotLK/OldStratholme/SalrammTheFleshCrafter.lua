@@ -17,7 +17,7 @@ local warningSteal	= mod:NewTargetNoFilterAnnounce(52709, 2)
 local warningGhoul	= mod:NewSpellAnnounce(52451, 3)
 
 local timerGhoulCD	= mod:NewCDTimer(20, 52451, nil, nil, nil, 1)
-local timerCurse	= mod:NewTargetTimer(30, 58845, nil, "RemoveCurse", nil, 5, nil, DBM_CORE_L.CURSE_ICON)
+local timerCurse	= mod:NewTargetTimer(30, 58845, nil, "RemoveCurse", nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 52451 then

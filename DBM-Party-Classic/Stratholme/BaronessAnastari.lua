@@ -16,7 +16,7 @@ local warningSilence			= mod:NewTargetNoFilterAnnounce(18327, 2, nil, "RemoveMag
 
 local specWarnPossess			= mod:NewSpecialWarningTargetChange(17244, nil, nil, nil, 1, 2)
 
---local timerPossessCD			= mod:NewAITimer(180, 17244, nil, nil, nil, 3, nil, DBM_CORE_L.DAMAGE_ICON)
+--local timerPossessCD			= mod:NewAITimer(180, 17244, nil, nil, nil, 3, nil, DBM_COMMON_L.DAMAGE_ICON)
 
 --function mod:OnCombatStart(delay)
 --	timerPossessCD:Start(1-delay)

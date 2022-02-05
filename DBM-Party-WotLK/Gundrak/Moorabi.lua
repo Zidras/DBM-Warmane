@@ -15,7 +15,7 @@ local warnCopies			= mod:NewSpellAnnounce(55101, 4)
 
 local specWarnTransform		= mod:NewSpecialWarningInterruptCount(55098, nil, nil, nil, 1, 2)
 
-local timerTransform		= mod:NewCDTimer(10, 55098, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)--experimental
+local timerTransform		= mod:NewCDTimer(10, 55098, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)--experimental
 
 mod.vb.lowHealth = false
 mod.vb.kickCount = 0

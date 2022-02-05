@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 local warningThrash					= mod:NewSpellAnnounce(3391, 3)
 local warningAllies					= mod:NewSpellAnnounce(5200, 3)
 
-local timerTrashD					= mod:NewAITimer(180, 3391, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerTrashD					= mod:NewAITimer(180, 3391, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerTrashD:Start(1-delay)

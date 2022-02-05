@@ -32,7 +32,7 @@ mod:AddBoolOption("AnnounceFails", false, "announce")
 local enrageTimer					= mod:NewBerserkTimer(369)
 local timerStormhammer				= mod:NewBuffActiveTimer(16, 62042, nil, nil, nil, 3)--Cast timer? Review if i ever do this boss again.
 local timerLightningCharge	 		= mod:NewCDTimer(16, 62466, nil, nil, nil, 3)
-local timerUnbalancingStrike		= mod:NewCDTimer(25.6, 62130, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerUnbalancingStrike		= mod:NewCDTimer(25.6, 62130, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerHardmode					= mod:NewTimer(150, "TimerHardmode", 62042)
 local timerFrostNova				= mod:NewNextTimer(20, 62605)
 local timerFrostNovaCast			= mod:NewCastTimer(2.5, 62605)

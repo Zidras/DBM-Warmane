@@ -271,49 +271,6 @@ L.TIMER_USAGE	= {
 
 L.ERROR_NO_PERMISSION				= "No tienes permiso para hacer eso."
 
---Common Locals
-L.RANDOM					= "Aleatorio"
-L.NEXT						= "Siguiente %s"
-L.COOLDOWN					= "%s TdR"
-L.UNKNOWN					= "Desconocido"--UNKNOWN which is "Unknown" (does u vs U matter?)
-L.LEFT						= "Izquierda"
-L.RIGHT						= "Derecha"
-L.BOTH						= "Ambos"
-L.BEHIND					= "Detrás"
-L.BACK						= "Atrás"--BACK
-L.SIDE						= "Lado"
-L.TOP						= "Arriba"
-L.BOTTOM					= "Abajo"
-L.MIDDLE					= "Medio"
-L.FRONT						= "Delante"
-L.EAST						= "Este"
-L.WEST						= "Oeste"
-L.NORTH						= "Norte"
-L.SOUTH						= "Sur"
-L.INTERMISSION				= "Interfase"--No blizz global for this, and will probably be used in most end tier fights with intermission phases
-L.ORB						= "Orbe"
-L.ORBS						= "Orbes"
-L.CHEST						= "Cofre"--As in Treasure 'Chest'. Not Chest as in body part.
-L.NO_DEBUFF					= "Sin %s"--For use in places like info frame where you put "Not Spellname"
-L.ALLY						= "un aliado"--Such as "Move to Ally"
-L.ALLIES					= "tus aliados"--Such as "Move to Allies"
-L.ADD						= "Esbirro"--A fight Add as in "boss spawned extra adds" - must check
-L.ADDS						= "Esbirros"
-L.BIG_ADD					= "Esbirro grande"
-L.BOSS						= "Jefe"
-L.EDGE				    	= "los bordes de la sala"
-L.FAR_AWAY					= "alejarte"
-L.BREAK_LOS					= "romper la línea de mira"
-L.RESTORE_LOS				= "la línea de mira"
-L.SAFE						= "Zona segura"
-L.NOTSAFE					= "Zona no segura"
-L.SHIELD					= "Escudo"
-L.PILLAR					= "Pilar"
-L.INCOMING					= "%s en breve"
-L.BOSSTOGETHER				= "Jefes juntos"
-L.BOSSAPART					= "Jefes separados"
---Common Locals end
-
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS 		= "Jefe de mundo"
 --Retail Globals end

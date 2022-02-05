@@ -15,7 +15,7 @@ local warningAwakenEarthenGuardians		= mod:NewSpellAnnounce(10252, 2)
 local warningAwakenVaultWarder			= mod:NewSpellAnnounce(10258, 2)
 local warningGroundTremor				= mod:NewSpellAnnounce(6524, 3)
 
-local timerAwakenEarthenGuardiansCD		= mod:NewAITimer(180, 10252, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerAwakenEarthenGuardiansCD		= mod:NewAITimer(180, 10252, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerGroundTremorCD				= mod:NewAITimer(180, 6524, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)

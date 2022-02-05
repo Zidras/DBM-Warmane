@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local warningImmolate				= mod:NewTargetNoFilterAnnounce(9034, 2)
 
-local timerImmolateCD				= mod:NewAITimer(180, 9034, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerImmolateCD				= mod:NewAITimer(180, 9034, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:OnCombatStart(delay)
 	timerImmolateCD:Start(1-delay)

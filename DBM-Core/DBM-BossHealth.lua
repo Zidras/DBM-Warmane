@@ -195,7 +195,7 @@ function updateBar(bar, percent, icon, dontShowDead, name)
 		bar.value = 0
 	else--can't detect health. show unknown
 		if not bar.value or bar.value >= 1 then
-			-- bartimer:SetText(L.UNKNOWN)
+			-- bartimer:SetText(DBM_COMMON_L.UNKNOWN)
 			-- don't update when no target
 		else
 			bartimer:SetText(dontShowDead and "0%" or DEAD)

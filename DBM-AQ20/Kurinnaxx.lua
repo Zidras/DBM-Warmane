@@ -23,7 +23,7 @@ local yellSandTrap		= mod:NewYell(25656)
 local specWarnWound		= mod:NewSpecialWarningStack(25646, nil, 5, nil, nil, 1, 6)
 local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
-local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerSandTrapCD	= mod:NewCDTimer(8, 25656, nil, nil, nil, 3)
 
 --mod:AddSpeedClearOption("AQ20", true)

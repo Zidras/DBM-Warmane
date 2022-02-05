@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local warningNet			= mod:NewTargetNoFilterAnnounce(6533, 2)
 
-local timerNetCD			= mod:NewAITimer(180, 6533, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerNetCD			= mod:NewAITimer(180, 6533, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerNetCD:Start(1-delay)

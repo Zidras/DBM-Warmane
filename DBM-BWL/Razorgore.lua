@@ -49,7 +49,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 23023 and args:IsDestTypePlayer() then
 		if self.Options.SpecWarn22425moveto then
-			specWarnFireballVolley:Show(DBM_CORE_L.BREAK_LOS)
+			specWarnFireballVolley:Show(DBM_COMMON_L.BREAK_LOS)
 			specWarnFireballVolley:Play("findshelter")
 		else
 			warnFireballVolley:Show()

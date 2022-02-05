@@ -23,7 +23,7 @@ local warnDeath				= mod:NewTargetNoFilterAnnounce(40251, 3)
 local specWarnDeath			= mod:NewSpecialWarningYou(40251, nil, nil, nil, 1, 2)
 local specWarnDeathEnding	= mod:NewSpecialWarningMoveAway(40251, nil, nil, nil, 3, 2)
 
-local timerCrushed			= mod:NewBuffActiveTimer(15, 40243, nil, "Healer", 2, 5, nil, DBM_CORE_L.HEALER_ICON)
+local timerCrushed			= mod:NewBuffActiveTimer(15, 40243, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerDeath			= mod:NewTargetTimer(55, 40251, nil, nil, nil, 3)
 local timerVengefulSpirit	= mod:NewTimer(60, "TimerVengefulSpirit", 40325, nil, nil, 1)
 

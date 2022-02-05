@@ -17,7 +17,7 @@ local warningChains		= mod:NewTargetAnnounce(50997, 4)
 local warningNova		= mod:NewSpellAnnounce(48179, 3)
 local warningEnrage		= mod:NewSpellAnnounce(8599, 3, nil, "Tank|Healer", 2)
 
-local timerChains		= mod:NewTargetTimer(10, 50997, nil, "Healer", 2, 5, nil, DBM_CORE_L.HEALER_ICON..DBM_CORE_L.MAGIC_ICON)
+local timerChains		= mod:NewTargetTimer(10, 50997, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.MAGIC_ICON)
 local timerChainsCD		= mod:NewCDTimer(25, 50997, nil, nil, nil, 3)
 local timerNova			= mod:NewBuffActiveTimer(10, 48179)
 local timerNovaCD		= mod:NewCDTimer(25, 48179, nil, nil, nil, 2)

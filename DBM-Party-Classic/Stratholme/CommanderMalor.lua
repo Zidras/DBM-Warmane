@@ -15,7 +15,7 @@ local warningGroundSmash				= mod:NewSpellAnnounce(12734, 2)
 
 local specWarnShadowBoltVolley			= mod:NewSpecialWarningInterrupt(15245, "HasInterrupt", nil, nil, 1, 2)
 
-local timerShadowBoltVolleyCD			= mod:NewAITimer(180, 15245, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerShadowBoltVolleyCD			= mod:NewAITimer(180, 15245, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerGroundSmashCD				= mod:NewAITimer(180, 12734, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)

@@ -30,10 +30,10 @@ local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 
 local timerGasCast			= mod:NewCastTimer(1, 45855)
 local timerGasCD			= mod:NewCDTimer(19, 45855, nil, nil, nil, 3)
-local timerCorrosion		= mod:NewTargetTimer(10, 45866, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerCorrosion		= mod:NewTargetTimer(10, 45866, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
 local timerEncapsCD			= mod:NewCDTimer(50, 45665, nil, nil, nil, 3)
-local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON)
+local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
 local berserkTimer			= mod:NewBerserkTimer(mod:IsTimewalking() and 500 or 600)

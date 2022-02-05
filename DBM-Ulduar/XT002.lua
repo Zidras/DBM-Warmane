@@ -26,9 +26,9 @@ local specWarnConsumption			= mod:NewSpecialWarningMove(64206, nil, nil, nil, 1,
 
 local enrageTimer					= mod:NewBerserkTimer(360)
 local timerTympanicTantrumCast		= mod:NewCastTimer(62776)
-local timerTympanicTantrum			= mod:NewBuffActiveTimer(8, 62776, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
-local timerTympanicTantrumCD		= mod:NewCDTimer(60, 62776, nil, nil, nil, 2, nil, DBM_CORE_L.HEALER_ICON, nil, 3)
-local timerHeart					= mod:NewCastTimer(30, 63849, nil, nil, nil, 6, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerTympanicTantrum			= mod:NewBuffActiveTimer(8, 62776, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerTympanicTantrumCD		= mod:NewCDTimer(60, 62776, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON, nil, 3)
+local timerHeart					= mod:NewCastTimer(30, 63849, nil, nil, nil, 6, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerLightBomb				= mod:NewTargetTimer(9, 65121, nil, nil, nil, 3)
 local timerGravityBomb				= mod:NewTargetTimer(9, 64234, nil, nil, nil, 3)
 local timerAchieve					= mod:NewAchievementTimer(205, 2937)

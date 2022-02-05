@@ -223,42 +223,6 @@ L.TIMER_USAGE						= {
 
 L.ERROR_NO_PERMISSION				= "У вас недостаточно прав для выполнения этой операции."
 
---Common Locals
-L.NEXT								= "След. %s"
-L.COOLDOWN							= "Восст. %s"
-L.UNKNOWN							= "неизвестно"
-L.LEFT								= "Налево"
-L.RIGHT								= "Направо"
-L.BOTH								= "Оба"
-L.BACK								= "Назад"
-L.SIDE								= "Сторона"
-L.TOP								= "Верх"
-L.BOTTOM							= "Низ"
-L.MIDDLE							= "Середина"
-L.FRONT								= "Вперёд"
-L.EAST								= "Восток"
-L.WEST								= "Запад"
-L.NORTH								= "Север"
-L.SOUTH								= "Юг"
-L.INTERMISSION						= "Переходная фаза"--No blizz global for this, and will probably be used in most end tier fights with intermission stages
-L.ORB								= "Сфера"
-L.CHEST								= "сундука"--As in Treasure 'Chest'. Not Chest as in body part.
-L.NO_DEBUFF							= "Нет %s"--For use in places like info frame where you put "Not Spellname"
-L.ALLY								= "Союзник"--Such as "Move to Ally"
-L.ADD								= "Адд"--A fight Add as in "boss spawned extra adds"
-L.ADDS								= "Адды"
-L.BIG_ADD							= "Большой адд"
-L.BOSS								= "Босс"
-L.ROOM_EDGE							= "Край комнаты"
-L.FAR_AWAY							= "Далеко"
-L.BREAK_LOS							= "Break LOS"
-L.SAFE								= "Безопасно"
-L.SHIELD							= "Щит"
-L.INCOMING							= "Прибытие %s"
-L.BOSSTOGETHER						= "Bosses Together"
-L.BOSSAPART							= "Bosses Apart"
---Common Locals end
-
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS 				= "Босс вне подземелья"
 --Retail Globals end

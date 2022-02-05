@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local warningVeilofShadow			= mod:NewTargetNoFilterAnnounce(7068, 2)
 
-local timerVeilofShadowCD			= mod:NewAITimer(180, 7068, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
+local timerVeilofShadowCD			= mod:NewAITimer(180, 7068, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerVeilofShadowCD:Start(1-delay)

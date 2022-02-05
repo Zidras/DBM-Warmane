@@ -42,9 +42,9 @@ local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4,
 
 local timerNextAirphase			= mod:NewTimer(110, "TimerNextAirphase", 43810, nil, nil, 6)
 local timerNextGroundphase		= mod:NewTimer(45, "TimerNextGroundphase", 43810, nil, nil, 6)
-local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
-local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2, nil, DBM_CORE_L.DEADLY_ICON, true, 2) -- Added "keep" arg
-local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON)
+local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, true, 2) -- Added "keep" arg
+local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123, nil, nil, nil, 2)
 local timerUnchainedMagic		= mod:NewCDTimer(30, 69762, nil, nil, nil, 3)
 local timerInstability			= mod:NewBuffFadesTimer(5, 69766, nil, nil, nil, 5)
@@ -78,7 +78,7 @@ local playerBeaconed = false
 local beaconDebuff, unchainedDebuff = DBM:GetSpellInfo(70126), DBM:GetSpellInfo(69762)
 
 local directionIndex
-local DirectionAssignments		= {DBM_CORE_L.LEFT, DBM_CORE_L.MIDDLE, DBM_CORE_L.RIGHT}
+local DirectionAssignments		= {DBM_COMMON_L.LEFT, DBM_COMMON_L.MIDDLE, DBM_COMMON_L.RIGHT}
 local DirectionVoiceAssignments	= {"left", "center", "right"}
 
 local function ClearBeaconTargets(self)
@@ -125,18 +125,18 @@ local function warnBeaconTargets(self)
 		if self.vb.phase == 1 then
 			if self:IsDifficulty("normal25") then
 				warnFrostBeacon:Show("\n<   >"..
-				strupper(DBM_CORE_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[2] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
-				strupper(DBM_CORE_L.MIDDLE)	..": <".."   >"..(beaconTargets[3] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
-				strupper(DBM_CORE_L.RIGHT)	..": <".."   >"..(beaconTargets[4] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[5] or DBM_CORE_L.UNKNOWN))
+				strupper(DBM_COMMON_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_COMMON_L.UNKNOWN).."<, >"..(beaconTargets[2] or DBM_COMMON_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_COMMON_L.MIDDLE)	..": <".."   >"..(beaconTargets[3] or DBM_COMMON_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_COMMON_L.RIGHT)	..": <".."   >"..(beaconTargets[4] or DBM_COMMON_L.UNKNOWN).."<, >"..(beaconTargets[5] or DBM_COMMON_L.UNKNOWN))
 			elseif self:IsDifficulty("heroic25") then
 				warnFrostBeacon:Show("\n<   >"..
-				strupper(DBM_CORE_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[2] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
-				strupper(DBM_CORE_L.MIDDLE)	..": <".."   >"..(beaconTargets[3] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[4] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
-				strupper(DBM_CORE_L.RIGHT)	..": <".."   >"..(beaconTargets[5] or DBM_CORE_L.UNKNOWN).."<, >"..(beaconTargets[6] or DBM_CORE_L.UNKNOWN))
+				strupper(DBM_COMMON_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_COMMON_L.UNKNOWN).."<, >"..(beaconTargets[2] or DBM_COMMON_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_COMMON_L.MIDDLE)	..": <".."   >"..(beaconTargets[3] or DBM_COMMON_L.UNKNOWN).."<, >"..(beaconTargets[4] or DBM_COMMON_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_COMMON_L.RIGHT)	..": <".."   >"..(beaconTargets[5] or DBM_COMMON_L.UNKNOWN).."<, >"..(beaconTargets[6] or DBM_COMMON_L.UNKNOWN))
 			elseif self:IsDifficulty("normal10", "heroic10") then
 				warnFrostBeacon:Show("\n<   >"..
-				strupper(DBM_CORE_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_CORE_L.UNKNOWN).."<   >\n".."<   >"..
-				strupper(DBM_CORE_L.RIGHT)	..": <".."   >"..(beaconTargets[2] or DBM_CORE_L.UNKNOWN))
+				strupper(DBM_COMMON_L.LEFT)	..": <".."   >"..(beaconTargets[1] or DBM_COMMON_L.UNKNOWN).."<   >\n".."<   >"..
+				strupper(DBM_COMMON_L.RIGHT)	..": <".."   >"..(beaconTargets[2] or DBM_COMMON_L.UNKNOWN))
 			end
 		elseif self.vb.phase == 2 then
 			warnFrostBeacon:Show(beaconTargets[1].."< = >"..p2_beacon_num-1)

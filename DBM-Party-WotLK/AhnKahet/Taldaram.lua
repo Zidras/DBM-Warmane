@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 local warningEmbrace	= mod:NewTargetAnnounce(55959, 2)
 local warningFlame		= mod:NewSpellAnnounce(55931, 3)
 
-local timerEmbrace		= mod:NewTargetTimer(20, 55959, nil, nil, nil, 3, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerEmbrace		= mod:NewTargetTimer(20, 55959, nil, nil, nil, 3, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerFlameCD		= mod:NewCDTimer(15, 55931, nil, nil, nil, 3)
 
 

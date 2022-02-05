@@ -31,8 +31,8 @@ local specWarnHeal			= mod:NewSpecialWarningInterrupt(33144, "HasInterrupt", nil
 local timerWhirlwindCD		= mod:NewCDTimer(55, 33238, nil, nil, nil, 2)
 local timerWhirlwind		= mod:NewBuffActiveTimer(15, 33238, nil, nil, nil, 2)
 local timerFelhunter		= mod:NewCDTimer(48.5, 33131, nil, nil, nil, 1)--Buff Active or Cd timer?
-local timerPoH				= mod:NewCastTimer(4, 33152, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
-local timerHeal				= mod:NewCastTimer(2, 33144, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerPoH				= mod:NewCastTimer(4, 33152, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerHeal				= mod:NewCastTimer(2, 33144, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 
 function mod:OnCombatStart(delay)
 	timerWhirlwindCD:Start(58-delay)

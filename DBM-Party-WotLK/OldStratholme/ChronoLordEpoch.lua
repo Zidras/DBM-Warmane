@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 local warningTime 	= mod:NewSpellAnnounce(58848, 3)
 local warningCurse 	= mod:NewTargetNoFilterAnnounce(52772, 2, nil, "RemoveCurse", 2)
 
-local timerCurse	= mod:NewTargetTimer(10, 52772, nil, "RemoveCurse", nil, 5, nil, DBM_CORE_L.CURSE_ICON)
+local timerCurse	= mod:NewTargetTimer(10, 52772, nil, "RemoveCurse", nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
 local timerTimeCD	= mod:NewCDTimer(25, 58848, nil, nil, nil, 2)
 
 function mod:SPELL_CAST_SUCCESS(args)

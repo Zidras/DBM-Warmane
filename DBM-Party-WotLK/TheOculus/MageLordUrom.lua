@@ -17,12 +17,12 @@ local warningTimeBomb		= mod:NewTargetNoFilterAnnounce(51121, 4)
 local specWarnExplosion		= mod:NewSpecialWarningMoveTo(51110, nil, nil, nil, 3, 2)
 local specWarnBombYou		= mod:NewSpecialWarningYou(51121)
 
-local timerTimeBomb			= mod:NewTargetTimer(6, 51121, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
-local timerExplosion		= mod:NewCastTimer(8, 51110, nil, nil, nil, 2, nil, DBM_CORE_L.DEADLY_ICON)
+local timerTimeBomb			= mod:NewTargetTimer(6, 51121, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerExplosion		= mod:NewCastTimer(8, 51110, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(51110, 59377) then
-		specWarnExplosion:Show(DBM_CORE_L.BREAK_LOS)
+		specWarnExplosion:Show(DBM_COMMON_L.BREAK_LOS)
 		specWarnExplosion:Play("findshelter")
 		timerExplosion:Start()
 		if args:IsPlayer() then
