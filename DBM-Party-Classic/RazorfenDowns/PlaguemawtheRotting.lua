@@ -15,7 +15,7 @@ local warningWitheredTouch			= mod:NewTargetNoFilterAnnounce(11442, 2, nil, "Rem
 
 local specWarnPutridStench			= mod:NewSpecialWarningDispel(12946, "RemoveDisease", nil, nil, 1, 2)
 
-local timerPutridStenchCD			= mod:NewAITimer(180, 12946, nil, nil, nil, 5, nil, DBM_CORE_L.DISEASE_ICON)
+local timerPutridStenchCD			= mod:NewAITimer(180, 12946, nil, nil, nil, 5, nil, DBM_COMMON_L.DISEASE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerPutridStenchCD:Start(1-delay)

@@ -19,7 +19,7 @@ local warningShadowBoltVolley	= mod:NewSpellAnnounce(21341, 2)
 local specWarnMark				= mod:NewSpecialWarningYou(21056, nil, nil, nil, 1, 2)--No Yell on purpose, outdoor chat restrictions and all
 
 --Timers seem totally random, like 5-40 type random nonsense, so are utterly worthless
---local timerMarkCD				= mod:NewCDTimer(19.1, 21056, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+--local timerMarkCD				= mod:NewCDTimer(19.1, 21056, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 --local timerShadowBoltVolleyCD	= mod:NewCDTimer(7.6, 21341, nil, nil, nil, 2)
 
 --mod:AddReadyCheckOption(48620, false)

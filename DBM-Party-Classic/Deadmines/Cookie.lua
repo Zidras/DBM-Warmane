@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 
 local specWarnHeal			= mod:NewSpecialWarningInterrupt(5174, "HasInterrupt", nil, nil, 1, 2)
 
-local timerHealCD			= mod:NewAITimer(180, 5174, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerHealCD			= mod:NewAITimer(180, 5174, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 
 function mod:OnCombatStart(delay)
 	timerHealCD:Start(1-delay)

@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 --TODO, consider a cleave timer if not cast too often
 local warningPoisonedHarpoon		= mod:NewTargetNoFilterAnnounce(5208, 2, nil, "RemovePoison")
 
-local timerPoisonedHarpoonCD		= mod:NewAITimer(30, 5208, nil, "RemovePoison", nil, 5, nil, DBM_CORE_L.POISON_ICON)
+local timerPoisonedHarpoonCD		= mod:NewAITimer(30, 5208, nil, "RemovePoison", nil, 5, nil, DBM_COMMON_L.POISON_ICON)
 
 function mod:OnCombatStart(delay)
 	timerPoisonedHarpoonCD:Start(1-delay)

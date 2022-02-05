@@ -19,7 +19,7 @@ local warnBlastWave		= mod:NewSpellAnnounce(23331, 2)
 local warnKnockAway		= mod:NewSpellAnnounce(18670, 3)
 local warnMortal		= mod:NewTargetNoFilterAnnounce(24573, 2, nil, "Tank|Healer", 4)
 
-local timerMortal		= mod:NewTargetTimer(5, 24573, nil, "Tank|Healer", 4, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerMortal		= mod:NewTargetTimer(5, 24573, nil, "Tank|Healer", 4, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 23331 and args:IsSrcTypeHostile() then

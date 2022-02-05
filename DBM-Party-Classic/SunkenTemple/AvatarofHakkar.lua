@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 local warningCurseofTongues			= mod:NewTargetNoFilterAnnounce(12889, 2, nil, "RemoveCurse")
 local warningCauseInsanity			= mod:NewTargetNoFilterAnnounce(12888, 4)
 
-local timerCurseofTonguesCD			= mod:NewAITimer(180, 12889, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
+local timerCurseofTonguesCD			= mod:NewAITimer(180, 12889, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
 local timerCauseInsanityCD			= mod:NewAITimer(180, 12888, nil, nil, nil, 3)
 
 function mod:OnCombatStart(delay)

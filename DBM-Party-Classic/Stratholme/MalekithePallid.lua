@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local warningIceTomb				= mod:NewTargetNoFilterAnnounce(16869, 3)
 
-local timerIceTombCD				= mod:NewAITimer(180, 16869, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerIceTombCD				= mod:NewAITimer(180, 16869, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:OnCombatStart(delay)
 	timerIceTombCD:Start(1-delay)

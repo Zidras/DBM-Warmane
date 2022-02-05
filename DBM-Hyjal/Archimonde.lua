@@ -21,7 +21,7 @@ local specWarnBurst		= mod:NewSpecialWarningYou(32014, nil, nil, nil, 3, 2)
 local yellBurst			= mod:NewYell(32014)
 
 local timerFearCD		= mod:NewCDTimer(41, 31970, nil, nil, nil, 2)
---local timerGripCD		= mod:NewCDTimer(6, 31972, nil, "RemoveMagic", nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+--local timerGripCD		= mod:NewCDTimer(6, 31972, nil, "RemoveMagic", nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 

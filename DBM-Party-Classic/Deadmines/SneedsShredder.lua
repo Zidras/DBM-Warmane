@@ -15,8 +15,8 @@ local warningFear			= mod:NewTargetNoFilterAnnounce(7399, 2)
 local warningDisarm			= mod:NewTargetNoFilterAnnounce(6713, 2)
 local warningEjectSneed		= mod:NewSpellAnnounce(5141, 2)
 
-local timerFearCD			= mod:NewAITimer(180, 7399, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
-local timerDisarmCD			= mod:NewAITimer(180, 6713, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerFearCD			= mod:NewAITimer(180, 7399, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerDisarmCD			= mod:NewAITimer(180, 6713, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(1-delay)

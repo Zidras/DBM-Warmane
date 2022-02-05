@@ -24,7 +24,7 @@ local specWarnSmash		= mod:NewSpecialWarningDodge(42723, "Tank", nil, nil, 1, 2)
 
 local timerSmash		= mod:NewCastTimer(3, 42723)
 local timerSmashCD		= mod:NewCDTimer(13, 42723)
-local timerWoeStrike	= mod:NewTargetTimer(10, 42723, nil, "RemoveCurse", nil, 5, nil, DBM_CORE_L.CURSE_ICON)
+local timerWoeStrike	= mod:NewTargetTimer(10, 42723, nil, "RemoveCurse", nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
 
 mod:AddSetIconOption("WoeStrikeIcon", 42730, true, false, {8})
 

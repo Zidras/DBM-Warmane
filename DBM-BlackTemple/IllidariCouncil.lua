@@ -30,12 +30,12 @@ local specWarnCoH			= mod:NewSpecialWarningInterrupt(41455, "HasInterrupt", nil,
 local specWarnImmune		= mod:NewSpecialWarning("Immune", false)
 
 local timerVanish			= mod:NewBuffActiveTimer(31, 41476, nil, nil, nil, 6)
-local timerShield			= mod:NewBuffActiveTimer(20, 41475, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON..DBM_CORE_L.DAMAGE_ICON)
-local timerMeleeImmune		= mod:NewTargetTimer(15, 41450, nil, "Physical", 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerSpellImmune		= mod:NewTargetTimer(15, 41451, nil, "-Physical", 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerDevAura			= mod:NewBuffActiveTimer(30, 41452, nil, "Physical", 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerResAura			= mod:NewBuffActiveTimer(30, 41453, nil, "-Physical", 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerNextCoH			= mod:NewCDTimer(14, 41455, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerShield			= mod:NewBuffActiveTimer(20, 41475, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.DAMAGE_ICON)
+local timerMeleeImmune		= mod:NewTargetTimer(15, 41450, nil, "Physical", 2, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerSpellImmune		= mod:NewTargetTimer(15, 41451, nil, "-Physical", 2, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerDevAura			= mod:NewBuffActiveTimer(30, 41452, nil, "Physical", 2, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerResAura			= mod:NewBuffActiveTimer(30, 41453, nil, "-Physical", 2, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerNextCoH			= mod:NewCDTimer(14, 41455, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 
 local berserkTimer			= mod:NewBerserkTimer(900)
 

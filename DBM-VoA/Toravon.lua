@@ -18,7 +18,7 @@ local warnWhiteout			= mod:NewSpellAnnounce(72034, 2)
 local warnOrb				= mod:NewSpellAnnounce(72091, 3)
 local warnFrostbite			= mod:NewStackAnnounce(72004, 2, nil, "Tank|Healer")
 
-local timerNextFrostbite	= mod:NewNextTimer(5, 72004, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerNextFrostbite	= mod:NewNextTimer(5, 72004, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerFrostbite		= mod:NewTargetTimer(20, 72004, nil, "Tank|Healer", nil, 5)
 local timerWhiteout			= mod:NewNextTimer(38, 72034, nil, nil, nil, 2)
 local timerNextOrb			= mod:NewNextTimer(32, 72091, nil, nil, nil, 1)

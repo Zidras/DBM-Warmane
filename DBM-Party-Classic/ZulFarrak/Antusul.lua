@@ -20,9 +20,9 @@ local specWarnHealingWaveSelf			= mod:NewSpecialWarningInterrupt(11895, "HasInte
 local specWarnHealingWaveAlly			= mod:NewSpecialWarningInterrupt(15982, "HasInterrupt", nil, nil, 1, 2)
 local specWarnMinions					= mod:NewSpecialWarningSwitch(11894, "Dps", nil, nil, 1, 2)
 
-local timerHealingWaveSelfCD			= mod:NewAITimer(180, 11895, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
-local timerHealingWaveAllyCD			= mod:NewAITimer(180, 15982, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
-local timerMinionsCD					= mod:NewAITimer(180, 11894, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerHealingWaveSelfCD			= mod:NewAITimer(180, 11895, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerHealingWaveAllyCD			= mod:NewAITimer(180, 15982, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerMinionsCD					= mod:NewAITimer(180, 11894, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerHealingWaveSelfCD:Start(1-delay)

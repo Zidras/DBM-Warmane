@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 --TODO, maybe interrupt warning for mind blast
 local warningSleep			= mod:NewTargetNoFilterAnnounce(8399, 2)
 
-local timerSleepCD			= mod:NewAITimer(180, 8399, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerSleepCD			= mod:NewAITimer(180, 8399, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:OnCombatStart(delay)
 	timerSleepCD:Start(1-delay)

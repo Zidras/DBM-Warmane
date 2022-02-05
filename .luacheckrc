@@ -111,6 +111,7 @@ globals = {
 	"DBMKalFrameDrag",
 	"DBM",
 	"DBM_CORE_L",
+	"DBM_COMMON_L",
 	"DBM_BossPreview",
 	"DBM_DISABLE_ZONE_DETECTION",
 	"DBM_GUI_Bosses",

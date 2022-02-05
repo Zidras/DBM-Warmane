@@ -16,7 +16,7 @@ local warnPain		= mod:NewTargetNoFilterAnnounce(24212, 2, nil, "RemoveMagic|Heal
 
 local specWarnMark	= mod:NewSpecialWarningYou(24210, nil, nil, nil, 1, 2)
 
-local timerPain		= mod:NewTargetTimer(18, 24212, nil, "RemoveMagic|Healer", nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerPain		= mod:NewTargetTimer(18, 24212, nil, "RemoveMagic|Healer", nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 24210 then

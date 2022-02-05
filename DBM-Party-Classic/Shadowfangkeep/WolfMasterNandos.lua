@@ -14,9 +14,9 @@ local warningBleakWorg		= mod:NewSpellAnnounce(7487, 2)
 local warningLupineHorror	= mod:NewSpellAnnounce(7489, 2)
 local warningSlaveringWorg	= mod:NewSpellAnnounce(7488, 2)
 
-local timerBleakWorgCD		= mod:NewAITimer(180, 7487, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerLupineHorrorCD	= mod:NewAITimer(180, 7489, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerSlaveringWorgCD	= mod:NewAITimer(180, 7488, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerBleakWorgCD		= mod:NewAITimer(180, 7487, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerLupineHorrorCD	= mod:NewAITimer(180, 7489, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerSlaveringWorgCD	= mod:NewAITimer(180, 7488, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerBleakWorgCD:Start(1-delay)

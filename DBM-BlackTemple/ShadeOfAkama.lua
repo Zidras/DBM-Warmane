@@ -32,24 +32,24 @@ mod.vb.AddsWestCount = 0
 
 local function addsWestLoop(self)
 	self.vb.AddsWestCount = self.vb.AddsWestCount + 1
-	specWarnAdds:Show(DBM_CORE_L.WEST)
+	specWarnAdds:Show(DBM_COMMON_L.WEST)
 	specWarnAdds:Play("killmob")
 	specWarnAdds:ScheduleVoice(1, "west")
 	if self.vb.AddsWestCount == 2 then--Special
 		self:Schedule(51, addsWestLoop, self)
-		timerAddsCD:Start(51, DBM_CORE_L.WEST)
+		timerAddsCD:Start(51, DBM_COMMON_L.WEST)
 	else
 		self:Schedule(47, addsWestLoop, self)
-		timerAddsCD:Start(47, DBM_CORE_L.WEST)
+		timerAddsCD:Start(47, DBM_COMMON_L.WEST)
 	end
 end
 
 local function addsEastLoop(self)
-	specWarnAdds:Show(DBM_CORE_L.EAST)
+	specWarnAdds:Show(DBM_COMMON_L.EAST)
 	specWarnAdds:Play("killmob")
 	specWarnAdds:ScheduleVoice(1, "east")
 	self:Schedule(51, addsEastLoop, self)
-	timerAddsCD:Start(51, DBM_CORE_L.EAST)
+	timerAddsCD:Start(51, DBM_COMMON_L.EAST)
 end
 
 local function sorcLoop(self)
@@ -76,7 +76,7 @@ function mod:OnCombatStart(delay)
 	self:Schedule(1, sorcLoop, self)
 	self:Schedule(1, addsWestLoop, self)
 	self:Schedule(18, addsEastLoop, self)
-	timerAddsCD:Start(18, DBM_CORE_L.EAST or "East")
+	timerAddsCD:Start(18, DBM_COMMON_L.EAST or "East")
 end
 
 function mod:OnCombatEnd()

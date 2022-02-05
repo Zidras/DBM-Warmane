@@ -957,7 +957,7 @@ end
 function barPrototype:SetText(text, inlineIcon)
 	if not self.owner.options.InlineIcons then inlineIcon = nil end
 	--Force change color type 7 to custom inlineIcon
-	local forcedIcon = (self.colorType and self.colorType == 7 and self.owner.options.Bar7CustomInline) and DBM_CORE_L.IMPORTANT_ICON or inlineIcon or ""
+	local forcedIcon = (self.colorType and self.colorType == 7 and self.owner.options.Bar7CustomInline) and DBM_COMMON_L.IMPORTANT_ICON or inlineIcon or ""
 	_G[self.frame:GetName().."BarName"]:SetText(forcedIcon..text)
 end
 

@@ -27,10 +27,10 @@ local specWarnLowHP		= mod:NewSpecialWarning("SpecWarnSapphLow")
 local specWarnFrostrain	= mod:NewSpecialWarningMove(55699, nil, nil, nil, 1, 2)
 local yellIceBlock		= mod:NewYell(28522)
 
-local timerDrainLife	= mod:NewCDTimer(22, 28542, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
+local timerDrainLife	= mod:NewCDTimer(22, 28542, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
 local timerAirPhase		= mod:NewTimer(66, "TimerAir", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerLanding		= mod:NewTimer(28.5, "TimerLanding", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
-local timerIceBlast		= mod:NewTimer(9.3, "TimerIceBlast", 15876, nil, nil, 2, DBM_CORE_L.DEADLY_ICON)
+local timerIceBlast		= mod:NewTimer(9.3, "TimerIceBlast", 15876, nil, nil, 2, DBM_COMMON_L.DEADLY_ICON)
 
 local berserkTimer		= mod:NewBerserkTimer(900)
 

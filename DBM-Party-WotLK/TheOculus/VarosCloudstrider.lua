@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local warningAmplify	= mod:NewTargetNoFilterAnnounce(51054, 2)
 
-local timerAmplify		= mod:NewTargetTimer(30, 51054, nil, "Healer", nil, 5, nil, DBM_CORE_L.HEALER_ICON..DBM_CORE_L.MAGIC_ICON)
+local timerAmplify		= mod:NewTargetTimer(30, 51054, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.MAGIC_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(51054, 59371) then
