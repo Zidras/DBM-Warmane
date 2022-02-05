@@ -100,6 +100,7 @@ local soundSoulReaperSoon	= mod:NewSoundSoon(69409, nil, "Tank|Healer|TargetedCo
 
 local berserkTimer			= mod:NewBerserkTimer(900)
 
+mod:AddRangeFrameOption("8", 72133)
 mod:AddBoolOption("DefileIcon")
 mod:AddBoolOption("NecroticPlagueIcon")
 mod:AddBoolOption("RagingSpiritIcon", false)
@@ -199,6 +200,9 @@ end
 function mod:OnCombatEnd()
 	self:UnregisterShortTermEvents()
 	self:DestroyFrame()
+	if self.Options.RangeFrame then
+		DBM.RangeFrame:Hide()
+	end
 end
 
 function mod:DefileTarget(targetname, uId)
@@ -274,6 +278,9 @@ function mod:SPELL_CAST_START(args)
 			"UNIT_TARGET"
 		)
 		self:DestroyFrame()
+		if self.Options.RangeFrame then
+			DBM.RangeFrame:Show(8)
+		end
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		timerEnrageCD:Cancel(args.sourceGUID)
 		warnShamblingEnrage:Show(args.sourceName)
@@ -285,6 +292,9 @@ function mod:SPELL_CAST_START(args)
 		timerRagingSpiritCD:Cancel()
 		NextPhase(self)
 		self:UnregisterShortTermEvents()
+		if self.Options.RangeFrame then
+			DBM.RangeFrame:Hide()
+		end
 	elseif args.spellId == 70372 then -- Shambling Horror
 		warnShamblingSoon:Cancel()
 		warnShamblingHorror:Show()
