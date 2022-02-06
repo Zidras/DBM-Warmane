@@ -2845,7 +2845,7 @@ function DBM:GetBossUnitId(name, bossOnly)--Deprecated, only old mods use this
 		end
 	end
 	if not returnUnitID and not bossOnly then
-		for uId in self:GetGroupMembers() do
+		for uId in DBM:GetGroupMembers() do
 			if UnitName(uId .. "target") == name and not UnitIsPlayer(uId .. "target") then
 				returnUnitID = uId.."target"
 			end
@@ -2872,7 +2872,7 @@ function DBM:GetUnitIdFromGUID(cidOrGuid, bossOnly)
 	end
 	--Didn't find valid unitID from boss units, scan raid targets
 	if not returnUnitID and not bossOnly then
-		for uId in self:GetGroupMembers() do
+		for uId in DBM:GetGroupMembers() do -- Do not use self on this function, because self might be bossModPrototype
 			local unitId = uId .. "target"
 			local bossGUID = UnitGUID(unitId)
 			local cid = self:GetCIDFromGUID(cidOrGuid)
