@@ -38,7 +38,7 @@ local specWarnPactDarkfallen		= mod:NewSpecialWarningYou(71340, nil, nil, nil, 1
 local specWarnEssenceoftheBloodQueen= mod:NewSpecialWarningYou(70867, nil, nil, nil, 1, 2)
 local specWarnBloodthirst			= mod:NewSpecialWarningYou(70877, nil, nil, nil, 3, 2)
 local yellBloodthirst				= mod:NewYellMe(70877, L.YellFrenzy)
-local specWarnSwarmingShadows		= mod:NewSpecialWarningMove(71266, nil, nil, nil, 1, 2)
+local specWarnSwarmingShadows		= mod:NewSpecialWarningMove(71266, nil, nil, nil, 4, 2)
 local specWarnMindConrolled			= mod:NewSpecialWarningTarget(70923, "-Healer", nil, nil, 1, 2)
 
 local timerNextInciteTerror			= mod:NewNextTimer(100, 73070, nil, nil, nil, 6)
