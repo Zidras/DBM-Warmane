@@ -121,13 +121,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
-	if (spellId == 68867 or spellId == 69286) and destGUID == UnitGUID("player") then		-- Tail Sweep
+	if (spellId == 68867 or spellId == 69286) and destGUID == UnitGUID("player") and self.Options.SoundWTF3 then		-- Tail Sweep
 		DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\watch-the-tail.ogg")
 	end
 end
 
 function mod:UNIT_DIED(args)
-	if self:IsInCombat() and args:IsPlayer() then
+	if self:IsInCombat() and args:IsPlayer() and self.Options.SoundWTF3 then
 		DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\thats-a-fucking-fifty-dkp-minus.ogg")
 	end
 end
