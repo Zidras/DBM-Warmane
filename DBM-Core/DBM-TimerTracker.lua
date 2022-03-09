@@ -498,6 +498,7 @@ function TT:CreateTimerBar()
 	timer.StatusBar:Size(195, 13)
 	timer.StatusBar:Point("TOP", 0, -2)
 	timer.StatusBar:SetStatusBarTexture(media.glossTex)
+	timer.StatusBar:CreateBackdrop("Default")
 
 	timer.StatusBar.Background = timer.StatusBar:CreateTexture("$parentBackground", "BORDER")
 	timer.StatusBar.Background:SetAllPoints()
