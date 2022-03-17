@@ -37,14 +37,16 @@ mod:SetBossHealthInfo(
 mod.vb.markCounter = 0
 
 function mod:OnCombatStart(delay)
-	self.vb.markCounter = 0
-	timerLadyMark:Start()
-	NextZeliekMark:Start()
-	NextBaronMark:Start()
-	NextThaneMark:Start()
-	warnMarkSoon:Schedule(12)
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(12)
+	if (L.SubZoneName and GetSubZoneText() == L.SubZoneName) or not L.SubZoneName then -- Check so 4 Horsemen timers don't appear on other bosses
+		self.vb.markCounter = 0
+		timerLadyMark:Start()
+		NextZeliekMark:Start()
+		NextBaronMark:Start()
+		NextThaneMark:Start()
+		warnMarkSoon:Schedule(12)
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(12)
+		end
 	end
 end
 

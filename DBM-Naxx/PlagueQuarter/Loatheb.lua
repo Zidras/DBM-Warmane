@@ -31,15 +31,17 @@ mod.vb.doomCounter	= 0
 mod.vb.sporeTimer	= 36
 
 function mod:OnCombatStart(delay)
-	self.vb.doomCounter = 0
-	if self:IsDifficulty("normal25") then
-		self.vb.sporeTimer = 18
-	else
-		self.vb.sporeTimer = 36
+	if (L.SubZoneName and GetSubZoneText() == L.SubZoneName) or not L.SubZoneName then -- Fix for Loatheb timers appearing on other bosses
+		self.vb.doomCounter = 0
+		if self:IsDifficulty("normal25") then
+			self.vb.sporeTimer = 18
+		else
+			self.vb.sporeTimer = 36
+		end
+		timerSpore:Start(self.vb.sporeTimer - delay)
+		warnSporeSoon:Schedule(self.vb.sporeTimer - 5 - delay)
+		timerDoom:Start(120 - delay, self.vb.doomCounter + 1)
 	end
-	timerSpore:Start(self.vb.sporeTimer - delay)
-	warnSporeSoon:Schedule(self.vb.sporeTimer - 5 - delay)
-	timerDoom:Start(120 - delay, self.vb.doomCounter + 1)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)

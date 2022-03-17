@@ -65,7 +65,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobia"
+	ArachnophobiaTimer	= "Arachnophobia",
+	SubZoneName 		= "Maexxna's Nest"
 })
 
 ------------------------------
@@ -148,6 +149,10 @@ L:SetOptionLocalization({
 	SporeDamageAlert	= "Send whisper to and announce to raid players who damage spores\n(requires announce to be enabled and leader/promoted status)"
 })
 
+L:SetMiscLocalization({
+	SubZoneName 		= "The Necrotic Vault"
+})
+
 -----------------
 --  Patchwerk  --
 -----------------
@@ -183,6 +188,10 @@ L = DBM:GetModLocalization("Gluth")
 
 L:SetGeneralLocalization({
 	name = "Gluth"
+})
+
+L:SetMiscLocalization({
+	ThaddiusSubZoneName = "The Halls of Reanimation"
 })
 
 ----------------
@@ -306,7 +315,8 @@ L:SetMiscLocalization({
 	Korthazz	= "Thane Korth'azz",
 	Rivendare	= "Baron Rivendare",
 	Blaumeux	= "Lady Blaumeux",
-	Zeliek		= "Sir Zeliek"
+	Zeliek		= "Sir Zeliek",
+	SubZoneName = "The Horsemen's Assembly"
 })
 
 -----------------
@@ -342,7 +352,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	EmoteBreath			= "%s takes a deep breath."
+	EmoteBreath			= "%s takes a deep breath.",
+	SubZoneName			= "Sapphiron's Lair"
 })
 
 ------------------

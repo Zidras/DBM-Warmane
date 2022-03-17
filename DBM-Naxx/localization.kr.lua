@@ -66,7 +66,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "거미의 공포"
+	ArachnophobiaTimer	= "거미의 공포",
+	--SubZoneName 		= "Maexxna's Nest"
 })
 
 ---------------
@@ -148,6 +149,10 @@ L:SetOptionLocalization({
 	SporeDamageAlert	= "포자에게 데미지를 주는 공격대원에게 귓속말 보내기 및 알리기\n(공대장 및 경보 권한이 있을 경우)"
 })
 
+L:SetMiscLocalization({
+	--SubZoneName 		= "The Necrotic Vault"
+})
+
 -----------------
 -- 피조물 지구 --
 -----------------
@@ -186,6 +191,10 @@ L = DBM:GetModLocalization("Gluth")
 
 L:SetGeneralLocalization({
 	name = "글루스"
+})
+
+L:SetMiscLocalization({
+	--ThaddiusSubZoneName = "The Halls of Reanimation"
 })
 
 ----------------
@@ -313,7 +322,8 @@ L:SetMiscLocalization({
 	Korthazz	= "영주 코스아즈",
 	Rivendare	= "남작 리븐데어",
 	Blaumeux	= "여군주 블라미우스",
-	Zeliek		= "젤리에크 경"
+	Zeliek		= "젤리에크 경",
+	--SubZoneName = "The Horsemen's Assembly"
 })
 
 -------------------
@@ -352,7 +362,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	EmoteBreath				= "숨을 깊게 들이마십니다."
+	EmoteBreath				= "숨을 깊게 들이마십니다.",
+	--SubZoneName			= "Sapphiron's Lair"
 })
 
 ------------------
