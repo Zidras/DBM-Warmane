@@ -19,15 +19,24 @@ local warnSpidersNow	= mod:NewAnnounce("WarningSpidersNow", 4, 17332)
 local specWarnWebWrap	= mod:NewSpecialWarningSwitch(28622, "RangedDps", nil, nil, 1, 2)
 local yellWebWrap		= mod:NewYellMe(28622)
 
-local timerWebSpray		= mod:NewNextTimer(40.5, 29484, nil, nil, nil, 2)
+local timerWebSpray		= mod:NewNextTimer(40, 29484, nil, nil, nil, 2)
 local timerSpider		= mod:NewTimer(30, "TimerSpider", 17332, nil, nil, 1)
 
+local function Spiderlings(self)
+	warnSpidersSoon:Schedule(35)
+	warnSpidersNow:Schedule(40)
+	timerSpider:Start(40)
+	self:Unschedule(Spiderlings)
+	self:Schedule(40, Spiderlings, self)
+end
+
 function mod:OnCombatStart(delay)
-	warnWebSpraySoon:Schedule(35.5 - delay)
-	timerWebSpray:Start(40.5 - delay)
+	warnWebSpraySoon:Schedule(35 - delay)
+	timerWebSpray:Start(40 - delay)
 	warnSpidersSoon:Schedule(25 - delay)
 	warnSpidersNow:Schedule(30 - delay)
 	timerSpider:Start(30 - delay)
+	self:Schedule(30 - delay, Spiderlings, self)
 end
 
 function mod:OnCombatEnd(wipe)
@@ -53,10 +62,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(29484, 54125) then -- Web Spray
 		warnWebSprayNow:Show()
-		warnWebSpraySoon:Schedule(35.5)
+		warnWebSpraySoon:Schedule(35)
 		timerWebSpray:Start()
-		warnSpidersSoon:Schedule(25)
-		warnSpidersNow:Schedule(30)
-		timerSpider:Start()
 	end
 end
