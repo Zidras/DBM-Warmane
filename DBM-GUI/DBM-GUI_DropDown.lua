@@ -291,6 +291,7 @@ do
 					width = math.max(width, _G[dropdown:GetName().."Text"]:GetStringWidth())
 				end
 			end
+			if width > 300 then width = 300 end  -- Limit the width in case string has high width
 		end
 		dropdown:SetWidth(width + 30)	-- required to fix some setpoint problems
 		dropdown:SetHeight(height or 32)
