@@ -8,6 +8,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 28798 54100 28732 54097 28794 54099",
+	"SPELL_CAST_SUCCESS 28796 54098",
 	"UNIT_DIED"
 )
 
@@ -22,12 +23,14 @@ local specWarnGTFO			= mod:NewSpecialWarningGTFO(28794, nil, nil, nil, 1, 8)
 
 local timerEmbrace			= mod:NewBuffActiveTimer(30, 28732, nil, nil, nil, 6)
 local timerEnrage			= mod:NewCDTimer(60, 28131, nil, nil, nil, 6)
+local timerPoisonVolley		= mod:NewNextTimer(12, 54098, nil, nil, nil, 5)
 
 mod.vb.enraged = false
 
 function mod:OnCombatStart(delay)
 	timerEnrage:Start(-delay)
 	warnEnrageSoon:Schedule(55 - delay)
+	timerPoisonVolley:Start(-delay)
 	self.vb.enraged = false
 end
 
@@ -57,6 +60,12 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(28794, 54099) and args:IsPlayer() then
 		specWarnGTFO:Show(args.spellName)
 		specWarnGTFO:Play("watchfeet")
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args:IsSpellID(28796, 54098) then -- Poison Bolt Volley
+		timerPoisonVolley:Start(10)
 	end
 end
 
