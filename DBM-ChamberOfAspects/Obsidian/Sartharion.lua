@@ -9,6 +9,7 @@ mod:SetCreatureID(28860)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 56908 58956",
 	"SPELL_CAST_SUCCESS 57579 59127",
 	"SPELL_AURA_APPLIED 57491",
 	"SPELL_DAMAGE 59128",
@@ -17,6 +18,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnShadowFissure	    	= mod:NewSpellAnnounce(59127, 4, nil, nil, nil, nil, nil, 2)
+local warnBreathSoon			= mod:NewSoonAnnounce(58956, 2, nil, "Tank|Healer")
 local warnTenebron				= mod:NewAnnounce("WarningTenebron", 2, 61248, false)
 local warnShadron				= mod:NewAnnounce("WarningShadron", 2, 58105, false)
 local warnVesperon				= mod:NewAnnounce("WarningVesperon", 2, 61251, false)
@@ -30,6 +32,7 @@ local specWarnTenebronPortal	= mod:NewSpecialWarning("WarningTenebronPortal", fa
 local specWarnShadronPortal		= mod:NewSpecialWarning("WarningShadronPortal", false, nil, nil, 1, 7)
 
 local timerShadowFissure		= mod:NewCastTimer(5, 59128, nil, nil, nil, 3) --Cast timer until Void Blast. it's what happens when shadow fissure explodes.
+local timerBreath				= mod:NewCDTimer(10, 58956, nil, "Tank|Healer", nil, 5)
 local timerWall					= mod:NewCDTimer(30, 43113, nil, nil, nil, 2)
 local timerTenebron				= mod:NewTimer(30, "TimerTenebron", 61248, nil, nil, 1)
 local timerShadron				= mod:NewTimer(80, "TimerShadron", 58105, nil, nil, 1)
@@ -106,6 +109,8 @@ function mod:OnCombatStart(delay)
 	--Cache spellnames so a solo player check doesn't fail in CheckDrakes in 8.0+
 	self:Schedule(5, CheckDrakes, self, delay)
 	timerWall:Start(-delay)
+	warnBreathSoon:Schedule(5-delay)
+	timerBreath:Start(-delay)
 
 	twipe(lastvoids)
 	twipe(lastfire)
@@ -135,6 +140,13 @@ function mod:OnCombatEnd(wipe)
 	end
 	SendChatMessage(L.FireWalls:format(fire), "RAID")
 	twipe(sortedFails)
+end
+
+function mod:SPELL_CAST_START(args)
+	if args:IsSpellID(56908, 58956) then -- Flame breath
+		warnBreathSoon:Schedule(5.5)
+		timerBreath:Start(10.5)
+	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
