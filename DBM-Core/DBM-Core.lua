@@ -4240,7 +4240,7 @@ do
 
 		guildSyncHandlers["DBMv4-GCB"] = function(sender, modId, ver, difficulty, name)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
-			if not ver or not (ver == "2") then return end--Ignore old versions
+			if not ver or ver ~= "2" then return end--Ignore old versions
 			if DBM:AntiSpam(10, "GCB") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				difficulty = tonumber(difficulty)
@@ -4262,7 +4262,7 @@ do
 
 		guildSyncHandlers["DBMv4-GCE"] = function(sender, modId, ver, wipe, time, difficulty, name, wipeHP)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
-			if not ver or not (ver == "5") then return end--Ignore old versions
+			if not ver or ver ~="5" then return end--Ignore old versions
 			if DBM:AntiSpam(5, "GCE") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				difficulty = tonumber(difficulty)
@@ -4489,7 +4489,7 @@ do
 	end
 
 	guildSyncHandlers["WBE"] = function(sender, modId, realm, health, ver, name)
-		if not ver or not (ver == "8") then return end--Ignore old versions
+		if not ver or ver ~="8" then return end--Ignore old versions
 		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end--We recently got a sync about this boss on this realm, so do nothing.
 		lastBossEngage[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
@@ -4500,7 +4500,7 @@ do
 	end
 
 	guildSyncHandlers["WBD"] = function(sender, modId, realm, ver, name)
-		if not ver or not (ver == "8") then return end--Ignore old versions
+		if not ver or ver ~="8" then return end--Ignore old versions
 		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
 		lastBossDefeat[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
@@ -4511,7 +4511,7 @@ do
 	end
 
 	whisperSyncHandlers["WBE"] = function(sender, modId, realm, health, ver, name)
-		if not ver or not (ver == "8") then return end--Ignore old versions
+		if not ver or ver ~="8" then return end--Ignore old versions
 		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
 		lastBossEngage[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
@@ -4523,7 +4523,7 @@ do
 	end
 
 	whisperSyncHandlers["WBD"] = function(sender, modId, realm, ver, name)
-		if not ver or not (ver == "8") then return end--Ignore old versions
+		if not ver or ver ~="8" then return end--Ignore old versions
 		if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
 		lastBossDefeat[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
@@ -7444,9 +7444,9 @@ end
 
 function bossModPrototype:IsWeaponDependent()
 	return playerClass == "ROGUE"
-		or (playerClass == "WARRIOR" and not (select(3, GetTalentTabInfo(3)) >= 20))
+		or (playerClass == "WARRIOR" and (select(3, GetTalentTabInfo(3)) < 20))
 		or playerClass == "DEATHKNIGHT"
-		or (playerClass == "PALADIN" and not (select(3, GetTalentTabInfo(1)) >= 51))
+		or (playerClass == "PALADIN" and (select(3, GetTalentTabInfo(1)) < 51))
 		or (playerClass == "SHAMAN" and (select(3, GetTalentTabInfo(2)) >= 50))
 end
 
@@ -8078,7 +8078,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "announce")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = text
 			self:AddBoolOption(obj.option, optionDefault, "announce")
 		end
@@ -8139,7 +8139,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, catType)
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = catType..spellId..announceType..(optionVersion or "")
 			self:AddBoolOption(obj.option, optionDefault, catType)
 			if noFilter and announceType == "target" then
@@ -8259,7 +8259,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Sound"..spellId
 			self:AddBoolOption(obj.option, optionDefault, "sound")
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT:format(spellId)
@@ -8297,7 +8297,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."in5"
 			self:AddBoolOption(obj.option, optionDefault, "sound")
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT5:format(spellId)
@@ -8334,7 +8334,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."in3"
 			self:AddBoolOption(obj.option, optionDefault, "sound")
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT3:format(spellId)
@@ -8371,7 +8371,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."you"
 			self:AddBoolOption(obj.option, optionDefault, "sound")
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_YOU:format(spellId)
@@ -8408,7 +8408,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."soon"
 			self:AddBoolOption(obj.option, optionDefault, "sound")
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_SOON:format(spellId)
@@ -8444,7 +8444,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "sound")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."close"
 			self:AddBoolOption(obj.option, optionDefault, "sound")
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_CLOSE:format(spellId)
@@ -8510,7 +8510,7 @@ do
 		if optionName then
 			obj.option = optionName
 			self:AddBoolOption(obj.option, optionDefault, "yell")
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			obj.option = "Yell"..(spellId or yellText)..(yellType ~= "yell" and yellType or "")..(optionVersion or "")
 			self:AddBoolOption(obj.option, optionDefault, "yell")
 			self.localization.options[obj.option] = L.AUTO_YELL_OPTION_TEXT[yellType]:format(spellId)
@@ -9103,7 +9103,7 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-		elseif not (optionName == false) then
+		elseif optionName ~= false then
 			local difficultyIcon = ""
 			if difficulty then
 				--1 LFR, 2 Normal, 3 Heroic, 4 Mythic

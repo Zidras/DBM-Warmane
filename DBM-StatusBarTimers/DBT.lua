@@ -943,7 +943,7 @@ end
 function barPrototype:SetElapsed(elapsed)
 	self.timer = self.totalTime - elapsed
 	local enlargeTime = self.owner.options.EnlargeBarTime or 11
-	if (self.enlarged or self.moving == "enlarge") and not (self.timer <= enlargeTime) then
+	if (self.enlarged or self.moving == "enlarge") and self.timer > enlargeTime then
 		self:ResetAnimations()
 		DBM:Debug("ResetAnimations firing for a a bar :Update() call", 2)
 	elseif self.owner.options.Sort and self.moving ~= "enlarge" then

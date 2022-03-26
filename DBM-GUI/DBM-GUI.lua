@@ -874,7 +874,7 @@ function PanelPrototype:CreateCreatureModelFrame(width, height, creatureid)
 end
 
 function PanelPrototype:AutoSetDimension(additionalHeight)
-	if not self.frame.mytype == "area" then return end
+	if self.frame.mytype ~= "area" then return end
 	local height = self.frame:GetHeight()
 	local addHeight = additionalHeight or 0
 	local need_height = 25 + addHeight
@@ -893,7 +893,7 @@ function PanelPrototype:AutoSetDimension(additionalHeight)
 end
 
 function PanelPrototype:SetMyOwnHeight()
-	if not self.frame.mytype == "panel" then return end
+	if self.frame.mytype ~= "panel" then return end
 
 	local need_height = self.initheight or 20
 
@@ -916,7 +916,7 @@ local ListFrameButtonsPrototype = {}
 -- Prototyp for ListFrame Options Buttons
 
 function ListFrameButtonsPrototype:CreateCategory(frame, parent)
-	if not type(frame) == "table" then
+	if type(frame) ~= "table" then
 		DBM:AddMsg("Failed to create category - frame is not a table")
 		DBM:AddMsg(debugstack())
 		return false
