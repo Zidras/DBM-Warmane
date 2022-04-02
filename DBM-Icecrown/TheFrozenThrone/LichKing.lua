@@ -21,8 +21,8 @@ mod:RegisterEvents(
 	"UNIT_HEALTH",
 	"UNIT_AURA",
 	"UNIT_EXITING_VEHICLE",
-	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_DIED"
+--	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnRemorselessWinter = mod:NewSpellAnnounce(68981, 3) --Phase Transition Start Ability
@@ -85,7 +85,7 @@ local timerDefileCD			= mod:NewNextTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM
 local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, "Tank|RemoveEnrage", nil, 5, nil, DBM_CORE_L.ENRAGE_ICON)
 local timerShamblingHorror 	= mod:NewNextTimer(60, 70372, nil, nil, nil, 1)
 local timerDrudgeGhouls 	= mod:NewNextTimer(30, 70358, nil, nil, nil, 1)
-local timerRagingSpiritCD	= mod:NewNextTimer(22, 69200, nil, nil, nil, 1)
+local timerRagingSpiritCD	= mod:NewNextCountTimer(20, 69200, nil, nil, nil, 1)
 local timerSoulShriekCD		= mod:NewCDTimer(12, 69242, nil, nil, nil, 1)
 local timerSummonValkyr 	= mod:NewCDTimer(45, 71844, nil, nil, nil, 1)
 local timerVileSpirit 		= mod:NewNextTimer(30.5, 70498, nil, nil, nil, 1)
@@ -125,13 +125,14 @@ mod:AddButton(L.FrameGUIMoveMe, function() mod:CreateFrame() end, nil, 130, 20)
 local warnedAchievement = false
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
+mod.vb.ragingSpiritCount = 0
 local iceSpheresGUIDs = {}
 local warnedValkyrGUIDs = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 local plagueExpires = {}
 local lastPlague
 
-local soulshriek = GetSpellInfo(69242)
+-- local soulshriek = GetSpellInfo(69242)
 
 function mod:RemoveImmunes()
 	if mod.Options.RemoveImmunes then -- cancelaura bop bubble iceblock Dintervention
@@ -161,10 +162,10 @@ local function NextPhase(self)
 		if self.Options.ShowFrame then
 			self:CreateFrame()
 		end
-		timerSummonValkyr:Start(20)
+		timerSummonValkyr:Start(18.5)
 		timerSoulreaperCD:Start(40)
 		soundSoulReaperSoon:Schedule(40-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
-		timerDefileCD:Start(38)
+		timerDefileCD:Start(37.5)
 		timerInfestCD:Start(14)
 		soundInfestSoon:Schedule(14-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 		warnDefileSoon:Schedule(33)
@@ -191,6 +192,7 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
+	self.vb.ragingSpiritCount = 0
 	NextPhase(self)
 	table.wipe(iceSpheresGUIDs)
 	table.wipe(warnedValkyrGUIDs)
@@ -257,9 +259,10 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
+		self.vb.ragingSpiritCount = 1
 		warnRemorselessWinter:Show()
 		timerPhaseTransition:Start()
-		timerRagingSpiritCD:Start(6)
+		timerRagingSpiritCD:Start(6, self.vb.ragingSpiritCount)
 		warnShamblingSoon:Cancel()
 		timerShamblingHorror:Cancel()
 		timerDrudgeGhouls:Cancel()
@@ -288,6 +291,7 @@ function mod:SPELL_CAST_START(args)
 		timerEnrageCD:Start(args.sourceGUID)
 		timerEnrageCD:Schedule(21,args.sourceGUID)
 	elseif args.spellId == 72262 then -- Quake (phase transition end)
+		self.vb.ragingSpiritCount = 0
 		warnQuake:Show()
 		timerRagingSpiritCD:Cancel()
 		NextPhase(self)
@@ -333,7 +337,7 @@ function mod:SPELL_CAST_START(args)
 		self:Stop()
 		self:ClearIcons()
 		timerRoleplay:Start()
-	elseif args:IsSpellID(69242,73800,73801,73802) then -- Soul Shriek Raging spirits
+	elseif args:IsSpellID(69242, 73800, 73801, 73802) then -- Soul Shriek Raging spirits
 		timerSoulShriekCD:Start(args.sourceGUID)
 	end
 end
@@ -366,6 +370,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnSoulreaperOtr:Play("tauntboss")
 		end
 	elseif args.spellId == 69200 then -- Raging Spirit
+		self.vb.ragingSpiritCount = self.vb.ragingSpiritCount + 1
 		timerSoulShriekCD:Start(20, args.destName)
 		if args:IsPlayer() then
 			specWarnRagingSpirit:Show()
@@ -374,9 +379,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnRagingSpirit:Show(args.destName)
 		end
 		if self.vb.phase == 1 then
-			timerRagingSpiritCD:Start()
+			timerRagingSpiritCD:Start(nil, self.vb.ragingSpiritCount)
 		else
-			timerRagingSpiritCD:Start(17)
+			timerRagingSpiritCD:Start(17, self.vb.ragingSpiritCount)
 		end
 		if self.Options.RagingSpiritIcon then
 			self:SetIcon(args.destName, 7, 5)
@@ -568,11 +573,11 @@ function mod:UNIT_AURA(uId)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
-	if spellName == soulshriek and mod:LatencyCheck() then
-		self:SendSync("SoulShriek", UnitGUID(uId))
-	end
-end
+--function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+--	if spellName == soulshriek and mod:LatencyCheck() then
+--		self:SendSync("SoulShriek", UnitGUID(uId))
+--	end
+--end
 
 function mod:UNIT_EXITING_VEHICLE(uId)
 	mod:RemoveEntry(UnitName(uId))
@@ -607,8 +612,8 @@ end
 function mod:OnSync(msg, target)
 	if msg == "CombatStart" then
 		timerCombatStart:Start()
-	elseif msg == "SoulShriek" then
-		timerSoulShriekCD:Start(target)
+--	elseif msg == "SoulShriek" then
+--		timerSoulShriekCD:Start(target)
 	elseif msg == "SphereTarget" then
 		local sphereTarget, sphereGUID = strsplit("\t", target)
 		if sphereTarget and sphereGUID and not iceSpheresGUIDs[sphereGUID] then
