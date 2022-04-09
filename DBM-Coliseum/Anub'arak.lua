@@ -103,7 +103,9 @@ function mod:EmergeFix()
 	warnEmerge:Show()
 	warnSubmergeSoon:Schedule(70)
 	timerSubmerge:Start()
-	self:ShadowStrike()
+	if self:IsHeroic() then
+		self:ShadowStrike()
+	end
 end
 
 local function ClearPcoldTargets()
@@ -195,7 +197,7 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
-	elseif args.spellId == 66134 and self:AntiSpam(2, 1) then	-- Shadow Strike
+	elseif args.spellId == 66134 and self:IsHeroic() and self:AntiSpam(2, 1) then	-- Shadow Strike
 		self:UnscheduleMethod("ShadowStrike")
 		self:ShadowStrike()
 		if self.Options.SpecWarn66134spell then
@@ -222,9 +224,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg) -- Warmane workaround since submerge emo
 		warnEmergeSoon:Schedule(58.5)
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
-		self:UnscheduleMethod("ShadowStrike")
-		timerShadowStrike:Cancel()
-		preWarnShadowStrike:Cancel()
+		if self:IsHeroic() then
+			self:UnscheduleMethod("ShadowStrike")
+			timerShadowStrike:Cancel()
+			preWarnShadowStrike:Cancel()
+		end
 		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
 	end
 end
@@ -251,7 +255,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		warnEmerge:Show()
 		warnSubmergeSoon:Schedule(70)
 		timerSubmerge:Start()
-		self:ShadowStrike()
+		if self:IsHeroic() then
+			self:ShadowStrike()
+		end
 	end
 end
 
