@@ -40,9 +40,20 @@ do
 	local MAX_BUTTONS = 10
 	local BackDropTable = { bgFile = "" }
 	local L = DBM_GUI_Translations
+	local CL = DBM_CORE_L
 
 	local TabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", UIParent, "DBM_GUI_DropDownMenu")
 	local ClickFrame = CreateFrame("Button", nil, UIParent)
+
+	local function replaceSpellLinks(id)
+		local spellId = tonumber(id)
+		local spellName = DBM:GetSpellInfo(spellId)
+		if not spellName then
+			spellName = CL.UNKNOWN
+			DBM:Debug("Spell ID does not exist: "..spellId)
+		end
+		return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(spellId, spellName)
+	end
 
 	if ElvUI then
 		TabFrame1:SetBackdrop({
@@ -278,6 +289,11 @@ do
 			end
 		end
 
+		-- font strings do not support hyperlinks, so check if we need one...
+		if title and title:find("%$spell:") then
+			title = title:gsub("%$spell:(%d+)", replaceSpellLinks)
+		end
+
 		-- Create the Dropdown Frame
 		local dropdown = CreateFrame("Frame", FrameTitle..self:GetNewID(), parent or self.frame, "DBM_GUI_DropDownMenuTemplate")
 		dropdown.creator = self
@@ -291,6 +307,7 @@ do
 					width = math.max(width, _G[dropdown:GetName().."Text"]:GetStringWidth())
 				end
 			end
+			if width > 400 then width = 400 end  -- Limit the width in case string has high width
 		end
 		dropdown:SetWidth(width + 30)	-- required to fix some setpoint problems
 		dropdown:SetHeight(height or 32)

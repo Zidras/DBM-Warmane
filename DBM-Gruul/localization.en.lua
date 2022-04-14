@@ -20,7 +20,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarnGrowth		= "Show warning for $spell:36300",
-	RangeDistance	= "Range frame distance for |cff71d5ff|Hspell:33654|hShatter|h|r",
+	RangeDistance	= "Range frame distance for $spell:33654",
 	Smaller			= "Smaller distance (11)",
 	Safe			= "Safer distance (18)"
 })
