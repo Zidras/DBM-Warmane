@@ -399,7 +399,7 @@ do
 
 	local sounds = MixinSharedMedia3("sound", {
 		--Inject basically dummy values for ordering special warnings to just use default SW sound assignments
-		{sound = true, text = CL.NONE, value = "None"},
+		{sound = true, text = L.None, value = "None"},
 		{sound = true, text = "SW 1", value = 1},
 		{sound = true, text = "SW 2", value = 2},
 		{sound = true, text = "SW 3", value = 3},
@@ -1534,7 +1534,7 @@ local function CreateOptionsMenu()
 
 		-- RaidWarn Font Style
 		local FontStyles = {
-			{text = CL.NONE,					value = "None"},
+			{text = L.None,						value = "None"},
 			{text = L.Outline,					value = "OUTLINE"},
 			{text = L.ThickOutline,				value = "THICKOUTLINE"},
 			{text = L.MonochromeOutline,		value = "MONOCHROME,OUTLINE"},
@@ -2293,7 +2293,7 @@ local function CreateOptionsMenu()
 		FontDropDown:SetPoint("TOPLEFT", TextureDropDown, "BOTTOMLEFT", 0, -10)
 
 		local FontFlags = {
-			{	text	= CL.NONE,					value 	= "None"						},
+			{	text	= L.None,					value 	= "None"						},
 			{	text	= L.Outline,				value 	= "OUTLINE"						},
 			{	text	= L.ThickOutline,			value 	= "THICKOUTLINE"				},
 			{	text	= L.MonochromeOutline,		value 	= "MONOCHROME,OUTLINE"			},
@@ -2576,7 +2576,7 @@ local function CreateOptionsMenu()
 		FontDropDown:SetPoint("TOPLEFT", specArea.frame, "TOPLEFT", 100, -235)
 
 		local FontStyles = {
-			{	text	= CL.NONE,					value 	= "None"						},
+			{	text	= L.None,					value 	= "None"						},
 			{	text	= L.Outline,				value 	= "OUTLINE"						},
 			{	text	= L.ThickOutline,			value 	= "THICKOUTLINE"				},
 			{	text	= L.MonochromeOutline,		value 	= "MONOCHROME,OUTLINE"			},
