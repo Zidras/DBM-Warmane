@@ -519,8 +519,9 @@ local DBM = DBM
 -- these global functions are accessed all the time by the event handler
 -- so caching them is worth the effort
 local ipairs, pairs, next = ipairs, pairs, next
+local tonumber, tostring = tonumber, tostring
 local tinsert, tremove, twipe, tsort, tconcat = table.insert, table.remove, table.wipe, table.sort, table.concat
-local type, select, tonumber = type, select, tonumber
+local type, select = type, select
 local GetTime = GetTime
 local bband = bit.band
 local floor, mhuge, mmin, mmax = math.floor, math.huge, math.min, math.max
@@ -5720,43 +5721,63 @@ function DBM:HasMapRestrictions()
 end
 
 do
-	local LSMMediaCacheBuilt = false
-	local sharedMediaFileCache = {}
+	local LSMMediaCacheBuilt, sharedMediaFileCache, validateCache = false, {}, {}
 	local function buildLSMFileCache()
+		local hashtable = LibStub("LibSharedMedia-3.0", true):HashTable("sound")
 		local keytable = {}
-		for k in next, LibStub("LibSharedMedia-3.0", true):HashTable("sound") do
+		for k in next, hashtable do
 			tinsert(keytable, k)
-			for i=1,#keytable do
-				local key = keytable[i]
-				local path = LibStub("LibSharedMedia-3.0", true):HashTable("sound")[key]
-				sharedMediaFileCache[path] = true
-			end
+		end
+		for i = 1, #keytable do
+			sharedMediaFileCache[hashtable[keytable[i]]] = true
 		end
 		LSMMediaCacheBuilt = true
 	end
-	local function playSoundFile(self, path, ignoreSFX, validate)
-		if validate then
-			--Validate LibSharedMedia
-			if not LSMMediaCacheBuilt then buildLSMFileCache() end
-			if not sharedMediaFileCache[path] and not path:find("DBM") then
-				--This uses debug print because it has potential to cause mid fight spam
-				DBM:Debug("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add missing sound or change setting using this sound to a different sound.")
-				return
+
+	function DBM:ValidateSound(path, log)
+		-- Validate LibSharedMedia
+		if not LSMMediaCacheBuilt then
+			buildLSMFileCache()
+		end
+		if not sharedMediaFileCache[path] and not path:find("DBM") then
+			if log then
+				-- This uses debug print because it has potential to cause mid fight spam
+				self:Debug("PlaySoundFile failed due to missing media at " .. path .. ". To fix this, re-add missing sound or change setting using this sound to a different sound.")
 			end
-			--Validate Event packs
-			if not DBMVPSoundEventsPack and path:find("DBM-SoundEventsPack") then
-				--This uses actual user print because these events only occure at start or end of instance or fight.
-				DBM:AddMsg("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add/enable DBM-SoundEventsPack or change setting using this sound to a different sound.")
-				return
+			return false
+		end
+		-- Validate audio packs
+		if not validateCache[path] then
+			local splitTable = {}
+			for split in string.gmatch(path, "[^\\]+") do
+				tinsert(splitTable, split)
 			end
-			if not DBMVPSMGPack and path:find("DBM-SMGEventsPack") then
-				--This uses actual user print because these events only occure at start or end of instance or fight.
-				DBM:AddMsg("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add/enable DBM-SMGEventsPack or change setting using this sound to a different sound.")
-				return
+			if splitTable[1] == "Interface" and splitTable[2] == "AddOns" then -- We're an addon sound
+				validateCache[path] = {
+					exists = IsAddOnLoaded(splitTable[3]),
+					AddOn = splitTable[3]
+				}
 			end
 		end
+		if validateCache[path].exists == false then
+			if log then
+				-- This uses actual user print because these events only occur at start or end of instance or fight.
+				AddMsg(self, "PlaySoundFile failed due to missing media at " .. path .. ". To fix this, re-add/enable " .. validateCache[path].AddOn .. " or change setting using this sound to a different sound.")
+			end
+			return false
+		end
+		return true
+	end
+
+	local function playSoundFile(self, path, ignoreSFX, validate)
+		if self.Options.SilentMode or path == "" or path == "None" then
+			return
+		end
+		if validate and not self:ValidateSound(path, true) then
+			return
+		end
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySoundFile playing with media "..path, 4)
+		DBM:Debug("PlaySoundFile playing with media " .. path, 4)
 		if soundSetting == "Dialog" then
 			PlaySoundFile(path, "Dialog")
 		elseif ignoreSFX or soundSetting == "Master" then
@@ -5766,26 +5787,27 @@ do
 		end
 		fireEvent("DBM_PlaySound", path)
 	end
-	local function playSound(self, path, ignoreSFX, validate)
+	local function playSound(self, path, ignoreSFX)
+		if self.Options.SilentMode or path == "" or path == "None" then
+			return
+		end
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySound playing with media "..path, 4)
+		DBM:Debug("PlaySound playing with media " .. path, 4)
 		if soundSetting == "Dialog" then
 			PlaySound(path, "Dialog", false)
 		elseif ignoreSFX or soundSetting == "Master" then
 			PlaySound(path, "Master", false)
 		else
-			PlaySound(path)--using SFX channel, leave forceNoDuplicates on.
+			PlaySound(path) -- Using SFX channel, leave forceNoDuplicates on.
 		end
 		fireEvent("DBM_PlaySound", path)
 	end
 
 	function DBM:PlaySoundFile(path, ignoreSFX, validate)
-		if self.Options.SilentMode or path == "" or path == "None" then return end
 		playSoundFile(self, path, ignoreSFX, validate)
 	end
 
 	function DBM:PlaySound(path, ignoreSFX)
-		if self.Options.SilentMode then return end
 		playSound(self, path, ignoreSFX)
 	end
 end
