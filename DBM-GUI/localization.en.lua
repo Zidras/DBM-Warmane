@@ -31,6 +31,7 @@ L.Mod_Enabled				= "Enable boss mod"
 L.Mod_EnableAnnounce		= "Announce to raid"
 L.Mod_Reset					= "Load default options"
 L.Reset 					= "Reset"
+L.Import					= "Import"
 
 L.Enable  					= "Enable"
 L.Disable					= "Disable"
@@ -384,6 +385,14 @@ L.SelectModProfileCopy		= "Copy all settings from"
 L.SelectModProfileCopySound	= "Copy just sound setting from"
 L.SelectModProfileCopyNote	= "Copy just note setting from"
 L.SelectModProfileDelete	= "Delete mod settings for"
+
+L.Area_ImportExportProfile	= "Import/Export profiles"
+L.ImportExportInfo			= "Importing will overwrite your current profile, do at your own risk."
+L.ButtonImportProfile		= "Import profile"
+L.ButtonExportProfile		= "Export profile"
+
+L.ImportErrorOn				= "Custom sounds missing for setting: %s"
+L.ImportVoiceMissing		= "Missing voice pack: %s"
 
 -- Misc
 L.Area_General				= "General"

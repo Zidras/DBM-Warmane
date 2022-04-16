@@ -156,6 +156,9 @@ L.ImportExportInfo			= "匯入會覆寫您當前的設定檔，後果請自負�
 L.ButtonImportProfile		= "匯入設定檔"
 L.ButtonExportProfile		= "匯出設定檔"
 
+L.ImportErrorOn				= "缺少設置中的自定義聲音: %s"
+L.ImportVoiceMissing		= "缺少語音包: %s"
+
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "警告"
 L.Area_SpecAnnounceConfig	= "特別警告視覺和聲音指南"

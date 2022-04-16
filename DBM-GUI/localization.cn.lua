@@ -159,6 +159,9 @@ L.ImportExportInfo			= "导入会覆盖你当前的配置，请小心使用"
 L.ButtonImportProfile		= "导入配置"
 L.ButtonExportProfile		= "导出配置"
 
+L.ImportErrorOn				= "自定义语音缺失: %s"
+L.ImportVoiceMissing		= "找不要语音包: %s"
+
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "警报"
 L.Area_SpecAnnounceConfig	= "特殊警报提示和声音指南"

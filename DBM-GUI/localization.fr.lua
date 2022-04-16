@@ -327,6 +327,14 @@ L.SelectModProfileCopySound	= "Copier uniquement les réglages sonores depuis"
 L.SelectModProfileCopyNote	= "Copier uniquement les réglages des notes depuis"
 L.SelectModProfileDelete	= "Supprimer les réglages pour"
 
+L.Area_ImportExportProfile	= "Importer/Exporter profils"
+L.ImportExportInfo			= "Attention ! Importer un profil écrasera votre profil actuel"
+L.ButtonImportProfile		= "Importer profil"
+L.ButtonExportProfile		= "Exporter profil"
+
+L.ImportErrorOn				= "Son personnalisé manquant pour : %s"
+L.ImportVoiceMissing		= "Pack de voix manquant : %s"
+
 -- Misc
 L.FontType					= "Choisir une police"
 L.FontStyle					= "Contours de la police"

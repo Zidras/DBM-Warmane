@@ -154,6 +154,7 @@ L.ButtonImportProfile		= "프로필 가져오기"
 L.ButtonExportProfile		= "프로필 내보내기"
 
 L.ImportErrorOn				= "프로필 설정에 빠져있는 사용자 지정 효과음: %s"
+L.ImportVoiceMissing		= "보이스팩 없음: %s"
 
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "경고"
