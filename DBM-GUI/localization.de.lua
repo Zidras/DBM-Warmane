@@ -392,6 +392,15 @@ L.SelectModProfileCopySound	= "Kopiere nur Soundeinst. von"
 L.SelectModProfileCopyNote	= "Kopiere nur Notizen von"
 L.SelectModProfileDelete	= "Lösche Mod-Einstellungen für"
 
+L.Area_ImportExportProfile	= "Profile Importieren/Exportieren"
+-- L.ImportExportInfo			= "Importing will overwrite your current profile, do at your own risk."
+L.ButtonImportProfile		= "Profil Importieren"
+L.ButtonExportProfile		= "Profil Exportieren"
+L.ProfileExportTitle 		= "Dies ist Dein aktuelles Profil im Textformat."
+L.ProfileExportSubtitle 	= "Drücke STRG-C um die Konfiguration in die Zwischenablage zu kopieren."
+L.ProfileImportTitle 		= "Fügen Sie hier ein Profil im Textformat ein."
+L.ProfileImportSubtitle 	= "Drücke STRG-V um den DBM Konfigurationstext einzufügen."
+
 -- Misc
 L.FontType					= "Schriftart"
 L.FontStyle					= "Schriftstil"

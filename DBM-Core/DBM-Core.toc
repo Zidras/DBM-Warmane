@@ -9,7 +9,7 @@
 ## Title-frFR:|cffffd200Deadly Boss Mods|r |cff69ccf0Noyau|r
 ## Notes: Deadly Boss Mods
 ## Dependencies: DBM-StatusBarTimers, DBM-DefaultSkin
-## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0, LibDeflate, LibSerialize, LibGroupTalents-1.0, LibTalentQuery-1.0, ElvUI
+## OptionalDeps: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0, LibDeflate, LibSerialize, LibGroupTalents-1.0, LibTalentQuery-1.0, ElvUI
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision, DBM_SavedOptions
 ## LoadOnDemand: 0
@@ -24,28 +24,24 @@ Libs\Ace3\LibStub\LibStub.lua
 Libs\Ace3\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\Ace3\AceAddon-3.0\AceAddon-3.0.lua
 Libs\Ace3\AceEvent-3.0\AceEvent-3.0.lua
-Libs\Ace3\AceTimer-3.0\AceTimer-3.0.lua
 Libs\Ace3\AceHook-3.0\AceHook-3.0.lua
+Libs\Ace3\AceTimer-3.0\AceTimer-3.0.lua
 Libs\Ace3\AceDB-3.0\AceDB-3.0.lua
 Libs\Ace3\AceLocale-3.0\AceLocale-3.0.lua
 Libs\Ace3\AceConsole-3.0\AceConsole-3.0.lua
-Libs\Ace3\AceComm-3.0\ChatThrottleLib.lua
-Libs\Ace3\AceComm-3.0\AceComm-3.0.lua
+Libs\Ace3\AceGUI-3.0\AceGUI-3.0.xml
+Libs\Ace3\AceComm-3.0\AceComm-3.0.xml
 Libs\Ace3\AceSerializer-3.0\AceSerializer-3.0.lua
 Libs\LibAnim\LibAnim.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 Libs\LibTalentQuery-1.0\LibTalentQuery-1.0.lua
-Libs\LibTalentQuery-1.0\lib.xml
 Libs\LibGroupTalents-1.0\LibGroupTalents-1.0.lua
-Libs\LibGroupTalents-1.0\lib.xml
 Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
 Libs\LibDurability\LibDurability.lua
 Libs\LibLatency\LibLatency.lua
 Libs\LibDeflate\LibDeflate.lua
-Libs\LibSerialize\lib.xml
-Libs\SpellLib\lib.xml
-
+Libs\LibSerialize\LibSerialize.lua
 
 localization.en.lua
 localization.de.lua
