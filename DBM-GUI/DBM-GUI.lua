@@ -230,102 +230,58 @@ end
 do
 	local LibSerialize = LibStub("LibSerialize")
 	local LibDeflate = LibStub("LibDeflate")
+	local AceGUI = LibStub("AceGUI-3.0")
 
 	local canWeWork = LibStub and LibStub("LibDeflate", true) and LibStub("LibSerialize", true)
 	local popupFrame
 
-	local function createPopupFrame()
-		popupFrame = CreateFrame("Frame", nil, UIParent)
-		popupFrame:SetFrameStrata("DIALOG")
-		popupFrame:SetFrameLevel(popupFrame:GetFrameLevel() + 10)
-		popupFrame:SetSize(512, 512)
-		popupFrame:SetPoint("CENTER")
-		popupFrame.backdropInfo = {
-			bgFile		= "Interface\\DialogFrame\\UI-DialogBox-Background", -- 131071
-			edgeFile	= "Interface\\DialogFrame\\UI-DialogBox-Border", -- 131072
-			tile		= true,
-			tileSize	= 32,
-			edgeSize	= 32,
-			insets		= { left = 8, right = 8, top = 8, bottom = 8 }
-		}
-		popupFrame:SetBackdrop(popupFrame.backdropInfo)
-		popupFrame:SetMovable(true)
-		popupFrame:EnableMouse(true)
-		popupFrame:RegisterForDrag("LeftButton")
-		popupFrame:SetScript("OnDragStart", popupFrame.StartMoving)
-		popupFrame:SetScript("OnDragStop", popupFrame.StopMovingOrSizing)
-		popupFrame:Hide()
-		popupFrame.text = ""
-
-		local backdrop = CreateFrame("Frame", nil, popupFrame)
-		backdrop.backdropInfo = {
-			bgFile		= "Interface\\ChatFrame\\ChatFrameBackground",
-			edgeFile	= "Interface\\Tooltips\\UI-Tooltip-Border",
-			tile		= true,
-			tileSize	= 16,
-			edgeSize	= 16,
-			insets		= { left = 3, right = 3, top = 5, bottom = 3 }
-		}
-		backdrop:SetBackdrop(backdrop.backdropInfo)
-		backdrop:SetBackdropColor(0.1, 0.1, 0.1, 0.6)
-		backdrop:SetBackdropBorderColor(0.4, 0.4, 0.4)
-		backdrop:SetPoint("TOPLEFT", 15, -15)
-		backdrop:SetPoint("BOTTOMRIGHT", -40, 40)
-
-		local scrollFrame = CreateFrame("ScrollFrame", nil, popupFrame--[[, "UIPanelScrollFrameTemplate"]])
-		scrollFrame:SetPoint("TOPLEFT", 15, -22)
-		scrollFrame:SetPoint("BOTTOMRIGHT", -40, 45)
-
-		local input = CreateFrame("EditBox", nil, scrollFrame)
-		input:SetTextInsets(7, 7, 3, 3)
-		input:SetFontObject(ChatFontNormal)
-		input:SetMultiLine(true)
-		input:EnableMouse(true)
-		input:SetAutoFocus(false)
-		input:SetMaxBytes(nil)
-		input:SetScript("OnMouseUp", input.HighlightText)
-		input:SetScript("OnEscapePressed", input.ClearFocus)
-		input:HighlightText()
-		input:SetFocus()
-		scrollFrame:SetScrollChild(input)
-		input:ClearAllPoints()
-		input:SetPoint("TOPLEFT", scrollFrame, "TOPLEFT")
-		input:SetPoint("BOTTOMRIGHT", scrollFrame, "BOTTOMRIGHT")
-		input:SetWidth(452)
-
-		local import = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
-		import:SetPoint("BOTTOMRIGHT", -120, 13)
-		import:SetFrameLevel(import:GetFrameLevel() + 1)
-		import:SetSize(100, 20)
-		import:SetText(L.Import)
-		import:SetScript("OnClick", function()
-			if popupFrame:VerifyImport(input:GetText()) then
-				input:ClearFocus()
-				popupFrame:Hide()
-			end
+	local function createPopupFrame(title, subtitle, content, status, importFunc)
+		popupFrame = AceGUI:Create("Frame")
+		popupFrame:SetTitle(title)
+		popupFrame:SetLayout("Flow")
+		popupFrame:SetCallback("OnClose", function(widget)
+			AceGUI:Release(widget)
+			collectgarbage()
 		end)
-		popupFrame.import = import
+		popupFrame:SetWidth(535)
+		popupFrame:SetHeight(350)
 
-		local close = CreateFrame("Button", nil, popupFrame, "UIPanelButtonTemplate")
-		close:SetPoint("LEFT", import, "RIGHT", 5, 0)
-		close:SetFrameLevel(close:GetFrameLevel() + 1)
-		close:SetSize(100, 20)
-		close:SetText(CLOSE)
-		close:SetScript("OnClick", function()
-			input:ClearFocus()
-			popupFrame:Hide()
-		end)
+		local editbox = AceGUI:Create("MultiLineEditBox")
+		editbox.editBox:SetFontObject(GameFontHighlightSmall)
+		editbox:SetFullWidth(true)
+		editbox:SetFullHeight(true)
+		popupFrame:AddChild(editbox)
+		popupFrame.editbox = editbox
 
-		input:SetScript("OnChar", function()
-			if not import:IsShown() then
-				input:SetText(popupFrame.text)
-				input:HighlightText()
-			end
-		end)
+		-- close on escape
+		_G["DBMImportExportFrame"] = popupFrame.frame
+		UISpecialFrames[#UISpecialFrames + 1] = "DBMImportExportFrame"
 
-		function popupFrame:SetText(text)
-			input:SetText(text)
-			self.text = text
+		popupFrame.importFunc = importFunc
+		popupFrame:SetStatusText(status or "")
+		editbox:SetLabel(subtitle)
+
+		if content then
+			editbox:DisableButton(true)
+			editbox:SetText(content)
+			editbox.editBox:SetFocus()
+			editbox.editBox:HighlightText()
+			editbox:SetCallback("OnLeave", function(widget)
+				widget.editBox:HighlightText()
+				widget.editBox:SetFocus()
+			end)
+			editbox:SetCallback("OnEnter", function(widget)
+				widget.editBox:HighlightText()
+				widget.editBox:SetFocus()
+			end)
+		else
+			editbox:DisableButton(false)
+			editbox.editBox:SetFocus()
+			editbox.button:SetScript("OnClick", function(widget)
+				DBM_GUI:ImportProfile(editbox:GetText())
+				AceGUI:Release(popupFrame)
+				collectgarbage()
+			end)
 		end
 	end
 
@@ -334,12 +290,8 @@ do
 			DBM:AddMsg("Missing required libraries to export.")
 			return
 		end
-		if not popupFrame then
-			createPopupFrame()
-		end
-		popupFrame.import:Hide()
-		popupFrame:SetText(LibDeflate:EncodeForPrint(LibDeflate:CompressDeflate(LibSerialize:Serialize(export), {level = 9})))
-		popupFrame:Show()
+		export = LibDeflate:EncodeForPrint(LibDeflate:CompressDeflate(LibSerialize:Serialize(export), {level = 9}))
+		createPopupFrame(L.ButtonExportProfile, L.ProfileExportTitle, export, L.ProfileExportSubtitle)
 	end
 
 	function DBM_GUI:CreateImportProfile(importFunc)
@@ -347,21 +299,18 @@ do
 			DBM:AddMsg("Missing required libraries to export.")
 			return
 		end
-		if not popupFrame then
-			createPopupFrame()
-		end
-		function popupFrame:VerifyImport(import)
-			local success, deserialized = LibSerialize:Deserialize(LibDeflate:DecompressDeflate(LibDeflate:DecodeForPrint(import)))
-			if not success then
-				DBM:AddMsg("Failed to deserialize")
-				return false
-			end
-			importFunc(deserialized)
+		createPopupFrame(L.ButtonImportProfile, L.ProfileImportTitle, nil, L.ProfileImportSubtitle, importFunc)
+	end
+
+	function DBM_GUI:ImportProfile(import)
+		local success, deserialized = LibSerialize:Deserialize(LibDeflate:DecompressDeflate(LibDeflate:DecodeForPrint(import)))
+		if not success then
+			DBM:AddMsg("Failed to deserialize")
+			return false
+		elseif popupFrame.importFunc then
+			popupFrame.importFunc(deserialized)
 			return true
 		end
-		popupFrame.import:Show()
-		popupFrame:SetText("")
-		popupFrame:Show()
 	end
 end
 
