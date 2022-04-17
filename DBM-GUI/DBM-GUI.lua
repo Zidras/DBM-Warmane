@@ -228,11 +228,11 @@ do
 end
 
 do
-	local LibSerialize = LibStub("LibSerialize")
-	local LibDeflate = LibStub("LibDeflate")
-	local AceGUI = LibStub("AceGUI-3.0")
+	local LibSerialize = LibStub and LibStub("LibSerialize", true)
+	local LibDeflate = LibStub and LibStub("LibDeflate", true)
+	local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
 
-	local canWeWork = LibStub and LibStub("LibDeflate", true) and LibStub("LibSerialize", true)
+	local canWeWork = (LibSerialize and LibDeflate and AceGUI)
 	local popupFrame
 
 	local function createPopupFrame(title, subtitle, content, status, importFunc)
