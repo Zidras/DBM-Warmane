@@ -42,7 +42,6 @@ Libs\LibDurability\LibDurability.lua
 Libs\LibLatency\LibLatency.lua
 Libs\LibDeflate\LibDeflate.lua
 Libs\LibSerialize\LibSerialize.lua
-#Libs\SpellLib\lib.xml
 
 
 localization.en.lua
