@@ -5739,7 +5739,7 @@ do
 		if not LSMMediaCacheBuilt then
 			buildLSMFileCache()
 		end
-		if not sharedMediaFileCache[path] and not path:find("DBM") then
+		if not sharedMediaFileCache[path] and not path:find("DBM") and not path:find("Sound") then -- Sound also included to account for Soundkit
 			if log then
 				-- This uses debug print because it has potential to cause mid fight spam
 				self:Debug("PlaySoundFile failed due to missing media at " .. path .. ". To fix this, re-add missing sound or change setting using this sound to a different sound.")
@@ -5756,6 +5756,12 @@ do
 				validateCache[path] = {
 					exists = IsAddOnLoaded(splitTable[3]),
 					AddOn = splitTable[3]
+				}
+			end
+			if splitTable[1] == "Sound" then -- We're a Soundkit sound
+				validateCache[path] = {
+					exists = true,
+					AddOn = "Blizzard Soundkit - "..splitTable[2]..splitTable[3] -- just to use the debug message below, although I'm pretty sure this will never run
 				}
 			end
 		end
