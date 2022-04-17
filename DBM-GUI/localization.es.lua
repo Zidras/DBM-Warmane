@@ -143,6 +143,15 @@ L.SelectModProfileCopySound	= "Copiar conf. de sonido de"
 L.SelectModProfileCopyNote	= "Copiar notas de"
 L.SelectModProfileDelete	= "Borrar configuración de"
 
+L.Area_ImportExportProfile	= "Importación/Exportación de perfiles"
+-- L.ImportExportInfo			= "Importing will overwrite your current profile, do at your own risk."
+L.ButtonImportProfile		= "Importar perfil"
+L.ButtonExportProfile		= "Exportar perfil"
+L.ProfileExportTitle 		= "Este es su actual perfil en formato the texto."
+L.ProfileExportSubtitle 	= "Pulse CTRL-C para copiar la configuración al Portapapeles."
+L.ProfileImportTitle 		= "Pegue aqui un perfil en formato de texto."
+L.ProfileImportSubtitle 	= "Pulse CTRL-V para pegar un texto de configuración."
+
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "Alertas"
 L.Area_SpecAnnounceConfig	= "Guía para avisos especiales"

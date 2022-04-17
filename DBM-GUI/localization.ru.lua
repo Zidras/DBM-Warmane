@@ -394,6 +394,10 @@ L.Area_ImportExportProfile	= "Импорт / экспорт профилей"
 L.ImportExportInfo			= "Импорт перезапишет Ваш текущий профиль. Делайте это на свой страх и риск."
 L.ButtonImportProfile		= "Импорт профиля"
 L.ButtonExportProfile		= "Экспорт профиля"
+L.ProfileExportTitle 		= "Это ваш текущий профиль с текстовом формате."
+L.ProfileExportSubtitle 	= "Нажмите CTRL-С на вашей клавиатуре для копирования настроек профиля."
+L.ProfileImportTitle 		= "Вставить сюда профиль в текстовом формате."
+L.ProfileImportSubtitle 	= "Нажмите CTRL-V для вставки текста настроек DBM."
 
 -- Misc
 L.FontType					= "Выбор шрифта"
