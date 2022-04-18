@@ -5734,38 +5734,48 @@ do
 		LSMMediaCacheBuilt = true
 	end
 
-	function DBM:ValidateSound(path, log)
+	function DBM:ValidateSound(path, log, ignoreCustom)
+		-- Ignore built-in sounds
+		if string.find(path:lower(), "^sound[\\/]+") then -- type(path) == "number" removed since it's not supported in WotLK
+			return true
+		end
 		-- Validate LibSharedMedia
 		if not LSMMediaCacheBuilt then
 			buildLSMFileCache()
 		end
-		if not sharedMediaFileCache[path] and not path:find("DBM") and not path:find("Sound") then -- Sound also included to account for Soundkit
+		if not sharedMediaFileCache[path] and not path:find("DBM") then
 			if log then
-				-- This uses debug print because it has potential to cause mid fight spam
-				self:Debug("PlaySoundFile failed due to missing media at " .. path .. ". To fix this, re-add missing sound or change setting using this sound to a different sound.")
+				if ignoreCustom then
+					-- This uses debug print because it has potential to cause mid fight spam
+					self:Debug("PlaySoundFile failed do to missing media at " .. path .. ". To fix this, re-add missing sound or change setting using this sound to a different sound.")
+				else
+					AddMsg(self, "PlaySoundFile failed do to missing media at " .. path .. ". To fix this, re-add missing sound or change setting using this sound to a different sound.")
+				end
 			end
 			return false
 		end
 		-- Validate audio packs
 		if not validateCache[path] then
 			local splitTable = {}
-			for split in string.gmatch(path, "[^\\]+") do
+			for split in string.gmatch(path, "[^\\/]+") do -- Matches \ and / as path delimiters (incl. more than one)
 				tinsert(splitTable, split)
 			end
-			if splitTable[1] == "Interface" and splitTable[2] == "AddOns" then -- We're an addon sound
+			if #splitTable >= 3 and splitTable[3]:lower() == "dbm-customsounds" then
+				validateCache[path] = {
+					exists = ignoreCustom or false
+				}
+			elseif #splitTable >= 3 and splitTable[1]:lower() == "interface" and splitTable[2]:lower() == "addons" then -- We're an addon sound
 				validateCache[path] = {
 					exists = IsAddOnLoaded(splitTable[3]),
 					AddOn = splitTable[3]
 				}
-			end
-			if splitTable[1] == "Sound" then -- We're a Soundkit sound
+			else
 				validateCache[path] = {
-					exists = true,
-					AddOn = "Blizzard Soundkit - "..splitTable[2]..splitTable[3] -- just to use the debug message below, although I'm pretty sure this will never run
+					exists = true
 				}
 			end
 		end
-		if validateCache[path].exists == false then
+		if validateCache[path] and not validateCache[path].exists then
 			if log then
 				-- This uses actual user print because these events only occur at start or end of instance or fight.
 				AddMsg(self, "PlaySoundFile failed due to missing media at " .. path .. ". To fix this, re-add/enable " .. validateCache[path].AddOn .. " or change setting using this sound to a different sound.")
@@ -5779,7 +5789,7 @@ do
 		if self.Options.SilentMode or path == "" or path == "None" then
 			return
 		end
-		if validate and not self:ValidateSound(path, true) then
+		if validate and not self:ValidateSound(path, true, true) then
 			return
 		end
 		local soundSetting = self.Options.UseSoundChannel
