@@ -1,7 +1,7 @@
 if GetLocale() ~= "koKR" then return end
-if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
+if not DBM_GUI_L then DBM_GUI_L = {} end
 
-local L = DBM_GUI_Translations
+local L = DBM_GUI_L
 
 L.TranslationByPrefix		= "백포트 "
 L.TranslationBy 			= "Barsoom, Bunny67, Zidras"

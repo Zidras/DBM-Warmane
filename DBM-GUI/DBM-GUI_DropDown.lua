@@ -39,7 +39,7 @@
 do
 	local MAX_BUTTONS = 10
 	local BackDropTable = { bgFile = "" }
-	local L = DBM_GUI_Translations
+	local L = DBM_GUI_L
 	local CL = DBM_CORE_L
 
 	local TabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", UIParent, "DBM_GUI_DropDownMenu")
