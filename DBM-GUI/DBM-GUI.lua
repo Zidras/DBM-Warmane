@@ -1468,7 +1468,6 @@ local function CreateOptionsMenu()
 		----------------------------------------------
 		local generaloptions = DBM_GUI_Frame:CreateArea(L.General, nil, 380, true)
 
-		local StatusEnabled = generaloptions:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
 		local AutoRespond   = generaloptions:CreateCheckButton(L.AutoRespond,  true, nil, "AutoRespond")
 		local MiniMapIcon   = generaloptions:CreateCheckButton(L.EnableMiniMapIcon,  true)
 
@@ -2326,7 +2325,7 @@ local function CreateOptionsMenu()
 			color2text:SetTextColor(self:GetColorRGB())
 		end)
 
-		local maindummybar = DBM.Bars:CreateDummyBar(nil, nil, L.Small)
+		local maindummybar = DBM.Bars:CreateDummyBar(nil, nil, L.SMALL)
 		maindummybar.frame:SetParent(BarSetup.frame)
 		maindummybar.frame:SetPoint("TOP", color2text, "LEFT", 10, 60)
 		maindummybar.frame:SetScript("OnUpdate", function(self, elapsed) maindummybar:Update(elapsed) end)
@@ -2340,7 +2339,7 @@ local function CreateOptionsMenu()
 				_G[self.frame:GetName().."Bar"]:SetWidth(183)
 			end
 		end
-		local maindummybarHuge = DBM.Bars:CreateDummyBar(nil, nil, L.Large)
+		local maindummybarHuge = DBM.Bars:CreateDummyBar(nil, nil, L.LARGE)
 		maindummybarHuge.frame:SetParent(BarSetup.frame)
 		maindummybarHuge.frame:SetPoint("TOP", color2text, "LEFT", 10, 35)
 		maindummybarHuge.frame:SetScript("OnUpdate", function(self, elapsed) maindummybarHuge:Update(elapsed) end)
@@ -2499,7 +2498,7 @@ local function CreateOptionsMenu()
 		-----------------------
 		local BarSetupSmall = BarSetupPanel:CreateArea(L.AreaTitle_BarSetupSmall, nil, 205, true)
 
-		local smalldummybar = DBM.Bars:CreateDummyBar(nil, nil, L.Small)
+		local smalldummybar = DBM.Bars:CreateDummyBar(nil, nil, L.SMALL)
 		smalldummybar.frame:SetParent(BarSetupSmall.frame)
 		smalldummybar.frame:SetPoint('BOTTOM', BarSetupSmall.frame, "TOP", 0, -35)
 		smalldummybar.frame:SetScript("OnUpdate", function(self, elapsed) smalldummybar:Update(elapsed) end)
@@ -2557,7 +2556,7 @@ local function CreateOptionsMenu()
 
 		local enablebar = BarSetupHuge:CreateCheckButton(L.EnableHugeBar, true, nil, nil, "HugeBarsEnabled")
 
-		local hugedummybar = DBM.Bars:CreateDummyBar(nil, nil, L.Large)
+		local hugedummybar = DBM.Bars:CreateDummyBar(nil, nil, L.LARGE)
 		hugedummybar.frame:SetParent(BarSetupSmall.frame)
 		hugedummybar.frame:SetPoint('BOTTOM', BarSetupHuge.frame, "TOP", 0, -50)
 		hugedummybar.frame:SetScript("OnUpdate", function(self, elapsed) hugedummybar:Update(elapsed) end)
