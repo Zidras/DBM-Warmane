@@ -14,7 +14,7 @@ L.OTabBosses	= "Bosse"
 L.OTabOptions	= GAMEOPTIONS_MENU
 
 L.TabCategory_Options	 	= "Allgemeine Einstellungen"
-L.TabCategory_OTHER    		= "Sonstige Boss Mods"
+L.TabCategory_OTHER			= "Sonstige Boss Mods"
 
 L.BossModLoaded 			= "Statistiken von %s"
 L.BossModLoad_now 			= [[Dieses Boss Mod ist nicht geladen. Es wird automatisch geladen, wenn du die Instanz betrittst. Du kannst auch auf den Button klicken um das Boss Mod manuell zu laden.]]
@@ -32,15 +32,12 @@ L.Mod_Enabled				= "Aktiviere Boss Mod"
 L.Mod_Reset					= "Lade Standardeinstellungen"
 L.Reset 					= "Zurücksetzen"
 
-L.Enable  					= "Aktiviert"
+L.Enable					= "Aktiviert"
 L.Disable					= "Deaktiviert"
 
 L.NoSound					= "Kein Sound"
 
 L.IconsInUse				= "Zeichennutzung des Mods"
-
-L.Large						= "Groß"
-L.Small						= "Kleine"
 
 -- Tab: Boss Statistics
 L.BossStatistics			= "Boss Statistiken"
@@ -52,8 +49,6 @@ L.Statistic_BestRank		= "Höchste Stufe:"
 
 -- Tab: General Core Options
 L.General 					= "Allgemeine Grundeinstellungen"
-L.EnableStatus				= "Antworte auf 'status'-Flüsteranfragen"
-L.FixCLEUOnCombatStart		= "Lösche Kampflog bei Pull/Kampfende und Zonenwechsel"
 L.EnableMiniMapIcon			= "Aktiviere Minimap-Symbol"
 L.UseSoundChannel			= "Audiokanal um DBM-Sounddateien abzuspielen"
 L.UseMasterChannel			= "Master Audiokanal"
@@ -173,7 +168,7 @@ L.CVoiceThree				= "Stimmencountdown 3"
 L.AreaTitle_BarColors		= "Balkenfarben nach Timertyp"
 L.AreaTitle_BarSetup		= "Allgemeine Balkeneinstellungen"
 L.AreaTitle_Behavior		= "Optionen für das Balkenverhalten"
-L.AreaTitle_BarSetupSmall	= "Einstellungen für kleine Balken"
+L.AreaTitle_BarSetupSmall 	= "Einstellungen für kleine Balken"
 L.AreaTitle_BarSetupHuge	= "Einstellungen für große Balken"
 L.EnableHugeBar 			= "Aktiviere große Balken (Balken 2)"
 L.BarIconLeft 				= "Symbol links"
@@ -370,6 +365,7 @@ L.AutoAcceptGuildInvite		= "Automatisch Gruppeneinladungen von Gildenmitgliedern
 L.Area_Advanced				= "Erweiterte Einstellungen"
 L.FakeBW					= "Bei Versionsprüfungen als \"BigWigs\" ausgeben, statt als DBM (nützlich für Gilden, die die Nutzung von \"BigWigs\" erzwingen)"
 L.AITimer					= "Erzeuge automatisch Timer für unbekannte Kämpfe mit der in DBM eingebauten Timer-KI (nützlich beim erstmaligen Pullen eines Test-Bosses, etwa auf Beta- oder PTR-Servern) Hinweis: Dies funktioniert nicht richtig bei mehreren Gegnern mit derselben Fähigkeit."
+L.FixCLEUOnCombatStart		= "Lösche Kampflog bei Pull/Kampfende und Zonenwechsel"
 
 L.Panel_Profile				= "Profile"
 L.Area_CreateProfile		= "Profilerzeugung für DBM Core Einstellungen"
@@ -409,3 +405,9 @@ L.FontShadow				= "Schatten"
 L.FontSize					= "Schriftgröße: %d"
 
 L.FontHeight	= 16
+
+-- Retail Globals
+L.LARGE = "Groß"
+L.SMALL = "Kleine"
+L.PLAYER_DIFFICULTY_TIMEWALKER = "Zeitwanderung" -- ID: 25846
+L.SPECIALIZATION = "Spezialisierung" -- ID: 22433

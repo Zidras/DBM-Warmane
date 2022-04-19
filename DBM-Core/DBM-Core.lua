@@ -155,7 +155,6 @@ DBM.DefaultOptions = {
 		X = 0,
 		Y = -185,
 	},
-	StatusEnabled = true,
 	Enabled = true,
 	ShowWarningsInChat = true,
 	ShowFakedRaidWarnings = false,

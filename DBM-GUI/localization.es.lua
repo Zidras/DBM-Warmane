@@ -38,9 +38,6 @@ L.NoSound					= "Sin sonido"
 
 L.IconsInUse				= "Iconos usados por este módulo"
 
-L.Large						= "Grande"
-L.Small						= "Pequeño"
-
 -- Tab: Boss Statistics
 L.BossStatistics			= "Estadísticas"
 L.Statistic_Kills			= "Victorias:"
@@ -54,9 +51,6 @@ L.TabCategory_Options		= "Opciones generales"
 L.Area_BasicSetup			= "Consejos básicos para configurar DBM"
 L.Area_ModulesForYou		= "Guía de módulos"
 L.Area_ProfilesSetup		= "Guía de uso de perfiles de DBM"
-
-L.EnableStatus				= "Responder 'estado' a los que te susurren en banda"
-L.FixCLEUOnCombatStart		= "Limpiar el log de combate al pullear/final de combate y cambio de zona"
 
 L.PizzaTimer_Headline		= 'Crear "Cronomentro"'
 L.PizzaTimer_Title			= 'Nombre (ej. "Pizza!")'
@@ -120,6 +114,7 @@ L.AutoAcceptGuildInvite		= "Aceptar automáticamente invitaciones a grupos de mi
 L.Area_Advanced				= "Opciones avanzadas"
 L.FakeBW					= "Camuflar DBM como si fuera BigWigs en comprobaciones de versión (útil para hermandades que obligan a usar BigWigs)"
 L.AITimer					= "Generar temporizadores automáticamente para encuentros no vistos anteriormente mediante la IA de temporizadores interna de DBM (útil para probar jefes por primera vez en el RPP). No funciona correctamente en encuentros con múltiples esbirros que comparten la misma facultad."
+L.FixCLEUOnCombatStart		= "Limpiar el log de combate al pullear/final de combate y cambio de zona"
 
 -- Panel: Profiles
 L.Panel_Profile				= "Perfiles"
@@ -438,7 +433,7 @@ L.Tab_Privacy 				= "Controles de privacidad"
 L.Area_WhisperMessages		= "Opciones de susurros"
 L.AutoRespond 				= "Responder automáticamente a susurros en encuentro"
 L.WhisperStats 				= "Incluir estadísticas de victoria y derrota en las respuestas automáticas a susurros"
-L.DisableStatusWhisper 		= "Desactivar susurros automáticos de estado de encuentro del grupo o banda para todos los jugadores (requiere ser el líder). Solo se aplica a bandas en dificultad normal y heroica, y a mazmorras de piedra angular."
+L.DisableStatusWhisper 		= "Desactivar susurros automáticos de estado de encuentro del grupo o banda para todos los jugadores (requiere ser el líder). Solo se aplica a bandas en dificultad normal, heroica y mítica, y a mazmorras de piedra angular."
 L.Area_SyncMessages			= "Opciones de sincronización de addons"
 L.DisableGuildStatus 		= "Desactivar mensajes de hermandad de estado de encuentro del grupo o banda para todos los jugadores (requiere ser el líder)."
 L.EnableWBSharing 			= "Compartir tus inicios y victorias de encuentros con jefes de mundo con tu hermandad y amigos de Battle.net que estén en el mismo reino que tú"
@@ -470,3 +465,9 @@ L.FontShadow				= "Sombra"
 L.FontType					= "Fuente"
 
 L.FontHeight	= 16
+
+-- Retail Globals
+L.LARGE = "Grande"
+L.SMALL = "Pequeño"
+L.PLAYER_DIFFICULTY_TIMEWALKER = "Paseo en el tiempo" -- ID: 25846
+L.SPECIALIZATION = "Especialización" -- ID: 22433
