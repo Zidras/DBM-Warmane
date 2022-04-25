@@ -3355,6 +3355,10 @@ function DBM:LFG_PROPOSAL_SHOW()
 		self.Bars:CreateBar(40, L.LFG_INVITE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		fireEvent("DBM_TimerStart", "DBMLFGTimer", L.LFG_INVITE, 40, "Interface\\Icons\\Spell_Holy_BorrowedTime", "extratimer", nil, 0)
 	end
+	if self.Options.LFDEnhance then
+		self:FlashClientIcon(true)
+		self:PlaySound(8960, true)--Because regular sound uses SFX channel which is too low of volume most of time
+	end
 end
 
 function DBM:LFG_PROPOSAL_FAILED()
@@ -3377,8 +3381,9 @@ end
 
 function DBM:READY_CHECK()
 	if self.Options.RLReadyCheckSound then--readycheck sound, if ora3 not installed (bad to have 2 mods do it)
+		self:FlashClientIcon(true)
 		if not BINDING_HEADER_oRA3 then
-			self:PlaySoundFile("Sound\\interface\\levelup2.wav")
+			self:PlaySound(8960, true)--Because regular sound uses SFX channel which is too low of volume most of time
 		end
 	end
 	self:TransitionToDungeonBGM(false, true)
@@ -3841,6 +3846,7 @@ do
 		end
 		dummyMod.text:Cancel()
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
+		DBM:FlashClientIcon()
 		if not DBM.Options.DontShowPT2 then
 			dummyMod.timer:Start(timer, L.TIMER_PULL)
 			sendSync("DBMv4-Pizza", ("%s\t%s\t%s"):format(timer, L.TIMER_PULL, tostring(true))) -- Backwards compatibility so old DBMs can receive pull timers from this DBM
@@ -5213,6 +5219,7 @@ do
 				self:StartLogging(0, nil)
 			end
 			fireEvent("DBM_Pull", mod, delay, synced, startHp)
+			self:FlashClientIcon()
 			--serperate timer recovery and normal start.
 			if event ~= "TIMER_RECOVERY" then
 				--add pull count
@@ -6486,6 +6493,17 @@ function DBM:InCombat()
 		return true
 	end
 	return false
+end
+
+local FlashWindow = FlashWindow
+function DBM:FlashClientIcon(checkAddon)
+	if not FlashWindow then return end -- Check for FlashClient exe patch
+	-- Check for addon via argument to prevent double API call from both DBM and FlashWindow since it would negate the icon flashing
+	if checkAddon and IsAddOnLoaded("FlashWindow") then return end
+
+	if self:AntiSpam(5, "FLASH") then
+		FlashWindow()
+	end
 end
 
 do
