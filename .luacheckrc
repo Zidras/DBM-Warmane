@@ -89,7 +89,7 @@ globals = {
 	"TexturePoolMixin",
 	"TexturePool_Hide",
 	"TexturePool_HideAndClearAnchors",
-	
+
 	"_G",
 	"bit",
 	"Recount",
@@ -133,6 +133,7 @@ globals = {
 	"DBT_AllPersistentOptions",
 	"DBT_PersistentOptions",
 	"DBT",
+	"FlashWindow",
 	"LOCALE_koKR",
 	"LOCALE_ruRU",
 	"LOCALE_zhCN",
