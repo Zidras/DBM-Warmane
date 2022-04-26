@@ -69,7 +69,7 @@ L.SpamSpecRoleGTFO					= "Фильтр 'GTFO' оповещений"
 L.TranslationByPrefix		= "Retail backport by "
 L.TranslationBy				= "Barsoom, Bunny67, Zidras"
 L.Website					= "Discord для обсуждения: |cFF73C2FBhttps://discord.gg/CyVWDWS|r"
-L.WebsiteButton				= "GitHub"
+L.WebsiteButton				= "Форумы"
 
 L.OTabBosses				= "Боссы"
 L.OTabOptions				= "Настройки"
