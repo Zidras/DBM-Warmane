@@ -244,7 +244,6 @@ do
 				area.frame:SetHeight( area.frame:GetHeight() + 35 )
 				area.frame:GetParent():SetHeight( area.frame:GetParent():GetHeight() + 35 )
 
-				panel:SetMyOwnHeight()
 				if DBM_GUI_OptionsFramePanelContainer.displayedFrame and CurCount > 1 then
 					DBM_GUI_OptionsFrame:DisplayFrame(panel.frame)
 				end
@@ -266,7 +265,6 @@ do
 				end
 			end
 		end
-		panel:SetMyOwnHeight()
 	end
 	DBM:RegisterOnGuiLoadCallback(creategui, 19)
 end

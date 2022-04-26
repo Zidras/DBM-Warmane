@@ -50,14 +50,18 @@ end
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
-DBM_GUI = {}
+DBM_GUI = {
+	tabs	= {},
+	panels	= {}
+}
 setmetatable(PanelPrototype, {__index = DBM_GUI})
 
 local L		= DBM_GUI_L
 local CL	= DBM_CORE_L
 
+local tinsert, tremove, tsort, twipe = table.insert, table.remove, table.sort, table.wipe
+local mfloor, mmax = math.floor, math.max
 local modelFrameCreated = false
-local soundsRegistered = false
 local playerName, realmName, playerLevel = UnitName("player"), GetRealmName(), UnitLevel("player")
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
@@ -76,154 +80,100 @@ StaticPopupDialogs["IMPORTPROFILE_ERROR"] = {
 	preferredIndex = 3,
 }
 
---------------------------------------------------------
---  Cache frequently used global variables in locals  --
---------------------------------------------------------
-local tinsert, tremove, tsort, twipe = table.insert, table.remove, table.sort, table.wipe
-local mfloor, mmax = math.floor, math.max
-
-function DBM_GUI:ShowHide(forceshow)
-	if forceshow == true then
-		self:UpdateModList()
-		DBM_GUI_OptionsFrame:Show()
-
-	elseif forceshow == false then
-		DBM_GUI_OptionsFrame:Hide()
-
-	else
-		if DBM_GUI_OptionsFrame:IsShown() then
-			DBM_GUI_OptionsFrame:Hide()
-		else
-			self:UpdateModList()
-			DBM_GUI_OptionsFrame:Show()
-		end
-	end
-end
-
 do
-	DBM_GUI_OptionsFrameTab1:SetText(L.OTabBosses)
-	DBM_GUI_OptionsFrameTab2:SetText(L.OTabOptions)
+	local soundsRegistered = false
 
-	local myid = 100
-	local prottypemetatable = {__index = PanelPrototype}
-	-- This function creates a new entry in the menu
-	--
-	--  arg1 = Text for the UI Button
-	--  arg2 = nil or ("option" or 2)  ... nil will place as a Boss Mod, otherwise as a Option Tab
-	--
-	function DBM_GUI:CreateNewPanel(FrameName, FrameTyp, showsub, sortID, DisplayName)
-		local panel = CreateFrame('Frame', FrameTitle..self:GetNewID(), DBM_GUI_OptionsFramePanelContainer)
-		panel.mytype = "panel"
-		panel.sortID = self:GetCurrentID()
-		panel:SetWidth(DBM_GUI_OptionsFramePanelContainerFOV:GetWidth())
-		panel:SetHeight(DBM_GUI_OptionsFramePanelContainerFOV:GetHeight())
-		panel:SetPoint("TOPLEFT", DBM_GUI_OptionsFramePanelContainer, "TOPLEFT")
-
-		panel.name = FrameName
-		panel.displayname = DisplayName or FrameName
-		panel.showsub = (showsub or showsub == nil)
-
-		if (sortID or 0) > 0 then
-			panel.sortid = sortID
-		else
-			myid = myid + 1
-			panel.sortid = myid
-		end
-		panel:Hide()
-
-		if FrameTyp == "option" or FrameTyp == 2 then
-			panel.categoryid = DBM_GUI_Options:CreateCategory(panel, self and self.frame and self.frame.name)
-			panel.FrameTyp = 2
-		else
-			panel.categoryid = DBM_GUI_Bosses:CreateCategory(panel, self and self.frame and self.frame.name)
-			panel.FrameTyp = 1
-		end
-
-		self:SetLastObj(panel)
-		self.panels = self.panels or {}
-		tinsert(self.panels, {frame = panel, parent = self, framename = FrameTitle..self:GetCurrentID()})
-		local obj = self.panels[#self.panels]
-		panel.panelid = #self.panels
-		return setmetatable(obj, prottypemetatable)
-	end
-
-	-- This function don't realy destroy a window, it just hides it
-	function PanelPrototype:Destroy()
-		if self.frame.FrameTyp == 2 then
-			tremove(DBM_GUI_Options.Buttons, self.frame.categoryid)
-		else
-			tremove(DBM_GUI_Bosses.Buttons, self.frame.categoryid)
-		end
-		tremove(self.parent.panels, self.frame.panelid)
-		self.frame:Hide()
-	end
-
-	-- This function renames the Menu Entry for a Panel
-	function PanelPrototype:Rename(newname)
-		self.frame.name = newname
-	end
-
-	-- This function adds areas to group widgets
-	--
-	--  arg1 = titel of this area
-	--  arg2 = width ot the area
-	--  arg3 = hight of the area
-	--  arg4 = autoplace
-	--
-	function PanelPrototype:CreateArea(name, width, height, autoplace)
-		local area = CreateFrame('Frame', FrameTitle..self:GetNewID(), self.frame, 'OptionsBoxTemplate')
-		area.mytype = "area"
-		area:SetBackdropBorderColor(0.4, 0.4, 0.4)
-		area:SetBackdropColor(0.15, 0.15, 0.15, 0.5)
-		_G[FrameTitle..self:GetCurrentID()..'Title']:SetText(name)
-		if width ~= nil and width < 0 then
-			area:SetWidth( self.frame:GetWidth() -12 + width)
-		else
-			area:SetWidth(width or self.frame:GetWidth()-12)
-		end
-		area:SetHeight(height or self.frame:GetHeight()-10)
-
-		if autoplace then
-			if select('#', self.frame:GetChildren()) == 1 then
-				area:SetPoint('TOPLEFT', self.frame, 5, -20)
-			else
-				area:SetPoint('TOPLEFT', select(-2, self.frame:GetChildren()) or self.frame, "BOTTOMLEFT", 0, -20)
+	function DBM_GUI:MixinSharedMedia3(mediatype, mediatable)
+		if not LibStub then return mediatable end
+		if not LibStub("LibSharedMedia-3.0", true) then return mediatable end
+		-- register some of our own media
+		if not soundsRegistered then
+			local LSM = LibStub("LibSharedMedia-3.0")
+			soundsRegistered = true
+			--Embedded Sound Clip media
+			LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
+			LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
+			LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
+			LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
+			LSM:Register("sound", "AirHorn (DBM)", [[Interface\AddOns\DBM-Core\sounds\AirHorn.ogg]])
+			LSM:Register("sound", "Jaina: Beware", [[Interface\AddOns\DBM-Core\sounds\SoundClips\beware.ogg]])
+			LSM:Register("sound", "Jaina: Beware (reverb)", [[Interface\AddOns\DBM-Core\sounds\SoundClips\beware_with_reverb.ogg]])
+			LSM:Register("sound", "Thrall: That's Incredible!", [[Interface\AddOns\DBM-Core\sounds\SoundClips\incredible.ogg]])
+			LSM:Register("sound", "Saurfang: Don't Die", [[Interface\AddOns\DBM-Core\sounds\SoundClips\dontdie.ogg]])
+			--Blakbyrd
+			LSM:Register("sound", "Blakbyrd Alert 1", [[Interface\AddOns\DBM-Core\sounds\BlakbyrdAlerts\Alert1.ogg]])
+			LSM:Register("sound", "Blakbyrd Alert 2", [[Interface\AddOns\DBM-Core\sounds\BlakbyrdAlerts\Alert2.ogg]])
+			LSM:Register("sound", "Blakbyrd Alert 3", [[Interface\AddOns\DBM-Core\sounds\BlakbyrdAlerts\Alert3.ogg]])
+			--User Media
+			--IMPORTANT, as of 8.2+, if you register media that doesn't actually exist, it WILL throw Lua errors
+			--So use CustomSounds very carefully
+			if DBM.Options.CustomSounds >= 1 then
+				LSM:Register("sound", "DBM: Custom 1", [[Interface\AddOns\DBM-CustomSounds\Custom1.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 2 then
+				LSM:Register("sound", "DBM: Custom 2", [[Interface\AddOns\DBM-CustomSounds\Custom2.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 3 then
+				LSM:Register("sound", "DBM: Custom 3", [[Interface\AddOns\DBM-CustomSounds\Custom3.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 4 then
+				LSM:Register("sound", "DBM: Custom 4", [[Interface\AddOns\DBM-CustomSounds\Custom4.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 5 then
+				LSM:Register("sound", "DBM: Custom 5", [[Interface\AddOns\DBM-CustomSounds\Custom5.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 6 then
+				LSM:Register("sound", "DBM: Custom 6", [[Interface\AddOns\DBM-CustomSounds\Custom6.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 7 then
+				LSM:Register("sound", "DBM: Custom 7", [[Interface\AddOns\DBM-CustomSounds\Custom7.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 8 then
+				LSM:Register("sound", "DBM: Custom 8", [[Interface\AddOns\DBM-CustomSounds\Custom8.ogg]])
+			end
+			if DBM.Options.CustomSounds >= 9 then
+				LSM:Register("sound", "DBM: Custom 9", [[Interface\AddOns\DBM-CustomSounds\Custom9.ogg]])
+				if DBM.Options.CustomSounds > 9 then DBM.Options.CustomSounds = 9 end
 			end
 		end
-
-		self:SetLastObj(area)
-		self.areas = self.areas or {}
-		tinsert(self.areas, {frame = area, parent = self, framename = FrameTitle..self:GetCurrentID()})
-		return setmetatable(self.areas[#self.areas], prottypemetatable)
-	end
-
-	function DBM_GUI:GetLastObj()
-		return self.lastobject
-	end
-	function DBM_GUI:SetLastObj(obj)
-		self.lastobject = obj
-	end
-	function DBM_GUI:GetParentsLastObj()
-		if self.frame.mytype == "area" then
-			return self.parent:GetLastObj()
-		else
-			return self:GetLastObj()
+		-- sort LibSharedMedia keys alphabetically (case-insensitive)
+		local keytable = {}
+		for k in next, LibStub("LibSharedMedia-3.0", true):HashTable(mediatype) do
+			tinsert(keytable, k)
 		end
-	end
-end
-
-do
-	local FrameNames = {}
-	function DBM_GUI:AddFrame(FrameName)
-		tinsert(FrameNames, FrameName)
-	end
-	function DBM_GUI:IsPresent(FrameName)
-		for k,v in ipairs(FrameNames) do
-			if v == FrameName then
-				return true
+		tsort(keytable, function (a, b) return a:lower() < b:lower() end);
+		-- DBM values (mediatable) first, LibSharedMedia values (sorted alphabetically) afterwards
+		local result = mediatable
+		for i=1,#keytable do
+			local k = keytable[i]
+			local v = LibStub("LibSharedMedia-3.0", true):HashTable(mediatype)[k]
+			-- lol ace .. playsound accepts empty strings.. quite.mp3 wtf!
+			-- NPCScan is a dummy inject of a custom sound in Silverdragon, we don't want that.
+			if mediatype ~= "sound" or (k ~= "None" and k ~= "NPCScan") then
+				-- filter duplicates
+				local insertme = true
+				for _, v2 in next, result do
+					if v2.value == v then
+						insertme = false
+						break
+					end
+				end
+				if insertme then
+					if mediatype == "statusbar" then
+						tinsert(result, {text=k, value=v, texture=v})
+					elseif mediatype == "font" then
+						tinsert(result, {text=k, value=v, font=v})
+					--Only insert paths from addons folder, ignore file data ID, since there is no clean way to handle supporitng both FDID and soundkit at same time
+					elseif mediatype == "sound" and type(v) == "string" then
+						local search = v:lower()
+						if search:find("addons") then
+							tinsert(result, {text=k, value=v, sound=true})
+						end
+					end
+				end
 			end
 		end
-		return false
+		return result
 	end
 end
 
@@ -325,98 +275,23 @@ do
 	end
 end
 
-local function MixinSharedMedia3(mediatype, mediatable)
-	if not LibStub then return mediatable end
-	if not LibStub("LibSharedMedia-3.0", true) then return mediatable end
-	-- register some of our own media
-	if not soundsRegistered then
-		local LSM = LibStub("LibSharedMedia-3.0")
-		soundsRegistered = true
-		--Embedded Sound Clip media
-		LSM:Register("font",  "PT Sans Narrow", standardFont, LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
-		LSM:Register("sound", "Long",	"Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3")
-		LSM:Register("sound", "Alert",	"Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
-		LSM:Register("sound", "Info",	"Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3")
-		LSM:Register("sound", "AirHorn (DBM)", [[Interface\AddOns\DBM-Core\sounds\AirHorn.ogg]])
-		LSM:Register("sound", "Jaina: Beware", [[Interface\AddOns\DBM-Core\sounds\SoundClips\beware.ogg]])
-		LSM:Register("sound", "Jaina: Beware (reverb)", [[Interface\AddOns\DBM-Core\sounds\SoundClips\beware_with_reverb.ogg]])
-		LSM:Register("sound", "Thrall: That's Incredible!", [[Interface\AddOns\DBM-Core\sounds\SoundClips\incredible.ogg]])
-		LSM:Register("sound", "Saurfang: Don't Die", [[Interface\AddOns\DBM-Core\sounds\SoundClips\dontdie.ogg]])
-		--Blakbyrd
-		LSM:Register("sound", "Blakbyrd Alert 1", [[Interface\AddOns\DBM-Core\sounds\BlakbyrdAlerts\Alert1.ogg]])
-		LSM:Register("sound", "Blakbyrd Alert 2", [[Interface\AddOns\DBM-Core\sounds\BlakbyrdAlerts\Alert2.ogg]])
-		LSM:Register("sound", "Blakbyrd Alert 3", [[Interface\AddOns\DBM-Core\sounds\BlakbyrdAlerts\Alert3.ogg]])
-		--User Media
-		--IMPORTANT, as of 8.2+, if you register media that doesn't actually exist, it WILL throw Lua errors
-		--So use CustomSounds very carefully
-		if DBM.Options.CustomSounds >= 1 then
-			LSM:Register("sound", "DBM: Custom 1", [[Interface\AddOns\DBM-CustomSounds\Custom1.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 2 then
-			LSM:Register("sound", "DBM: Custom 2", [[Interface\AddOns\DBM-CustomSounds\Custom2.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 3 then
-			LSM:Register("sound", "DBM: Custom 3", [[Interface\AddOns\DBM-CustomSounds\Custom3.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 4 then
-			LSM:Register("sound", "DBM: Custom 4", [[Interface\AddOns\DBM-CustomSounds\Custom4.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 5 then
-			LSM:Register("sound", "DBM: Custom 5", [[Interface\AddOns\DBM-CustomSounds\Custom5.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 6 then
-			LSM:Register("sound", "DBM: Custom 6", [[Interface\AddOns\DBM-CustomSounds\Custom6.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 7 then
-			LSM:Register("sound", "DBM: Custom 7", [[Interface\AddOns\DBM-CustomSounds\Custom7.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 8 then
-			LSM:Register("sound", "DBM: Custom 8", [[Interface\AddOns\DBM-CustomSounds\Custom8.ogg]])
-		end
-		if DBM.Options.CustomSounds >= 9 then
-			LSM:Register("sound", "DBM: Custom 9", [[Interface\AddOns\DBM-CustomSounds\Custom9.ogg]])
-			if DBM.Options.CustomSounds > 9 then DBM.Options.CustomSounds = 9 end
+function DBM_GUI:ShowHide(forceshow)
+	local optionsFrame = _G["DBM_GUI_OptionsFrame"]
+	if forceshow == true then
+		self:UpdateModList()
+		optionsFrame:Show()
+	elseif forceshow == false then
+		optionsFrame:Hide()
+	else
+		if optionsFrame:IsShown() then
+			optionsFrame:Hide()
+		else
+			self:UpdateModList()
+			optionsFrame:Show()
 		end
 	end
-	-- sort LibSharedMedia keys alphabetically (case-insensitive)
-	local keytable = {}
-	for k in next, LibStub("LibSharedMedia-3.0", true):HashTable(mediatype) do
-		tinsert(keytable, k)
-	end
-	tsort(keytable, function (a, b) return a:lower() < b:lower() end);
-	-- DBM values (mediatable) first, LibSharedMedia values (sorted alphabetically) afterwards
-	local result = mediatable
-	for i=1,#keytable do
-		local k = keytable[i]
-		local v = LibStub("LibSharedMedia-3.0", true):HashTable(mediatype)[k]
-		-- lol ace .. playsound accepts empty strings.. quite.mp3 wtf!
-		-- NPCScan is a dummy inject of a custom sound in Silverdragon, we don't want that.
-		if mediatype ~= "sound" or (k ~= "None" and k ~= "NPCScan") then
-			-- filter duplicates
-			local insertme = true
-			for _, v2 in next, result do
-				if v2.value == v then
-					insertme = false
-					break
-				end
-			end
-			if insertme then
-				if mediatype == "statusbar" then
-					tinsert(result, {text=k, value=v, texture=v})
-				elseif mediatype == "font" then
-					tinsert(result, {text=k, value=v, font=v})
-				--Only insert paths from addons folder, ignore file data ID, since there is no clean way to handle supporitng both FDID and soundkit at same time
-				elseif mediatype == "sound" and type(v) == "string" then
-					local search = v:lower()
-					if search:find("addons") then
-						tinsert(result, {text=k, value=v, sound=true})
-					end
-				end
-			end
-		end
-	end
-	return result
 end
+
 
 -- This function creates a check box
 -- Autoplaced buttons will be placed under the last widget
@@ -428,76 +303,7 @@ end
 --  arg5 = DBM.Bars:SetOption(arg5, ...)
 --
 do
-	local function cursorInHitBox(frame)
-		local x = GetCursorPosition()
-		local fX = frame:GetCenter()
-		local hitBoxSize = -100 -- default value from the default UI template
-		return x - fX < hitBoxSize
-	end
-
-	local currActiveButton
-	local updateFrame = CreateFrame("Frame")
-	local function onUpdate(self, elapsed)
-		local inHitBox = cursorInHitBox(currActiveButton)
-		if currActiveButton.fakeHighlight and not inHitBox then
-			currActiveButton:UnlockHighlight()
-			currActiveButton.fakeHighlight = nil
-		elseif not currActiveButton.fakeHighlight and inHitBox then
-			currActiveButton:LockHighlight()
-			currActiveButton.fakeHighlight = true
-		end
-		local x, y = GetCursorPosition()
-		local scale = UIParent:GetEffectiveScale()
-		x, y = x / scale, y / scale
-		GameTooltip:SetPoint("BOTTOMLEFT", nil, "BOTTOMLEFT", x + 5, y + 2)
-	end
-
-	local function onHyperlinkClick(self, data, link)
-		if IsShiftKeyDown() then
-			local msg = link:gsub("|h(.*)|h", "|h[%1]|h")
-			local chatWindow = ChatEdit_GetActiveWindow()
-			if chatWindow then
-				chatWindow:Insert(msg)
-			end
-		elseif not IsShiftKeyDown() then
-			if cursorInHitBox(self:GetParent()) then
-				self:GetParent():Click()
-			end
-		end
-	end
-
-	local function onHyperlinkEnter(self, data, link)
-		GameTooltip:SetOwner(self, "ANCHOR_NONE") -- I want to anchor BOTTOMLEFT of the tooltip to the cursor... (not BOTTOM as in ANCHOR_CURSOR)
-		GameTooltip:SetHyperlink(data)
-		GameTooltip:Show()
-		currActiveButton = self:GetParent()
-		updateFrame:SetScript("OnUpdate", onUpdate)
-		if cursorInHitBox(self:GetParent()) then
-			self:GetParent().fakeHighlight = true
-			self:GetParent():LockHighlight()
-		end
-	end
-
-	local function onHyperlinkLeave(self, data, link)
-		GameTooltip:Hide()
-		updateFrame:SetScript("OnUpdate", nil)
-		if self:GetParent().fakeHighlight then
-			self:GetParent().fakeHighlight = nil
-			self:GetParent():UnlockHighlight()
-		end
-	end
-
-	local function replaceSpellLinks(id)
-		local spellId = tonumber(id)
-		local spellName = DBM:GetSpellInfo(spellId)
-		if not spellName then
-			spellName = CL.UNKNOWN
-			DBM:Debug("Spell ID does not exist: "..spellId)
-		end
-		return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(spellId, spellName)
-	end
-
-	local sounds = MixinSharedMedia3("sound", {
+	local sounds = DBM_GUI:MixinSharedMedia3("sound", {
 		--Inject basically dummy values for ordering special warnings to just use default SW sound assignments
 		{sound = true, text = L.None, value = "None"},
 		{sound = true, text = "SW 1", value = 1},
@@ -554,888 +360,6 @@ do
 		{text = L.CVoiceTwo, value = 2},
 		{text = L.CVoiceThree, value = 3},
 	})
-
-	function PanelPrototype:CreateCheckButton(name, autoplace, textleft, dbmvar, dbtvar, mod, modvar, globalvar, isTimer)
-		if not name then
-			return
-		end
-		if type(name) == "number" then
-			return DBM:AddMsg("CreateCheckButton: error: expected string, received number. You probably called mod:NewTimer(optionId) with a spell id."..name)
-		end
-		local button = CreateFrame('CheckButton', FrameTitle..self:GetNewID(), self.frame, 'DBMOptionsCheckButtonTemplate')
-		local buttonName = button:GetName()
-		button.myheight = 25
-		button.mytype = "checkbutton"
-		if ElvUI and S then
-			S:HandleCheckBox(button, true)
-		end
-		-- font strings do not support hyperlinks, so check if we need one...
-		local noteSpellName = name
-		if name:find("%$spell:") then
-			if not isTimer and modvar then
-				local spellId = string.match(name, "spell:(%d+)")
-				noteSpellName = DBM:GetSpellInfo(spellId)
-			end
-			name = name:gsub("%$spell:(%d+)", replaceSpellLinks)
-		end
-		local dropdown, dropdown2
-		local noteButton
-		if modvar then--Special warning, has modvar for sound and note
-			if isTimer then
-				dropdown = self:CreateDropdown(nil, tcolors, nil, nil, function(value)
-					mod.Options[modvar.."TColor"] = value
-				end, 25, 25, button)
-				dropdown:SetScript("OnShow", function(self)
-					self:SetSelectedValue(mod.Options[modvar.."TColor"])
-				end)
-				dropdown2 = self:CreateDropdown(nil, cvoice, nil, nil, function(value)
-					mod.Options[modvar.."CVoice"] = value
-					if type(value) == "string" then
-						DBM:PlayCountSound(1, nil, value)
-					elseif value > 0 then
-						local countPlay = value == 3 and DBM.Options.CountdownVoice3 or value == 2 and DBM.Options.CountdownVoice2 or DBM.Options.CountdownVoice
-						DBM:PlayCountSound(1, countPlay)
-					end
-				end, 20, 25, button)
-				dropdown2:SetScript("OnShow", function(self)
-					self:SetSelectedValue(mod.Options[modvar.."CVoice"])
-				end)
-			else
-				dropdown = self:CreateDropdown(nil, sounds, nil, nil, function(value)
-					mod.Options[modvar.."SWSound"] = value
-					DBM:PlaySpecialWarningSound(value)
-				end, 20, 25, button)
-				dropdown:SetScript("OnShow", function(self)
-					self:SetSelectedValue(mod.Options[modvar.."SWSound"])
-				end)
-				if mod.Options[modvar .. "SWNote"] then--Mod has note, insert note hack
-					noteButton = CreateFrame('Button', FrameTitle..self:GetNewID(), self.frame, 'DBM_GUI_OptionsFramePanelButtonTemplate')
-					noteButton:SetWidth(25)
-					noteButton:SetHeight(25)
-					noteButton.myheight = 0--Tells SetAutoDims that this button needs no additional space
-					noteButton:SetText("|TInterface/FriendsFrame/UI-FriendsFrame-Note.blp:18:18:2:-1|t")
-					noteButton.mytype = "button"
-					noteButton:SetScript("OnClick", function(self)
-						local noteText = mod.Options[modvar.."SWNote"]
-						if noteText then
-							DBM:Debug(tostring(noteText), 2)--Debug only
-						end
-						DBM:ShowNoteEditor(mod, modvar, noteSpellName)
-					end)
-				end
-			end
-		end
-
-		local textpad = 0
-		local widthAdjust = 0
-		local html
-		local textbeside = button
-		if dropdown then
-			dropdown:SetPoint("LEFT", button, "RIGHT", -20, 2)
-			if noteButton then
-				noteButton:SetPoint('LEFT', dropdown, "RIGHT", 35, 0)
-				textbeside = noteButton
-				textpad = 2
-				widthAdjust = widthAdjust + dropdown:GetWidth() + noteButton:GetWidth()
-			elseif dropdown2 then
-				dropdown2:SetPoint('LEFT', dropdown, "RIGHT", 18, 0)
-				textbeside = dropdown2
-				textpad = 35
-				widthAdjust = widthAdjust + dropdown:GetWidth() + dropdown2:GetWidth()
-			else
-				textbeside = dropdown
-				textpad = 35
-				widthAdjust = widthAdjust + dropdown:GetWidth()
-			end
-		end
-		if name then -- switch all checkbutton frame to SimpleHTML frame (auto wrap)
-			_G[buttonName.."Text"] = CreateFrame("SimpleHTML", buttonName.."Text", button)
-			html = _G[buttonName.."Text"]
-			html:SetFontObject("GameFontNormal")
-			html:SetHyperlinksEnabled(true)
-			html:SetScript("OnHyperlinkEnter", onHyperlinkEnter)
-			html:SetScript("OnHyperlinkLeave", onHyperlinkLeave)
-			html:SetHeight(25)
-			-- oscarucb: proper html encoding is required here for hyperlink line wrapping to work correctly
-			name = "<html><body><p>"..name.."</p></body></html>"
-		end
-		_G[buttonName .. 'Text']:SetWidth( self.frame:GetWidth() - 57 - widthAdjust)
-		_G[buttonName .. 'Text']:SetText(name or CL.UNKNOWN)
-
-		if textleft then
-			_G[buttonName .. 'Text']:ClearAllPoints()
-			_G[buttonName .. 'Text']:SetPoint("RIGHT", textbeside, "LEFT", 0, 0)
-			_G[buttonName .. 'Text']:SetJustifyH("RIGHT")
-		else
-			_G[buttonName .. 'Text']:SetJustifyH("LEFT")
-		end
-
-		if html and not textleft then
-			html:SetHeight(1) -- oscarucb: hack to discover wrapped height, so we can space multi-line options
-			html:SetPoint("TOPLEFT",UIParent)
-			local ht = select(4,html:GetBoundsRect()) or 25
-			html:ClearAllPoints()
-			html:SetPoint("TOPLEFT", textbeside, "TOPRIGHT", textpad, -4)
-			html:SetHeight(ht)
-			button.myheight = mmax(ht+12,button.myheight)
-		end
-
-		if dbmvar and DBM.Options[dbmvar] ~= nil then
-			button:SetScript("OnShow",  function(self) button:SetChecked(DBM.Options[dbmvar]) end)
-			button:SetScript("OnClick", function(self) DBM.Options[dbmvar] = not DBM.Options[dbmvar]
-				if dbmvar == "DualProfile" then -- kocTblJIb for dualprofile since overriding Onshow or onClick breaks this hueta
-					DBM_UseDualProfile = not DBM_UseDualProfile
-					DBM:Debug(tostring( dbmvar ) .. "DBM_UseDualProfile is now " .. tostring( DBM_UseDualProfile ))
-					DBM:SpecChanged(true)
-				end
-			end)
-		end
-
-		if dbtvar then
-			button:SetScript("OnShow",  function(self) button:SetChecked( DBM.Bars:GetOption(dbtvar) ) end)
-			button:SetScript("OnClick", function(self) DBM.Bars:SetOption(dbtvar, not DBM.Bars:GetOption(dbtvar)) end)
-		end
-
-		if globalvar and _G[globalvar] ~= nil then
-			button:SetScript("OnShow",  function(self) button:SetChecked( _G[globalvar] ) end)
-			button:SetScript("OnClick", function(self) _G[globalvar] = not _G[globalvar] end)
-		end
-
-		if autoplace then
-			local x = self:GetLastObj()
-			if x.mytype == "checkbutton" or x.mytype == "line" then
-				button:ClearAllPoints()
-				button:SetPoint('TOPLEFT', x, "TOPLEFT", 0, -x.myheight)
-			else
-				button:ClearAllPoints()
-				button:SetPoint('TOPLEFT', 10, -12)
-			end
-		end
-
-		self:SetLastObj(button)
-		return button
-	end
-
-	function PanelPrototype:CreateLine(text)
-		local line = CreateFrame("Frame", FrameTitle..self:GetNewID(), self.frame)
-		line:SetSize(self.frame:GetWidth() - 20, 20)
-		line:SetPoint("TOPLEFT", 10, -12)
-		line.myheight = 20
-		line.mytype = "line"
-
-		local linetext = line:CreateFontString(line:GetName().."Text", "ARTWORK", "GameFontNormal")
-		linetext:SetPoint("TOPLEFT", line, "TOPLEFT", 0, 0)
-		linetext:SetJustifyH("LEFT")
-		linetext:SetHeight(18)
-		linetext:SetTextColor(0.67, 0.83, 0.48)
-		linetext:SetText(text or "")
-
-		local linebg = line:CreateTexture()
-		linebg:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
-		linebg:SetSize(self.frame:GetWidth() - linetext:GetWidth() - 25, 2)
-		linebg:SetPoint("RIGHT", line, "RIGHT", 0, 0)
-
-		local x = self:GetLastObj()
-		if x.mytype == "checkbutton" or x.mytype == "line" then
-			line:ClearAllPoints()
-			line:SetPoint('TOPLEFT', x, "TOPLEFT", 0, -x.myheight)
-		else
-			line:ClearAllPoints()
-			line:SetPoint('TOPLEFT', 10, -12)
-		end
-
-		self:SetLastObj(line)
-		return line
-	end
-end
-
-do
-	local function unfocus(self)
-		self:ClearFocus()
-	end
-	-- This function creates an EditBox
-	--
-	--  arg1 = Title text, placed ontop of the EditBox
-	--  arg2 = Text placed within the EditBox
-	--  arg3 = width
-	--  arg4 = height
-	--
-	function PanelPrototype:CreateEditBox(text, value, width, height)
-		local textbox = CreateFrame('EditBox', FrameTitle..self:GetNewID(), self.frame, 'DBM_GUI_FrameEditBoxTemplate')
-		textbox.mytype = "textbox"
-		_G[FrameTitle..self:GetCurrentID().."Text"]:SetText(text)
-		textbox:SetWidth(width or 100)
-		textbox:SetHeight(height or 20)
-		textbox:SetScript("OnEscapePressed", unfocus)
-		textbox:SetScript("OnTabPressed", unfocus)
-		if type(value) == "string" then
-			textbox:SetText(value)
-		end
-		self:SetLastObj(textbox)
-		return textbox
-	end
-end
-
--- This function creates a ScrollingMessageFrame (usefull for log entrys)
---
---  arg1 = width of the frame
---  arg2 = height
---  arg3 = insertmode (BOTTOM or TOP)
---  arg4 = enable message fading (default disabled)
---  arg5 = fontobject (font for the messages)
---
-function PanelPrototype:CreateScrollingMessageFrame(width, height, insertmode, fading, fontobject)
-	local scrollframe = CreateFrame("ScrollingMessageFrame",FrameTitle..self:GetNewID(), self.frame)
-	scrollframe:SetWidth(width or 200)
-	scrollframe:SetHeight(height or 150)
-	scrollframe:SetJustifyH("LEFT")
-	if not fading then
-		scrollframe:SetFading(false)
-	end
-	scrollframe:SetInsertMode(insertmode or "BOTTOM")
-	scrollframe:SetFontObject(fontobject or "GameFontNormal")
-	scrollframe:SetMaxLines(2000)
-	scrollframe:EnableMouse(true)
-	scrollframe:EnableMouseWheel(1)
-
-	scrollframe:SetScript("OnHyperlinkClick", ChatFrame_OnHyperlinkShow)
-	scrollframe:SetScript("OnMouseWheel", function(self, delta)
-		if delta == 1 then
-			self:ScrollUp()
-		elseif delta == -1 then
-			self:ScrollDown()
-		end
-	end)
-
-	self:SetLastObj(scrollframe)
-	return scrollframe
-end
-
-
--- This function creates a slider for numeric values
---
---  arg1 = text ontop of the slider, centered
---  arg2 = lowest value
---  arg3 = highest value
---  arg4 = stepping
---  arg5 = framewidth
---
-do
-	local function onValueChanged(font, text)
-		return function(self, value)
-			font:SetFormattedText(text, value)
-		end
-	end
-	function PanelPrototype:CreateSlider(text, low, high, step, framewidth)
-		local slider = CreateFrame('Slider', FrameTitle..self:GetNewID(), self.frame, 'OptionsSliderTemplate')
-		slider.mytype = "slider"
-		slider.myheight = 50
-		slider:SetMinMaxValues(low, high)
-		slider:SetValueStep(step)
-		slider:SetWidth(framewidth or 180)
-		_G[FrameTitle..self:GetCurrentID()..'Text']:SetText(text)
-		slider:SetScript("OnValueChanged", onValueChanged(_G[FrameTitle..self:GetCurrentID()..'Text'], text))
-		self:SetLastObj(slider)
-		return slider
-	end
-end
-
--- This function creates a color picker
---
---  arg1 = width of the colorcircle (128 default)
---  arg2 = true if you want an alpha selector
---  arg3 = width of the alpha selector (32 default)
-
-function PanelPrototype:CreateColorSelect(dimension, withalpha, alphawidth)
-	--- Color select texture with wheel and value
-	local colorselect = CreateFrame("ColorSelect", FrameTitle..self:GetNewID(), self.frame)
-	colorselect.mytype = "colorselect"
-	if withalpha then
-		colorselect:SetWidth((dimension or 128)+37)
-	else
-		colorselect:SetWidth((dimension or 128))
-	end
-	colorselect:SetHeight(dimension or 128)
-
-	-- create a color wheel
-	local colorwheel = colorselect:CreateTexture()
-	colorwheel:SetWidth(dimension or 128)
-	colorwheel:SetHeight(dimension or 128)
-	colorwheel:SetPoint("TOPLEFT", colorselect, "TOPLEFT", 5, 0)
-	colorselect:SetColorWheelTexture(colorwheel)
-
-	-- create the colorpicker
-	local colorwheelthumbtexture = colorselect:CreateTexture()
-	colorwheelthumbtexture:SetTexture("Interface\\Buttons\\UI-ColorPicker-Buttons")
-	colorwheelthumbtexture:SetWidth(10)
-	colorwheelthumbtexture:SetHeight(10)
-	colorwheelthumbtexture:SetTexCoord(0,0.15625, 0, 0.625)
-	colorselect:SetColorWheelThumbTexture(colorwheelthumbtexture)
-
-	if withalpha then
-		-- create the alpha bar
-		local colorvalue = colorselect:CreateTexture()
-		colorvalue:SetWidth(alphawidth or 32)
-		colorvalue:SetHeight(dimension or 128)
-		colorvalue:SetPoint("LEFT", colorwheel, "RIGHT", 10, -3)
-		colorselect:SetColorValueTexture(colorvalue)
-
-		-- create the alpha arrows
-		local colorvaluethumbtexture = colorselect:CreateTexture()
-		colorvaluethumbtexture:SetTexture("Interface\\Buttons\\UI-ColorPicker-Buttons")
-		colorvaluethumbtexture:SetWidth( alphawidth/32 * 48)
-		colorvaluethumbtexture:SetHeight( alphawidth/32 * 14)
-		colorvaluethumbtexture:SetTexCoord(0.25, 1, 0.875, 0)
-		colorselect:SetColorValueThumbTexture(colorvaluethumbtexture)
-	end
-
-	self:SetLastObj(colorselect)
-	return colorselect
-end
-
-
--- This function creates a button
---
---  arg1 = text on the button "OK", "Cancel",...
---  arg2 = widht
---  arg3 = height
---  arg4 = function to call when clicked
---
-function PanelPrototype:CreateButton(title, width, height, onclick, FontObject)
-	local button = CreateFrame('Button', FrameTitle..self:GetNewID(), self.frame, 'DBM_GUI_OptionsFramePanelButtonTemplate')
-	local buttonName = button:GetName()
-	button.mytype = "button"
-	button:SetWidth(width or 100)
-	button:SetHeight(height or 20)
-	button:SetText(title)
-	if onclick then
-		button:SetScript("OnClick", onclick)
-	end
-	if FontObject then
-		button:SetNormalFontObject(FontObject)
-		button:SetHighlightFontObject(FontObject)
-	end
-	if _G[buttonName.."Text"]:GetStringWidth() > button:GetWidth() then
-		button:SetWidth( _G[buttonName.."Text"]:GetStringWidth() + 25 )
-	end
-
-	if button.StripTextures and button.SetTemplate then
-		button:StripTextures()
-		button:SetTemplate("Transparent")
-	end
-
-	self:SetLastObj(button)
-	return button
-end
-
--- This function creates a text block for descriptions
---
---  arg1 = text to write
---  arg2 = width to set
-function PanelPrototype:CreateText(text, width, autoplaced, style, justify)
-	local textblock = self.frame:CreateFontString(FrameTitle..self:GetNewID(), "ARTWORK")
-	textblock.mytype = "textblock"
-	if not style then
-		textblock:SetFontObject(GameFontNormal)
-	else
-		textblock:SetFontObject(style)
-	end
-	textblock:SetText(text)
-	if justify then
-		textblock:SetJustifyH(justify)
-	else
-		textblock:SetJustifyH("CENTER")
-	end
-
-	if width then
-		textblock:SetWidth( width or 100 )
-	else
-		textblock:SetWidth( self.frame:GetWidth() )
-	end
-
-	if autoplaced then
-		textblock:SetPoint('TOPLEFT',self.frame, "TOPLEFT", 10, -10)
-	end
-
-	self:SetLastObj(textblock)
-	return textblock
-end
-
-
-function PanelPrototype:CreateCreatureModelFrame(width, height, creatureid)
-	local ModelFrame = CreateFrame('PlayerModel', FrameTitle..self:GetNewID(), self.frame)
-	ModelFrame.mytype = "modelframe"
-	ModelFrame:SetWidth(width or 100)
-	ModelFrame:SetHeight(height or 200)
-	ModelFrame:SetCreature(tonumber(creatureid) or 448)	-- Hogger!!! he kills all of you
-
-	self:SetLastObj(ModelFrame)
-	return ModelFrame
-end
-
-function PanelPrototype:AutoSetDimension(additionalHeight)
-	if self.frame.mytype ~= "area" then return end
-	local height = self.frame:GetHeight()
-	local addHeight = additionalHeight or 0
-	local need_height = 25 + addHeight
-
-	local kids = { self.frame:GetChildren() }
-	for _, child in pairs(kids) do
-		if child.myheight and type(child.myheight) == "number" then
-			need_height = need_height + child.myheight
-		else
-			need_height = need_height + child:GetHeight()
-		end
-	end
-
-	self.frame.myheight = need_height + 20
-	self.frame:SetHeight(need_height)
-end
-
-function PanelPrototype:SetMyOwnHeight()
-	if self.frame.mytype ~= "panel" then return end
-
-	local need_height = self.initheight or 20
-
-	local kids = { self.frame:GetChildren() }
-	for _, child in pairs(kids) do
-		if child.mytype == "area" and child.myheight then
-			need_height = need_height + child.myheight
-		elseif child.mytype == "area" then
-			need_height = need_height + child:GetHeight() + 20
-		elseif child.myheight then
-			need_height = need_height + child.myheight
-		end
-	end
-	self.frame.actualHeight = need_height -- HACK: work-around for some strange bug, panels that are overriden (e.g. stats panels when the mod is loaded) are behaving strange since 4.1. GetHeight() will always return the height of the old panel and not of the new...
-	self.frame:SetHeight(need_height)
-end
-
-
-local ListFrameButtonsPrototype = {}
--- Prototyp for ListFrame Options Buttons
-
-function ListFrameButtonsPrototype:CreateCategory(frame, parent)
-	if type(frame) ~= "table" then
-		DBM:AddMsg("Failed to create category - frame is not a table")
-		DBM:AddMsg(debugstack())
-		return false
-	elseif not frame.name then
-		DBM:AddMsg("Failed to create category - frame.name is missing")
-		DBM:AddMsg(debugstack())
-		return false
-	elseif self:IsPresent(frame.name) then
-		DBM:AddMsg("Frame ("..frame.name..") already exists")
-		DBM:AddMsg(debugstack())
-		return false
-	end
-
-	if parent then
-		frame.depth = self:GetDepth(parent)
-	else
-		frame.depth = 1
-	end
-
-	self:SetParentHasChilds(parent)
-
-	tinsert(self.Buttons, {
-		frame = frame,
-		parent = parent
-	})
-	return #self.Buttons
-end
-
-function ListFrameButtonsPrototype:IsPresent(framename)
-	for k,v in ipairs(self.Buttons) do
-		if v.frame.name == framename then
-			return true
-		end
-	end
-	return false
-end
-
-function ListFrameButtonsPrototype:GetDepth(framename, depth)
-	depth = depth or 1
-	for k,v in ipairs(self.Buttons) do
-		if v.frame.name == framename then
-			if v.parent == nil then
-				return depth+1
-			else
-				depth = depth + self:GetDepth(v.parent, depth)
-			end
-		end
-	end
-	return depth
-end
-
-function ListFrameButtonsPrototype:SetParentHasChilds(parent)
-	if not parent then return end
-	for k,v in ipairs(self.Buttons) do
-		if v.frame.name == parent then
-			v.frame.haschilds = true
-		end
-	end
-end
-
-
-do
-	local mytable = {}
-	function ListFrameButtonsPrototype:GetVisibleTabs()
-		twipe(mytable)
-		for k,v in ipairs(self.Buttons) do
-			if v.parent == nil then
-				tinsert(mytable, v)
-
-				if v.frame.showsub then
-					self:GetVisibleSubTabs(v.frame.name, mytable)
-				end
-			end
-		end
-		return mytable
-	end
-end
-
-function ListFrameButtonsPrototype:GetVisibleSubTabs(parent, t)
-	for i, v in ipairs(self.Buttons) do
-		if v.parent == parent then
-			tinsert(t, v)
-			if v.frame.showsub then
-				self:GetVisibleSubTabs(v.frame.name, t)
-			end
-		end
-	end
-end
-
-local CreateNewFauxScrollFrameList
-do
-	local mt = {__index = ListFrameButtonsPrototype}
-	function CreateNewFauxScrollFrameList()
-		return setmetatable({ Buttons={} }, mt)
-	end
-end
-
-DBM_GUI_Bosses = CreateNewFauxScrollFrameList()
-DBM_GUI_Options = CreateNewFauxScrollFrameList()
-
-local function FixCameraAnimationFrame(self, elapsed)
-	if self.timer > elapsed then
-		self.timer = self.timer - elapsed
-		DBM_BossPreview:SetCamera(0)
-	else
-		self:SetScript("OnUpdate", nil)
-	end
-end
-
-local UpdateAnimationFrame
-function UpdateAnimationFrame(mod)
-	DBM_BossPreview.currentMod = mod
-	DBM_BossPreview:Show()
-	DBM_BossPreview:ClearModel()
-	local model = mod.modelId or (mod.multiMobPullDetection and mod.multiMobPullDetection[1] or mod.creatureId)
-	if type(model) == "string" then
-		DBM_BossPreview:SetModel(model)
-	elseif type(model) == "number" then
-		DBM_BossPreview:SetCreature(model)
-	end
-	local modelFile = DBM_BossPreview:GetModel()
-	if modelFile and type(modelFile) == "string" and
-	(string.find(modelFile, "dragon") or string.find(modelFile, "wurm") or string.find(modelFile, "drake") or string.find(modelFile, "malygos") or string.find(modelFile, "yoggsaron")) then
-		DBM_BossPreview.timer = .1
-		DBM_BossPreview:SetScript("OnUpdate", FixCameraAnimationFrame)
-	else
-		local _, y, z = DBM_BossPreview:GetPosition()
-		DBM_BossPreview:SetPosition(0.4, y, z)
-	end
-	if mod.modelSoundShort and DBM.Options.ModelSoundValue == "Short" then
-		DBM:PlaySoundFile(mod.modelSoundShort)
-	elseif mod.modelSoundLong and DBM.Options.ModelSoundValue == "Long" then
-		DBM:PlaySoundFile(mod.modelSoundLong)
-	end
-end
-
-local function CreateAnimationFrame()
-	modelFrameCreated = true
-	local mobstyle = CreateFrame('DressUpModel', "DBM_BossPreview", DBM_GUI_OptionsFramePanelContainer)
-	mobstyle:SetPoint("BOTTOMRIGHT", DBM_GUI_OptionsFramePanelContainer, "BOTTOMRIGHT", -5, 5)
-	mobstyle:SetWidth(300)
-	mobstyle:SetHeight(300)
-	mobstyle:SetRotation(0)
-	mobstyle:SetClampRectInsets(0, 0, 24, 0)
-	return mobstyle
-end
-
-do
-	local function HideScrollBar(frame)
-		local frameName = frame:GetName()
-		local list = _G[frameName .. "List"]
-		list:Hide()
-		local listWidth = list:GetWidth()
-		for _, button in next, frame.buttons do
-			button:SetWidth(button:GetWidth() + listWidth)
-		end
-	end
-
-	local function DisplayScrollBar(frame)
-		local list = _G[frame:GetName() .. "List"]
-		list:Show()
-		local listWidth = list:GetWidth()
-		for _, button in next, frame.buttons do
-			button:SetWidth(button:GetWidth() - listWidth)
-		end
-	end
-
-	-- the functions in this block are only used to
-	-- create/update/manage the Fauxscrollframe for Boss/Options Selection
-	local displayedElements = {}
-
-	-- This function is for internal use.
-	-- Function to update the left scrollframe buttons with the menu entries
-	function DBM_GUI_OptionsFrame:UpdateMenuFrame(listframe)
-		local frameName = listframe:GetName()
-		local offset = _G[frameName.."List"].offset
-		local buttons = listframe.buttons
-		local TABLE
-
-		if not buttons then return false end
-
-		if listframe:GetParent().tab == 2 then
-			TABLE = DBM_GUI_Options:GetVisibleTabs()
-		else
-			TABLE = DBM_GUI_Bosses:GetVisibleTabs()
-		end
-
-		for i, element in ipairs(displayedElements) do
-			displayedElements[i] = nil
-		end
-
-		for i, element in ipairs(TABLE) do
-			tinsert(displayedElements, element.frame)
-		end
-
-
-		local numAddOnCategories = #displayedElements
-		local numButtons = #buttons
-
-		if ( numAddOnCategories > numButtons and ( not listframe:IsShown() ) ) then
-			DisplayScrollBar(listframe)
-		elseif ( numAddOnCategories <= numButtons and ( listframe:IsShown() ) ) then
-			HideScrollBar(listframe)
-		end
-
-		if ( numAddOnCategories > numButtons ) then
-			_G[frameName.."List"]:Show()
-			_G[frameName.."ListScrollBar"]:SetMinMaxValues(0, (numAddOnCategories - numButtons) * buttons[1]:GetHeight())
-			_G[frameName.."ListScrollBar"]:SetValueStep( buttons[1]:GetHeight() )
-		else
-			_G[frameName.."ListScrollBar"]:SetValue(0)
-			_G[frameName.."List"]:Hide()
-		end
-
-		local selection = DBM_GUI_OptionsFrameBossMods.selection
-		if ( selection ) then
-			DBM_GUI_OptionsFrame:ClearSelection(listframe, listframe.buttons)
-		end
-
-		for i = 1, #buttons do
-			local element = displayedElements[i + offset]
-			if ( not element ) then
-				DBM_GUI_OptionsFrame:HideButton(buttons[i])
-			else
-				DBM_GUI_OptionsFrame:DisplayButton(buttons[i], element)
-
-				if ( selection ) and ( selection == element ) and ( not listframe.selection ) then
-					DBM_GUI_OptionsFrame:SelectButton(listframe, buttons[i])
-				end
-			end
-		end
-	end
-
-	-- This function is for internal use.
-	-- Used to show a button from the list
-	function DBM_GUI_OptionsFrame:DisplayButton(button, element)
-		button:Show()
-		button.element = element
-
-		button.text:ClearAllPoints()
-		button.text:SetPoint("LEFT", 12 + 8 * element.depth, 2)
-		button.text:SetPoint("RIGHT", 12, 0)
-		button.text:SetFontObject(GameFontNormalSmall)
-		button.toggle:ClearAllPoints()
-		button.toggle:SetPoint("LEFT", 8 * element.depth - 2, 1)
-
-		if element.depth > 2 then
-			button:SetNormalFontObject(GameFontHighlightSmall)
-			button:SetHighlightFontObject(GameFontHighlightSmall)
-
-		elseif element.depth > 1  then
-			button:SetNormalFontObject(GameFontNormalSmall)
-			button:SetHighlightFontObject(GameFontNormalSmall)
-		else
-			button:SetNormalFontObject(GameFontNormal)
-			button:SetHighlightFontObject(GameFontNormal)
-		end
-		button:SetWidth(185)
-
-		if element.haschilds then
-			if not element.showsub then
-				button.toggle:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP");
-				button.toggle:SetPushedTexture("Interface\\Buttons\\UI-PlusButton-DOWN");
-			else
-				button.toggle:SetNormalTexture("Interface\\Buttons\\UI-MinusButton-UP");
-				button.toggle:SetPushedTexture("Interface\\Buttons\\UI-MinusButton-DOWN");
-			end
-			button.toggle:Show()
-		else
-			button.toggle:Hide()
-		end
-
-		button.text:SetText(element.displayname)
-		button.text:Show()
-	end
-
-	-- This function is for internal use.
-	-- Used to hide a button from the list
-	function DBM_GUI_OptionsFrame:HideButton(button)
-		button:Hide()
-	end
-
-	-- This function is for internal use.
-	-- Called when a new entry is selected
-	function DBM_GUI_OptionsFrame:ClearSelection(listFrame, buttons)
-		for _, button in ipairs(buttons) do button:UnlockHighlight() end
-		listFrame.selection = nil
-	end
-
-	-- This function is for Internal use.
-	-- Called when a button is selected
-	function DBM_GUI_OptionsFrame:SelectButton(listFrame, button)
-		button:LockHighlight()
-		listFrame.selection = button.element
-	end
-
-	-- This function is for Internal use.
-	-- Required to create a list of buttons in the scrollframe
-	function DBM_GUI_OptionsFrame:CreateButtons(frame)
-		local name = frame:GetName()
-
-		frame.scrollBar = _G[name.."ListScrollBar"]
-		frame:SetBackdropBorderColor(0.6, 0.6, 0.6, 1)
-		_G[name.."Bottom"]:SetVertexColor(0.66, 0.66, 0.66)
-
-		local buttons = {}
-		local button = CreateFrame("BUTTON", name.."Button1", frame, "DBM_GUI_FrameButtonTemplate")
-		button:SetPoint("TOPLEFT", frame, 0, -8)
-		frame.buttonHeight = button:GetHeight()
-		tinsert(buttons, button)
-
-		local maxButtons = (frame:GetHeight() - 8) / frame.buttonHeight
-		for i = 2, maxButtons do
-			button = CreateFrame("BUTTON", name.."Button"..i, frame, "DBM_GUI_FrameButtonTemplate")
-			button:SetPoint("TOPLEFT", buttons[#buttons], "BOTTOMLEFT")
-			tinsert(buttons, button)
-		end
-		frame.buttons = buttons
-	end
-
-	-- This function is for internal use.
-	-- Called when someone clicks a Button
-	function DBM_GUI_OptionsFrame:OnButtonClick(button)
-		local parent = button:GetParent()
-		local buttons = parent.buttons
-		local buttonName = DBM_GUI_OptionsFrame:GetName()
-
-		self:ClearSelection(_G[buttonName.."BossMods"],   _G[buttonName.."BossMods"].buttons)
-		self:ClearSelection(_G[buttonName.."DBMOptions"], _G[buttonName.."DBMOptions"].buttons)
-		self:SelectButton(parent, button)
-
-		DBM_GUI.currentViewing = button.element
-		self:DisplayFrame(button.element)
-	end
-
-	function DBM_GUI_OptionsFrame:ToggleSubCategories(button)
-		local parent = button:GetParent()
-		if parent.element.showsub then
-			parent.element.showsub = false
-		else
-			parent.element.showsub = true
-		end
-		self:UpdateMenuFrame(parent:GetParent())
-	end
-
-	-- This function is for internal use.
-	-- places the selected tab on the container frame
-	function DBM_GUI_OptionsFrame:DisplayFrame(frame, forcechange)
-		local container = _G[self:GetName().."PanelContainer"]
-
-		if not (type(frame) == "table" and type(frame[0]) == "userdata") or select("#", frame:GetChildren()) == 0 then
---			DBM:AddMsg(debugstack())
-			return
-		end
-
-		local changed = forcechange or (container.displayedFrame ~= frame)
-		if ( container.displayedFrame ) then
-			container.displayedFrame:Hide()
-		end
-		container.displayedFrame = frame
-
-		DBM_GUI_OptionsFramePanelContainerHeaderText:SetText( frame.displayname )
-		DBM_GUI_DropDown:HideMenu()
-
-		local mymax = (frame.actualHeight or frame:GetHeight()) - container:GetHeight()
-
-		if mymax <= 0 then mymax = 0 end
-		local frameName = container:GetName()
-		if mymax > 0 then
-			_G[frameName.."FOV"]:Show()
-			_G[frameName.."FOV"]:SetScrollChild(frame)
-			_G[frameName.."FOVScrollBar"]:SetMinMaxValues(0, mymax)
-			local val = _G[frameName.."FOVScrollBar"]:GetValue() or 0
-			if changed then
-			  _G[frameName.."FOVScrollBar"]:SetValue(0) -- scroll to top, and ensure widget appears
-			end
-
-			if frame.isfixed then
-				frame.isfixed = nil
-				local listwidth = _G[frameName.."FOVScrollBar"]:GetWidth()
-				for i=1, select("#", frame:GetChildren()), 1 do
-					local child = select(i, frame:GetChildren())
-					if child.mytype == "area" then
-						child:SetWidth( child:GetWidth() - listwidth - 1 )
-					end
-				end
-			end
-		else
-			_G[frameName.."FOV"]:Hide()
-			frame:ClearAllPoints()
-			frame:SetPoint("TOPLEFT", container ,"TOPLEFT", 5, -5)
-			frame:SetPoint("BOTTOMRIGHT", container ,"BOTTOMRIGHT", 0, 0)
-
-			if not frame.isfixed then
-				frame.isfixed = true
-				local listwidth = _G[frameName.."FOVScrollBar"]:GetWidth()
-				for i=1, select("#", frame:GetChildren()), 1 do
-					local child = select(i, frame:GetChildren())
-					if child.mytype == "area" then
-						child:SetWidth( child:GetWidth() + listwidth )
-					end
-				end
-			end
-		end
-		frame:Show()
-
-		if DBM.Options.EnableModels then
-			if not modelFrameCreated then
-				CreateAnimationFrame()
-			end
-			DBM_BossPreview.enabled = false
-			DBM_BossPreview:Hide()
-			for _, mod in ipairs(DBM.Mods) do
-				if mod.panel and mod.panel.frame and mod.panel.frame == frame then
-					UpdateAnimationFrame(mod)
-				end
-			end
-		end
-	end
 end
 
 local function CreateOptionsMenu()
@@ -1461,7 +385,7 @@ local function CreateOptionsMenu()
 
 
 	DBM_GUI_Frame = DBM_GUI:CreateNewPanel(L.TabCategory_Options, "option")
-	if DBM.Options.EnableModels then CreateAnimationFrame() end
+
 	do
 		----------------------------------------------
 		--             General Options              --
@@ -1572,7 +496,6 @@ local function CreateOptionsMenu()
 
 		local enablemodels	= modelarea:CreateCheckButton(L.EnableModels,  true, nil, "EnableModels")--Needs someone smarter then me to hide/disable this option if not 4.0.6+
 
-		DBM_GUI_Frame:SetMyOwnHeight()
 	end
 
 	do
@@ -1594,10 +517,6 @@ local function CreateOptionsMenu()
 		generalWhispersArea:CreateCheckButton(L.WhisperStats, true, nil, "WhisperStats")
 		generalWhispersArea:CreateCheckButton(L.DisableStatusWhisper, true, nil, "DisableStatusWhisper")
 		generalWhispersArea:CreateCheckButton(L.DisableGuildStatus, true, nil, "DisableGuildStatus")
-		generalCoreArea:AutoSetDimension()
-		generalMessagesArea:AutoSetDimension()
-		generalWhispersArea:AutoSetDimension()
-		generalWarningPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -1616,7 +535,7 @@ local function CreateOptionsMenu()
 		local WarningShortText		= raidwarnoptions:CreateCheckButton(L.ShortTextSpellname,  true, nil, "WarningShortText")
 
 		-- RaidWarn Font
-		local Fonts = MixinSharedMedia3("font", {
+		local Fonts = DBM_GUI:MixinSharedMedia3("font", {
 			{text = DEFAULT,	value = standardFont,		font = standardFont},
 			{text = "Arial",	value = "Fonts\\ARIALN.TTF",	font = "Fonts\\ARIALN.TTF"},
 			{text = "Skurri",	value = "Fonts\\skurri.ttf",	font = "Fonts\\skurri.ttf"},
@@ -1657,7 +576,7 @@ local function CreateOptionsMenu()
 		FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", 35, 0)
 
 		-- RaidWarn Sound
-		local Sounds = MixinSharedMedia3("sound", {
+		local Sounds = DBM_GUI:MixinSharedMedia3("sound", {
 			{text = L.NoSound,		value = ""},
 			{text = "RaidWarning",	value = "Sound\\interface\\RaidWarning.wav",		sound = true},
 			{text = "Classic",		value = "Sound\\Doodad\\BellTollNightElf.wav",		sound = true},
@@ -1763,7 +682,6 @@ local function CreateOptionsMenu()
 		local infotext = raidwarncolors:CreateText(L.InfoRaidWarning, 380, false, GameFontNormalSmall, "LEFT")
 		infotext:SetPoint('BOTTOMLEFT', raidwarncolors.frame, "BOTTOMLEFT", 10, 10)
 
-		RaidWarningPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -2366,7 +1284,7 @@ local function CreateOptionsMenu()
 		end, 210)
 		StyleDropDown:SetPoint("TOPLEFT", BarSetup.frame, "TOPLEFT", 210, -25)
 
-		local Textures = MixinSharedMedia3("statusbar", {
+		local Textures = DBM_GUI:MixinSharedMedia3("statusbar", {
 			{	text	= DEFAULT,				value 	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp", 	texture	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp"	},
 			{	text	= "Blizzad",			value 	= "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar", 	texture	= 136570	},
 			{	text	= "Glaze",				value 	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp", 			texture	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp"	},
@@ -2379,7 +1297,7 @@ local function CreateOptionsMenu()
 		end)
 		TextureDropDown:SetPoint("TOPLEFT", StyleDropDown, "BOTTOMLEFT", 0, -10)
 
-		local Fonts = MixinSharedMedia3("font", {
+		local Fonts = DBM_GUI:MixinSharedMedia3("font", {
 			{	text	= DEFAULT,				value 	= standardFont,					font = standardFont	},
 			{	text	= "Arial",				value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
 			{	text	= "Skurri",				value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
@@ -2610,7 +1528,6 @@ local function CreateOptionsMenu()
 			--HugeTimerY
 		end)
 
-		BarSetupPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -2660,7 +1577,7 @@ local function CreateOptionsMenu()
 			end)
 		end
 
-		local Fonts = MixinSharedMedia3("font", {
+		local Fonts = DBM_GUI:MixinSharedMedia3("font", {
 			{	text	= DEFAULT,		value 	= standardFont,			font = standardFont	},
 			{	text	= "Arial",			value 	= "Fonts\\ARIALN.TTF",			font = "Fonts\\ARIALN.TTF"		},
 			{	text	= "Skurri",			value 	= "Fonts\\skurri.ttf",			font = "Fonts\\skurri.ttf"		},
@@ -2729,7 +1646,7 @@ local function CreateOptionsMenu()
 			end)
 		end
 
-		local Sounds = MixinSharedMedia3("sound", {
+		local Sounds = DBM_GUI:MixinSharedMedia3("sound", {
 			{text = L.NoSound, value = ""},
 			--Inject DBMs custom media that's not available to LibSharedMedia because it uses SoundKit Id (which LSM doesn't support)
 			{sound = true, text = "AirHorn (DBM)", value = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
@@ -3278,7 +2195,6 @@ local function CreateOptionsMenu()
 			DBM:UpdateSpecialWarningOptions()
 		end)
 
-		specPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -3340,11 +2256,10 @@ local function CreateOptionsMenu()
 		VPDownloadUrl3:SetPoint("TOPLEFT", VPUrlArea3.frame, "TOPLEFT", 10, -7)
 		VPUrlArea3.frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, L.Area_BrowseOtherCT, "https://wow.curseforge.com/search?search=dbm+count+pack") end)
 
-		spokenAlertsPanel:SetMyOwnHeight()
 	end
 
 	do
-		local Sounds = MixinSharedMedia3("sound", {
+		local Sounds = DBM_GUI:MixinSharedMedia3("sound", {
 			{text = L.NoSound,			value = "None"},
 			{text = "Muradin: Charge",	value = "Sound\\Creature\\MuradinBronzebeard\\IC_Muradin_Saurfang02.wav", sound = true},
 		})
@@ -3412,7 +2327,6 @@ local function CreateOptionsMenu()
 		local eventSoundsExtrasArea	= eventSoundsPanel:CreateArea(L.Area_EventSoundsExtras, nil, 70, true)
 		local combineMusic			= eventSoundsExtrasArea:CreateCheckButton(L.EventMusicCombined, true, nil, "EventSoundMusicCombined")
 
-		eventSoundsPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -3524,13 +2438,6 @@ local function CreateOptionsMenu()
 		local spamTTArea = spamPanel:CreateArea(L.Area_TimerTracker, nil, 80, true)
 		spamTTArea:CreateCheckButton(L.PlayTTCountdown, true, nil, "PlayTTCountdown")
 		spamTTArea:CreateCheckButton(L.PlayTTCountdownFinished, true, nil, "PlayTTCountdownFinished")
-
-		spamPTArea:AutoSetDimension()
-		spamRestoreArea:AutoSetDimension()
-		spamArea:AutoSetDimension()
-		spamSpecArea:AutoSetDimension()
-		spamOutArea:AutoSetDimension()
-		spamPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -3575,17 +2482,6 @@ local function CreateOptionsMenu()
 		local advancedArea			= extraFeaturesPanel:CreateArea(L.Area_Advanced, nil, 100, true)
 		local FakeBW				= advancedArea:CreateCheckButton(L.FakeBW, true, nil, "FakeBWVersion")
 		local AITimers				= advancedArea:CreateCheckButton(L.AITimer, true, nil, "AITimer")
-
-		chatAlertsArea:AutoSetDimension()
-		soundAlertsArea:AutoSetDimension()
-		generaltimeroptions:AutoSetDimension()
-		bossLoggingArea:AutoSetDimension()
-		if thirdPartyArea then
-			thirdPartyArea:AutoSetDimension()
-		end
-		inviteArea:AutoSetDimension()
-		advancedArea:AutoSetDimension()
-		extraFeaturesPanel:SetMyOwnHeight()
 	end
 
 	do
@@ -3747,22 +2643,7 @@ local function CreateOptionsMenu()
 			copyProfile:GetScript("OnShow")()
 			deleteProfile:GetScript("OnShow")()
 		end
-		profilePanel:SetMyOwnHeight()
 	end
-
-	-- Set Revision // please don't translate this!
-	if DBM.NewerVersion then
-		DBM_GUI_OptionsFrameRevision:SetText(DBM.DisplayVersion.." ("..DBM.Version.."). |cffff0000Version "..DBM.NewerVersion.." is available.|r")
-	else
-		DBM_GUI_OptionsFrameRevision:SetText(DBM.DisplayVersion.." ("..DBM.Version..")")
-	end
-	if L.TranslationBy then
-		DBM_GUI_OptionsFrameTranslation:SetText(L.TranslationByPrefix .. L.TranslationBy)
-	end
-	DBM_GUI_OptionsFrameWebsite:SetText(L.Website)
-	local frame = CreateFrame("Button", nil, DBM_GUI_OptionsFrame)
-	frame:SetAllPoints(DBM_GUI_OptionsFrameWebsite)
-	frame:SetScript("OnMouseUp", function(...) DBM:ShowUpdateReminder(nil, nil, CL.COPY_URL_DIALOG, "https://discord.gg/CyVWDWS") end)
 end
 DBM:RegisterOnGuiLoadCallback(CreateOptionsMenu, 1)
 
@@ -4186,7 +3067,6 @@ do
 				v()
 			end
 		end)
-		panel:SetMyOwnHeight()
 		DBM_GUI_OptionsFrame:DisplayFrame(panel.frame, true)
 	end
 
@@ -4389,8 +3269,6 @@ do
 						end
 					end
 				end
-				catpanel:AutoSetDimension(hasDropdowns)
-				panel:SetMyOwnHeight()
 			end
 		end
 	end
