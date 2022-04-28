@@ -43,6 +43,134 @@
 DBT = {}
 DBT_PersistentOptions = {}
 
+local DBT = DBT
+
+--Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
+local standardFont
+if LOCALE_koKR then
+	standardFont = "Fonts\\2002.TTF"
+elseif LOCALE_zhCN then
+	standardFont = "Fonts\\ARKai_T.ttf"
+elseif LOCALE_zhTW then
+	standardFont = "Fonts\\blei00d.TTF"
+elseif LOCALE_ruRU then
+	standardFont = "Fonts\\FRIZQT___CYR.TTF"
+else
+--	standardFont = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"
+	standardFont = "Fonts\\FRIZQT__.TTF"
+end
+
+DBT.DefaultOptions = {
+	StartColorR = 1,
+	StartColorG = 0.7,
+	StartColorB = 0,
+	EndColorR = 1,
+	EndColorG = 0,
+	EndColorB = 0,
+	--Type 1 (Add)
+	StartColorAR = 0.375,
+	StartColorAG = 0.545,
+	StartColorAB = 1,
+	EndColorAR = 0.15,
+	EndColorAG = 0.385,
+	EndColorAB = 1,
+	--Type 2 (AOE)
+	StartColorAER = 1,
+	StartColorAEG = 0.466,
+	StartColorAEB = 0.459,
+	EndColorAER = 1,
+	EndColorAEG = 0.043,
+	EndColorAEB = 0.247,
+	--Type 3 (Targeted)
+	StartColorDR = 0.9,
+	StartColorDG = 0.3,
+	StartColorDB = 1,
+	EndColorDR = 1,
+	EndColorDG = 0,
+	EndColorDB = 1,
+	--Type 4 (Interrupt)
+	StartColorIR = 0.47,
+	StartColorIG = 0.97,
+	StartColorIB = 1,
+	EndColorIR = 0.047,
+	EndColorIG = 0.88,
+	EndColorIB = 1,
+	--Type 5 (Role)
+	StartColorRR = 0.5,
+	StartColorRG = 1,
+	StartColorRB = 0.5,
+	EndColorRR = 0.11,
+	EndColorRG = 1,
+	EndColorRB = 0.3,
+	--Type 6 (Phase)
+	StartColorPR = 1,
+	StartColorPG = 0.776,
+	StartColorPB = 0.420,
+	EndColorPR = 0.5,
+	EndColorPG = 0.41,
+	EndColorPB = 0.285,
+	--Type 7 (Important/User set only)
+	StartColorUIR = 1,
+	StartColorUIG = 1,
+	StartColorUIB = 0.0627450980392157,
+	EndColorUIR = 1,
+	EndColorUIG = 0.92156862745098,
+	EndColorUIB = 0.0117647058823529,
+	Bar7ForceLarge = false,
+	Bar7CustomInline = true,
+	-- Small bar
+	BarXOffset = 0,
+	BarYOffset = 0,
+	Width = 183,
+	Height = 20,
+	Alpha = 0.8,
+	Scale = 0.9,
+	TimerX = -223,
+	TimerY = -260,
+	ExpandUpwards = false,
+	FillUpBars = true,
+	TimerPoint = "TOPRIGHT",
+	Sort = "Sort",
+	DesaturateValue = 1,
+	-- Huge bar
+	EnlargeBarTime = 11,
+	HugeBarXOffset = 0,
+	HugeBarYOffset = 0,
+	HugeWidth = 200,
+	HugeHeight = 20,
+	HugeAlpha = 1,
+	HugeScale = 1.03,
+	HugeTimerX = 0,
+	HugeTimerY = -120,
+	ExpandUpwardsLarge = false,
+	FillUpLargeBars = true,
+	HugeBarsEnabled = true,
+	HugeTimerPoint = "CENTER",
+	HugeSort = "Sort",
+	-- Misc
+	TextColorR = 1,
+	TextColorG = 1,
+	TextColorB = 1,
+	TDecimal = 11,
+	FontSize = 10,
+	FlashBar = false,
+	Spark = true,
+	ColorByType = true,
+	NoBarFade = false,
+	InlineIcons = true,
+	IconLeft = true,
+	IconRight = false,
+	IconLocked = true,
+	DynamicColor = true,
+	ClickThrough = false,
+	KeepBars = true,
+	FadeBars = true,
+	Texture = "Interface\\AddOns\\DBM-StatusBarTimers\\textures\\default.blp",
+	Font = "standardFont",
+	FontFlag = "None",
+	BarStyle = "NoAnim",
+	Skin = ""
+}
 
 --------------
 --  Locals  --
@@ -68,9 +196,6 @@ end
 local ipairs, pairs, next, type = ipairs, pairs, next, type
 local tinsert = table.insert
 local GetTime = GetTime
-
---Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
-local standardFont = "Interface\\AddOns\\DBM-Core\\Fonts\\PTSansNarrow.ttf"
 
 -----------------------
 --  Default Options  --
@@ -391,6 +516,10 @@ options = {
 		type = "number",
 		default = 200,
 	},
+	HugeHeight = {
+		type = "number",
+		default = 20,
+	},
 	HugeAlpha = {
 		type = "number",
 		default = 1,
@@ -441,7 +570,7 @@ options = {
 	},
 	Font = {
 		type = "string",
-		default = standardFont,
+		default = "standardFont",
 	},
 	FontFlag = {
 		type = "string",
@@ -1371,7 +1500,8 @@ function barPrototype:ApplyStyle()
 	end
 	texture:SetAlpha(1)
 	bar:SetAlpha(1)
-	local barFont, barFontSize, barFontFlag = barOptions.Font, barOptions.FontSize, barOptions.FontFlag
+	local barFont = barOptions.Font == "standardFont" and standardFont or barOptions.Font
+	local barFontSize, barFontFlag = barOptions.FontSize, barOptions.FontFlag
 	name:SetFont(barFont, barFontSize, barFontFlag)
 	name:SetPoint("LEFT", bar, "LEFT", 3, 0)
 	timer:SetFont(barFont, barFontSize, barFontFlag)
