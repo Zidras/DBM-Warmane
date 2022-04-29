@@ -314,7 +314,8 @@ L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "10秒後 空中階段",
 	WarningAirPhaseNow	= "空中階段",
 	WarningLanded		= "薩菲隆降落了",
-	WarningDeepBreath	= "冰息術"
+	WarningDeepBreath	= "冰息術",
+	SpecWarnSapphLow	= "薩菲隆不能飛！"
 })
 
 L:SetTimerLocalization({
@@ -330,7 +331,8 @@ L:SetOptionLocalization({
 	TimerAir			= "為空中階段顯示計時器",
 	TimerLanding		= "為降落顯示計時器",
 	TimerIceBlast		= "為冰息術顯示計時器",
-	WarningDeepBreath	= "為冰息術顯示特別警告"
+	WarningDeepBreath	= "為冰息術顯示特別警告",
+	SpecWarnSapphLow	= "10%執行階段特別警告（取消空中階段）"
 })
 
 L:SetMiscLocalization({

@@ -314,28 +314,30 @@ L:SetGeneralLocalization({
 L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "Envol dans 10 sec",
 	WarningAirPhaseNow	= "Dans les airs",
-	WarningLanded		    = "Atterrissage de Sapphiron",
-	WarningDeepBreath	  = "Souffle de givre !"
+	WarningLanded		= "Atterrissage de Sapphiron",
+	WarningDeepBreath	= "Souffle de givre !",
+	SpecWarnSapphLow	= "Sapphiron ne peut pas voler !"
 })
 
 L:SetTimerLocalization({
-	TimerAir		   		  = "Envol",
-	TimerLanding			  = "Atterrissage dans",
-	TimerIceBlast			  = "Souffle de givre"
+	TimerAir			= "Envol",
+	TimerLanding		= "Atterrissage dans",
+	TimerIceBlast		= "Souffle de givre"
 })
 
 L:SetOptionLocalization({
 	WarningAirPhaseSoon	= "Activer le pré-avertissement de la phase en vol",
 	WarningAirPhaseNow	= "Activer l'avertissement de la phase en vol",
-	WarningLanded		    = "Activer l'avertissement pour la phase au sol",
-	TimerAir			    	= "Afficher le timer de la phase en vol",
-	TimerLanding		   	= "Afficher le timer de l'atterrissage",
-	TimerIceBlast		   	= "Afficher le timer du Souffle de givre",
-	WarningDeepBreath		= "Activer l'avertissement spécial pour le Souffle de givre"
+	WarningLanded		= "Activer l'avertissement pour la phase au sol",
+	TimerAir			= "Afficher le timer de la phase en vol",
+	TimerLanding		= "Afficher le timer de l'atterrissage",
+	TimerIceBlast		= "Afficher le timer du Souffle de givre",
+	WarningDeepBreath	= "Activer l'avertissement spécial pour le Souffle de givre",
+	SpecWarnSapphLow	= "Avertissement spécial pour la phase d'exécution à 10 % (annulation de la phase d'air)"
 })
 
 L:SetMiscLocalization({
-	EmoteBreath			    = "prend une grande inspiration"
+	EmoteBreath			= "prend une grande inspiration"
 })
 
 ------------------

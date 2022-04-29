@@ -332,7 +332,8 @@ L:SetWarningLocalization({
 	WarningAirPhaseSoon		= "비행 단계 10초 전",
 	WarningAirPhaseNow		= "비행 단계",
 	WarningLanded			= "착지",
-	WarningDeepBreath		= "냉기 숨결!"
+	WarningDeepBreath		= "냉기 숨결!",
+	SpecWarnSapphLow		= "사피론은 날지 못한다!"
 })
 
 L:SetTimerLocalization({
@@ -348,7 +349,8 @@ L:SetOptionLocalization({
 	TimerAir				= "비행 단계 유지시간 바 보기",
 	TimerLanding			= "착지 중 바 보기",
 	TimerIceBlast			= "냉기 숨결 시전 바 보기",
-	WarningDeepBreath		= "냉기 숨결 특수 경고 보기"
+	WarningDeepBreath		= "냉기 숨결 특수 경고 보기",
+	SpecWarnSapphLow		= "10% 실행 단계에 대한 특별 경고(공기 단계 취소)"
 })
 
 L:SetMiscLocalization({

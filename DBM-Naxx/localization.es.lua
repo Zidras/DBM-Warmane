@@ -322,7 +322,8 @@ L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "Fase aérea en 10 s",
 	WarningAirPhaseNow	= "Fase aérea",
 	WarningLanded		= "Fase en tierra",
-	WarningDeepBreath	= "Aliento de Escarcha"
+	WarningDeepBreath	= "Aliento de Escarcha",
+	SpecWarnSapphLow	= "¡Sapphiron no puede volar!"
 })
 
 L:SetTimerLocalization({
@@ -338,7 +339,8 @@ L:SetOptionLocalization({
 	TimerAir			= "Mostrar temporizador para el cambio a fase aérea",
 	TimerLanding		= "Mostrar temporizador para el cambio a fase en tierra",
 	TimerIceBlast		= "Mostrar temporizador para $spell:28524",
-	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524"
+	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524",
+	SpecWarnSapphLow 	= "Advertencia especial para fase de ejecución del 10% (cancelación de fase de aire)"
 })
 
 L:SetMiscLocalization({
