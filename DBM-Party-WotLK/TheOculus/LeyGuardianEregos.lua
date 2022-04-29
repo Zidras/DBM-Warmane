@@ -29,7 +29,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 51162 then
 		warningShift:Show()
-		warningShiftEnd:Schedule(13)
+		warningShiftEnd:Schedule(18)
 		timerShift:Start()
 	elseif args.spellId == 51170 then
 		warningEnraged:Show()
