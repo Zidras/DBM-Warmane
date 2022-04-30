@@ -1,6 +1,8 @@
 local mod = DBM:NewMod(532, "DBM-Party-BC", 16, 249)
 local L = mod:GetLocalizedStrings()
 
+mod.statTypes = "normal,heroic,mythic"
+
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetCreatureID(24560)--24560 is main boss.
 

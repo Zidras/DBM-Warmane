@@ -3008,6 +3008,8 @@ function DBM:LoadModOptions(modId, inCombat, first)
 			stats.normalPulls = stats.normalPulls or 0
 			stats.heroicKills = stats.heroicKills or 0
 			stats.heroicPulls = stats.heroicPulls or 0
+			stats.mythicKills = stats.mythicKills or 0
+			stats.mythicPulls = stats.mythicPulls or 0
 			stats.normal25Kills = stats.normal25Kills or 0
 			stats.normal25Pulls = stats.normal25Pulls or 0
 			stats.heroic25Kills = stats.heroic25Kills or 0
@@ -3301,6 +3303,8 @@ function DBM:ClearAllStats(modId)
 		defaultStats.normalPulls = 0
 		defaultStats.heroicKills = 0
 		defaultStats.heroicPulls = 0
+		defaultStats.mythicKills = 0
+		defaultStats.mythicPulls = 0
 		defaultStats.normal25Kills = 0
 		defaultStats.normal25Pulls = 0
 		defaultStats.heroic25Kills = 0
@@ -5130,6 +5134,7 @@ do
 		["heroic5"] = "heroic",
 		["normal"] = "normal",
 		["heroic"] = "heroic",
+		["mythic"] = "mythic",
 		["worldboss"] = "normal",
 		["timewalker"] = "timewalker",
 		--Legacy
@@ -5684,7 +5689,13 @@ function DBM:GetCurrentInstanceDifficulty()
 		if difficulty == 1 then
 			return "normal5", difficultyName.." - ", difficulty, maxPlayers
 		elseif difficulty == 2 then
-			return "heroic5", difficultyName.." - ", difficulty, maxPlayers
+			-- check for Mythic instance (workaround using GetDungeonDifficulty since on Warmane all the usual APIs fail and return "heroic" difficulty)
+			local dungeonDifficulty = GetDungeonDifficulty()
+			if dungeonDifficulty == 3 then
+				return "mythic", difficultyName.." - ", dungeonDifficulty, maxPlayers
+			else
+				return "heroic5", difficultyName.." - ", difficulty, maxPlayers
+			end
 		end
 	end
 end
@@ -7149,6 +7160,12 @@ function bossModPrototype:IsHeroic()
 		return true
 	end
 	return false
+end
+
+--Pretty much ANYTHING that has mythic mode
+function bossModPrototype:IsMythic()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	return diff == "mythic"
 end
 
 -- Timewalking
