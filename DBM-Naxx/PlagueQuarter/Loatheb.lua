@@ -33,13 +33,13 @@ mod.vb.sporeTimer	= 36
 function mod:OnCombatStart(delay)
 	self.vb.doomCounter = 0
 	if self:IsDifficulty("normal25") then
-		self.vb.sporeTimer = 18
+		self.vb.sporeTimer = 15
 	else
 		self.vb.sporeTimer = 36
 	end
 	timerSpore:Start(self.vb.sporeTimer - delay)
 	warnSporeSoon:Schedule(self.vb.sporeTimer - 5 - delay)
-	timerDoom:Start(120 - delay, self.vb.doomCounter + 1)
+	timerDoom:Start(90 - delay, self.vb.doomCounter + 1)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
