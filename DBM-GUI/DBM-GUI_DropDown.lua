@@ -43,6 +43,16 @@ local DBM = DBM
 
 local defaultFont, defaultFontSize = GameFontHighlightSmall:GetFont()
 
+local function replaceSpellLinks(id)
+	local spellId = tonumber(id)
+	local spellName = DBM:GetSpellInfo(spellId)
+	if not spellName then
+		spellName = DBM_CORE_L.UNKNOWN
+		DBM:Debug("Spell ID does not exist: "..spellId)
+	end
+	return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(spellId, spellName)
+end
+
 local hack = OptionsList_OnLoad
 function OptionsList_OnLoad(self, ...)
 	if self:GetName() ~= "DBM_GUI_DropDown" then
@@ -246,6 +256,11 @@ function DBM_GUI:CreateDropdown(title, values, vartype, var, callfunc, width, he
 			entry.text = entry.text or "Missing entry.text"
 			entry.value = entry.value or entry.text
 		end
+	end
+
+	-- font strings do not support hyperlinks, so check if we need one...
+	if title and title:find("%$spell:") then
+		title = title:gsub("%$spell:(%d+)", replaceSpellLinks)
 	end
 
 	-- Create the Dropdown Frame
