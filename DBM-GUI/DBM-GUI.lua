@@ -478,66 +478,6 @@ function DBM_GUI:CreateBossModPanel(mod)
 end
 
 do
-	local sounds = DBM_GUI:MixinSharedMedia3("sound", {
-		--Inject basically dummy values for ordering special warnings to just use default SW sound assignments
-		{sound = true, text = L.None, value = "None"},
-		{sound = true, text = "SW 1", value = 1},
-		{sound = true, text = "SW 2", value = 2},
-		{sound = true, text = "SW 3", value = 3},
-		{sound = true, text = "SW 4", value = 4},
-
-		--Inject DBMs custom media that's not available to LibSharedMedia because it uses SoundKit Id (which LSM doesn't support)
-		{sound = true, text = "AirHorn (DBM)",	value	= "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"},
-		{sound = true, text	= "Alert",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3"},
-		{sound = true, text	= "Info",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Info.mp3"},
-		{sound = true, text	= "Long",			value 	= "Interface\\AddOns\\DBM-Core\\sounds\\Long.mp3"},
-		{sound = true, text = "Algalon: Beware!", value = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav"},
-		{sound = true, text = "BB Wolf: Run Away", value = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav"},
-		{sound = true, text = "C'Thun: You Will Die!", value = "Sound\\Creature\\CThun\\CThunYouWillDie.wav"},
-		{sound = true, text = "Headless Horseman: Laugh", value = "Sound\\Creature\\HeadlessHorseman\\Horseman_Laugh_01.wav"},
-		{sound = true, text = "Illidan: Not Prepared", value = "Sound\\Creature\\Illidan\\BLACK_Illidan_04.wav"},
-		{sound = true, text = "Kaz'rogal: Marked", value = "Sound\\Creature\\KazRogal\\CAV_Kaz_Mark02.wav"},
-		{sound = true, text = "Kil'Jaeden: Destruction", value = "Sound\\Creature\\KilJaeden\\KILJAEDEN02.wav"},
-		{sound = true, text = "Loatheb: I see you", value = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav"},
-		{sound = true, text = "Lady Malande: Flee", value = "Sound\\Creature\\LadyMalande\\BLCKTMPLE_LadyMal_Aggro01.wav"},
-		{sound = true, text = "Milhouse: Light You Up", value = "Sound\\Creature\\MillhouseManastorm\\TEMPEST_Millhouse_Pyro01.wav"},
-		{sound = true, text = "Night Elf Bell", value = "Sound\\Doodad\\BellTollNightElf.wav"},
-		{sound = true, text = "PvP Flag", value = "Sound\\Spells\\PVPFlagTaken.wav"},
-		{sound = true, text = "Void Reaver: Marked", value = "Sound\\Creature\\VoidReaver\\TEMPEST_VoidRvr_Aggro01.wav"},
-		{sound = true, text = "Yogg Saron: Laugh", value = "Sound\\Creature\\YoggSaron\\UR_YoggSaron_Slay01.wav"},
-})
-
-	local tcolors = {
-		{text = L.CBTGeneric, value = 0},
-		{text = L.CBTAdd, value = 1},
-		{text = L.CBTAOE, value = 2},
-		{text = L.CBTTargeted, value = 3},
-		{text = L.CBTInterrupt, value = 4},
-		{text = L.CBTRole, value = 5},
-		{text = L.CBTPhase, value = 6},
-		{text = L.CBTImportant, value = 7},
-	}
-
-	local function MixinCountTable(baseTable)
-		-- DBM values (baseTable) first, mediatable values afterwards
-		local result = baseTable
-		for i=1,#DBM.Counts do
-			local mediatext = DBM.Counts[i].text
-			local mediapath = DBM.Counts[i].path
-			tinsert(result, {text = mediatext, value = mediapath})
-		end
-		return result
-	end
-
-	local cvoice = MixinCountTable({
-		{text = L.None, value = 0},
-		{text = L.CVoiceOne, value = 1},
-		{text = L.CVoiceTwo, value = 2},
-		{text = L.CVoiceThree, value = 3},
-	})
-end
-
-do
 	local function CreateBossModTab(addon, panel, subtab)
 		if not panel then
 			error("Panel is nil", 2)
