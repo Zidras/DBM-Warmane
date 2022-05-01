@@ -1,8 +1,6 @@
 local mod	= DBM:NewMod("Volazj", "DBM-Party-WotLK", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod.statTypes = "normal,heroic"
-
 mod:SetRevision(("$Revision: 3821 $"):sub(12, -3))
 mod:SetCreatureID(29311)
 

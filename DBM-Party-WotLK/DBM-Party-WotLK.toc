@@ -14,6 +14,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: PARTY
 ## X-DBM-Mod-Category: WOTLK
+## X-DBM-StatTypes: normal,heroic
 ## X-DBM-Mod-SubCategories: Ahn'Kahet,Azjol-Nerub,CoT: Old Stratholme,Drak'Tharon Keep,Gundrak,Halls of Lightning,Halls of Stone,The Nexus,The Oculus,Utgarde Keep,Utgarde Pinnacle,Violet Hold,Trial of the Champion,The Forge of Souls,Pit of Saron,Halls of Reflection
 ## X-DBM-Mod-SubCategories-frFR: Ahn'Kahet,Azjol-Nérub,GT: L'Épuration de Stratholme,Drak'Tharon,Gundrak,Salles de foudre,Salles de pierre,Le Nexus,L'Occulus,Donjon d'Utgarde,Cime d'Utgarde,Fort Pourpre,L'épreuve du champion,La Forge des âmes,La Fosse de Saron,Salles des Reflets
 ## X-DBM-Mod-SubCategories-deDE: Ahn'kahet: Das Alte Königreich,Azjol-Nerub,Das Ausmerzen von Stratholme,Feste von Drak'Tharon,Gundrak,Hallen der Blitze,Hallen des Steins,Der Nexus,Das Oculus,Burg Utgarde,Turm Utgarde,Violette Festung,Prüfung des Champions,Die Seelenschmiede,Grube von Saron,Hallen der Reflexion

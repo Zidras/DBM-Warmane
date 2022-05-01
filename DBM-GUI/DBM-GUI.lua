@@ -296,16 +296,187 @@ function DBM_GUI:ShowHide(forceshow)
 	end
 end
 
+local catbutton, lastButton, addSpacer
+local function addOptions(mod, catpanel, v)
+	if v == DBM_OPTION_SPACER then
+		addSpacer = true
+	else
+		lastButton = catbutton
+		if v.line then
+			catbutton = catpanel:CreateLine(v.text)
+		elseif type(mod.Options[v]) == "boolean" then
+			if mod.Options[v .. "TColor"] then
+				catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v, nil, true)
+			elseif mod.Options[v .. "SWSound"] then
+				catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v)
+			else
+				catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true)
+			end
+			catbutton:SetScript("OnShow", function(self)
+				self:SetChecked(mod.Options[v])
+			end)
+			catbutton:SetScript("OnClick", function(self)
+				mod.Options[v] = not mod.Options[v]
+				if mod.optionFuncs and mod.optionFuncs[v] then
+					mod.optionFuncs[v]()
+				end
+			end)
+		elseif mod.dropdowns and mod.dropdowns[v] then
+			local dropdownOptions = {}
+			for _, val in ipairs(mod.dropdowns[v]) do
+				tinsert(dropdownOptions, {
+					text	= mod.localization.options[val],
+					value	= val
+				})
+			end
+			catbutton = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value)
+				mod.Options[v] = value
+				if mod.optionFuncs and mod.optionFuncs[v] then
+					mod.optionFuncs[v]()
+				end
+			end, nil, 32)
+			if not addSpacer then
+				catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
+			end
+		end
+		if addSpacer then
+			catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -6)
+			addSpacer = false
+		end
+	end
+end
 
--- This function creates a check box
--- Autoplaced buttons will be placed under the last widget
---
---  arg1 = text right to the CheckBox
---  arg2 = autoplaced (true or nil/false)
---  arg3 = text on left side
---  arg4 = DBM.Options[arg4]
---  arg5 = DBM.Bars:SetOption(arg5, ...)
---
+function DBM_GUI:CreateBossModPanel(mod)
+	if not mod.panel then
+		DBM:AddMsg("Couldn't create boss mod panel for " .. mod.localization.general.name)
+		return false
+	end
+	local panel = mod.panel
+	local category
+
+	local iconstat = panel.frame:CreateFontString("DBM_GUI_Mod_Icons" .. mod.localization.general.name, "ARTWORK")
+	iconstat:SetPoint("TOP", panel.frame, 0, -10)
+	iconstat:SetFontObject(GameFontNormal)
+	iconstat:SetText(L.IconsInUse)
+	for i = 1, 8 do
+		local icon = panel.frame:CreateTexture()
+		icon:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons.blp")
+		icon:SetPoint("TOP", panel.frame, 81 - (i * 18), -26)
+		icon:SetSize(16, 16)
+		if not mod.usedIcons or not mod.usedIcons[i] then
+			icon:SetAlpha(0.25)
+		end
+		if		i == 1 then		icon:SetTexCoord(0,		0.25,	0,		0.25)
+		elseif	i == 2 then		icon:SetTexCoord(0.25,	0.5,	0,		0.25)
+		elseif	i == 3 then		icon:SetTexCoord(0.5,	0.75,	0,		0.25)
+		elseif	i == 4 then		icon:SetTexCoord(0.75,	1,		0,		0.25)
+		elseif	i == 5 then		icon:SetTexCoord(0,		0.25,	0.25,	0.5)
+		elseif	i == 6 then		icon:SetTexCoord(0.25,	0.5,	0.25,	0.5)
+		elseif	i == 7 then		icon:SetTexCoord(0.5,	0.75,	0.25,	0.5)
+		elseif	i == 8 then		icon:SetTexCoord(0.75,	1,		0.25,	0.5)
+		end
+	end
+
+	local reset = panel:CreateButton(L.Mod_Reset, 155, 30, nil, GameFontNormalSmall)
+	reset.myheight = 40
+	reset:SetPoint("TOPRIGHT", panel.frame, "TOPRIGHT", -24, -4)
+	reset:SetScript("OnClick", function(self)
+		DBM:LoadModDefaultOption(mod)
+	end)
+	local button = panel:CreateCheckButton(L.Mod_Enabled, true)
+	button:SetChecked(mod.Options.Enabled)
+	button:SetPoint("TOPLEFT", panel.frame, "TOPLEFT", 8, -14)
+	button:SetScript("OnClick", function(self)
+		mod:Toggle()
+	end)
+
+	for _, catident in pairs(mod.categorySort) do
+		category = mod.optionCategories[catident]
+		if category then
+			local catpanel = panel:CreateArea(mod.localization.cats[catident], nil, nil, true)
+			local catbutton, lastButton, addSpacer
+			local hasDropdowns = 0
+			for _, v in ipairs(category) do
+				if v == DBM_OPTION_SPACER then
+					addSpacer = true
+				else
+					lastButton = catbutton
+					if v.line then
+						catbutton = catpanel:CreateLine(v.text)
+					elseif type(mod.Options[v]) == "boolean" then
+						if mod.Options[v .. "TColor"] then
+							catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v, nil, true)
+						elseif mod.Options[v .. "SWSound"] then
+							catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v)
+						else
+							catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true)
+						end
+						catbutton:SetScript("OnShow", function(self)
+							self:SetChecked(mod.Options[v])
+						end)
+						catbutton:SetScript("OnClick", function(self)
+							mod.Options[v] = not mod.Options[v]
+							if mod.optionFuncs and mod.optionFuncs[v] then
+								mod.optionFuncs[v]()
+							end
+						end)
+					elseif mod.buttons and mod.buttons[v] then
+						local but = mod.buttons[v]
+						catbutton = catpanel:CreateButton(v, but.width, but.height, but.onClick, but.fontObject)
+						if not addSpacer then
+							catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -25)
+						end
+					elseif mod.editboxes and mod.editboxes[v] then
+						local editBox = mod.editboxes[v]
+						catbutton = catpanel:CreateEditBox(mod.localization.options[v], mod.Options[v], editBox.width, editBox.height)
+						catbutton:SetScript("OnEnterPressed", function(self)
+							if mod.optionFuncs and mod.optionFuncs[v] then
+								mod.optionFuncs[v]()
+							end
+						end)
+						if not addSpacer then
+							catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -25)
+						end
+					elseif mod.sliders and mod.sliders[v] then
+						local slider = mod.sliders[v]
+						catbutton = catpanel:CreateSlider(mod.localization.options[v], slider.minValue, slider.maxValue, slider.valueStep)
+						catbutton:SetScript("OnShow", function(self)
+							self:SetValue(mod.Options[v])
+						end)
+						catbutton:HookScript("OnValueChanged", function(self)
+							if mod.optionFuncs and mod.optionFuncs[v] then
+								mod.optionFuncs[v]()
+							end
+						end)
+						if not addSpacer then
+							catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -35)
+						end
+					elseif mod.dropdowns and mod.dropdowns[v] then
+						local dropdownOptions = {}
+						for i, val in ipairs(mod.dropdowns[v]) do
+							dropdownOptions[#dropdownOptions + 1] = { text = mod.localization.options[val], value = val }
+						end
+						catbutton = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value)
+							mod.Options[v] = value
+							if mod.optionFuncs and mod.optionFuncs[v] then
+								mod.optionFuncs[v]()
+							end
+						end, nil, 32)
+						if not addSpacer then
+							hasDropdowns = hasDropdowns + 7--Add 7 extra pixels per dropdown, because autodims is only reserving 25 per line, and dropdowns are 32
+							catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
+						end
+					end
+					if addSpacer then
+						catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -6)
+						addSpacer = false
+					end
+				end
+			end
+		end
+	end
+end
+
 do
 	local sounds = DBM_GUI:MixinSharedMedia3("sound", {
 		--Inject basically dummy values for ordering special warnings to just use default SW sound assignments
@@ -367,45 +538,6 @@ do
 end
 
 do
-	local function OnShowGetStats(bossid, statsType, top1value1, top1value2, top1value3, top2value1, top2value2, top2value3, bottom1value1, bottom1value2, bottom1value3, bottom2value1, bottom2value2, bottom2value3)
-		return function(self)
-			local mod = DBM:GetModByName(bossid)
-			local stats = mod.stats
-			if statsType == 1 then -- Party: normal, heroic
-				top1value1:SetText( stats.normalKills )
-				top1value2:SetText( stats.normalPulls - stats.normalKills )
-				top1value3:SetText( stats.normalBestTime and ("%d:%02d"):format(mfloor(stats.normalBestTime / 60), stats.normalBestTime % 60) or "-" )
-				top2value1:SetText( stats.heroicKills )
-				top2value2:SetText( stats.heroicPulls-stats.heroicKills )
-				top2value3:SetText( stats.heroicBestTime and ("%d:%02d"):format(mfloor(stats.heroicBestTime / 60), stats.heroicBestTime % 60) or "-" )
-			elseif statsType == 2 and stats.normal25Pulls and stats.normal25Pulls > 0 and stats.normal25Pulls > stats.normalPulls then--Fix for BC instance
-				top1value1:SetText( stats.normal25Kills )
-				top1value2:SetText( stats.normal25Pulls - stats.normal25Kills )
-				top1value3:SetText( stats.normal25BestTime and ("%d:%02d"):format(mfloor(stats.normal25BestTime / 60), stats.normal25BestTime % 60) or "-" )
-			elseif statsType == 3 then
-				top1value1:SetText( stats.normalKills )
-				top1value2:SetText( stats.normalPulls - stats.normalKills )
-				top1value3:SetText( stats.normalBestTime and ("%d:%02d"):format(mfloor(stats.normalBestTime / 60), stats.normalBestTime % 60) or "-" )
-				top2value1:SetText( stats.heroicKills )
-				top2value2:SetText( stats.heroicPulls-stats.heroicKills )
-				top2value3:SetText( stats.heroicBestTime and ("%d:%02d"):format(mfloor(stats.heroicBestTime / 60), stats.heroicBestTime % 60) or "-" )
-			else
-				top1value1:SetText(stats.normalKills)
-				top1value2:SetText(stats.normalPulls - stats.normalKills)
-				top1value3:SetText(stats.normalBestTime and ("%d:%02d"):format(mfloor(stats.normalBestTime / 60), stats.normalBestTime % 60) or "-")
-				top2value1:SetText(stats.normal25Kills)
-				top2value2:SetText(stats.normal25Pulls - stats.normal25Kills)
-				top2value3:SetText(stats.normal25BestTime and ("%d:%02d"):format(mfloor(stats.normal25BestTime / 60), stats.normal25BestTime % 60) or "-")
-				bottom1value1:SetText(stats.heroicKills)
-				bottom1value2:SetText(stats.heroicPulls-stats.heroicKills)
-				bottom1value3:SetText(stats.heroicBestTime and ("%d:%02d"):format(mfloor(stats.heroicBestTime / 60), stats.heroicBestTime % 60) or "-")
-				bottom2value1:SetText(stats.heroic25Kills)
-				bottom2value2:SetText(stats.heroic25Pulls-stats.heroic25Kills)
-				bottom2value3:SetText(stats.heroic25BestTime and ("%d:%02d"):format(mfloor(stats.heroic25BestTime / 60), stats.heroic25BestTime % 60) or "-")
-			end
-		end
-	end
-
 	local function CreateBossModTab(addon, panel, subtab)
 		if not panel then
 			error("Panel is nil", 2)
@@ -567,241 +699,138 @@ do
 			importProfile:SetPoint("LEFT", exportProfile, "RIGHT", 2, 0)
 		end
 
-		if addon.noStatistics then return end
+		if addon.noStatistics then
+			return
+		end
 
-		local ptext = panel:CreateText(L.BossModLoaded:format(subtab and addon.subTabs[subtab] or addon.name), nil, nil, GameFontNormal)
+		local ptext = panel:CreateText(L.BossModLoaded:format(subtab and addon.subTabs[subtab] or addon.name), nil, nil, nil, "CENTER")
 		ptext:SetPoint("TOPLEFT", panel.frame, "TOPLEFT", 10, modProfileArea and -245 or -10)
 
-		local singleline = 0
-		local doubleline = 0
-		local area = panel:CreateArea(nil, panel.frame:GetWidth(), 10)
+		local singleLine, doubleLine, noHeaderLine = 0, 0, 0
+		local area = panel:CreateArea()
+		area.frame.isStats = true
 		area.frame:SetPoint("TOPLEFT", 10, modProfileArea and -260 or -25)
-		area.onshowcall = {}
+
+		local statOrder = {
+			"normal", "normal25", "heroic", "heroic25", "mythic", "timewalker"
+		}
 
 		for _, mod in ipairs(DBM.Mods) do
 			if mod.modId == addon.modId and (not subtab or subtab == mod.subTab) and not mod.isTrashMod and not mod.noStatistics then
-				local statsType = 0
 				if not mod.stats then
-					mod.stats = { }
+					mod.stats = {}
 				end
-				local stats = mod.stats
-				stats.normalKills = stats.normalKills or 0
-				stats.normalPulls = stats.normalPulls or 0
-				stats.heroicKills = stats.heroicKills or 0
-				stats.heroicPulls = stats.heroicPulls or 0
-				stats.normal25Kills = stats.normal25Kills or 0
-				stats.normal25Pulls = stats.normal25Pulls or 0
-				stats.heroic25Kills = stats.heroic25Kills or 0
-				stats.heroic25Pulls = stats.heroic25Pulls or 0
 
 				--Create Frames
-				local Title			= area:CreateText(mod.localization.general.name, nil, nil, GameFontHighlight, "LEFT")
-
-				local top1header		= area:CreateText("", nil, nil, GameFontHighlightSmall, "LEFT")--Row 1, 1st column
-				local top1text1			= area:CreateText(L.Statistic_Kills, nil, nil, GameFontNormalSmall, "LEFT")
-				local top1text2			= area:CreateText(L.Statistic_Wipes, nil, nil, GameFontNormalSmall, "LEFT")
-				local top1text3			= area:CreateText(L.Statistic_BestKill, nil, nil, GameFontNormalSmall, "LEFT")
-				local top1value1		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local top1value2		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local top1value3		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local top2header		= area:CreateText("", nil, nil, GameFontHighlightSmall, "LEFT")--Row 1, 2nd column
-				local top2text1			= area:CreateText(L.Statistic_Kills, nil, nil, GameFontNormalSmall, "LEFT")
-				local top2text2			= area:CreateText(L.Statistic_Wipes, nil, nil, GameFontNormalSmall, "LEFT")
-				local top2text3			= area:CreateText(L.Statistic_BestKill, nil, nil, GameFontNormalSmall, "LEFT")
-				local top2value1		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local top2value2		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local top2value3		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-
-				local bottom1header		= area:CreateText("", nil, nil, GameFontHighlightSmall, "LEFT")--Row 2, 1st column
-				local bottom1text1		= area:CreateText(L.Statistic_Kills, nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom1text2		= area:CreateText(L.Statistic_Wipes, nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom1text3		= area:CreateText(L.Statistic_BestKill, nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom1value1		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom1value2		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom1value3		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom2header		= area:CreateText("", nil, nil, GameFontHighlightSmall, "LEFT")--Row 2, 2nd column
-				local bottom2text1		= area:CreateText(L.Statistic_Kills, nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom2text2		= area:CreateText(L.Statistic_Wipes, nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom2text3		= area:CreateText(L.Statistic_BestKill, nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom2value1		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom2value2		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-				local bottom2value3		= area:CreateText("", nil, nil, GameFontNormalSmall, "LEFT")
-
-				--Set enable or disable per mods.
-				if mod.addon.oneFormat then -- Classic/BC Raids
-					statsType = 3
-					if mod.addon.noHeroic then
-						--Do not use top1 header.
-						top1text1:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top1text2:SetPoint("TOPLEFT", top1text1, "BOTTOMLEFT", 0, -5)
-						top1text3:SetPoint("TOPLEFT", top1text2, "BOTTOMLEFT", 0, -5)
-						top1value1:SetPoint("TOPLEFT", top1text1, "TOPLEFT", 80, 0)
-						top1value2:SetPoint("TOPLEFT", top1text2, "TOPLEFT", 80, 0)
-						top1value3:SetPoint("TOPLEFT", top1text3, "TOPLEFT", 80, 0)
-					else
-						--Use top1 and top2 area.
-						top1header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top1text1:SetPoint("TOPLEFT", top1header, "BOTTOMLEFT", 20, -5)
-						top1text2:SetPoint("TOPLEFT", top1text1, "BOTTOMLEFT", 0, -5)
-						top1text3:SetPoint("TOPLEFT", top1text2, "BOTTOMLEFT", 0, -5)
-						top1value1:SetPoint("TOPLEFT", top1text1, "TOPLEFT", 80, 0)
-						top1value2:SetPoint("TOPLEFT", top1text2, "TOPLEFT", 80, 0)
-						top1value3:SetPoint("TOPLEFT", top1text3, "TOPLEFT", 80, 0)
-						top2header:SetPoint("LEFT", top1header, "LEFT", 220, 0)
-						top2text1:SetPoint("LEFT", top1text1, "LEFT", 220, 0)
-						top2text2:SetPoint("LEFT", top1text2, "LEFT", 220, 0)
-						top2text3:SetPoint("LEFT", top1text3, "LEFT", 220, 0)
-						top2value1:SetPoint("TOPLEFT", top2text1, "TOPLEFT", 80, 0)
-						top2value2:SetPoint("TOPLEFT", top2text2, "TOPLEFT", 80, 0)
-						top2value3:SetPoint("TOPLEFT", top2text3, "TOPLEFT", 80, 0)
-						--Set header text.
-						top1header:SetText(PLAYER_DIFFICULTY1)
-						top2header:SetText(PLAYER_DIFFICULTY2)
-					end
-					--Set Dims
-					Title:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 10, -10-(L.FontHeight*6*singleline))
-					area.frame:SetHeight( area.frame:GetHeight() + L.FontHeight*6 )
-					singleline = singleline + 1
-				elseif mod.addon.type == "PARTY" then -- If party instance have no heroic, we should use oneFormat.
-					statsType = 1
-					if mod.oneFormat then
-						top1header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top1text1:SetPoint("TOPLEFT", top1header, "BOTTOMLEFT", 20, -5)
-						top1text2:SetPoint("TOPLEFT", top1text1, "BOTTOMLEFT", 0, -5)
-						top1text3:SetPoint("TOPLEFT", top1text2, "BOTTOMLEFT", 0, -5)
-						top1value1:SetPoint("TOPLEFT", top1text1, "TOPLEFT", 80, 0)
-						top1value2:SetPoint("TOPLEFT", top1text2, "TOPLEFT", 80, 0)
-						top1value3:SetPoint("TOPLEFT", top1text3, "TOPLEFT", 80, 0)
-						--Set header text.
-						top1header:SetText(PLAYER_DIFFICULTY1)
-						--Set Dims
-						Title:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 10, -10-(L.FontHeight*6*singleline))
-						area.frame:SetHeight( area.frame:GetHeight() + L.FontHeight*6 )
-						singleline = singleline + 1
-					elseif mod.onlyHeroic then
-						top2header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top2text1:SetPoint("TOPLEFT", top2header, "BOTTOMLEFT", 20, -5)
-						top2text2:SetPoint("TOPLEFT", top2text1, "BOTTOMLEFT", 0, -5)
-						top2text3:SetPoint("TOPLEFT", top2text2, "BOTTOMLEFT", 0, -5)
-						top2value1:SetPoint("TOPLEFT", top2text1, "TOPLEFT", 80, 0)
-						top2value2:SetPoint("TOPLEFT", top2text2, "TOPLEFT", 80, 0)
-						top2value3:SetPoint("TOPLEFT", top2text3, "TOPLEFT", 80, 0)
-						--Set header text.
-						top2header:SetText(PLAYER_DIFFICULTY2)
-						--Set Dims
-						Title:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 10, -10-(L.FontHeight*6*singleline))
-						area.frame:SetHeight( area.frame:GetHeight() + L.FontHeight*6 )
-						singleline = singleline + 1
-					else--Dungeons that are Normal, Heroic
-						--Use top1 and top2 area. (normal, Heroic)
-						top1header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top1text1:SetPoint("TOPLEFT", top1header, "BOTTOMLEFT", 20, -5)
-						top1text2:SetPoint("TOPLEFT", top1text1, "BOTTOMLEFT", 0, -5)
-						top1text3:SetPoint("TOPLEFT", top1text2, "BOTTOMLEFT", 0, -5)
-						top1value1:SetPoint("TOPLEFT", top1text1, "TOPLEFT", 80, 0)
-						top1value2:SetPoint("TOPLEFT", top1text2, "TOPLEFT", 80, 0)
-						top1value3:SetPoint("TOPLEFT", top1text3, "TOPLEFT", 80, 0)
-						top2header:SetPoint("LEFT", top1header, "LEFT", 220, 0)
-						top2text1:SetPoint("LEFT", top1text1, "LEFT", 220, 0)
-						top2text2:SetPoint("LEFT", top1text2, "LEFT", 220, 0)
-						top2text3:SetPoint("LEFT", top1text3, "LEFT", 220, 0)
-						top2value1:SetPoint("TOPLEFT", top2text1, "TOPLEFT", 80, 0)
-						top2value2:SetPoint("TOPLEFT", top2text2, "TOPLEFT", 80, 0)
-						top2value3:SetPoint("TOPLEFT", top2text3, "TOPLEFT", 80, 0)
-						--Set header text.
-						top1header:SetText(PLAYER_DIFFICULTY1)
-						top2header:SetText(PLAYER_DIFFICULTY2)
-						--Set Dims
-						Title:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 10, -10-(L.FontHeight*6*singleline))
-						area.frame:SetHeight( area.frame:GetHeight() + L.FontHeight*6 )
-						singleline = singleline + 1
-					end
-				else
-					Title:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 10, -10-(L.FontHeight*6*singleline)-(L.FontHeight*10*doubleline))
-					if mod.onlyNormal or mod.addon.noHeroic then
-						--Use top1, top2 area
-						--10 Player, 25 Player
-						top1header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top1text1:SetPoint("TOPLEFT", top1header, "BOTTOMLEFT", 20, -5)
-						top1text2:SetPoint("TOPLEFT", top1text1, "BOTTOMLEFT", 0, -5)
-						top1text3:SetPoint("TOPLEFT", top1text2, "BOTTOMLEFT", 0, -5)
-						top1value1:SetPoint("TOPLEFT", top1text1, "TOPLEFT", 80, 0)
-						top1value2:SetPoint("TOPLEFT", top1text2, "TOPLEFT", 80, 0)
-						top1value3:SetPoint("TOPLEFT", top1text3, "TOPLEFT", 80, 0)
-						top2header:SetPoint("LEFT", top1header, "LEFT", 220, 0)
-						top2text1:SetPoint("LEFT", top1text1, "LEFT", 220, 0)
-						top2text2:SetPoint("LEFT", top1text2, "LEFT", 220, 0)
-						top2text3:SetPoint("LEFT", top1text3, "LEFT", 220, 0)
-						top2value1:SetPoint("TOPLEFT", top2text1, "TOPLEFT", 80, 0)
-						top2value2:SetPoint("TOPLEFT", top2text2, "TOPLEFT", 80, 0)
-						top2value3:SetPoint("TOPLEFT", top2text3, "TOPLEFT", 80, 0)
-						--Set header text.
-						top1header:SetText(RAID_DIFFICULTY1)
-						top2header:SetText(RAID_DIFFICULTY2)
-						--Set Dims
-						area.frame:SetHeight( area.frame:GetHeight() + L.FontHeight*6 )
-						singleline = singleline + 1
-					else
-						--Use top1, top2, bottom1 and bottom2 area.
-						--10 Player, 25 Player, 10 Player Heroic, 25 Player Heroic
-						top1header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
-						top1text1:SetPoint("TOPLEFT", top1header, "BOTTOMLEFT", 20, -5)
-						top1text2:SetPoint("TOPLEFT", top1text1, "BOTTOMLEFT", 0, -5)
-						top1text3:SetPoint("TOPLEFT", top1text2, "BOTTOMLEFT", 0, -5)
-						top1value1:SetPoint("TOPLEFT", top1text1, "TOPLEFT", 80, 0)
-						top1value2:SetPoint("TOPLEFT", top1text2, "TOPLEFT", 80, 0)
-						top1value3:SetPoint("TOPLEFT", top1text3, "TOPLEFT", 80, 0)
-						top2header:SetPoint("LEFT", top1header, "LEFT", 220, 0)
-						top2text1:SetPoint("LEFT", top1text1, "LEFT", 220, 0)
-						top2text2:SetPoint("LEFT", top1text2, "LEFT", 220, 0)
-						top2text3:SetPoint("LEFT", top1text3, "LEFT", 220, 0)
-						top2value1:SetPoint("TOPLEFT", top2text1, "TOPLEFT", 80, 0)
-						top2value2:SetPoint("TOPLEFT", top2text2, "TOPLEFT", 80, 0)
-						top2value3:SetPoint("TOPLEFT", top2text3, "TOPLEFT", 80, 0)
-						bottom1header:SetPoint("TOPLEFT", top1text3, "BOTTOMLEFT", -20, -5)
-						bottom1text1:SetPoint("TOPLEFT", bottom1header, "BOTTOMLEFT", 20, -5)
-						bottom1text2:SetPoint("TOPLEFT", bottom1text1, "BOTTOMLEFT", 0, -5)
-						bottom1text3:SetPoint("TOPLEFT", bottom1text2, "BOTTOMLEFT", 0, -5)
-						bottom1value1:SetPoint("TOPLEFT", bottom1text1, "TOPLEFT", 80, 0)
-						bottom1value2:SetPoint("TOPLEFT", bottom1text2, "TOPLEFT", 80, 0)
-						bottom1value3:SetPoint("TOPLEFT", bottom1text3, "TOPLEFT", 80, 0)
-						bottom2header:SetPoint("LEFT", bottom1header, "LEFT", 220, 0)
-						bottom2text1:SetPoint("LEFT", bottom1text1, "LEFT", 220, 0)
-						bottom2text2:SetPoint("LEFT", bottom1text2, "LEFT", 220, 0)
-						bottom2text3:SetPoint("LEFT", bottom1text3, "LEFT", 220, 0)
-						bottom2value1:SetPoint("TOPLEFT", bottom2text1, "TOPLEFT", 80, 0)
-						bottom2value2:SetPoint("TOPLEFT", bottom2text2, "TOPLEFT", 80, 0)
-						bottom2value3:SetPoint("TOPLEFT", bottom2text3, "TOPLEFT", 80, 0)
-						--Set header text.
-						top1header:SetText(RAID_DIFFICULTY1)
-						top2header:SetText(RAID_DIFFICULTY2)
-						bottom1header:SetText(PLAYER_DIFFICULTY2)
-						bottom2header:SetText(PLAYER_DIFFICULTY2)
-						--Set Dims
-						area.frame:SetHeight(area.frame:GetHeight() + L.FontHeight*10)
-						doubleline = doubleline + 1
-					end
+				local statSplit, statCount = {}, 0
+				for stat in (mod.statTypes or mod.addon.statTypes):gmatch("%s?([^%s,]+)%s?,?") do
+					statSplit[stat] = true
+					statCount = statCount + 1
 				end
 
-				tinsert(area.onshowcall, OnShowGetStats(mod.id, statsType, top1value1, top1value2, top1value3, top2value1, top2value2, top2value3, bottom1value1, bottom1value2, bottom1value3, bottom2value1, bottom2value2, bottom2value3))
-			end
-		end
-		area.frame:SetScript("OnShow", function(self)
-			for _,v in pairs(area.onshowcall) do
-				v()
-			end
-		end)
-		DBM_GUI_OptionsFrame:DisplayFrame(panel.frame, true)
-	end
+				if statCount == 0 then
+					DBM:AddMsg("No statTypes available for " .. mod.modId)
+					return -- No stats available for this? Possibly a bug
+				end
 
-	local function LoadAddOn_Button(self)
-		if DBM:LoadMod(self.modid, true) then
-			self:Hide()
-			self.headline:Hide()
-			CreateBossModTab(self.modid, self.modid.panel)
-			DBM_GUI_OptionsFrameBossMods:Hide()
-			DBM_GUI_OptionsFrameBossMods:Show()
+				local Title			= area:CreateText(mod.localization.general.name, nil, nil, GameFontHighlight, "LEFT")
+
+				local function CreateText(text, header)
+					local frame = area:CreateText(text or "", nil, nil, header and GameFontHighlightSmall or GameFontNormalSmall, "LEFT")
+					frame:Hide()
+					return frame
+				end
+
+				local sections = {}
+				for i = 1, 6 do
+					local section = {}
+					section.header	= CreateText(nil, true)
+					section.text1	= CreateText(L.Statistic_Kills)
+					section.text2	= CreateText(L.Statistic_Wipes)
+					section.text3	= CreateText(L.Statistic_BestKill)
+					section.value1	= CreateText()
+					section.value2	= CreateText()
+					section.value3	= CreateText()
+					if i == 1 then
+						section.header:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
+					elseif i == 4 then
+						section.header:SetPoint("TOPLEFT", sections[1].text3, "BOTTOMLEFT", -20, -5)
+					else
+						section.header:SetPoint("LEFT", sections[i - 1].header, "LEFT", 150, 0)
+					end
+					section.text1:SetPoint("TOPLEFT", section.header, "BOTTOMLEFT", 20, -5)
+					section.text2:SetPoint("TOPLEFT", section.text1, "BOTTOMLEFT", 0, -5)
+					section.text3:SetPoint("TOPLEFT", section.text2, "BOTTOMLEFT", 0, -5)
+					section.value1:SetPoint("TOPLEFT", section.text1, "TOPLEFT", 80, 0)
+					section.value2:SetPoint("TOPLEFT", section.text2, "TOPLEFT", 80, 0)
+					section.value3:SetPoint("TOPLEFT", section.text3, "TOPLEFT", 80, 0)
+					section.header.OldSetText = section.header.SetText
+					section.header.SetText = function(self, text)
+						self:OldSetText(text)
+						self:Show()
+						section.text1:Show()
+						section.text2:Show()
+						section.text3:Show()
+						section.value1:Show()
+						section.value2:Show()
+						section.value3:Show()
+					end
+					sections[i] = section
+				end
+
+				local statTypes = {
+					normal		= RAID_DIFFICULTY1,
+					normal25	= RAID_DIFFICULTY2,
+					heroic		= RAID_DIFFICULTY3,
+					heroic25	= RAID_DIFFICULTY4,
+					mythic		= L.PLAYER_DIFFICULTY6,
+					timewalker	= L.PLAYER_DIFFICULTY_TIMEWALKER
+				}
+				if mod.addon.type == "PARTY" or -- Fixes dungeons being labled incorrectly
+					(mod.addon.type == "RAID" and statSplit["timewalker"]) then -- Fixes raids with timewalker being labled incorrectly
+					statTypes.normal = PLAYER_DIFFICULTY1
+					statTypes.heroic = PLAYER_DIFFICULTY2
+				end
+
+
+				local lastArea = 0
+
+				for _, statType in ipairs(statOrder) do
+					if statSplit[statType] then
+						if lastArea == 2 and statCount == 4 then -- Use top1, top2, bottom1, bottom2
+							lastArea = 3
+						end
+						lastArea = lastArea + 1
+						local section = sections[lastArea]
+						section.header:SetText(statTypes[statType])
+						area.frame:HookScript("OnShow", function()
+							local kills, pulls, bestRank, bestTime = mod.stats[statType .. "Kills"] or 0, mod.stats[statType .. "Pulls"] or 0, mod.stats[statType .. "BestRank"] or 0, mod.stats[statType .. "BestTime"]
+							section.value1:SetText(kills)
+							section.value2:SetText(pulls - kills)
+							if statType == "challenge" and bestRank > 0 then
+								section.value3:SetText(bestTime and ("%d:%02d (%d)"):format(mfloor(bestTime / 60), bestTime % 60) or "-", bestRank)
+							else
+								section.value3:SetText(bestTime and ("%d:%02d"):format(mfloor(bestTime / 60), bestTime % 60) or "-")
+							end
+						end)
+					end
+				end
+				Title:SetPoint("TOPLEFT", area.frame, "TOPLEFT", 10, -10 - (L.FontHeight * 5 * noHeaderLine) - (L.FontHeight * 6 * singleLine) - (L.FontHeight * 10 * doubleLine))
+				if statCount == 1 then
+					sections[1].header:Hide()
+					sections[1].text1:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 20, -5)
+					noHeaderLine = noHeaderLine + 1
+					area.frame:SetHeight(area.frame:GetHeight() + L.FontHeight * 5)
+				elseif statCount < 4 then
+					singleLine = singleLine + 1
+					area.frame:SetHeight(area.frame:GetHeight() + L.FontHeight * 6)
+				else
+					doubleLine = doubleLine + 1
+					area.frame:SetHeight(area.frame:GetHeight() + L.FontHeight * 10)
+				end
+			end
 		end
+		_G["DBM_GUI_OptionsFrame"]:DisplayFrame(panel.frame)
 	end
 
 	local category = {}
@@ -820,16 +849,22 @@ do
 
 			if not addon.panel then
 				-- Create a Panel for "Naxxramas" "Eye of Eternity" ...
-				addon.panel = category[cat]:CreateNewPanel(addon.modId or "Error: No-modId", nil, false, nil, addon.name)
+				addon.panel = category[cat]:CreateNewPanel(addon.name or "Error: No-modId")
 
 				if not IsAddOnLoaded(addon.modId) then
 					local button = addon.panel:CreateButton(L.Button_LoadMod, 200, 30)
 					button.modid = addon
-					button.headline = addon.panel:CreateText(L.BossModLoad_now, 350)
+					button.headline = addon.panel:CreateText(L.BossModLoad_now, 350, nil, nil, "CENTER")
 					button.headline:SetHeight(50)
 					button.headline:SetPoint("CENTER", button, "CENTER", 0, 80)
 
-					button:SetScript("OnClick", LoadAddOn_Button)
+					button:SetScript("OnClick", function(self)
+						if DBM:LoadMod(self.modid, true) then
+							self:Hide()
+							self.headline:Hide()
+							CreateBossModTab(self.modid, self.modid.panel)
+						end
+					end)
 					button:SetPoint("CENTER", 0, -20)
 				else
 					CreateBossModTab(addon, addon.panel)
@@ -838,12 +873,14 @@ do
 
 			if addon.panel and addon.subTabs and IsAddOnLoaded(addon.modId) then
 				-- Create a Panel for "Arachnid Quarter" "Plague Quarter" ...
-				if not addon.subPanels then addon.subPanels = {} end
+				if not addon.subPanels then
+					addon.subPanels = {}
+				end
 
-				for k,v in pairs(addon.subTabs) do
+				for k, v in pairs(addon.subTabs) do
 					if not addon.subPanels[k] then
 						subTabId = subTabId + 1
-						addon.subPanels[k] = addon.panel:CreateNewPanel("SubTab"..subTabId, nil, false, nil, v)
+						addon.subPanels[k] = addon.panel:CreateNewPanel("SubTab" .. subTabId, nil, false, nil, v)
 						CreateBossModTab(addon, addon.subPanels[k], k)
 					end
 				end
@@ -853,147 +890,19 @@ do
 				if mod.modId == addon.modId then
 					if not mod.panel and (not addon.subTabs or (addon.subPanels and addon.subPanels[mod.subTab])) then
 						if addon.subTabs and addon.subPanels[mod.subTab] then
-							mod.panel = addon.subPanels[mod.subTab]:CreateNewPanel(mod.id or "Error: DBM.Mods", nil, nil, nil, mod.localization.general.name)
+							mod.panel = addon.subPanels[mod.subTab]:CreateNewPanel(mod.id or "Error: DBM.Mods", addon.optionsTab, nil, nil, mod.localization.general.name)
 						else
-							mod.panel = addon.panel:CreateNewPanel(mod.id or "Error: DBM.Mods", nil, nil, nil, mod.localization.general.name)
+							mod.panel = addon.panel:CreateNewPanel(mod.id or "Error: DBM.Mods", addon.optionsTab, nil, nil, mod.localization.general.name)
 						end
 						DBM_GUI:CreateBossModPanel(mod)
 					end
 				end
 			end
 		end
-		if DBM_GUI_OptionsFrame:IsShown() then
-			DBM_GUI_OptionsFrame:Hide()
-			DBM_GUI_OptionsFrame:Show()
-		end
-	end
-
-
-	function DBM_GUI:CreateBossModPanel(mod)
-		if not mod.panel then
-			DBM:AddMsg("Couldn't create boss mod panel for "..mod.localization.general.name)
-			return false
-		end
-		local panel = mod.panel
-		panel.initheight = 35
-		local category
-
-		local iconstat = panel.frame:CreateFontString("DBM_GUI_Mod_Icons"..mod.localization.general.name, "ARTWORK")
-		iconstat:SetPoint("TOPRIGHT", panel.frame, "TOPRIGHT", -168, -10)
-		iconstat:SetFontObject(GameFontNormal)
-		iconstat:SetText(L.IconsInUse)
-		for i=1, 8, 1 do
-			local icon = panel.frame:CreateTexture()
-			icon:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons.blp")
-			icon:SetPoint("TOPRIGHT", panel.frame, "TOPRIGHT", -150-(i*18), -26)
-			icon:SetWidth(16)
-			icon:SetHeight(16)
-			if not mod.usedIcons or not mod.usedIcons[i] then		icon:SetAlpha(0.25)		end
-			if 		i == 1 then		icon:SetTexCoord(0,		0.25,	0,		0.25)
-			elseif	i == 2 then		icon:SetTexCoord(0.25,	0.5,	0,		0.25)
-			elseif	i == 3 then		icon:SetTexCoord(0.5, 	0.75,	0,		0.25)
-			elseif	i == 4 then		icon:SetTexCoord(0.75,	1,		0,		0.25)
-			elseif	i == 5 then		icon:SetTexCoord(0,		0.25,	0.25,	0.5)
-			elseif	i == 6 then		icon:SetTexCoord(0.25,	0.5,	0.25,	0.5)
-			elseif	i == 7 then		icon:SetTexCoord(0.5,	0.75,	0.25,	0.5)
-			elseif	i == 8 then		icon:SetTexCoord(0.75,	1,		0.25,	0.5)
-			end
-		end
-
-		local reset  = panel:CreateButton(L.Mod_Reset, 155, 30, nil, GameFontNormalSmall)
-		reset:SetPoint('TOPRIGHT', panel.frame, "TOPRIGHT", -6, -6)
-		reset:SetScript("OnClick", function(self)
-			DBM:LoadModDefaultOption(mod)
-		end)
-		local button = panel:CreateCheckButton(L.Mod_Enabled, true)
-		button:SetScript("OnShow",  function(self) self:SetChecked(mod.Options.Enabled) end)
-		button:SetPoint('TOPLEFT', panel.frame, "TOPLEFT", 8, -14)
-		button:SetScript("OnClick", function(self) mod:Toggle()	end)
-
-		for _, catident in pairs(mod.categorySort) do
-			category = mod.optionCategories[catident]
-			if category then
-				local catpanel = panel:CreateArea(mod.localization.cats[catident], nil, nil, true)
-				local catbutton, lastButton, addSpacer
-				local hasDropdowns = 0
-				for _, v in ipairs(category) do
-					if v == DBM_OPTION_SPACER then
-						addSpacer = true
-					else
-						lastButton = catbutton
-						if v.line then
-							catbutton = catpanel:CreateLine(v.text)
-						elseif type(mod.Options[v]) == "boolean" then
-							if mod.Options[v .. "TColor"] then
-								catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v, nil, true)
-							elseif mod.Options[v .. "SWSound"] then
-								catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v)
-							else
-								catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true)
-							end
-							catbutton:SetScript("OnShow", function(self)
-								self:SetChecked(mod.Options[v])
-							end)
-							catbutton:SetScript("OnClick", function(self)
-								mod.Options[v] = not mod.Options[v]
-								if mod.optionFuncs and mod.optionFuncs[v] then
-									mod.optionFuncs[v]()
-								end
-							end)
-						elseif mod.buttons and mod.buttons[v] then
-							local but = mod.buttons[v]
-							catbutton = catpanel:CreateButton(v, but.width, but.height, but.onClick, but.fontObject)
-							if not addSpacer then
-								catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -25)
-							end
-						elseif mod.editboxes and mod.editboxes[v] then
-							local editBox = mod.editboxes[v]
-							catbutton = catpanel:CreateEditBox(mod.localization.options[v], mod.Options[v], editBox.width, editBox.height)
-							catbutton:SetScript("OnEnterPressed", function(self)
-								if mod.optionFuncs and mod.optionFuncs[v] then
-									mod.optionFuncs[v]()
-								end
-							end)
-							if not addSpacer then
-								catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -25)
-							end
-						elseif mod.sliders and mod.sliders[v] then
-							local slider = mod.sliders[v]
-							catbutton = catpanel:CreateSlider(mod.localization.options[v], slider.minValue, slider.maxValue, slider.valueStep)
-							catbutton:SetScript("OnShow", function(self)
-								self:SetValue(mod.Options[v])
-							end)
-							catbutton:HookScript("OnValueChanged", function(self)
-								if mod.optionFuncs and mod.optionFuncs[v] then
-									mod.optionFuncs[v]()
-								end
-							end)
-							if not addSpacer then
-								catbutton:SetPoint('TOPLEFT', lastButton, "TOPLEFT", 0, -35)
-							end
-						elseif mod.dropdowns and mod.dropdowns[v] then
-							local dropdownOptions = {}
-							for i, val in ipairs(mod.dropdowns[v]) do
-								dropdownOptions[#dropdownOptions + 1] = { text = mod.localization.options[val], value = val }
-							end
-							catbutton = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value)
-								mod.Options[v] = value
-								if mod.optionFuncs and mod.optionFuncs[v] then
-									mod.optionFuncs[v]()
-								end
-							end, nil, 32)
-							if not addSpacer then
-								hasDropdowns = hasDropdowns + 7--Add 7 extra pixels per dropdown, because autodims is only reserving 25 per line, and dropdowns are 32
-								catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
-							end
-						end
-						if addSpacer then
-							catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -6)
-							addSpacer = false
-						end
-					end
-				end
-			end
+		local optionsFrame = _G["DBM_GUI_OptionsFrame"]
+		if optionsFrame:IsShown() then
+			optionsFrame:Hide()
+			optionsFrame:Show()
 		end
 	end
 end

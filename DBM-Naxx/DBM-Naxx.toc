@@ -14,7 +14,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
-## X-DBM-Mod-No-Heroic: 1
+## X-DBM-StatTypes: normal,normal25
 ## X-DBM-Mod-SubCategories: Arachnid Quarter,Construct Quarter,Plague Quarter,Military Quarter,Frostwyrm Lair
 ## X-DBM-Mod-SubCategories-deDE: Das Arachnidenviertel,Das Konstruktviertel,Das Seuchenviertel,Das Militärviertel,Frostwyrmhort
 ## X-DBM-Mod-SubCategories-ruRU: Паучий квартал,Квартал Мерзости,Чумной квартал,Военный квартал,Логово ледяного змея

@@ -13,7 +13,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
-## X-DBM-Mod-Has-Heroic-Mode: 0
+## X-DBM-StatTypes: normal,normal25
 ## X-DBM-Mod-Name: Eye of Eternity
 ## X-DBM-Mod-Name-deDE: Das Auge der Ewigkeit
 ## X-DBM-Mod-Name-ruRU: Око Вечности
