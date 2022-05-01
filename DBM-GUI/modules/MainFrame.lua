@@ -276,7 +276,7 @@ for i = 1, math.floor(UIParent:GetHeight() / 18) do
 	buttonHighlight:SetVertexColor(0.196, 0.388, 0.8)
 	button:SetHighlightTexture(buttonHighlight)
 	frameList.buttons[i] = button
-	local buttonToggle = CreateFrame("Button", "$parentToggle", button, "UIPanelButtonTemplate")
+	local buttonToggle = CreateFrame("Button", "$parentToggle", button, "UIPanelButtonTemplate2")
 	button.toggle = buttonToggle
 	buttonToggle:SetSize(14, 14)
 	buttonToggle:SetPoint("TOPLEFT", button, "TOPLEFT", 5, -1)
