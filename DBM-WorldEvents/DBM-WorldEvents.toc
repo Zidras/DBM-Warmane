@@ -8,6 +8,7 @@
 ## SavedVariablesPerCharacter: DBMWorldEvent_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: WOTLK
+## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: World Events
 ## X-DBM-Mod-Name-zhCN: 世界事件
 ## X-DBM-Mod-Name-ruRU: Игровые события

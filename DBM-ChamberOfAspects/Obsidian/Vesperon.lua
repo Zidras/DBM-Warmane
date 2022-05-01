@@ -1,6 +1,8 @@
 local mod	= DBM:NewMod("Vesperon", "DBM-ChamberOfAspects", 1)
 local L		= mod:GetLocalizedStrings()
 
+mod.statTypes = "normal,normal25"
+
 mod:SetRevision(("$Revision: 3695 $"):sub(12, -3))
 mod:SetCreatureID(30449)
 

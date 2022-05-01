@@ -14,6 +14,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
+## X-DBM-StatTypes: normal,normal25,heroic,heroic25
 ## X-DBM-Mod-SubCategories: The Obsidian Sanctum, The Ruby Sanctum
 ## X-DBM-Mod-SubCategories-deDE: Das Obsidiansanktum, Das Rubinsanktum
 ## X-DBM-Mod-SubCategories-ruRU: Обсидиановое святилище, Рубиновое святилище

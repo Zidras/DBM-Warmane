@@ -1,8 +1,6 @@
 local mod	= DBM:NewMod("Ick", "DBM-Party-WotLK", 15)
 local L		= mod:GetLocalizedStrings()
 
-mod.statTypes = "normal,heroic"
-
 mod:SetRevision(("$Revision: 4342 $"):sub(12, -3))
 mod:SetCreatureID(36476)
 mod:SetUsedIcons(8)

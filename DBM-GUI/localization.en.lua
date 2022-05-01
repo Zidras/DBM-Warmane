@@ -526,5 +526,6 @@ L.FontHeight	= 16
 -- Retail Globals
 L.LARGE	= "Large"
 L.SMALL	= "Small"
+L.PLAYER_DIFFICULTY6 = "Mythic" -- ID: 24525
 L.PLAYER_DIFFICULTY_TIMEWALKER = "Timewalking" -- ID: 25846
 L.SPECIALIZATION = "Specialization" -- ID: 22433

@@ -15,7 +15,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
-## X-DBM-Mod-No-Heroic: 1
+## X-DBM-StatTypes: normal,normal25
 ## X-DBM-Mod-Name: Vault of Archavon
 ## X-DBM-Mod-Name-deDE: Archavons Kammer
 ## X-DBM-Mod-Name-ruRU: Склеп Аркавона

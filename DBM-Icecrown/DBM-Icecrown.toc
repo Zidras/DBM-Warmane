@@ -15,6 +15,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: WOTLK
+## X-DBM-StatTypes: normal,normal25,heroic,heroic25
 ## X-DBM-Mod-SubCategories: The Lower Spire, The Plagueworks, The Crimson Hall, Frostwing Halls, The Frozen Throne, Trash
 ## X-DBM-Mod-SubCategories-deDE: Die Untere Spitze, Die Seuchenwerke, Die Blutrote Halle, Die Frostschwingenhallen, Der Frostthron, Trash
 ## X-DBM-Mod-SubCategories-frFR: La Flèche Inférieure, L'Atelier de la Peste, La Salle Cramoisie, Les salles de l'Aile de Glace, Le trône de Glace, Trash

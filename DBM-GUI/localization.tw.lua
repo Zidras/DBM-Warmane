@@ -518,5 +518,6 @@ L.FontHeight	= 18
 -- Retail Globals
 L.LARGE = "大"
 L.SMALL = "小"
+L.PLAYER_DIFFICULTY6 = "傳奇模式" -- ID: 24525
 L.PLAYER_DIFFICULTY_TIMEWALKER = "時光漫遊" -- ID: 25846
 L.SPECIALIZATION = "專精" -- ID: 22433

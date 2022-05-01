@@ -1,8 +1,6 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod.statTypes = "normal"
-
 mod:SetRevision(("$Revision: 3804 $"):sub(12, -3))
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")

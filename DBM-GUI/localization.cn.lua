@@ -529,5 +529,6 @@ L.FontHeight	= 18
 -- Retail Globals
 L.LARGE = "大"
 L.SMALL = "小"
+L.PLAYER_DIFFICULTY6 = "史诗" -- ID: 24525
 L.PLAYER_DIFFICULTY_TIMEWALKER = "时空漫游" -- ID: 25846
 L.SPECIALIZATION = "专精" -- ID: 22433
