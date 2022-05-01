@@ -414,85 +414,90 @@ do
 		local modProfileArea
 		if not subtab then
 			local modProfileDropdown = {}
-			modProfileArea = panel:CreateArea(L.Area_ModProfile, panel.frame:GetWidth(), 135, true)
+			modProfileArea = panel:CreateArea(L.Area_ModProfile)
 			modProfileArea.frame:SetPoint("TOPLEFT", 10, -25)
 			local resetButton = modProfileArea:CreateButton(L.ModAllReset, 200, 20)
-			resetButton:SetPoint('TOPLEFT', 10, -14)
-			resetButton:SetScript("OnClick", function() DBM:LoadAllModDefaultOption(addon.modId) end)
-			resetButton:SetScript("OnShow", function()
-				twipe(modProfileDropdown)
-				local savedVarsName = addon.modId:gsub("-", "").."_AllSavedVars"
-				for charname, charTable in pairs(_G[savedVarsName]) do
-					for bossid, optionTable in pairs(charTable) do
-						if type(optionTable) == "table" then
-							for i = 0, 3 do
-								if optionTable[i] then
-									local displayText = (i == 0 and charname.." ("..ALL..")") or charname.." ("..TALENTS..i.."-"..(charTable["talent"..i] or "")..")"
-									local dropdown = { text = displayText, value = charname.."|"..tostring(i) }
-									tinsert(modProfileDropdown, dropdown)
-								end
+			resetButton:SetPoint("TOPLEFT", 10, -14)
+			resetButton:SetScript("OnClick", function()
+				DBM:LoadAllModDefaultOption(addon.modId)
+			end)
+			for charname, charTable in pairs(_G[addon.modId:gsub("-", "") .. "_AllSavedVars"] or {}) do
+				for _, optionTable in pairs(charTable) do
+					if type(optionTable) == "table" then
+						for i = 0, 3 do
+							if optionTable[i] then
+								tinsert(modProfileDropdown, {
+									text	= (i == 0 and charname .. " (" .. ALL .. ")") or charname .. " (" .. TALENTS .. i .. "-" .. (charTable["talent" .. i] or "") .. ")",
+									value	= charname .. "|" .. tostring(i)
+								})
 							end
-							break
 						end
+						break
 					end
 				end
-			end)
+			end
 
 			local resetStatButton = modProfileArea:CreateButton(L.ModAllStatReset, 200, 20)
-			resetStatButton:SetPoint('LEFT', resetButton, "RIGHT", 40, 0)
-			resetStatButton:SetScript("OnClick", function() DBM:ClearAllStats(addon.modId) end)
+			resetStatButton.myheight = 0
+			resetStatButton:SetPoint("LEFT", resetButton, "RIGHT", 40, 0)
+			resetStatButton:SetScript("OnClick", function()
+				DBM:ClearAllStats(addon.modId)
+			end)
+
+			local refresh
 
 			local copyModProfile = modProfileArea:CreateDropdown(L.SelectModProfileCopy, modProfileDropdown, nil, nil, function(value)
 				local name, profile = strsplit("|", value)
 				DBM:CopyAllModOption(addon.modId, name, tonumber(profile))
-				DBM:Schedule(0.05, DBM_GUI.dbm_modProfilePanel_refresh)
+				DBM:Schedule(0.05, refresh)
 			end, 100)
 			copyModProfile:SetPoint("TOPLEFT", -7, -54)
 			copyModProfile:SetScript("OnShow", function()
 				copyModProfile.value = nil
 				copyModProfile.text = nil
-				_G[copyModProfile:GetName().."Text"]:SetText("")
+				_G[copyModProfile:GetName() .. "Text"]:SetText("")
 			end)
 
 			local copyModSoundProfile = modProfileArea:CreateDropdown(L.SelectModProfileCopySound, modProfileDropdown, nil, nil, function(value)
 				local name, profile = strsplit("|", value)
 				DBM:CopyAllModTypeOption(addon.modId, name, tonumber(profile), "SWSound")
-				DBM:Schedule(0.10, DBM_GUI.dbm_modProfilePanel_refresh)
+				DBM:Schedule(0.05, refresh)
 			end, 100)
+			copyModSoundProfile.myheight = 0
 			copyModSoundProfile:SetPoint("LEFT", copyModProfile, "RIGHT", 27, 0)
 			copyModSoundProfile:SetScript("OnShow", function()
 				copyModSoundProfile.value = nil
 				copyModSoundProfile.text = nil
-				_G[copyModSoundProfile:GetName().."Text"]:SetText("")
+				_G[copyModSoundProfile:GetName() .. "Text"]:SetText("")
 			end)
 
 			local copyModNoteProfile = modProfileArea:CreateDropdown(L.SelectModProfileCopyNote, modProfileDropdown, nil, nil, function(value)
 				local name, profile = strsplit("|", value)
 				DBM:CopyAllModTypeOption(addon.modId, name, tonumber(profile), "SWNote")
-				DBM:Schedule(0.10, DBM_GUI.dbm_modProfilePanel_refresh)
+				DBM:Schedule(0.05, refresh)
 			end, 100)
+			copyModNoteProfile.myheight = 0
 			copyModNoteProfile:SetPoint("LEFT", copyModSoundProfile, "RIGHT", 27, 0)
 			copyModNoteProfile:SetScript("OnShow", function()
 				copyModNoteProfile.value = nil
 				copyModNoteProfile.text = nil
-				_G[copyModNoteProfile:GetName().."Text"]:SetText("")
+				_G[copyModNoteProfile:GetName() .. "Text"]:SetText("")
 			end)
 
 			local deleteModProfile = modProfileArea:CreateDropdown(L.SelectModProfileDelete, modProfileDropdown, nil, nil, function(value)
 				local name, profile = strsplit("|", value)
 				DBM:DeleteAllModOption(addon.modId, name, tonumber(profile))
-				DBM:Schedule(0.05, DBM_GUI.dbm_modProfilePanel_refresh)
+				DBM:Schedule(0.05, refresh)
 			end, 100)
-
+			deleteModProfile.myheight = 60
 			deleteModProfile:SetPoint("TOPLEFT", copyModSoundProfile, "BOTTOMLEFT", 0, -10)
 			deleteModProfile:SetScript("OnShow", function()
 				deleteModProfile.value = nil
 				deleteModProfile.text = nil
-				_G[deleteModProfile:GetName().."Text"]:SetText("")
+				_G[deleteModProfile:GetName() .. "Text"]:SetText("")
 			end)
 
-			function DBM_GUI:dbm_modProfilePanel_refresh()
-				resetButton:GetScript("OnShow")()
+			function refresh()
 				copyModProfile:GetScript("OnShow")()
 				copyModSoundProfile:GetScript("OnShow")()
 				copyModNoteProfile:GetScript("OnShow")()
