@@ -52,8 +52,8 @@ local function isunitdebuffed(spellID)
 	local name = DBM:GetSpellInfo(spellID)
 	if not name then return false end
 
-	for i=1, DBM:GetNumGroupMembers(), 1 do
-		local debuffname = DBM:UnitDebuff("player", i, "HARMFUL")
+	for uId in DBM:GetGroupMembers() do
+		local debuffname = DBM:UnitDebuff(uId, spellID)
 		if debuffname == name then
 			return true
 		end
