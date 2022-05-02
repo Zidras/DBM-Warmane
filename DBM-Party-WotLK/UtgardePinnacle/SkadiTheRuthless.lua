@@ -14,9 +14,9 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 50255 59331",
 	"SPELL_AURA_APPLIED 50258 59334 50228 59322",
-	"SPELL_AURA_REMOVED 50258 59334",
-	"SPELL_CAST_START 50255 59331"
+	"SPELL_AURA_REMOVED 50258 59334"
 )
 
 local warnPhase2			= mod:NewPhaseAnnounce(2)
@@ -28,6 +28,12 @@ local timerPoisonDebuff		= mod:NewTargetTimer(12, 50258, nil, "Healer", 2, 5, ni
 local timerPoisonCD			= mod:NewCDTimer(10, 59331, nil, "Healer", nil, 5)
 local timerWhirlwindCD		= mod:NewCDTimer(20, 59322, nil, nil, nil, 2)
 local timerAchieve			= mod:NewAchievementTimer(180, 1873)
+
+function mod:SPELL_CAST_START(args)
+	if args:IsSpellID(50255, 59331) then
+		timerPoisonCD:Start() -- Poisoned Spear throw
+	end
+end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(50258, 59334) then
@@ -43,12 +49,6 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(50258, 59334) then
 		timerPoisonDebuff:Cancel(args.destName)
-	end
-end
-
-function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(50255, 59331) then
-		timerPoisonCD:Start() -- Poisoned Spear throw
 	end
 end
 
