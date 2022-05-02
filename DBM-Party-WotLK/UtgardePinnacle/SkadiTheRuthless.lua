@@ -14,24 +14,32 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 59331 50255 59322 50228",
-	"SPELL_AURA_REMOVED 59331 50255"
+	"SPELL_CAST_START 50255 59331",
+	"SPELL_AURA_APPLIED 50258 59334 50228 59322",
+	"SPELL_AURA_REMOVED 50258 59334"
 )
 
-local warnPhase2		= mod:NewPhaseAnnounce(2)
-local warningPoison		= mod:NewTargetNoFilterAnnounce(59331, 2, nil, "Healer")
+local warnPhase2			= mod:NewPhaseAnnounce(2)
+local warningPoisonDebuff	= mod:NewTargetNoFilterAnnounce(50258, 2, nil, "Healer")
 
-local specWarnWhirlwind	= mod:NewSpecialWarningRun(59322, nil, nil, 2, 4, 2)
+local specWarnWhirlwind		= mod:NewSpecialWarningRun(59322, nil, nil, 2, 4, 2)
 
-local timerPoison		= mod:NewTargetTimer(12, 59331, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerWhirlwindCD	= mod:NewCDTimer(23, 59322, nil, nil, nil, 2)
-local timerAchieve		= mod:NewAchievementTimer(180, 1873)
+local timerPoisonDebuff		= mod:NewTargetTimer(12, 50258, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerPoisonCD			= mod:NewCDTimer(10, 59331, nil, "Healer", nil, 5)
+local timerWhirlwindCD		= mod:NewCDTimer(20, 59322, nil, nil, nil, 2)
+local timerAchieve			= mod:NewAchievementTimer(180, 1873)
+
+function mod:SPELL_CAST_START(args)
+	if args:IsSpellID(50255, 59331) then
+		timerPoisonCD:Start() -- Poisoned Spear throw
+	end
+end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(59331, 50255) then
-		warningPoison:Show(args.destName)
-		timerPoison:Start(args.destName)
-	elseif args:IsSpellID(59322, 50228) then
+	if args:IsSpellID(50258, 59334) then
+		warningPoisonDebuff:Show(args.destName)
+		timerPoisonDebuff:Start(args.destName)
+	elseif args:IsSpellID(50228, 59322) then
 		timerWhirlwindCD:Start()
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("runout")
@@ -39,8 +47,8 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(59331, 50255) then
-		timerPoison:Cancel(args.destName)
+	if args:IsSpellID(50258, 59334) then
+		timerPoisonDebuff:Cancel(args.destName)
 	end
 end
 
