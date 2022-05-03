@@ -237,6 +237,10 @@ options = {
 		type = "boolean",
 		default = true,
 	},
+	DesaturateValue = {
+		type = "number",
+		default = 1,
+	},
 	ColorByType = {
 		type = "boolean",
 		default = true,
@@ -1137,7 +1141,9 @@ function barPrototype:Update(elapsed)
 	local timerValue = self.timer
 	local totaltimeValue = self.totalTime
 	local colorCount = self.colorType
+	local enlargeEnabled = obj.HugeBarsEnabled
 	local enlargeHack = self.enlargeHack or false
+	local enlargeTime = barOptions.EnlargeBarTime or 11
 	if barOptions.DynamicColor and not self.color then
 		local r, g, b
 		if colorCount and colorCount >= 1 then
@@ -1226,6 +1232,9 @@ function barPrototype:Update(elapsed)
 				b = barOptions.StartColorB  + (barOptions.EndColorB - barOptions.StartColorB) * (1 - timerValue/totaltimeValue)
 			end
 		end
+		if not enlargeEnabled and timerValue > enlargeTime then
+			r, g, b = barOptions.DesaturateValue * r, barOptions.DesaturateValue * g, barOptions.DesaturateValue * b
+		end
 		bar:SetStatusBarColor(r, g, b)
 		if sparkEnabled then
 			spark:SetVertexColor(r, g, b)
@@ -1235,7 +1244,6 @@ function barPrototype:Update(elapsed)
 		return self:Cancel()
 	else
 		if fillUpBars then
-			local enlargeTime = barOptions.EnlargeBarTime or 11
 			if currentStyle == "NoAnim" and isEnlarged and not enlargeHack then
 				--Simple/NoAnim Bar mimics BW in creating a new bar on large bar anchor instead of just moving the small bar
 				bar:SetValue(1 - timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
@@ -1243,7 +1251,6 @@ function barPrototype:Update(elapsed)
 				bar:SetValue(1 - timerValue/totaltimeValue)
 			end
 		else
-			local enlargeTime = barOptions.EnlargeBarTime or 11
 			if currentStyle == "NoAnim" and isEnlarged and not enlargeHack then
 				--Simple/NoAnim Bar mimics BW in creating a new bar on large bar anchor instead of just moving the small bar
 				bar:SetValue(timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
@@ -1333,7 +1340,6 @@ function barPrototype:Update(elapsed)
 		obj.hugeBars:Append(self)
 		self:ApplyStyle()
 	end
-	local enlargeTime = barOptions.EnlargeBarTime or 11
 	if (timerValue <= enlargeTime) and not self.small and not isEnlarged and isMoving ~= "enlarge" and obj:GetOption("HugeBarsEnabled") then
 		self:RemoveFromList()
 		self:Enlarge()
