@@ -302,17 +302,17 @@ BarScaleSlider:SetPoint("TOPLEFT", BarHeightSlider, "BOTTOMLEFT", 0, -10)
 BarScaleSlider:SetValue(DBM.Bars.options.Scale)
 BarScaleSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("Scale"))
 
--- local saturateSlider = BarSetup:CreateSlider(L.BarSaturation, 0, 1, 0.05, 455)
--- saturateSlider:SetPoint("TOPLEFT", BarScaleSlider, "BOTTOMLEFT", 0, -20)
--- saturateSlider:SetValue(DBM.Bars.options.DesaturateValue)
--- saturateSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("DesaturateValue"))
--- saturateSlider.myheight = 55
+local saturateSlider = BarSetup:CreateSlider(L.BarSaturation, 0, 1, 0.05, 455)
+saturateSlider:SetPoint("TOPLEFT", BarScaleSlider, "BOTTOMLEFT", 0, -20)
+saturateSlider:SetValue(DBM.Bars.options.DesaturateValue)
+saturateSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("DesaturateValue"))
+saturateSlider.myheight = 55
 
--- local SortDropDown = BarSetupSmall:CreateDropdown(L.BarSort, Sorts, "DBT", "Sort", function(value)
--- 	DBM.Bars:SetOption("Sort", value)
--- end)
--- SortDropDown:SetPoint("TOPLEFT", saturateSlider, "BOTTOMLEFT", -20, -25)
--- SortDropDown.myheight = 70
+local SortDropDown = BarSetupSmall:CreateDropdown(L.BarSort, Sorts, "DBT", "Sort", function(value)
+	DBM.Bars:SetOption("Sort", value)
+end)
+SortDropDown:SetPoint("TOPLEFT", saturateSlider, "BOTTOMLEFT", -20, -25)
+SortDropDown.myheight = 70
 
 local BarOffsetXSlider = BarSetupSmall:CreateSlider(L.Slider_BarOffSetX, -50, 50, 1, 120)
 BarOffsetXSlider:SetPoint("TOPLEFT", BarSetupSmall.frame, "TOPLEFT", 350, -90)
