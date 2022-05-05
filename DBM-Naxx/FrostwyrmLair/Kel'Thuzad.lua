@@ -154,7 +154,7 @@ local function StartPhase2(self)
 			end
 		end
 		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(10)
+			DBM.RangeCheck:Show(12)
 		end
 	end
 end
