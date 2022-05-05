@@ -45,7 +45,7 @@ local timerPhase2			= mod:NewTimer(227, "TimerPhase2", nil, nil, nil, 6)
 mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
 mod:AddSetIconOption("SetIconOnFrostTomb", 28169, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
-mod:AddRangeFrameOption(10, 27819)
+mod:AddRangeFrameOption(12, 27819)
 
 local RaidWarningFrame = RaidWarningFrame
 local GetFramesRegisteredForEvent, RaidNotice_AddMessage = GetFramesRegisteredForEvent, RaidNotice_AddMessage
