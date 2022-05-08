@@ -52,7 +52,7 @@ local timerChilledtotheBone		= mod:NewBuffFadesTimer(8, 70106, nil, nil, nil, 5)
 local timerMysticBuffet			= mod:NewBuffFadesTimer(8, 70128, nil, nil, nil, 5)
 local timerNextMysticBuffet		= mod:NewNextTimer(6, 70128, nil, nil, nil, 2)
 local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic")
-
+local timerTailSmash			= mod:NewCDTimer(30, 71077, nil, nil, nil, 2) -- random timer? Need more logs to confirm
 local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
 
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
@@ -200,6 +200,7 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerNextAirphase:Start(50-delay)
 	timerNextBlisteringCold:Start(33-delay)
+	timerTailSmash:Start(20-delay)
 	self.vb.warned_P2 = false
 	self.vb.warnedfailed = false
 	table.wipe(beaconTargets)
@@ -222,6 +223,8 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69649, 71056, 71057, 71058) or args:IsSpellID(73061, 73062, 73063, 73064) then--Frost Breath
 		warnFrostBreath:Show()
 		timerNextFrostBreath:Start()
+	elseif args.spellId == 71077 then
+	    timerTailSmash:Start()
 	end
 end
 
@@ -395,6 +398,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextBlisteringCold:Start(80)--Not exact anywhere from 80-110seconds after airphase begin
 		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
+		timerTailSmash:Start(68) -- 2 logs from late 2021 with 68 seconds after airphase begin. Need more logs to validate
 		warnGroundphaseSoon:Schedule(37.5)
 		self.vb.activeBeacons = true
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
