@@ -1,6 +1,6 @@
 local L = DBM_GUI_L
 
-local select, ipairs, mfloor, mmax, mmin = select, pairs, math.floor, math.max, math.min
+local select, ipairs, type, mfloor, mmax, mmin, strfind = select, pairs, type, math.floor, math.max, math.min, string.find
 local CreateFrame, GameFontHighlightSmall, GameFontNormalSmall, GameFontNormal = CreateFrame, GameFontHighlightSmall, GameFontNormalSmall, GameFontNormal
 local DBM, DBM_GUI = DBM, DBM_GUI
 
@@ -198,7 +198,6 @@ function frame:DisplayFrame(frame)
 			bossPreview = CreateFrame("PlayerModel", "DBM_BossPreview", _G["DBM_GUI_OptionsFramePanelContainer"])
 			bossPreview:SetPoint("BOTTOMRIGHT", "DBM_GUI_OptionsFramePanelContainer", "BOTTOMRIGHT", -5, 5)
 			bossPreview:SetSize(300, 300)
-			bossPreview:SetCamera(1)
 			bossPreview:SetRotation(0)
 			bossPreview:SetClampRectInsets(0, 0, 24, 0)
 		end
@@ -209,11 +208,36 @@ function frame:DisplayFrame(frame)
 				bossPreview.currentMod = mod
 				bossPreview:Show()
 				bossPreview:ClearModel()
-				bossPreview:SetModelScale(1)
+
+				local model = mod.modelId or (mod.multiMobPullDetection and mod.multiMobPullDetection[1] or mod.creatureId)
+				if type(model) == "string" then
+					bossPreview:SetModel(model)
+				elseif type(model) == "number" then
+					bossPreview:SetCreature(model)  -- keep this before the rest of model API
+				end
+
+				bossPreview:SetModelScale(mod.modelScale or 1)
 				bossPreview:SetPosition(mod.modelOffsetX or 0, mod.modelOffsetY or 0, mod.modelOffsetZ or 0)
 				bossPreview:SetFacing(mod.modelRotation or 0)
 				bossPreview:SetSequence(mod.modelSequence or 4)
-				-- bossPreview:SetDisplayInfo(mod.modelId or 0)
+
+				local modelFile = bossPreview:GetModel()
+				if modelFile and type(modelFile) == "string" and
+				(strfind(modelFile, "dragon") or strfind(modelFile, "wurm") or strfind(modelFile, "drake") or strfind(modelFile, "malygos") or strfind(modelFile, "yoggsaron")) then
+					bossPreview.timer = 0.1
+					bossPreview:SetScript("OnUpdate", function(self, elapsed) -- the model was not assuming the correct camera on GUI unless it was re-run, so do this instead. Not perfect fix since on resize it may still fail
+						if self.timer > elapsed then
+							self.timer = self.timer - elapsed
+							bossPreview:SetCamera(0)
+						else
+							self:SetScript("OnUpdate", nil)
+						end
+					end)
+				else
+					local _, y, z = bossPreview:GetPosition()
+					bossPreview:SetPosition(0.4, y, z)
+				end
+
 				if mod.modelSoundShort and DBM.Options.ModelSoundValue == "Short" then
 					DBM:PlaySoundFile(mod.modelSoundShort)
 				elseif mod.modelSoundLong and DBM.Options.ModelSoundValue == "Long" then
