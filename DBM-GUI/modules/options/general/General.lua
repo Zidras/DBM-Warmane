@@ -7,7 +7,6 @@ if DBM.Options.EnableModels then
 	local mobstyle = CreateFrame("PlayerModel", "DBM_BossPreview", _G["DBM_GUI_OptionsFramePanelContainer"])
 	mobstyle:SetPoint("BOTTOMRIGHT", "DBM_GUI_OptionsFramePanelContainer", "BOTTOMRIGHT", -5, 5)
 	mobstyle:SetSize(300, 230)
-	mobstyle:SetCamera(1)
 	mobstyle:SetRotation(0)
 	mobstyle:SetClampRectInsets(0, 0, 24, 0)
 end
