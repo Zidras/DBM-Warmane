@@ -72,13 +72,13 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if args:IsSpellID(28832, 28833, 28834, 28835) and self:AntiSpam(5) then
+	if args:IsSpellID(28832, 28833, 28834, 28835) and self:AntiSpam(5, spellId) then
 		self.vb.markCounter = self.vb.markCounter + 1
 		if spellId == 28833 then -- Lady Mark
 			timerLadyMark:Start(15)
 		elseif spellId == 28835 then -- Zeliek Mark
 			timerZeliekMark:Start(15)
-		elseif spellId == 28834 then -- Barok Mark
+		elseif spellId == 28834 then -- Baron Mark
 			timerBaronMark:Start()
 		elseif spellId == 28832 then -- Thane Mark
 			timerThaneMark:Start()
