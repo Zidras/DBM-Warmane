@@ -504,6 +504,10 @@ function PanelPrototype:CreateArea(name)
 		area:SetPoint("TOPLEFT", select(-2, self.frame:GetChildren()) or self.frame, "BOTTOMLEFT", 0, -20)
 	end
 	self:SetLastObj(area)
+	-- Used for ElvUI AddonSkins
+	self.areas = self.areas or {}
+	tinsert(self.areas, {frame = area, parent = self, framename = "DBM_GUI_Option_" .. self:GetCurrentID()})
+	--
 	return setmetatable({
 		frame	= area,
 		parent	= self
