@@ -78,11 +78,23 @@ local function resize(frame, first)
 				local neededHeight, lastObject = 25, nil
 				for _, child2 in ipairs({ child:GetChildren() }) do
 					if child.mytype == "ability" and child2.mytype then
-						child2:SetShown(not child.hidden)
+						if not child.hidden then
+							child2:Show()
+						else
+							child2:Hide()
+						end
 						if child2.mytype == "spelldesc" then
-							child2:SetShown(child.hidden)
+							if child.hidden then
+								child2:Show()
+							else
+								child2:Hide()
+							end
 							_G[child:GetName() .. "Title"]:Show()
-							_G[child2:GetName() .. "Text"]:SetShown(child.hidden)
+							if child.hidden then
+								_G[child2:GetName() .. "Text"]:Show()
+							else
+								_G[child2:GetName() .. "Text"]:Hide()
+							end
 							if child2:IsVisible() then
 								neededHeight = 0
 							end

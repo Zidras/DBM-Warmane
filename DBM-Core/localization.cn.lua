@@ -474,6 +474,7 @@ L.AUTO_TIMER_OPTIONS.roleplay			= "计时条：剧情 (%ds)"
 
 L.AUTO_ICONS_OPTION_TEXT				= "为$spell:%s的目标添加团队标记"
 L.AUTO_ICONS_OPTION_TEXT2			= "为$spell:%s添加团队标记"
+L.AUTO_ICONS_OPTION_CONFLICT		= " (可能与其他选项冲突)"
 L.AUTO_ARROW_OPTION_TEXT				= "为$spell:%s的目标添加箭头"
 L.AUTO_ARROW_OPTION_TEXT2			= "为$spell:%s的目标添加远离箭头"
 L.AUTO_ARROW_OPTION_TEXT3			= "为$spell:%s的目标添加前往指定位置的箭头"

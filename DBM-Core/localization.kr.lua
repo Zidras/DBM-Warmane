@@ -466,6 +466,7 @@ L.AUTO_TIMER_OPTIONS.roleplay		= "역할 수행(롤플레이) 지속 시간 타�
 
 L.AUTO_ICONS_OPTION_TEXT			= "$spell:%s 대상에 공격대 징표 설정"
 L.AUTO_ICONS_OPTION_TEXT2		= "$spell:%s에 공격대 징표 설정"
+L.AUTO_ICONS_OPTION_CONFLICT		= " (다른 옵션과 충돌을 일으킬 수 있음)"
 L.AUTO_ARROW_OPTION_TEXT			= "$spell:%s 대상을 향하는 " .. L.DBM .. " 화살표 보기"
 L.AUTO_ARROW_OPTION_TEXT2		= "$spell:%s 대상과 반대 방향의 " .. L.DBM .. " 화살표 보기"
 L.AUTO_ARROW_OPTION_TEXT3		= "$spell:%s 특정 지점을 가리키는 " .. L.DBM .. " 화살표 보기"

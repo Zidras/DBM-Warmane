@@ -486,6 +486,7 @@ L.AUTO_TIMER_OPTIONS.roleplay				= "計時條：劇情持續時間 (%ds)"
 
 L.AUTO_ICONS_OPTION_TEXT					= "為$spell:%s的目標設置標記"
 L.AUTO_ICONS_OPTION_TEXT2					= "為$spell:%s設置標記"
+L.AUTO_ICONS_OPTION_CONFLICT				= "（可能與其他選項衝突）"
 L.AUTO_ARROW_OPTION_TEXT					= "為跑向中了$spell:%s的目標顯示"..L.DBM.."箭頭"
 L.AUTO_ARROW_OPTION_TEXT2					= "為離開中了$spell:%s的目標顯示"..L.DBM.."箭頭"
 L.AUTO_ARROW_OPTION_TEXT3					= "為中了$spell:%s後移動到特定區域顯示"..L.DBM.."箭頭"

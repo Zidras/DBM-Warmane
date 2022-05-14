@@ -228,6 +228,10 @@ DBM.DefaultOptions = {
 	EnableModels = true,
 	GUIWidth = 800,
 	GUIHeight = 600,
+	GroupOptionsBySpell = true,
+	GroupOptionsExcludeIcon = false,
+	AutoExpandSpellGroups = false,
+	--ShowSpellDescWhenExpanded = false,
 	RangeFrameFrames = "radar",
 	RangeFrameUpdates = "Fast",
 	RangeFramePoint = "CENTER",
@@ -596,6 +600,38 @@ local function removeEntry(t, val)
 		end
 	end
 	return existed
+end
+
+local function OrderedTable()
+	local nextkey, firstkey = {}, {}
+	nextkey[nextkey] = firstkey
+
+	local function onext(self, key)
+		while key ~= nil do
+			key = nextkey[key]
+			local val = self[key]
+			if val ~= nil then
+				return key, val
+			end
+		end
+	end
+
+	local selfmeta = firstkey
+	selfmeta.__nextkey = nextkey
+
+	function selfmeta:__newindex(key, val)
+		rawset(self, key, val)
+		if nextkey[key] == nil then
+			nextkey[nextkey[nextkey]] = key
+			nextkey[nextkey] = key
+		end
+	end
+
+	function selfmeta:__pairs() return
+		onext, self, firstkey
+	end
+
+	return setmetatable({}, selfmeta)
 end
 
 -- automatically sends an addon message to the appropriate channel (BATTLEGROUND, RAID or PARTY)
@@ -6588,7 +6624,6 @@ do
 			{
 				Options = {
 					Enabled = true,
-					Announce = false,
 				},
 				DefaultOptions = {
 					Enabled = true,
@@ -6596,7 +6631,7 @@ do
 				subTab = modSubTab,
 				optionCategories = {
 				},
-				categorySort = {"announce", "announceother", "announcepersonal", "announcerole", "timer", "sound", "yell", "icon", "misc"},
+				categorySort = {"announce", "announceother", "announcepersonal", "announcerole", "specialannounce", "timer", "sound", "yell", "nameplate", "icon", "misc"},
 				id = name,
 				announces = {},
 				specwarns = {},
@@ -6607,11 +6642,13 @@ do
 				instanceId = instanceId,
 				revision = 0,
 				SyncThreshold = 8,
-				localization = self:GetModLocalization(name)
+				localization = self:GetModLocalization(name),
+				groupSpells = {},
+				groupOptions = OrderedTable(),
 			},
 			mt
 		)
-		for i, v in ipairs(self.AddOns) do
+		for _, v in ipairs(self.AddOns) do
 			if v.modId == modId then
 				obj.addon = v
 				break
@@ -8150,7 +8187,7 @@ do
 	end
 
 	-- old constructor (no auto-localize)
-	function bossModPrototype:NewAnnounce(text, color, icon, optionDefault, optionName, soundOption)
+	function bossModPrototype:NewAnnounce(text, color, icon, optionDefault, optionName, soundOption, spellID)
 		if not text then
 			error("NewAnnounce: you must provide announce text", 2)
 			return
@@ -8176,10 +8213,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "announce")
+			self:AddBoolOption(obj.option, optionDefault, "announce", nil, nil, nil, spellID)
 		elseif optionName ~= false then
 			obj.option = text
-			self:AddBoolOption(obj.option, optionDefault, "announce")
+			self:AddBoolOption(obj.option, optionDefault, "announce", nil, nil, nil, spellID)
 		end
 		tinsert(self.announces, obj)
 		return obj
@@ -8231,16 +8268,18 @@ do
 			mt
 		)
 		local catType = "announce"--Default to General announce
-		--Change if Personal or Other
-		if announceType == "target" or announceType == "targetcount" or announceType == "stack" then
-			catType = "announceother"
+		if not self.NoSortAnnounce then--ALL announce objects will be assigned "announce", usually for mods that sort by phase instead
+			--Change if Personal or Other
+			if announceType == "target" or announceType == "targetcount" or announceType == "stack" then
+				catType = "announceother"
+			end
 		end
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, catType)
+			self:AddBoolOption(obj.option, optionDefault, catType, nil, nil, nil, spellId, announceType)
 		elseif optionName ~= false then
 			obj.option = catType..spellId..announceType..(optionVersion or "")
-			self:AddBoolOption(obj.option, optionDefault, catType)
+			self:AddBoolOption(obj.option, optionDefault, catType, nil, nil, nil, spellId, announceType)
 			if noFilter and announceType == "target" then
 				self.localization.options[obj.option] = L.AUTO_ANNOUNCE_OPTIONS["targetNF"]:format(spellId)
 			else
@@ -8357,10 +8396,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 		elseif optionName ~= false then
 			obj.option = "Sound"..spellId
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT:format(spellId)
 		end
 		return obj
@@ -8395,10 +8434,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."in5"
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT5:format(spellId)
 		end
 		return obj
@@ -8432,10 +8471,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."in3"
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT3:format(spellId)
 		end
 		return obj
@@ -8469,10 +8508,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."you"
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_YOU:format(spellId)
 		end
 		return obj
@@ -8506,10 +8545,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."soon"
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_SOON:format(spellId)
 		end		return obj
 	end
@@ -8542,10 +8581,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 		elseif optionName ~= false then
 			obj.option = "Sound"..spellId.."close"
-			self:AddBoolOption(obj.option, optionDefault, "sound")
+			self:AddBoolOption(obj.option, optionDefault, "sound", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_SOUND_OPTION_TEXT_CLOSE:format(spellId)
 		end
 		return obj
@@ -8608,10 +8647,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "yell")
+			self:AddBoolOption(obj.option, optionDefault, "yell", nil, nil, nil, spellId, yellType)
 		elseif optionName ~= false then
 			obj.option = "Yell"..(spellId or yellText)..(yellType ~= "yell" and yellType or "")..(optionVersion or "")
-			self:AddBoolOption(obj.option, optionDefault, "yell")
+			self:AddBoolOption(obj.option, optionDefault, "yell", nil, nil, nil, spellId, yellType)
 			self.localization.options[obj.option] = L.AUTO_YELL_OPTION_TEXT[yellType]:format(spellId)
 		end
 		return obj
@@ -9121,7 +9160,7 @@ do
 		return unschedule(self.Play, self.mod, self, ...)
 	end
 
-	function bossModPrototype:NewSpecialWarning(text, optionDefault, optionName, optionVersion, runSound, hasVoice, difficulty)
+	function bossModPrototype:NewSpecialWarning(text, optionDefault, optionName, optionVersion, runSound, hasVoice, difficulty, texture, spellID)
 		if not text then
 			error("NewSpecialWarning: you must provide special warning text", 2)
 			return
@@ -9138,6 +9177,10 @@ do
 		if hasVoice == true then--if not a number, set it to 2, old mods that don't use new numbered system
 			hasVoice = 2
 		end
+		local seticon
+		if texture then
+			seticon = (type(texture) == "string" and texture:match("ej%d+") and select(4, DBM:EJ_GetSectionInfo(string.sub(texture, 3))) ~= "" and select(4, DBM:EJ_GetSectionInfo(string.sub(texture, 3)))) or (type(texture) == "number" and GetSpellTexture(texture)) or nil
+		end
 		local obj = setmetatable(
 			{
 				text = self.localization.warnings[text],
@@ -9148,6 +9191,7 @@ do
 				flash = runSound,--Set flash color to hard coded runsound (even if user sets custom sounds)
 				hasVoice = hasVoice,
 				difficulty = difficulty,
+				icon = seticon,
 			},
 			mt
 		)
@@ -9155,7 +9199,7 @@ do
 		if optionId then
 			obj.voiceOptionId = hasVoice and "Voice"..optionId or nil
 			obj.option = optionId..(optionVersion or "")
-			self:AddSpecialWarningOption(optionId, optionDefault, runSound, "announce")
+			self:AddSpecialWarningOption(optionId, optionDefault, runSound, self.NoSortAnnounce and "specialannounce" or "announce", spellID)
 		end
 		tinsert(self.specwarns, obj)
 		return obj
@@ -9225,17 +9269,21 @@ do
 		end
 		if obj.option then
 			local catType = "announce"--Default to General announce
-			--Directly affects another target (boss or player) that you need to know about
-			if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" then
-				catType = "announceother"
-			--Directly affects you
-			elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakcount" or announceType == "soakpos" then
-				catType = "announcepersonal"
-			--Things you have to do to fulfil your role
-			elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" or announceType == "switch" or announceType == "switchcount" then
-				catType = "announcerole"
+			if self.NoSortAnnounce then--ALL special announce objects will be assigned "specialannounce", usually for mods that sort by phase instead
+				catType = "specialannounce"
+			else
+				--Directly affects another target (boss or player) that you need to know about
+				if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" then
+					catType = "announceother"
+				--Directly affects you
+				elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakcount" or announceType == "soakpos" then
+					catType = "announcepersonal"
+				--Things you have to do to fulfil your role
+				elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" or announceType == "switch" or announceType == "switchcount" then
+					catType = "announcerole"
+				end
 			end
-			self:AddSpecialWarningOption(obj.option, optionDefault, runSound, catType)
+			self:AddSpecialWarningOption(obj.option, optionDefault, runSound, catType, spellId, announceType)
 		end
 		obj.voiceOptionId = hasVoice and "Voice"..spellId or nil
 		tinsert(self.specwarns, obj)
@@ -9980,15 +10028,15 @@ do
 		end
 	end
 
-	function timerPrototype:AddOption(optionDefault, optionName, colorType, countdown)
+	function timerPrototype:AddOption(optionDefault, optionName, colorType, countdown, spellId, optionType)
 		if optionName ~= false then
 			self.option = optionName or self.id
-			self.mod:AddBoolOption(self.option, optionDefault, "timer", nil, colorType, countdown)
+			self.mod:AddBoolOption(self.option, optionDefault, "timer", nil, colorType, countdown, spellId, optionType)
 		end
 	end
 
 	--If a new countdown default is added to a NewTimer object, change optionName of timer to reset a new default
-	function bossModPrototype:NewTimer(timer, name, texture, optionDefault, optionName, colorType, inlineIcon, keep, countdown, countdownMax, r, g, b)
+	function bossModPrototype:NewTimer(timer, name, texture, optionDefault, optionName, colorType, inlineIcon, keep, countdown, countdownMax, r, g, b, spellId)
 		if r and type(r) == "string" then
 			DBM:Debug("|cffff0000r probably has inline icon in it and needs to be fixed for |r"..name..r)
 			r = nil--Fix it for users
@@ -10017,7 +10065,7 @@ do
 			},
 			mt
 		)
-		obj:AddOption(optionDefault, optionName, colorType, countdown)
+		obj:AddOption(optionDefault, optionName, colorType, countdown, spellId)
 		tinsert(self.timers, obj)
 		return obj
 	end
@@ -10102,7 +10150,7 @@ do
 			},
 			mt
 		)
-		obj:AddOption(optionDefault, optionName, colorType, countdown)
+		obj:AddOption(optionDefault, optionName, colorType, countdown, spellId, timerType)
 		tinsert(self.timers, obj)
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
@@ -10319,7 +10367,7 @@ end
 ---------------
 --  Options  --
 ---------------
-function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, extraOptionTwo)
+function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, extraOptionTwo, spellId, optionType)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = (default == nil) or default
 	if cat == "timer" then
@@ -10334,14 +10382,20 @@ function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, e
 		self.Options[name.."TColor"] = extraOption or 0
 		self.Options[name.."CVoice"] = extraOptionTwo or 0
 	end
-	self:SetOptionCategory(name, cat)
+	if spellId then
+		if optionType and optionType == "achievement" then
+			spellId = "at"..spellId--"at" for achievement timer
+		end
+		self:GroupSpells(spellId, name)
+	end
+	self:SetOptionCategory(name, cat, optionType)
 	if func then
 		self.optionFuncs = self.optionFuncs or {}
 		self.optionFuncs[name] = func
 	end
 end
 
-function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, cat)
+function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, cat, spellId, optionType)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = (default == nil) or default
 	self.DefaultOptions[name.."SWSound"] = defaultSound or 1
@@ -10352,15 +10406,21 @@ function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, c
 	self.Options[name] = (default == nil) or default
 	self.Options[name.."SWSound"] = defaultSound or 1
 	self.Options[name.."SWNote"] = true
-	self:SetOptionCategory(name, cat)
+	if spellId then
+		self:GroupSpells(spellId, name)
+	end
+	self:SetOptionCategory(name, cat, optionType)
 end
 
-function bossModPrototype:AddSetIconOption(name, spellId, default, isHostile, iconsUsed)
+function bossModPrototype:AddSetIconOption(name, spellId, default, isHostile, iconsUsed, conflictWarning)
 	self.DefaultOptions[name] = (default == nil) or default
 	if default and type(default) == "string" then
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
+	if not DBM.Options.GroupOptionsExcludeIcon then
+		self:GroupSpells(spellId, name)
+	end
 	self:SetOptionCategory(name, "icon")
 	if isHostile then
 		if not self.findFastestComputer then
@@ -10387,6 +10447,9 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, isHostile, ic
 			end
 		end
 		self.localization.options[name] = self.localization.options[name]..")"
+		if conflictWarning then
+			self.localization.options[name] = self.localization.options[name] .. L.AUTO_ICONS_OPTION_CONFLICT
+		end
 	end
 end
 
@@ -10397,6 +10460,7 @@ function bossModPrototype:AddArrowOption(name, spellId, default, isRunTo)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
+	self:GroupSpells(spellId, name)
 	self:SetOptionCategory(name, "misc")
 	if isRunTo == 2 then
 		self.localization.options[name] = L.AUTO_ARROW_OPTION_TEXT:format(spellId)
@@ -10413,12 +10477,13 @@ function bossModPrototype:AddRangeFrameOption(range, spellId, default)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options["RangeFrame"] = (default == nil) or default
-	self:SetOptionCategory("RangeFrame", "misc")
 	if spellId then
+		self:GroupSpells(spellId, "RangeFrame")
 		self.localization.options["RangeFrame"] = L.AUTO_RANGE_OPTION_TEXT:format(range, spellId)
 	else
 		self.localization.options["RangeFrame"] = L.AUTO_RANGE_OPTION_TEXT_SHORT:format(range)
 	end
+	self:SetOptionCategory("RangeFrame", "misc")
 end
 
 function bossModPrototype:AddHudMapOption(name, spellId, default)
@@ -10427,30 +10492,36 @@ function bossModPrototype:AddHudMapOption(name, spellId, default)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
-	self:SetOptionCategory(name, "misc")
 	if spellId then
+		self:GroupSpells(spellId, name)
 		self.localization.options[name] = L.AUTO_HUD_OPTION_TEXT:format(spellId)
 	else
 		self.localization.options[name] = L.AUTO_HUD_OPTION_TEXT_MULTI
 	end
+	self:SetOptionCategory(name, "misc")
 end
 
-function bossModPrototype:AddInfoFrameOption(spellId, default, optionVersion)
+function bossModPrototype:AddInfoFrameOption(spellId, default, optionVersion, optionalThreshold)
 	local oVersion = ""
 	if optionVersion then
-		optionVersion = tostring(optionVersion)
+		oVersion = tostring(optionVersion)
 	end
 	self.DefaultOptions["InfoFrame"..oVersion] = (default == nil) or default
 	if default and type(default) == "string" then
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options["InfoFrame"..oVersion] = (default == nil) or default
-	self:SetOptionCategory("InfoFrame"..oVersion, "misc")
 	if spellId then
-		self.localization.options["InfoFrame"..oVersion] = L.AUTO_INFO_FRAME_OPTION_TEXT:format(spellId)
+		self:GroupSpells(spellId, "InfoFrame" .. oVersion)
+		if optionalThreshold then
+			self.localization.options["InfoFrame"..oVersion] = L.AUTO_INFO_FRAME_OPTION_TEXT3:format(spellId, optionalThreshold)
+		else
+			self.localization.options["InfoFrame"..oVersion] = L.AUTO_INFO_FRAME_OPTION_TEXT:format(spellId)
+		end
 	else
 		self.localization.options["InfoFrame"..oVersion] = L.AUTO_INFO_FRAME_OPTION_TEXT2
 	end
+	self:SetOptionCategory("InfoFrame"..oVersion, "misc")
 end
 
 function bossModPrototype:AddReadyCheckOption(questId, default, maxLevel)
@@ -10522,10 +10593,13 @@ end
 
 -- this function does not reset any settings to default if you remove an option in a later revision and a user has selected this option in an earlier revision were it still was available
 -- this will be fixed as soon as it is necessary due to removed options ;-)
-function bossModPrototype:AddDropdownOption(name, options, default, cat, func)
+function bossModPrototype:AddDropdownOption(name, options, default, cat, func, spellId)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = {type = "dropdown", value = default}
 	self.Options[name] = default
+	if spellId then
+		self:GroupSpells(spellId, name)
+	end
 	self:SetOptionCategory(name, cat)
 	self.dropdowns = self.dropdowns or {}
 	self.dropdowns[name] = options
@@ -10542,13 +10616,22 @@ function bossModPrototype:AddOptionSpacer(cat)
 	end
 end
 
-function bossModPrototype:AddOptionLine(text, cat)
-	cat = cat or "misc"
-	if not self.optionCategories[cat] then
-		self.optionCategories[cat] = {}
-	end
-	if self.optionCategories[cat] then
-		tinsert(self.optionCategories[cat], {line = true, text = text})
+do
+	local lineCount = 1
+
+	function bossModPrototype:AddOptionLine(text, cat, forceIgnore)
+		if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and not forceIgnore then
+			self.groupOptions["line" .. lineCount] = text
+			lineCount = lineCount + 1
+		else
+			cat = cat or "misc"
+			if not self.optionCategories[cat] then
+				self.optionCategories[cat] = {}
+			end
+			if self.optionCategories[cat] then
+				tinsert(self.optionCategories[cat], {line = true, text = text})
+			end
+		end
 	end
 end
 
@@ -10569,7 +10652,7 @@ function bossModPrototype:AddTimerLine(text)
 end
 
 function bossModPrototype:AddMiscLine(text)
-	return self:AddOptionLine(text, "misc")
+	return self:AddOptionLine(text, "misc", true)
 end
 
 function bossModPrototype:RemoveOption(name)
@@ -10585,14 +10668,45 @@ function bossModPrototype:RemoveOption(name)
 	end
 end
 
-function bossModPrototype:SetOptionCategory(name, cat)
+function bossModPrototype:GroupSpells(...)
+	local spells = {...}
+	local catSpell = tostring(tremove(spells, 1))
+	if not self.groupSpells[catSpell] then
+		self.groupSpells[catSpell] = {}
+	end
+	for _, spell in ipairs(spells) do
+		local sSpell = tostring(spell)
+		self.groupSpells[sSpell] = catSpell
+		if sSpell ~= catSpell and self.groupOptions[sSpell] then
+			if not self.groupOptions[catSpell] then
+				self.groupOptions[catSpell] = {}
+			end
+			for _, spell2 in ipairs(self.groupOptions[sSpell]) do
+				tinsert(self.groupOptions[catSpell], spell2)
+			end
+			self.groupOptions[sSpell] = nil
+		end
+	end
+end
+
+function bossModPrototype:SetOptionCategory(name, cat, optionType)
+	optionType = optionType or ""
 	for _, options in pairs(self.optionCategories) do
 		removeEntry(options, name)
 	end
-	if not self.optionCategories[cat] then
-		self.optionCategories[cat] = {}
+	if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and self.groupSpells[name] and not (optionType == "gtfo" or optionType == "adds" or optionType == "addscustom" or optionType:find("stage") or cat == "icon" and DBM.Options.GroupOptionsExcludeIcon) then
+		local sSpell = self.groupSpells[name]
+		if not self.groupOptions[sSpell] then
+			self.groupOptions[sSpell] = {}
+		end
+		tinsert(self.groupOptions[sSpell], name)
+	else
+		if not self.optionCategories[cat] then
+			self.optionCategories[cat] = {}
+		end
+		tinsert(self.optionCategories[cat], name)
+		tinsert(self.categorySort, cat)
 	end
-	tinsert(self.optionCategories[cat], name)
 end
 
 --------------
