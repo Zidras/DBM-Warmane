@@ -212,7 +212,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnManaBomb:Play("bombrun")
 			yellManaBomb:Yell()
 		elseif self:CheckNearby(12, args.destName) then
-			specWarnManaBombNear:Show()
+			specWarnManaBombNear:Show(args.destName)
 			specWarnManaBombNear:Play("scatter")
 		else
 			warnMana:Show(args.destName)
