@@ -4548,11 +4548,9 @@ do
 
 	whisperSyncHandlers["DBMv4-RequestTimers"] = function(sender)
 		if UnitInBattleground("player") then
-			DBM:Unschedule(DBM.SendPVPTimers)
-			DBM:Schedule(0.5, DBM.SendPVPTimers, DBM, sender)
+			DBM:SendPVPTimers(sender)
 		else
-			DBM:Unschedule(DBM.SendTimers)
-			DBM:Schedule(0.5, DBM.SendTimers, DBM, sender)
+			DBM:SendTimers(sender)
 		end
 	end
 
