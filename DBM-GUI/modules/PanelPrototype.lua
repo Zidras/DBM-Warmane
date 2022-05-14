@@ -67,6 +67,24 @@ function PanelPrototype:CreateCreatureModelFrame(width, height, creatureid, scal
 	return model
 end
 
+local spellTooltip = CreateFrame("GameTooltip", "SpellScanTooltip")
+spellTooltip:SetOwner(WorldFrame, "ANCHOR_NONE");
+spellTooltip:AddFontStrings(
+	spellTooltip:CreateFontString("$parentTextLeft1", nil, "GameTooltipText"),
+	spellTooltip:CreateFontString("$parentTextRight1", nil, "GameTooltipText")
+)
+
+local function GetSpellDescription(spellID)
+	spellTooltip:ClearLines()
+	spellTooltip:SetHyperlink("spell:"..spellID)
+	for i = 1, spellTooltip:GetNumRegions() do
+		local region = select(i, spellTooltip:GetRegions())
+		if region:GetObjectType() == "FontString" and select(3, region:GetTextColor()) == 0 then -- first fontstring that's yellow
+			return region:GetText()
+		end
+	end
+end
+
 function PanelPrototype:CreateSpellDesc(text)
 	local test = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame)
 	local textblock = self.frame:CreateFontString(test:GetName() .. "Text", "ARTWORK")
@@ -79,15 +97,12 @@ function PanelPrototype:CreateSpellDesc(text)
 	test.autowidth = true
 	-- Description logic
 	if type(text) == "number" then
-	-- 	local spell = Spell:CreateFromSpellID(text)
-	-- 	spell:ContinueOnSpellLoad(function()
-	-- 		text = GetSpellDescription(spell:GetSpellID())
-	-- 		if text == "" then
-	-- 			text = L.NoDe  scription
-	-- 		end
-	-- 		textblock:SetText(text)
-	-- 	end)
-	-- else
+		text = GetSpellDescription(text)
+		if text == "" then
+			text = L.NoDescription
+		end
+		textblock:SetText(text)
+	else
 		if text == "" then
 			text = L.NoDescription
 		end
@@ -497,6 +512,22 @@ function PanelPrototype:CreateArea(name)
 	})
 end
 
+local function CreateTextureMarkup(file, fileWidth, fileHeight, width, height, left, right, top, bottom, xOffset, yOffset)
+	return ("|T%s:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d|t"):format(
+		  file
+		, height
+		, width
+		, xOffset or 0
+		, yOffset or 0
+		, fileWidth
+		, fileHeight
+		, left * fileWidth
+		, right * fileWidth
+		, top * fileHeight
+		, bottom * fileHeight
+	)
+end
+
 function PanelPrototype:CreateAbility(titleText, icon)
 	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "OptionsBoxTemplate")
 	area.mytype = "ability"
@@ -509,12 +540,12 @@ function PanelPrototype:CreateAbility(titleText, icon)
 		area:SetPoint("TOPLEFT", select(-2, self.frame:GetChildren()) or self.frame, "BOTTOMLEFT", 0, -20)
 	end
 	local title = _G[area:GetName() .. "Title"]
-	-- if icon then
-	-- 	local markup = CreateTextureMarkup(icon, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0)
-	-- 	title:SetText(markup .. titleText)
-	-- else
-	title:SetText(titleText)
-	-- end
+	if icon then
+		local markup = CreateTextureMarkup(icon, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0)
+		title:SetText(markup .. titleText)
+	else
+		title:SetText(titleText)
+	end
 	title:ClearAllPoints()
 	title:SetPoint("BOTTOMLEFT", area, "TOPLEFT", 20, 0)
 	title:SetFontObject("GameFontWhite")

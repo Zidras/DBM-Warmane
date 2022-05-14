@@ -468,6 +468,7 @@ L.AUTO_TIMER_OPTIONS = {
 
 L.AUTO_ICONS_OPTION_TEXT			= "Set icons on $spell:%s targets"
 L.AUTO_ICONS_OPTION_TEXT2			= "Set icons on $spell:%s"
+L.AUTO_ICONS_OPTION_CONFLICT		= " (May conflict with other options)"
 L.AUTO_ARROW_OPTION_TEXT			= "Show " .. L.DBM .. " Arrow to move toward target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT2			= "Show " .. L.DBM .. " Arrow to move away from target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT3			= "Show " .. L.DBM .. " Arrow to move toward specific location for $spell:%s"
