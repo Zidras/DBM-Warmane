@@ -4,6 +4,7 @@ local CL	= DBM_COMMON_L
 local setmetatable, select, type, tonumber, strsplit, mmax, tinsert = setmetatable, select, type, tonumber, strsplit, math.max, table.insert
 local CreateFrame, GetCursorPosition, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal = CreateFrame, GetCursorPosition, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal
 local DBM, DBM_GUI = DBM, DBM_GUI
+local ElvUI = ElvUI
 
 --TODO, not 100% sure which ones use html and which don't so some might need true added or removed for 2nd arg
 local function parseDescription(name, usesHTML)
@@ -147,6 +148,11 @@ function PanelPrototype:CreateButton(title, width, height, onclick, font)
 	if _G[button:GetName() .. "Text"]:GetStringWidth() > button:GetWidth() then
 		button:SetWidth(_G[button:GetName() .. "Text"]:GetStringWidth() + 25)
 	end
+	-- ElvUI skin
+	if ElvUI then
+		ElvUI[1]:GetModule("Skins"):HandleButton(button)
+	end
+	--
 	self:SetLastObj(button)
 	return button
 end
@@ -335,6 +341,11 @@ do
 		button:SetHitRectInsets(0, 0, 0, 0)
 		button.myheight = 25
 		button.mytype = "checkbutton"
+		-- ElvUI skin
+		if ElvUI then
+			ElvUI[1]:GetModule("Skins"):HandleCheckBox(button, true)
+		end
+		--
 		if autoplace then
 			local x = self:GetLastObj()
 			if x.myheight then
@@ -561,6 +572,11 @@ function PanelPrototype:CreateAbility(titleText, icon)
 	button:SetSize(18, 18)
 	button:SetNormalFontObject(GameFontWhite)
 	button:SetHighlightFontObject(GameFontWhite)
+	-- ElvUI skin
+	if ElvUI then
+		ElvUI[1]:GetModule("Skins"):HandleCollapseTexture(button.toggle)
+	end
+	--
 	button.toggle:SetNormalTexture(area.hidden and "Interface\\Buttons\\UI-PlusButton-UP" or "Interface\\Buttons\\UI-MinusButton-UP")
 	button.toggle:SetPushedTexture(area.hidden and "Interface\\Buttons\\UI-PlusButton-DOWN" or "Interface\\Buttons\\UI-MinusButton-DOWN")
 	button.toggle:Show()
