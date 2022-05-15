@@ -15,8 +15,8 @@ L.LOAD_MOD_ERROR				= "读取%s模块时发生错误：%s"
 L.LOAD_MOD_SUCCESS			= "'%s' 模块已加载。在聊天框输入 /dbm 可设置自定义语音或注记等选项。"
 L.LOAD_MOD_COMBAT			= "延迟读取模块 '%s' 直到你脱离战斗。"
 L.LOAD_GUI_ERROR				= "无法读取图形界面：%s"
-L.LOAD_GUI_COMBAT			=  L.DBM .. "无法在战斗中初始化图形界面。请先在非战斗状态打开图形设置界面，之后的战斗中就可以自由打开和关闭该界面了。"
-L.BAD_LOAD					=  L.DBM .. "检测到由于你在战斗过程中载入模块，有些计时器可能会错误。请在离开战斗后马上重载界面。"
+L.LOAD_GUI_COMBAT			= L.DBM .. "无法在战斗中初始化图形界面。请先在非战斗状态打开图形设置界面，之后的战斗中就可以自由打开和关闭该界面了。"
+L.BAD_LOAD					= L.DBM .. "检测到由于你在战斗过程中载入模块，有些计时器可能会错误。请在离开战斗后马上重载界面。"
 L.LOAD_MOD_VER_MISMATCH		= "%s 模块无法被载入。" .. L.DBM .. "核心未达到模块所需版本。请升级" .. L.DBM .. "。"
 L.LOAD_MOD_EXP_MISMATCH		= "%s 模块无法被载入, 因为它是为新资料片/测试服所设计的. 当新资料片在正式服开放时就能正确加载了."
 L.LOAD_MOD_TOC_MISMATCH		= "%s 模块无法被载入，因为它是为新版本(%s)所设计的的。当新版本在正式服开放时就能正确加载了。"
@@ -36,9 +36,9 @@ L.DYNAMIC_MULTIPLE			= "由于玩家数量不足，" .. L.DBM .. " 禁用了多�
 
 L.LOOT_SPEC_REMINDER			= "你当前的人物专精为 %s。你当前的拾取选择为 %s。"
 
-L.BIGWIGS_ICON_CONFLICT		=  L.DBM .. "检测到你同时开启了Bigwigs,请关闭自动标记以避免冲突。"
+L.BIGWIGS_ICON_CONFLICT		= L.DBM .. "检测到你同时开启了Bigwigs,请关闭自动标记以避免冲突。"
 
-L.MOD_AVAILABLE				=  L.DBM .. "已经为%s制作了相关模块。你可以在 deadlybossmods.com 或Curse上找到新版本。"
+L.MOD_AVAILABLE				= L.DBM .. "已经为%s制作了相关模块。你可以在 deadlybossmods.com 或Curse上找到新版本。"
 
 L.COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗-%s正在作战。祝你走运 :)"
@@ -167,7 +167,7 @@ L.VERSIONCHECK_HEADER		= "DBM - 版本检测"
 L.VERSIONCHECK_ENTRY			= "%s: %s (r%d) %s"--One Boss mod
 L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (r%d) & %s (r%d)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s：未安装" .. L.DBM
-L.VERSIONCHECK_FOOTER		= "团队中有%d名成员正在使用" .. L.DBM
+L.VERSIONCHECK_FOOTER		= "团队中有%d名成员正在使用" .. L.DBM .. "， %d名成员正在使用Bigwigs"
 L.VERSIONCHECK_OUTDATED		= "下列%d名玩家的" .. L.DBM .. "版本已经过期:%s"
 L.YOUR_VERSION_OUTDATED		= "你的 " .. L.DEADLY_BOSS_MODS .. " 已经过期。" .. L.UPDATEREMINDER_URL
 L.VOICE_PACK_OUTDATED		= "你当前使用的" .. L.DBM .. "语音包已经过期。有些特殊警告的屏蔽（当心，毁灭）已被禁用。请下载最新语音包，或联系语音包作者更新。"
