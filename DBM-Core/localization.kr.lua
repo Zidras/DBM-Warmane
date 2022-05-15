@@ -161,7 +161,7 @@ L.WHISPER_SCENARIO_END_WIPE_STATS	= "%s님이 %s 시나리오를 완료하지 �
 
 L.VERSIONCHECK_HEADER		= "보스 모드 - 버전"
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s: 설치된 보스 모드 없음"
-L.VERSIONCHECK_FOOTER		= L.DBM .. "을 설치한 플레이어 %d명명을 발견했습니다."
+L.VERSIONCHECK_FOOTER		= L.DBM .. "을 설치한 플레이어 %d명과 Bigwigs를 설치한 플레이어 %d명을 발견했습니다."
 L.VERSIONCHECK_OUTDATED		= "다음 %d명의 플레이어가 구버전 보스 모드를 사용중: %s"
 L.YOUR_VERSION_OUTDATED      = "사용중인 " .. L.DEADLY_BOSS_MODS .. " 버전이 사용 기한을 지났습니다. " .. L.UPDATEREMINDER_URL
 L.VOICE_PACK_OUTDATED		= "선택한 " .. L.DBM .. " 음성팩에 일부 음성이 들어있지 않습니다. 몇가지 경고 음성이 기본 효과음으로 재생됩니다. 최신 음성팩을 다운로드 받거나 제작자에게 연락하여 누락된 음성 파일을 추가해서 업데이트 할 것을 요청하시기 바랍니다"

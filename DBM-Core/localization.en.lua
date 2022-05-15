@@ -136,14 +136,16 @@ L.WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s has wiped on %s at %s. They have %d tot
 
 L.VERSIONCHECK_HEADER				= "Boss Mod - Versions"
 L.VERSIONCHECK_ENTRY				= "%s: %s (%s) %s"--One Boss mod
+L.VERSIONCHECK_ENTRY_TWO			= "%s: %s (%s) & %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM			= "%s: No boss mod installed"
-L.VERSIONCHECK_FOOTER				= "Found %d player(s) with " .. L.DBM
+L.VERSIONCHECK_FOOTER				= "Found %d player(s) with " .. L.DBM .. " & %d player(s) with Bigwigs"
 L.VERSIONCHECK_OUTDATED				= "Following %d player(s) have outdated boss mod version: %s"
 L.YOUR_VERSION_OUTDATED				= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date. Please visit " .. L.UPDATEREMINDER_URL .. " to get the latest version."
 L.VOICE_PACK_OUTDATED				= "Your selected " .. L.DBM .. " voice pack is missing some sounds supported by " .. L.DBM .. ". Some warning sounds will still play default sounds. Please download a newer version of voice pack or contact pack author for an update that contains missing audio"
 L.VOICE_MISSING						= "You have a " .. L.DBM .. " voice pack selected that could not be found. If this is an error, make sure your voice pack is properly installed and enabled in addons."
 L.VOICE_DISABLED					= "You currently have at least one " .. L.DBM .. " voice pack installed but none enabled. If you intend to use a voice pack, make sure it's chosen in 'Spoken Alerts', else uninstall unused voice packs to hide this message"
 L.VOICE_COUNT_MISSING				= "Countdown voice %d is set to a voice/count pack that could not be found. It has been reset to default setting: %s."
+L.BIG_WIGS							= "BigWigs"
 
 L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS.. " is out-of-date.\n Version %s (r%d) is available for download here:"
 L.UPDATEREMINDER_FOOTER				= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."

@@ -61,7 +61,6 @@ local CL = DBM_COMMON_L
 -------------------------------
 --  Globals/Default Options  --
 -------------------------------
-
 local function releaseDate(year, month, day, hour, minute, second)
 	hour = hour or 0
 	minute = minute or 0
@@ -89,12 +88,19 @@ local function showRealDate(curseDate)
 	end
 end
 
+local function currentFullDate()
+	local datetable = date("*t")
+	return releaseDate(datetable.year, datetable.month, datetable.day, datetable.hour, datetable.min, datetable.sec)
+end
+
 DBM = {
-	Revision = ("$Revision: 7011 $"):sub(12, -3),
-	Version = "7.11",
-	DisplayVersion = "7.11 DBM-Warmane by Zidras", -- the string that is shown as version
-	ReleaseRevision = 7011 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = parseCurseDate("20220412172401"),
+	DisplayVersion = "9.2.14 alpha", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2022, 4, 12) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
+
+local fakeBWVersion = 7558
+local bwVersionResponseString = "%d"
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
 -- support for github downloads, which doesn't support curse keyword expansion
@@ -110,7 +116,6 @@ end
 function DBM:ReleaseDate(year, month, day, hour, minute, second)
 	return releaseDate(year, month, day, hour, minute, second)
 end
-
 
 local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
 
@@ -545,7 +550,7 @@ local tinsert, tremove, twipe, tsort, tconcat = table.insert, table.remove, tabl
 local type, select = type, select
 local GetTime = GetTime
 local bband = bit.band
-local floor, mhuge, mmin, mmax = math.floor, math.huge, math.min, math.max
+local floor, mhuge, mmin, mmax, mrandom = math.floor, math.huge, math.min, math.max, math.random
 local GetNumPartyMembers, GetNumRaidMembers, GetRaidRosterInfo = GetNumPartyMembers, GetNumRaidMembers, GetRaidRosterInfo
 local UnitName, GetUnitName = UnitName, GetUnitName
 local IsInInstance = IsInInstance
@@ -1256,7 +1261,7 @@ do
 			end
 		end
 		if IsInGuild() then
-			SendAddonMessage("DBMv4-GH","Hi!" ,"GUILD")
+			SendAddonMessage("DBMv4-GH","Hi!", "GUILD")
 		end
 		if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" then
 			DBM_UseDualProfile = false
@@ -2229,10 +2234,7 @@ do
 end
 
 do
-	local sortMe = {}
-	local OutdatedUsers = {}
-
-	local function sort(v1, v2)
+	local function Sort(v1, v2)
 		if v1.revision and not v2.revision then
 			return true
 		elseif v2.revision and not v1.revision then
@@ -2245,57 +2247,63 @@ do
 	end
 
 	function DBM:ShowVersions(notify)
-		for i, v in pairs(raid) do
+		local sortMe, outdatedUsers = {}, {}
+		for _, v in pairs(raid) do
 			tinsert(sortMe, v)
 		end
-		tsort(sortMe, sort)
-		twipe(OutdatedUsers)
+		tsort(sortMe, Sort)
 		self:AddMsg(L.VERSIONCHECK_HEADER)
 		local nreq = 1
-		for i, v in ipairs(sortMe) do
+		for _, v in ipairs(sortMe) do
 			local name = v.name
 			local playerColor = RAID_CLASS_COLORS[DBM:GetRaidClass(name)]
 			if playerColor then
 				name = ("|r|cff%.2x%.2x%.2x%s|r|cff%.2x%.2x%.2x"):format(playerColor.r * 255, playerColor.g * 255, playerColor.b * 255, name, 0.41 * 255, 0.8 * 255, 0.94 * 255)
 			end
-			if v.displayVersion then
-				self:AddMsg(L.VERSIONCHECK_ENTRY:format(name, v.displayVersion, v.revision, v.VPVersion or ""), false)--Only display VP version if not running two mods
-				if notify and v.displayVersion ~= DBM.Version and v.revision < DBM.ReleaseRevision then
-					DBM:Schedule(nreq*10,SendChatMessage, chatPrefixShort..L.YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
+			if v.displayVersion and not v.bwversion then--DBM, no BigWigs
+				if self.Options.ShowAllVersions then
+					self:AddMsg(L.VERSIONCHECK_ENTRY:format(name, L.DBM.." "..v.displayVersion, showRealDate(v.revision), v.VPVersion or ""), false)--Only display VP version if not running two mods
+				end
+				if notify and v.revision < self.ReleaseRevision then
+					DBM:Schedule(nreq*10, SendChatMessage, chatPrefixShort..L.YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
 					nreq = nreq + 1
 				end
+			elseif self.Options.ShowAllVersions and v.displayVersion and v.bwversion then--DBM & BigWigs
+				self:AddMsg(L.VERSIONCHECK_ENTRY_TWO:format(name, L.DBM.." "..v.displayVersion, showRealDate(v.revision), L.BIG_WIGS, bwVersionResponseString:format(v.bwversion)), false)
+			elseif self.Options.ShowAllVersions and not v.displayVersion and v.bwversion then--BigWigs, No DBM
+				self:AddMsg(L.VERSIONCHECK_ENTRY:format(name, L.BIG_WIGS, bwVersionResponseString:format(v.bwversion), ""), false)
 			else
-				self:AddMsg(L.VERSIONCHECK_ENTRY_NO_DBM:format(v.name))
+				if self.Options.ShowAllVersions then
+					self:AddMsg(L.VERSIONCHECK_ENTRY_NO_DBM:format(name), false)
+				end
 			end
 		end
-		local TotalUsers = #sortMe
 		local NoDBM = 0
+		local NoBigwigs = 0
 		local OldMod = 0
 		for i = #sortMe, 1, -1 do
 			if not sortMe[i].revision then
 				NoDBM = NoDBM + 1
 			end
+			if not (sortMe[i].bwversion) then
+				NoBigwigs = NoBigwigs + 1
+			end
 			--Table sorting sorts dbm to top, bigwigs underneath. Highest version dbm always at top. so sortMe[1]
 			--This check compares all dbm version to highest RELEASE version in raid.
-			if sortMe[i].revision and (tonumber(sortMe[i].revision or "") < tonumber(sortMe[1].version or "")) then
+			if sortMe[i].revision and (sortMe[i].revision < sortMe[1].version) or sortMe[i].bwversion and (sortMe[i].bwversion < fakeBWVersion) then
 				OldMod = OldMod + 1
 				local name = sortMe[i].name
 				local playerColor = RAID_CLASS_COLORS[DBM:GetRaidClass(name)]
 				if playerColor then
 					name = ("|r|cff%.2x%.2x%.2x%s|r|cff%.2x%.2x%.2x"):format(playerColor.r * 255, playerColor.g * 255, playerColor.b * 255, name, 0.41 * 255, 0.8 * 255, 0.94 * 255)
 				end
-				tinsert(OutdatedUsers, name)
+				tinsert(outdatedUsers, name)
 			end
 		end
-		local TotalDBM = TotalUsers - NoDBM
+		local TotalUsers = #sortMe
 		self:AddMsg("---", false)
-		self:AddMsg(L.VERSIONCHECK_FOOTER:format(TotalDBM), false)
-		self:AddMsg(L.VERSIONCHECK_OUTDATED:format(OldMod, #OutdatedUsers > 0 and tconcat(OutdatedUsers, ", ") or NONE), false)
-		twipe(OutdatedUsers)
-		twipe(sortMe)
-		for i = #sortMe, 1, -1 do
-			sortMe[i] = nil
-		end
+		self:AddMsg(L.VERSIONCHECK_FOOTER:format(TotalUsers - NoDBM, TotalUsers - NoBigwigs), false)
+		self:AddMsg(L.VERSIONCHECK_OUTDATED:format(OldMod, #outdatedUsers > 0 and tconcat(outdatedUsers, ", ") or NONE), false)
 	end
 end
 
@@ -2561,6 +2569,7 @@ end
 --  Raid/Party Handling and Unit ID Utilities  --
 -------------------------------------------------
 do
+	local bwVersionQueryString = "%d"--Only used here
 	local inRaid = false
 
 	local raidGuids = {}
@@ -2590,6 +2599,7 @@ do
 			if not inRaid then
 				inRaid = true
 				sendSync("DBMv4-Ver", "Hi!")
+				SendAddonMessage("BWVQ3", bwVersionQueryString:format(0), "RAID")
 				self:Schedule(2, DBM.RequestTimers, DBM)
 				fireEvent("raidJoin", playerName)
 			end
@@ -2639,6 +2649,7 @@ do
 				-- joined a new party
 				inRaid = true
 				sendSync("DBMv4-Ver", "Hi!")
+				SendAddonMessage("BWVQ3", bwVersionQueryString:format(0), "PARTY")
 				fireEvent("partyJoin", playerName)
 			end
 			for i = 0, GetNumPartyMembers() do
@@ -4031,6 +4042,10 @@ do
 			SendAddonMessage("DBMv4-GV", message, "GUILD")
 			return
 		end
+		if DBM.Options.FakeBWVersion then
+			SendAddonMessage("BWVR3", bwVersionResponseString:format(fakeBWVersion), GetNumRaidMembers() > 0 and "RAID" or "PARTY")
+			return
+		end
 		--(Note, faker isn't to screw with bigwigs nor is theirs to screw with dbm, but rathor raid leaders who don't let people run WTF they want to run)
 		local VPVersion
 		local VoicePack = DBM.Options.ChosenVoicePack
@@ -4038,14 +4053,15 @@ do
 			VPVersion = "/ VP"..VoicePack..": v"..DBM.VoiceVersions[VoicePack]
 		end
 		if VPVersion then
-			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
+			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s\t%s\t%s"):format(tostring(DBM.Revision), tostring(DBM.ReleaseRevision), DBM.DisplayVersion, GetLocale(), tostring(not DBM.Options.DontSetIcons), VPVersion))
 		else
-			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
+			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.ReleaseRevision, DBM.DisplayVersion, GetLocale()))
 		end
 	end
 
-	local function HandleVersion(revision, version, displayVersion, sender, noRaid)
-		if (version > DBM.ReleaseRevision) and version < 9999 then -- Update reminder
+	local function HandleVersion(revision, version, displayVersion, sender)
+		if version > DBM.Revision then -- Update reminder
+			if version > currentFullDate() then return end -- ignore versions higher than current date to prevent abuse
 			if #newerVersionPerson < 4 then
 				if not checkEntry(newerVersionPerson, sender) then
 					newerVersionPerson[#newerVersionPerson + 1] = sender
@@ -4053,15 +4069,28 @@ do
 				end
 				if #newerVersionPerson == 2 and updateNotificationDisplayed < 2 then--Only requires 2 for update notification.
 					if DBM.HighestRelease < version then
-						DBM.HighestRelease = version
+						DBM.HighestRelease = version--Increase HighestRelease
+						DBM.NewerVersion = displayVersion--Apply NewerVersion
+						--UGLY hack to get release version number instead of alpha one
+						if DBM.NewerVersion:find("alpha") then
+							local temp1, _ = string.split(" ", DBM.NewerVersion)--Strip down to just version, no alpha
+							if temp1 then
+								local temp3, temp4, temp5 = string.split(".", temp1)--Strip version down to 3 numbers
+								if temp3 and temp4 and temp5 and tonumber(temp5) then
+									temp5 = tonumber(temp5)
+									temp5 = temp5 - 1
+									temp5 = tostring(temp5)
+									DBM.NewerVersion = temp3.."."..temp4.."."..temp5
+								end
+							end
+						end
 					end
-					DBM.NewerVersion = displayVersion
 					--Find min revision.
 					updateNotificationDisplayed = 2
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
-					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
---					showConstantReminder = 1
-				elseif not noRaid and #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
+					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, showRealDate(version)))
+					showConstantReminder = 1
+				elseif #newerVersionPerson == 3 and raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if revision grossly out of date even if not major patch.
 					if raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] then
 						local revDifference = mmin(((raid[newerVersionPerson[1]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[2]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[3]].revision or 0) - DBM.Revision))
@@ -4086,49 +4115,47 @@ do
 
 	guildSyncHandlers["DBMv4-GH"] = function(sender)
 		if DBM.ReleaseRevision >= DBM.HighestRelease then--Do not send version to guild if it's not up to date, since this is only used for update notifcation
-			DBM:Unschedule(SendVersion, true)--Throttle so we don't needlessly send tons of comms during initial raid invites
-			DBM:Schedule(10, SendVersion, true)--Send version if 10 seconds have past since last "Hi" sync
+			DBM:Unschedule(SendVersion, true)
+			--Throttle so we don't needlessly send tons of comms
+			--For every 50 players online, DBM has an increasingly lower chance of replying to a version check request. This is because only 3 people actually need to reply
+			--50 people or less, 100% chance anyone who saw request will reply
+			--100 people on, only 50% chance DBM users replies to request
+			--150 people on, only 33% chance a DBM user replies to request
+			--1000 people online, only 5% chance a DBM user replies to request
+			local totalMembers = GetNumGuildMembers()
+			local online = 0
+			for i = 1, totalMembers do
+				local name, _, _, _, _, _, _, _, connected = GetGuildRosterInfo(i)
+				if not name then break end
+
+				if connected then
+					online = online + 1
+				end
+			end
+			local chances = (online or 1) / 50
+			if chances < 1 then chances = 1 end
+			if mrandom(1, chances) == 1 then
+				DBM:Schedule(5, SendVersion, true)--Send version if 5 seconds have past since last "Hi" sync
+			end
 		end
 	end
 
-	syncHandlers["DBMv4-Ver"] = function(sender, revision, version, displayVersion, locale)
+	syncHandlers["BV"] = function(sender, version, hash)--Parsed from bigwigs V7+
+		if version and raid[sender] then
+			raid[sender].bwversion = version
+			raid[sender].bwhash = hash or ""
+		end
+	end
+
+	syncHandlers["DBMv4-Ver"] = function(sender, revision, version, displayVersion, locale, iconEnabled, VPVersion)
 		if revision == "Hi!" then
-			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()),4)
-			sendSync("DBMv4-Ver", ("%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
+			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.ReleaseRevision, DBM.DisplayVersion, GetLocale()),4)
+			-- Use Retail "H" syncHandler instead
+			handleSync(nil, sender, "DBMv4-H")
 		else
 			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
-			revision, version = tonumber(revision or ""), tonumber(version or "")
-			if (not tonumber(revision)) or (tonumber(revision) >= 9999) then revision = 4442 end
-			if revision and version and displayVersion and raid[sender] then
-				raid[sender].revision = revision
-				raid[sender].version = version
-				raid[sender].displayVersion = displayVersion
-				raid[sender].locale = locale
-				if version > tonumber(DBM.Version) then
-					if raid[sender].rank >= 1 then
-						enableIcons = false
-					end
-					if not showedUpdateReminder then
-						local found = false
-						for i, v in pairs(raid) do
-							if v.version == version and v ~= raid[sender] then
-								found = true
-								break
-							end
-						end
-						if found then
-							showedUpdateReminder = true
-							if not DBM.Options.BlockVersionUpdatePopup then
-								DBM:ShowUpdateReminder(displayVersion, revision)
-							else
-								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
-								DBM:AddMsg(L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, revision))
-								DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[https://github.com/Zidras/DBM-Warmane]"):format(displayVersion, revision))
-							end
-						end
-					end
-				end
-			end
+			-- Use Retail "V" syncHandler instead
+			handleSync(nil, sender, "DBMv4-V", revision, version, displayVersion, locale, iconEnabled, VPVersion)
 		end
 	end
 
@@ -4151,7 +4178,7 @@ do
 		revision, version = tonumber(revision), tonumber(version)
 		if revision and version and displayVersion then
 			DBM:Debug("Received G version info from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
-			HandleVersion(revision, version, displayVersion, sender, true)
+			HandleVersion(revision, version, displayVersion, sender)
 		end
 	end
 
@@ -4662,12 +4689,51 @@ do
 	function DBM:CHAT_MSG_ADDON(prefix, msg, channel, sender)
 		if strsub(prefix, 1, 5) == "DBMv4" and msg and (channel == "PARTY" or channel == "RAID" or channel == "BATTLEGROUND" or channel == "WHISPER" or channel == "GUILD") then
 			handleSync(channel, sender, prefix, strsplit("\t", msg))
-		end
-		if msg:find("spell:") and (DBM.Options.DebugLevel > 2) then
-			local spellId = string.match(msg, "spell:(%d+)") or "UNKNOWN"
-			local spellName = string.match(msg, "h%[(.-)%]|h") or "UNKNOWN"
-			local message = "RAID_BOSS_WHISPER on "..sender.." with spell of "..spellName.." ("..spellId..")"
-			DBM:Debug(message)
+		elseif (prefix == "BigWigs" or strsub(prefix, 1, 2) == "BW") and msg and (channel == "PARTY" or channel == "RAID") then
+			if prefix == "BigWigs" then--Boss Mod Sync
+				for i = 1, #inCombat do
+					local mod = inCombat[i]
+					if mod and mod.OnBWSync then
+						mod:OnBWSync(msg, sender)
+					end
+				end
+				for i = 1, #oocBWComms do
+					local mod = oocBWComms[i]
+					if mod and mod.OnBWSync then
+						mod:OnBWSync(msg, sender)
+					end
+				end
+			else
+				local bwPrefix = strsub(prefix, 3, 5)
+				if bwPrefix then
+					if bwPrefix == "VR3" then
+						local verString = msg
+						local version = tonumber(verString) or 0
+						if version == 0 then return end--Just a query
+						handleSync(channel, sender, "BV", version)--Prefix changed, so it's not handled by DBMs "V" handler
+						if version > fakeBWVersion then--Newer revision found, upgrade!
+							fakeBWVersion = version
+						end
+					elseif bwPrefix == "VQ3" then--Version request prefix
+						self:Unschedule(SendVersion)
+						self:Schedule(3, SendVersion)
+					end
+				end
+			end
+		elseif prefix == "Transcriptor" and msg then
+			for i = 1, #inCombat do
+				local mod = inCombat[i]
+				if mod and mod.OnTranscriptorSync then
+					mod:OnTranscriptorSync(msg, sender)
+				end
+			end
+			local transcriptor = _G["Transcriptor"]
+			if msg:find("spell:") and (DBM.Options.DebugLevel > 2 or (transcriptor and transcriptor:IsLogging())) then
+				local spellId = string.match(msg, "spell:(%d+)") or CL.UNKNOWN
+				local spellName = string.match(msg, "h%[(.-)%]|h") or CL.UNKNOWN
+				local message = "RAID_BOSS_WHISPER on "..sender.." with spell of "..spellName.." ("..spellId..")"
+				self:Debug(message)
+			end
 		end
 	end
 end
