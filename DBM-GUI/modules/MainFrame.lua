@@ -278,6 +278,9 @@ for i = 1, math.floor(UIParent:GetHeight() / 18) do
 	button.toggle = buttonToggle
 	buttonToggle:SetSize(14, 14)
 	buttonToggle:SetPoint("TOPLEFT", button, "TOPLEFT", 5, -1)
+	-- Add textures to button to prevent errors when skinning
+	buttonToggle:SetNormalTexture("Interface\\Buttons\\UI-PlusButton-UP")
+	--
 	buttonToggle:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	buttonToggle:SetScript("OnClick", function()
 		button.element.showSub = not button.element.showSub
