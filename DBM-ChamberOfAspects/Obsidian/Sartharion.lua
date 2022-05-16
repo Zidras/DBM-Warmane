@@ -175,7 +175,7 @@ function mod:SPELL_DAMAGE(_, _, _, _, destName, _, spellId)
 end
 
 function mod:UNIT_TARGET(uId)
-	if self.vb.WhelpsSpawned == false and DBM:GetUnitCreatureId(uId.."target") == 31214 then -- Sartharion Twilight Whelp
+	if self.vb.WhelpsSpawned == false and DBM:GetUnitCreatureId(uId.."target") == 31214 and not UnitIsDead(uId.."target") then -- Sartharion Twilight Whelp
 		self.vb.WhelpsSpawned = true
 		timerTenebronWhelps:Cancel()
 	end
