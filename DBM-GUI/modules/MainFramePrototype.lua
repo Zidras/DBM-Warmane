@@ -115,12 +115,12 @@ local function resize(frame, first)
 							buttonText:SetWidth(width - buttonText.widthPad - 57)
 							buttonText:SetText(buttonText.text)
 							if not child2.customPoint then
-								local height = select(4, buttonText:GetBoundsRect()) or 25 -- GetContentHeight()
+								-- local height = buttonText:GetContentHeight() -- Don't enable this, it breaks with the classic fix as it sets the height to 1 and clumps checkbuttons together
 								-- Classic fix: SimpleHTML needs its height reset
 								local oldPoint1, oldPoint2, oldPoint3, oldPoint4, oldPoint5 = buttonText:GetPoint()
 								buttonText:SetHeight(1)
 								buttonText:SetPoint("TOPLEFT", UIParent)
-								height = select(4, buttonText:GetBoundsRect()) or 25 -- GetContentHeight()
+								local height = buttonText:GetContentHeight()
 								buttonText:SetPoint(oldPoint1, oldPoint2, oldPoint3, oldPoint4, oldPoint5)
 								-- End classic fix
 								if lastObject and lastObject.myheight then
