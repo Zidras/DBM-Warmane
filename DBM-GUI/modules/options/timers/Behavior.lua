@@ -8,7 +8,7 @@ movemebutton:SetPoint("TOPRIGHT", BarBehaviors.frame, "TOPRIGHT", -2, -4)
 movemebutton:SetNormalFontObject(GameFontNormalSmall)
 movemebutton:SetHighlightFontObject(GameFontNormalSmall)
 movemebutton:SetScript("OnClick", function()
-	DBM.Bars:ShowMovableBar()
+	DBT:ShowMovableBar()
 end)
 
 local testmebutton = BarBehaviors:CreateButton(L.Button_TestBars, 100, 16)
@@ -22,19 +22,19 @@ end)
 -- Functions for bar setup
 local function createDBTOnValueChangedHandler(option)
 	return function(self)
-		DBM.Bars:SetOption(option, self:GetValue())
-		self:SetValue(DBM.Bars.options[option])
+		DBT:SetOption(option, self:GetValue())
+		self:SetValue(DBT.Options[option])
 	end
 end
 
 local DecimalSlider = BarBehaviors:CreateSlider(L.Bar_Decimal, 1, 60, 1)
 DecimalSlider:SetPoint("TOPLEFT", BarBehaviors.frame, "TOPLEFT", 20, -25)
-DecimalSlider:SetValue(DBM.Bars.options.TDecimal)
+DecimalSlider:SetValue(DBT.Options.TDecimal)
 DecimalSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("TDecimal"))
 
 local EnlargeTimeSlider = BarBehaviors:CreateSlider(L.Bar_EnlargeTime, 6, 30, 1)
 EnlargeTimeSlider:SetPoint("TOPLEFT", BarBehaviors.frame, "TOPLEFT", 230, -25)
-EnlargeTimeSlider:SetValue(DBM.Bars.options.EnlargeBarTime)
+EnlargeTimeSlider:SetValue(DBT.Options.EnlargeBarTime)
 EnlargeTimeSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("EnlargeBarTime"))
 EnlargeTimeSlider.myheight = 0
 

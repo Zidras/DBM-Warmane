@@ -34,7 +34,7 @@ frame:SetScript("OnEvent", function(self, e, id)
 			if bars[qid] then
 				bars[qid]:Cancel()
 			end
-			bars[qid] = DBM.Bars:CreateBar(questTimers[qid], tostring(title) or tostring(id), "Interface\\Icons\\Spell_Nature_TimeStop")
+			bars[qid] = DBT:CreateBar(questTimers[qid], tostring(title) or tostring(id), "Interface\\Icons\\Spell_Nature_TimeStop")
 			frame:RegisterEvent("QUEST_LOG_UPDATE")
 		end
 	elseif e == "QUEST_LOG_UPDATE" then

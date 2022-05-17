@@ -36,7 +36,7 @@ do
 				self.vb.firstEngageTime = time()
 				if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBM.Bars:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Nature_TimeStop")
+					DBT:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Nature_TimeStop")
 				end
 				self:SendSync("MCStarted", self.vb.firstEngageTime)--Also sync engage time
 			end
@@ -67,7 +67,7 @@ do
 			if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 				local adjustment = time() - self.vb.firstEngageTime
-				DBM.Bars:CreateBar(self.Options.FastestClear2 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
+				DBT:CreateBar(self.Options.FastestClear2 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 			end
 			--Unregister high CPU combat log events
 			self:UnregisterShortTermEvents()

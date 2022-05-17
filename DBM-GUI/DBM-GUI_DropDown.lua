@@ -299,21 +299,19 @@ function DBM_GUI:CreateDropdown(title, values, vartype, var, callfunc, width, he
 			tabFrame1:Refresh()
 		end
 	end)
-
 	if title ~= nil and title ~= "" then
 		local titleText = dropdown:CreateFontString(dropdown:GetName() .. "TitleText", "BACKGROUND")
 		titleText:SetPoint("BOTTOMLEFT", dropdown, "TOPLEFT", 21, 1)
 		titleText:SetFontObject(GameFontNormalSmall)
 		titleText:SetText(title)
 	end
-
 	if vartype and vartype == "DBM" and DBM.Options[var] ~= nil then
 		dropdown:SetScript("OnShow", function()
 			dropdown:SetSelectedValue(DBM.Options[var])
 		end)
 	elseif vartype and vartype == "DBT" then
 		dropdown:SetScript("OnShow", function()
-			dropdown:SetSelectedValue(DBM.Bars:GetOption(var))
+			dropdown:SetSelectedValue(DBT.Options[var])
 		end)
 	elseif vartype then
 		dropdown:SetScript("OnShow", function()

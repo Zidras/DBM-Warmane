@@ -74,8 +74,8 @@ function mod:OnCombatEnd(wipe)
 	timerNextBombs:Cancel()
 	specWarnBombs:Cancel()
 	if not wipe then
-		if DBM.Bars:GetBar(L.TrashRespawnTimer) then
-			DBM.Bars:CancelBar(L.TrashRespawnTimer)
+		if DBT:GetBar(L.TrashRespawnTimer) then
+			DBT:CancelBar(L.TrashRespawnTimer)
 		end
 	end
 	if self.Options.HealthFrame then

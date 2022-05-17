@@ -28,7 +28,7 @@ local firstBossMod = DBM:GetModByName("Kurinnaxx")
 --[[
 function mod:OnCombatEnd(wipe)
 	if not wipe then
-		DBM.Bars:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
+		DBT:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 		if firstBossMod.vb.firstEngageTime then
 			local thisTime = time() - firstBossMod.vb.firstEngageTime
 			if thisTime and thisTime > 0 then

@@ -16,8 +16,9 @@
 ## Notes-ruRU: DBM - библиотека таймеров
 ## SavedVariables: DBT_AllPersistentOptions
 ## LoadOnDemand: 0
-## DefaultState: 1
-## X-Website: http://www.deadlybossmods.com
+## DefaultState: enabled
+## Author: MysticalOS, QartemisT
+## Version: 9.2.14_alpha
+## X-Website: https://deadlybossmods.com
 
-DBT-Template.xml
 DBT.lua
