@@ -312,11 +312,11 @@ do
 			if settings.own_bargroup then
 				SpellBars = DBT:New()
 				print_t(SpellBars.options)
-				addDefaultOptions(SpellBars.options, DBM.Bars.options)
+				addDefaultOptions(SpellBars.options, DBT.Options)
 			else
-				SpellBars = DBM.Bars
+				SpellBars = DBT
 			end --]]
-			SpellBars = DBM.Bars
+			SpellBars = DBT
 
 
 			if UnitFactionGroup("player") == "Alliance" then

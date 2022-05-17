@@ -163,6 +163,6 @@ end
 
 function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if self:IsInCombat() and not UnitExists("boss1") and self.Options.ShowRespawn then
-		DBM.Bars:CreateBar(30, DBM_CORE_L.TIMER_RESPAWN:format(L.name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
+		DBT:CreateBar(30, DBM_CORE_L.TIMER_RESPAWN:format(L.name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
 	end
 end

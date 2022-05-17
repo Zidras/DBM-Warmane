@@ -14,10 +14,10 @@ mod:AddBoolOption("MakeitCountTimer", true, "timer")
 
 function mod:UNIT_DIED(args)
 	if not self:IsDifficulty("normal5") then
-		if self.Options.MakeitCountTimer and not DBM.Bars:GetBar(L.MakeitCountTimer) then
+		if self.Options.MakeitCountTimer and not DBT:GetBar(L.MakeitCountTimer) then
 			local cid = self:GetCIDFromGUID(args.destGUID)
 			if cid == 27654 then		-- Drakos The Interrogator
-				DBM.Bars:CreateBar(1200, L.MakeitCountTimer)
+				DBT:CreateBar(1200, L.MakeitCountTimer)
 			end
 		end
 	end
