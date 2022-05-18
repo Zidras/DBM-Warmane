@@ -5937,27 +5937,30 @@ do
 		if validate and not self:ValidateSound(path, true, true) then
 			return
 		end
-		local soundSetting = self.Options.UseSoundChannel
 		DBM:Debug("PlaySoundFile playing with media " .. path, 4)
-		if soundSetting == "Dialog" then
-			PlaySoundFile(path, "Dialog")
-		elseif ignoreSFX or soundSetting == "Master" then
-			PlaySoundFile(path, "Master")
-		else
-			PlaySoundFile(path)
-		end
+		PlaySoundFile(path)
 		fireEvent("DBM_PlaySound", path)
 	end
+	local ingameSoundPath = {
+		[850] = "Sound\\Interface\\uEscapeScreenOpen.wav",
+		[856] = "Sound\\Interface\\uChatScrollButton.wav",
+		[8960] = "Sound\\Interface\\levelup2.wav"
+	}
 	local function playSound(self, path, ignoreSFX)
 		if self.Options.SilentMode or path == "" or path == "None" then
 			return
 		end
 		local soundSetting = self.Options.UseSoundChannel
 		DBM:Debug("PlaySound playing with media " .. path, 4)
-		if soundSetting == "Dialog" then
-			PlaySound(path, "Dialog", false)
-		elseif ignoreSFX or soundSetting == "Master" then
-			PlaySound(path, "Master", false)
+		if ignoreSFX or soundSetting == "Master" then
+			if ingameSoundPath[path] then
+				PlaySoundFile(ingameSoundPath[path])
+			else
+				PlaySound(path)
+				if not GetCVarBool("Sound_EnableSFX") then
+					self:AddMsg("No sound because SFX is disabled and DBM ingameSoundPath table does not have a sound path for " .. path .. ". Report the path (the numbers) to maintainer on Discord or Github.")
+				end
+			end
 		else
 			PlaySound(path) -- Using SFX channel, leave forceNoDuplicates on.
 		end
