@@ -162,6 +162,7 @@ DBT.DefaultOptions = {
 	IconLocked = true,
 	DynamicColor = true,
 	ClickThrough = false,
+	StripCDText = false,
 	KeepBars = true,
 	FadeBars = true,
 	Texture = "Interface\\AddOns\\DBM-StatusBarTimers\\textures\\default.blp",
