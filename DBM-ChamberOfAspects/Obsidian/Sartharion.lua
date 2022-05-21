@@ -37,7 +37,7 @@ local timerWall					= mod:NewCDTimer(30, 43113, nil, nil, nil, 2)
 local timerTenebron				= mod:NewTimer(30, "TimerTenebron", 61248, nil, nil, 1)
 local timerShadron				= mod:NewTimer(80, "TimerShadron", 58105, nil, nil, 1)
 local timerVesperon				= mod:NewTimer(120, "TimerVesperon", 61251, nil, nil, 1)
-local timerTenebronWhelps		= mod:NewTimer(60, "TimerTenebronWhelps", 1022, nil, nil, nil, nil, true) -- random timer (60 or 62) so add "keep" arg
+local timerTenebronWhelps		= mod:NewTimer(62, "TimerTenebronWhelps", 1022)
 local timerShadronPortal		= mod:NewTimer(94, "TimerShadronPortal", 11420)
 local timerVesperonPortal		= mod:NewTimer(139, "TimerVesperonPortal", 57988)
 local timerVesperonPortal2		= mod:NewTimer(199, "TimerVesperonPortal2", 57988) -- what's the purpose of this?
@@ -70,7 +70,7 @@ local function CheckDrakes(self, delay)
 		timerTenebron:Start(26 - delay) -- 30
 		warnTenebron:Schedule(21 - delay) -- 25
 		timerTenebronWhelps:Start(- delay)
-		warnTenebronWhelpsSoon:Schedule(55 - delay)
+		warnTenebronWhelpsSoon:Schedule(57 - delay)
 		if self.Options.HealthFrame then
 			DBM.BossHealth:AddBoss(30452, "Tenebron")
 		end
