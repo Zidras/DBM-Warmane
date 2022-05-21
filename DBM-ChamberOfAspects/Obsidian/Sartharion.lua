@@ -13,7 +13,6 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 57579 59127",
 	"SPELL_AURA_APPLIED 57491",
 	"SPELL_DAMAGE 59128",
-	"UNIT_TARGET",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_EMOTE"
 )
@@ -48,7 +47,6 @@ mod:AddBoolOption("AnnounceFails", true, "announce")
 local lastvoids = {}
 local lastfire = {}
 local tsort, tinsert, twipe = table.sort, table.insert, table.wipe
-mod.vb.WhelpsSpawned = false
 
 local function isunitdebuffed(spellID)
 	local name = DBM:GetSpellInfo(spellID)
@@ -73,7 +71,6 @@ local function CheckDrakes(self, delay)
 		warnTenebron:Schedule(21 - delay) -- 25
 		timerTenebronWhelps:Start(- delay)
 		warnTenebronWhelpsSoon:Schedule(55 - delay)
-		self.vb.WhelpsSpawned = false
 		if self.Options.HealthFrame then
 			DBM.BossHealth:AddBoss(30452, "Tenebron")
 		end
@@ -171,13 +168,6 @@ function mod:SPELL_DAMAGE(_, _, _, _, destName, _, spellId)
 	if self.Options.AnnounceFails and self.Options.Announce and spellId == 59128 and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(destName) ~= "none" and destName then
 		lastvoids[destName] = (lastvoids[destName] or 0) + 1
 		SendChatMessage(L.VoidZoneOn:format(destName), "RAID")
-	end
-end
-
-function mod:UNIT_TARGET(uId)
-	if self.vb.WhelpsSpawned == false and DBM:GetUnitCreatureId(uId.."target") == 31214 then -- Sartharion Twilight Whelp
-		self.vb.WhelpsSpawned = true
-		timerTenebronWhelps:Cancel()
 	end
 end
 
