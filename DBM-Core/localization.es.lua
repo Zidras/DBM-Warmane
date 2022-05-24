@@ -111,6 +111,7 @@ L.SOUNDKIT_MIGRATION			= "Uno o varios de tus sonidos de avisos se han restaurad
 
 L.WORLDBOSS_ENGAGED			= "Es posible que el encuentro de %s se haya iniciado en tu reino a %s de su salud máxima. (Enviado por %s.)"
 L.WORLDBOSS_DEFEATED			= "Es posible que %s haya sido derrotado en tu reino. (Enviado por %s.)"
+L.WORLDBUFF_STARTED			= "%s ha empezado en tu reino para la facción %s (Enviado por %s)."
 
 L.TIMER_FORMAT_SECS			= "%.2f |4segundo:segundos;"
 L.TIMER_FORMAT_MINS			= "%d |4minuto:minutos;"
@@ -166,7 +167,7 @@ L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (r%d) y %s (r%d)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s: Sin instalar"
 L.VERSIONCHECK_FOOTER		= "Se ha encontrado %d jugador(es) con DBM y %d jugador(es) con BigWigs."
 L.VERSIONCHECK_OUTDATED		= "Los siguientes %d jugadores tienen una versión desfasada de DBM: %s"
-L.YOUR_VERSION_OUTDATED      = "Tu versión de Deadly Boss Mods está desfasada. Por favor, visita ".. L.UPDATEREMINDER_URL .." para descargar la última versión."
+L.YOUR_VERSION_OUTDATED		= "Tu versión de Deadly Boss Mods está desfasada. Por favor, visita ".. L.UPDATEREMINDER_URL .." para descargar la última versión."
 L.VOICE_PACK_OUTDATED		= "A este paquete de voces le faltan sonidos compatibles con esta versión de DBM. No se sustituirán los sonidos de avisos especiales que no tengan sustituto. Por favor, descarga una versión más reciente del paquete de voces o contacta con el autor para informarle de los archivos de sonido que faltan."
 L.VOICE_MISSING				= "Tenías seleccionado un paquete de voces que no se ha podido encontrar. Se ha restaurado tu selección a 'Ninguno'. Si crees que se trata de un error, asegúrate de que el paquete de voces se haya instalado correctamente y esté habilitado en la lista de Addons."
 L.VOICE_DISABLED				= "Tienes al menos un paquete de voces de DBM instalado, pero ninguno está activado. Si quieres usar un paquete de voces, asegúrate de que lo has asignado en 'Alertas de voz'. Desinstala los paquetes de voces que tengas sin usar para ocultar este mensaje."
@@ -174,8 +175,8 @@ L.VOICE_COUNT_MISSING		= "La voz de cuenta atrás %d está asignada a un paquete
 L.BIG_WIGS						= "BigWigs"
 
 L.UPDATEREMINDER_HEADER			= "Tu versión de Deadly Boss Mods está desfasada.\nPuedes descargar la versión %s (r%d) aquí: "
-L.UPDATEREMINDER_FOOTER			= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " para copiar el enlace de descarga en tu portapapeles."
-L.UPDATEREMINDER_FOOTER_GENERIC	= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " para copiar el enlace en tu portapapeles."
+L.UPDATEREMINDER_FOOTER			= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C") .. " para copiar el enlace de descarga en tu portapapeles."
+L.UPDATEREMINDER_FOOTER_GENERIC	= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C") .. " para copiar el enlace en tu portapapeles."
 L.UPDATEREMINDER_DISABLE			= "AVISO: Se ha desactivado Deadly Boss Mods porque tu versión está demasiado desfasada. Con tal de prevenir conflictos con las versiones de otros jugadores, no se podrá volver a activar DBM hasta que lo actualices."
 L.UPDATEREMINDER_HOTFIX			= "Tu versión de DBM actual tiene errores conocidos en este encuentro. Por favor, actualiza a la última versión."
 L.UPDATEREMINDER_HOTFIX_ALPHA	= "Tu versión de DBM actual tiene errores conocidos en este encuentro. Estos errores serán corregidos en la próxima versión (o ya están corregidos en la última versión alfa)."
@@ -271,10 +272,6 @@ L.TIMER_USAGE	= {
 
 L.ERROR_NO_PERMISSION				= "No tienes permiso para hacer eso."
 
---Retail Globals
-L.RAID_INFO_WORLD_BOSS 		= "Jefe de mundo"
---Retail Globals end
-
 L.BREAK_USAGE				= "El temporizador de descanso no puede durar más de 60 minutos. Asegúrate de que has escrito el tiempo en minutos y no en segundos."
 L.BREAK_START				= "El descanso comienza ahora. ¡Tienes %s! (Enviado por %s)"
 L.BREAK_MIN					= "¡El descanso termina en %s minuto(s)!"
@@ -303,7 +300,7 @@ L.AUTO_ANNOUNCE_TEXTS.spell		= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends 		= "%s ha terminado"
 L.AUTO_ANNOUNCE_TEXTS.endtarget	= "%s ha terminado en >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades		= "%s ha terminado"
-L.AUTO_ANNOUNCE_TEXTS.adds		= "%s restantes: %%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft	= "%s restantes: %%d"
 L.AUTO_ANNOUNCE_TEXTS.cast		= "Lanzando %s en %.1f s"
 L.AUTO_ANNOUNCE_TEXTS.soon		= "%s en breve"
 L.AUTO_ANNOUNCE_TEXTS.sooncount	= "%s (%%s) en breve"
@@ -325,7 +322,7 @@ L.AUTO_ANNOUNCE_OPTIONS.spell		= "Mostrar aviso para $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.ends			= "Mostrar aviso cuando termine $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget	= "Mostrar aviso cuando termine $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.fades		= "Mostrar aviso cuando expire $spell:%s"
-L.AUTO_ANNOUNCE_OPTIONS.adds			= "Anunciar el número de $spell:%s restantes"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft		= "Anunciar el número de $spell:%s restantes"
 L.AUTO_ANNOUNCE_OPTIONS.cast			= "Mostrar aviso cuando se esté lanzando $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.soon			= prewarnOption
 L.AUTO_ANNOUNCE_OPTIONS.sooncount	= prewarnOption
@@ -585,3 +582,16 @@ L.SILENTMODE_IS		= "El modo silencioso es "
 L.LDB_LOAD_MODS		= "Cargar módulo"
 
 L.LDB_ENABLE_BOSS_MOD	= "Habilitar módulo"
+
+L.WORLD_BUFFS.hordeOny			= "Miembros de la Horda, ciudadanos de Orgrimmar, vengan y reúnanse para homenajear un hecho heroico"
+L.WORLD_BUFFS.allianceOny		= "Ciudadanos y aliados de Ventormenta, en el día de hoy, hemos hecho historia."
+L.WORLD_BUFFS.hordeNef			= "¡NEFARIAN HA SIDO ASESINADO! Ciudadanos de Orgrimmar"
+L.WORLD_BUFFS.allianceNef		= "¡Ciudadanos de la Alianza, el Señor de Roca Negra está muerto!"
+L.WORLD_BUFFS.zgHeart			= "Ahora, solo un paso más para poder librarnos de la amenaza del Cazador de Almas"
+L.WORLD_BUFFS.zgHeartBooty		= "¡El Dios de la Sangre, el Cazador de Almas, ha sido derrotado! ¡Ya no corremos peligro!"
+L.WORLD_BUFFS.zgHeartYojamba	= "Comiencen el ritual, sirvientes. ¡Debemos desterrar el corazón de Hakkar al vacío!"
+L.WORLD_BUFFS.rendHead			= "¡El falso Jefe de Guerra Rend Puño Negro ha caído!"
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS		= "Jefe de mundo"
+L.SCENARIO_STAGE			= "Fase %d"

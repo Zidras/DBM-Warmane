@@ -9,15 +9,14 @@ hideBlizzArea:CreateCheckButton(L.HideWatchFrame, true, nil, "HideObjectivesFram
 hideBlizzArea:CreateCheckButton(L.HideTooltips, true, nil, "HideTooltips")
 local DisableSFX	= hideBlizzArea:CreateCheckButton(L.DisableSFX, true, nil, "DisableSFX")
 
--- local movieOptions = {
--- 	{	text	= L.Disable,	value	= "Never"},
--- 	{	text	= L.OnlyFight,	value	= "OnlyFight"},
--- 	{	text	= L.AfterFirst,	value	= "AfterFirst"},
--- 	{	text	= ALWAYS,		value	= "Block"},
--- }
--- local blockMovieDropDown = hideBlizzArea:CreateDropdown(L.DisableCinematics, movieOptions, "DBM", "MovieFilter2", function(value)
--- 	DBM.Options.MovieFilter2 = value
--- end, 350)
--- blockMovieDropDown:SetPoint("TOPLEFT", _G[DisableSFX:GetName() .. "Text"], "BOTTOMLEFT", -26, -5)
--- blockMovieDropDown.myheight = 45
-hideBlizzArea:CreateCheckButton(L.DisableCinematics, true, nil, "DisableCinematics")
+local movieOptions = {
+	{	text	= L.Disable,	value	= "Never"},
+	{	text	= L.OnlyFight,	value	= "OnlyFight"},
+	{	text	= L.AfterFirst,	value	= "AfterFirst"},
+	{	text	= ALWAYS,		value	= "Block"},
+}
+local blockMovieDropDown = hideBlizzArea:CreateDropdown(L.DisableCinematics, movieOptions, "DBM", "MovieFilter2", function(value)
+	DBM.Options.MovieFilter2 = value
+end, 350)
+blockMovieDropDown:SetPoint("TOPLEFT", _G[DisableSFX:GetName() .. "Text"], "BOTTOMLEFT", -26, -5)
+blockMovieDropDown.myheight = 45

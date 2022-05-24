@@ -15,7 +15,7 @@ generalMessagesArea:CreateCheckButton(L.ShowGuildMessagesPlus, true, nil, "ShowG
 local generalExtraAlerts = generalWarningPanel:CreateArea(L.Area_ChatAlerts)
 generalExtraAlerts:CreateCheckButton(L.RoleSpecAlert, true, nil, "RoleSpecAlert")
 generalExtraAlerts:CreateCheckButton(L.CheckGear, true, nil, "CheckGear")
---generalExtraAlerts:CreateCheckButton(L.WorldBuffAlert, true, nil, "WorldBuffAlert")
+generalExtraAlerts:CreateCheckButton(L.WorldBuffAlert, true, nil, "WorldBuffAlert")
 generalExtraAlerts:CreateCheckButton(L.WorldBossAlert, true, nil, "WorldBossAlert")
 
 local generalBugsAlerts = generalWarningPanel:CreateArea(L.Area_BugAlerts)

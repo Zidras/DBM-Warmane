@@ -246,10 +246,6 @@ L.TIMER_USAGE	= {
 
 L.ERROR_NO_PERMISSION		= "Du hast nicht die benötigte Berechtigung für diesen Befehl!"
 
---Retail Globals
-L.RAID_INFO_WORLD_BOSS 		= "Weltboss"
---Retail Globals end
-
 L.BREAK_USAGE				= "Ein Pause-Timer kann nicht länger als 60 Minuten sein. Beachte bitte, dass für Pausen-Timer die Zeit in Minuten (und nicht in Sekunden) anzugeben ist."
 L.BREAK_START				= "Pause startet jetzt -- du hast %s! (gesendet von: %s)"
 L.BREAK_MIN					= "Pause endet in %s Minute(n)!"
@@ -277,7 +273,7 @@ L.AUTO_ANNOUNCE_TEXTS.spell		= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends 		= "%s ist beendet"
 L.AUTO_ANNOUNCE_TEXTS.endtarget	= "%s ist beendet: >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades		= "%s ist beendet"
-L.AUTO_ANNOUNCE_TEXTS.adds		= "%s verbleibend: %%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft	= "%s verbleibend: %%d"
 L.AUTO_ANNOUNCE_TEXTS.cast		= "Wirkt %s: %.1f Sek"
 L.AUTO_ANNOUNCE_TEXTS.soon		= "%s bald"
 L.AUTO_ANNOUNCE_TEXTS.sooncount	= "%s (%%s) bald"
@@ -295,7 +291,7 @@ L.AUTO_ANNOUNCE_OPTIONS.spell		= "Zeige Warnung für $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.ends		= "Zeige Warnung, wenn $spell:%s beendet ist"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget	= "Zeige Warnung, wenn $spell:%s beendet ist"
 L.AUTO_ANNOUNCE_OPTIONS.fades		= "Zeige Warnung, wenn $spell:%s beendet ist"
-L.AUTO_ANNOUNCE_OPTIONS.adds		= "Verkünde die Anzahl der verbleibenden $spell:%s"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft	= "Verkünde die Anzahl der verbleibenden $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.cast		= "Zeige Warnung, wenn $spell:%s gewirkt wird"
 L.AUTO_ANNOUNCE_OPTIONS.soon		= prewarnOption
 L.AUTO_ANNOUNCE_OPTIONS.sooncount	= prewarnOption
@@ -530,3 +526,16 @@ L.SILENTMODE_IS		= "Lautlos-Modus ist "
 L.LDB_LOAD_MODS		= "Lade Boss Mod"
 
 L.LDB_ENABLE_BOSS_MOD	= "Aktiviere Boss Mod"
+
+L.WORLD_BUFFS.hordeOny		= "Miembros de la Horda, ciudadanos de Orgrimmar, vengan y reúnanse para homenajear un hecho heroico" --needs translation
+L.WORLD_BUFFS.allianceOny	= "Bürger und Verbündete Stormwinds, am heutigen Tage ist Geschichte geschrieben worden."
+L.WORLD_BUFFS.hordeNef		= "NEFARIAN IS SLAIN! People of Orgrimmar"    --needs translation
+L.WORLD_BUFFS.allianceNef	= "Angehörige der Allianz, der Herrscher des Blackrocks wurde besiegt!"
+L.WORLD_BUFFS.zgHeart		= "Nun ist nur noch ein letzter Schritt nötig, um uns von der Bedrohung des Seelenschinders zu befreien"
+L.WORLD_BUFFS.zgHeartBooty	= "Der Blutgott, der Seelenschinder, wurde besiegt! Wir werden nicht länger unterdrückt!"
+L.WORLD_BUFFS.zgHeartYojamba= "Beginnt mit dem Ritual, meine Diener. Wir müssen das Herz von Hakkar wieder in das Nichts verbannen!"
+L.WORLD_BUFFS.rendHead		= "Rend Blackhand, der falsche Kriegshäuptling, ist gefallen!"
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 		= "Weltboss"
+L.SCENARIO_STAGE			= "Phase %d"

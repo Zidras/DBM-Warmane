@@ -1,5 +1,7 @@
 -- This file uses models and textures taken from TomTom. The 3d arrow model was created by Guillotine (curse.guillotine@gmail.com) and 2d minimap textures by Cladhaire.
 
+local L = DBM_CORE_L
+
 ----------------------------
 --  Initialize variables  --
 ----------------------------
@@ -246,4 +248,30 @@ end
 
 function DBM.Arrow:LoadPosition()
 	frame:SetPoint(DBM.Options.ArrowPoint, DBM.Options.ArrowPosX, DBM.Options.ArrowPosY)
+end
+
+do
+	SLASH_DEADLYBOSSMODSDWAY1 = "/dway"--/way not used because DBM would load before TomTom and can't check
+	SlashCmdList["DEADLYBOSSMODSDWAY"] = function(msg)
+		if DBM:HasMapRestrictions() then
+			DBM:AddMsg(L.NO_ARROW)
+			return
+		end
+		msg = msg:sub(1):trim()
+		local x, y = strsplit(" ", msg) -- Try splitting by space
+		local xNum, yNum = tonumber(x or ""), tonumber(y or "")
+		if not xNum or not yNum then
+			x, y = strsplit(",", msg) -- And then by comma
+			xNum, yNum = tonumber(x or ""), tonumber(y or "")
+		end
+		if xNum and yNum then
+			DBM.Arrow:ShowRunTo(xNum, yNum, 1, nil, true)
+			return
+		end
+		if DBM.Arrow:IsShown() then
+			DBM.Arrow:Hide()
+		else
+			DBM:AddMsg(L.ARROW_WAY_USAGE)
+		end
+	end
 end

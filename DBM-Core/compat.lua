@@ -22,9 +22,9 @@ function IsInRaid()
 	return GetNumRaidMembers() > 0
 end
 
---function GetNumSubgroupMembers()
---	return GetNumPartyMembers()
---end
+function GetNumSubgroupMembers()
+	return GetNumPartyMembers()
+end
 
 function GetNumGroupMembers()
 	return IsInRaid() and GetNumRaidMembers() or GetNumPartyMembers()

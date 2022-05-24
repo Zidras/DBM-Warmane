@@ -114,7 +114,8 @@ L.MOD_DEFAULT_LOADED			= "将会使用默认设置来进行本场战斗"
 L.SOUNDKIT_MIGRATION			= "一个或多个警报的声音因文件丢失而被设置成默认。" .. L.DBM .. "只支持放在插件目录下的声音文件，或者是SoundKit ID的重放"
 
 L.WORLDBOSS_ENGAGED			= "世界Boss-%s可能正在作战。当前还有%s的生命值。 (由 %s 的" .. L.DBM .. "发送)"
-L.WORLDBOSS_DEFEATED			= "世界Boss-%s可能战斗结束了。 (由 %s 的" .. L.DBM .. "发送)"
+L.WORLDBOSS_DEFEATED		= "世界Boss-%s可能战斗结束了。 (由 %s 的" .. L.DBM .. "发送)"
+L.WORLDBUFF_STARTED			= "世界增益 %s 已开始释放，阵营- %s (由%s的" .. L.DBM .. "发送)."
 
 L.TIMER_FORMAT_SECS			= "%.2f秒"
 L.TIMER_FORMAT_MINS			= "%d分钟"
@@ -140,8 +141,8 @@ L.OPTION_CATEGORY_WARNINGS	= "警报"
 L.OPTION_CATEGORY_WARNINGS_YOU	= "个人警报"
 L.OPTION_CATEGORY_WARNINGS_OTHER	= "目标警报"
 L.OPTION_CATEGORY_WARNINGS_ROLE	= "角色警报"
+L.OPTION_CATEGORY_SPECWARNINGS		= "特殊警报"
 
-L.OPTION_CATEGORY_MISC		= "其它"
 L.OPTION_CATEGORY_SOUNDS		= "声音"
 L.OPTION_CATEGORY_DROPDOWNS		= "下拉"
 L.OPTION_CATEGORY_YELLS			= "大喊"
@@ -171,7 +172,7 @@ L.VERSIONCHECK_FOOTER		= "团队中有%d名成员正在使用" .. L.DBM .. "， 
 L.VERSIONCHECK_OUTDATED		= "下列%d名玩家的" .. L.DBM .. "版本已经过期:%s"
 L.YOUR_VERSION_OUTDATED		= "你的 " .. L.DEADLY_BOSS_MODS .. " 已经过期。" .. L.UPDATEREMINDER_URL
 L.VOICE_PACK_OUTDATED		= "你当前使用的" .. L.DBM .. "语音包已经过期。有些特殊警告的屏蔽（当心，毁灭）已被禁用。请下载最新语音包，或联系语音包作者更新。"
-L.VOICE_MISSING				=  L.DBM .. "找不到你当前选择的语音包。语音包选项已经被设置成'None'。请确保你的语音包被正确安装和启用。"
+L.VOICE_MISSING				= L.DBM .. "找不到你当前选择的语音包。语音包选项已经被设置成'None'。请确保你的语音包被正确安装和启用。"
 L.VOICE_DISABLED				= "你安装了语音包但是没有启动它。请在选项中的语音报警菜单中开启语音包。如果不需要语音报警请卸载语音包。"
 L.VOICE_COUNT_MISSING		= "在 %d 语音包中找不到倒计时语音。倒计时已恢复为默认值"
 
@@ -184,7 +185,7 @@ L.UPDATEREMINDER_HOTFIX_ALPHA	= "你的 " .. L.DEADLY_BOSS_MODS .. " 版本会�
 L.UPDATEREMINDER_MAJORPATCH		= "你的 " .. L.DEADLY_BOSS_MODS .. " 已经过期,它已被禁用,直到你更新.这是为了确保它不会导致你或其他团队成员出错.这次更新是一个非常重要的补丁,请确保你得到的是最新版."
 L.VEM							= "你好像在使用VEM。" .. L.DEADLY_BOSS_MODS .. "在这种情况下无法被载入。"
 L.OUTDATEDPROFILES					= "警告: DBM-Profiles已经无法和本版本" .. L.DBM .. "兼容。" .. L.DBM .. "核心已经自带配置文件管理系统，请移除DBM-Profiles避免冲突。"
-L.OUTDATEDSPELLTIMERS				= "警告: DBM-SpellTimers 干扰到 " .. L.DBM .. " 运行，必须禁用它，  " .. L.DBM .. " 才能正常运行。"
+L.OUTDATEDSPELLTIMERS				= "警告: DBM-SpellTimers 干扰到 " .. L.DBM .. " 运行，必须禁用它， " .. L.DBM .. " 才能正常运行。"
 L.OUTDATEDRLT						= "警告: DBM-RaidLeadTools 干扰到 " .. L.DBM .. "运行. DBM-RaidLeadTools 不再受支持，必须将其删除 " .. L.DBM .. " 才能正常运行。"
 L.VICTORYSOUND						= "警告: DBM-VictorySound 与该版本的 " .. L.DBM .. "不兼容，为避免冲突，必须先将其删除。 " .. L.DBM .. " 才可以正常运行。"
 L.DPMCORE						= "警告: DBM-PVP已经已经很久没人维护了,并无法兼容。请移除DBM-PVP避免冲突。"
@@ -193,10 +194,9 @@ L.UPDATE_REQUIRES_RELAUNCH		= "警告: 如果你不完全重启游戏，" .. L.D
 L.OUT_OF_DATE_NAG				= "你的" .. L.DBM .. "版本已经过期，新版本针对特定的首领战斗增加新的功能和错误的修复。建议您进行更新来改善您的游戏体验。"
 L.RETAIL_ONLY					= "警告: 你所用的是怀旧服版本的" .. L.DBM .. "。请删掉这个" .. L.DBM .. "并下载正式服的" .. L.DBM .. "。"
 
-
 L.MOVABLE_BAR				= "拖动我！"
 
-L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你发送了一个" .. L.DBM .. "计时条"
+L.PIZZA_SYNC_INFO				= "|Hplayer:%1$s|h[%1$s]|h向你发送了一个" .. L.DBM .. " 计时条: '%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[取消此倒计时]|r|h |Hgarrmission:DBM:ignore:%2$s:%1$s|h|cff3588ff[忽略来自%1$s的计时条]|r|h"
 L.PIZZA_CONFIRM_IGNORE			= "是否要在该次游戏连接中屏蔽来自%s的计时条？"
 L.PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <时间（秒）> <文本>"
 
@@ -220,8 +220,8 @@ L.RANGECHECK_OPTION_FRAMES	= "框体"
 L.RANGECHECK_OPTION_RADAR	= "显示距离雷达框体"
 L.RANGECHECK_OPTION_TEXT		= "显示文本框体"
 L.RANGECHECK_OPTION_BOTH		= "同时显示距离雷达框体和文本框体"
-L.RANGERADAR_HEADER			= "测距雷达（%d码）"
-L.RANGERADAR_BOSS_HEADER		= "Boss 范围（%d 码）"
+L.RANGERADAR_HEADER			= "距离%d码 %d人"
+L.RANGERADAR_BOSS_HEADER		= "Boss 范围 %d人"
 L.RANGERADAR_RHEADER			= "反向距离%码 %d人"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d人在监视距离内（%0.1f码）"
 L.RANGECHECK_IN_RANGE_TEXT	= "%d人在监视距离内"
@@ -271,10 +271,6 @@ L.TIMER_USAGE	= {
 L.ERROR_NO_PERMISSION				= "权限不足。需要队长或助理权限。"
 L.TIME_TOO_SHORT				= "战斗倒计时需要大于三秒。"
 
---Retail Globals
-L.RAID_INFO_WORLD_BOSS 		= "世界首领"
---Retail Globals end
-
 L.BREAK_USAGE				= "休息时间不能超过60分钟。请确保你输入的是分钟而不是秒。"
 L.BREAK_START				= "开始休息 - %s分钟！（由 %s 发送）"
 L.BREAK_MIN					= "%s分钟后休息结束！"
@@ -303,7 +299,7 @@ L.AUTO_ANNOUNCE_TEXTS.spell				= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends 				= "%s 结束"
 L.AUTO_ANNOUNCE_TEXTS.endtarget			= "%s 结束: >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades				= "%s 消失"
-L.AUTO_ANNOUNCE_TEXTS.adds				= "%s剩余：%%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft			= "%s剩余：%%d"
 L.AUTO_ANNOUNCE_TEXTS.cast				= "正在施放 %s：%.1f秒"
 L.AUTO_ANNOUNCE_TEXTS.soon				= "即将 %s"
 L.AUTO_ANNOUNCE_TEXTS.sooncount			= "即将 %s (%%s)"
@@ -325,7 +321,7 @@ L.AUTO_ANNOUNCE_OPTIONS.spell			= "警报：$spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.ends				= "警报：$spell:%s束"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget		= "警报：$spell:%s结束"
 L.AUTO_ANNOUNCE_OPTIONS.fades			= "警报：$spell:%s消失"
-L.AUTO_ANNOUNCE_OPTIONS.adds				= "警报：$spell:%s剩余数量"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft				= "警报：$spell:%s剩余数量"
 L.AUTO_ANNOUNCE_OPTIONS.cast				= "警报：$spell:%s的施放"
 L.AUTO_ANNOUNCE_OPTIONS.soon				= "预警：$spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.sooncount		= "预警：$spell:%s(带计数)"
@@ -563,20 +559,33 @@ L.COMBAT_RES_TIMER_TEXT	= "下一次可用战复"
 L.TIMER_RESPAWN		= "%s 刷新"
 
 L.LAG_CHECKING				= "延时检测请稍后... "
-L.LAG_HEADER					=  L.DEADLY_BOSS_MODS .. " - 延时检测"
+L.LAG_HEADER					= L.DEADLY_BOSS_MODS .. " - 延时检测"
 L.LAG_ENTRY					= "%s：世界延时[%d毫秒] / 本地延时[%d毫秒]"
 L.LAG_FOOTER					= "未反馈此次检测的团员:%s"
 
 L.DUR_CHECKING				= "全团装备耐久度检测请稍后... "
-L.DUR_HEADER					=  L.DEADLY_BOSS_MODS .. "- 装备耐久度检测结果"
+L.DUR_HEADER					= L.DEADLY_BOSS_MODS .. "- 装备耐久度检测结果"
 L.DUR_ENTRY					= "%s: %d 耐久度 / %s件装备损坏"
 L.DUR_FOOTER					= "未反馈此次检测的团员:%s"
 
 --LDB
 L.LDB_TOOLTIP_HELP1	= "左键 打开" .. L.DBM
 L.LDB_TOOLTIP_HELP2	= "右键 启用安静模式"
-L.SILENTMODE_IS     = "静音模式为："
+L.SILENTMODE_IS		= "静音模式为："
 
 L.LDB_LOAD_MODS		= "载入首领模块"
 
 L.LDB_ENABLE_BOSS_MOD	= "启用首领模块"
+
+L.WORLD_BUFFS.hordeOny		 = "部落的人民，奥格瑞玛的居民，来吧，聚集在一起，欢庆部落英雄的诞生"
+L.WORLD_BUFFS.allianceOny	 = "暴风城的城民和盟友们，今天，有人创造了历史"
+L.WORLD_BUFFS.hordeNef		 = "奈法利安被杀掉了！奥格瑞玛的居民"
+L.WORLD_BUFFS.allianceNef	 = "联盟的人民们，黑石领主已经被干掉了！"
+L.WORLD_BUFFS.zgHeart		 = "我们就要摆脱夺灵者的威胁了，只差最后一步……"
+L.WORLD_BUFFS.zgHeartBooty	 = "夺灵者已经被打败了！我们不再有危险了！"
+L.WORLD_BUFFS.zgHeartYojamba = "开始仪式，我的仆从们。我们必须把哈卡完全打回扭曲虚空中！"
+L.WORLD_BUFFS.rendHead		 = "那个假的酋长，雷德·黑手，已经倒下了！"
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 		= "世界首领"
+L.SCENARIO_STAGE			= "阶段%d"
