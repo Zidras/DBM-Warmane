@@ -111,6 +111,7 @@ L.SOUNDKIT_MIGRATION			= "한개 이상의 알림/특수 알림 효과음이 호
 
 L.WORLDBOSS_ENGAGED			= "당신이 속한 서버에서 %s 전투가 %s 퍼센트의 체력으로 시작된 것 같습니다. (%s|1이;가; 전송)"
 L.WORLDBOSS_DEFEATED			= "당신이 속한 서버에서 %s|1이;가; 잡힌 것 같습니다. (%s|1이;가; 전송)"
+L.WORLDBUFF_STARTED			= "%s 버프가 당신이 속한 서버의 %s 진영에서 시작됐습니다. (%s|1이;가; 받음)"
 
 L.TIMER_FORMAT_SECS			= "%.2f초"
 L.TIMER_FORMAT_MINS			= "%d분"
@@ -267,10 +268,6 @@ L.TIMER_USAGE	= {
 L.ERROR_NO_PERMISSION				= "이 명령어를 실행하기 위한 권한을 가지고 있지 않습니다."
 L.TIME_TOO_SHORT					= "풀링 타이머는 3초 이상으로 설정해야 합니다."
 
---Retail Globals
-L.RAID_INFO_WORLD_BOSS 		= "야외 우두머리"
---Retail Globals end
-
 L.BREAK_USAGE				= "쉬는 시간은 60분을 초과할 수 없습니다. 쉬는 시간은 초단위가 아니라 분단위로 입력해야 합니다."
 L.BREAK_START				= "쉬는 시간 시작 -- %s 받았습니다! (%s|1이;가; 전송)"
 L.BREAK_MIN					= "%s분 후 쉬는 시간이 끝납니다!"
@@ -298,7 +295,7 @@ L.AUTO_ANNOUNCE_TEXTS.targetcount	= "%s (%%s): >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.ends			= "%s 종료"
 L.AUTO_ANNOUNCE_TEXTS.endtarget		= "%s 종료: >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades			= "%s 사라짐"
-L.AUTO_ANNOUNCE_TEXTS.adds			= "%s 남은 수: %%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft			= "%s 남은 수: %%d"
 L.AUTO_ANNOUNCE_TEXTS.cast			= "%s 시전: %.1f초"
 L.AUTO_ANNOUNCE_TEXTS.soon			= "곧 %s"
 L.AUTO_ANNOUNCE_TEXTS.sooncount		= "곧 %s (%%s)"
@@ -320,7 +317,7 @@ L.AUTO_ANNOUNCE_OPTIONS.spell		= "$spell:%s 경고 보기"
 L.AUTO_ANNOUNCE_OPTIONS.ends			= "$spell:%s 종료시 경고 보기"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget	= "$spell:%s 종료시 경고 보기"
 L.AUTO_ANNOUNCE_OPTIONS.fades		= "$spell:%s|1이;가; 사라졌을 때 경고 보기"
-L.AUTO_ANNOUNCE_OPTIONS.adds			= "$spell:%s의 남은 수 알림 보기"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft			= "$spell:%s의 남은 수 알림 보기"
 L.AUTO_ANNOUNCE_OPTIONS.cast			= "$spell:%s 시전시 경고 보기"
 L.AUTO_ANNOUNCE_OPTIONS.soon		= prewarnOption
 L.AUTO_ANNOUNCE_OPTIONS.sooncount	= prewarnOption
@@ -563,3 +560,16 @@ L.SILENTMODE_IS					= "조용함 모드 "
 L.LDB_LOAD_MODS		= "보스 모드 로드"
 
 L.LDB_ENABLE_BOSS_MOD	= "보스 모드 사용"
+
+L.WORLD_BUFFS.hordeOny		= "호드의 백성들이여, 오그리마의 주민들이여, 모두 와서 호드의 영웅을 찬양하라."
+L.WORLD_BUFFS.allianceOny	= "스톰윈드의 주민들과 모든 얼라이언스여! 오늘, 역사가 이루어졌노라."
+L.WORLD_BUFFS.hordeNef		= "네파리안이 쓰러졌다! 오그리마의 백성들이여"
+L.WORLD_BUFFS.allianceNef	= "얼라이언스의 시민들이여, 검은바위부족의 군주가 쓰러졌다!"
+L.WORLD_BUFFS.zgHeart		= "이제 한 가지 일만 더 하면 영혼의 약탈자의 위협을 완전히 제거할 수 있겠군..."
+L.WORLD_BUFFS.zgHeartBooty	= "공포의 혈신, 영혼의 약탈자 학카르가 패했군! 이제 더 이상 두려워할 필요 없어!"
+L.WORLD_BUFFS.zgHeartYojamba	= "나의 종복들이여, 의식을 시작하라! 학카르의 심장을 다시 공허의 차원으로 쫓아내야 한다!"
+L.WORLD_BUFFS.rendHead		= "가짜 대족장 렌드 블랙핸드가 쓰러졌도다!"
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 		= "야외 우두머리"
+L.SCENARIO_STAGE			= "%d단계"

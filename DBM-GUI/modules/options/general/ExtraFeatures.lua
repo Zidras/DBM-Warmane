@@ -19,13 +19,25 @@ bossLoggingArea:CreateCheckButton(L.AutologBosses, true, nil, "AutologBosses")
 if _G["Transcriptor"] then
 	bossLoggingArea:CreateCheckButton(L.AdvancedAutologBosses, true, nil, "AdvancedAutologBosses")
 end
-bossLoggingArea:CreateCheckButton(L.RecordOnlyBosses, true, nil, "RecordOnlyBosses")
-bossLoggingArea:CreateCheckButton(L.LogOnlyNonTrivial, true, nil, "LogOnlyNonTrivial")
+
+local bossLoggingFilters		= extraFeaturesPanel:CreateArea(L.Area_AutoLoggingFilters)
+bossLoggingFilters:CreateCheckButton(L.RecordOnlyBosses, true, nil, "RecordOnlyBosses")
+bossLoggingFilters:CreateCheckButton(L.DoNotLogLFG, true, nil, "DoNotLogLFG")
+
+local bossLoggingContent		= extraFeaturesPanel:CreateArea(L.Area_AutoLoggingContent)
+bossLoggingContent:CreateCheckButton(L.LogCurrentMythicRaids, true, nil, "LogCurrentMythicRaids")
+bossLoggingContent:CreateCheckButton(L.LogCurrentRaids, true, nil, "LogCurrentRaids")
+bossLoggingContent:CreateCheckButton(L.LogTWRaids, true, nil, "LogTWRaids")
+bossLoggingContent:CreateCheckButton(L.LogTrivialRaids, true, nil, "LogTrivialRaids")
+bossLoggingContent:CreateCheckButton(L.LogCurrentMPlus, true, nil, "LogCurrentMPlus")
+bossLoggingContent:CreateCheckButton(L.LogCurrentMythicZero, true, nil, "LogCurrentMythicZero")
+bossLoggingContent:CreateCheckButton(L.LogTWDungeons, true, nil, "LogTWDungeons")
+bossLoggingContent:CreateCheckButton(L.LogCurrentHeroic, true, nil, "LogCurrentHeroic")
 
 local thirdPartyArea = extraFeaturesPanel:CreateArea(L.Area_3rdParty)
-if _G["oRA3Frame"] then
-	thirdPartyArea:CreateCheckButton(L.oRA3AnnounceConsumables, true, nil, "oRA3AnnounceConsumables")
-elseif _G["BigBrother"] and type(BigBrother.ConsumableCheck) == "function" then
+--if _G["oRA3Frame"] then
+--	thirdPartyArea:CreateCheckButton(L.oRA3AnnounceConsumables, true, nil, "oRA3AnnounceConsumables")
+if _G["BigBrother"] and type(BigBrother.ConsumableCheck) == "function" then
 	thirdPartyArea:CreateCheckButton(L.ShowBBOnCombatStart, true, nil, "ShowBigBrotherOnCombatStart")
 	thirdPartyArea:CreateCheckButton(L.BigBrotherAnnounceToRaid, true, nil, "BigBrotherAnnounceToRaid")
 end

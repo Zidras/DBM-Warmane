@@ -11,7 +11,7 @@ local unpack = unpack
 local floor, fmod, modf = math.floor, math.fmod, math.modf
 local strsplit = strsplit
 local L = DBM_CORE_L
-local LSM = DBM.LSM
+local LSM = LibStub("LibSharedMedia-3.0")
 local GetTime = GetTime
 local GetBattlefieldScore, GetNumBattlefieldScores, GetUnitName, UnitFactionGroup = GetBattlefieldScore, GetNumBattlefieldScores, GetUnitName, UnitFactionGroup
 local function GetBattlefieldFaction(unit) -- workaround to detect faction in Cross-Faction BG

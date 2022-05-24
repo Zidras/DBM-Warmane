@@ -87,8 +87,9 @@ L.ALLMOD_DEFAULT_LOADED		= "Les options par défaut pour tous les mods de cette 
 L.ALLMOD_STATS_RESETED		= "Toutes les stats de tous les mods ont été réinitialisés."
 L.MOD_DEFAULT_LOADED			= "Les options par défaut pour ce combat ont été chargés."
 
-L.WORLDBOSS_ENGAGED          = "%s a probablement été engagé sur votre royaume à %s de vie. (Envoyé par %s)"
-L.WORLDBOSS_DEFEATED         = "%s a probablement été tué sur votre royaume (Envoyé par %s)."
+L.WORLDBOSS_ENGAGED		  = "%s a probablement été engagé sur votre royaume à %s de vie. (Envoyé par %s)"
+L.WORLDBOSS_DEFEATED		 = "%s a probablement été tué sur votre royaume (Envoyé par %s)."
+L.WORLDBUFF_STARTED			= "%s a commencé sur votre royaume depuis la faction de %s (Envoyé par %s)."
 
 L.TIMER_FORMAT_SECS			= "%.2f |4seconde:secondes;"
 L.TIMER_FORMAT_MINS			= "%d |4minute:minutes;"
@@ -215,10 +216,6 @@ L.TIMER_USAGE	= {
 
 L.ERROR_NO_PERMISSION				= "Vous n'avez pas la permission requise pour faire cela."
 
---Retail Globals
-L.RAID_INFO_WORLD_BOSS 		= "Boss hors instance"
---Retail Globals end
-
 L.BREAK_USAGE				= "Les timers de pause ne peuvent pas durer plus de 60 minutes. Assurez vous de mettre le temps en minutes et pas secondes."
 L.BREAK_START				= "La pause commence maintenant -- vous avez %s minute(s)!"
 L.BREAK_MIN					= "Fin de la pause dans %s minute(s) !"
@@ -243,7 +240,7 @@ L.AUTO_ANNOUNCE_TEXTS.spell		= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends		= "%s s'est terminé"
 L.AUTO_ANNOUNCE_TEXTS.endtarget	= "%s s'est terminé: >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades		= "%s s'est dissipé"
-L.AUTO_ANNOUNCE_TEXTS.adds		= "%s restant: %%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft		= "%s restant: %%d"
 L.AUTO_ANNOUNCE_TEXTS.cast		= "Incantation %s: %.1f sec"
 L.AUTO_ANNOUNCE_TEXTS.soon		= "%s imminent"
 L.AUTO_ANNOUNCE_TEXTS.prewarna	= "%s de %s"
@@ -259,7 +256,7 @@ L.AUTO_ANNOUNCE_OPTIONS.spell		= "Alerte concernant $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.ends        = "Affiche une alerte lorsque $spell:%s se termine"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget   = "Affiche une alerte lorsque $spell:%s se termine"
 L.AUTO_ANNOUNCE_OPTIONS.fades       = "Affiche une alerte lorsque $spell:%s se dissipe"
-L.AUTO_ANNOUNCE_OPTIONS.adds		= "Alerte indiquant le nombre restant de : $spell:%s"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft		= "Alerte indiquant le nombre restant de : $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.cast		= "Alerte lorsque $spell:%s est incanté"
 L.AUTO_ANNOUNCE_OPTIONS.soon		= prewarnOption
 L.AUTO_ANNOUNCE_OPTIONS.prewarn		= prewarnOption
@@ -376,11 +373,11 @@ L.AUTO_YELL_ANNOUNCE_TEXT.position 	= "%s %%s sur {rt%%d}"..UnitName("player")..
 
 L.AUTO_HUD_OPTION_TEXT			= "Afficher la map HUD pour $spell:%s"
 L.AUTO_HUD_OPTION_TEXT_MULTI		= "Afficher la map HUD pour diverses activités"
-L.AUTO_RANGE_OPTION_TEXT         = "Afficher la fênetre des distances (%s) pour $spell:%s"--string used for range so we can use things like "5/2" as a value for that field
-L.AUTO_RANGE_OPTION_TEXT_SHORT   = "Afficher la fênetre des distances (%s)"--For when a range frame is just used for more than one thing
+L.AUTO_RANGE_OPTION_TEXT		= "Afficher la fênetre des distances (%s) pour $spell:%s"--string used for range so we can use things like "5/2" as a value for that field
+L.AUTO_RANGE_OPTION_TEXT_SHORT	= "Afficher la fênetre des distances (%s)"--For when a range frame is just used for more than one thing
 L.AUTO_RRANGE_OPTION_TEXT		= "Afficher la fênetre des distances inversée (%s) pour $spell:%s"--Reverse range frame (green when players in range, red when not)
 L.AUTO_RRANGE_OPTION_TEXT_SHORT	= "Afficher la fênetre des distances inversée (%s)"
-L.AUTO_INFO_FRAME_OPTION_TEXT    = "Afficher la fênetre d'information pour $spell:%s" --What frame is this?
+L.AUTO_INFO_FRAME_OPTION_TEXT	= "Afficher la fênetre d'information pour $spell:%s" --What frame is this?
 L.AUTO_READY_CHECK_OPTION_TEXT   = "Jouer le son du ready check lorsque le boss est engagé (même si ce dernier n'est pas la cible)"
 
 --Sounds
@@ -416,11 +413,11 @@ L.ARROW_MOVABLE					= "Flèche mobile"
 L.ARROW_ERROR_USAGE	= {
 	"Utilisation de DBM-Arrow:",
 	"-----------------",
-	"/dbm arrow <x> <y>:  crée une flèche qui pointe vers une position spécifique (0 < x/y < 100)",
+	"/dbm arrow <x> <y>: crée une flèche qui pointe vers une position spécifique (0 < x/y < 100)",
 	"/dbm arrow map <x> <y>: Crée une flèche qui pointe vers une position spécifique (en utilisant les coordonnées sur la carte)",
-	"/dbm arrow <player>:  Crée une flèche qui pointe vers un joueur spécifique de votre groupe ou raid",
-	"/dbm arrow hide:  Masque la flèche",
-	"/dbm arrow move:  Rend la flèche mobile"
+	"/dbm arrow <player>: Crée une flèche qui pointe vers un joueur spécifique de votre groupe ou raid",
+	"/dbm arrow hide: Masque la flèche",
+	"/dbm arrow move: Rend la flèche mobile"
 }
 
 L.SPEED_KILL_TIMER_TEXT	= "Record à battre"
@@ -428,10 +425,23 @@ L.SPEED_CLEAR_TIMER_TEXT  = "Meilleur clean"
 L.COMBAT_RES_TIMER_TEXT	= "Prochaine charge de rez en combat"
 L.TIMER_RESPAWN		= "%s Réapparition"
 
-L.LAG_CHECKING               = "Vérification de la latence du raid..."
-L.LAG_HEADER                 = "Deadly Boss Mods - Résultats sur la latence"
-L.LAG_ENTRY                  = "%s: délai monde [%d ms] / délai domicile [%d ms]"
-L.LAG_FOOTER                 = "Pas de réponse: %s"
+L.LAG_CHECKING			   = "Vérification de la latence du raid..."
+L.LAG_HEADER				 = "Deadly Boss Mods - Résultats sur la latence"
+L.LAG_ENTRY				  = "%s: délai monde [%d ms] / délai domicile [%d ms]"
+L.LAG_FOOTER				 = "Pas de réponse: %s"
 
 --LDB
 L.SILENTMODE_IS		= "Le mode silencieux est "
+
+L.WORLD_BUFFS.hordeOny		= "Peuple de la Horde, citoyens d’Orgrimmar, venez, rassemblez-vous et célébrez un héros de la Horde"
+L.WORLD_BUFFS.allianceOny	= "Citoyens et alliés de Stormwind, ce jour est historique."
+L.WORLD_BUFFS.hordeNef		= "NEFARIAN A ÉTÉ TUÉ ! Peuple d'Orgrimmar"
+L.WORLD_BUFFS.allianceNef	= "Citoyens de l'Alliance, le seigneur du clan Blackrock a été tué !"
+L.WORLD_BUFFS.zgHeart		= "Il ne reste plus qu'une étape avant que prenne fin la menace de l'Écorcheur d'âmes"
+L.WORLD_BUFFS.zgHeartBooty	= "Le Dieu sanglant, l'Écorcheur d'âmes, a été vaincu ! Nous ne sommes plus menacés !"
+L.WORLD_BUFFS.zgHeartYojamba	= "Commencez le rituel, mes serviteurs. Nous devons renvoyer le cœur d'Hakkar dans le vide !"
+L.WORLD_BUFFS.rendHead		= "Le faux chef Rend Blackhand est tombé !"
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS		= "Boss hors instance"
+L.SCENARIO_STAGE			= "Phase %d"

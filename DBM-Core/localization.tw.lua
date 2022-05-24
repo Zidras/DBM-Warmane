@@ -110,6 +110,7 @@ L.SOUNDKIT_MIGRATION			= "您的一個或多個警告/特別警告音效被重�
 
 L.WORLDBOSS_ENGAGED				= "在你的伺服器上的%s已在百分之%s時開戰(%s發送)。"
 L.WORLDBOSS_DEFEATED			= "在你的伺服器上的%s已被擊敗(%s發送)。"
+L.WORLDBUFF_STARTED				= "在你的伺服器上的%s增益已由%s陣營開始(%s發送)。"
 
 L.TIMER_FORMAT_SECS				= "%.2f秒"
 L.TIMER_FORMAT_MINS				= "%d分鐘"
@@ -270,10 +271,6 @@ L.TIMER_USAGE	= {
 L.ERROR_NO_PERMISSION		= "無權進行此操作。"
 L.TIME_TOO_SHORT			= "備戰計時器必須超過3秒。 "
 
---Retail Globals
-L.RAID_INFO_WORLD_BOSS 			= "世界首領"
---Retail Globals end
-
 L.BREAK_USAGE					= "休息時間不可以長過60分鐘。請確定您輸入的時間是分鐘而不是秒。"
 L.BREAK_START					= "現在開始休息-你有%s分鐘! (由 %s 發送)"
 L.BREAK_MIN						= "%s分鐘後休息時間結束!"
@@ -301,7 +298,7 @@ L.AUTO_ANNOUNCE_TEXTS.spell					= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends 					= "%s結束"
 L.AUTO_ANNOUNCE_TEXTS.endtarget				= "%s結束:>%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades					= "%s消退"
-L.AUTO_ANNOUNCE_TEXTS.adds					= "%s還剩下:%%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft					= "%s還剩下:%%d"
 L.AUTO_ANNOUNCE_TEXTS.cast					= "施放%s:%.1f秒"
 L.AUTO_ANNOUNCE_TEXTS.soon					= "%s即將到來"
 L.AUTO_ANNOUNCE_TEXTS.sooncount				= "%s (%%s)即將到來"
@@ -324,7 +321,7 @@ L.AUTO_ANNOUNCE_OPTIONS.spell				= "警告：$spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.ends				= "警告：$spell:%s結束"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget			= "警告：$spell:%s結束"
 L.AUTO_ANNOUNCE_OPTIONS.fades				= "警告：$spell:%s消退"
-L.AUTO_ANNOUNCE_OPTIONS.adds				= "警告：$spell:%s剩餘數量"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft				= "警告：$spell:%s剩餘數量"
 L.AUTO_ANNOUNCE_OPTIONS.cast				= "警告：$spell:%s的施放"
 L.AUTO_ANNOUNCE_OPTIONS.soon				= prewarnOption
 L.AUTO_ANNOUNCE_OPTIONS.sooncount			= prewarnOption
@@ -586,3 +583,17 @@ L.LDB_TOOLTIP_HELP1				= "點擊開啟" .. L.DBM
 L.SILENTMODE_IS                 = "無聲模式是 "
 L.LDB_LOAD_MODS					= "載入首領模組"
 L.LDB_ENABLE_BOSS_MOD			= "啟用首領模組"
+
+--Localizers, do not copy entire table, follow same guidelines as other tables, overwrite each entry with L.WORLD_BUFFS.hordeOny = "stuff" for example.
+L.WORLD_BUFFS.hordeOny						= "部落的人民，奧格瑪的城民，來吧，聚集到一起歡慶部落英雄的誕生。"
+L.WORLD_BUFFS.allianceOny					= "暴風城的城民和盟友們，今天，有人創造了歷史。"
+L.WORLD_BUFFS.hordeNef						= "奈法利安被!@#掉了！奧格瑪的人們" -- this is probably not correct (need to get rid of @#)
+L.WORLD_BUFFS.allianceNef					= "聯盟的人民們，黑石領主已經被幹掉了！"
+L.WORLD_BUFFS.zgHeart						= "只差最後一步，我們就可以擺脫靈魂掠奪者的威脅了……"
+L.WORLD_BUFFS.zgHeartBooty					= "靈魂掠奪者血神已經被打敗了！我們不再有危險了！"
+L.WORLD_BUFFS.zgHeartYojamba				= "開始儀式，我的僕從們。我們必須把哈卡完全打回扭曲虛空中！"
+L.WORLD_BUFFS.rendHead						= "那個假的酋長，雷德·黑手，已經倒下了！"
+
+--Retail Globals
+L.RAID_INFO_WORLD_BOSS 			= "世界首領"
+L.SCENARIO_STAGE				= "階段%d"

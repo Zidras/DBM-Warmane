@@ -272,16 +272,11 @@ do
 
 	local function MixinCountTable(baseTable)
 		local result = baseTable
-		-- for _, count in pairs(DBM:GetCountSounds()) do
-		-- 	tinsert(result, {
-		-- 		text	= count.text,
-		-- 		value	= count.path
-		-- 	})
-		-- end
-		for i=1,#DBM.Counts do
-			local mediatext = DBM.Counts[i].text
-			local mediapath = DBM.Counts[i].path
-			tinsert(result, {text = mediatext, value = mediapath})
+		for _, count in pairs(DBM:GetCountSounds()) do
+			tinsert(result, {
+				text	= count.text,
+				value	= count.path
+			})
 		end
 		return result
 	end
