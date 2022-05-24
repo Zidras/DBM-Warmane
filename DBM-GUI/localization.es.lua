@@ -51,15 +51,6 @@ L.TabCategory_Options		= "Opciones generales"
 L.Area_BasicSetup			= "Consejos básicos para configurar DBM"
 L.Area_ModulesForYou		= "Guía de módulos"
 L.Area_ProfilesSetup		= "Guía de uso de perfiles de DBM"
-
-L.PizzaTimer_Headline		= 'Crear "Cronomentro"'
-L.PizzaTimer_Title			= 'Nombre (ej. "Pizza!")'
-L.PizzaTimer_Hours			= "Horas"
-L.PizzaTimer_Mins			= "Min"
-L.PizzaTimer_Secs			= "Seg"
-L.PizzaTimer_ButtonStart	= "Iniciar"
-L.PizzaTimer_BroadCast		= "Anunciar a Banda"
-
 -- Panel: Core & GUI
 L.Core_GUI 					= "Generales e interfaz"
 L.General 					= "Opciones generales de DBM"
@@ -231,15 +222,9 @@ L.CountdownVoice2			= "Voz secundaria para cuentas atrás"
 L.CountdownVoice3			= "Voz terciaria para cuentas atrás"
 L.VoicePackChoice			= "Paquete de voz para alertas de voz"
 L.Area_CountdownOptions		= "Opciones de cuenta atrás"
-L.Area_VoicePackOptions		= "Opciones de paquetes de voz (archivos de terceros)"
-L.SpecWarn_NoSoundsWVoice	= "Filtrar sonidos de avisos especiales para avisos que también tienen alertas de voz"
 L.SWFNever					= "Nunca"
-L.SWFDefaultOnly			= "Cuando los avisos especiales usen sonidos por defecto"
-L.SWFAll					= "Cuando los avisos especiales usen cualquier sonido"
 L.SpecWarn_AlwaysVoice		= "Reproducir siempre todas las alertas de voz (ignora las opciones de jefe; útil para líderes de banda)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
-L.Area_GetVEM				= "Descargar VEM Voice Pack"
-L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-vem|r"
 L.Area_BrowseOtherVP		= "Explorar otros paquetes de voz en Curse"
 L.BrowseOtherVPs			= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "Explorar otros paquetes de voz de cuenta atrás en Curse"
@@ -268,7 +253,6 @@ L.HP_ShowDemo				= "Ver barra de vida"
 L.BarWidth					= "Ancho de la barra: %d"
 
 -- Tab: Timers
-L.BarSetup					= "Estilo de barra"
 L.TabCategory_Timers		= "Temporizadores"
 L.Area_ColorBytype			= "Guía para colores de barras por tipo"
 -- Panel: Color by Type
@@ -304,7 +288,6 @@ L.BarEndColorUI				= "Color final\n(usuario)"
 L.Bar7Header				= "Opciones de barras de usuario"
 L.Bar7ForceLarge			= "Usar siempre barras grandes"
 L.Bar7CustomInline			= "Usar icono '!' personalizado"
-L.Bar7Footer				= "(La barra ficticia no se actualiza en vivo)"
 --Dropdown Options
 L.CBTGeneric				= "Genérico"
 L.CBTAdd					= "Esbirro"
@@ -355,7 +338,6 @@ L.Panel_SpamFilter			= "Funciones de DBM"
 L.Area_SpamFilter_Anounces	= "Opciones de filtros globales de avisos"
 L.SpamBlockNoShowAnnounce	= "Ocultar anuncios generales y desactivar los sonidos asociados"
 L.SpamBlockNoShowTgtAnnounce= "Ocultar anuncios generales de objetivos y desactivar los sonidos asociados (la opción anterior anula esta)"
-L.SpamBlockNoSpecWarn		= "No muestrar advertencias especiales ni reproducir sonidos de advertencia especiales"
 L.SpamBlockNoSpecWarnText	= "Ocultar avisos especiales pero sí reproducir sonidos de paquetes de voces (la opción anterior anula esta)"
 L.SpamBlockNoSpecWarnFlash	= "Desactivar destellos de avisos especiales"
 L.SpamBlockNoSpecWarnSound	= "Desactivar sonidos de avisos especiales (no afecta a los paquetes de voz)"
@@ -375,7 +357,6 @@ L.SpamBlockNoHudMap			= "Ocultar indicadores"
 L.SpamBlockNoNameplate		= "Ocultar auras de placas de nombres (las deshabilita por completo)"
 L.SpamBlockNoYells			= "Desactivar envío automático de mensajes en el chat"
 L.SpamBlockNoNoteSync		= "Rechazar automáticamente notas compartidas"
-L.SpamBlockNoReminders		= "No muestrar ningún mensaje de inicio de sesión, recomendación, mod que falte o revisión"
 
 L.Area_Restore				= "Opciones de restauración"
 L.SpamBlockNoIconRestore	= "Restaurar iconos al acabar el encuentro"
@@ -406,6 +387,7 @@ L.DontPlayPTCountdown		= "Desactivar sonidos de cuenta atrás de temporizadores 
 L.PT_Threshold				= "Ocultar temporizadores por encima de: %d s"
 
 L.Area_TimerTracker			= "Opciones de TimerTracker"
+L.PlayTT					= "Habilitar TimerTracker"
 L.PlayTTCountdown			= "Reproducir sonidos de TimerTracker"
 L.PlayTTCountdownFinished	= "Reproducir sonidos de TimerTracker finalizado"
 

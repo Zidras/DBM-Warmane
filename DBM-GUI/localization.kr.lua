@@ -53,15 +53,6 @@ L.TabCategory_Options		= "일반 설정"
 L.Area_BasicSetup			= "DBM 초기 설정 팁"
 L.Area_ModulesForYou		= "나에게 맞는 DBM 모듈은 어떤게 있을까?"
 L.Area_ProfilesSetup		= "DBM 프로필 사용법 가이드"
-
-L.PizzaTimer_Headline		= '"Pizza Timer" 만들기'
-L.PizzaTimer_Title			= '이름 (예 : "Pizza!")'
-L.PizzaTimer_Hours			= "시"
-L.PizzaTimer_Mins			= "분"
-L.PizzaTimer_Secs			= "초"
-L.PizzaTimer_ButtonStart	= "타이머 시작"
-L.PizzaTimer_BroadCast		= "공격대에 알리기"
-
 -- Panel: Core & GUI
 L.Core_GUI 					= "핵심 모드와 GUI"
 L.General 					= "일반 설정"
@@ -112,11 +103,24 @@ L.SKT_Enabled				= "가능할 경우 현재 전투의 최고 승리 기록 타�
 L.ShowRespawn				= "전멸 후 보스 재생성 타이머 표시"
 L.ShowQueuePop				= "입장 수락 남은 시간 타이머 표시 (공격대 찾기,전장 등)"
 --
-L.Area_AutoLogging			= "자동 전투 기록 설정"
-L.AutologBosses				= "블리자드 전투 로그를 사용해 자동으로 던전/레이드 기록"
-L.AdvancedAutologBosses		= "Transcriptor를 사용해 자동으로 던전/레이드 기록"
-L.RecordOnlyBosses			= "보스만 기록 (모든 일반몹은 제외됩니다. 보스 전투 시작 물약과 ENCOUNTER_START 이벤트를 기록하고 싶으면 '/dbm pull' 명령어를 사용하세요)"
-L.LogOnlyNonTrivial			= "주요 콘텐츠만 기록 (최신 확장팩 일반 이상 레이드와 신화+ 던전)"
+--Auto Logging: Logging toggles/types
+L.Area_AutoLogging			= "자동 전투 기록 켜기/끄기"
+L.AutologBosses				= "블리자드 전투 로그를 사용해 선택한 콘텐트를 자동으로 기록"
+L.AdvancedAutologBosses		= "Transcriptor를 사용해 선택한 콘텐트를 자동으로 기록"
+--Auto Logging: Global filter Options
+L.Area_AutoLoggingFilters	= "자동 기록 필터"
+L.RecordOnlyBosses			= "일반몹 기록 안함 (보스만 기록합니다. 보스전 시작 물약과 ENCOUNTER_START 이벤트를 기록하고 싶으면 '/dbm pull' 명령어를 사용하세요)"
+L.DoNotLogLFG				= "던전 찾기와 공격대 찾기 기록 안함 (대기열 등록 콘텐트)"
+--Auto Logging: Recorded Content types
+L.Area_AutoLoggingContent	= "자동으로 기록할 콘텐트"
+L.LogCurrentMythicRaids		= "현재 확장팩 신화 레이드"--Retail Only
+L.LogCurrentRaids			= "현재 확장팩 비 신화 레이드 (영웅, 일반 그리고 던전 찾기와 공찾 기록 안함 옵션이 꺼져있을 경우엔 공찾까지)"
+L.LogTWRaids				= "시간여행 또는 크로미의 시간 레이드"--Retail Only
+L.LogTrivialRaids			= "구 레이드 (이전 확장팩)"
+L.LogCurrentMPlus			= "현재 확장팩 신화+ 던전"--Retail Only
+L.LogCurrentMythicZero		= "현재 확장팩 신화 0단 던전"--Retail Only
+L.LogTWDungeons				= "시간여행 또는 크로미의 시간 레이드"--Retail Only
+L.LogCurrentHeroic			= "현재 확장팩 영웅 던전 (알림: 던전 찾기를 통해 영던을 돌면서 로그를 기록하고 싶다면 던전 찾기 기록 안함 옵션을 끄세요)"
 --
 L.Area_3rdParty				= "써드파티 애드온 설정"
 L.oRA3AnnounceConsumables	= "전투 시작시 oRA3 버프 검사 알림"
@@ -254,12 +258,8 @@ L.CountdownVoice3			= "3순위 초읽기 음성 설정"
 L.PullVoice					= "풀링 타이머 음성 설정"
 L.VoicePackChoice			= "음성 경고에 쓸 음성팩 설정"
 L.Area_CountdownOptions		= "초읽기 설정"
-L.Area_VoicePackOptions		= "음성팩 설정"
 L.Area_VoicePackReplace		= "기본 효과음 음성팩 대체 설정 (음성팩이 대체하는 경고의 기본 효과음이 재생되지 않습니다)"
-L.SpecWarn_NoSoundsWVoice	= "음성 경고가 있는 특수 알림의 효과음 재생"
 L.SWFNever					= "하지 않음"
-L.SWFDefaultOnly			= "특수 알림이 기본 효과음만 재생할 때 (사용자 지정 효과음은 계속 재생 허용)"
-L.SWFAll					= "특수 알림이 모든 효과음을 사용할 때"
 L.VPReplaceNote				= "알림: 음성팩은 절대 경고음을 변경하거나 삭제하지 않습니다.\n음성팩이 대체하는 효과음만 재생되지 않을 뿐입니다."
 L.ReplacesAnnounce			= "알림 효과음 대체 (알림: 페이즈 변경과 쫄 등장 이외에는 음성팩에서 사용되는 효과음이 극히 적습니다)"
 L.ReplacesSA1				= "특수 알림 1 효과음 대체 (나에 대한 알림 'pvpflag' 효과음)"
@@ -272,7 +272,6 @@ L.SpecWarn_AlwaysVoice		= "모든 음성 경고 재생 (특수 알림을 꺼놔�
 L.VPDontMuteSounds			= "음성팩 사용시 DBM 경고음을 끄지 않음 (두가지 경고음 모두 듣고싶을때만 사용)"
 L.Area_VPLearnMore			= "음성팩에 대한 정보 및 관련 설정 사용법 알아보기"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
-L.Area_GetVEM				= "VEM 음성팩 받기"
 L.Area_BrowseOtherVP		= "Curse에 올라와있는 다른 음성팩 보기"
 L.Area_BrowseOtherCT		= "Curse에 올라와있는 카운트다운 팩 보기"
 
@@ -337,7 +336,6 @@ L.BarEndColorUI				= "종료 색상\n(사용자)"
 L.Bar7Header				= "사용자 바 설정"
 L.Bar7ForceLarge			= "항상 커다란 바 사용"
 L.Bar7CustomInline			= "바 안쪽에 사용자 지정 '!' 아이콘 사용"
-L.Bar7Footer				= "(더미 바는 라이브 업데이트가 되지 않습니다)"
 --Dropdown Options
 L.CBTGeneric				= "일반"
 L.CBTAdd					= "쫄 등장"
@@ -352,7 +350,6 @@ L.CVoiceTwo					= "초읽기 음성 2"
 L.CVoiceThree				= "초읽기 음성 3"
 
 -- Panel: Timers
-L.BarSetup					= "바 스타일"
 L.Panel_Appearance	 		= "바 외형"
 L.Panel_Behavior	 		= "바 작동 방식"
 L.AreaTitle_BarSetup		= "바 외형 설정"
@@ -372,6 +369,8 @@ L.BarSpark					= "바 끝 강조"
 L.BarFlash					= "만료 전에 바 점멸"
 L.BarSort					= "남은 시간 기준으로 정렬"
 L.BarColorByType			= "종류별로 색상 변경"
+L.Highest					= "가장 높은 순"
+L.Lowest					= "가장 낮은 순"
 L.NoBarFade					= "시작/종료시 색상 변화를 그라데이션 효과 대신 작은/큰 바 색을 사용"
 L.BarInlineIcons			= "바 안쪽에 아이콘 사용"
 L.ShortTimerText			= "짧은 타이머 텍스트 사용 (사용 가능할 때만)"
@@ -407,7 +406,6 @@ L.SpamBlockNoSpecWarnText	= "특수 알림 텍스트 표시 안함"
 L.SpamBlockNoSpecWarnFlash	= "특수 알림에 화면 점멸 사용 안함"
 L.SpamBlockNoSpecWarnVibrate		= "특수 알림에 컨트롤러 진동 안함"
 L.SpamBlockNoSpecWarnSound	= "특수 알림 효과음 재생 안함 (음성 경고 메뉴에서 설정했다면 음성팩은 계속 작동)"
-L.SpamBlockNoTrivialSpecWarnSound	= "현재 레벨에 맞는 콘텐츠 이외에는 특수 알림 효과음 재생이나 화면 점멸 효과 사용 안함 (대신 사용자가 선택한 정규 알림 효과음 재생)"
 L.SpamBlockRaidWarning		= "다른 보스 모드가 알리는 경보 감추기"
 L.SpamBlockBossWhispers		= "전투 중 사용되는 DBM 경보 귓속말 감추기"
 
@@ -454,6 +452,7 @@ L.DontPlayPTCountdown		= "풀링/휴식/전투/사용자 지정 초읽기 전구
 L.PT_Threshold				= "휴식/전투/사용자 지정 타이머 초읽기 음성 재생 안함: %d초 까지"
 
 L.Area_TimerTracker			= "TimerTracker 옵션"
+L.PlayTT					= "TimerTracker 활성화"
 L.PlayTTCountdown			= "TimerTracker 카운트다운 사운드 재생"
 L.PlayTTCountdownFinished	= "TimerTracker 카운트다운 종료 사운드 재생"
 

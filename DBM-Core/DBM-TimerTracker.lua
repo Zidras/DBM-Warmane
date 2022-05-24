@@ -736,6 +736,7 @@ function TT:FreeTimerTrackerTimer(timer)
 end
 
 function TT:OnEvent(event, ...)
+	if not DBM.Options.PlayTT then return end
 	if event == "START_TIMER" then
 		local timerType, timeSeconds, totalTime  = ...
 		self:CreateTimer(timerType, timeSeconds + 0.1, totalTime + 0.1)

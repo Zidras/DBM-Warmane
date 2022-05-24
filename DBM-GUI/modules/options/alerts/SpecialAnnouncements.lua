@@ -131,7 +131,7 @@ end)
 durationSlider.myheight = 0
 
 local sounds = DBM_GUI:MixinSharedMedia3("sound", {
---	{text = L.NoSound, value = ""},
+	{text = L.NoSound, value = ""},
 	{ text = "Algalon: Beware!", value = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav" },
 	{ text = "BB Wolf: Run Away", value = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav" },
 	{ text = "Blizzard Raid Emote", value = "Interface\\AddOns\\DBM-Core\\sounds\\RetailSupport\\UI_RaidBossWhisperWarning.ogg" },

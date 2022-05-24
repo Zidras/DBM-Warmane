@@ -67,14 +67,6 @@ L.Button_InfoFrame			= "Zeige Infofenster"
 L.Button_TestBars			= "Starte Testbalken"
 L.Button_ResetInfoRange		= "Info-/Abstandsfenster zurücksetzen"
 
-L.PizzaTimer_Headline		= 'Erstelle einen "Pizza-Timer"'
-L.PizzaTimer_Title			= 'Name (z.b. "Pizza!")'
-L.PizzaTimer_Hours			= "Stunden"
-L.PizzaTimer_Mins			= "Min"
-L.PizzaTimer_Secs			= "Sek"
-L.PizzaTimer_ButtonStart	= "Starte Timer"
-L.PizzaTimer_BroadCast		= "Anderen Schlachtzugspielern anzeigen"
-
 -- Tab: Raidwarning
 L.Tab_RaidWarning 			= "Schlachtzugwarnungen"
 L.RaidWarning_Header		= "Einstellungen für Schlachtzugwarnungen"
@@ -118,7 +110,6 @@ L.DisableStatusWhisper 		= "Deaktiviere 'status'-Flüsteranfragen für die gesam
 L.DisableGuildStatus 		= "Deaktiviere das Senden von Fortschrittsmeldungen an die Gilde für die gesamte Gruppe (nur als Gruppenleiter)"
 
 -- Tab: Barsetup
-L.BarSetup					= "Balkenstil"
 L.TabCategory_Timers		= "Balkeneinstellungen"
 L.BarTexture				= "Balkentextur"
 L.BarStyle					= "Balkenstil"
@@ -150,7 +141,6 @@ L.BarEndColorUI				= "Endfarbe\n(Nutzer)"
 L.Bar7Header				= "Einstellungen für Nutzerbalken"
 L.Bar7ForceLarge			= "Nutze immer großen Balken"
 L.Bar7CustomInline			= "Zeichen '!' einbetten"
-L.Bar7Footer				= "(Testbalken wird nicht live aktualisiert)"
 --Dropdown Options
 L.CBTGeneric				= "Generisch"
 L.CBTAdd					= "Add"
@@ -222,15 +212,9 @@ L.CountdownVoice2			= "Sekundäre Stimme für Zählungen"
 L.CountdownVoice3			= "Tertiäre Stimme für Zählungen"
 L.VoicePackChoice			= "Sprachpack für gesprochene Warnungen"
 L.Area_CountdownOptions		= "Countdown-Einstellungen"
-L.Area_VoicePackOptions		= "Sprachpack-Einstellungen (Drittanbieter)"
-L.SpecWarn_NoSoundsWVoice	= "Filtere Spezialwarnungssounds für Warnungen, für die eine Sprachausgabe verfügbar ist..."
 L.SWFNever					= "nicht filtern"
-L.SWFDefaultOnly			= "Spezialwarnungen eingestellt auf den Standardsound (spielt benutzerdefinierte Sounds)"
-L.SWFAll					= "Spezialwarnungen eingestellt auf irgendeinen Sound"
 L.SpecWarn_AlwaysVoice		= "Spiele immer alle gesprochenen Warnungen (ignoriert Boss-spezifische Einstellung, nützlich für Schlachtzugsleiter)"
 
-L.Area_GetVEM				= "Hole VEM Sprachpack"
---L.VEMDownload
 L.Area_BrowseOtherVP		= "Suche andere Sprachpacks auf Curse"
 --L.BrowseOtherVPs
 L.Area_BrowseOtherCT		= "Suche Countdownpacks auf Curse"
@@ -263,7 +247,6 @@ L.Panel_SpamFilter			= "Deaktivierung von DBM-Funktionen"
 L.Area_SpamFilter_Anounces	= "Announce Global Disable & Filter Options"
 L.SpamBlockNoShowAnnounce	= "Zeige keinen Text und spiele keine Sounds für JEGLICHE allgemeine Meldungen"
 L.SpamBlockNoShowTgtAnnounce= "Zeige keinen Text und spiele keine Sounds für allgemeine ZIEL-Meldungen (wird durch obigen Filter überschrieben)"
-L.SpamBlockNoSpecWarn		= "Zeige keine Spezialwarnungen und spiele keine Spezialwarnungstöne ab"
 L.SpamBlockNoSpecWarnText	= "Zeige keinen Spezialwarnungstext, aber erlaube dennoch Sprachpacks (wird durch obigen Filter überschrieben)"
 
 L.Area_SpamFilter_Timers	= "Timer Global Disable & Filter Options"
@@ -279,7 +262,6 @@ L.SpamBlockNoHudMap			= "Zeige keine HudMap"
 L.SpamBlockNoNameplate		= "Zeige keine Namensplakettenauras"
 L.SpamBlockNoYells			= "Sende keine automatischen Schreie"
 L.SpamBlockNoNoteSync		= "Akzeptiere keine geteilten Notizen"
-L.SpamBlockNoReminders		= "Zeige keine Loginnachrichten, Empfehlungsmeldungen, fehlende Änderungsmeldungen oder Aktualisierungsmeldungen an"
 
 L.Area_Restore				= "DBM-Wiederherstellungseinstellungen (Setzen des vorherigen Nutzerzustands nach Mod-Ende)"
 L.SpamBlockNoIconRestore	= "Setze Markierungszeichen am Kampfende nicht auf den vorherigen Zustand zurück"
@@ -310,6 +292,7 @@ L.DontShowPTCountdownText	= "Zeige keinen optischen Countdown für Pull-Timer"
 L.PT_Threshold				= "Zeige keinen opt. Countd. für Pausen-/Kampf-/Nutzer-Timer über: %d"
 
 L.Area_TimerTracker			= "TimerTracker-Optionen"
+L.PlayTT					= "Aktiviere TimerTracker"
 L.PlayTTCountdown			= "TimerTracker-akustischen Countdown abspielen"
 L.PlayTTCountdownFinished	= "TimerTracker Countdown beendet akustischen abspielen"
 

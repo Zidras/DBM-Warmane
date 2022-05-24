@@ -61,15 +61,6 @@ L.TabCategory_Options	 	= "常规设置"
 L.Area_BasicSetup			= "初始 DBM 设置提示"
 L.Area_ModulesForYou		= "哪些 DBM 模块适合您?"
 L.Area_ProfilesSetup		= "DBM 配置文件指南"
-
-L.PizzaTimer_Headline		= '创建一个计时条'
-L.PizzaTimer_Title			= '名称（如“泡面倒计时”）'
-L.PizzaTimer_Hours			= "小时"
-L.PizzaTimer_Mins			= "分钟"
-L.PizzaTimer_Secs			= "秒"
-L.PizzaTimer_ButtonStart	= "开始计时"
-L.PizzaTimer_BroadCast		= "向团队广播"
-
 -- Panel: Core & GUI
 L.Core_GUI 					= "DBM核心设置"
 L.General 					= "DBM核心综合设置"
@@ -120,11 +111,22 @@ L.SKT_Enabled				= "总是显示最速胜利计时条(覆盖单独BOSS设置)"
 L.ShowRespawn				= "Boss战斗未完成时显示Boss刷新计时条"
 L.ShowQueuePop				= "显示随机小队/团队查找器确认计时条"
 --
-L.Area_AutoLogging			= "自动战斗日志选项"
+--Auto Logging: Logging toggles/types
+L.Area_AutoLogging			= "自动战斗日志开关"
 L.AutologBosses				= "自动采用官方格式记录日志。"
 L.AdvancedAutologBosses		= "自动采用 Transcriptor 记录日志"
-L.RecordOnlyBosses			= "只记录团队BOSS数据 (不记录其他数据，使用 /dbm pull 可提前记录并使得记录更准确，如提前偷药水或是召唤大军。)"
-L.LogOnlyNonTrivial			= "只记录团队Boss，而不记录随机团队/5人本/场景战役"
+--Auto Logging: Global filter Options
+L.Area_AutoLoggingFilters	= "自动记录选项"
+L.RecordOnlyBosses			= "不记录小怪数据 (只记录团队BOSS数据，使用 /dbm pull 可提前记录并使得记录更准确，如提前偷药水或是召唤大军。)"
+L.DoNotLogLFG				= "不记录随机5人本/团队副本"
+--Auto Logging: Recorded Content types
+L.Area_AutoLoggingContent	= "自动记录内容"
+L.LogCurrentRaids			= "当前等级团队副本"
+L.LogTWRaids				= "时光团队副本或通过克罗米进入的团队副本"--Retail Only
+L.LogTrivialRaids			= "低等级团队"
+L.LogCurrentMPlus			= "当前等级的M+5人本"--Retail Only
+L.LogTWDungeons				= "时光5人本或通过克罗米进入的5人本"--Retail Only
+L.LogCurrentHeroic			= "当前等级的英雄5人本"
 --
 L.Area_3rdParty				= "第三方插件选项"
 L.oRA3AnnounceConsumables	= "在战斗开始时通报oRA3消耗品检查"
@@ -258,12 +260,6 @@ L.PullVoice					= "设置开怪倒计时语音"
 L.VoicePackChoice			= "设置语音报警的语音包(快躲开！)"
 L.MissingVoicePack			= "缺少语音包 (%s)"
 L.Area_CountdownOptions		= "倒计时选项"
-L.Area_VoicePackOptions		= "语音包选项(第三方语音包)"
-L.SpecWarn_NoSoundsWVoice	= "当技能存在语音包语音时，屏蔽播放特殊警报声（当心，毁灭）"
-L.SWFNever					= "从不"
-L.SWFDefaultOnly			= "当特殊警报使用默认声音时(允许自定义语音包播放)"
-L.SWFAll					= "当特殊警报使用任何默认声音时"
-L.SpecWarn_AlwaysVoice		= "总是播放所有语音警报(覆盖Boss特定的选项,建议指挥使用)"
 --NEW OPTIONS INCOMING USING THESE
 L.Area_VoicePackReplace		= "语音包替换选项 (当语音包启用、静音以及需要替换)"
 L.VPReplaceNote				= "注意: 语音包永远不会更改或删除您的警报声音\n当替换语音包时，它们只是在静音状态。"
@@ -277,8 +273,6 @@ L.Area_VoicePackAdvOptions	= "语音包选项（第三方语音包）"
 L.SpecWarn_AlwaysVoice		= "总是播放所有语音警报(即使已禁用特殊警报，对团队领队是有用的，除此以外不建议使用)"
 L.VPDontMuteSounds			= "当使用语音包时禁用常规警报的静音(只有当您希望在警报期间同时听到两者时才使用此选项)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
-L.Area_GetVEM				= "获取夏一可语音包(普通话最新)"
-L.VEMDownload				= "|cFF73C2FBhttps://curseforge.com/wow/addons/dbm-voicepack-yike|r"
 L.Area_VPLearnMore          = "了解更多关于语音包以及如何使用这些选项的信息"
 L.VPLearnMore               = "|cFF73C2FBhttps://github.com/DeadlyBossMods/DBM-Retail/wiki/%5BGuide%5D-DBM-&-Voicepacks#2022-update|r"
 L.Area_BrowseOtherVP		= "获取其他语音包"
@@ -347,7 +341,6 @@ L.BarEndColorUI				= "结束颜色\n(自定义)"
 L.Bar7Header				= "自定义计时条选项"
 L.Bar7ForceLarge			= "总是使用大型计时条"
 L.Bar7CustomInline			= "使用自定义 '!' 图标"
-L.Bar7Footer				= "（虚拟栏不会实时更新）"
 --Dropdown Options
 L.CBTGeneric				= "通用"
 L.CBTAdd					= "小怪"
@@ -362,7 +355,6 @@ L.CVoiceTwo					= "倒数 2"
 L.CVoiceThree				= "倒数 3"
 
 -- Panel: Timers
-L.BarSetup					= "计时条样式"
 L.Panel_Appearance	 		= "计时条设置"
 L.Panel_Behavior	 		= "计时条特性"
 L.AreaTitle_BarSetup		= "计时条综合设置"
@@ -400,8 +392,6 @@ L.Panel_SpamFilter			= "DBM 全局过滤选项"
 L.Area_SpamFilter_Anounces	= "警报过滤选项"
 L.SpamBlockNoShowAnnounce	= "不显示警报或播放警报音效"
 L.SpamBlockNoShowTgtAnnounce= "不显示针对目标类型的警报或播放警报音效(上面那个优先级比这个高)"
-L.SpamBlockNoSpecWarnText	= "不显示特殊警报，但允许语音包(上面那个优先级比这个高)"
-L.SpamBlockNoSpecWarnFlash	= "不显示特殊警报屏幕闪烁"
 L.SpamBlockNoTrivialSpecWarnSound	= "如果相对你等级是不重要的内容则不播放特別警报音效 (播放使用选择的标准警报音效替代)"
 
 L.Area_SpamFilter_SpecRoleFilters	= "特殊警报过滤选项(控制DBM要怎么做)"
@@ -467,6 +457,7 @@ L.DontPlayPTCountdown		= "不播放开怪倒计时语音"
 L.PT_Threshold				= "不显示高于 %d 秒的倒计时动画"
 
 L.Area_TimerTracker			= "TimerTracker 选项"
+L.PlayTT					= "启用TimerTracker"
 L.PlayTTCountdown			= "播放 TimerTracker 倒计时声音"
 L.PlayTTCountdownFinished	= "播放 TimerTracker 倒计时完成声音"
 
