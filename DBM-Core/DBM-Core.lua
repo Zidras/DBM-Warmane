@@ -353,6 +353,7 @@ DBM.DefaultOptions = {
 	DontShowPTText = false,
 	DontShowPTNoID = false,
 	PTCountThreshold2 = 5,
+	PlayTT = true,
 	PlayTTCountdown = false,
 	PlayTTCountdownFinished = false,
 	LatencyThreshold = 250,

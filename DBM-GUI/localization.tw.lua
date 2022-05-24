@@ -56,15 +56,6 @@ L.TabCategory_Options	 	= "一般選項"
 L.Area_BasicSetup			= "初始DBM設置提示"
 L.Area_ModulesForYou		= "哪些DBM模組適合您？"
 L.Area_ProfilesSetup		= "DBM配置檔使用指南"
-
-L.PizzaTimer_Headline		= '創建一個計時條'
-L.PizzaTimer_Title			= '名稱（如“Pizza計時器”）'
-L.PizzaTimer_Hours			= "時"
-L.PizzaTimer_Mins			= "分"
-L.PizzaTimer_Secs			= "秒"
-L.PizzaTimer_ButtonStart	= "開始計時"
-L.PizzaTimer_BroadCast		= "向團隊廣播"
-
 -- Panel: Core & GUI
 L.Core_GUI 					= "核心 & 圖形界面"
 L.General 					= "一般DBM核心選項"
@@ -115,11 +106,25 @@ L.SKT_Enabled				= "顯示目前戰鬥的最佳紀錄勝利計時器"
 L.ShowRespawn				= "顯示下一次首領重生計時器"
 L.ShowQueuePop				= "顯示接受彈出佇列的剩餘時間(尋求組隊、戰場..等)"
 --
-L.Area_AutoLogging			= "自動記錄選項"
-L.AutologBosses				= "自動使用暴雪戰鬥日誌記錄地城/團隊戰鬥"
-L.AdvancedAutologBosses		= "自動使用Transcriptor紀錄地城/團隊戰鬥"
-L.RecordOnlyBosses			= "只記錄首領的戰鬥 (排除所有小怪。請於首領開打前使用 /dbm pull 以獲取數據)"
-L.LogOnlyNonTrivial			= "只記錄重要內容 (普通或更難的當前內容團隊副本 & 傳奇+ 地下城)"
+--Auto Logging: Logging toggles/types
+L.Area_AutoLogging			= "自動記錄切換"
+L.AutologBosses				= "自動使用暴雪戰鬥日誌記錄所選內容"
+L.AdvancedAutologBosses		= "自動使用Transcriptor紀錄所選內容"
+--Auto Logging: Global filter Options
+L.Area_AutoLoggingFilters	= "自動記錄過濾"
+L.RecordOnlyBosses			= "不記錄小怪的戰鬥 (只記錄首領。請於首領開打前使用 /dbm pull 以獲取數據)"
+
+L.DoNotLogLFG				= "不記錄地城搜尋器或團隊搜尋器 (佇列的內容)"
+--Auto Logging: Recorded Content types
+L.Area_AutoLoggingContent	= "自動記錄內容"
+L.LogCurrentMythicRaids		= "當前等級傳奇團隊副本"--Retail Only
+L.LogCurrentRaids			= "當前等級團隊"
+L.LogTWRaids				= "時光漫遊 或 克羅米時光團隊副本"--Retail Only
+L.LogTrivialRaids			= "低等團隊副本 (低於角色等級)"
+L.LogCurrentMPlus			= "當前等級傳奇+地下城"--Retail Only
+L.LogCurrentMythicZero		= "當前等級傳奇0層地下城"--Retail Only
+L.LogTWDungeons				= "時光漫遊 或 克羅米時光地下城"--Retail Only
+L.LogCurrentHeroic			= "當前等級英雄地下城 (注意：如果您通過地城搜尋器佇列英雄並想要記錄，請關閉地城搜尋器過濾)"
 --
 L.Area_3rdParty				= "協力插件選項"
 L.oRA3AnnounceConsumables	= "在戰鬥開始時通告oRA3消耗品檢查"
@@ -251,12 +256,8 @@ L.CountdownVoice2			= "設置次要倒數計時語音"
 L.CountdownVoice3			= "設置第三倒數計時語音"
 L.PullVoice					= "設置開怪計時器的語音"
 L.VoicePackChoice			= "設置語音警告的語音包"
+L.MissingVoicePack			= "缺少語音包 (%s)"
 L.Area_CountdownOptions		= "倒數選項"
-L.Area_VoicePackOptions		= "語音包選項(協力語音包)"
-L.SpecWarn_NoSoundsWVoice	= "設置何時撥放特別警告音效也使用語音警告..."
-L.SWFNever					= "絕不"
-L.SWFDefaultOnly			= "當特別警告使用預設音效。(允許自訂音效繼續撥放)"
-L.SWFAll					= "當特別警告使用所有音效"
 L.Area_VoicePackReplace		= "語音包替換選項 (選擇那些語音包要啟用、靜音以及替換)"
 L.VPReplaceNote				= "注意: 語音包永遠不會更改或刪除警告聲音。\n當替換語音包時，只是被簡單地靜音。"
 L.ReplacesAnnounce			= "替換提示聲音 (注意: 語音包除了階段轉換以及小怪外很少使用)"
@@ -270,9 +271,6 @@ L.SpecWarn_AlwaysVoice		= "總是播放所有語音警告 (即使已禁用特別
 L.VPDontMuteSounds			= "當使用語音包時禁用常規警報的靜音 (只有當您希望在警報期間同時聽到兩者時才使用)"
 L.Area_VPLearnMore          = "了解更多關於語音包以及如何使用這些選項的訊息"
 L.VPLearnMore               = "|cFF73C2FBhttps://github.com/DeadlyBossMods/DBM-Retail/wiki/%5BGuide%5D-DBM-&-Voicepacks#2022-update|r"
---TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
-L.Area_GetVEM				= "取得VEM語言包"
-L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-vem|r"
 L.Area_BrowseOtherVP		= "在Curse上瀏覽其他語言包"
 L.BrowseOtherVPs			= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "在Curse上瀏覽倒數包"
@@ -339,7 +337,6 @@ L.BarEndColorUI				= "結束顏色\n(自訂)"
 L.Bar7Header				= "自訂計時條選項"
 L.Bar7ForceLarge			= "總是使用大計時條"
 L.Bar7CustomInline			= "使用自訂的'!'內嵌圖示"
-L.Bar7Footer				= "（虛擬欄不會實時更新）"
 --Dropdown Options
 L.CBTGeneric				= "一般"
 L.CBTAdd					= "小怪"
@@ -354,7 +351,6 @@ L.CVoiceTwo					= "倒數語音 2"
 L.CVoiceThree				= "倒數語音 3"
 
 -- Panel: Timers
-L.BarSetup					= "計時條樣式"
 L.Panel_Appearance	 		= "計時條外觀"
 L.Panel_Behavior	 		= "計時條動作"
 L.AreaTitle_BarSetup		= "計時條外觀選項"
@@ -374,6 +370,8 @@ L.BarSpark					= "計時條閃光"
 L.BarFlash					= "快結束時閃爍計時條"
 L.BarSort					= "依剩餘時間排序"
 L.BarColorByType			= "根據類型上色"
+L.Highest					= "頂部最高"
+L.Lowest					= "頂部最低"
 L.NoBarFade					= "使用開始/結束顏色作為小型/大型顏色，而不是逐漸改變顏色"
 L.BarInlineIcons			= "顯示嵌入圖示"
 L.ShortTimerText			= "使用較短的計時器文字(如果可用時)"
@@ -456,6 +454,7 @@ L.DontPlayPTCountdown		= "完全不要播放開怪/休息/開戰/自訂計時器
 L.PT_Threshold				= "不要播放高於%d秒以上的休息/開戰/自訂倒數計時器音效"
 
 L.Area_TimerTracker			= "TimerTracker 選項"
+L.PlayTT					= "启用 TimerTracker"
 L.PlayTTCountdown			= "播放 TimerTracker 倒計時聲音"
 L.PlayTTCountdownFinished	= "播放 TimerTracker 倒計時完成聲音"
 

@@ -79,5 +79,6 @@ PTSlider:HookScript("OnValueChanged", function(self)
 end)
 
 local spamTTArea = spamPanel:CreateArea(L.Area_TimerTracker)
+spamTTArea:CreateCheckButton(L.PlayTT, true, nil, "PlayTT")
 spamTTArea:CreateCheckButton(L.PlayTTCountdown, true, nil, "PlayTTCountdown")
 spamTTArea:CreateCheckButton(L.PlayTTCountdownFinished, true, nil, "PlayTTCountdownFinished")

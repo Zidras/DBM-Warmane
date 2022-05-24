@@ -41,19 +41,18 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 --
-local PanelPrototype = {}
 DBM_GUI = {
 	tabs	= {},
 	panels	= {}
 }
-setmetatable(PanelPrototype, {__index = DBM_GUI})
 
 local L		= DBM_GUI_L
 local CL	= DBM_CORE_L
 
-local tinsert, tremove, tsort, twipe = table.insert, table.remove, table.sort, table.wipe
-local mfloor, mmax = math.floor, math.max
-local modelFrameCreated = false
+local next, type, pairs, strsplit, tonumber, tostring, ipairs, tinsert, tsort, mfloor = next, type, pairs, strsplit, tonumber, tostring, ipairs, table.insert, table.sort, math.floor
+local GetExpansionLevel, IsAddOnLoaded, GameFontNormal, GameFontNormalSmall, GameFontHighlight, GameFontHighlightSmall = GetExpansionLevel, IsAddOnLoaded, GameFontNormal, GameFontNormalSmall, GameFontHighlight, GameFontHighlightSmall
+local RAID_DIFFICULTY1, RAID_DIFFICULTY2, RAID_DIFFICULTY3, RAID_DIFFICULTY4, PLAYER_DIFFICULTY1, PLAYER_DIFFICULTY2, PLAYER_DIFFICULTY3, PLAYER_DIFFICULTY6, PLAYER_DIFFICULTY_TIMEWALKER, CHALLENGE_MODE, ALL, CLOSE, SPECIALIZATION = RAID_DIFFICULTY1, RAID_DIFFICULTY2, RAID_DIFFICULTY3, RAID_DIFFICULTY4, PLAYER_DIFFICULTY1, PLAYER_DIFFICULTY2, PLAYER_DIFFICULTY3, PLAYER_DIFFICULTY6, PLAYER_DIFFICULTY_TIMEWALKER, CHALLENGE_MODE, ALL, CLOSE, SPECIALIZATION
+local LibStub, DBM, DBM_GUI, DBM_OPTION_SPACER = _G["LibStub"], DBM, DBM_GUI, DBM_OPTION_SPACER
 local playerName, realmName, playerLevel = UnitName("player"), GetRealmName(), UnitLevel("player")
 
 StaticPopupDialogs["IMPORTPROFILE_ERROR"] = {
@@ -268,10 +267,12 @@ end
 
 do
 	local framecount = 0
+
 	function DBM_GUI:GetNewID()
 		framecount = framecount + 1
 		return framecount
 	end
+
 	function DBM_GUI:GetCurrentID()
 		return framecount
 	end
@@ -576,8 +577,8 @@ do
 				DBM:AddMsg("Profile imported.")
 			end
 
-			local importExportProfilesArea = panel:CreateArea(L.Area_ImportExportProfile, panel.frame:GetWidth(), 50, true)
-			local test = importExportProfilesArea:CreateText(L.ImportExportInfo, nil, true, nil, "LEFT")
+			local importExportProfilesArea = panel:CreateArea(L.Area_ImportExportProfile)
+			local test = importExportProfilesArea:CreateText(L.ImportExportInfo, nil, true)
 			test:SetPoint("TOPLEFT", 15, -10)
 			local exportProfile = importExportProfilesArea:CreateButton(L.ButtonExportProfile, 120, 20, function()
 				local exportProfile = {}

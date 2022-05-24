@@ -16,7 +16,6 @@ L.OTabDungeons	= "Groupe/Solo"--1-5 person content (Dungeons, MoP Scenarios, Wor
 L.OTabPlugins	= "Core Plugins"
 L.OTabAbout		= "À propos"
 
-L.TabCategory_Options		= "Options générales"
 L.TabCategory_OTHER			= "Autres modules"
 
 L.BossModLoaded 			= "Statistiques %s"
@@ -84,14 +83,6 @@ L.Button_ResetWindowSize	= "Réinit. la taille de la fenêtre"
 L.Editbox_WindowWidth		= "Largeur de la fenêtre"
 L.Editbox_WindowHeight		= "Hauteur de la fenêtre"
 
-L.PizzaTimer_Headline		= 'Crée un "Pizza Timer"'
-L.PizzaTimer_Title			= 'Nom (ex. "Pizza!")'
-L.PizzaTimer_Hours			= "Heures"
-L.PizzaTimer_Mins			= "Min"
-L.PizzaTimer_Secs			= "Sec"
-L.PizzaTimer_ButtonStart	= "Commencer le Timer"
-L.PizzaTimer_BroadCast		= "Diffuser au Raid"
-
 L.UIGroupingOptions			= "Options d'interface partagées (requiet de recharger l'interface pour tout module qui serait déjà chargé)"
 L.GroupOptionsBySpell		= "Options de modules regroupées par capacité (pour les modules compatibles)"
 L.GroupOptionsExcludeIcon	= "Exclure l'option \"Définir l'icône sur\" du regroupement par capacité (elles seront regroupées dans la catégorie \"Icônes\" comme avant)"
@@ -113,10 +104,6 @@ L.TimerGeneral 				= "Options des décompte"
 L.SKT_Enabled				= "Décompte du record pour le combat actuel s'il est disponible"
 L.ShowRespawn				= "Décompte de la réapparition du boss après un wipe"
 L.ShowQueuePop				= "Décompte du temps restant pour accepter une invitation (LFG,BG,etc)"
-L.ChallengeTimerOptions		= "Réglage du timer du meilleur temps en challenge mode"
-L.ChallengeTimerPersonal	= "Personnel"
-L.ChallengeTimerGuild		= GUILD
-L.ChallengeTimerRealm		= "Serveur"
 --
 L.Area_AutoLogging			= "Options d'enregistrement auto"
 L.AutologBosses				= "Enregistrement auto du combat contre un boss en utilisant le journal de combat de Blizzard"
@@ -226,21 +213,15 @@ L.SpecialWarnHeader5		= "Type 5: Alertes dont la note contient votre nom"
 -- Tab: Generalwarnings
 L.Tab_GeneralMessages 		= "Messages dans la fenêtre de discussion"
 L.CoreMessages				= "Options des messages de DBM"
-L.ShowLoadMessage 			= "Afficher les messages de chargement de module dans la fenêtre de chat"
 L.ShowPizzaMessage 			= "Afficher les messages d'annonce de décomptes dans la fenêtre de discussion"
-L.ShowCombatLogMessage 		= "Afficher les messages d'enregistrement de combat de DBM dans la fenêtre de chat"
-L.ShowTranscriptorMessage	= "Afficher les messages d'enregistrement de DBM Transcriptor dans la fenêtre de chat"
 L.ShowAllVersions	 		= "Afficher les versions boss mod de tous les membres du groupe dans la fenêtre de discussion lors d'une vérification des versions. (Si désactivé, continu d'effectuer un résumé obsolète/à jour)"
 L.ShowReminders				= "Afficher des messages de rappel pour les sous-modules manquants, désactivés, hotfixes, obsolètes, et mode silencieux étant toujours activé"
 
 L.CombatMessages			= "Options des messages liés au combat"
 L.ShowEngageMessage			= "Afficher les messages de pull du boss dans la fenêtre de discussion"
 L.ShowDefeatMessage			= "Afficher les messages victoire/défaite dans la fenêtre de discussion"
-L.ShowKillMessage 			= "Afficher les messages de victoire dans la fenêtre de chat"
-L.ShowWipeMessage 			= "Afficher les messages de défaite dans la fenêtre de chat"
 L.ShowGuildMessages			= "Afficher les messages pull/victoire/défaite pour les groupes de la guilde dans la fenêtre de discussion"
 L.ShowGuildMessagesPlus		= "Afficher aussi les messages pull/victoire/défaite pour les groupes Mythique+ de la guilde (requiert raid option)" --last part isn't great
-L.ShowRecoveryMessage 		= "Afficher les messages de récupération des timers dans la fenêtre de chat"
 
 L.Area_ChatAlerts			= "Options des alertes supplémentaires"
 L.RoleSpecAlert				= "Afficher une alerte lorsque vous rejoignez un raid et que votre préférence de butin ne correspond pas à votre spécialisation actuelle"
@@ -261,7 +242,6 @@ L.CountdownVoice3			= "Voix tertiaire"
 L.VoicePackChoice			= "Pack de voix des Alertes vocales"
 L.MissingVoicePack			= "Pack de voix manquant (%s)"
 L.Area_CountdownOptions		= "Options des décomptes"
-L.Area_VoicePackOptions		= "Options des Packs de voix (Pack de voix tiers)"
 L.Area_VoicePackReplace		= "Options de remplacement par le Pack de voix (quels sons seront remplacés par le Pack de voix)"
 L.VPReplaceNote				= "Note: Les Packs de voix ne modifient ou suppriment jamais vos sons d'alertes.\nIls sont simplement mis en sourdine lorsqu'un Pack de voix les remplace."
 L.ReplacesAnnounce			= "Remplacer les sons d'alerte (Note : Très peu d'utilisation pour les packs de voix, sauf pour les changements de phases et les adds)"
@@ -272,7 +252,6 @@ L.ReplacesSA4				= "Remplacer les sons d'alerte spéciale 4 (priorité haute, ou
 L.ReplacesCustom			= "Remplacer les sons d'alerte spéciale des réglages utilisateur personnalisés (par évênement) (non recommandé)"
 L.Area_VoicePackAdvOptions	= "Options avancées Packs de voix"
 L.SpecWarn_AlwaysVoice		= "Toujours jouer toutes les alertes vocales même si l'Alerte spéciale est désactivée (peut être putile aux chefs de raid dans certaines situations, non recommandé autrement)"
-L.SpecWarn_NoSoundsWVoice	= "Ne pas jouer d'alerte spéciale s'il y a déjà une alerte vocale"
 L.VPDontMuteSounds			= "Désactiver la mise en sourdine des alertes standards lors de l'utilisation d'un pack de voix (à utilier seulement si vous souhaitez entendre les DEUX types d'alertes sonores simultanément)"
 L.Area_VPLearnMore			= "Apprenez-en plus sur les packs de voix et comment utiliser ces options"
 L.VPLearnMore				= "|cFF73C2FBhttps://github.com/DeadlyBossMods/DBM-Retail/wiki/%5BGuide%5D-DBM-&-Voicepacks#2022-update|r"
@@ -280,9 +259,6 @@ L.Area_BrowseOtherVP		= "Trouvez d'autres packs de voix sur Curse"
 L.BrowseOtherVPs			= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "Trouvez d'autres packs de décompte sur Curse"
 L.BrowseOtherCTs			= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/search?search=dbm+count+pack|r"
-L.SWFNever					= "Jamais"
-L.SWFDefaultOnly			= "quand les alertes spéciales jouent les sons de base. (N'agit pas pour les sons modifiés)"
-L.SWFAll					= "quand les alertes spéciales jouent n'importe quel son"
 
 -- Panel: Event Sounds
 L.Panel_EventSounds			= "Évênements sonores"
@@ -305,7 +281,6 @@ L.Area_ColorBytype			= "Guide de coloration par type des barres"
 -- Panel: Color by Type
 L.Panel_ColorByType	 		= "Couleur par type"
 L.AreaTitle_BarColors		= "Couleurs de barre par type de décompte"
-L.BarSetup					= "Style des barres"
 L.BarTexture				= "Texture des barres"
 L.BarStyle					= "Comportement des barres"
 L.BarDBM					= "Classique (les petites barres existantes glissent vers l'ancrage Enlargi)"
@@ -440,7 +415,6 @@ L.FilterVoidFormSay			= "Ne pas envoyer de message d'icône ou de décompte sous
 
 L.Area_SpecFilter			= "Options de filtre par rôle"
 L.FilterTankSpec			= "Filtrer les alertes réservées aux tanks si vous n'êtes pas en spé tank. (Note: Désactivation non recommandée car les alertes de taunt sont activées en permanence par défaut.)"
-L.FilterInterrupts			= "Filtrer les alertes d'interruption si le caster n'est pas votre cible ou focus (Note: Ne s'applique pas aux sorts critiques qui peuvent causer des wipes)"
 L.FilterInterruptsHeader	= "Filtrer les alertes de sorts interruptibles en fonction des préférences paramétrées."
 L.SWFNever					= "Jamais"
 L.FilterInterrupts			= "Si le lanceur n'est pas la cible/focus actuelle (Toujours)."
@@ -450,7 +424,6 @@ L.FilterInterrupts4			= "Toujours filtrer les alertes d'interruption (vous ne vo
 L.FilterInterruptNoteName	= "Filtrer les alertes des sorts interruptibles (avec compte) si l'alerte ne contient pas votre nom dans la note personnalisée"
 L.FilterDispels				= "Filtrer les alertes de dissipations si votre sort de dissipation est en recharge"
 L.FilterTrashWarnings		= "Filtrer toutes les annonces liées aux trash dans les donjons normaux &amp; héroïques"
-L.FilterSelfHud				= "Filtrer vous-même de la carte du HUD (exclu les fonctions HUD basées sur la portée)"
 
 L.Area_PullTimer			= "Options du filtre des décomptes de pull, pause, combat, & personnalisé"
 L.DontShowPTNoID			= "Bloquer les décomptes de pull envoyés depuis une zone différente de la vôtre (ne bloquera jamais les décomptes BigWigs envoyés sans ID de zone)"
@@ -461,6 +434,7 @@ L.DontPlayPTCountdown		= "Ne jouer aucun son de décompte de pull/pause/combat/p
 L.PT_Threshold				= "Pas de son du décompte de pull/pause/combat/perso au delà de : %d"
 
 L.Area_TimerTracker			= "Options de TimerTracker"
+L.PlayTT					= "Activer le TimerTracker"
 L.PlayTTCountdown			= "Jouer le son du compte à rebours TimerTracker"
 L.PlayTTCountdownFinished	= "Jouer le son du compte à rebours TimerTracker terminé"
 
@@ -468,10 +442,9 @@ L.PlayTTCountdownFinished	= "Jouer le son du compte à rebours TimerTracker term
 L.Panel_HideBlizzard		= "Désactivation Blizzard"
 L.Area_HideBlizzard			= "Options de désactivation Blizzard"
 L.HideBossEmoteFrame		= "Désactiver le cadre des vies des boss pendant les combats de boss"
+L.HideWatchFrame			= "Désactiver le cadre de suivi des objectifs pendant les combats de boss"
 L.SpamBlockRaidWarning		= "Filtrer les annonces venant d'autres boss mods"
 L.SpamBlockBossWhispers		= "Filtrer les alertes DBM chuchotement pendant les combats"
-L.HideBossEmoteFrame		= "Désactiver le cadre des vies des boss pendant les combats de boss"
-L.HideWatchFrame			= "Désactiver le cadre de suivi des objectifs pendant les combats de boss"
 L.HideGarrisonUpdates		= "Désactiver les notifications de fief pendant les combats de boss"
 L.HideGuildChallengeUpdates	= "Désactiver les notifications de défis de guilde pendant les combats de boss"
 L.HideQuestTooltips			= "Désactiver les objectifs de quête dans les info-bulles pendant les combats de boss"
