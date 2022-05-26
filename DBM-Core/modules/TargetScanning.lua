@@ -126,6 +126,15 @@ do
 		return name, uid, bossuid
 	end
 
+	function module:GetBossUnitByCreatureId(mod, cid)
+		for i = 1, 5 do
+			local uId = "boss"..i
+			if mod:GetUnitCreatureId(uId) == cid then
+				return uId
+			end
+		end
+		return "target"
+	end
 
 	function module:BossTargetScannerAbort(mod, cidOrGuid, returnFunc)
 		targetScanCount[cidOrGuid] = nil--Reset count for later use.

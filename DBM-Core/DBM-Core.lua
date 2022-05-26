@@ -6665,6 +6665,10 @@ do
 		return TargetScanning:GetBossTarget(self, ...)
 	end
 
+	function bossModPrototype:GetBossUnitByCreatureId(...)
+		return TargetScanning:GetBossUnitByCreatureId(self, ...)
+	end
+
 	function bossModPrototype:BossTargetScannerAbort(...)
 		return TargetScanning:BossTargetScannerAbort(self, ...)
 	end
