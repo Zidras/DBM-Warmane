@@ -4619,7 +4619,11 @@ function checkWipe(self, confirm)
 		if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
 		end
-		--hack for no iEEU information is provided.
+		-- Apply correction to savedDifficulty for out-of-instance ghost checks
+		if encounterDifficulty and encounterDifficulty ~= savedDifficulty then
+			savedDifficulty = encounterDifficulty
+		end
+			--hack for no iEEU information is provided.
 		if not bossuIdFound then
 			for i = 1, 5 do
 				if UnitExists("boss"..i) then
