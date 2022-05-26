@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision(("$Revision: 4911 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(28860)
 
 mod:RegisterCombat("combat")

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Patchwerk", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 2869 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(16028)
 --mod:RegisterCombat("combat_yell", L.yell1, L.yell2)
 mod:RegisterCombat("yell", L.yell1, L.yell2)

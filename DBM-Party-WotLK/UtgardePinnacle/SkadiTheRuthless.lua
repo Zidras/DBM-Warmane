@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("SkadiTheRuthless", "DBM-Party-WotLK", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 3592 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(26693)
 mod:SetMinSyncRevision(3108)
 

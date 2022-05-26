@@ -1,7 +1,7 @@
 local mod = DBM:NewMod("HoRWaveTimer", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 2153 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(30658)
 mod:SetZone()
 

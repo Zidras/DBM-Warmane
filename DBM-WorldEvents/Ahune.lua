@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ahune", "DBM-WorldEvents")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4198 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(25740)--25740 Ahune, 25755, 25756 the two types of adds
 
 mod:RegisterCombat("say", L.Pull)

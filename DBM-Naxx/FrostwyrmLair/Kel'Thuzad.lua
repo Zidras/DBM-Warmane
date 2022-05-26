@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local tContains = tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 
-mod:SetRevision(("$Revision: 4911 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("DevourerofSouls", "DBM-Party-WotLK", 14)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 3726 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(36502)
 
 mod:RegisterCombat("combat")
