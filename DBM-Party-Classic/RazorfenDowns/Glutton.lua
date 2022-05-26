@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Glutton", "DBM-Party-Classic", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(8567)
 
 mod:RegisterCombat("combat")

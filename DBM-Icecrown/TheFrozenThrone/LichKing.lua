@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision(("$Revision: 4425 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(3913)

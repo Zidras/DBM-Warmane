@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rage", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision$"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(17767)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetUsedIcons(8)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetMinCombatTime(30)

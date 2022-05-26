@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IngvarThePlunderer", "DBM-Party-WotLK", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4154 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(23980, 23954)
 mod:SetUsedIcons(8)
 

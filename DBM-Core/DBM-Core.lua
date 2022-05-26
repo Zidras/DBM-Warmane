@@ -10410,8 +10410,9 @@ function bossModPrototype:ReceiveSync(event, arg, sender, revision)
 end
 
 function bossModPrototype:SetRevision(revision)
-	revision = revision or ""
-	if not revision then
+	revision = parseCurseDate(revision or "")
+	if not revision or type(revision) == "string" then
+		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end
 	self.revision = revision

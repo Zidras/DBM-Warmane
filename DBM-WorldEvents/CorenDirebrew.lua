@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CorenDirebrew", "DBM-WorldEvents")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4181 $"):sub(12, -3))
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(23872)
 
 mod:RegisterCombat("combat")
