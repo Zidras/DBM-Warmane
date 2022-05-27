@@ -15,5 +15,6 @@ L:SetMiscLocalization({
 	EmoteSpark	= "一個力量火花從附近的裂縫中形成。",
 	YellPhase2	= "我原本只是想盡快結束你們的生命",
 	YellBreath	= "只要我的龍息尚存，你們就毫無機會!",
-	YellPhase3	= "現在你們幕後的主使終於出現"
+	YellPhase3	= "現在你們幕後的主使終於出現",
+	EmoteSurge	= "%s將他的目光鎖在你身上!"
 })

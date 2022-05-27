@@ -21,6 +21,7 @@ L:SetMiscLocalization({
 	YellPhase2		= "我原本只是想尽快结束你们的生命",
 --	EmoteBreath		= "%s深深地吸了一口气。",
 	YellBreath		= "在我的龙息之下，一切都将荡然无存！",
-	YellPhase3		= "现在你们幕后的主使终于出现了"
+	YellPhase3		= "现在你们幕后的主使终于出现了",
 --	EnoughScream	= "够了！既然你们这么想夺回艾泽拉斯的魔法，我就给你们！"
+	EmoteSurge		= "%s在注视你！"
 })

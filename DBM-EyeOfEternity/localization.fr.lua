@@ -16,5 +16,6 @@ L:SetMiscLocalization({
 	EmoteSpark		= "de puissance surgit",
 	YellPhase2		= "Je pensais mettre rapidement fin à vos existences",
 	YellBreath		= "Vous n'arriverez à rien tant qu'il me restera un souffle !",
-	YellPhase3		= "Vos bienfaiteurs font enfin leur entrée, mais ils arrivent trop tard !"
+	YellPhase3		= "Vos bienfaiteurs font enfin leur entrée, mais ils arrivent trop tard !",
+	EmoteSurge		= "%s fixe le regard sur vous !"
 })

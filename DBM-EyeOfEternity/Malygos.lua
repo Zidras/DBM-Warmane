@@ -31,6 +31,7 @@ local warnPhase3				= mod:NewPhaseAnnounce(3)
 
 local specWarnBreath			= mod:NewSpecialWarningSpell(56505, nil, nil, nil, 2, 2)
 local specWarnSurge				= mod:NewSpecialWarningDefensive(60936, nil, nil, nil, 1, 2)
+local specWarnP3SurgeOfPowerSoon= mod:NewSpecialWarningYou(60936, nil, nil, nil, 1, 2)
 local specWarnStaticField		= mod:NewSpecialWarningYou(57430, nil, nil, nil, 1, 2)
 local specWarnStaticFieldNear	= mod:NewSpecialWarningClose(57430, nil, nil, nil, 1, 2)
 local yellStaticField			= mod:NewYellMe(57430)
@@ -177,13 +178,15 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerStaticFieldCD:Start(24+15.5)
 	end
 end
---[[
+
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg == L.EmoteSpark or msg:find(L.EmoteSpark) then
-		self:SendSync("Spark")
+--	if msg == L.EmoteSpark or msg:find(L.EmoteSpark) then
+--		self:SendSync("Spark")
+	if msg == L.EmoteSurge or msg:find(L.EmoteSurge) then
+		self:SendSync("MalygosSurge", UnitName("player"))
 	end
 end
-]]
+
 --local free triggers but not reliable in instances that didn't impliment bossN args so backup emote/yell triggers still in place.
 --Anti spam will be handled by sync handler
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
@@ -214,5 +217,11 @@ function mod:OnSync(event, arg)
 		self:Schedule(6, buildGuidTable)
 		timerBreathCD:Cancel()
 --		timerStaticFieldCD:Start(49.5)--Consistent?
+	elseif event == "MalygosSurge" then
+		warnSurge:CombinedShow(0.2, arg)
+		if arg == UnitName("player") then
+			specWarnP3SurgeOfPowerSoon:Show()
+			specWarnP3SurgeOfPowerSoon:Play("findshield")
+		end
 	end
 end
