@@ -23,7 +23,7 @@ mod:RegisterEventsInCombat(
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1, "Interface\\Icons\\INV_Misc_MonsterSpiderCarapace_01")
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
-local warnFissure			= mod:NewSpellAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
+local warnFissure			= mod:NewTargetNoFilterAnnounce(27810, 4)
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
 local warnMindControlSoon 	= mod:NewSoonAnnounce(28410, 4)
@@ -32,10 +32,14 @@ local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
 local specWarnManaBombNear	= mod:NewSpecialWarningClose(27819, nil, nil, nil, 1, 2)
 local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
+local specWarnFissureYou	= mod:NewSpecialWarningMove(27810, nil, nil, nil, 3, 2)
+local specWarnFissureNear	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 1, 2)
+local yellFissure			= mod:NewYellMe(27810)
 local yellManaBomb			= mod:NewShortYell(27819)
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
+local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
 local timerFissureCD  		= mod:NewCDTimer(14, 27810)
 local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
@@ -179,9 +183,24 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 27810 then
-		warnFissure:Show()
-		warnFissure:Play("watchstep")
+		timerFissure:Start(args.destName)
 		timerFissureCD:Start()
+		if args:IsPlayer() then
+			specWarnFissureYou:Show()
+			specWarnFissureYou:Play("runout")
+			yellFissure:Yell()
+		else
+			local uId = DBM:GetRaidUnitId(args.destName)
+			if uId then
+				local inRange = CheckInteractDistance(uId, 2)
+				if inRange then
+					specWarnFissureNear:Show(args.destName)
+					specWarnFissureNear:Play("watchstep")
+				else
+					warnFissure:Show(args.destName)
+				end
+			end
+		end
 	elseif args.spellId == 28410 then
 		timerMCCD:Start()
 		DBM:Debug("MC on "..args.destName,2)
