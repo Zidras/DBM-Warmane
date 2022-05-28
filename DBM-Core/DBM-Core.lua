@@ -744,32 +744,30 @@ do
 		return DBM:GetCIDFromGUID(self.destGUID)
 	end
 
-	local function IsUnitEvent(event, ...)
-		local isUnitEvent = (event and event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED")
-		if isUnitEvent and ... and tContains({...}, event) then
-			isUnitEvent = false
-		end
-		return isUnitEvent
-	end
-
 	local function handleEvent(self, event, ...)
-		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
-		local isUnitEvent = IsUnitEvent(event, "UNIT_DIED", "UNIT_DESTROYED")
-
+		local isUnitEvent = event:sub(0, 5) == "UNIT_" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED"
+		if self == mainFrame and isUnitEvent then
+			-- UNIT_* events that come from mainFrame are _UNFILTERED variants and need their suffix
+			event = event .. "_UNFILTERED"
+			isUnitEvent = false -- not actually a real unit id for this function...
+		end
+		if not registeredEvents[event] or not dbmIsEnabled then return end
 		for _, v in ipairs(registeredEvents[event]) do
+			local zones = v.zones
+			local handler = v[event]
+			local modEvents = v.registeredUnitEvents
 			if isUnitEvent and v.id == DBM.currentModId then
 				-- Workaround for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1"). Check if we have valid units registered and filter out everything else.
 				-- v is mod here... so we check registered mods for registered events with registered uIds (v.registeredUnitEvents[event]).
 				-- then we check if we have our unit (args) in the table ... self.registeredUnitEvents[event] = args which is defined below
-				if v.registeredUnitEvents and v.registeredUnitEvents[event] and not has_value(v.registeredUnitEvents[event], ...) then return end
+				if modEvents and modEvents[event] and not has_value(modEvents[event], ...) then return end
 			end
 
-			if type(v[event]) == "function" and (not v.zones or checkEntry(v.zones, GetRealZoneText()) or checkEntry(v.zones, GetCurrentMapAreaID())) and (not v.Options or v.Options.Enabled) then
-				v[event](v, ...)
+			if type(handler) == "function" and (not zones or checkEntry(zones, GetRealZoneText()) or checkEntry(zones, GetCurrentMapAreaID())) and (not v.Options or v.Options.Enabled) then
+				handler(v, ...)
 			end
 		end
 	end
-
 
 	local unregisterUnitEvent, registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
 	do
@@ -915,7 +913,11 @@ do
 				end
 				registeredEvents[event] = registeredEvents[event] or {}
 				tinsert(registeredEvents[event], self)
-				mainFrame:RegisterEvent(event)
+				if event:sub(0, 5) == "UNIT_" and event:sub(-11) == "_UNFILTERED"  then
+					mainFrame:RegisterEvent(event:sub(0, -12))
+				else
+					mainFrame:RegisterEvent(event)
+				end
 			end
 		end
 	end

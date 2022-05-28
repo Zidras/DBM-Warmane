@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 69029 70850",
 	"SPELL_PERIODIC_DAMAGE 69024 70436",
 	"SPELL_PERIODIC_MISSED 69024 70436",
-	"UNIT_AURA"
+	"UNIT_AURA_UNFILTERED"
 )
 
 local warnPursuitCast			= mod:NewCastAnnounce(68987, 3)
@@ -76,7 +76,7 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-function mod:UNIT_AURA(uId)
+function mod:UNIT_AURA_UNFILTERED(uId)
 	local isPursuitDebuff = DBM:UnitDebuff(uId, pursuit)
 	local name = DBM:GetUnitFullName(uId)
 	if not isPursuitDebuff and pursuitTable[name] then
