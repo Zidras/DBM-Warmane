@@ -22,7 +22,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 69037",
 	"SPELL_DAMAGE 68983 73791 73792 73793",
 	"UNIT_HEALTH target focus",
-	"UNIT_AURA",
+	"UNIT_AURA_UNFILTERED",
 	"UNIT_EXITING_VEHICLE",
 	"UNIT_DIED"
 --	"UNIT_SPELLCAST_SUCCEEDED"
@@ -305,7 +305,7 @@ function mod:SPELL_CAST_START(args)
 		soundSoulReaperSoon:Cancel()
 		self:RegisterShortTermEvents(
 			"UPDATE_MOUSEOVER_UNIT",
-			"UNIT_TARGET"
+			"UNIT_TARGET_UNFILTERED"
 		)
 		self:DestroyFrame()
 		if self.Options.RangeFrame then
@@ -585,7 +585,7 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:UNIT_AURA(uId)
+function mod:UNIT_AURA_UNFILTERED(uId)
 	local name = DBM:GetUnitFullName(uId)
 	if (not name) or (name == lastPlague) then return end
 	local _, _, _, _, _, _, expires, _, _, _, spellId = DBM:UnitDebuff(uId, plagueHop)
@@ -625,7 +625,7 @@ function mod:UPDATE_MOUSEOVER_UNIT()
 	end
 end
 
-function mod:UNIT_TARGET(uId)
+function mod:UNIT_TARGET_UNFILTERED(uId)
 	if DBM:GetUnitCreatureId(uId.."target") == 36633 then -- Ice Sphere
 		local sphereGUID = UnitGUID(uId.."target")
 		local sphereTarget = UnitName(uId.."targettarget")

@@ -21,7 +21,7 @@ mod:RegisterEvents(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_SUMMON",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_TARGET",
+	"UNIT_TARGET_UNFILTERED",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
 )
 
@@ -264,7 +264,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	end
 end
 
-function mod:UNIT_TARGET()
+function mod:UNIT_TARGET_UNFILTERED()
 	if self.Options.ActivePrinceIcon and activePrince then
 		self:TrySetTarget()
 	end

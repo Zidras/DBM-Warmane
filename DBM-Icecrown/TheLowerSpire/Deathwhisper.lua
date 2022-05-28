@@ -16,7 +16,7 @@ mod:RegisterEvents(
 	"SPELL_SUMMON",
 	"SWING_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_TARGET"
+	"UNIT_TARGET_UNFILTERED"
 )
 
 local myRealm = select(3, DBM:GetMyPlayerInfo())
@@ -383,7 +383,7 @@ function mod:SWING_DAMAGE(sourceGUID, _, _, destGUID)
 	end
 end
 
-function mod:UNIT_TARGET()
+function mod:UNIT_TARGET_UNFILTERED()
 	if empoweredAdherent or deformedFanatic then
 		TrySetTarget(self)
 	end
