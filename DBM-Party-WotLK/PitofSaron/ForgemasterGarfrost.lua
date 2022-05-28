@@ -88,11 +88,12 @@ end
 
 function mod:OnSync(msg, targetName)
 	if msg == "SaroniteRock" then
+		if not targetName then return end
 		if targetName == UnitName("player") then
-			specWarnSaroniteRock:Show()
-			specWarnSaroniteRock:Play("watchstep")
-			yellRock:Yell()
-		elseif targetName then
+				specWarnSaroniteRock:Show()
+				specWarnSaroniteRock:Play("watchstep")
+				yellRock:Yell()
+		else
 			local uId = DBM:GetRaidUnitId(targetName)
 			if uId and not UnitIsUnit(uId, "player") and self:CheckNearby(10, targetName) then
 				specWarnSaroniteRockNear:Show(targetName)
@@ -100,9 +101,9 @@ function mod:OnSync(msg, targetName)
 			else
 				warnSaroniteRock:Show(targetName)
 			end
-			if self.Options.SetIconOnSaroniteRockTarget then
-				self:SetIcon(targetName, 8, 5)
-			end
+		end
+		if self.Options.SetIconOnSaroniteRockTarget then
+			self:SetIcon(targetName, 8, 5)
 		end
 	end
 end
