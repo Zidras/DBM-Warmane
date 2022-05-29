@@ -98,7 +98,7 @@ function PanelPrototype:CreateSpellDesc(text)
 	test.autowidth = true
 	-- Description logic
 	if type(text) == "number" then
-		text = GetSpellDescription(text)
+		text = GetSpellDescription(text) or ""
 		if text == "" then
 			text = L.NoDescription
 		end
