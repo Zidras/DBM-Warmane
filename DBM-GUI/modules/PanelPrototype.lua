@@ -81,7 +81,7 @@ local function GetSpellDescription(spellID)
 	for i = 1, spellTooltip:GetNumRegions() do
 		local region = select(i, spellTooltip:GetRegions())
 		if region:GetObjectType() == "FontString" and select(3, region:GetTextColor()) == 0 then -- first fontstring that's yellow
-			return region:GetText()
+			return region:GetText() or ""
 		end
 	end
 end
