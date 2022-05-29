@@ -3,83 +3,102 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(36678)
-mod:SetMinSyncRevision(3860)
 mod:SetUsedIcons(5, 6, 7, 8)
+mod:SetMinSyncRevision(3860)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REFRESH",
-	"SPELL_AURA_REMOVED",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 70351 71966 71967 71968 71617 72842 72843 72851 72852 71621 72850 70672 72455 72832 72833 73121 73122 73120 71893",
+	"SPELL_CAST_SUCCESS 70341 71255 72855 72856 70911 72615 72295 74280 74281",
+	"SPELL_AURA_APPLIED 70447 72836 72837 72838 70672 72455 72832 72833 72451 72463 72671 72672 70542 70539 72457 72875 72876 70352 74118 70353 74119 72855 72856 70911",
+	"SPELL_AURA_APPLIED_DOSE 72451 72463 72671 72672 70542",
+	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
+	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
 	"UNIT_HEALTH boss1"
 )
 
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
-local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
-local warnUnstableExperimentSoon	= mod:NewSoonAnnounce(70351, 3)
-local warnUnstableExperiment		= mod:NewSpellAnnounce(70351, 4)
-local warnVolatileOozeAdhesive		= mod:NewTargetAnnounce(70447, 3)
-local warnGaseousBloat				= mod:NewTargetAnnounce(70672, 3)
-local warnPhase2Soon				= mod:NewPrePhaseAnnounce(2)
-local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
-local warnPhase2					= mod:NewPhaseAnnounce(2, 2)
-local warnPhase3					= mod:NewPhaseAnnounce(3, 2)
-local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
-local warnVolatileExperiment		= mod:NewSpellAnnounce(72840, 4)		-- Phase transition heroic
-local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Melee")
-local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Phase 2 ability
-local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
-local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability
-
-local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
-local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
-local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 4, 2)
---local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
---local yellMalleableGoo				= mod:NewYellMe(72295)
---local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
-local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
-local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
-local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
-local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
-local specWarnGaseousBloatCast		= mod:NewSpecialWarningMove(72833, nil, nil, nil, 1, 2)		-- Gaseous Bloat (cast)
-local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2)		-- Heroic Ability
-local yellUnboundPlague				= mod:NewYellMe(70911, false)
-
-local timerGaseousBloat				= mod:NewTargetTimer(20, 70672, nil, nil, nil, 3)			-- Duration of debuff
-local timerGaseousBloatCast			= mod:NewCastTimer(3, 70672, nil, nil, nil, 3)				-- Cast duration
-local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- Approx
-local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1, nil, DBM_COMMON_L.DEADLY_ICON)			-- Used every 38 seconds exactly except after phase changes
-local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
-local timerMalleableGooCD			= mod:NewCDTimer(20, 72295, nil, nil, nil, 3)
---local timerTearGas					= mod:NewBuffFadesTimer(16, 71615, nil, nil, nil, 6)
---local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
-local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- 10 to 11
-local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
-local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
-local timerNextPhase				= mod:NewPhaseTimer(30)
+-- General
+local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 480 or 600)
 
 -- buffs from "Drink Me"
 local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
+local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
+local warnUnstableExperimentSoon	= mod:NewSoonAnnounce(70351, 3)
+local warnUnstableExperiment		= mod:NewSpellAnnounce(70351, 4)
+local warnVolatileOozeAdhesive		= mod:NewTargetAnnounce(70447, 3)
+local warnGaseousBloat				= mod:NewTargetAnnounce(70672, 3)
+local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability, sound muted
+
+local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
+local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
+local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 4, 2)
+local specWarnGaseousBloatCast		= mod:NewSpecialWarningMove(72833, nil, nil, nil, 1, 2)		-- Gaseous Bloat (cast)
+local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2)		-- Heroic Ability
+local yellUnboundPlague				= mod:NewYellMe(70911, false)	-- Heroic Ability, disabled by default to reduce chat bubble spam
+
+local timerGaseousBloat				= mod:NewTargetTimer(20, 70672, nil, nil, nil, 3)			-- Duration of debuff
+local timerGaseousBloatCast			= mod:NewCastTimer(3, 70672, nil, nil, nil, 3)				-- Cast duration
+local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- Approx
+local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1, nil, DBM_COMMON_L.DEADLY_ICON)			-- Used every 38 seconds exactly except after phase changes
+local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
+local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
+
+local soundSlimePuddle 				= mod:NewSound(70341)
+
+mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, false, {8})	-- Green Ooze target
+mod:AddSetIconOption("GaseousBloatIcon", 70672, true, false, {7})	-- Red Ooze target
+mod:AddSetIconOption("UnboundPlagueIcon", 70911, true, false, {5})
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
+local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Melee")
+local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Phase 2 ability
+
+--local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
+--local yellMalleableGoo				= mod:NewYellMe(72295)
+--local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
+local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
+local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
+
+local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
+local timerMalleableGooCD			= mod:NewCDTimer(20, 72295, nil, nil, nil, 3)
+
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
 local soundMalleableGooSoon 		= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
 local soundChokingGasSoon 			= mod:NewSoundSoon(71255, nil, "Melee")
-local soundSlimePuddle 				= mod:NewSound(70341)
 
-local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 480 or 600)
+--mod:AddSetIconOption("MalleableGooIcon", 72295, true, false, {6})
+--mod:AddArrowOption("GooArrow", 72295)
 
-mod:AddBoolOption("OozeAdhesiveIcon")
-mod:AddBoolOption("GaseousBloatIcon")
-mod:AddBoolOption("MalleableGooIcon")
-mod:AddBoolOption("UnboundPlagueIcon")
---mod:AddBoolOption("GooArrow")
+-- Stage Three
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3))
+local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
+local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
+
+local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- 10 to 11
+
+-- Intermission
+mod:AddTimerLine(DBM_COMMON_L.INTERMISSION)
+local warnPhase2Soon				= mod:NewPrePhaseAnnounce(2)
+local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
+local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
+local warnVolatileExperiment		= mod:NewSpellAnnounce(72843, 4)		-- Phase transition heroic
+
+local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
+local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
+
+local timerNextPhase				= mod:NewPhaseTimer(30)
+--local timerTearGas					= mod:NewBuffFadesTimer(16, 71615, nil, nil, nil, 6)
+--local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
 
 local redOozeGUIDsCasts = {}
 local PuddleTime = 0
@@ -147,12 +166,13 @@ end
 end]]
 
 function mod:SPELL_CAST_START(args)
+	local spellId = args.spellId
 	if args:IsSpellID(70351, 71966, 71967, 71968) then
 		warnUnstableExperimentSoon:Cancel()
 		warnUnstableExperiment:Show()
 		timerUnstableExperimentCD:Start()
 		warnUnstableExperimentSoon:Schedule(33)
-	elseif args.spellId == 71617 then				--Tear Gas (stun all on Normal phase)
+	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase)
 		warnTearGas:Show()
 	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin); Warmane does not have this event
 		warnVolatileExperiment:Show()
@@ -232,18 +252,21 @@ function mod:NextPhase()
 	self:SetStage(0)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
+		warnPhase3:Play("pthree")
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 70341 and self:AntiSpam(5, 1) then
+	local spellId = args.spellId
+	if spellId == 70341 and self:AntiSpam(5, 1) then
 		warnSlimePuddle:Show()
 		soundSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
 		timerSlimePuddleCD:Start()
 		PuddleTime = GetTime()
-	elseif args.spellId == 71255 then
+	elseif spellId == 71255 then
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
 		soundSpecWarnChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking.mp3")
@@ -268,6 +291,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
+	local spellId = args.spellId
 	if args:IsSpellID(70447, 72836, 72837, 72838) then--Green Slime
 		if args:IsPlayer() then--Still worth warning 100s because it does still do knockback
 			specWarnVolatileOozeAdhesive:Show()
@@ -297,7 +321,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72451, 72463, 72671, 72672) then	-- Mutated Plague
 		warnMutatedPlague:Show(args.destName, args.amount or 1)
 		timerMutatedPlagueCD:Start()
-	elseif args.spellId == 70542 then
+	elseif spellId == 70542 then
 		timerMutatedSlash:Show(args.destName)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Show(args.destName)
@@ -342,6 +366,7 @@ function mod:SPELL_AURA_REFRESH(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
+	local spellId = args.spellId
 	if args:IsSpellID(70447, 72836, 72837, 72838) then
 		if self.Options.OozeAdhesiveIcon then
 			self:SetIcon(args.destName, 0)
@@ -356,11 +381,11 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.UnboundPlagueIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif args.spellId == 71615 and self:AntiSpam(5, 2) then 	-- Tear Gas Removal
+	elseif spellId == 71615 and self:AntiSpam(5, 2) then 	-- Tear Gas Removal
 		self:NextPhase()
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
-	elseif args.spellId == 70542 then
+	elseif spellId == 70542 then
 		timerMutatedSlash:Cancel(args.destName)
 	end
 end
