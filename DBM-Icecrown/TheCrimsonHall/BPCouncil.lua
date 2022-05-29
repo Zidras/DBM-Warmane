@@ -15,11 +15,14 @@ mod:SetBossHealthInfo(
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"CHAT_MSG_MONSTER_YELL",
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_SUMMON",
+	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 72037 72039 73037 73038 73039 71718 72040",
+	"SPELL_AURA_APPLIED 70952 70981 70982 72999 71807 72796 72797 72798",
+	"SPELL_AURA_APPLIED_DOSE 72999",
+	"SPELL_SUMMON 71943",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_TARGET_UNFILTERED",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
@@ -27,46 +30,70 @@ mod:RegisterEvents(
 
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
+-- General
 local warnTargetSwitch			= mod:NewAnnounce("WarnTargetSwitch", 3, 70952)
 local warnTargetSwitchSoon		= mod:NewAnnounce("WarnTargetSwitchSoon", 2, 70952)
+
+local timerCombatStart			= mod:NewCombatTimer(29) -- Roleplay for first pull
+local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- every 46-47seconds
+local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
+
+mod:AddRangeFrameOption("12")
+mod:AddBoolOption("ActivePrinceIcon", false)
+
+-- Shadow Prison
+local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6, nil, nil, 1, 6)
+
+local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
+
+-- Kinetic Bomb
+local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, "Ranged")
+
+local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking :23
+
+local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
+
+mod:AddSetIconOption("SetIconOnKineticBomb", 72053, true, true, {5, 6, 7})
+
+-- Prince Valanar
+mod:AddTimerLine(L.Valanar)
+local warnShockVortex			= mod:NewTargetAnnounce(72037, 3)				-- 1,5sec cast
+
+local specWarnVortex			= mod:NewSpecialWarningYou(72037, nil, nil, nil, 1, 2)
+local yellVortex				= mod:NewYellMe(72037)
+local specWarnVortexNear		= mod:NewSpecialWarningClose(72037, nil, nil, nil, 1, 2)
+local specWarnEmpoweredShockV	= mod:NewSpecialWarningMoveAway(72039, nil, nil, nil, 1, 2)
+
+local timerShockVortex			= mod:NewCDTimer(20, 72037, nil, nil, nil, 3, nil, nil, true) -- Seen a range from 16,8 - 21,6 (Warmane: from 2 logs: 19-22s). Added "keep" arg
+local timerEmpoweredShockVortex	= mod:NewCDTimer(30, 72039, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true)  -- Added "keep" arg
+
+local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
+local soundEmpoweredShockV		= mod:NewSound(72039)
+
+mod:AddArrowOption("VortexArrow", 72037, true)
+
+-- Prince Taldaram
+mod:AddTimerLine(L.Taldaram)
 local warnConjureFlames			= mod:NewCastAnnounce(71718, 2)
 local warnEmpoweredFlamesCast	= mod:NewCastAnnounce(72040, 3)
 local warnEmpoweredFlames		= mod:NewTargetAnnounce(72040, 4)
 local warnGliteringSparks		= mod:NewTargetAnnounce(71807, 2, nil, false)
-local warnShockVortex			= mod:NewTargetAnnounce(72037, 3)				-- 1,5sec cast
-local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, "Ranged")
-local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant cast
 
-local specWarnVortex			= mod:NewSpecialWarningYou(72037, nil, nil, nil, 1, 2)
-local yellVortex				= mod:NewYellMe(72037)
-local yellEmpoweredFlames		= mod:NewYellMe(72040)
-local specWarnVortexNear		= mod:NewSpecialWarningClose(72037, nil, nil, nil, 1, 2)
-local specWarnEmpoweredShockV	= mod:NewSpecialWarningMoveAway(72039, nil, nil, nil, 1, 2)
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040, nil, nil, nil, 4, 2)
-local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6, nil, nil, 1, 6)
+local yellEmpoweredFlames		= mod:NewYellMe(72040)
 
-local timerCombatStart			= mod:NewCombatTimer(29) -- Roleplay for first pull
-local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- every 46-47seconds
-local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5)	-- usually every 10 seconds but sometimes more
 local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718, nil, nil, nil, 3) -- every 20-30 seconds but never more often than every 20sec
 local timerGlitteringSparksCD	= mod:NewCDTimer(20, 71807, nil, nil, nil, 2) -- This is pretty nasty on heroic
-local timerShockVortex			= mod:NewCDTimer(20, 72037, nil, nil, nil, 3, nil, nil, true) -- Seen a range from 16,8 - 21,6 (Warmane: from 2 logs: 19-22s). Added "keep" arg
-local timerEmpoweredShockVortex	= mod:NewCDTimer(30, 72039, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true)  -- Added "keep" arg
-local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking :23
-local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
 
-local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
-local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
-local soundEmpoweredShockV		= mod:NewSound(72039)
 local soundEmpoweredFlames		= mod:NewSound(72040)
 
-local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
-
-mod:AddRangeFrameOption("12")
 mod:AddSetIconOption("EmpoweredFlameIcon", 72040, true, false, {1})
-mod:AddSetIconOption("SetIconOnKineticBomb", 72053, true, true, {5, 6, 7})
-mod:AddArrowOption("VortexArrow", 72037, true, 2)
-mod:AddBoolOption("ActivePrinceIcon", false)
+
+-- Prince Keleseth
+mod:AddTimerLine(L.Keleseth)
+local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant cast
+
+local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5)	-- usually every 10 seconds but sometimes more
 
 mod.vb.kineticIcon = 7
 local activePrince
@@ -149,7 +176,8 @@ function mod:TrySetTarget()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 72037 then		-- Shock Vortex
+	local spellId = args.spellId
+	if spellId == 72037 then		-- Shock Vortex
 		timerShockVortex:Start()
 		self:BossTargetScanner(37970, "ShockVortexTarget", 0.05, 6)
 	elseif args:IsSpellID(72039, 73037, 73038, 73039) then	-- Empowered Shock Vortex(73037, 73038, 73039 drycoded from wowhead)
@@ -159,17 +187,18 @@ function mod:SPELL_CAST_START(args)
 		end
 		timerEmpoweredShockVortex:Start()
 		soundEmpoweredShockV:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\EmpoweredVortex.mp3")
-	elseif args.spellId == 71718 then	-- Conjure Flames
+	elseif spellId == 71718 then	-- Conjure Flames
 		warnConjureFlames:Show()
 		timerConjureFlamesCD:Start()
-	elseif args.spellId == 72040 then	-- Conjure Empowered Flames
+	elseif spellId == 72040 then	-- Conjure Empowered Flames
 		warnEmpoweredFlamesCast:Show()
 		timerConjureFlamesCD:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 70952 then
+	local spellId = args.spellId
+	if spellId == 70952 then
 		activePrince = args.destGUID
 		if self:IsInCombat() then
 			warnTargetSwitch:Show(L.Valanar)
@@ -188,7 +217,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				DBM.RangeCheck:Show(12)
 			end
 		end
-	elseif args.spellId == 70981 and self:IsInCombat() then
+	elseif spellId == 70981 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Keleseth)
 		warnTargetSwitchSoon:Schedule(42)
 		warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
@@ -205,7 +234,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.RangeFrame then
 			self:ScheduleMethod(4.5, "HideRange")--delay hiding range frame for a few seconds after change incase valanaar got a last second vortex cast off
 		end
-	elseif args.spellId == 70982 and self:IsInCombat() then
+	elseif spellId == 70982 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
 		warnTargetSwitchSoon:Schedule(42)
 		warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
@@ -222,7 +251,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.RangeFrame then
 			self:ScheduleMethod(4.5, "HideRange")--delay hiding range frame for a few seconds after change incase valanaar got a last second vortex cast off
 		end
-	elseif args.spellId == 72999 then	--Shadow Prison (hard mode)
+	elseif spellId == 72999 then	--Shadow Prison (hard mode)
 		if args:IsPlayer() then
 			timerShadowPrison:Start()
 			if (args.amount or 1) >= 10 then	--Placeholder right now, might use a different value
