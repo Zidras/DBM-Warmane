@@ -3,17 +3,17 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(36853)
-mod:SetMinSyncRevision(3712)
 mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
+mod:SetMinSyncRevision(3712)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_SUCCESS",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 69649 71056 71057 71058 73061 73062 73063 73064 71077",
+	"SPELL_AURA_APPLIED 70126 69762 70106 69766 70127 72528 72529 72530",
+	"SPELL_AURA_APPLIED_DOSE 70106 69766 70127 72528 72529 72530",
+	"SPELL_AURA_REMOVED 69762 70157 70126 70106 69766 70127 72528 72529 72530",
+	"SPELL_CAST_SUCCESS 70117",
 	"UNIT_HEALTH boss1",
 	"CHAT_MSG_MONSTER_YELL"
 )
@@ -21,13 +21,19 @@ mod:RegisterEvents(
 local strupper = strupper
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
+-- General
+local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
+
+mod:AddRangeFrameOption("10/20/25")
+mod:AddBoolOption("ClearIconsOnAirphase", true)
+
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnAirphase				= mod:NewAnnounce("WarnAirphase", 2, 43810)
 local warnGroundphaseSoon		= mod:NewAnnounce("WarnGroundphaseSoon", 2, 43810)
 local warnPhase2soon			= mod:NewPrePhaseAnnounce(2)
-local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
 local warnInstability			= mod:NewCountAnnounce(69766, 2, nil, false)
 local warnChilledtotheBone		= mod:NewCountAnnounce(70106, 2, nil, false)
-local warnMysticBuffet			= mod:NewCountAnnounce(70128, 2, nil, false)
 local warnFrostBeacon			= mod:NewTargetAnnounce(70126, 4)
 local warnFrostBreath			= mod:NewSpellAnnounce(69649, 2, nil, "Tank|Healer")
 local warnUnchainedMagic		= mod:NewTargetAnnounce(69762, 2, nil, "SpellCaster", 2)
@@ -37,7 +43,6 @@ local specWarnFrostBeacon		= mod:NewSpecialWarningMoveAway(70126, nil, nil, nil,
 local specWarnFrostBeaconSide	= mod:NewSpecialWarningMoveTo(70126, nil, nil, nil, 3, 2)
 local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, mod:IsHeroic() and 4 or 8, nil, nil, 1, 6)
 local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsHeroic() and 4 or 8, nil, nil, 1, 6)
-local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5, nil, nil, 1, 6)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
 local timerNextAirphase			= mod:NewTimer(110, "TimerNextAirphase", 43810, nil, nil, 6)
@@ -49,21 +54,27 @@ local timerBlisteringCold		= mod:NewCastTimer(6, 70123, nil, nil, nil, 2)
 local timerUnchainedMagic		= mod:NewCDTimer(30, 69762, nil, nil, nil, 3)
 local timerInstability			= mod:NewBuffFadesTimer(5, 69766, nil, nil, nil, 5)
 local timerChilledtotheBone		= mod:NewBuffFadesTimer(8, 70106, nil, nil, nil, 5)
+local timerTailSmash			= mod:NewCDTimer(30, 71077, nil, nil, nil, 2) -- random timer? Need more logs to confirm
+
+local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
+
+mod:AddSetIconOption("SetIconOnFrostBeacon", 70126, true, false, {3, 4, 5, 6, 7, 8})
+mod:AddSetIconOption("SetIconOnUnchainedMagic", 69762, true, false, {2, 3, 4, 5, 6, 7})
+mod:AddBoolOption("AnnounceFrostBeaconIcons", false, "announce", nil, nil, nil, 70126)
+mod:AddBoolOption("AssignWarnDirectionsCount", true, nil, nil, nil, nil, 70126)
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+local warnPhase2				= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
+local warnMysticBuffet			= mod:NewCountAnnounce(70128, 2, nil, false)
+
+local specWarnMysticBuffet		= mod:NewSpecialWarningStack(70128, false, 5, nil, nil, 1, 6)
+
 local timerMysticBuffet			= mod:NewBuffFadesTimer(8, 70128, nil, nil, nil, 5)
 local timerNextMysticBuffet		= mod:NewNextTimer(6, 70128, nil, nil, nil, 2)
 local timerMysticAchieve		= mod:NewAchievementTimer(30, 4620, "AchievementMystic")
-local timerTailSmash			= mod:NewCDTimer(30, 71077, nil, nil, nil, 2) -- random timer? Need more logs to confirm
-local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
 
-local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
-
-mod:AddBoolOption("SetIconOnFrostBeacon", true)
-mod:AddBoolOption("SetIconOnUnchainedMagic", true)
-mod:AddBoolOption("ClearIconsOnAirphase", true)
-mod:AddBoolOption("AnnounceFrostBeaconIcons", false)
-mod:AddBoolOption("AssignWarnDirectionsCount", true)
-mod:AddBoolOption("AchievementCheck", false, "announce")
-mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("AchievementCheck", false, "announce", nil, nil, nil, 4620, "achievement")
 
 local beaconTargets		= {}
 local beaconIconTargets	= {}
@@ -229,7 +240,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 70126 then
+	local spellId = args.spellId
+	if spellId == 70126 then
 		beaconTargets[#beaconTargets + 1] = args.destName
 		if args:IsPlayer() then
 			playerBeaconed = true
@@ -273,7 +285,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self:Schedule(0.3, warnBeaconTargets, self)
 		end
-	elseif args.spellId == 69762 then
+	elseif spellId == 69762 then
 		unchainedTargets[#unchainedTargets + 1] = args.destName
 		if args:IsPlayer() then
 			playerUnchained = true
@@ -284,14 +296,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnUnchainedMagic then
 			self:SetIcon(args.destName, self.vb.unchainedIcons)
 		end
-			self.vb.unchainedIcons = self.vb.unchainedIcons - 1
+		self.vb.unchainedIcons = self.vb.unchainedIcons - 1
 		self:Unschedule(warnUnchainedTargets)
 		if #unchainedTargets >= 6 then
 			warnUnchainedTargets(self)
 		else
 			self:Schedule(0.3, warnUnchainedTargets, self)
 		end
-	elseif args.spellId == 70106 then	--Chilled to the bone (melee)
+	elseif spellId == 70106 then	--Chilled to the bone (melee)
 		if args:IsPlayer() then
 			timerChilledtotheBone:Start()
 			if (self:IsHeroic() and (args.amount or 1) >= 4) or (args.amount or 1) >= 8 then
@@ -301,7 +313,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				warnChilledtotheBone:Show(args.amount or 1)
 			end
 		end
-	elseif args.spellId == 69766 then	--Instability (casters)
+	elseif spellId == 69766 then	--Instability (casters)
 		if args:IsPlayer() then
 			timerInstability:Start()
 			if (self:IsHeroic() and (args.amount or 1) >= 4) or (args.amount or 1) >= 8 then
@@ -339,8 +351,37 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
+function mod:SPELL_AURA_REMOVED(args)
+	local spellId = args.spellId
+	if spellId == 69762 then
+		if self.Options.SetIconOnUnchainedMagic and not self.vb.activeBeacons then
+			self:SetIcon(args.destName, 0)
+		end
+	elseif spellId == 70157 then
+		if self.Options.SetIconOnFrostBeacon then
+			self:SetIcon(args.destName, 0)
+		end
+	elseif spellId == 70126 then
+		self.vb.activeBeacons = false
+	elseif spellId == 70106 then	--Chilled to the bone (melee)
+		if args:IsPlayer() then
+			timerChilledtotheBone:Cancel()
+		end
+	elseif spellId == 69766 then	--Instability (casters)
+		if args:IsPlayer() then
+			timerInstability:Cancel()
+		end
+	elseif args:IsSpellID(70127, 72528, 72529, 72530) then
+		if args:IsPlayer() then
+			timerMysticAchieve:Cancel()
+			timerMysticBuffet:Cancel()
+		end
+	end
+end
+
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 70117 then--Icy Grip Cast, not blistering cold, but adds an extra 1sec to the warning
+	local spellId = args.spellId
+	if spellId == 70117 then--Icy Grip Cast, not blistering cold, but adds an extra 1sec to the warning
 		specWarnBlisteringCold:Show()
 		specWarnBlisteringCold:Play("runout")
 		timerBlisteringCold:Start()
@@ -349,33 +390,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:SetBossRange(25, self:GetBossUnitByCreatureId(36853))
 			self:Schedule(5.5, ResetRange, self)
-		end
-	end
-end
-
-function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 69762 then
-		if self.Options.SetIconOnUnchainedMagic and not self.vb.activeBeacons then
-			self:SetIcon(args.destName, 0)
-		end
-	elseif args.spellId == 70157 then
-		if self.Options.SetIconOnFrostBeacon then
-			self:SetIcon(args.destName, 0)
-		end
-	elseif args.spellId == 70126 then
-		self.vb.activeBeacons = false
-	elseif args.spellId == 70106 then	--Chilled to the bone (melee)
-		if args:IsPlayer() then
-			timerChilledtotheBone:Cancel()
-		end
-	elseif args.spellId == 69766 then	--Instability (casters)
-		if args:IsPlayer() then
-			timerInstability:Cancel()
-		end
-	elseif args:IsSpellID(70127, 72528, 72529, 72530) then
-		if args:IsPlayer() then
-			timerMysticAchieve:Cancel()
-			timerMysticBuffet:Cancel()
 		end
 	end
 end
@@ -404,6 +418,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
 		self:SetStage(2)
 		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
 		p2_beacon_num = 1
 		timerNextBeacon:Start(7, p2_beacon_num)
 		timerNextAirphase:Cancel()
