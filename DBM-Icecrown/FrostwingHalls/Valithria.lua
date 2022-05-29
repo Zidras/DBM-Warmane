@@ -8,13 +8,14 @@ mod.onlyHighest = true--Instructs DBM health tracking to literally only store hi
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
-	"SPELL_DAMAGE",
-	"SPELL_MISSED",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 70754 71748 72023 72024 71189",
+	"SPELL_CAST_SUCCESS 71179 70588",
+	"SPELL_AURA_APPLIED 70633 71283 72025 72026 70751 71738 72022 72023 69325 71730 70873 71941",
+	"SPELL_AURA_APPLIED_DOSE 70751 71738 72022 72023 70873 71941",
+	"SPELL_AURA_REMOVED 70633 71283 72025 72026 69325 71730 70873 71941",
+	"SPELL_DAMAGE 71086 71743 71086 72030",
+	"SPELL_MISSED 71086 71743 71086 72030",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_TARGET_UNFILTERED"
 )
@@ -25,7 +26,7 @@ local warnManaVoid			= mod:NewSpellAnnounce(71179, 2, nil, "ManaUser")
 local warnSupression		= mod:NewSpellAnnounce(70588, 3)
 local warnPortalSoon		= mod:NewSoonAnnounce(72483, 2, nil)
 local warnPortal			= mod:NewSpellAnnounce(72483, 3, nil)
-local warnPortalOpen		= mod:NewAnnounce("WarnPortalOpen", 4, 72483)
+local warnPortalOpen		= mod:NewAnnounce("WarnPortalOpen", 4, 72483, nil, nil, nil, 72483)
 
 local specWarnGutSpray		= mod:NewSpecialWarningDefensive(70633, nil, nil, nil, 1, 2)
 local specWarnLayWaste		= mod:NewSpecialWarningSpell(69325, nil, nil, nil, 2, 2)
@@ -34,13 +35,13 @@ local specWarnManaVoid		= mod:NewSpecialWarningMove(71179, nil, nil, nil, 1, 2)
 local specWarnSuppressers	= mod:NewSpecialWarningSpell(70935)
 
 local timerLayWaste			= mod:NewBuffActiveTimer(12, 69325, nil, nil, nil, 2)
-local timerNextPortal		= mod:NewCDTimer(46.5, 72483, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerPortalsOpen		= mod:NewTimer(15, "TimerPortalsOpen", 72483, nil, nil, 6)
-local timerPortalsClose		= mod:NewTimer(10, "TimerPortalsClose", 72483, nil, nil, 6)
+local timerNextPortal		= mod:NewCDCountTimer(46.5, 72483, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerPortalsOpen		= mod:NewTimer(15, "TimerPortalsOpen", 72483, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 72483)
+local timerPortalsClose		= mod:NewTimer(10, "TimerPortalsClose", 72483, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 72483)
 local timerHealerBuff		= mod:NewBuffFadesTimer(40, 70873, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerGutSpray			= mod:NewTargetTimer(12, 70633, nil, "Tank|Healer", nil, 5)
 local timerCorrosion		= mod:NewTargetTimer(6, 70751, nil, false, nil, 3)
-local timerBlazingSkeleton	= mod:NewTimer(50, "TimerBlazingSkeleton", 17204, nil, nil, 1)
+local timerBlazingSkeleton	= mod:NewNextTimer(50, 70933, "TimerBlazingSkeleton", nil, nil, 1, 17204)
 local timerAbom				= mod:NewNextCountTimer(50, 70922, "TimerAbom", nil, nil, 1)
 local timerSuppressers		= mod:NewNextCountTimer(60, 70935, nil, nil, nil, 1)
 
@@ -48,13 +49,14 @@ local soundSpecWarnSuppressers	= mod:NewSound(70935)
 
 local berserkTimer			= mod:NewBerserkTimer(420)
 
-mod:AddBoolOption("SetIconOnBlazingSkeleton", true)
+mod:AddSetIconOption("SetIconOnBlazingSkeleton", 70933, true, true, {8})
 
 mod.vb.BlazingSkeletonTimer = 60
 mod.vb.AbomSpawn = 0
 mod.vb.AbomTimer = 60
 mod.vb.blazingSkeleton = nil
 mod.vb.SuppressersWave = 0
+mod.vb.portalCount = 0
 
 local function Suppressers(self)
 	self.vb.SuppressersWave = self.vb.SuppressersWave + 1
@@ -123,7 +125,8 @@ function mod:OnCombatStart(delay)
 	if self:IsHeroic() then
 		berserkTimer:Start(-delay)
 	end
-	timerNextPortal:Start()
+	self.vb.portalCount = 0
+	timerNextPortal:Start(nil, self.vb.portalCount + 1)
 	warnPortalSoon:Schedule(41)
 	self:ScheduleMethod(46.5, "Portals")--This will never be perfect, since it's never same. 45-48sec variations
 	self.vb.BlazingSkeletonTimer = 60
@@ -150,7 +153,8 @@ function mod:Portals()
 	timerPortalsOpen:Start()
 	timerPortalsClose:Schedule(15)
 	warnPortalSoon:Schedule(41)
-	timerNextPortal:Start()
+	self.vb.portalCount = self.vb.portalCount + 1
+	timerNextPortal:Start(nil, self.vb.portalCount)
 	self:UnscheduleMethod("Portals")
 	self:ScheduleMethod(46.5, "Portals")--This will never be perfect, since it's never same. 45-48sec variations
 end
@@ -170,20 +174,22 @@ function mod:TrySetTarget()
 end
 
 function mod:SPELL_CAST_START(args)
+	local spellId = args.spellId
 	if args:IsSpellID(70754, 71748, 72023, 72024) then--Fireball (its the first spell Blazing SKeleton's cast upon spawning)
 		if self.Options.SetIconOnBlazingSkeleton then
 			self.vb.blazingSkeleton = args.sourceGUID
 			self:TrySetTarget()
 		end
-	elseif args.spellId == 71189 then
+	elseif spellId == 71189 then
 		DBM:EndCombat(self)
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 71179 then--Mana Void
+	local spellId = args.spellId
+	if spellId == 71179 then--Mana Void
 		warnManaVoid:Show()
-	elseif args.spellId == 70588 and self:AntiSpam(5, 1) then--Supression
+	elseif spellId == 70588 and self:AntiSpam(5, 1) then--Supression
 		warnSupression:Show(args.destName)
 	end
 end
