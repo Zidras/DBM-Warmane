@@ -8,22 +8,33 @@ mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_SUMMON",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED",
-	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 73058 72378 72293",
+	"SPELL_CAST_SUCCESS 72410",
+	"SPELL_SUMMON 72172 72173 72356 72357 72358",
+	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737 19753",
+	"SPELL_AURA_REMOVED 72385 72441 72442 72443",
+	"UNIT_HEALTH boss1"
 )
 
 local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
 local canVanish = select(2, UnitClass("player")) == "ROGUE"
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
+-- General
+local timerCombatStart		= mod:NewCombatTimer(47.3)
+local enrageTimer			= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 480)
+
+mod:RemoveOption("HealthFrame")
+mod:AddBoolOption("RunePowerFrame", false, "misc")
+mod:AddBoolOption("RemoveDI")
+
+-- Deathbringer Saurfang
+mod:AddTimerLine(BOSS)
 local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, "Tank|Healer")
-local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
-local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, "Tank|Healer")
 local warnBloodNova			= mod:NewSpellAnnounce(72378, 2)
 local warnMark 				= mod:NewTargetCountAnnounce(72293, 4, 72293)
@@ -34,26 +45,27 @@ local specwarnMark			= mod:NewSpecialWarningTarget(72444, nil, false, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
-local timerCombatStart		= mod:NewCombatTimer(47.3)
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerBoilingBlood		= mod:NewNextTimer(15.5, 72441, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerBloodNova		= mod:NewNextTimer(20, 73058, nil, nil, nil, 2)
-local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 3)
+local timerBoilingBlood		= mod:NewNextTimer(15.5, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerBloodNova		= mod:NewNextTimer(20, 72378, nil, nil, nil, 2)
 
 local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
-local enrageTimer			= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 480)
-
-mod:AddBoolOption("RangeFrame", "Ranged")
-mod:AddBoolOption("RunePowerFrame", false, "misc")
-mod:AddSetIconOption("BeastIcons", 72173, true, true)
-mod:AddBoolOption("BoilingBloodIcons", false)
+mod:AddRangeFrameOption(12, 72378, "Ranged")
 mod:AddInfoFrameOption(72370, false)
-mod:AddBoolOption("RemoveDI")
-mod:RemoveOption("HealthFrame")
+mod:AddSetIconOption("BoilingBloodIcons", 72385, false, false, {1, 2, 3})
+
+-- Blood Beasts
+mod:AddTimerLine(DBM_COMMON_L.ADDS)
+local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
+local warnAdds				= mod:NewSpellAnnounce(72173, 4)
+
+local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 3)
+
+mod:AddSetIconOption("BeastIcons", 72173, true, true, {4, 5, 6, 7, 8})
 
 mod.vb.warned_preFrenzy = false
-mod.vb.boilingBloodIcon 	= 8
+mod.vb.boilingBloodIcon 	= 1
 mod.vb.Mark = 0
 local boilingBloodTargets = {}
 local spellName = DBM:GetSpellInfo(72370)
@@ -62,7 +74,7 @@ local UnitGUID = UnitGUID
 local function warnBoilingBloodTargets(self)
 	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
 	table.wipe(boilingBloodTargets)
-	self.vb.boilingBloodIcon = 8
+	self.vb.boilingBloodIcon = 1
 	timerBoilingBlood:Start()
 end
 
@@ -179,7 +191,8 @@ function mod:SPELL_SUMMON(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 72293 then		-- Mark of the Fallen Champion
+	local spellId = args.spellId
+	if spellId == 72293 then		-- Mark of the Fallen Champion
 		self.vb.Mark = self.vb.Mark + 1
 		warnMark:Show(self.vb.Mark, args.destName)
 		specwarnMark:Show(args.destName)
@@ -188,16 +201,16 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.BoilingBloodIcons then
 			self:SetIcon(args.destName, self.vb.boilingBloodIcon, 15)
 		end
-		self.vb.boilingBloodIcon = self.vb.boilingBloodIcon - 1
+		self.vb.boilingBloodIcon = self.vb.boilingBloodIcon + 1
 		self:Unschedule(warnBoilingBloodTargets)
 		if self:IsDifficulty("normal10", "heroic10") or (self:IsDifficulty("normal25", "heroic25") and #boilingBloodTargets >= 3) then	-- Boiling Blood
 			warnBoilingBloodTargets(self)
 		else
 			self:Schedule(0.5, warnBoilingBloodTargets, self)
 		end
-	elseif args.spellId == 72737 then						-- Frenzy
+	elseif spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
-	elseif args.spellId == 19753 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
+	elseif spellId == 19753 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
 		CancelUnitBuff("player", GetSpellInfo(19753))
 	end
 end
