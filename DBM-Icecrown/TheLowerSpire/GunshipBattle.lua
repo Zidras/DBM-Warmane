@@ -2,10 +2,10 @@ local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")
-mod:SetMinSyncRevision(4400)
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
+mod:SetMinSyncRevision(4400)
 if UnitFactionGroup("player") == "Alliance" then
 	--mod:RegisterCombat("yell", L.CombatAlliance)
 	mod:RegisterKill("yell", L.KillAlliance)
@@ -21,12 +21,15 @@ else
 end
 
 mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_START",
-	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2",
 	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 71195 71193 71188 69652 69651 72306 69638 69705",
+	"SPELL_AURA_APPLIED_DOSE 72306 69638",
+	"SPELL_AURA_REMOVED 69705",
+	"SPELL_CAST_START 69705",
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2"
 )
 
 local warnBelowZero			= mod:NewSpellAnnounce(69705, 4)
@@ -72,19 +75,20 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 71195 then
+	local spellId = args.spellId
+	if spellId == 71195 then
 		warnElite:Show(args.destName)
-	elseif args.spellId == 71193 then
+	elseif spellId == 71193 then
 		warnVeteran:Show(args.destName)
-	elseif args.spellId == 71188 then
+	elseif spellId == 71188 then
 		warnExperienced:Show(args.destName)
-	elseif args.spellId == 69652 then
+	elseif spellId == 69652 then
 		warnBladestorm:Show()
-	elseif args.spellId == 69651 then
+	elseif spellId == 69651 then
 		warnWoundingStrike:Show(args.destName)
 	elseif args:IsSpellID(72306, 69638) and self:GetCIDFromGUID(args.destGUID) == bossID then
 		timerBattleFuryActive:Start()		-- only a timer for 1st stack
-	elseif args.spellId == 69705 and self:AntiSpam(1, 1) then
+	elseif spellId == 69705 and self:AntiSpam(1, 1) then
 		soundFreeze:Play("Interface\\AddOns\\DBM-Core\\sounds\\Alert.mp3")
 	end
 end
