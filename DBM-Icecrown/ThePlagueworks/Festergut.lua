@@ -6,11 +6,11 @@ mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(6, 7, 8)
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 69195 71219 73031 73032",
+	"SPELL_AURA_APPLIED 69279 69166 71912 72219 72551 72552 72553 69240 71218 73019 73020 69291 72101 72102 72103",
+	"SPELL_AURA_APPLIED_DOSE 69166 71912 72219 72551 72552 72553 69291 72101 72102 72103",
+	"SPELL_AURA_REMOVED 69279",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
@@ -39,10 +39,10 @@ local timerGooCD			= mod:NewCDTimer(10, 72297, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
-mod:AddBoolOption("RangeFrame", "Ranged")
-mod:AddBoolOption("SetIconOnGasSpore", true)
-mod:AddBoolOption("AnnounceSporeIcons", false)
-mod:AddBoolOption("AchievementCheck", false, "announce")
+mod:AddRangeFrameOption(8, 69240, "Ranged")
+mod:AddSetIconOption("SetIconOnGasSpore", 69279, true, false, {6, 7, 8})
+mod:AddBoolOption("AnnounceSporeIcons", false, "announce", nil, nil, nil, 69279)
+mod:AddBoolOption("AchievementCheck", false, "announce", nil, nil, nil, 4615, "achievement")
 
 local gasSporeTargets	= {}
 local gasSporeIconTargets	= {}
@@ -61,7 +61,7 @@ do
 	function mod:SetSporeIcons()
 		table.sort(gasSporeIconTargets, sort_by_group)
 		local gasSporeIcon = 8
-		for i, v in ipairs(gasSporeIconTargets) do
+		for _, v in ipairs(gasSporeIconTargets) do
 			if self.Options.AnnounceSporeIcons and DBM:GetRaidRank() > 0 then
 				SendChatMessage(L.SporeSet:format(gasSporeIcon, DBM:GetUnitFullName(v)), "RAID")
 			end
