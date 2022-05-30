@@ -6,14 +6,12 @@ mod:SetCreatureID(36627)
 mod:SetUsedIcons(7, 8)
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_AURA_REMOVED",
-	"SPELL_DAMAGE",
-	"SWING_DAMAGE",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 69508 69774 69839",
+	"SPELL_AURA_APPLIED 71208 69760 69558 69674 71224 73022 73023 72272 72273",
+	"SPELL_AURA_APPLIED_DOSE 69558",
+	"SPELL_CAST_SUCCESS 72272 72273",
+	"SPELL_AURA_REMOVED 69674 71224 73022 73023",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -40,9 +38,9 @@ local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 3)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON, nil, 3)
 local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3)
 
-mod:AddBoolOption("RangeFrame", "Ranged")
-mod:AddBoolOption("InfectionIcon", true)
-mod:AddBoolOption("TankArrow")
+mod:AddRangeFrameOption(10, 72272, "Ranged")
+mod:AddSetIconOption("InfectionIcon", 69674, true, false, {7, 8})
+mod:AddBoolOption("TankArrow", true, nil, nil, nil, nil, 69674)
 
 local RFVileGasTargets	= {}
 local spamOoze = 0
@@ -61,6 +59,7 @@ local function WallSlime(self)
 		self:Schedule(20, WallSlime, self)
 	end
 end
+
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(9-delay) -- Adjust from 25 to 9 to have a correct timer from the start
 	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray
@@ -71,23 +70,31 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10) -- Increased from 8 to 10
 	end
+	self:RegisterShortTermEvents(
+		"SPELL_DAMAGE", -- unfiltered for DBM arrow
+		"SPELL_MISSED", -- unfiltered for DBM arrow
+		"SWING_DAMAGE",
+		"SWING_MISSED"
+	)
 end
 
 function mod:OnCombatEnd()
+	self:UnregisterShortTermEvents()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 69508 then
+	local spellId = args.spellId
+	if spellId == 69508 then
 		timerSlimeSpray:Start()
 		specWarnSlimeSpray:Show()
 		warnSlimeSpray:Show()
-	elseif args.spellId == 69774 then
+	elseif spellId == 69774 then
 		timerStickyOoze:Start()
 		warnStickyOoze:Show()
-	elseif args.spellId == 69839 then --Unstable Ooze Explosion (Big Ooze)
+	elseif spellId == 69839 then --Unstable Ooze Explosion (Big Ooze)
 		if GetTime() - spamOoze < 4 then --This will prevent spam but breaks if there are 2 oozes. GUID work is required
 			specWarnOozeExplosion:Cancel()
 			specWarnOozeExplosion:CancelVoice()
@@ -102,12 +109,13 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 71208 and args:IsPlayer() then
+	local spellId = args.spellId
+	if spellId == 71208 and args:IsPlayer() then
 		specWarnStickyOoze:Show()
 		specWarnStickyOoze:Play("runaway")
-	elseif args.spellId == 69760 then
+	elseif spellId == 69760 then
 		warnRadiatingOoze:Show()
-	elseif args.spellId == 69558 then
+	elseif spellId == 69558 then
 		warnUnstableOoze:Show(args.destName, args.amount or 1)
 	elseif args:IsSpellID(69674, 71224, 73022, 73023) then
 		timerMutatedInfection:Start(args.destName)
