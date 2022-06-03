@@ -763,15 +763,40 @@ do
 				if modEvents and modEvents[event] and not has_value(modEvents[event], ...) then return end
 			end
 
-			if type(handler) == "function" and (not zones or checkEntry(zones, GetRealZoneText()) or checkEntry(zones, GetCurrentMapAreaID())) and (not v.Options or v.Options.Enabled) then
+			if handler and (not isUnitEvent or not modEvents or modEvents[event .. ...]) and (not zones or zones[LastInstanceMapID]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
 				handler(v, ...)
 			end
 		end
 	end
 
-	local unregisterUnitEvent, registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
+	local registerUnitEvent, unregisterUnitEvent, registerSpellId, unregisterSpellId, registerCLEUEvent, unregisterCLEUEvent
 	do
 		local frames = {} -- frames that are being used for unit events, one frame per unit id (this could be optimized, as it currently creates a new frame even for a different event, but that's not worth the effort as 90% of all calls are just boss1 anyways)
+
+		function registerUnitEvent(mod, event, ...)
+			mod.registeredUnitEvents = mod.registeredUnitEvents or {}
+			for i = 1, select("#", ...) do
+				local uId = select(i, ...)
+				if not uId then break end
+				local frame = frames[uId]
+				if not frame then
+					frame = CreateFrame("Frame")
+					if uId == "mouseover" then
+						-- work-around for mouse-over events (broken!)
+						frame:SetScript("OnEvent", function(self, event, _, ...)
+							-- we registered mouseover events, so we only want mouseover events, thanks.
+							handleEvent(self, event, "mouseover", ...)
+						end)
+					else
+						frame:SetScript("OnEvent", handleEvent)
+					end
+					frames[uId] = frame
+				end
+				registeredUnitEventIds[event .. uId] = (registeredUnitEventIds[event .. uId] or 0) + 1
+				mod.registeredUnitEvents[event .. uId] = true
+				frame:RegisterEvent(event)
+			end
+		end
 
 		function unregisterUnitEvent(mod, event, ...)
 			for i = 1, select("#", ...) do
@@ -901,7 +926,7 @@ do
 			if event:sub(0, 6) == "SPELL_" and event ~= "SPELL_NAME_UPDATE" or event:sub(0, 6) == "RANGE_" or event:sub(0, 6) == "SWING_" or event == "UNIT_DIED" or event == "UNIT_DESTROYED" or event == "PARTY_KILL" then
 				registerCLEUEvent(self, event)
 			else
-				if event:sub(0, 5) == "UNIT_" and event:sub(event:len() - 10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+				if event:sub(0, 5) == "UNIT_" then
 					local args = {strsplit(" ", event)}
 					event = tremove(args, 1)
 					-- Register valid units for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1")
@@ -910,14 +935,19 @@ do
 						self.registeredUnitEvents = self.registeredUnitEvents or {}
 						self.registeredUnitEvents[event] = args
 					end
+					if event:sub(-11) == "_UNFILTERED" then
+						-- we really want *all* unit ids
+						mainFrame:RegisterEvent(event:sub(0, -12))
+					else
+						registerUnitEvent(self, event, unpack(args))
+					end
+				-- spell events with filter
+				else
+					-- normal events
+					mainFrame:RegisterEvent(event)
 				end
 				registeredEvents[event] = registeredEvents[event] or {}
 				tinsert(registeredEvents[event], self)
-				if event:sub(0, 5) == "UNIT_" and event:sub(-11) == "_UNFILTERED"  then
-					mainFrame:RegisterEvent(event:sub(0, -12))
-				else
-					mainFrame:RegisterEvent(event)
-				end
 			end
 		end
 	end
@@ -10307,7 +10337,7 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	end
 	self.combatInfo = info
 	if not self.zones then return end
-	for i, v in ipairs(self.zones) do
+	for v in pairs(self.zones) do
 		combatInfo[v] = combatInfo[v] or {}
 		tinsert(combatInfo[v], info)
 	end
