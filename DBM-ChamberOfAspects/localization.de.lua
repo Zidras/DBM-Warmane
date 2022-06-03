@@ -180,6 +180,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Halion					= "Halion",
+	PhysicalRealm			= "Körperliches Reich",
 	MeteorCast				= "Die Himmel brennen!",
 	Phase2					= "Ihr werdet im Reich des Zwielichts nur Leid finden! Tretet ein, wenn ihr es wagt!",
 	Phase3					= "Ich bin das Licht und die Dunkelheit! Zittert, Sterbliche, vor dem Herold Todesschwinges!",
