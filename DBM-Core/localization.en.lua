@@ -15,6 +15,8 @@ end
 L.HOW_TO_USE_MOD						= "Welcome to " .. L.DBM .. ". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. " .. L.DBM .. " will setup defaults for your spec, but you may want to fine tune these."
 L.SILENT_REMINDER						= "Reminder: " .. L.DBM .. " is still in silent mode."
 
+L.COPY_URL_DIALOG_NEWS					= "To read latest news, visit link below"
+
 L.UPDATEREMINDER_URL					= "https://github.com/Zidras/DBM-Warmane/"
 
 L.LOAD_MOD_ERROR						= "Error while loading boss mods for %s: %s"
@@ -27,6 +29,7 @@ L.LOAD_MOD_DISABLED_PLURAL				= "%s are installed but currently disabled. These 
 L.COPY_URL_DIALOG						= "Copy URL"
 
 L.NO_ARROW								= "Arrow can not be used in old instances with no map support(download a map patch or deal with it)"
+L.BIGWIGS_ICON_CONFLICT					= L.DBM .. " has detected that you have raid icons turned on in both BigWigs and " .. L.DBM .. ". Please disable icons in one of them to avoid conflicts"
 
 L.COMBAT_STARTED						= "%s engaged. Good luck and have fun! :)"
 L.COMBAT_STARTED_IN_PROGRESS			= "Engaged an in progress fight against %s. Good luck and have fun! :)"
@@ -156,6 +159,7 @@ L.UPDATEREMINDER_DISABLE				= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " 
 L.UPDATEREMINDER_HOTFIX					= L.DBM .. " version you are on has known issues during this boss encounter that are corrected if you update to latest release"
 L.UPDATEREMINDER_HOTFIX_ALPHA			= L.DBM .. " version you are on has known issues during this boss encounter that are corrected in an upcoming release (or latest alpha version)"
 L.UPDATE_REQUIRES_RELAUNCH				= "WARNING: This " .. L.DBM .. " update will not work correctly if you don't fully restart your game client. This update contains new files or .toc file changes that cannot be loaded via ReloadUI. You may encounter broken functionality or errors if you continue without a client restart."
+L.OUT_OF_DATE_NAG						= "Your version of " .. L.DBM.. " is out-of-date and this specific fight mod has newer features or bug fixes. It is recommended you update for this fight to improve your experience."
 
 L.MOVABLE_BAR							= "Drag me!"
 
@@ -290,12 +294,12 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 	targetNF							= "Announce $spell:%s targets (ignores global target filter)",
 	targetsource						= "Announce $spell:%s targets (with source)",
 	targetcount							= "Announce $spell:%s targets (with count)",
-	spell								= "Show warning for $spell:%s",
-	ends								= "Show warning when $spell:%s has ended",
-	endtarget							= "Show warning when $spell:%s has ended",
-	fades								= "Show warning when $spell:%s has faded",
+	spell								= "Announce when $spell:%s has been cast",
+	ends								= "Announce when $spell:%s has ended",
+	endtarget							= "Announce when $spell:%s has ended (with target)",
+	fades								= "Announce when $spell:%s has faded",
 	addsleft							= "Announce how many $spell:%s remain",
-	cast								= "Show warning when $spell:%s is being cast",
+	cast								= "Announce when $spell:%s begins casting",
 	soon								= prewarnOption,
 	sooncount							= prewarnOption,
 	countdown							= "Show pre-warning countdown spam for $spell:%s",
@@ -304,9 +308,9 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 	stage								= "Announce Stage %s",
 	stagechange							= "Announce stage changes",
 	prestage							= "Show a prewarning for Stage %s",
-	count								= "Show warning for $spell:%s (with count)",
+	count								= "Announce when $spell:%s has been cast (with count)",
 	stack								= "Announce $spell:%s stacks",
-	moveto								= "Show warning to move to someone or some place for $spell:%s"
+	moveto								= "Announce when to move to someone or some place for $spell:%s"
 }
 
 L.AUTO_SPEC_WARN_TEXTS = {
@@ -323,12 +327,13 @@ L.AUTO_SPEC_WARN_TEXTS = {
 	you									= "%s on you",
 	youcount							= "%s (%%s) on you",
 	youpos								= "%s (Position: %%s) on you",
+	youposcount							= "%s (%%s) (Position: %%s) on you",
 	soakpos								= "%s (Soak Position: %%s)",
 	target								= "%s on >%%s<",
 	targetcount							= "%s (%%s) on >%%s< ",
 	defensive							= "%s - defensive",
 	taunt								= "%s on >%%s< - taunt now",
-	close							= "%s on >%%s< near you",
+	close								= "%s on >%%s< near you",
 	move								= "%s - move away",
 	keepmove							= "%s - keep moving",
 	stopmove							= "%s - stop moving",
@@ -466,9 +471,13 @@ L.AUTO_TIMER_OPTIONS = {
 	roleplay							= "Show timer for roleplay duration (%ds)"--This does need localizing though.
 }
 
-
-L.AUTO_ICONS_OPTION_TEXT				= "Set icons on $spell:%s targets"
-L.AUTO_ICONS_OPTION_TEXT2				= "Set icons on $spell:%s"
+L.AUTO_ICONS_OPTION_TARGETS				= "Set icons on $spell:%s targets"--Usually used for player targets with no specific sorting
+L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "Set icons on $spell:%s targets with melee and alphabetical priority"
+L.AUTO_ICONS_OPTION_TARGETS_MELEE_R		= "Set icons on $spell:%s targets with melee and raid roster priority"
+L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "Set icons on $spell:%s targets with ranged and alphabetical priority"
+L.AUTO_ICONS_OPTION_TARGETS_RANGED_R	= "Set icons on $spell:%s targets with ranged and raid roster priority"
+L.AUTO_ICONS_OPTION_TARGETS_ALPHA		= "Set icons on $spell:%s targets with alphabetical priority"
+L.AUTO_ICONS_OPTION_NPCS				= "Set icons on $spell:%s"--usually used for npcs/mobs
 L.AUTO_ICONS_OPTION_CONFLICT			= " (May conflict with other options)"
 L.AUTO_ARROW_OPTION_TEXT				= "Show " .. L.DBM .. " Arrow to move toward target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT2				= "Show " .. L.DBM .. " Arrow to move away from target affected by $spell:%s"

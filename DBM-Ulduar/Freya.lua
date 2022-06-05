@@ -187,7 +187,7 @@ function mod:UNIT_DIED(args)
 		end
 		adds[cid] = nil
 		local counter = 0
-		for i, v in pairs(adds) do
+		for _, _ in pairs(adds) do
 			counter = counter + 1
 		end
 		if counter == 0 then

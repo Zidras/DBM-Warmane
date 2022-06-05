@@ -95,7 +95,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-    RangeFrame = "显示距离框 (12码)",
     RunePowerFrame = "显示首领血量及$spell:72371条",
     RemoveDI = "如果用于阻止 $spell:72293 施法，则清除 $spell:19752"
 })
@@ -116,7 +115,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-    RangeFrame = "显示距离框 (8码)",
     AnnounceSporeIcons = "公布$spell:69279目标设置的标记到团队频道<br/>(需要团队队长)",
     AchievementCheck = "公布 '流感疫苗短缺' 成就失败到团队频道<br/>(需助理权限)"
 })
@@ -143,7 +141,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
     WarnOozeSpawn = "为小软泥的出现显示警告",
     SpecWarnLittleOoze = "当你被小软泥怪盯上时显示特別警告",
-    RangeFrame = "显示距离框(8码)",
     TankArrow = "Show DBM arrow for Big Ooze kiter (Experimental)" --Needs translating
 })
 
@@ -159,11 +156,6 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
     name = "普崔塞德教授"
-})
-
-L:SetOptionLocalization({
-    MalleableGooIcon = "为第一个中$spell:72295的目标设置标记",
-    GooArrow = "Show DBM arrow when $spell:72295 is near you" --Needs translating
 })
 
 ----------------------------
@@ -188,9 +180,7 @@ L:SetOptionLocalization({
     WarnTargetSwitch = "为转换目标显示警告",
     WarnTargetSwitchSoon = "为转换目标显示预先警告",
     TimerTargetSwitch = "为转换目标显示冷却计时器",
-    ActivePrinceIcon = "设置标记在強化的亲王身上(头颅)",
-    RangeFrame = "显示距离框(12码)",
-    VortexArrow = "Show DBM arrow when $spell:72037 is near you" --Needs translating
+    ActivePrinceIcon = "设置标记在強化的亲王身上(头颅)"
 })
 
 L:SetMiscLocalization({
@@ -208,10 +198,6 @@ L = DBM:GetModLocalization("Lanathel")
 
 L:SetGeneralLocalization({
     name = "鲜血女王兰娜瑟尔"
-})
-
-L:SetOptionLocalization({
-    RangeFrame = "显示距离框(8码)"
 })
 
 L:SetMiscLocalization({
@@ -240,7 +226,6 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    SetIconOnBlazingSkeleton = "为炽热骷髅设置标记(头颅)",
     WarnPortalOpen = "当梦魇之门开启时显示警告",
     TimerPortalsOpen = "当梦魇之门开启时显示计时器",
     TimerPortalsClose = "Show timer when Nightmare Portals are closed", --Needs translating
@@ -323,7 +308,6 @@ L:SetOptionLocalization({
     PhaseTransition = "为转换阶段显示计时器",
     ValkyrWarning = "提示谁给瓦基里安影卫抓住了",
     SpecWarnYouAreValkd = "当你给瓦基里安影卫抓住时显示特別警告",
-    TrapArrow = "Show DBM arrow when $spell:73539 is near you", --Needs translating
     AnnounceValkGrabs = "提示谁被瓦基里安影卫抓住到团队频道<br/>(需开启团队广播及助理权限)",
     SpecWarnValkyrLow = "当瓦基里安血量低于55%时显示特別警告",
     AnnouncePlagueStack = "提示$spell:73912层数到团队频道 (10层, 10层后每5层提示一次)<br/>(需开启助理权限)",

@@ -119,7 +119,7 @@ do
 	function mod:SetPcoldIcons()
 		table.sort(PColdTargets, sort_by_group)
 		local PColdIcon = 7
-		for i, v in ipairs(PColdTargets) do
+		for _, v in ipairs(PColdTargets) do
 			if self.Options.AnnouncePColdIcons and DBM:GetRaidRank() > 1 then
 				SendChatMessage(L.PcoldIconSet:format(PColdIcon, DBM:GetUnitFullName(v)), "RAID")
 			end

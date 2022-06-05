@@ -112,8 +112,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Zeige Vorwarnung für Aufspaltung",
-	RangeFrame			= "Zeige Abstandsfenster (12m)"
+	WarningSplitSoon	= "Zeige Vorwarnung für Aufspaltung"
 })
 
 -------------------------
@@ -123,10 +122,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "Saviana Flammenschlund"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Zeige Abstandsfenster (10m)"
 })
 
 --------------------------

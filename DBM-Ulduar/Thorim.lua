@@ -65,11 +65,11 @@ function mod:OnCombatEnd()
 	end
 	if self.Options.AnnounceFails and DBM:GetRaidRank() >= 1 then
 		local lcharge = ""
-		for k, v in pairs(lastcharge) do
+		for k, _ in pairs(lastcharge) do
 			table.insert(sortedFailsC, k)
 		end
 		table.sort(sortedFailsC, sortFails1C)
-		for i, v in ipairs(sortedFailsC) do
+		for _, v in ipairs(sortedFailsC) do
 			lcharge = lcharge.." "..v.."("..(lastcharge[v] or "")..")"
 		end
 		SendChatMessage(L.Charge:format(lcharge), "RAID")

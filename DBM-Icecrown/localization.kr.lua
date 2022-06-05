@@ -98,7 +98,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "거리 창 보기 (12 미터)",
 	RunePowerFrame		= "보스 체력 바와 함께 $spell:72371 바 보기",
 	RemoveDI			= "$spell:19752를 지웁니다. $spell:72293이 캐스팅되지 않도록 합니다."
 })
@@ -119,7 +118,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "거리 창 보기(8 미터)",
 	AnnounceSporeIcons	= "$spell:69279 대상 공격대 징표 채팅으로 알리기\n(공대장 혹은 권한을 가진 사람만 사용 가능)",
 	AchievementCheck	= "역병 예방 접종 업적 실패시 실패 내용을 공격대 대화로 알리기(공격대장 권한 필요)"
 })
@@ -146,7 +144,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnOozeSpawn				= "작은 수액괴물 생성 알림 보기",
 	SpecWarnLittleOoze			= "작은 수액괴물에게 공격을 받을 경우 특수 경고 보기",
-	RangeFrame					= "거리 창 보기(8 미터)",
 	TankArrow					= "큰 수액괴물 탱커 방향 DBM 화살표 보기(테스트)"
 })
 
@@ -162,11 +159,6 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "교수 퓨트리사이드"
-})
-
-L:SetOptionLocalization({
-	MalleableGooIcon			= "$spell:72295 대상에게 전술 목표 아이콘 설정",
-	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
 })
 
 ----------------------------
@@ -191,9 +183,7 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "대상 전환 알림 보기",
 	WarnTargetSwitchSoon	= "대상 전환 이전에 알림 보기",
 	TimerTargetSwitch		= "대상 전환 바 보기",
-	ActivePrinceIcon		= "활성화 된 공작에게 전술 목표 아이콘 설정(해골)",
-	RangeFrame				= "거리 창 보기(12m)",
-	VortexArrow				= "당신 주변의 $spell:72037를 DBM 화살표로 표시",
+	ActivePrinceIcon		= "활성화 된 공작에게 전술 목표 아이콘 설정(해골)"
 })
 
 L:SetMiscLocalization({
@@ -243,7 +233,6 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBlazingSkeleton	= "타오르는 해골에게 전술 목표 아이콘 설정(해골)",
 	WarnPortalOpen				= "$spell:72483 열림 알림 보기",
 	TimerPortalsOpen			= "차원문 열림 바 보기",
 	TimerPortalsClose			= "차원문 닫힘 바 보기",
@@ -326,7 +315,6 @@ L:SetOptionLocalization({
 	PhaseTransition				= "다음 단계 바 보기",
 	ValkyrWarning				= "발키리 대상 알림 보기",
 	SpecWarnYouAreValkd			= "발키리에게 붙잡혔을 때 특수 경고 보기",
-	TrapArrow					= "주변에 $spell:73539을 할 경우 DBM 화살표 보기",
 	AnnounceValkGrabs			= "발키리 대상 및 전술 목표 아이콘 설정 내용을 공격대 대화로 알리기(공격대장 권한 필요)",
 	SpecWarnValkyrLow			= "발키리의 HP가 55%이하가 된 경우 특수 경고 보기",
 	AnnouncePlagueStack			= "$spell:70337 중첩 알림 보기(10중첩 이상일때, 5 중첩마다)(공격대장 권한 필요)",

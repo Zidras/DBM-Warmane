@@ -122,7 +122,7 @@ do
 			if #settings.spells == 0 then
 				createnewentry()
 			else
-				for i=1, #settings.spells, 1 do
+				for _, _ in pairs(settings.spells) do
 					createnewentry()
 				end
 			end
@@ -157,7 +157,7 @@ do
 			resetbttn:SetScript("OnClick", function(self)
 				table.wipe(DBM_SpellTimers_Settings)
 				addDefaultOptions(settings, default_settings)
-				for k,v in pairs(settings.spells) do
+				for _, v in pairs(settings.spells) do
 					if v.enabled == nil then
 						v.enabled = true
 					end
@@ -265,7 +265,7 @@ do
 			if #settings.spells == 0 then
 				createnewentry()
 			else
-				for i=1, #settings.spells, 1 do
+				for _ = 1, #settings.spells do
 					createnewentry()
 				end
 			end
@@ -287,7 +287,7 @@ do
 	end
 
 	function clearAllSpellBars()
-		for k,v in pairs(SpellBarIndex) do
+		for k, _ in pairs(SpellBarIndex) do
 			SpellBars:CancelBar(k)
 			SpellBarIndex[k] = nil
 		end
@@ -330,7 +330,7 @@ do
 				myportals = settings.portal_horde
 			end
 
-			for k,v in pairs(settings.spells) do
+			for _,v in pairs(settings.spells) do
 				if v.enabled == nil then
 					v.enabled = true
 				end
@@ -382,7 +382,7 @@ do
 
 			if settings.only_from_raid and not DBM:GetRaidUnitId(fromplayer) then return end
 
-			for k,v in pairs(myportals) do
+			for _, v in pairs(myportals) do
 				if v.spell == spellid then
 					local spellinfo, _, icon = GetSpellInfo(spellid)
 					local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan

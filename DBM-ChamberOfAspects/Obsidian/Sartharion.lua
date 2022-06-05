@@ -121,21 +121,21 @@ function mod:OnCombatEnd(wipe)
 	if DBM:GetRaidRank() < 1 or not self.Options.Announce then return end
 
 	local voids = ""
-	for k, v in pairs(lastvoids) do
+	for k, _ in pairs(lastvoids) do
 		tinsert(sortedFails, k)
 	end
 	tsort(sortedFails, sortFails1)
-	for i, v in ipairs(sortedFails) do
+	for _, v in ipairs(sortedFails) do
 		voids = voids.." "..v.."("..(lastvoids[v] or "")..")"
 	end
 	SendChatMessage(L.VoidZones:format(voids), "RAID")
 	twipe(sortedFails)
 	local fire = ""
-	for k, v in pairs(lastfire) do
+	for k, _ in pairs(lastfire) do
 		tinsert(sortedFails, k)
 	end
 	tsort(sortedFails, sortFails2)
-	for i, v in ipairs(sortedFails) do
+	for _, v in ipairs(sortedFails) do
 		fire = fire.." "..v.."("..(lastfire[v] or "")..")"
 	end
 	SendChatMessage(L.FireWalls:format(fire), "RAID")

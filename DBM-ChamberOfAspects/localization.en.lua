@@ -110,9 +110,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Show pre-warning for Split",
-	RangeFrame			= "Show range frame (12 yards)",
-	SetIconOnBrand		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74505)
+	WarningSplitSoon	= "Show pre-warning for Split"
 })
 
 -------------------------
@@ -122,11 +120,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "Saviana Ragefire"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Show range frame (10 yards)",
-	beaconIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(74453)
 })
 
 --------------------------

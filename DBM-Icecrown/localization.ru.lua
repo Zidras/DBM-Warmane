@@ -100,7 +100,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Показывать окно проверки дистанции (12 м)",
 	RunePowerFrame		= "Показывать здоровье босса + индикатор для $spell:72371",
 	RemoveDI			= "Удалите $spell:19752, если используется для предотвращения $spell:72293"
 })
@@ -121,7 +120,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Показывать окно проверки дистанции (8 м)",
 	AnnounceSporeIcons	= "Объявлять метки целей заклинания $spell:69279 в рейд-чат<br/>(требуются права помощника)",
 	AchievementCheck	= "Объявлять о провале достижения 'Масок нет!' в рейд-чат<br/>(требуются права помощника)"
 })
@@ -148,7 +146,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnOozeSpawn				= "Предупреждение при появлении Малого слизнюка",
 	SpecWarnLittleOoze			= "Спец-предупреждение, когда вас атакует Малый слизнюк",--creatureid 36897
-	RangeFrame					= "Показывать окно проверки дистанции (8 м)",
 	TankArrow					= "Показывать стрелку для кайтера Большого слизнюка (экспериментально)"
 })
 
@@ -164,11 +161,6 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Профессор Мерзоцид"
-})
-
-L:SetOptionLocalization({
-	MalleableGooIcon			= "Устанавливать метку на первую цель заклинания $spell:72295",
-	GooArrow					= "Показывать стрелку, когда $spell:72295 около вас"
 })
 
 ----------------------------
@@ -193,9 +185,7 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Предупреждение о смене цели",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Предупреждать заранее о смене цели",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Отсчет времени до смены цели",
-	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)",
-	RangeFrame				= "Показывать окно проверки дистанции (12 м)",
-	VortexArrow				= "Показывать стрелку, когда $spell:72037 около вас"
+	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)"
 })
 
 L:SetMiscLocalization({
@@ -213,10 +203,6 @@ L = DBM:GetModLocalization("Lanathel")
 
 L:SetGeneralLocalization({
 	name = "Королева Лана'тель"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Показывать окно проверки дистанции (8 м)"
 })
 
 L:SetMiscLocalization({
@@ -245,7 +231,6 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBlazingSkeleton	= "Устанавливать метку на Исторгающего пламя скелета (череп)",
 	WarnPortalOpen				= "Предупреждение об открытии порталов",
 	TimerPortalsOpen			= "Отсчет времени для открытия порталов",
 	TimerPortalsClose			= "Обратный отсчет до закрытия порталов", -- Needs review
@@ -328,7 +313,6 @@ L:SetOptionLocalization({
 	PhaseTransition				= "Отсчет времени для переходной фазы",
 	ValkyrWarning				= "Объявлять, кого схватили Валь'киры",
 	SpecWarnYouAreValkd			= "Спец-предупреждение, когда вас схватила Валь'кира",
-	TrapArrow					= "Показывать стрелку, когда $spell:73539 около вас",
 	AnnounceValkGrabs			= "Объявлять игроков, схваченных Валь'кирами, в рейд-чат\n(требуются права помощника)",
 	SpecWarnValkyrLow			= "Спец-предупреждение, когда у Валь'киры меньше 55% HP",
 	AnnouncePlagueStack			= "Объявлять стаки заклинания $spell:73912 в рейд-чат (10\nстаков, далее каждые 5) (требуются права помощника)",

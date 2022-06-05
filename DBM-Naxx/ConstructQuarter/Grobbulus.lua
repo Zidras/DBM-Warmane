@@ -57,7 +57,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-    for i,j in ipairs(mutateIcons) do
+    for _,j in ipairs(mutateIcons) do
 		self:SetIcon(j, 0)
     end
 end
