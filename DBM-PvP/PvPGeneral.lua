@@ -60,6 +60,7 @@ local function GetBattlefieldFaction(unit) -- workaround to detect faction in Cr
 	end
 end
 
+local myScoreName = format("> %s <", playerName)
 hooksecurefunc("WorldStateScoreFrame_Update", function()
 	if not mod.Options.ColorByClass then return	end
 	local inArena = IsActiveBattlefieldArena()
@@ -74,7 +75,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 			name, realm = strsplit("-", name, 2)
 
 			if name == playerName then
-				name = playerName
+				name = myScoreName
 			end
 
 			if realm then
