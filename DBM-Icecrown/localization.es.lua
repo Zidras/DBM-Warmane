@@ -98,7 +98,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Mostrar marco de distancia (12 m)",
 	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371",
 	RemoveDI			= "Quitar $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
 })
@@ -119,7 +118,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Mostrar marco de distancia (8 m)",
 	AnnounceSporeIcons	= "Anunciar iconos de los objetivos de $spell:69279 en el chat de banda (requiere líder o ayudante)",
 	AchievementCheck	= "Anunciar si se falla el logro 'Sin vacunas' en el chat de banda (requiere líder o ayudante)"
 })
@@ -146,7 +144,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnOozeSpawn				= "Mostrar aviso cuando aparezca un Moco pequeño",
 	SpecWarnLittleOoze			= "Mostrar aviso especial cuando te ataque un Moco pequeño",--creatureid 36897
-	RangeFrame					= "Mostrar marco de distancia (8 m)",
 	TankArrow					= "Mostrar flecha hacia el tanque del Moco grande (Experimental)"
 })
 
@@ -162,11 +159,6 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Profesor Putricidio"
-})
-
-L:SetOptionLocalization({
-	MalleableGooIcon			= "Poner icono en el primer objetivo de $spell:72295",
-	GooArrow					= "Mostrar flecha cuando $spell:72295 esté cerca de ti"
 })
 
 ------------------------------------
@@ -191,9 +183,7 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Mostrar aviso cuando haya que cambiar de objetivo",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Mostrar aviso previo para cuando haya que cambiar de objetivo",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Mostrar temporizador para el siguiente cambio de objetivo",
-	ActivePrinceIcon		= "Poner icono (calavera) en el príncipe potenciado",
-	RangeFrame				= "Mostrar marco de distancia (12 m)",
-	VortexArrow				= "Mostrar flecha cuando $spell:72037 esté cerca de ti"
+	ActivePrinceIcon		= "Poner icono (calavera) en el príncipe potenciado"
 })
 
 L:SetMiscLocalization({
@@ -211,10 +201,6 @@ L = DBM:GetModLocalization("Lanathel")
 
 L:SetGeneralLocalization({
 	name = "Reina de Sangre Lana'thel"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Mostrar marco de distancia (8 m)"
 })
 
 L:SetMiscLocalization({
@@ -243,7 +229,6 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBlazingSkeleton	= "Poner icono (calavera) en Esqueleto llameante",
 	WarnPortalOpen				= "Mostrar aviso cuando se abran los portales",
 	TimerPortalsOpen			= "Mostrar temporizador para cuando se abran los portales",
 	TimerPortalsClose			= "Mostrar temporizador para cuando se cierren los portales",
@@ -326,7 +311,6 @@ L:SetOptionLocalization({
 	PhaseTransition				= "Mostrar duración de los intermedios",
 	ValkyrWarning				= "Anunciar jugadores agarrados por las Guardias de las Sombras Val'kyr",
 	SpecWarnYouAreValkd			= "Mostrar aviso especial cuando te agarrae una Guardia de las Sombras Val'kyr",--npc36609
-	TrapArrow					= "Mostrar flecha cuando $spell:73539 está cerca de ti",
 	AnnounceValkGrabs			= "Anunciar jugadores agarrados por las Guardias de las Sombras Val'kyr en el chat de banda (requiere líder o ayudante)",
 	SpecWarnValkyrLow			= "Mostrar aviso especial cuando una Guardia de las Sombras Val'kyr esté por debajo del 55% de salud",
 	AnnouncePlagueStack			= "Anunciar acumulaciones de $spell:70337 en el chat de banda (al llegar a 10 y tras cada 5; requiere líder o ayudante)",

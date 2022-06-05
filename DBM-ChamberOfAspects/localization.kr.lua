@@ -112,8 +112,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "분리 이전에 알림 보기",
-	RangeFrame			= "거리 창 보기 (12 미터)"
+	WarningSplitSoon	= "분리 이전에 알림 보기"
 })
 
 -------------------------
@@ -123,10 +122,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "사비아나 레이지파이어"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "거리 창 보기 (10 미터)"
 })
 
 --------------------------

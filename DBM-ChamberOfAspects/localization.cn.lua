@@ -116,8 +116,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "预警：分裂",
-	RangeFrame			= "范围监测器：12码"
+	WarningSplitSoon	= "预警：分裂"
 })
 
 -------------------------
@@ -127,10 +126,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "塞维娅娜·怒火"
-})
-
-L:SetOptionLocalization({
-	RangeFrame			= "范围监测器：10码"
 })
 
 --------------------------

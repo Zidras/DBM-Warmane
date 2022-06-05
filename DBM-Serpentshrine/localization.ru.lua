@@ -139,8 +139,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnMurlocs		= "Объявить Мурлоки",
 	SpecWarnMurlocs	= "Show special warning when Murlocs spawning",--Translate
-	TimerMurlocs	= "Show timer for Murlocs spawning",--Translate
-	GraveIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38049)
+	TimerMurlocs	= "Show timer for Murlocs spawning"--Translate
 })
 
 -----------------
@@ -177,7 +176,6 @@ L:SetOptionLocalization({
 	TimerStrider		= "Show time for next Strider",--Translate
 	TimerNaga			= "Show time for next Strider",--Translate
 	SpecWarnElemental	= "Show special warning when Tainted Elemental coming",--Translate
-	ChargeIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38280),
 	AutoChangeLootToFFA		= "Смена режима добычи на Каждый за себя в фазе 2"
 })
 

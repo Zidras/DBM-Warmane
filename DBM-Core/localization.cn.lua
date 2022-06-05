@@ -10,6 +10,7 @@ local L = DBM_CORE_L
 
 L.HOW_TO_USE_MOD					= "欢迎使用" .. L.DBM .. "。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口，并对各个Boss模块进行设置，也可以浏览首领击杀记录。DBM 会自动按你的专精做出相应配置，但是你可以进行微调。"
 L.SILENT_REMINDER					= "提示：" .. L.DBM .. " 正处于静音模式。"
+L.COPY_URL_DIALOG_NEWS				= "阅读最新新闻，请点击下方连接"
 
 L.LOAD_MOD_ERROR				= "读取%s模块时发生错误：%s"
 L.LOAD_MOD_SUCCESS			= "'%s' 模块已加载。在聊天框输入 /dbm 可设置自定义语音或注记等选项。"
@@ -229,8 +230,10 @@ L.RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1f码)"--One target
 
 L.INFOFRAME_SHOW_SELF		= "总是显示你的能量"		-- Always show your own power value even if you are below the threshold
 L.INFOFRAME_SETLINES			= "设置最大行数"
+L.INFOFRAME_SETCOLS				= "设置最大列数"
 L.INFOFRAME_LINESDEFAULT		= "由模组设置"
 L.INFOFRAME_LINES_TO			= "%d行"
+L.INFOFRAME_COLS_TO				= "%d列"
 L.INFOFRAME_POWER			= "能量"
 L.INFOFRAME_AGGRO			= "仇恨"
 L.INFOFRAME_MAIN				= "主能量:"--Main power
@@ -317,12 +320,12 @@ L.AUTO_ANNOUNCE_OPTIONS.target			= "警报：$spell:%s的目标"
 L.AUTO_ANNOUNCE_OPTIONS.targetNF			= "警报：$spell:%s的目标(忽略全局目标过滤器)"
 L.AUTO_ANNOUNCE_OPTIONS.targetsource		= "警报：$spell:%s的目标(带来源)"
 L.AUTO_ANNOUNCE_OPTIONS.targetcount		= "警报：$spell:%s的目标(带计数)"
-L.AUTO_ANNOUNCE_OPTIONS.spell			= "警报：$spell:%s"
-L.AUTO_ANNOUNCE_OPTIONS.ends				= "警报：$spell:%s束"
-L.AUTO_ANNOUNCE_OPTIONS.endtarget		= "警报：$spell:%s结束"
+L.AUTO_ANNOUNCE_OPTIONS.spell			= "警报：当$spell:%s施法时"
+L.AUTO_ANNOUNCE_OPTIONS.ends				= "警报：$spell:%s结束"
+L.AUTO_ANNOUNCE_OPTIONS.endtarget		= "警报：$spell:%s结束（带目标）"
 L.AUTO_ANNOUNCE_OPTIONS.fades			= "警报：$spell:%s消失"
-L.AUTO_ANNOUNCE_OPTIONS.addsleft				= "警报：$spell:%s剩余数量"
-L.AUTO_ANNOUNCE_OPTIONS.cast				= "警报：$spell:%s的施放"
+L.AUTO_ANNOUNCE_OPTIONS.addsleft			= "警报：$spell:%s剩余数量"
+L.AUTO_ANNOUNCE_OPTIONS.cast				= "警报：$spell:%s在施放"
 L.AUTO_ANNOUNCE_OPTIONS.soon				= "预警：$spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.sooncount		= "预警：$spell:%s(带计数)"
 L.AUTO_ANNOUNCE_OPTIONS.countdown		= "预警：$spell:%s(带计数)"
@@ -348,6 +351,7 @@ L.AUTO_SPEC_WARN_TEXTS.interruptcount	= "%s - 快打断 (%%d)"
 L.AUTO_SPEC_WARN_TEXTS.you				= "你中了%s"
 L.AUTO_SPEC_WARN_TEXTS.youcount			= "你中了%s (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.youpos			= "你中了%s (位置:%%s)"
+L.AUTO_SPEC_WARN_TEXTS.youposcount		= "你中了%s (%%s) (位置: %%s)"
 L.AUTO_SPEC_WARN_TEXTS.soakpos			= "%s - 快去%%s吸收"
 L.AUTO_SPEC_WARN_TEXTS.target			= ">%%s<中了%s"
 L.AUTO_SPEC_WARN_TEXTS.targetcount		= ">%%2$s<中了%s (%%1$s)"
@@ -392,6 +396,7 @@ L.AUTO_SPEC_WARN_OPTIONS.interruptcount	= "特殊警报：需要打断$spell:%s(
 L.AUTO_SPEC_WARN_OPTIONS.you				= "特殊警报：当你受到$spell:%s影响时"
 L.AUTO_SPEC_WARN_OPTIONS.youcount		= "特殊警报：当你受到$spell:%s影响时(带计数)"
 L.AUTO_SPEC_WARN_OPTIONS.youpos			= "特殊警报：当你受到$spell:%s影响时(带位置)"
+L.AUTO_SPEC_WARN_OPTIONS.youposcount	= "特殊警报：当你受到$spell:%s影响时(带位置和计数)"
 L.AUTO_SPEC_WARN_OPTIONS.soakpos			= "特殊警报：当你需要为受到$spell:%s的玩家分担伤害时(带位置)"
 L.AUTO_SPEC_WARN_OPTIONS.target			= "特殊警报：当他人受到$spell:%s影响时"
 L.AUTO_SPEC_WARN_OPTIONS.targetcount		= "特殊警报：当他人受到$spell:%s影响时(带计数)"
@@ -425,7 +430,7 @@ L.AUTO_SPEC_WARN_OPTIONS.targetchange	= "特殊警报：需要立刻切换目标
 
 -- Auto-generated Timer Localizations
 L.AUTO_TIMER_TEXTS.target				= "%s: >%%s<"
-L.AUTO_TIMER_TEXTS.targetcount 			= "%s: >%%s< (%%%s)" --???
+L.AUTO_TIMER_TEXTS.targetcount 			= "%s: >%%s< (%%s)"
 L.AUTO_TIMER_TEXTS.cast					= "%s"
 L.AUTO_TIMER_TEXTS.castcount				= "%s (%%s)"
 L.AUTO_TIMER_TEXTS.castsource			= "%s: %%s"
@@ -468,9 +473,14 @@ L.AUTO_TIMER_OPTIONS.adds				= "计时条：下一波小怪 (%ds)"
 L.AUTO_TIMER_OPTIONS.addscustom			= "计时条：下一波小怪 (%ds)"
 L.AUTO_TIMER_OPTIONS.roleplay			= "计时条：剧情 (%ds)"
 
-L.AUTO_ICONS_OPTION_TEXT				= "为$spell:%s的目标添加团队标记"
-L.AUTO_ICONS_OPTION_TEXT2			= "为$spell:%s添加团队标记"
-L.AUTO_ICONS_OPTION_CONFLICT		= " (可能与其他选项冲突)"
+L.AUTO_ICONS_OPTION_TARGETS				= "为$spell:%s的目标添加团队标记"
+L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "为$spell:%s的目标添加团队标记，以近战和字母顺序优先"
+L.AUTO_ICONS_OPTION_TARGETS_MELEE_R		= "为$spell:%s的目标添加团队标记，以近战和团队阵容优先"
+L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "为$spell:%s的目标添加团队标记，以远程和字母顺序优先"
+L.AUTO_ICONS_OPTION_TARGETS_RANGED_R	= "为$spell:%s的目标添加团队标记，以远程和团队阵容优先"
+L.AUTO_ICONS_OPTION_TARGETS_ALPHA		= "为$spell:%s的目标添加团队标记，以字母顺序优先"
+L.AUTO_ICONS_OPTION_NPCS			= "为$spell:%s添加团队标记"
+L.AUTO_ICONS_OPTION_CONFLICT 			= " （可能与其他选项冲突）"
 L.AUTO_ARROW_OPTION_TEXT				= "为$spell:%s的目标添加箭头"
 L.AUTO_ARROW_OPTION_TEXT2			= "为$spell:%s的目标添加远离箭头"
 L.AUTO_ARROW_OPTION_TEXT3			= "为$spell:%s的目标添加前往指定位置的箭头"
@@ -570,7 +580,7 @@ L.DUR_FOOTER					= "未反馈此次检测的团员:%s"
 
 --LDB
 L.LDB_TOOLTIP_HELP1	= "左键 打开" .. L.DBM
-L.LDB_TOOLTIP_HELP2	= "右键 启用安静模式"
+L.LDB_TOOLTIP_HELP2	= "Alt+右键 启用安静模式"
 L.SILENTMODE_IS		= "静音模式为："
 
 L.LDB_LOAD_MODS		= "载入首领模块"

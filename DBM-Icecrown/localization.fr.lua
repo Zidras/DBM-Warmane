@@ -98,7 +98,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	MarkCastIcon		= "Met des icônes sur les cibles de $spell:72444 durant l'incantation (Experimental)",
 	RunePowerFrame		= "Montre la barre de vie du boss + la barre de $spell:72371",
 	RemoveDI			= "Supprimez $spell:19752 s'il est utilisé pour empêcher le lancement du sort $spell:72293."
 })
@@ -119,7 +118,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Montre la fenêtre de portée (8 Mètres)",
 	AnnounceSporeIcons	= "Annonce les icônes pour les cibles de $spell:69279 au chat de raid<br/>(nécessite le raid lead)",
 	AchievementCheck	= "Annonce l'échec du haut-fait 'Pénurie de vaccins' au raid<br/>(nécessite un statut promu)"
 })
@@ -147,7 +145,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnOozeSpawn				= "Montre une alerte pour l'arrivée des Limons",
 	SpecWarnLittleOoze			= "Montre une alerte spéciale quand vous êtes attaquer par des Limons",
-	RangeFrame					= "Montre la fenêtre de portée (8 Mètres)",
 	TankArrow					= "Afficher la flèche DBM pour le kiter du Grand limon (Expérimental)"
 })
 
@@ -163,11 +160,6 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Professeur Putricide"
-})
-
-L:SetOptionLocalization({
-	MalleableGooIcon			= "Met une icône sur la première cible de $spell:72295",
-	GooArrow					= "Afficher la flèche DBM lorsque $spell:72295 est proche de vous"
 })
 
 ----------------------------
@@ -192,9 +184,7 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Montre l'alerte pour le changement de cible",
 	WarnTargetSwitchSoon	= "Montre une pré-alerte pour le changement de cible",
 	TimerTargetSwitch		= "Montre un timer pour le changement de cible",
-	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux).",
-	RangeFrame				= "Montre la fenêtre de portée (12 Mètres)",
-	VortexArrow				= "Afficher la flèche DBM lorsque $spell:72037 est proche de vous"
+	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux)."
 })
 
 L:SetMiscLocalization({
@@ -212,10 +202,6 @@ L = DBM:GetModLocalization("Lanathel")
 
 L:SetGeneralLocalization({
 	name = "Reine de sang Lana'thel"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Montre la fenêtre de portée (8 Mètres)"
 })
 
 L:SetMiscLocalization({
@@ -244,7 +230,6 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBlazingSkeleton	= "Met une icône sur le Squelette flamboyant (Tête de mort)",
 	WarnPortalOpen				= "Prévient via une alerte quand Valithria ouvre des portails.",
 	TimerPortalsOpen			= "Montre une timer pour voir quand Valithria ouvre des portails.",
 	TimerPortalsClose			= "Afficher le timer lorsque Portail cauchemardesque est fermé",
@@ -327,7 +312,6 @@ L:SetOptionLocalization({
 	PhaseTransition				= "Montre le timer pour la phase de transition",
 	ValkyrWarning				= "Annonce qui a été saisi par les Gardes de l'ombre val'kyr",
 	SpecWarnYouAreValkd			= "Affiche une alerte spéciale lorsque vous avez été pris par une Garde de l'ombre val'kyr",--npc36609
-	TrapArrow					= "Montre les flèches de DBM quand $spell:73539 est à coter de vous",
 	AnnounceValkGrabs			= "Annonce les cibles prises par les Gardes de l'ombre val'kyr\n(nécessite un statut promu)",
 	SpecWarnValkyrLow			= "Affiche une alerte spéciale lorsque la Garde de l'ombre val'kyr est sous les 55% PDV",
 	AnnouncePlagueStack			= "Annonce les $spell:73912 stacks au raid (10 stacks, toutes les 5 après 10)\n(nécessite un statut promu)",

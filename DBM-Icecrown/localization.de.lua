@@ -98,7 +98,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Zeige Abstandsfenster (12 m)",
 	RunePowerFrame		= "Zeige Boss-Leben und Leiste für $spell:72371",
 	RemoveDI			= "Entferne $spell:19752, wenn es verwendet wird, um das Wirken von $spell:72293 zu verhindern."
 })
@@ -119,7 +118,6 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	RangeFrame			= "Zeige Abstandsfenster (8 m)",
 	AnnounceSporeIcons	= "Verkünde Zeichen für Ziele von $spell:69279 im Schlachtzugchat (nur als Leiter)",
 	AchievementCheck	= "Verkünde Fehlschlag des Erfolgs 'Grippeimpfungs-Engpass' an Schlachtzug (nur als Leiter/Assistent)"
 })
@@ -146,7 +144,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnOozeSpawn				= "Zeige Warnung für Erscheinen eines Kleinen Schlamm",
 	SpecWarnLittleOoze			= "Spezialwarnung, wenn du von einem Kleinen Schlamm angegriffen wirst",--creatureid 36897
-	RangeFrame					= "Zeige Abstandsfenster (8 m)",
 	TankArrow					= "Zeige Pfeil zum Tank des Großen Schlamms (experimentell)",
 })
 
@@ -162,11 +159,6 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Professor Seuchenmord"
-})
-
-L:SetOptionLocalization({
-	MalleableGooIcon			= "Setze Zeichen auf erstes Ziel von $spell:72295",
-	GooArrow					= "Show DBM arrow when $spell:72295 is near you" --Needs Translating
 })
 
 ----------------------------
@@ -191,9 +183,7 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Zeige Warnung für Zielwechsel",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Zeige Vorwarnung für Zielwechsel",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Zeige Zeit bis Zielwechsel",
-	ActivePrinceIcon		= "Setze Zeichen auf den machterfüllten Prinzen (Totenkopf)",
-	RangeFrame				= "Zeige Abstandsfenster (12 m)",
-	VortexArrow				= "Show DBM arrow when $spell:72037 is near you" --Needs Translating
+	ActivePrinceIcon		= "Setze Zeichen auf den machterfüllten Prinzen (Totenkopf)"
 })
 
 L:SetMiscLocalization({
@@ -211,10 +201,6 @@ L = DBM:GetModLocalization("Lanathel")
 
 L:SetGeneralLocalization({
 	name = "Blutkönigin Lana'thel"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Zeige Abstandsfenster (8 m)"
 })
 
 L:SetMiscLocalization({
@@ -243,7 +229,6 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBlazingSkeleton	= "Setze Zeichen auf Loderndes Skelett (Totenkopf)",
 	WarnPortalOpen				= "Zeige Warnung, wenn Alptraumportale geöffnet sind",
 	TimerPortalsOpen			= "Zeige Zeit bis Alptraumportale geöffnet sind",
 	TimerPortalsClose			= "Zeige Zeit bis Alptraumportale geschlossen sind",
@@ -326,7 +311,6 @@ L:SetOptionLocalization({
 	PhaseTransition				= "Dauer der Phasenübergänge anzeigen",
 	ValkyrWarning				= "Verkünde Griffziele der Schattenwächterinnen der Val'kyr",
 	SpecWarnYouAreValkd			= "Spezialwarnung, wenn du von einer Schattenwächterin der Val'kyr gegriffen wurdest",--npc36609
-	TrapArrow					= "Zeige Pfeil wenn $spell:73539 in deiner Nähe ist",
 	AnnounceValkGrabs			= "Verkünde Griffziele der Schattenwächterinnen der Val'kyr im SZ-Chat (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)",
 	SpecWarnValkyrLow			= "Spezialwarnung, wenn eine Schattenwächterin der Val'kyr unter 55% Lebenspunkte ist",
 	AnnouncePlagueStack			= "Verkünde $spell:70337 Stapel an den Schlachtzug (ab 10 Stapel, danach alle 5 Stapel) (nur als Leiter/Assistent)",

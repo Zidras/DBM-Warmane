@@ -112,8 +112,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Show pre-warning for Split",
-	RangeFrame			= "Show range frame (12 yards)"
+	WarningSplitSoon	= "Show pre-warning for Split"
 })
 
 -------------------------
@@ -123,10 +122,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "Saviana Ragefeu"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Show range frame (10 yards)"
 })
 
 --------------------------

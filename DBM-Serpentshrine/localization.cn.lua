@@ -133,8 +133,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnMurlocs		= "警报鱼人群",
 	SpecWarnMurlocs	= "鱼人群出现时显示特殊警报",--Translate
-	TimerMurlocs	= "显示鱼人群出现计时",--Translate
-	GraveIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38049)
+	TimerMurlocs	= "显示鱼人群出现计时"--Translate
 })
 
 -----------------
@@ -171,7 +170,6 @@ L:SetOptionLocalization({
 	TimerStrider		= "显示下一个盘牙巡逻者出现的时间",--Translate
 	TimerNaga			= "显示盘牙精英出现的时间",--Translate
 	SpecWarnElemental	= "显示特别警报：当被污染的元素到来时",--Translate
-	ChargeIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38280),
 	AutoChangeLootToFFA	= "第3阶段自动转换拾取方式为自由拾取"
 })
 

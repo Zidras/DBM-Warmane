@@ -67,7 +67,7 @@ L.BONUS_EXPIRED				= "Has intentado usar /dbmbonusroll para abrir la ventana de 
 
 L.AFK_WARNING				= "Estás ausente y en combate (%d por cierto de salud restante); se procederá a reproducir un sonido de alerta. Sino estás ausente, quítate el estado o desactiva esta opción en 'Funciones adicionales'."
 
-L.COMBAT_STARTED_AI_TIMER	= "Mi unidad central es un procesador de red neuronal: una máquina capaz de aprender. (Este encuentro usará la nueva IA de temporizadores  para generar temporizadores aproximados.)"
+L.COMBAT_STARTED_AI_TIMER	= "Mi unidad central es un procesador de red neuronal: una máquina capaz de aprender. (Este encuentro usará la nueva IA de temporizadores para generar temporizadores aproximados.)"
 
 L.PROFILE_NOT_FOUND			= "<DBM> Tu perfil actual está corrupto. DBM cargará el perfil 'Default'."
 L.PROFILE_CREATED			= "Se ha creado el perfil '%s'."
@@ -480,8 +480,8 @@ L.AUTO_TIMER_OPTIONS.adds		= "Mostrar temporizador para la siguiente aparición 
 L.AUTO_TIMER_OPTIONS.addscustom	= "Mostrar temporizador para la siguiente aparición de esbirros (%ds)"
 L.AUTO_TIMER_OPTIONS.roleplay	= "Mostrar temporizador para la duración del diálogo (%ds)"
 
-L.AUTO_ICONS_OPTION_TEXT			= "Poner iconos en los objetivos de $spell:%s"
-L.AUTO_ICONS_OPTION_TEXT2		= "Poner iconos en $spell:%s"
+L.AUTO_ICONS_OPTION_TARGETS			= "Poner iconos en los objetivos de $spell:%s"
+L.AUTO_ICONS_OPTION_NPCS		= "Poner iconos en $spell:%s"
 L.AUTO_ICONS_OPTION_CONFLICT		= " (Puede entrar en conflicto con otras opciones)"
 L.AUTO_ARROW_OPTION_TEXT			= "Mostrar flecha indicadora para juntarse con los objetivos afectados por $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT2		= "Mostrar flecha indicadora para alejarse de los objetivos afectados por $spell:%s"

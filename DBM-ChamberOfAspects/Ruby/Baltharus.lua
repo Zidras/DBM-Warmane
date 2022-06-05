@@ -24,8 +24,8 @@ local timerWhirlwind		= mod:NewBuffActiveTimer(4, 75125, nil, "Tank|Healer")
 local timerRepellingWave	= mod:NewBuffActiveTimer(4, 74509)--1 second cast + 3 second stun
 local timerBrand			= mod:NewBuffActiveTimer(10, 74505)
 
-mod:AddBoolOption("SetIconOnBrand", false)
-mod:AddBoolOption("RangeFrame")
+mod:AddRangeFrameOption("12")
+mod:AddSetIconOption("SetIconOnBrand", 74505, false, false, {1, 2, 3, 4, 5, 6, 7, 8})
 
 mod.vb.warnedSplit1	= false
 mod.vb.warnedSplit2	= false

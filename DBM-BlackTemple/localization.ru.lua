@@ -73,8 +73,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerVengefulSpirit		= "Show timer for Ghost durations",--Translate
-	CrushIcon				= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(40243)
+	TimerVengefulSpirit		= "Show timer for Ghost durations"--Translate
 })
 
 ----------------------------

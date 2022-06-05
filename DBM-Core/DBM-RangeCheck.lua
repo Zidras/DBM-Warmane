@@ -982,7 +982,7 @@ do
 				if select(3, radarFrame.circle:GetVertexColor()) < 0.5 then
 					radarFrame.circle:SetVertexColor(1,1,1)
 				end
-				for i, v in pairs(dots) do
+				for _, v in pairs(dots) do
 					v.dot:Hide()
 				end
 				for i = 1, 8 do
@@ -1066,7 +1066,7 @@ do
 						playerTooClose = true
 					end
 				else
-					for i,v in pairs(dots) do
+					for _, v in pairs(dots) do
 						if v.tooClose then
 							playerTooClose = true
 							break
@@ -1089,7 +1089,7 @@ do
 				-- white frame
 				radarFrame.circle:SetVertexColor(1,1,1)
 				-- hide everything
-				for i, v in pairs(dots) do
+				for _, v in pairs(dots) do
 					v.dot:Hide()
 				end
 				for i = 1, 8 do
@@ -1236,7 +1236,7 @@ local HarmItems = {
 function enemyCheckFunc(uId, range)
 	local items = HarmItems[range]
 	if items then
-		for i, v in ipairs(items) do
+		for _, v in ipairs(items) do
 			if IsItemInRange(v, uId) == 1 then
 				return true
 			elseif IsItemInRange(v, uId) == 0 then
@@ -1254,7 +1254,7 @@ do
 		if UnitIsEnemy("player", uId) then
 			return enemyCheckFunc(uId, 15)
 		else
-			for i, v in ipairs(bandages) do
+			for _, v in ipairs(bandages) do
 				if IsItemInRange(v, uId) == 1 then
 					return true
 				elseif IsItemInRange(v, uId) == 0 then

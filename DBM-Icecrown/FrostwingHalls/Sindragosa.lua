@@ -24,7 +24,7 @@ local myRealm = select(3, DBM:GetMyPlayerInfo())
 -- General
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
 
-mod:AddRangeFrameOption("10/20/25")
+mod:AddBoolOption("RangeFrame", true) -- keep as BoolOption since the localization offers important information regarding boss ability and player debuff behaviour
 mod:AddBoolOption("ClearIconsOnAirphase", true)
 
 -- Stage One
@@ -106,7 +106,7 @@ do
 	function mod:SetBeaconIcons()
 		table.sort(beaconIconTargets, sort_by_group)
 		local beaconIcons = 8
-		for i, v in ipairs(beaconIconTargets) do
+		for _, v in ipairs(beaconIconTargets) do
 			if self.Options.AnnounceFrostBeaconIcons and DBM:GetRaidRank() > 0 then
 				SendChatMessage(L.BeaconIconSet:format(beaconIcons, DBM:GetUnitFullName(v)), "RAID")
 			end

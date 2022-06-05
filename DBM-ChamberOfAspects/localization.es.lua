@@ -114,8 +114,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Mostrar aviso previo para la separación de banda",
-	RangeFrame			= "Mostrar marco de distancia (12 yardas)"
+	WarningSplitSoon	= "Mostrar aviso previo para la separación de banda"
 })
 
 -------------------------
@@ -125,10 +124,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "Saviana Furia Ardiente"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Mostrar marco de distancia (10 yardas)"
 })
 
 ------------------------

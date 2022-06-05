@@ -112,8 +112,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Предупреждать заранее о разделении",
-	RangeFrame			= "Показывать окно проверки дистанции (12 м)"
+	WarningSplitSoon	= "Предупреждать заранее о разделении"
 })
 
 -------------------------
@@ -123,10 +122,6 @@ L = DBM:GetModLocalization("Saviana")
 
 L:SetGeneralLocalization({
 	name = "Савиана Огненная Пропасть"
-})
-
-L:SetOptionLocalization({
-	RangeFrame				= "Показывать окно проверки дистанции (10 м)"
 })
 
 --------------------------
