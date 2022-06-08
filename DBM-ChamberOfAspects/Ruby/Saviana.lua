@@ -7,13 +7,13 @@ mod:SetUsedIcons(8, 7, 6, 5, 4)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED"
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 74403 74404",
+	"SPELL_AURA_APPLIED 78722 74453",
+	"SPELL_AURA_REMOVED 78722"
 )
 
-local warningWarnBeacon		= mod:NewTargetAnnounce(74453, 4)--Will change to a target announce if possible. need to do encounter
+local warningWarnBeacon		= mod:NewTargetNoFilterAnnounce(74453, 4)--Will change to a target announce if possible. need to do encounter
 local warningWarnBreath		= mod:NewSpellAnnounce(74403, 3)
 
 local specWarnBeacon		= mod:NewSpecialWarningYou(74453, nil, nil, nil, 1, 2)--Target scanning may not even work since i haven't done encounter yet it's just a guess.
@@ -25,8 +25,10 @@ local timerConflagCD		= mod:NewNextTimer(50, 74452, nil, nil, nil, 3)
 local timerBreath			= mod:NewCDTimer(25, 74403, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerEnrage			= mod:NewBuffActiveTimer(10, 78722, nil, "RemoveEnrage|Tank|Healer", nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON..DBM_COMMON_L.TANK_ICON)
 
-mod:AddRangeFrameOption("10")
-mod:AddSetIconOption("beaconIcon", 74453, true, false, {4, 5, 6, 7, 8})
+mod:AddRangeFrameOption(10, 74456)
+mod:AddSetIconOption("beaconIcon", 74453, true, false, {8, 7, 6, 5, 4})
+
+mod:GroupSpells(74453, 74456, 74452)--Group target debuff ID with regular debuff IDs
 
 local beaconTargets = {}
 mod.vb.beaconIcon 	= 8
@@ -61,11 +63,12 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 78722 then
+	local spellId = args.spellId
+	if spellId == 78722 then
 		specWarnTranq:Show(args.destName)
 		specWarnTranq:Play("trannow")
 		timerEnrage:Start()
-	elseif args.spellId == 74453 then
+	elseif spellId == 74453 then
 		beaconTargets[#beaconTargets + 1] = args.destName
 		timerConflagCD:Start()
 		timerBeacon:Start()

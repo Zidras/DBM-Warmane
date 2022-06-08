@@ -6,10 +6,10 @@ mod:SetCreatureID(39746)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 74384",
+	"SPELL_AURA_APPLIED 74367 10278 642",
+	"SPELL_AURA_APPLIED_DOSE 74367",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -20,9 +20,9 @@ local warnFearSoon              = mod:NewSoonAnnounce(74384, 2, nil, nil, nil, n
 local specWarnFear				= mod:NewSpecialWarningSpell(74384, nil, nil, nil, 2, 2)
 local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2, nil, nil, 1, 6)--ability lasts 30 seconds, has a 15 second cd, so tanks should trade at 2 stacks.
 
-local timerAddsCD				= mod:NewTimer(40, "TimerAdds", 74398, nil, nil, 1)
+local timerAddsCD				= mod:NewTimer(40, "TimerAdds", 74398, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerAddsTravel			= mod:NewTimer(10, "AddsArrive") -- Timer to indicate when the summoned adds arive
-local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, "Tank|Healer", nil, 5)
+local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerFearCD				= mod:NewCDTimer(30, 74384, nil, nil, nil, 2)
 
 mod:AddBoolOption("CancelBuff")
@@ -47,7 +47,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-    if args.spellId == 74367 then
+	local spellId = args.spellId
+    if spellId == 74367 then
 		if self.Options.CancelBuff and not tContains(CleaveArmorTargets, args.destName) then
 			CleaveArmorTargets[#CleaveArmorTargets+1] = args.destName
         end
@@ -59,7 +60,7 @@ function mod:SPELL_AURA_APPLIED(args)
         else
             warnCleaveArmor:Show(args.destName, amount)
         end
-    elseif (args.spellId == 10278 or args.spellId == 642) and self.Options.CancelBuff and self:IsInCombat() and args:IsPlayer() and #CleaveArmorTargets > 0 then
+    elseif (spellId == 10278 or spellId == 642) and self.Options.CancelBuff and self:IsInCombat() and args:IsPlayer() and #CleaveArmorTargets > 0 then
 		for i = 1, #CleaveArmorTargets do
 			local targetName = CleaveArmorTargets[i]
 			if targetName == DBM:GetMyPlayerInfo() then

@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(39863)--40142 (twilight form)
-mod:SetUsedIcons(7, 8)
+mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358)
 
 mod:RegisterCombat("combat")
@@ -30,7 +30,7 @@ mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
 -- Stage One - Physical Realm (100%)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.PhysicalRealm)
 local warnPhase2Soon				= mod:NewPrePhaseAnnounce(2)
-local warningFieryCombustion		= mod:NewTargetAnnounce(74562, 4)
+local warningFieryCombustion		= mod:NewTargetNoFilterAnnounce(74562, 4)
 local warningMeteor					= mod:NewSpellAnnounce(74648, 3)
 local warningFieryBreath			= mod:NewSpellAnnounce(74525, 2, nil, "Tank|Healer")
 
@@ -41,14 +41,16 @@ local specWarnMeteorStrike			= mod:NewSpecialWarningMove(74648, nil, nil, nil, 1
 local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3)
 local timerMeteorCD					= mod:NewNextTimer(40, 74648, nil, nil, nil, 3)--Target or aoe? tough call. It's a targeted aoe!
 local timerMeteorCast				= mod:NewCastTimer(7, 74648)--7-8 seconds from boss yell the meteor impacts.
-local timerFieryBreathCD			= mod:NewCDTimer(16, 74525, nil, "Tank|Healer", nil, 5)--But unique icons are nice pertaining to phase you're in ;)
+local timerFieryBreathCD			= mod:NewCDTimer(16, 74525, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)--But unique icons are nice pertaining to phase you're in ;)
+
+mod:AddSetIconOption("SetIconOnFireConsumption", 74562, true, false, {7})--Red x for Fire
 
 -- Stage Two - Twilight Realm (75%)
 local twilightRealmName = DBM:GetSpellInfo(74807)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..twilightRealmName)
 local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
 local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
-local warningShadowConsumption		= mod:NewTargetAnnounce(74792, 4)
+local warningShadowConsumption		= mod:NewTargetNoFilterAnnounce(74792, 4)
 local warningShadowBreath			= mod:NewSpellAnnounce(74806, 2, nil, "Tank|Healer")
 local warningTwilightCutter			= mod:NewAnnounce("TwilightCutterCast", 4, 74769, nil, nil, nil, 74769)
 
@@ -57,12 +59,12 @@ local yellShadowconsumption			= mod:NewYellMe(74792)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(74769, nil, nil, nil, 3, 2)
 
 local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792, nil, nil, nil, 3)
-local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769)
+local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
-local timerShadowBreathCD			= mod:NewCDTimer(16, 74806, nil, "Tank|Healer", nil, 5)--Edited. Same as debuff timers, same CD, can be merged into 1.
+local timerShadowBreathCD			= mod:NewCDTimer(16, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)--Edited. Same as debuff timers, same CD, can be merged into 1.
 
-mod:AddSetIconOption("SetIconOnConsumption", 74792, true, false, {7, 8})
+mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Purple diamond for shadow
 
 -- Stage Three - Corporeality (50%)
 local twilightDivisionName = DBM:GetSpellInfo(75063)
@@ -71,15 +73,12 @@ local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 
 local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 1, 2)
 
-
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-local phases = {}
 local playerInShadowRealm = false
 local previousCorporeality = 0
 
 function mod:OnCombatStart(delay)--These may still need retuning too, log i had didn't have pull time though.
-	table.wipe(phases)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self:SetStage(1)
@@ -144,8 +143,8 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 		if not self.Options.AnnounceAlternatePhase then
 			warningShadowConsumption:Show(args.destName)
 		end
-		if self.Options.SetIconOnConsumption then
-			self:SetIcon(args.destName, 7)
+		if self.Options.SetIconOnShadowConsumption then
+			self:SetIcon(args.destName, 3)
 		end
 	elseif spellId == 74562 then
 		if self:LatencyCheck() then
@@ -159,8 +158,8 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 		if not self.Options.AnnounceAlternatePhase then
 			warningFieryCombustion:Show(args.destName)
 		end
-		if self.Options.SetIconOnConsumption then
-			self:SetIcon(args.destName, 8)
+		if self.Options.SetIconOnFireConsumption then
+			self:SetIcon(args.destName, 7)
 		end
 	end
 end
@@ -168,11 +167,11 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 74792 then
-		if self.Options.SetIconOnConsumption then
+		if self.Options.SetIconOnShadowConsumption then
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 74562 then
-		if self.Options.SetIconOnConsumption then
+		if self.Options.SetIconOnFireConsumption then
 			self:SetIcon(args.destName, 0)
 		end
 	end

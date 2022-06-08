@@ -31,7 +31,7 @@ local specWarnVesperonPortal	= mod:NewSpecialWarning("WarningVesperonPortal", fa
 local specWarnTenebronPortal	= mod:NewSpecialWarning("WarningTenebronPortal", false, nil, nil, 1, 7)
 local specWarnShadronPortal		= mod:NewSpecialWarning("WarningShadronPortal", false, nil, nil, 1, 7)
 
-local timerShadowFissure		= mod:NewCastTimer(5, 59128, nil, nil, nil, 3) --Cast timer until Void Blast. it's what happens when shadow fissure explodes.
+local timerShadowFissure		= mod:NewCastTimer(5, 59128, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) --Cast timer until Void Blast. it's what happens when shadow fissure explodes.
 local timerBreath				= mod:NewCDTimer(10, 58956, nil, "Tank|Healer", nil, 5)
 local timerWall					= mod:NewCDTimer(30, 43113, nil, nil, nil, 2)
 local timerTenebron				= mod:NewTimer(30, "TimerTenebron", 61248, nil, nil, 1)
@@ -43,6 +43,8 @@ local timerVesperonPortal		= mod:NewTimer(139, "TimerVesperonPortal", 57988)
 local timerVesperonPortal2		= mod:NewTimer(199, "TimerVesperonPortal2", 57988) -- what's the purpose of this?
 
 mod:AddBoolOption("AnnounceFails", true, "announce")
+
+mod:GroupSpells(59127, 59128)--Shadow fissure with void blast
 
 local lastvoids = {}
 local lastfire = {}
