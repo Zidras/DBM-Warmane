@@ -5988,7 +5988,7 @@ do
 
 	function DBM:ReceiveCombatInfo(sender, mod, time)
 		if DBM.Options.Enabled and requestedFrom[sender] and (GetTime() - requestTime) < 5 and #inCombat == 0 then
-			self:StartCombat(mod, time, true, "TIMER_RECOVERY")
+			self:StartCombat(mod, time, "TIMER_RECOVERY")
 			--Recovery successful, someone sent info, abort other recovery requests
 			self:Unschedule(self.RequestTimers)
 			twipe(requestedFrom)
