@@ -5305,7 +5305,9 @@ do
 					Recount:ReportData(25,(GetNumRaidMembers() > 0 and "raid") or "party")
 				end
 				if self.Options.ReportSkada and self:GetRaidRank() > 0 and Skada and Skada.revisited then
-					Skada:Report("RAID", "preset", nil, nil, 25)
+					self:Schedule(1, function() -- delayed by one second to prevent CombatLogClearEntries wow crash
+						Skada:Report("RAID", "preset", nil, nil, 25)
+					end)
 				end
 				fireEvent("kill", mod) -- Backwards compatibility
 				fireEvent("DBM_Kill", mod)
