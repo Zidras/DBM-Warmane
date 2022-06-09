@@ -5162,6 +5162,11 @@ do
 
 	function DBM:EndCombat(mod, wipe, srmIncluded)
 		if removeEntry(inCombat, mod) then
+			if wipe then
+				self:Debug("EndCombat called via wipe for mod: ".. mod.id)
+			else
+				self:Debug("EndCombat called for mod: ".. mod.id)
+			end
 			self.currentModId = nil
 			if mod.inCombatOnlyEvents and mod.inCombatOnlyEventsRegistered then
 				if srmIncluded then-- unregister all events including SPELL_AURA_REMOVED events
