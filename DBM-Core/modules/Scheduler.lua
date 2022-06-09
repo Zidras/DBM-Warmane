@@ -183,7 +183,7 @@ local function onUpdate(self, elapsed)
 	local foundModFunctions = 0
 	for i, v in pairs(private.updateFunctions) do
 		foundModFunctions = foundModFunctions + 1
-		if i.Options.Enabled and (not i.zones or i.zones[LastInstanceMapID]) then
+		if i.Options.Enabled and (not i.zones or i.zones[LastInstanceMapID] or i.zones[LastInstanceZoneName]) then
 			i.elapsed = (i.elapsed or 0) + elapsed
 			if i.elapsed >= (i.updateInterval or 0) then
 				v(i, i.elapsed)
@@ -220,6 +220,7 @@ end
 --without needing to monitor for changes in onupdate functions or registering zone change events
 function module:UpdateZone()
 	LastInstanceMapID = DBM and DBM:GetCurrentArea() or -1
+	LastInstanceZoneName = DBM and DBM:GetCurrentAreaName() or ""
 end
 
 local function schedule(t, f, mod, ...)

@@ -745,7 +745,7 @@ do
 				if modEvents and modEvents[event] and not checkEntry(modEvents[event], ...) then return end
 			end
 
-			if handler and (not zones or zones[LastInstanceMapID]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
+			if handler and (not zones or zones[LastInstanceMapID] or zones[LastInstanceZoneName]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
 				handler(v, ...)
 			end
 		end
@@ -3264,7 +3264,7 @@ do
 				modHFRevision = tonumber(modHFRevision or 0) or 0
 				startHp = tonumber(startHp or -1) or -1
 				--if dbmRevision < 10481 then return end
-				if mod and delay and (not mod.zones or mod.zones[LastInstanceMapID]) and (not mod.minSyncRevision or modRevision >= mod.minSyncRevision) then
+				if mod and delay and (not mod.zones or mod.zones[LastInstanceMapID] or mod.zones[LastInstanceZoneName]) and (not mod.minSyncRevision or modRevision >= mod.minSyncRevision) then
 					DBM:StartCombat(mod, delay + lag, "SYNC from - "..sender, true, startHp, event)
 					if mod.revision < modHFRevision then--mod.revision because we want to compare to OUR revision not senders
 						--There is a newer RELEASE version of DBM out that has this mods fixes that we do not possess
@@ -4478,6 +4478,7 @@ end
 do
 	local targetList = {}
 	local function buildTargetList()
+		-- target or groupMemberTarget
 		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
 		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
 			local id = (i == 0 and "target") or uId..i.."target"
@@ -4487,6 +4488,7 @@ do
 				targetList[cId] = id
 			end
 		end
+		-- boss
 		for i = 0, 5 do
 			local id = "boss" .. i
 			local guid = UnitGUID(id)
@@ -4494,6 +4496,12 @@ do
 				local cId = DBM:GetCIDFromGUID(guid)
 				targetList[cId] = id
 			end
+		end
+		-- focus (for non IEEU scripts)
+		local guid = UnitGUID("focus")
+		if guid and DBM:IsCreatureGUID(guid) then
+			local cId = DBM:GetCIDFromGUID(guid)
+			targetList[cId] = "focus"
 		end
 	end
 
@@ -4752,7 +4760,7 @@ function checkWipe(self, confirm)
 		if encounterDifficulty and encounterDifficulty ~= savedDifficulty then
 			savedDifficulty = encounterDifficulty
 		end
-			--hack for no iEEU information is provided.
+		--hack for no iEEU information is provided.
 		if not bossuIdFound then
 			for i = 1, 5 do
 				if UnitExists("boss"..i) then
@@ -6644,7 +6652,7 @@ function bossModPrototype:SetZone(...)
 			end
 			if self.addon.zone and #self.addon.zone > 0 then
 				for _, v in ipairs(self.addon.zone) do
-					self.zones[#self.zones + 1] = v
+					self.zones[v] = true
 				end
 			end
 		end
