@@ -65,7 +65,8 @@ local function Break(timer)
 		DBM:AddMsg(L.BREAK_USAGE)
 		return
 	end
-	private.sendSync("DBMv4-BT", timer * 60)
+	timer = timer * 60 -- convert minutes to seconds
+	private.sendSync("DBMv4-BT", timer)
 	-- Old chat message (requested)
 	if IsInGroup() then
 		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
