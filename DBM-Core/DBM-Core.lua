@@ -4794,16 +4794,17 @@ function checkWipe(self, confirm)
 		end
 		-- Commenting this else check since there is no EncounterProgress info on WotLK, so whenever IEEU fired and there was no boss frames, it was considering a wipe without running the group unit combat detection
 --		else -- Unit combat status detection. No combat unit in your party and no EncounterProgress marked, that means wipe
-		wipe = wipe ~= 0 and wipe or 1
-		local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
-		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
-			local id = (i == 0 and "player") or uId..i
-			if UnitAffectingCombat(id) and not UnitIsDeadOrGhost(id) then
-				wipe = 0 -- Someone still in combat. No wipe
-				break
+		if wipe ~= 0 then
+			wipe = wipe or 1
+			local uId = ((GetNumRaidMembers() == 0) and "party") or "raid"
+			for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
+				local id = (i == 0 and "player") or uId..i
+				if UnitAffectingCombat(id) and not UnitIsDeadOrGhost(id) then
+					wipe = 0 -- Someone still in combat. No wipe
+					break
+				end
 			end
 		end
---		end
 		if wipe == 0 then
 			self:Schedule(3, checkWipe, self)
 		elseif confirm then
