@@ -8,12 +8,11 @@ mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.AllianceVictory, L.HordeVictory)
 
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_CAST_SUCCESS",
-	"SPELL_CAST_START",
-	"SPELL_DAMAGE",
-	"SPELL_MISSED",
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_SUCCESS 66017 68753 68754 68755 66020 68758 68757 68756 66115 66009 66008 66613 66007 66011 65793 65790 65816 68145 68146 68147 65820 68141 68139 68140 65947 65932 65931 66063 65983 65980 65544 65543 65545 65542 65860 66086 67974 67975 67976 66178 68759 68760 68761 65960 65961 66207 65880 65869",
+	"SPELL_AURA_APPLIED 66010 65802 65801 65809 65927 65929 66054 65859 65857 65871 65878 65877",
+	"SPELL_DAMAGE 65817 68142 68143 68144",
+	"SPELL_MISSED 65817 68142 68143 68144",
 	"UNIT_DIED"
 )
 
@@ -62,53 +61,53 @@ local FACTION_ALLIANCE, FACTION_HORDE = FACTION_ALLIANCE, FACTION_HORDE
 
 -- Announce: 1 - target player with CC, 2 - target player no CC, 3 - target self (npc)
 -- Death Knight
-local warnChainsofIce		= mod:NewTargetAnnounce(66020, 2) 				-- 66020
-local warnDeathgrip			= mod:NewTargetAnnounce(66017, 2)
+local warnChainsofIce		= mod:NewTargetNoFilterAnnounce(66020, 2) 		-- 66020
+local warnDeathgrip			= mod:NewTargetNoFilterAnnounce(66017, 2)
 -- Paladin
-local warnHandofFreedom		= mod:NewTargetAnnounce(66115, 2)
-local warnHandofProt		= mod:NewTargetAnnounce(66009, 3) 				-- 66009
-local warnHoJ				= mod:NewTargetAnnounce(66613, 1) 				-- 66613, 66607
-local warnRepentance		= mod:NewTargetAnnounce(66008, 1) 				-- 66008
+local warnHandofFreedom		= mod:NewTargetNoFilterAnnounce(66115, 2)
+local warnHandofProt		= mod:NewTargetNoFilterAnnounce(66009, 3) 		-- 66009
+local warnHoJ				= mod:NewTargetNoFilterAnnounce(66613, 1) 		-- 66613, 66607
+local warnRepentance		= mod:NewTargetNoFilterAnnounce(66008, 1) 		-- 66008
 local warnDivineShield		= mod:NewSpellAnnounce(66010, 3) 				-- 66010
 local warnAvengingWrath		= mod:NewSpellAnnounce(66011, 3) 				-- 66011
 -- Mage
 local warnIceBlock			= mod:NewSpellAnnounce(65802, 3) 				-- 65802
-local warnSheep				= mod:NewTargetAnnounce(65801, 1, nil, false)
+local warnSheep				= mod:NewTargetNoFilterAnnounce(65801, 1, nil, false)
 local warnBlink				= mod:NewSpellAnnounce(65793, 3) 				-- 65793
-local warnCounterspell		= mod:NewTargetAnnounce(65790, 1)				-- 65790
+local warnCounterspell		= mod:NewTargetNoFilterAnnounce(65790, 1)		-- 65790
 -- Warlock
 local warnHellfire			= mod:NewSpellAnnounce(65816, 4)
-local warnFear				= mod:NewTargetAnnounce(65809, 1) 				-- 65809
-local warnDeathCoil			= mod:NewTargetAnnounce(65820, 1) 				-- 65820
+local warnFear				= mod:NewTargetNoFilterAnnounce(65809, 1) 		-- 65809
+local warnDeathCoil			= mod:NewTargetNoFilterAnnounce(65820, 1) 		-- 65820
 -- Warrior
 local preWarnBladestorm 	= mod:NewSoonAnnounce(65947, 3)
 local warnBladestorm		= mod:NewSpellAnnounce(65947, 4)
-local warnCharge			= mod:NewTargetAnnounce(65927, 2) 				-- 65927, 65929
+local warnCharge			= mod:NewTargetNoFilterAnnounce(65927, 2) 		-- 65927, 65929
 local warnRetaliation		= mod:NewSpellAnnounce(65932, 3) 				-- 65932
 local warnIntimidatingShout	= mod:NewSpellAnnounce(65931, 1) 				-- 65931
 -- Shaman
 local warnHeroism			= mod:NewSpellAnnounce(65983, 3)
 local warnBloodlust			= mod:NewSpellAnnounce(65980, 3)
-local warnEarthShield		= mod:NewTargetAnnounce(66063, 3) 				-- 66063
-local warnHex				= mod:NewTargetAnnounce(66054, 1) 				-- 66054
+local warnEarthShield		= mod:NewTargetNoFilterAnnounce(66063, 3) 		-- 66063
+local warnHex				= mod:NewTargetNoFilterAnnounce(66054, 1) 		-- 66054
 -- Priest
 local warnDispersion		= mod:NewSpellAnnounce(65544, 3) 				-- 65544
 local warnPsychicScream		= mod:NewSpellAnnounce(65543, 1) 				-- 65543
-local warnPsychicHorror		= mod:NewTargetAnnounce(65545, 1) 				-- 65545
-local warnSilence			= mod:NewTargetAnnounce(65542, 1) 				-- 65542
+local warnPsychicHorror		= mod:NewTargetNoFilterAnnounce(65545, 1) 		-- 65545
+local warnSilence			= mod:NewTargetNoFilterAnnounce(65542, 1) 		-- 65542
 -- Druid
 local warnBarkskin			= mod:NewSpellAnnounce(65860, 3) 				-- 65860
 local warnTranquility		= mod:NewSpellAnnounce(66086, 4) 				-- 66086, 67976, 67975, 67974
-local warnEntanglingRoots	= mod:NewTargetAnnounce(65857, 1) 				-- 65857
-local warnCyclone			= mod:NewTargetAnnounce(65859, 1, nil, false)
+local warnEntanglingRoots	= mod:NewTargetNoFilterAnnounce(65857, 1) 		-- 65857
+local warnCyclone			= mod:NewTargetNoFilterAnnounce(65859, 1, nil, false)
 -- Rogue
 local warnShadowstep		= mod:NewSpellAnnounce(66178, 2)
-local warnBlind				= mod:NewTargetAnnounce(65960, 1) 				-- 65960
+local warnBlind				= mod:NewTargetNoFilterAnnounce(65960, 1) 		-- 65960
 local warnCloakOfShadows	= mod:NewSpellAnnounce(65961, 3) 				-- 65961
 -- Hunter
 local warnDeterrence		= mod:NewSpellAnnounce(65871, 3) 				-- 65871
-local warnWingClip			= mod:NewTargetAnnounce(66207, 1) 				-- 66207
-local warnWyvernSting		= mod:NewTargetAnnounce(65878, 1) 				-- 65878, 65877
+local warnWingClip			= mod:NewTargetNoFilterAnnounce(66207, 1) 		-- 66207
+local warnWyvernSting		= mod:NewTargetNoFilterAnnounce(65878, 1) 		-- 65878, 65877
 local warnFrostTrap			= mod:NewSpellAnnounce(65880, 3) 				-- 65880
 local warnDisengage			= mod:NewSpellAnnounce(65869, 3) 				-- 65869
 
@@ -140,6 +139,7 @@ local timerHeroismCD		= mod:NewCDTimer(300, 65983)
 local timerBloodlustCD		= mod:NewCDTimer(300, 65980)
 
 function mod:SPELL_CAST_SUCCESS(args)
+	local spellId = args.spellId
 	-- Death Knight
 	if args:IsSpellID(66017, 68753, 68754, 68755) and args:IsDestTypePlayer() then	-- Death Grip
 		warnDeathgrip:Show(args.destName)
@@ -148,32 +148,32 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerShadowstepCD:Start()
 		end
-	elseif args.spellId == 66020 and args:IsDestTypePlayer() then 	-- Chains of Ice
+	elseif spellId == 66020 and args:IsDestTypePlayer() then 	-- Chains of Ice
 		warnChainsofIce:Show(args.destName)
 	-- Paladin
 	elseif args:IsSpellID(68758, 68757, 68756, 66115) and not args:IsDestTypePlayer() then	-- Hand of Freedom
 		warnHandofFreedom:Show(args.destName)
 		specWarnHandofFreedom:Show(args.destName)
 		specWarnHandofFreedom:Play("dispelboss")
-	elseif args.spellId == 66009 then								-- Hand of Protection
+	elseif spellId == 66009 then								-- Hand of Protection
 		warnHandofProt:Show(args.destName)
 		specWarnHandofProt:Show(args.destName)
 		specWarnHandofProt:Play("dispelboss")
 		timerHoPCD:Start()
-	elseif args.spellId == 66008 then								-- Repentance
+	elseif spellId == 66008 then								-- Repentance
 		warnRepentance:Show(args.destName)
 		timerRepentanceCD:Start()
 	elseif args:IsSpellID(66613, 66007) then						-- Hammer of Justice
 		warnHoJ:Show(args.destName)
 		timerHoJCD:Start()
-	elseif args.spellId == 66011 then								-- Avenging Wrath
+	elseif spellId == 66011 then								-- Avenging Wrath
 		warnAvengingWrath:Show()
 		specWarnAvengingWrath:Show(args.sourceName)
 	-- Mage
-	elseif args.spellId == 65793 then								-- Blink
+	elseif spellId == 65793 then								-- Blink
 		warnBlink:Show()
 		timerBlinkCD:Start()
-	elseif args.spellId == 65790 then								-- Counterspell
+	elseif spellId == 65790 then								-- Counterspell
 		warnCounterspell:Show(args.destName)
 	-- Warlock
 	elseif args:IsSpellID(65816, 68145, 68146, 68147) then			-- Hellfire
@@ -181,41 +181,41 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(65820, 68141, 68139, 68140) then			-- Death Coil
 		warnDeathCoil:Show(args.destName)
 	-- Warrior
-	elseif args.spellId == 65947 then								-- Bladestorm
+	elseif spellId == 65947 then								-- Bladestorm
 		warnBladestorm:Show()
 		timerBladestorm:Start()
 		timerBladestormCD:Start()
 		preWarnBladestorm:Schedule(85)
-		elseif args.spellId == 65932 then							-- Retaliation
+		elseif spellId == 65932 then							-- Retaliation
 		warnRetaliation:Show()
-	elseif args.spellId == 65931 then								-- Intimidating Shout
+	elseif spellId == 65931 then								-- Intimidating Shout
 		warnIntimidatingShout:Show()
 	-- Shaman
-	elseif args.spellId == 66063 then								-- Earth Shield
+	elseif spellId == 66063 then								-- Earth Shield
 		warnEarthShield:Show(args.destName)
 		specWarnEarthShield:Show(args.destName)
-	elseif args.spellId == 65983 then
+	elseif spellId == 65983 then
 		warnHeroism:Show()
 		specWarnHeroism:Show(FACTION_ALLIANCE)
 		specWarnHeroism:Play("dispelboss")
 		timerHeroismCD:Start()
-	elseif args.spellId == 65980 then
+	elseif spellId == 65980 then
 		warnBloodlust:Show()
 		specWarnBloodlust:Show(FACTION_HORDE)
 		specWarnBloodlust:Play("dispelboss")
 		timerBloodlustCD:Start()
 	-- Priest
-	elseif args.spellId == 65544 then								-- Dispersion
+	elseif spellId == 65544 then								-- Dispersion
 		warnDispersion:Show()
-	elseif args.spellId == 65543 then								-- Psychic Scream
+	elseif spellId == 65543 then								-- Psychic Scream
 		warnPsychicScream:Show()
-	elseif args.spellId == 65545 then								-- Psychic Horror
+	elseif spellId == 65545 then								-- Psychic Horror
 		warnPsychicHorror:Show(args.destName)
-	elseif args.spellId == 65542 then								-- Silence
+	elseif spellId == 65542 then								-- Silence
 		warnSilence:Show(args.destName)
 		timerSilenceCD:Start()
 	-- Druid
-	elseif args.spellId == 65860 then								-- Barkskin
+	elseif spellId == 65860 then								-- Barkskin
 		warnBarkskin:Show()
 	elseif args:IsSpellID(66086, 67974, 67975, 67976) then			-- Tranquility
 		warnTranquility:Show()
@@ -228,54 +228,55 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerShadowstepCD:Start()
 		end
-	elseif args.spellId == 65960 then								-- Blind
+	elseif spellId == 65960 then								-- Blind
 		warnBlind:Show(args.destName)
 		timerBlindCD:Start()
-	elseif args.spellId == 65961 then								-- Cloak of Shadows
+	elseif spellId == 65961 then								-- Cloak of Shadows
 		warnCloakOfShadows:Show()
 	-- Hunter
-	elseif args.spellId == 66207 then								-- Wing Clip
+	elseif spellId == 66207 then								-- Wing Clip
 		warnWingClip:Show(args.destName)
-	elseif args.spellId == 65880 then								-- Frost Trap
+	elseif spellId == 65880 then								-- Frost Trap
 		warnFrostTrap:Show()
 		timerFrostTrapCD:Start()
-	elseif args.spellId == 65869 then								-- Disengage
+	elseif spellId == 65869 then								-- Disengage
 		warnDisengage:Show()
 		timerDisengageCD:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
+	local spellId = args.spellId
 	-- Death Knight
 	-- Paladin
-	if args.spellId == 66010 then									-- Divine Shield
+	if spellId == 66010 then									-- Divine Shield
 		warnDivineShield:Show()
 		specWarnDivineShield:Show(args.destName)
 		specWarnDivineShield:Play("dispelboss")
 	-- Mage
-	elseif args.spellId == 65802 then								-- Ice Block
+	elseif spellId == 65802 then								-- Ice Block
 		warnIceBlock:Show()
 		specWarnIceBlock:Show(args.sourceName)
-	elseif args.spellId == 65801 and args:IsDestTypePlayer() then	-- Polymorph
+	elseif spellId == 65801 and args:IsDestTypePlayer() then	-- Polymorph
 		warnSheep:Show(args.destName)
 	-- Warlock
-	elseif args.spellId == 65809 then								-- Fear
+	elseif spellId == 65809 then								-- Fear
 		warnFear:Show(args.destName)
 	-- Warrior
 	elseif args:IsSpellID(65927, 65929) then						-- Charge
 		warnCharge:Show(args.destName)
 	-- Shaman
-	elseif args.spellId == 66054 then								-- Hex
+	elseif spellId == 66054 then								-- Hex
 		warnHex:Show(args.destName)
 	-- Priest
 	-- Druid
-	elseif args.spellId == 65859 and args:IsDestTypePlayer() then	-- Cyclone
+	elseif spellId == 65859 and args:IsDestTypePlayer() then	-- Cyclone
 		warnCyclone:Show(args.destName)
-	elseif args.spellId == 65857 then								-- Entangling Roots
+	elseif spellId == 65857 then								-- Entangling Roots
 		warnEntanglingRoots:Show(args.destName)
 	-- Rogue
 	-- Hunter
-	elseif args.spellId == 65871 then								-- Deterrence
+	elseif spellId == 65871 then								-- Deterrence
 		warnDeterrence:Show()
 	elseif args:IsSpellID(65878, 65877) then						-- Wyvern Sting
 		warnWyvernSting:Show(args.destName)
