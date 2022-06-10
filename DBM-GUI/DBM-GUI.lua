@@ -467,6 +467,23 @@ function DBM_GUI:CreateBossModPanel(mod)
 	end
 end
 
+local function GetSpecializationGroup()
+	local numTabs = GetNumTalentTabs()
+	local highestPointsSpent, currentSpecGroup = 0, 1
+	if MAX_TALENT_TABS then
+		for i=1, MAX_TALENT_TABS do
+			if ( i <= numTabs ) then
+				local _, _, pointsSpent = GetTalentTabInfo(i)
+				if pointsSpent > highestPointsSpent then
+					highestPointsSpent = pointsSpent
+					currentSpecGroup = i
+				end
+			end
+		end
+	end
+	return currentSpecGroup
+end
+
 do
 	local function CreateBossModTab(addon, panel, subtab)
 		if not panel then
@@ -489,7 +506,7 @@ do
 						for i = 0, 3 do
 							if optionTable[i] then
 								tinsert(modProfileDropdown, {
-									text	= (i == 0 and charname .. " (" .. ALL .. ")") or charname .. " (" .. TALENTS .. i .. "-" .. (charTable["talent" .. i] or "") .. ")",
+									text	= (i == 0 and charname .. " (" .. ALL .. ")") or charname .. " (" .. L.SPECIALIZATION .. i .. "-" .. (charTable["talent" .. i] or "") .. ")",
 									value	= charname .. "|" .. tostring(i)
 								})
 							end
@@ -569,7 +586,7 @@ do
 			-- Start import/export
 			local fullname = DBM.Options.PerCharacterSettings and playerName.."-"..realmName or "Global"
 			local function actuallyImport(importTable)
-				local profileID = playerLevel > 9 and DBM_UseDualProfile and (GetActiveTalentGroup() or 1) or 0
+				local profileID = playerLevel > 9 and DBM_UseDualProfile and GetSpecializationGroup() or 0
 				for _, id in ipairs(DBM.ModLists[addon.modId]) do
 					_G[addon.modId:gsub("-", "") .. "_AllSavedVars"][fullname][id][profileID] = importTable[id]
 					DBM:GetModByName(id).Options = importTable[id]
@@ -582,7 +599,7 @@ do
 			test:SetPoint("TOPLEFT", 15, -10)
 			local exportProfile = importExportProfilesArea:CreateButton(L.ButtonExportProfile, 120, 20, function()
 				local exportProfile = {}
-				local profileID = playerLevel > 9 and DBM_UseDualProfile and (GetActiveTalentGroup() or 1) or 0
+				local profileID = playerLevel > 9 and DBM_UseDualProfile and GetSpecializationGroup() or 0
 				for _, id in ipairs(DBM.ModLists[addon.modId]) do
 					exportProfile[id] = _G[addon.modId:gsub("-", "") .. "_AllSavedVars"][fullname][id][profileID]
 				end

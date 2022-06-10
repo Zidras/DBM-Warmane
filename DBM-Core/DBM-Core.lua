@@ -2815,10 +2815,19 @@ end
 
 function DBM:PLAYER_TALENT_UPDATE()
 	local lastSpecID = currentSpecID
+	if GetNumTalentTabs() == 0 then
+		self:Debug("No talents detected. Registering PLAYER_ALIVE for talent data")
+		self:RegisterEvents("PLAYER_ALIVE")
+	end
 	self:SetCurrentSpecInfo()
 	if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
 		self:SpecChanged()
 	end
+end
+
+function DBM:PLAYER_ALIVE()
+	self:PLAYER_TALENT_UPDATE()
+	mainFrame:UnregisterEvent("PLAYER_ALIVE")
 end
 
 do
