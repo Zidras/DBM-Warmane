@@ -4,16 +4,16 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20220518110528")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34564)
-mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
+mod:SetUsedIcons(1, 2, 3, 4, 5, 8)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REFRESH",
-	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
+mod:RegisterEventsInCombat(
+	"SPELL_AURA_APPLIED 67574 66013 67700 68509 68510 66012 10278",
+	"SPELL_AURA_REFRESH 67574 66013 67700 68509 68510 66012",
+	"SPELL_AURA_REMOVED 66013 67700 68509 68510 10278",
+	"SPELL_CAST_START 66118 67630 68646 68647 66134",
+	"SPELL_CAST_SUCCESS 66012",
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
@@ -21,9 +21,9 @@ mod:RegisterEvents(
 local warnAdds				= mod:NewAnnounce("warnAdds", 3, 45419)
 local preWarnShadowStrike	= mod:NewSoonAnnounce(66134, 3)
 local warnShadowStrike		= mod:NewSpellAnnounce(66134, 4)
-local warnPursue			= mod:NewTargetAnnounce(67574, 4)
-local warnFreezingSlash		= mod:NewTargetAnnounce(66012, 2, nil, "Tank|Healer")
-local warnHoP				= mod:NewTargetAnnounce(10278, 2, nil, false) --Heroic strat revolves around kiting pursue and using Hand of Protection.
+local warnPursue			= mod:NewTargetNoFilterAnnounce(67574, 4)
+local warnFreezingSlash		= mod:NewTargetNoFilterAnnounce(66012, 2, nil, "Tank|Healer")
+local warnHoP				= mod:NewTargetNoFilterAnnounce(10278, 2, nil, false) --Heroic strat revolves around kiting pursue and using Hand of Protection.
 local warnEmerge			= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnEmergeSoon		= mod:NewAnnounce("WarnEmergeSoon", 1, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnSubmerge			= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
@@ -44,94 +44,77 @@ local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, nil, nil, 5) --So we 
 
 local enrageTimer			= mod:NewBerserkTimer(570)
 
-mod:AddSetIconOption("PursueIcon", 67574, true)
-mod:AddSetIconOption("SetIconsOnPCold", 66013, false)
+mod:AddSetIconOption("PursueIcon", 67574, true, 0, {8})
+mod:AddSetIconOption("SetIconsOnPCold", 66013, true, 7, {1, 2, 3, 4, 5})
 mod:AddBoolOption("AnnouncePColdIcons", false)
 mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
 mod:AddBoolOption("RemoveHealthBuffsInP3", false)
 
-local PColdTargets = {}
 mod.vb.Burrowed = false
+
+local function Adds(self)
+	if self:IsInCombat() then
+		if not self.vb.Burrowed then
+			timerAdds:Start()
+			warnAdds:Schedule(45)
+			self:Schedule(45, Adds, self)
+		end
+	end
+end
+
+local function ShadowStrike(self)
+	self:Unschedule(ShadowStrike)
+	if self:IsInCombat() then
+		timerShadowStrike:Cancel()
+		timerShadowStrike:Start()
+		preWarnShadowStrike:Cancel()
+		preWarnShadowStrike:Schedule(25.5)
+		self:Schedule(30, ShadowStrike, self)
+	end
+end
+
+-- Warmane workaround, since emerge boss emote is not being fired
+local function EmergeFix(self)
+	self:SetStage(1)
+	self.vb.Burrowed = false
+	timerEmerge:Cancel()
+	timerAdds:Start(5)
+	warnAdds:Schedule(5)
+	self:Schedule(5, Adds, self)
+	warnEmerge:Show()
+	warnSubmergeSoon:Schedule(70)
+	timerSubmerge:Start()
+	if self:IsHeroic() then
+		ShadowStrike(self)
+	end
+end
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	self.vb.Burrowed = false
 	timerAdds:Start(10-delay)
 	warnAdds:Schedule(10-delay)
-	self:ScheduleMethod(10-delay, "Adds")
+	self:Schedule(10-delay, Adds, self)
 	warnSubmergeSoon:Schedule(70-delay)
 	timerSubmerge:Start(-delay)
 	enrageTimer:Start(-delay)
 	timerFreezingSlash:Start(15-delay)
-	table.wipe(PColdTargets)
 	if self:IsHeroic() then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)
-		self:ScheduleMethod(30-delay, "ShadowStrike")
+		self:Schedule(30-delay, ShadowStrike, self)
 	end
 end
 
-function mod:Adds()
-	if self:IsInCombat() then
-		if not self.vb.Burrowed then
-			timerAdds:Start()
-			warnAdds:Schedule(45)
-			self:ScheduleMethod(45, "Adds")
-		end
-	end
-end
-
-function mod:ShadowStrike()
-	self:UnscheduleMethod("ShadowStrike")
-	if self:IsInCombat() then
-		timerShadowStrike:Cancel()
-		timerShadowStrike:Start()
-		preWarnShadowStrike:Cancel()
-		preWarnShadowStrike:Schedule(25.5)
-		self:ScheduleMethod(30, "ShadowStrike")
-	end
-end
-
--- Warmane workaround, since emerge boss emote is not being fired
-function mod:EmergeFix()
-	self:SetStage(1)
-	self.vb.Burrowed = false
-	timerEmerge:Cancel()
-	timerAdds:Start(5)
-	warnAdds:Schedule(5)
-	self:ScheduleMethod(5, "Adds")
-	warnEmerge:Show()
-	warnSubmergeSoon:Schedule(70)
-	timerSubmerge:Start()
-	if self:IsHeroic() then
-		self:ShadowStrike()
-	end
-end
-
-local function ClearPcoldTargets()
-	table.wipe(PColdTargets)
-end
-
-do
-	local function sort_by_group(v1, v2)
-		return DBM:GetRaidSubgroup(DBM:GetUnitFullName(v1)) < DBM:GetRaidSubgroup(DBM:GetUnitFullName(v2))
-	end
-	function mod:SetPcoldIcons()
-		table.sort(PColdTargets, sort_by_group)
-		local PColdIcon = 7
-		for _, v in ipairs(PColdTargets) do
-			if self.Options.AnnouncePColdIcons and DBM:GetRaidRank() > 1 then
-				SendChatMessage(L.PcoldIconSet:format(PColdIcon, DBM:GetUnitFullName(v)), "RAID")
-			end
-			self:SetIcon(v, PColdIcon)
-			PColdIcon = PColdIcon - 1
-		end
-		self:Schedule(5, ClearPcoldTargets)
+function mod:AnnouncePcoldIcons(uId, icon)
+	if self.Options.AnnouncePColdIcons and IsInGroup() and DBM:GetRaidRank() > 1 then
+		SendChatMessage(L.PcoldIconSet:format(icon, DBM:GetUnitFullName(uId)), IsInRaid() and "RAID" or "PARTY")
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 67574 then			-- Pursue
+	local spellId = args.spellId
+	if spellId == 67574 then			-- Pursue
 		if args:IsPlayer() then
 			specWarnPursue:Show()
 			specWarnPursue:Play("justrun")
@@ -149,19 +132,12 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnPCold:Play("targetyou")
 		end
 		if self.Options.SetIconsOnPCold then
-			table.insert(PColdTargets, DBM:GetRaidUnitId(args.destName))
-			self:UnscheduleMethod("SetPcoldIcons")
-			if (self:IsDifficulty("normal25", "heroic25") and #PColdTargets >= 5) or (self:IsDifficulty("normal10", "heroic10") and #PColdTargets >= 2) then
-				self:SetPcoldIcons()
-			else
-				if self:LatencyCheck() then
-					self:ScheduleMethod(0.5, "SetPcoldIcons")
-				end
-			end
+			local maxIcon = self:IsDifficulty("normal25", "heroic25") and 5 or 2
+			self:SetSortedIcon("roster", 1, args.destName, 1, maxIcon, false, "AnnouncePcoldIcons")
 		end
-	elseif args.spellId == 66012 then							-- Freezing Slash
+	elseif spellId == 66012 then							-- Freezing Slash
 		warnFreezingSlash:Show(args.destName)
-	elseif args.spellId == 10278 and self:IsInCombat() then		-- Hand of Protection
+	elseif spellId == 10278 and self:IsInCombat() then		-- Hand of Protection
 		warnHoP:Show(args.destName)
 		timerHoP:Start(args.destName)
 	end
@@ -172,7 +148,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(66013, 67700, 68509, 68510) then			-- Penetrating Cold
 		if self.Options.SetIconsOnPCold then
 			self:SetIcon(args.destName, 0)
-			if self.Options.AnnouncePColdIconsRemoved and DBM:GetRaidRank() > 0 then
+			if self.Options.AnnouncePColdIconsRemoved and DBM:GetRaidRank() > 1 then
 				SendChatMessage(L.PcoldIconRemoved:format(args.destName), "RAID")
 			end
 		end
@@ -192,14 +168,14 @@ function mod:SPELL_CAST_START(args)
 		if self:IsNormal() then
 			timerAdds:Cancel()
 			warnAdds:Cancel()
-			self:UnscheduleMethod("Adds")
+			self:Unschedule(Adds)
 		end
 		if self.Options.RemoveHealthBuffsInP3 then
 			mod:ScheduleMethod(0.1, "RemoveBuffs")
 		end
 	elseif args.spellId == 66134 and self:IsHeroic() and self:AntiSpam(2, 1) then	-- Shadow Strike
-		self:UnscheduleMethod("ShadowStrike")
-		self:ShadowStrike()
+		self:Unschedule(ShadowStrike)
+		ShadowStrike(self)
 		if self.Options.SpecWarn66134spell then
 			specWarnShadowStrike:Show()
 		else
@@ -225,11 +201,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg) -- Warmane workaround since submerge emo
 		timerEmerge:Start()
 		timerFreezingSlash:Stop()
 		if self:IsHeroic() then
-			self:UnscheduleMethod("ShadowStrike")
+			self:Unschedule(ShadowStrike)
 			timerShadowStrike:Cancel()
 			preWarnShadowStrike:Cancel()
 		end
-		self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
+		self:Schedule(65, EmergeFix, self)	-- Warmane workaround, since emerge boss emote is not being fired
 	end
 end
 
@@ -243,20 +219,20 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	-- 	warnEmergeSoon:Schedule(58.5)
 	-- 	timerEmerge:Start()
 	-- 	timerFreezingSlash:Stop()
-	-- 	self:ScheduleMethod(65, "EmergeFix")	-- Warmane workaround, since emerge boss emote is not being fired
+	-- 	self:Schedule(65, EmergeFix, self)	-- Warmane workaround, since emerge boss emote is not being fired
 	if msg and msg:find(L.Emerge) then
-		self:UnscheduleMethod("EmergeFix")		-- Warmane workaround: failsafe if script gets fixed eventually
+		self:Unschedule(EmergeFix)		-- Warmane workaround: failsafe if script gets fixed eventually
 		self:SetStage(1)
 		self.vb.Burrowed = false
 		timerEmerge:Cancel()
 		timerAdds:Start(5)
 		warnAdds:Schedule(5)
-		self:ScheduleMethod(5, "Adds")
+		self:Schedule(5, Adds, self)
 		warnEmerge:Show()
 		warnSubmergeSoon:Schedule(70)
 		timerSubmerge:Start()
 		if self:IsHeroic() then
-			self:ShadowStrike()
+			ShadowStrike(self)
 		end
 	end
 end

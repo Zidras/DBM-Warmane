@@ -196,7 +196,7 @@ L:SetOptionLocalization({
 	timerAdds					= "Show timer for new adds",
 	TimerEmerge					= "Show timer for emerge",
 	TimerSubmerge				= "Show timer for submerge",
-	AnnouncePColdIcons			= "Announce icons for $spell:66013 targets to raid chat<br/>(requires raid leader)",
-	AnnouncePColdIconsRemoved	= "Also announce when icons are removed for $spell:66013<br/>(requires above option)",
+	AnnouncePColdIcons			= "Announce icons for $spell:66013 targets to raid chat (requires raid leader)",
+	AnnouncePColdIconsRemoved	= "Announce when icons are removed for $spell:66013 (requires raid leader)",
 	RemoveHealthBuffsInP3		= "Remove HP buffs at start of Phase 3"
 })

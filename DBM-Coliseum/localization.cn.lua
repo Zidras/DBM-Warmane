@@ -195,7 +195,7 @@ L:SetOptionLocalization({
 	timerAdds			= "为下一次掘地者出现显示计时器",
 	TimerEmerge			= "为首领钻地显示计时器",
 	TimerSubmerge		= "为下一次钻地显示计时器",
-	AnnouncePColdIcons	= "公布$spell:68510目标设置的标记到团队频道<br/>(需要团长或助理权限)",
-	AnnouncePColdIconsRemoved	= "当移除$spell:68510的标记时也提示<br/>(需要上述选项)",
+	AnnouncePColdIcons	= "公布$spell:68510目标设置的标记到团队频道 (需要团长或助理权限)",
+	AnnouncePColdIconsRemoved	= "当移除$spell:68510的标记时也提示 (需要上述选项)",
 	RemoveHealthBuffsInP3	= "在第 3 阶段开始时移除健康增益"
 })

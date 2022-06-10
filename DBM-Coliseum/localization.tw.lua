@@ -191,7 +191,7 @@ L:SetOptionLocalization({
 	timerAdds				= "為下一次 奈幽掘洞者出現顯示計時器",
 	TimerEmerge				= "為持續鑽地顯示計時器",
 	TimerSubmerge			= "為下一次 鑽地顯示計時器",
-	AnnouncePColdIcons		= "公佈$spell:68510目標設置的標記到團隊頻道<br/>(需要團隊隊長或助理權限)",
-	AnnouncePColdIconsRemoved	= "當移除$spell:68510的標記時也提示<br/>(需要上述選項)",
+	AnnouncePColdIcons		= "公佈$spell:68510目標設置的標記到團隊頻道 (需要團隊隊長或助理權限)",
+	AnnouncePColdIconsRemoved	= "當移除$spell:68510的標記時也提示 (需要上述選項)",
 	RemoveHealthBuffsInP3	= "當進入第3階段時移除耐力的增益"
 })
