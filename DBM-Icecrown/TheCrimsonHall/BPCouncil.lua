@@ -42,7 +42,7 @@ mod:AddRangeFrameOption("12")
 mod:AddBoolOption("ActivePrinceIcon", false)
 
 -- Shadow Prison
-local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6, nil, nil, 1, 6)
+local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6, nil, nil, 1, 6, 3)
 
 local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
 

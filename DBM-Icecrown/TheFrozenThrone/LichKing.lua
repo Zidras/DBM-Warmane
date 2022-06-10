@@ -57,9 +57,9 @@ local warnTrapCast			= mod:NewTargetAnnounce(73539, 4) --Phase 1 Heroic Ability
 
 local specWarnNecroticPlague= mod:NewSpecialWarningMoveAway(70337, nil, nil, nil, 1, 2) --Phase 1+ Ability
 local specWarnInfest		= mod:NewSpecialWarningSpell(70541, nil, nil, nil, 1) --Phase 1+ Ability
-local specWarnTrap			= mod:NewSpecialWarningYou(73539, nil, nil, nil, 3, 2) --Heroic Ability
+local specWarnTrap			= mod:NewSpecialWarningYou(73539, nil, nil, nil, 3, 2, 3) --Heroic Ability
 local yellTrap				= mod:NewYellMe(73539)
-local specWarnTrapNear		= mod:NewSpecialWarningClose(73539, nil, nil, nil, 3, 2) --Heroic Ability
+local specWarnTrapNear		= mod:NewSpecialWarningClose(73539, nil, nil, nil, 3, 2, 3) --Heroic Ability
 local specWarnEnrage		= mod:NewSpecialWarningSpell(72143, "Tank")
 local specWarnEnrageLow		= mod:NewSpecialWarningSpell(28747, false)
 
@@ -118,7 +118,7 @@ local warnHarvestSoul		= mod:NewTargetAnnounce(68980, 3) --Phase 3 Ability
 local warnRestoreSoul		= mod:NewCastAnnounce(73650, 2) --Phase 3 Heroic
 
 local specWarnHarvestSoul	= mod:NewSpecialWarningYou(68980, nil, nil, nil, 1, 2) --Phase 3+ Ability
-local specWarnHarvestSouls	= mod:NewSpecialWarningSpell(73654, nil, nil, nil, 1, 2) --Heroic Ability
+local specWarnHarvestSouls	= mod:NewSpecialWarningSpell(73654, nil, nil, nil, 1, 2, 3) --Heroic Ability
 
 local timerHarvestSoul	 	= mod:NewTargetTimer(6, 68980)
 local timerHarvestSoulCD	= mod:NewNextTimer(75, 68980, nil, nil, nil, 6)

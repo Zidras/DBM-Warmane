@@ -31,7 +31,6 @@ local warnPortalOpen		= mod:NewAnnounce("WarnPortalOpen", 4, 72483, nil, nil, ni
 local specWarnGutSpray		= mod:NewSpecialWarningDefensive(70633, nil, nil, nil, 1, 2)
 local specWarnLayWaste		= mod:NewSpecialWarningSpell(69325, nil, nil, nil, 2, 2)
 local specWarnManaVoid		= mod:NewSpecialWarningMove(71179, nil, nil, nil, 1, 2)
-
 local specWarnSuppressers	= mod:NewSpecialWarningSpell(70935)
 
 local timerLayWaste			= mod:NewBuffActiveTimer(12, 69325, nil, nil, nil, 2)

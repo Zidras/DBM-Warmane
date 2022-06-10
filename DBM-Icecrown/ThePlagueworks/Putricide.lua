@@ -40,7 +40,7 @@ local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, n
 local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
 local specWarnGaseousBloat			= mod:NewSpecialWarningRun(70672, nil, nil, nil, 4, 2)
 local specWarnGaseousBloatCast		= mod:NewSpecialWarningMove(72833, nil, nil, nil, 1, 2)		-- Gaseous Bloat (cast)
-local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2)		-- Heroic Ability
+local specWarnUnboundPlague			= mod:NewSpecialWarningYou(70911, nil, nil, nil, 1, 2, 3)	-- Heroic Ability
 local yellUnboundPlague				= mod:NewYellMe(70911, false)	-- Heroic Ability, disabled by default to reduce chat bubble spam
 
 local timerGaseousBloat				= mod:NewTargetTimer(20, 70672, nil, nil, nil, 3)			-- Duration of debuff
@@ -93,8 +93,8 @@ local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
 local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
 local warnVolatileExperiment		= mod:NewSpellAnnounce(72843, 4)		-- Phase transition heroic
 
-local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352)		-- Heroic Ability
-local specWarnGasVariable			= mod:NewSpecialWarningYou(70353)		-- Heroic Ability
+local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352, nil, nil, nil, nil, nil, 3)	-- Heroic Ability
+local specWarnGasVariable			= mod:NewSpecialWarningYou(70353, nil, nil, nil, nil, nil, 3)	-- Heroic Ability
 
 local timerNextPhase				= mod:NewPhaseTimer(30)
 --local timerTearGas					= mod:NewBuffFadesTimer(16, 71615, nil, nil, nil, 6)
