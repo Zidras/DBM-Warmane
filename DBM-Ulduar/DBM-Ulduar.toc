@@ -39,6 +39,7 @@ localization.kr.lua
 localization.tw.lua
 localization.es.lua
 localization.cn.lua
+
 FlameLeviathan.lua
 Ignis.lua
 Razorscale.lua
@@ -46,11 +47,11 @@ XT002.lua
 IronCouncil.lua
 Kologarn.lua
 Auriaya.lua
-Mimiron.lua
+Hodir.lua
+Thorim.lua
 Freya.lua
 Freya_Elders.lua
-Thorim.lua
-Hodir.lua
+Mimiron.lua
 GeneralVezax.lua
 YoggSaron.lua
 Algalon.lua
