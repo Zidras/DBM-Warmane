@@ -25,8 +25,13 @@ mod:SetBossHealthInfo(
 	32933, L.Health_Left_Arm
 )
 
+-- General
+local enrageTimer				= mod:NewBerserkTimer(600)
+local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
+
+-- Kologarn
+mod:AddTimerLine(L.name)
 local warnFocusedEyebeam		= mod:NewTargetNoFilterAnnounce(63346, 4)
-local warnGrip					= mod:NewTargetNoFilterAnnounce(64292, 2)
 local warnCrunchArmor			= mod:NewStackAnnounce(64002, 2, nil, "Tank|Healer")
 
 local specWarnCrunchArmor2		= mod:NewSpecialWarningStack(64002, nil, 2, nil, 2, 1, 6)
@@ -36,20 +41,26 @@ local yellBeam					= mod:NewYell(63346)
 
 local timerCrunch10             = mod:NewTargetTimer(6, 63355)
 local timerNextSmash			= mod:NewCDTimer(20.4, 64003, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerNextShockwave		= mod:NewCDTimer(18, 63982, nil, nil, nil, 2)--15.9-20
 local timerNextEyebeam			= mod:NewCDTimer(18.2, 63346, nil, nil, nil, 3)
-local timerNextGrip				= mod:NewCDTimer(20, 64292, nil, nil, nil, 3)
-local timerRespawnLeftArm		= mod:NewTimer(30, "timerLeftArm", nil, nil, nil, 1)
-local timerRespawnRightArm		= mod:NewTimer(30, "timerRightArm", nil, nil, nil, 1)
-local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
 
-local enrageTimer				= mod:NewBerserkTimer(600)
+mod:AddSetIconOption("SetIconOnEyebeamTarget", 63346, true, false, {8})
+
+-- Right Arm
+mod:AddTimerLine(L.Health_Right_Arm)
+local warnGrip					= mod:NewTargetNoFilterAnnounce(64292, 2)
+
+local timerNextGrip				= mod:NewCDTimer(20, 64292, nil, nil, nil, 3)
+local timerRespawnRightArm		= mod:NewTimer(30, "timerRightArm", nil, nil, nil, 1)
+
+mod:AddSetIconOption("SetIconOnGripTarget", 64292, true, false, {7, 6, 5})
+
+-- Left Arm
+mod:AddTimerLine(L.Health_Left_Arm)
+local timerNextShockwave		= mod:NewCDTimer(18, 63982, nil, nil, nil, 2)--15.9-20
+local timerRespawnLeftArm		= mod:NewTimer(30, "timerLeftArm", nil, nil, nil, 1)
 
 -- 5/23 00:33:48.648  SPELL_AURA_APPLIED,0x0000000000000000,nil,0x80000000,0x0480000001860FAC,"Hâzzad",0x4000512,63355,"Crunch Armor",0x1,DEBUFF
 -- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48
-
-mod:AddSetIconOption("SetIconOnGripTarget", 64292, true, false, {7, 6, 5})
-mod:AddSetIconOption("SetIconOnEyebeamTarget", 63346, true, false, {8})
 
 mod.vb.disarmActive = false
 --local gripTargets = {}
