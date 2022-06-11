@@ -49,6 +49,7 @@ local specRoleTable = {
 	},
 	[65] = {	--Holy Paladin
 		["Healer"] = true,
+		["Melee"] = true, -- Holy Paladins are Melee too, for Seal of Wisdom procs
 		["Ranged"] = true,
 		["ManaUser"] = true,
 		["SpellCaster"] = true,
