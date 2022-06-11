@@ -595,3 +595,5 @@ L.WORLD_BUFFS.rendHead			= "¡El falso Jefe de Guerra Rend Puño Negro ha caído
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS		= "Jefe de mundo"
 L.SCENARIO_STAGE			= "Fase %d"
+-- EJ
+L.HARD_MODE					= "Modo difícil" -- 17220

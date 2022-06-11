@@ -15,6 +15,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_MISSED 64208 64206"
 )
 
+-- General
+local enrageTimer					= mod:NewBerserkTimer(360)
+local timerAchieve					= mod:NewAchievementTimer(205, 2937)
+
+mod:AddRangeFrameOption(12, nil, true)
+
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnLightBomb					= mod:NewTargetAnnounce(65121, 3)
 local warnGravityBomb				= mod:NewTargetAnnounce(64234, 3)
 
@@ -22,22 +30,26 @@ local specWarnLightBomb				= mod:NewSpecialWarningMoveAway(65121, nil, nil, nil,
 local yellLightBomb					= mod:NewYell(65121)
 local specWarnGravityBomb			= mod:NewSpecialWarningMoveAway(64234, nil, nil, nil, 1, 2)
 local yellGravityBomb				= mod:NewYell(64234)
-local specWarnConsumption			= mod:NewSpecialWarningMove(64206, nil, nil, nil, 1, 2)--Hard mode void zone dropped by Gravity Bomb
 
-local enrageTimer					= mod:NewBerserkTimer(360)
 local timerTympanicTantrumCast		= mod:NewCastTimer(62776)
 local timerTympanicTantrum			= mod:NewBuffActiveTimer(8, 62776, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerTympanicTantrumCD		= mod:NewCDTimer(60, 62776, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON, nil, 3)
-local timerHeart					= mod:NewCastTimer(30, 63849, nil, nil, nil, 6, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerLightBomb				= mod:NewTargetTimer(9, 65121, nil, nil, nil, 3)
 local timerGravityBomb				= mod:NewTargetTimer(9, 64234, nil, nil, nil, 3)
-local timerAchieve					= mod:NewAchievementTimer(205, 2937)
 
 mod:AddSetIconOption("SetIconOnLightBombTarget", 65121, true, true, {1})
 mod:AddSetIconOption("SetIconOnGravityBombTarget", 64234, true, true, {2})
-mod:AddRangeFrameOption(12, nil, true)
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+local timerHeart					= mod:NewCastTimer(30, 63849, nil, nil, nil, 6, nil, DBM_COMMON_L.DAMAGE_ICON)
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local specWarnConsumption			= mod:NewSpecialWarningMove(64206, nil, nil, nil, 1, 2)--Hard mode void zone dropped by Gravity Bomb
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	enrageTimer:Start(-delay)
 	timerAchieve:Start()
 	if self:IsDifficulty("normal10") then
@@ -90,6 +102,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnGravityBomb:Show(args.destName)
 		timerGravityBomb:Start(args.destName)
 	elseif spellId == 63849 then
+		self:SetStage(2)
 		timerHeart:Start()
 		timerTympanicTantrumCD:Start(65) -- maybe?
 	end
@@ -105,6 +118,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args.spellId == 63849 then
+		self:setStage(1)
 		timerHeart:Stop()
 	end
 end

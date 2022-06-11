@@ -445,3 +445,5 @@ L.WORLD_BUFFS.rendHead		= "Le faux chef Rend Blackhand est tombé !"
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS		= "Boss hors instance"
 L.SCENARIO_STAGE			= "Phase %d"
+-- EJ
+L.HARD_MODE					= "Mode difficile" -- 17220

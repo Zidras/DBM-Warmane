@@ -539,3 +539,5 @@ L.WORLD_BUFFS.rendHead		= "Rend Blackhand, der falsche Kriegshäuptling, ist gef
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS 		= "Weltboss"
 L.SCENARIO_STAGE			= "Phase %d"
+-- EJ
+L.HARD_MODE					= "Schwerer Modus" -- 17220
