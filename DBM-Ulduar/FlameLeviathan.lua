@@ -14,15 +14,15 @@ mod:RegisterEventsInCombat(
 )
 
 local warnHodirsFury		= mod:NewTargetAnnounce(62297, 3)
-local pursueTargetWarn		= mod:NewAnnounce("PursueWarn", 2, 62374)
-local warnNextPursueSoon	= mod:NewAnnounce("warnNextPursueSoon", 3, 62374)
+local warnPursueTarget		= mod:NewAnnounce("PursueWarn", 2, 62374, nil, nil, nil, 62374)
+local warnNextPursueSoon	= mod:NewAnnounce("warnNextPursueSoon", 3, 62374, nil, nil, nil, 62374)
 
-local warnSystemOverload	= mod:NewSpecialWarningSpell(62475)
-local pursueSpecWarn		= mod:NewSpecialWarning("SpecialPursueWarnYou", nil, nil, 2, 4)
-local warnWardofLife		= mod:NewSpecialWarning("warnWardofLife")
+local specWarnSystemOverload= mod:NewSpecialWarningSpell(62475)
+local specWarnPursue		= mod:NewSpecialWarning("SpecialPursueWarnYou", nil, nil, 2, 4, 2, nil, 62374, 62374)
+local specWarnWardOfLife	= mod:NewSpecialWarning("warnWardofLife", nil, nil, nil, nil, nil, nil, 62907, 62907)
 
 local timerSystemOverload	= mod:NewBuffActiveTimer(20, 62475, nil, nil, nil, 6)
-local timerFlameVents		= mod:NewCastTimer(10, 62396, nil, nil, nil, 2)
+local timerFlameVents		= mod:NewCastTimer(10, 62396, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerNextFlameVents	= mod:NewNextTimer(20, 62396)
 local timerPursued			= mod:NewBuffFadesTimer(30, 62374, nil, nil, nil, 3)
 
@@ -62,15 +62,16 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			timerNextFlameVents:Start(50)
 		end
-		warnSystemOverload:Show()
+		specWarnSystemOverload:Show()
 	elseif spellId == 62374 then	-- Pursued
 		local target = guids[args.destGUID]
 		warnNextPursueSoon:Schedule(25)
 		timerPursued:Start()
 		if target then
-			pursueTargetWarn:Show(target)
+			warnPursueTarget:Show(target)
 			if target == UnitName("player") then
-				pursueSpecWarn:Show()
+				specWarnPursue:Show()
+				specWarnPursue:Play("runaway")
 			end
 		end
 	elseif spellId == 62297 then	-- Hodir's Fury (Person is frozen)
@@ -89,6 +90,6 @@ end
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 62907 and self:AntiSpam(3, 1) then		-- Ward of Life spawned (Creature id: 34275)
-		warnWardofLife:Show()
+		specWarnWardOfLife:Show()
 	end
 end
