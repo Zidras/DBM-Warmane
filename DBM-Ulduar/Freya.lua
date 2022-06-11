@@ -26,33 +26,49 @@ mod:RegisterEventsInCombat(
 -- Elder Stonebark (ground tremor / fist of stone)
 -- Elder Brightleaf (unstable sunbeam)
 
-local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
+-- General
 local warnSimulKill			= mod:NewAnnounce("WarnSimulKill", 1)
-local warnFury				= mod:NewTargetAnnounce(63571, 2)
-local warnRoots				= mod:NewTargetNoFilterAnnounce(62438, 2)
-local warnUnstableBeamSoon	= mod:NewSoonAnnounce(62865, 3) -- Hard mode Sun Beam
-
-local specWarnLifebinder	= mod:NewSpecialWarningSwitch(62869, "Dps", nil, nil, 1, 2)
-local specWarnFury			= mod:NewSpecialWarningMoveAway(63571, nil, nil, nil, 1, 2)
-local yellFury				= mod:NewYell(63571)
-local yellRoots				= mod:NewYell(62438)
-local specWarnTremor		= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode
-local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode
-local specWarnBombs			= mod:NewSpecialWarningMove(64587)
 
 local timerEnrage 			= mod:NewBerserkTimer(600)
-local timerAlliesOfNature	= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)--No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set
 local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON)
-local timerFury				= mod:NewTargetTimer(10, 63571)
-local timerTremorCD 		= mod:NewCDTimer(26, 62859, 62859, nil, nil, nil, 2)--22.9-47.8
-local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1)
-local timerRootsCD			= mod:NewCDTimer(14, 62439, nil, nil, nil, 3)
-local timerUnstableBeamCD	= mod:NewCDTimer(15, 62451) -- Hard mode Sun Beam
-local timerNextBombs		= mod:NewNextTimer(11, 64587)
 
-mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
-mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
+local warnNatureFury		= mod:NewTargetAnnounce(63571, 2)
+
+local specWarnLifebinder	= mod:NewSpecialWarningSwitch(62869, "Dps", nil, nil, 1, 2)
+local specWarnNatureFury	= mod:NewSpecialWarningMoveAway(63571, nil, nil, nil, 1, 2)
+local yellNatureFury		= mod:NewYell(63571)
+
+local timerAlliesOfNature	= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON)--No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set
+local timerNatureFury		= mod:NewTargetTimer(10, 63571)
+local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1)
+
 mod:AddRangeFrameOption(8, 63571)
+mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+local warnPhase2			= mod:NewPhaseAnnounce(2, 3, nil, nil, nil, nil, nil, 2)
+
+local specWarnNatureBomb	= mod:NewSpecialWarningMove(64587)
+
+local timerNextNatureBomb	= mod:NewNextTimer(11, 64587)
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local warnUnstableBeamSoon	= mod:NewSoonAnnounce(62865, 3) -- Hard mode Sun Beam Elder Brightleaf Alive
+local warnIronRoots			= mod:NewTargetNoFilterAnnounce(62438, 2) -- Hard mode Elder Ironbranch Alive
+
+local yellIronRoots			= mod:NewYell(62438)
+local specWarnGroundTremor	= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode Elder Stonebark Alive
+local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
+
+local timerGroundTremorCD 	= mod:NewCDTimer(26, 62859, 62859, nil, nil, nil, 2)--22.9-47.8
+local timerIronRootsCD		= mod:NewCDTimer(14, 62439, nil, nil, nil, 3)
+local timerUnstableBeamCD	= mod:NewCDTimer(15, 62865) -- Hard mode Sun Beam
+
+mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
 
 local adds = {}
 mod.vb.altIcon = true
@@ -71,8 +87,8 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd(wipe)
-	timerNextBombs:Cancel()
-	specWarnBombs:Cancel()
+	timerNextNatureBomb:Cancel()
+	specWarnNatureBomb:Cancel()
 	if not wipe then
 		if DBT:GetBar(L.TrashRespawnTimer) then
 			DBT:CancelBar(L.TrashRespawnTimer)
@@ -88,13 +104,14 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(62437, 62859) then
-		specWarnTremor:Show()
-		specWarnTremor:Play("stopcast")
-		timerTremorCD:Start()
+		specWarnGroundTremor:Show()
+		specWarnGroundTremor:Play("stopcast")
+		timerGroundTremorCD:Start()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
+	local spellId = args.spellId
 	if args:IsSpellID(62678, 62673) then -- Summon Allies of Nature
 		self.vb.waves = self.vb.waves + 1
 		if self.vb.waves < 6 then
@@ -110,40 +127,40 @@ function mod:SPELL_CAST_SUCCESS(args)
 			self:SetIcon(args.destName, self.vb.altIcon and 7 or 8, 10)
 		end
 		if args:IsPlayer() then -- only cast on players; no need to check destFlags
-			specWarnFury:Show()
-			specWarnFury:Play("runout")
-			yellFury:Yell()
+			specWarnNatureFury:Show()
+			specWarnNatureFury:Play("runout")
+			yellNatureFury:Yell()
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(8)
 			end
 		else
-			warnFury:Show(args.destName)
+			warnNatureFury:Show(args.destName)
 		end
-		timerFury:Start(args.destName)
-	elseif args.spellId == 64650 then -- Nature Bomb
+		timerNatureFury:Start(args.destName)
+	elseif spellId == 64650 then -- Nature Bomb
 		if self:AntiSpam(1, 64650) and self:IsInCombat() then
-			timerNextBombs:Start(9.95)
-			specWarnBombs:Cancel()
-			specWarnBombs:Schedule(9.95)
+			timerNextNatureBomb:Start(9.95)
+			specWarnNatureBomb:Cancel()
+			specWarnNatureBomb:Schedule(9.95)
 		end
-	elseif args.spellId == 63601 then
+	elseif spellId == 63601 then
 		--if self.vb.phase == 2 then
-			timerRootsCD:Start()
+			timerIronRootsCD:Start()
 		--end
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(62283, 62438, 62439, 62861, 62862, 62930) then --  Roots
-		warnRoots:CombinedShow(0.5, args.destName)
+		warnIronRoots:CombinedShow(0.5, args.destName)
 		if args:IsPlayer() then
-			yellRoots:Yell()
+			yellIronRoots:Yell()
 		end
 		self.vb.iconId = self.vb.iconId - 1
 		if self.Options.SetIconOnRoots then
 			self:SetIcon(args.destName, self.vb.iconId, 15)
 		end
-		timerRootsCD:Start()
+		timerIronRootsCD:Start()
 	elseif args:IsSpellID(62451, 62865) then
 		if self:AntiSpam(10, 2) then
 			timerUnstableBeamCD:Start()
@@ -159,6 +176,7 @@ end
 function mod:SPELL_AURA_REMOVED(args)
     if args.spellId == 62519 then
 		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
 		self:SetStage(2)
     elseif args:IsSpellID(62861, 62438) then
 		if self.Options.SetIconOnRoots then

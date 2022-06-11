@@ -22,7 +22,6 @@ local timerImpale				= mod:NewTargetTimer(5, 62928, nil, "Healer|Tank", nil, 5)
 
 mod:AddBoolOption("TrashRespawnTimer", true, "timer")
 
---
 -- Trash: 33430 Guardian Lasher (flower)
 -- 33355 (nymph)
 -- 33354 (tree)
@@ -34,7 +33,6 @@ mod:AddBoolOption("TrashRespawnTimer", true, "timer")
 -- Elder Ironbranch: 32913
 -- Elder Brightleaf: 32915
 -- Elder Stonebark: 32914
---
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 62344 then 					-- Fists of Stone
