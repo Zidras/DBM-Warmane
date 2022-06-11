@@ -28,21 +28,25 @@ local specWarnLifeLeechYou		= mod:NewSpecialWarningMoveAway(63276, nil, nil, nil
 local yellLifeLeech				= mod:NewYell(63276)
 local specWarnLifeLeechNear 	= mod:NewSpecialWarningClose(63276, nil, nil, 2, 1, 2)
 local specWarnSearingFlames		= mod:NewSpecialWarningInterruptCount(62661, "HasInterrupt", nil, nil, 1, 2)
-local specWarnAnimus			= mod:NewSpecialWarningSwitch(63145, nil, nil, nil, 1, 2)
 
 local timerEnrage				= mod:NewBerserkTimer(600)
-local timerSearingFlamesCast	= mod:NewCastTimer(2, 62661)
+local timerSearingFlamesCast	= mod:NewCastTimer(2, 62661, nil, nil, nil, 5, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerSurgeofDarkness		= mod:NewBuffActiveTimer(10, 62662, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextSurgeofDarkness	= mod:NewCDTimer(61.7, 62662, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerSaroniteVapors		= mod:NewNextCountTimer(30, 63322, nil, nil, nil, 5)
+local timerSaroniteVapors		= mod:NewNextCountTimer(30, 63322, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerShadowCrashCD		= mod:NewCDTimer(9, 62660, nil, "Ranged", nil, 3)
-local timerLifeLeech			= mod:NewTargetTimer(10, 63276, nil, false, 2, 3)
-local timerLifeLeechCD			= mod:NewCDTimer(20.4, 63276, nil, nil, nil, 3)
-local timerHardmode				= mod:NewTimer(189, "hardmodeSpawn", nil, nil, nil, 1)
+local timerLifeLeech			= mod:NewTargetTimer(10, 63276, nil, false, 2, 3, nil, DBM_COMMON_L.IMPORTANT_ICON)
+local timerLifeLeechCD			= mod:NewCDTimer(20.4, 63276, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON)
 
 mod:AddSetIconOption("SetIconOnShadowCrash", 62660, true, false, {8})
 mod:AddSetIconOption("SetIconOnLifeLeach", 63276, true, false, {7})
-mod:AddBoolOption("CrashArrow")
+mod:AddArrowOption("CrashArrow", 62660, true)
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local specWarnAnimus			= mod:NewSpecialWarningSwitch(63145, nil, nil, nil, 1, 2)
+
+local timerHardmode				= mod:NewTimer(189, "hardmodeSpawn", nil, nil, nil, 1)
 
 mod.vb.interruptCount = 0
 mod.vb.vaporsCount = 0
