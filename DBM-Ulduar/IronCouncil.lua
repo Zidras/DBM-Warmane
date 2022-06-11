@@ -15,44 +15,36 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
-
 mod:SetBossHealthInfo(
 	32867, L.Steelbreaker,
 	32927, L.RunemasterMolgeim,
 	32857, L.StormcallerBrundir
 )
 
-local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
+-- General
+local enrageTimer				= mod:NewBerserkTimer(900)
+
+mod:AddRangeFrameOption(20, nil, true)
 
 -- Stormcaller Brundir
 -- High Voltage ... 63498
+mod:AddTimerLine(L.StormcallerBrundir)
 local warnChainlight			= mod:NewSpellAnnounce(64215, 2, nil, false, 2)
 
 local specwarnLightningTendrils	= mod:NewSpecialWarningRun(63486, nil, nil, nil, 4, 2)
 local specwarnOverload			= mod:NewSpecialWarningRun(63481, nil, nil, nil, 4, 2)
 local specWarnLightningWhirl	= mod:NewSpecialWarningInterrupt(63483, "HasInterrupt", nil, nil, 1, 2)
 
-local timerOverload				= mod:NewCastTimer(6, 63481, nil, nil, nil, 2)
-local timerOverloadCD			= mod:NewCDTimer(60, 63481, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1)
+local timerOverload				= mod:NewCastTimer(6, 63481, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON)
+local timerOverloadCD			= mod:NewCDTimer(60, 63481, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, nil, 1)
 local timerLightningWhirl		= mod:NewCastTimer(5, 63483, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerLightningWhirlCD		= mod:NewCDTimer(32, 63483)
 local timerLightningTendrils	= mod:NewBuffActiveTimer(35, 63486, nil, nil, nil, 6)
-mod:AddBoolOption("AlwaysWarnOnOverload", false, "announce")
-
--- Steelbreaker
--- High Voltage ... don't know what to show here - 63498
-local warnFusionPunch			= mod:NewSpellAnnounce(61903, 4)
-local warnOverwhelmingPower		= mod:NewTargetAnnounce(61888, 2)
-local warnStaticDisruption		= mod:NewTargetAnnounce(61912, 3)
-
-local timerOverwhelmingPower	= mod:NewTargetTimer(25, 61888, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON, nil, 3)
-local timerFusionPunchCast		= mod:NewCastTimer(3, 61903, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
-local timerFusionPunchActive	= mod:NewTargetTimer(4, 61903, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
-mod:AddSetIconOption("SetIconOnOverwhelmingPower", 61888, false, false, {8})
-mod:AddSetIconOption("SetIconOnStaticDisruption", 63494, false, false, {1, 2, 3, 4, 5, 6, 7})
+mod:AddBoolOption("AlwaysWarnOnOverload", false, "announce", nil, nil, nil, 63481)
 
 -- Runemaster Molgeim
 -- Lightning Blast ... don't know, maybe 63491
+mod:AddTimerLine(L.RunemasterMolgeim)
 local warnRuneofPower			= mod:NewTargetNoFilterAnnounce(64320, 2)
 local warnRuneofDeathIn10Sec	= mod:NewSoonAnnounce(63490, 3)
 local warnRuneofDeath			= mod:NewSpellAnnounce(63490, 2)
@@ -62,14 +54,27 @@ local warnRuneofSummoning		= mod:NewSpellAnnounce(62273, 3)
 local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490, nil, nil, nil, 1, 2)
 local specWarnRuneofShields		= mod:NewSpecialWarningDispel(63967, "MagicDispeller", nil, nil, 1, 2)
 
-local timerRuneofShields		= mod:NewBuffActiveTimer(15, 63967)
+local timerRuneofShields		= mod:NewBuffActiveTimer(15, 63967, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
 local timerRuneofPower			= mod:NewCDTimer(30, 61974, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 
-local enrageTimer				= mod:NewBerserkTimer(900)
+-- Steelbreaker
+-- High Voltage ... don't know what to show here - 63498
+mod:AddTimerLine(L.Steelbreaker)
+local warnFusionPunch			= mod:NewSpellAnnounce(61903, 4)
+local warnOverwhelmingPower		= mod:NewTargetAnnounce(61888, 2)
+local warnStaticDisruption		= mod:NewTargetAnnounce(61912, 3)
 
-mod:AddRangeFrameOption(20, nil, true)
+local timerOverwhelmingPower	= mod:NewTargetTimer(25, 61888, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.DEADLY_ICON, nil, 3)
+local timerFusionPunchCast		= mod:NewCastTimer(3, 61903, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
+local timerFusionPunchActive	= mod:NewTargetTimer(4, 61903, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
+mod:AddSetIconOption("SetIconOnOverwhelmingPower", 61888, false, false, {8})
+mod:AddSetIconOption("SetIconOnStaticDisruption", 63494, false, false, {1, 2, 3, 4, 5, 6, 7})
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
 
 local disruptTargets = {}
 mod.vb.disruptIcon = 7
