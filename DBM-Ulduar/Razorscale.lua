@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(33186)
 
-mod:RegisterCombat("yell", L.YellAir)
+mod:RegisterCombat("combat_yell", L.YellAir)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 63317 64021 63236",
@@ -17,27 +17,38 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
+-- General
+local enrageTimer					= mod:NewBerserkTimer(600)
+
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnTurretsReadySoon			= mod:NewAnnounce("warnTurretsReadySoon", 1, 48642)
 local warnTurretsReady				= mod:NewAnnounce("warnTurretsReady", 3, 48642)
-local warnFlame						= mod:NewTargetAnnounce(62660, 2, nil, false)
-local warnFuseArmor					= mod:NewStackAnnounce(64771, 2, nil, "Tank")
+local warnDevouringFlame			= mod:NewTargetAnnounce(63236, 2, nil, false)
 
 local specWarnDevouringFlame		= mod:NewSpecialWarningMove(64733, nil, nil, nil, 1, 2)
 local specWarnDevouringFlameYou		= mod:NewSpecialWarningYou(64733, false, nil, nil, 1, 2)
 local specWarnDevouringFlameNear	= mod:NewSpecialWarningClose(64733, false, nil, nil, 1, 2)
 local yellDevouringFlame			= mod:NewYell(64733)
+
+local timerTurret1					= mod:NewTimer(53, "timerTurret1", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+local timerTurret2					= mod:NewTimer(75, "timerTurret2", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+local timerTurret3					= mod:NewTimer(95, "timerTurret3", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+local timerTurret4					= mod:NewTimer(117, "timerTurret4", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+local warnFuseArmor					= mod:NewStackAnnounce(64771, 2, nil, "Tank")
+
 local specWarnFuseArmor				= mod:NewSpecialWarningStack(64771, nil, 2, nil, nil, 1, 6)
 local specWarnFuseArmorOther		= mod:NewSpecialWarningTaunt(64771, nil, nil, nil, 1, 2)
 
-local enrageTimer					= mod:NewBerserkTimer(600)
 local timerDeepBreathCooldown		= mod:NewCDTimer(21, 64021, nil, nil, nil, 5)
 local timerDeepBreathCast			= mod:NewCastTimer(2.5, 64021)
-local timerTurret1					= mod:NewTimer(53, "timerTurret1", 48642, nil, nil, 5)
-local timerTurret2					= mod:NewTimer(75, "timerTurret2", 48642, nil, nil, 5)
-local timerTurret3					= mod:NewTimer(95, "timerTurret3", 48642, nil, nil, 5)
-local timerTurret4					= mod:NewTimer(117, "timerTurret4", 48642, nil, nil, 5)
 local timerGrounded					= mod:NewTimer(45, "timerGrounded", nil, nil, nil, 6)
 local timerFuseArmorCD				= mod:NewCDTimer(12.1, 64771, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+
+mod:GroupSpells(63236, 64733) -- Devouring Flame (cast and damage)
 
 local combattime = 0
 local isGrounded = false
@@ -57,7 +68,7 @@ function mod:FlameTarget(targetname, uId)
 			end
 		end
 	else
-		warnFlame:Show(targetname)
+		warnDevouringFlame:Show(targetname)
 	end
 end
 
