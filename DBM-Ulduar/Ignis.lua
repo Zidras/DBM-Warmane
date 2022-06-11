@@ -14,18 +14,18 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 62717 63477"
 )
 
-local announceSlagPot			= mod:NewTargetNoFilterAnnounce(63477, 3)
-local announceConstruct			= mod:NewCountAnnounce(62488, 2)
+local warnSlagPot				= mod:NewTargetNoFilterAnnounce(63477, 3)
+local warnConstruct				= mod:NewCountAnnounce(62488, 2)
 
-local warnFlameJetsCast			= mod:NewSpecialWarningCast(63472, "SpellCaster", nil, nil, 2, 2)
-local warnFlameBrittle			= mod:NewSpecialWarningSwitch(62382, "Dps", nil, nil, 1, 2)
+local specWarnFlameJetsCast		= mod:NewSpecialWarningCast(63472, "SpellCaster", nil, nil, 2, 2)
+local specWarnFlameBrittle		= mod:NewSpecialWarningSwitch(62382, "Dps", nil, nil, 1, 2)
 
-local timerFlameJetsCast		= mod:NewCastTimer(2.7, 63472)
+local timerFlameJetsCast		= mod:NewCastTimer(2.7, 63472, nil, nil, nil, 5, nil, DBM_COMMON_L.IMPORTANT_ICON)
 local timerActivateConstruct	= mod:NewCDCountTimer(30, 62488, nil, nil, nil, 1)
-local timerFlameJetsCooldown	= mod:NewCDTimer(42, 63472, nil, nil, nil, 2)
+local timerFlameJetsCooldown	= mod:NewCDTimer(42, 63472, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON)
 local timerScorchCooldown		= mod:NewCDTimer(25, 63473, nil, nil, nil, 5)
 local timerScorchCast			= mod:NewCastTimer(3, 63473)
-local timerSlagPot				= mod:NewTargetTimer(10, 63477, nil, nil, nil, 3)
+local timerSlagPot				= mod:NewTargetTimer(10, 63477, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerAchieve				= mod:NewAchievementTimer(240, 2930)
 
 mod.vb.ConstructCount = 0
@@ -47,12 +47,12 @@ end
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(62680, 63472) then		-- Flame Jets
 		timerFlameJetsCast:Start()
-		warnFlameJetsCast:Show()
-		warnFlameJetsCast:Play("stopcast")
+		specWarnFlameJetsCast:Show()
+		specWarnFlameJetsCast:Play("stopcast")
 		timerFlameJetsCooldown:Start()
 	elseif args.spellId == 62488 then		-- Activate Construct
 		self.vb.ConstructCount = self.vb.ConstructCount + 1
-		announceConstruct:Show(self.vb.ConstructCount)
+		warnConstruct:Show(self.vb.ConstructCount)
 		if self.vb.ConstructCount < 20 then
 			timerActivateConstruct:Start(self:IsDifficulty("normal10") and 40 or 30, self.vb.ConstructCount)
 		end
@@ -68,14 +68,14 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(62717, 63477) then		-- Slag Pot
-		announceSlagPot:Show(args.destName)
+		warnSlagPot:Show(args.destName)
 		timerSlagPot:Start(args.destName)
 		if self.Options.SlagPotIcon then
 			self:SetIcon(args.destName, 8, 10)
 		end
 	elseif args.spellId == 62382 and self:AntiSpam(5, 1) then
-		warnFlameBrittle:Show()
-		warnFlameBrittle:Play("killmob")
+		specWarnFlameBrittle:Show()
+		specWarnFlameBrittle:Play("killmob")
 	end
 end
 
