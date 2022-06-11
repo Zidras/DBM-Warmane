@@ -323,6 +323,7 @@ L:SetMiscLocalization({
 	MobPhase1			= "巨兽二型",
 	MobPhase2			= "VX-001",
 	MobPhase3			= "空中指挥单位",
+	MobPhase4			= "V-07-TR-0N", -- don't localize
 	YellPull			= "我们时间不多了，朋友们！来帮忙测试一下我所发明的最新型、最强大的机体吧。在你们改变主意之前，请允许我提醒一下，你们把XT-002搞得一团糟，应该算是欠我个人情吧。",
 	YellHardPull		= "自毁程序已经启动。",
 	YellPhase2			= "太棒了！测试结果非常好！外壳完整率百分之九十八点九！几乎没有划伤！继续。",

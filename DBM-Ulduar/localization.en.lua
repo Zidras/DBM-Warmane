@@ -334,10 +334,11 @@ L:SetMiscLocalization({
 	MobPhase1		= "Leviathan Mk II",
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Aerial Command Unit",
+	MobPhase4		= "V-07-TR-0N", -- Retail has this "wrong" in the EJ section as V0-L7R-0N. Yell and audiofile corroborate this. Also there are sloppy differences across locales, which I am now harmonizing.
 	YellPull		= "We haven't much time, friends! You're going to help me test out my latest and greatest creation. Now, before you change your minds, remember that you kind of owe it to me after the mess you made with the XT-002.",
 	YellHardPull	= "Self-destruct sequence initiated.",
 	YellPhase2		= "WONDERFUL! Positively marvelous results! Hull integrity at 98.9 percent! Barely a dent! Moving right along.",
-	YellPhase3		= "Thank you, friends! Your efforts have yielded some fantastic data! Now, where did I put-- oh, there it is!", -- ! last
+	YellPhase3		= "Thank you, friends! Your efforts have yielded some fantastic data! Now, where did I put-- oh, there it is.",
 	YellPhase4		= "Preliminary testing phase complete. Now comes the true test!",
 	YellKilled		= "It would appear that I've made a slight miscalculation. I allowed my mind to be corrupted by the fiend in the prison. overriding my primary directive. All systems seem to be functional now. Clear.",
 	LootMsg			= "([^%s]+).*Hitem:(%d+)"

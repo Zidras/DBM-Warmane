@@ -322,6 +322,7 @@ L:SetMiscLocalization({
 	MobPhase1		= "戰輪MK II",
 	MobPhase2		= "VX-001",
 	MobPhase3		= "空中指揮裝置",
+	MobPhase4		= "V-07-TR-0N", -- don't localize nor change it to V-07-TR-ON (typo)
 	YellPull		= "我們沒有太多時間，朋友們!你們要幫我測試我最新也是最偉大的創作。在你們改變心意之前，別忘了就是你們把XT-002搞得一團糟，你們欠我一次。",
 	YellHardPull	= "自毀程序已展開。",
 	YellPhase2		= "太好了!絕妙的良好結果!外殼完整度98.9%!幾乎只有一點擦痕!繼續下去。",

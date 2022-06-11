@@ -323,6 +323,7 @@ L:SetMiscLocalization({
 	MobPhase1		= "Leviathan Mk II",
 	MobPhase2		= "VX-001",
 	MobPhase3		= "Luftkommandoeinheit",
+	MobPhase4		= "V-07-TR-0N", -- don't localize
 	YellPull		= "Wir haben nicht viel Zeit, Freunde! Ihr werdet mir dabei helfen, meine neueste und großartigste Kreation zu testen. Bevor Ihr nun Eure Meinung ändert, denkt daran, dass Ihr mir etwas schuldig seid, nach dem Unfug, den Ihr mit dem XT-002 angestellt habt.",
 	YellHardPull	= "Selbstzerstörungssequenz eingeleitet.",
 	YellPhase2		= "WUNDERBAR! Das sind Ergebnisse nach meinem Geschmack! Integrität der Hülle bei 98,9 Prozent! So gut wie keine Dellen! Und weiter geht's.",
