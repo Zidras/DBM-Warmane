@@ -219,6 +219,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	Pull		= "Вы будете наказаны за это вторжение!",
 	YellKill	= "Наконец-то я... свободен от его оков…"
 })
 
