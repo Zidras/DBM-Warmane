@@ -5,7 +5,7 @@ mod:SetRevision("20220518110528")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
-mod:RegisterCombat("yell", L.YellPhase1)
+mod:RegisterCombat("combat_yell", L.YellPhase1)
 mod:RegisterKill("yell", L.YellKill)
 
 mod:RegisterEventsInCombat(
@@ -16,31 +16,47 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warnPhase2					= mod:NewPhaseAnnounce(2, 1)
-local warnStormhammer				= mod:NewTargetAnnounce(62470, 2)
-local warnLightningCharge			= mod:NewSpellAnnounce(62466, 2)
-local warningBomb					= mod:NewTargetAnnounce(62526, 4)
+-- General
+local enrageTimer					= mod:NewBerserkTimer(369)
 
-local yellBomb						= mod:NewYell(62526)
-local specWarnBomb					= mod:NewSpecialWarningClose(62526, nil, nil, nil, 1, 2)
+mod:AddRangeFrameOption("8")
+
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
+local warnStormhammer				= mod:NewTargetAnnounce(62042, 2)
+local warnRuneDetonation			= mod:NewTargetAnnounce(62526, 4)
+
+local specWarnRuneDetonation		= mod:NewSpecialWarningClose(62526, nil, nil, nil, 1, 2)
+local yellRuneDetonation			= mod:NewYell(62526)
 local specWarnLightningShock		= mod:NewSpecialWarningMove(62017, nil, nil, nil, 1, 2)
+
+local timerHardmode					= mod:NewTimer(150, "TimerHardmode", 62042, nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, 62507)
+local timerStormhammer				= mod:NewBuffActiveTimer(16, 62042, nil, nil, nil, 3)--Cast timer? Review if i ever do this boss again.
+
+mod:AddSetIconOption("SetIconOnRunic", 62527, false, false, {7})
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+local warnPhase2					= mod:NewPhaseAnnounce(2, 1, nil, nil, nil, nil, nil, 2)
+local warnLightningCharge			= mod:NewSpellAnnounce(62466, 2)
+
 local specWarnUnbalancingStrikeSelf	= mod:NewSpecialWarningDefensive(62130, nil, nil, nil, 1, 2)
 local specWarnUnbalancingStrike		= mod:NewSpecialWarningTaunt(62130, nil, nil, nil, 1, 2)
 
-mod:AddBoolOption("AnnounceFails", false, "announce")
-
-local enrageTimer					= mod:NewBerserkTimer(369)
-local timerStormhammer				= mod:NewBuffActiveTimer(16, 62042, nil, nil, nil, 3)--Cast timer? Review if i ever do this boss again.
 local timerLightningCharge	 		= mod:NewCDTimer(16, 62466, nil, nil, nil, 3)
 local timerUnbalancingStrike		= mod:NewCDTimer(25.6, 62130, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerHardmode					= mod:NewTimer(150, "TimerHardmode", 62042)
-local timerFrostNova				= mod:NewNextTimer(20, 62605)
-local timerFrostNovaCast			= mod:NewCastTimer(2.5, 62605)
 local timerChainLightning			= mod:NewNextTimer(15, 64390)
+
+mod:AddBoolOption("AnnounceFails", false, "announce", nil, nil, nil, 62466)
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local timerFrostNova				= mod:NewNextTimer(20, 62605, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerFrostNovaCast			= mod:NewCastTimer(2.5, 62605, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerFBVolley					= mod:NewCDTimer(13, 62604)
 
-mod:AddRangeFrameOption("8")
-mod:AddSetIconOption("SetIconOnRunic", 62527, false, false, {7})
+--mod:GroupSpells(62042, 62470) -- Stormhammer, Deafening Thunder
+mod:GroupSpells(62526, 62527) -- Rune of Detonation
 
 local lastcharge = {}
 
@@ -101,14 +117,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnUnbalancingStrike:Show(args.destName)
 			specWarnUnbalancingStrike:Play("tauntboss")
 		end
-	elseif args:IsSpellID(62526, 62527) then	-- Runic Detonation
+	elseif args:IsSpellID(62526, 62527) then	-- Rune Detonation
 		if args:IsPlayer() then
-			yellBomb:Yell()
+			yellRuneDetonation:Yell()
 		elseif self:CheckNearby(10, args.destName) then
-			specWarnBomb:Show(args.destName)
-			specWarnBomb:Play("runaway")
+			specWarnRuneDetonation:Show(args.destName)
+			specWarnRuneDetonation:Play("runaway")
 		else
-			warningBomb:Show(args.destName)
+			warnRuneDetonation:Show(args.destName)
 		end
 		if self.Options.SetIconOnRunic then
 			self:SetIcon(args.destName, 7, 5)
@@ -156,6 +172,7 @@ function mod:OnSync(event, arg)
 	if event == "Phase2" and self.vb.phase < 2 then
 		self:SetStage(2)
 		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
 		enrageTimer:Stop()
 		timerHardmode:Stop()
 		enrageTimer:Start(300)
