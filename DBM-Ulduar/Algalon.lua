@@ -21,7 +21,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_HEALTH boss1"
 )
 
-local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
+local warnPhase2				= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local warnPhase2Soon			= mod:NewPrePhaseAnnounce(2, 2)
 local announcePreBigBang		= mod:NewPreWarnAnnounce(64584, 10, 3)
 local announceBlackHole			= mod:NewSpellAnnounce(65108, 2)
@@ -129,6 +129,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
 		timerNextCollapsingStar:Cancel()
 		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
 		self:SetStage(2)
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(32871)
@@ -160,6 +161,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 		self.vb.warned_preP2 = true
 		timerNextCollapsingStar:Stop()
 		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(32871)
 	end
