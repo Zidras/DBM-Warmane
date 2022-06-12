@@ -406,5 +406,18 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellPull 			= "The time to strike at the head of the beast will soon be upon us! Focus your anger and hatred on his minions!",
-	Sara 				= "Sara"
+	S1TheLucidDream		= "Stage One: The Lucid Dream",
+	Sara 				= "Sara",
+	GuardianofYoggSaron	= "Guardian of Yogg-Saron",
+	S2DescentIntoMadness= "Stage Two: Descent into Madness",
+	CrusherTentacle		= "Crusher Tentacle",
+	CorruptorTentacle	= "Corruptor Tentacle",
+	ConstrictorTentacle	= "Constrictor Tentacle",
+	DescentIntoMadness	= "Descent into Madness",
+	InfluenceTentacle	= "Influence Tentacle",
+	LaughingSkull		= "Laughing Skull",
+	BrainofYoggSaron	= "Brain of Yogg-Saron",
+	S3TrueFaceofDeath	= "Stage Three: True Face of Death",
+	YoggSaron			= "Yogg-Saron",
+	ImmortalGuardian	= "Immortal Guardian"
 })

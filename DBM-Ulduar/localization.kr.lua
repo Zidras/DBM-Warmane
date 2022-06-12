@@ -393,6 +393,19 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "짐승의 대장을 칠 때가 곧 다가올 거예요! 놈의 졸개들에게 노여움과 미움을 쏟아부으세요!",
-	Sara		= "사라"
+	YellPull			= "짐승의 대장을 칠 때가 곧 다가올 거예요! 놈의 졸개들에게 노여움과 미움을 쏟아부으세요!",
+	S1TheLucidDream		= "1단계: 깨어 있는 꿈",
+	Sara				= "사라",
+	GuardianofYoggSaron	= "요그사론의 수호병",
+	S2DescentIntoMadness= "2단계: 광기의 내리막길",
+	CrusherTentacle		= "분쇄의 촉수",
+	CorruptorTentacle	= "부패의 촉수",
+	ConstrictorTentacle	= "압착의 촉수",
+	DescentIntoMadness	= "광기의 내리막길",
+	InfluenceTentacle	= "환각의 촉수",
+	LaughingSkull		= "웃는 해골",
+	BrainofYoggSaron	= "요그사론의 뇌",
+	S3TrueFaceofDeath	= "3단계: 죽음의 진정한 얼굴",
+	YoggSaron			= "요그사론",
+	ImmortalGuardian	= "불멸의 수호병"
 })

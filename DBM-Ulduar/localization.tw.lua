@@ -393,6 +393,19 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "我們即將有機會打擊怪物的首腦!現在將你的憤怒與仇恨貫注在他的爪牙上!",
-	Sara		= "薩拉"
+	YellPull			= "我們即將有機會打擊怪物的首腦!現在將你的憤怒與仇恨貫注在他的爪牙上!",
+	S1TheLucidDream		= "階段一：清醒的夢境",
+	Sara				= "薩拉",
+	GuardianofYoggSaron	= "尤格薩倫守護者",
+	S2DescentIntoMadness= "階段二：驟狂斜廊",
+	CrusherTentacle		= "粉碎觸手",
+	CorruptorTentacle	= "腐化觸手",
+	ConstrictorTentacle	= "巨蟒觸手",
+	DescentIntoMadness	= "驟狂斜廊",
+	InfluenceTentacle	= "蠱惑觸手",
+	LaughingSkull		= "獰笑骷髏",
+	BrainofYoggSaron	= "尤格薩倫的腦部",
+	S3TrueFaceofDeath	= "階段三：死亡的真實面貌",
+	YoggSaron			= "尤格薩倫",
+	ImmortalGuardian	= "不朽守護者"
 })

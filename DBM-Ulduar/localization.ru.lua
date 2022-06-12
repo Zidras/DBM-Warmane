@@ -406,6 +406,19 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "Скоро мы сразимся с главарем этих извергов! Обратите гнев и ненависть против его прислужников!",
-	Sara		= "Сара"
+	YellPull			= "Скоро мы сразимся с главарем этих извергов! Обратите гнев и ненависть против его прислужников!",
+	S1TheLucidDream		= "Фаза 1: осознанный сон",
+	Sara				= "Сара",
+	GuardianofYoggSaron	= "Страж Йогг-Сарона",
+	S2DescentIntoMadness= "Фаза 2: Провал Безумия",
+	CrusherTentacle		= "Тяжелое щупальце",
+	CorruptorTentacle	= "Щупальце разложения",
+	ConstrictorTentacle	= "Удушающее щупальце",
+	DescentIntoMadness	= "Провал Безумия",
+	InfluenceTentacle	= "Чувствительное щупальце",
+	LaughingSkull		= "Веселый череп",
+	BrainofYoggSaron	= "Мозг Йогг-Сарона",
+	S3TrueFaceofDeath	= "Фаза 3: истинный лик смерти",
+	YoggSaron			= "Йогг-Сарон",
+	ImmortalGuardian	= "Бессмертный страж"
 })

@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(33288)
-mod:RegisterCombat("yell", L.YellPull)
+mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(8, 7, 6, 2, 1)
 
 mod:RegisterEventsInCombat(
@@ -16,51 +16,116 @@ mod:RegisterEventsInCombat(
 	"UNIT_HEALTH"
 )
 
-local warnMadness 					= mod:NewCastAnnounce(64059, 2)
-local warnSqueeze					= mod:NewTargetAnnounce(64125, 3)
-local warnFervor					= mod:NewTargetAnnounce(63138, 4)
-local warnDeafeningRoarSoon			= mod:NewPreWarnAnnounce(64189, 5, 3)
-local warnGuardianSpawned 			= mod:NewAnnounce("WarningGuardianSpawned", 3, 62979)
-local warnCrusherTentacleSpawned	= mod:NewAnnounce("WarningCrusherTentacleSpawned", 2, "Interface\\Icons\\achievement_boss_yoggsaron_01")
-local warnP2 						= mod:NewPhaseAnnounce(2, 2)
-local warnP3 						= mod:NewPhaseAnnounce(3, 2)
-local warnSanity 					= mod:NewAnnounce("WarningSanity", 3, 63050)
-local warnBrainLink 				= mod:NewTargetAnnounce(63802, 3)
-local warnBrainPortalSoon			= mod:NewAnnounce("WarnBrainPortalSoon", 2, 57687)
-local warnEmpowerSoon				= mod:NewSoonAnnounce(64486, 4)
-
-local specWarnGuardianLow 			= mod:NewSpecialWarning("SpecWarnGuardianLow", false)
-local specWarnBrainLink 			= mod:NewSpecialWarningYou(63802, nil, nil, nil, 1, 2)
-local specWarnSanity 				= mod:NewSpecialWarning("SpecWarnSanity")
-local specWarnMadnessOutNow			= mod:NewSpecialWarning("SpecWarnMadnessOutNow")
-local specWarnBrainPortalSoon		= mod:NewSpecialWarning("SpecWarnBrainPortalSoon", false)
-local specWarnDeafeningRoar			= mod:NewSpecialWarningSpell(64189, nil, nil, nil, 1, 2)
-local specWarnFervor				= mod:NewSpecialWarningYou(63138, nil, nil, nil, 1, 2)
-local specWarnMalady				= mod:NewSpecialWarningYou(63830, nil, nil, nil, 1, 2)
-local specWarnMaladyNear			= mod:NewSpecialWarningClose(63830, nil, nil, nil, 1, 2)
-local yellSqueeze					= mod:NewYell(64125)
-
+--General
 local enrageTimer					= mod:NewBerserkTimer(900)
-local timerFervor					= mod:NewTargetTimer(15, 63138, nil, false, 2)
-local timerMaladyCD					= mod:NewCDTimer(18.1, 63830, nil, nil, nil, 3)
-local timerBrainLinkCD				= mod:NewCDTimer(32, 63802, nil, nil, nil, 3)
-local timerBrainPortal				= mod:NewTimer(20, "NextPortal", 57687, nil, nil, 5)
-local timerLunaricGaze				= mod:NewCastTimer(4, 64163, nil, nil, nil, 2)
-local timerNextLunaricGaze			= mod:NewCDTimer(8.5, 64163, nil, nil, nil, 2)
-local timerEmpower					= mod:NewCDTimer(46, 64486, nil, nil, nil, 3)
-local timerEmpowerDuration			= mod:NewBuffActiveTimer(10, 64486, nil, nil, nil, 3)
-local timerMadness 					= mod:NewCastTimer(60, 64059, nil, nil, nil, 5, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)
-local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189, nil, nil, nil, 2)
-local timerNextDeafeningRoar		= mod:NewNextTimer(30, 64189, nil, nil, nil, 2)
 local timerAchieve					= mod:NewAchievementTimer(420, 3012)
 
+-- I have hidden most NPC TimerLines and only kept stage and brain TimerLines to prevent GUI clutter.
+-- Stage One: The Lucid Dream
+mod:AddTimerLine(L.S1TheLucidDream)
+-- Sara
+-- mod:AddTimerLine(L.Sara)
+local warnFervor					= mod:NewTargetAnnounce(63138, 4)
+
+local specWarnFervor				= mod:NewSpecialWarningYou(63138, nil, nil, nil, 1, 2)
+
+local timerFervor					= mod:NewTargetTimer(15, 63138, nil, false, 2)
+
+mod:AddSetIconOption("SetIconOnFervorTarget", 63138, false, false, {7})
 mod:AddBoolOption("ShowSaraHealth", false)
-mod:AddBoolOption("MaladyArrow")
-mod:AddSetIconOption("SetIconOnFearTarget", 63802, true, false, {6})
-mod:AddSetIconOption("SetIconOnFervorTarget", 63802, false, false, {7})
-mod:AddSetIconOption("SetIconOnBrainLinkTarget", 63802, true, false, {1, 2})
-mod:AddSetIconOption("SetIconOnBeacon", 64465, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
+
+-- Guardian of Yogg-Saron
+-- mod:AddTimerLine(L.GuardianofYoggSaron)
+local warnGuardianSpawned 			= mod:NewAnnounce("WarningGuardianSpawned", 3, 62979, nil, nil, nil, 62979)
+
+local specWarnGuardianLow 			= mod:NewSpecialWarning("SpecWarnGuardianLow", false, nil, nil, nil, nil, nil, 62979, 62979)
+
+-- Stage Two: Descent Into Madness
+mod:AddTimerLine(L.S2DescentIntoMadness)
+local warnP2 						= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
+local warnSanity 					= mod:NewAnnounce("WarningSanity", 3, 63050, nil, nil, nil, 63050)
+
+local specWarnSanity 				= mod:NewSpecialWarning("SpecWarnSanity", nil, nil, nil, nil, nil, nil, 63050, 63050)
+
 mod:AddInfoFrameOption(63050)
+
+-- Sara
+-- mod:AddTimerLine(L.Sara)
+local warnBrainLink 				= mod:NewTargetAnnounce(63802, 3)
+
+local specWarnBrainLink 			= mod:NewSpecialWarningYou(63802, nil, nil, nil, 1, 2)
+local specWarnMalady				= mod:NewSpecialWarningYou(63830, nil, nil, nil, 1, 2)
+local specWarnMaladyNear			= mod:NewSpecialWarningClose(63830, nil, nil, nil, 1, 2)
+
+local timerBrainLinkCD				= mod:NewCDTimer(32, 63802, nil, nil, nil, 3)
+local timerMaladyCD					= mod:NewCDTimer(18.1, 63830, nil, nil, nil, 3)
+
+mod:AddSetIconOption("SetIconOnBrainLinkTarget", 63802, true, false, {1, 2})
+mod:AddSetIconOption("SetIconOnFearTarget", 63830, true, false, {6})
+mod:AddArrowOption("MaladyArrow", 63830, true)
+
+-- Crusher Tentacle
+-- mod:AddTimerLine(L.CrusherTentacle)
+local warnCrusherTentacleSpawned	= mod:NewAnnounce("WarningCrusherTentacleSpawned", 2, "Interface\\Icons\\achievement_boss_yoggsaron_01", nil, nil, nil, 64139)
+
+-- Corruptor Tentacle
+-- mod:AddTimerLine(L.CorruptorTentacle)
+
+-- Constrictor Tentacle
+-- mod:AddTimerLine(L.ConstrictorTentacle)
+local warnSqueeze					= mod:NewTargetAnnounce(64125, 3)
+
+local yellSqueeze					= mod:NewYell(64125)  -- Constrictor Tentacle
+
+-- Descent into Madness
+mod:AddTimerLine(L.DescentIntoMadness)
+local warnBrainPortalSoon			= mod:NewAnnounce("WarnBrainPortalSoon", 2, 57687, nil, nil, nil, 64027)
+
+local specWarnBrainPortalSoon		= mod:NewSpecialWarning("SpecWarnBrainPortalSoon", false, nil, nil, nil, nil, nil, 57687, 64027)
+
+local timerBrainPortal				= mod:NewTimer(20, "NextPortal", 57687, nil, nil, 5, nil, nil, nil, nil, nil, nil, nil, 64027)
+
+-- Influence Tentacle
+-- mod:AddTimerLine(L.InfluenceTentacle)
+
+-- Laughing Skull
+-- mod:AddTimerLine(L.LaughingSkull)
+local timerLunaticGaze				= mod:NewCastTimer(4, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Laughing Skull
+local timerNextLunaticGaze			= mod:NewCDTimer(8.5, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Laughing Skull
+
+-- Brain of Yogg-Saron
+-- mod:AddTimerLine(L.BrainofYoggSaron)
+local warnMadness 					= mod:NewCastAnnounce(64059, 2)
+
+local specWarnMadnessOutNow			= mod:NewSpecialWarning("SpecWarnMadnessOutNow", nil, nil, nil, nil, nil, nil, 64059, 64059)  -- Brain of Yogg-Saron
+
+local timerMadness 					= mod:NewCastTimer(60, 64059, nil, nil, nil, 5, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)  -- Brain of Yogg-Saron
+
+-- Stage Three: True Face of Death
+mod:AddTimerLine(L.S3TrueFaceofDeath)
+local warnP3 						= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
+
+-- Yogg-Saron
+-- mod:AddTimerLine(L.YoggSaron)
+mod:AddSetIconOption("SetIconOnBeacon", 64465, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
+
+-- Immortal Guardian
+-- mod:AddTimerLine(L.ImmortalGuardian)
+local warnEmpowerSoon				= mod:NewSoonAnnounce(64486, 4)
+
+local timerEmpower					= mod:NewCDTimer(46, 64486, nil, nil, nil, 3)
+local timerEmpowerDuration			= mod:NewBuffActiveTimer(10, 64486, nil, nil, nil, 3)
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+-- Stage Three: True Face of Death
+mod:AddTimerLine(L.S3TrueFaceofDeath)
+local warnDeafeningRoarSoon			= mod:NewPreWarnAnnounce(64189, 5, 3)
+
+local specWarnDeafeningRoar			= mod:NewSpecialWarningSpell(64189, nil, nil, nil, 1, 2)
+
+local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189, nil, nil, nil, 2)
+local timerNextDeafeningRoar		= mod:NewNextTimer(30, 64189, nil, nil, nil, 2)
 
 local targetWarningsShown = {}
 local brainLinkTargets = {}
@@ -141,7 +206,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerEmpowerDuration:Start()
 		warnEmpowerSoon:Schedule(40)
 	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 3) then	-- Lunatic Gaze
-		timerLunaricGaze:Start()
+		timerLunaticGaze:Start()
 		timerBrainPortal:Start(60)
 		warnBrainPortalSoon:Schedule(55)
 	end
@@ -221,6 +286,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnBrainPortalSoon:Schedule(53)
 		specWarnBrainPortalSoon:Schedule(53)
 		warnP2:Show()
+		warnP2:Play("ptwo")
 		if self.Options.ShowSaraHealth then
 			DBM.BossHealth:RemoveBoss(33134)
 			if not self.Options.HealthFrame then
@@ -228,7 +294,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	elseif args:IsSpellID(64167, 64163) then	-- Lunatic Gaze (reduces sanity)
-		timerLunaricGaze:Start()
+		timerLunaticGaze:Start()
 	elseif spellId == 64465 then -- Shadow Beacon
 		if self.Options.SetIconOnBeacon then
 			self:ScanForMobs(args.destGUID, 2, self.vb.beaconIcon, 1, 0.2, 10, "SetIconOnBeacon")
@@ -252,7 +318,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif spellId == 63894 then		-- Shadowy Barrier removed from Yogg-Saron (start p3)
 		self:SendSync("Phase3")			-- Sync this because you don't get it in your combat log if you are in brain room.
 	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 2) then	-- Lunatic Gaze
-		timerNextLunaricGaze:Start()
+		timerNextLunaticGaze:Start()
 	elseif args:IsSpellID(63830, 63881) and self.Options.SetIconOnFearTarget then   -- Malady of the Mind (Death Coil)
 		self:SetIcon(args.destName, 0)
 	elseif spellId == 64465 then -- Shadow Beacon
@@ -289,6 +355,7 @@ function mod:OnSync(msg)
 		timerBrainLinkCD:Cancel()
 		timerEmpower:Start()
 		warnP3:Show()
+		warnP3:Play("pthree")
 		warnEmpowerSoon:Schedule(40)
 		timerNextDeafeningRoar:Start(30)
 		warnDeafeningRoarSoon:Schedule(25)

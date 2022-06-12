@@ -402,6 +402,19 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "¡Pronto llegará la hora de golpear la cabeza del monstruo! ¡Centrad vuestra ira y odio en sus esbirros!",
-	Sara		= "Sara"
+	YellPull			= "¡Pronto llegará la hora de golpear la cabeza del monstruo! ¡Centrad vuestra ira y odio en sus esbirros!",
+	S1TheLucidDream		= "Fase 1: El sueño lúcido",
+	Sara				= "Sara",
+	GuardianofYoggSaron	= "Guardián de Yogg-Saron",
+	S2DescentIntoMadness= "Fase 2: El Descenso a la Locura",
+	CrusherTentacle		= "Tentáculo triturador",
+	CorruptorTentacle	= "Tentáculo corruptor",
+	ConstrictorTentacle	= "Tentáculo constrictor",
+	DescentIntoMadness	= "El Descenso a la Locura",
+	InfluenceTentacle	= "Tentáculo cimbreante",
+	LaughingSkull		= "Calavera jocosa",
+	BrainofYoggSaron	= "Cerebro de Yogg-Saron",
+	S3TrueFaceofDeath	= "Fase 3: El auténtico rostro de la muerte",
+	YoggSaron			= "Yogg-Saron",
+	ImmortalGuardian	= "Guardián inmortal"
 })

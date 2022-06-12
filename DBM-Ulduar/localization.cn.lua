@@ -394,6 +394,19 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "攻击这头野兽要害的时刻即将来临！将你们的愤怒和仇恨倾泻到它的爪牙身上！",
-	Sara		= "萨拉"
+	YellPull			= "攻击这头野兽要害的时刻即将来临！将你们的愤怒和仇恨倾泻到它的爪牙身上！",
+	S1TheLucidDream		= "第一阶段：清醒的梦境",
+	Sara				= "萨拉",
+	GuardianofYoggSaron	= "尤格-萨隆的卫士",
+	S2DescentIntoMadness= "第二阶段：坠入疯狂",
+	CrusherTentacle		= "重压触须",
+	CorruptorTentacle	= "腐蚀触须",
+	ConstrictorTentacle	= "缠绕触须",
+	DescentIntoMadness	= "疯狂阶梯",
+	InfluenceTentacle	= "感应触须",
+	LaughingSkull		= "嘲笑之颅",
+	BrainofYoggSaron	= "尤格-萨隆的大脑",
+	S3TrueFaceofDeath	= "第三阶段：死亡的真正面貌",
+	YoggSaron			= "尤格-萨隆",
+	ImmortalGuardian	= "不朽守护者"
 })

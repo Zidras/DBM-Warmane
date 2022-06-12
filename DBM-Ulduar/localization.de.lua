@@ -395,5 +395,18 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellPull 			= "Bald ist die Zeit gekommen, dem Untier den Kopf abzuschlagen! Konzentriert Euren Zorn und Euren Hass auf seine Diener!",
-	Sara 				= "Sara"
+	S1TheLucidDream		= "Phase 1: Der strahlende Traum",
+	Sara 				= "Sara",
+	GuardianofYoggSaron	= "Wächter des Yogg-Saron",
+	S2DescentIntoMadness= "Phase 2: Abstieg in den Wahnsinn",
+	CrusherTentacle		= "Schmettertentakel",
+	CorruptorTentacle	= "Verderbertentakel",
+	ConstrictorTentacle	= "Würgetentakel",
+	DescentIntoMadness	= "Abstieg in den Wahnsinn",
+	InfluenceTentacle	= "Einflusstentakel",
+	LaughingSkull		= "Lachender Schädel",
+	BrainofYoggSaron	= "Yogg-Sarons Gehirn",
+	S3TrueFaceofDeath	= "Phase 3: Das wahre Antlitz des Todes",
+	YoggSaron			= "Yogg-Saron",
+	ImmortalGuardian	= "Unvergängliche Wache"
 })

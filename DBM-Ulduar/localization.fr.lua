@@ -407,6 +407,19 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull1	= "Il sera bientôt temps de frapper la tête de la bête ! Concentrez votre rage et votre haine sur ses laquais !",
-	Sara		= "Sara"
+	YellPull1			= "Il sera bientôt temps de frapper la tête de la bête ! Concentrez votre rage et votre haine sur ses laquais !",
+	S1TheLucidDream		= "Phase 1 : Le rêve lucide",
+	Sara 				= "Sara",
+	GuardianofYoggSaron	= "Gardien de Yogg-Saron",
+	S2DescentIntoMadness= "Phase 2 : La Descente dans la folie",
+	CrusherTentacle		= "Tentacule écraseur",
+	CorruptorTentacle	= "Tentacule corrupteur",
+	ConstrictorTentacle	= "Tentacule constricteur",
+	DescentIntoMadness	= "Descente dans la folie",
+	InfluenceTentacle	= "Tentacule d’influence",
+	LaughingSkull		= "Crâne-Ricanant",
+	BrainofYoggSaron	= "Cerveau de Yogg-Saron",
+	S3TrueFaceofDeath	= "Phase 3 : le vrai visage de la mort",
+	YoggSaron			= "Yogg-Saron",
+	ImmortalGuardian	= "Gardien immortel"
 })
