@@ -10412,7 +10412,7 @@ end
 --  Options  --
 ---------------
 function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, extraOptionTwo, spellId, optionType)
-	if checkDuplicateObjects[name] and name ~= "timer_berserk" then
+	if checkDuplicateObjects[name] and name ~= "timer_berserk" and name ~= "HealthFrame" then
 		DBM:Debug("|cffff0000Option already exists for: |r"..name)
 	else
 		checkDuplicateObjects[name] = true
