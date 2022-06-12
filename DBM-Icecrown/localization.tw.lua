@@ -183,7 +183,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "為轉換目標顯示警告",
 	WarnTargetSwitchSoon	= "為轉換目標顯示預先警告",
 	TimerTargetSwitch		= "為轉換目標顯示冷卻計時器",
-	ActivePrinceIcon		= "設置標記在強化的親王身上(頭顱)"
+	ActivePrinceIcon		= "設置標記在強化的親王身上(頭顱)",
+	ShadowPrisonMetronome	= "播放重複的 1 秒點擊聲音以避免 $spell:72999"
 })
 
 L:SetMiscLocalization({

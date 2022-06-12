@@ -46,6 +46,8 @@ local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6, nil, nil
 
 local timerShadowPrison			= mod:NewBuffFadesTimer(10, 72999, nil, nil, nil, 5) -- Hard mode debuff
 
+mod:AddBoolOption("ShadowPrisonMetronome", false, "misc", nil, nil, nil, 72999)
+
 -- Kinetic Bomb
 local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, "Ranged")
 
@@ -257,6 +259,18 @@ function mod:SPELL_AURA_APPLIED(args)
 			if (args.amount or 1) >= 10 then	--Placeholder right now, might use a different value
 				specWarnShadowPrison:Show(args.amount)
 				specWarnShadowPrison:Play("stackhigh")
+			end
+			if self.Options.ShadowPrisonMetronome then
+				self:RegisterOnUpdateHandler(function(frame, elapsed)
+					frame.time = (frame.time or 0) + elapsed
+					if frame.time >= 1 then
+						if not UnitAffectingCombat("player") then
+							self:UnregisterOnUpdateHandler()
+						end
+						DBM:PlaySoundFile("Interface\\AddOns\\DBM-Core\\sounds\\tick.mp3")
+						frame.time = frame.time - 1
+					end
+				end)
 			end
 		end
 	elseif args:IsSpellID(71807, 72796, 72797, 72798) and args:IsDestTypePlayer() then	-- Glittering Sparks(Dot/slow, dangerous on heroic during valanaar)

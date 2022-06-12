@@ -185,7 +185,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Предупреждение о смене цели",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Предупреждать заранее о смене цели",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Отсчет времени до смены цели",
-	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)"
+	ActivePrinceIcon		= "Устанавливать метку на наполненного силой Принца (череп)",
+	ShadowPrisonMetronome	= "Воспроизведите повторяющийся 1-секундный звук щелчка, чтобы избежать $spell:72999"
 })
 
 L:SetMiscLocalization({

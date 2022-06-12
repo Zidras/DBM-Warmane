@@ -184,7 +184,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Montre l'alerte pour le changement de cible",
 	WarnTargetSwitchSoon	= "Montre une pré-alerte pour le changement de cible",
 	TimerTargetSwitch		= "Montre un timer pour le changement de cible",
-	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux)."
+	ActivePrinceIcon		= "Place l'icône de raid principale sur le prince de sang actuellement surpuissant (nécessite d'être assistant ou mieux).",
+	ShadowPrisonMetronome	= "Joue un son de clic répétitif de 1 seconde pour éviter $spell:72999"
 })
 
 L:SetMiscLocalization({

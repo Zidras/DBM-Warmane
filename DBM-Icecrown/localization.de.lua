@@ -183,7 +183,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Zeige Warnung für Zielwechsel",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Zeige Vorwarnung für Zielwechsel",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Zeige Zeit bis Zielwechsel",
-	ActivePrinceIcon		= "Setze Zeichen auf den machterfüllten Prinzen (Totenkopf)"
+	ActivePrinceIcon		= "Setze Zeichen auf den machterfüllten Prinzen (Totenkopf)",
+	ShadowPrisonMetronome	= "Einen sich wiederholenden 1-Sekunden-Klickton abspielen, um $spell:72999 zu vermeiden"
 })
 
 L:SetMiscLocalization({

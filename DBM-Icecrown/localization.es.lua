@@ -183,7 +183,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Mostrar aviso cuando haya que cambiar de objetivo",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Mostrar aviso previo para cuando haya que cambiar de objetivo",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Mostrar temporizador para el siguiente cambio de objetivo",
-	ActivePrinceIcon		= "Poner icono (calavera) en el príncipe potenciado"
+	ActivePrinceIcon		= "Poner icono (calavera) en el príncipe potenciado",
+	ShadowPrisonMetronome	= "Reproducir un sonido de clic repetido de 1 segundo para evitar $spell:72999"
 })
 
 L:SetMiscLocalization({

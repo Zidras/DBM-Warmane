@@ -183,7 +183,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "Show warning to switch targets",-- Warn when another Prince needs to be damaged
 	WarnTargetSwitchSoon	= "Show pre-warning to switch targets",-- Every ~47 secs, you have to dps a different Prince
 	TimerTargetSwitch		= "Show timer for target switch cooldown",
-	ActivePrinceIcon		= "Set icon on the empowered Prince (skull)"
+	ActivePrinceIcon		= "Set icon on the empowered Prince (skull)",
+	ShadowPrisonMetronome	= "Play a repeating 1 second click sound to avoid $spell:72999"
 })
 
 L:SetMiscLocalization({

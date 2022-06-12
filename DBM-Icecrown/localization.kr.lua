@@ -183,7 +183,8 @@ L:SetOptionLocalization({
 	WarnTargetSwitch		= "대상 전환 알림 보기",
 	WarnTargetSwitchSoon	= "대상 전환 이전에 알림 보기",
 	TimerTargetSwitch		= "대상 전환 바 보기",
-	ActivePrinceIcon		= "활성화 된 공작에게 전술 목표 아이콘 설정(해골)"
+	ActivePrinceIcon		= "활성화 된 공작에게 전술 목표 아이콘 설정(해골)",
+	ShadowPrisonMetronome	= "$spell:72999를 피하기 위해 반복적인 1초 클릭 사운드 재생"
 })
 
 L:SetMiscLocalization({
