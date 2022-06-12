@@ -25,7 +25,7 @@ local warnVortex				= mod:NewSpellAnnounce(56105, 3)
 local warnVortexSoon			= mod:NewSoonAnnounce(56105, 2)
 local warnBreathInc				= mod:NewSoonAnnounce(56505, 3)
 local warnSurge					= mod:NewTargetAnnounce(60936, 3)
-local warnStaticField			= mod:NewTargetAnnounce(57430, 3)
+local warnStaticField			= mod:NewTargetNoFilterAnnounce(57430, 3)
 local warnPhase2				= mod:NewPhaseAnnounce(2)
 local warnPhase3				= mod:NewPhaseAnnounce(3)
 
@@ -36,10 +36,10 @@ local specWarnStaticField		= mod:NewSpecialWarningYou(57430, nil, nil, nil, 1, 2
 local specWarnStaticFieldNear	= mod:NewSpecialWarningClose(57430, nil, nil, nil, 1, 2)
 local yellStaticField			= mod:NewYellMe(57430)
 
-local timerSpark				= mod:NewNextTimer(30, 56140, nil, nil, nil, 1, 59381)
-local timerVortex				= mod:NewCastTimer(11, 56105, nil, nil, nil, 2)
+local timerSpark				= mod:NewNextTimer(30, 56140, nil, nil, nil, 1, 59381, DBM_COMMON_L.DAMAGE_ICON)
+local timerVortex				= mod:NewCastTimer(11, 56105, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerVortexCD				= mod:NewNextTimer(60, 56105, nil, nil, nil, 2)
-local timerBreath				= mod:NewBuffActiveTimer(8, 56505, nil, nil, nil, 2) --lasts 5 seconds plus 3 sec cast.
+local timerBreath				= mod:NewBuffActiveTimer(8, 56505, nil, nil, nil, 5) --lasts 5 seconds plus 3 sec cast.
 local timerBreathCD				= mod:NewCDTimer(59, 56505, nil, nil, nil, 2)
 local timerStaticFieldCD		= mod:NewCDTimer(12.5, 57430, nil, nil, nil, 3) --High 15-25 second variation
 local timerAchieve      		= mod:NewAchievementTimer(360, 1875)
@@ -79,19 +79,11 @@ function mod:StaticFieldTarget()
 		specWarnStaticField:Show()
 		specWarnStaticField:Play("runaway")
 		yellStaticField:Yell()
+	elseif announcetarget and self:CheckNearby(13, announcetarget) then
+		specWarnStaticFieldNear:Show(announcetarget)
+		specWarnStaticFieldNear:Play("runaway")
 	else
-		local uId2 = DBM:GetRaidUnitId(announcetarget)
-		if uId2 then
-			local inRange = DBM.RangeCheck:GetDistance("player", GetPlayerMapPosition(uId2))
-			if inRange and inRange < 13 then
-				specWarnStaticFieldNear:Show(announcetarget)
-				specWarnStaticFieldNear:Play("runaway")
-			else
-				warnStaticField:Show(announcetarget)
-			end
-		else
-			warnStaticField:Show(announcetarget)
-		end
+		warnStaticField:Show(announcetarget)
 	end
 end
 
