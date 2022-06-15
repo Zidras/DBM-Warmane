@@ -127,6 +127,7 @@ L.ModAllStatReset			= "Restaurar estadísticas"
 L.SelectModProfileCopy		= "Copiar configuración de"
 L.SelectModProfileCopySound	= "Copiar conf. de sonido de"
 L.SelectModProfileCopyNote	= "Copiar notas de"
+L.SelectModProfileCurrent	= "Perfil actual del módulo de jefe"
 L.SelectModProfileDelete	= "Borrar configuración de"
 
 L.Area_ImportExportProfile	= "Importación/Exportación de perfiles"

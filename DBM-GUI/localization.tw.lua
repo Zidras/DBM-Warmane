@@ -156,6 +156,7 @@ L.ModAllStatReset			= "重置所有模組狀態"
 L.SelectModProfileCopy		= "複製所有設定"
 L.SelectModProfileCopySound	= "只複製音效設定"
 L.SelectModProfileCopyNote	= "只複製註記設定"
+L.SelectModProfileCurrent	= "當前老闆模組簡介"
 L.SelectModProfileDelete	= "刪除模組設定"
 
 L.Area_ImportExportProfile	= "匯入/匯出 設定檔"

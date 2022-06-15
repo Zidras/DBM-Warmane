@@ -110,10 +110,10 @@ end
 
 -- dual profile setup
 local _, playerClass = UnitClass("player")
-DBM_UseDualProfile = true
-if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" or playerClass == "HUNTER" then
-	DBM_UseDualProfile = false
-end
+DBM_UseDualProfile = false -- Having this as true requires user to know how mod profiles work and auto-generate new ones for new specs
+-- if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" or playerClass == "HUNTER" then
+-- 	DBM_UseDualProfile = false
+-- end
 DBM_CharSavedRevision = 2
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
@@ -2294,16 +2294,16 @@ function DBM:AddDefaultOptions(t1, t2)
 	end
 end
 
-function DBM:LoadModOptions(modId, inCombat, first)
+function DBM:LoadModOptions(modId, inCombat, first, profileName, profileID)
 	local oldSavedVarsName = modId:gsub("-", "").."_SavedVars"
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
 	local savedStatsName = modId:gsub("-", "").."_SavedStats"
-	local fullname = self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
+	local fullname = profileName or self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
 	self:Debug("using profile namespace "..fullname, 3)
 	if not currentSpecID or not currentSpecGroup then
 		self:SetCurrentSpecInfo()
 	end
-	local profileNum = playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
+	local profileNum = profileID or playerLevel > 9 and DBM_UseDualProfile and currentSpecGroup or 0
 	if not _G[savedVarsName] then _G[savedVarsName] = {} end
 	local savedOptions = _G[savedVarsName][fullname] or {}
 	local savedStats = _G[savedStatsName] or {}

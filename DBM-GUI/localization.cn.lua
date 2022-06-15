@@ -158,6 +158,7 @@ L.ModAllStatReset			= "重置所有Boss模块状态"
 L.SelectModProfileCopy		= "复制所有选项："
 L.SelectModProfileCopySound	= "只复制声音选项："
 L.SelectModProfileCopyNote	= "只复制自定义注记："
+L.SelectModProfileCurrent	= "当前Boss模块的概况"
 L.SelectModProfileDelete	= "删除 Boss 模块设置："
 
 L.Area_ImportExportProfile	= "导入导出配置"

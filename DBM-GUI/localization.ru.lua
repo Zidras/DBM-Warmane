@@ -463,6 +463,7 @@ L.ModAllStatReset			= "Сбросить всю статистику модуля
 L.SelectModProfileCopy		= "Скопировать все настройки из"
 L.SelectModProfileCopySound	= "Скопировать настройки звука из"
 L.SelectModProfileCopyNote	= "Скопировать заметки из"
+L.SelectModProfileCurrent	= "Текущий профиля для босс-модулей"
 L.SelectModProfileDelete	= "Удалить настройки модуля для"
 
 L.Area_ImportExportProfile	= "Импорт / экспорт профилей"

@@ -369,6 +369,7 @@ L.ModAllStatReset			= "Alle Statistiken zurücksetzen"
 L.SelectModProfileCopy		= "Kopiere alle Einstellungen von"
 L.SelectModProfileCopySound	= "Kopiere nur Soundeinst. von"
 L.SelectModProfileCopyNote	= "Kopiere nur Notizen von"
+L.SelectModProfileCurrent	= "Aktuelles Boss Mod-Profil"
 L.SelectModProfileDelete	= "Lösche Mod-Einstellungen für"
 
 L.Area_ImportExportProfile	= "Profile Importieren/Exportieren"
