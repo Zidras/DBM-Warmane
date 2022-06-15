@@ -2819,7 +2819,7 @@ function DBM:PLAYER_TALENT_UPDATE()
 		self:Debug("No talents detected. Registering PLAYER_ALIVE for talent data")
 		self:RegisterEvents("PLAYER_ALIVE")
 	end
-	self:SetCurrentSpecInfo()
+	self:Schedule(0.1, self.SetCurrentSpecInfo) -- delay a bit because Unit API like UnitExists and UnitClass were returning nil on this event.
 	if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
 		self:SpecChanged()
 	end
