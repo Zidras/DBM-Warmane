@@ -152,6 +152,7 @@ L.ModAllStatReset			= "이 모드의 모든 통계 초기화"
 L.SelectModProfileCopy		= "전체 설정 복사"
 L.SelectModProfileCopySound	= "음성 설정만 복사"
 L.SelectModProfileCopyNote	= "메모 설정만 복사"
+L.SelectModProfileCurrent	= "현재 보스 모드 프로필"
 L.SelectModProfileDelete	= "모드 설정 삭제"
 
 L.Area_ImportExportProfile	= "프로필 가져오기/내보내기"

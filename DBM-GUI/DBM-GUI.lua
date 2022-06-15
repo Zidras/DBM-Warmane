@@ -563,13 +563,34 @@ do
 				_G[copyModNoteProfile:GetName() .. "Text"]:SetText("")
 			end)
 
+			local currentModProfile = modProfileArea:CreateDropdown(L.SelectModProfileCurrent, modProfileDropdown, nil, nil, function(value)
+				local name, profile = strsplit("|", value)
+				DBM:LoadModOptions(addon.modId, nil, nil, name, tonumber(profile))
+				DBM:AddMsg("This is not intended to be used as a profile selector, but rather show you which boss mod profile is currently loaded. Any profile that is manually loaded will default back to its original after a UI reload.")
+				DBM:Schedule(0.05, refresh)
+			end, 258)
+			currentModProfile.myheight = 0
+			currentModProfile:SetPoint("TOPLEFT", copyModProfile, "BOTTOMLEFT", 0, -10)
+			currentModProfile:SetScript("OnShow", function()
+				local fullname = DBM.Options.PerCharacterSettings and playerName.."-"..realmName or "Global"
+				local profileID = playerLevel > 9 and DBM_UseDualProfile and GetSpecializationGroup() or 0
+				if not currentModProfile.value or currentModProfile.value ~=  fullname.."|"..profileID then
+					for _, v in pairs(modProfileDropdown) do
+						if v.value == fullname.."|"..profileID then
+							currentModProfile:SetSelectedValue(v.text)
+							break
+						end
+					end
+				end
+			end)
+
 			local deleteModProfile = modProfileArea:CreateDropdown(L.SelectModProfileDelete, modProfileDropdown, nil, nil, function(value)
 				local name, profile = strsplit("|", value)
 				DBM:DeleteAllModOption(addon.modId, name, tonumber(profile))
 				DBM:Schedule(0.05, refresh)
 			end, 100)
 			deleteModProfile.myheight = 60
-			deleteModProfile:SetPoint("TOPLEFT", copyModSoundProfile, "BOTTOMLEFT", 0, -10)
+			deleteModProfile:SetPoint("TOPLEFT", copyModNoteProfile, "BOTTOMLEFT", 0, -10)
 			deleteModProfile:SetScript("OnShow", function()
 				deleteModProfile.value = nil
 				deleteModProfile.text = nil
@@ -580,6 +601,7 @@ do
 				copyModProfile:GetScript("OnShow")()
 				copyModSoundProfile:GetScript("OnShow")()
 				copyModNoteProfile:GetScript("OnShow")()
+				currentModProfile:GetScript("OnShow")()
 				deleteModProfile:GetScript("OnShow")()
 			end
 
