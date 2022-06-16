@@ -1348,7 +1348,7 @@ do
 			if DBM:HasMapRestrictions() then
 				DBM:AddMsg(L.NO_RANGE)
 			end
-			rangeCheck:Show((r and r < 201) and r or 10 , nil, true, nil, reverse)
+			rangeCheck:Show((r and r < 201) and r or 10--[[, nil, true, nil, reverse]])
 		end
 	end
 	SLASH_DBMRANGE1 = "/range"
