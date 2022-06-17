@@ -107,7 +107,6 @@ L.NOTESHAREERRORALREADYOPEN		= "不能開啟分享註記連結當註記編輯器
 L.ALLMOD_DEFAULT_LOADED			= "此副本所有的選項設定已套用預設值。"
 L.ALLMOD_STATS_RESETED			= "所有模組狀態已經被重置。"
 L.MOD_DEFAULT_LOADED			= "此戰鬥的預設選項已套用。"
-L.SOUNDKIT_MIGRATION			= "您的一個或多個警告/特別警告音效被重置為預設設置，因為不相容的媒體類型或無效的聲音路徑。DBM現在僅支援播放在您的addons資料夾之內的聲音文件，或者媒體的SoundKit編號。"
 
 L.WORLDBOSS_ENGAGED				= "在你的伺服器上的%s已在百分之%s時開戰(%s發送)。"
 L.WORLDBOSS_DEFEATED			= "在你的伺服器上的%s已被擊敗(%s發送)。"

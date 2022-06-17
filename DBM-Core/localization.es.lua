@@ -107,7 +107,6 @@ L.NOTESHAREERRORALREADYOPEN	= "No se puede abrir notas compartidas con el editor
 L.ALLMOD_DEFAULT_LOADED		= "Se han cargado las opciones por defecto de todos los módulos de esta estancia."
 L.ALLMOD_STATS_RESETED		= "Se han restaurado todas las estadísticas de este módulo."
 L.MOD_DEFAULT_LOADED			= "Se han cargado las opciones por defecto de este encuentro."
-L.SOUNDKIT_MIGRATION			= "Uno o varios de tus sonidos de avisos se han restaurado a la opción por defecto debido a incompatibilidades con el tipo de archivo o a una ruta incorrecta. DBM solo acepta sonidos externos que estén la carpeta de addons."
 
 L.WORLDBOSS_ENGAGED			= "Es posible que el encuentro de %s se haya iniciado en tu reino a %s de su salud máxima. (Enviado por %s.)"
 L.WORLDBOSS_DEFEATED			= "Es posible que %s haya sido derrotado en tu reino. (Enviado por %s.)"

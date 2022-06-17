@@ -112,7 +112,6 @@ L.NOTESHAREERRORALREADYOPEN	= "为防止未保存的改变，当注记编辑器�
 L.ALLMOD_DEFAULT_LOADED		= "本副本里的所有Boss配置已经被初始化"
 L.ALLMOD_STATS_RESETED		= "所有模组的状态已被重置"
 L.MOD_DEFAULT_LOADED			= "将会使用默认设置来进行本场战斗"
-L.SOUNDKIT_MIGRATION			= "一个或多个警报的声音因文件丢失而被设置成默认。" .. L.DBM .. "只支持放在插件目录下的声音文件，或者是SoundKit ID的重放"
 
 L.WORLDBOSS_ENGAGED			= "世界Boss-%s可能正在作战。当前还有%s的生命值。 (由 %s 的" .. L.DBM .. "发送)"
 L.WORLDBOSS_DEFEATED		= "世界Boss-%s可能战斗结束了。 (由 %s 的" .. L.DBM .. "发送)"

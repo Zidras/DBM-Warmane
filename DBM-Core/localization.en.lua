@@ -28,8 +28,13 @@ L.LOAD_MOD_DISABLED_PLURAL				= "%s are installed but currently disabled. These 
 
 L.COPY_URL_DIALOG						= "Copy URL"
 
-L.NO_ARROW								= "Arrow can not be used in old instances with no map support(download a map patch or deal with it)"
+L.NO_RANGE								= "Range Radar can not be used in instances with no map support (download a map patch or deal with it). Legacy text range frame used instead"
+L.NO_ARROW								= "Arrow can not be used in instances with no map support (download a map patch or deal with it)"
+L.NO_HUD								= "HUDMap can not be used in instances with no map support (download a map patch or deal with it)"
+
 L.BIGWIGS_ICON_CONFLICT					= L.DBM .. " has detected that you have raid icons turned on in both BigWigs and " .. L.DBM .. ". Please disable icons in one of them to avoid conflicts"
+
+L.MOD_AVAILABLE							= "%s is available for this zone. You can find download on " .. L.UPDATEREMINDER_URL
 
 L.COMBAT_STARTED						= "%s engaged. Good luck and have fun! :)"
 L.COMBAT_STARTED_IN_PROGRESS			= "Engaged an in progress fight against %s. Good luck and have fun! :)"
@@ -49,6 +54,7 @@ L.COMBAT_STATE_RECOVERED				= "%s was engaged %s ago, recovering timers... "
 L.TRANSCRIPTOR_LOG_START				= "Transcriptor logging started."
 L.TRANSCRIPTOR_LOG_END					= "Transcriptor logging ended."
 
+L.MOVIE_SKIPPED							= L.DBM .. " has attempted to skip a cut scene automatically."
 
 L.AFK_WARNING							= "You are AFK and in combat (%d percent health remaining), firing sound alert. If you are not AFK, clear your AFK flag or disable this option in 'extra features'."
 
@@ -91,7 +97,6 @@ L.NOTESHAREERRORALREADYOPEN				= "Cannot open a shared note link while note edit
 L.ALLMOD_DEFAULT_LOADED					= "Default options for all mods in this instance have been loaded."
 L.ALLMOD_STATS_RESETED					= "All mod stats have been reset."
 L.MOD_DEFAULT_LOADED					= "Default options for this fight have been loaded."
-L.SOUNDKIT_MIGRATION					= "One or more of your warning/special warning sounds were reset to defaults do to incompatability media type or invalid sound path. " .. L.DBM .. " now only supports sound files residing your addons folder, or SoundKit IDs for playing media"
 
 L.WORLDBOSS_ENGAGED						= "%s was possibly engaged on your realm at %s percent health. (Sent by %s)"
 L.WORLDBOSS_DEFEATED					= "%s was possibly defeated on your realm (Sent by %s)."
@@ -122,6 +127,7 @@ L.OPTION_CATEGORY_WARNINGS				= "General Announces"
 L.OPTION_CATEGORY_WARNINGS_YOU			= "Personal Announces"
 L.OPTION_CATEGORY_WARNINGS_OTHER		= "Target Announces"
 L.OPTION_CATEGORY_WARNINGS_ROLE			= "Role Announces"
+L.OPTION_CATEGORY_SPECWARNINGS			= "Special Announces"
 
 L.OPTION_CATEGORY_SOUNDS				= "Sounds"
 --Misc object broken down into sub cats
@@ -171,6 +177,9 @@ L.MINIMAP_TOOLTIP_HEADER				= L.DEADLY_BOSS_MODS --Technically redundant
 L.MINIMAP_TOOLTIP_FOOTER				= "Shift+click or right-click to move\nAlt+shift+click for free drag and drop"
 
 L.RANGECHECK_HEADER						= "Range Check (%d yd)"
+L.RANGECHECK_HEADERT					= "Range Check (%dy-%dP)"
+L.RANGECHECK_RHEADER					= "R-Range Check (%dy)"
+L.RANGECHECK_RHEADERT					= "R-Range Check (%dy-%dP)"
 L.RANGECHECK_SETRANGE					= "Set range"
 L.RANGECHECK_SETTHRESHOLD				= "Set player threshold"
 L.RANGECHECK_SOUNDS						= "Sounds"
@@ -208,7 +217,6 @@ L.INFOFRAME_MAIN						= "Main:"--Main power
 L.INFOFRAME_ALT							= "Alt:"--Alternate Power
 
 L.LFG_INVITE							= "LFG Invite"
-L.PHASE									= "Phase %d"
 
 L.SLASHCMD_HELP							= {
 	"Available slash commands:",
@@ -242,6 +250,7 @@ L.TIMER_USAGE							= {
 }
 
 L.ERROR_NO_PERMISSION					= "You don't have the required permission to do this."
+L.TIME_TOO_SHORT						= "Pull timer must be longer than 3 seconds."
 
 L.BOSSHEALTH_HIDE_FRAME					= "Close health frame"
 
@@ -258,6 +267,7 @@ L.ANNOUNCE_PULL							= "Pull in %d sec. (Sent by %s)"
 L.ANNOUNCE_PULL_NOW						= "Pull now!"
 L.ANNOUNCE_PULL_TARGET					= "Pulling %s in %d sec. (Sent by %s)"
 L.ANNOUNCE_PULL_NOW_TARGET				= "Pulling %s now!"
+L.GEAR_WARNING							= "Warning: Check gear. Your equipped ilvl is %d lower than bag ilvl"
 L.GEAR_WARNING_WEAPON					= "Warning: Check if your weapon is correctly equipped."
 L.GEAR_FISHING_POLE						= "Fishing Pole"
 
@@ -540,7 +550,6 @@ L.MOVE_WARNING_MESSAGE					= "Thanks for using " .. L.DEADLY_BOSS_MODS
 L.MOVE_SPECIAL_WARNING_BAR				= "Special warning movable"
 L.MOVE_SPECIAL_WARNING_TEXT				= "Special Warning"
 
-L.ARROW_NO_RAIDGROUP					= "This function only works in raid groups and within raid instances."
 L.ARROW_MOVABLE							= "Arrow movable"
 L.ARROW_WAY_USAGE						= "/dway <x> <y>: Creates an arrow that points to a specific location (using local zone map coordinates)"
 L.ARROW_WAY_SUCCESS						= "To hide arrow, do '/dbm arrow hide' or reach arrow"

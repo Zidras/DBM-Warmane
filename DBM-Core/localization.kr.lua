@@ -108,7 +108,6 @@ L.NOTESHAREERRORALREADYOPEN	= "메모 편집기가 이미 열려 있는 동안�
 L.ALLMOD_DEFAULT_LOADED		= "이 인스턴스에 속한 모든 모드의 기본 설정이 로딩됐습니다."
 L.ALLMOD_STATS_RESETED		= "모든 모드 통계가 초기화 되었습니다."
 L.MOD_DEFAULT_LOADED			= "이 전투의 기본 설정이 로딩됐습니다."
-L.SOUNDKIT_MIGRATION			= "한개 이상의 알림/특수 알림 효과음이 호환되지 않는 미디어 형식이거나 파일 경로가 잘못되는 등의 문제로 인해 기본값으로 초기화 되었습니다. " .. L.DBM .. "은 현재 애드온 폴더 내에 있는 효과음 파일이나 미디어 재생에 쓰이는 SoundKit ID만 지원하고 있습니다."
 
 L.WORLDBOSS_ENGAGED			= "당신이 속한 서버에서 %s 전투가 %s 퍼센트의 체력으로 시작된 것 같습니다. (%s|1이;가; 전송)"
 L.WORLDBOSS_DEFEATED			= "당신이 속한 서버에서 %s|1이;가; 잡힌 것 같습니다. (%s|1이;가; 전송)"
