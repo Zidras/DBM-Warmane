@@ -2040,18 +2040,18 @@ do
 		return raid[name] and raid[name].id
 	end
 
-	function DBM:GetEnemyUnitIdByGUID(guid)
-		for i = 1, 5 do
-			local unitId = "boss"..i
-			local guid2 = UnitGUID(unitId)
-			if guid == guid2 then
-				return unitId
-			end
-		end
+	local mobUids = {
+		"boss1", "boss2", "boss3", "boss4", "boss5",
+		"mouseover", "target", "focus", "focustarget", "targettarget", "mouseovertarget",
+		"party1target", "party2target", "party3target", "party4target",
+		"raid1target", "raid2target", "raid3target", "raid4target", "raid5target", "raid6target", "raid7target", "raid8target", "raid9target", "raid10target",
+		"raid11target", "raid12target", "raid13target", "raid14target", "raid15target", "raid16target", "raid17target", "raid18target", "raid19target", "raid20target",
+		"raid21target", "raid22target", "raid23target", "raid24target", "raid25target", "raid26target", "raid27target", "raid28target", "raid29target", "raid30target",
+		"raid31target", "raid32target", "raid33target", "raid34target", "raid35target", "raid36target", "raid37target", "raid38target", "raid39target", "raid40target"
+	}
 
-		local idType = ((GetNumRaidMembers() == 0) and "party") or "raid"
-		for i = 0, mmax(GetNumRaidMembers(), GetNumPartyMembers()) do
-			local unitId = ((i == 0) and "target") or idType..i.."target"
+	function DBM:GetEnemyUnitIdByGUID(guid)
+		for _, unitId in ipairs(mobUids) do
 			local guid2 = UnitGUID(unitId)
 			if guid == guid2 then
 				return unitId
@@ -6821,6 +6821,19 @@ end
 function bossModPrototype:IsTimewalking()
 	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	return diff == "timewalker"
+end
+
+function bossModPrototype:IsValidWarning(sourceGUID, customunitID, loose)
+	if loose and InCombatLockdown() and GetNumGroupMembers() < 2 then return true end--In a loose check, this basically just checks if we're in combat, important for solo runs of torghast to not gimp mod too much
+	if customunitID then
+		if UnitExists(customunitID) and UnitGUID(customunitID) == sourceGUID and UnitAffectingCombat(customunitID) then return true end
+	else
+		local unitId = DBM:GetEnemyUnitIdByGUID(sourceGUID)
+		if UnitExists(unitId) and UnitAffectingCombat(unitId) then
+			return true
+		end
+	end
+	return false
 end
 
 --force param is used when CheckInterruptFilter is actually being used for a simpe target/focus check and nothing more.
