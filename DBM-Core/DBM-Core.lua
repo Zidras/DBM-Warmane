@@ -6554,7 +6554,7 @@ do
 			local isInstance, instanceType = IsInInstance()
 			if not isInstance or self.Options.MovieFilter2 == "Never" or self.Options.MovieFilter2 == "OnlyFight" and not DBM:IsEncounterInProgress() then return end
 			if self.Options.MovieFilter2 == "Block" or (self.Options.MovieFilter2 == "AfterFirst" or self.Options.MovieFilter2 == "OnlyFight") and self.Options.MoviesSeen[id] then
---				MovieFrame:Hide()--can only just hide movie frame safely now, which means can't stop audio anymore :\
+				MovieFrame:Hide()--can only just hide movie frame safely now, which means can't stop audio anymore :\
 				GameMovieFinished()
 				self:AddMsg(L.MOVIE_SKIPPED)
 			else
