@@ -589,7 +589,7 @@ local function sendSync(prefix, msg)
 	else
 		handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
 	end
-	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 4)
+	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 3)
 end
 private.sendSync = sendSync
 
@@ -1818,7 +1818,7 @@ do
 	end)
 
 	local function updateAllRoster(self)
-		DBM:Debug("Updating roster",3)
+		DBM:Debug("Updating roster", 3)
 		if GetNumRaidMembers() >= 1 then
 			if not inRaid then
 				inRaid = true
@@ -2299,7 +2299,7 @@ function DBM:LoadModOptions(modId, inCombat, first, profileName, profileID)
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
 	local savedStatsName = modId:gsub("-", "").."_SavedStats"
 	local fullname = profileName or self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
-	self:Debug("using profile namespace "..fullname, 3)
+	self:Debug("using profile namespace " .. fullname, 3)
 	if not currentSpecID or not currentSpecGroup then
 		self:SetCurrentSpecInfo()
 	end
@@ -3044,7 +3044,7 @@ do
 	function DBM:ZONE_CHANGED_NEW_AREA()
 		SetMapToCurrentZone()
 		timerRequestInProgress = false
-		self:Debug("ZONE_CHANGED_NEW_AREA fired on zoneID: "..GetCurrentMapAreaID())
+		self:Debug("ZONE_CHANGED_NEW_AREA fired on zoneID: " .. GetCurrentMapAreaID())
 		self:Unschedule(SecondaryLoadCheck)
 		--SecondaryLoadCheck(self)
 		self:Schedule(1, SecondaryLoadCheck, self)--Now delayed by one second to work around an issue on 8.x where spec info isn't available yet on reloadui
@@ -3058,7 +3058,7 @@ do
 
 	function DBM:ZONE_CHANGED_INDOORS()
 		SetMapToCurrentZone()
-		self:Debug("Indoor/SubZone changed on zoneID: "..GetCurrentMapAreaID().." and subZone: "..GetSubZoneText())
+		self:Debug("Indoor/SubZone changed on zoneID: " .. GetCurrentMapAreaID() .. " and subZone: " .. GetSubZoneText())
 	end
 	DBM.ZONE_CHANGED = DBM.ZONE_CHANGED_INDOORS
 
@@ -3305,8 +3305,8 @@ do
 		DBM:Debug("Raid leader has disabled guild progress messages")
 	end
 
-	syncHandlers["DBMv4-IS"] = function(sender, guid, ver, optionName)
-		DBM:Debug(("DBMv4-IS received %s %s %s"):format(guid, ver, optionName),3)
+	syncHandlers["DBMv4-IS"] = function(_, guid, ver, optionName)
+		DBM:Debug(("DBMv4-IS received %s %s %s"):format(guid, ver, optionName), 3)
 		ver = tonumber(ver) or 0
 		if ver >= 9999 then
 			ver = 4442
@@ -3487,7 +3487,7 @@ do
 		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
 		if #inCombat >= 1 then return end
 		if DBT:GetBar(L.TIMER_BREAK) then return end--Already recovered. Prevent duplicate recovery
-		DBM:Debug("BTR3 calling breakTimerStart from "..sender.." with remaining "..timer,3)
+		DBM:Debug("BTR3 calling breakTimerStart from "..sender.." with remaining "..timer, 3)
 		breakTimerStart(DBM, timer, sender)
 	end
 
@@ -3604,11 +3604,11 @@ do
 
 	syncHandlers["DBMv4-Ver"] = function(sender, revision, version, displayVersion, locale, iconEnabled, VPVersion)
 		if revision == "Hi!" then
-			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.ReleaseRevision, DBM.DisplayVersion, GetLocale()),4)
+			DBM:Debug(("DBMv4-Ver Hi! %s %s %s %s"):format(DBM.Revision, DBM.ReleaseRevision, DBM.DisplayVersion, GetLocale()), 3)
 			-- Use Retail "H" syncHandler instead
 			handleSync(nil, sender, "DBMv4-H")
 		else
-			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender),4)
+			DBM:Debug(("DBMv4-Ver received %s %s %s %s from %s"):format(revision, version, displayVersion, locale, sender), 3)
 			-- Use Retail "V" syncHandler instead
 			handleSync(nil, sender, "DBMv4-V", revision, version, displayVersion, locale, iconEnabled, VPVersion)
 		end
@@ -4912,9 +4912,9 @@ do
 				return
 			end
 			if event then
-				self:Debug("StartCombat called by : "..event..". LastInstanceMapID is "..LastInstanceMapID)
+				self:Debug("StartCombat called by : "..event.." for mod : "..mod.id..". LastInstanceMapID is "..LastInstanceMapID)
 			else
-				self:Debug("StartCombat called by individual mod or unknown reason. LastInstanceMapID is "..LastInstanceMapID)
+				self:Debug("StartCombat called by individual mod or unknown reason for mod : "..mod.id..". LastInstanceMapID is "..LastInstanceMapID)
 				event = ""
 			end
 			self.currentModId = mod.id
@@ -5028,7 +5028,7 @@ do
 						for i = 1, #mod.findFastestComputer do
 							local option = mod.findFastestComputer[i]
 							if mod.Options[option] then
-								DBM:Debug(("DBMv4-IS sending %s %s %s"):format(UnitGUID("player"), tostring(self.Revision), option),3)
+								DBM:Debug(("DBMv4-IS sending %s %s %s"):format(UnitGUID("player"), tostring(self.Revision), option), 3)
 								sendSync("DBMv4-IS", UnitGUID("player").."\t"..tostring(self.Revision).."\t"..option)
 							end
 						end
@@ -5833,7 +5833,7 @@ do
 		if validate and not self:ValidateSound(path, true, true) then
 			return
 		end
-		DBM:Debug("PlaySoundFile playing with media " .. path, 4)
+		self:Debug("PlaySoundFile playing with media " .. path, 3)
 		PlaySoundFile(path)
 		fireEvent("DBM_PlaySound", path)
 	end
@@ -5848,7 +5848,7 @@ do
 			return
 		end
 		local soundSetting = self.Options.UseSoundChannel
-		DBM:Debug("PlaySound playing with media " .. path, 4)
+		self:Debug("PlaySound playing with media " .. path, 3)
 		if ignoreSFX or soundSetting == "Master" then
 			if ingameSoundPath[path] then
 				PlaySoundFile(ingameSoundPath[path])
@@ -6022,7 +6022,7 @@ do
 	end
 
 	function DBM:ReceiveTimerInfo(sender, mod, timeLeft, totalTime, id, paused, ...)
-		DBM:Debug(("Receiving Timer Info: %s %s %s %s from %s"):format(mod.id, timeLeft, totalTime, "123", sender),3)
+		DBM:Debug(("Receiving Timer Info: %s %s %s %s from %s"):format(mod.id, timeLeft, totalTime, "123", sender), 3)
 		if requestedFrom[sender] and (GetTime() - requestTime) < 5 then
 			local lag = paused and 0 or select(3, GetNetStats()) / 1000
 			for _, v in ipairs(mod.timers) do
@@ -6127,7 +6127,7 @@ function DBM:SendTimerInfo(mod, target)
 				end
 				timeLeft = totalTime - elapsed
 				if timeLeft > 0 and totalTime > 0 then
-					self:Debug(("Sending Timer Info: %s %s %s %s to %s"):format(mod.id, timeLeft, totalTime, uId, v.paused and "1" or "0", target),3)
+					self:Debug(("Sending Timer Info: %s %s %s %s to %s"):format(mod.id, timeLeft, totalTime, uId, v.paused and "1" or "0", target), 3)
 					SendAddonMessage("DBMv4-TimerInfo", ("%s\t%s\t%s\t%s\t%s"):format(mod.id, timeLeft, totalTime, uId, v.paused and "1" or "0"), "WHISPER", target)
 				end
 			end
