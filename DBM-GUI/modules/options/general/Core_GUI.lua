@@ -34,9 +34,9 @@ local bmrange = generaloptions:CreateButton(L.Button_RangeFrame, 120, 30)
 bmrange:SetPoint("TOPLEFT", SoundChannelDropdown, "BOTTOMLEFT", 15, -5)
 bmrange:SetScript("OnClick", function()
 	if DBM.RangeCheck:IsShown() then
-		DBM.RangeCheck:Hide(--[[true]])
+		DBM.RangeCheck:Hide(true)
 	else
-		DBM.RangeCheck:Show(--[[nil, nil, true]])
+		DBM.RangeCheck:Show(nil, nil, true)
 	end
 end)
 
