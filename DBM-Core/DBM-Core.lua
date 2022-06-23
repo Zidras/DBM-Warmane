@@ -5750,9 +5750,11 @@ function DBM:GetStage(modId)
 end
 
 function DBM:HasMapRestrictions()
+	SetMapToCurrentZone()
 	local mapName = GetMapInfo()
 	local level = GetCurrentMapDungeonLevel()
-	if level == 0 then level = 1 end
+	local usesTerrainMap = DungeonUsesTerrainMap()
+	level = usesTerrainMap and level - 1 or level
 	local playerX, playerY = GetPlayerMapPosition("player")
 	if (playerX == 0 or playerY == 0) or (self.MapSizes[mapName] and not self.MapSizes[mapName][level]) then
 		return true
@@ -6535,11 +6537,15 @@ function DBM:RegisterMapSize(zone, ...)
 	end
 end
 
-function DBM:GetMapSizes()
---	if not currentSizes then
-		DBM:UpdateMapSizes()
---	end
---	return currentSizes
+function DBM:GetMapSize()
+	SetMapToCurrentZone()
+	local mapName = GetMapInfo()
+	local level = GetCurrentMapDungeonLevel()
+	local usesTerrainMap = DungeonUsesTerrainMap()
+	level = usesTerrainMap and level - 1 or level
+	local playerX, playerY = GetPlayerMapPosition("player")
+	local dims  = self.MapSizes[mapName] and self.MapSizes[mapName][level]
+	return dims[1], dims[2]
 end
 
 --------------------

@@ -42,6 +42,7 @@ Libs\LibDurability\LibDurability.lua
 Libs\LibLatency\LibLatency.lua
 Libs\LibDeflate\LibDeflate.lua
 Libs\LibSerialize\LibSerialize.lua
+Libs\LibRangeCheck-2.0\LibRangeCheck-2.0.lua
 
 localization.en.lua
 localization.de.lua
