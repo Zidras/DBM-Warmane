@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod("Anub'arak_Coliseum", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624005857")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34564)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 8)
+mod:SetMinSyncRevision(20220623000000)
 
 mod:RegisterCombat("combat")
 
@@ -38,7 +39,7 @@ local timerAdds				= mod:NewTimer(45, "timerAdds", 45419, nil, nil, 1, DBM_COMMO
 local timerSubmerge			= mod:NewTimer(80, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, DBM_COMMON_L.IMPORTANT_ICON, nil, 1)
 local timerEmerge			= mod:NewTimer(65, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, DBM_COMMON_L.IMPORTANT_ICON, nil, 1)
 local timerFreezingSlash	= mod:NewCDTimer(20, 66012, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerPCold			= mod:NewBuffActiveTimer(15, 68509, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerPCold			= mod:NewBuffActiveTimer(15, 66013, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerShadowStrike		= mod:NewNextTimer(30, 66134, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)
 local timerHoP				= mod:NewBuffActiveTimer(10, 10278, nil, nil, nil, 5) --So we will track bops to make this easier.
 
@@ -46,8 +47,8 @@ local enrageTimer			= mod:NewBerserkTimer(570)
 
 mod:AddSetIconOption("PursueIcon", 67574, true, 0, {8})
 mod:AddSetIconOption("SetIconsOnPCold", 66013, true, 7, {1, 2, 3, 4, 5})
-mod:AddBoolOption("AnnouncePColdIcons", false)
-mod:AddBoolOption("AnnouncePColdIconsRemoved", false)
+mod:AddBoolOption("AnnouncePColdIcons", false, nil, nil, nil, nil, 66013)
+mod:AddBoolOption("AnnouncePColdIconsRemoved", false, nil, nil, nil, nil, 66013)
 mod:AddBoolOption("RemoveHealthBuffsInP3", false)
 
 mod.vb.Burrowed = false
