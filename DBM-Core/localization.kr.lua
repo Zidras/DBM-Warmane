@@ -470,6 +470,7 @@ L.AUTO_ICONS_OPTION_TARGETS_MELEE_R		= "$spell:%s 대상에 공격대 징표 설
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "$spell:%s 대상에 공격대 징표 설정 (원거리 캐릭터와 이름 순서 우선)"
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_R	= "$spell:%s 대상에 공격대 징표 설정 (원거리 캐릭터와 공격대 배치 순서 우선)"
 L.AUTO_ICONS_OPTION_TARGETS_ALPHA		= "$spell:%s 대상에 공격대 징표 설정 (이름순)"
+L.AUTO_ICONS_OPTION_TARGETS_ROSTER		= "$spell:%s 대상에 공격대 징표 설정 (공격대 배치 순서 우선)"
 L.AUTO_ICONS_OPTION_NPCS				= "$spell:%s에 공격대 징표 설정"--usually used for npcs/mobs
 L.AUTO_ICONS_OPTION_CONFLICT		= " (다른 옵션과 충돌을 일으킬 수 있음)"
 L.AUTO_ARROW_OPTION_TEXT			= "$spell:%s 대상을 향하는 " .. L.DBM .. " 화살표 보기"
@@ -501,6 +502,7 @@ L.AUTO_RRANGE_OPTION_TEXT		= "$spell:%2$s 범위에 대한 반전 거리 창 보
 L.AUTO_RRANGE_OPTION_TEXT_SHORT	= "반전 거리 창 보기 (%sm)"
 L.AUTO_INFO_FRAME_OPTION_TEXT	= "$spell:%s|1을;를; 정보 창에 표시"
 L.AUTO_INFO_FRAME_OPTION_TEXT2	= "전투 전반에 관한 사항을 정보 창에 표시"
+L.AUTO_INFO_FRAME_OPTION_TEXT3		= "$spell:%s|1을;를; 정보 창에 표시 (%%s의 제한 수치 이상인 경우)"
 L.AUTO_READY_CHECK_OPTION_TEXT	= "보스가 풀링되면 전투 준비 효과음 듣기 (보스를 대상으로 잡지 않아도 재생)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT	= "%s의 완료 신기록 타이머 표시"
 
@@ -564,10 +566,6 @@ L.LAG_FOOTER					= "응답 없음: %s"
 --LDB
 L.LDB_TOOLTIP_HELP1			= "왼쪽 클릭으로 " .. L.DBM .. " 열기"
 L.SILENTMODE_IS					= "조용함 모드 "
-
-L.LDB_LOAD_MODS		= "보스 모드 로드"
-
-L.LDB_ENABLE_BOSS_MOD	= "보스 모드 사용"
 
 L.WORLD_BUFFS.hordeOny		= "호드의 백성들이여, 오그리마의 주민들이여, 모두 와서 호드의 영웅을 찬양하라."
 L.WORLD_BUFFS.allianceOny	= "스톰윈드의 주민들과 모든 얼라이언스여! 오늘, 역사가 이루어졌노라."

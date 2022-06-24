@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220610045031"),
+	Revision = parseCurseDate("20220624161607"),
 	DisplayVersion = "9.2.20 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 5, 31) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -4873,7 +4873,11 @@ do
 	local function delayedGCSync(modId, difficultyIndex, name, thisTime, wipeHP)
 		if not statusGuildDisabled and updateNotificationDisplayed == 0 then
 			if thisTime then--Wipe event
-				SendAddonMessage(DBMPrefix.."-GCB", modId.."\t6\t1\t"..thisTime.."\t"..difficultyIndex.."\t"..name.."\t"..wipeHP, "GUILD")
+				if wipeHP then
+					SendAddonMessage(DBMPrefix.."-GCE", modId.."\t6\t1\t"..thisTime.."\t"..difficultyIndex.."\t"..name.."\t"..wipeHP, "GUILD")
+				else
+					SendAddonMessage(DBMPrefix.."-GCE", modId.."\t6\t0\t"..thisTime.."\t"..difficultyIndex.."\t"..name, "GUILD")
+				end
 			else
 				SendAddonMessage(DBMPrefix.."-GCB", modId.."\t3\t"..difficultyIndex.."\t"..name, "GUILD")
 			end
@@ -5075,6 +5079,7 @@ do
 						self:AddMsg(L.COMBAT_STARTED:format(difficultyText..name))
 						local check = not statusGuildDisabled and self:InGuildParty() and DBM:GetNumGuildPlayersInZone() >= 10
 						if check and not self.Options.DisableGuildStatus then--Only send relevant content
+							self:Unschedule(delayedGCSync, modId)
 							self:Schedule(1.5, delayedGCSync, modId, difficultyIndex, name)
 						end
 					end
@@ -5246,6 +5251,7 @@ do
 						self:AddMsg(L.COMBAT_ENDED_AT_LONG:format(difficultyText..name, wipeHP, strFromTime(thisTime), totalPulls - totalKills))
 						local check = self:InGuildParty() and DBM:GetNumGuildPlayersInZone() >= 10
 						if check and not self.Options.DisableGuildStatus then
+							self:Unschedule(delayedGCSync, modId)
 							self:Schedule(1.5, delayedGCSync, modId, difficultyIndex, name, strFromTime(thisTime), wipeHP)
 						end
 					end
@@ -5312,7 +5318,8 @@ do
 					end
 					local check = not statusGuildDisabled and self:InGuildParty() and DBM:GetNumGuildPlayersInZone() >= 10
 					if thisTimeString and check and not self.Options.DisableGuildStatus and updateNotificationDisplayed == 0 then
-						SendAddonMessage(DBMPrefix.."-GCE", modId.."\t6\t0\t"..thisTimeString.."\t"..difficultyIndex.."\t"..name, "GUILD")
+						self:Unschedule(delayedGCSync, modId)
+						self:Schedule(1.5, delayedGCSync, modId, encounterDifficultyIndex, name, thisTimeString)
 					end
 					self:Schedule(1, self.AddMsg, self, msg)
 				end
@@ -10486,7 +10493,7 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, iconType, ico
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
-	if not DBM.Options.GroupOptionsExcludeIcon then
+	if spellId and not DBM.Options.GroupOptionsExcludeIcon then
 		self:GroupSpells(spellId, name)
 	end
 	self:SetOptionCategory(name, "icon")
@@ -10499,22 +10506,26 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, iconType, ico
 		end
 	end
 	if iconType == 1 then
-		self.localization.options[name] = L.AUTO_ICONS_OPTION_TARGETS_MELEE_A:format(spellId)
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_MELEE_A:format(spellId) or self.localization.options[name]
 	elseif iconType == 2 then
-		self.localization.options[name] = L.AUTO_ICONS_OPTION_TARGETS_MELEE_R:format(spellId)
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_MELEE_R:format(spellId) or self.localization.options[name]
 	elseif iconType == 3 then
-		self.localization.options[name] = L.AUTO_ICONS_OPTION_TARGETS_RANGED_A:format(spellId)
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_RANGED_A:format(spellId) or self.localization.options[name]
 	elseif iconType == 4 then
-		self.localization.options[name] = L.AUTO_ICONS_OPTION_TARGETS_RANGED_R:format(spellId)
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_RANGED_R:format(spellId) or self.localization.options[name]
 	elseif iconType == 5 then
 		--NPC/Mob setting uses icon elect feature and needs to establish latency check table
 		if not self.findFastestComputer then
 			self.findFastestComputer = {}
 		end
 		self.findFastestComputer[#self.findFastestComputer + 1] = name
-		self.localization.options[name] = L.AUTO_ICONS_OPTION_NPCS:format(spellId)
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_NPCS:format(spellId) or self.localization.options[name]
+	elseif iconType == 6 then
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_ALPHA:format(spellId) or self.localization.options[name]
+	elseif iconType == 7 then
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_ROSTER:format(spellId) or self.localization.options[name]
 	else--Type 0 (Generic for targets)
-		self.localization.options[name] = L.AUTO_ICONS_OPTION_TARGETS:format(spellId)
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS:format(spellId) or self.localization.options[name]
 	end
 	--A table defining used icons by number, insert icon textures to end of option
 	if iconsUsed then

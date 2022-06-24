@@ -397,7 +397,7 @@ do
 			--But if not, we Register listeners to watch for the units we seek to appear
 			if not eventsRegistered and scansActive > 0 then
 				eventsRegistered = true
-				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET_UNFILTERED")
+				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET_UNFILTERED", "INSTANCE_ENCOUNTER_ENGAGE_UNIT")
 				DBM:Debug("Target events Registered", 2)
 			end
 		else

@@ -361,6 +361,7 @@ L.AUTO_SPEC_WARN_TEXTS.moveaway			= "%s - отбегите от остальны
 L.AUTO_SPEC_WARN_TEXTS.moveawaycount	= "%s (%%s) - отбегите от остальных"
 L.AUTO_SPEC_WARN_TEXTS.moveto			= "%s - бегите к >%%s<"
 L.AUTO_SPEC_WARN_TEXTS.soak				= "%s - перекройте"
+L.AUTO_SPEC_WARN_TEXTS.soakcount		= "%s - перекройте %%s"
 L.AUTO_SPEC_WARN_TEXTS.jump				= "%s - подпрыгните"
 L.AUTO_SPEC_WARN_TEXTS.run				= "%s - убегайте"
 L.AUTO_SPEC_WARN_TEXTS.cast				= "%s - прекратите чтение заклинаний"

@@ -490,6 +490,7 @@ L.AUTO_ICONS_OPTION_TARGETS_MELEE_R			= "為$spell:%s的目標設置標記，以
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_A		= "為$spell:%s的目標設置標記，以遠程和字母順序優先"
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_R		= "為$spell:%s的目標設置標記，以遠程和團隊陣容優先"
 L.AUTO_ICONS_OPTION_TARGETS_ALPHA			= "為$spell:%s的目標設置標記，以字母順序優先"
+L.AUTO_ICONS_OPTION_TARGETS_ROSTER			= "為$spell:%s的目標設置標記，以團隊陣容優先"
 L.AUTO_ICONS_OPTION_NPCS					= "為$spell:%s設置標記"
 L.AUTO_ICONS_OPTION_CONFLICT				= " (可能與其他選項衝突)"
 L.AUTO_ARROW_OPTION_TEXT					= "為跑向中了$spell:%s的目標顯示"..L.DBM.."箭頭"
@@ -590,8 +591,6 @@ L.LAG_FOOTER					= "無回應:%s"
 L.LDB_TOOLTIP_HELP1				= "點擊開啟" .. L.DBM
 L.LDB_TOOLTIP_HELP2				= "Alt+右鍵點擊切換到無聲模式"
 L.SILENTMODE_IS                 = "無聲模式是 "
-L.LDB_LOAD_MODS					= "載入首領模組"
-L.LDB_ENABLE_BOSS_MOD			= "啟用首領模組"
 
 --Localizers, do not copy entire table, follow same guidelines as other tables, overwrite each entry with L.WORLD_BUFFS.hordeOny = "stuff" for example.
 L.WORLD_BUFFS.hordeOny						= "部落的人民，奧格瑪的城民，來吧，聚集到一起歡慶部落英雄的誕生。"

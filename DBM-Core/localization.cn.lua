@@ -448,7 +448,7 @@ L.AUTO_TIMER_TEXTS.achievement 			= "%s"
 L.AUTO_TIMER_TEXTS.stage					= "下一阶段"
 L.AUTO_TIMER_TEXTS.adds					= "下一波小怪"
 L.AUTO_TIMER_TEXTS.addscustom			= "小怪 (%%s)"
-L.AUTO_TIMER_TEXTS.roleplay				= GUILD_INTEREST_RP
+L.AUTO_TIMER_TEXTS.roleplay				= "剧情"
 
 L.AUTO_TIMER_OPTIONS.target				= "计时条：$spell:%s减益效果持续时间 (%ds)"
 L.AUTO_TIMER_OPTIONS.targetcount		= "计时条：$spell:%s减益效果持续时间(带计数) (%ds)"
@@ -478,6 +478,7 @@ L.AUTO_ICONS_OPTION_TARGETS_MELEE_R		= "为$spell:%s的目标添加团队标记�
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "为$spell:%s的目标添加团队标记，以远程和字母顺序优先"
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_R	= "为$spell:%s的目标添加团队标记，以远程和团队阵容优先"
 L.AUTO_ICONS_OPTION_TARGETS_ALPHA		= "为$spell:%s的目标添加团队标记，以字母顺序优先"
+L.AUTO_ICONS_OPTION_TARGETS_ROSTER 		= "为$spell:%s的目标添加团队标记，以团队阵容优先"
 L.AUTO_ICONS_OPTION_NPCS			= "为$spell:%s添加团队标记"
 L.AUTO_ICONS_OPTION_CONFLICT 			= " （可能与其他选项冲突）"
 L.AUTO_ARROW_OPTION_TEXT				= "为$spell:%s的目标添加箭头"
@@ -505,8 +506,6 @@ L.AUTO_YELL_ANNOUNCE_TEXT.shortposition	= "{rt%%1$d}%s, %%2$d" --Icon, Spellname
 L.AUTO_YELL_ANNOUNCE_TEXT.combo		= "%s, %%s"
 
 --
---L.AUTO_YELL_CUSTOM_POSITION			= "{rt%d}%s{rt%d}"--Doesn't need translating. Has no strings
---L.AUTO_YELL_CUSTOM_POSITION2			= "{rt%d}{rt%d}%s{rt%d}{rt%d}"--Doesn't need translating. Has no strings
 L.AUTO_YELL_CUSTOM_FADE				= "%s 消失"
 L.AUTO_HUD_OPTION_TEXT				= "为$spell:%s显示HudMap(退休了)"
 L.AUTO_HUD_OPTION_TEXT_MULTI			= "为多个机制显示HudMap(退休了)"
@@ -581,10 +580,6 @@ L.DUR_FOOTER					= "未反馈此次检测的团员:%s"
 L.LDB_TOOLTIP_HELP1	= "左键 打开" .. L.DBM
 L.LDB_TOOLTIP_HELP2	= "Alt+右键 启用安静模式"
 L.SILENTMODE_IS		= "静音模式为："
-
-L.LDB_LOAD_MODS		= "载入首领模块"
-
-L.LDB_ENABLE_BOSS_MOD	= "启用首领模块"
 
 L.WORLD_BUFFS.hordeOny		 = "部落的人民，奥格瑞玛的居民，来吧，聚集在一起，欢庆部落英雄的诞生"
 L.WORLD_BUFFS.allianceOny	 = "暴风城的城民和盟友们，今天，有人创造了历史"

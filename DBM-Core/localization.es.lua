@@ -578,10 +578,6 @@ L.LDB_TOOLTIP_HELP1	= "Clic izquierdo para abrir DBM"
 L.LDB_TOOLTIP_HELP2	= "Clic derecho para el menú de configuración"
 L.SILENTMODE_IS		= "El modo silencioso es "
 
-L.LDB_LOAD_MODS		= "Cargar módulo"
-
-L.LDB_ENABLE_BOSS_MOD	= "Habilitar módulo"
-
 L.WORLD_BUFFS.hordeOny			= "Miembros de la Horda, ciudadanos de Orgrimmar, vengan y reúnanse para homenajear un hecho heroico"
 L.WORLD_BUFFS.allianceOny		= "Ciudadanos y aliados de Ventormenta, en el día de hoy, hemos hecho historia."
 L.WORLD_BUFFS.hordeNef			= "¡NEFARIAN HA SIDO ASESINADO! Ciudadanos de Orgrimmar"
