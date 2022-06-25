@@ -67,7 +67,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFA:Play("scatter")
 		end
 		if self.Options.FAIcons then
-			self:SetSortedIcon(1, args.destName, 1)
+			self:SetIcon(args.destName, 1)
 		end
 	end
 end
