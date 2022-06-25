@@ -1250,6 +1250,7 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 end
 
 function rangeCheck:SetBossRange(range, bossUnit)
+	if DBM.Options.DontShowRangeFrame then return end
 	if not HarmItems[range] then
 		error(("Boss mode range \"%d yd\" is not supported."):format(range), 2)
 	end
