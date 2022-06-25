@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624005857")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -37,9 +37,9 @@ mod:AddTimerLine(BOSS)
 local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, "Tank|Healer")
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, "Tank|Healer")
 local warnBloodNova			= mod:NewSpellAnnounce(72378, 2)
-local warnMark 				= mod:NewTargetCountAnnounce(72293, 4, 72293)
-local warnBoilingBlood		= mod:NewTargetAnnounce(72385, 2, nil, "Healer")
-local warnRuneofBlood		= mod:NewTargetAnnounce(72410, 3, nil, "Tank|Healer")
+local warnMark 				= mod:NewTargetCountAnnounce(72293, 4, 72293, nil, nil, nil, nil, nil, true)
+local warnBoilingBlood		= mod:NewTargetNoFilterAnnounce(72385, 2, nil, "Healer")
+local warnRuneofBlood		= mod:NewTargetNoFilterAnnounce(72410, 3, nil, "Tank|Healer")
 
 local specwarnMark			= mod:NewSpecialWarningTarget(72444, nil, false, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
@@ -52,8 +52,8 @@ local timerBloodNova		= mod:NewNextTimer(20, 72378, nil, nil, nil, 2)
 local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
 mod:AddRangeFrameOption(12, 72378, "Ranged")
-mod:AddInfoFrameOption(72370, false)
-mod:AddSetIconOption("BoilingBloodIcons", 72385, false, false, {1, 2, 3})
+mod:AddInfoFrameOption(72370, false)--Off by default, since you can literally just watch the bosses power bar
+mod:AddSetIconOption("BoilingBloodIcons", 72385, false, 0, {1, 2, 3})
 
 -- Blood Beasts
 mod:AddTimerLine(DBM_COMMON_L.ADDS)
@@ -62,62 +62,17 @@ local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 3)
 
-mod:AddSetIconOption("BeastIcons", 72173, true, true, {4, 5, 6, 7, 8})
+mod:AddSetIconOption("BeastIcons", 72173, true, 5, {8, 7, 6, 5, 4})
 
 mod.vb.warned_preFrenzy = false
-mod.vb.boilingBloodIcon 	= 1
+mod.vb.boilingBloodIcon = 1
+mod.vb.beastIcon = 8
 mod.vb.Mark = 0
 local boilingBloodTargets = {}
 local spellName = DBM:GetSpellInfo(72370)
-local UnitGUID = UnitGUID
-
-local function warnBoilingBloodTargets(self)
-	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
-	table.wipe(boilingBloodTargets)
-	self.vb.boilingBloodIcon = 1
-	timerBoilingBlood:Start()
-end
-
-function mod:OnCombatStart(delay)
-	if self.Options.RunePowerFrame then
-		DBM.BossHealth:Show(L.name)
-		DBM.BossHealth:AddBoss(37813, L.name)
-		self:ScheduleMethod(0.5, "CreateBossRPFrame")
-	end
-	if self:IsNormal() then
-		enrageTimer:Start(-delay)
-	else
-		enrageTimer:Start(360-delay)
-	end
-	timerCallBloodBeast:Start(40-delay)
-	warnAddsSoon:Schedule(30-delay)
-	timerBloodNova:Start(-delay)
-	timerRuneofBlood:Start(19.5-delay)
-	timerBoilingBlood:Start(19-delay)
-	table.wipe(boilingBloodTargets)
-	self.vb.warned_preFrenzy = false
-	self.vb.boilingBloodIcon = 8
-	self.vb.Mark = 0
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(12)
-	end
-	if self.Options.InfoFrame then
-		DBM.InfoFrame:SetHeader(spellName)
-		DBM.InfoFrame:Show(1, "enemypower", 2)
-	end
-end
-
-function mod:OnCombatEnd()
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Hide()
-	end
-	if self.Options.InfoFrame then
-		DBM.InfoFrame:Hide()
-	end
-	DBM.BossHealth:Clear()
-end
 
 do	-- add the additional Rune Power Bar
+	local UnitGUID = UnitGUID
 	local last = 0
 	local function getRunePowerPercent()
 		local guid = UnitGUID("focus")
@@ -140,6 +95,13 @@ do	-- add the additional Rune Power Bar
 	end
 end
 
+local function warnBoilingBloodTargets(self)
+	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
+	table.wipe(boilingBloodTargets)
+	self.vb.boilingBloodIcon = 1
+	timerBoilingBlood:Start()
+end
+
 function mod:FallenMarkTarget(targetname)
     if not targetname then return end
     if targetname == UnitName("player") then
@@ -149,6 +111,46 @@ function mod:FallenMarkTarget(targetname)
 			soundSpecWarnMark:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Vanish.ogg")
 		end
 	end
+end
+
+function mod:OnCombatStart(delay)
+	if self.Options.RunePowerFrame then
+		DBM.BossHealth:Show(L.name)
+		DBM.BossHealth:AddBoss(37813, L.name)
+		self:ScheduleMethod(0.5, "CreateBossRPFrame")
+	end
+	if self:IsNormal() then
+		enrageTimer:Start(-delay)
+	else
+		enrageTimer:Start(360-delay)
+	end
+	timerCallBloodBeast:Start(40-delay)
+	warnAddsSoon:Schedule(30-delay)
+	timerBloodNova:Start(-delay)
+	timerRuneofBlood:Start(19.5-delay)
+	timerBoilingBlood:Start(19-delay)
+	table.wipe(boilingBloodTargets)
+	self.vb.warned_preFrenzy = false
+	self.vb.boilingBloodIcon = 1
+	self.vb.beastIcon = 8
+	self.vb.Mark = 0
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(12)
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:SetHeader(spellName)
+		DBM.InfoFrame:Show(1, "enemypower", 2)
+	end
+end
+
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
+	end
+	DBM.BossHealth:Clear()
 end
 
 function mod:SPELL_CAST_START(args)
@@ -176,17 +178,15 @@ end
 function mod:SPELL_SUMMON(args)
 	if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
 		if self:AntiSpam(5) then
+			self.vb.beastIcon = 8
 			warnAdds:Show()
 			warnAddsSoon:Schedule(30)
 			timerCallBloodBeast:Start()
 		end
 		if self.Options.BeastIcons then
-			if self:IsDifficulty("normal25", "heroic25") then
-				self:ScanForMobs(args.destGUID, 0, 8, 5, 0.1, 20, "BeastIcons")
-			else
-				self:ScanForMobs(args.destGUID, 0, 8, 2, 0.1, 20, "BeastIcons")
-			end
+			self:ScanForMobs(args.destGUID, 2, self.vb.beastIcon, 1, nil, 10, "BeastIcons")
 		end
+		self.vb.beastIcon = self.vb.beastIcon - 1
 	end
 end
 
@@ -199,7 +199,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(72385, 72441, 72442, 72443) then	-- Boiling Blood
 		boilingBloodTargets[#boilingBloodTargets + 1] = args.destName
 		if self.Options.BoilingBloodIcons then
-			self:SetIcon(args.destName, self.vb.boilingBloodIcon, 15)
+			self:SetIcon(args.destName, self.vb.boilingBloodIcon)
 		end
 		self.vb.boilingBloodIcon = self.vb.boilingBloodIcon + 1
 		self:Unschedule(warnBoilingBloodTargets)
