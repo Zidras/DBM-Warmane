@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LordMarrowgar", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624005857")
 mod:SetCreatureID(36612)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -20,9 +20,9 @@ local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 local preWarnWhirlwind		= mod:NewSoonAnnounce(69076, 3)
 local warnBoneSpike			= mod:NewCastAnnounce(69057, 2)
-local warnImpale			= mod:NewTargetAnnounce(72669, 3)
+local warnImpale			= mod:NewTargetNoFilterAnnounce(72669, 3)
 
-local specWarnColdflame		= mod:NewSpecialWarningMove(69146, nil, nil, nil, 1, 2)
+local specWarnColdflame		= mod:NewSpecialWarningGTFO(69146, nil, nil, nil, 1, 8)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
 local timerBoneSpike		= mod:NewCDTimer(18, 69057, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
@@ -37,9 +37,9 @@ local soundBoneStorm		= mod:NewSound(69076)
 
 local berserkTimer			= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
-mod:AddSetIconOption("SetIconOnImpale", 72669, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
+mod:AddSetIconOption("SetIconOnImpale", 72669, true, 0, {8, 7, 6, 5, 4, 3, 2, 1})
 
-mod.vb.impaleIcon	= 8
+mod.vb.impaleIcon = 8
 
 function mod:OnCombatStart(delay)
 	preWarnWhirlwind:Schedule(43-delay) -- Edited
@@ -93,10 +93,10 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 	if (spellId == 69146 or spellId == 70823 or spellId == 70824 or spellId == 70825) and destGUID == UnitGUID("player") and self:AntiSpam() then		-- Coldflame, MOVE!
-		specWarnColdflame:Show()
-		specWarnColdflame:Play("runaway")
+		specWarnColdflame:Show(spellName)
+		specWarnColdflame:Play("watchfeet")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
