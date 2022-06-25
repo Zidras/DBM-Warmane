@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ICCTrash", "DBM-Icecrown", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624005857")
 mod:SetModelID(37007)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod.isTrashMod = true
@@ -20,19 +20,19 @@ mod:RegisterEvents(
 
 --Lower Spire
 local warnDisruptingShout		= mod:NewSpellAnnounce(71022, 2)
-local warnDarkReckoning			= mod:NewTargetAnnounce(69483, 3)
-local warnDeathPlague			= mod:NewTargetAnnounce(72865, 4)
+local warnDarkReckoning			= mod:NewTargetNoFilterAnnounce(69483, 3)
+local warnDeathPlague			= mod:NewTargetNoFilterAnnounce(72865, 4)
 --Plagueworks
 local warnZombies				= mod:NewSpellAnnounce(71159, 2)
 local warnMortalWound			= mod:NewStackAnnounce(71127, 2, nil, "Tank|Healer")
 local warnDecimateSoon			= mod:NewSoonAnnounce(71123, 3)
 --Crimson Hall
-local warnBloodMirror			= mod:NewTargetAnnounce(70451, 3, nil, "Healer")
-local warnBloodSap				= mod:NewTargetAnnounce(70432, 4)
-local warnChainsofShadow		= mod:NewTargetAnnounce(70645, 3)
+local warnBloodMirror			= mod:NewTargetNoFilterAnnounce(70451, 3, nil, "Healer|Tank")
+local warnBloodSap				= mod:NewTargetNoFilterAnnounce(70432, 4, nil, "Healer|Tank")
+local warnChainsofShadow		= mod:NewTargetNoFilterAnnounce(70645, 3, nil, false)
 --Frostwing Hall
-local warnConflag				= mod:NewTargetAnnounce(71785, 4)
-local warnBanish				= mod:NewTargetAnnounce(71298, 3)
+local warnConflag				= mod:NewTargetNoFilterAnnounce(71785, 4, nil, false)
+local warnBanish				= mod:NewTargetNoFilterAnnounce(71298, 3, nil, false)
 
 --Lower Spire
 local specWarnDisruptingShout	= mod:NewSpecialWarningCast(71022)
@@ -49,31 +49,32 @@ local specWarnGosaEvent			= mod:NewSpecialWarning("SpecWarnGosaEvent")
 local specWarnBlade				= mod:NewSpecialWarningMove(70305)
 
 --Lower Spire
-local timerDisruptingShout		= mod:NewCastTimer(3, 71022)
-local timerDarkReckoning		= mod:NewTargetTimer(8, 69483)
-local timerDeathPlague			= mod:NewTargetTimer(15, 72865)
+local timerDisruptingShout		= mod:NewCastTimer(3, 71022, nil, nil, nil, 2)
+local timerDarkReckoning		= mod:NewTargetTimer(8, 69483, nil, nil, nil, 5)
+local timerDeathPlague			= mod:NewTargetTimer(15, 72865, nil, nil, nil, 3)
 --Plagueworks
-local timerZombies				= mod:NewNextTimer(20, 71159)
-local timerMortalWound			= mod:NewTargetTimer(15, 71127)
-local timerDecimate				= mod:NewNextTimer(33, 71123)
-local timerBlightBomb			= mod:NewCastTimer(5, 71088)
+local timerZombies				= mod:NewNextTimer(20, 71159, nil, nil, nil, 1)
+local timerMortalWound			= mod:NewTargetTimer(15, 71127, nil, nil, nil, 5)
+local timerDecimate				= mod:NewNextTimer(33, 71123, nil, nil, nil, 2)
+local timerBlightBomb			= mod:NewCastTimer(5, 71088, nil, nil, nil, 3)
 --Crimson Hall
-local timerBloodMirror			= mod:NewTargetTimer(30, 70451, nil, "Healer")
-local timerBloodSap				= mod:NewTargetTimer(8, 70432)
-local timerChainsofShadow		= mod:NewTargetTimer(10, 70645)
+local timerBloodMirror			= mod:NewTargetTimer(30, 70451, nil, "Healer|Tank", nil, 5)
+local timerBloodSap				= mod:NewTargetTimer(8, 70432, nil, "Healer|Tank", nil, 5)
+local timerChainsofShadow		= mod:NewTargetTimer(10, 70645, nil, false, nil, 3)
 --Frostwing Hall
-local timerConflag				= mod:NewTargetTimer(10, 71785)
-local timerBanish				= mod:NewTargetTimer(6, 71298)
+local timerConflag				= mod:NewTargetTimer(10, 71785, nil, false, nil, 3)
+local timerBanish				= mod:NewTargetTimer(6, 71298, nil, false, nil, 3)
 
 mod:RemoveOption("HealthFrame")
 --Lower Spire
-mod:AddSetIconOption("SetIconOnDarkReckoning", 69483, true)
-mod:AddSetIconOption("SetIconOnDeathPlague", 72865, true)
+mod:AddSetIconOption("SetIconOnDarkReckoning", 69483, true, 0, {8})
+mod:AddSetIconOption("SetIconOnDeathPlague", 72865, true, 7, {1, 2, 3, 4, 5, 6, 7, 8})
 --Crimson Hall
-mod:AddSetIconOption("BloodMirrorIcon", 70451, false)
+mod:AddSetIconOption("BloodMirrorIcon", 70451, false, 0, {2})
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 69483 then
+	local spellId = args.spellId
+	if spellId == 69483 then
 		warnDarkReckoning:Show(args.destName)
 		timerDarkReckoning:Start(args.destName)
 		if args:IsPlayer() then
@@ -82,16 +83,16 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnDarkReckoning then
 			self:SetIcon(args.destName, 8, 8)
 		end
-	elseif args.spellId == 72865 then
+	elseif spellId == 72865 then
 		warnDeathPlague:CombinedShow(0.3, args.destName)
 		timerDeathPlague:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnDeathPlague:Show()
 		end
 		if self.Options.SetIconOnDeathPlague then
-			self:SetSortedIcon(0.3, args.destName, 8, 8, true)
+			self:SetSortedIcon("roster", 0.3, args.destName, 1, 8, false)
 		end
-	elseif args.spellId == 71127 then
+	elseif spellId == 71127 then
 		local amount = args.amount or 1
 		timerMortalWound:Start(args.destName)
 		if amount % 2 == 0 then
@@ -100,22 +101,22 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnMortalWound:Show(amount)
 			end
 		end
-	elseif args.spellId == 70451 and args:IsDestTypePlayer() then
+	elseif spellId == 70451 and args:IsDestTypePlayer() then
 		warnBloodMirror:CombinedShow(0.3, args.destName)
 		timerBloodMirror:Start(args.destName)
 		if self.Options.BloodMirrorIcon then
-			self:SetSortedIcon(0.3, args.destName, 2, 2, true)
+			self:SetSortedIcon("roster", 0.3, args.destName, 2, 2, true)
 		end
-	elseif args.spellId == 70432 then
+	elseif spellId == 70432 then
 		warnBloodSap:Show(args.destName)
 		timerBloodSap:Start(args.destName)
-	elseif args.spellId == 70645 and args:IsDestTypePlayer() then
+	elseif spellId == 70645 and args:IsDestTypePlayer() then
 		warnChainsofShadow:Show(args.destName)
 		timerChainsofShadow:Start(args.destName)
-	elseif args.spellId == 71785 then
+	elseif spellId == 71785 then
 		warnConflag:Show(args.destName)
 		timerConflag:Start(args.destName)
-	elseif args.spellId == 71298 then
+	elseif spellId == 71298 then
 		warnBanish:Show(args.destName)
 		timerBanish:Start(args.destName)
 	end
@@ -123,29 +124,31 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 70451 then
+	local spellId = args.spellId
+	if spellId == 70451 then
 		timerBloodMirror:Cancel(args.destName)
 		self:SetIcon(args.destName, 0)
-	elseif args.spellId == 70432 then
+	elseif spellId == 70432 then
 		timerBloodSap:Cancel(args.destName)
-	elseif args.spellId == 70645 then
+	elseif spellId == 70645 then
 		timerChainsofShadow:Cancel(args.destName)
-	elseif args.spellId == 71785 then
+	elseif spellId == 71785 then
 		timerConflag:Cancel(args.destName)
-	elseif args.spellId == 71298 then
+	elseif spellId == 71298 then
 		timerBanish:Cancel(args.destName)
 	end
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 71022 then
+	local spellId = args.spellId
+	if spellId == 71022 then
 		warnDisruptingShout:Show()
 		specWarnDisruptingShout:Show()
 		timerDisruptingShout:Start()
-	elseif args.spellId == 71088 then
+	elseif spellId == 71088 then
 		specWarnBlightBomb:Show()
 		timerBlightBomb:Start()
-	elseif args.spellId == 71123 then
+	elseif spellId == 71123 then
 		specWarnDecimate:Show()
 		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
 		warnDecimateSoon:Schedule(28)
