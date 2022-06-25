@@ -8,11 +8,9 @@ DBM.InfoFrame = {}
 -------------------
 local DBM = DBM
 local L = DBM_CORE_L
-local UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTargetIndex = UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTargetIndex
-local UnitExists, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost = UnitExists, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost
-local UnitThreatSituation, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton =  UnitThreatSituation, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton
-local error, tostring, type, pairs, ipairs, select, tonumber = error, tostring, type, pairs, ipairs, select, tonumber
-local tsort, twipe, mfloor, mmax, mmin, mrandom, schar, ssplit =  table.sort, table.wipe, math.floor, math.max, math.min, math.random, string.char, string.split
+local UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTargetIndex, UnitExists, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton = UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTargetIndex, UnitExists, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton
+local error, tostring, type, pairs, ipairs, select, tonumber, tsort, twipe, mfloor, mmax, mmin, mrandom, schar, ssplit = error, tostring, type, pairs, ipairs, select, tonumber, table.sort, table.wipe, math.floor, math.max, math.min, math.random, string.char, string.split
+local ADDITIONAL_POWER_BAR_INDEX = ADDITIONAL_POWER_BAR_INDEX or 0
 local NORMAL_FONT_COLOR, SPELL_FAILED_OUT_OF_RANGE = NORMAL_FONT_COLOR, SPELL_FAILED_OUT_OF_RANGE
 local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS-- for Phanx' Class Colors
 
@@ -40,7 +38,7 @@ local sortMethod = 1--1 Default, 2 SortAsc, 3 GroupId
 local lines, sortedLines, icons, value = {}, {}, {}, {}
 local playerName = UnitName("player")
 local AceTimer = LibStub("AceTimer-3.0")
-
+local SpecializedAbsorbs = LibStub("SpecializedAbsorbs-1.0")
 ---------------------
 --  Dropdown Menu  --
 ---------------------
@@ -166,6 +164,13 @@ do
 				info.arg1 = 20
 				info.checked = (DBM.Options.InfoFrameLines == 20)
 				UIDropDownMenu_AddButton(info, 2)
+
+				info = UIDropDownMenu_CreateInfo()
+				info.text = L.INFOFRAME_LINES_TO:format(40)
+				info.func = setLines
+				info.arg1 = 40 -- Use 40 in classic for full man raids
+				info.checked = (DBM.Options.InfoFrameLines == 40)
+				UIDropDownMenu_AddButton(info, 2)
 			elseif menu == "cols" then
 				info = UIDropDownMenu_CreateInfo()
 				info.text = L.INFOFRAME_LINESDEFAULT
@@ -207,6 +212,13 @@ do
 				info.func = setCols
 				info.arg1 = 5
 				info.checked = (DBM.Options.InfoFrameCols == 5)
+				UIDropDownMenu_AddButton(info, 2)
+
+				info = UIDropDownMenu_CreateInfo()
+				info.text = L.INFOFRAME_COLS_TO:format(6)
+				info.func = setCols
+				info.arg1 = 6
+				info.checked = (DBM.Options.InfoFrameCols == 6)
 				UIDropDownMenu_AddButton(info, 2)
 			end
 		end
@@ -341,10 +353,10 @@ local function updateIcons()
 	for uId in DBM:GetGroupMembers() do
 		local icon = GetRaidTargetIndex(uId)
 		local icon2 = GetRaidTargetIndex(uId .. "target")
-		if icon then
+		if icon and icon <= 8 then
 			icons[DBM:GetUnitFullName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
 		end
-		if icon2 then
+		if icon2 and icon2 <= 8 then
 			icons[DBM:GetUnitFullName(uId .. "target")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon2)
 		end
 	end
@@ -376,7 +388,7 @@ local function updatePlayerPower()
 	-- Value 4 is the noUpdate handler
 	-- Value 5 is sorting method, handled in show handler
 	for uId in DBM:GetGroupMembers() do
-		if not spellFilter or not DBM:UnitDebuffNew(uId, spellFilter) then
+		if not spellFilter or not DBM:UnitDebuff(uId, spellFilter) then
 			local maxPower = UnitPowerMax(uId, powerType)
 			if maxPower ~= 0 and not UnitIsDeadOrGhost(uId) and UnitPower(uId, powerType) / UnitPowerMax(uId, powerType) * 100 >= threshold then
 				lines[DBM:GetUnitFullName(uId)] = UnitPower(uId, powerType)
@@ -397,15 +409,33 @@ local function updateEnemyPower()
 	local specificUnit = value[3]
 	if powerType then -- Only do power type defined
 		if specificUnit then
-			local currentPower, maxPower = UnitPower(specificUnit, powerType), UnitPowerMax(specificUnit, powerType)
-			if maxPower and maxPower > 0 then
-				local percent = currentPower / maxPower * 100
-				if percent >= threshold then
-					lines[UnitName(specificUnit)] = mfloor(percent) .. "%"
+			specificUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
+			if UnitExists(specificUnit) then
+				local currentPower, maxPower = UnitPower(specificUnit, powerType), UnitPowerMax(specificUnit, powerType)
+				if maxPower and maxPower > 0 then
+					local percent = currentPower / maxPower * 100
+					if percent >= threshold then
+						lines[UnitName(specificUnit)] = mfloor(percent) .. "%"
+					end
 				end
 			end
 		else
-			if specificUnit then
+			for i = 1, 5 do
+				local uId = "boss" .. i
+				local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
+				if maxPower and maxPower > 0 then
+					local percent = currentPower / maxPower * 100
+					if percent >= threshold then
+						lines[UnitName(uId)] = mfloor(percent) .. "%"
+					end
+				end
+			end
+		end
+	else -- Check primary power type and alternate power types together. This should only be used if BOTH power types exist on same boss
+		if specificUnit then
+			specificUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
+			if UnitExists(specificUnit) then
+				-- Primary Power
 				local currentPower, maxPower = UnitPower(specificUnit), UnitPowerMax(specificUnit)
 				if maxPower and maxPower > 0 then
 					local percent = currentPower / maxPower * 100
@@ -413,34 +443,30 @@ local function updateEnemyPower()
 						lines[UnitName(specificUnit)] = mfloor(percent) .. "%"
 					end
 				end
-			else
-				for i = 1, 5 do
-					local uId = "boss" .. i
-					local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
-					if maxPower and maxPower > 0 then
-						local percent = currentPower / maxPower * 100
-						if percent >= threshold then
-							lines[UnitName(uId)] = mfloor(percent) .. "%"
-						end
+				-- Alternate Power
+				local currentAltPower, maxAltPower = UnitPower(specificUnit, ADDITIONAL_POWER_BAR_INDEX), UnitPowerMax(specificUnit, ADDITIONAL_POWER_BAR_INDEX)
+				if maxAltPower and maxAltPower > 0 then
+					if currentAltPower / maxAltPower * 100 >= threshold then
+						lines[UnitName(specificUnit)] = L.INFOFRAME_ALT .. currentAltPower
 					end
 				end
 			end
-		end
-	else -- Check primary power type and alternate power types together. This should only be used if BOTH power types exist on same boss, else fix your shit MysticalOS
-		for i = 1, 5 do
-			local uId = "boss" .. i
-			-- Primary Power
-			local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
-			if maxPower and maxPower > 0 then
-				if currentPower / maxPower * 100 >= threshold then
-					lines[UnitName(uId)] = currentPower
+		else
+			for i = 1, 5 do
+				local uId = "boss" .. i
+				-- Primary Power
+				local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
+				if maxPower and maxPower > 0 then
+					if currentPower / maxPower * 100 >= threshold then
+						lines[UnitName(uId)] = currentPower
+					end
 				end
-			end
-			-- Alternate Power
-			local currentAltPower, maxAltPower = UnitPower(uId, 10), UnitPowerMax(uId, 10)
-			if maxAltPower and maxAltPower > 0 then
-				if currentAltPower / maxAltPower * 100 >= threshold then
-					lines[UnitName(uId)] = L.INFOFRAME_ALT .. currentAltPower
+				-- Alternate Power
+				local currentAltPower, maxAltPower = UnitPower(uId, ADDITIONAL_POWER_BAR_INDEX), UnitPowerMax(uId, ADDITIONAL_POWER_BAR_INDEX)
+				if maxAltPower and maxAltPower > 0 then
+					if currentAltPower / maxAltPower * 100 >= threshold then
+						lines[UnitName(uId)] = L.INFOFRAME_ALT .. currentAltPower
+					end
 				end
 			end
 		end
@@ -449,44 +475,106 @@ local function updateEnemyPower()
 	updateIcons()
 end
 
+-- WotLK does not have absorb API, so absorb numbers will be estimated using SpecializedAbsorbs library
 local function updateEnemyAbsorb()
 	twipe(lines)
 	local spellInput = value[1]
 	local totalAbsorb = value[2]
 	local specificUnit = value[3]
 	if specificUnit then
+		specificUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
 		if UnitExists(specificUnit) then
 			local absorbAmount
 			if spellInput then -- Get specific spell absorb
-				absorbAmount = select(16, DBM:UnitBuffNew(specificUnit, spellInput)) or select(16, DBM:UnitDebuffNew(specificUnit, spellInput))
+				absorbAmount = SpecializedAbsorbs:UnitEffect(UnitGUID(specificUnit), spellInput)
 			else -- Get all of them
-				--absorbAmount = UnitGetTotalAbsorbs(specificUnit)
-				absorbAmount = 0
+				absorbAmount = SpecializedAbsorbs:UnitTotal(UnitGUID(specificUnit))
 			end
 			if absorbAmount and absorbAmount > 0 then
-				local text
 				if totalAbsorb then
-					text = absorbAmount / totalAbsorb * 100
-					lines[UnitName(specificUnit)] = mfloor(text) .. "%"
+					lines[UnitName(specificUnit)] = mfloor(absorbAmount / totalAbsorb * 100) .. "%"
 				else
-					text = absorbAmount
-					lines[UnitName(specificUnit)] = mfloor(text)
+					lines[UnitName(specificUnit)] = mfloor(absorbAmount)
 				end
 			end
 		end
-	else
+	else--Generic absorbs for bosses. Not to be mistaken for updateMultiEnemyAbsorb, which supports checking multiple units that might or might not be bosses
 		for i = 1, 5 do
 			local uId = "boss" .. i
 			if UnitExists(uId) then
 				local absorbAmount
 				if spellInput then -- Get specific spell absorb
-					absorbAmount = select(16, DBM:UnitBuffNew(uId, spellInput)) or select(16, DBM:UnitDebuffNew(uId, spellInput))
+					absorbAmount = SpecializedAbsorbs:UnitEffect(UnitGUID(uId), spellInput)
 				else -- Get all of them
-					--absorbAmount = UnitGetTotalAbsorbs(uId)
-					absorbAmount = 0
+					absorbAmount = SpecializedAbsorbs:UnitTotal(UnitGUID(uId))
 				end
 				if absorbAmount and absorbAmount > 0 then
-					lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100 or absorbAmount) .. "%"
+					if totalAbsorb then
+						lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100) .. "%"
+					else
+						lines[UnitName(uId)] = mfloor(absorbAmount)
+					end
+				end
+			end
+		end
+	end
+	updateLines()
+	updateIcons()
+end
+
+--Really hate splitting this off from updateEnemyAbsorb but having them merged was even uglier
+--Note, this method also less efficient than boss only or single unit absorb tracking.
+--Don't use this function to be lazy (ie just passing 1 guid instead of finding valid unit at mod level)
+local function updateMultiEnemyAbsorb()
+	twipe(lines)
+	local spellInput = value[1]
+	local totalAbsorb = value[2]
+	local guidTable = value[3]--Multi target by table
+	local guidTracked = {}
+	for i = 1, 10 do
+		if #guidTable == #guidTracked then--Stop searching, found everything we're looking for.
+			break
+		end
+		local uId = "boss" .. i
+		if UnitExists(uId) then
+			local targetGUID = UnitGUID(uId)
+			if guidTable[targetGUID] and not guidTracked[targetGUID] then
+				guidTracked[targetGUID] = true
+				local absorbAmount
+				if spellInput then -- Get specific spell absorb
+					absorbAmount = SpecializedAbsorbs:UnitEffect(targetGUID, spellInput)
+				else -- Get all of them
+					absorbAmount = SpecializedAbsorbs:UnitTotal(targetGUID)
+				end
+				if absorbAmount and absorbAmount > 0 then
+					if totalAbsorb then
+						lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100) .. "%"
+					else
+						lines[UnitName(uId)] = mfloor(absorbAmount)
+					end
+				end
+			end
+		end
+	end
+	for unitId in DBM:GetGroupMembers() do--Do not use self on this function, because self might be bossModPrototype
+		if #guidTable == #guidTracked then--Stop searching, found everything we're looking for.
+			break
+		end
+		local uId = unitId .. "target"
+		local targetGUID = UnitGUID(unitId)
+		if guidTable[targetGUID] and not guidTracked[targetGUID] then
+			guidTracked[targetGUID] = true
+			local absorbAmount
+			if spellInput then -- Get specific spell absorb
+				absorbAmount = SpecializedAbsorbs:UnitEffect(UnitGUID(uId), spellInput)
+			else -- Get all of them
+				absorbAmount = SpecializedAbsorbs:UnitTotal(UnitGUID(uId))
+			end
+			if absorbAmount and absorbAmount > 0 then
+				if totalAbsorb then
+					lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100) .. "%"
+				else
+					lines[UnitName(uId)] = mfloor(absorbAmount)
 				end
 			end
 		end
@@ -499,27 +587,33 @@ local function updateAllAbsorb()
 	twipe(lines)
 	local spellInput = value[1]
 	local totalAbsorb = value[2]
-	local totalAbsorb2 = value[3]
 	for i = 1, 5 do
 		local uId = "boss" .. i
 		if UnitExists(uId) then
 			local absorbAmount
 			if spellInput then -- Get specific spell absorb
-				absorbAmount = select(16, DBM:UnitBuffNew(uId, spellInput)) or select(16, DBM:UnitDebuffNew(uId, spellInput))
+				absorbAmount = SpecializedAbsorbs:UnitEffect(UnitGUID(uId), spellInput)
 			else -- Get all of them
-				--absorbAmount = UnitGetTotalAbsorbs(uId)
-				absorbAmount = 0
+				absorbAmount = SpecializedAbsorbs:UnitTotal(UnitGUID(uId))
 			end
-			if absorbAmount then
-				lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100 or absorbAmount) .. "%"
+			if absorbAmount and absorbAmount > 0 then
+				if totalAbsorb then
+					lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100) .. "%"
+				else
+					lines[UnitName(uId)] = mfloor(absorbAmount)
+				end
 			end
 		end
 	end
 	if spellInput then
 		for uId in DBM:GetGroupMembers() do
-			local absorbAmount = select(16, DBM:UnitBuffNew(uId, spellInput)) or select(16, DBM:UnitDebuffNew(uId, spellInput))
-			if absorbAmount then
-				lines[DBM:GetUnitFullName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb2 * 100 or absorbAmount) .. "%"
+			local absorbAmount = SpecializedAbsorbs:UnitEffect(UnitGUID(uId), spellInput)
+			if absorbAmount and absorbAmount > 0 then
+				if totalAbsorb then
+					lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100) .. "%"
+				else
+					lines[UnitName(uId)] = mfloor(absorbAmount)
+				end
 			end
 		end
 	end
@@ -532,9 +626,18 @@ local function updatePlayerAbsorb()
 	local spellInput = value[1]
 	local totalAbsorb = value[2]
 	for uId in DBM:GetGroupMembers() do
-		local absorbAmount = select(16, DBM:UnitBuffNew(uId, spellInput)) or select(16, DBM:UnitDebuffNew(uId, spellInput))
-		if absorbAmount then
-			lines[DBM:GetUnitFullName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100 or absorbAmount)
+		local absorbAmount
+		if spellInput then -- Get specific spell absorb
+			absorbAmount = SpecializedAbsorbs:UnitEffect(UnitGUID(uId), spellInput)
+		else--Not even spell input given, this is a very generic infoframe
+			absorbAmount = SpecializedAbsorbs:UnitTotal(UnitGUID(uId))
+		end
+		if absorbAmount and absorbAmount > 0 then
+			if totalAbsorb then
+				lines[UnitName(uId)] = mfloor(totalAbsorb and absorbAmount / totalAbsorb * 100) .. "%"
+			else
+				lines[UnitName(uId)] = mfloor(absorbAmount)
+			end
 		end
 	end
 	updateLines()
@@ -549,7 +652,7 @@ local function updatePlayerBuffs()
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
-			if not DBM:UnitBuffNew(uId, spellName) and not UnitIsDeadOrGhost(uId) then
+			if not DBM:UnitBuff(uId, spellName) and not UnitIsDeadOrGhost(uId) then
 				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
@@ -566,7 +669,7 @@ local function updateGoodPlayerDebuffs()
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
-			if not DBM:UnitDebuffNew(uId, spellInput) and not UnitIsDeadOrGhost(uId) then
+			if not DBM:UnitDebuff(uId, spellInput) and not UnitIsDeadOrGhost(uId) then
 				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
@@ -584,7 +687,7 @@ local function updateBadPlayerDebuffs()
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
-			if DBM:UnitDebuffNew(uId, spellInput) and not UnitIsDeadOrGhost(uId) then
+			if DBM:UnitDebuff(uId, spellInput) and not UnitIsDeadOrGhost(uId) then
 				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
@@ -640,7 +743,7 @@ local function updateReverseBadPlayerDebuffs()
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
-			if not DBM:UnitDebuffNew(uId, spellInput) and not UnitIsDeadOrGhost(uId) and not DBM:UnitBuffNew(uId, 27827) then--27827 Spirit of Redemption. This particular info frame wants to ignore this
+			if not DBM:UnitDebuff(uId, spellInput) and not UnitIsDeadOrGhost(uId) and not DBM:UnitBuff(uId, 27827) then--27827 Spirit of Redemption. This particular info frame wants to ignore this
 				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
@@ -798,6 +901,7 @@ local events = {
 	["playerpower"] = updatePlayerPower,
 	["enemypower"] = updateEnemyPower,
 	["enemyabsorb"] = updateEnemyAbsorb,
+	["multienemyabsorb"] = updateMultiEnemyAbsorb,
 	["allabsorb"] = updateAllAbsorb,
 	["playerabsorb"] = updatePlayerAbsorb,
 	["playerbuff"] = updatePlayerBuffs,
@@ -952,23 +1056,30 @@ local function onUpdate(frame, table)
 		maxWidth1[m] = mmax(maxWidth1[m] or 0, frame.lines[i * 2 - 1]:GetStringWidth())
 		maxWidth2[m] = mmax(maxWidth2[m] or 0, frame.lines[i * 2]:GetStringWidth())
 	end
+	local size = DBM.Options.InfoFrameFontSize
 	local width = 0
 	for i, _ in pairs(maxWidth1) do
 		local maxWid, maxWid2 = maxWidth1[i], maxWidth2[i]
-		width = width + maxWid + maxWid2 + 18
+		width = width + maxWid + maxWid2 + size + (size / 2)
 		for ii = 1, linesPerRow do
 			local m = ((i - 1) * linesPerRow * 2) + (ii * 2)
 			if not frame.lines[m] then
 				break
 			end
-			frame.lines[m - 1]:SetSize(maxWid, 12)
-			frame.lines[m]:SetSize(maxWid2, 12)
+			frame.lines[m - 1]:SetSize(maxWid, size)
+			frame.lines[m]:SetSize(maxWid2, size)
 		end
 	end
 	if width == 0 then
 		width = 105
 	end
-	frame:SetSize(width, (linesPerRow * 12) + 12)
+	local height = size
+	if linesShown > linesPerRow then
+		height = height + (linesPerRow * size)
+	else
+		height = height + (mmin(linesShown, maxLines) * size)
+	end
+	frame:SetSize(width, height)
 	frame:Show()
 	prevLines = linesShown
 end
@@ -1015,14 +1126,14 @@ function infoFrame:Show(modMaxLines, event, ...)
 	elseif type(value[1]) == "number" and event ~= "health" and event ~= "function" and event ~= "table" and event ~= "playertargets" and event ~= "playeraggro" and event ~= "playerpower" and event ~= "enemypower" and event ~= "test" and event ~= "test2" then
 		-- Outside of "byspellid" functions, typical frames will still use spell NAME matching not spellID.
 		-- This just determines if we convert the spell input to a spell Name, if a spellId was provided for a non byspellid infoframe
-		value[1] = DBM:GetSpellInfoNew(value[1])
+		value[1] = DBM:GetSpellInfo(value[1])
 	end
 	currentEvent = event
 	if event == "playerbuff" or event == "playerbaddebuff" or event == "playergooddebuff" then
 		sortMethod = 3 -- Sort by group ID
 	elseif (event == "playerdebuffstacks" or event == "table" or event == "playerdebuffremaining") and value[2] and type(value[2]) == "number" then
 		sortMethod = value[2]
-	elseif (event == "health" or event == "playerdebuffremaining") then
+	elseif event == "health" or event == "playerdebuffremaining" then
 		sortMethod = 2 -- Sort lowest first
 	elseif event == "playerpower" and value[5] and type(value[5]) == "number" then
 		sortMethod = value[5]
@@ -1041,7 +1152,9 @@ function infoFrame:Show(modMaxLines, event, ...)
 	frame:Show()
 	onUpdate(frame, value[1])
 	if not frame.ticker and not value[4] and event ~= "table" then
-		frame.ticker = AceTimer:ScheduleRepeatingTimer(function() onUpdate(frame) end, 0.5)
+		frame.ticker = AceTimer:ScheduleRepeatingTimer(function()
+			onUpdate(frame)
+		end, 0.5)
 	elseif frame.ticker and value[4] then -- Redundancy, in event calling a non onupdate infoframe show without a hide event to unschedule ticker based infoframe
 		AceTimer:CancelTimer(frame.ticker)
 		frame.ticker = nil
@@ -1058,19 +1171,25 @@ function infoFrame:Update(time)
 	end
 	if frame:IsShown() then
 		if time then
-			AceTimer:ScheduleTimer(function() onUpdate(frame) end, time)
+			DBM:Unschedule(onUpdate)
+			DBM:Schedule(time, onUpdate, frame)
 		else
 			onUpdate(frame)
 		end
 	end
 end
 
-function infoFrame:UpdateTable(table)
+function infoFrame:UpdateTable(table, time)
 	if not frame then
 		createFrame()
 	end
 	if frame:IsShown() and table then
-		onUpdate(frame, table)
+		if time then
+			DBM:Unschedule(onUpdate)
+			DBM:Schedule(time, onUpdate, frame, table)
+		else
+			onUpdate(frame, table)
+		end
 	end
 end
 
@@ -1092,19 +1211,20 @@ function infoFrame:ClearLines()
 end
 
 function infoFrame:AlignLine(lineNum, linesPerRow)
+	local size = DBM.Options.InfoFrameFontSize
 	local line = frame.lines[lineNum]
 	line:SetJustifyH(lineNum % 2 == 0 and "RIGHT" or "LEFT")
 	if lineNum == 1 then -- 1st entry left
-		line:SetPoint("TOPLEFT", frame, "TOPLEFT", 6, -6)
+		line:SetPoint("TOPLEFT", frame, "TOPLEFT", size / 2, -(size / 2))
 	elseif lineNum == 2 then -- 1st entry right
-		line:SetPoint("TOPLEFT", frame.lines[1], "TOPRIGHT", 6, 0)
+		line:SetPoint("TOPLEFT", frame.lines[1], "TOPRIGHT", size / 2, 0)
 	else
 		if lineNum % linesPerRow == 1 then -- Column 2-x, 1st entry left
-			line:SetPoint("TOPLEFT", frame.lines[lineNum - linesPerRow + 1], "TOPRIGHT", 12, 0)
+			line:SetPoint("TOPLEFT", frame.lines[lineNum - linesPerRow + 1], "TOPRIGHT", size, 0)
 		elseif lineNum % 2 == 0 then -- Column 2-x, Right entry
-			line:SetPoint("TOPLEFT", frame.lines[lineNum - 1], "TOPRIGHT", 6, 0)
+			line:SetPoint("TOPLEFT", frame.lines[lineNum - 1], "TOPRIGHT", size / 2, 0)
 		else -- Column 2-x, Left entry
-			line:SetPoint("TOPLEFT", frame.lines[lineNum - 2], "LEFT", 0, -6)
+			line:SetPoint("TOPLEFT", frame.lines[lineNum - 2], "LEFT", 0, -(size / 2))
 		end
 	end
 end
@@ -1165,10 +1285,16 @@ end
 
 function infoFrame:SetLines(lines)
 	modLines = lines
+	if DBM.Options.InfoFrameLines == 0 then
+		maxLines = lines
+	end
 end
 
 function infoFrame:SetColumns(columns)
 	modCols = columns
+	if DBM.Options.InfoFrameCols == 0 then
+		maxCols = columns
+	end
 end
 
 function infoFrame:IsShown()

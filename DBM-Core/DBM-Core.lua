@@ -5926,7 +5926,6 @@ function DBM:UnitBuff(uId, spellInput, spellInput2, spellInput3, spellInput4)
 	end
 end
 
-
 --Handle new spell name requesting with wrapper, to make api changes easier to handle
 function DBM:GetSpellInfoNew(spellId)
 	local name, rank, icon, cost, isFunnel, powerType, castingTime, minRange, maxRange = GetSpellInfo(spellId)
