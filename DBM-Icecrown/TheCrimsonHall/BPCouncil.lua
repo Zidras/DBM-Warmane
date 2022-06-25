@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624010045")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -24,7 +24,6 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 72999",
 	"SPELL_SUMMON 71943",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_TARGET_UNFILTERED",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
 )
 
@@ -38,8 +37,7 @@ local timerCombatStart			= mod:NewCombatTimer(29) -- Roleplay for first pull
 local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- every 46-47seconds
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
-mod:AddRangeFrameOption("12")
-mod:AddBoolOption("ActivePrinceIcon", false)
+mod:AddSetIconOption("ActivePrinceIcon", nil, false, 5, {8})
 
 -- Shadow Prison
 local specWarnShadowPrison		= mod:NewSpecialWarningStack(72999, nil, 6, nil, nil, 1, 6, 3)
@@ -72,13 +70,14 @@ local timerEmpoweredShockVortex	= mod:NewCDTimer(30, 72039, nil, nil, nil, 3, ni
 local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
 local soundEmpoweredShockV		= mod:NewSound(72039)
 
+mod:AddRangeFrameOption(12, 72037)
 mod:AddArrowOption("VortexArrow", 72037, true)
 
 -- Prince Taldaram
 mod:AddTimerLine(L.Taldaram)
 local warnConjureFlames			= mod:NewCastAnnounce(71718, 2)
 local warnEmpoweredFlamesCast	= mod:NewCastAnnounce(72040, 3)
-local warnEmpoweredFlames		= mod:NewTargetAnnounce(72040, 4)
+local warnEmpoweredFlames		= mod:NewTargetNoFilterAnnounce(72040, 4)
 local warnGliteringSparks		= mod:NewTargetAnnounce(71807, 2, nil, false)
 
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040, nil, nil, nil, 4, 2)
@@ -89,7 +88,7 @@ local timerGlitteringSparksCD	= mod:NewCDTimer(20, 71807, nil, nil, nil, 2) -- T
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
 
-mod:AddSetIconOption("EmpoweredFlameIcon", 72040, true, false, {1})
+mod:AddSetIconOption("EmpoweredFlameIcon", 72040, true, 0, {1})
 
 -- Prince Keleseth
 mod:AddTimerLine(L.Keleseth)
@@ -98,7 +97,6 @@ local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant 
 local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5)	-- usually every 10 seconds but sometimes more
 
 mod.vb.kineticIcon = 7
-local activePrince
 local glitteringSparksTargets	= {}
 
 local function warnGlitteringSparksTargets()
@@ -115,7 +113,6 @@ function mod:OnCombatStart(delay)
 	timerTargetSwitch:Start(-delay)
 	timerEmpoweredShockVortex:Start(15-delay) -- Warmane: random 15-20
 	timerKineticBombCD:Start(20-delay)
-	activePrince = nil
 	table.wipe(glitteringSparksTargets)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
@@ -163,20 +160,6 @@ function mod:HideRange()
 	DBM.RangeCheck:Hide()
 end
 
-function mod:TrySetTarget()
-	if DBM:GetRaidRank() >= 1 then
-		for uId in DBM:GetGroupMembers() do
-			if UnitGUID(uId.."target") == activePrince then
-				activePrince = nil
-				self:SetIcon(uId.."target", 8)
-			end
-			if not (activePrince) then
-				break
-			end
-		end
-	end
-end
-
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 72037 then		-- Shock Vortex
@@ -201,7 +184,6 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 70952 then
-		activePrince = args.destGUID
 		if self:IsInCombat() then
 			warnTargetSwitch:Show(L.Valanar)
 			warnTargetSwitchSoon:Schedule(42)
@@ -219,7 +201,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				DBM.RangeCheck:Show(12)
 			end
 		end
-	elseif spellId == 70981 and self:IsInCombat() then
+	elseif spellId == 70981 then
 		warnTargetSwitch:Show(L.Keleseth)
 		warnTargetSwitchSoon:Schedule(42)
 		warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
@@ -232,9 +214,11 @@ function mod:SPELL_AURA_APPLIED(args)
 				timerShockVortex:Start()
 			end
 		end
-		activePrince = args.destGUID
 		if self.Options.RangeFrame then
 			self:ScheduleMethod(4.5, "HideRange")--delay hiding range frame for a few seconds after change incase valanaar got a last second vortex cast off
+		end
+		if self.Options.ActivePrinceIcon then
+			self:ScanForMobs(args.destGUID, 2, 8, 1, nil, 12, "ActivePrinceIcon")
 		end
 	elseif spellId == 70982 and self:IsInCombat() then
 		warnTargetSwitch:Show(L.Taldaram)
@@ -249,9 +233,11 @@ function mod:SPELL_AURA_APPLIED(args)
 				timerShockVortex:Start()
 			end
 		end
-		activePrince = args.destGUID
 		if self.Options.RangeFrame then
 			self:ScheduleMethod(4.5, "HideRange")--delay hiding range frame for a few seconds after change incase valanaar got a last second vortex cast off
+		end
+		if self.Options.ActivePrinceIcon then
+			self:ScanForMobs(args.destGUID, 2, 8, 1, nil, 12, "ActivePrinceIcon")
 		end
 	elseif spellId == 72999 then	--Shadow Prison (hard mode)
 		if args:IsPlayer() then
@@ -304,12 +290,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		if self.Options.EmpoweredFlameIcon then
 			self:SetIcon(target, 1, 10)
 		end
-	end
-end
-
-function mod:UNIT_TARGET_UNFILTERED()
-	if self.Options.ActivePrinceIcon and activePrince then
-		self:TrySetTarget()
 	end
 end
 
