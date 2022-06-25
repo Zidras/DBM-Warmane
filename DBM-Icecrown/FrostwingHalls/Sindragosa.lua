@@ -141,9 +141,9 @@ end
 local function warnUnchainedTargets(self)
 	if self.Options.RangeFrame then
 		if not playerUnchained then
-			DBM.RangeCheck:Show(20, unchainedDebuffFilter)
+			DBM.RangeCheck:Show(21, unchainedDebuffFilter) -- 21.5 yd with new radar calculations. 21 here since radar code adds 0.5 to activeRange
 		else
-			DBM.RangeCheck:Show(20)
+			DBM.RangeCheck:Show(21) -- 21.5 yd with new radar calculations. 21 here since radar code adds 0.5 to activeRange
 		end
 	end
 	warnUnchainedMagic:Show(table.concat(unchainedTargets, "<, >"))
