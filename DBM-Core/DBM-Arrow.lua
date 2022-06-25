@@ -1,34 +1,32 @@
--- This file uses models and textures taken from TomTom. The 3d arrow model was created by Guillotine (curse.guillotine@gmail.com) and 2d minimap textures by Cladhaire.
+-- This file uses models and textures taken from TomTom. The 3D arrow model was created by Guillotine (curse.guillotine@gmail.com) and 2D minimap textures by Cladhaire.
 
 local L = DBM_CORE_L
 
-----------------------------
---  Initialize variables  --
-----------------------------
--- globals
+---------------
+--  Globals  --
+---------------
 DBM.Arrow = {}
 
--- locals
-local runAwayArrow
-local targetType
-local targetPlayer
-local targetX, targetY
-local hideTime, hideDistance
+--------------
+--  Locals  --
+--------------
+local arrowFrame = DBM.Arrow
+local frame, runAwayArrow, targetType, targetPlayer, targetX, targetY, hideTime, hideDistance
 
--- cached variables
+--------------------------------------------------------
+--  Cache frequently used global variables in locals  --
+--------------------------------------------------------
 local pi, pi2 = math.pi, math.pi * 2
-local floor = math.floor
-local sin, cos, atan2, sqrt, min = math.sin, math.cos, math.atan2, math.sqrt, math.min
-local GetPlayerMapPosition = GetPlayerMapPosition
+local floor, sin, cos, atan2, sqrt, min = math.floor, math.sin, math.cos, math.atan2, math.sqrt, math.min
+local GetPlayerMapPosition, GetTime = GetPlayerMapPosition, GetTime
 
 --------------------
 --  Create Frame  --
 --------------------
-local frame = CreateFrame("Button", nil, UIParent)
+frame = CreateFrame("Button", "DBMArrow", UIParent)
 frame:Hide()
 frame:SetFrameStrata("HIGH")
-frame:SetWidth(56)
-frame:SetHeight(42)
+frame:SetSize(56, 42)
 frame:SetMovable(true)
 frame:EnableMouse(false)
 frame:RegisterForDrag("LeftButton", "RightButton")
@@ -42,6 +40,14 @@ frame:SetScript("OnDragStop", function(self)
 	DBM.Options.ArrowPosX = x
 	DBM.Options.ArrowPosY = y
 end)
+
+local textframe = CreateFrame("Frame", nil, frame)
+frame.distance = textframe:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+frame.title = textframe:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+frame.title:SetPoint("TOP", frame, "BOTTOM")
+frame.distance:SetPoint("TOP", frame.title, "BOTTOM")
+textframe:Hide()
+
 local arrow = frame:CreateTexture(nil, "OVERLAY")
 arrow:SetTexture("Interface\\AddOns\\DBM-Core\\textures\\arrows\\Arrow.blp")
 arrow:SetAllPoints(frame)
@@ -63,28 +69,16 @@ end
 local calculateDistance
 do
 	function calculateDistance(x1, y1, x2, y2)
-		local mapName = GetMapInfo()
-		local floors = DBM.MapSizes[mapName]
-		if not floors then
-			return
-		end
-		local dims = floors[GetCurrentMapDungeonLevel()]
-		if not dims and floors and GetCurrentMapDungeonLevel() == 0 then -- we are in a known zone but the dungeon level seems to be wrong
-			SetMapToCurrentZone() -- fixes the dungeon level (if it was wrong for some reason)
-			dims = floors[GetCurrentMapDungeonLevel()] -- try again
-		end
-		if not dims then -- we are in an unknown dungeon :(
-			return
-		end
-		local dX = (x1 - x2) * dims[1]
-		local dY = (y1 - y2) * dims[2]
+		local mapX, mapY = DBM:GetMapSize()
+		local dX = (x1 - x2) * mapX
+		local dY = (y1 - y2) * mapY
 		return sqrt(dX * dX + dY * dY)
 	end
 end
 
 -- GetPlayerFacing seems to return values between -pi and pi instead of 0 - 2pi sometimes since 3.3.3
 local GetPlayerFacing = function(...)
-	local result = GetPlayerFacing(...)
+	local result = GetPlayerFacing(...) or 0
 	if result < 0 then
 		result = result + pi2
 	end
@@ -97,6 +91,7 @@ end
 local updateArrow
 do
 	local currentCell
+	local formatText = "%dy"
 	function updateArrow(direction, distance)
 		local cell = floor(direction / pi2 * 108 + 0.5) % 108
 		if cell ~= currentCell then
@@ -121,6 +116,8 @@ do
 				arrow:SetVertexColor(1, 1 - perc, 0)
 				if distance <= hideDistance then
 					frame:Hide()
+				else
+					frame.distance:SetText(formatText:format(distance))
 				end
 			end
 		else
@@ -138,33 +135,30 @@ end
 ------------------------
 do
 	local rotateState = 0
---	local skipFrame -- todo: skipping frames makes the arrow laggy, maybe skip frames if frame rate >= 45
+
 	frame:SetScript("OnUpdate", function(self, elapsed)
-		if WorldMapFrame:IsShown() then -- it doesn't work while the world map frame is shown
-			arrow:Hide()
-			return
-		end
---		skipFrame = not skipFrame
---		if skipFrame then
---			return
---		end
 		if hideTime and GetTime() > hideTime then
 			frame:Hide()
 		end
 		arrow:Show()
+		-- the static arrow type is special because it doesn't depend on the player's orientation or position
+		if targetType == "static" then
+			return updateArrow(targetX) -- targetX contains the static angle to show
+		end
+
 		local x, y = GetPlayerMapPosition("player")
 		if x == 0 and y == 0 then
 			SetMapToCurrentZone()
 			x, y = GetPlayerMapPosition("player")
 			if x == 0 and y == 0 then
-				self:Hide() -- hide the arrow if you enter a zone without a map
+				self:Hide() -- Hide the arrow if you enter a zone without a map
 				return
 			end
 		end
 		if targetType == "player" then
 			targetX, targetY = GetPlayerMapPosition(targetPlayer)
 			if targetX == 0 and targetY == 0 then
-				self:Hide() -- hide the player if the target doesn't exist. TODO: just hide the texture and add a timeout
+				self:Hide() -- hide the arrow if the target doesn't exist. TODO: just hide the texture and add a timeout
 			end
 		elseif targetType == "rotate" then
 			rotateState = rotateState + elapsed
@@ -196,12 +190,27 @@ end
 ----------------------
 --  Public Methods  --
 ----------------------
-local function show(runAway, x, y, distance, time)
+
+--/run DBM.Arrow:ShowRunTo(50, 50, 1, nil, true, true, "Waypoint", custom local mapID)
+local function show(runAway, x, y, distance, time, _, _, title)
+	if DBM:HasMapRestrictions() then return end
 	local player
 	if type(x) == "string" then
 		player, hideDistance, hideTime = x, y, hideDistance
 	end
 	frame:Show()
+	textframe:Show()
+	if title then
+		frame.title:Show()
+		frame.title:SetText(title)
+	else
+		frame.title:Hide()
+	end
+	if runAway then
+		frame.distance:Hide()
+	else
+		frame.distance:Show()
+	end
 	runAwayArrow = runAway
 	hideDistance = distance or runAway and 100 or 3
 	if time then
@@ -218,35 +227,56 @@ local function show(runAway, x, y, distance, time)
 	end
 end
 
-function DBM.Arrow:ShowRunTo(...)
+function arrowFrame:ShowRunTo(...)
 	return show(false, ...)
 end
 
-function DBM.Arrow:ShowRunAway(...)
+function arrowFrame:ShowRunAway(...)
 	return show(true, ...)
 end
 
-function DBM.Arrow:Hide(autoHide)
+-- shows a static arrow
+function arrowFrame:ShowStatic(angle, time)
+	--Static arrows do not need restrictions, and are still permitted even in 7.1
+	runAwayArrow = false
+	hideDistance = 0
+	targetType = "static"
+	targetX = angle * pi2 / 360
+	if time then
+		hideTime = time + GetTime()
+	else
+		hideTime = nil
+	end
+	frame:Show()
+	textframe:Hide()--just in case they call static while a non static was already showing
+end
+
+function arrowFrame:IsShown()
+	return frame and frame:IsShown()
+end
+
+function arrowFrame:Hide()
+	textframe:Hide()
 	frame:Hide()
 end
 
 local function endMove()
 	frame:EnableMouse(false)
-	DBM.Arrow:Hide()
+	arrowFrame:Hide()
 end
 
-function DBM.Arrow:Move()
+function arrowFrame:Move()
 	targetType = "rotate"
 	runAwayArrow = false
-	hideDistance = 5
+	hideDistance = 0
 	frame:EnableMouse(true)
 	frame:Show()
-	DBT:CreateBar(25, DBM_CORE_L.ARROW_MOVABLE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+	DBT:CreateBar(25, L.ARROW_MOVABLE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 	DBM:Unschedule(endMove)
 	DBM:Schedule(25, endMove)
 end
 
-function DBM.Arrow:LoadPosition()
+function arrowFrame:LoadPosition()
 	frame:SetPoint(DBM.Options.ArrowPoint, DBM.Options.ArrowPosX, DBM.Options.ArrowPosY)
 end
 
