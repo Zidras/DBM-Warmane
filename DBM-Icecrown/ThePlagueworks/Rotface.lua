@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624005857")
 mod:SetCreatureID(36627)
-mod:SetUsedIcons(7, 8)
+mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnSlimeSpray			= mod:NewSpellAnnounce(69508, 2)
-local warnMutatedInfection		= mod:NewTargetAnnounce(69674, 4)
+local warnMutatedInfection		= mod:NewTargetNoFilterAnnounce(69674, 4)
 local warnRadiatingOoze			= mod:NewSpellAnnounce(69760, 3)
 local warnOozeSpawn				= mod:NewAnnounce("WarnOozeSpawn", 1)
 local warnStickyOoze			= mod:NewSpellAnnounce(69774, 1)
@@ -31,20 +31,20 @@ local specWarnRadiatingOoze		= mod:NewSpecialWarningSpell(69760, "-Tank", nil, n
 local specWarnLittleOoze		= mod:NewSpecialWarning("SpecWarnLittleOoze", false, nil, nil, 1, 2)
 local specWarnVileGas			= mod:NewSpecialWarningYou(72272, nil, nil, nil, 1, 2)
 
-local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, "Tank", nil, 5)
+local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
 local timerSlimeSpray			= mod:NewNextTimer(21, 69508, nil, nil, nil, 3)
-local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 3)
+local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 5)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON, nil, 3)
 local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3)
 
 mod:AddRangeFrameOption(10, 72272, "Ranged")
-mod:AddSetIconOption("InfectionIcon", 69674, true, false, {7, 8})
+mod:AddSetIconOption("InfectionIcon", 69674, true, 0, {1, 2})
 mod:AddBoolOption("TankArrow", true, nil, nil, nil, nil, 69674)
 
 local RFVileGasTargets	= {}
 local spamOoze = 0
-mod.vb.InfectionIcon = 8
+mod.vb.InfectionIcon = 1
 
 local function warnRFVileGasTargets()
 	warnVileGas:Show(table.concat(RFVileGasTargets, "<, >"))
@@ -65,7 +65,7 @@ function mod:OnCombatStart(delay)
 	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray
 	timerVileGasCD:Start(29-delay) -- Edited.
 	self:Schedule(25-delay, WallSlime, self)
-	self.vb.InfectionIcon = 8
+	self.vb.InfectionIcon = 1
 	spamOoze = 0
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10) -- Increased from 8 to 10
@@ -128,10 +128,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.InfectionIcon then
 			self:SetIcon(args.destName, self.vb.InfectionIcon, 12)
 		end
-		if self.vb.InfectionIcon == 8 then	-- After ~3mins there is a chance 2 ppl will have the debuff, so we are alternating between 2 icons
-			self.vb.InfectionIcon = 7
+		if self.vb.InfectionIcon == 1 then	-- After ~3mins there is a chance 2 ppl will have the debuff, so we are alternating between 2 icons
+			self.vb.InfectionIcon = 2
 		else
-			self.vb.InfectionIcon = 8
+			self.vb.InfectionIcon = 1
 		end
 	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
 		RFVileGasTargets[#RFVileGasTargets + 1] = args.destName
