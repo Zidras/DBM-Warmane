@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Putricide", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220624005857")
 mod:SetCreatureID(36678)
-mod:SetUsedIcons(5, 6, 7, 8)
+mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetMinSyncRevision(3860)
 
 mod:RegisterCombat("combat")
@@ -32,9 +32,9 @@ mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
 local warnUnstableExperimentSoon	= mod:NewSoonAnnounce(70351, 3)
 local warnUnstableExperiment		= mod:NewSpellAnnounce(70351, 4)
-local warnVolatileOozeAdhesive		= mod:NewTargetAnnounce(70447, 3)
-local warnGaseousBloat				= mod:NewTargetAnnounce(70672, 3)
-local warnUnboundPlague				= mod:NewTargetAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability, sound muted
+local warnVolatileOozeAdhesive		= mod:NewTargetNoFilterAnnounce(70447, 3)
+local warnGaseousBloat				= mod:NewTargetNoFilterAnnounce(70672, 3)
+local warnUnboundPlague				= mod:NewTargetNoFilterAnnounce(70911, 3, nil, false, nil, nil, nil, true)		-- Heroic Ability, sound muted
 
 local specWarnVolatileOozeAdhesive	= mod:NewSpecialWarningYou(70447, nil, nil, nil, 1, 2)
 local specWarnVolatileOozeAdhesiveT	= mod:NewSpecialWarningMoveTo(70447, nil, nil, nil, 1, 2)
@@ -52,9 +52,9 @@ local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)
 
 local soundSlimePuddle 				= mod:NewSound(70341)
 
-mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, false, {8})	-- Green Ooze target
-mod:AddSetIconOption("GaseousBloatIcon", 70672, true, false, {7})	-- Red Ooze target
-mod:AddSetIconOption("UnboundPlagueIcon", 70911, true, false, {5})
+mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, 0, {4})--green icon for green ooze
+mod:AddSetIconOption("GaseousBloatIcon", 70672, true, 0, {2})--Orange Icon for orange/red ooze
+mod:AddSetIconOption("UnboundPlagueIcon", 70911, true, 0, {3})
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
@@ -76,7 +76,7 @@ local soundMalleableGooSoon 		= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
 local soundChokingGasSoon 			= mod:NewSoundSoon(71255, nil, "Melee")
 
---mod:AddSetIconOption("MalleableGooIcon", 72295, true, false, {6})
+--mod:AddSetIconOption("MalleableGooIcon", 72295, true, 0, {1})
 --mod:AddArrowOption("GooArrow", 72295)
 
 -- Stage Three
@@ -108,6 +108,49 @@ local UnboundTime = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 
+local function NextPhase(self)
+	self:SetStage(0)
+	if self.vb.phase == 2 then
+		warnPhase2:Show()
+		warnPhase2:Play("ptwo")
+	elseif self.vb.phase == 3 then
+		warnPhase3:Show()
+		warnPhase3:Play("pthree")
+	end
+end
+
+-- This does not work on Warmane - boss never swaps targets to throw malleable (last checked on 14/07/2021)
+--[[function mod:MalleableGooTarget(targetname, uId)
+	if not targetname then return end
+		if self.Options.MalleableGooIcon then
+			self:SetIcon(targetname, 1, 10)
+		end
+	if targetname == UnitName("player") then
+		specWarnMalleableGoo:Show()
+		specWarnMalleableGoo:Play("targetyou")
+		yellMalleableGoo:Yell()
+		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+	else
+		if self:CheckNearby(11, targetname) then
+			specWarnMalleableGooNear:Show(targetname)
+			specWarnMalleableGooNear:Play("watchstep")
+			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		else
+			specWarnMalleableGooCast:Show()
+			specWarnMalleableGooCast:Play("watchstep")
+			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		end
+		if self.Options.GooArrow then
+			local x, y = GetPlayerMapPosition(uId)
+			if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition(uId)
+			end
+			DBM.Arrow:ShowRunAway(x, y, 10, 5)
+		end
+	end
+end]]
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
@@ -125,45 +168,6 @@ function mod:OnCombatStart(delay)
 		timerUnboundPlagueCD:Start(20-delay)
 	end
 end
-
--- This does not work on Warmane - boss never swaps targets to throw malleable (last checked on 14/07/2021)
---[[function mod:MalleableGooTarget(targetname, uId)
-	if not targetname then return end
-		if self.Options.MalleableGooIcon then
-			self:SetIcon(targetname, 6, 10)
-		end
-	if targetname == UnitName("player") then
-		specWarnMalleableGoo:Show()
-		specWarnMalleableGoo:Play("targetyou")
-		yellMalleableGoo:Yell()
-		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-	else
-		if uId then
-			local inRange = CheckInteractDistance(uId, 2)
-			if inRange then
-				specWarnMalleableGooNear:Show(targetname)
-				specWarnMalleableGooNear:Play("watchstep")
-				soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-			else
-				specWarnMalleableGooCast:Show()
-				specWarnMalleableGooCast:Play("watchstep")
-				soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-			end
-			if self.Options.GooArrow then
-				local x, y = GetPlayerMapPosition(uId)
-				if x == 0 and y == 0 then
-					SetMapToCurrentZone()
-					x, y = GetPlayerMapPosition(uId)
-				end
-				DBM.Arrow:ShowRunAway(x, y, 10, 5)
-			end
-		else
-			specWarnMalleableGooCast:Show()
-			specWarnMalleableGooCast:Play("watchstep")
-			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-		end
-	end
-end]]
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
@@ -195,7 +199,7 @@ function mod:SPELL_CAST_START(args)
 			timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
 		end
 		if self:IsHeroic() then
-			self:ScheduleMethod(35, "NextPhase")	--after 5s PP sets target
+			self:Schedule(35, NextPhase, self)	--after 5s PP sets target
 			timerNextPhase:Start(35)
 			timerMalleableGooCD:Start(45.5)
 			soundMalleableGooSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
@@ -235,27 +239,16 @@ function mod:SPELL_CAST_START(args)
 		soundChokingGasSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule((66-(GetTime()-ChokingTime))-5)
 		if self:IsDifficulty("heroic10") then
-			self:ScheduleMethod(38, "NextPhase")	--after 8s PP sets target
+			self:Schedule(38, NextPhase, self)	--after 8s PP sets target
 			timerNextPhase:Start(38)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
 		elseif mod:IsDifficulty("heroic25") then
-			self:ScheduleMethod(28, "NextPhase")
+			self:Schedule(28, NextPhase, self)
 			timerNextPhase:Start(28)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
 		else
 			timerNextPhase:Start(12.5)
 		end
-	end
-end
-
-function mod:NextPhase()
-	self:SetStage(0)
-	if self.vb.phase == 2 then
-		warnPhase2:Show()
-		warnPhase2:Play("ptwo")
-	elseif self.vb.phase == 3 then
-		warnPhase3:Show()
-		warnPhase3:Play("pthree")
 	end
 end
 
@@ -302,7 +295,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnVolatileOozeAdhesive:Show(args.destName)
 		end
 		if self.Options.OozeAdhesiveIcon then
-			self:SetIcon(args.destName, 8, 8)
+			self:SetIcon(args.destName, 1)
 		end
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
 		timerGaseousBloat:Start(args.destName)
@@ -314,7 +307,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnGaseousBloat:Show(args.destName)
 		end
 		if self.Options.GaseousBloatIcon then
-			self:SetIcon(args.destName, 7, 20)
+			self:SetIcon(args.destName, 2)
 		end
 	--elseif args:IsSpellID(71615, 71618) then	--71615 used in 10 and 25 normal, 71618?
 	--	timerTearGas:Start()
@@ -335,7 +328,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(72855, 72856, 70911) then	 -- Unbound Plague
 		if self.Options.UnboundPlagueIcon then
-			self:SetIcon(args.destName, 5, 20)
+			self:SetIcon(args.destName, 3)
 		end
 		if args:IsPlayer() then
 			specWarnUnboundPlague:Show()
@@ -382,7 +375,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 71615 and self:AntiSpam(5, 2) then 	-- Tear Gas Removal
-		self:NextPhase()
+		NextPhase(self)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
 	elseif spellId == 70542 then
