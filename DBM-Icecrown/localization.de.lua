@@ -48,9 +48,9 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellReanimatedFanatic	= "Erhebt Euch und frohlocket ob Eurer reinen Form!",
 	ShieldPercent			= "Manabarriere", --Translate Spell id 70842
-	Fanatic1				= "Fanatischer Kultist",
-	Fanatic2				= "Deformierter Fanatiker",
-	Fanatic3				= "Wiederbelebter Fanatiker",
+--	Fanatic1				= "Fanatischer Kultist",
+--	Fanatic2				= "Deformierter Fanatiker",
+--	Fanatic3				= "Wiederbelebter Fanatiker",
 	setMissing				= "AUFMERKSAMKEIT! Das automatische Ausrüsten/Ausrüsten von DBM-Waffen funktioniert erst, wenn Sie ein Ausrüstungsset namens pve . erstellen",
 	EqUneqLineDescription	= "Automatisches An-/Ablegen"
 })

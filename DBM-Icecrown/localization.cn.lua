@@ -45,9 +45,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
     YellReanimatedFanatic = "来吧，为纯粹的形态欢喜吧！",
-    Fanatic1 = "教派狂热者",
-    Fanatic2 = "畸形的狂热者",
-    Fanatic3 = "被复活的狂热者",
+--    Fanatic1 = "教派狂热者",
+--    Fanatic2 = "畸形的狂热者",
+--    Fanatic3 = "被复活的狂热者",
     setMissing = "注意力！ 在您创建名为 pve 的装备集之前，DBM 自动武器卸载/装备将不起作用",
     EqUneqLineDescription	= "自动装备/取消装备"
 })

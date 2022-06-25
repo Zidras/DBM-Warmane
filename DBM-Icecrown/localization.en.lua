@@ -46,9 +46,9 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellReanimatedFanatic	= "Arise, and exult in your pure form!",
 	ShieldPercent			= "Mana Barrier",--Translate Spell id 70842
-	Fanatic1				= "Cult Fanatic",
-	Fanatic2				= "Deformed Fanatic",
-	Fanatic3				= "Reanimated Fanatic",
+--	Fanatic1				= "Cult Fanatic",
+--	Fanatic2				= "Deformed Fanatic",
+--	Fanatic3				= "Reanimated Fanatic",
 	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve",
 	EqUneqLineDescription	= "Automatic Equip/Unequip"
 })

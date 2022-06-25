@@ -48,9 +48,9 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellReanimatedFanatic	= "일어나라, 순수한 모습을 기뻐하라!",
 	ShieldPercent			= "마나 방벽",
-	Fanatic1				= "교단 광신자",
-	Fanatic2				= "변형된 광신자",
-	Fanatic3				= "되살아난 광신자",
+--	Fanatic1				= "교단 광신자",
+--	Fanatic2				= "변형된 광신자",
+--	Fanatic3				= "되살아난 광신자",
 	setMissing				= "주목! DBM 자동 무기 해제/장착은 pve라는 장비 세트를 생성할 때까지 작동하지 않습니다.",
 	EqUneqLineDescription	= "자동 장착/장비 해제"
 })

@@ -48,9 +48,9 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellReanimatedFanatic	= "¡Álzate y goza de tu verdadera forma!",
 	ShieldPercent			= "Barrera de maná",
-	Fanatic1				= "Fanático del Culto",
-	Fanatic2				= "Fanático deformado",
-	Fanatic3				= "Fanático reanimado",
+--	Fanatic1				= "Fanático del Culto",
+--	Fanatic2				= "Fanático deformado",
+--	Fanatic3				= "Fanático reanimado",
 	setMissing				= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",
 	EqUneqLineDescription	= "Equipar/desequipar automático"
 })

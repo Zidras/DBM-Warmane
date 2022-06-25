@@ -48,9 +48,9 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellReanimatedFanatic	= "Восстань и обрети истинную форму!",
 	ShieldPercent			= "Барьер маны",
-	Fanatic1				= "Фанатик культа",
-	Fanatic2				= "Кособокий фанатик",
-	Fanatic3				= "Воскрешенный фанатик",
+--	Fanatic1				= "Фанатик культа",
+--	Fanatic2				= "Кособокий фанатик",
+--	Fanatic3				= "Воскрешенный фанатик",
 	setMissing				= "ВНИМАНИЕ! DBM: автоматическое снимание/надевание оружия не будет работать пока вы не создадите набор экипировки pve",
 	EqUneqLineDescription	= "Автоматическое оснащение/снятие оборудования"
 })
