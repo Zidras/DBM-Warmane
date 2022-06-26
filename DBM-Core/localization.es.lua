@@ -161,8 +161,8 @@ L.WHISPER_SCENARIO_END_WIPE			= "%s no ha completado %s."
 L.WHISPER_SCENARIO_END_WIPE_STATS	= "%s no ha completado %s. Lo ha intentado sin éxito %d veces en total en esta dificultad."
 
 L.VERSIONCHECK_HEADER		= "Deadly Boss Mods - Versiones"
-L.VERSIONCHECK_ENTRY			= "%s: %s (r%d)"--One Boss mod
-L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (r%d) y %s (r%d)"--Two Boss mods
+L.VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"--One Boss mod
+L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (%s) y %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s: Sin instalar"
 L.VERSIONCHECK_FOOTER		= "Se ha encontrado %d jugador(es) con DBM y %d jugador(es) con BigWigs."
 L.VERSIONCHECK_OUTDATED		= "Los siguientes %d jugadores tienen una versión desfasada de DBM: %s"

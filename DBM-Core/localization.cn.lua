@@ -165,8 +165,8 @@ L.WHISPER_SCENARIO_END_WIPE			= "%s在场景战役-%s的战斗中灭团了。"
 L.WHISPER_SCENARIO_END_WIPE_STATS	= "%s在场景战役-%s的战斗中灭团了。该难度下总共失败%d次。"
 
 L.VERSIONCHECK_HEADER		= "DBM - 版本检测"
-L.VERSIONCHECK_ENTRY			= "%s: %s (r%d) %s"--One Boss mod
-L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (r%d) & %s (r%d)"--Two Boss mods
+L.VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"--One Boss mod
+L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (%s) & %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s：未安装" .. L.DBM
 L.VERSIONCHECK_FOOTER		= "团队中有%d名成员正在使用" .. L.DBM .. "， %d名成员正在使用Bigwigs"
 L.VERSIONCHECK_OUTDATED		= "下列%d名玩家的" .. L.DBM .. "版本已经过期:%s"

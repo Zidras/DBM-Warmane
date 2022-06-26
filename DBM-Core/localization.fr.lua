@@ -132,7 +132,7 @@ L.WHISPER_SCENARIO_END_WIPE          = "%s a échoué dans %s"
 L.WHISPER_SCENARIO_END_WIPE_STATS    = "%s a échoué dans %s. Ils ont un total de %d échecs dans cette difficulté."
 
 L.VERSIONCHECK_HEADER		= "Deadly Boss Mods - Versions"
-L.VERSIONCHECK_ENTRY			= "%s: %s (%s)"
+L.VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"
 L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (%s) & %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s: DBM non installé"--Two Boss mods
 L.VERSIONCHECK_FOOTER		= "%d joueurs trouvés avec Deadly Boss Mods & %d joueurs avec BigWigs"
