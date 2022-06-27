@@ -29,7 +29,7 @@ local timerSleepingFogCD		= mod:NewCDTimer(16.8, 24814, nil, nil, nil, 3)
 
 --mod:AddReadyCheckOption(48620, false)
 
-function mod:OnCombatStart(delay, yellTriggered)
+function mod:OnCombatStart(_, yellTriggered)
 	if yellTriggered then
 		--timerNoxiousBreathCD:Start(11.9-delay)
 		--timerSleepingFogCD:Start(18.4-delay)

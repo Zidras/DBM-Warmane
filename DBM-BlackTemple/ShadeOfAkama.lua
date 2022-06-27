@@ -64,7 +64,7 @@ local function defenderLoop(self)
 	timerDefenderCD:Start(30)
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 	self.vb.AddsWestCount = 0
 	self:RegisterShortTermEvents(
@@ -107,8 +107,8 @@ function mod:SWING_DAMAGE(_, sourceName)
 end
 mod.SWING_MISSED = mod.SWING_DAMAGE
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
-	if (spellId == 40607 or spellId == 40955) and self.vb.phase == 1 and self:AntiSpam(3, 1) then--Fixate/Summon Shade of Akama Trigger
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if (spellName == GetSpellInfo(40607) or spellName == GetSpellInfo(40955)) and self.vb.phase == 1 and self:AntiSpam(3, 1) then--Fixate/Summon Shade of Akama Trigger
 		self:UnregisterShortTermEvents()
 		self:SetStage(2)
 		warnPhase2:Show()

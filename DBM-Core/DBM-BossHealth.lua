@@ -144,7 +144,7 @@ local function createBar(self, name, ...) -- the vararg will also contain the na
 	bar:Show()
 	local bartext = _G[bar:GetName().."BarName"]
 	local barborder = _G[bar:GetName().."BarBorder"]
-	local barbar = _G[bar:GetName().."Bar"]
+--	local barbar = _G[bar:GetName().."Bar"]
 	barborder:SetScript("OnMouseDown", onMouseDown)
 	barborder:SetScript("OnMouseUp", onMouseUp)
 	barborder:SetScript("OnHide", onHide)

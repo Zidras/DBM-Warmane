@@ -65,7 +65,7 @@ function mod:NagaSpawn()
 	self:ScheduleMethod(47.5, "NagaSpawn")
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	table.wipe(elementals)
 	self:SetStage(1)
 	self.vb.shieldLeft = 4

@@ -66,7 +66,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, destName, _, spellId, spellName)
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 	if (spellId == 25786 or spellId == 25989) and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
 		specWarnGTFO:Show(spellName)
 		specWarnGTFO:Play("watchfeet")

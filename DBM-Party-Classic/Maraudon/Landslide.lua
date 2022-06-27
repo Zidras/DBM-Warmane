@@ -16,7 +16,7 @@ local warningLandSlide				= mod:NewSpellAnnounce(21808, 2)
 local warningKnockAway				= mod:NewSpellAnnounce(11130, 2)
 local warningTrample				= mod:NewSpellAnnounce(5568, 2)
 
-local specWarnWrath					= mod:NewSpecialWarningInterrupt(21807, "HasInterrupt", nil, nil, 1, 2)
+-- local specWarnWrath					= mod:NewSpecialWarningInterrupt(21807, "HasInterrupt", nil, nil, 1, 2)
 
 local timerLandslideCD				= mod:NewAITimer(180, 21808, nil, nil, nil, 1)
 local timerKnockAwayCD				= mod:NewCDTimer(15.9, 11130, nil, nil, nil, 2)

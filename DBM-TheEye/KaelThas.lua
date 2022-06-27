@@ -92,7 +92,7 @@ do
 		return math.max(1, math.floor(absorbRemaining / maxAbsorb * 100))
 	end
 	frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	frame:SetScript("OnEvent", function(self, event, timestamp, subEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+	frame:SetScript("OnEvent", function(self, _, _, subEvent, _, _, _, destGUID, _, _, ...)
 		if shieldedMob == destGUID then
 			local absorbed
 			if subEvent == "SWING_MISSED" then
@@ -120,7 +120,7 @@ do
 	end
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	table.wipe(warnConflagTargets)
 	table.wipe(warnMCTargets)
 	self.vb.mcIcon = 8
@@ -342,13 +342,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(36735) then
 		self:SendSync("Flamestrike")
 	end
 end
 
-function mod:OnSync(event, arg)
+function mod:OnSync(event)
 	if not self:IsInCombat() then return end
 	if event == "Flamestrike" then
 		warnFlamestrike:Show()

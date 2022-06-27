@@ -65,6 +65,7 @@ function mod:OnCombatStart(delay)
 	timerDrainLife:Start(12 - delay)
 	warnAirPhaseSoon:Schedule(38.5 - delay)
 	timerAirPhase:Start(48.5 - delay)
+	berserkTimer:Start(-delay)
 	self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 	self:RegisterOnUpdateHandler(function(self, elapsed)
 		if not self:IsInCombat() then return end

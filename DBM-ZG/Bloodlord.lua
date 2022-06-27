@@ -44,7 +44,7 @@ end
 
 --Yell gives target 1.5-2 seconds faster than combat log, so we attempt to parse it first
 --Combat log is used as fallback and to start the duration timer
-function mod:CHAT_MSG_MONSTER_YELL(msg, mob, _, _, targetName)
+function mod:CHAT_MSG_MONSTER_YELL(msg, _, _, _, targetName)
 	if msg:find(L.GazeYell) and targetName then
 		if self:AntiSpam(3, targetName) then
 			if targetName == UnitName("player") then

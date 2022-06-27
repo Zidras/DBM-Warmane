@@ -61,7 +61,7 @@ local function showMCTargets()
 	table.wipe(warnMCTargets)
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.demonIcon = 8
 	self.vb.whirlCount = 0
 	self:SetStage(1)
@@ -72,7 +72,7 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start()
 end
 
-function mod:OnCombatEnd(delay)
+function mod:OnCombatEnd()
 	self.vb.binderKill = 0
 end
 

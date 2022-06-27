@@ -22,7 +22,7 @@ local timerSoulstormCast	= mod:NewCastTimer(4, 68872, nil, nil, nil, 2)
 
 mod.vb.warned_preStorm = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.warned_preStorm = false
 end
 

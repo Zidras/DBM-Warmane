@@ -10,7 +10,7 @@ mod:SetUsedIcons(8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"RAID_BOSS_EMOTE"
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 --TODO, see if CLEU method is reliable enough to scrap scan method. scan method may still have been faster.
@@ -79,7 +79,7 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-function mod:RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.PhaseKite or msg:find(L.PhaseKite) then
 		warnPhase:Show(L.Kite)
 		timerPhase:Start(L.Tank)

@@ -9,7 +9,6 @@ mod:SetModelID(18921)
 --  Locals  --
 --------------
 local frame
-local bar
 local questTimers = {
 	[10277] = 427,-- The Caverns of Time -- 425 425 419.9 427.7 426.5
 	[10211] = 533,-- City of Light (shattrath) -- 528 528 532 533

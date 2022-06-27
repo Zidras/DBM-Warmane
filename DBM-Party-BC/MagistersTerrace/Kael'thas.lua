@@ -81,8 +81,8 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
-	if spellId == 47109 and self.vb.phase < 2 then--Power Feedback
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(47109) and self.vb.phase < 2 then--Power Feedback
 		self:SetStage(2)
 		timerShockBarrior:Stop()
 		timerPhoenix:Stop()

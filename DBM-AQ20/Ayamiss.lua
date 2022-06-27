@@ -19,7 +19,7 @@ local warnEnrage	= mod:NewTargetNoFilterAnnounce(8269, 3)
 
 local timerParalyze	= mod:NewTargetTimer(10, 25725, nil, nil, nil, 3)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 end
 

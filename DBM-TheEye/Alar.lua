@@ -28,7 +28,6 @@ local timerNextPlatform	= mod:NewTimer(34, "NextPlatform", 40192, nil, nil, 6)--
 local berserkTimer		= mod:NewBerserkTimer(600)
 
 local buffetName = DBM:GetSpellInfo(34121)
-local UnitGUID = UnitGUID
 local UnitName = UnitName
 mod.vb.phase2Start = 0
 mod.vb.flying = false

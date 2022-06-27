@@ -257,7 +257,6 @@ do
 		bar:SetMinMaxValues(0, 1)
 		bar:SetStatusBarTexture(self.Options.Texture)
 		bar:SetStatusBarColor(1, 0.7, 0)
-		bar:SetStatusBarColor(1, 0.7, 0)
 		local barBackdrop = {
 			bgFile = "Interface\\Buttons\\WHITE8X8",
 		}
@@ -1060,7 +1059,7 @@ end
 
 do
 	local tostring, mfloor = tostring, math.floor
-	local ChatEdit_GetActiveWindow, SendChatMessage, IsInGroup, IsInRaid = ChatEdit_GetActiveWindow, SendChatMessage, IsInGroup, IsInRaid
+	local ChatEdit_GetActiveWindow, SendChatMessage, IsInInstance, IsInRaid = ChatEdit_GetActiveWindow, SendChatMessage, IsInInstance, IsInRaid
 
 	function barPrototype:Announce()
 		local msg
@@ -1072,7 +1071,7 @@ do
 		if chatWindow then
 			chatWindow:Insert(msg)
 		else
-			SendChatMessage(msg, (select(2, IsInInstance()) == "pvp" and "BATTLEGROUND") or (GetNumRaidMembers() > 0 and "RAID") or "PARTY")
+			SendChatMessage(msg, (select(2, IsInInstance()) == "pvp" and "BATTLEGROUND") or (IsInRaid() and "RAID") or "PARTY")
 		end
 	end
 end

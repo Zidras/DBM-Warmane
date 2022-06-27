@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IsleofConquest", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-local GetCurrentMapAreaID, SetMapToCurrentZone = GetCurrentMapAreaID, SetMapToCurrentZone
+local GetCurrentMapAreaID = GetCurrentMapAreaID
 
 mod:SetRevision("20220518110528")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)

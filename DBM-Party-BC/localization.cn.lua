@@ -6,102 +6,102 @@ local L
 -----------------------------
 --  Watchkeeper Gargolmar  --
 -----------------------------
-L = DBM:GetModLocalization(527)
+-- L = DBM:GetModLocalization(527)
 
 --------------------------
 --  Omor the Unscarred  --
 --------------------------
-L = DBM:GetModLocalization(528)
+-- L = DBM:GetModLocalization(528)
 
 ------------------------
 --  Nazan & Vazruden  --
 ------------------------
-L = DBM:GetModLocalization(529)
+-- L = DBM:GetModLocalization(529)
 
 -------------------------
 --  The Blood Furnace  --
 -------------------------
 --  The Maker  --
 -----------------
-L = DBM:GetModLocalization(555)
+-- L = DBM:GetModLocalization(555)
 
 ---------------
 --  Broggok  --
 ---------------
-L = DBM:GetModLocalization(556)
+-- L = DBM:GetModLocalization(556)
 
 ----------------------------
 --  Keli'dan the Breaker  --
 ----------------------------
-L = DBM:GetModLocalization(557)
+-- L = DBM:GetModLocalization(557)
 
 ---------------------------
 --  The Shattered Halls  --
 --------------------------------
 --  Grand Warlock Nethekurse  --
 --------------------------------
-L = DBM:GetModLocalization(566)
+-- L = DBM:GetModLocalization(566)
 
 --------------------------
 --  Blood Guard Porung  --
 --------------------------
-L = DBM:GetModLocalization(728)
+-- L = DBM:GetModLocalization(728)
 
 --------------------------
 --  Warbringer O'mrogg  --
 --------------------------
-L = DBM:GetModLocalization(568)
+-- L = DBM:GetModLocalization(568)
 
 ----------------------------------
 --  Warchief Kargath Bladefist  --
 ----------------------------------
-L = DBM:GetModLocalization(569)
+-- L = DBM:GetModLocalization(569)
 
 ------------------
 --  Slave Pens  --
 --------------------------
 --  Mennu the Betrayer  --
 --------------------------
-L = DBM:GetModLocalization(570)
+-- L = DBM:GetModLocalization(570)
 
 ---------------------------
 --  Rokmar the Crackler  --
 ---------------------------
-L = DBM:GetModLocalization(571)
+-- L = DBM:GetModLocalization(571)
 
 ------------------
 --  Quagmirran  --
 ------------------
-L = DBM:GetModLocalization(572)
+-- L = DBM:GetModLocalization(572)
 
 --------------------
 --  The Underbog  --
 --------------------
 --  Hungarfen  --
 -----------------
-L = DBM:GetModLocalization(576)
+-- L = DBM:GetModLocalization(576)
 
 ---------------
 --  Ghaz'an  --
 ---------------
-L = DBM:GetModLocalization(577)
+-- L = DBM:GetModLocalization(577)
 
 --------------------------
 --  Swamplord Musel'ek  --
 --------------------------
-L = DBM:GetModLocalization(578)
+-- L = DBM:GetModLocalization(578)
 
 -------------------------
 --  The Black Stalker  --
 -------------------------
-L = DBM:GetModLocalization(579)
+-- L = DBM:GetModLocalization(579)
 
 ----------------------
 --  The Steamvault  --
 ---------------------------
 --  Hydromancer Thespia  --
 ---------------------------
-L = DBM:GetModLocalization(573)
+-- L = DBM:GetModLocalization(573)
 
 -----------------------------
 --  Mekgineer Steamrigger  --
@@ -115,48 +115,48 @@ L:SetMiscLocalization({
 --------------------------
 --  Warlord Kalithresh  --
 --------------------------
-L = DBM:GetModLocalization(575)
+-- L = DBM:GetModLocalization(575)
 
 -----------------------
 --  Auchenai Crypts  --
 --------------------------------
 --  Shirrak the Dead Watcher  --
 --------------------------------
-L = DBM:GetModLocalization(523)
+-- L = DBM:GetModLocalization(523)
 
 -----------------------
 --  Exarch Maladaar  --
 -----------------------
-L = DBM:GetModLocalization(524)
+-- L = DBM:GetModLocalization(524)
 
 ------------------
 --  Mana-Tombs  --
 -------------------
 --  Pandemonius  --
 -------------------
-L = DBM:GetModLocalization(534)
+-- L = DBM:GetModLocalization(534)
 
 ---------------
 --  Tavarok  --
 ---------------
-L = DBM:GetModLocalization(535)
+-- L = DBM:GetModLocalization(535)
 
 ----------------------------
 --  Nexus-Prince Shaffar  --
 ----------------------------
-L = DBM:GetModLocalization(537)
+-- L = DBM:GetModLocalization(537)
 
 -----------
 --  Yor  --
 -----------
-L = DBM:GetModLocalization(536)
+-- L = DBM:GetModLocalization(536)
 
 ---------------------
 --  Sethekk Halls  --
 -----------------------
 --  Darkweaver Syth  --
 -----------------------
-L = DBM:GetModLocalization(541)
+-- L = DBM:GetModLocalization(541)
 
 ------------
 --  Anzu  --
@@ -178,58 +178,58 @@ L:SetMiscLocalization({
 ------------------------
 --  Talon King Ikiss  --
 ------------------------
-L = DBM:GetModLocalization(543)
+-- L = DBM:GetModLocalization(543)
 
 ------------------------
 --  Shadow Labyrinth  --
 --------------------------
 --  Ambassador Hellmaw  --
 --------------------------
-L = DBM:GetModLocalization(544)
+-- L = DBM:GetModLocalization(544)
 
 ------------------------------
 --  Blackheart the Inciter  --
 ------------------------------
-L = DBM:GetModLocalization(545)
+-- L = DBM:GetModLocalization(545)
 
 --------------------------
 --  Grandmaster Vorpil  --
 --------------------------
-L = DBM:GetModLocalization(546)
+-- L = DBM:GetModLocalization(546)
 
 --------------
 --  Murmur  --
 --------------
-L = DBM:GetModLocalization(547)
+-- L = DBM:GetModLocalization(547)
 
 -------------------------------
 --  Old Hillsbrad Foothills  --
 -------------------------------
 --  Lieutenant Drake  --
 ------------------------
-L = DBM:GetModLocalization(538)
+-- L = DBM:GetModLocalization(538)
 
 -----------------------
 --  Captain Skarloc  --
 -----------------------
-L = DBM:GetModLocalization(539)
+-- L = DBM:GetModLocalization(539)
 
 --------------------
 --  Epoch Hunter  --
 --------------------
-L = DBM:GetModLocalization(540)
+-- L = DBM:GetModLocalization(540)
 
 ------------------------
 --  The Black Morass  --
 ------------------------
 --  Chrono Lord Deja  --
 ------------------------
-L = DBM:GetModLocalization(552)
+-- L = DBM:GetModLocalization(552)
 
 ----------------
 --  Temporus  --
 ----------------
-L = DBM:GetModLocalization(553)
+-- L = DBM:GetModLocalization(553)
 
 --------------
 --  Aeonus  --
@@ -299,61 +299,61 @@ L:SetMiscLocalization({
 ------------------------------
 --  Mechano-Lord Capacitus  --
 ------------------------------
-L = DBM:GetModLocalization(563)
+-- L = DBM:GetModLocalization(563)
 
 ------------------------------
 --  Nethermancer Sepethrea  --
 ------------------------------
-L = DBM:GetModLocalization(564)
+-- L = DBM:GetModLocalization(564)
 
 --------------------------------
 --  Pathaleon the Calculator  --
 --------------------------------
-L = DBM:GetModLocalization(565)
+-- L = DBM:GetModLocalization(565)
 
 --------------------
 --  The Botanica  --
 --------------------------
 --  Commander Sarannis  --
 --------------------------
-L = DBM:GetModLocalization(558)
+-- L = DBM:GetModLocalization(558)
 
 ------------------------------
 --  High Botanist Freywinn  --
 ------------------------------
-L = DBM:GetModLocalization(559)
+-- L = DBM:GetModLocalization(559)
 
 -----------------------------
 --  Thorngrin the Tender  --
 -----------------------------
-L = DBM:GetModLocalization(560)
+-- L = DBM:GetModLocalization(560)
 
 -----------
 --  Laj  --
 -----------
-L = DBM:GetModLocalization(561)
+-- L = DBM:GetModLocalization(561)
 
 ---------------------
 --  Warp Splinter  --
 ---------------------
-L = DBM:GetModLocalization(562)
+-- L = DBM:GetModLocalization(562)
 
 --------------------
 --  The Arcatraz  --
 ----------------------------
 --  Zereketh the Unbound  --
 ----------------------------
-L = DBM:GetModLocalization(548)
+-- L = DBM:GetModLocalization(548)
 
 -----------------------------
 --  Dalliah the Doomsayer  --
 -----------------------------
-L = DBM:GetModLocalization(549)
+-- L = DBM:GetModLocalization(549)
 
 ---------------------------------
 --  Wrath-Scryer Soccothrates  --
 ---------------------------------
-L = DBM:GetModLocalization(550)
+-- L = DBM:GetModLocalization(550)
 
 -------------------------
 --  Harbinger Skyriss  --
@@ -369,12 +369,12 @@ L:SetMiscLocalization({
 --------------------------
 --  Selin Fireheart  --
 -----------------------
-L = DBM:GetModLocalization(530)
+-- L = DBM:GetModLocalization(530)
 
 ----------------
 --  Vexallus  --
 ----------------
-L = DBM:GetModLocalization(531)
+-- L = DBM:GetModLocalization(531)
 
 --------------------------
 --  Priestess Delrissa  --

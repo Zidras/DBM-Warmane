@@ -30,7 +30,7 @@ function mod:OnCombatStart(delay)
 	end
 end
 
-function mod:ShadowCrashTarget(targetname, uId)
+function mod:ShadowCrashTarget(targetname)
 	if not targetname then
 		if DBM.Options.DebugMode then
 			warnShadowCrash:Show(DBM_COMMON_L.UNKNOWN)
@@ -57,7 +57,7 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_START(uId, spellName)
+function mod:UNIT_SPELLCAST_START(_, spellName)
 	if spellName == GetSpellInfo(57496) then -- Insanity
 		warningInsanity:Show()
 		timerInsanity:Start()

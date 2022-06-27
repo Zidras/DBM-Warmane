@@ -136,7 +136,7 @@ do
 		[67261] = 1200000,
 		[67258] = 1200000,
 	}
-	local showShieldHealthBar, hideShieldHealthBar, shieldedBoss
+	local showShieldHealthBar, hideShieldHealthBar, shieldedBoss, updateInfoFrame
 	local frame = CreateFrame("Frame") -- using a separate frame avoids the overhead of the DBM event handlers which are not meant to be used with frequently occuring events like all damage events...
 	local shieldedMob
 	local absorbRemaining = 0
@@ -154,13 +154,13 @@ do
 		return math.max(1, math.floor(absorbRemaining / maxAbsorb * 100))
 	end
 	frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	frame:SetScript("OnEvent", function(self, event, timestamp, subEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+	frame:SetScript("OnEvent", function(self, _, _, subEvent, _, _, _, destGUID, _, _, ...)
 		if shieldedMob == destGUID then
 			local absorbed
 			if subEvent == "SWING_MISSED" then
-				absorbed = select( 2, ... )
+				absorbed = select(2, ... )
 			elseif subEvent == "RANGE_MISSED" or subEvent == "SPELL_MISSED" or subEvent == "SPELL_PERIODIC_MISSED" then
-				absorbed = select( 5, ... )
+				absorbed = select(5, ... )
 			end
 			if absorbed then
 				absorbRemaining = absorbRemaining - absorbed
@@ -181,7 +181,7 @@ do
 		DBM.BossHealth:RemoveBoss(getShieldHP)
 	end
 
-	updateInfoFrame = function()
+	function updateInfoFrame()
 		twipe(lines)
 		twipe(sortedLines)
 		if shieldedBoss then

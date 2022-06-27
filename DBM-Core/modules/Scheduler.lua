@@ -4,7 +4,7 @@ local twipe, tremove = table.wipe, table.remove
 local floor = math.floor
 local GetTime = GetTime
 local pairs, next = pairs, next
-local LastInstanceMapID = -1
+local LastInstanceMapID, LastInstanceZoneName = -1, ""
 
 local schedulerFrame = CreateFrame("Frame", "DBMScheduler")
 schedulerFrame:Hide()

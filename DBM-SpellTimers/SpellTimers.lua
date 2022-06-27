@@ -29,7 +29,6 @@
 local Revision = ("$Revision: 55 $"):sub(12, -3)
 
 local default_bartext = "%spell: %player"
-local default_bartextwtarget = "%spell: %player on %target"	-- Added by Florin Patan
 local default_settings = {
 	enabled = false,
 	showlocal = true,
@@ -163,7 +162,7 @@ do
 					end
 				end
 				regenerate()
-				DBM_GUI_OptionsFrame:DisplayFrame(panel.frame)
+				_G["DBM_GUI_OptionsFrame"]:DisplayFrame(panel.frame)
 			end)
 
 			local version = area:CreateText("r"..Revision, nil, nil, GameFontDisableSmall, "RIGHT", 0)
@@ -249,8 +248,8 @@ do
 				area.frame:SetHeight( area.frame:GetHeight() + 35 )
 				area.frame:GetParent():SetHeight( area.frame:GetParent():GetHeight() + 35 )
 
-				if DBM_GUI_OptionsFramePanelContainer.displayedFrame and CurCount > 1 then
-					DBM_GUI_OptionsFrame:DisplayFrame(panel.frame)
+				if _G["DBM_GUI"].currentViewing == panel.frame and CurCount > 1 then
+					_G["DBM_GUI_OptionsFrame"]:DisplayFrame(panel.frame)
 				end
 
 				getadditionalid:SetScript("OnClick", function()

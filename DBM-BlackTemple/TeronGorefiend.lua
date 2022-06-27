@@ -39,7 +39,7 @@ local function showCrushedTargets(self)
 	self.vb.crushIcon = 1
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	table.wipe(CrushedTargets)
 	timerDeathCD:Start(11.1)--11-13?
 end

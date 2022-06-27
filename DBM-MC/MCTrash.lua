@@ -60,7 +60,7 @@ do
 	end
 	mod.SWING_MISSED = mod.SWING_DAMAGE
 
-	function mod:OnSync(msg, startTime, sender)
+	function mod:OnSync(msg, startTime)
 		--Sync recieved with start time and ours is currently not started
 		if msg == "MCStarted" and startTime and not self.vb.firstEngageTime then
 			self.vb.firstEngageTime = tonumber(startTime)

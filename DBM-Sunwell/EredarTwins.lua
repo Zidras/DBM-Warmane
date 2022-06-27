@@ -96,7 +96,7 @@ function mod:SPELL_MISSED(_, _, _, _, _, _, spellId)
 	end
 end
 
-function mod:ShadowNovaTarget(targetname, uId)
+function mod:ShadowNovaTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnNova:Show()
@@ -113,7 +113,7 @@ function mod:ShadowNovaTarget(targetname, uId)
 	end
 end
 
-function mod:ConflagrationTarget(targetname, uId)
+function mod:ConflagrationTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnConflag:Show()

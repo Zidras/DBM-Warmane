@@ -134,7 +134,7 @@ mod.vb.brainLinkIcon = 2
 mod.vb.beaconIcon = 8
 mod.vb.Guardians = 0
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 	self.vb.brainLinkIcon = 2
 	self.vb.beaconIcon = 8
@@ -162,7 +162,7 @@ function mod:OnCombatEnd()
 	end
 end
 
-function mod:FervorTarget(targetname, uId)
+function mod:FervorTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") and self:AntiSpam(4, 1) then
 		specWarnFervor:Show()

@@ -61,7 +61,7 @@ do-- Anubisath Reflect - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
 	-- todo: thorns, shadow storm
 
 	local playerGUID = UnitGUID("player")
-	function mod:SPELL_MISSED(sourceGUID, _, _, destGUID, destName, _, _, _, spellSchool, missType)
+	function mod:SPELL_MISSED(sourceGUID, _, _, _, destName, _, _, _, spellSchool, missType)
 		if (missType == "REFLECT" or missType == "DEFLECT") and sourceGUID == playerGUID then
 			if (spellSchool == 32 or spellSchool == 16) and self:AntiSpam(3, 1) then
 				specWarnShadowFrostReflect:Show(destName)

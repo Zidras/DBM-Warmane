@@ -107,7 +107,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.Adds or msg:find(L.Adds) then
 		self:SendSync("Adds")--Syncing to help unlocalized clients
 	elseif msg == L.AddsTwo or msg:find(L.AddsTwo) then
@@ -115,8 +115,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
-	if spellId == 29231 then--Teleport Return
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(29231) then--Teleport Return
 		self.vb.addsCount = 0
 		self.vb.curseCount = 0
 		timerAddsCD:Stop()
@@ -144,7 +144,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	end
 end
 
-function mod:OnSync(msg, targetname)
+function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "Adds" then--Boss Grounded
 		self.vb.addsCount = self.vb.addsCount + 1

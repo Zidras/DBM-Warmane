@@ -195,7 +195,7 @@ function mod:OnSync(msg, target)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(63983) then--Arm Sweep
 		timerNextShockwave:Start()
 	elseif spellName == GetSpellInfo(63342) then--Focused Eyebeam Summon Trigger

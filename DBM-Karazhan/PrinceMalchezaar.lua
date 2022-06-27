@@ -94,8 +94,8 @@ end
 
 --"<275.31 12:32:09> [UNIT_SPELLCAST_SUCCEEDED] Prince Malchezaar(Deafstroket) -Summon Axes- [[target:Cast-3-4615-532-1222-30891-0000F6542B:30891]]", -- [3138]
 --"<275.56 12:32:10> [CHAT_MSG_MONSTER_YELL] How can you hope to stand against such overwhelming power?#Prince Malchezaar#####0#0##0#1766#nil#0#false#false#false#false", -- [3146]
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
-	if spellId == 30891 and self:AntiSpam(3, 1) then--Summon Axes
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(30891) and self:AntiSpam(3, 1) then--Summon Axes
 		self:SendSync("Phase3")
 	end
 end

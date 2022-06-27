@@ -22,7 +22,7 @@ mod:RemoveOption("HealthFrame")
 
 local lastWave = 0
 
-function mod:UPDATE_WORLD_STATES(args)
+function mod:UPDATE_WORLD_STATES()
 	local text = select(3, GetWorldStateUIInfo(2))
 	if not text then return end
 	local _, _, wave = string.find(text, L.WavePortal)
@@ -67,7 +67,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg, arg)
+function mod:OnSync(msg)
 	if msg == "Wipe" then
 		warningPortalSoon:Cancel()
 		timerPortalIn:Cancel()

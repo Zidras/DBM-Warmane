@@ -10,7 +10,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 38523",
 	"SPELL_CAST_SUCCESS 37014 37063",
-	"RAID_BOSS_EMOTE"
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 local warningPortal			= mod:NewAnnounce("warningPortal", 1, "135743")
@@ -62,7 +62,7 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-function mod:RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.DBM_NS_EMOTE_PHASE_2 then
 		timerPortalPhase:Cancel()
 		warningBanish:Show()

@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 
 local specWarnEnergy	= mod:NewSpecialWarning("warnEnergy", "-Healer", nil, 3, 1, 2)
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE()
 	if self:AntiSpam(5, 1) then
 		specWarnEnergy:Show()
 		specWarnEnergy:Play("killmob")

@@ -150,7 +150,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	end
 end
 
-function mod:CHAT_MSG_MONSTER_YELL(msg, mob)
+function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if isGrounded and (msg == L.YellAir or msg == L.YellAir2) and GetTime() - combattime > 30 then
 		isGrounded = false -- warmane resets the timers idk why
 		if self:IsDifficulty("normal10") then -- not sure?
@@ -172,7 +172,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, mob)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(64821) then--Fuse Armor
 		timerFuseArmorCD:Start()
 	end

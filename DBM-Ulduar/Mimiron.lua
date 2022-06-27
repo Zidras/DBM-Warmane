@@ -324,7 +324,7 @@ function mod:SPELL_SUMMON(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_CHANNEL_STOP(unit, spellName)
+function mod:UNIT_SPELLCAST_CHANNEL_STOP(_, spellName)
 	if spellName == spinningUp and GetTime() - lastSpinUp < 3.9 then
 		self.vb.is_spinningUp = false
 		self:SendSync("SpinUpFail")
@@ -371,7 +371,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	--[[if spellId == 34098 then--ClearAllDebuffs
 		self:SetStage(0)
 		if self.vb.phase == 2 then

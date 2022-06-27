@@ -19,7 +19,7 @@ local warnVulnerable	= mod:NewAnnounce("WarnVulnerable", 3, "Interface\\Icons\\I
 local timerCyclone		= mod:NewTargetTimer(10, 25189, nil, nil, nil, 3)
 local timerVulnerable	= mod:NewTimer(45, "TimerVulnerable", "Interface\\Icons\\INV_Enchant_EssenceMagicLarge", nil, nil, 6)
 
-local firstBossMod = DBM:GetModByName("Kurinnaxx")
+-- local firstBossMod = DBM:GetModByName("Kurinnaxx")
 
 --function mod:OnCombatStart(delay, yellTriggered)
 

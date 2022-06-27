@@ -21,7 +21,7 @@ local warnPhase2	= mod:NewPhaseAnnounce(2)
 
 local timerCurseCD	= mod:NewCDTimer(27, 43127, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 end
 

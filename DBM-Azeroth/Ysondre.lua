@@ -64,8 +64,8 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 --Probably won't work in classic, unit_spellcast events disabled there for all but "player"
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
-	if spellId == 24819 and self:AntiSpam(5, 2) then--Lightning Wave
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(24819) and self:AntiSpam(5, 2) then--Lightning Wave
 		warningLightningWave:Show()
 		timerLightningWaveCD:Start()
 	end

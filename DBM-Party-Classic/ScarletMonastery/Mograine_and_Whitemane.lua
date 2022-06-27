@@ -18,7 +18,7 @@ local specWarnHeal				= mod:NewSpecialWarningInterrupt(12039, "HasInterrupt", ni
 
 local timerDeepSleep			= mod:NewBuffFadesTimer(10, 9256, nil, nil, nil, 6)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 end
 

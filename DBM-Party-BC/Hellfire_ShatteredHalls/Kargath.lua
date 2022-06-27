@@ -55,8 +55,8 @@ function mod:OnCombatStart(delay)
 end
 
 --Change to no sync if blizz adds IEEU(boss1)
-function mod:UNIT_SPELLCAST_START(uId, _, spellId)
-   if spellId == 30738 then -- Blade Dance Targeting
+function mod:UNIT_SPELLCAST_START(_, spellName)
+   if spellName == GetSpellInfo(30738) then -- Blade Dance Targeting
 		self:SendSync("BladeDance")
 	end
 end

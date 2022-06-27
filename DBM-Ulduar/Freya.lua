@@ -232,8 +232,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, mob)
-	-- localize this
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if strmatch(msg, L.EmoteLGift) then
 		specWarnLifebinder:Show()
 		timerLifebinderCD:Start()

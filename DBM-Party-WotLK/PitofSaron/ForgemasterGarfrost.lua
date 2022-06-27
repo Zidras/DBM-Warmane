@@ -32,7 +32,7 @@ mod:AddBoolOption("AchievementCheck", false, "announce")
 
 mod.vb.warnedfailed = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.warnedfailed = false
 end
 

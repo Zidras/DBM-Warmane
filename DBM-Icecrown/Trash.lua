@@ -192,7 +192,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg, arg)
+function mod:OnSync(msg)
 	if msg == "WarderTrap" then
 		specWarnTrapL:Show()
 	elseif msg == "FleshTrap" then

@@ -15,7 +15,7 @@ local warningSmokeBomb				= mod:NewSpellAnnounce(7964, 2)
 
 local timerSmokeBombCD				= mod:NewCDTimer(14.6, 7964, nil, nil, nil, 3)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart(--[[delay]])
 --	timerSmokeBombCD:Start(1-delay)--Used near instant on pull
 end
 

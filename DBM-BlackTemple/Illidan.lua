@@ -58,7 +58,7 @@ local timerShadowDemon		= mod:NewCDTimer(34, 41117, nil, nil, nil, 1, nil, DBM_C
 local timerNextHuman		= mod:NewTimer(74, "TimerNextHuman", 97061, nil, nil, 6)
 local timerNextDemon		= mod:NewTimer(60, "TimerNextDemon", 40506, nil, nil, 6)
 local timerEnrage			= mod:NewBuffActiveTimer(10, 40683)
-local timerNextEnrage		= mod:NewCDTimer(40, 40683)
+--local timerNextEnrage		= mod:NewCDTimer(40, 40683)
 local timerCaged			= mod:NewBuffActiveTimer(15, 40695, nil, nil, nil, 6)
 local timerPhase4			= mod:NewPhaseTimer(30)
 

@@ -40,7 +40,7 @@ function mod:OnCombatStart(delay)
 	timerCurseCD:Start(12-delay)--12-15
 end
 
-function mod:MCTarget(targetname, uId)
+function mod:MCTarget(targetname)
 	if not targetname then return end
 	if self.Options.SetIconOnMC then
 		self:SetIcon(targetname, self.vb.lastIcon)

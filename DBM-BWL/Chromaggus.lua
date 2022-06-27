@@ -291,7 +291,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	end
 end
 
-function mod:OnSync(msg, Name)
+function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "Vulnerable" then
 		timerVuln:Start()

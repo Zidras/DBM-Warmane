@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 7399"
 )
 
-local warningNaralexsNightmare		= mod:NewTargetNoFilterAnnounce(7967, 2)
+-- local warningNaralexsNightmare		= mod:NewTargetNoFilterAnnounce(7967, 2)
 local warningTerrify				= mod:NewTargetNoFilterAnnounce(7399, 2)
 
 local specWarnNaralexsNightmare		= mod:NewSpecialWarningInterrupt(7967, "HasInterrupt", nil, nil, 1, 2)

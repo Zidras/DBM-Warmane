@@ -412,7 +412,7 @@ end
 
 local trackedUnits, syncTrackedUnits, gatesHP = {}, {}, {}
 do
-	local pairs, tostring, twipe = pairs, tostring, table.wipe
+	local pairs, twipe = pairs, table.wipe
 	local UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage = UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage
 	local healthScan, trackedUnitsCount, gatesEventsRegistered = nil, 0, false
 
@@ -446,7 +446,7 @@ do
 		end
 	end
 
-	function mod:TrackHealth(cid, name, gateHP, onlyGUID)
+	function mod:TrackHealth(cid, name, gateHP)
 		if not healthScan then
 			healthScan = AceTimer:ScheduleRepeatingTimer(healthScanFunc, 1)
 			-- workaround to register only once, instead of every TrackHealth call
@@ -592,7 +592,7 @@ do
 end
 
 do
-	local select, gsub, smatch = select, string.gsub, string.match
+	local smatch = string.match
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
 
 	local flagTimer			= mod:NewTimer(8, "TimerFlag", "Interface\\Icons\\INV_Banner_02")

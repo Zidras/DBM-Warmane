@@ -44,7 +44,7 @@ local function MeteorCast(self)
 	self:Schedule(15, MeteorCast, self)
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.markCounter = 0
 	timerLadyMark:Start()
 	timerZeliekMark:Start()

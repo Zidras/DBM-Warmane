@@ -33,7 +33,7 @@ mod:AddBoolOption("AchievementCheck", false, "announce")
 
 local warnedfailed = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	warnedfailed = false
 end
 

@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.bossLeft = 1--Force set number of bosses we expect to kill to 1 on engage for wipe/boss statistics
 	self.numBoss = 1--^^
 end

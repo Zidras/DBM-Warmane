@@ -22,7 +22,7 @@ local timerCharge		= mod:NewCDTimer(21, 59827)
 local timerPhase1		= mod:NewTimer(52, "TimerPhase1", 72262)
 local timerPhase2		= mod:NewTimer(52, "TimerPhase2", 72262)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 	timerSlash:Start()
 	timerPhase2:Start(52)

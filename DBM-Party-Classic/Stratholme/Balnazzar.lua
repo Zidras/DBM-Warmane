@@ -23,7 +23,7 @@ local timerDominationCD					= mod:NewAITimer(180, 17405, nil, nil, nil, 3)
 --local timerSleepCD						= mod:NewAITimer(180, 66290, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerPsychicScreamCD				= mod:NewAITimer(180, 13704, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart(--[[delay]])
 	--timerDominationCD:Start(1-delay)
 	--timerSleepCD:Start(1-delay)
 	--timerPsychicScreamCD:Start(1-delay)

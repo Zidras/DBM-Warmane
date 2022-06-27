@@ -10,7 +10,7 @@ mod:SetUsedIcons(1, 2, 3)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"RAID_BOSS_EMOTE",
+	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"SPELL_AURA_APPLIED 41001",
 	"SPELL_AURA_REMOVED 41001",
 	"SPELL_CAST_SUCCESS 40823",
@@ -34,13 +34,14 @@ mod:AddSetIconOption("FAIcons", 41001, true)
 mod.vb.prewarn_enrage = false
 mod.vb.enrage = false
 
+local GetSpellInfo = GetSpellInfo
 local aura = {
-	[40880] = true,
-	[40882] = true,
-	[40883] = true,
-	[40891] = true,
-	[40896] = true,
-	[40897] = true
+	[GetSpellInfo(40880)] = true,
+	[GetSpellInfo(40882)] = true,
+	[GetSpellInfo(40883)] = true,
+	[GetSpellInfo(40891)] = true,
+	[GetSpellInfo(40896)] = true,
+	[GetSpellInfo(40897)] = true
 }
 
 function mod:OnCombatStart(delay)
@@ -85,7 +86,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:RAID_BOSS_EMOTE(msg, source)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, source)
 	if not self.vb.enrage and (source or "") == L.name then
 		self.vb.enrage = true
 		warnEnrage:Show()
@@ -101,12 +102,11 @@ function mod:UNIT_HEALTH(uId)
 end
 
 --["40869-Fatal Attraction"] = "pull:24.4, 26.8, 28.0, 20.7, 21.9, 26.6, 22.0, 23.2, 23.0, 25.7, 26.6, 26.8, 25.6, 23.1, 26.8, 25.4",
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
-	if self:AntiSpam(3, spellId) then
-		if aura[spellId] then
-			local spellName = DBM:GetSpellInfo(spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if self:AntiSpam(3, spellName) then
+		if aura[spellName] then
 			timerAura:Start(spellName)
-		elseif spellId == 40869 then--Cast event not in combat log, only applied and that can be resisted (especially on non timewalker). this ensures timer always exists
+		elseif spellName == GetSpellInfo(40869) then--Cast event not in combat log, only applied and that can be resisted (especially on non timewalker). this ensures timer always exists
 			timerFACD:Start()
 		end
 	end

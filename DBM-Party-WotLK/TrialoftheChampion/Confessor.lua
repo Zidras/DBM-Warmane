@@ -25,7 +25,7 @@ local timerShadows			= mod:NewTargetTimer(5, 66619, nil, "Healer", 2, 5, nil, DB
 
 mod.vb.shielded = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.shielded = false
 end
 

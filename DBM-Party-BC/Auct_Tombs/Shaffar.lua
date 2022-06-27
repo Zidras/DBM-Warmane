@@ -12,8 +12,8 @@ mod:RegisterEventsInCombat(
 
 local specWarnAdds	= mod:NewSpecialWarningAdds(32371, "-Healer", nil, nil, 1, 2)
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
-	if spellId == 32371 then
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(32371) then
 		self:SendSync("Adds")
 	end
 end

@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 39193 35322",
 	"SPELL_AURA_REMOVED 39193 35322",
 	"SPELL_CAST_SUCCESS 39194 35327",
-	"RAID_BOSS_EMOTE"
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 local warnShadowpower       = mod:NewTargetNoFilterAnnounce(35322, 3)
@@ -50,7 +50,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.JackHammer then
 		if self.Options.SpecWarn39194run then
 			specWarnJackHammer:Show()

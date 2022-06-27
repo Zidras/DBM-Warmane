@@ -22,7 +22,7 @@ local timerQuake			= mod:NewBuffActiveTimer(8, 32686, nil, nil, nil, 2)
 
 mod:AddRangeFrameOption("10")
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end

@@ -29,7 +29,7 @@ local berserkTimer		= mod:NewBerserkTimer(600)
 
 mod:AddSetIconOption("FlameIcon", 43140, true, false, {1})
 
-function mod:FlameTarget(targetname, uId)
+function mod:FlameTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnBreath:Show()

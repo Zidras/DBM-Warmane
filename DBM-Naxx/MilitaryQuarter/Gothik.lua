@@ -92,7 +92,7 @@ function mod:NextWave()
 	end
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 	if self:IsDifficulty("normal25") then
 		waves = wavesHeroic

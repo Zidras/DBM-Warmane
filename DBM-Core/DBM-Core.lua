@@ -446,7 +446,7 @@ local instanceDifficultyBylevel = {
 	[162]={70, 1},[466]={70, 1},[474]={70, 1},[482]={70, 1},--Outlands World Bosses
 	--Raids
 	[718]={60, 3},[767]={60, 3},[756]={60, 3},[697]={60, 3},[698]={60, 3},--Classic Raids
-	[797]={70, 3},[776]={70, 3},[800]={70, 3},[777]={70, 3},[780]={70, 3},[781]={70, 3},[790]={70, 3},[776]={70, 3},[782]={70, 3},--BC Raids
+	[797]={70, 3},[776]={70, 3},[800]={70, 3},[777]={70, 3},[780]={70, 3},[781]={70, 3},[790]={70, 3},[783]={70, 3},[782]={70, 3},--BC Raids
 	[532]={80, 3},[610]={80, 3},[544]={80, 3},[528]={80, 3},[605]={80, 3},[536]={80, 3},[719]={80, 3},[530]={80, 3},[533]={80, 3},--Wrath Raids
 	--Dungeons
 	[700]={45, 2},[681]={18, 2},[751]={52, 2},[766]={60, 2},[764]={60, 2},[705]={60, 2},[722]={60, 2},[687]={54, 2},[763]={45, 2},[761]={47, 2},[688]={60, 2},[692]={34, 2},[693]={52, 2},[689]={32, 2},[762]={42, 2},[750]={27, 2},[757]={25, 2},[691]={32, 2},[765]={30, 2},--Classic Dungeons
@@ -483,6 +483,7 @@ local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit = UnitExists, UnitIsDead,
 local GetSpellInfo, GetSpellTexture, GetSpellCooldown = GetSpellInfo, GetSpellTexture, GetSpellCooldown
 local GetInstanceInfo = GetInstanceInfo
 local GetActiveTalentGroup = GetActiveTalentGroup
+local GetMapInfo, GetCurrentMapDungeonLevel, DungeonUsesTerrainMap, GetPlayerMapPosition, SetMapToCurrentZone = GetMapInfo, GetCurrentMapDungeonLevel, DungeonUsesTerrainMap, GetPlayerMapPosition, SetMapToCurrentZone
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 local UnitIsPartyLeader, UnitIsRaidOfficer = UnitIsPartyLeader, UnitIsRaidOfficer
 local PlaySoundFile, PlaySound = PlaySoundFile, PlaySound
@@ -610,7 +611,6 @@ local function SendWorldSync(self, prefix, msg, noBNet)
 	if self.Options.EnableWBSharing and not noBNet then
 		local _, numFriendsOnline = GetNumFriends()
 		for i = 1, numFriendsOnline do
-			local sameRealm = true
 			local name, _, _, _, isOnline = GetFriendInfo(i)
 			if name and isOnline then
 				SendAddonMessage(DBMPrefix .. "-" .. prefix, msg, "WHISPER", name)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
@@ -1601,17 +1601,20 @@ function DBM:RepositionFrames()
 	self:UpdateWarningOptions()
 	self:UpdateSpecialWarningOptions()
 	self.Arrow:LoadPosition()
-	if DBMRangeCheck then
-		DBMRangeCheck:ClearAllPoints()
-		DBMRangeCheck:SetPoint(self.Options.RangeFramePoint, UIParent, self.Options.RangeFramePoint, self.Options.RangeFrameX, self.Options.RangeFrameY)
+	local rangeCheck = _G["DBMRangeCheck"]
+	if rangeCheck then
+		rangeCheck:ClearAllPoints()
+		rangeCheck:SetPoint(self.Options.RangeFramePoint, UIParent, self.Options.RangeFramePoint, self.Options.RangeFrameX, self.Options.RangeFrameY)
 	end
-	if DBMRangeCheckRadar then
-		DBMRangeCheckRadar:ClearAllPoints()
-		DBMRangeCheckRadar:SetPoint(self.Options.RangeFrameRadarPoint, UIParent, self.Options.RangeFrameRadarPoint, self.Options.RangeFrameRadarX, self.Options.RangeFrameRadarY)
+	local rangeCheckRadar = _G["DBMRangeCheckRadar"]
+	if rangeCheckRadar then
+		rangeCheckRadar:ClearAllPoints()
+		rangeCheckRadar:SetPoint(self.Options.RangeFrameRadarPoint, UIParent, self.Options.RangeFrameRadarPoint, self.Options.RangeFrameRadarX, self.Options.RangeFrameRadarY)
 	end
-	if DBMInfoFrame then
-		DBMInfoFrame:ClearAllPoints()
-		DBMInfoFrame:SetPoint(self.Options.InfoFramePoint, UIParent, self.Options.InfoFramePoint, self.Options.InfoFrameX, self.Options.InfoFrameY)
+	local infoFrame = _G["DBMInfoFrame"]
+	if infoFrame then
+		infoFrame:ClearAllPoints()
+		infoFrame:SetPoint(self.Options.InfoFramePoint, UIParent, self.Options.InfoFramePoint, self.Options.InfoFrameX, self.Options.InfoFrameY)
 	end
 end
 
@@ -2902,7 +2905,7 @@ end
 do
 	local modAdvertisementShown = false
 	local classicZones = {[718]=true,[767]=true,[756]=true,[697]=true}
-	local bcZones = {[797]=true,[776]=true,[800]=true,[777]=true,[780]=true,[781]=true,[790]=true,[776]=true}
+	local bcZones = {[797]=true,[776]=true,[800]=true,[777]=true,[780]=true,[781]=true,[790]=true,[783]=true,[782]=true}
 	local wrathZones = {[532]=true,[610]=true,[544]=true,[528]=true,[605]=true,[536]=true,[719]=true,[530]=true,[533]=true}
 	local pvpZones = {[402]=true,[444]=true,[462]=true,[483]=true,[513]=true,[541]=true}
 	local oldDungeons = {
@@ -2978,7 +2981,7 @@ do
 	local function SecondaryLoadCheck(self)
 		local zoneName = GetRealZoneText()
 		local mapID = GetCurrentMapAreaID() > 4 and GetCurrentMapAreaID() or GetCurrentMapContinent() -- workaround to support world bosses mod loading
-		local _, instanceType, difficulty, difficultyName, instanceGroupSize = GetInstanceInfo()
+		local _, instanceType, difficulty, _, instanceGroupSize = GetInstanceInfo()
 		local currentDifficulty, currentDifficultyText = self:GetCurrentInstanceDifficulty()
 		if currentDifficulty and currentDifficulty ~= savedDifficulty then -- added currentDifficulty nil check to prevent this from overriding savedDifficulty when outside instance
 			savedDifficulty, difficultyText = currentDifficulty, currentDifficultyText
@@ -3250,7 +3253,7 @@ do
 		end
 	end
 
-	syncHandlers["DBMv4-Pull"] = function(sender, delay, mod, modRevision, startHp, dbmRevision, modHFRevision, event)
+	syncHandlers["DBMv4-Pull"] = function(sender, delay, mod, modRevision, startHp, _, modHFRevision, event) -- sender, delay, mod, modRevision, startHp, dbmRevision, modHFRevision, event
 		if not dbmIsEnabled or sender == playerName then return end
 		if LastInstanceType == "pvp" then return end
 		if LastInstanceType == "none" and (not UnitAffectingCombat("player") or #inCombat > 0) then--world boss
@@ -3269,7 +3272,7 @@ do
 				delay = tonumber(delay or 0) or 0
 				mod = DBM:GetModByName(mod or "")
 				modRevision = tonumber(modRevision or 0) or 0
-				dbmRevision = tonumber(dbmRevision or 0) or 0
+				--dbmRevision = tonumber(dbmRevision or 0) or 0
 				modHFRevision = tonumber(modHFRevision or 0) or 0
 				startHp = tonumber(startHp or -1) or -1
 				--if dbmRevision < 10481 then return end
@@ -3325,7 +3328,7 @@ do
 		DBM:AddMsg(name.." was elected icon setter for "..optionName)
 	end
 
-	syncHandlers["DBMv4-Kill"] = function(sender, cId)
+	syncHandlers["DBMv4-Kill"] = function(_, cId)
 		if select(2, IsInInstance()) == "pvp" or select(2, IsInInstance()) == "none" then return end
 		cId = tonumber(cId or "")
 		if cId then DBM:OnMobKill(cId, true) end
@@ -3563,12 +3566,12 @@ do
 	end
 
 	-- is there a good reason that version information is broadcasted and not unicasted?
-	syncHandlers["DBMv4-H"] = function(sender)
+	syncHandlers["DBMv4-H"] = function()
 		DBM:Unschedule(SendVersion)--Throttle so we don't needlessly send tons of comms during initial raid invites
 		DBM:Schedule(3, SendVersion)--Send version if 3 seconds have past since last "Hi" sync
 	end
 
-	guildSyncHandlers["DBMv4-GH"] = function(sender)
+	guildSyncHandlers["DBMv4-GH"] = function()
 		if DBM.ReleaseRevision >= DBM.HighestRelease then--Do not send version to guild if it's not up to date, since this is only used for update notifcation
 			DBM:Unschedule(SendVersion, true)
 			--Throttle so we don't needlessly send tons of comms
@@ -3753,7 +3756,7 @@ do
 			end
 			inspopuptext:SetText(L.REQ_INSTANCE_ID_PERMISSION:format(sender, sender))
 			buttonaccept:SetScript("OnClick", function(f) savedSender = nil DBM:Unschedule(autoDecline) accessList[sender] = true syncHandlers["IR"](sender) f:GetParent():Hide() end)
-			buttondecline:SetScript("OnClick", function(f) autoDecline(sender, 1) end)
+			buttondecline:SetScript("OnClick", function() autoDecline(sender, 1) end)
 			DBM:PlaySound(850)
 			inspopup:Show()
 		end
@@ -3771,7 +3774,7 @@ do
 			-- okay, send data
 			local sentData = false
 			for i = 1, GetNumSavedInstances() do
-				local name, id, _, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, textDiff, _, progress = GetSavedInstanceInfo(i)
+				local name, id, _, difficulty, locked, extended, _, isRaid, maxPlayers, textDiff, _, progress = GetSavedInstanceInfo(i)
 				if (locked or extended) and isRaid then -- only report locked raid instances
 					SendAddonMessage("DBMv4-II", "Data\t" .. name .. "\t" .. id .. "\t" .. difficulty .. "\t" .. maxPlayers .. "\t" .. (progress or 0) .. "\t" .. textDiff, "WHISPER", sender)
 					sentData = true
@@ -3792,15 +3795,16 @@ do
 			end
 		end
 
-		guildSyncHandlers["DBMv4-GCB"] = function(sender, modId, ver, difficulty, name)
+		guildSyncHandlers["DBMv4-GCB"] = function(_, modId, ver, difficulty, name)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or ver ~= "2" then return end--Ignore old versions
 			if DBM:AntiSpam(10, "GCB") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				difficulty = tonumber(difficulty)
 				if not DBM.Options.ShowGuildMessagesPlus then return end
-				local bossName = name or CL.UNKNOWN
-				local difficultyName = CL.UNKNOWN
+				modId = tonumber(modId)
+				local bossName = modId and DBM:GetModLocalization(modId).general.name or name or CL.UNKNOWN
+				local difficultyName
 				if difficulty == 4 then
 					difficultyName = RAID_DIFFICULTY4
 				elseif difficulty == 3 then
@@ -3814,7 +3818,7 @@ do
 			end
 		end
 
-		guildSyncHandlers["DBMv4-GCE"] = function(sender, modId, ver, wipe, time, difficulty, name, wipeHP)
+		guildSyncHandlers["DBMv4-GCE"] = function(_, modId, ver, wipe, time, difficulty, name, wipeHP)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or ver ~="5" then return end--Ignore old versions
 			if DBM:AntiSpam(5, "GCE") then
@@ -3822,8 +3826,8 @@ do
 				difficulty = tonumber(difficulty)
 				if not DBM.Options.ShowGuildMessagesPlus then return end
 				modId = tonumber(modId)
-				local bossName = name or CL.UNKNOWN
-				local difficultyName = CL.UNKNOWN
+				local bossName = modId and DBM:GetModLocalization(modId).general.name or name or CL.UNKNOWN
+				local difficultyName
 				if difficulty == 4 then
 					difficultyName = RAID_DIFFICULTY4
 				elseif difficulty == 3 then
@@ -3849,7 +3853,7 @@ do
 
 		local updateInstanceInfo, showResults
 
-		whisperSyncHandlers["DBMv4-II"] = function(sender, result, name, id, diff, maxPlayers, progress, textDiff)
+		whisperSyncHandlers["DBMv4-II"] = function(sender, result, name, _, diff, maxPlayers, progress, textDiff) -- sender, result, name, id, diff, maxPlayers, progress, textDiff
 			if GetTime() - lastRequest > 62 or not results then
 				return
 			end
@@ -3857,7 +3861,6 @@ do
 				return
 			end
 			name = name or CL.UNKNOWN
-			id = id or ""
 			diff = tonumber(diff or 0) or 0
 			maxPlayers = tonumber(maxPlayers or 0) or 0
 			progress = tonumber(progress or 0) or 0
@@ -3988,7 +3991,7 @@ do
 		end
 
 		function updateInstanceInfo(timeRemaining, dontAddShowResultNowButton)
-			local numResponses, sent, denied, away = getResponseStats()
+			local numResponses, sent, denied = getResponseStats()
 			local dbmUsers = getNumDBMUsers()
 			DBM:AddMsg(L.INSTANCE_INFO_STATUS_UPDATE:format(numResponses, dbmUsers, sent, denied, timeRemaining), false)
 			if not dontAddShowResultNowButton then
@@ -4047,8 +4050,8 @@ do
 		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end--We recently got a sync about this boss on this realm, so do nothing.
 		lastBossEngage[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
-			--modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or CL.UNKNOWN
+			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
+			local bossName = modId and DBM:GetModLocalization(modId).general.name or name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), sender))
 		end
 	end
@@ -4059,7 +4062,7 @@ do
 		lastBossDefeat[modId..realm] = GetTime()
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
 			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or CL.UNKNOWN
+			local bossName = modId and DBM:GetModLocalization(modId).general.name or name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, sender))
 		end
 	end
@@ -4083,18 +4086,6 @@ do
 	end
 
 	whisperSyncHandlers["DBMv4-WBE"] = function(sender, modId, realm, health, ver, name)
-		if not ver or ver ~="8" then return end--Ignore old versions
-		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
-		lastBossEngage[modId..realm] = GetTime()
-		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
-			local toonName = sender or CL.UNKNOWN
-			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or CL.UNKNOWN
-			DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), toonName))
-		end
-	end
-
-	whisperSyncHandlers["DBMv4-WBE"] = function(sender, modId, realm, health, ver, name)
 		if not ver or ver ~= "8" then return end--Ignore old versions
 		if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
 		lastBossEngage[modId..realm] = GetTime()
@@ -4113,7 +4104,7 @@ do
 		if realm == playerRealm and DBM.Options.WorldBossAlert and not mod.InCombat then
 			local toonName = sender or CL.UNKNOWN
 			modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-			local bossName = name or CL.UNKNOWN
+			local bossName = modId and DBM:GetModLocalization(modId).general.name or name or CL.UNKNOWN
 			DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, toonName))
 		end
 	end
@@ -4736,7 +4727,7 @@ do
 		return self:FilterRaidBossEmote(msg, ...)
 	end
 
-	function DBM:CHAT_MSG_RAID_BOSS_WHISPER(msg, ...)
+	function DBM:CHAT_MSG_RAID_BOSS_WHISPER(msg)
 		--Make it easier for devs to detect whispers they are unable to see
 		--TINTERFACE\\ICONS\\ability_socererking_arcanewrath.blp:20|t You have been branded by |cFFF00000|Hspell:156238|h[Arcane Wrath]|h|r!"
 		if IsInGroup() and not _G["BigWigs"] then
@@ -5303,7 +5294,7 @@ do
 				end
 				local totalKills = mod.stats[statVarTable[savedDifficulty].."Kills"]
 				if self.Options.ShowDefeatMessage then
-					local msg = ""
+					local msg
 					local thisTimeString = thisTime and strFromTime(thisTime)
 					if not mod.combatInfo.pull then--was a bad pull so we ignored thisTime, should never happen
 						msg = L.BOSS_DOWN:format(difficultyText..name, CL.UNKNOWN)
@@ -5835,7 +5826,7 @@ do
 		return true
 	end
 
-	local function playSoundFile(self, path, ignoreSFX, validate)
+	local function playSoundFile(self, path, _, validate)
 		if self.Options.SilentMode or path == "" or path == "None" then
 			return
 		end
@@ -5928,7 +5919,7 @@ end
 
 --Handle new spell name requesting with wrapper, to make api changes easier to handle
 function DBM:GetSpellInfoNew(spellId)
-	local name, rank, icon, cost, isFunnel, powerType, castingTime, minRange, maxRange = GetSpellInfo(spellId)
+	local name, rank, icon, _, _, _, castingTime, minRange, maxRange = GetSpellInfo(spellId)
 	if not name then--Bad request all together
 		DBM:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId)
 		return nil
@@ -5940,7 +5931,7 @@ end
 function DBM:UnitDebuffNew(uId, spellInput, spellInput2, spellInput3, spellInput4)
 	if not uId then return end
 	for i = 1, 60 do
-		local spellName, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitDebuff(uId, i)
+		local spellName, _, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitDebuff(uId, i)
 		if not spellName then return end
 		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId then
 			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
@@ -5951,7 +5942,7 @@ end
 function DBM:UnitBuffNew(uId, spellInput, spellInput2, spellInput3, spellInput4)
 	if not uId then return end
 	for i = 1, 60 do
-		local spellName, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitBuff(uId, i)
+		local spellName, _, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId = UnitBuff(uId, i)
 		if not spellName then return end
 		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId then
 			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate, spellId
@@ -6216,7 +6207,7 @@ do
 	end
 
 	-- sender is a presenceId for real id messages, a character name otherwise
-	local function onWhisper(msg, sender, isRealIdMessage)
+	local function onWhisper(msg, sender) -- msg, sender, isRealIdMessage
 		if statusWhisperDisabled then return end--RL has disabled status whispers for entire raid.
 		if not checkForSafeSender(sender, true, true, true) then return end--Automatically reject all whisper functions from non friends, non guildies, or people in group with us
 		if msg == "status" and #inCombat > 0 and DBM.Options.AutoRespond then
@@ -6549,8 +6540,7 @@ function DBM:GetMapSize()
 	local level = GetCurrentMapDungeonLevel()
 	local usesTerrainMap = DungeonUsesTerrainMap()
 	level = usesTerrainMap and level - 1 or level
-	local playerX, playerY = GetPlayerMapPosition("player")
-	local dims  = self.MapSizes[mapName] and self.MapSizes[mapName][level]
+	local dims = self.MapSizes[mapName] and self.MapSizes[mapName][level]
 	return dims[1], dims[2]
 end
 
@@ -6563,7 +6553,7 @@ do
 	function DBM:PLAY_MOVIE(id)
 		if id and not neverFilter[id] then
 			self:Debug("PLAY_MOVIE fired for ID: "..id, 2)
-			local isInstance, instanceType = IsInInstance()
+			local isInstance = IsInInstance()
 			if not isInstance or self.Options.MovieFilter2 == "Never" or self.Options.MovieFilter2 == "OnlyFight" and not DBM:IsEncounterInProgress() then return end
 			if self.Options.MovieFilter2 == "Block" or (self.Options.MovieFilter2 == "AfterFirst" or self.Options.MovieFilter2 == "OnlyFight") and self.Options.MoviesSeen[id] then
 				MovieFrame:Hide()--can only just hide movie frame safely now, which means can't stop audio anymore :\
@@ -6579,7 +6569,7 @@ do
 	function DBM:CINEMATIC_START()
 		self:Debug("CINEMATIC_START fired", 2)
 --		self.HudMap:SupressCanvas()
-		local isInstance, instanceType = IsInInstance()
+		local isInstance = IsInInstance()
 		if not isInstance or self.Options.MovieFilter2 == "Never" or DBM.Options.MovieFilter2 == "OnlyFight" and not DBM:IsEncounterInProgress() then return end
 		local currentMapID = GetCurrentMapAreaID()
 		local currentSubZone = GetSubZoneText() or ""
@@ -7244,9 +7234,6 @@ function bossModPrototype:UnitClass(uId)
 	end
 	return playerClass--else return "player"
 end
-
--- if we catch someone in a tank stance keep sending them warnings, classic only
-local playerIsTank = false
 
 function bossModPrototype:IsTank()
 	--IsTanking already handles external calls, no need here.
