@@ -21,7 +21,7 @@ local specWarnWhirlwind	= mod:NewSpecialWarningRun(26083, false, nil, nil, 4, 2)
 
 mod.vb.prewarn_enrage = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.prewarn_enrage = false
 end
 

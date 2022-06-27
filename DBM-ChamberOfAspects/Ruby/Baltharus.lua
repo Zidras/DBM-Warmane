@@ -39,7 +39,7 @@ local function showBrandWarning(self)
 	self.vb.brandIcon = 8
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.warnedSplit1 = false
 	self.vb.warnedSplit2 = false
 	self.vb.warnedSplit3 = false

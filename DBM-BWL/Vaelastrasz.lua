@@ -102,7 +102,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg, targetName)
+function mod:OnSync(msg)
 	if msg == "PullRP" then
 		timerCombatStart:Start()
 	end

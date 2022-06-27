@@ -59,8 +59,8 @@ L.Latency_Text				= "Maximale Synchronisierungslatenz: %d"
 L.ModelOptions				= "Einstellungen für 3D-Modellanzeige"
 L.EnableModels				= "Aktiviere 3D-Modelle in den Bosseinstellungen"
 L.ModelSoundOptions			= "Soundeinstellung für Modellanzeige"
-L.ModelSoundShort			= SHORT
-L.ModelSoundLong			= TOAST_DURATION_LONG
+-- L.ModelSoundShort			= SHORT
+-- L.ModelSoundLong			= TOAST_DURATION_LONG
 
 L.Button_RangeFrame			= "Zeige Abstandsfenster"
 L.Button_InfoFrame			= "Zeige Infofenster"

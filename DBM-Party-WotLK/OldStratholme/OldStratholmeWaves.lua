@@ -41,11 +41,10 @@ local wavesHeroic = {
 	{L.Salramm},
 }
 
-local waves		= wavesNormal
-local lastWave	= 0
+local waveInfo
+local lastWave = 0
 
 local function getWaveString(self, wave)
-	local waveInfo = waves[wave]
 	if self:IsDifficulty("heroic5") then
 		waveInfo = wavesHeroic[wave]
 	else
@@ -64,7 +63,7 @@ local function getWaveString(self, wave)
 	end
 end
 
-function mod:UPDATE_WORLD_STATES(args)
+function mod:UPDATE_WORLD_STATES()
 	local text = select(3, GetWorldStateUIInfo(2))
 	if not text then return end
 	local _, _, wave = string.find(text, L.WaveCheck)

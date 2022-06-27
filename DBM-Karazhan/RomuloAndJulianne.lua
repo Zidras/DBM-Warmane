@@ -35,7 +35,7 @@ local timerCombatStart	= mod:NewCombatTimer(55)
 mod.vb.JulianneDied = 0
 mod.vb.RomuloDied = 0
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.JulianneDied = 0
 	self.vb.RomuloDied = 0
 	self:SetStage(1)

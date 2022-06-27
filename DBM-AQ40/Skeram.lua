@@ -32,7 +32,7 @@ local MCTargets = {}
 mod.vb.splitCount = 0
 mod.vb.MCIcon = 8
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.splitCount = 0
 	table.wipe(MCTargets)
 	self.vb.MCIcon = 8

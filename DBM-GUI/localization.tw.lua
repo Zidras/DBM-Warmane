@@ -75,8 +75,8 @@ L.Button_ResetInfoRange		= "重置訊息/距離監視器"
 L.ModelOptions				= "3D模型預覽選項"
 L.EnableModels				= "在首領選項中啟用3D模型預覽"
 L.ModelSoundOptions			= "為模型預覽設置聲音"
-L.ModelSoundShort			= SHORT
-L.ModelSoundLong			= TOAST_DURATION_LONG
+-- L.ModelSoundShort			= SHORT
+-- L.ModelSoundLong			= TOAST_DURATION_LONG
 
 L.ResizeOptions			 	= "尺寸調整選項"
 L.ResizeInfo				= "您可以通過點擊右下角並拖動來調整GUI的大小。"

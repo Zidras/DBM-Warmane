@@ -24,7 +24,7 @@ local specWarnMark				= mod:NewSpecialWarningYou(21056, nil, nil, nil, 1, 2)--No
 
 --mod:AddReadyCheckOption(48620, false)
 
-function mod:OnCombatStart(delay, yellTriggered)
+function mod:OnCombatStart(_, yellTriggered)
 	if yellTriggered then
 		--timerShadowBoltVolleyCD:Start(11.5-delay)
 		--timerMarkCD:Start(14.1-delay)

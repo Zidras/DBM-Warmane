@@ -34,7 +34,7 @@ mod:AddRangeFrameOption("10")
 
 mod.vb.prewarn_Phase2 = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.prewarn_Phase2 = false
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)

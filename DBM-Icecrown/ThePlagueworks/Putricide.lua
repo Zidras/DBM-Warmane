@@ -158,10 +158,10 @@ function mod:OnCombatStart(delay)
 	timerUnstableExperimentCD:Start(30-delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	table.wipe(redOozeGUIDsCasts)
-	local PuddleTime = 0
-	local GooTime = 0
-	local ChokingTime = 0
-	local UnboundTime = 0
+	PuddleTime = 0
+	GooTime = 0
+	ChokingTime = 0
+	UnboundTime = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	if self:IsHeroic() then

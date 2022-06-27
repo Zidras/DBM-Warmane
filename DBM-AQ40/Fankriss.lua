@@ -22,7 +22,7 @@ local timerWound		= mod:NewTargetTimer(20, 25646, nil, "Tank", 3, 5, nil, DBM_CO
 
 local yellEntangle		= mod:NewYell(1121)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	if not self:IsTrivial(85) then
 		self:RegisterShortTermEvents(
 			"SPELL_AURA_APPLIED 25646 1121",

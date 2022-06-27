@@ -6,7 +6,7 @@ local RaidWarningPanel = DBM_GUI.Cat_Alerts:CreateNewPanel(L.Tab_RaidWarning, "o
 local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header)
 
 local check1 = raidwarnoptions:CreateCheckButton(L.ShowWarningsInChat, true, nil, "ShowWarningsInChat")
-local ShowFakedRaidWarnings = raidwarnoptions:CreateCheckButton(L.ShowFakedRaidWarnings, true, nil, "ShowFakedRaidWarnings")
+raidwarnoptions:CreateCheckButton(L.ShowFakedRaidWarnings, true, nil, "ShowFakedRaidWarnings")
 local check2 = raidwarnoptions:CreateCheckButton(L.WarningIconLeft, true, nil, "WarningIconLeft")
 local check3 = raidwarnoptions:CreateCheckButton(L.WarningIconRight, true, nil, "WarningIconRight")
 local check4 = raidwarnoptions:CreateCheckButton(L.WarningIconChat, true, nil, "WarningIconChat")

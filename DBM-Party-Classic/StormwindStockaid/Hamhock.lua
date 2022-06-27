@@ -15,7 +15,7 @@ local warningBloodlust				= mod:NewTargetNoFilterAnnounce(6742, 2)
 
 mod:AddRangeFrameOption("10")
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end

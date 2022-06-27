@@ -24,7 +24,7 @@ local timerPoisonBoltVolleyCD	= mod:NewCDCountTimer(11, 25991, nil, nil, nil, 2,
 
 mod.vb.volleyCount = 0
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self.vb.volleyCount = 0
 	timerPoisonBoltVolleyCD:Start(12.9, 1)
 end

@@ -65,7 +65,7 @@ dualProfile:SetScript("OnClick", function()
 	DBM:SpecChanged(true)
 end)
 dualProfile:SetChecked(DBM_UseDualProfile)
-local PerCharacterSettings	= dualProfileArea:CreateCheckButton(L.PerCharacterSettings, true, nil, "PerCharacterSettings")
+dualProfileArea:CreateCheckButton(L.PerCharacterSettings, true, nil, "PerCharacterSettings")
 
 local function actuallyImport(importTable)
 	DBM.Options = importTable.DBM -- Cached options

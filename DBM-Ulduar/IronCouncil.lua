@@ -111,7 +111,7 @@ function mod:OnCombatEnd()
 	end
 end
 
-function mod:RuneTarget(targetname, uId)
+function mod:RuneTarget(targetname)
 	if not targetname then return end
 	warnRuneofPower:Show(targetname)
 end

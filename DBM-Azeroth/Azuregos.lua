@@ -25,7 +25,7 @@ local specWarnReflection		= mod:NewSpecialWarningSpell(22067, "CasterDps", nil, 
 
 --mod:AddReadyCheckOption(48620, false)
 
-function mod:OnCombatStart(delay, yellTriggered)
+function mod:OnCombatStart(_, yellTriggered)
 	if yellTriggered then
 		--timerFrostBreathCD:Start(5.8-delay)
 		--timerArcaneVacuumCD:Start(5.7-delay)--5.7-12

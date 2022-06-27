@@ -8,7 +8,7 @@ local panel = DBM_GUI.Cat_Frames:CreateNewPanel(L.Panel_InfoFrame, "option")
 local general = panel:CreateArea(L.Area_General)
 
 local dontShow = general:CreateCheckButton(L.SpamBlockNoInfoFrame, true, nil, "DontShowInfoFrame")
-local locked = general:CreateCheckButton(LOCK_FRAME, true, nil, "InfoFrameLocked")
+local locked = general:CreateCheckButton(CL.LOCK_FRAME, true, nil, "InfoFrameLocked")
 local showSelf = general:CreateCheckButton(CL.INFOFRAME_SHOW_SELF, false, nil, "InfoFrameShowSelf")
 
 local lines = {

@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_HEALTH boss1"
 )
 
-local warnCopies			= mod:NewSpellAnnounce(55101, 4)
+-- local warnCopies			= mod:NewSpellAnnounce(55101, 4)
 
 local specWarnTransform		= mod:NewSpecialWarningInterruptCount(55098, nil, nil, nil, 1, 2)
 

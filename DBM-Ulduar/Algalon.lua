@@ -47,7 +47,7 @@ local stars_hp = {}
 local star_num = 1
 mod.vb.warned_preP2 = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 	stars = {}
 	warned_star = {}
@@ -149,7 +149,7 @@ function mod:UNIT_HEALTH(uId)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(65311) then--Supermassive Fail (fires when he becomes actually active)
 		timerNextCollapsingStar:Start(16)
 		timerCDCosmicSmash:Start(26)
@@ -167,7 +167,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 	end
 end
 
-mod:RegisterOnUpdateHandler(function(self, elapsed)
+mod:RegisterOnUpdateHandler(function(self)
 	if not self:IsInCombat() then return end
 		for uId in DBM:GetGroupMembers() do
 			local target = uId .."target"
@@ -178,8 +178,8 @@ mod:RegisterOnUpdateHandler(function(self, elapsed)
 				if not stars[targetGUID] then
 					stars[targetGUID] = L.CollapsingStar .. " №" .. star_num
 					do
+						local last = 100
 						local function getStarPercent()
-							local last = 100
 							local trackingGUID = targetGUID
 
 							for uId in DBM:GetGroupMembers() do

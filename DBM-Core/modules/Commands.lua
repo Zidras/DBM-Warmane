@@ -197,7 +197,7 @@ SlashCmdList["DEADLYBOSSMODSRPULL"] = function()
 	Pull(30)
 end
 
-local trackedHudMarkers = {}
+--local trackedHudMarkers = {}
 SLASH_DEADLYBOSSMODS1 = "/dbm"
 SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	local cmd = msg:lower()

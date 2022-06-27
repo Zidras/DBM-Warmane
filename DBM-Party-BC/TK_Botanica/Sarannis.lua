@@ -37,8 +37,8 @@ do
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
-	if spellId == 34803 and self:AntiSpam(3, 1) then
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(34803) and self:AntiSpam(3, 1) then
 		timerReinforcements:Start(60 )
 		warnReinforcementsSoon:Schedule(55)
 		warnReinforcementsNow:Show()

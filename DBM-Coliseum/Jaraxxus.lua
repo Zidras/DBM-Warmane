@@ -107,7 +107,7 @@ do
 	end
 	mod.SPELL_PERIODIC_HEAL = mod.SPELL_HEAL
 
-	function setIncinerateTarget(mod, target, name)
+	function setIncinerateTarget(_, target, name)
 		incinerateTarget = target
 		healed = 0
 		DBM.BossHealth:RemoveBoss(getShieldHP)
@@ -175,6 +175,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		setIncinerateTarget(self, args.destGUID, args.destName)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
+		timerFlame:Start(args.destName)
+		timerFlameCD:Start()
 		if args:IsPlayer() then
 			specWarnFlame:Show()
 			specWarnFlame:Play("runout")

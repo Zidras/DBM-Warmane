@@ -51,7 +51,7 @@ function mod:Groundphase()
 	timerEncapsCD:Start()
 end
 
-function mod:EncapsulateTarget(targetname, uId)
+function mod:EncapsulateTarget(targetname)
 	if not targetname then return end
 	timerEncapsCD:Cancel()
 	timerEncaps:Start(targetname)
@@ -135,7 +135,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(45661) and self:AntiSpam(2, 1) then
 		self:BossTargetScanner(25038, "EncapsulateTarget", 0.05, 10)
 	end

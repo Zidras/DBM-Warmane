@@ -18,7 +18,7 @@ local specWarnHeal			= mod:NewSpecialWarningInterrupt(14900, "HasInterrupt", nil
 local timerSummonBoarCD		= mod:NewAITimer(180, 8286, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerHealCD			= mod:NewAITimer(180, 14900, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart(--[[delay]])
 	--timerSummonBoarCD:Start(7-delay)
 	--timerHealCD:Start(9.5-delay)
 end

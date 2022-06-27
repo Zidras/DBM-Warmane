@@ -60,7 +60,7 @@ mod:GroupSpells(62526, 62527) -- Rune of Detonation
 
 local lastcharge = {}
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:SetStage(1)
 	enrageTimer:Start()
 	timerHardmode:Start()
@@ -168,7 +168,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(event, arg)
+function mod:OnSync(event)
 	if event == "Phase2" and self.vb.phase < 2 then
 		self:SetStage(2)
 		warnPhase2:Show()

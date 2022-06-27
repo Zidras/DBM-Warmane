@@ -9,7 +9,7 @@ mod:SetModelID(20216)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"RAID_BOSS_EMOTE",
+	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_DIED",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
@@ -44,7 +44,7 @@ function mod:OnCombatStart(delay)
 	timerSubmerge:Start(90-delay)
 end
 
-function mod:RAID_BOSS_EMOTE(_, source)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, source)
 	if (source or "") == L.name then
 		specWarnSpout:Show()
 		specWarnSpout:Play("watchwave")
@@ -70,10 +70,10 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
-	if spellId == 28819 and self:AntiSpam(2, 1) then--Submerge Visual
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(28819) and self:AntiSpam(2, 1) then--Submerge Visual
 		self:SendSync("Submerge")
-	elseif spellId == 37660 and self:AntiSpam(2, 2) then
+	elseif spellName == GetSpellInfo(37660) and self:AntiSpam(2, 2) then
 		self:SendSync("Whirl")
 	end
 end

@@ -27,7 +27,7 @@ local berserkTimer		= mod:NewBerserkTimer(600)
 
 mod:AddSetIconOption("BurstIcon", 32014, true, false, {8})
 
-function mod:BurstTarget(targetname, uId)
+function mod:BurstTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnBurst:Show()

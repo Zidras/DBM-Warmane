@@ -15,7 +15,7 @@ local warnSacrifice				= mod:NewTargetNoFilterAnnounce(22651, 4)
 
 local yellSacrifice				= mod:NewYell(22651)
 
-function mod:SacTarget(targetname, uId)
+function mod:SacTarget(targetname)
 	if not targetname then return end
 	warnSacrifice:Show(targetname)
 	if targetname == UnitName("player") then

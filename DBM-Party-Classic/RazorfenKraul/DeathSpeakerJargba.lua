@@ -17,7 +17,7 @@ local warningMC				= mod:NewTargetNoFilterAnnounce(14515, 4, nil, false, 2)--Don
 
 local timerMCCD				= mod:NewAITimer(180, 14515, nil, nil, nil, 3)--Uses success, because start can be interrupted by CC, evem though normal interrupts don't work, but boss recasts immediately on CC break
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart(--[[delay]])
 	--timerMCCD:Start(6-delay)--Cast Start
 end
 

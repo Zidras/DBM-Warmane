@@ -242,7 +242,7 @@ local function RestoreWipeTime(self)
 	self:SetWipeTime(5) --Restore it after frostmourn room.
 end
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	self:DestroyFrame()
 	self.vb.valkIcon = 1
 	self.vb.phase = 0

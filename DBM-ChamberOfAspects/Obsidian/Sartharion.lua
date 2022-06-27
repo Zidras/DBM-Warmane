@@ -118,7 +118,7 @@ function mod:OnCombatStart(delay)
 	twipe(lastfire)
 end
 
-function mod:OnCombatEnd(wipe)
+function mod:OnCombatEnd()
 	if not self.Options.AnnounceFails then return end
 	if DBM:GetRaidRank() < 1 or not self.Options.Announce then return end
 

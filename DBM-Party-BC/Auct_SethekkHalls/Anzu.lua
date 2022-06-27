@@ -35,7 +35,7 @@ local timerScreechCD        = mod:NewCDTimer(30, 40184, nil, nil, nil, 2)--Best 
 mod.vb.warnedbirds1 = false
 mod.vb.warnedbirds2 = false
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	timerScreechCD:Start()
     self.vb.warnedbirds1 = false
     self.vb.warnedbirds2 = false

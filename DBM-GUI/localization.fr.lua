@@ -74,8 +74,8 @@ L.Button_ResetInfoRange		= "Réinit. les cadres de portée et d'infos"
 L.ModelOptions				= "Options du visualiseur de modèle 3D"
 L.EnableModels				= "Activer les modèles 3D dans les options des boss"
 L.ModelSoundOptions			= "Configurer le son pour le visualiseur 3D"
-L.ModelSoundShort			= SHORT
-L.ModelSoundLong			= TOAST_DURATION_LONG
+-- L.ModelSoundShort			= SHORT
+-- L.ModelSoundLong			= TOAST_DURATION_LONG
 
 L.ResizeOptions			 	= "Options de redimensionnage"
 L.ResizeInfo				= "Vous pouvez redimensionner l'interface en étirant le coin bas-droit"

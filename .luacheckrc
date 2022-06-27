@@ -10,8 +10,6 @@ max_code_line_length = false
 max_string_line_length = false
 max_comment_line_length = false
 
-allow_defined = true
-
 exclude_files = {
 	"./.git",
 	"./.github",
@@ -25,32 +23,8 @@ exclude_files = {
 ignore = {
 	"11./SLASH_.*", -- Setting an undefined (Slash handler) global variable
 	"11./BINDING_.*", -- Setting an undefined (Keybinding header) global variable
-	"111/[A-Z][A-Z0-9_]+",	-- Setting an undefined global variable
-	"113/[A-Z][A-Z0-9_]+",	-- Accessing an undefined global variable (GlobalStrings and Constants 2char+)
-	"131/[A-Z][A-Z0-9_]+",	-- Unused implicitly defined global variable (GlobalStrings and Constants 2char+)
-	"131/tIndexOf",	-- Unused global variable
-	"131/IsInGroup",	-- Unused global variable
-	"131/GetNumSubgroupMembers",	-- Unused global variable
-	"131/GetNumGroupMembers",	-- Unused global variable
-	"314", -- Value of a field in a table literal is unused
-	"42.", -- Shadowing a local variable, an argument, a loop variable.
-	"11./SLASH_.*", -- Setting an undefined (Slash handler) global variable
-	"11./BINDING_.*", -- Setting an undefined (Keybinding header) global variable
-	"11./DBM_.*", -- Setting an undefined (DBM) global variable
-	"113/LE_.*", -- Accessing an undefined (Lua ENUM type) global variable
-	"113/NUM_LE_.*", -- Accessing an undefined (Lua ENUM type) global variable
-	"113/DBM_.*", -- Accessing an undefined (DBM) global variable
-	"113/DBM.*", -- Accessing an undefined (DBM) global variable
-	"111/[A-Z][A-Z0-9_]+",	-- Setting an undefined global variable
-	"113/[A-Z][A-Z0-9_]+",	-- Accessing an undefined global variable (GlobalStrings and Constants 2char+)
-	"211", -- Unused local variable
 	"211/L", -- Unused local variable "L"
-	"211/CL", -- Unused local variable "CL"
-	"212", -- Unused argument
-	"231/_.*", -- unused variables starting with _
-	"311", -- Value assigned to a local variable is unused
-	"312/self", -- Value assigned is overwritten
---	"431", -- shadowing upvalue
+	"212/self", -- Unused argument
 	"43.", -- Shadowing an upvalue, an upvalue argument, an upvalue loop variable.
 	"542", -- An empty if branch
 }
@@ -64,7 +38,32 @@ globals = {
 	"IsInRaid",
 	"GetNumSubgroupMembers",
 	"GetNumGroupMembers",
+
+	-- Saved Variables
+	"DBM_SavedOptions",
+	"DBM_AllSavedOptions",
+	"DBM_MinimapIcon",
+	"DBM_UsedProfile",
+	"DBM_UseDualProfile",
+	"DBM_CharSavedRevision",
+	"DBM_SpellTimers_Settings",
+	"DBT_AllPersistentOptions",
+
+	-- DBM
+	"DBM",
+	"DBM_CORE_L",
+	"DBM_COMMON_L",
+	"DBM_DISABLE_ZONE_DETECTION",
+	"DBM_GUI",
+	"DBM_GUI_L",
+	"DBM_OPTION_SPACER",
+	"DBM_SpellsUsed_Translations",
+	"DBT",
+	"TT",
+	-- DBM mod frames
+	"DBMLichKingFrameDrag",
 	"DBMLichKingFrameDragTitle",
+	"DBMKalFrameDrag",
 	"DBMKalFrameDragTitle",
 
 	"nop",
@@ -110,41 +109,11 @@ globals = {
 	"WeakAurasSaved",
 	"TidyPlatesThreatDBM",
 	"Plater",
-	"DBMLichKingFrameDrag",
-	"DBMKalFrameDrag",
-	"DBM",
-	"DBM_CORE_L",
-	"DBM_COMMON_L",
-	"DBM_BossPreview",
-	"DBM_DISABLE_ZONE_DETECTION",
-	"DBM_GUI_Bosses",
-	"DBM_GUI_Frame",
-	"DBM_GUI_Options",
-	"DBM_GUI_OptionsFrame",
-	"DBM_GUI_OptionsFrameBossMods",
-	"DBM_GUI_OptionsFramePanelContainer",
-	"DBM_GUI_OptionsFramePanelContainerFOV",
-	"DBM_GUI_L",
-	"DBM_GUI",
-	"DBM_INCOMING",
-	"DBMHudMap",
-	"DBMInfoFrame",
-	"DBMRangeCheck",
-	"DBMRangeCheckRadar",
-	"DBMVPSMGPack",
-	"DBMVPSoundEventsPack",
-	"DBT_AllPersistentOptions",
-	"DBT_PersistentOptions",
-	"DBT",
 	"FlashWindow",
 	"LOCALE_koKR",
 	"LOCALE_ruRU",
 	"LOCALE_zhCN",
 	"LOCALE_zhTW",
-	-- Temp DBM
-	"DBMBurningCrusade_SavedModOptions",
-	"DBMBC",
-	"DBM_SBT",
 
 	-- Sirus
 	"AnimationsToggle_STARTNUMBERS",
@@ -358,6 +327,70 @@ globals = {
 	"tremove",
 	"updateContainerFrameAnchors",
 	"wipe",
+
+	-- WoW globalstrings
+	"ADDITIONAL_POWER_BAR_INDEX",
+	"ALL",
+	"ALWAYS",
+	"AUCTION_TIME_LEFT1",
+	"AUCTION_TIME_LEFT3",
+	"BOSS",
+	"BOSSES_KILLED",
+	"CANCEL",
+	"CLOSE",
+	"COMBATLOG_OBJECT_AFFILIATION_MINE",
+	"COMBATLOG_OBJECT_REACTION_HOSTILE",
+	"COMBATLOG_OBJECT_TYPE_NPC",
+	"COMBATLOG_OBJECT_TYPE_PET",
+	"COMBATLOG_OBJECT_TYPE_PLAYER",
+	"COMBATLOGDISABLED",
+	"COMBATLOGENABLED",
+	"DEAD",
+	"DEFAULT",
+	"DEFAULT_CHAT_FRAME",
+	"DISABLE",
+	"ENABLE",
+	"EXPANSION_NAME0",
+	"EXPANSION_NAME1",
+	"EXPANSION_NAME2",
+	"FACTION_ALLIANCE",
+	"FACTION_HORDE",
+	"GAMEOPTIONS_MENU",
+	"GUILD",
+	"HIDE",
+	"MAX_BATTLEFIELD_QUEUES",
+	"MAX_TALENT_TABS", -- Classic
+	"MAX_WORLDSTATE_SCORE_BUTTONS",
+	"MISCELLANEOUS",
+	"NO",
+	"NONE",
+	"NORMAL_FONT_COLOR",
+	"OKAY",
+	"PET",
+	"PLAYER_DIFFICULTY1",
+	"PLAYER_DIFFICULTY2",
+	"RAID_CLASS_COLORS",
+	"RAID_DIFFICULTY1",
+	"RAID_DIFFICULTY2",
+	"RAID_DIFFICULTY3",
+	"RAID_DIFFICULTY4",
+	"RAID_TARGET_1",
+	"RAID_TARGET_2",
+	"RAID_TARGET_3",
+	"RAID_TARGET_4",
+	"RAID_TARGET_5",
+	"RAID_TARGET_6",
+	"RAID_TARGET_7",
+	"RAID_TARGET_8",
+	"SHARE_QUEST_ABBREV",
+	"SHIELDSLOT",
+	"SPELL_FAILED_OUT_OF_RANGE",
+	"STATICPOPUP_NUMDIALOGS",
+	"TANK",
+	"TAXIROUTE_LINEFACTOR",
+	"TAXIROUTE_LINEFACTOR_2",
+	"UNKNOWN",
+	"YES",
 
 	-- functions: FrameXML, Blizzard_CombatLog, Blizzard_CombatText, Blizzard_RaidUI, Blizzard_TimeManager, Blizzard_TokenUI
 	"AbandonQuest",

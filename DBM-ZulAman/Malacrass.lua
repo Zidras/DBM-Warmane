@@ -36,7 +36,7 @@ local timerBoltCD	= mod:NewCDTimer(41, 43383, nil, nil, nil, 2, nil, DBM_COMMON_
 local timerBolt		= mod:NewCastTimer(10, 43383, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerPatch	= mod:NewCastTimer(20, 43429, nil, nil, nil, 3)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	timerBoltCD:Start(30)
 	warnBoltSoon:Schedule(25)
 end

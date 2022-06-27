@@ -39,9 +39,9 @@ end
 function mod:OnCombatStart(delay)
 	buildGuidTable(self)
 	if self:IsDifficulty("normal10") then
-		timerNextFlameVents:Start(20)
+		timerNextFlameVents:Start(20-delay)
 	else
-		timerNextFlameVents:Start(30)
+		timerNextFlameVents:Start(30-delay)
 	end
 end
 

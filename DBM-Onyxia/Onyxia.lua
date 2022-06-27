@@ -70,7 +70,7 @@ function mod:Whelps()
 	end
 end
 
-function mod:FireballTarget(targetname, uId)
+function mod:FireballTarget(targetname)
 	if not targetname then return end
 	warnFireball:Show(targetname)
 	if targetname == UnitName("player") then

@@ -36,7 +36,7 @@ local pursuitTable = {}
 
 function mod:OnCombatStart(delay)
 	table.wipe(pursuitTable)
-	timerSpecialCD:Start()
+	timerSpecialCD:Start(-delay)
 end
 
 function mod:SPELL_CAST_START(args)

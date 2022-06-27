@@ -48,7 +48,7 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 end
 
-function mod:OnCombatEnd(wipe)
+function mod:OnCombatEnd()
 	DBM.BossHealth:Clear()
 end
 function mod:SPELL_AURA_APPLIED(args)

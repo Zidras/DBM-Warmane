@@ -22,7 +22,7 @@ local specWarnQuake		= mod:NewSpecialWarningSpell(33919, nil, nil, nil, 2, 2)
 local timerPrisonCD		= mod:NewCDTimer(17.8, 32361, nil, nil, nil, 2)
 local timerPrison		= mod:NewTargetTimer(5, 32361, nil, nil, nil, 3)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 	timerPrisonCD:Start()
 end
 

@@ -439,7 +439,7 @@ local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS -- For 
 --  Unit Position/Range  --
 ---------------------------
 -- API
-local GetMapInfo, GetCurrentMapDungeonLevel, DungeonUsesTerrainMap, GetPlayerMapPosition, SetMapToCurrentZone = GetMapInfo, GetCurrentMapDungeonLevel, DungeonUsesTerrainMap, GetPlayerMapPosition, SetMapToCurrentZone
+local GetPlayerMapPosition = GetPlayerMapPosition
 local UnitInRaid, UnitInParty, UnitIsPlayer = UnitInRaid, UnitInParty, UnitIsPlayer
 -- Nil variables
 local unitX, unitY, rangeX, rangeY
@@ -947,7 +947,7 @@ do
 			return
 		end
 		local activeRange = mainFrame.range
-		local restricted = mainFrame.restrictions
+--		local restricted = mainFrame.restrictions -- GetPlayerFacing() was only protected in 7.1.0
 		local tEnabled = textFrame:IsShown()
 		local rEnabled = radarFrame:IsShown()
 		local reverse = mainFrame.reverse
@@ -997,7 +997,7 @@ do
 		local sinTheta = sin(rotation)
 		local cosTheta = cos(rotation)
 		local closePlayer = 0
-		local closestRange = nil
+		local closestRange = nil -- declare as nil to prevent luacheck error
 		local closetName
 		local filter = mainFrame.filter
 		local type = reverse and 2 or filter and 1 or 0
@@ -1144,7 +1144,6 @@ local getDistanceBetween, getDistanceBetweenAll
 
 do
 	local UnitExists, UnitIsUnit, UnitIsDeadOrGhost, UnitIsConnected = UnitExists, UnitIsUnit, UnitIsDeadOrGhost, UnitIsConnected
-	local mapSizes = DBM.MapSizes
 
 	function getDistanceBetweenAll(checkrange)
 		local range
