@@ -1059,7 +1059,7 @@ end
 
 do
 	local tostring, mfloor = tostring, math.floor
-	local ChatEdit_GetActiveWindow, SendChatMessage, IsInInstance, IsInRaid = ChatEdit_GetActiveWindow, SendChatMessage, IsInInstance, IsInRaid
+	local ChatEdit_GetActiveWindow, SendChatMessage, IsInInstance, GetNumRaidMembers = ChatEdit_GetActiveWindow, SendChatMessage, IsInInstance, GetNumRaidMembers
 
 	function barPrototype:Announce()
 		local msg
@@ -1071,7 +1071,7 @@ do
 		if chatWindow then
 			chatWindow:Insert(msg)
 		else
-			SendChatMessage(msg, (select(2, IsInInstance()) == "pvp" and "BATTLEGROUND") or (IsInRaid() and "RAID") or "PARTY")
+			SendChatMessage(msg, (select(2, IsInInstance()) == "pvp" and "BATTLEGROUND") or (GetNumRaidMembers() > 0 and "RAID") or "PARTY")
 		end
 	end
 end
