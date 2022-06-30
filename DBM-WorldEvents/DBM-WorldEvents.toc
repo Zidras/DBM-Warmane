@@ -1,27 +1,41 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0World Events|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Eventos del mundo|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0이벤트|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Игровые события|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Weltereignisse|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Évènements Mondiaux|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariables: DBMWorldEvent_AllSavedVars
-## SavedVariablesPerCharacter: DBMWorldEvent_SavedStats
+## SavedVariables: DBMWorldEvents_AllSavedVars
+## SavedVariablesPerCharacter: DBMWorldEvents_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: OTHER
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-StatTypes: normal
+## X-DBM-Mod-World-Boss: 1
 ## X-DBM-Mod-Name: World Events
-## X-DBM-Mod-Name-zhCN: 世界事件
-## X-DBM-Mod-Name-ruRU: Игровые события
 ## X-DBM-Mod-Name-esES: Eventos del Mundo
+## X-DBM-Mod-Name-ruRU: Игровые события
+## X-DBM-Mod-Name-zhTW: 世界事件
+## X-DBM-Mod-Name-zhCN: 世界事件
+## X-DBM-Mod-Name-koKR: 이벤트
+## X-DBM-Mod-Name-deDE: Weltereignisse
+## X-DBM-Mod-Name-frFR: Évènements Mondiaux
 ## X-DBM-Mod-Sort: 150
+## X-DBM-Mod-MapID: 705,763,765,729
 ## X-DBM-Mod-LoadZone: Blackrock Depths,Scarlet Monastery,Shadowfang Keep,The Slave Pens
 ## X-DBM-Mod-LoadZone-zhCN: 黑石深渊,血色修道院,影牙城堡,奴隶围栏
 ## X-DBM-Mod-LoadZone-ruRU: Глубины Черной горы,Монастырь Алого ордена,Крепость Темного Клыка,Узилище
-localization.en.lua
-localization.cn.lua
-localization.ru.lua
 
-ApothecaryTrio.lua
-Ahune.lua
-CorenDirebrew.lua
-HeadlessHorseman.lua
+localization.en.lua
+localization.ru.lua
+localization.cn.lua
+
+Holidays\ApothecaryTrio.lua
+Holidays\Ahune.lua
+Holidays\CorenDirebrew.lua
+Holidays\HeadlessHorseman.lua

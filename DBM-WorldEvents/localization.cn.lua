@@ -93,7 +93,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	SubmergTimer		= "隐没",
+	SubmergeTimer		= "隐没",
 	EmergeTimer		= "现身",
 	TimerCombat		= "战斗开始"
 })
@@ -102,7 +102,7 @@ L:SetOptionLocalization({
 	Submerged		= "当埃霍恩隐没时显示警报",
 	Emerged			= "当埃霍恩现身时显示警报",
 	specWarnAttack		= "当埃霍恩拥有易伤时显示特别警报",
-	SubmergTimer		= "为隐没显示计时条",
+	SubmergeTimer		= "为隐没显示计时条",
 	EmergeTimer		= "为现身显示计时条",
 	TimerCombat		= "为战斗开始显示计时条"
 })

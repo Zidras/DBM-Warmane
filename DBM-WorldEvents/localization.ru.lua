@@ -90,7 +90,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	SubmergTimer	= "Исчезновение",
+	SubmergeTimer	= "Исчезновение",
 	EmergeTimer		= "Появление",
 	TimerCombat		= "Начало боя"
 })
@@ -99,7 +99,7 @@ L:SetOptionLocalization({
 	Submerged		= "Предупреждение, когда Ахун исчезает",
 	Emerged			= "Предупреждение, когда Ахун появляется",
 	specWarnAttack	= "Спец-предупреждение, когда Ахун становится уязвим",
-	SubmergTimer	= "Отсчет времени до исчезновения",
+	SubmergeTimer	= "Отсчет времени до исчезновения",
 	EmergeTimer		= "Отсчет времени до появления",
 	TimerCombat		= "Отсчет времени до начала боя",
 })
