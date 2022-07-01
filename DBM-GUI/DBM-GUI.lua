@@ -365,7 +365,7 @@ local function addOptions(mod, catpanel, v)
 				end
 			end, nil, 32)
 			if not addSpacer then
-				catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
+				catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, ElvUI and DBM.Options.GroupOptionsBySpell and -20 or -10) -- custom values to attempt to provide better fit for dropdowns
 			end
 		end
 		if addSpacer then
