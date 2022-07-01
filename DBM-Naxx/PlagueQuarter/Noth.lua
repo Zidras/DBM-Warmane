@@ -1,11 +1,10 @@
 local mod	= DBM:NewMod("Noth", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220629223621")
 mod:SetCreatureID(15954)
 
---mod:RegisterCombat("combat_yell", L.Pull)
-mod:RegisterCombat("combat")
+mod:RegisterCombat("combat_yell", L.Pull)
 
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS 29213 54835 29212 29208",

@@ -16,9 +16,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Арахнофобия"
---	Pull1				= "Yes, run! It makes the blood pump faster!",
---	Pull2				= "Just a little taste..."
+	ArachnophobiaTimer	= "Арахнофобия",
+	Pull1				= "Бегите, бегите! Я люблю горячую кровь!",
+	Pull2				= "Посмотрим, какие вы на вкус!"
 })
 
 ----------------------------
@@ -93,7 +93,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "Смерть чужакам!",
+	Pull				= "Смерть чужакам!",
 	Adds				= "призывает скелетов-воинов!",
 	AddsTwo				= "поднимает новых скелетов!"
 })
@@ -122,9 +122,9 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Отсчет времени до телепортации"
 })
 
---L:SetMiscLocalization({
---	Pull				= "You are mine now."
---})
+L:SetMiscLocalization({
+	Pull				= "Теперь вы принадлежите мне!"
+})
 
 ---------------
 --  Loatheb  --
@@ -143,7 +143,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "Предупреждать заранее перед 3-х секундным окном исцеления",
 	WarningHealNow		= "Предупреждение для 3-х секундного окна исцеления",
-	SporeDamageAlert	= "Сообщать шепотом и объявлять в рейд игроков, наносящих урон спорам\n(требуются права лидера или помощника)"
+	SporeDamageAlert	= "Сообщать шепотом и объявлять в рейд игроков, наносящих урон спорам\n(требуются права лидера или помощника)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical		= "Sort in alphabetical order", -- translation missing
+	Duration			= "Sort by duration" -- translation missing
 })
 
 -----------------

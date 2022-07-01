@@ -14,9 +14,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobia"
---	Pull1				= "Yes, run! It makes the blood pump faster!",
---	Pull2				= "Just a little taste..."
+	ArachnophobiaTimer	= "Arachnophobia",
+	Pull1				= "Yes, run! It makes the blood pump faster!",
+	Pull2				= "Just a little taste..."
 })
 
 ----------------------------
@@ -33,12 +33,12 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Show pre-warning for Widow's Embrace fade"
+	WarningEmbraceExpire	= "Show pre-warning for $spell:28732 fade"
 })
 
---L:SetMiscLocalization({
---	Pull					= "Kneel before me, worm!"--Not actually pull trigger, but often said on pull
---})
+L:SetMiscLocalization({
+	Pull					= "Kneel before me, worm!"--Not actually pull trigger, but often said on pull
+})
 
 ---------------
 --  Maexxna  --
@@ -95,7 +95,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "Die, trespasser!",
+	Pull				= "Die, trespasser!",
 	Adds				= "summons forth Skeletal Warriors!",
 	AddsTwo				= "raises more skeletons!"
 })
@@ -124,9 +124,9 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Show timer for Teleport"
 })
 
---L:SetMiscLocalization({
---	Pull				= "You are mine now."
---})
+L:SetMiscLocalization({
+	Pull				= "You are mine now."
+})
 
 ---------------
 --  Loatheb  --
@@ -145,7 +145,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "Show pre-warning for 3-second healing window",
 	WarningHealNow		= "Show warning for 3-second healing window",
-	SporeDamageAlert	= "Send whisper to and announce to raid players who damage spores\n(requires announce to be enabled and leader/promoted status)"
+	SporeDamageAlert	= "Send whisper to and announce to raid players who damage spores\n(requires announce to be enabled and leader/promoted status)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593",
+	Alphabetical		= "Sort in alphabetical order",
+	Duration			= "Sort by duration"
 })
 
 -----------------
@@ -322,14 +325,12 @@ L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "Air phase in 10 seconds",
 	WarningAirPhaseNow	= "Air phase",
 	WarningLanded		= "Sapphiron landed",
-	WarningDeepBreath	= "Frost Breath",
 	SpecWarnSapphLow	= "Sapphiron can't fly!"
 })
 
 L:SetTimerLocalization({
 	TimerAir		= "Air phase",
-	TimerLanding	= "Landing",
-	TimerIceBlast	= "Frost Breath"
+	TimerLanding	= "Landing"
 })
 
 L:SetOptionLocalization({
@@ -338,8 +339,6 @@ L:SetOptionLocalization({
 	WarningLanded		= "Announce ground phase",
 	TimerAir			= "Show timer for air phase",
 	TimerLanding		= "Show timer for landing",
-	TimerIceBlast		= "Show timer for Frost Breath",
-	WarningDeepBreath	= "Show special warning for Frost Breath",
 	SpecWarnSapphLow 	= "Special warning for 10% execute phase (cancel air phase)"
 })
 

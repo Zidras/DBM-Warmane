@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Patchwerk", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20190417005949")
 mod:SetCreatureID(16028)
---mod:RegisterCombat("combat_yell", L.yell1, L.yell2)
-mod:RegisterCombat("yell", L.yell1, L.yell2)
+
+mod:RegisterCombat("combat_yell", L.yell1, L.yell2)
 
 mod:RegisterEventsInCombat(
 	"SPELL_DAMAGE 28308 59192",
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 local enrageTimer	= mod:NewBerserkTimer(360)
 local timerAchieve	= mod:NewAchievementTimer(180, 1857)
 
-mod:AddBoolOption("WarningHateful", false, "announce")
+mod:AddBoolOption("WarningHateful", false, "announce", nil, nil, nil, 28308)
 
 local function announceStrike(target, damage)
 	SendChatMessage(L.HatefulStrike:format(target, damage), "RAID")

@@ -15,9 +15,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "蜘蛛恐懼症"
---	Pull1				= "對，跑吧!那樣傷口出血就更多了!",
---	Pull2				= "一些小點心..."
+	ArachnophobiaTimer	= "蜘蛛恐懼症",
+	Pull1				= "對，跑吧!那樣傷口出血就更多了!",
+	Pull2				= "一些小點心..."
 })
 
 ----------------------------
@@ -92,7 +92,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "死吧，入侵者!",
+	Pull				= "死吧，入侵者!",
 	Adds				= "召喚了骷髏戰士!",
 	AddsTwo				= "喚醒了更多骷髏!"
 })
@@ -121,6 +121,10 @@ L:SetOptionLocalization({
 	TimerTeleport		= "為傳送顯示計時器"
 })
 
+L:SetMiscLocalization({
+	Pull				= "你現在是我的了。"
+})
+
 ---------------
 --  Loatheb  --
 ---------------
@@ -138,7 +142,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "為3秒後可以治療顯示預先警告",
 	WarningHealNow		= "為現在治療顯示警告",
-	SporeDamageAlert	= "在團隊中提示誰殺死了孢子並發送密語給兇手\n(需要團隊隊長或助理權限)"
+	SporeDamageAlert	= "在團隊中提示誰殺死了孢子並發送密語給兇手\n(需要團隊隊長或助理權限)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical		= "Sort in alphabetical order", -- translation missing
+	Duration			= "Sort by duration" -- translation missing
 })
 
 -----------------

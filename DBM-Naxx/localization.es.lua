@@ -15,9 +15,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Logro: Aracnofobia"
---	Pull1				= "¡Eso, corred! ¡Así la sangre circula más rápido!",
---	Pull2				= "Solo un bocado..."
+	ArachnophobiaTimer	= "Logro: Aracnofobia",
+	Pull1				= "¡Eso, corred! ¡Así la sangre circula más rápido!",
+	Pull2				= "Solo un bocado..."
 })
 
 -------------------------
@@ -37,9 +37,9 @@ L:SetOptionLocalization({
 	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda"
 })
 
---L:SetMiscLocalization({
---	Pull					= "¡Arrodíllate ante mí, sabandija!"--Not actually pull trigger, but often said on pull
---})
+L:SetMiscLocalization({
+	Pull					= "¡Arrodíllate ante mí, sabandija!"--Not actually pull trigger, but often said on pull
+})
 
 -------------
 -- Maexxna --
@@ -96,7 +96,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "¡Muere, intruso!",
+	Pull				= "¡Muere, intruso!",
 	Adds				= "invoca a guerreros esqueletos!",
 	AddsTwo				= "alza más esqueletos!"
 })
@@ -125,9 +125,9 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Mostrar aviso para Teletransporte"
 })
 
---L:SetMiscLocalization({
---	Pull				= "Ahora me perteneces."
---})
+L:SetMiscLocalization({
+	Pull				= "Ahora me perteneces."
+})
 
 -------------
 -- Loatheb --
@@ -146,7 +146,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "Mostrar aviso previo para la franja de sanación",
 	WarningHealNow		= "Mostrar aviso para la franja de sanación",
-	SporeDamageAlert	= "Enviar susurros y avisar a la banda de los jugadores que estén dañando esporas\n(necesita 'anunciar' activado y lider/ayudante)"
+	SporeDamageAlert	= "Enviar susurros y avisar a la banda de los jugadores que estén dañando esporas\n(necesita 'anunciar' activado y lider/ayudante)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical		= "Sort in alphabetical order", -- translation missing
+	Duration			= "Sort by duration" -- translation missing
 })
 
 ---------------

@@ -19,9 +19,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "거미의 공포 업적 가능"
---	Pull1				= "그래, 도망쳐! 더 신선한 피가 솟구칠 테니!",
---	Pull2				= "어디 맛 좀 볼까..."
+	ArachnophobiaTimer	= "거미의 공포 업적 가능",
+	Pull1				= "그래, 도망쳐! 더 신선한 피가 솟구칠 테니!",
+	Pull2				= "어디 맛 좀 볼까..."
 })
 
 ---------------------
@@ -99,7 +99,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "죽어라, 침입자들아!",
+	Pull				= "죽어라, 침입자들아!",
 	Adds				= "해골 전사를 소환합니다!",
 	AddsTwo				= "해골을 계속 일으킵니다!"
 })
@@ -128,6 +128,10 @@ L:SetOptionLocalization({
 	TimerTeleport			= "다음 순간이동 바 보기"
 })
 
+L:SetMiscLocalization({
+	Pull				= "이제 넌 내 것이다."
+})
+
 ----------------
 --  로데브  --
 ----------------
@@ -145,7 +149,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "치유 가능 이전에 알림 보기",
 	WarningHealNow		= "치유 가능 알림 보기",
-	SporeDamageAlert	= "포자에게 데미지를 주는 공격대원에게 귓속말 보내기 및 알리기\n(공대장 및 경보 권한이 있을 경우)"
+	SporeDamageAlert	= "포자에게 데미지를 주는 공격대원에게 귓속말 보내기 및 알리기\n(공대장 및 경보 권한이 있을 경우)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical		= "Sort in alphabetical order", -- translation missing
+	Duration			= "Sort by duration" -- translation missing
 })
 
 -----------------

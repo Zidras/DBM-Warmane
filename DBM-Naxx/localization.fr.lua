@@ -16,7 +16,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobie"
+	ArachnophobiaTimer	= "Arachnophobie",
+	Pull1				= "Oui, courez ! Faites circuler le sang !",
+	Pull2				= "Rien qu'une petite bouchée…"
 })
 
 ----------------------------
@@ -34,6 +36,10 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	WarningEmbraceExpire	= "Activer l'avertissement de fin du baisé de la veuve"
+})
+
+L:SetMiscLocalization({
+	Pull					= "À genoux, vermisseau !"--Not actually pull trigger, but often said on pull
 })
 
 ---------------
@@ -91,7 +97,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "Die, trespasser!",
+	Pull				= "Mourez, intrus !",
 	Adds				= "invoque des guerriers squelettes !",
 	AddsTwo				= "lève encore d'autres squelettes !"
 })
@@ -120,6 +126,10 @@ L:SetOptionLocalization({
 	TimerTeleport			= "Activer le timer pour la Téléporation"
 })
 
+L:SetMiscLocalization({
+	Pull					= "Vous êtes à moi, maintenant."
+})
+
 ---------------
 --  Loatheb  --
 ---------------
@@ -137,7 +147,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "Activer l'avertissement \"Soins dans 3 sec\" ",
 	WarningHealNow		= "Activer l'avertissement \"SOIGNEZ MAINTENANT\" ",
-	SporeDamageAlert	= "Envoyer un murmure et annoncer aux joueurs de raid qui endommagent les spores\n(nécessite que l'annonce soit activée et le statut de leader/promu)"
+	SporeDamageAlert	= "Envoyer un murmure et annoncer aux joueurs de raid qui endommagent les spores\n(nécessite que l'annonce soit activée et le statut de leader/promu)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical		= "Sort in alphabetical order", -- translation missing
+	Duration			= "Sort by duration" -- translation missing
 })
 
 -----------------

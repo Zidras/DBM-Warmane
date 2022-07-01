@@ -1,5 +1,8 @@
 ﻿-- author: callmejames @《凤凰之翼》 一区藏宝海湾
 -- commit by: yaroot <yaroot AT gmail.com>
+-- Mini Dragon(projecteurs AT gmail.com) Brilla@金色平原
+-- Last update: 2019/08/22
+
 if GetLocale() ~= "zhCN" then return end
 
 local L
@@ -19,8 +22,8 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	ArachnophobiaTimer		= "蜘蛛克星",
---	Pull1					= "对，跑吧！那样伤口出血就更多了！",
---	Pull2					= "一些小点心……",
+	Pull1					= "对，跑吧！那样伤口出血就更多了！",
+	Pull2					= "一些小点心……",
 --	Pull3					= "你们逃不掉的。"
 })
 
@@ -30,7 +33,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Faerlina")
 
 L:SetGeneralLocalization({
-	name = "黑女巫法琳娜"
+	name				= "黑女巫法琳娜"
 })
 
 L:SetWarningLocalization({
@@ -41,9 +44,9 @@ L:SetOptionLocalization({
 	WarningEmbraceExpire		= "为黑女巫的拥抱结束显示提前警报"
 })
 
---L:SetMiscLocalization({
---	Pull					= "跪下求饶吧，诺夫！"--Not actually pull trigger, but often said on pull
---})
+L:SetMiscLocalization({
+	Pull					= "跪下求饶吧，诺夫！"--Not actually pull trigger, but often said on pull
+})
 
 ---------------
 --  Maexxna  --
@@ -100,7 +103,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Pull				= "死吧，入侵者！",
+	Pull				= "死吧，入侵者！",
 	Adds				= "召唤出骷髅战士！",
 	AddsTwo				= "召唤出更多的骷髅！"
 })
@@ -129,9 +132,9 @@ L:SetOptionLocalization({
 	TimerTeleport			= "为传送显示计时条"
 })
 
---L:SetMiscLocalization({
---	Pull				= "你是我的了。"
---})
+L:SetMiscLocalization({
+	Pull				= "你是我的了。"
+})
 
 ---------------
 --  Loatheb  --
@@ -150,7 +153,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon			= "为3秒后可以治疗显示提前警报",
 	WarningHealNow			= "为现在治疗显示警报",
-	SporeDamageAlert		= "在团队中提示谁杀死了孢子并发送悄悄话给该玩家\n(需要团长或助理权限)"
+	SporeDamageAlert		= "在团队中提示谁杀死了孢子并发送悄悄话给该玩家\n(需要团长或助理权限)",
+	CorruptedSorting		= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical			= "Sort in alphabetical order", -- translation missing
+	Duration				= "Sort by duration" -- translation missing
 })
 
 -----------------

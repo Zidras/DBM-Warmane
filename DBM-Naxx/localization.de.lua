@@ -15,9 +15,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobie"
---	Pull1				= "Rennt! Das bringt das Blut in Wallung!",
---	Pull2				= "Nur einmal kosten..." --needs to be verified (wowhead-captured translation)
+	ArachnophobiaTimer	= "Arachnophobie",
+	Pull1				= "Rennt! Das bringt das Blut in Wallung!",
+	Pull2				= "Nur einmal kosten..." --needs to be verified (wowhead-captured translation)
 })
 
 ----------------------------
@@ -37,9 +37,9 @@ L:SetOptionLocalization({
 	WarningEmbraceExpire	= "Zeige Vorwarnung für das Ende von $spell:28732"
 })
 
---L:SetMiscLocalization({
---	Pull					= "Kniet nieder, Wurm!" --needs to be verified (wowhead-captured translation)
---})
+L:SetMiscLocalization({
+	Pull					= "Kniet nieder, Wurm!" --needs to be verified (wowhead-captured translation)
+})
 
 ---------------
 --  Maexxna  --
@@ -125,9 +125,9 @@ L:SetOptionLocalization({
 	TimerTeleport		= "Zeige Zeit bis Teleport"
 })
 
---L:SetMiscLocalization({
---	Pull				= "Ihr gehört mir..."
---})
+L:SetMiscLocalization({
+	Pull				= "Ihr gehört mir..."
+})
 
 ---------------
 --  Loatheb  --
@@ -146,7 +146,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarningHealSoon		= "Zeige Vorwarnung für 3-Sekunden-Heilfenster",
 	WarningHealNow		= "Zeige Warnung für 3-Sekunden-Heilfenster",
-	SporeDamageAlert	= "Sende Flüsternachricht und verkünde Spieler in Raid die Sporen beschädigen\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)"
+	SporeDamageAlert	= "Sende Flüsternachricht und verkünde Spieler in Raid die Sporen beschädigen\n(benötigt aktivierte Ankündigungen und (L)- oder (A)-Status)",
+	CorruptedSorting	= "Set infoframe sorting behaviour for $spell:55593", -- translation missing
+	Alphabetical		= "Sort in alphabetical order", -- translation missing
+	Duration			= "Sort by duration" -- translation missing
 })
 
 -----------------

@@ -1,17 +1,13 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-local tContains = tContains
-local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
-
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220629223621")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
---mod:RegisterCombat("combat_yell", L.Yell)
-mod:RegisterCombat("yell", L.Yell)
+mod:RegisterCombat("combat_yell", L.Yell)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 27808 27819 28410",
@@ -31,17 +27,17 @@ local warnMindControlSoon 	= mod:NewSoonAnnounce(28410, 4)
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
 local specWarnManaBombNear	= mod:NewSpecialWarningClose(27819, nil, nil, nil, 1, 2)
-local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
-local specWarnFissureYou	= mod:NewSpecialWarningMove(27810, nil, nil, nil, 3, 2)
-local specWarnFissureNear	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 1, 2)
-local yellFissure			= mod:NewYellMe(27810)
 local yellManaBomb			= mod:NewShortYell(27819)
+local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
+local specWarnFissureYou	= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
+local specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 2)
+local yellFissure			= mod:NewYellMe(27810)
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
+local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
 local timerFissureCD  		= mod:NewCDTimer(14, 27810)
-local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
 local timerPhase2			= mod:NewTimer(227, "TimerPhase2", nil, nil, nil, 6)
@@ -50,6 +46,9 @@ mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
 mod:AddSetIconOption("SetIconOnFrostTomb", 28169, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(12, 27819)
+
+local tContains = tContains
+local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 
 local RaidWarningFrame = RaidWarningFrame
 local GetFramesRegisteredForEvent, RaidNotice_AddMessage = GetFramesRegisteredForEvent, RaidNotice_AddMessage
@@ -187,19 +186,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerFissureCD:Start()
 		if args:IsPlayer() then
 			specWarnFissureYou:Show()
-			specWarnFissureYou:Play("runout")
+			specWarnFissureYou:Play("targetyou")
 			yellFissure:Yell()
+		elseif self:CheckNearby(8, args.destName) then
+			specWarnFissureClose:Show(args.destName)
+			specWarnFissureClose:Play("watchfeet")
 		else
-			local uId = DBM:GetRaidUnitId(args.destName)
-			if uId then
-				local inRange = CheckInteractDistance(uId, 2)
-				if inRange then
-					specWarnFissureNear:Show(args.destName)
-					specWarnFissureNear:Play("watchstep")
-				else
-					warnFissure:Show(args.destName)
-				end
-			end
+			warnFissure:Show(args.destName)
 		end
 	elseif args.spellId == 28410 then
 		timerMCCD:Start()

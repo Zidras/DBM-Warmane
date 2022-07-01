@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220116041927")
 mod:SetCreatureID(15931)
 mod:SetUsedIcons(1, 2, 3, 4)
 
@@ -57,9 +57,9 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-    for _,j in ipairs(mutateIcons) do
+	for _, j in ipairs(mutateIcons) do
 		self:SetIcon(j, 0)
-    end
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
