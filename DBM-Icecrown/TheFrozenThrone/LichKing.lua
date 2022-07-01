@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220624005857")
+mod:SetRevision("20220701235541")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220623000000)
@@ -56,6 +56,8 @@ mod:RegisterEventsInCombat(
 -- "<529.67 21:17:12> [UNIT_TARGET] boss1#The Lich King#Target: player4#TargetOfTarget: The Lich King", -- [42825]
 -- "<529.70 21:17:12> [DBM_Announce] Defile on >player4<:Interface\\Icons\\Ability_Rogue_EnvelopingShadows:target:72762:LichKing:false:", -- [42826]
 -- "<529.70 21:17:12> [DBM_Debug] BossTargetScanner has ended for 36597:2:", -- [42827]
+
+local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
 local timerCombatStart		= mod:NewCombatTimer(55)
@@ -201,7 +203,11 @@ end
 local function NextPhase(self)
 	self:SetStage(0)
 	if self.vb.phase == 1 then
-		berserkTimer:Start()
+		if myRealm == "Lordaeron" and self:IsDifficulty("normal10", "heroic10") then -- only normal10 confirmed, but added heroic10 just in case
+			berserkTimer:Start(720)
+		else
+			berserkTimer:Start()
+		end
 		warnShamblingSoon:Schedule(15)
 		timerShamblingHorror:Start(20)
 		timerDrudgeGhouls:Start(10)
