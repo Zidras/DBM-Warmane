@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220609005636")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34780)
-mod:SetMinCombatTime(30)
+--mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
 
 mod:RegisterCombat("combat")
@@ -24,6 +24,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_PERIODIC_HEAL"
 )
 
+--TODO, possibly just use args.amount from combatlog versus debuff scanning for flesh?
 local warnPortalSoon			= mod:NewSoonAnnounce(66269, 3)
 local warnVolcanoSoon			= mod:NewSoonAnnounce(66258, 3)
 local warnFlame					= mod:NewTargetAnnounce(66197, 4)
