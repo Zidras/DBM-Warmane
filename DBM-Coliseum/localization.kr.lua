@@ -16,9 +16,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss			= "곧 다음 우두머리",
-	TimerEmerge				= "출현",
-	TimerSubmerge			= "숨기"
+	TimerNextBoss			= "곧 다음 우두머리"
+--	TimerEmerge				= "출현",
+--	TimerSubmerge			= "숨기"
 })
 
 L:SetOptionLocalization({
@@ -26,8 +26,8 @@ L:SetOptionLocalization({
 	PingCharge				= "얼음울음에게 사나운 돌진의 대상이 될 경우 미니맵에 핑 표시하기",
 	ClearIconsOnIceHowl		= "사나운 돌진 전에 모든 전술 목표 아이콘 지움",
 	TimerNextBoss			= "다음 우두머리 등장 바 보기",
-	TimerEmerge				= "출현 바 보기",
-	TimerSubmerge			= "숨기 바 보기",
+--	TimerEmerge				= "출현 바 보기",
+--	TimerSubmerge			= "숨기 바 보기",
 	IcehowlArrow			= "사나운 돌진 대상이 가까이 있을 경우 DBM 화살표 보기"
 })
 

@@ -21,9 +21,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss		= "下一场战斗",
-	TimerEmerge			= "钻地结束",
-	TimerSubmerge		= "钻地"
+	TimerNextBoss		= "下一场战斗"
+--	TimerEmerge			= "钻地结束",
+--	TimerSubmerge		= "钻地"
 })
 
 L:SetOptionLocalization({
@@ -31,8 +31,8 @@ L:SetOptionLocalization({
 	PingCharge			= "当冰吼即将向你你冲锋时自动点击小地图",
 	ClearIconsOnIceHowl	= "冲锋前清除所有标记",
 	TimerNextBoss		= "显示下一场战斗倒计时",
-	TimerEmerge			= "显示钻地计时",
-	TimerSubmerge		= "显示钻地结束计时",
+--	TimerEmerge			= "显示钻地计时",
+--	TimerSubmerge		= "显示钻地结束计时",
 	IcehowlArrow		= "当冰吼即将向你附近冲锋时显示DBM箭头"
 })
 

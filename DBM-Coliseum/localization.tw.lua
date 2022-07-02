@@ -16,9 +16,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss		= "下一隻王到來",
-	TimerEmerge			= "持續鑽地",
-	TimerSubmerge		= "下一次鑽地"
+	TimerNextBoss		= "下一隻王到來"
+--	TimerEmerge			= "持續鑽地",
+--	TimerSubmerge		= "下一次鑽地"
 })
 
 L:SetOptionLocalization({
@@ -26,8 +26,8 @@ L:SetOptionLocalization({
 	PingCharge			= "當冰嚎即將衝鋒你時自動點擊小地圖",
 	ClearIconsOnIceHowl	= "衝鋒前消除所有標記",
 	TimerNextBoss		= "為下一隻王到來顯示計時器",
-	TimerEmerge			= "為持續鑽地顯示計時器",
-	TimerSubmerge		= "為下一次鑽地顯示計時器",
+--	TimerEmerge			= "為持續鑽地顯示計時器",
+--	TimerSubmerge		= "為下一次鑽地顯示計時器",
 	IcehowlArrow		= "當冰嚎即將衝鋒在你附近時顯示DBM箭頭"
 })
 

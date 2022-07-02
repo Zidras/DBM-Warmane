@@ -16,9 +16,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss		= "Nächster Boss",
-	TimerEmerge			= "Auftauchen",
-	TimerSubmerge		= "Abtauchen"
+	TimerNextBoss		= "Nächster Boss"
+--	TimerEmerge			= "Auftauchen",
+--	TimerSubmerge		= "Abtauchen"
 })
 
 L:SetOptionLocalization({
@@ -26,8 +26,8 @@ L:SetOptionLocalization({
 	PingCharge			= "Ping die Minimap wenn Eisheuler dich niedertrampeln will",
 	ClearIconsOnIceHowl	= "Entferne alle Zeichen vor dem Trampeln",
 	TimerNextBoss		= "Zeige Zeit bis zum Erscheinen des nächsten Bosses",
-	TimerEmerge			= "Zeige Zeit bis Auftauchen",
-	TimerSubmerge		= "Zeige Zeit bis Abtauchen",
+--	TimerEmerge			= "Zeige Zeit bis Auftauchen",
+--	TimerSubmerge		= "Zeige Zeit bis Abtauchen",
 	IcehowlArrow		= "Zeige DBM-Pfeil, wenn Eisheuler jemand in deiner Nähe niedertrampeln will"
 })
 

@@ -16,9 +16,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss		= "Siguiente jefe",
-	TimerEmerge			= "Emersión",
-	TimerSubmerge		= "Sumersión"
+	TimerNextBoss		= "Siguiente jefe"
+--	TimerEmerge			= "Emersión",
+--	TimerSubmerge		= "Sumersión"
 })
 
 L:SetOptionLocalization({
@@ -26,8 +26,8 @@ L:SetOptionLocalization({
 	PingCharge			= "Pulsar en el Minimapa si Aullahielo va a por Ti",
 	ClearIconsOnIceHowl	= "Quitar todos los iconos antes de cada carga",
 	TimerNextBoss		= "Mostrar temporizador para el siguiente jefe",
-	TimerEmerge			= "Mostrar temporizador para cuando Fauceácida y Aterraescama regresen a la superficie",
-	TimerSubmerge		= "Mostrar temporizador para cuando Fauceácida y Aterraescama se sumerjan en la tierra",
+--	TimerEmerge			= "Mostrar temporizador para cuando Fauceácida y Aterraescama regresen a la superficie",
+--	TimerSubmerge		= "Mostrar temporizador para cuando Fauceácida y Aterraescama se sumerjan en la tierra",
 	IcehowlArrow		= "Mostrar flecha cuando Aullahielo vaya a cargar hacia ti"
 })
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220702173444")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetMinCombatTime(30)
@@ -25,56 +25,72 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
+-- General
+local enrageTimer			= mod:NewBerserkTimer(223)
+local timerCombatStart		= mod:NewCombatTimer(23)
+local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457, nil, nil, 1)
+
+mod:AddRangeFrameOption("10")
+
+-- Stage One: Gormok the Impaler
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.Gormok)
 local warnImpaleOn			= mod:NewStackAnnounce(66331, 2, nil, "Tank|Healer")
 local warnFireBomb			= mod:NewSpellAnnounce(66317, 3, nil, false)
-local warnBreath			= mod:NewSpellAnnounce(66689, 2)
-local warnRage				= mod:NewSpellAnnounce(67657, 3)
-local warnSlimePool			= mod:NewSpellAnnounce(66883, 2, nil, "Melee")
-local warnToxin				= mod:NewTargetAnnounce(66823, 3)
-local warnBile				= mod:NewTargetAnnounce(66869, 3)
 local WarningSnobold		= mod:NewAnnounce("WarningSnobold", 4)
-local warnEnrageWorm		= mod:NewSpellAnnounce(68335, 3)
-local warnCharge			= mod:NewTargetNoFilterAnnounce(52311, 4)
 
 local specWarnImpale3		= mod:NewSpecialWarningStack(66331, nil, 3, nil, nil, 1, 6)
 local specWarnAnger3		= mod:NewSpecialWarningStack(66636, "Tank|Healer", 3, nil, nil, 1, 6)
 local specWarnGTFO			= mod:NewSpecialWarningGTFO(66317, nil, nil, nil, 1, 2)
-local specWarnToxin			= mod:NewSpecialWarningMoveTo(66823, nil, nil, nil, 1, 2)
-local specWarnBile			= mod:NewSpecialWarningYou(66869, nil, nil, nil, 1, 2)
 local specWarnSilence		= mod:NewSpecialWarningSpell(66330, "SpellCaster", nil, nil, 1, 2)
-local specWarnCharge		= mod:NewSpecialWarningRun(52311, nil, nil, nil, 4, 2)
-local specWarnChargeNear	= mod:NewSpecialWarningClose(52311, nil, nil, nil, 3, 2)
-local specWarnFrothingRage	= mod:NewSpecialWarningDispel(66759, "RemoveEnrage", nil, nil, 1, 2)
 
-local enrageTimer			= mod:NewBerserkTimer(223)
-local timerCombatStart		= mod:NewCombatTimer(23)
-local timerNextBoss			= mod:NewTimer(190, "TimerNextBoss", 2457, nil, nil, 1)
-local timerSubmerge			= mod:NewTimer(45, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
-local timerEmerge			= mod:NewTimer(10, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
-
-local timerBreath			= mod:NewCastTimer(5, 66689, nil, nil, nil, 3)--3 or 5? is it random target or tank?
 local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON, nil, mod:IsSpellCaster() and 3 or nil, 3)
 local timerNextImpale		= mod:NewNextTimer(10, 66331, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerRisingAnger      = mod:NewNextTimer(20.5, 66636, nil, nil, nil, 1)
-local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
-local timerNextCrash		= mod:NewCDTimer(51, 66683, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON)
+
+-- Stage Two: Acidmaw & Dreadscale
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.Acidmaw.." & "..L.Dreadscale)
+local warnSlimePool			= mod:NewSpellAnnounce(66883, 2, nil, "Melee")
+local warnToxin				= mod:NewTargetAnnounce(66823, 3)
+local warnBile				= mod:NewTargetAnnounce(66869, 3)
+local warnEnrageWorm		= mod:NewSpellAnnounce(68335, 3)
+
+local specWarnToxin			= mod:NewSpecialWarningMoveTo(66823, nil, nil, nil, 1, 2)
+local specWarnBile			= mod:NewSpecialWarningYou(66869, nil, nil, nil, 1, 2)
+
+local timerSubmerge			= mod:NewCDTimer(45, 66948, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
+local timerEmerge			= mod:NewBuffActiveTimer(10, 66947, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local timerSweepCD			= mod:NewCDTimer(21, 66794, nil, "Melee", nil, 3)
-local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, "Melee", nil, 3)
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerMoltenSpewCD		= mod:NewCDTimer(21, 66820, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerParalyticSprayCD	= mod:NewCDTimer(21, 66901, nil, nil, nil, 3)
 local timerBurningSprayCD	= mod:NewCDTimer(21, 66902, nil, nil, nil, 3)
 local timerParalyticBiteCD	= mod:NewCDTimer(25, 66824, nil, "Melee", nil, 3)
 local timerBurningBiteCD	= mod:NewCDTimer(15, 66879, nil, "Melee", nil, 3)
+local timerSlimePoolCD		= mod:NewCDTimer(12, 66883, nil, "Melee", nil, 3)
+
+mod:AddSetIconOption("SetIconOnBileTarget", 66869, false, 0, {1, 2, 3, 4, 5, 6, 7, 8})
+
+-- Stage Three: Icehowl
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..L.Icehowl)
+local warnBreath			= mod:NewSpellAnnounce(66689, 2)
+local warnRage				= mod:NewSpellAnnounce(66759, 3)
+local warnCharge			= mod:NewTargetNoFilterAnnounce(52311, 4)
+
+local specWarnCharge		= mod:NewSpecialWarningRun(52311, nil, nil, nil, 4, 2)
+local specWarnChargeNear	= mod:NewSpecialWarningClose(52311, nil, nil, nil, 3, 2)
+local specWarnFrothingRage	= mod:NewSpecialWarningDispel(66759, "RemoveEnrage", nil, nil, 1, 2)
+
+local timerBreath			= mod:NewCastTimer(5, 66689, nil, nil, nil, 3)--3 or 5? is it random target or tank?
+local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerNextCrash		= mod:NewCDTimer(51, 66683, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON)
 
 mod:AddSetIconOption("SetIconOnChargeTarget", 52311, true, 0, {8})
-mod:AddSetIconOption("SetIconOnBileTarget", 66869, false, 0, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddBoolOption("ClearIconsOnIceHowl", true)
-mod:AddRangeFrameOption("10")
 mod:AddBoolOption("IcehowlArrow")
 
 mod:GroupSpells(66902, 66869)--Burning Spray with Burning Bile
 mod:GroupSpells(66901, 66823)--Paralytic Spray with Toxic Bile
+mod:GroupSpells(52311, 66758, 66759)--Furious Charge, Staggering Daze, and Frothing Rage
 
 local bileName = DBM:GetSpellInfo(66869)
 local phases = {}

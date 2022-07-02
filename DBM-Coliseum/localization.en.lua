@@ -14,9 +14,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss		= "Next boss",
-	TimerEmerge			= "Emerge",
-	TimerSubmerge		= "Submerge"
+	TimerNextBoss		= "Next boss"
+--	TimerEmerge			= "Emerge",
+--	TimerSubmerge		= "Submerge"
 })
 
 L:SetOptionLocalization({
@@ -24,8 +24,8 @@ L:SetOptionLocalization({
 	PingCharge			= "Ping the minimap when Icehowl is about to charge you",
 	ClearIconsOnIceHowl	= "Clear all icons before charge",
 	TimerNextBoss		= "Show timer for next boss spawn",
-	TimerEmerge			= "Show timer for emerge",
-	TimerSubmerge		= "Show timer for submerge",
+--	TimerEmerge			= "Show timer for emerge",
+--	TimerSubmerge		= "Show timer for submerge",
 	IcehowlArrow		= "Show DBM arrow when Icehowl is about to charge near you"
 })
 

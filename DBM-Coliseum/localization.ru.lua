@@ -16,9 +16,9 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss		= "Прибытие следующего босса",
-	TimerEmerge			= "Появление",
-	TimerSubmerge		= "Зарывание"
+	TimerNextBoss		= "Прибытие следующего босса"
+--	TimerEmerge			= "Появление",
+--	TimerSubmerge		= "Зарывание"
 })
 
 L:SetOptionLocalization({
@@ -26,8 +26,8 @@ L:SetOptionLocalization({
 	PingCharge			= "Показать на миникарте место, куда попадает Ледяной Рев, если он избрал вас целью",
 	ClearIconsOnIceHowl	= "Снимать все иконки перед Топотом",
 	TimerNextBoss		= "Отсчет времени до появления следующего противника",
-	TimerEmerge			= "Отсчет времени до появления",
-	TimerSubmerge		= "Отсчет времени до зарывания",
+--	TimerEmerge			= "Отсчет времени до появления",
+--	TimerSubmerge		= "Отсчет времени до зарывания",
 	IcehowlArrow		= "Показывать стрелку, когда Ледяной Рев готовится сделать рывок на цель рядом с вами"
 })
 

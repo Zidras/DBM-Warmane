@@ -16,17 +16,17 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerNextBoss				= "Prochain boss dans",
-	TimerEmerge					= "Sort du sol",
-	TimerSubmerge				= "Rentre dans le sol"
+	TimerNextBoss				= "Prochain boss dans"
+--	TimerEmerge					= "Sort du sol",
+--	TimerSubmerge				= "Rentre dans le sol"
 })
 
 L:SetOptionLocalization({
 	WarningSnobold				= "Montre une alerte quand les Vassal arrivent",
 	PingCharge					= "Ping sur la minimap quand Glace-hurlante va vous charger",
 	ClearIconsOnIceHowl			= "Enlève toutes les icônes avant la prochaine charge",
-	TimerNextBoss				= "Montre le timer pour l'arrivée du prochain boss",
-	TimerEmerge					= "Montre le timer avant que les vers rentre dans le sol",
+--	TimerNextBoss				= "Montre le timer pour l'arrivée du prochain boss",
+--	TimerEmerge					= "Montre le timer avant que les vers rentre dans le sol",
 	TimerSubmerge				= "Montre le timer avant que les vers sortent du sol"
 })
 
