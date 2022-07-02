@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701215737")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(8, 7, 6, 2, 1)
@@ -45,7 +45,7 @@ mod:AddTimerLine(L.S2DescentIntoMadness)
 local warnP2 						= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local warnSanity 					= mod:NewAnnounce("WarningSanity", 3, 63050, nil, nil, nil, 63050)
 
-local specWarnSanity 				= mod:NewSpecialWarning("SpecWarnSanity", nil, nil, nil, nil, nil, nil, 63050, 63050)
+local specWarnSanity 				= mod:NewSpecialWarning("SpecWarnSanity", nil, nil, nil, nil, nil, nil, 63050, 63050)--Warning, no voice pack support
 
 mod:AddInfoFrameOption(63050)
 
@@ -73,7 +73,7 @@ local warnCrusherTentacleSpawned	= mod:NewAnnounce("WarningCrusherTentacleSpawne
 
 -- Constrictor Tentacle
 -- mod:AddTimerLine(L.ConstrictorTentacle)
-local warnSqueeze					= mod:NewTargetAnnounce(64125, 3)
+local warnSqueeze					= mod:NewTargetNoFilterAnnounce(64125, 3)
 
 local yellSqueeze					= mod:NewYell(64125)  -- Constrictor Tentacle
 
@@ -97,7 +97,7 @@ local timerNextLunaticGaze			= mod:NewCDTimer(8.5, 64163, nil, nil, nil, 2, nil,
 -- mod:AddTimerLine(L.BrainofYoggSaron)
 local warnMadness 					= mod:NewCastAnnounce(64059, 2)
 
-local specWarnMadnessOutNow			= mod:NewSpecialWarning("SpecWarnMadnessOutNow", nil, nil, nil, nil, nil, nil, 64059, 64059)  -- Brain of Yogg-Saron
+local specWarnMadnessOutNow			= mod:NewSpecialWarning("SpecWarnMadnessOutNow", nil, nil, nil, nil, nil, nil, 64059, 64059)  -- Brain of Yogg-Saron. Warning, no voice pack support
 
 local timerMadness 					= mod:NewCastTimer(60, 64059, nil, nil, nil, 5, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)  -- Brain of Yogg-Saron
 

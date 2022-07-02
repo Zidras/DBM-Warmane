@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorscale", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701220005")
 mod:SetCreatureID(33186)
 
 mod:RegisterCombat("combat_yell", L.YellAir)
@@ -24,7 +24,7 @@ local enrageTimer					= mod:NewBerserkTimer(600)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnTurretsReadySoon			= mod:NewAnnounce("warnTurretsReadySoon", 1, 48642)
 local warnTurretsReady				= mod:NewAnnounce("warnTurretsReady", 3, 48642)
-local warnDevouringFlame			= mod:NewTargetAnnounce(63236, 2, nil, false)
+local warnDevouringFlame			= mod:NewTargetAnnounce(63236, 2, nil, false)--Very spammy, requires turning on AND disabling target filter. Power user setting
 
 local specWarnDevouringFlame		= mod:NewSpecialWarningMove(64733, nil, nil, nil, 1, 2)
 local specWarnDevouringFlameYou		= mod:NewSpecialWarningYou(64733, false, nil, nil, 1, 2)

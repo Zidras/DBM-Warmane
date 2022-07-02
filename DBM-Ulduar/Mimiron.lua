@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701215737")
 mod:SetCreatureID(33432)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -19,86 +19,86 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 63666 65026",
 	"SPELL_SUMMON 63811",
 	"UNIT_SPELLCAST_CHANNEL_STOP boss1 boss2 boss3 boss4",
-	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3",
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3 boss4",
 	"CHAT_MSG_LOOT"
 )
 
 --General
-local timerEnrage 				= mod:NewBerserkTimer(900)
-local timerP1toP2				= mod:NewTimer(41, "TimeToPhase2", nil, nil, nil, 6)
-local timerP2toP3				= mod:NewTimer(15, "TimeToPhase3", nil, nil, nil, 6)
-local timerP3toP4				= mod:NewTimer(30, "TimeToPhase4", nil, nil, nil, 6)
+local timerEnrage 					= mod:NewBerserkTimer(900)
+local timerP1toP2					= mod:NewTimer(41, "TimeToPhase2", nil, nil, nil, 6)
+local timerP2toP3					= mod:NewTimer(15, "TimeToPhase3", nil, nil, nil, 6)
+local timerP3toP4					= mod:NewTimer(30, "TimeToPhase4", nil, nil, nil, 6)
 
 mod:AddRangeFrameOption("6")
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.MobPhase1)
-local warnNapalmShell			= mod:NewTargetAnnounce(63666, 2)
-local warnPlasmaBlast			= mod:NewTargetAnnounce(64529, 4)
+local warnNapalmShell				= mod:NewTargetNoFilterAnnounce(63666, 2, nil, "Healer")
+local warnPlasmaBlast				= mod:NewTargetNoFilterAnnounce(64529, 4, nil, "Tank|Healer")
 
-local specWarnShockBlast		= mod:NewSpecialWarningRun(63631, "Melee", nil, nil, 4, 2)
-local specWarnPlasmaBlast		= mod:NewSpecialWarningDefensive(64529, nil, nil, nil, 1, 2)
+local specWarnShockBlast			= mod:NewSpecialWarningRun(63631, "Melee", nil, nil, 4, 2)
+local specWarnPlasmaBlast			= mod:NewSpecialWarningDefensive(64529, nil, nil, nil, 1, 2)
 
-local timerProximityMines		= mod:NewCDTimer(25, 63027, nil, nil, nil, 3)
-local timerShockBlast			= mod:NewCastTimer(4, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNextShockBlast		= mod:NewNextTimer(40, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNapalmShell			= mod:NewBuffActiveTimer(6, 63666, nil, "Healer", 2, 5, nil, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.HEALER_ICON)
-local timerPlasmaBlastCD		= mod:NewCDTimer(30, 64529, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerProximityMines			= mod:NewCDTimer(25, 63027, nil, nil, nil, 3)
+local timerShockBlast				= mod:NewCastTimer(4, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerNextShockBlast			= mod:NewNextTimer(40, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerNapalmShell				= mod:NewBuffActiveTimer(6, 63666, nil, "Healer", 2, 5, nil, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.HEALER_ICON)
+local timerPlasmaBlastCD			= mod:NewCDTimer(30, 64529, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 mod:AddSetIconOption("SetIconOnNapalm", 63666, false, false, {1, 2, 3, 4, 5, 6, 7})
 mod:AddSetIconOption("SetIconOnPlasmaBlast", 64529, false, false, {8})
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.MobPhase2)
-local specWarnDarkGlare			= mod:NewSpecialWarningDodge(63293, nil, nil, nil, 3, 2) -- P3Wx2 Laser Barrage
-local specWarnRocketStrike		= mod:NewSpecialWarningDodge(64402, nil, nil, nil, 2, 2)
+local specWarnP3Wx2LaserBarrage		= mod:NewSpecialWarningDodge(63274, nil, nil, nil, 3, 2) -- P3Wx2 Laser Barrage
+local specWarnRocketStrike			= mod:NewSpecialWarningDodge(64402, nil, nil, nil, 2, 2)
 
-local timerSpinUp				= mod:NewCastTimer(4, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerDarkGlareCast		= mod:NewCastTimer(10, 63274, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNextDarkGlare		= mod:NewNextTimer(31, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerRocketStrikeCD		= mod:NewCDTimer(20, 63631, nil, nil, nil, 3)--20-25
+local timerSpinUp					= mod:NewCastTimer(4, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerP3Wx2LaserBarrageCast	= mod:NewCastTimer(10, 63274, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerNextP3Wx2LaserBarrage	= mod:NewNextTimer(31, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerRocketStrikeCD			= mod:NewCDTimer(20, 64402, nil, nil, nil, 3)--20-25
 
 -- Stage Three
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..L.MobPhase3)
-local warnLootMagneticCore		= mod:NewAnnounce("MagneticCore", 1, 64444, nil, nil, nil, 64444)
-local warnBombBotSpawn			= mod:NewAnnounce("WarnBombSpawn", 3, 63811, nil, nil, nil, 63811)
+local warnLootMagneticCore			= mod:NewAnnounce("MagneticCore", 1, 64444, nil, nil, nil, 64444)
+local warnBombBotSpawn				= mod:NewAnnounce("WarnBombSpawn", 3, 63811, nil, nil, nil, 63811)
 
-local timerBombBotSpawn			= mod:NewCDTimer(15, 63811)
+local timerBombBotSpawn				= mod:NewCDTimer(15, 63811)
 
 mod:AddBoolOption("AutoChangeLootToFFA", true, nil, nil, nil, nil, 64444)
 
 -- Stage Four
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(4)..": "..L.MobPhase4)
-local timerSelfRepair			= mod:NewCastSourceTimer(15, 64383, nil, nil, nil, 7, nil, DBM_COMMON_L.IMPORTANT_ICON)
+local timerSelfRepair				= mod:NewCastSourceTimer(15, 64383, nil, nil, nil, 7, nil, DBM_COMMON_L.IMPORTANT_ICON)
 
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
-local warnFlamesSoon			= mod:NewSoonAnnounce(64566, 1)
+local warnFlamesSoon				= mod:NewSoonAnnounce(64566, 1)
 
-local timerHardmode				= mod:NewTimer(610, "TimerHardmode", 64582, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 64582)
-local timerNextFlames			= mod:NewNextTimer(28, 64566, nil, nil, nil, 7, nil, DBM_COMMON_L.IMPORTANT_ICON)
+local timerHardmode					= mod:NewTimer(610, "TimerHardmode", 64582, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 64582)
+local timerNextFlames				= mod:NewNextTimer(28, 64566, nil, nil, nil, 7, nil, DBM_COMMON_L.IMPORTANT_ICON)
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.MobPhase1)
-local timerFlameSuppressant		= mod:NewBuffActiveTimer(10, 64570, nil, nil, nil, 3)
+local timerFlameSuppressant			= mod:NewBuffActiveTimer(10, 64570, nil, nil, nil, 3)
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.MobPhase2)
-local warnFrostBomb				= mod:NewSpellAnnounce(64623, 3)
+local warnFrostBomb					= mod:NewSpellAnnounce(64623, 3)
 
-local timerFrostBombExplosion	= mod:NewCastTimer(15, 65333, nil, nil, nil, 3)
-local timerNextFrostBomb		= mod:NewNextTimer(30, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
-local timerNextFlameSuppressant	= mod:NewNextTimer(60, 65192, nil, nil, nil, 3)
+local timerFrostBombExplosion		= mod:NewCastTimer(15, 65333, nil, nil, nil, 3)
+local timerNextFrostBomb			= mod:NewNextTimer(30, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
+local timerNextFlameSuppressant		= mod:NewNextTimer(60, 65192, nil, nil, nil, 3)
 
 -- Stage Three
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..L.MobPhase3)
-local specWarnDeafeningSiren	= mod:NewSpecialWarningMove(64616, nil, nil, nil, 1, 2)
+local specWarnDeafeningSiren		= mod:NewSpecialWarningMove(64616, nil, nil, nil, 1, 2)
 
 -- Stage Four
 -- mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(4)..": "..L.MobPhase4)
 -- nothing new to add
 
-mod:GroupSpells(63274, 63293) -- P3Wx2 Laser Barrage
+mod:GroupSpells(63274, 63293) -- Spinning Up and P3Wx2 Laser Barrage
 mod:GroupSpells(64623, 65333) -- Frost Bomb, Frost Bomb Explosion
 
 local lootmethod, _, masterlooterRaidID
@@ -130,9 +130,9 @@ end
 
 local function show_warning_for_spinup(self)
 	if self.vb.is_spinningUp then
-		specWarnDarkGlare:Show()
-		specWarnDarkGlare:Play("watchstep")
-		specWarnDarkGlare:ScheduleVoice(1, "keepmove")
+		specWarnP3Wx2LaserBarrage:Show()
+		specWarnP3Wx2LaserBarrage:Play("watchstep")
+		specWarnP3Wx2LaserBarrage:ScheduleVoice(1, "keepmove")
 	end
 end
 
@@ -157,7 +157,7 @@ local function NextPhase(self)
 		timerFlameSuppressant:Stop()
 		timerPlasmaBlastCD:Stop()
 		timerP1toP2:Start()
-		timerNextDarkGlare:Schedule(30)
+		timerNextP3Wx2LaserBarrage:Schedule(30)
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()
 			DBM.BossHealth:AddBoss(33651, L.MobPhase2)
@@ -172,8 +172,8 @@ local function NextPhase(self)
 		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 			SetLootMethod("freeforall")
 		end
-		timerDarkGlareCast:Cancel()
-		timerNextDarkGlare:Cancel()
+		timerP3Wx2LaserBarrageCast:Cancel()
+		timerNextP3Wx2LaserBarrage:Cancel()
 		timerNextFrostBomb:Cancel()
 		timerP2toP3:Start()
 		timerBombBotSpawn:Start(34)
@@ -194,7 +194,7 @@ local function NextPhase(self)
 		self:Unschedule(BombBot)
 		timerP3toP4:Start()
 		timerProximityMines:Start(34)
-		timerNextDarkGlare:Start(72)
+		timerNextP3Wx2LaserBarrage:Start(72)
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Show(L.name)
 			DBM.BossHealth:AddBoss(33670, L.MobPhase3)
@@ -280,8 +280,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 63414 then			-- Spinning UP (before Dark Glare)
 		self.vb.is_spinningUp = true
 		timerSpinUp:Start()
-		timerDarkGlareCast:Schedule(4)
-		timerNextDarkGlare:Schedule(14)			-- 4 (cast spinup) + 10 sec (cast dark glare)
+		timerP3Wx2LaserBarrageCast:Schedule(4)
+		timerNextP3Wx2LaserBarrage:Schedule(14)			-- 4 (cast spinup) + 10 sec (cast dark glare)
 		DBM:Schedule(0.15, show_warning_for_spinup, self)	-- wait 0.15 and then announce it, otherwise it will sometimes fail
 		lastSpinUp = GetTime()
 	elseif spellId == 65192 then	-- Flame Suppressant CD (phase 2)
@@ -364,7 +364,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextFlames:Stop()
 		self:Unschedule(Flames)
 		timerNextFrostBomb:Stop()
-		timerNextDarkGlare:Stop()
+		timerNextP3Wx2LaserBarrage:Stop()
 		timerProximityMines:Stop()
 		warnFlamesSoon:Cancel()
 		warnFlamesSoon:Cancel()
@@ -385,13 +385,13 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 				DBM.RangeCheck:Hide()
 			end
 			timerRocketStrikeCD:Start(63)
-			timerNextDarkGlare:Start(78)
+			timerNextP3Wx2LaserBarrage:Start(78)
 			if self.vb.hardmode then
 				timerNextFrostBomb:Start(94)
 			end
 		elseif self.vb.phase == 3 then
-			timerDarkGlareCast:Stop()
-			timerNextDarkGlare:Stop()
+			timerP3Wx2LaserBarrageCast:Stop()
+			timerNextP3Wx2LaserBarrage:Stop()
 			timerNextFrostBomb:Stop()
 			timerRocketStrikeCD:Stop()
 			timerP2toP3:Start()
@@ -401,7 +401,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 				timerNextFrostBomb:Start(32)
 			end
 			timerRocketStrikeCD:Start(50)
-			timerNextDarkGlare:Start(59.8)
+			timerNextP3Wx2LaserBarrage:Start(59.8)
 			timerNextShockBlast:Start(81)
 		end--]]
 	if spellName == GetSpellInfo(64402) or spellName == GetSpellInfo(65034) then--P2, P4 Rocket Strike
@@ -415,9 +415,9 @@ function mod:OnSync(event, args)
 	if event == "SpinUpFail" then
 		self.vb.is_spinningUp = false
 		timerSpinUp:Cancel()
-		timerDarkGlareCast:Cancel()
-		timerNextDarkGlare:Cancel()
-		specWarnDarkGlare:Cancel()
+		timerP3Wx2LaserBarrageCast:Cancel()
+		timerNextP3Wx2LaserBarrage:Cancel()
+		specWarnP3Wx2LaserBarrage:Cancel()
 	elseif event == "Phase2" and self.vb.phase == 1 then -- alternate localized-dependent detection
 		NextPhase(self)
 	elseif event == "Phase3" and self.vb.phase == 2 then

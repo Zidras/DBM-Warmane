@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701215737")
 
 mod:SetCreatureID(32906)
 mod:RegisterCombat("combat")
@@ -30,7 +30,6 @@ mod:RegisterEventsInCombat(
 local warnSimulKill			= mod:NewAnnounce("WarnSimulKill", 1)
 
 local timerEnrage 			= mod:NewBerserkTimer(600)
-local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON)
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
@@ -41,6 +40,7 @@ local specWarnNatureFury	= mod:NewSpecialWarningMoveAway(63571, nil, nil, nil, 1
 local yellNatureFury		= mod:NewYell(63571)
 
 local timerAlliesOfNature	= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON)--No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set
+local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 62678)
 local timerNatureFury		= mod:NewTargetTimer(10, 63571)
 local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1)
 
@@ -65,7 +65,7 @@ local specWarnGroundTremor	= mod:NewSpecialWarningCast(62859, "SpellCaster", nil
 local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
 
 local timerGroundTremorCD 	= mod:NewCDTimer(26, 62859, 62859, nil, nil, nil, 2)--22.9-47.8
-local timerIronRootsCD		= mod:NewCDTimer(14, 62439, nil, nil, nil, 3)
+local timerIronRootsCD		= mod:NewCDTimer(14, 62438, nil, nil, nil, 3)
 local timerUnstableBeamCD	= mod:NewCDTimer(15, 62865) -- Hard mode Sun Beam
 
 mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("XT002", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701220005")
 mod:SetCreatureID(33293)
 mod:SetUsedIcons(1, 2)
 
@@ -23,8 +23,8 @@ mod:AddRangeFrameOption(12, nil, true)
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
-local warnLightBomb					= mod:NewTargetAnnounce(65121, 3)
-local warnGravityBomb				= mod:NewTargetAnnounce(64234, 3)
+local warnLightBomb					= mod:NewTargetNoFilterAnnounce(65121, 3)
+local warnGravityBomb				= mod:NewTargetNoFilterAnnounce(64234, 3)
 
 local specWarnLightBomb				= mod:NewSpecialWarningMoveAway(65121, nil, nil, nil, 1, 2)
 local yellLightBomb					= mod:NewYell(65121)
@@ -46,7 +46,7 @@ local timerHeart					= mod:NewCastTimer(30, 63849, nil, nil, nil, 6, nil, DBM_CO
 
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
-local specWarnConsumption			= mod:NewSpecialWarningMove(64206, nil, nil, nil, 1, 2)--Hard mode void zone dropped by Gravity Bomb
+local specWarnConsumption			= mod:NewSpecialWarningGTFO(64206, nil, nil, nil, 1, 8)--Hard mode void zone dropped by Gravity Bomb
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
@@ -126,7 +126,7 @@ end
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 	if (spellId == 64208 or spellId == 64206) and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnConsumption:Show()
-		specWarnConsumption:Play("runaway")
+		specWarnConsumption:Play("watchfeet")
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE

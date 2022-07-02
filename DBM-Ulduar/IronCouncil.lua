@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701215737")
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -48,15 +48,15 @@ mod:AddTimerLine(L.RunemasterMolgeim)
 local warnRuneofPower			= mod:NewTargetNoFilterAnnounce(64320, 2)
 local warnRuneofDeathIn10Sec	= mod:NewSoonAnnounce(63490, 3)
 local warnRuneofDeath			= mod:NewSpellAnnounce(63490, 2)
-local warnShieldofRunes			= mod:NewSpellAnnounce(63489, 2)
+local warnShieldofRunes			= mod:NewSpellAnnounce(62274, 2)
 local warnRuneofSummoning		= mod:NewSpellAnnounce(62273, 3)
 
 local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490, nil, nil, nil, 1, 2)
-local specWarnRuneofShields		= mod:NewSpecialWarningDispel(63967, "MagicDispeller", nil, nil, 1, 2)
+local specWarnRuneofShields		= mod:NewSpecialWarningDispel(62274, "MagicDispeller", nil, nil, 1, 2)
 
-local timerRuneofShields		= mod:NewBuffActiveTimer(15, 63967, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerRuneofShields		= mod:NewBuffActiveTimer(15, 62274, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
-local timerRuneofPower			= mod:NewCDTimer(30, 61974, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerRuneofPower			= mod:NewCDTimer(30, 64320, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 
 -- Steelbreaker
@@ -64,7 +64,7 @@ local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 mod:AddTimerLine(L.Steelbreaker)
 local warnFusionPunch			= mod:NewSpellAnnounce(61903, 4)
 local warnOverwhelmingPower		= mod:NewTargetAnnounce(61888, 2)
-local warnStaticDisruption		= mod:NewTargetAnnounce(61912, 3)
+local warnStaticDisruption		= mod:NewTargetAnnounce(63494, 3)
 
 local timerOverwhelmingPower	= mod:NewTargetTimer(25, 61888, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.DEADLY_ICON, nil, 3)
 local timerFusionPunchCast		= mod:NewCastTimer(3, 61903, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)

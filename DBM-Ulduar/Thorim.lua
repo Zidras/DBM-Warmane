@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701215737")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -23,8 +23,8 @@ mod:AddRangeFrameOption("8")
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
-local warnStormhammer				= mod:NewTargetAnnounce(62042, 2)
-local warnRuneDetonation			= mod:NewTargetAnnounce(62526, 4)
+local warnStormhammer				= mod:NewTargetNoFilterAnnounce(62042, 2)
+local warnRuneDetonation			= mod:NewTargetNoFilterAnnounce(62526, 4)
 
 local specWarnRuneDetonation		= mod:NewSpecialWarningClose(62526, nil, nil, nil, 1, 2)
 local yellRuneDetonation			= mod:NewYell(62526)
@@ -33,7 +33,7 @@ local specWarnLightningShock		= mod:NewSpecialWarningMove(62017, nil, nil, nil, 
 local timerHardmode					= mod:NewTimer(150, "TimerHardmode", 62042, nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, 62507)
 local timerStormhammer				= mod:NewBuffActiveTimer(16, 62042, nil, nil, nil, 3)--Cast timer? Review if i ever do this boss again.
 
-mod:AddSetIconOption("SetIconOnRunic", 62527, false, false, {7})
+mod:AddSetIconOption("SetIconOnRuneDetonation", 62527, false, false, {7})
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
@@ -105,7 +105,7 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
-	if spellId == 62042 then 					-- Storm Hammer
+	if spellId == 62042 and self:CheckBossDistance(args.sourceGUID, true, 34471) then	-- Storm Hammer. Within range of Vial of the Sunwell (43)
 		warnStormhammer:Show(args.destName)
 	elseif spellId == 62507 then				-- Touch of Dominion
 		timerHardmode:Start(150)
@@ -123,10 +123,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		elseif self:CheckNearby(10, args.destName) then
 			specWarnRuneDetonation:Show(args.destName)
 			specWarnRuneDetonation:Play("runaway")
-		else
+		elseif self:CheckBossDistance(args.sourceGUID, true, 1180) then--Within Scroll of Stamina range (33)
 			warnRuneDetonation:Show(args.destName)
 		end
-		if self.Options.SetIconOnRunic then
+		if self.Options.SetIconOnRuneDetonation then
 			self:SetIcon(args.destName, 7, 5)
 		end
 	end

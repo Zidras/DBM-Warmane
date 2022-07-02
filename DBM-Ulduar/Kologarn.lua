@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220701215737")
 mod:SetCreatureID(32930)
 mod:SetUsedIcons(5, 6, 7, 8)
 
@@ -29,6 +29,7 @@ mod:SetBossHealthInfo(
 local enrageTimer				= mod:NewBerserkTimer(600)
 local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
 
+--NOTE: Two crunch armors are setup to appear in gui twice on purpose, because they are very different mechanically. One is meant to be ignored and one is meant to be tank swap
 -- Kologarn
 mod:AddTimerLine(L.name)
 local warnFocusedEyebeam		= mod:NewTargetNoFilterAnnounce(63346, 4)
@@ -63,16 +64,16 @@ local timerRespawnLeftArm		= mod:NewTimer(30, "timerLeftArm", nil, nil, nil, 1)
 -- 6/3 21:41:56.140 UNIT_DIED,0x0000000000000000,nil,0x80000000,0xF1500080A60274A0,"Rechter Arm",0xa48
 
 mod.vb.disarmActive = false
---local gripTargets = {}
+local gripTargets = {}
 
 local function armReset(self)
 	self.vb.disarmActive = false
 end
 
---local function GripAnnounce(self)
---	warnGrip:Show(table.concat(gripTargets, "<, >"))
---	table.wipe(gripTargets)
---end
+local function GripAnnounce(self)
+	warnGrip:Show(table.concat(gripTargets, "<, >"))
+	table.wipe(gripTargets)
+end
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
@@ -90,17 +91,15 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(64290, 64292) then
 		if self.Options.SetIconOnGripTarget then
-			--self:SetIcon(args.destName, 8 - #gripTargets, 10)
-			self:SetIcon(args.destName, 8, 10)
+			self:SetIcon(args.destName, 8 - #gripTargets, 10)
 		end
-		--[[table.insert(gripTargets, args.destName)
+		table.insert(gripTargets, args.destName)
 		self:Unschedule(GripAnnounce)
 		if #gripTargets >= 3 then
 			GripAnnounce(self)
 		else
 			self:Schedule(0.3, GripAnnounce, self)
-		end--]]
-		warnGrip:Show(args.destName)
+		end
 	elseif args:IsSpellID(64002, 63355) then	-- Crunch Armor
 		local amount = args.amount or 1
 		if amount >= 2 then
