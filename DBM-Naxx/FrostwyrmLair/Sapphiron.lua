@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220221015714")
+mod:SetRevision("20220702103230")
 mod:SetCreatureID(15989)
 
 mod:RegisterCombat("combat")
@@ -55,8 +55,8 @@ local function Landing(self)
 	timerAirPhase:Start()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+		self:Schedule(65, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 	end
-	self:Schedule(65, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 end
 
 function mod:OnCombatStart(delay)
@@ -68,7 +68,9 @@ function mod:OnCombatStart(delay)
 	warnAirPhaseSoon:Schedule(38.5 - delay)
 	timerAirPhase:Start(48.5 - delay)
 	berserkTimer:Start(-delay)
-	self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
+	if self.Options.RangeFrame then
+		self:Schedule(46 - delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
+	end
 	self:RegisterOnUpdateHandler(function(self, elapsed)
 		if not self:IsInCombat() then return end
 		local foundBoss, target
