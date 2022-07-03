@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220701235541")
+mod:SetRevision("20220703130600")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220623000000)
@@ -677,7 +677,7 @@ function mod:UNIT_TARGET_UNFILTERED(uId)
 			warnIceSpheresTarget:Show(sphereTarget)
 			if sphereTarget == UnitName("player") then
 				specWarnIceSpheresYou:Show()
-				specWarnIceSpheresYou:Play("161411") -- Ice orb. Move away!
+				specWarnIceSpheresYou:Play("iceorbmove")
 			end
 		end
 	end
@@ -695,7 +695,7 @@ function mod:OnSync(msg, target)
 			warnIceSpheresTarget:Show(sphereTarget)
 			if sphereTarget == UnitName("player") then
 				specWarnIceSpheresYou:Show()
-				specWarnIceSpheresYou:Play("161411") -- Ice orb. Move away!
+				specWarnIceSpheresYou:Play("iceorbmove")
 			end
 		end
 	end
