@@ -240,7 +240,7 @@ function OptionsList_OnLoad(self, ...)
 	end
 end
 
-local frameList = CreateFrame("Frame", "$parentList", frame, "DBM_GUI_OptionsFrameListTemplate")
+local frameList = CreateFrame("Frame", "$parentList", frame, "OptionsFrameListTemplate")
 frameList:SetWidth(205)
 frameList:SetPoint("TOPLEFT", 22, -40)
 frameList:SetPoint("BOTTOMLEFT", frameWebsite, "TOPLEFT", 0, 5)
@@ -299,10 +299,18 @@ frameListList:SetBackdrop(frameListList.backdropInfo)
 frameListList:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.6)
 frameListList:SetScript("OnVerticalScroll", function(self, offset)
 	local scrollbar = _G[self:GetName() .. "ScrollBar"]
---	local _, max = scrollbar:GetMinMaxValues()
+	local _, max = scrollbar:GetMinMaxValues()
 	scrollbar:SetValue(offset)
--- _G[self:GetName() .. "ScrollBarScrollUpButton"]:SetEnabled(offset ~= 0)
--- _G[self:GetName() .. "ScrollBarScrollDownButton"]:SetEnabled(scrollbar:GetValue() - max ~= 0)
+	if offset ~= 0 then
+		_G[self:GetName() .. "ScrollBarScrollUpButton"]:Enable()
+	else
+		_G[self:GetName() .. "ScrollBarScrollUpButton"]:Disable()
+	end
+	if scrollbar:GetValue() - max ~= 0 then
+		_G[self:GetName() .. "ScrollBarScrollDownButton"]:Enable()
+	else
+		_G[self:GetName() .. "ScrollBarScrollDownButton"]:Disable()
+	end
 	frameList.offset = math.floor((offset / 18) + 0.5)
 	frame:UpdateMenuFrame()
 end)

@@ -60,7 +60,7 @@ function OptionsList_OnLoad(self, ...)
 	end
 end
 
-local tabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", _G["DBM_GUI_OptionsFrame"], "DBM_GUI_DropDownMenu")
+local tabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", _G["DBM_GUI_OptionsFrame"], "OptionsFrameListTemplate")
 tabFrame1:Hide()
 tabFrame1:SetFrameStrata("TOOLTIP")
 tabFrame1.offset = 0
@@ -78,14 +78,24 @@ tabFrame1:SetBackdropBorderColor(0.4, 0.4, 0.4)
 local tabFrame1List = _G[tabFrame1:GetName() .. "List"]
 tabFrame1List:SetScript("OnVerticalScroll", function(self, offset)
 	local scrollbar = _G[self:GetName() .. "ScrollBar"]
---	local _, max = scrollbar:GetMinMaxValues()
+	local _, max = scrollbar:GetMinMaxValues()
 	scrollbar:SetValue(offset)
---	_G[self:GetName() .. "ScrollBarScrollUpButton"]:SetEnabled(offset ~= 0)
---	_G[self:GetName() .. "ScrollBarScrollDownButton"]:SetEnabled(scrollbar:GetValue() - max ~= 0)
+	if offset ~= 0 then
+		_G[self:GetName() .. "ScrollBarScrollUpButton"]:Enable()
+	else
+		_G[self:GetName() .. "ScrollBarScrollUpButton"]:Disable()
+	end
+	if scrollbar:GetValue() - max ~= 0 then
+		_G[self:GetName() .. "ScrollBarScrollDownButton"]:Enable()
+	else
+		_G[self:GetName() .. "ScrollBarScrollDownButton"]:Disable()
+	end
 	tabFrame1.offset = mfloor(offset)
 	tabFrame1:Refresh()
 end)
 tabFrame1List:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.6)
+tabFrame1List:SetWidth(18) -- hardcoding width to have a flush border tex around scrollbar. Retail template does not have any texture, but imo this is best handled via addonskins
+--tabFrame1List:SetBackdrop(nil) -- match retail behaviour
 
 local tabFrame1ScrollBar = _G[tabFrame1List:GetName() .. "ScrollBar"]
 tabFrame1ScrollBar:SetMinMaxValues(0, 11)
@@ -125,14 +135,14 @@ end)
 
 tabFrame1.buttons = {}
 for i = 1, 10 do
-	local button = CreateFrame("Button", tabFrame1:GetName() .. "Button" .. i, tabFrame1, "DBM_GUI_DropDownMenuButtonTemplate")
--- _G[button:GetName() .. "Check"]:Hide()
+	local button = CreateFrame("Button", tabFrame1:GetName() .. "Button" .. i, tabFrame1, "UIDropDownMenuButtonTemplate")
+	_G[button:GetName() .. "Check"]:Hide()
 -- _G[button:GetName() .. "UnCheck"]:Hide()
 	button:SetFrameLevel(tabFrame1ScrollBar:GetFrameLevel() - 1)
 	if i == 1 then
 		button:SetPoint("TOPLEFT", tabFrame1, "TOPLEFT", 11, -4) -- VERIFY
 	else
-		button:SetPoint("TOPLEFT", tabFrame1.buttons[i -1]:GetName(), "BOTTOMLEFT")
+		button:SetPoint("TOPLEFT", tabFrame1.buttons[i - 1]:GetName(), "BOTTOMLEFT")
 	end
 	button:SetScript("OnEnter", function(self)
 		_G[self:GetName() .. "Highlight"]:Show()
@@ -264,7 +274,7 @@ function DBM_GUI:CreateDropdown(title, values, vartype, var, callfunc, width, he
 	end
 
 	-- Create the Dropdown Frame
-	local dropdown = CreateFrame("Frame", "DBM_GUI_DropDown" .. self:GetNewID(), parent or self.frame, "DBM_GUI_DropDownMenuTemplate")
+	local dropdown = CreateFrame("Frame", "DBM_GUI_DropDown" .. self:GetNewID(), parent or self.frame, "UIDropDownMenuTemplate")
 	dropdown.mytype = "dropdown"
 	dropdown.width = width
 	dropdown.values = values

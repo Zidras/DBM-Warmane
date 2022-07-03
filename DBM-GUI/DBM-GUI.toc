@@ -21,7 +21,7 @@
 ## LoadOnDemand: 1
 ## DefaultState: enabled
 ## Author: MysticalOS, QartemisT
-## Version: c617782
+## Version: 9.2.20_alpha
 
 localization.en.lua
 localization.de.lua
@@ -32,8 +32,6 @@ localization.tw.lua
 localization.kr.lua
 localization.es.lua
 
-DBM-GUI_DropDown.xml
-DBM-GUI_Templates.xml
 DBM-GUI.lua
 DBM-GUI_DropDown.lua
 
