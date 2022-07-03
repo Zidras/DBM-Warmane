@@ -5748,12 +5748,15 @@ function DBM:GetStage(modId)
 end
 
 function DBM:HasMapRestrictions()
-	SetMapToCurrentZone()
+	local playerX, playerY = GetPlayerMapPosition("player")
+	if playerX == 0 or playerY == 0 then -- attempt to fix zone once
+		SetMapToCurrentZone() -- DO NOT RUN THIS FUNCTION IN A LOOP! It's a waste of cpu power and will tank FPS due to radar loop scan.
+		playerX, playerY = GetPlayerMapPosition("player")
+	end
 	local mapName = GetMapInfo()
 	local level = GetCurrentMapDungeonLevel()
 	local usesTerrainMap = DungeonUsesTerrainMap()
 	level = usesTerrainMap and level - 1 or level
-	local playerX, playerY = GetPlayerMapPosition("player")
 	if (playerX == 0 or playerY == 0) or (self.MapSizes[mapName] and not self.MapSizes[mapName][level]) then
 		return true
 	end
@@ -6535,7 +6538,6 @@ function DBM:RegisterMapSize(zone, ...)
 end
 
 function DBM:GetMapSize()
-	SetMapToCurrentZone()
 	local mapName = GetMapInfo()
 	local level = GetCurrentMapDungeonLevel()
 	local usesTerrainMap = DungeonUsesTerrainMap()
