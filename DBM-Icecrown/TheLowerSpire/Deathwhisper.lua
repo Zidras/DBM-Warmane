@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathwhisper", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220702001333")
+mod:SetRevision("20220703230401")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 
@@ -48,7 +48,7 @@ mod:AddTimerLine(L.name)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnDominateMind				= mod:NewTargetNoFilterAnnounce(71289, 3)
 
-local specWarnDeathDecay			= mod:NewSpecialWarningGTFO(71001, nil, nil, nil, 0, 8)
+local specWarnDeathDecay			= mod:NewSpecialWarningGTFO(71001, nil, nil, nil, 1, 8)
 
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289, nil, nil, nil, 5)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
