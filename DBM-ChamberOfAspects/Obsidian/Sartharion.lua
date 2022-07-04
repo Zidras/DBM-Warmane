@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220705003446")
 mod:SetCreatureID(28860)
 
 mod:RegisterCombat("combat")
@@ -19,9 +19,9 @@ mod:RegisterEventsInCombat(
 
 local warnShadowFissure	    	= mod:NewSpellAnnounce(59127, 4, nil, nil, nil, nil, nil, 2)
 local warnBreathSoon			= mod:NewSoonAnnounce(58956, 2, nil, "Tank|Healer")
-local warnTenebron				= mod:NewAnnounce("WarningTenebron", 2, 61248, false)
-local warnShadron				= mod:NewAnnounce("WarningShadron", 2, 58105, false)
-local warnVesperon				= mod:NewAnnounce("WarningVesperon", 2, 61251, false)
+local warnTenebron				= mod:NewAnnounce("WarningTenebron", 2, 61248)
+local warnShadron				= mod:NewAnnounce("WarningShadron", 2, 58105)
+local warnVesperon				= mod:NewAnnounce("WarningVesperon", 2, 61251)
 local warnTenebronWhelpsSoon	= mod:NewAnnounce("WarningWhelpsSoon", 1, 1022, false)
 local warnShadronPortalSoon		= mod:NewAnnounce("WarningPortalSoon", 1, 11420, false)
 local warnVesperonPortalSoon	= mod:NewAnnounce("WarningReflectSoon", 1, 57988, false)
