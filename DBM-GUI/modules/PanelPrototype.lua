@@ -576,7 +576,11 @@ function PanelPrototype:CreateAbility(titleText, icon)
 	button:SetHighlightFontObject(GameFontWhite)
 	-- ElvUI skin
 	if ElvUI then
-		ElvUI[1]:GetModule("Skins"):HandleCollapseTexture(button.toggle)
+		if not ElvUI[1]:GetModule("Skins").HandleCollapseTexture then
+			DBM:AddMsg("Outdated ElvUI! Skins module must be updated in order for this version of DBM to be skinned.") -- will intentionally flood chat
+		else
+			ElvUI[1]:GetModule("Skins"):HandleCollapseTexture(button.toggle)
+		end
 	end
 	--
 	button.toggle:SetNormalTexture(area.hidden and "Interface\\Buttons\\UI-PlusButton-UP" or "Interface\\Buttons\\UI-MinusButton-UP")
