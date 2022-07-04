@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Emalon", "DBM-VoA")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220705003611")
 mod:SetCreatureID(33993)
 mod:SetUsedIcons(8)
 
@@ -21,12 +21,12 @@ local specWarnNova			= mod:NewSpecialWarningRun(65279, nil, nil, nil, 4, 2)
 local timerNova				= mod:NewCastTimer(65279, nil, nil, nil, 2)
 local timerNovaCD			= mod:NewCDTimer(40, 65279, nil, nil, nil, 2)--Varies, 45-60seconds in between nova's. FM reported possible 5s less
 local timerOvercharge		= mod:NewNextTimer(45, 64218, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
-local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON)
+local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 64218)
 
 local timerEmalonEnrage		= mod:NewBerserkTimer(360, nil, "EmalonEnrage")
 
-mod:AddRangeFrameOption("10")
-mod:AddSetIconOption("SetIconOnOvercharge", 64218, true, true)
+mod:AddRangeFrameOption(10, 64213)
+mod:AddSetIconOption("SetIconOnOvercharge", 64218, true, 5, {8})
 
 local function ResetRange(self)
 	if self.Options.RangeFrame then
