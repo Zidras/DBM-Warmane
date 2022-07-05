@@ -24,7 +24,7 @@ mod:RegisterEventsInCombat(
 )
 
 --General
-local timerEnrage 					= mod:NewBerserkTimer(900)
+local timerEnrage					= mod:NewBerserkTimer(900)
 local timerP1toP2					= mod:NewTimer(41, "TimeToPhase2", nil, nil, nil, 6)
 local timerP2toP3					= mod:NewTimer(15, "TimeToPhase3", nil, nil, nil, 6)
 local timerP3toP4					= mod:NewTimer(30, "TimeToPhase4", nil, nil, nil, 6)
@@ -166,8 +166,8 @@ local function NextPhase(self)
 			DBM.RangeCheck:Hide()
 		end
 		if self.vb.hardmode then
-            timerNextFrostBomb:Start(46)
-        end
+			timerNextFrostBomb:Start(46)
+		end
 	elseif self.vb.phase == 3 then
 		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 			SetLootMethod("freeforall")
@@ -202,8 +202,8 @@ local function NextPhase(self)
 			DBM.BossHealth:AddBoss(33432, L.MobPhase1)
 		end
 		if self.vb.hardmode then
-            timerNextFrostBomb:Start(28)
-        end
+			timerNextFrostBomb:Start(28)
+		end
 	end
 end
 

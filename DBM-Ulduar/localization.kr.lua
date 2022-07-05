@@ -250,7 +250,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerSimulKill 		= "소환수 부활"
+	TimerSimulKill		= "소환수 부활"
 })
 
 L:SetOptionLocalization({
@@ -261,8 +261,8 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	SpawnYell			= "얘들아, 날 도와라!",
 	WaterSpirit			= "고대 물의 정령",
-	Snaplasher 			= "악어덩굴손",
-	StormLasher 		= "폭풍덩굴손",
+	Snaplasher			= "악어덩굴손",
+	StormLasher		= "폭풍덩굴손",
 	YellKill			= "내게서 그의 지배력이 걷혔다. 다시 온전한 정신을 찾았도다. 영웅들이여, 고맙다.",
 	YellAdds1			= "이오나여, 당신의 종이 도움을 청합니다!",
 	YellAdds2			= "정령의 무리가 너희를 덮치리라!",

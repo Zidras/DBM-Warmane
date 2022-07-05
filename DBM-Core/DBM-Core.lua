@@ -112,7 +112,7 @@ end
 local _, playerClass = UnitClass("player")
 DBM_UseDualProfile = false -- Having this as true requires user to know how mod profiles work and auto-generate new ones for new specs
 -- if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" or playerClass == "HUNTER" then
--- 	DBM_UseDualProfile = false
+--	DBM_UseDualProfile = false
 -- end
 DBM_CharSavedRevision = 2
 
@@ -4771,7 +4771,7 @@ function checkWipe(self, confirm)
 		local wipe -- 0: no wipe, 1: normal wipe, 2: wipe by UnitExists check.
 		-- DBM:IsEncounterInProgress() wouldn't work here since this WotLK workaround sets the boolean variable on StartCombat and EndCombat, and since checkwipe is one of the triggers for EndCombat, it would never properly wipe.
 		-- if DBM:IsEncounterInProgress() then -- Encounter Progress marked, you obviously in combat with boss. So do not Wipe
-		-- 	wipe = 0
+		--	wipe = 0
 		if savedDifficulty == "worldboss" and UnitIsDeadOrGhost("player") then -- On dead or ghost, unit combat status detection would be fail. If you ghost in instance, that means wipe. But in worldboss, ghost means not wipe. So do not wipe.
 			wipe = 0
 		elseif bossuIdFound and LastInstanceType == "raid" then -- Combat started by IEEU and no boss exist and no EncounterProgress marked, that means wipe
@@ -10526,7 +10526,7 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, iconType, ico
 		self.localization.options[name] = self.localization.options[name].." ("
 		for i=1, #iconsUsed do
 			--Texture ID 137009 if direct calling RaidTargetingIcons stops working one day
-			if 		iconsUsed[i] == 1 then		self.localization.options[name] = self.localization.options[name].."|TInterface\\TargetingFrame\\UI-RaidTargetingIcons.blp:13:13:0:0:64:64:0:16:0:16|t"
+			if		iconsUsed[i] == 1 then		self.localization.options[name] = self.localization.options[name].."|TInterface\\TargetingFrame\\UI-RaidTargetingIcons.blp:13:13:0:0:64:64:0:16:0:16|t"
 			elseif	iconsUsed[i] == 2 then		self.localization.options[name] = self.localization.options[name].."|TInterface\\TargetingFrame\\UI-RaidTargetingIcons.blp:13:13:0:0:64:64:16:32:0:16|t"
 			elseif	iconsUsed[i] == 3 then		self.localization.options[name] = self.localization.options[name].."|TInterface\\TargetingFrame\\UI-RaidTargetingIcons.blp:13:13:0:0:64:64:32:48:0:16|t"
 			elseif	iconsUsed[i] == 4 then		self.localization.options[name] = self.localization.options[name].."|TInterface\\TargetingFrame\\UI-RaidTargetingIcons.blp:13:13:0:0:64:64:48:64:0:16|t"

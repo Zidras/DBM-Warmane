@@ -46,7 +46,7 @@ local default_settings = {
 		{ spell = 61336, bartext = "%spell on %player", cooldown = 20 },-- Druid: Survival Instincts Duration (for Healers to see how long cooldown runs)
 		{ spell = 48477, bartext = default_bartext, cooldown = 600 },	-- Druid: Rebirth (Rank 7)
 		{ spell = 29166, bartext = default_bartext, cooldown = 180 },	-- Druid: Innervate
-		{ spell = 5209, bartext = default_bartext, cooldown = 180 }, 	-- Druid: Challenging Roar (AE Taunt)
+		{ spell = 5209, bartext = default_bartext, cooldown = 180 },	-- Druid: Challenging Roar (AE Taunt)
 		{ spell = 33206, bartext = "%spell on %target", cooldown = 8 }, -- Priest: Pain Suppression Duration (for Healers to see how long cooldown runs)
 		{ spell = 6940, bartext = "%spell on %target", cooldown = 12 }, -- Paladin: Hand of Sacrifice Duration (for Healers to see how long cooldown runs)
 		{ spell = 64205, bartext = default_bartext, cooldown = 10 },	-- Paladin: Divine Sacrifice Duration (for Healers to see how long cooldown runs)
@@ -55,29 +55,29 @@ local default_settings = {
 		{ spell = 32182, bartext = default_bartext, cooldown = 300 },	-- Shaman: Heroism (alliance)
 		{ spell = 2825, bartext = default_bartext, cooldown = 300 },	-- Shaman: Bloodlust (horde)
 		{ spell = 20608, bartext = default_bartext, cooldown = 1800 },	-- Shaman: Reincarnation
-		{ spell = 22700, bartext = default_bartext, cooldown = 600 }, 	-- Field Repair Bot 74A
-		{ spell = 44389, bartext = default_bartext, cooldown = 600 }, 	-- Field Repair Bot 110G
-		{ spell = 54711, bartext = default_bartext, cooldown = 300 }, 	-- Scrapbot Construction Kit
-		{ spell = 67826, bartext = default_bartext, cooldown = 600 }, 	-- Jeeves
+		{ spell = 22700, bartext = default_bartext, cooldown = 600 },	-- Field Repair Bot 74A
+		{ spell = 44389, bartext = default_bartext, cooldown = 600 },	-- Field Repair Bot 110G
+		{ spell = 54711, bartext = default_bartext, cooldown = 300 },	-- Scrapbot Construction Kit
+		{ spell = 67826, bartext = default_bartext, cooldown = 600 },	-- Jeeves
 
 	},
 	portal_alliance = {
-		{ spell = 53142, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Dalaran
-		{ spell = 33691, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Shattrath (Alliance)
-		{ spell = 11416, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Ironforge
-		{ spell = 10059, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Stormwind
-		{ spell = 49360, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Theramore
-		{ spell = 11419, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Darnassus
-		{ spell = 32266, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Exodar
+		{ spell = 53142, bartext = default_bartext, cooldown = 60 },	-- Portal: Dalaran
+		{ spell = 33691, bartext = default_bartext, cooldown = 60 },	-- Portal: Shattrath (Alliance)
+		{ spell = 11416, bartext = default_bartext, cooldown = 60 },	-- Portal: Ironforge
+		{ spell = 10059, bartext = default_bartext, cooldown = 60 },	-- Portal: Stormwind
+		{ spell = 49360, bartext = default_bartext, cooldown = 60 },	-- Portal: Theramore
+		{ spell = 11419, bartext = default_bartext, cooldown = 60 },	-- Portal: Darnassus
+		{ spell = 32266, bartext = default_bartext, cooldown = 60 },	-- Portal: Exodar
 	},
 	portal_horde = {
-		{ spell = 53142, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Dalaran
-		{ spell = 35717, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Shattrath (Horde)
-		{ spell = 11417, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Orgrimmar
-		{ spell = 11418, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Undercity
-		{ spell = 11420, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Thunder Bluff
-		{ spell = 32667, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Silvermoon
-		{ spell = 49361, bartext = default_bartext, cooldown = 60 }, 	-- Portal: Stonard
+		{ spell = 53142, bartext = default_bartext, cooldown = 60 },	-- Portal: Dalaran
+		{ spell = 35717, bartext = default_bartext, cooldown = 60 },	-- Portal: Shattrath (Horde)
+		{ spell = 11417, bartext = default_bartext, cooldown = 60 },	-- Portal: Orgrimmar
+		{ spell = 11418, bartext = default_bartext, cooldown = 60 },	-- Portal: Undercity
+		{ spell = 11420, bartext = default_bartext, cooldown = 60 },	-- Portal: Thunder Bluff
+		{ spell = 32667, bartext = default_bartext, cooldown = 60 },	-- Portal: Silvermoon
+		{ spell = 49361, bartext = default_bartext, cooldown = 60 },	-- Portal: Stonard
 	}
 }
 DBM_SpellTimers_Settings = {}
@@ -89,11 +89,11 @@ local SpellBars
 local SpellBarIndex = {}
 local SpellIDIndex = {}
 local function rebuildSpellIDIndex()
-  SpellIDIndex = {}
+	SpellIDIndex = {}
 	for k,v in pairs(settings.spells) do
-	  if v.spell then
-	    SpellIDIndex[v.spell] = k
-	  end
+		if v.spell then
+			SpellIDIndex[v.spell] = k
+		end
 	end
 end
 

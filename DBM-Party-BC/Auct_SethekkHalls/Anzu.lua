@@ -19,26 +19,26 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_EMOTE"
 )
 
-local warnBirds             = mod:NewAnnounce("warnBrood", 2, 32038)
-local warnStoned            = mod:NewAnnounce("warnStoned", 1, 32810, false)
-local warnCyclone           = mod:NewTargetAnnounce(40321, 2)
-local warnSpellBomb         = mod:NewTargetAnnounce(40303, 2)
+local warnBirds			 = mod:NewAnnounce("warnBrood", 2, 32038)
+local warnStoned			= mod:NewAnnounce("warnStoned", 1, 32810, false)
+local warnCyclone		   = mod:NewTargetAnnounce(40321, 2)
+local warnSpellBomb		 = mod:NewTargetAnnounce(40303, 2)
 
 local specWarnScreech		= mod:NewSpecialWarningSpell(40184, nil, nil, nil, 2, 2)
 
-local timerScreech          = mod:NewCastTimer(5, 40184, nil, nil, nil, 2)
-local timerScreechDebuff    = mod:NewBuffActiveTimer(6, 40184, nil, nil, nil, 3)
-local timerCyclone          = mod:NewTargetTimer(6, 40321, nil, nil, nil, 3)
-local timerSpellBomb        = mod:NewTargetTimer(8, 40303, nil, nil, nil, 3)
-local timerScreechCD        = mod:NewCDTimer(30, 40184, nil, nil, nil, 2)--Best guess on screech CD. Might need tweaking.
+local timerScreech		  = mod:NewCastTimer(5, 40184, nil, nil, nil, 2)
+local timerScreechDebuff	= mod:NewBuffActiveTimer(6, 40184, nil, nil, nil, 3)
+local timerCyclone		  = mod:NewTargetTimer(6, 40321, nil, nil, nil, 3)
+local timerSpellBomb		= mod:NewTargetTimer(8, 40303, nil, nil, nil, 3)
+local timerScreechCD		= mod:NewCDTimer(30, 40184, nil, nil, nil, 2)--Best guess on screech CD. Might need tweaking.
 
 mod.vb.warnedbirds1 = false
 mod.vb.warnedbirds2 = false
 
 function mod:OnCombatStart()
 	timerScreechCD:Start()
-    self.vb.warnedbirds1 = false
-    self.vb.warnedbirds2 = false
+	self.vb.warnedbirds1 = false
+	self.vb.warnedbirds2 = false
 end
 
 function mod:SPELL_CAST_START(args)

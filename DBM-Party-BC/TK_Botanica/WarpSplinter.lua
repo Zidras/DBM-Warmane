@@ -12,14 +12,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 34727"
 )
 
-local warnTreants    = mod:NewSpellAnnounce(34727, 3)
-local warnStomp      = mod:NewSpellAnnounce(34716, 4)
+local warnTreants	= mod:NewSpellAnnounce(34727, 3)
+local warnStomp		= mod:NewSpellAnnounce(34716, 4)
 
-local timerTreants   = mod:NewNextTimer(45, 34727, nil, nil, nil, 1)
-local timerStomp     = mod:NewBuffActiveTimer(5, 34716, nil, nil, nil, 3)
+local timerTreants	= mod:NewNextTimer(45, 34727, nil, nil, nil, 1)
+local timerStomp	= mod:NewBuffActiveTimer(5, 34716, nil, nil, nil, 3)
 
 function mod:OnCombatStart(delay)
-    timerTreants:Start(15-delay)
+	timerTreants:Start(15-delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)

@@ -442,7 +442,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	SplitTrigger1		= "여기엔 내가 참 많지.",
-	SplitTrigger2 		= "과연 나를 감당할 수 있겠느냐!",
+	SplitTrigger2		= "과연 나를 감당할 수 있겠느냐!",
 	MergeTrigger		= "이제 끝을 볼 때다!"
 })
 

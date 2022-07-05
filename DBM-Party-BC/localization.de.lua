@@ -172,7 +172,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    BirdStone	= "%s wird wieder zu Stein."
+	BirdStone	= "%s wird wieder zu Stein."
 })
 
 ------------------------
@@ -237,7 +237,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(554)
 
 L:SetMiscLocalization({
-    AeonusFrenzy	= "%s gerät in Raserei!"
+	AeonusFrenzy	= "%s gerät in Raserei!"
 })
 
 ---------------------
@@ -250,9 +250,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "Neues Portal bald",
-    WarnWavePortal		= "Portal %d",
-    WarnBossPortal		= "Boss kommt"
+	WarnWavePortalSoon	= "Neues Portal bald",
+	WarnWavePortal		= "Portal %d",
+	WarnBossPortal		= "Boss kommt"
 })
 
 L:SetTimerLocalization({
@@ -260,9 +260,9 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "Zeige Vorwarnung für neues Portal",
-    WarnWavePortal		= "Zeige Warnung für neues Portal",
-    WarnBossPortal		= "Zeige Warnung für neuen Boss",
+	WarnWavePortalSoon	= "Zeige Vorwarnung für neues Portal",
+	WarnWavePortal		= "Zeige Warnung für neues Portal",
+	WarnBossPortal		= "Zeige Warnung für neuen Boss",
 	TimerNextPortal		= "Zeige Timer für nächstes Portal (nach einem Boss)",
 	ShowAllPortalTimers	= "Zeige Timer für alle Portale (ungenau)"
 })

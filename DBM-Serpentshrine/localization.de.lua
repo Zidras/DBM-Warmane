@@ -11,7 +11,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnMark 		= "%s : %s",
+	WarnMark		= "%s : %s",
 	WarnPhase		= "%sphase",
 	SpecWarnMark	= "%s : %s"
 })

@@ -4,14 +4,14 @@ if not DBM_COMMON_L then DBM_COMMON_L = {} end
 local CL = DBM_COMMON_L
 
 CL.NONE						= "Нет"
-CL.RANDOM		  			= "Случайно"
+CL.RANDOM		 			= "Случайно"
 CL.NEXT						= "След. %s"
 CL.COOLDOWN					= "Восст. %s"
 CL.UNKNOWN					= "неизвестно"
 CL.LEFT						= "Налево"
 CL.RIGHT					= "Направо"
 CL.BOTH						= "Оба"
-CL.BEHIND		 			= "Сзади"
+CL.BEHIND					= "Сзади"
 CL.BACK						= "Назад"
 CL.SIDE						= "Сторона"
 CL.TOP						= "Верх"

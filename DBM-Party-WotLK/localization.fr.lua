@@ -137,7 +137,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerWaveIn		= 	"Prochaine vague (6)",
+	TimerWaveIn		=	"Prochaine vague (6)",
 })
 
 L:SetOptionLocalization({
@@ -392,7 +392,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarningPhase	= optionWarning:format("Phase #"),
-	timerEvent      = "Montrer le timer de l'event"
+	timerEvent		= "Montrer le timer de l'event"
 })
 
 L:SetMiscLocalization({

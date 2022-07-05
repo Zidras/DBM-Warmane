@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_EMOTE"
 )
 
-local warnShadowFissure	    	= mod:NewSpellAnnounce(59127, 4, nil, nil, nil, nil, nil, 2)
+local warnShadowFissure			= mod:NewSpellAnnounce(59127, 4, nil, nil, nil, nil, nil, 2)
 local warnBreathSoon			= mod:NewSoonAnnounce(58956, 2, nil, "Tank|Healer")
 local warnTenebron				= mod:NewAnnounce("WarningTenebron", 2, 61248)
 local warnShadron				= mod:NewAnnounce("WarningShadron", 2, 58105)

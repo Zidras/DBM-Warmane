@@ -212,15 +212,15 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	-- if msg and msg:find(L.Burrow) then
-	-- 	self:SetStage(2)
-	-- 	self.vb.Burrowed = true
-	-- 	timerAdds:Cancel()
-	-- 	warnAdds:Cancel()
-	-- 	warnSubmerge:Show()
-	-- 	warnEmergeSoon:Schedule(58.5)
-	-- 	timerEmerge:Start()
-	-- 	timerFreezingSlash:Stop()
-	-- 	self:Schedule(65, EmergeFix, self)	-- Warmane workaround, since emerge boss emote is not being fired
+	--	self:SetStage(2)
+	--	self.vb.Burrowed = true
+	--	timerAdds:Cancel()
+	--	warnAdds:Cancel()
+	--	warnSubmerge:Show()
+	--	warnEmergeSoon:Schedule(58.5)
+	--	timerEmerge:Start()
+	--	timerFreezingSlash:Stop()
+	--	self:Schedule(65, EmergeFix, self)	-- Warmane workaround, since emerge boss emote is not being fired
 	if msg and msg:find(L.Emerge) then
 		self:Unschedule(EmergeFix)		-- Warmane workaround: failsafe if script gets fixed eventually
 		self:SetStage(1)

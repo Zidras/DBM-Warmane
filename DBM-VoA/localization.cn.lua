@@ -11,7 +11,7 @@ local L
 L = DBM:GetModLocalization("Archavon")
 
 L:SetGeneralLocalization({
-	name 				= "岩石看守者阿尔卡冯"
+	name				= "岩石看守者阿尔卡冯"
 })
 
 L:SetWarningLocalization({
@@ -36,7 +36,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Emalon")
 
 L:SetGeneralLocalization({
-	name 				= "风暴看守者埃玛尔隆"
+	name				= "风暴看守者埃玛尔隆"
 })
 
 L:SetTimerLocalization({
@@ -54,7 +54,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Koralon")
 
 L:SetGeneralLocalization({
-	name 				= "火焰看守者科拉隆"
+	name				= "火焰看守者科拉隆"
 })
 
 L:SetTimerLocalization({

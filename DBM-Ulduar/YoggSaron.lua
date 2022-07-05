@@ -36,24 +36,24 @@ mod:AddBoolOption("ShowSaraHealth", false)
 
 -- Guardian of Yogg-Saron
 -- mod:AddTimerLine(L.GuardianofYoggSaron)
-local warnGuardianSpawned 			= mod:NewAnnounce("WarningGuardianSpawned", 3, 62979, nil, nil, nil, 62979)
+local warnGuardianSpawned			= mod:NewAnnounce("WarningGuardianSpawned", 3, 62979, nil, nil, nil, 62979)
 
-local specWarnGuardianLow 			= mod:NewSpecialWarning("SpecWarnGuardianLow", false, nil, nil, nil, nil, nil, 62979, 62979)
+local specWarnGuardianLow			= mod:NewSpecialWarning("SpecWarnGuardianLow", false, nil, nil, nil, nil, nil, 62979, 62979)
 
 -- Stage Two: Descent Into Madness
 mod:AddTimerLine(L.S2DescentIntoMadness)
-local warnP2 						= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
-local warnSanity 					= mod:NewAnnounce("WarningSanity", 3, 63050, nil, nil, nil, 63050)
+local warnP2						= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
+local warnSanity					= mod:NewAnnounce("WarningSanity", 3, 63050, nil, nil, nil, 63050)
 
-local specWarnSanity 				= mod:NewSpecialWarning("SpecWarnSanity", nil, nil, nil, nil, nil, nil, 63050, 63050)--Warning, no voice pack support
+local specWarnSanity				= mod:NewSpecialWarning("SpecWarnSanity", nil, nil, nil, nil, nil, nil, 63050, 63050)--Warning, no voice pack support
 
 mod:AddInfoFrameOption(63050)
 
 -- Sara
 -- mod:AddTimerLine(L.Sara)
-local warnBrainLink 				= mod:NewTargetAnnounce(63802, 3)
+local warnBrainLink				= mod:NewTargetAnnounce(63802, 3)
 
-local specWarnBrainLink 			= mod:NewSpecialWarningYou(63802, nil, nil, nil, 1, 2)
+local specWarnBrainLink			= mod:NewSpecialWarningYou(63802, nil, nil, nil, 1, 2)
 local specWarnMalady				= mod:NewSpecialWarningYou(63830, nil, nil, nil, 1, 2)
 local specWarnMaladyNear			= mod:NewSpecialWarningClose(63830, nil, nil, nil, 1, 2)
 
@@ -95,15 +95,15 @@ local timerNextLunaticGaze			= mod:NewCDTimer(8.5, 64163, nil, nil, nil, 2, nil,
 
 -- Brain of Yogg-Saron
 -- mod:AddTimerLine(L.BrainofYoggSaron)
-local warnMadness 					= mod:NewCastAnnounce(64059, 2)
+local warnMadness					= mod:NewCastAnnounce(64059, 2)
 
 local specWarnMadnessOutNow			= mod:NewSpecialWarning("SpecWarnMadnessOutNow", nil, nil, nil, nil, nil, nil, 64059, 64059)  -- Brain of Yogg-Saron. Warning, no voice pack support
 
-local timerMadness 					= mod:NewCastTimer(60, 64059, nil, nil, nil, 5, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)  -- Brain of Yogg-Saron
+local timerMadness					= mod:NewCastTimer(60, 64059, nil, nil, nil, 5, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)  -- Brain of Yogg-Saron
 
 -- Stage Three: True Face of Death
 mod:AddTimerLine(L.S3TrueFaceofDeath)
-local warnP3 						= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
+local warnP3						= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 
 -- Yogg-Saron
 -- mod:AddTimerLine(L.YoggSaron)

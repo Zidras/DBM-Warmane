@@ -32,7 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "너희들이 짐승을 불러냈다. 놀랄 준비나 해라!",
+	YellBear	= "너희들이 짐승을 불러냈다. 놀랄 준비나 해라!",
 	YellNormal	= "날로라크 나가신다!"
 })
 

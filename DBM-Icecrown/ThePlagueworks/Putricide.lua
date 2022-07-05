@@ -50,7 +50,7 @@ local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1,
 local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
 local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
 
-local soundSlimePuddle 				= mod:NewSound(70341)
+local soundSlimePuddle				= mod:NewSound(70341)
 
 mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, 0, {4})--green icon for green ooze
 mod:AddSetIconOption("GaseousBloatIcon", 70672, true, 0, {2})--Orange Icon for orange/red ooze
@@ -72,9 +72,9 @@ local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
 local timerMalleableGooCD			= mod:NewCDTimer(20, 72295, nil, nil, nil, 3)
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
-local soundMalleableGooSoon 		= mod:NewSoundSoon(72295, nil, "Ranged")
+local soundMalleableGooSoon		= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
-local soundChokingGasSoon 			= mod:NewSoundSoon(71255, nil, "Melee")
+local soundChokingGasSoon			= mod:NewSoundSoon(71255, nil, "Melee")
 
 --mod:AddSetIconOption("MalleableGooIcon", 72295, true, 0, {1})
 --mod:AddArrowOption("GooArrow", 72295)
@@ -369,12 +369,12 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.GaseousBloatIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif args:IsSpellID(72855, 72856, 70911) then 						-- Unbound Plague
+	elseif args:IsSpellID(72855, 72856, 70911) then						-- Unbound Plague
 		timerUnboundPlague:Stop(args.destName)
 		if self.Options.UnboundPlagueIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif spellId == 71615 and self:AntiSpam(5, 2) then 	-- Tear Gas Removal
+	elseif spellId == 71615 and self:AntiSpam(5, 2) then	-- Tear Gas Removal
 		NextPhase(self)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)

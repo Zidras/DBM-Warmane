@@ -51,7 +51,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization({
-	name 		= "Wave Features"
+	name		= "Wave Features"
 })
 
 L:SetWarningLocalization({

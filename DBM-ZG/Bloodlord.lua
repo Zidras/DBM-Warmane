@@ -20,7 +20,7 @@ local warnMortal	= mod:NewTargetNoFilterAnnounce(16856, 2, nil, "Tank|Healer", 2
 
 local specWarnGaze	= mod:NewSpecialWarningCast(24314, nil, nil, nil, 3, 2)
 
-local timerGaze 	= mod:NewTargetTimer(6, 24314, nil, nil, nil, 3)
+local timerGaze	= mod:NewTargetTimer(6, 24314, nil, nil, nil, 3)
 local timerMortal	= mod:NewTargetTimer(5, 16856, nil, "Tank|Healer", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)

@@ -13,9 +13,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 34697"
 )
 
-local warnAllergic       = mod:NewTargetNoFilterAnnounce(34697, 2)
+local warnAllergic		= mod:NewTargetNoFilterAnnounce(34697, 2)
 
-local timerAllergic      = mod:NewTargetTimer(18, 34697, nil, nil, nil, 3)
+local timerAllergic		= mod:NewTargetTimer(18, 34697, nil, nil, nil, 3)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 34697 then

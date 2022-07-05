@@ -36,16 +36,16 @@ function mod:OnCombatStart(delay)
 	self.vb.interruptable = false
 	self:SetStage(1)
 	if self:IsHeroic() then
-        timerShockBarrior:Start(-delay)
-    end
+		timerShockBarrior:Start(-delay)
+	end
 end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 36819 then
 		self.vb.interruptable = true
-        timerPyroblast:Start()
-    elseif spellId == 44224 then
+		timerPyroblast:Start()
+	elseif spellId == 44224 then
 		WarnGravityLapse:Show()
 		timerGravityLapse:Start()
 		timerGravityLapseCD:Schedule(35)--Show after current lapse has ended
@@ -70,14 +70,14 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 46165 then
 		WarnShockBarrior:Show(args.destName)
-        timerShockBarrior:Start()
+		timerShockBarrior:Start()
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 46165 and self.vb.interruptable then
-        specwarnPyroblast:Show(args.destName)
-        specwarnPyroblast:Play("kickcast")
+		specwarnPyroblast:Show(args.destName)
+		specwarnPyroblast:Play("kickcast")
 	end
 end
 

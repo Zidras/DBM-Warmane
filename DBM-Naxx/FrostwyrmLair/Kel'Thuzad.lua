@@ -22,7 +22,7 @@ local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
 local warnFissure			= mod:NewTargetNoFilterAnnounce(27810, 4)
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
-local warnMindControlSoon 	= mod:NewSoonAnnounce(28410, 4)
+local warnMindControlSoon	= mod:NewSoonAnnounce(28410, 4)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
@@ -37,7 +37,7 @@ local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
 local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
-local timerFissureCD  		= mod:NewCDTimer(14, 27810)
+local timerFissureCD 		= mod:NewCDTimer(14, 27810)
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
 local timerPhase2			= mod:NewTimer(227, "TimerPhase2", nil, nil, nil, 6)
@@ -114,12 +114,12 @@ local function AnnounceChainsTargets(self)
 	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
 	if (not tContains(chainsTargets, UnitName("player")) and self.Options.EqUneqWeaponsKT and self:IsDps()) then
 		DBM:Debug("Equipping scheduled",2)
-        self:Schedule(1.0, EqWKT, self)
+		self:Schedule(1.0, EqWKT, self)
 		self:Schedule(2.0, EqWKT, self)
 		self:Schedule(3.6, EqWKT, self)
 		self:Schedule(5.0, EqWKT, self)
 		self:Schedule(6.0, EqWKT, self)
-        self:Schedule(8.0, EqWKT, self)
+		self:Schedule(8.0, EqWKT, self)
 		self:Schedule(10.0, EqWKT, self)
 		self:Schedule(12.0, EqWKT, self)
 	end
@@ -260,10 +260,10 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if (args.destName == UnitName("player") or args:IsPlayer()) and (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsDps() then
 			DBM:Debug("Equipping scheduled",2)
-	        self:Schedule(0.1, EqWKT, self)
+			self:Schedule(0.1, EqWKT, self)
 			self:Schedule(1.7, EqWKT, self)
 			self:Schedule(3.7, EqWKT, self)
-	        self:Schedule(7.0, EqWKT, self)
+			self:Schedule(7.0, EqWKT, self)
 			self:Schedule(9.0, EqWKT, self)
 			self:Schedule(11.0, EqWKT, self)
 		end

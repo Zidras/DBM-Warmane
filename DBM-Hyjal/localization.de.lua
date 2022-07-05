@@ -52,7 +52,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization({
-	name 		= "Wellen (HdZ 3)"
+	name		= "Wellen (HdZ 3)"
 })
 
 L:SetWarningLocalization({

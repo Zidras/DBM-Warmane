@@ -9,7 +9,7 @@ local L
 L = DBM:GetModLocalization(527)
 
 L:SetGeneralLocalization({
-	name 		= "감시자 가르골마르"
+	name		= "감시자 가르골마르"
 })
 
 --------------------------
@@ -18,7 +18,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(528)
 
 L:SetGeneralLocalization({
-	name 		= "무적의 오모르"
+	name		= "무적의 오모르"
 })
 
 ------------------------
@@ -27,7 +27,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(529)
 
 L:SetGeneralLocalization({
-	name 		= "나잔과 바즈루덴"
+	name		= "나잔과 바즈루덴"
 })
 
 -------------------------
@@ -38,7 +38,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(555)
 
 L:SetGeneralLocalization({
-	name 		= "재앙의 창조자"
+	name		= "재앙의 창조자"
 })
 
 ---------------
@@ -47,7 +47,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(556)
 
 L:SetGeneralLocalization({
-	name 		= "브로고크"
+	name		= "브로고크"
 })
 
 ----------------------------
@@ -56,7 +56,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(557)
 
 L:SetGeneralLocalization({
-	name 		= "파괴자 켈리단"
+	name		= "파괴자 켈리단"
 })
 
 ---------------------------
@@ -67,7 +67,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(566)
 
 L:SetGeneralLocalization({
-	name 		= "대흑마법사 네더쿠르스"
+	name		= "대흑마법사 네더쿠르스"
 })
 
 --------------------------
@@ -76,7 +76,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(728)
 
 L:SetGeneralLocalization({
-	name 		= "혈투사 포룽"
+	name		= "혈투사 포룽"
 })
 
 --------------------------
@@ -85,7 +85,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(568)
 
 L:SetGeneralLocalization({
-	name 		= "전쟁인도자 오므로그"
+	name		= "전쟁인도자 오므로그"
 })
 
 ----------------------------------
@@ -94,7 +94,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(569)
 
 L:SetGeneralLocalization({
-	name 		= "대족장 카르가스 블레이드피스트"
+	name		= "대족장 카르가스 블레이드피스트"
 })
 
 L:SetWarningLocalization({
@@ -126,7 +126,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(570)
 
 L:SetGeneralLocalization({
-	name 		= "배반자 멘누"
+	name		= "배반자 멘누"
 })
 
 ---------------------------
@@ -135,7 +135,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(571)
 
 L:SetGeneralLocalization({
-	name 		= "딱딱이 로크마르"
+	name		= "딱딱이 로크마르"
 })
 
 ------------------
@@ -144,7 +144,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(572)
 
 L:SetGeneralLocalization({
-	name 		= "쿠아그미란"
+	name		= "쿠아그미란"
 })
 
 --------------------
@@ -155,7 +155,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(576)
 
 L:SetGeneralLocalization({
-	name 		= "헝가르펜"
+	name		= "헝가르펜"
 })
 
 ---------------
@@ -164,7 +164,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(577)
 
 L:SetGeneralLocalization({
-	name 		= "가즈안"
+	name		= "가즈안"
 })
 
 --------------------------
@@ -173,7 +173,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(578)
 
 L:SetGeneralLocalization({
-	name 		= "늪군주 뮤즐레크"
+	name		= "늪군주 뮤즐레크"
 })
 
 -------------------------
@@ -182,7 +182,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(579)
 
 L:SetGeneralLocalization({
-	name 		= "검은 추적자"
+	name		= "검은 추적자"
 })
 
 ----------------------
@@ -193,7 +193,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(573)
 
 L:SetGeneralLocalization({
-	name 		= "풍수사 세스피아"
+	name		= "풍수사 세스피아"
 })
 
 -----------------------------
@@ -202,7 +202,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(574)
 
 L:SetGeneralLocalization({
-	name 		= "기계박사 스팀리거"
+	name		= "기계박사 스팀리거"
 })
 
 L:SetWarningLocalization({
@@ -223,7 +223,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(575)
 
 L:SetGeneralLocalization({
-	name 		= "장군 칼리스레쉬"
+	name		= "장군 칼리스레쉬"
 })
 
 -----------------------
@@ -234,7 +234,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(523)
 
 L:SetGeneralLocalization({
-	name 		= "죽음의 감시인 쉴라크"
+	name		= "죽음의 감시인 쉴라크"
 })
 
 -----------------------
@@ -243,7 +243,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(524)
 
 L:SetGeneralLocalization({
-	name 		= "총독 말라다르"
+	name		= "총독 말라다르"
 })
 
 ------------------
@@ -254,7 +254,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AuctTombsTrash")
 
 L:SetGeneralLocalization({
-	name 		= "일반몹"
+	name		= "일반몹"
 })
 
 -------------------
@@ -263,7 +263,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(534)
 
 L:SetGeneralLocalization({
-	name 		= "팬더모니우스"
+	name		= "팬더모니우스"
 })
 
 ---------------
@@ -272,7 +272,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(535)
 
 L:SetGeneralLocalization({
-	name 		= "타바로크"
+	name		= "타바로크"
 })
 
 ----------------------------
@@ -281,7 +281,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(537)
 
 L:SetGeneralLocalization({
-	name 		= "연합왕자 샤파르"
+	name		= "연합왕자 샤파르"
 })
 
 -----------
@@ -290,7 +290,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(536)
 
 L:SetGeneralLocalization({
-	name 		= "요르"
+	name		= "요르"
 })
 
 ---------------------
@@ -301,7 +301,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(541)
 
 L:SetGeneralLocalization({
-	name 		= "흑마술사 시스"
+	name		= "흑마술사 시스"
 })
 
 L:SetWarningLocalization({
@@ -318,7 +318,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(542)
 
 L:SetGeneralLocalization({
-	name 		= "안주"
+	name		= "안주"
 })
 
 L:SetWarningLocalization({
@@ -332,7 +332,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    BirdStone	= "%s|1;이;가; 돌로 돌아감"--확인필요
+	BirdStone	= "%s|1;이;가; 돌로 돌아감"--확인필요
 })
 
 ------------------------
@@ -341,7 +341,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(543)
 
 L:SetGeneralLocalization({
-	name 		= "갈퀴대왕 이키스"
+	name		= "갈퀴대왕 이키스"
 })
 
 ------------------------
@@ -352,7 +352,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(544)
 
 L:SetGeneralLocalization({
-	name 		= "사자 지옥아귀"
+	name		= "사자 지옥아귀"
 })
 
 ------------------------------
@@ -361,7 +361,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(545)
 
 L:SetGeneralLocalization({
-	name 		= "선동자 검은심장"
+	name		= "선동자 검은심장"
 })
 
 --------------------------
@@ -370,7 +370,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(546)
 
 L:SetGeneralLocalization({
-	name 		= "단장 보르필"
+	name		= "단장 보르필"
 })
 
 --------------
@@ -379,7 +379,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(547)
 
 L:SetGeneralLocalization({
-	name 		= "울림"
+	name		= "울림"
 })
 
 -------------------------------
@@ -390,7 +390,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(538)
 
 L:SetGeneralLocalization({
-	name 		= "부관 드레이크"
+	name		= "부관 드레이크"
 })
 
 -----------------------
@@ -399,7 +399,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(539)
 
 L:SetGeneralLocalization({
-	name 		= "경비대장 스칼록"
+	name		= "경비대장 스칼록"
 })
 
 --------------------
@@ -408,7 +408,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(540)
 
 L:SetGeneralLocalization({
-	name 		= "시대의 사냥꾼"
+	name		= "시대의 사냥꾼"
 })
 
 ------------------------
@@ -419,7 +419,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(552)
 
 L:SetGeneralLocalization({
-	name 		= "시간의 군주 데자"
+	name		= "시간의 군주 데자"
 })
 
 ----------------
@@ -428,7 +428,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(553)
 
 L:SetGeneralLocalization({
-	name 		= "템퍼루스"
+	name		= "템퍼루스"
 })
 
 --------------
@@ -437,7 +437,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(554)
 
 L:SetGeneralLocalization({
-	name 		= "아에누스"
+	name		= "아에누스"
 })
 
 L:SetWarningLocalization({
@@ -449,7 +449,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    AeonusFrenzy	= "%s|1이;가; 분노합니다!"
+	AeonusFrenzy	= "%s|1이;가; 분노합니다!"
 })
 
 ---------------------
@@ -462,9 +462,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "곧 새 차원문",
-    WarnWavePortal		= "%d번 차원문",
-    WarnBossPortal		= "우두머리 등장"
+	WarnWavePortalSoon	= "곧 새 차원문",
+	WarnWavePortal		= "%d번 차원문",
+	WarnBossPortal		= "우두머리 등장"
 })
 
 L:SetTimerLocalization({
@@ -472,9 +472,9 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "새 차원문 사전 경고 보기",
-    WarnWavePortal		= "새 차원문 경고 보기",
-    WarnBossPortal		= "우두머리 등장 경고 보기",
+	WarnWavePortalSoon	= "새 차원문 사전 경고 보기",
+	WarnWavePortal		= "새 차원문 경고 보기",
+	WarnBossPortal		= "우두머리 등장 경고 보기",
 	TimerNextPortal		= "다음 차원문 타이머 바 보기 (우두머리 잡은 후)",
 	ShowAllPortalTimers	= "모든 차원문 타이머 바 보기 (부정확함)"
 })
@@ -513,7 +513,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(563)
 
 L:SetGeneralLocalization({
-	name 		= "기계군주 캐퍼시투스"
+	name		= "기계군주 캐퍼시투스"
 })
 
 ------------------------------
@@ -522,7 +522,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(564)
 
 L:SetGeneralLocalization({
-	name 		= "황천술사 세페스레아"
+	name		= "황천술사 세페스레아"
 })
 
 --------------------------------
@@ -531,7 +531,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(565)
 
 L:SetGeneralLocalization({
-	name 		= "철두철미한 파탈리온"
+	name		= "철두철미한 파탈리온"
 })
 
 --------------------
@@ -542,7 +542,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(558)
 
 L:SetGeneralLocalization({
-	name 		= "지휘관 새래니스"
+	name		= "지휘관 새래니스"
 })
 
 ------------------------------
@@ -551,7 +551,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(559)
 
 L:SetGeneralLocalization({
-	name 		= "고위 식물학자 프레이윈"
+	name		= "고위 식물학자 프레이윈"
 })
 
 L:SetWarningLocalization({
@@ -568,7 +568,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(560)
 
 L:SetGeneralLocalization({
-	name 		= "감시인 쏜그린"
+	name		= "감시인 쏜그린"
 })
 
 -----------
@@ -577,7 +577,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(561)
 
 L:SetGeneralLocalization({
-	name 		= "라즈"
+	name		= "라즈"
 })
 
 ---------------------
@@ -586,7 +586,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(562)
 
 L:SetGeneralLocalization({
-	name 		= "차원의 분리자"
+	name		= "차원의 분리자"
 })
 
 --------------------
@@ -597,7 +597,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(548)
 
 L:SetGeneralLocalization({
-	name 		= "속박 풀린 제레케스"
+	name		= "속박 풀린 제레케스"
 })
 
 -----------------------------
@@ -606,7 +606,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(549)
 
 L:SetGeneralLocalization({
-	name 		= "파멸의 예언자 달리아"
+	name		= "파멸의 예언자 달리아"
 })
 
 ---------------------------------
@@ -615,7 +615,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(550)
 
 L:SetGeneralLocalization({
-	name 		= "격노의 점술사 소코드라테스"
+	name		= "격노의 점술사 소코드라테스"
 })
 
 -------------------------
@@ -624,7 +624,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(551)
 
 L:SetGeneralLocalization({
-	name 		= "선구자 스키리스"
+	name		= "선구자 스키리스"
 })
 
 L:SetWarningLocalization({
@@ -649,11 +649,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(530)
 
 L:SetGeneralLocalization({
-	name 		= "셀린 파이어하트"
+	name		= "셀린 파이어하트"
 })
 
 L:SetWarningLocalization({
-    warningFelCrystal	= "지옥 수정 - 대상 변경"
+	warningFelCrystal	= "지옥 수정 - 대상 변경"
 })
 
 L:SetTimerLocalization({
@@ -671,7 +671,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(531)
 
 L:SetGeneralLocalization({
-	name 		= "벡살루스"
+	name		= "벡살루스"
 })
 
 L:SetWarningLocalization({
@@ -688,7 +688,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(532)
 
 L:SetGeneralLocalization({
-	name 		= "여사제 델리사"
+	name		= "여사제 델리사"
 })
 
 L:SetMiscLocalization({
@@ -701,7 +701,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(533)
 
 L:SetGeneralLocalization({
-	name 		= "캘타스 선스트라이더 (던전)"
+	name		= "캘타스 선스트라이더 (던전)"
 })
 
 L:SetMiscLocalization({

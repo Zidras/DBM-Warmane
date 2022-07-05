@@ -6,7 +6,7 @@ local L
 L = DBM:GetModLocalization("FlameLeviathan")
 
 L:SetGeneralLocalization({
-	name 				= "烈焰巨兽"
+	name				= "烈焰巨兽"
 })
 
 L:SetWarningLocalization({
@@ -112,7 +112,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Algalon")
 
 L:SetGeneralLocalization({
-	name 				= "观察者奥尔加隆"
+	name				= "观察者奥尔加隆"
 })
 
 L:SetWarningLocalization({
@@ -178,8 +178,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnCatDied 			= "野性防御者倒下(剩余%d只)",
-	WarnCatDiedOne 			= "野性防御者倒下(剩下最后一只)"
+	WarnCatDied			= "野性防御者倒下(剩余%d只)",
+	WarnCatDiedOne			= "野性防御者倒下(剩下最后一只)"
 })
 
 L:SetTimerLocalization({
@@ -203,7 +203,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Hodir")
 
 L:SetGeneralLocalization({
-	name 				= "霍迪尔"
+	name				= "霍迪尔"
 })
 
 L:SetMiscLocalization({
@@ -217,7 +217,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Thorim")
 
 L:SetGeneralLocalization({
-	name 				= "托里姆"
+	name				= "托里姆"
 })
 
 L:SetTimerLocalization({
@@ -243,7 +243,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Freya")
 
 L:SetGeneralLocalization({
-	name 				= "弗蕾亚"
+	name				= "弗蕾亚"
 })
 
 L:SetWarningLocalization({
@@ -361,7 +361,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("YoggSaron")
 
 L:SetGeneralLocalization({
-	name 				= "尤格萨隆"
+	name				= "尤格萨隆"
 })
 
 L:SetWarningLocalization({

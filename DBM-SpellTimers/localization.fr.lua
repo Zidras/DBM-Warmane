@@ -4,7 +4,7 @@ end
 local L = DBM_SpellsUsed_Translations
 
 L.TabCategory_SpellsUsed	= "incantation/Capacit\195\169 temps de recharge"
-L.AreaGeneral        		= "Options générales"
+L.AreaGeneral				= "Options générales"
 L.Enabled					= "Activer le compteur pour le temps de recharge"
 L.ShowLocalMessage			= "Voir le message local d'incantation"
 L.OnlyFromRaid				= "Afficher les temps de recharge des membres du raid"

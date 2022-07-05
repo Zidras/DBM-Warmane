@@ -32,7 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "¡Si llamáis a la bestia, vais a recibir más de lo que esperáis!",
+	YellBear	= "¡Si llamáis a la bestia, vais a recibir más de lo que esperáis!",
 	YellNormal	= "¡Dejad paso al Nalorakk!"
 })
 

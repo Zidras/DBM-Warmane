@@ -9,7 +9,7 @@ local L
 L = DBM:GetModLocalization("GhamooRa")
 
 L:SetGeneralLocalization({
-	name 		= "Ghamoo-Ra"
+	name		= "Ghamoo-Ra"
 })
 
 -----------------------------
@@ -18,7 +18,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LadySerevess")
 
 L:SetGeneralLocalization({
-	name 		= "Lady Sarevess"
+	name		= "Lady Sarevess"
 })
 
 -----------------------------
@@ -27,7 +27,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Gelihast")
 
 L:SetGeneralLocalization({
-	name 		= "Gelihast"
+	name		= "Gelihast"
 })
 
 -----------------------------
@@ -36,7 +36,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OldSerrakis")
 
 L:SetGeneralLocalization({
-	name 		= "Old Serra'kis"
+	name		= "Old Serra'kis"
 })
 
 -----------------------------
@@ -45,7 +45,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("TwilightLordKelris")
 
 L:SetGeneralLocalization({
-	name 		= "Twilight-Lord Kelris"
+	name		= "Twilight-Lord Kelris"
 })
 
 -----------------------------
@@ -54,7 +54,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Akumai")
 
 L:SetGeneralLocalization({
-	name 		= "Aku'mai"
+	name		= "Aku'mai"
 })
 
 -------------------------------------------------
@@ -65,7 +65,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(369)
 
 L:SetGeneralLocalization({
-	name 		= "Verhörmeisterin Gerstahn"
+	name		= "Verhörmeisterin Gerstahn"
 })
 
 -----------------
@@ -74,7 +74,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(370)
 
 L:SetGeneralLocalization({
-	name 		= "Lord Roccor"
+	name		= "Lord Roccor"
 })
 
 ------------------------------
@@ -83,7 +83,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(371)
 
 L:SetGeneralLocalization({
-	name 		= "Hundemeister Grebmar"
+	name		= "Hundemeister Grebmar"
 })
 
 ---------------------------------------------------------
@@ -92,7 +92,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(372)
 
 L:SetGeneralLocalization({
-	name 		= "Ring des Gesetzes"
+	name		= "Ring des Gesetzes"
 })
 
 ---------------------------------
@@ -101,7 +101,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(373)
 
 L:SetGeneralLocalization({
-	name 		= "Pyromant Weiskorn"
+	name		= "Pyromant Weiskorn"
 })
 
 --------------------
@@ -110,7 +110,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(374)
 
 L:SetGeneralLocalization({
-	name 		= "Lord Incendius"
+	name		= "Lord Incendius"
 })
 
 --------------------------
@@ -119,7 +119,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(375)
 
 L:SetGeneralLocalization({
-	name 		= "Wärter Stilgiss"
+	name		= "Wärter Stilgiss"
 })
 
 ----------------------
@@ -128,7 +128,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(376)
 
 L:SetGeneralLocalization({
-	name 		= "Fineous Darkvire"
+	name		= "Fineous Darkvire"
 })
 
 --------------
@@ -137,7 +137,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(377)
 
 L:SetGeneralLocalization({
-	name 		= "Bael'Gar"
+	name		= "Bael'Gar"
 })
 
 --------------------------
@@ -146,7 +146,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(378)
 
 L:SetGeneralLocalization({
-	name 		= "General Zornesschmied"
+	name		= "General Zornesschmied"
 })
 
 ---------------------------
@@ -155,7 +155,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(379)
 
 L:SetGeneralLocalization({
-	name 		= "Golemlord Argelmach"
+	name		= "Golemlord Argelmach"
 })
 
 ----------------------
@@ -164,7 +164,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(380)
 
 L:SetGeneralLocalization({
-	name 		= "Hurley Pestatem"
+	name		= "Hurley Pestatem"
 })
 
 -------------
@@ -173,7 +173,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(381)
 
 L:SetGeneralLocalization({
-	name 		= "Phalanx"
+	name		= "Phalanx"
 })
 
 -----------------------
@@ -182,7 +182,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(383)
 
 L:SetGeneralLocalization({
-	name 		= "Plugger Spazzring"
+	name		= "Plugger Spazzring"
 })
 
 -------------------------
@@ -191,7 +191,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(384)
 
 L:SetGeneralLocalization({
-	name 		= "Botschafter Flammenschlag"
+	name		= "Botschafter Flammenschlag"
 })
 
 ---------------
@@ -200,7 +200,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(385)
 
 L:SetGeneralLocalization({
-	name 		= "Der Sieben"
+	name		= "Der Sieben"
 })
 
 ------------
@@ -209,7 +209,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(386)
 
 L:SetGeneralLocalization({
-	name 		= "Magmus"
+	name		= "Magmus"
 })
 
 ---------------------------------
@@ -218,7 +218,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(387)
 
 L:SetGeneralLocalization({
-	name 		= "Imperator Dagran Thaurissan"
+	name		= "Imperator Dagran Thaurissan"
 })
 
 -------------------------
@@ -228,7 +228,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(388)
 
 L:SetGeneralLocalization({
-	name 		= "Hochlord Omokk"
+	name		= "Hochlord Omokk"
 })
 
 -----------------------------
@@ -237,7 +237,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(389)
 
 L:SetGeneralLocalization({
-	name 		= "Schattenjägerin Vosh'gajin"
+	name		= "Schattenjägerin Vosh'gajin"
 })
 
 -----------------------------
@@ -246,7 +246,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(390)
 
 L:SetGeneralLocalization({
-	name 		= "Kriegsmeister Voone"
+	name		= "Kriegsmeister Voone"
 })
 
 -----------------------------
@@ -255,7 +255,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(391)
 
 L:SetGeneralLocalization({
-	name 		= "Mutter Glimmernetz"
+	name		= "Mutter Glimmernetz"
 })
 
 -----------------------------
@@ -264,7 +264,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(392)
 
 L:SetGeneralLocalization({
-	name 		= "Urok Schreckensbote"
+	name		= "Urok Schreckensbote"
 })
 
 -----------------------------
@@ -273,7 +273,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(393)
 
 L:SetGeneralLocalization({
-	name 		= "Rüstmeister Zigris"
+	name		= "Rüstmeister Zigris"
 })
 
 -----------------------------
@@ -282,7 +282,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(394)
 
 L:SetGeneralLocalization({
-	name 		= "Halycon"
+	name		= "Halycon"
 })
 
 -----------------------------
@@ -291,7 +291,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(395)
 
 L:SetGeneralLocalization({
-	name 		= "Gizrul der Geifernde"
+	name		= "Gizrul der Geifernde"
 })
 
 -----------------------------
@@ -300,7 +300,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(396)
 
 L:SetGeneralLocalization({
-	name 		= "Oberanführer Wyrmthalak"
+	name		= "Oberanführer Wyrmthalak"
 })
 
 -------------------------
@@ -311,7 +311,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("PyroguardEmberseer")
 
 L:SetGeneralLocalization({
-	name 		= "Feuerwache Glutseher"
+	name		= "Feuerwache Glutseher"
 })
 
 L:SetMiscLocalization({
@@ -324,7 +324,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("SolakarFlamewreath")
 
 L:SetGeneralLocalization({
-	name 		= "Solakar Feuerkrone"
+	name		= "Solakar Feuerkrone"
 })
 
 -----------------------------
@@ -333,7 +333,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GoralukAnvilcrack")
 
 L:SetGeneralLocalization({
-	name 		= "Goraluk Hammerbruch"
+	name		= "Goraluk Hammerbruch"
 })
 
 -----------------------------
@@ -342,7 +342,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("JedRunewatcher")
 
 L:SetGeneralLocalization({
-	name 		= "Jed Runenblick"
+	name		= "Jed Runenblick"
 })
 
 -----------------------------
@@ -351,7 +351,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("WarchiefRendBlackhand")
 
 L:SetGeneralLocalization({
-	name 		= "Kriegshäuptling Rend Blackhand"
+	name		= "Kriegshäuptling Rend Blackhand"
 })
 
 -----------------------------
@@ -360,7 +360,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("TheBeast")
 
 L:SetGeneralLocalization({
-	name 		= "Die Bestie"
+	name		= "Die Bestie"
 })
 
 -----------------------------
@@ -369,7 +369,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GeneralDrakkisath")
 
 L:SetGeneralLocalization({
-	name 		= "General Drakkisath"
+	name		= "General Drakkisath"
 })
 
 -------------------------
@@ -380,7 +380,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RhahkZor")
 
 L:SetGeneralLocalization({
-	name 		= "Rhahk'Zor"
+	name		= "Rhahk'Zor"
 })
 
 -----------------------------
@@ -389,7 +389,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MinerJohnson")
 
 L:SetGeneralLocalization({
-	name 		= "Minenarbeiter Johnson"
+	name		= "Minenarbeiter Johnson"
 })
 
 -----------------------------
@@ -398,7 +398,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SneedsShredder")
 
 L:SetGeneralLocalization({
-	name 		= "Sneeds Schredder"
+	name		= "Sneeds Schredder"
 })
 
 -----------------------------
@@ -407,7 +407,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Gilnid")
 
 L:SetGeneralLocalization({
-	name 		= "Gilnid"
+	name		= "Gilnid"
 })
 
 -----------------------------
@@ -416,7 +416,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MrSmite")
 
 L:SetGeneralLocalization({
-	name 		= "Mr. Smite"
+	name		= "Mr. Smite"
 })
 
 -----------------------------
@@ -425,7 +425,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("CaptainGreenskin")
 
 L:SetGeneralLocalization({
-	name 		= "Captain Greenskin"
+	name		= "Captain Greenskin"
 })
 
 -----------------------------
@@ -434,7 +434,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("EdwinVanCleef")
 
 L:SetGeneralLocalization({
-	name 		= "Edwin VanCleef"
+	name		= "Edwin VanCleef"
 })
 
 -----------------------------
@@ -443,7 +443,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Cookie")
 
 L:SetGeneralLocalization({
-	name 		= "Cookie"
+	name		= "Cookie"
 })
 
 --------------------------------
@@ -454,7 +454,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(402)
 
 L:SetGeneralLocalization({
-	name 		= "Zevrim Dornhuf"
+	name		= "Zevrim Dornhuf"
 })
 
 ------------------
@@ -463,7 +463,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(403)
 
 L:SetGeneralLocalization({
-	name 		= "Hydrobrut"
+	name		= "Hydrobrut"
 })
 
 -----------------
@@ -472,7 +472,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(404)
 
 L:SetGeneralLocalization({
-	name 		= "Lethtendris"
+	name		= "Lethtendris"
 })
 
 --------------------------
@@ -481,7 +481,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(405)
 
 L:SetGeneralLocalization({
-	name 		= "Alzzin der Wildformer"
+	name		= "Alzzin der Wildformer"
 })
 
 --------------------
@@ -490,7 +490,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(406)
 
 L:SetGeneralLocalization({
-	name 		= "Tendris Wucherborke"
+	name		= "Tendris Wucherborke"
 })
 
 --------------------------
@@ -499,7 +499,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(407)
 
 L:SetGeneralLocalization({
-	name 		= "Illyanna Rabeneiche"
+	name		= "Illyanna Rabeneiche"
 })
 
 ------------------------
@@ -508,7 +508,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(408)
 
 L:SetGeneralLocalization({
-	name 		= "Magister Kalendris"
+	name		= "Magister Kalendris"
 })
 
 ----------------
@@ -517,7 +517,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(409)
 
 L:SetGeneralLocalization({
-	name 		= "Immol'thar"
+	name		= "Immol'thar"
 })
 
 --------------------------
@@ -526,7 +526,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(410)
 
 L:SetGeneralLocalization({
-	name 		= "Prinz Tortheldrin"
+	name		= "Prinz Tortheldrin"
 })
 
 ---------------------
@@ -535,7 +535,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(411)
 
 L:SetGeneralLocalization({
-	name 		= "Wache Mol'dar"
+	name		= "Wache Mol'dar"
 })
 
 ----------------------
@@ -544,7 +544,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(412)
 
 L:SetGeneralLocalization({
-	name 		= "Stampfer Kreeg"
+	name		= "Stampfer Kreeg"
 })
 
 --------------------
@@ -553,7 +553,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(413)
 
 L:SetGeneralLocalization({
-	name 		= "Wache Fengus"
+	name		= "Wache Fengus"
 })
 
 ----------------------
@@ -562,7 +562,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(414)
 
 L:SetGeneralLocalization({
-	name 		= "Wache Slip'kik"
+	name		= "Wache Slip'kik"
 })
 
 -----------------------
@@ -571,7 +571,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(415)
 
 L:SetGeneralLocalization({
-	name 		= "Captain Kromcrush"
+	name		= "Captain Kromcrush"
 })
 
 ----------------------------
@@ -580,11 +580,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(416)
 
 L:SetGeneralLocalization({
-	name 		= "Cho'Rush der Beobachter"
+	name		= "Cho'Rush der Beobachter"
 })
 
 L:SetMiscLocalization({
-    Defeat	= "Der König ist tot- OH NEIN! Ruft Mizzle den Gewieften! Er weiß, was jetzt zu tun ist!"
+	Defeat	= "Der König ist tot- OH NEIN! Ruft Mizzle den Gewieften! Er weiß, was jetzt zu tun ist!"
 })
 
 ----------------
@@ -593,7 +593,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(417)
 
 L:SetGeneralLocalization({
-	name 		= "König Gordok"
+	name		= "König Gordok"
 })
 
 -------------------------
@@ -604,7 +604,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(419)
 
 L:SetGeneralLocalization({
-	name 		= "Grubbis"
+	name		= "Grubbis"
 })
 
 -----------------------------
@@ -613,7 +613,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(420)
 
 L:SetGeneralLocalization({
-	name 		= "Verflüssigte Ablagerung"
+	name		= "Verflüssigte Ablagerung"
 })
 
 -----------------------------
@@ -622,7 +622,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(421)
 
 L:SetGeneralLocalization({
-	name 		= "Elektrokutionator 6000"
+	name		= "Elektrokutionator 6000"
 })
 
 -----------------------------
@@ -631,7 +631,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(418)
 
 L:SetGeneralLocalization({
-	name 		= "Meute-Verprügler 9-60"
+	name		= "Meute-Verprügler 9-60"
 })
 
 -----------------------------
@@ -640,11 +640,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(422)
 
 L:SetGeneralLocalization({
-	name 		= "Robogenieur Thermaplugg"
+	name		= "Robogenieur Thermaplugg"
 })
 
 L:SetMiscLocalization({
-	YellBomb 	= "Explosionen! MEHR Explosionen! Ich brauche mehr Explosionen!"
+	YellBomb	= "Explosionen! MEHR Explosionen! Ich brauche mehr Explosionen!"
 })
 
 -------------------------
@@ -655,7 +655,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(423)
 
 L:SetGeneralLocalization({
-	name 		= "Noxxion"
+	name		= "Noxxion"
 })
 
 -----------------------------
@@ -664,7 +664,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(424)
 
 L:SetGeneralLocalization({
-	name 		= "Schlingwurzler"
+	name		= "Schlingwurzler"
 })
 
 -----------------------------
@@ -673,7 +673,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(425)
 
 L:SetGeneralLocalization({
-	name 		= "Tüftler Gizlock"
+	name		= "Tüftler Gizlock"
 })
 
 -----------------------------
@@ -682,7 +682,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(427)
 
 L:SetGeneralLocalization({
-	name 		= "Lord Schlangenzunge"
+	name		= "Lord Schlangenzunge"
 })
 
 -----------------------------
@@ -691,7 +691,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(428)
 
 L:SetGeneralLocalization({
-	name 		= "Celebras der Verfluchte"
+	name		= "Celebras der Verfluchte"
 })
 
 -----------------------------
@@ -700,7 +700,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(429)
 
 L:SetGeneralLocalization({
-	name 		= "Erdrutsch"
+	name		= "Erdrutsch"
 })
 
 -----------------------------
@@ -709,7 +709,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(430)
 
 L:SetGeneralLocalization({
-	name 		= "Faulschnapper"
+	name		= "Faulschnapper"
 })
 
 -----------------------------
@@ -718,7 +718,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(431)
 
 L:SetGeneralLocalization({
-	name 		= "Prinzessin Theradras"
+	name		= "Prinzessin Theradras"
 })
 
 -------------------------
@@ -729,7 +729,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Oggleflint")
 
 L:SetGeneralLocalization({
-	name 		= "Flintauge"
+	name		= "Flintauge"
 })
 
 -----------------------------
@@ -738,7 +738,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Taragaman")
 
 L:SetGeneralLocalization({
-	name 		= "Taragaman der Hungerleider"
+	name		= "Taragaman der Hungerleider"
 })
 
 -----------------------------
@@ -747,7 +747,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Jergosh")
 
 L:SetGeneralLocalization({
-	name 		= "Jergosh der Herbeirufer"
+	name		= "Jergosh der Herbeirufer"
 })
 
 -----------------------------
@@ -756,7 +756,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Bazzalan")
 
 L:SetGeneralLocalization({
-	name 		= "Bazzalan"
+	name		= "Bazzalan"
 })
 
 -------------------------
@@ -767,7 +767,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Tutenkash")
 
 L:SetGeneralLocalization({
-	name 		= "Tuten'kash"
+	name		= "Tuten'kash"
 })
 
 -----------------------------
@@ -776,7 +776,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MordreshFireEye")
 
 L:SetGeneralLocalization({
-	name 		= "Mordresh Feuerauge"
+	name		= "Mordresh Feuerauge"
 })
 
 -----------------------------
@@ -785,7 +785,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Glutton")
 
 L:SetGeneralLocalization({
-	name 		= "Nimmersatt"
+	name		= "Nimmersatt"
 })
 
 -----------------------------
@@ -794,7 +794,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ragglesnout")
 
 L:SetGeneralLocalization({
-	name 		= "Struppmähne"
+	name		= "Struppmähne"
 })
 
 -----------------------------
@@ -803,7 +803,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AmnennartheColdbringer")
 
 L:SetGeneralLocalization({
-	name 		= "Amnennar der Kältebringer"
+	name		= "Amnennar der Kältebringer"
 })
 
 -----------------------------
@@ -812,7 +812,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("PlaguemawtheRotting")
 
 L:SetGeneralLocalization({
-	name 		= "Plaguemaw der Faulende"
+	name		= "Plaguemaw der Faulende"
 })
 
 -------------------------
@@ -823,7 +823,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Roogug")
 
 L:SetGeneralLocalization({
-	name 		= "Roogug"
+	name		= "Roogug"
 })
 
 -----------------------------
@@ -832,7 +832,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AggemThorncurse")
 
 L:SetGeneralLocalization({
-	name 		= "Aggem Dornfluch"
+	name		= "Aggem Dornfluch"
 })
 
 -----------------------------
@@ -841,7 +841,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DeathSpeakerJargba")
 
 L:SetGeneralLocalization({
-	name 		= "Todessprecher Jargba"
+	name		= "Todessprecher Jargba"
 })
 
 -----------------------------
@@ -850,7 +850,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OverlordRamtusk")
 
 L:SetGeneralLocalization({
-	name 		= "Oberanführer Rammhauer"
+	name		= "Oberanführer Rammhauer"
 })
 
 -----------------------------
@@ -859,7 +859,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AgathelostheRaging")
 
 L:SetGeneralLocalization({
-	name 		= "Agathelos der Tobende"
+	name		= "Agathelos der Tobende"
 })
 
 -----------------------------
@@ -868,7 +868,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BlindHunter")
 
 L:SetGeneralLocalization({
-	name 		= "Blinder Jäger"
+	name		= "Blinder Jäger"
 })
 
 -----------------------------
@@ -877,7 +877,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("EarthcallerHalmgar")
 
 L:SetGeneralLocalization({
-	name 		= "Erdenrufer Halmgar"
+	name		= "Erdenrufer Halmgar"
 })
 
 -----------------------------
@@ -886,7 +886,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("CharlgaRazorflank")
 
 L:SetGeneralLocalization({
-	name 		= "Charlga Klingenflanke"
+	name		= "Charlga Klingenflanke"
 })
 
 -------------------------
@@ -897,7 +897,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("InterrogatorVishas")
 
 L:SetGeneralLocalization({
-	name 		= "Befrager Vishas"
+	name		= "Befrager Vishas"
 })
 
 -----------------------------
@@ -906,7 +906,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BloodmageThalnos")
 
 L:SetGeneralLocalization({
-	name 		= "Blutmagier Thalnos"
+	name		= "Blutmagier Thalnos"
 })
 
 -----------------------------
@@ -915,7 +915,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HoundmasterLoksey")
 
 L:SetGeneralLocalization({
-	name 		= "Hundemeister Loksey"
+	name		= "Hundemeister Loksey"
 })
 
 -----------------------------
@@ -924,7 +924,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ArcanistDoan")
 
 L:SetGeneralLocalization({
-	name 		= "Arkanist Doan"
+	name		= "Arkanist Doan"
 })
 
 -----------------------------
@@ -933,7 +933,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Herod")
 
 L:SetGeneralLocalization({
-	name 		= "Herod"
+	name		= "Herod"
 })
 
 -----------------------------
@@ -942,7 +942,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Mograine_and_Whitemane")
 
 L:SetGeneralLocalization({
-	name 		= "Mograine und Whitemane"
+	name		= "Mograine und Whitemane"
 })
 
 -----------------------------
@@ -951,7 +951,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Fairbanks")
 
 L:SetGeneralLocalization({
-	name 		= "Hochinquisitor Fairbanks"
+	name		= "Hochinquisitor Fairbanks"
 })
 
 -------------------------
@@ -962,7 +962,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("KirtonostheHerald")
 
 L:SetGeneralLocalization({
-	name 		= "Kirtonos der Herold"
+	name		= "Kirtonos der Herold"
 })
 
 -----------------------------
@@ -971,7 +971,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("JandiceBarov")
 
 L:SetGeneralLocalization({
-	name 		= "Jandice Barov"
+	name		= "Jandice Barov"
 })
 
 -----------------------------
@@ -980,7 +980,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rattlegore")
 
 L:SetGeneralLocalization({
-	name 		= "Blutrippe"
+	name		= "Blutrippe"
 })
 
 -----------------------------
@@ -989,7 +989,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MardukBlackpool")
 
 L:SetGeneralLocalization({
-	name 		= "Marduk Blackpool"
+	name		= "Marduk Blackpool"
 })
 
 -----------------------------
@@ -998,7 +998,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Vectus")
 
 L:SetGeneralLocalization({
-	name 		= "Vectus"
+	name		= "Vectus"
 })
 
 -----------------------------
@@ -1007,7 +1007,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RasFrostwhisper")
 
 L:SetGeneralLocalization({
-	name 		= "Ras Frostraunen"
+	name		= "Ras Frostraunen"
 })
 
 -----------------------------
@@ -1016,7 +1016,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("InstructorMalicia")
 
 L:SetGeneralLocalization({
-	name 		= "Instrukteurin Malicia"
+	name		= "Instrukteurin Malicia"
 })
 
 -----------------------------
@@ -1025,7 +1025,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DoctorTheolenKrastinov")
 
 L:SetGeneralLocalization({
-	name 		= "Doctor Theolen Krastinov"
+	name		= "Doctor Theolen Krastinov"
 })
 
 -----------------------------
@@ -1034,7 +1034,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LorekeeperPolkelt")
 
 L:SetGeneralLocalization({
-	name 		= "Hüter des Wissens Polkelt"
+	name		= "Hüter des Wissens Polkelt"
 })
 
 -----------------------------
@@ -1043,7 +1043,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("TheRavenian")
 
 L:SetGeneralLocalization({
-	name 		= "Der Ravenier"
+	name		= "Der Ravenier"
 })
 
 -----------------------------
@@ -1052,7 +1052,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LordAlexeiBarov")
 
 L:SetGeneralLocalization({
-	name 		= "Lord Alexei Barov"
+	name		= "Lord Alexei Barov"
 })
 
 -----------------------------
@@ -1061,7 +1061,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LadyIlluciaBarov")
 
 L:SetGeneralLocalization({
-	name 		= "Lady Illucia Barov"
+	name		= "Lady Illucia Barov"
 })
 
 -----------------------------
@@ -1070,7 +1070,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DarkmasterGandling")
 
 L:SetGeneralLocalization({
-	name 		= "Dunkelmeister Gandling"
+	name		= "Dunkelmeister Gandling"
 })
 
 -------------------------
@@ -1081,7 +1081,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rethilgore")
 
 L:SetGeneralLocalization({
-	name 		= "Rethilgore"
+	name		= "Rethilgore"
 })
 
 -----------------------------
@@ -1090,7 +1090,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RazorclawtheButcher")
 
 L:SetGeneralLocalization({
-	name 		= "Klingenklaue der Metzger"
+	name		= "Klingenklaue der Metzger"
 })
 
 -----------------------------
@@ -1099,7 +1099,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BaronSilverlaine")
 
 L:SetGeneralLocalization({
-	name 		= "Baron Silberlein"
+	name		= "Baron Silberlein"
 })
 
 -----------------------------
@@ -1108,7 +1108,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("CommanderSpringvale")
 
 L:SetGeneralLocalization({
-	name 		= "Kommandant Springvale"
+	name		= "Kommandant Springvale"
 })
 
 -----------------------------
@@ -1117,7 +1117,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OdotheBlindwatcher")
 
 L:SetGeneralLocalization({
-	name 		= "Odo der Blindseher"
+	name		= "Odo der Blindseher"
 })
 
 -----------------------------
@@ -1126,7 +1126,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DeathswornCaptain")
 
 L:SetGeneralLocalization({
-	name 		= "Todeshöriger Captain"
+	name		= "Todeshöriger Captain"
 })
 
 -----------------------------
@@ -1135,7 +1135,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("FenrustheDevourer")
 
 L:SetGeneralLocalization({
-	name 		= "Fenrus der Verschlinger"
+	name		= "Fenrus der Verschlinger"
 })
 
 -----------------------------
@@ -1144,7 +1144,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("WolfMasterNandos")
 
 L:SetGeneralLocalization({
-	name 		= "Wolfmeister Nandos"
+	name		= "Wolfmeister Nandos"
 })
 
 -----------------------------
@@ -1153,7 +1153,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ArchmageArugal")
 
 L:SetGeneralLocalization({
-	name 		= "Erzmagier Arugal"
+	name		= "Erzmagier Arugal"
 })
 
 -------------------------
@@ -1164,7 +1164,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Targorr")
 
 L:SetGeneralLocalization({
-	name 		= "Targorr der Schreckliche"
+	name		= "Targorr der Schreckliche"
 })
 
 -----------------------------
@@ -1173,7 +1173,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("KamDeepfury")
 
 L:SetGeneralLocalization({
-	name 		= "Kam Deepfury"
+	name		= "Kam Deepfury"
 })
 
 -----------------------------
@@ -1182,7 +1182,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Hamhock")
 
 L:SetGeneralLocalization({
-	name 		= "Hamhock"
+	name		= "Hamhock"
 })
 
 -----------------------------
@@ -1191,7 +1191,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BazilThredd")
 
 L:SetGeneralLocalization({
-	name 		= "Bazil Thredd"
+	name		= "Bazil Thredd"
 })
 
 -----------------------------
@@ -1200,7 +1200,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DextrenWard")
 
 L:SetGeneralLocalization({
-	name 		= "Dextren Ward"
+	name		= "Dextren Ward"
 })
 
 -----------------------------
@@ -1209,7 +1209,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BruegalIronknuckle")
 
 L:SetGeneralLocalization({
-	name 		= "Bruegal Eisenfaust"
+	name		= "Bruegal Eisenfaust"
 })
 
 -------------------------
@@ -1220,7 +1220,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(443)
 
 L:SetGeneralLocalization({
-	name 		= "Herdsinger Forresten"
+	name		= "Herdsinger Forresten"
 })
 
 -----------------------------
@@ -1229,7 +1229,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(445)
 
 L:SetGeneralLocalization({
-	name 		= "Timmy der Grausame"
+	name		= "Timmy der Grausame"
 })
 
 -----------------------------
@@ -1238,7 +1238,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(749)
 
 L:SetGeneralLocalization({
-	name 		= "Malor der Eifrige"
+	name		= "Malor der Eifrige"
 })
 
 -----------------------------
@@ -1247,7 +1247,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(446)
 
 L:SetGeneralLocalization({
-	name 		= "Kanonenmeister Willey"
+	name		= "Kanonenmeister Willey"
 })
 
 -----------------------------
@@ -1256,7 +1256,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(448)
 
 L:SetGeneralLocalization({
-	name 		= "Archivar Galford"
+	name		= "Archivar Galford"
 })
 
 -----------------------------
@@ -1265,7 +1265,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(449)
 
 L:SetGeneralLocalization({
-	name 		= "Balnazzar"
+	name		= "Balnazzar"
 })
 
 -----------------------------
@@ -1274,7 +1274,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(450)
 
 L:SetGeneralLocalization({
-	name 		= "Der Unverziehene"
+	name		= "Der Unverziehene"
 })
 
 -----------------------------
@@ -1283,7 +1283,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(451)
 
 L:SetGeneralLocalization({
-	name 		= "Baroness Anastari"
+	name		= "Baroness Anastari"
 })
 
 -----------------------------
@@ -1292,7 +1292,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(452)
 
 L:SetGeneralLocalization({
-	name 		= "Nerub'enkan"
+	name		= "Nerub'enkan"
 })
 
 -----------------------------
@@ -1301,7 +1301,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(453)
 
 L:SetGeneralLocalization({
-	name 		= "Maleki der Leichenblasse"
+	name		= "Maleki der Leichenblasse"
 })
 
 -----------------------------
@@ -1310,7 +1310,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(454)
 
 L:SetGeneralLocalization({
-	name 		= "Magistrat Barthilas"
+	name		= "Magistrat Barthilas"
 })
 
 -----------------------------
@@ -1319,7 +1319,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(455)
 
 L:SetGeneralLocalization({
-	name 		= "Ramstein der Verschlinger"
+	name		= "Ramstein der Verschlinger"
 })
 
 L:SetTimerLocalization({
@@ -1336,7 +1336,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(456)
 
 L:SetGeneralLocalization({
-	name 		= "Baron Totenschwur"
+	name		= "Baron Totenschwur"
 })
 
 -------------------------
@@ -1347,7 +1347,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(457)
 
 L:SetGeneralLocalization({
-	name 		= "Avatar von Hakkar"
+	name		= "Avatar von Hakkar"
 })
 
 -----------------------------
@@ -1356,7 +1356,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(458)
 
 L:SetGeneralLocalization({
-	name 		= "Jammal'an der Prophet"
+	name		= "Jammal'an der Prophet"
 })
 
 ----------------------------------------------
@@ -1366,25 +1366,25 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Dreamscythe")
 
 L:SetGeneralLocalization({
-	name 		= "Traumsense"
+	name		= "Traumsense"
 })
 
 L = DBM:GetModLocalization("Weaver")
 
 L:SetGeneralLocalization({
-	name 		= "Wirker"
+	name		= "Wirker"
 })
 
 L = DBM:GetModLocalization("Morphaz")
 
 L:SetGeneralLocalization({
-	name 		= "Morphaz"
+	name		= "Morphaz"
 })
 
 L = DBM:GetModLocalization("Hazzas")
 
 L:SetGeneralLocalization({
-	name 		= "Hazzas"
+	name		= "Hazzas"
 })
 
 -----------------------------
@@ -1393,7 +1393,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(463)
 
 L:SetGeneralLocalization({
-	name 		= "Eranikus' Schemen"
+	name		= "Eranikus' Schemen"
 })
 
 -------------------------
@@ -1404,7 +1404,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(467)
 
 L:SetGeneralLocalization({
-	name 		= "Revelosh"
+	name		= "Revelosh"
 })
 
 -----------------------------
@@ -1413,7 +1413,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(468)
 
 L:SetGeneralLocalization({
-	name 		= "Die verschollenen Zwerge"
+	name		= "Die verschollenen Zwerge"
 })
 
 -----------------------------
@@ -1422,7 +1422,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(469)
 
 L:SetGeneralLocalization({
-	name 		= "Ironaya"
+	name		= "Ironaya"
 })
 
 -----------------------------
@@ -1431,7 +1431,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(748)
 
 L:SetGeneralLocalization({
-	name 		= "Obsidianschildwache"
+	name		= "Obsidianschildwache"
 })
 
 -----------------------------
@@ -1440,7 +1440,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(470)
 
 L:SetGeneralLocalization({
-	name 		= "Uralter Steinbewahrer"
+	name		= "Uralter Steinbewahrer"
 })
 
 -----------------------------
@@ -1449,7 +1449,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(471)
 
 L:SetGeneralLocalization({
-	name 		= "Galgann Feuerhammer"
+	name		= "Galgann Feuerhammer"
 })
 
 -----------------------------
@@ -1458,7 +1458,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(472)
 
 L:SetGeneralLocalization({
-	name 		= "Grimlok"
+	name		= "Grimlok"
 })
 
 -----------------------------
@@ -1467,7 +1467,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(473)
 
 L:SetGeneralLocalization({
-	name 		= "Archaedas"
+	name		= "Archaedas"
 })
 
 -------------------------
@@ -1478,7 +1478,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(474)
 
 L:SetGeneralLocalization({
-	name 		= "Lady Anacondra"
+	name		= "Lady Anacondra"
 })
 
 -----------------------------
@@ -1487,7 +1487,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(476)
 
 L:SetGeneralLocalization({
-	name 		= "Lord Pythas"
+	name		= "Lord Pythas"
 })
 
 -----------------------------
@@ -1496,7 +1496,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(475)
 
 L:SetGeneralLocalization({
-	name 		= "Lord Kobrahn"
+	name		= "Lord Kobrahn"
 })
 
 -----------------------------
@@ -1505,7 +1505,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(477)
 
 L:SetGeneralLocalization({
-	name 		= "Kresh"
+	name		= "Kresh"
 })
 
 -----------------------------
@@ -1514,7 +1514,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(478)
 
 L:SetGeneralLocalization({
-	name 		= "Skum"
+	name		= "Skum"
 })
 
 -----------------------------
@@ -1523,7 +1523,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(479)
 
 L:SetGeneralLocalization({
-	name 		= "Lord Serpentis"
+	name		= "Lord Serpentis"
 })
 
 -----------------------------
@@ -1532,7 +1532,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(480)
 
 L:SetGeneralLocalization({
-	name 		= "Verdan der Ewiglebende"
+	name		= "Verdan der Ewiglebende"
 })
 
 -----------------------------
@@ -1541,7 +1541,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(481)
 
 L:SetGeneralLocalization({
-	name 		= "Mutanus der Verschlinger"
+	name		= "Mutanus der Verschlinger"
 })
 
 -----------------------------
@@ -1550,7 +1550,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DeviateFaerie")
 
 L:SetGeneralLocalization({
-	name 		= "Deviatfeendrache"
+	name		= "Deviatfeendrache"
 })
 
 -------------------------
@@ -1561,7 +1561,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(483)
 
 L:SetGeneralLocalization({
-	name 		= "Gahz'rilla"
+	name		= "Gahz'rilla"
 })
 
 -----------------------------
@@ -1570,7 +1570,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(484)
 
 L:SetGeneralLocalization({
-	name 		= "Antu'sul"
+	name		= "Antu'sul"
 })
 
 -----------------------------
@@ -1579,7 +1579,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(485)
 
 L:SetGeneralLocalization({
-	name 		= "Theka der Märtyrer"
+	name		= "Theka der Märtyrer"
 })
 
 -----------------------------
@@ -1588,7 +1588,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(486)
 
 L:SetGeneralLocalization({
-	name 		= "Hexendoktor Zum'rah"
+	name		= "Hexendoktor Zum'rah"
 })
 
 -----------------------------
@@ -1597,7 +1597,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HydromancerVelrath")
 
 L:SetGeneralLocalization({
-	name 		= "Wasserbeschwörerin Velratha"
+	name		= "Wasserbeschwörerin Velratha"
 })
 
 -----------------------------
@@ -1606,7 +1606,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(487)
 
 L:SetGeneralLocalization({
-	name 		= "Nekrum und Sezz'ziz"
+	name		= "Nekrum und Sezz'ziz"
 })
 
 -----------------------------
@@ -1615,5 +1615,5 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(489)
 
 L:SetGeneralLocalization({
-	name 		= "Häuptling Ukorz Sandwüter"
+	name		= "Häuptling Ukorz Sandwüter"
 })

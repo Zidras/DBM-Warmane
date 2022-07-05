@@ -35,7 +35,7 @@ mod:AddBoolOption("TrashRespawnTimer", true, "timer")
 -- Elder Stonebark: 32914
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 62344 then 					-- Fists of Stone
+	if args.spellId == 62344 then					-- Fists of Stone
 		specWarnFistofStone:Show()
 		specWarnFistofStone:Play("justrun")
 	elseif args:IsSpellID(62325, 62932) then		-- Ground Tremor
@@ -45,7 +45,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(62310, 62928) then 			-- Impale
+	if args:IsSpellID(62310, 62928) then			-- Impale
 		if not args:IsPlayer() then
 			specWarnImpale:Show(args.destName)
 			specWarnImpale:Play("tauntboss")
@@ -55,7 +55,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(62310, 62928) then 			-- Impale
+	if args:IsSpellID(62310, 62928) then			-- Impale
 		timerImpale:Stop(args.destName)
 	end
 end

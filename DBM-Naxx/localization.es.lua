@@ -343,7 +343,7 @@ L:SetOptionLocalization({
 	TimerLanding		= "Mostrar temporizador para el cambio a fase en tierra",
 	TimerIceBlast		= "Mostrar temporizador para $spell:28524",
 	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524",
-	SpecWarnSapphLow 	= "Advertencia especial para fase de ejecución del 10% (cancelación de fase de aire)"
+	SpecWarnSapphLow	= "Advertencia especial para fase de ejecución del 10% (cancelación de fase de aire)"
 })
 
 L:SetMiscLocalization({

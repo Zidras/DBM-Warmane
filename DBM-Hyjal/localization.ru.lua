@@ -53,7 +53,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization({
-	name 		= "Треш-мобы"
+	name		= "Треш-мобы"
 })
 
 L:SetWarningLocalization({

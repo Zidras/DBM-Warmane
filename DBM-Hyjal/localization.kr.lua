@@ -52,7 +52,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization({
-	name 		= "일반몹 구간"
+	name		= "일반몹 구간"
 })
 
 L:SetTimerLocalization({

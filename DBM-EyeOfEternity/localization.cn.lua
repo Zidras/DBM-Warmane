@@ -12,7 +12,7 @@ local L
 L = DBM:GetModLocalization("Malygos")
 
 L:SetGeneralLocalization({
-	name 			= "玛里苟斯"
+	name			= "玛里苟斯"
 })
 
 L:SetMiscLocalization({

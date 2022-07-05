@@ -52,7 +52,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization({
-	name 		= "Oleadas"
+	name		= "Oleadas"
 })
 
 L:SetWarningLocalization({

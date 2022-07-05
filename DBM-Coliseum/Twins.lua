@@ -29,7 +29,7 @@ local warnPoweroftheTwins			= mod:NewAnnounce("WarningPoweroftheTwins2", 4, 6591
 
 local specWarnSpecial				= mod:NewSpecialWarning("SpecWarnSpecial")--Change Color, No voice ideas for this
 local specWarnSwitch				= mod:NewSpecialWarning("SpecWarnSwitchTarget", nil, nil, nil, 1, 2, nil, nil, 65875)
-local specWarnKickNow 				= mod:NewSpecialWarning("SpecWarnKickNow", "HasInterrupt", nil, nil, 1, 2, nil, nil, 65875)
+local specWarnKickNow				= mod:NewSpecialWarning("SpecWarnKickNow", "HasInterrupt", nil, nil, 1, 2, nil, nil, 65875)
 local specWarnPoweroftheTwins		= mod:NewSpecialWarningDefensive(65916, "Tank", nil, 2, 1, 2)
 local specWarnEmpoweredDarkness		= mod:NewSpecialWarningYou(65724)--No voice ideas for this
 local specWarnEmpoweredLight		= mod:NewSpecialWarningYou(65748)--No voice ideas for this
@@ -81,13 +81,13 @@ do
 	end
 
 	function mod:SPELL_CAST_START(args)
-		if args:IsSpellID(66046, 67206, 67207, 67208) then 			-- Light Vortex
+		if args:IsSpellID(66046, 67206, 67207, 67208) then			-- Light Vortex
 			local debuff = DBM:UnitDebuff("player", lightEssence)
 			SpecialAbility(debuff)
 		elseif args:IsSpellID(66058, 67182, 67183, 67184) then		-- Dark Vortex
 			local debuff = DBM:UnitDebuff("player", darkEssence)
 			SpecialAbility(debuff)
-		elseif args:IsSpellID(65875, 67303, 67304, 67305) then 		-- Twin's Pact
+		elseif args:IsSpellID(65875, 67303, 67304, 67305) then		-- Twin's Pact
 			timerHeal:Start()
 			SpecialAbility(true)
 			if self:GetUnitCreatureId("target") == 34497 then	-- if lightbane, then switch to darkbane
@@ -192,7 +192,7 @@ do
 	end
 
 	function mod:SPELL_AURA_APPLIED(args)
-		if args:IsPlayer() and args:IsSpellID(65724, 67213, 67214, 67215) then 		-- Empowered Darkness
+		if args:IsPlayer() and args:IsSpellID(65724, 67213, 67214, 67215) then		-- Empowered Darkness
 			specWarnEmpoweredDarkness:Show()
 		elseif args:IsPlayer() and args:IsSpellID(65748, 67216, 67217, 67218) then	-- Empowered Light
 			specWarnEmpoweredLight:Show()

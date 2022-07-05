@@ -10,7 +10,7 @@ local L
 L = DBM:GetModLocalization(527)
 
 L:SetGeneralLocalization({
-	name 		= "Начальник стражи Гарголмар"
+	name		= "Начальник стражи Гарголмар"
 })
 
 --------------------------
@@ -19,7 +19,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(528)
 
 L:SetGeneralLocalization({
-	name 		= "Омор Неодолимый"
+	name		= "Омор Неодолимый"
 })
 
 ------------------------
@@ -28,7 +28,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(529)
 
 L:SetGeneralLocalization({
-	name 		= "Назан & Вазруден"
+	name		= "Назан & Вазруден"
 })
 
 -------------------------
@@ -39,7 +39,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(555)
 
 L:SetGeneralLocalization({
-	name 		= "Мастер"
+	name		= "Мастер"
 })
 
 ---------------
@@ -48,7 +48,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(556)
 
 L:SetGeneralLocalization({
-	name 		= "Броггок"
+	name		= "Броггок"
 })
 
 ----------------------------
@@ -57,7 +57,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(557)
 
 L:SetGeneralLocalization({
-	name 		= "Кели'дан Разрушитель"
+	name		= "Кели'дан Разрушитель"
 })
 
 ---------------------------
@@ -68,7 +68,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(566)
 
 L:SetGeneralLocalization({
-	name 		= "Главный чернокнижник Пустоклят"
+	name		= "Главный чернокнижник Пустоклят"
 })
 
 --------------------------
@@ -77,7 +77,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(728)
 
 L:SetGeneralLocalization({
-	name 		= "Кровавый страж Порунг"
+	name		= "Кровавый страж Порунг"
 })
 
 --------------------------
@@ -86,7 +86,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(568)
 
 L:SetGeneralLocalization({
-	name 		= "О'мрогг Завоеватель"
+	name		= "О'мрогг Завоеватель"
 })
 
 ----------------------------------
@@ -95,7 +95,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(569)
 
 L:SetGeneralLocalization({
-	name 		= "Вождь Каргат Острорук"
+	name		= "Вождь Каргат Острорук"
 })
 
 L:SetWarningLocalization({
@@ -127,7 +127,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(570)
 
 L:SetGeneralLocalization({
-	name 		= "Менну Предатель"
+	name		= "Менну Предатель"
 })
 
 ---------------------------
@@ -136,7 +136,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(571)
 
 L:SetGeneralLocalization({
-	name 		= "Рокмар Трескун"
+	name		= "Рокмар Трескун"
 })
 
 ------------------
@@ -145,7 +145,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(572)
 
 L:SetGeneralLocalization({
-	name 		= "Зыбун"
+	name		= "Зыбун"
 })
 
 --------------------
@@ -156,7 +156,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(576)
 
 L:SetGeneralLocalization({
-	name 		= "Топеглад"
+	name		= "Топеглад"
 })
 
 ---------------
@@ -165,7 +165,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(577)
 
 L:SetGeneralLocalization({
-	name 		= "Газ'ан"
+	name		= "Газ'ан"
 })
 
 --------------------------
@@ -174,7 +174,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(578)
 
 L:SetGeneralLocalization({
-	name 		= "Владыка болот Мусел'ек"
+	name		= "Владыка болот Мусел'ек"
 })
 
 -------------------------
@@ -183,7 +183,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(579)
 
 L:SetGeneralLocalization({
-	name 		= "Черная Охотница"
+	name		= "Черная Охотница"
 })
 
 ----------------------
@@ -194,7 +194,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(573)
 
 L:SetGeneralLocalization({
-	name 		= "Гидромантка Теспия"
+	name		= "Гидромантка Теспия"
 })
 
 -----------------------------
@@ -203,7 +203,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(574)
 
 L:SetGeneralLocalization({
-	name 		= "Анжинер Паропуск"
+	name		= "Анжинер Паропуск"
 })
 
 L:SetWarningLocalization({
@@ -224,7 +224,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(575)
 
 L:SetGeneralLocalization({
-	name 		= "Полководец Калитреш"
+	name		= "Полководец Калитреш"
 })
 
 -----------------------
@@ -235,7 +235,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(523)
 
 L:SetGeneralLocalization({
-	name 		= "Ширрак Страж Мертвых"
+	name		= "Ширрак Страж Мертвых"
 })
 
 -----------------------
@@ -244,7 +244,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(524)
 
 L:SetGeneralLocalization({
-	name 		= "Экзарх Маладаар"
+	name		= "Экзарх Маладаар"
 })
 
 ------------------
@@ -255,7 +255,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AuctTombsTrash")
 
 L:SetGeneralLocalization({
-	name 		= "Трэш"
+	name		= "Трэш"
 })
 
 -------------------
@@ -264,7 +264,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(534)
 
 L:SetGeneralLocalization({
-	name 		= "Пандемоний"
+	name		= "Пандемоний"
 })
 
 ---------------
@@ -273,7 +273,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(535)
 
 L:SetGeneralLocalization({
-	name 		= "Таварок"
+	name		= "Таварок"
 })
 
 ----------------------------
@@ -282,7 +282,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(537)
 
 L:SetGeneralLocalization({
-	name 		= "Принц Шаффар"
+	name		= "Принц Шаффар"
 })
 
 -----------
@@ -291,7 +291,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(536)
 
 L:SetGeneralLocalization({
-	name 		= "Йор"
+	name		= "Йор"
 })
 
 ---------------------
@@ -302,7 +302,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(541)
 
 L:SetGeneralLocalization({
-	name 		= "Темнопряд Сит"
+	name		= "Темнопряд Сит"
 })
 
 L:SetWarningLocalization({
@@ -319,7 +319,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(542)
 
 L:SetGeneralLocalization({
-	name 		= "Анзу"
+	name		= "Анзу"
 })
 
 L:SetWarningLocalization({
@@ -333,7 +333,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    BirdStone	= "%s returns to stone."
+	BirdStone	= "%s returns to stone."
 })
 
 ------------------------
@@ -342,7 +342,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(543)
 
 L:SetGeneralLocalization({
-	name 		= "Король воронов Айкисс"
+	name		= "Король воронов Айкисс"
 })
 
 ------------------------
@@ -353,7 +353,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(544)
 
 L:SetGeneralLocalization({
-	name 		= "Посол Гиблочрев"
+	name		= "Посол Гиблочрев"
 })
 
 ------------------------------
@@ -362,7 +362,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(545)
 
 L:SetGeneralLocalization({
-	name 		= "Черносерд Подстрекатель"
+	name		= "Черносерд Подстрекатель"
 })
 
 --------------------------
@@ -371,7 +371,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(546)
 
 L:SetGeneralLocalization({
-	name 		= "Великий мастер Ворпил"
+	name		= "Великий мастер Ворпил"
 })
 
 --------------
@@ -380,7 +380,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(547)
 
 L:SetGeneralLocalization({
-	name 		= "Бормотун"
+	name		= "Бормотун"
 })
 
 -------------------------------
@@ -391,7 +391,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(538)
 
 L:SetGeneralLocalization({
-	name 		= "Лейтенант Дрейк"
+	name		= "Лейтенант Дрейк"
 })
 
 -----------------------
@@ -400,7 +400,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(539)
 
 L:SetGeneralLocalization({
-	name 		= "Капитан Скарлок"
+	name		= "Капитан Скарлок"
 })
 
 --------------------
@@ -409,7 +409,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(540)
 
 L:SetGeneralLocalization({
-	name 		= "Охотник Вечности"
+	name		= "Охотник Вечности"
 })
 
 ------------------------
@@ -420,7 +420,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(552)
 
 L:SetGeneralLocalization({
-	name 		= "Повелитель времени Дежа"
+	name		= "Повелитель времени Дежа"
 })
 
 ----------------
@@ -429,7 +429,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(553)
 
 L:SetGeneralLocalization({
-	name 		= "Темпорус"
+	name		= "Темпорус"
 })
 
 --------------
@@ -438,7 +438,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(554)
 
 L:SetGeneralLocalization({
-	name 		= "Эонус"
+	name		= "Эонус"
 })
 
 ---------------------
@@ -451,9 +451,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "Скоро новый портал",
-    WarnWavePortal		= "Портал %d",
-    WarnBossPortal		= "Появился босс"
+	WarnWavePortalSoon	= "Скоро новый портал",
+	WarnWavePortal		= "Портал %d",
+	WarnBossPortal		= "Появился босс"
 })
 
 L:SetTimerLocalization({
@@ -461,9 +461,9 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "Показывать предварительное предупреждение для нового портала",
-    WarnWavePortal		= "Показывать предупреждение для нового портала",
-    WarnBossPortal		= "Показывать предупреждение для появления босса",
+	WarnWavePortalSoon	= "Показывать предварительное предупреждение для нового портала",
+	WarnWavePortal		= "Показывать предупреждение для нового портала",
+	WarnBossPortal		= "Показывать предупреждение для появления босса",
 	TimerNextPortal		= "Показывать таймер для следующего портала (после Босса)",
 	ShowAllPortalTimers	= "Показывать таймеры для всех порталов (неточно)"
 })
@@ -502,7 +502,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(563)
 
 L:SetGeneralLocalization({
-	name 		= "Механолорд Конденсарон"
+	name		= "Механолорд Конденсарон"
 })
 
 ------------------------------
@@ -511,7 +511,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(564)
 
 L:SetGeneralLocalization({
-	name 		= "Пустомант Сепетрея"
+	name		= "Пустомант Сепетрея"
 })
 
 --------------------------------
@@ -520,7 +520,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(565)
 
 L:SetGeneralLocalization({
-	name 		= "Паталеон Вычислитель"
+	name		= "Паталеон Вычислитель"
 })
 
 --------------------
@@ -531,7 +531,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(558)
 
 L:SetGeneralLocalization({
-	name 		= "Командир Сараннис"
+	name		= "Командир Сараннис"
 })
 
 ------------------------------
@@ -540,7 +540,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(559)
 
 L:SetGeneralLocalization({
-	name 		= "Верховный ботаник Фрейвин"
+	name		= "Верховный ботаник Фрейвин"
 })
 
 -----------------------------
@@ -549,7 +549,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(560)
 
 L:SetGeneralLocalization({
-	name 		= "Скалезуб Скорбный"
+	name		= "Скалезуб Скорбный"
 })
 
 -----------
@@ -558,7 +558,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(561)
 
 L:SetGeneralLocalization({
-	name 		= "Ладж"
+	name		= "Ладж"
 })
 
 ---------------------
@@ -567,7 +567,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(562)
 
 L:SetGeneralLocalization({
-	name 		= "Узлодревень"
+	name		= "Узлодревень"
 })
 
 --------------------
@@ -578,7 +578,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(548)
 
 L:SetGeneralLocalization({
-	name 		= "Зерекет Бездонный"
+	name		= "Зерекет Бездонный"
 })
 
 -----------------------------
@@ -587,7 +587,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(549)
 
 L:SetGeneralLocalization({
-	name 		= "Даллия Глашатай Судьбы"
+	name		= "Даллия Глашатай Судьбы"
 })
 
 ---------------------------------
@@ -596,7 +596,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(550)
 
 L:SetGeneralLocalization({
-	name 		= "Провидец Гнева Соккорат"
+	name		= "Провидец Гнева Соккорат"
 })
 
 -------------------------
@@ -605,7 +605,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(551)
 
 L:SetGeneralLocalization({
-	name 		= "Предвестник Скайрисс"
+	name		= "Предвестник Скайрисс"
 })
 
 L:SetWarningLocalization({
@@ -630,11 +630,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(530)
 
 L:SetGeneralLocalization({
-	name 		= "Селин Огненное Сердце"
+	name		= "Селин Огненное Сердце"
 })
 
 L:SetWarningLocalization({
-    warningFelCrystal	= "Кристалл Скверны - Смени Цель"
+	warningFelCrystal	= "Кристалл Скверны - Смени Цель"
 })
 
 L:SetTimerLocalization({
@@ -643,7 +643,7 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	warningFelCrystal	= "Показывать особое предупреждение смены целей для Кристалл Скверны",
-    timerFelCrystal		= "Показывать таймер для Кристалл Скверны"
+	timerFelCrystal		= "Показывать таймер для Кристалл Скверны"
 })
 
 ----------------
@@ -652,7 +652,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(531)
 
 L:SetGeneralLocalization({
-	name 		= "Вексалиус"
+	name		= "Вексалиус"
 })
 
 L:SetWarningLocalization({
@@ -669,7 +669,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(532)
 
 L:SetGeneralLocalization({
-	name 		= "Жрица Делрисса"
+	name		= "Жрица Делрисса"
 })
 
 L:SetMiscLocalization({
@@ -682,7 +682,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(533)
 
 L:SetGeneralLocalization({
-	name 		= "Кель'тас Солнечный Скиталец (Группа)"
+	name		= "Кель'тас Солнечный Скиталец (Группа)"
 })
 
 L:SetMiscLocalization({

@@ -138,7 +138,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerWaveIn	= 	"Siguiente oleada (6)",
+	TimerWaveIn	=	"Siguiente oleada (6)",
 	TimerRoleplay	= "Diálogo"
 })
 

@@ -94,7 +94,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Bloodlord 	= "血领主曼多基尔",
+	Bloodlord	= "血领主曼多基尔",
 	Ohgan		= "奥根"
 })
 

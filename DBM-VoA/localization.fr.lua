@@ -17,7 +17,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	ArchavonEnrage 	= "Enrage (Archavon)"
+	ArchavonEnrage	= "Enrage (Archavon)"
 })
 
 L:SetOptionLocalization({

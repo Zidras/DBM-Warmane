@@ -64,12 +64,12 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Slow 		= "замедляется!",
-	Freezing 	= "замораживается!",
-	Frozen	 	= "застывает!",
-	Phase4 		= "начинает раскалываться!",
-	Phase5 		= "едва держится!",
-	Phase6 		= "взрывается!",
+	Slow		= "замедляется!",
+	Freezing	= "замораживается!",
+	Frozen		= "застывает!",
+	Phase4		= "начинает раскалываться!",
+	Phase5		= "едва держится!",
+	Phase6		= "взрывается!",
 
 	HitsRemain	= "Ударов Осталось",
 	Frost		= "Лёд",
@@ -109,11 +109,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnEyeTentacle 	= "Глазной отросток",
+	WarnEyeTentacle	= "Глазной отросток",
 	WarnClawTentacle2	= "Когтещупальце",
 	WarnGiantEyeTentacle	= "Огромное глазастое щупальце",
 	WarnGiantClawTentacle	= "Гигантский когтещуп",
-	WarnWeakened 		= "К'Тун ослаблен!"
+	WarnWeakened		= "К'Тун ослаблен!"
 })
 
 L:SetTimerLocalization({
@@ -142,7 +142,7 @@ L:SetMiscLocalization({
 	Stomach		= "Живот",
 	Eye			= "Око К'Туна",
 	FleshTent	= "Мясистое щупальце",--Localized so it shows on frame in users language, not senders
-	Weakened 	= "ослаблен!",
+	Weakened	= "ослаблен!",
 	NotValid	= "АК40 частично зачищен. %s необязательные боссы остались."
 })
 

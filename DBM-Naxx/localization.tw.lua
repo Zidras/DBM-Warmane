@@ -211,8 +211,8 @@ L:SetMiscLocalization({
 	Yell	= "斯塔拉格要碾碎你!",
 	Emote	= "%s超過負荷!",
 	Emote2	= "泰斯拉線圈超過負荷!",
-	Boss1 	= "伏晨",
-	Boss2 	= "斯塔拉格",
+	Boss1	= "伏晨",
+	Boss2	= "斯塔拉格",
 	Charge1 = "負極",
 	Charge2 = "正極"
 })

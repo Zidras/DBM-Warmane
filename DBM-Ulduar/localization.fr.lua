@@ -378,10 +378,10 @@ L:SetGeneralLocalization({
 
 
 L:SetWarningLocalization({
-	WarningGuardianSpawned 			= "Un gardien vient d'arriver",
+	WarningGuardianSpawned			= "Un gardien vient d'arriver",
 	WarningCrusherTentacleSpawned	= "Une Tentacule écraseur vient d'arriver",
-	WarningSanity 					= "%d de Santé mentale restant",
-	SpecWarnSanity 					= "%d de Santé mentale restant",
+	WarningSanity					= "%d de Santé mentale restant",
+	SpecWarnSanity					= "%d de Santé mentale restant",
 	SpecWarnGuardianLow				= "Arrêtez d'attaquer ce gardien !",
 	SpecWarnMadnessOutNow			= "Incantation de Susciter la folie fini - SORTEZ",
 	WarnBrainPortalSoon				= "Portail dans 3 sec",
@@ -409,7 +409,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellPull1			= "Il sera bientôt temps de frapper la tête de la bête ! Concentrez votre rage et votre haine sur ses laquais !",
 	S1TheLucidDream		= "Phase 1 : Le rêve lucide",
-	Sara 				= "Sara",
+	Sara				= "Sara",
 	GuardianofYoggSaron	= "Gardien de Yogg-Saron",
 	S2DescentIntoMadness= "Phase 2 : La Descente dans la folie",
 	CrusherTentacle		= "Tentacule écraseur",

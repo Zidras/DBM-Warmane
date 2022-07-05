@@ -17,12 +17,12 @@ mod:AddRangeFrameOption(10, 22997)
 --local eventsRegistered = false
 
 do-- Anubisath Plague/Explode - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
-	local warnPlague                    = mod:NewTargetAnnounce(22997, 2)
-	local warnCauseInsanity             = mod:NewTargetNoFilterAnnounce(26079, 2)
+	local warnPlague					= mod:NewTargetAnnounce(22997, 2)
+	local warnCauseInsanity				= mod:NewTargetNoFilterAnnounce(26079, 2)
 
-	local specWarnPlague                = mod:NewSpecialWarningMoveAway(22997, nil, nil, nil, 1, 2)
-	local yellPlague                    = mod:NewYell(22997)
-	local specWarnExplode               = mod:NewSpecialWarningRun(25698, "Melee", nil, 3, 4, 2)
+	local specWarnPlague				= mod:NewSpecialWarningMoveAway(22997, nil, nil, nil, 1, 2)
+	local yellPlague					= mod:NewYell(22997)
+	local specWarnExplode				= mod:NewSpecialWarningRun(25698, "Melee", nil, 3, 4, 2)
 
 	-- aura applied didn't seem to catch the reflects and other buffs
 	function mod:SPELL_AURA_APPLIED(args)
@@ -55,8 +55,8 @@ do-- Anubisath Plague/Explode - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash
 end
 
 do-- Anubisath Reflect - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
-	local specWarnShadowFrostReflect    = mod:NewSpecialWarningReflect(19595, nil, nil, nil, 1, 2)
-	local specWarnFireArcaneReflect     = mod:NewSpecialWarningReflect(13022, nil, nil, nil, 1, 2)
+	local specWarnShadowFrostReflect	= mod:NewSpecialWarningReflect(19595, nil, nil, nil, 1, 2)
+	local specWarnFireArcaneReflect		= mod:NewSpecialWarningReflect(13022, nil, nil, nil, 1, 2)
 
 	-- todo: thorns, shadow storm
 

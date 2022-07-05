@@ -45,7 +45,7 @@ local specWarnSilence		= mod:NewSpecialWarningSpell(66330, "SpellCaster", nil, n
 
 local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON, nil, mod:IsSpellCaster() and 3 or nil, 3)
 local timerNextImpale		= mod:NewNextTimer(10, 66331, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerRisingAnger      = mod:NewNextTimer(20.5, 66636, nil, nil, nil, 1)
+local timerRisingAnger		= mod:NewNextTimer(20.5, 66636, nil, nil, nil, 1)
 
 -- Stage Two: Acidmaw & Dreadscale
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.Acidmaw.." & "..L.Dreadscale)

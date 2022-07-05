@@ -9,7 +9,7 @@ mod:SetCreatureID(30449)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-    "SPELL_CAST_SUCCESS 57579 59127"
+	"SPELL_CAST_SUCCESS 57579 59127"
 )
 
 local warnShadowFissure		= mod:NewSpellAnnounce(59127, nil, nil, nil, nil, nil, 2)
@@ -18,9 +18,9 @@ local timerShadowFissure	= mod:NewCastTimer(5, 59128, nil, nil, nil, 3)--Cast ti
 mod:GroupSpells(59127, 59128)--Shadow fissure with void blast
 
 function mod:SPELL_CAST_SUCCESS(args)
-    if args:IsSpellID(57579, 59127) then
-        warnShadowFissure:Show()
-        warnShadowFissure:Play("watchstep")
-        timerShadowFissure:Start()
-    end
+	if args:IsSpellID(57579, 59127) then
+		warnShadowFissure:Show()
+		warnShadowFissure:Play("watchstep")
+		timerShadowFissure:Start()
+	end
 end

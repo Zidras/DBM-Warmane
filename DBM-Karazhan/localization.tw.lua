@@ -165,8 +165,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	DBM_NS_EMOTE_PHASE_2 	= "%s陷入一陣狂怒!",
-	DBM_NS_EMOTE_PHASE_1 	= "%s大聲呼喊撤退，打開通往虛空的門。"
+	DBM_NS_EMOTE_PHASE_2	= "%s陷入一陣狂怒!",
+	DBM_NS_EMOTE_PHASE_1	= "%s大聲呼喊撤退，打開通往虛空的門。"
 })
 
 --Chess
@@ -223,10 +223,10 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	DBM_NB_EMOTE_PULL 		= "一個古老的生物在遠處甦醒過來...",
-	DBM_NB_YELL_AIR 		= "悲慘的害蟲。我將讓你消失在空氣中!",
-	DBM_NB_YELL_GROUND 		= "夠了!我要親自挑戰你!",
-	DBM_NB_YELL_GROUND2 	= "昆蟲!給你們近距離嚐嚐我的厲害!"
+	DBM_NB_EMOTE_PULL		= "一個古老的生物在遠處甦醒過來...",
+	DBM_NB_YELL_AIR		= "悲慘的害蟲。我將讓你消失在空氣中!",
+	DBM_NB_YELL_GROUND		= "夠了!我要親自挑戰你!",
+	DBM_NB_YELL_GROUND2	= "昆蟲!給你們近距離嚐嚐我的厲害!"
 })
 
 -- Named Beasts

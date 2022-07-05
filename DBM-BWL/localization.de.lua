@@ -23,7 +23,7 @@ L:SetMiscLocalization({
 	YellEgg1 = "Ihr werdet dafür bezahlen, dass Ihr mich zu soetwas gezwungen habt!",
 	YellEgg2 = "Narren! Diese Eier sind weit wertvoller als Ihr glaubt!",
 	YellEgg3 = "Nein - nicht noch einer! Für diese Gräueltat werdet Ihr mit Euren Köpfen bezahlen!",
-	YellPull 	= "Eindringlinge sind in die Brutstätte vorgestoßen! Schlagt Alarm! Beschützt die Eier um jeden Preis!"
+	YellPull	= "Eindringlinge sind in die Brutstätte vorgestoßen! Schlagt Alarm! Beschützt die Eier um jeden Preis!"
 })
 
 -------------------

@@ -32,7 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "Ihr provoziert die Bestie, jetzt werdet Ihr sie kennenlernen!",
+	YellBear	= "Ihr provoziert die Bestie, jetzt werdet Ihr sie kennenlernen!",
 	YellNormal	= "Macht Platz für Nalorakk!"
 })
 

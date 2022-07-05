@@ -31,7 +31,7 @@ mod:AddSetIconOption("beaconIcon", 74453, true, false, {8, 7, 6, 5, 4})
 mod:GroupSpells(74453, 74456, 74452)--Group target debuff ID with regular debuff IDs
 
 local beaconTargets = {}
-mod.vb.beaconIcon 	= 8
+mod.vb.beaconIcon	= 8
 
 local function warnConflagTargets(self)
 	warningWarnBeacon:Show(table.concat(beaconTargets, "<, >"))

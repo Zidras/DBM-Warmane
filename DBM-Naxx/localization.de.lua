@@ -343,7 +343,7 @@ L:SetOptionLocalization({
 	TimerLanding		= "Zeige Zeit bis nächste Bodenphase",
 	TimerIceBlast		= "Zeige Zeit bis $spell:28524",
 	WarningDeepBreath	= "Spezialwarnung für $spell:28524",
-	SpecWarnSapphLow 	= "Sonderwarnung für 10 % Ausführungsphase (Luftphase abbrechen)"
+	SpecWarnSapphLow	= "Sonderwarnung für 10 % Ausführungsphase (Luftphase abbrechen)"
 })
 
 L:SetMiscLocalization({

@@ -96,7 +96,7 @@ L:SetMiscLocalization({
 	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Tyrius Hoja Umbría",			-- 34461
 	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Kavina Canto Arboleda",	-- 34460
 	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Melador Caminavalles",		-- 34469
-	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Acechalunas",			-- 34467
+	Alyssia				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Acechalunas",			-- 34467
 	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Noozle Varapalo",			-- 34468
 	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Baelnor Portador de la Luz",	-- 34471
 	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Velanaa",						-- 34465
@@ -144,7 +144,7 @@ L:SetWarningLocalization({
 })
 
 L:SetMiscLocalization({
---	YellPull 	= "En el nombre de nuestro oscuro maestro. Por el Rey Exánime. Morirás.",
+--	YellPull	= "En el nombre de nuestro oscuro maestro. Por el Rey Exánime. Morirás.",
 --	CombatStart	= "Solo superaréis el reto final si trabajáis juntos. Desde las profundidades de Corona de Hielo, llegan dos de los tenientes más poderosos de la Plaga: las temibles Val'kyr, presagistas aladas del Rey Exánime.",	-- esES
 --	CombatStart	= "Sólo trabajando juntos superarán el desafío final. De las profundidades de Corona de Hielo llegan estos poderosos tenientes de la Plaga: ¡los val'kyres, heraldos alados del Rey Exánime!",	-- esMX
 	Fjola		= "Fjola Penívea",
@@ -172,7 +172,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization({
-	name 					= "Anub'arak"
+	name					= "Anub'arak"
 })
 
 L:SetTimerLocalization({

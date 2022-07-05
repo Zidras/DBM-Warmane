@@ -16,7 +16,7 @@
 --    * zhTW: Hman						herman_c1@hotmail.com
 --    * zhTW: Azael/kc10577				paul.poon.kw@gmail.com
 --    * koKR: BlueNyx/nBlueWiz			bluenyx@gmail.com / everfinale@gmail.com
---    * esES: Snamor/1nn7erpLaY      	romanscat@hotmail.com
+--    * esES: Snamor/1nn7erpLaY     	romanscat@hotmail.com
 --
 -- Special thanks to:
 --    * Arta
@@ -112,7 +112,7 @@ DBM:RegisterMapSize("BurningSteppes",		0, 2929.166595456, 1952.0834960900011)
 DBM:RegisterMapSize("CoTHillsbradFoothills", -- Caverns of Time: Old Hillsbrad Foothils (Party-BC)
 	0, 2331.2499389679997, 1554.16662597
 )
-DBM:RegisterMapSize("CoTMountHyjal", 		0, 2499.99975586, 1666.6665039)
+DBM:RegisterMapSize("CoTMountHyjal",		0, 2499.99975586, 1666.6665039)
 DBM:RegisterMapSize("CoTStratholme",		-- The Culling of Stratholme (Party-WotLK) ; API returns levels 1 and 2 - this is corrected with DungeonUsesTerrainMap()
 	0, 1824.999938962, 1216.6665039099998,	-- DUNGEON_FLOOR_COTSTRATHOLME0 = "The Road to Stratholme"
 	1, 1125.299987791, 750.19995117			-- DUNGEON_FLOOR_COTSTRATHOLME1 = "Stratholme City"
@@ -264,7 +264,7 @@ DBM:RegisterMapSize("Ogrimmar",				0, 1402.6044921899997, 935.41662598000016)
 DBM:RegisterMapSize("OnyxiasLair",			-- Onyxia's Lair (Raid-WotLK)
 	1, 483.117988587, 322.07878875759997
 )
-DBM:RegisterMapSize("PitofSaron", 			0, 1533.333312988, 1022.916671753) -- Pit of Saron (Party-WotLK)
+DBM:RegisterMapSize("PitofSaron",			0, 1533.333312988, 1022.916671753) -- Pit of Saron (Party-WotLK)
 DBM:RegisterMapSize("Ragefire",				-- Ragefire Chasm (Party-Classic)
 	1, 738.864013672, 492.57620239290003
 )
@@ -275,7 +275,7 @@ DBM:RegisterMapSize("RazorfenKraul",		-- Razorfen Kraul (Party-Classic)
 	1, 736.44995118, 490.95983886999988
 )
 DBM:RegisterMapSize("Redridge",				0, 2170.83325196, 1447.9160155999998)
-DBM:RegisterMapSize("RuinsofAhnQiraj", 		0, 2512.499877933, 1675) -- Ahn'Qiraj 20 (Raid-Classic)
+DBM:RegisterMapSize("RuinsofAhnQiraj",		0, 2512.499877933, 1675) -- Ahn'Qiraj 20 (Raid-Classic)
 
 DBM:RegisterMapSize("ScarletEnclave",		0, 3162.5, 2108.333374023)
 DBM:RegisterMapSize("ScarletMonastery",		-- Scarlet Monastery (Party-Classic)
@@ -542,7 +542,7 @@ do
 	end
 
 	-- local function setSpeed(self, option)
-	-- 	DBM.Options.RangeFrameUpdates = option
+	--	DBM.Options.RangeFrameUpdates = option
 	-- end
 
 	local function toggleLocked()
@@ -666,26 +666,26 @@ do
 				info.checked = (DBM.Options.RangeFrameFrames == "both")
 				UIDropDownMenu_AddButton(info, 2)
 			-- elseif menu == "speed" then
-			-- 	info = UIDropDownMenu_CreateInfo()
-			-- 	info.text = L.RANGECHECK_OPTION_SLOW
-			-- 	info.func = setSpeed
-			-- 	info.arg1 = "Slow"
-			-- 	info.checked = (DBM.Options.RangeFrameUpdates == "Slow")
-			-- 	UIDropDownMenu_AddButton(info, 2)
+			--	info = UIDropDownMenu_CreateInfo()
+			--	info.text = L.RANGECHECK_OPTION_SLOW
+			--	info.func = setSpeed
+			--	info.arg1 = "Slow"
+			--	info.checked = (DBM.Options.RangeFrameUpdates == "Slow")
+			--	UIDropDownMenu_AddButton(info, 2)
 
-			-- 	info = UIDropDownMenu_CreateInfo()
-			-- 	info.text = L.RANGECHECK_OPTION_AVERAGE
-			-- 	info.func = setSpeed
-			-- 	info.arg1 = "Average"
-			-- 	info.checked = (DBM.Options.RangeFrameUpdates == "Average")
-			-- 	UIDropDownMenu_AddButton(info, 2)
+			--	info = UIDropDownMenu_CreateInfo()
+			--	info.text = L.RANGECHECK_OPTION_AVERAGE
+			--	info.func = setSpeed
+			--	info.arg1 = "Average"
+			--	info.checked = (DBM.Options.RangeFrameUpdates == "Average")
+			--	UIDropDownMenu_AddButton(info, 2)
 
-			-- 	info = UIDropDownMenu_CreateInfo()
-			-- 	info.text = L.RANGECHECK_OPTION_FAST
-			-- 	info.func = setSpeed
-			-- 	info.arg1 = "Fast"
-			-- 	info.checked = (DBM.Options.RangeFrameUpdates == "Fast")
-			-- 	UIDropDownMenu_AddButton(info, 2)
+			--	info = UIDropDownMenu_CreateInfo()
+			--	info.text = L.RANGECHECK_OPTION_FAST
+			--	info.func = setSpeed
+			--	info.arg1 = "Fast"
+			--	info.checked = (DBM.Options.RangeFrameUpdates == "Fast")
+			--	UIDropDownMenu_AddButton(info, 2)
 			end
 		elseif level == 3 then
 			local option = menu

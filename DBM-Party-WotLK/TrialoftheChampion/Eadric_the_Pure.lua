@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnHammerofRighteous		= mod:NewSpellAnnounce(66867, 3)
-local warnVengeance             = mod:NewTargetNoFilterAnnounce(66889, 3)
+local warnVengeance				= mod:NewTargetNoFilterAnnounce(66889, 3)
 
 local specwarnRadiance			= mod:NewSpecialWarningLookAway(66935, nil, nil, nil, 2, 2)
 local specwarnHammerofJustice	= mod:NewSpecialWarningDispel(66940, "Healer", nil, nil, 1, 2)

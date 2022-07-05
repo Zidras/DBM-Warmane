@@ -339,7 +339,7 @@ L:SetOptionLocalization({
 	WarningLanded		= "Announce ground phase",
 	TimerAir			= "Show timer for air phase",
 	TimerLanding		= "Show timer for landing",
-	SpecWarnSapphLow 	= "Special warning for 10% execute phase (cancel air phase)"
+	SpecWarnSapphLow	= "Special warning for 10% execute phase (cancel air phase)"
 })
 
 L:SetMiscLocalization({

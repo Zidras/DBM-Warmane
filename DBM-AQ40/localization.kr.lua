@@ -66,9 +66,9 @@ L:SetMiscLocalization({
 	Slow	= "느려지기 시작했습니다!",
 	Freezing= "얼어붙고 있습니다!",
 	Frozen	= "단단하게 얼었습니다!",
-	Phase4 	= "분해되기 시작합니다!",
-	Phase5 	= "부서질 것 같습니다!",
-	Phase6 	= "폭발",
+	Phase4	= "분해되기 시작합니다!",
+	Phase5	= "부서질 것 같습니다!",
+	Phase6	= "폭발",
 
 	HitsRemain	= "냉기 타격 남은 횟수",
 	Frost		= "냉기",
@@ -141,7 +141,7 @@ L:SetMiscLocalization({
 	Stomach		= "뱃속",
 	Eye			= "쑨의 눈",
 	FleshTent	= "식인 촉수",--Localized so it shows on frame in users language, not senders
-	Weakened 	= "약해집니다!",
+	Weakened	= "약해집니다!",
 	NotValid	= "안퀴40 레이드를 일부만 클리어 했습니다. 부차적인 네임드가 %s마리 남아있습니다."
 })
 

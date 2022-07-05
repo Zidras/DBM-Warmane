@@ -53,8 +53,8 @@ end
 function mod:UNIT_DIED(args)
 	if bit.band(args.destGUID:sub(0, 5), 0x00F) == 3 then
 		local z = mod:GetCIDFromGUID(args.destGUID)
-		if z == 29266 or z == 29312 or z == 29313 or z == 29314 or z == 29315 or z == 29316  		-- bosses
-		or z == 32226 or z == 32230 or z == 32231 or z == 32234 or z == 32235 or z == 32237 then 	-- boss spirits (in case you wipe)
+		if z == 29266 or z == 29312 or z == 29313 or z == 29314 or z == 29315 or z == 29316 		-- bosses
+		or z == 32226 or z == 32230 or z == 32231 or z == 32234 or z == 32235 or z == 32237 then	-- boss spirits (in case you wipe)
 			timerPortalIn:Start(35, lastWave + 1)
 			warningPortalSoon:Schedule(30)
 		end

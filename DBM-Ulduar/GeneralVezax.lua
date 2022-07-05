@@ -26,7 +26,7 @@ local yellShadowCrash			= mod:NewYell(62660)
 local specWarnSurgeDarkness		= mod:NewSpecialWarningDefensive(62662, nil, nil, 2, 1, 2)
 local specWarnLifeLeechYou		= mod:NewSpecialWarningMoveAway(63276, nil, nil, nil, 3, 2)
 local yellLifeLeech				= mod:NewYell(63276)
-local specWarnLifeLeechNear 	= mod:NewSpecialWarningClose(63276, nil, nil, 2, 1, 2)
+local specWarnLifeLeechNear	= mod:NewSpecialWarningClose(63276, nil, nil, 2, 1, 2)
 local specWarnSearingFlames		= mod:NewSpecialWarningInterruptCount(62661, "HasInterrupt", nil, nil, 1, 2)
 
 local timerEnrage				= mod:NewBerserkTimer(600)

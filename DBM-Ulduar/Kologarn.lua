@@ -40,7 +40,7 @@ local specWarnEyebeam			= mod:NewSpecialWarningRun(63346, nil, nil, nil, 4, 2)
 local specWarnEyebeamNear		= mod:NewSpecialWarningClose(63346, nil, nil, nil, 1, 2)
 local yellBeam					= mod:NewYell(63346)
 
-local timerCrunch10             = mod:NewTargetTimer(6, 63355)
+local timerCrunch10				= mod:NewTargetTimer(6, 63355)
 local timerNextSmash			= mod:NewCDTimer(20.4, 64003, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextEyebeam			= mod:NewCDTimer(18.2, 63346, nil, nil, nil, 3)
 
@@ -122,11 +122,11 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(64290, 64292) then
 		self:SetIcon(args.destName, 0)
-    end
+	end
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 32934 then 		-- right arm
+	if self:GetCIDFromGUID(args.destGUID) == 32934 then		-- right arm
 		timerRespawnRightArm:Start()
 		timerNextGrip:Cancel()
 		if not self.vb.disarmActive then

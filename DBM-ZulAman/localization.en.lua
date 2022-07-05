@@ -31,7 +31,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "You call on da beast, you gonna get more dan you bargain for!",
+	YellBear	= "You call on da beast, you gonna get more dan you bargain for!",
 	YellNormal	= "Make way for Nalorakk!"
 })
 

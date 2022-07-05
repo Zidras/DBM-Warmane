@@ -32,7 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "你们召唤野兽？你马上就要大大的后悔了！",
+	YellBear	= "你们召唤野兽？你马上就要大大的后悔了！",
 	YellNormal	= "纳洛拉克，变形，出发！"
 })
 

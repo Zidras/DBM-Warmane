@@ -16,13 +16,13 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 33923 38796"
 )
 
-local warnTouch         = mod:NewTargetAnnounce(33711, 3)
+local warnTouch			= mod:NewTargetAnnounce(33711, 3)
 
 local specWarnBoom		= mod:NewSpecialWarningRun(33923, nil, nil, nil, 4, 2)
 local specWarnTouch		= mod:NewSpecialWarningMoveAway(33711, nil, nil, nil, 1, 2)
 
-local timerBoomCast     = mod:NewCastTimer(5, 33923, nil, nil, nil, 2)
-local timerTouch        = mod:NewTargetTimer(14, 33711, nil, nil, nil, 3)
+local timerBoomCast		= mod:NewCastTimer(5, 33923, nil, nil, nil, 2)
+local timerTouch		= mod:NewTargetTimer(14, 33711, nil, nil, nil, 3)
 
 mod:AddSetIconOption("SetIconOnTouchTarget", 33711, true, false, {8})
 
@@ -41,11 +41,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 8, 14)
 		end
 		if args:IsPlayer() then
-            specWarnTouch:Show()
-            specWarnTouch:Play("runout")
-        else
+			specWarnTouch:Show()
+			specWarnTouch:Play("runout")
+		else
 			warnTouch:Show(args.destName)
-        end
+		end
 	end
 end
 

@@ -32,7 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "你們既然將野獸召喚出來，就將付出更多的代價!",
+	YellBear	= "你們既然將野獸召喚出來，就將付出更多的代價!",
 	YellNormal	= "沒有人可以擋在納羅拉克的面前!"
 })
 

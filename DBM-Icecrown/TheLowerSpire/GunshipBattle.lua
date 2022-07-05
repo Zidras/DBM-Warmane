@@ -9,13 +9,13 @@ mod:SetMinSyncRevision(4400)
 if UnitFactionGroup("player") == "Alliance" then
 	--mod:RegisterCombat("yell", L.CombatAlliance)
 	mod:RegisterKill("yell", L.KillAlliance)
-	mod:SetCreatureID(36939, 37215)    -- High Overlord Saurfang, Orgrim's Hammer
+	mod:SetCreatureID(36939, 37215)	-- High Overlord Saurfang, Orgrim's Hammer
 	addsIcon = 23334
 	bossID = 36939
 else
 	--mod:RegisterCombat("yell", L.CombatHorde)
 	mod:RegisterKill("yell", L.KillHorde)
-	mod:SetCreatureID(36948, 37540)    -- Muradin Bronzebeard, The Skybreaker
+	mod:SetCreatureID(36948, 37540)	-- Muradin Bronzebeard, The Skybreaker
 	addsIcon = 23336
 	bossID = 36948
 end

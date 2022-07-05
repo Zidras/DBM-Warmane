@@ -55,7 +55,7 @@ L:SetMiscLocalization({
 	BasesToWin			= "勝利需要基地: %d",
 	WinBarText			= "%s 勝利",
 	-- Flag carrying system
-	Flag 				= "旗幟",
+	Flag				= "旗幟",
 	FlagResetTC			= "旗幟已重置。",
 	FlagTakenTC			= "(.+)已經奪走了旗幟!",
 	FlagCapturedTC		= ".+已奪得旗幟!",
@@ -123,7 +123,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("ArathiBasin")
 
 L:SetGeneralLocalization({
-	name 				= "阿拉希盆地"
+	name				= "阿拉希盆地"
 })
 
 ------------------------
@@ -132,7 +132,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("EyeoftheStorm")
 
 L:SetGeneralLocalization({
-	name 				= "暴風之眼"
+	name				= "暴風之眼"
 })
 
 ---------------------
@@ -141,7 +141,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("WarsongGulch")
 
 L:SetGeneralLocalization({
-	name 				= "戰歌峽谷"
+	name				= "戰歌峽谷"
 })
 
 ------------------------------
@@ -160,7 +160,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("IsleofConquest")
 
 L:SetGeneralLocalization({
-	name 				= "征服之島"
+	name				= "征服之島"
 })
 
 L:SetWarningLocalization({

@@ -59,66 +59,66 @@ local FACTION_ALLIANCE, FACTION_HORDE = FACTION_ALLIANCE, FACTION_HORDE
 
 -- Announce: 1 - target player with CC, 2 - target player no CC, 3 - target self (npc)
 -- Death Knight
-local warnChainsofIce		= mod:NewTargetNoFilterAnnounce(66020, 2) 		-- 66020
+local warnChainsofIce		= mod:NewTargetNoFilterAnnounce(66020, 2)		-- 66020
 local warnDeathgrip			= mod:NewTargetNoFilterAnnounce(66017, 2)
 -- Paladin
 local warnHandofFreedom		= mod:NewTargetNoFilterAnnounce(66115, 2)
-local warnHandofProt		= mod:NewTargetNoFilterAnnounce(66009, 3) 		-- 66009
-local warnHoJ				= mod:NewTargetNoFilterAnnounce(66613, 1) 		-- 66613, 66607
-local warnRepentance		= mod:NewTargetNoFilterAnnounce(66008, 1) 		-- 66008
-local warnDivineShield		= mod:NewSpellAnnounce(66010, 3) 				-- 66010
-local warnAvengingWrath		= mod:NewSpellAnnounce(66011, 3) 				-- 66011
+local warnHandofProt		= mod:NewTargetNoFilterAnnounce(66009, 3)		-- 66009
+local warnHoJ				= mod:NewTargetNoFilterAnnounce(66613, 1)		-- 66613, 66607
+local warnRepentance		= mod:NewTargetNoFilterAnnounce(66008, 1)		-- 66008
+local warnDivineShield		= mod:NewSpellAnnounce(66010, 3)				-- 66010
+local warnAvengingWrath		= mod:NewSpellAnnounce(66011, 3)				-- 66011
 -- Mage
-local warnIceBlock			= mod:NewSpellAnnounce(65802, 3) 				-- 65802
+local warnIceBlock			= mod:NewSpellAnnounce(65802, 3)				-- 65802
 local warnSheep				= mod:NewTargetNoFilterAnnounce(65801, 1, nil, false)
-local warnBlink				= mod:NewSpellAnnounce(65793, 3) 				-- 65793
+local warnBlink				= mod:NewSpellAnnounce(65793, 3)				-- 65793
 local warnCounterspell		= mod:NewTargetNoFilterAnnounce(65790, 1)		-- 65790
 -- Warlock
 local warnHellfire			= mod:NewSpellAnnounce(65816, 4)
-local warnFear				= mod:NewTargetNoFilterAnnounce(65809, 1) 		-- 65809
-local warnDeathCoil			= mod:NewTargetNoFilterAnnounce(65820, 1) 		-- 65820
+local warnFear				= mod:NewTargetNoFilterAnnounce(65809, 1)		-- 65809
+local warnDeathCoil			= mod:NewTargetNoFilterAnnounce(65820, 1)		-- 65820
 -- Warrior
-local preWarnBladestorm 	= mod:NewSoonAnnounce(65947, 3)
+local preWarnBladestorm	= mod:NewSoonAnnounce(65947, 3)
 local warnBladestorm		= mod:NewSpellAnnounce(65947, 4)
-local warnCharge			= mod:NewTargetNoFilterAnnounce(65927, 2) 		-- 65927, 65929
-local warnRetaliation		= mod:NewSpellAnnounce(65932, 3) 				-- 65932
-local warnIntimidatingShout	= mod:NewSpellAnnounce(65931, 1) 				-- 65931
+local warnCharge			= mod:NewTargetNoFilterAnnounce(65927, 2)		-- 65927, 65929
+local warnRetaliation		= mod:NewSpellAnnounce(65932, 3)				-- 65932
+local warnIntimidatingShout	= mod:NewSpellAnnounce(65931, 1)				-- 65931
 -- Shaman
 local warnHeroism			= mod:NewSpellAnnounce(65983, 3)
 local warnBloodlust			= mod:NewSpellAnnounce(65980, 3)
-local warnEarthShield		= mod:NewTargetNoFilterAnnounce(66063, 3) 		-- 66063
-local warnHex				= mod:NewTargetNoFilterAnnounce(66054, 1) 		-- 66054
+local warnEarthShield		= mod:NewTargetNoFilterAnnounce(66063, 3)		-- 66063
+local warnHex				= mod:NewTargetNoFilterAnnounce(66054, 1)		-- 66054
 -- Priest
-local warnDispersion		= mod:NewSpellAnnounce(65544, 3) 				-- 65544
-local warnPsychicScream		= mod:NewSpellAnnounce(65543, 1) 				-- 65543
-local warnPsychicHorror		= mod:NewTargetNoFilterAnnounce(65545, 1) 		-- 65545
-local warnSilence			= mod:NewTargetNoFilterAnnounce(65542, 1) 		-- 65542
+local warnDispersion		= mod:NewSpellAnnounce(65544, 3)				-- 65544
+local warnPsychicScream		= mod:NewSpellAnnounce(65543, 1)				-- 65543
+local warnPsychicHorror		= mod:NewTargetNoFilterAnnounce(65545, 1)		-- 65545
+local warnSilence			= mod:NewTargetNoFilterAnnounce(65542, 1)		-- 65542
 -- Druid
-local warnBarkskin			= mod:NewSpellAnnounce(65860, 3) 				-- 65860
-local warnTranquility		= mod:NewSpellAnnounce(66086, 4) 				-- 66086, 67976, 67975, 67974
-local warnEntanglingRoots	= mod:NewTargetNoFilterAnnounce(65857, 1) 		-- 65857
+local warnBarkskin			= mod:NewSpellAnnounce(65860, 3)				-- 65860
+local warnTranquility		= mod:NewSpellAnnounce(66086, 4)				-- 66086, 67976, 67975, 67974
+local warnEntanglingRoots	= mod:NewTargetNoFilterAnnounce(65857, 1)		-- 65857
 local warnCyclone			= mod:NewTargetNoFilterAnnounce(65859, 1, nil, false)
 -- Rogue
 local warnShadowstep		= mod:NewSpellAnnounce(66178, 2)
-local warnBlind				= mod:NewTargetNoFilterAnnounce(65960, 1) 		-- 65960
-local warnCloakOfShadows	= mod:NewSpellAnnounce(65961, 3) 				-- 65961
+local warnBlind				= mod:NewTargetNoFilterAnnounce(65960, 1)		-- 65960
+local warnCloakOfShadows	= mod:NewSpellAnnounce(65961, 3)				-- 65961
 -- Hunter
-local warnDeterrence		= mod:NewSpellAnnounce(65871, 3) 				-- 65871
-local warnWingClip			= mod:NewTargetNoFilterAnnounce(66207, 1) 		-- 66207
-local warnWyvernSting		= mod:NewTargetNoFilterAnnounce(65878, 1) 		-- 65878, 65877
-local warnFrostTrap			= mod:NewSpellAnnounce(65880, 3) 				-- 65880
-local warnDisengage			= mod:NewSpellAnnounce(65869, 3) 				-- 65869
+local warnDeterrence		= mod:NewSpellAnnounce(65871, 3)				-- 65871
+local warnWingClip			= mod:NewTargetNoFilterAnnounce(66207, 1)		-- 66207
+local warnWyvernSting		= mod:NewTargetNoFilterAnnounce(65878, 1)		-- 65878, 65877
+local warnFrostTrap			= mod:NewSpellAnnounce(65880, 3)				-- 65880
+local warnDisengage			= mod:NewSpellAnnounce(65869, 3)				-- 65869
 
 local specWarnHellfire		= mod:NewSpecialWarningMove(65816, nil, nil, nil, 1, 2)
 local specWarnHandofProt	= mod:NewSpecialWarningDispel(66009, "RemoveInvulnerabilities", nil, nil, 1, 2)
 local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, "RemoveInvulnerabilities", nil, nil, 1, 2)
 local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, "RemoveInvulnerabilities", nil, nil, 1, 2)
 local specWarnHandofFreedom	= mod:NewSpecialWarningDispel(66115, "MagicDispeller", nil, nil, 1, 2)
-local specWarnTranquility 	= mod:NewSpecialWarningInterrupt(66086)
+local specWarnTranquility	= mod:NewSpecialWarningInterrupt(66086)
 local specWarnEarthShield	= mod:NewSpecialWarningDispel(66063, "MagicDispeller")
 local specWarnAvengingWrath = mod:NewSpecialWarningDispel(66011, "MagicDispeller")
-local specWarnBloodlust 	= mod:NewSpecialWarningDispel(65980, "MagicDispeller", nil, nil, 1, 2)
-local specWarnHeroism 		= mod:NewSpecialWarningDispel(65983, "MagicDispeller", nil, nil, 1, 2)
+local specWarnBloodlust	= mod:NewSpecialWarningDispel(65980, "MagicDispeller", nil, nil, 1, 2)
+local specWarnHeroism		= mod:NewSpecialWarningDispel(65983, "MagicDispeller", nil, nil, 1, 2)
 
 local timerBladestorm		= mod:NewBuffActiveTimer(8, 65947, nil, nil, nil, 2)
 local timerShadowstepCD		= mod:NewCDTimer(30, 66178, nil, nil, nil, 3)
@@ -131,7 +131,7 @@ local timerPsychicScreamCD	= mod:NewCDTimer(30, 65543)
 local timerBlinkCD			= mod:NewCDTimer(15, 65793)
 local timerHoJCD			= mod:NewCDTimer(40, 66613)
 local timerRepentanceCD		= mod:NewCDTimer(60, 66008)
-local timerHoPCD 			= mod:NewCDTimer(300, 66009)
+local timerHoPCD			= mod:NewCDTimer(300, 66009)
 local timerSilenceCD		= mod:NewCDTimer(45, 65542)
 local timerHeroismCD		= mod:NewCDTimer(300, 65983)
 local timerBloodlustCD		= mod:NewCDTimer(300, 65980)
@@ -146,7 +146,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerShadowstepCD:Start()
 		end
-	elseif spellId == 66020 and args:IsDestTypePlayer() then 	-- Chains of Ice
+	elseif spellId == 66020 and args:IsDestTypePlayer() then	-- Chains of Ice
 		warnChainsofIce:Show(args.destName)
 	-- Paladin
 	elseif args:IsSpellID(68758, 68757, 68756, 66115) and not args:IsDestTypePlayer() then	-- Hand of Freedom

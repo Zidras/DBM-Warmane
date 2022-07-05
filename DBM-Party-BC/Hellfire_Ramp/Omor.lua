@@ -14,12 +14,12 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 37566"
 )
 
-local warnBane      = mod:NewTargetNoFilterAnnounce(37566)
+local warnBane		= mod:NewTargetNoFilterAnnounce(37566)
 
-local specwarnBane  = mod:NewSpecialWarningMoveAway(37566, nil, nil, nil, 1, 2)
+local specwarnBane	= mod:NewSpecialWarningMoveAway(37566, nil, nil, nil, 1, 2)
 local yellBane		= mod:NewYell(37566)
 
-local timerBane     = mod:NewTargetTimer(15, 37566, nil, nil, nil, 3)
+local timerBane		= mod:NewTargetTimer(15, 37566, nil, nil, nil, 3)
 
 mod:AddSetIconOption("SetIconOnBaneTarget", 37566, true, false, {8})
 mod:AddRangeFrameOption(37566, 15)
@@ -37,15 +37,15 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 8, 15)
 		end
 		if args:IsPlayer() then
-            specwarnBane:Show()
-            specwarnBane:Play("runout")
-            yellBane:Yell()
+			specwarnBane:Show()
+			specwarnBane:Play("runout")
+			yellBane:Yell()
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(15)
 			end
 		else
 			warnBane:Show(args.destName)
-        end
+		end
 	end
 end
 

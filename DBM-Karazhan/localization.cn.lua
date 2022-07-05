@@ -146,8 +146,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	DBM_NB_DOWN_WARN 		= "15秒后夜之魇着陆",
-	DBM_NB_DOWN_WARN2 		= "5秒后夜之魇着陆",
+	DBM_NB_DOWN_WARN		= "15秒后夜之魇着陆",
+	DBM_NB_DOWN_WARN2		= "5秒后夜之魇着陆",
 	DBM_NB_AIR_WARN			= "空中阶段"
 })
 

@@ -22,7 +22,7 @@ L:SetMiscLocalization({
 	YellEgg1 = "You'll pay for forcing me to do this!",
 	YellEgg2 = "Fools! These eggs are more precious than you know!",
 	YellEgg3 = "No - not another one! I'll have your heads for this atrocity!",
-	YellPull 	= "Intruders have breached the hatchery! Sound the alarm! Protect the eggs at all costs!\r\n"--Yes this yell actually has a return and new line in it. as grabbed by transcriptor
+	YellPull	= "Intruders have breached the hatchery! Sound the alarm! Protect the eggs at all costs!\r\n"--Yes this yell actually has a return and new line in it. as grabbed by transcriptor
 })
 
 -------------------

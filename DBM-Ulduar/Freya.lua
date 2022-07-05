@@ -29,7 +29,7 @@ mod:RegisterEventsInCombat(
 -- General
 local warnSimulKill			= mod:NewAnnounce("WarnSimulKill", 1)
 
-local timerEnrage 			= mod:NewBerserkTimer(600)
+local timerEnrage			= mod:NewBerserkTimer(600)
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
@@ -64,7 +64,7 @@ local yellIronRoots			= mod:NewYell(62438)
 local specWarnGroundTremor	= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode Elder Stonebark Alive
 local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
 
-local timerGroundTremorCD 	= mod:NewCDTimer(26, 62859, 62859, nil, nil, nil, 2)--22.9-47.8
+local timerGroundTremorCD	= mod:NewCDTimer(26, 62859, 62859, nil, nil, nil, 2)--22.9-47.8
 local timerIronRootsCD		= mod:NewCDTimer(14, 62438, nil, nil, nil, 3)
 local timerUnstableBeamCD	= mod:NewCDTimer(15, 62865) -- Hard mode Sun Beam
 
@@ -174,23 +174,23 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-    if args.spellId == 62519 then
+	if args.spellId == 62519 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		self:SetStage(2)
-    elseif args:IsSpellID(62861, 62438) then
+	elseif args:IsSpellID(62861, 62438) then
 		if self.Options.SetIconOnRoots then
 			self:RemoveIcon(args.destName)
 		end
 		self.vb.iconId = self.vb.iconId + 1
-    elseif args:IsSpellID(63571, 62589) then -- Nature's Fury
+	elseif args:IsSpellID(63571, 62589) then -- Nature's Fury
 		if self.Options.SetIconOnFury then
 			self:RemoveIcon(args.destName)
 		end
 		if args:IsPlayer() and self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
-    end
+	end
 end
 
 function mod:UNIT_DIED(args)

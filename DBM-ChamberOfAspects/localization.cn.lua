@@ -68,18 +68,18 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	AnnounceFails           = "公布踩中暗影裂隙和撞上烈焰之啸的玩家到团队频道 (需要团长或助理权限)",
-	TimerTenebron           = "为塔尼布隆到来显示计时条",
-	TimerShadron            = "为沙德隆到来显示计时条",
-	TimerVesperon           = "为维斯匹隆到来显示计时条",
+	AnnounceFails			= "公布踩中暗影裂隙和撞上烈焰之啸的玩家到团队频道 (需要团长或助理权限)",
+	TimerTenebron			= "为塔尼布隆到来显示计时条",
+	TimerShadron			= "为沙德隆到来显示计时条",
+	TimerVesperon			= "为维斯匹隆到来显示计时条",
 	TimerTenebronWhelps		= "显示铁粉幼崽的计时器",
 	TimerShadronPortal		= "显示沙龙传送门的计时器",
 	TimerVesperonPortal		= "显示维斯匹隆传送门的计时器",
 	TimerVesperonPortal2	= "显示维斯匹隆传送门的计时器 2",
-	WarningFireWall         = "为烈焰之啸显示特别警报",
-	WarningTenebron         = "提示塔尼布隆到来",
-	WarningShadron          = "提示沙德隆到来",
-	WarningVesperon         = "提示维斯匹隆到来",
+	WarningFireWall			= "为烈焰之啸显示特别警报",
+	WarningTenebron			= "提示塔尼布隆到来",
+	WarningShadron			= "提示沙德隆到来",
+	WarningVesperon			= "提示维斯匹隆到来",
 	WarningWhelpsSoon		= "很快宣布铁粉幼崽",
 	WarningPortalSoon		= "很快宣布沙龙传送门",
 	WarningReflectSoon		= "宣布维斯匹隆反映很快",
@@ -112,7 +112,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon 	= "分裂 即将到来"
+	WarningSplitSoon	= "分裂 即将到来"
 })
 
 L:SetOptionLocalization({

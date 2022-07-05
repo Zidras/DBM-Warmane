@@ -65,9 +65,9 @@ L:SetMiscLocalization({
 	Slow	= "begins to slow",
 	Freezing= "is freezing up",
 	Frozen	= "is frozen solid",
-	Phase4 	= "begins to crack",
-	Phase5 	= "looks ready to shatter",
-	Phase6 	= "Explodes.",
+	Phase4	= "begins to crack",
+	Phase5	= "looks ready to shatter",
+	Phase6	= "Explodes.",
 
 	HitsRemain	= "Hits Remaining",
 	Frost		= "Frost",
@@ -140,7 +140,7 @@ L:SetMiscLocalization({
 	Stomach		= "Stomach",
 	Eye			= "Eye of C'Thun",
 	FleshTent	= "Flesh Tentacle",--Localized so it shows on frame in users language, not senders
-	Weakened 	= "weaken",
+	Weakened	= "weaken",
 	NotValid	= "AQ40 partially cleared. %s optional bosses remain."
 })
 

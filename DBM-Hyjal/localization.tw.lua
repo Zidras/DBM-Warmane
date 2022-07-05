@@ -53,7 +53,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization({
-	name 		= "小怪模組"
+	name		= "小怪模組"
 })
 
 L:SetWarningLocalization({

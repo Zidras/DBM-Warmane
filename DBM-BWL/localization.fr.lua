@@ -173,16 +173,16 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    YellP1			= "Que les jeux commencent !",
-    YellP2			= "Beau travail ! Le courage des mortels commence à faiblir ! Voyons maintenant s'ils peuvent lutter contre le véritable seigneur du pic Blackrock !",
-    YellP3			= "C'est impossible ! Relevez-vous, serviteurs ! Servez une nouvelle fois votre maître !",
-    YellShaman		= "Chamans, montrez-moi ce que vos totems peuvent faire !",
-    YellPaladin		= "Les paladins... J'en entendu dire que vous aviez de nombreuses vies... Montrez-moi.",
-    YellDruid		= "Les druides et leur stupides changements de forme. Voyons ce qu'ils donnent en vrai...",
-    YellPriest		= "Prêtres ! Si vous continuez à soigner comme ça, nous pourrions rendre le processus plus intéressant !",
-    YellWarrior		= "Guerriers, je sais que vous pouvez frapper plus fort que ça ! Voyons ça !",
-    YellRogue		= "Voleurs, arrêtez de vous cacher et affrontez-moi !",
-    YellWarlock		= "Démonistes, vous ne devriez pas jouer avec une magie qui vous dépasse. Vous voyez ce qui arrive ?",
-    YellHunter		= "Ah, les chasseurs et les stupides sarbacanes !",
-    YellMage		= "Les mages aussi ? Vous devriez être plus prudents lorsque vous jouez avec la magie."
+	YellP1			= "Que les jeux commencent !",
+	YellP2			= "Beau travail ! Le courage des mortels commence à faiblir ! Voyons maintenant s'ils peuvent lutter contre le véritable seigneur du pic Blackrock !",
+	YellP3			= "C'est impossible ! Relevez-vous, serviteurs ! Servez une nouvelle fois votre maître !",
+	YellShaman		= "Chamans, montrez-moi ce que vos totems peuvent faire !",
+	YellPaladin		= "Les paladins... J'en entendu dire que vous aviez de nombreuses vies... Montrez-moi.",
+	YellDruid		= "Les druides et leur stupides changements de forme. Voyons ce qu'ils donnent en vrai...",
+	YellPriest		= "Prêtres ! Si vous continuez à soigner comme ça, nous pourrions rendre le processus plus intéressant !",
+	YellWarrior		= "Guerriers, je sais que vous pouvez frapper plus fort que ça ! Voyons ça !",
+	YellRogue		= "Voleurs, arrêtez de vous cacher et affrontez-moi !",
+	YellWarlock		= "Démonistes, vous ne devriez pas jouer avec une magie qui vous dépasse. Vous voyez ce qui arrive ?",
+	YellHunter		= "Ah, les chasseurs et les stupides sarbacanes !",
+	YellMage		= "Les mages aussi ? Vous devriez être plus prudents lorsque vous jouez avec la magie."
 })

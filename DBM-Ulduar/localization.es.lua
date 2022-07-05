@@ -373,10 +373,10 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGuardianSpawned 			= "Guardián (%d)",
+	WarningGuardianSpawned			= "Guardián (%d)",
 	WarningCrusherTentacleSpawned	= "Tentáculo triturador",
-	WarningSanity 					= "%d de Cordura restante",
-	SpecWarnSanity 					= "%d de Cordura restante",
+	WarningSanity					= "%d de Cordura restante",
+	SpecWarnSanity					= "%d de Cordura restante",
 	SpecWarnGuardianLow				= "Guardián a poca salud - ¡deja de atacar!",
 	SpecWarnMadnessOutNow			= "Inducir a la locura en breve - ¡sal ya!",
 	WarnBrainPortalSoon				= "Portales en 3 s",

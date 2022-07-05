@@ -177,8 +177,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnCatDied 	= "野性防衛者倒下 (剩餘%d隻)",
-	WarnCatDiedOne 	= "野性防衛者倒下 (剩下最後一隻)"
+	WarnCatDied	= "野性防衛者倒下 (剩餘%d隻)",
+	WarnCatDiedOne	= "野性防衛者倒下 (剩下最後一隻)"
 })
 
 L:SetTimerLocalization({
@@ -364,10 +364,10 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGuardianSpawned 			= "第%d個尤格薩倫守護者出現了",
+	WarningGuardianSpawned			= "第%d個尤格薩倫守護者出現了",
 	WarningCrusherTentacleSpawned	= "粉碎觸手出現了",
-	WarningSanity 					= "剩下%d理智",
-	SpecWarnSanity 					= "剩下%d理智",
+	WarningSanity					= "剩下%d理智",
+	SpecWarnSanity					= "剩下%d理智",
 	SpecWarnGuardianLow				= "停止攻擊這隻守護者",
 	SpecWarnMadnessOutNow			= "瘋狂誘陷即將結束 - 快傳送出去",
 	WarnBrainPortalSoon				= "3秒後腦部傳送門",

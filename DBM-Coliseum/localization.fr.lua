@@ -88,7 +88,7 @@ L:SetMiscLocalization({
 	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t Tyrius Lamebrune",			-- 34461
 	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Kavina Chantebosquet",		-- 34460
 	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t Melador Arpenteval",		-- 34469
-	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Traquelune",			-- 34467
+	Alyssia				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t Alyssia Traquelune",			-- 34467
 	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t Touillert Vizitige",		-- 34468
 	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Baelnor Portelumière",		-- 34471
 	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t Velanaa",						-- 34465
@@ -129,7 +129,7 @@ L:SetWarningLocalization({
 })
 
 L:SetMiscLocalization({
---	YellPull 	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
+--	YellPull	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
 --	CombatStart	= "Ce n'est qu'en travaillant côte à côte que vous pourrez triompher de l'ultime défi. Venus des profondeurs de la Couronne de glace, voici deux des lieutenants les plus puissants du Fléau : de redoutables val'kyrs, messagères ailées du roi-liche !",
 	Fjola		= "Fjola Plaie-lumineuse",
 	Eydis		= "Eydis Plaie-sombre",
@@ -155,7 +155,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization({
-	name 					= "Anub'arak"
+	name					= "Anub'arak"
 })
 
 L:SetTimerLocalization({

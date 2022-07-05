@@ -14,22 +14,22 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
-local warnSwarm 		= mod:NewTargetAnnounce(64396, 2)
-local warnFearSoon	 	= mod:NewSoonAnnounce(64386, 1)
-local warnCatDied 		= mod:NewAnnounce("WarnCatDied", 3, 64455)
+local warnSwarm		= mod:NewTargetAnnounce(64396, 2)
+local warnFearSoon		= mod:NewSoonAnnounce(64386, 1)
+local warnCatDied		= mod:NewAnnounce("WarnCatDied", 3, 64455)
 local warnCatDiedOne	= mod:NewAnnounce("WarnCatDiedOne", 3, 64455)
 
 local specWarnFear		= mod:NewSpecialWarningSpell(64386, nil, nil, nil, 2, 2)
 local specWarnBlast		= mod:NewSpecialWarningInterrupt(64389, "HasInterrupt", nil, 2, 1, 2)
-local specWarnVoid 		= mod:NewSpecialWarningMove(64675, nil, nil, nil, 1, 2)
+local specWarnVoid		= mod:NewSpecialWarningMove(64675, nil, nil, nil, 1, 2)
 local specWarnSonic		= mod:NewSpecialWarningMoveTo(64688, nil, nil, nil, 2, 2)
 
 local enrageTimer		= mod:NewBerserkTimer(600)
-local timerDefender 	= mod:NewTimer(30, "timerDefender", 64455, nil, nil, 1)
+local timerDefender	= mod:NewTimer(30, "timerDefender", 64455, nil, nil, 1)
 local timerFear			= mod:NewCastTimer(64386, nil, nil, nil, 4)
-local timerNextFear 	= mod:NewNextTimer(30, 64386, nil, nil, nil, 4)
-local timerNextSwarm 	= mod:NewNextTimer(36, 64396, nil, nil, nil, 1)
-local timerNextSonic 	= mod:NewNextTimer(25, 64688, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerNextFear	= mod:NewNextTimer(30, 64386, nil, nil, nil, 4)
+local timerNextSwarm	= mod:NewNextTimer(36, 64396, nil, nil, nil, 1)
+local timerNextSonic	= mod:NewNextTimer(25, 64688, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerSonic		= mod:NewCastTimer(64688, nil, nil, nil, 2)
 
 mod.vb.catLives = 9

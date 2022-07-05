@@ -9,7 +9,7 @@ local L
 L = DBM:GetModLocalization("GhamooRa")
 
 L:SetGeneralLocalization({
-	name 		= "가무라"
+	name		= "가무라"
 })
 
 -----------------------------
@@ -18,7 +18,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LadySerevess")
 
 L:SetGeneralLocalization({
-	name 		= "여왕 사레베스"
+	name		= "여왕 사레베스"
 })
 
 -----------------------------
@@ -27,7 +27,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Gelihast")
 
 L:SetGeneralLocalization({
-	name 		= "겔리하스트"
+	name		= "겔리하스트"
 })
 
 -----------------------------
@@ -36,7 +36,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OldSerrakis")
 
 L:SetGeneralLocalization({
-	name 		= "늙은 세라키스"
+	name		= "늙은 세라키스"
 })
 
 -----------------------------
@@ -45,7 +45,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("TwilightLordKelris")
 
 L:SetGeneralLocalization({
-	name 		= "황혼의 군주 켈리스"
+	name		= "황혼의 군주 켈리스"
 })
 
 -----------------------------
@@ -54,7 +54,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Akumai")
 
 L:SetGeneralLocalization({
-	name 		= "아쿠마이"
+	name		= "아쿠마이"
 })
 
 -------------------------
@@ -65,7 +65,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(369)
 
 L:SetGeneralLocalization({
-	name 		= "대심문관 게르스탄"
+	name		= "대심문관 게르스탄"
 })
 
 -----------------------------
@@ -74,7 +74,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(370)
 
 L:SetGeneralLocalization({
-	name 		= "불의 군주 록코르"
+	name		= "불의 군주 록코르"
 })
 
 -----------------------------
@@ -83,7 +83,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(371)
 
 L:SetGeneralLocalization({
-	name 		= "사냥개조련사 그렙마르"
+	name		= "사냥개조련사 그렙마르"
 })
 
 -----------------------------
@@ -92,7 +92,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(372)
 
 L:SetGeneralLocalization({
-	name 		= "법의 심판장"
+	name		= "법의 심판장"
 })
 
 -----------------------------
@@ -101,7 +101,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(373)
 
 L:SetGeneralLocalization({
-	name 		= "화염술사 로어그레인"
+	name		= "화염술사 로어그레인"
 })
 
 -----------------------------
@@ -110,7 +110,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(374)
 
 L:SetGeneralLocalization({
-	name 		= "불의 군주 인센디우스"
+	name		= "불의 군주 인센디우스"
 })
 
 -----------------------------
@@ -119,7 +119,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(375)
 
 L:SetGeneralLocalization({
-	name 		= "문지기 스틸기스"
+	name		= "문지기 스틸기스"
 })
 
 -----------------------------
@@ -128,7 +128,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(376)
 
 L:SetGeneralLocalization({
-	name 		= "파이너스 다크바이어"
+	name		= "파이너스 다크바이어"
 })
 
 -----------------------------
@@ -137,7 +137,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(377)
 
 L:SetGeneralLocalization({
-	name 		= "밸가르"
+	name		= "밸가르"
 })
 
 -----------------------------
@@ -146,7 +146,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(378)
 
 L:SetGeneralLocalization({
-	name 		= "사령관 앵거포지"
+	name		= "사령관 앵거포지"
 })
 
 -----------------------------
@@ -155,7 +155,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(379)
 
 L:SetGeneralLocalization({
-	name 		= "골렘 군주 아젤마크"
+	name		= "골렘 군주 아젤마크"
 })
 
 -----------------------------
@@ -164,7 +164,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(380)
 
 L:SetGeneralLocalization({
-	name 		= "헐레이 블랙브레스"
+	name		= "헐레이 블랙브레스"
 })
 
 -----------------------------
@@ -173,7 +173,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(381)
 
 L:SetGeneralLocalization({
-	name 		= "팔랑크스"
+	name		= "팔랑크스"
 })
 
 -----------------------------
@@ -182,7 +182,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(383)
 
 L:SetGeneralLocalization({
-	name 		= "플러거 스패즈링"
+	name		= "플러거 스패즈링"
 })
 
 -----------------------------
@@ -191,7 +191,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(384)
 
 L:SetGeneralLocalization({
-	name 		= "사자 화염채찍"
+	name		= "사자 화염채찍"
 })
 
 -----------------------------
@@ -200,7 +200,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(385)
 
 L:SetGeneralLocalization({
-	name 		= "일곱 현자"
+	name		= "일곱 현자"
 })
 
 -----------------------------
@@ -209,7 +209,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(386)
 
 L:SetGeneralLocalization({
-	name 		= "마그무스"
+	name		= "마그무스"
 })
 
 -----------------------------
@@ -218,7 +218,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(387)
 
 L:SetGeneralLocalization({
-	name 		= "제왕 다그란 타우릿산"
+	name		= "제왕 다그란 타우릿산"
 })
 
 -------------------------
@@ -229,7 +229,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(388)
 
 L:SetGeneralLocalization({
-	name 		= "대영주 오모크"
+	name		= "대영주 오모크"
 })
 
 -----------------------------
@@ -238,7 +238,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(389)
 
 L:SetGeneralLocalization({
-	name 		= "어둠사냥꾼 보쉬가진"
+	name		= "어둠사냥꾼 보쉬가진"
 })
 
 -----------------------------
@@ -247,7 +247,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(390)
 
 L:SetGeneralLocalization({
-	name 		= "대장군 부네"
+	name		= "대장군 부네"
 })
 
 -----------------------------
@@ -256,7 +256,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(391)
 
 L:SetGeneralLocalization({
-	name 		= "여왕 불그물거미"
+	name		= "여왕 불그물거미"
 })
 
 -----------------------------
@@ -265,7 +265,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(392)
 
 L:SetGeneralLocalization({
-	name 		= "우로크 둠하울"
+	name		= "우로크 둠하울"
 })
 
 -----------------------------
@@ -274,7 +274,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(393)
 
 L:SetGeneralLocalization({
-	name 		= "병참장교 지그리스"
+	name		= "병참장교 지그리스"
 })
 
 -----------------------------
@@ -283,7 +283,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(394)
 
 L:SetGeneralLocalization({
-	name 		= "할리콘"
+	name		= "할리콘"
 })
 
 -----------------------------
@@ -292,7 +292,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(395)
 
 L:SetGeneralLocalization({
-	name 		= "기즈룰"
+	name		= "기즈룰"
 })
 
 -----------------------------
@@ -301,7 +301,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(396)
 
 L:SetGeneralLocalization({
-	name 		= "대군주 웜타라크"
+	name		= "대군주 웜타라크"
 })
 
 -------------------------
@@ -312,7 +312,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("PyroguardEmberseer")
 
 L:SetGeneralLocalization({
-	name 		= "불의수호자 엠버시어"
+	name		= "불의수호자 엠버시어"
 })
 
 L:SetMiscLocalization({
@@ -325,7 +325,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("SolakarFlamewreath")
 
 L:SetGeneralLocalization({
-	name 		= "화염고리 솔라카르"
+	name		= "화염고리 솔라카르"
 })
 
 -----------------------------
@@ -334,7 +334,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GoralukAnvilcrack")
 
 L:SetGeneralLocalization({
-	name 		= "고랄루크 앤빌크랙"
+	name		= "고랄루크 앤빌크랙"
 })
 
 -----------------------------
@@ -343,7 +343,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("JedRunewatcher")
 
 L:SetGeneralLocalization({
-	name 		= "제드 룬와처"
+	name		= "제드 룬와처"
 })
 
 -----------------------------
@@ -352,7 +352,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("WarchiefRendBlackhand")
 
 L:SetGeneralLocalization({
-	name 		= "대족장 렌드 블랙핸드"
+	name		= "대족장 렌드 블랙핸드"
 })
 
 -----------------------------
@@ -361,7 +361,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("TheBeast")
 
 L:SetGeneralLocalization({
-	name 		= "괴수"
+	name		= "괴수"
 })
 
 -----------------------------
@@ -370,7 +370,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GeneralDrakkisath")
 
 L:SetGeneralLocalization({
-	name 		= "사령관 드라키사스"
+	name		= "사령관 드라키사스"
 })
 
 -------------------------
@@ -381,7 +381,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RhahkZor")
 
 L:SetGeneralLocalization({
-	name 		= "라크조르"
+	name		= "라크조르"
 })
 
 -----------------------------
@@ -390,7 +390,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MinerJohnson")
 
 L:SetGeneralLocalization({
-	name 		= "광부 존슨"
+	name		= "광부 존슨"
 })
 
 -----------------------------
@@ -399,7 +399,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("SneedsShredder")
 
 L:SetGeneralLocalization({
-	name 		= "스니드의 벌목기"
+	name		= "스니드의 벌목기"
 })
 
 -----------------------------
@@ -408,7 +408,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Gilnid")
 
 L:SetGeneralLocalization({
-	name 		= "길니드"
+	name		= "길니드"
 })
 
 -----------------------------
@@ -417,7 +417,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MrSmite")
 
 L:SetGeneralLocalization({
-	name 		= "미스터 스마이트"
+	name		= "미스터 스마이트"
 })
 
 -----------------------------
@@ -426,7 +426,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("CaptainGreenskin")
 
 L:SetGeneralLocalization({
-	name 		= "선장 그린스킨"
+	name		= "선장 그린스킨"
 })
 
 -----------------------------
@@ -435,7 +435,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("EdwinVanCleef")
 
 L:SetGeneralLocalization({
-	name 		= "에드윈 밴클리프"
+	name		= "에드윈 밴클리프"
 })
 
 -----------------------------
@@ -444,7 +444,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Cookie")
 
 L:SetGeneralLocalization({
-	name 		= "쿠키"
+	name		= "쿠키"
 })
 
 -------------------------
@@ -455,7 +455,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(402)
 
 L:SetGeneralLocalization({
-	name 		= "제브림 쏜후프"
+	name		= "제브림 쏜후프"
 })
 
 -----------------------------
@@ -464,7 +464,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(403)
 
 L:SetGeneralLocalization({
-	name 		= "히드로스폰"
+	name		= "히드로스폰"
 })
 
 -----------------------------
@@ -473,7 +473,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(404)
 
 L:SetGeneralLocalization({
-	name 		= "레스텐드리스"
+	name		= "레스텐드리스"
 })
 
 -----------------------------
@@ -482,7 +482,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(405)
 
 L:SetGeneralLocalization({
-	name 		= "칼날바람 알진"
+	name		= "칼날바람 알진"
 })
 
 -----------------------------
@@ -491,7 +491,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(406)
 
 L:SetGeneralLocalization({
-	name 		= "굽이나무 텐드리스"
+	name		= "굽이나무 텐드리스"
 })
 
 -----------------------------
@@ -500,7 +500,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(407)
 
 L:SetGeneralLocalization({
-	name 		= "일리아나 레이븐오크"
+	name		= "일리아나 레이븐오크"
 })
 
 -----------------------------
@@ -509,7 +509,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(408)
 
 L:SetGeneralLocalization({
-	name 		= "마법학자 칼렌드리스"
+	name		= "마법학자 칼렌드리스"
 })
 
 -----------------------------
@@ -518,7 +518,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(409)
 
 L:SetGeneralLocalization({
-	name 		= "이몰타르"
+	name		= "이몰타르"
 })
 
 -----------------------------
@@ -527,7 +527,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(410)
 
 L:SetGeneralLocalization({
-	name 		= "왕자 토르텔드린"
+	name		= "왕자 토르텔드린"
 })
 
 -----------------------------
@@ -536,7 +536,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(411)
 
 L:SetGeneralLocalization({
-	name 		= "경비병 몰다르"
+	name		= "경비병 몰다르"
 })
 
 -----------------------------
@@ -545,7 +545,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(412)
 
 L:SetGeneralLocalization({
-	name 		= "천둥발 크리그"
+	name		= "천둥발 크리그"
 })
 
 -----------------------------
@@ -554,7 +554,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(413)
 
 L:SetGeneralLocalization({
-	name 		= "경비병 펜구스"
+	name		= "경비병 펜구스"
 })
 
 -----------------------------
@@ -563,7 +563,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(414)
 
 L:SetGeneralLocalization({
-	name 		= "경비병 슬립킥"
+	name		= "경비병 슬립킥"
 })
 
 -----------------------------
@@ -572,7 +572,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(415)
 
 L:SetGeneralLocalization({
-	name 		= "대장 크롬크러쉬"
+	name		= "대장 크롬크러쉬"
 })
 
 -----------------------------
@@ -581,11 +581,11 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(416)
 
 L:SetGeneralLocalization({
-	name 		= "정찰병 초루쉬"
+	name		= "정찰병 초루쉬"
 })
 
 L:SetMiscLocalization({
-    Defeat	= "왕이 죽었다. 오, 이제 어쩌지! 약삭빠른 미즐을 불러와! 그가 다음에 어떻게 해야 하는지 알고 있다!"
+	Defeat	= "왕이 죽었다. 오, 이제 어쩌지! 약삭빠른 미즐을 불러와! 그가 다음에 어떻게 해야 하는지 알고 있다!"
 })
 
 -----------------------------
@@ -594,7 +594,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(417)
 
 L:SetGeneralLocalization({
-	name 		= "왕 고르독"
+	name		= "왕 고르독"
 })
 
 -------------------------
@@ -605,7 +605,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(419)
 
 L:SetGeneralLocalization({
-	name 		= "그루비스"
+	name		= "그루비스"
 })
 
 -----------------------------
@@ -614,7 +614,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(420)
 
 L:SetGeneralLocalization({
-	name 		= "방사성 폐기물"
+	name		= "방사성 폐기물"
 })
 
 -----------------------------
@@ -623,7 +623,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(421)
 
 L:SetGeneralLocalization({
-	name 		= "기계화 문지기 6000"
+	name		= "기계화 문지기 6000"
 })
 
 -----------------------------
@@ -632,7 +632,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(418)
 
 L:SetGeneralLocalization({
-	name 		= "고철 압축기 9-60"
+	name		= "고철 압축기 9-60"
 })
 
 -----------------------------
@@ -641,7 +641,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(422)
 
 L:SetGeneralLocalization({
-	name 		= "멕기니어 텔마플러그"
+	name		= "멕기니어 텔마플러그"
 })
 
 L:SetMiscLocalization({
@@ -656,7 +656,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(423)
 
 L:SetGeneralLocalization({
-	name 		= "녹시온"
+	name		= "녹시온"
 })
 
 -----------------------------
@@ -665,7 +665,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(424)
 
 L:SetGeneralLocalization({
-	name 		= "칼날채찍"
+	name		= "칼날채찍"
 })
 
 -----------------------------
@@ -674,7 +674,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(425)
 
 L:SetGeneralLocalization({
-	name 		= "땜장이 기즐록"
+	name		= "땜장이 기즐록"
 })
 
 -----------------------------
@@ -683,7 +683,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(427)
 
 L:SetGeneralLocalization({
-	name 		= "군주 바일텅"
+	name		= "군주 바일텅"
 })
 
 -----------------------------
@@ -692,7 +692,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(428)
 
 L:SetGeneralLocalization({
-	name 		= "저주받은 셀레브라스"
+	name		= "저주받은 셀레브라스"
 })
 
 -----------------------------
@@ -701,7 +701,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(429)
 
 L:SetGeneralLocalization({
-	name 		= "산사태"
+	name		= "산사태"
 })
 
 -----------------------------
@@ -710,7 +710,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(430)
 
 L:SetGeneralLocalization({
-	name 		= "썩은아귀"
+	name		= "썩은아귀"
 })
 
 -----------------------------
@@ -719,7 +719,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(431)
 
 L:SetGeneralLocalization({
-	name 		= "공주 테라드라스"
+	name		= "공주 테라드라스"
 })
 
 -------------------------
@@ -730,7 +730,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Oggleflint")
 
 L:SetGeneralLocalization({
-	name 		= "오글플린트"
+	name		= "오글플린트"
 })
 
 -----------------------------
@@ -739,7 +739,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Taragaman")
 
 L:SetGeneralLocalization({
-	name 		= "욕망의 타라가만"
+	name		= "욕망의 타라가만"
 })
 
 -----------------------------
@@ -748,7 +748,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Jergosh")
 
 L:SetGeneralLocalization({
-	name 		= "기원사 제로쉬"
+	name		= "기원사 제로쉬"
 })
 
 -----------------------------
@@ -757,7 +757,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Bazzalan")
 
 L:SetGeneralLocalization({
-	name 		= "바잘란"
+	name		= "바잘란"
 })
 
 -------------------------
@@ -768,7 +768,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Tutenkash")
 
 L:SetGeneralLocalization({
-	name 		= "투텐카쉬"
+	name		= "투텐카쉬"
 })
 
 -----------------------------
@@ -777,7 +777,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MordreshFireEye")
 
 L:SetGeneralLocalization({
-	name 		= "불꽃눈 모드레쉬"
+	name		= "불꽃눈 모드레쉬"
 })
 
 -----------------------------
@@ -786,7 +786,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Glutton")
 
 L:SetGeneralLocalization({
-	name 		= "게걸먹보"
+	name		= "게걸먹보"
 })
 
 -----------------------------
@@ -795,7 +795,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ragglesnout")
 
 L:SetGeneralLocalization({
-	name 		= "너덜주둥이"
+	name		= "너덜주둥이"
 })
 
 -----------------------------
@@ -804,7 +804,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AmnennartheColdbringer")
 
 L:SetGeneralLocalization({
-	name 		= "혹한의 암네나르"
+	name		= "혹한의 암네나르"
 })
 
 -----------------------------
@@ -813,7 +813,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("PlaguemawtheRotting")
 
 L:SetGeneralLocalization({
-	name 		= "썩어가는 역병아귀"
+	name		= "썩어가는 역병아귀"
 })
 
 -------------------------
@@ -824,7 +824,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Roogug")
 
 L:SetGeneralLocalization({
-	name 		= "루구그"
+	name		= "루구그"
 })
 
 -----------------------------
@@ -833,7 +833,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AggemThorncurse")
 
 L:SetGeneralLocalization({
-	name 		= "저주의가시 아겜"
+	name		= "저주의가시 아겜"
 })
 
 -----------------------------
@@ -842,7 +842,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DeathSpeakerJargba")
 
 L:SetGeneralLocalization({
-	name 		= "죽음의예언자 잘그바"
+	name		= "죽음의예언자 잘그바"
 })
 
 -----------------------------
@@ -851,7 +851,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OverlordRamtusk")
 
 L:SetGeneralLocalization({
-	name 		= "대군주 램터스크"
+	name		= "대군주 램터스크"
 })
 
 -----------------------------
@@ -860,7 +860,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("AgathelostheRaging")
 
 L:SetGeneralLocalization({
-	name 		= "흉포한 아가테로스"
+	name		= "흉포한 아가테로스"
 })
 
 -----------------------------
@@ -869,7 +869,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BlindHunter")
 
 L:SetGeneralLocalization({
-	name 		= "눈먼사냥꾼"
+	name		= "눈먼사냥꾼"
 })
 
 -----------------------------
@@ -878,7 +878,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("EarthcallerHalmgar")
 
 L:SetGeneralLocalization({
-	name 		= "대지의주술사 함가르"
+	name		= "대지의주술사 함가르"
 })
 
 -----------------------------
@@ -887,7 +887,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("CharlgaRazorflank")
 
 L:SetGeneralLocalization({
-	name 		= "서슬깃 차를가"
+	name		= "서슬깃 차를가"
 })
 
 -------------------------
@@ -898,7 +898,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("InterrogatorVishas")
 
 L:SetGeneralLocalization({
-	name 		= "심문관 비샤스"
+	name		= "심문관 비샤스"
 })
 
 -----------------------------
@@ -907,7 +907,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BloodmageThalnos")
 
 L:SetGeneralLocalization({
-	name 		= "혈법사 탈노스"
+	name		= "혈법사 탈노스"
 })
 
 -----------------------------
@@ -916,7 +916,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HoundmasterLoksey")
 
 L:SetGeneralLocalization({
-	name 		= "사냥개조련사 록시"
+	name		= "사냥개조련사 록시"
 })
 
 -----------------------------
@@ -925,7 +925,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ArcanistDoan")
 
 L:SetGeneralLocalization({
-	name 		= "신비술사 도안"
+	name		= "신비술사 도안"
 })
 
 -----------------------------
@@ -934,7 +934,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Herod")
 
 L:SetGeneralLocalization({
-	name 		= "헤로드"
+	name		= "헤로드"
 })
 
 -----------------------------
@@ -943,7 +943,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Mograine_and_Whitemane")
 
 L:SetGeneralLocalization({
-	name 		= "모그레인과 화이트메인"
+	name		= "모그레인과 화이트메인"
 })
 
 -----------------------------
@@ -952,7 +952,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Fairbanks")
 
 L:SetGeneralLocalization({
-	name 		= "종교재판관 페어뱅크스"
+	name		= "종교재판관 페어뱅크스"
 })
 
 -------------------------
@@ -963,7 +963,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("KirtonostheHerald")
 
 L:SetGeneralLocalization({
-	name 		= "사자 키르토노스"
+	name		= "사자 키르토노스"
 })
 
 -----------------------------
@@ -972,7 +972,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("JandiceBarov")
 
 L:SetGeneralLocalization({
-	name 		= "잔다이스 바로브"
+	name		= "잔다이스 바로브"
 })
 
 -----------------------------
@@ -981,7 +981,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rattlegore")
 
 L:SetGeneralLocalization({
-	name 		= "들창어금니"
+	name		= "들창어금니"
 })
 
 -----------------------------
@@ -990,7 +990,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("MardukBlackpool")
 
 L:SetGeneralLocalization({
-	name 		= "마르두크 블랙풀"
+	name		= "마르두크 블랙풀"
 })
 
 -----------------------------
@@ -999,7 +999,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Vectus")
 
 L:SetGeneralLocalization({
-	name 		= "벡투스"
+	name		= "벡투스"
 })
 
 -----------------------------
@@ -1008,7 +1008,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RasFrostwhisper")
 
 L:SetGeneralLocalization({
-	name 		= "라스 프로스트위스퍼"
+	name		= "라스 프로스트위스퍼"
 })
 
 -----------------------------
@@ -1017,7 +1017,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("InstructorMalicia")
 
 L:SetGeneralLocalization({
-	name 		= "조교 말리시아"
+	name		= "조교 말리시아"
 })
 
 -----------------------------
@@ -1026,7 +1026,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DoctorTheolenKrastinov")
 
 L:SetGeneralLocalization({
-	name 		= "학자 테올렌 크라스티노브"
+	name		= "학자 테올렌 크라스티노브"
 })
 
 -----------------------------
@@ -1035,7 +1035,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LorekeeperPolkelt")
 
 L:SetGeneralLocalization({
-	name 		= "현자 폴켈트"
+	name		= "현자 폴켈트"
 })
 
 -----------------------------
@@ -1044,7 +1044,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("TheRavenian")
 
 L:SetGeneralLocalization({
-	name 		= "라베니안"
+	name		= "라베니안"
 })
 
 -----------------------------
@@ -1053,7 +1053,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LordAlexeiBarov")
 
 L:SetGeneralLocalization({
-	name 		= "군주 알렉세이 바로브"
+	name		= "군주 알렉세이 바로브"
 })
 
 -----------------------------
@@ -1062,7 +1062,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LadyIlluciaBarov")
 
 L:SetGeneralLocalization({
-	name 		= "여군주 일루시아 바로브"
+	name		= "여군주 일루시아 바로브"
 })
 
 -----------------------------
@@ -1071,7 +1071,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DarkmasterGandling")
 
 L:SetGeneralLocalization({
-	name 		= "암흑스승 간들링"
+	name		= "암흑스승 간들링"
 })
 
 -------------------------
@@ -1082,7 +1082,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rethilgore")
 
 L:SetGeneralLocalization({
-	name 		= "레실고어"
+	name		= "레실고어"
 })
 
 -----------------------------
@@ -1091,7 +1091,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RazorclawtheButcher")
 
 L:SetGeneralLocalization({
-	name 		= "도살자 칼날발톱"
+	name		= "도살자 칼날발톱"
 })
 
 -----------------------------
@@ -1100,7 +1100,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BaronSilverlaine")
 
 L:SetGeneralLocalization({
-	name 		= "남작 실버레인"
+	name		= "남작 실버레인"
 })
 
 -----------------------------
@@ -1109,7 +1109,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("CommanderSpringvale")
 
 L:SetGeneralLocalization({
-	name 		= "사령관 스프링베일"
+	name		= "사령관 스프링베일"
 })
 
 -----------------------------
@@ -1118,7 +1118,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("OdotheBlindwatcher")
 
 L:SetGeneralLocalization({
-	name 		= "눈먼감시자 오도"
+	name		= "눈먼감시자 오도"
 })
 
 -----------------------------
@@ -1127,7 +1127,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DeathswornCaptain")
 
 L:SetGeneralLocalization({
-	name 		= "죽음의 경비대장"
+	name		= "죽음의 경비대장"
 })
 
 -----------------------------
@@ -1136,7 +1136,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("FenrustheDevourer")
 
 L:SetGeneralLocalization({
-	name 		= "파멸의 펜루스"
+	name		= "파멸의 펜루스"
 })
 
 -----------------------------
@@ -1145,7 +1145,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("WolfMasterNandos")
 
 L:SetGeneralLocalization({
-	name 		= "늑대왕 난도스"
+	name		= "늑대왕 난도스"
 })
 
 -----------------------------
@@ -1154,7 +1154,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("ArchmageArugal")
 
 L:SetGeneralLocalization({
-	name 		= "대마법사 아루갈"
+	name		= "대마법사 아루갈"
 })
 
 -------------------------
@@ -1165,7 +1165,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Targorr")
 
 L:SetGeneralLocalization({
-	name 		= "흉악범 타고르"
+	name		= "흉악범 타고르"
 })
 
 -----------------------------
@@ -1174,7 +1174,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("KamDeepfury")
 
 L:SetGeneralLocalization({
-	name 		= "캄 딥퓨리"
+	name		= "캄 딥퓨리"
 })
 
 -----------------------------
@@ -1183,7 +1183,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Hamhock")
 
 L:SetGeneralLocalization({
-	name 		= "햄혹"
+	name		= "햄혹"
 })
 
 -----------------------------
@@ -1192,7 +1192,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BazilThredd")
 
 L:SetGeneralLocalization({
-	name 		= "바질 스레드"
+	name		= "바질 스레드"
 })
 
 -----------------------------
@@ -1201,7 +1201,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DextrenWard")
 
 L:SetGeneralLocalization({
-	name 		= "덱스트렌 워드"
+	name		= "덱스트렌 워드"
 })
 
 -----------------------------
@@ -1210,7 +1210,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("BruegalIronknuckle")
 
 L:SetGeneralLocalization({
-	name 		= "브루갈 아이언너클"
+	name		= "브루갈 아이언너클"
 })
 
 -------------------------
@@ -1221,7 +1221,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(443)
 
 L:SetGeneralLocalization({
-	name 		= "하스싱어 포레스턴"
+	name		= "하스싱어 포레스턴"
 })
 
 -----------------------------
@@ -1230,7 +1230,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(445)
 
 L:SetGeneralLocalization({
-	name 		= "잔혹한 티미"
+	name		= "잔혹한 티미"
 })
 
 -----------------------------
@@ -1239,7 +1239,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(749)
 
 L:SetGeneralLocalization({
-	name 		= "광신자 말로"
+	name		= "광신자 말로"
 })
 
 -----------------------------
@@ -1248,7 +1248,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(446)
 
 L:SetGeneralLocalization({
-	name 		= "포병대장 윌리"
+	name		= "포병대장 윌리"
 })
 
 -----------------------------
@@ -1257,7 +1257,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(448)
 
 L:SetGeneralLocalization({
-	name 		= "기록관 갈포드"
+	name		= "기록관 갈포드"
 })
 
 -----------------------------
@@ -1266,7 +1266,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(449)
 
 L:SetGeneralLocalization({
-	name 		= "발나자르"
+	name		= "발나자르"
 })
 
 -----------------------------
@@ -1275,7 +1275,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(450)
 
 L:SetGeneralLocalization({
-	name 		= "용서받지 못한 자"
+	name		= "용서받지 못한 자"
 })
 
 -----------------------------
@@ -1284,7 +1284,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(451)
 
 L:SetGeneralLocalization({
-	name 		= "남작부인 아나스타리"
+	name		= "남작부인 아나스타리"
 })
 
 -----------------------------
@@ -1293,7 +1293,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(452)
 
 L:SetGeneralLocalization({
-	name 		= "네룹엔칸"
+	name		= "네룹엔칸"
 })
 
 -----------------------------
@@ -1302,7 +1302,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(453)
 
 L:SetGeneralLocalization({
-	name 		= "냉혈한 말레키"
+	name		= "냉혈한 말레키"
 })
 
 -----------------------------
@@ -1311,7 +1311,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(454)
 
 L:SetGeneralLocalization({
-	name 		= "집정관 바실라스"
+	name		= "집정관 바실라스"
 })
 
 -----------------------------
@@ -1320,7 +1320,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(455)
 
 L:SetGeneralLocalization({
-	name 		= "먹보 람스타인"
+	name		= "먹보 람스타인"
 })
 
 L:SetTimerLocalization({
@@ -1337,7 +1337,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization(456)
 
 L:SetGeneralLocalization({
-	name 		= "남작 리븐데어"
+	name		= "남작 리븐데어"
 })
 
 -------------------------
@@ -1348,7 +1348,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(457)
 
 L:SetGeneralLocalization({
-	name 		= "학카르의 화신"
+	name		= "학카르의 화신"
 })
 
 -----------------------------
@@ -1357,7 +1357,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(458)
 
 L:SetGeneralLocalization({
-	name 		= "예언자 잠말란"
+	name		= "예언자 잠말란"
 })
 
 ----------------------------------------------
@@ -1367,25 +1367,25 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Dreamscythe")
 
 L:SetGeneralLocalization({
-	name 		= "드림사이드"
+	name		= "드림사이드"
 })
 
 L = DBM:GetModLocalization("Weaver")
 
 L:SetGeneralLocalization({
-	name 		= "위버"
+	name		= "위버"
 })
 
 L = DBM:GetModLocalization("Morphaz")
 
 L:SetGeneralLocalization({
-	name 		= "몰파즈"
+	name		= "몰파즈"
 })
 
 L = DBM:GetModLocalization("Hazzas")
 
 L:SetGeneralLocalization({
-	name 		= "하자스"
+	name		= "하자스"
 })
 
 -----------------------------
@@ -1394,7 +1394,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(463)
 
 L:SetGeneralLocalization({
-	name 		= "에라니쿠스의 사령"
+	name		= "에라니쿠스의 사령"
 })
 
 -------------------------
@@ -1405,7 +1405,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(467)
 
 L:SetGeneralLocalization({
-	name 		= "레벨로쉬"
+	name		= "레벨로쉬"
 })
 
 -----------------------------
@@ -1414,7 +1414,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(468)
 
 L:SetGeneralLocalization({
-	name 		= "길 잃은 드워프"
+	name		= "길 잃은 드워프"
 })
 
 -----------------------------
@@ -1423,7 +1423,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(469)
 
 L:SetGeneralLocalization({
-	name 		= "아이로나야"
+	name		= "아이로나야"
 })
 
 -----------------------------
@@ -1432,7 +1432,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(748)
 
 L:SetGeneralLocalization({
-	name 		= "흑요석 파수꾼"
+	name		= "흑요석 파수꾼"
 })
 
 -----------------------------
@@ -1441,7 +1441,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(470)
 
 L:SetGeneralLocalization({
-	name 		= "고대 바위 문지기"
+	name		= "고대 바위 문지기"
 })
 
 -----------------------------
@@ -1450,7 +1450,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(471)
 
 L:SetGeneralLocalization({
-	name 		= "갈간 파이어해머"
+	name		= "갈간 파이어해머"
 })
 
 -----------------------------
@@ -1459,7 +1459,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(472)
 
 L:SetGeneralLocalization({
-	name 		= "그림로크"
+	name		= "그림로크"
 })
 
 -----------------------------
@@ -1468,7 +1468,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(473)
 
 L:SetGeneralLocalization({
-	name 		= "아카에다스"
+	name		= "아카에다스"
 })
 
 -------------------------
@@ -1479,7 +1479,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(474)
 
 L:SetGeneralLocalization({
-	name 		= "여군주 아나콘드라"
+	name		= "여군주 아나콘드라"
 })
 
 -----------------------------
@@ -1488,7 +1488,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(476)
 
 L:SetGeneralLocalization({
-	name 		= "군주 피타스"
+	name		= "군주 피타스"
 })
 
 -----------------------------
@@ -1497,7 +1497,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(475)
 
 L:SetGeneralLocalization({
-	name 		= "군주 코브란"
+	name		= "군주 코브란"
 })
 
 -----------------------------
@@ -1506,7 +1506,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(477)
 
 L:SetGeneralLocalization({
-	name 		= "크레쉬"
+	name		= "크레쉬"
 })
 
 -----------------------------
@@ -1515,7 +1515,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(478)
 
 L:SetGeneralLocalization({
-	name 		= "스컴"
+	name		= "스컴"
 })
 
 -----------------------------
@@ -1524,7 +1524,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(479)
 
 L:SetGeneralLocalization({
-	name 		= "군주 서펜티스"
+	name		= "군주 서펜티스"
 })
 
 -----------------------------
@@ -1533,7 +1533,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(480)
 
 L:SetGeneralLocalization({
-	name 		= "영생의 베르단"
+	name		= "영생의 베르단"
 })
 
 -----------------------------
@@ -1542,7 +1542,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(481)
 
 L:SetGeneralLocalization({
-	name 		= "걸신들린 무타누스"
+	name		= "걸신들린 무타누스"
 })
 
 -----------------------------
@@ -1551,7 +1551,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("DeviateFaerie")
 
 L:SetGeneralLocalization({
-	name 		= "돌연변이 요정용"
+	name		= "돌연변이 요정용"
 })
 
 -------------------------
@@ -1562,7 +1562,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(483)
 
 L:SetGeneralLocalization({
-	name 		= "가즈릴라"
+	name		= "가즈릴라"
 })
 
 -----------------------------
@@ -1571,7 +1571,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(484)
 
 L:SetGeneralLocalization({
-	name 		= "안투술"
+	name		= "안투술"
 })
 
 -----------------------------
@@ -1580,7 +1580,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(485)
 
 L:SetGeneralLocalization({
-	name 		= "순교자 테카"
+	name		= "순교자 테카"
 })
 
 -----------------------------
@@ -1589,7 +1589,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(486)
 
 L:SetGeneralLocalization({
-	name 		= "의술사 줌라"
+	name		= "의술사 줌라"
 })
 
 -----------------------------
@@ -1598,7 +1598,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("HydromancerVelrath")
 
 L:SetGeneralLocalization({
-	name 		= "유체술사 벨라타"
+	name		= "유체술사 벨라타"
 })
 
 -----------------------------
@@ -1607,7 +1607,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(487)
 
 L:SetGeneralLocalization({
-	name 		= "네크룸과 세즈지즈"
+	name		= "네크룸과 세즈지즈"
 })
 
 -----------------------------
@@ -1616,5 +1616,5 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization(489)
 
 L:SetGeneralLocalization({
-	name 		= "족장 우르코즈 샌드스칼프"
+	name		= "족장 우르코즈 샌드스칼프"
 })

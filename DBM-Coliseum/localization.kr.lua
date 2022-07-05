@@ -89,7 +89,7 @@ L:SetMiscLocalization({
 	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:64:64:96|t 티리우스 더스크블레이드",	-- 34461
 	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 카비나 그로브송",			-- 34460
 	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:0:32|t 멜라도르 베일스트라이더",	-- 34469
-	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t 알리시아 문스토커",			-- 34467
+	Alyssia				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:32:64|t 알리시아 문스토커",			-- 34467
 	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:32:63.5:0:32|t 누즐 위즐스틱",				-- 34468
 	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t 밸노르 라이트베어러",			-- 34471
 	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:64:96|t 벨라나",						-- 34465
@@ -101,7 +101,7 @@ L:SetMiscLocalization({
 	Serissa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:95:126.5:32:64|t 세리사 그림대블러",		-- 34474
 	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t 쇼쿨",							-- 34475
 
-	AllianceVictory 	= "얼라이언스에 영광을!",
+	AllianceVictory	= "얼라이언스에 영광을!",
 	HordeVictory		= "앞으로 일어날 일의 맛보기일 뿐이다. 호드를 위하여!"
 	--YellKill			= "상처뿐인 승리로군. 오늘 받은 손해로 우리 전력은 약해졌네. 이런 어리석은 짓으로 리치 왕 말고 또 누가 이득을 보겠나? 위대한 용사들이 목숨을 잃었네. 무엇을 위해서였나? 진짜 위협은 저 앞에 있네. 리치 왕이 우리 모두를 죽음 안에서 기다린다네.",
 })
@@ -130,7 +130,7 @@ L:SetWarningLocalization({
 })
 
 L:SetMiscLocalization({
---	YellPull 	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
+--	YellPull	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
 --	CombatStart	= "함께 힘을 모아야만 마지막 도전을 이겨낼 수 있네. 얼음왕관 심연에서 가장 강력한 스컬지 대리인 둘이 왔네. 무시무시한 발키르, 날개를 단 리치 왕의 전령일세!",
 	Fjola		= "피욜라 라이트베인",
 	Eydis		= "아이디스 다크베인",
@@ -156,7 +156,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization({
-	name 				= "아눕아락"
+	name				= "아눕아락"
 })
 
 L:SetTimerLocalization({

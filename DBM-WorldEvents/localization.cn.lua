@@ -8,7 +8,7 @@ local L
 L = DBM:GetModLocalization("CorenDirebrew")
 
 L:SetGeneralLocalization({
-	name 			= "科林·烈酒"
+	name			= "科林·烈酒"
 })
 
 L:SetWarningLocalization({
@@ -32,7 +32,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("HeadlessHorseman")
 
 L:SetGeneralLocalization({
-	name 			= "无头骑士"
+	name			= "无头骑士"
 })
 
 L:SetWarningLocalization({
@@ -57,7 +57,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("ApothecaryTrio")
 
 L:SetGeneralLocalization({
-	name 			= "药剂师三人组"
+	name			= "药剂师三人组"
 })
 
 L:SetWarningLocalization({
@@ -83,7 +83,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ahune")
 
 L:SetGeneralLocalization({
-	name 			= "埃霍恩"
+	name			= "埃霍恩"
 })
 
 L:SetWarningLocalization({

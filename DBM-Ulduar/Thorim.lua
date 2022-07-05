@@ -43,7 +43,7 @@ local warnLightningCharge			= mod:NewSpellAnnounce(62466, 2)
 local specWarnUnbalancingStrikeSelf	= mod:NewSpecialWarningDefensive(62130, nil, nil, nil, 1, 2)
 local specWarnUnbalancingStrike		= mod:NewSpecialWarningTaunt(62130, nil, nil, nil, 1, 2)
 
-local timerLightningCharge	 		= mod:NewCDTimer(16, 62466, nil, nil, nil, 3)
+local timerLightningCharge			= mod:NewCDTimer(16, 62466, nil, nil, nil, 3)
 local timerUnbalancingStrike		= mod:NewCDTimer(25.6, 62130, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerChainLightning			= mod:NewNextTimer(15, 64390)
 
@@ -164,7 +164,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then		-- Bossfight (tank and spank)
 		self:SendSync("Phase2")
 	-- elseif msg == L.YellKill or msg:find(L.YellKill) then
-	-- 	enrageTimer:Stop()
+	--	enrageTimer:Stop()
 	end
 end
 

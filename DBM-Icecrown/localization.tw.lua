@@ -94,7 +94,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Deathbringer")
 
 L:SetGeneralLocalization({
-	name 				= "死亡使者薩魯法爾"
+	name				= "死亡使者薩魯法爾"
 })
 
 L:SetOptionLocalization({

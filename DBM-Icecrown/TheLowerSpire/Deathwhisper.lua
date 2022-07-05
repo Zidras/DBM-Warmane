@@ -306,11 +306,11 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.InfoFrame then
 			DBM.InfoFrame:Hide()
 		end
-    elseif spellId == 71289 then
+	elseif spellId == 71289 then
 		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and self:IsDps() then
-	        self:Schedule(0.1, EqW, self)
-	        self:Schedule(1.7, EqW, self)
-	        self:Schedule(3.3, EqW, self)
+			self:Schedule(0.1, EqW, self)
+			self:Schedule(1.7, EqW, self)
+			self:Schedule(3.3, EqW, self)
 			self:Schedule(5.0, EqW, self)
 			self:Schedule(8.0, EqW, self)
 			self:Schedule(9.9, EqW, self)

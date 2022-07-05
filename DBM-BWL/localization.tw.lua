@@ -23,7 +23,7 @@ L:SetMiscLocalization({
 	YellEgg1	= "你會為此付出代價！",
 	YellEgg2	= "蠢貨！這些蛋比你想像的還要珍貴！",
 	YellEgg3	= "不！不行！我要拿你的頭來彌補這種暴行！",
-	YellPull 	= "入侵者闖進孵化室了！拉響警報！無論如何都要保護蛋！"
+	YellPull	= "入侵者闖進孵化室了！拉響警報！無論如何都要保護蛋！"
 })
 
 -------------------
@@ -158,7 +158,7 @@ L:SetGeneralLocalization({
 L:SetWarningLocalization({
 	WarnAddsLeft		= "剩下%d擊殺",
 	WarnClassCall		= "%s點名",
-	specwarnClassCall    = "你中了職業點名！"
+	specwarnClassCall	= "你中了職業點名！"
 })
 
 L:SetTimerLocalization({

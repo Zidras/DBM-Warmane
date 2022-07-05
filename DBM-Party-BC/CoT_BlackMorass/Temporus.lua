@@ -34,5 +34,5 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 31458 then
 		timerHasten:Stop(args.destName)
-    end
+	end
 end

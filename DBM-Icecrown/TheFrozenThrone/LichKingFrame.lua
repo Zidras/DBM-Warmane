@@ -1,4 +1,4 @@
-local LichKing 	= DBM:GetModByName("LichKing")
+local LichKing	= DBM:GetModByName("LichKing")
 local L		= LichKing:GetLocalizedStrings()
 local floor = math.floor
 

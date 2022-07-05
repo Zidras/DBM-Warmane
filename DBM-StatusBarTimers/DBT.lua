@@ -16,7 +16,7 @@
 --    * zhTW: Hman						herman_c1@hotmail.com
 --    * zhTW: Azael/kc10577				paul.poon.kw@gmail.com
 --    * koKR: BlueNyx/nBlueWiz			bluenyx@gmail.com / everfinale@gmail.com
---    * esES: Snamor/1nn7erpLaY      	romanscat@hotmail.com
+--    * esES: Snamor/1nn7erpLaY     	romanscat@hotmail.com
 --
 -- Special thanks to:
 --    * Arta

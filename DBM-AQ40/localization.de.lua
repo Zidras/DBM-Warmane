@@ -66,9 +66,9 @@ L:SetMiscLocalization({
 	Slow	= "wird langsamer!",
 	Freezing= "friert ein!",
 	Frozen	= "ist tiefgefroren!",
-	Phase4 	= "geht die Puste aus!",
-	Phase5 	= "ist kurz davor, zu zerspringen!",
-	Phase6 	= "explodiert!",
+	Phase4	= "geht die Puste aus!",
+	Phase5	= "ist kurz davor, zu zerspringen!",
+	Phase6	= "explodiert!",
 
 	HitsRemain	= "Verbleibende Treffer",
 	Frost		= "Frost",
@@ -141,7 +141,7 @@ L:SetMiscLocalization({
 	Stomach		= "Magen",
 	Eye			= "Auge von C'Thun",
 	FleshTent	= "Fleischtentakel",
-	Weakened 	= "ist geschwächt!",
+	Weakened	= "ist geschwächt!",
 	NotValid	= "AQ40 teilweise gelöscht. % s optionale Bosse bleiben erhalten."
 })
 

@@ -98,9 +98,9 @@ local timerInfestCD			= mod:NewNextTimer(22.5, 70541, nil, "Healer|RaidCooldown"
 local timerNecroticPlagueCleanse = mod:NewTimer(5, "TimerNecroticPlagueCleanse", 70337, "Healer", nil, 5, DBM_COMMON_L.HEALER_ICON, nil, nil, nil, nil, nil, nil, 70337)
 local timerNecroticPlagueCD	= mod:NewNextTimer(30, 70337, nil, nil, nil, 3)
 local timerEnrageCD			= mod:NewCDTimer(20, 72143, nil, "Tank|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON)
-local timerShamblingHorror 	= mod:NewNextTimer(60, 70372, nil, nil, nil, 1)
-local timerDrudgeGhouls 	= mod:NewNextTimer(30, 70358, nil, nil, nil, 1)
-local timerTrapCD		 	= mod:NewNextTimer(15.5, 73539, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)
+local timerShamblingHorror	= mod:NewNextTimer(60, 70372, nil, nil, nil, 1)
+local timerDrudgeGhouls	= mod:NewNextTimer(30, 70358, nil, nil, nil, 1)
+local timerTrapCD			= mod:NewNextTimer(15.5, 73539, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)
 
 local soundInfestSoon		= mod:NewSoundSoon(70541, nil, "Healer|RaidCooldown")
 local soundNecroticOnYou	= mod:NewSoundYou(70337)
@@ -128,10 +128,10 @@ local specwarnSoulreaper	= mod:NewSpecialWarningTarget(69409, true) --phase 2+
 local specWarnSoulreaperOtr	= mod:NewSpecialWarningTaunt(69409, false, nil, nil, 1, 2) --phase 2+; disabled by default, not standard tactic
 local specWarnValkyrLow		= mod:NewSpecialWarning("SpecWarnValkyrLow", nil, nil, nil, 1, 2, nil, 71844, 71844)
 
-local timerSoulreaper	 	= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
-local timerSoulreaperCD	 	= mod:NewNextTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerSoulreaper		= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
+local timerSoulreaperCD		= mod:NewNextTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerDefileCD			= mod:NewNextTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)
-local timerSummonValkyr 	= mod:NewCDTimer(45, 71844, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 2, 3)
+local timerSummonValkyr	= mod:NewCDTimer(45, 71844, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 2, 3)
 
 local soundDefileOnYou		= mod:NewSoundYou(72762)
 local soundSoulReaperSoon	= mod:NewSoundSoon(69409, nil, "Tank|Healer|TargetedCooldown")
@@ -150,10 +150,10 @@ local warnRestoreSoul		= mod:NewCastAnnounce(73650, 2) --Phase 3 Heroic
 local specWarnHarvestSoul	= mod:NewSpecialWarningYou(68980, nil, nil, nil, 1, 2) --Phase 3+ Ability
 local specWarnHarvestSouls	= mod:NewSpecialWarningSpell(73654, nil, nil, nil, 1, 2, 3) --Heroic Ability
 
-local timerHarvestSoul	 	= mod:NewTargetTimer(6, 68980)
+local timerHarvestSoul		= mod:NewTargetTimer(6, 68980)
 local timerHarvestSoulCD	= mod:NewNextTimer(75, 68980, nil, nil, nil, 6)
-local timerVileSpirit 		= mod:NewNextTimer(30.5, 70498, nil, nil, nil, 1)
-local timerRestoreSoul 		= mod:NewCastTimer(40, 73650, nil, nil, nil, 6)
+local timerVileSpirit		= mod:NewNextTimer(30.5, 70498, nil, nil, nil, 1)
+local timerRestoreSoul		= mod:NewCastTimer(40, 73650, nil, nil, nil, 6)
 local timerRoleplay			= mod:NewTimer(162, "TimerRoleplay", 72350, nil, nil, 6)
 
 mod:AddSetIconOption("HarvestSoulIcon", 68980, false, 0, {5})
@@ -524,9 +524,9 @@ do
 	local UnitIsUnit, UnitInVehicle, IsInRaid = UnitIsUnit, UnitInVehicle, IsInRaid
 
 	local function scanValkyrTargets(self)
-		if (time() - lastValk) < 10 then    -- scan for like 10secs
-			for uId in DBM:GetGroupMembers() do        -- for every raid member check ..
-				if UnitInVehicle(uId) and not valkyrTargets[uId] then      -- if person #i is in a vehicle and not already announced
+		if (time() - lastValk) < 10 then	-- scan for like 10secs
+			for uId in DBM:GetGroupMembers() do		-- for every raid member check ..
+				if UnitInVehicle(uId) and not valkyrTargets[uId] then	  -- if person #i is in a vehicle and not already announced
 					valkyrWarning:Show(UnitName(uId))
 					valkyrTargets[uId] = true
 					local raidIndex = UnitInRaid(uId)
@@ -553,7 +553,7 @@ do
 			end
 			self:Schedule(0.5, scanValkyrTargets, self)  -- check for more targets in a few
 		else
-			table.wipe(valkyrTargets)       -- no more valkyrs this round, so lets clear the table
+			table.wipe(valkyrTargets)	   -- no more valkyrs this round, so lets clear the table
 			grabIcon = 1
 			self.vb.valkIcon = 1
 		end

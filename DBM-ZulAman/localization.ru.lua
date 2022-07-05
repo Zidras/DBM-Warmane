@@ -32,7 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellBear 	= "Если вызвать чудовище, то мало не покажется, точно говорю!",
+	YellBear	= "Если вызвать чудовище, то мало не покажется, точно говорю!",
 	YellNormal	= "Пропустите Налоракка!"
 })
 

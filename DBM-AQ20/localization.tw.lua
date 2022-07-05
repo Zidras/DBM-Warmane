@@ -7,7 +7,7 @@ local L
 L = DBM:GetModLocalization("Kurinnaxx")
 
 L:SetGeneralLocalization({
-	name 		= "庫林納克斯"
+	name		= "庫林納克斯"
 })
 
 ------------
@@ -16,7 +16,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rajaxx")
 
 L:SetGeneralLocalization({
-	name 		= "拉賈克斯將軍"
+	name		= "拉賈克斯將軍"
 })
 
 L:SetWarningLocalization({
@@ -44,7 +44,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Moam")
 
 L:SetGeneralLocalization({
-	name 		= "莫阿姆"
+	name		= "莫阿姆"
 })
 
 ----------
@@ -53,7 +53,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Buru")
 
 L:SetGeneralLocalization({
-	name 		= "『暴食者』布魯"
+	name		= "『暴食者』布魯"
 })
 
 L:SetWarningLocalization({
@@ -68,7 +68,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	PursueEmote 	= "%s凝視著"
+	PursueEmote	= "%s凝視著"
 })
 
 -------------
@@ -77,7 +77,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ayamiss")
 
 L:SetGeneralLocalization({
-	name 		= "『狩獵者』阿亞米斯"
+	name		= "『狩獵者』阿亞米斯"
 })
 
 --------------
@@ -86,7 +86,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ossirian")
 
 L:SetGeneralLocalization({
-	name 		= "『無疤者』奧斯里安"
+	name		= "『無疤者』奧斯里安"
 })
 
 L:SetWarningLocalization({

@@ -57,17 +57,17 @@ function mod:Balcony()
 end
 
 -- function mod:BackInRoom(delay)
--- 	delay = delay or 0
--- 	self:SetStage(0)
--- 	local timer
--- 	if self.vb.phase == 1 then timer = 90 - delay
--- 	elseif self.vb.phase == 2 then timer = 110 - delay
--- 	elseif self.vb.phase == 3 then timer = 180 - delay
--- 	else return end
--- 	timerTeleport:Show(timer)
--- 	warnTeleportSoon:Schedule(timer - 20)
--- 	warnTeleportNow:Schedule(timer)
--- 	self:ScheduleMethod(timer, "Balcony")
+--	delay = delay or 0
+--	self:SetStage(0)
+--	local timer
+--	if self.vb.phase == 1 then timer = 90 - delay
+--	elseif self.vb.phase == 2 then timer = 110 - delay
+--	elseif self.vb.phase == 3 then timer = 180 - delay
+--	else return end
+--	timerTeleport:Show(timer)
+--	warnTeleportSoon:Schedule(timer - 20)
+--	warnTeleportNow:Schedule(timer)
+--	self:ScheduleMethod(timer, "Balcony")
 -- end
 
 function mod:OnCombatStart(delay)

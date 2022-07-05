@@ -306,7 +306,7 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
 	TimerRoleplay				= "이벤트 종료",
 	PhaseTransition				= "다음 단계",
-	TimerNecroticPlagueCleanse 	= "괴저 역병 사라짐"
+	TimerNecroticPlagueCleanse	= "괴저 역병 사라짐"
 })
 
 L:SetOptionLocalization({

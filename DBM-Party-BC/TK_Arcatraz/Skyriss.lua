@@ -15,13 +15,13 @@ mod:RegisterEventsInCombat(
 	"UNIT_HEALTH"
 )
 
-local warnSplitSoon     = mod:NewAnnounce("warnSplitSoon", 2)
-local warnSplit         = mod:NewAnnounce("warnSplit", 3)
-local warnMindControl   = mod:NewTargetNoFilterAnnounce(39019, 4)
-local warnMindRend      = mod:NewTargetNoFilterAnnounce(39017, 2)
+local warnSplitSoon		= mod:NewAnnounce("warnSplitSoon", 2)
+local warnSplit			= mod:NewAnnounce("warnSplit", 3)
+local warnMindControl	= mod:NewTargetNoFilterAnnounce(39019, 4)
+local warnMindRend		= mod:NewTargetNoFilterAnnounce(39017, 2)
 
-local timerMindControl  = mod:NewTargetTimer(6, 39019, nil, nil, nil, 3)
-local timerMindRend     = mod:NewTargetTimer(6, 39017, nil, false, 2, 3)
+local timerMindControl	= mod:NewTargetTimer(6, 39019, nil, nil, nil, 3)
+local timerMindRend		= mod:NewTargetTimer(6, 39017, nil, false, 2, 3)
 
 mod.vb.warnedSplit1		= false
 mod.vb.warnedSplit2		= false
@@ -51,7 +51,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Split then
-        warnSplit:Show()
+		warnSplit:Show()
 	end
 end
 

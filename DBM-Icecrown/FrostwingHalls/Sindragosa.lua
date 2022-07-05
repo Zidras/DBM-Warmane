@@ -211,7 +211,7 @@ function mod:SPELL_CAST_START(args)
 		warnFrostBreath:Show()
 		timerNextFrostBreath:Start()
 	elseif args.spellId == 71077 then
-	    timerTailSmash:Start()
+		timerTailSmash:Start()
 	end
 end
 

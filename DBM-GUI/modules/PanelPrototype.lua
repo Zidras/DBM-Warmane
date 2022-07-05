@@ -109,7 +109,7 @@ function PanelPrototype:CreateSpellDesc(text)
 		end
 		textblock:SetText(text)
 	end
-    --
+	--
 	self:SetLastObj(test)
 	return test
 end

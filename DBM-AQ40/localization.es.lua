@@ -66,9 +66,9 @@ L:SetMiscLocalization({
 	Slow	= "comienza a remitir!",
 	Freezing= "se queda inmóvil!",
 	Frozen	= "está paralizada!",
-	Phase4 	= "empieza a desmoronarse!",
-	Phase5 	= "parece a punto de hacerse añicos!",
-	Phase6 	= "explota!",
+	Phase4	= "empieza a desmoronarse!",
+	Phase5	= "parece a punto de hacerse añicos!",
+	Phase6	= "explota!",
 
 	HitsRemain	= "Golpes restantes",
 	Frost		= "Escarcha",
@@ -142,7 +142,7 @@ L:SetMiscLocalization({
 	Stomach		= "Estómago",
 	Eye			= "Ojo de C'Thun",
 	FleshTent	= "Tentáculo de carne",
-	Weakened 	= "está débil!",
+	Weakened	= "está débil!",
 	NotValid	= "AQ40 parcialmente limpiado. Quedan %s jefes opcionales."
 })
 

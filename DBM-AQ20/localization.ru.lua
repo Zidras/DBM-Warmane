@@ -8,7 +8,7 @@ local L
 L = DBM:GetModLocalization("Kurinnaxx")
 
 L:SetGeneralLocalization({
-	name 		= "Куриннакс"
+	name		= "Куриннакс"
 })
 
 ------------
@@ -17,7 +17,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rajaxx")
 
 L:SetGeneralLocalization({
-	name 		= "Генерал Раджакс"
+	name		= "Генерал Раджакс"
 })
 
 L:SetWarningLocalization({
@@ -45,7 +45,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Moam")
 
 L:SetGeneralLocalization({
-	name 		= "Моам"
+	name		= "Моам"
 })
 
 ----------
@@ -54,7 +54,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Buru")
 
 L:SetGeneralLocalization({
-	name 		= "Буру Ненасытный"
+	name		= "Буру Ненасытный"
 })
 
 L:SetWarningLocalization({
@@ -70,7 +70,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	PursueEmote 	= "%s смотрит на"
+	PursueEmote	= "%s смотрит на"
 })
 
 -------------
@@ -79,7 +79,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ayamiss")
 
 L:SetGeneralLocalization({
-	name 		= "Аямисса Охотница"
+	name		= "Аямисса Охотница"
 })
 
 --------------
@@ -88,7 +88,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ossirian")
 
 L:SetGeneralLocalization({
-	name 		= "Оссириан Неуязвимый"
+	name		= "Оссириан Неуязвимый"
 })
 
 L:SetWarningLocalization({

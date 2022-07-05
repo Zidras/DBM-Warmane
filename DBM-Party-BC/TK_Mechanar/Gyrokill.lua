@@ -14,14 +14,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 39193 35322"
 )
 
-local warnShadowpower       = mod:NewTargetNoFilterAnnounce(35322, 3)
+local warnShadowpower		= mod:NewTargetNoFilterAnnounce(35322, 3)
 
-local specWarnShadowpower   = mod:NewSpecialWarningDispel(35322, "MagicDispeller", nil, nil, 1, 2)
+local specWarnShadowpower	= mod:NewSpecialWarningDispel(35322, "MagicDispeller", nil, nil, 1, 2)
 
-local timerShadowpower      = mod:NewBuffActiveTimer(15, 35322, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerShadowpower		= mod:NewBuffActiveTimer(15, 35322, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(39193, 35322) and not args:IsDestTypePlayer() then     --Shadow Power
+	if args:IsSpellID(39193, 35322) and not args:IsDestTypePlayer() then	--Shadow Power
 		timerShadowpower:Start(args.destName)
 		if self.Options.SpecWarn35322dispel then
 			specWarnShadowpower:Show(args.destName)
@@ -33,7 +33,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(39193, 35322) and not args:IsDestTypePlayer() then     --Shadow Power
+	if args:IsSpellID(39193, 35322) and not args:IsDestTypePlayer() then	--Shadow Power
 		timerShadowpower:Stop(args.destName)
 	end
 end

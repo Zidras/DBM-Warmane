@@ -181,7 +181,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    BirdStone	= "%s ha vuelto a la piedra."
+	BirdStone	= "%s ha vuelto a la piedra."
 })
 
 ---------------------
@@ -249,7 +249,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(554)
 
 L:SetMiscLocalization({
-    AeonusFrenzy	= "¡%s entra en Frenesí!"
+	AeonusFrenzy	= "¡%s entra en Frenesí!"
 })
 
 --------------------------------
@@ -262,9 +262,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "Siguiente portal en breve",
-    WarnWavePortal		= "Portal %d",
-    WarnBossPortal		= "Jefe en breve"
+	WarnWavePortalSoon	= "Siguiente portal en breve",
+	WarnWavePortal		= "Portal %d",
+	WarnBossPortal		= "Jefe en breve"
 })
 
 L:SetTimerLocalization({
@@ -272,9 +272,9 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "Mostrar aviso previo para el siguiente portal",
-    WarnWavePortal		= "Mostrar aviso cuando aparezca un portal",
-    WarnBossPortal		= "Mostrar aviso previo para el siguiente jefe",
+	WarnWavePortalSoon	= "Mostrar aviso previo para el siguiente portal",
+	WarnWavePortal		= "Mostrar aviso cuando aparezca un portal",
+	WarnBossPortal		= "Mostrar aviso previo para el siguiente jefe",
 	TimerNextPortal		= "Mostrar temporizador para el siguiente portal (después de jefe)",
 	ShowAllPortalTimers	= "Mostrar temporizadores para todos los portales (impreciso)"
 })

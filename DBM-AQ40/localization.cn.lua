@@ -70,9 +70,9 @@ L:SetMiscLocalization({
 	Slow	 = "的速度慢下来了！",
 	Freezing = "冻结了！",
 	Frozen	 = "变成了坚硬的固体！",
-	Phase4 	 = "开始出现裂缝！",
-	Phase5 	 = "看起来就要碎裂了！",
-    --Phase6   = "爆炸." --Checking the battle video, I didn't find this sentence. this emotion not exists in CN client. --by Aoikaze
+	Phase4	 = "开始出现裂缝！",
+	Phase5	 = "看起来就要碎裂了！",
+	--Phase6   = "爆炸." --Checking the battle video, I didn't find this sentence. this emotion not exists in CN client. --by Aoikaze
 	HitsRemain	= "剩余攻击",
 	Frost		= "冰霜",
 	Physical	= "物理"
@@ -145,8 +145,8 @@ L:SetMiscLocalization({
 	Stomach		= "内场",
 	Eye			= "克苏恩之眼",
 	FleshTent	= "血肉触须",--Localized so it shows on frame in users language, not senders
-	Weakened 	= "削弱了",
-    NotValid	= "AQ40 击杀信息： %s 可选Boss未击杀。"
+	Weakened	= "削弱了",
+	NotValid	= "AQ40 击杀信息： %s 可选Boss未击杀。"
 })
 
 ----------------

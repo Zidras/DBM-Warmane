@@ -61,7 +61,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(64584, 64443) then 	-- Big Bang
+	if args:IsSpellID(64584, 64443) then	-- Big Bang
 		timerBigBangCast:Start()
 		timerNextBigBang:Start()
 		announcePreBigBang:Schedule(80)
@@ -75,7 +75,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(65108, 64122) then 	-- Black Hole Explosion
+	if args:IsSpellID(65108, 64122) then	-- Black Hole Explosion
 		announceBlackHole:Show()
 	elseif args:IsSpellID(64598, 62301) then	-- Cosmic Smash
 		timerCastCosmicSmash:Start()
@@ -106,7 +106,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(sourceGUID, _, _, _, _, _, spellId)
-	if (spellId == 65108 or spellId == 64122) and self:AntiSpam(2, spellId .. sourceGUID) then 	-- Black Hole Explosion
+	if (spellId == 65108 or spellId == 64122) and self:AntiSpam(2, spellId .. sourceGUID) then	-- Black Hole Explosion
 		announceBlackHole:Show()
 		if stars[sourceGUID] then
 			local id = stars[sourceGUID]

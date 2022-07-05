@@ -172,7 +172,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-    BirdStone	= "%s returns to stone."
+	BirdStone	= "%s returns to stone."
 })
 
 ------------------------
@@ -237,7 +237,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization(554)
 
 L:SetMiscLocalization({
-    AeonusFrenzy	= "%s被激怒了!"
+	AeonusFrenzy	= "%s被激怒了!"
 })
 
 ---------------------
@@ -250,9 +250,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "新的時間裂隙即將到來",
-    WarnWavePortal		= "第%d個時間裂隙",
-    WarnBossPortal		= "首領到來"
+	WarnWavePortalSoon	= "新的時間裂隙即將到來",
+	WarnWavePortal		= "第%d個時間裂隙",
+	WarnBossPortal		= "首領到來"
 })
 
 L:SetTimerLocalization({
@@ -260,9 +260,9 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "為新的時間裂隙顯示預先警告",
-    WarnWavePortal		= "為新的時間裂隙顯示警告",
-    WarnBossPortal		= "為首領到來顯示警告",
+	WarnWavePortalSoon	= "為新的時間裂隙顯示預先警告",
+	WarnWavePortal		= "為新的時間裂隙顯示警告",
+	WarnBossPortal		= "為首領到來顯示警告",
 	TimerNextPortal		= "為下一次時間裂隙顯示計時器(擊敗首領後)",
 	ShowAllPortalTimers	= "為所有時間裂隙顯示計時器(不準確)"
 })

@@ -68,7 +68,7 @@ L:SetOptionLocalization({
 	timerTurret2				= "Отсчет времени до пушки 2",
 	timerTurret3				= "Отсчет времени до пушки 3 (25 чел.)",
 	timerTurret4				= "Отсчет времени до пушки 4 (25 чел.)",
-	timerGrounded			    = "Отсчет времени для наземной фазы"
+	timerGrounded				= "Отсчет времени для наземной фазы"
 })
 
 L:SetMiscLocalization({
@@ -272,15 +272,15 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	SpawnYell          = "Помогите мне, дети мои!",
-	WaterSpirit        = "Древний дух воды",
-	Snaplasher         = "Хватоплет",
-	StormLasher        = "Грозовой плеточник",
-	YellKill           = "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
-	YellAdds1          = "Эонар, твоей прислужнице нужна помощь!",
-	YellAdds2          = "Вас захлестнет сила стихий!",
-	EmoteLGift         = "начинает расти!", -- |cFF00FFFFДар Хранительницы жизни|r начинает расти!
-	TrashRespawnTimer  = "Возрождение монстров"
+	SpawnYell			= "Помогите мне, дети мои!",
+	WaterSpirit			= "Древний дух воды",
+	Snaplasher			= "Хватоплет",
+	StormLasher			= "Грозовой плеточник",
+	YellKill			= "Он больше не властен надо мной. Мой взор снова ясен. Благодарю вас, герои.",
+	YellAdds1			= "Эонар, твоей прислужнице нужна помощь!",
+	YellAdds2			= "Вас захлестнет сила стихий!",
+	EmoteLGift			= "начинает расти!", -- |cFF00FFFFДар Хранительницы жизни|r начинает расти!
+	TrashRespawnTimer	= "Возрождение монстров"
 })
 
 ----------------------
@@ -377,10 +377,10 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningGuardianSpawned 			= "Страж %d",
+	WarningGuardianSpawned			= "Страж %d",
 	WarningCrusherTentacleSpawned	= "Тяжелое щупальце",
-	WarningSanity 					= "Осталось %d Здравомыслия",
-	SpecWarnSanity 					= "Осталось %d Здравомыслия",
+	WarningSanity					= "Осталось %d Здравомыслия",
+	SpecWarnSanity					= "Осталось %d Здравомыслия",
 	SpecWarnGuardianLow				= "Прекратите атаковать этого Стража",
 	SpecWarnMadnessOutNow			= "Доведение до помешательства заканчивается - выбегайте",
 	WarnBrainPortalSoon				= "Провал Безумия через 3 секунды",

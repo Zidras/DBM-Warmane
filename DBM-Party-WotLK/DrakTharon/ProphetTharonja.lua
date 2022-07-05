@@ -13,9 +13,9 @@ mod:RegisterEventsInCombat(
 )
 
 local warningDecayFleshSoon		= mod:NewSoonAnnounce(49356, 2)
-local warningCloud 				= mod:NewSpellAnnounce(49548, 3)
-local warningFleshSoon 			= mod:NewSoonAnnounce(49356, 3)
-local warningFlesh 				= mod:NewSpellAnnounce(49356, 3)
+local warningCloud				= mod:NewSpellAnnounce(49548, 3)
+local warningFleshSoon			= mod:NewSoonAnnounce(49356, 3)
+local warningFlesh				= mod:NewSpellAnnounce(49356, 3)
 
 mod.vb.warnedDecay = false
 

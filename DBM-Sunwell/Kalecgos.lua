@@ -1,5 +1,5 @@
 local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
-local Kal 	= DBM:GetModByName("Kal")
+local Kal	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")

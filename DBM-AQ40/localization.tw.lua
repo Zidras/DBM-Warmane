@@ -66,9 +66,9 @@ L:SetMiscLocalization({
 	Slow	= "開始減速!",   --Translation problem, this is an exclamation mark in English, please do not modify it.
 	Freezing= "凍住了！",
 	Frozen	= "變成冰凍的固體!",  --Translation problem, this is an exclamation mark in English, please do not modify it.
-	Phase4 	= "開始爆裂!",  --Translation problem, this is an exclamation mark in English, please do not modify it.
-	Phase5 	= "看來準備好毀滅了！",
-	Phase6 	= "爆炸。",
+	Phase4	= "開始爆裂!",  --Translation problem, this is an exclamation mark in English, please do not modify it.
+	Phase5	= "看來準備好毀滅了！",
+	Phase6	= "爆炸。",
 	HitsRemain	= "剩餘攻擊",
 	Frost		= "冰霜",
 	Physical	= "物理"
@@ -140,7 +140,7 @@ L:SetMiscLocalization({
 	Stomach		= "內場",
 	Eye			= "克蘇恩之眼",
 	FleshTent	= "血肉觸鬚",--Localized so it shows on frame in users language, not senders
-	Weakened 	= "變弱了",
+	Weakened	= "變弱了",
 	NotValid	= "AQ40 擊殺信息： %s 首領未擊殺。"
 })
 

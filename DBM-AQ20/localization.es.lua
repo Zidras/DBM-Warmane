@@ -7,7 +7,7 @@ local L
 L = DBM:GetModLocalization("Kurinnaxx")
 
 L:SetGeneralLocalization({
-	name 		= "Kurinnaxx"
+	name		= "Kurinnaxx"
 })
 
 ------------
@@ -16,7 +16,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Rajaxx")
 
 L:SetGeneralLocalization({
-	name 		= "General Rajaxx"
+	name		= "General Rajaxx"
 })
 
 L:SetWarningLocalization({
@@ -44,7 +44,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Moam")
 
 L:SetGeneralLocalization({
-	name 		= "Moam"
+	name		= "Moam"
 })
 
 ----------
@@ -53,7 +53,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Buru")
 
 L:SetGeneralLocalization({
-	name 		= "Buru el Manducador"
+	name		= "Buru el Manducador"
 })
 
 L:SetWarningLocalization({
@@ -69,7 +69,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	PursueEmote 	= "%s mira a"
+	PursueEmote	= "%s mira a"
 })
 
 -------------
@@ -78,7 +78,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Ayamiss")
 
 L:SetGeneralLocalization({
-	name 		= "Ayamiss el Cazador"
+	name		= "Ayamiss el Cazador"
 })
 
 --------------
@@ -87,7 +87,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("Ossirian")
 
 L:SetGeneralLocalization({
-	name 		= "Osirio el Sinmarcas"
+	name		= "Osirio el Sinmarcas"
 })
 
 L:SetWarningLocalization({

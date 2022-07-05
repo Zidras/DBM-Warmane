@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 518 25832 25831"
 )
 
-local warnEntangle 		= mod:NewTargetAnnounce(1121, 2)
+local warnEntangle		= mod:NewTargetAnnounce(1121, 2)
 local warnWound			= mod:NewStackAnnounce(25646, 3, nil, "Tank", 3)
 local warnWorm			= mod:NewSpellAnnounce(25831, 3)
 

@@ -89,7 +89,7 @@ L:SetMiscLocalization({
 	Tyrius				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:64:64:96|t 提瑞斯·暮刃",		-- 34461
 	Kavina				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:0:32|t 卡薇娜·林地之歌",	-- 34460
 	Melador				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:95:126.5:0:32|t 梅拉朵·谷行者",	-- 34469
-	Alyssia             = "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:32:64|t 愛莉希雅·月巡者",		-- 34467
+	Alyssia				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:32:64|t 愛莉希雅·月巡者",		-- 34467
 	Noozle				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:32:63.5:0:32|t 諾佐·嘯棍",			-- 34468
 	Baelnor				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:64:96|t 貝爾諾·攜光者",		-- 34471
 	Velanaa				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:36:36:0:0:128:128:0:32:64:96|t 維蘭娜",				-- 34465
@@ -156,7 +156,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Anub'arak_Coliseum")
 
 L:SetGeneralLocalization({
-	name 				= "阿努巴拉克"
+	name				= "阿努巴拉克"
 })
 
 L:SetTimerLocalization({

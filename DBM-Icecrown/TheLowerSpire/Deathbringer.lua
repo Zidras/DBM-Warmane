@@ -37,7 +37,7 @@ mod:AddTimerLine(BOSS)
 local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, "Tank|Healer")
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, "Tank|Healer")
 local warnBloodNova			= mod:NewSpellAnnounce(72378, 2)
-local warnMark 				= mod:NewTargetCountAnnounce(72293, 4, 72293, nil, nil, nil, nil, nil, true)
+local warnMark				= mod:NewTargetCountAnnounce(72293, 4, 72293, nil, nil, nil, nil, nil, true)
 local warnBoilingBlood		= mod:NewTargetNoFilterAnnounce(72385, 2, nil, "Healer")
 local warnRuneofBlood		= mod:NewTargetNoFilterAnnounce(72410, 3, nil, "Tank|Healer")
 
@@ -103,8 +103,8 @@ local function warnBoilingBloodTargets(self)
 end
 
 function mod:FallenMarkTarget(targetname)
-    if not targetname then return end
-    if targetname == UnitName("player") then
+	if not targetname then return end
+	if targetname == UnitName("player") then
 		if canShadowmeld then
 			soundSpecWarnMark:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Shadowmeld.ogg")
 		elseif canVanish then
@@ -158,8 +158,8 @@ function mod:SPELL_CAST_START(args)
 		warnBloodNova:Show()
 		timerBloodNova:Start()
 	elseif args.spellId == 72293 then
-        self:BossTargetScanner(37813, "FallenMarkTarget", 0.01, 10)
-    end
+		self:BossTargetScanner(37813, "FallenMarkTarget", 0.01, 10)
+	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
