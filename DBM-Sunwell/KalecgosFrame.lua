@@ -2,6 +2,7 @@ local Kal	= DBM:GetModByName("Kal")
 local L		= Kal:GetLocalizedStrings()
 
 function Kal:InitializeMenu()
+--	self is DBMKalMenu, not Kal
 	local info1 = UIDropDownMenu_CreateInfo()
 	info1.text = L.name
 	info1.notClickable = 1
@@ -11,25 +12,25 @@ function Kal:InitializeMenu()
 
 	local info2 = UIDropDownMenu_CreateInfo()
 	info2.text = L.FrameLock
-	info2.value = self.Options.FrameLocked
-	info2.func = function() self.Options.FrameLocked = not self.Options.FrameLocked end
-	info2.checked = self.Options.FrameLocked
+	info2.value = Kal.Options.FrameLocked
+	info2.func = function() Kal.Options.FrameLocked = not Kal.Options.FrameLocked end
+	info2.checked = Kal.Options.FrameLocked
 	info2.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info2, 1)
 
 	local info3 = UIDropDownMenu_CreateInfo()
 	info3.text = L.FrameClassColor
-	info3.value = self.Options.FrameClassColor
-	info3.func = function() self.Options.FrameClassColor = not self.Options.FrameClassColor self:UpdateColors() end
-	info3.checked = self.Options.FrameClassColor
+	info3.value = Kal.Options.FrameClassColor
+	info3.func = function() Kal.Options.FrameClassColor = not Kal.Options.FrameClassColor Kal:UpdateColors() end
+	info3.checked = Kal.Options.FrameClassColor
 	info3.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info3, 1)
 
 	local info4 = UIDropDownMenu_CreateInfo()
 	info4.text = L.FrameOrientation
-	info4.value = self.Options.FrameUpwards
-	info4.func = function() self.Options.FrameUpwards = not self.Options.FrameUpwards self:ChangeFrameOrientation() end
-	info4.checked = self.Options.FrameUpwards
+	info4.value = Kal.Options.FrameUpwards
+	info4.func = function() Kal.Options.FrameUpwards = not Kal.Options.FrameUpwards Kal:ChangeFrameOrientation() end
+	info4.checked = Kal.Options.FrameUpwards
 	info4.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info4, 1)
 
