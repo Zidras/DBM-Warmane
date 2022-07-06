@@ -3,7 +3,7 @@ local L		= LichKing:GetLocalizedStrings()
 local floor = math.floor
 
 function LichKing:InitializeMenu()
---	self = LichKing -- this function will be called by UIDropDownMenu_Initialize()
+--	self is DBMLichKingMenu, not LichKing
 	local info = UIDropDownMenu_CreateInfo()
 	info.text = L.name
 	info.notClickable = 1
@@ -13,25 +13,25 @@ function LichKing:InitializeMenu()
 
 	local info1 = UIDropDownMenu_CreateInfo()
 	info1.text = L.FrameLock
-	info1.value = self.Options.FrameLocked
-	info1.func = function() self.Options.FrameLocked = not self.Options.FrameLocked end
-	info1.checked = self.Options.FrameLocked
+	info1.value = LichKing.Options.FrameLocked
+	info1.func = function() LichKing.Options.FrameLocked = not LichKing.Options.FrameLocked end
+	info1.checked = LichKing.Options.FrameLocked
 	info1.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info1, 1)
 
 	local info2 = UIDropDownMenu_CreateInfo()
 	info2.text = L.FrameClassColor
-	info2.value = self.Options.FrameClassColor
-	info2.func = function() self.Options.FrameClassColor = not self.Options.FrameClassColor self:UpdateColors() end
-	info2.checked = self.Options.FrameClassColor
+	info2.value = LichKing.Options.FrameClassColor
+	info2.func = function() LichKing.Options.FrameClassColor = not LichKing.Options.FrameClassColor LichKing:UpdateColors() end
+	info2.checked = LichKing.Options.FrameClassColor
 	info2.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info2, 1)
 
 	local info3 = UIDropDownMenu_CreateInfo()
 	info3.text = L.FrameOrientation
-	info3.value = self.Options.FrameUpwards
-	info3.func = function() self.Options.FrameUpwards = not self.Options.FrameUpwards self:ChangeFrameOrientation() end
-	info3.checked = self.Options.FrameUpwards
+	info3.value = LichKing.Options.FrameUpwards
+	info3.func = function() LichKing.Options.FrameUpwards = not LichKing.Options.FrameUpwards LichKing:ChangeFrameOrientation() end
+	info3.checked = LichKing.Options.FrameUpwards
 	info3.keepShownOnClick = 1
 	UIDropDownMenu_AddButton(info3, 1)
 
