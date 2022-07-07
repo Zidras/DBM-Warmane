@@ -179,7 +179,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(70633, 71283, 72025, 72026) and args:IsDestTypePlayer() then--Gut Spray
 		timerGutSpray:Start(args.destName)
 		warnGutSpray:CombinedShow(0.3, args.destName)
-		if self:IsTank() then
+		if args:IsPlayer() and self:IsTank() then
 			specWarnGutSpray:Show()
 			specWarnGutSpray:Play("defensive")
 		end
