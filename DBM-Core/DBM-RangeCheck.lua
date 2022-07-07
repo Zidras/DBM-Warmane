@@ -800,6 +800,8 @@ local function createTextFrame()
 		end
 		textFrame.lines[i] = line
 	end
+
+	textFrame:Hide()
 end
 
 local function createRadarFrame()
