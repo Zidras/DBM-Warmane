@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220706103300")
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
