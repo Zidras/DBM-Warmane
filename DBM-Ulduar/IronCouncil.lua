@@ -1,18 +1,19 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220701215737")
+mod:SetRevision("20220708172140")
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 61920 63479 61879 61903 63493 62274 63489 62273",
-	"SPELL_CAST_SUCCESS 63490 62269 64321 61974 61869 63481",
+	"SPELL_CAST_START 61920 63479 61879 61903 63493 62274 63489 62273 61973",
+	"SPELL_CAST_SUCCESS 63490 62269 61869 63481",
 	"SPELL_AURA_APPLIED 61903 63493 62269 63490 62277 63967 64637 61888 63486 61887 61912 63494 63483 61915",
 	"SPELL_AURA_REMOVED 64637 61888 63483 61915 61912 63494",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED boss2"
 )
 
 mod:SetBossHealthInfo(
@@ -56,7 +57,8 @@ local specWarnRuneofShields		= mod:NewSpecialWarningDispel(62274, "MagicDispelle
 
 local timerRuneofShields		= mod:NewBuffActiveTimer(15, 62274, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
-local timerRuneofPower			= mod:NewCDTimer(30, 64320, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerRuneofPowerCast		= mod:NewCastTimer(1.5, 61793, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
+local timerRuneofPowerCD		= mod:NewCDTimer(60, 61793, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 
 -- Steelbreaker
@@ -76,6 +78,8 @@ mod:AddSetIconOption("SetIconOnStaticDisruption", 63494, false, false, {1, 2, 3,
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
 local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
 
+mod:GroupSpells(64320, 61793) -- Rune of Power, buff and cast
+
 local disruptTargets = {}
 mod.vb.disruptIcon = 7
 local runemasterAlive = true
@@ -88,16 +92,10 @@ local function ResetRange(self)
 	end
 end
 
-function mod:RuneOfPower()
-	timerRuneofPower:Start()
-	self:ScheduleMethod(60, "RuneOfPower")
-end
-
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
-	timerRuneofPower:Start(30)
-	timerOverloadCD:Start(40)
-	self:ScheduleMethod(30, "RuneOfPower")
+	timerRuneofPowerCD:Start(20-delay) -- One log review (2022/07/05)
+	timerOverloadCD:Start(68) -- REVIEW! Insufficent data to validate if it's correct
 	table.wipe(disruptTargets)
 	self.vb.disruptIcon = 7
 	runemasterAlive = true
@@ -136,6 +134,9 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 62273 then			-- Rune of Summoning
 		warnRuneofSummoning:Show()
 		timerRuneofSummoning:Start()
+	elseif spellId == 61973 then	-- Rune of Power (cast success not fired on Warmane, and not correct to check target after cast either)
+		self:BossTargetScanner(32927, "RuneTarget", 0.1, 16, true, true)--Scan only boss unitIDs, scan only hostile targets
+		timerRuneofPowerCast:Start()
 	end
 end
 
@@ -144,9 +145,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnRuneofDeath:Show()
 		timerRuneofDeath:Start()
 		warnRuneofDeathIn10Sec:Schedule(20)
-	elseif args:IsSpellID(64321, 61974) then	-- Rune of Power
-		self:BossTargetScanner(32927, "RuneTarget", 0.1, 16, true, true)--Scan only boss unitIDs, scan only hostile targets
-		timerRuneofPower:Start()
 	elseif args:IsSpellID(61869, 63481) then	-- Overload
 		timerOverload:Start()
 		timerOverloadCD:Start()
@@ -247,8 +245,8 @@ function mod:UNIT_DIED(args)
 		end
 		timerRuneofDeath:Cancel()
 		warnRuneofDeathIn10Sec:Cancel()
-		timerRuneofPower:Cancel()
-		self:UnscheduleMethod("RuneOfPower")
+		timerRuneofPowerCD:Cancel()
+		timerRuneofPowerCast:Cancel()
 	elseif cid == 32857 then	--Stormcaller Brundir
 		brundirAlive = false
 		if runemasterAlive and steelbreakerAlive then
@@ -260,5 +258,11 @@ function mod:UNIT_DIED(args)
 		timerOverload:Cancel()
 		timerOverloadCD:Cancel()
 		timerLightningWhirl:Cancel()
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(61973) then	-- Rune of Power
+		timerRuneofPowerCD:Start()
 	end
 end
