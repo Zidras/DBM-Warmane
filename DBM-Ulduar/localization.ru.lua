@@ -194,14 +194,14 @@ L:SetWarningLocalization({
 	WarnCatDiedOne	= "Дикий эащитник погибает (осталась 1 жизнь)"
 })
 
-L:SetTimerLocalization({
-	timerDefender	= "Возрождение Дикого защитника"
-})
+-- L:SetTimerLocalization({
+-- 	timerDefender	= "Возрождение Дикого защитника"
+-- })
 
 L:SetOptionLocalization({
 	WarnCatDied		= "Предупреждение, когда Дикий защитник погибает",
-	WarnCatDiedOne	= "Предупреждение, когда у Дикого защитника остается 1 жизнь",
-	timerDefender	= "Отсчет времени до возрождения Дикого защитника"
+	WarnCatDiedOne	= "Предупреждение, когда у Дикого защитника остается 1 жизнь"
+--	timerDefender	= "Отсчет времени до возрождения Дикого защитника"
 })
 
 L:SetMiscLocalization({

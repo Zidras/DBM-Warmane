@@ -182,14 +182,14 @@ L:SetWarningLocalization({
 	WarnCatDiedOne	= "Wilder Verteidiger tot (1 Leben übrig)"
 })
 
-L:SetTimerLocalization({
-	timerDefender	= "Wilder Verteidiger wird aktiviert"
-})
+-- L:SetTimerLocalization({
+-- 	timerDefender	= "Wilder Verteidiger wird aktiviert"
+-- })
 
 L:SetOptionLocalization({
 	WarnCatDied		= "Zeige Warnung, wenn der Wilde Verteidiger stirbt",
-	WarnCatDiedOne	= "Zeige Warnung, wenn der Wilde Verteidiger nur noch 1 Leben übrig hat",
-	timerDefender	= "Zeige Zeit bis zur Aktivierung des Wilden Verteidigers"
+	WarnCatDiedOne	= "Zeige Warnung, wenn der Wilde Verteidiger nur noch 1 Leben übrig hat"
+--	timerDefender	= "Zeige Zeit bis zur Aktivierung des Wilden Verteidigers"
 })
 
 L:SetMiscLocalization({

@@ -181,14 +181,14 @@ L:SetWarningLocalization({
 	WarnCatDiedOne		= "수호 야수 죽음 (1 번 남음)"
 })
 
-L:SetTimerLocalization({
-	timerDefender		= "수호 야수 활성"
-})
+-- L:SetTimerLocalization({
+-- 	timerDefender		= "수호 야수 활성"
+-- })
 
 L:SetOptionLocalization({
 	WarnCatDied			= "수호 야수의 남은부활 횟수 알림 보기",
-	WarnCatDiedOne		= "수호 야수 부활 횟수가 1번 남았을 때 알림 보기",
-	timerDefender		= "다음 수호 야수 활성 바 보기"
+	WarnCatDiedOne		= "수호 야수 부활 횟수가 1번 남았을 때 알림 보기"
+--	timerDefender		= "다음 수호 야수 활성 바 보기"
 })
 
 L:SetMiscLocalization({

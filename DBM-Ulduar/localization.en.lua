@@ -193,14 +193,14 @@ L:SetWarningLocalization({
 	WarnCatDiedOne	= "Feral Defender down (1 life remaining)"
 })
 
-L:SetTimerLocalization({
-	timerDefender	= "Feral Defender activates"
-})
+-- L:SetTimerLocalization({
+-- 	timerDefender	= "Feral Defender activates"
+-- })
 
 L:SetOptionLocalization({
 	WarnCatDied		= "Show warning when Feral Defender dies",
-	WarnCatDiedOne	= "Show warning when Feral Defender has 1 life remaining",
-	timerDefender	= "Show timer for when Feral Defender is activated"
+	WarnCatDiedOne	= "Show warning when Feral Defender has 1 life remaining"
+--	timerDefender	= "Show timer for when Feral Defender is activated"
 })
 
 L:SetMiscLocalization({

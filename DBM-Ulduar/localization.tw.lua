@@ -181,14 +181,14 @@ L:SetWarningLocalization({
 	WarnCatDiedOne	= "野性防衛者倒下 (剩下最後一隻)"
 })
 
-L:SetTimerLocalization({
-	timerDefender	= "野性防衛者復活"
-})
+-- L:SetTimerLocalization({
+-- 	timerDefender	= "野性防衛者復活"
+-- })
 
 L:SetOptionLocalization({
 	WarnCatDied		= "當野性防衛者死亡時顯示警告",
-	WarnCatDiedOne	= "當野性防衛者剩下最後一隻時顯示警告",
-	timerDefender   = "當野性防衛者準備復活時顯示計時器"
+	WarnCatDiedOne	= "當野性防衛者剩下最後一隻時顯示警告"
+--	timerDefender   = "當野性防衛者準備復活時顯示計時器"
 })
 
 L:SetMiscLocalization({

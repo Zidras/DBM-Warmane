@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Auriaya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220708173230")
 
 mod:SetCreatureID(33515)
 mod:RegisterCombat("combat")
@@ -14,10 +14,10 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
-local warnSwarm		= mod:NewTargetAnnounce(64396, 2)
+local warnSwarm			= mod:NewTargetAnnounce(64396, 2)
 local warnFearSoon		= mod:NewSoonAnnounce(64386, 1)
-local warnCatDied		= mod:NewAnnounce("WarnCatDied", 3, 64455)
-local warnCatDiedOne	= mod:NewAnnounce("WarnCatDiedOne", 3, 64455)
+local warnCatDied		= mod:NewAnnounce("WarnCatDied", 3, 64455, nil, nil, nil, 64455)
+local warnCatDiedOne	= mod:NewAnnounce("WarnCatDiedOne", 3, 64455, nil, nil, nil, 64455)
 
 local specWarnFear		= mod:NewSpecialWarningSpell(64386, nil, nil, nil, 2, 2)
 local specWarnBlast		= mod:NewSpecialWarningInterrupt(64389, "HasInterrupt", nil, 2, 1, 2)
@@ -25,21 +25,23 @@ local specWarnVoid		= mod:NewSpecialWarningMove(64675, nil, nil, nil, 1, 2)
 local specWarnSonic		= mod:NewSpecialWarningMoveTo(64688, nil, nil, nil, 2, 2)
 
 local enrageTimer		= mod:NewBerserkTimer(600)
-local timerDefender	= mod:NewTimer(30, "timerDefender", 64455, nil, nil, 1)
+local timerDefender		= mod:NewNextCountTimer(30, 64447, nil, nil, nil, 1) -- First timer is time for boss spellcast, afterwards is time to revive
 local timerFear			= mod:NewCastTimer(64386, nil, nil, nil, 4)
-local timerNextFear	= mod:NewNextTimer(30, 64386, nil, nil, nil, 4)
+local timerNextFear		= mod:NewNextTimer(30, 64386, nil, nil, nil, 4)
 local timerNextSwarm	= mod:NewNextTimer(36, 64396, nil, nil, nil, 1)
 local timerNextSonic	= mod:NewNextTimer(25, 64688, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerSonic		= mod:NewCastTimer(64688, nil, nil, nil, 2)
+
+mod:GroupSpells(64447, 64455) -- Activate Feral Defender, Feral Essence
 
 mod.vb.catLives = 9
 
 function mod:OnCombatStart(delay)
 	self.vb.catLives = 9
 	enrageTimer:Start(-delay)
-	timerNextFear:Start(40-delay)
-	timerNextSonic:Start(60-delay)
-	timerDefender:Start(60-delay)
+	timerNextFear:Start(35-delay) -- 18s variance! REVIEW: 25m ~35s, 10m ~50s?? (2022/07/08 10m Lord transcriptor log || 2021 S2 cleu 25m, 10m || VOD review) - 53 || 35, 50 || 35, 36
+	timerNextSonic:Start(60-delay) -- 33s variance! 81, 61, 94...
+	timerDefender:Start(60-delay, self.vb.catLives)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -83,12 +85,11 @@ function mod:UNIT_DIED(args)
 	if cid == 34035 then
 		self.vb.catLives = self.vb.catLives - 1
 		if self.vb.catLives > 0 then
+			timerDefender:Start(nil, self.vb.catLives)
 			if self.vb.catLives == 1 then
 				warnCatDiedOne:Show()
-				timerDefender:Start()
 			else
 				warnCatDied:Show(self.vb.catLives)
-				timerDefender:Start()
 			end
 			if self.Options.HealthFrame then
 				DBM.BossHealth:RemoveBoss(34035)

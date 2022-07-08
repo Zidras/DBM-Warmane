@@ -194,14 +194,14 @@ L:SetWarningLocalization({
 	WarnCatDiedOne		= "Défenseur farouche mort (1 vie en moins)",
 })
 
-L:SetTimerLocalization({
-	timerDefender		= "Défenseur farouche activé"
-})
+-- L:SetTimerLocalization({
+-- 	timerDefender		= "Défenseur farouche activé"
+-- })
 
 L:SetOptionLocalization({
 	WarnCatDied			= "Activer l'avertissement quand un défenseur farouche meurt",
-	WarnCatDiedOne		= "Montre une alerte spéciale quand un Défenseur farouche meurt",
-	timerDefender		= "Montre un timer quand le Défenseur farouche est activé"
+	WarnCatDiedOne		= "Montre une alerte spéciale quand un Défenseur farouche meurt"
+--	timerDefender		= "Montre un timer quand le Défenseur farouche est activé"
 })
 
 L:SetMiscLocalization({
