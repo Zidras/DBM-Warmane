@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220709155258"),
+	Revision = parseCurseDate("20220709172304"),
 	DisplayVersion = "9.2.21 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -157,7 +157,7 @@ DBM.DefaultOptions = {
 	VPReplacesCustom = false,
 	AlwaysPlayVoice = false,
 	VPDontMuteSounds = false,
-	EventSoundVictory2 = "Interface\\AddOns\\DBM-Core\\sounds\\Victory\\SmoothMcGroove_Fanfare.ogg",
+	EventSoundVictory2 = "None", --"Interface\\AddOns\\DBM-Core\\sounds\\Victory\\SmoothMcGroove_Fanfare.ogg",
 	EventSoundWipe = "None",
 	EventSoundPullTimer = "None",
 	EventSoundEngage2 = "None",
@@ -223,7 +223,7 @@ DBM.DefaultOptions = {
 	RLReadyCheckSound = true,
 	AFKHealthWarning = false,
 	AutoReplySound = true,
-	HideObjectivesFrame = true,
+	HideObjectivesFrame = false, --true,
 	HideGarrisonToasts = true,
 	HideGuildChallengeUpdates = true,
 	HideTooltips = false,
