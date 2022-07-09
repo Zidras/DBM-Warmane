@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220709172304"),
+	Revision = parseCurseDate("20220709185600"),
 	DisplayVersion = "9.2.21 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2747,11 +2747,13 @@ do
 		DBM_AllSavedOptions[usedProfile] = self.Options
 
 		-- force enable dual profile (change default)
+		--[[ Custom edit: disabled override, since having this as true requires user to know how mod profiles work and wonder why the mod profile they had previously configured is not "working"
 		if DBM_CharSavedRevision < 12976 then
 			if playerClass ~= "MAGE" and playerClass ~= "WARLOCK" and playerClass ~= "ROGUE" then
 				DBM_UseDualProfile = true
 			end
 		end
+		--]]
 		DBM_CharSavedRevision = self.Revision
 		-- load special warning options
 		self:UpdateWarningOptions()
