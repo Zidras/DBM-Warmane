@@ -274,7 +274,11 @@ L:SetMiscLocalization({
 	YellAdds2			= "¡El azote de los elementos podrá con vosotros!", -- esES
 --	YellAdds2			= "¡La horda de elementos te atrapará!", -- esMX
 	EmoteLGift			= "comienza a crecer!", -- ¡Un |cFF00FFFFDon de la Protectora|r comienza a crecer!
-	TrashRespawnTimer	= "Reaparicion de Adds de Freya"
+	TrashRespawnTimer	= "Reaparicion de Adds de Freya",
+	YellPullNormal		= "¡Debemos proteger el Invernadero!", -- esES
+--	YellPullNormal		= ¡Hay que proteger el Conservatorio! -- esMX
+	YellPullHard		= "¡Ancestros, otorgadme vuestro poder!" -- esES
+--	YellPullHard		= "¡Ancestros, concédanme su fuerza!" -- esMX
 })
 
 ----------------------

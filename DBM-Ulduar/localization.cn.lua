@@ -268,7 +268,9 @@ L:SetMiscLocalization({
 	YellAdds1			= "艾欧娜尔，您的仆人需要帮助！",
 	YellAdds2			= "元素之潮会击垮你们！",
 	EmoteLGift			= "开始生长！", -- |cFF00FFFF生命缚誓者的礼物|r开始生长！
-	TrashRespawnTimer	= "弗蕾亚的小怪重生"
+	TrashRespawnTimer	= "弗蕾亚的小怪重生",
+	YellPullNormal		= "必须保卫温室！",
+	YellPullHard		= "长老们，将你们的力量赐予我！"
 })
 
 ----------------------

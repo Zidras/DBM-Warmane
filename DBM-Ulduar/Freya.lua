@@ -1,20 +1,23 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220701215737")
+mod:SetRevision("20220709133644")
 
 mod:SetCreatureID(32906)
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
 
+mod:RegisterEvents(
+	"CHAT_MSG_MONSTER_YELL"
+)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 62437 62859",
-	"SPELL_CAST_SUCCESS 62678 62673 62619 63571 62589 64650 63601",
+	"SPELL_CAST_SUCCESS 62678 62873 62619 63571 62589 64650 63601 62451 62865",
 	"SPELL_AURA_APPLIED 62283 62438 62439 62861 62862 62930 62451 62865",
 	"SPELL_AURA_REMOVED 62519 62861 62438 63571 62589",
 	"UNIT_DIED",
-	"CHAT_MSG_MONSTER_YELL",
+	"UNIT_SPELLCAST_SUCCEEDED boss1",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -41,8 +44,8 @@ local yellNatureFury		= mod:NewYell(63571)
 
 local timerAlliesOfNature	= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON)--No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set
 local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 62678)
-local timerNatureFury		= mod:NewTargetTimer(10, 63571)
-local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1)
+local timerNatureFury		= mod:NewTargetTimer(10, 63571, nil, nil, nil, 3)
+local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- 10s variance (S2 VOD review)
 
 mod:AddRangeFrameOption(8, 63571)
 mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
@@ -64,9 +67,9 @@ local yellIronRoots			= mod:NewYell(62438)
 local specWarnGroundTremor	= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode Elder Stonebark Alive
 local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
 
-local timerGroundTremorCD	= mod:NewCDTimer(26, 62859, 62859, nil, nil, nil, 2)--22.9-47.8
-local timerIronRootsCD		= mod:NewCDTimer(14, 62438, nil, nil, nil, 3)
-local timerUnstableBeamCD	= mod:NewCDTimer(15, 62865) -- Hard mode Sun Beam
+local timerGroundTremorCD	= mod:NewCDTimer(25.5, 62859, nil, nil, nil, 2)--22.9-47.8
+local timerIronRootsCD		= mod:NewCDTimer(12, 62438, nil, nil, nil, 3) -- 4s variance (could be 10s) (2022/07/05 log review) - 12, 16
+local timerUnstableBeamCD	= mod:NewCDTimer(15, 62865, nil, nil, nil, 2) -- Hard mode Sun Beam. 5s variance [15-20] (2022/07/05 log review) - 18.7, 16.6
 
 mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
 
@@ -74,16 +77,17 @@ local adds = {}
 mod.vb.altIcon = true
 mod.vb.iconId = 6
 mod.vb.waves = 0
+mod.vb.isHardMode = false
 
 function mod:OnCombatStart(delay)
 	self.vb.altIcon = true
 	self.vb.iconId = 6
 	self.vb.waves = 0
 	self:SetStage(1)
-	timerEnrage:Start()
+	timerEnrage:Start(-delay)
 	table.wipe(adds)
 	timerAlliesOfNature:Start(10-delay)
-	timerLifebinderCD:Start(25)
+	timerLifebinderCD:Start(25-delay)
 end
 
 function mod:OnCombatEnd(wipe)
@@ -112,12 +116,14 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if args:IsSpellID(62678, 62673) then -- Summon Allies of Nature
+	if args:IsSpellID(62678, 62873) then -- REVIEW! Summon Allies of Nature, never fired on Warmane. Instead there are Summon Wave spells: 62688 (confirmed), 62685 and 62686. To be confirmed adequacy via logs
+		DBM:AddMsg("Summon Allies of Nature unhidden from combat log. Notify Zidras on Discord or GitHub")
 		self.vb.waves = self.vb.waves + 1
 		if self.vb.waves < 6 then
 			timerAlliesOfNature:Start()
 		end
 	elseif args.spellId == 62619 and self:GetUnitCreatureId(args.sourceName) == 33228 then -- Pheromones spell, cast by newly spawned Eonar's Gift second they spawn to allow melee to dps them while protector is up.
+		DBM:AddMsg("Pheromones unhidden from combat log. Notify Zidras on Discord or GitHub") -- REVIEW! Pheromones never fired on Warmane. Instead there is only an emote event.
 		specWarnLifebinder:Show()
 		specWarnLifebinder:Play("targetchange")
 		timerLifebinderCD:Start()
@@ -143,10 +149,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnNatureBomb:Cancel()
 			specWarnNatureBomb:Schedule(9.95)
 		end
-	elseif spellId == 63601 then
+	elseif spellId == 63601 then -- Strengthened Iron Roots
+		DBM:AddMsg("Strengthened Iron Roots unhidden from combat log. Notify Zidras on Discord or GitHub") -- REVIEW! Strengthened Iron Roots never fired on Warmane. Instead there is only an emote event.
 		--if self.vb.phase == 2 then
 			timerIronRootsCD:Start()
 		--end
+	elseif args:IsSpellID(62451, 62865) then -- Unstable Energy (Sun Beam)
+		timerUnstableBeamCD:Start()
+		warnUnstableBeamSoon:Schedule(12)
 	end
 end
 
@@ -160,16 +170,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnRoots then
 			self:SetIcon(args.destName, self.vb.iconId, 15)
 		end
-		timerIronRootsCD:Start()
-	elseif args:IsSpellID(62451, 62865) then
-		if self:AntiSpam(10, 2) then
-			timerUnstableBeamCD:Start()
-			warnUnstableBeamSoon:Schedule(12)
-		end
-		if args:IsPlayer() then
-			specWarnUnstableBeam:Show()
-			specWarnUnstableBeam:Play("runaway")
-		end
+	elseif args:IsSpellID(62451, 62865) and args:IsPlayer() then
+		specWarnUnstableBeam:Show()
+		specWarnUnstableBeam:Play("runaway")
 	end
 end
 
@@ -214,8 +217,19 @@ function mod:UNIT_DIED(args)
 	end
 end
 
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(62438) then
+		timerIronRootsCD:Start()
+	end
+end
+
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.SpawnYell then
+	if msg == L.YellPullNormal then -- Yell fires before IEEU, so set HM variable here instead of OnCombatStart
+		self.vb.isHardMode = false
+	elseif msg == L.YellPullHard then
+		self.vb.isHardMode = true
+		timerGroundTremorCD:Start(11) -- 6s variance (could be more, insufficient data). 2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review) - 16 || 11, 13, 17
+	elseif msg == L.SpawnYell then
 		timerAlliesOfNature:Start()
 		if self.Options.HealthFrame then
 			if not adds[33202] then DBM.BossHealth:AddBoss(33202, L.WaterSpirit) end -- ancient water spirit
@@ -235,6 +249,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if strmatch(msg, L.EmoteLGift) then
 		specWarnLifebinder:Show()
+		specWarnLifebinder:Play("targetchange")
 		timerLifebinderCD:Start()
 	end
 end

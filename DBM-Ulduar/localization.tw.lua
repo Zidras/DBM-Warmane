@@ -267,7 +267,9 @@ L:SetMiscLocalization({
 	YellAdds1			= "伊歐娜，你的僕從需要協助!",
 	YellAdds2			= "元素們將襲捲你們!",
 	EmoteLGift			= "開始生長!", -- 一個|cFF00FFFF生命守縛者之禮|r開始生長!
-	TrashRespawnTimer	= "芙蕾雅的小怪重生"
+	TrashRespawnTimer	= "芙蕾雅的小怪重生",
+	YellPullNormal		= "必須守護大溫室!",
+	YellPullHard		= "長者們，賦予我你們的力量!"
 })
 
 ----------------------

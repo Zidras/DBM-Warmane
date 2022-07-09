@@ -267,7 +267,9 @@ L:SetMiscLocalization({
 	YellAdds1			= "이오나여, 당신의 종이 도움을 청합니다!",
 	YellAdds2			= "정령의 무리가 너희를 덮치리라!",
 	EmoteLGift			= "이 자라기 시작합니다!", -- |cFF00FFFF생명의 어머니의 선물|r이 자라기 시작합니다!
-	TrashRespawnTimer	= "프레이야 지역 리젠타임"
+	TrashRespawnTimer	= "프레이야 지역 리젠타임",
+	YellPullNormal		= "어떻게 해서든 정원을 수호해야 한다!",
+	YellPullHard		= "장로여, 내게 힘을 나눠다오!"
 })
 
 ----------------------

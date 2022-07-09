@@ -268,7 +268,9 @@ L:SetMiscLocalization({
 	YellAdds1			= "Eonar, Eure Dienerin braucht Hilfe!",
 	YellAdds2			= "Der Schwarm der Elemente soll über Euch kommen!",
 	EmoteLGift			= "fängt an zu wachsen!", -- Ein |cFF00FFFFGeschenk der Lebensbinderin|r fängt an zu wachsen!
-	TrashRespawnTimer	= "Freya-Trash-Respawn"
+	TrashRespawnTimer	= "Freya-Trash-Respawn",
+	YellPullNormal		= "Das Konservatorium muss verteidigt werden!",
+	YellPullHard		= "Ihr Ältesten, gewährt mir Eure Macht!"
 })
 
 ----------------------

@@ -280,7 +280,9 @@ L:SetMiscLocalization({
 	YellAdds1			= "Eonar, ta servante a besoin d'aide !",
 	YellAdds2			= "La nuée des éléments va vous submerger !",
 	EmoteLGift			= "commence à pousser !", -- Un |cFF00FFFFdon de la Lieuse-de-vie|r commence à pousser !
-	TrashRespawnTimer	= "Respawn des Trashs de Freya"
+	TrashRespawnTimer	= "Respawn des Trashs de Freya",
+	YellPullNormal		= "Le jardin doit être protégé !",
+	YellPullHard		= "Anciens, donnez-moi votre force !"
 })
 
 ----------------------
