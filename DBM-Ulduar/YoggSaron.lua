@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220701215737")
+mod:SetRevision("20220709190520")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
-mod:SetUsedIcons(8, 7, 6, 2, 1)
+mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 64059 64189 63138",
