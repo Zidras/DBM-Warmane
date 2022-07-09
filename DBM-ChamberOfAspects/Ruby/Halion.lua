@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220703113828")
+mod:SetRevision("20220709195438")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358)
@@ -213,7 +213,7 @@ function mod:UPDATE_WORLD_STATES()
 			if corporeality > 0 and previousCorporeality ~= corporeality then
 				specWarnCorporeality:Show(corporeality)
 				previousCorporeality = corporeality
-				if corporeality > 50 then
+				if corporeality > 60 then -- only voice for >= 70%, 60% is still manageable so default to the selected SA sound
 					if self:IsTank() then
 						specWarnCorporeality:Play("defensive")
 					end
