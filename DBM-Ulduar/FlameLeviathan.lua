@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("FlameLeviathan", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220701215737")
+mod:SetRevision("20220710172609")
 
 mod:SetCreatureID(33113)
 
@@ -38,11 +38,7 @@ end
 
 function mod:OnCombatStart(delay)
 	buildGuidTable(self)
-	if self:IsDifficulty("normal10") then
-		timerNextFlameVents:Start(20-delay)
-	else
-		timerNextFlameVents:Start(30-delay)
-	end
+	timerNextFlameVents:Start(-delay) -- 25 man log review (2022/07/10)
 end
 
 function mod:OnTimerRecovery()

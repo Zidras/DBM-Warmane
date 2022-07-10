@@ -9,11 +9,6 @@ L:SetGeneralLocalization({
 	name = "Flame Leviathan"
 })
 
-L:SetMiscLocalization({
-	YellPull	= "Hostile entities detected. Threat assessment protocol active. Primary target engaged. Time minus 30 seconds to re-evaluation.",
-	Emote		= "%%s pursues (%S+)%."
-})
-
 L:SetWarningLocalization({
 	PursueWarn				= "Pursuing >%s<",
 	warnNextPursueSoon		= "Target change in 5 seconds",
@@ -26,6 +21,11 @@ L:SetOptionLocalization({
 	PursueWarn				= "Announce $spell:62374 targets",
 	warnNextPursueSoon		= "Show pre-warning for next $spell:62374",
 	warnWardofLife			= "Show special warning for Ward of Life spawn"
+})
+
+L:SetMiscLocalization({
+	YellPull	= "Hostile entities detected. Threat assessment protocol active. Primary target engaged. Time minus 30 seconds to re-evaluation.",
+	Emote		= "%%s pursues (%S+)%."
 })
 
 --------------------------------
