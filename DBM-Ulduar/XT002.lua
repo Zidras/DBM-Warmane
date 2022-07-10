@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("XT002", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220701220005")
+mod:SetRevision("20220710231919")
 mod:SetCreatureID(33293)
 mod:SetUsedIcons(1, 2)
 
@@ -26,6 +26,7 @@ mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
 local warnLightBomb					= mod:NewTargetNoFilterAnnounce(65121, 3)
 local warnGravityBomb				= mod:NewTargetNoFilterAnnounce(64234, 3)
 
+local specWarnTympanicTantrum		= mod:NewSpecialWarningSpell(62776, nil, nil, nil, 1, 2)
 local specWarnLightBomb				= mod:NewSpecialWarningMoveAway(65121, nil, nil, nil, 1, 2)
 local yellLightBomb					= mod:NewYell(65121)
 local specWarnGravityBomb			= mod:NewSpecialWarningMoveAway(64234, nil, nil, nil, 1, 2)
@@ -52,7 +53,7 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	enrageTimer:Start(-delay)
 	timerAchieve:Start()
-	if self:IsDifficulty("normal10") then
+	if self:IsDifficulty("normal10") then -- REVIEW. No log yet to validate this.
 		timerTympanicTantrumCD:Start(35-delay)
 	else
 		timerTympanicTantrumCD:Start(60-delay)
@@ -70,6 +71,8 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 62776 then					-- Tympanic Tantrum (aoe damage + daze)
+		specWarnTympanicTantrum:Show()
+		specWarnTympanicTantrum:Play("aesoon")
 		timerTympanicTantrumCast:Start()
 		timerTympanicTantrumCD:Start()
 	end
@@ -101,10 +104,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		warnGravityBomb:Show(args.destName)
 		timerGravityBomb:Start(args.destName)
-	elseif spellId == 63849 then
+	elseif spellId == 63849 then	-- Exposed Heart
 		self:SetStage(2)
+		timerTympanicTantrumCD:Stop()
 		timerHeart:Start()
-		timerTympanicTantrumCD:Start(65) -- maybe?
 	end
 end
 
@@ -117,9 +120,10 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.SetIconOnGravityBombTarget then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif args.spellId == 63849 then
+	elseif args.spellId == 63849 then	-- Exposed Heart
 		self:setStage(1)
 		timerHeart:Stop()
+		timerTympanicTantrumCD:Start() -- REVIEW! No log data to support 60s, only wowpedia
 	end
 end
 
