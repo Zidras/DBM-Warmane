@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220703130600")
+mod:SetRevision("20220710124426")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220623000000)
@@ -301,12 +301,9 @@ function mod:TrapTarget(targetname, uId)
 			specWarnTrap:Show()
 			specWarnTrap:Play("watchstep")
 			yellTrap:Yell()
-		else
-			local inRange = CheckInteractDistance(uId, 2)
-			if inRange then
-				specWarnTrapNear:Show(targetname)
-				specWarnTrapNear:Play("watchstep")
-			end
+		elseif self:CheckNearby(15, targetname) then
+			specWarnTrapNear:Show(targetname)
+			specWarnTrapNear:Play("watchstep")
 		end
 		if self.Options.TrapArrow then
 			local x, y = GetPlayerMapPosition(uId)
