@@ -39,6 +39,10 @@ L:SetGeneralLocalization({
 	name = "Ignis, Meister des Eisenwerks"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "Spielt den Sound von $spell:31821, um die Effekte von $spell:63472 zu negieren (nur für den |cFFF48CBAPaladin|r, der der Besitzer von $spell:19746 ist)"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

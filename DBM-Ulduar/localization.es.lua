@@ -39,6 +39,10 @@ L:SetGeneralLocalization({
 	name = "Ignis el Maestro de la Caldera"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "Reproducir el sonido de $spell:31821 para anular los efectos de $spelll:63472 (sólo para el |cFFF48CBAPaladín|r que es el propietario de $spell:19746)"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

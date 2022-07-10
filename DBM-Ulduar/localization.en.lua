@@ -37,6 +37,10 @@ L:SetGeneralLocalization({
 	name = "Ignis the Furnace Master"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "Play $spell:31821 sound to negate the effects of $spell:63472 (only for the |cFFF48CBAPaladin|r that is the owner of $spell:19746)"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

@@ -39,6 +39,10 @@ L:SetGeneralLocalization({
 	name = "Повелитель Горнов Игнис"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "Воспроизвести звук $spell:31821, чтобы отменить эффекты $spell:63472 (только для |cFFF48CBAПаладин|r, который является владельцем $spell:19746)"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

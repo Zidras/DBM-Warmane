@@ -39,6 +39,10 @@ L:SetGeneralLocalization({
 	name = "Ignis le maître de la Fournaise"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "Jouer le son $spell:31821 pour annuler les effets de $spell:63472 (seulement pour le |cFFF48CBAPaladin|r qui est le propriétaire de $spell:19746)"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

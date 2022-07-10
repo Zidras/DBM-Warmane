@@ -37,6 +37,10 @@ L:SetGeneralLocalization({
 	name = "掌炉者伊格尼斯"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "播放$spell:31821的声音来否定$spell:63472的效果（只针对$spell:19746的主人|cFFF48CBA圣骑士|r"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

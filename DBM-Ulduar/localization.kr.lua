@@ -39,6 +39,10 @@ L:SetGeneralLocalization({
 	name = "용광로 군주 이그니스"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "$spell:31821 사운드를 재생하여 $spell:63472의 효과를 무효화합니다($spell:19746의 소유자인 |cFFF48CBA성기사|r만 해당)"
+})
+
 ------------------
 --  Razorscale  --
 ------------------

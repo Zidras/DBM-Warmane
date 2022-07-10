@@ -39,6 +39,10 @@ L:SetGeneralLocalization({
 	name = "『火爐之主』伊格尼司"
 })
 
+L:SetOptionLocalization({
+	soundConcAuraMastery	= "播放 $spell:31821 聲音以抵消 $spell:63472 的效果（僅適用於 $spell:19746 的所有者 |cFFF48CBA聖騎士|r）"
+})
+
 ------------------
 --  Razorscale  --
 ------------------
