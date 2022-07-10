@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorscale", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220701220005")
+mod:SetRevision("20220710223858")
 mod:SetCreatureID(33186)
 
 mod:RegisterCombat("combat_yell", L.YellAir)
@@ -31,10 +31,10 @@ local specWarnDevouringFlameYou		= mod:NewSpecialWarningYou(64733, false, nil, n
 local specWarnDevouringFlameNear	= mod:NewSpecialWarningClose(64733, false, nil, nil, 1, 2)
 local yellDevouringFlame			= mod:NewYell(64733)
 
-local timerTurret1					= mod:NewTimer(53, "timerTurret1", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
-local timerTurret2					= mod:NewTimer(75, "timerTurret2", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
-local timerTurret3					= mod:NewTimer(95, "timerTurret3", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
-local timerTurret4					= mod:NewTimer(117, "timerTurret4", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+local timerTurret1					= mod:NewTimer(54, "timerTurret1", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
+local timerTurret2					= mod:NewTimer(76, "timerTurret2", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
+local timerTurret3					= mod:NewTimer(97, "timerTurret3", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
+local timerTurret4					= mod:NewTimer(118, "timerTurret4", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
@@ -43,30 +43,25 @@ local warnFuseArmor					= mod:NewStackAnnounce(64771, 2, nil, "Tank")
 local specWarnFuseArmor				= mod:NewSpecialWarningStack(64771, nil, 2, nil, nil, 1, 6)
 local specWarnFuseArmorOther		= mod:NewSpecialWarningTaunt(64771, nil, nil, nil, 1, 2)
 
-local timerDeepBreathCooldown		= mod:NewCDTimer(21, 64021, nil, nil, nil, 5)
+local timerDeepBreathCooldown		= mod:NewCDTimer(20.1, 64021, nil, nil, nil, 5) -- ~3s variance (25 man log review 2022/07/10) - 23.0, 20.1
 local timerDeepBreathCast			= mod:NewCastTimer(2.5, 64021)
 local timerGrounded					= mod:NewTimer(45, "timerGrounded", nil, nil, nil, 6)
-local timerFuseArmorCD				= mod:NewCDTimer(12.1, 64771, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerFuseArmorCD				= mod:NewCDTimer(10.1, 64771, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 10s variance (25 man log review 2022/07/10) - 10.1, 20.1
 
 mod:GroupSpells(63236, 64733) -- Devouring Flame (cast and damage)
 
 local combattime = 0
 local isGrounded = false
 
-function mod:FlameTarget(targetname, uId)
+function mod:FlameTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnDevouringFlameYou:Show()
 		specWarnDevouringFlameYou:Play("targetyou")
 		yellDevouringFlame:Yell()
-	elseif targetname then
-		if uId then
-			local inRange = CheckInteractDistance(uId, 2)
-			if inRange then
-				specWarnDevouringFlameNear:Show(targetname)
-				specWarnDevouringFlameNear:Play("runaway")
-			end
-		end
+	elseif self:CheckNearby(11, targetname) then
+		specWarnDevouringFlameNear:Show(targetname)
+		specWarnDevouringFlameNear:Play("runaway")
 	else
 		warnDevouringFlame:Show(targetname)
 	end
@@ -77,14 +72,14 @@ function mod:OnCombatStart(delay)
 	isGrounded = false
 	enrageTimer:Start(-delay)
 	combattime = GetTime()
-	if self:IsDifficulty("normal10") then
+	if self:IsDifficulty("normal10") then -- REVIEW. No log yet to validate this.
 		warnTurretsReadySoon:Schedule(53-delay)
 		warnTurretsReady:Schedule(73-delay)
 		timerTurret1:Start(-delay)
 		timerTurret2:Start(-delay)
 	else
-		warnTurretsReadySoon:Schedule(95-delay)
-		warnTurretsReady:Schedule(117-delay)
+		warnTurretsReadySoon:Schedule(97-delay)
+		warnTurretsReady:Schedule(118-delay)
 		timerTurret1:Start(-delay) -- 53sec
 		timerTurret2:Start(-delay) -- +20
 		timerTurret3:Start(-delay) -- +20
@@ -93,7 +88,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(63317, 64021) then	-- deep breath
+	if args:IsSpellID(63317, 64021) then	-- Flame Breath
 		timerDeepBreathCast:Start()
 		timerDeepBreathCooldown:Start()
 	elseif args.spellId == 63236 then
@@ -102,7 +97,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 64771 then
+	if args.spellId == 64771 then		-- Fuse Armor
 		local amount = args.amount or 1
 		if amount >= 2 then
 			if args:IsPlayer() then
@@ -146,7 +141,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 		timerTurret3:Stop()
 		timerTurret4:Stop()
 		timerGrounded:Stop()
-		timerFuseArmorCD:Start(15)
+		timerFuseArmorCD:Start(19) -- REVIEW! variance? (25 man log review 2022/07/10) - 19
 	end
 end
 

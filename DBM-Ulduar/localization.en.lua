@@ -77,7 +77,7 @@ L:SetMiscLocalization({
 	YellAir				= "Give us a moment to prepare to build the turrets.",
 	YellAir2			= "Fires out! Let's rebuild those turrets!",
 	YellGround			= "Move quickly! She won't remain grounded for long!",
-	EmotePhase2			= "%%s grounded permanently!"
+	EmotePhase2			= "%s is grounded permanently!"
 })
 
 ----------------------------
