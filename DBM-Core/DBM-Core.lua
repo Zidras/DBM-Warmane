@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220710170622"),
+	Revision = parseCurseDate("20220712002924"),
 	DisplayVersion = "9.2.21 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2216,7 +2216,7 @@ end
 
 function DBM:GetBossUnitId(name, bossOnly)--Deprecated, only old mods use this
 	local returnUnitID
-	for i = 1, 4 do
+	for i = 1, 5 do
 		if UnitName("boss" .. i) == name then
 			returnUnitID = "boss"..i
 		end
@@ -2233,7 +2233,7 @@ end
 
 function DBM:GetUnitIdFromGUID(cidOrGuid, bossOnly)
 	local returnUnitID
-	for i = 1, 4 do
+	for i = 1, 5 do
 		local unitId = "boss"..i
 		local bossGUID = UnitGUID(unitId)
 		if type(cidOrGuid) == "number" then--CID passed
