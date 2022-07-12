@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220706103300")
+mod:SetRevision("20220712215617")
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
@@ -25,7 +25,7 @@ local warnPhase2				= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local warnPhase2Soon			= mod:NewPrePhaseAnnounce(2, 2)
 local announcePreBigBang		= mod:NewPreWarnAnnounce(64584, 10, 3)
 local announceBlackHole			= mod:NewSpellAnnounce(65108, 2)
-local announcePhasePunch		= mod:NewStackAnnounce(65108, 4, nil, "Tank|Healer")
+local announcePhasePunch		= mod:NewStackAnnounce(64412, 4, nil, "Tank|Healer")
 
 local specwarnStarLow			= mod:NewSpecialWarning("warnStarLow", "Tank|Healer", nil, nil, 1, 2)
 local specWarnPhasePunch		= mod:NewSpecialWarningStack(64412, nil, 4, nil, nil, 1, 6)
