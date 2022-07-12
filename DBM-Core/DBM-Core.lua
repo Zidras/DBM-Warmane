@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220712002924"),
+	Revision = parseCurseDate("20220712185019"),
 	DisplayVersion = "9.2.21 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2268,7 +2268,7 @@ function DBM:CheckNearby(range, targetname)
 		local uId = DBM:GetRaidUnitId(targetname)
 		if uId and not UnitIsUnit("player", uId) then
 			local inRange = DBM.RangeCheck:GetDistance(uId)
-			self:Debug("CheckNearby fired for targetname: " .. targetname .. " (" .. uId .. ") and range: ".. range .. "yd. Actual distance found: " .. inRange, 3)
+			DBM:Debug("CheckNearby fired for targetname: " .. targetname .. " (" .. uId .. ") and range: ".. range .. "yd. Actual distance found: " .. inRange, 3) -- self can be mod too
 			if inRange and inRange < range + 0.5 then
 				return true
 			end
