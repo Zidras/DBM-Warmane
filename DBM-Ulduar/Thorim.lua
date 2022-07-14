@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220712002538")
+mod:SetRevision("20220714184708")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -30,7 +30,7 @@ local warnRuneDetonation			= mod:NewTargetNoFilterAnnounce(62526, 4)
 local specWarnRuneDetonation		= mod:NewSpecialWarningClose(62526, nil, nil, nil, 1, 2)
 local yellRuneDetonation			= mod:NewYell(62526)
 local specWarnLightningShock		= mod:NewSpecialWarningMove(62017, nil, nil, nil, 1, 2)
-local specWarnHardModeFailed		= mod:NewSpecialWarningFades(62507, nil, nil, nil, 1, 2)
+local specWarnHardModeFailed		= mod:NewSpecialWarningEnd(62507, nil, nil, nil, 1, 2)
 
 local timerHardmode					= mod:NewTimer(150, "TimerHardmode", 62042, nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, 62507) -- 25 man NM log review (2022/07/10), 2:30 from 62507 SPELL_AURA_APPLIED to SPELL_AURA_REMOVED
 local timerStormhammerCast			= mod:NewCastTimer(2, 62042, nil, nil, nil, 3)
