@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220714214654")
 mod:SetCreatureID(33271)
 mod:SetUsedIcons(7, 8)
 
@@ -16,27 +16,27 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
-local warnShadowCrash			= mod:NewTargetAnnounce(62660, 4)
-local warnLeechLife				= mod:NewTargetNoFilterAnnounce(63276, 3)
-local warnSaroniteVapor			= mod:NewCountAnnounce(63337, 2)
+local warnShadowCrash				= mod:NewTargetAnnounce(62660, 4)
+local warnLeechLife					= mod:NewTargetNoFilterAnnounce(63276, 3)
+local warnSaroniteVapor				= mod:NewCountAnnounce(63322, 2)
 
-local specWarnShadowCrash		= mod:NewSpecialWarningDodge(62660, nil, nil, nil, 1, 2)
-local specWarnShadowCrashNear	= mod:NewSpecialWarningClose(62660, nil, nil, nil, 1, 2)
-local yellShadowCrash			= mod:NewYell(62660)
-local specWarnSurgeDarkness		= mod:NewSpecialWarningDefensive(62662, nil, nil, 2, 1, 2)
-local specWarnLifeLeechYou		= mod:NewSpecialWarningMoveAway(63276, nil, nil, nil, 3, 2)
-local yellLifeLeech				= mod:NewYell(63276)
-local specWarnLifeLeechNear	= mod:NewSpecialWarningClose(63276, nil, nil, 2, 1, 2)
-local specWarnSearingFlames		= mod:NewSpecialWarningInterruptCount(62661, "HasInterrupt", nil, nil, 1, 2)
+local specWarnShadowCrash			= mod:NewSpecialWarningDodge(62660, nil, nil, nil, 1, 2)
+local specWarnShadowCrashNear		= mod:NewSpecialWarningClose(62660, nil, nil, nil, 1, 2)
+local yellShadowCrash				= mod:NewYell(62660)
+local specWarnSurgeDarkness			= mod:NewSpecialWarningDefensive(62662, nil, nil, 2, 1, 2)
+local specWarnMarkoftheFacelessYou	= mod:NewSpecialWarningMoveAway(63276, nil, nil, nil, 3, 2)
+local yellMarkoftheFaceless			= mod:NewYell(63276)
+local specWarnMarkoftheFacelessNear	= mod:NewSpecialWarningClose(63276, nil, nil, 2, 1, 2)
+local specWarnSearingFlames			= mod:NewSpecialWarningInterruptCount(62661, "HasInterrupt", nil, nil, 1, 2)
 
-local timerEnrage				= mod:NewBerserkTimer(600)
-local timerSearingFlamesCast	= mod:NewCastTimer(2, 62661, nil, nil, nil, 5, nil, DBM_COMMON_L.INTERRUPT_ICON)
-local timerSurgeofDarkness		= mod:NewBuffActiveTimer(10, 62662, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerNextSurgeofDarkness	= mod:NewCDTimer(61.7, 62662, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerSaroniteVapors		= mod:NewNextCountTimer(30, 63322, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerShadowCrashCD		= mod:NewCDTimer(9, 62660, nil, "Ranged", nil, 3)
-local timerLifeLeech			= mod:NewTargetTimer(10, 63276, nil, false, 2, 3, nil, DBM_COMMON_L.IMPORTANT_ICON)
-local timerLifeLeechCD			= mod:NewCDTimer(20.4, 63276, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON)
+local timerEnrage					= mod:NewBerserkTimer(600)
+local timerSearingFlamesCast		= mod:NewCastTimer(2, 62661, nil, nil, nil, 5, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerSurgeofDarkness			= mod:NewBuffActiveTimer(10, 62662, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerNextSurgeofDarkness		= mod:NewCDTimer(51.9, 62662, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! 10s variance [50-60; 50-70 from TC]? (25 man NM log review 2022/07/10) - 58.0, 51.9
+local timerSaroniteVapors			= mod:NewNextCountTimer(30, 63322, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON) -- REVIEW! 37s variance [30-67] or emote not fired? (25 man NM log review 2022/07/10) - 67.5, 34.2
+local timerShadowCrashCD			= mod:NewCDTimer(8.1, 62660, nil, "Ranged", nil, 3) -- 4s variance [8-12] (25 man NM log review 2022/07/10) - 8.8, 10.5, 8.6, 10.6, 10.3, 8.1, 11.8, 9.7, 10.6, 9.8, 14.2, 9.3, 9.1, 8.7, 8.4, 11.5, 8.9
+local timerMarkoftheFaceless		= mod:NewTargetTimer(10, 63276, nil, false, 2, 3, nil, DBM_COMMON_L.IMPORTANT_ICON)
+local timerMarkoftheFacelessCD		= mod:NewCDTimer(35.9, 63276, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON) -- REVIEW! 15s variance [35-45]? (25 man NM log review 2022/07/10) - 35.9, 41.1, 36.6
 
 mod:AddSetIconOption("SetIconOnShadowCrash", 62660, true, false, {8})
 mod:AddSetIconOption("SetIconOnLifeLeach", 63276, true, false, {7})
@@ -60,36 +60,31 @@ function mod:ShadowCrashTarget(targetname, uId)
 		specWarnShadowCrash:Show()
 		specWarnShadowCrash:Play("runaway")
 		yellShadowCrash:Yell()
-	elseif targetname then
-		if uId then
-			local inRange = CheckInteractDistance(uId, 2)
+	elseif self:CheckNearby(11, targetname) then
+		specWarnShadowCrashNear:Show(targetname)
+		specWarnShadowCrashNear:Play("runaway")
+		if uId and self.Options.CrashArrow then
 			local x, y = GetPlayerMapPosition(uId)
 			if x == 0 and y == 0 then
 				SetMapToCurrentZone()
 				x, y = GetPlayerMapPosition(uId)
 			end
-			if inRange then
-				specWarnShadowCrashNear:Show(targetname)
-				specWarnShadowCrashNear:Play("runaway")
-				if self.Options.CrashArrow then
-					DBM.Arrow:ShowRunAway(x, y, 15, 5)
-				end
-			else
-				warnShadowCrash:Show(targetname)
-			end
+			DBM.Arrow:ShowRunAway(x, y, 15, 5)
 		end
+	else
+		warnShadowCrash:Show(targetname)
 	end
 end
 
 function mod:OnCombatStart(delay)
 	self.vb.interruptCount = 0
 	self.vb.vaporsCount = 0
-	timerShadowCrashCD:Start(10.9-delay)
-	timerLifeLeechCD:Start(16.9-delay)
-	timerSaroniteVapors:Start(30-delay, 1)
+	timerShadowCrashCD:Start(8.0-delay) -- REVIEW! variance 8-12s? 25 man NM log review 2022/07/10 - 8.0
+	timerMarkoftheFacelessCD:Start(37.3-delay) -- REVIEW! variance 35-45s? 25 man NM log review 2022/07/10 - 37.3
+	timerSaroniteVapors:Start(30.0-delay, 1) -- Log reviewed (25 man NM log review 2022/07/10)
 	timerEnrage:Start(-delay)
 	timerHardmode:Start(-delay)
-	timerNextSurgeofDarkness:Start(-delay)
+	timerNextSurgeofDarkness:Start(60.0-delay) -- REVIEW! 10s variance [50-60]? (25 man NM log review 2022/07/10) - 60.0
 end
 
 function mod:SPELL_CAST_START(args)
@@ -104,8 +99,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnSearingFlames:Play("kick"..kickCount.."r")
 		timerSearingFlamesCast:Start()
 	elseif spellId == 62662 then
-		local tanking, status = UnitDetailedThreatSituation("player", "boss1")
-		if tanking or (status == 3) then--Player is current target
+		if self:IsTanking("player", "boss1", nil, true) then--Player is current target
 			specWarnSurgeDarkness:Show()
 			specWarnSurgeDarkness:Play("defensive")
 		end
@@ -132,32 +126,27 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 62660 then		-- Shadow Crash
+	local spellId = args.spellId
+	if spellId == 62660 then		-- Shadow Crash
 		self:BossTargetScanner(33271, "ShadowCrashTarget", 0.05, 20)
 		timerShadowCrashCD:Start()
-	elseif args.spellId == 63276 then	-- Mark of the Faceless
+	elseif spellId == 63276 then	-- Mark of the Faceless
 		if self.Options.SetIconOnLifeLeach then
 			self:SetIcon(args.destName, 7, 10)
 		end
-		timerLifeLeech:Start(args.destName)
-		timerLifeLeechCD:Start()
+		timerMarkoftheFaceless:Start(args.destName)
+		timerMarkoftheFacelessCD:Start()
 		if args:IsPlayer() then
-			specWarnLifeLeechYou:Show()
-			specWarnLifeLeechYou:Play("runout")
-			yellLifeLeech:Yell()
+			specWarnMarkoftheFacelessYou:Show()
+			specWarnMarkoftheFacelessYou:Play("runout")
+			yellMarkoftheFaceless:Yell()
+		elseif self:CheckNearby(11, args.destName) then
+			specWarnMarkoftheFacelessNear:Show(args.destName)
+			specWarnMarkoftheFacelessNear:Play("runaway")
 		else
-			local uId = DBM:GetRaidUnitId(args.destName)
-			if uId then
-				local inRange = CheckInteractDistance(uId, 2)
-				if inRange then
-					specWarnLifeLeechNear:Show(args.destName)
-					specWarnLifeLeechNear:Play("runaway")
-				else
-					warnLeechLife:Show(args.destName)
-				end
-			end
+			warnLeechLife:Show(args.destName)
 		end
-	elseif args.spellId == 63364 then
+	elseif spellId == 63364 then
 		specWarnAnimus:Show()
 		specWarnAnimus:Play("bigmob")
 	end
