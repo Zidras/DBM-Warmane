@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220712185019"),
+	Revision = parseCurseDate("20220715003235"),
 	DisplayVersion = "9.2.21 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5762,15 +5762,15 @@ end
 
 function DBM:HasMapRestrictions()
 	local playerX, playerY = GetPlayerMapPosition("player")
-	if playerX == 0 or playerY == 0 then -- attempt to fix zone once
-		SetMapToCurrentZone() -- DO NOT RUN THIS FUNCTION IN A LOOP! It's a waste of cpu power and will tank FPS due to radar loop scan.
-		playerX, playerY = GetPlayerMapPosition("player")
-	end
+	-- if playerX == 0 or playerY == 0 then -- attempt to fix zone once. Disabled for now to confirm LK 2.5 FPS issues.
+	-- 	SetMapToCurrentZone() -- DO NOT RUN THIS FUNCTION IN A LOOP! It's a waste of cpu power and will tank FPS due to radar loop scan.
+	-- 	playerX, playerY = GetPlayerMapPosition("player")
+	-- end
 	local mapName = GetMapInfo()
 	local level = GetCurrentMapDungeonLevel()
 	local usesTerrainMap = DungeonUsesTerrainMap()
 	level = usesTerrainMap and level - 1 or level
-	if (playerX == 0 or playerY == 0) or (self.MapSizes[mapName] and not self.MapSizes[mapName][level]) then
+	if (playerX == 0 and playerY == 0) or (self.MapSizes[mapName] and not self.MapSizes[mapName][level]) then
 		return true
 	end
 	return false

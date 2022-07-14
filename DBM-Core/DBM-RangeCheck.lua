@@ -442,7 +442,7 @@ local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS -- For 
 local GetPlayerMapPosition = GetPlayerMapPosition
 local UnitInRaid, UnitInParty, UnitIsPlayer = UnitInRaid, UnitInParty, UnitIsPlayer
 -- Nil variables
-local unitX, unitY, rangeX, rangeY
+local rangeX, rangeY
 -- Lib
 local LibRangeCheck = LibStub("LibRangeCheck-2.0")
 
@@ -498,7 +498,7 @@ local function getUnitRange(unit)
 		local mapX, mapY = DBM:GetMapSize()
 
 		local playerX, playerY = GetPlayerMapPosition("player")
-		unitX, unitY = GetPlayerMapPosition(unit)
+		local unitX, unitY = GetPlayerMapPosition(unit)
 		rangeX, rangeY = (unitX - playerX) * mapX, (unitY - playerY) * mapY
 		local range = (rangeX * rangeX + rangeY * rangeY) ^ 0.5
 
@@ -1059,7 +1059,8 @@ do
 						textFrame:SetHeight((closePlayer * 12) + 12)
 					end
 					if rEnabled then
-						if not unitX and not unitY then
+						local playerX, playerY = GetPlayerMapPosition("player")
+						if playerX == 0 and playerY == 0 then
 							rangeCheck:Hide(true)
 							return
 						end
