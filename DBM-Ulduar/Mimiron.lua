@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220712190125")
+mod:SetRevision("20220714204416")
 mod:SetCreatureID(33432)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -16,7 +16,7 @@ mod:RegisterEvents(
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 63631 64529 62997 64570 64623 64383",
 	"SPELL_CAST_SUCCESS 63027 63414 65192",
-	"SPELL_AURA_APPLIED 63666 65026 64529 62997 64616",
+	"SPELL_AURA_APPLIED 63666 65026 64529 62997 64616 64570",
 	"SPELL_AURA_REMOVED 63666 65026",
 	"SPELL_SUMMON 63811",
 	"UNIT_SPELLCAST_CHANNEL_STOP boss1 boss2 boss3",
@@ -42,7 +42,7 @@ local specWarnPlasmaBlast			= mod:NewSpecialWarningDefensive(64529, nil, nil, ni
 
 local timerProximityMines			= mod:NewCDTimer(35.0, 63027, nil, nil, nil, 3) -- 25 man NM log review (2022/07/10) + VOD review - 35.0
 local timerShockBlast				= mod:NewCastTimer(4, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNextShockBlast			= mod:NewNextTimer(40, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerNextShockBlast			= mod:NewNextTimer(35, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance?? S2 log shows 38s
 local timerNapalmShell				= mod:NewBuffActiveTimer(6, 63666, nil, "Healer", 2, 5, nil, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.HEALER_ICON)
 local timerPlasmaBlastCD			= mod:NewCDTimer(30, 64529, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
@@ -56,7 +56,7 @@ local specWarnRocketStrike			= mod:NewSpecialWarningDodge(64402, nil, nil, nil, 
 
 local timerSpinUp					= mod:NewCastTimer(4, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerP3Wx2LaserBarrageCast	= mod:NewCastTimer(10, 63274, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNextP3Wx2LaserBarrage	= mod:NewNextTimer(34, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 34
+local timerNextP3Wx2LaserBarrage	= mod:NewNextTimer(45, 63414, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance? S2 VOD reviews - 47.5, 45
 local timerRocketStrikeCD			= mod:NewCDTimer(20, 64402, nil, nil, nil, 3)--20-25
 
 -- Stage Three
@@ -81,15 +81,16 @@ local timerNextFlames				= mod:NewNextTimer(28, 64566, nil, nil, nil, 7, nil, DB
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.MobPhase1)
-local timerFlameSuppressant			= mod:NewBuffActiveTimer(10, 64570, nil, nil, nil, 3)
+local timerFlameSuppressantP1Debuff	= mod:NewBuffActiveTimer(8, 64570, nil, nil, nil, 3)
+local timerNextFlameSuppressantP1	= mod:NewCDTimer(60, 64570, nil, nil, nil, 3) -- S2 VOD review
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.MobPhase2)
 local warnFrostBomb					= mod:NewSpellAnnounce(64623, 3)
 
 local timerFrostBombExplosion		= mod:NewCastTimer(15, 65333, nil, nil, nil, 3)
-local timerNextFrostBomb			= mod:NewNextTimer(30, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
-local timerNextFlameSuppressant		= mod:NewNextTimer(60, 65192, nil, nil, nil, 3)
+local timerNextFrostBomb			= mod:NewNextTimer(33, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON) -- REVIEW! variance? Use PEWPEW to add time? VOD review either gave 46s or 33
+local timerNextFlameSuppressantP2	= mod:NewNextTimer(10, 65192, nil, nil, nil, 3) -- 2s variance (S2 VOD review) - 12, 12, 11, 10
 
 -- Stage Three
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..L.MobPhase3)
@@ -147,10 +148,10 @@ local function NextPhase(self)
 	elseif self.vb.phase == 2 then
 		timerNextShockBlast:Stop()
 		timerProximityMines:Stop()
-		timerFlameSuppressant:Stop()
+		timerNextFlameSuppressantP1:Stop()
 		timerPlasmaBlastCD:Stop()
 		timerP1toP2:Start()
-		timerNextP3Wx2LaserBarrage:Schedule(40)
+		timerNextP3Wx2LaserBarrage:Schedule(40, 34) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 34
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()
 			DBM.BossHealth:AddBoss(33651, L.MobPhase2)
@@ -247,7 +248,7 @@ function mod:SPELL_CAST_START(args)
 		end
 		timerPlasmaBlastCD:Start()
 	elseif spellId == 64570 then	-- Flame Suppressant (phase 1)
-		timerFlameSuppressant:Start()
+		timerNextFlameSuppressantP1:Start()
 	elseif spellId == 64623 then	-- Frost Bomb
 		warnFrostBomb:Show()
 		timerFrostBombExplosion:Start()
@@ -269,11 +270,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self:Schedule(0.15, show_warning_for_spinup, self)	-- wait 0.15 and then announce it, otherwise it will sometimes fail
 		lastSpinUp = GetTime()
 	elseif spellId == 65192 then	-- Flame Suppressant CD (phase 2)
-		timerNextFlameSuppressant:Start()
+		timerNextFlameSuppressantP2:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
+	local spellId = args.spellId
 	if args:IsSpellID(63666, 65026) and args:IsDestTypePlayer() then	-- Napalm Shell
 		napalmShellTargets[#napalmShellTargets + 1] = args.destName
 		timerNapalmShell:Start()
@@ -288,8 +290,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnPlasmaBlast then
 			self:SetIcon(args.destName, 8, 6)
 		end
-	elseif args.spellId == 64616 and args:IsPlayer() then
+	elseif spellId == 64616 and args:IsPlayer() then	-- Deafening Siren (Hard Mode)
 		specWarnDeafeningSiren:Show()
+	elseif spellId == 64570 and args:IsPlayer() then	-- Flame Suppressant (phase 1)
+		timerFlameSuppressantP1Debuff:Start()
 	end
 end
 
@@ -334,10 +338,10 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.hardmode = true
 		self:SetWipeTime(10)
 		timerHardmode:Start()
-		timerPlasmaBlastCD:Start(28)
-		timerFlameSuppressant:Start()
-		timerProximityMines:Start(21)
-		timerNextFlames:Start(6)
+		timerPlasmaBlastCD:Start(28) -- REVIEW! variance? S2 VOD review indicates it might be 29s
+		timerNextFlameSuppressantP1:Start(75) -- S2 VOD review
+		timerProximityMines:Start(11) -- S2 VOD review
+		timerNextFlames:Start(6) -- S2 VOD review
 		self:Schedule(6, Flames, self)
 		warnFlamesSoon:Schedule(1)
 		timerNextShockBlast:Start(37)
@@ -357,8 +361,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		if self.vb.phase == 2 then
 			timerNextShockBlast:Stop()
 			timerProximityMines:Stop()
-			timerFlameSuppressant:Stop()
-			--timerNextFlameSuppressant:Stop()
+			timerNextFlameSuppressantP1:Stop()
 			timerPlasmaBlastCD:Stop()
 			timerP1toP2:Start()
 			if self.Options.RangeFrame then
