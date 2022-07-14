@@ -1,16 +1,16 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220709190520")
+mod:SetRevision("20220715000225")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 64059 64189 63138",
+	"SPELL_CAST_START 64059 64189 63138 63830 63802",
 	"SPELL_CAST_SUCCESS 64144 64465 64167 64163",
 	"SPELL_SUMMON 62979",
-	"SPELL_AURA_APPLIED 63802 63830 63881 64126 64125 63138 63894 64167 64163 64465",
+	"SPELL_AURA_APPLIED 63802 63830 63881 64126 64125 63138 63894 64775 64167 64163 64465",
 	"SPELL_AURA_REMOVED 63802 63894 64167 64163 63830 63138 63881 64465",
 	"SPELL_AURA_REMOVED_DOSE 63050",
 	"UNIT_HEALTH"
@@ -51,14 +51,14 @@ mod:AddInfoFrameOption(63050)
 
 -- Sara
 -- mod:AddTimerLine(L.Sara)
-local warnBrainLink				= mod:NewTargetAnnounce(63802, 3)
+local warnBrainLink					= mod:NewTargetAnnounce(63802, 3)
 
-local specWarnBrainLink			= mod:NewSpecialWarningYou(63802, nil, nil, nil, 1, 2)
+local specWarnBrainLink				= mod:NewSpecialWarningYou(63802, nil, nil, nil, 1, 2)
 local specWarnMalady				= mod:NewSpecialWarningYou(63830, nil, nil, nil, 1, 2)
 local specWarnMaladyNear			= mod:NewSpecialWarningClose(63830, nil, nil, nil, 1, 2)
 
-local timerBrainLinkCD				= mod:NewCDTimer(32, 63802, nil, nil, nil, 3)
-local timerMaladyCD					= mod:NewCDTimer(18.1, 63830, nil, nil, nil, 3)
+local timerBrainLinkCD				= mod:NewCDTimer(25.4, 63802, nil, nil, nil, 3) -- REVIEW! variance 23-26s? 25 man NM log review 2022/07/10 - 25.4, 26.0
+local timerMaladyCD					= mod:NewCDTimer(18.1, 63830, nil, nil, nil, 3) -- REVIEW! variance 18-25s? 25 man NM log review 2022/07/10 - 22.3, 22.0
 
 mod:AddSetIconOption("SetIconOnBrainLinkTarget", 63802, true, false, {1, 2})
 mod:AddSetIconOption("SetIconOnFearTarget", 63830, true, false, {6})
@@ -125,7 +125,7 @@ local warnDeafeningRoarSoon			= mod:NewPreWarnAnnounce(64189, 5, 3)
 local specWarnDeafeningRoar			= mod:NewSpecialWarningSpell(64189, nil, nil, nil, 1, 2)
 
 local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189, nil, nil, nil, 2)
-local timerNextDeafeningRoar		= mod:NewNextTimer(30, 64189, nil, nil, nil, 2)
+local timerNextDeafeningRoar		= mod:NewNextTimer(58, 64189, nil, nil, nil, 2) -- S2 VOD review
 
 local targetWarningsShown = {}
 local brainLinkTargets = {}
@@ -172,7 +172,6 @@ end
 
 local function warnBrainLinkWarning(self)
 	warnBrainLink:Show(table.concat(brainLinkTargets, "<, >"))
-	timerBrainLinkCD:Start()--VERIFY ME
 	table.wipe(brainLinkTargets)
 	self.vb.brainLinkIcon = 2
 end
@@ -182,10 +181,10 @@ function mod:SPELL_CAST_START(args)
 	if spellId == 64059 then	-- Induce Madness
 		timerMadness:Start()
 		warnMadness:Show()
-		timerBrainPortal:Schedule(60)
+		timerBrainPortal:Schedule(60) -- Log reviewed [60 schedule + 20 timer] (25 man NM log review 2022/07/10) - 80.0
 		warnBrainPortalSoon:Schedule(78)
 		specWarnBrainPortalSoon:Schedule(78)
-		specWarnMadnessOutNow:Schedule(55)
+		specWarnMadnessOutNow:Schedule(55) -- TO DO: implement brain room check?
 	elseif spellId == 64189 then		--Deafening Roar
 		timerNextDeafeningRoar:Start()
 		warnDeafeningRoarSoon:Schedule(55)
@@ -194,12 +193,17 @@ function mod:SPELL_CAST_START(args)
 		specWarnDeafeningRoar:Play("silencesoon")
 	elseif spellId == 63138 then		--Sara's Fervor
 		self:BossTargetScanner(args.sourceGUID, "FervorTarget", 0.1, 12, true, nil, nil, nil, true)
+	elseif spellId == 63830 then	-- Malady of the Mind
+		timerMaladyCD:Start()
+	elseif spellId == 63802 then	-- Brain Link
+		timerBrainLinkCD:Start()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if spellId == 64144 and self:GetUnitCreatureId(args.sourceGUID) == 33966 then
+	if spellId == 64144 and self:GetUnitCreatureId(args.sourceGUID) == 33966 then -- Never fires on Warmane
+		DBM:AddMsg("Erupt unhidden from combat log. Notify Zidras on Discord or GitHub")
 		warnCrusherTentacleSpawned:Show()
 	elseif spellId == 64465 then -- Shadow Beacon
 		timerEmpower:Start()
@@ -207,8 +211,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnEmpowerSoon:Schedule(40)
 	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 3) then	-- Lunatic Gaze
 		timerLunaticGaze:Start()
-		timerBrainPortal:Start(60)
-		warnBrainPortalSoon:Schedule(55)
+--		timerBrainPortal:Start(60) -- Why?
+--		warnBrainPortalSoon:Schedule(55) -- Why?
 	end
 end
 
@@ -238,28 +242,24 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(0.5, warnBrainLinkWarning, self)
 		end
 	elseif args:IsSpellID(63830, 63881) then   -- Malady of the Mind (Death Coil)
-		--timerMaladyCD:Start()
 		if self.Options.SetIconOnFearTarget then
 			self:SetIcon(args.destName, 6, 30)
 		end
 		if args:IsPlayer() then
 			specWarnMalady:Show()
 			specWarnMalady:Play("targetyou")
-		else
-			local uId = DBM:GetRaidUnitId(args.destName)
-			if uId then
-				local inRange = CheckInteractDistance(uId, 2)
-				if inRange then
-					specWarnMaladyNear:Show(args.destName)
-					specWarnMaladyNear:Play("runaway")
-					if self.Options.MaladyArrow then
-						local x, y = GetPlayerMapPosition(uId)
-						if x == 0 and y == 0 then
-							SetMapToCurrentZone()
-							x, y = GetPlayerMapPosition(uId)
-						end
-						DBM.Arrow:ShowRunAway(x, y, 12, 5)
+		elseif self:CheckNearby(11, args.destName) then
+			specWarnMaladyNear:Show(args.destName)
+			specWarnMaladyNear:Play("runaway")
+			if self.Options.MaladyArrow then
+				local uId = DBM:GetRaidUnitId(args.destName)
+				if uId then
+					local x, y = GetPlayerMapPosition(uId)
+					if x == 0 and y == 0 then
+						SetMapToCurrentZone()
+						x, y = GetPlayerMapPosition(uId)
 					end
+					DBM.Arrow:ShowRunAway(x, y, 12, 5)
 				end
 			end
 		end
@@ -278,11 +278,12 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFervor:Show()
 			specWarnFervor:Play("targetyou")
 		end
-	elseif spellId == 63894 and self.vb.phase < 2 then	-- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts)
+	elseif args:IsSpellID(63894, 64775) and self.vb.phase < 2 then	-- Shadowy Barrier of Yogg-Saron (this is happens when p2 starts, ~1s after IEEU, so correction factor is needed). Bugged on Warmane, 63894 is never applied (only removed), instead 64775 is applied to Sara
+		-- "<114.74 19:51:51> [CLEU] SPELL_AURA_APPLIED:0xF13000816E0007D4:Sara:0xF13000816E0007D4:Sara:64775:Shadowy Barrier:BUFF:nil:", -- [5432]
 		self:SetStage(2)
-		timerMaladyCD:Start(13)--VERIFY ME
-		timerBrainLinkCD:Start(19)--VERIFY ME
-		timerBrainPortal:Start(57)
+		timerMaladyCD:Start(18) -- REVIEW! variance 18-25s? 25 man NM log review 2022/07/10 - 18
+		timerBrainLinkCD:Start(23) -- REVIEW! variance 23-26s? 25 man NM log review 2022/07/10 - 23
+		timerBrainPortal:Start(59) -- REVIEW! variance? 25 man NM log review 2022/07/10 - 59
 		warnBrainPortalSoon:Schedule(53)
 		specWarnBrainPortalSoon:Schedule(53)
 		warnP2:Show()
@@ -303,9 +304,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.vb.beaconIcon == 0 then
 			self.vb.beaconIcon = 8
 		end
-		timerEmpower:Start()
-		timerEmpowerDuration:Start()
-		warnEmpowerSoon:Schedule(40)
 	end
 end
 
@@ -316,6 +314,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif spellId == 63138 and self.Options.SetIconOnFervorTarget then	-- Sara's Fervor
 		self:SetIcon(args.destName, 0)
 	elseif spellId == 63894 then		-- Shadowy Barrier removed from Yogg-Saron (start p3)
+		-- "<298.03 19:54:54> [CLEU] SPELL_AURA_REMOVED:0xF150008208000F6B:Yogg-Saron:0xF150008208000F6B:Yogg-Saron:63894:Shadowy Barrier:BUFF:nil:", -- [15528]
 		self:SendSync("Phase3")			-- Sync this because you don't get it in your combat log if you are in brain room.
 	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 2) then	-- Lunatic Gaze
 		timerNextLunaticGaze:Start()
@@ -357,7 +356,7 @@ function mod:OnSync(msg)
 		warnP3:Show()
 		warnP3:Play("pthree")
 		warnEmpowerSoon:Schedule(40)
-		timerNextDeafeningRoar:Start(30)
-		warnDeafeningRoarSoon:Schedule(25)
+		timerNextDeafeningRoar:Start(22) -- S2 VOD review
+		warnDeafeningRoarSoon:Schedule(17)
 	end
 end
