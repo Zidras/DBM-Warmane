@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220708172140")
+mod:SetRevision("20220714133232")
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -57,8 +57,8 @@ local specWarnRuneofShields		= mod:NewSpecialWarningDispel(62274, "MagicDispelle
 
 local timerRuneofShields		= mod:NewBuffActiveTimer(15, 62274, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
-local timerRuneofPowerCast		= mod:NewCastTimer(1.5, 61793, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
-local timerRuneofPowerCD		= mod:NewCDTimer(60, 61793, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
+local timerRuneofPowerCast		= mod:NewCastTimer(1.5, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
+local timerRuneofPowerCD		= mod:NewCDTimer(60, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 
 -- Steelbreaker
@@ -78,7 +78,7 @@ mod:AddSetIconOption("SetIconOnStaticDisruption", 63494, false, false, {1, 2, 3,
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
 local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
 
-mod:GroupSpells(64320, 61793) -- Rune of Power, buff and cast
+mod:GroupSpells(64320, 61973) -- Rune of Power, buff and cast
 
 local disruptTargets = {}
 mod.vb.disruptIcon = 7
