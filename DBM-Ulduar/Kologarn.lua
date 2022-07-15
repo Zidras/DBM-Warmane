@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220715235602")
+mod:SetRevision("20220716004505")
 mod:SetCreatureID(32930)
 mod:SetUsedIcons(5, 6, 7, 8)
 
@@ -204,7 +204,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		timerNextShockwave:Start()
 	elseif spellName == GetSpellInfo(63342) then--Focused Eyebeam Summon Trigger
 		timerNextEyebeam:Start()
---	elseif spellName == GetSpellInfo(63726) then -- Pacify Self (End Combat, since IEEU detection isn't working here for some reason)
---		DBM:EndCombat(self)
+	elseif spellName == GetSpellInfo(63726) then -- Pacify Self (End Combat, since there isn't a UNIT_DIED for OnMobKill to run)
+		DBM:EndCombat(self)
 	end
 end
