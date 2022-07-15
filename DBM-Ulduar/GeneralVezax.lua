@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220714214654")
+mod:SetRevision("20220715223633")
 mod:SetCreatureID(33271)
 mod:SetUsedIcons(7, 8)
 
@@ -46,7 +46,7 @@ mod:AddArrowOption("CrashArrow", 62660, true)
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
 local specWarnAnimus			= mod:NewSpecialWarningSwitch(63145, nil, nil, nil, 1, 2)
 
-local timerHardmode				= mod:NewTimer(189, "hardmodeSpawn", nil, nil, nil, 1)
+local timerHardmode				= mod:NewTimer(212, "hardmodeSpawn", nil, nil, nil, 1) -- S3 VOD review 2022/07/15
 
 mod.vb.interruptCount = 0
 mod.vb.vaporsCount = 0
