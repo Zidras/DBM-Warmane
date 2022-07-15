@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220712215617")
+mod:SetRevision("20220715211935")
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
@@ -56,8 +56,8 @@ function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
 	timerNextCollapsingStar:Start(22-delay) -- one log review (2022/07/05)
 	timerCDCosmicSmash:Start(35-delay) -- one log review (2022/07/05)
-	announcePreBigBang:Schedule(61-delay)
-	timerNextBigBang:Start(71-delay) -- one log review (2022/07/05)
+	announcePreBigBang:Schedule(90-delay)
+	timerNextBigBang:Start(100-delay) -- Log review (2022/07/05 || 2022/07/10) - 100 || 100
 	enrageTimer:Start(360-delay)
 end
 
