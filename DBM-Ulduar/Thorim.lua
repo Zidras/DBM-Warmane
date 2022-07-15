@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220715225559")
+mod:SetRevision("20220715230212")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -31,9 +31,7 @@ local warnRuneDetonation			= mod:NewTargetNoFilterAnnounce(62526, 4)
 local specWarnRuneDetonation		= mod:NewSpecialWarningClose(62526, nil, nil, nil, 1, 2)
 local yellRuneDetonation			= mod:NewYell(62526)
 local specWarnLightningShock		= mod:NewSpecialWarningMove(62017, nil, nil, nil, 1, 2)
-local specWarnHardModeFailed		= mod:NewSpecialWarningEnd(62507, nil, nil, nil, 1, 2)
 
-local timerHardmode					= mod:NewTimer(150, "TimerHardmode", "Interface\\Icons\\achievement_boss_thorim", nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, 62507) -- 25 man NM log review (2022/07/10), 2:30 from 62507 SPELL_AURA_APPLIED to SPELL_AURA_REMOVED
 local timerStormhammerCast			= mod:NewCastTimer(2, 62042, nil, nil, nil, 3)
 local timerStormhammerCD			= mod:NewCDTimer(15.5, 62042, nil, nil, nil, 3) -- ~5s variance (25 man NM log review 2022/07/10) - 16.2, 15.5, 16.8, 19.4, 17.8, 15.5, 16.8
 
@@ -55,6 +53,9 @@ mod:AddBoolOption("AnnounceFails", false, "announce", nil, nil, nil, 62466)
 
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local specWarnHardModeFailed		= mod:NewSpecialWarningEnd(62507, nil, nil, nil, 1, 2)
+
+local timerHardmode					= mod:NewTimer(150, "TimerHardmode", "Interface\\Icons\\achievement_boss_thorim", nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, 62507) -- 25 man NM log review (2022/07/10), 2:30 from 62507 SPELL_AURA_APPLIED to SPELL_AURA_REMOVED
 local timerFrostNova				= mod:NewNextTimer(20, 62605, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerFrostNovaCast			= mod:NewCastTimer(2.5, 62605, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerFBVolley					= mod:NewCDTimer(13, 62604)
