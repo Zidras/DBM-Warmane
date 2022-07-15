@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("XT002", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220710231919")
+mod:SetRevision("20220716001836")
 mod:SetCreatureID(33293)
 mod:SetUsedIcons(1, 2)
 
@@ -121,7 +121,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif args.spellId == 63849 then	-- Exposed Heart
-		self:setStage(1)
+		self:SetStage(1)
 		timerHeart:Stop()
 		timerTympanicTantrumCD:Start() -- REVIEW! No log data to support 60s, only wowpedia
 	end
