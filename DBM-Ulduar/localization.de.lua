@@ -138,7 +138,7 @@ L:SetMiscLocalization({
 --	YellPull2				= "Euer Handeln ist unlogisch. Alle Möglichkeiten dieser Begegnung wurden berechnet. Das Pantheon wird die Nachricht des Beobachters erhalten, ungeachtet des Ausgangs.",
 	YellKill				= "Ich sah Welten umhüllt von den Flammen der Schöpfer, sah ohne einen Hauch von Trauer ihre Bewohner vergehen. Ganze Planetensysteme geboren und vernichtet, während Eure sterblichen Herzen nur einmal schlagen. Doch immer war mein Herz kalt... ohne Mitgefühl. Ich - habe - nichts - gefühlt. Millionen, Milliarden Leben verschwendet. Trugen sie alle dieselbe Beharrlichkeit in sich, wie Ihr? Liebten sie alle das Leben so sehr, wie Ihr es tut?",
 	Emote_CollapsingStar	= "%s beginnt damit, kollabierende Sterne zu beschwören!",
---	Phase2					= "Erblicket die Instrumente der Schöpfung!",
+	Phase2					= "Erblicket die Instrumente der Schöpfung!",
 	CollapsingStar			= "Kollabierender Stern"
 })
 

@@ -147,7 +147,7 @@ L:SetMiscLocalization({
 --	YellPull				= "Vos actions sont illogiques. Tous les résultats possibles de cette rencontre ont été calculés. Le Panthéon recevra le message de l'Observateur quelle que soit l'issue.",
 	YellKill				= "J'ai vu des mondes baignés dans les flammes des Faiseurs. Leurs occupants s'évaporer sans même un gémissement. Des systèmes planétaires entiers créés et détruits dans le temps qu'il faut à un cœur mortel pour battre une fois. Et devant tout cela, dans mon propre cœur, pas la moindre émotion... la moindre empathie. Je. Ne. Ressentais. Rien. Mille milliards de vies gâchées. Avaient-elles toutes possédé une telle ténacité ? Aimaient-elles la vie autant que vous ?",
 	Emote_CollapsingStar	= "%s commence à lancer un effondrement d'étoiles !",
---	Phase2					= "Découvrez les outils de la création !",
+	Phase2					= "Découvrez les outils de la création !",
 	CollapsingStar			= "Effondrement d'étoile"
 })
 

@@ -140,7 +140,7 @@ L:SetMiscLocalization({
 	YellKill				= "He visto mundos hundirse en las llamas de los Creadores, como se desvanecían sus habitantes sin apenas un gemido. He visto sistemas planetarios enteros crearse y ser arrasados en lo que vuestros mortales corazones laten una sola vez. Y mi corazón permaneció desprovisto de emoción... de empatía. Yo... no... sentí... nada. Millones de vidas malgastadas ¿Acaso compartían vuestra tenacidad? ¿Amaban la vida como vosotros?", -- esES
 --	YellKill				= "He visto mundos enteros bañados en las llamas del Creador, a sus habitantes esfumarse dejando menos que un quejido. Sistemas planetarios nacen y son arrasados en lo que les lleva a sus corazones mortales dar un latido. Y aún después de todo, mi propio corazón carece de emoción... de compasión. Nunca. He. Sentido. Nada. Un millón de millones de vidas desperdiciadas. ¿Acaso todas ellas llevaban dentro tu tenacidad? ¿Todas amaban la vida como tú?", -- esMX
 	Emote_CollapsingStar	= "¡%s comienza a invocar estrellas en colapso!",
---	Phase2					= "¡Observad las herramientas de la creación!", -- esES
+	Phase2					= "¡Observad las herramientas de la creación!", -- esES
 --	Phase2					= "¡Contempla las herramientas de la creación!", -- esMX
 	CollapsingStar			= "Estrella en colapso"
 })

@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220715211935")
+mod:SetRevision("20220716004329")
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")
-mod:RegisterKill("yell", L.YellKill)
+--mod:RegisterKill("yell", L.YellKill) -- fires 24 seconds after fight ends, not accurate enough. Workaround it by using Self Stun UNIT_SPELLCAST_SUCCEEDED, which is fired when he turns friendly and fight is won.
 mod:SetWipeTime(20)
 
 mod:RegisterEventsInCombat(
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_DAMAGE 65108 64122",
 	"SPELL_MISSED 65108 64122",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
---	"CHAT_MSG_MONSTER_YELL",
+	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_SPELLCAST_SUCCEEDED boss1",
 	"UNIT_HEALTH boss1"
 )
@@ -129,18 +129,19 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	end
 end
 
---[[
+
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
-		timerNextCollapsingStar:Cancel()
+		self:SetStage(2)
+		self.vb.warned_preP2 = true
+		timerNextCollapsingStar:Stop()
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		self:SetStage(2)
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(32871)
 	end
 end
---]]
+
 
 function mod:UNIT_HEALTH(uId)
 	local cid = self:GetUnitCreatureId(uId)
@@ -162,14 +163,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		announcePreBigBang:Schedule(80)
 		timerNextBigBang:Start(90)
 		enrageTimer:Start(360)
-	else]]if spellName == GetSpellInfo(65256) then--Self Stun (phase 2)
-		self:SetStage(2)
-		self.vb.warned_preP2 = true
-		timerNextCollapsingStar:Stop()
-		warnPhase2:Show()
-		warnPhase2:Play("ptwo")
-		DBM.BossHealth:Clear()
-		DBM.BossHealth:AddBoss(32871)
+	else]]if spellName == GetSpellInfo(65256) then -- Self Stun (Combat End)
+		DBM:EndCombat(self)
 	end
 end
 
