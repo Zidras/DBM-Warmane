@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("FlameLeviathan", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220710172609")
+mod:SetRevision("20220715210443")
 
 mod:SetCreatureID(33113)
 
@@ -13,18 +13,23 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 62907"
 )
 
-local warnHodirsFury		= mod:NewTargetAnnounce(62297, 3)
-local warnPursueTarget		= mod:NewAnnounce("PursueWarn", 2, 62374, nil, nil, nil, 62374)
-local warnNextPursueSoon	= mod:NewAnnounce("warnNextPursueSoon", 3, 62374, nil, nil, nil, 62374)
+local warnHodirsFury			= mod:NewTargetAnnounce(62297, 3)
+local warnPursueTarget			= mod:NewAnnounce("PursueWarn", 2, 62374, nil, nil, nil, 62374)
+local warnNextPursueSoon		= mod:NewAnnounce("warnNextPursueSoon", 3, 62374, nil, nil, nil, 62374)
 
-local specWarnSystemOverload= mod:NewSpecialWarningSpell(62475, nil, nil, nil, 1, 12)
-local specWarnPursue		= mod:NewSpecialWarning("SpecialPursueWarnYou", nil, nil, 2, 4, 2, nil, 62374, 62374)
-local specWarnWardOfLife	= mod:NewSpecialWarning("warnWardofLife", nil, nil, nil, 1, 2, nil, 62907, 62907)
+local specWarnSystemOverload	= mod:NewSpecialWarningSpell(62475, nil, nil, nil, 1, 12)
+local specWarnPursue			= mod:NewSpecialWarning("SpecialPursueWarnYou", nil, nil, 2, 4, 2, nil, 62374, 62374)
 
-local timerSystemOverload	= mod:NewBuffActiveTimer(20, 62475, nil, nil, nil, 6)
-local timerFlameVents		= mod:NewCastTimer(10, 62396, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON)
-local timerNextFlameVents	= mod:NewNextTimer(20, 62396, nil, nil, nil, 2)
-local timerPursued			= mod:NewTargetTimer(30, 62374, nil, nil, nil, 3)
+local timerSystemOverload		= mod:NewBuffActiveTimer(20, 62475, nil, nil, nil, 6)
+local timerFlameVents			= mod:NewCastTimer(10, 62396, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON)
+local timerNextFlameVents		= mod:NewNextTimer(20, 62396, nil, nil, nil, 2)
+local timerPursued				= mod:NewTargetTimer(30, 62374, nil, nil, nil, 3)
+
+-- Hard Mode
+mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local specWarnWardOfLife		= mod:NewSpecialWarning("warnWardofLife", nil, nil, nil, 1, 2, nil, 62907, 62907)
+
+local timerNextWardOfLife		= mod:NewNextTimer(30, 62907, nil, nil, nil, 1)
 
 local guids = {}
 local function buildGuidTable(self)
@@ -36,9 +41,16 @@ local function buildGuidTable(self)
 	end
 end
 
+local function CheckTowers(self, delay)
+	if DBM:UnitBuff("boss1", 64482) then -- Tower of Life
+		timerNextWardOfLife:Start(41 - delay) -- S2 VOD review
+	end
+end
+
 function mod:OnCombatStart(delay)
 	buildGuidTable(self)
 	timerNextFlameVents:Start(-delay) -- 25 man log review (2022/07/10)
+	self:Schedule(5, CheckTowers, self, delay)
 end
 
 function mod:OnTimerRecovery()
@@ -93,5 +105,6 @@ function mod:SPELL_SUMMON(args)
 	if args.spellId == 62907 and self:AntiSpam(3, 1) then		-- Ward of Life spawned (Creature id: 34275)
 		specWarnWardOfLife:Show()
 		specWarnWardOfLife:Show("bigmob")
+		timerNextWardOfLife:Start() -- S2 VOD review
 	end
 end
