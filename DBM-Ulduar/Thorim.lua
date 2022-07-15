@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220714184708")
+mod:SetRevision("20220715223049")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -10,8 +10,9 @@ mod:RegisterKill("yell", L.YellKill)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 62042 62605 64390 62131",
-	"SPELL_CAST_SUCCESS 62042 62466 62130 62604",
-	"SPELL_AURA_APPLIED 62042 62507 62130 62526 62527",
+	"SPELL_CAST_SUCCESS 62042 62466 62279 62130 62604",
+	"SPELL_AURA_APPLIED 62042 62507 62130 62526 62527 62279",
+	"SPELL_AURA_APPLIED_DOSE 62279",
 	"SPELL_AURA_REMOVED 62507",
 	"SPELL_DAMAGE 62017",
 	"CHAT_MSG_MONSTER_YELL"
@@ -112,7 +113,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if spellId == 62042 then		-- Stormhammer. Never fires on Warmane, nor existed on 2010 code
 		DBM:AddMsg("Stormhammer unhidden from combat log. Notify Zidras on Discord or GitHub")
 		timerStormhammerCD:Schedule(2)
-	elseif spellId == 62466 then	-- Lightning Charge
+	elseif args:IsSpellID(62466, 62279) then	-- Lightning Charge
 		DBM:AddMsg("Lightning Charge unhidden from combat log. Notify Zidras on Discord or GitHub")
 		warnLightningCharge:Show()
 		timerLightningCharge:Start()
@@ -150,6 +151,16 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnRuneDetonation then
 			self:SetIcon(args.destName, 7, 5)
 		end
+	elseif spellId == 62279 then	-- Lightning Charge
+		warnLightningCharge:Show()
+		timerLightningCharge:Start()
+	end
+end
+
+function mod:SPELL_AURA_APPLIED_DOSE(args)
+	if args.spellId == 62279 then	-- Lightning Charge
+		warnLightningCharge:Show()
+		timerLightningCharge:Start()
 	end
 end
 
@@ -167,15 +178,9 @@ function mod:SPELL_DAMAGE(_, _, _, _, destName, destFlags, spellId)
 			specWarnLightningShock:Show()
 			specWarnLightningShock:Play("runaway")
 		end
-	elseif spellId == 62466 then
-		if self:AntiSpam(5, 2) then
-			warnLightningCharge:Show()
-			timerLightningCharge:Start()
-		end
-		if self.Options.AnnounceFails and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(destName) ~= "none" and destName then
-			lastcharge[destName] = (lastcharge[destName] or 0) + 1
-			SendChatMessage(L.ChargeOn:format(destName), "RAID")
-		end
+	elseif spellId == 62466 and self.Options.AnnounceFails and DBM:GetRaidRank() >= 1 and DBM:GetRaidUnitId(destName) ~= "none" and destName then
+		lastcharge[destName] = (lastcharge[destName] or 0) + 1
+		SendChatMessage(L.ChargeOn:format(destName), "RAID")
 	end
 end
 
@@ -195,5 +200,6 @@ function mod:OnSync(event)
 		enrageTimer:Stop()
 		timerHardmode:Stop()
 		enrageTimer:Start(300)
+		timerLightningCharge:Start(36) -- S3 VOD review 2022/07/15
 	end
 end
