@@ -1,17 +1,17 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220715000225")
+mod:SetRevision("20220716014818")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 64059 64189 63138 63830 63802",
-	"SPELL_CAST_SUCCESS 64144 64465 64167 64163",
+	"SPELL_CAST_SUCCESS 64144 64465", --64167 64163",
 	"SPELL_SUMMON 62979",
-	"SPELL_AURA_APPLIED 63802 63830 63881 64126 64125 63138 63894 64775 64167 64163 64465",
-	"SPELL_AURA_REMOVED 63802 63894 64167 64163 63830 63138 63881 64465",
+	"SPELL_AURA_APPLIED 63802 63830 63881 64126 64125 63138 63894 64775 64163 64465",
+	"SPELL_AURA_REMOVED 63802 63894 64163 63830 63138 63881 64465",
 	"SPELL_AURA_REMOVED_DOSE 63050",
 	"UNIT_HEALTH"
 )
@@ -90,8 +90,6 @@ local timerBrainPortal				= mod:NewTimer(20, "NextPortal", 57687, nil, nil, 5, n
 
 -- Laughing Skull
 -- mod:AddTimerLine(L.LaughingSkull)
-local timerLunaticGaze				= mod:NewCastTimer(4, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Laughing Skull
-local timerNextLunaticGaze			= mod:NewCDTimer(8.5, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Laughing Skull
 
 -- Brain of Yogg-Saron
 -- mod:AddTimerLine(L.BrainofYoggSaron)
@@ -107,6 +105,9 @@ local warnP3						= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 
 -- Yogg-Saron
 -- mod:AddTimerLine(L.YoggSaron)
+local timerLunaticGaze				= mod:NewCastTimer(4, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Yogg-Saron's Gaze
+local timerNextLunaticGaze			= mod:NewCDTimer(8, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Yogg-Saron's Gaze, Log reviewed (25 man NM  2022/07/10) - [cast_success: apply 4s cast time correction factor] 12.0, 12.0, 12.1, 12.1, 12.0, 12.0
+
 mod:AddSetIconOption("SetIconOnBeacon", 64465, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
 
 -- Immortal Guardian
@@ -182,8 +183,8 @@ function mod:SPELL_CAST_START(args)
 		timerMadness:Start()
 		warnMadness:Show()
 		timerBrainPortal:Schedule(60) -- Log reviewed [60 schedule + 20 timer] (25 man NM log review 2022/07/10) - 80.0
-		warnBrainPortalSoon:Schedule(78)
-		specWarnBrainPortalSoon:Schedule(78)
+		warnBrainPortalSoon:Schedule(77)
+		specWarnBrainPortalSoon:Schedule(77)
 		specWarnMadnessOutNow:Schedule(55) -- TO DO: implement brain room check?
 	elseif spellId == 64189 then		--Deafening Roar
 		timerNextDeafeningRoar:Start()
@@ -209,8 +210,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerEmpower:Start()
 		timerEmpowerDuration:Start()
 		warnEmpowerSoon:Schedule(40)
-	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 3) then	-- Lunatic Gaze
-		timerLunaticGaze:Start()
+--	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 3) then	-- Lunatic Gaze, not needed since it's running below on SAA/SAR
+--		timerLunaticGaze:Start()
 --		timerBrainPortal:Start(60) -- Why?
 --		warnBrainPortalSoon:Schedule(55) -- Why?
 	end
@@ -284,8 +285,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerMaladyCD:Start(18) -- REVIEW! variance 18-25s? 25 man NM log review 2022/07/10 - 18
 		timerBrainLinkCD:Start(23) -- REVIEW! variance 23-26s? 25 man NM log review 2022/07/10 - 23
 		timerBrainPortal:Start(59) -- REVIEW! variance? 25 man NM log review 2022/07/10 - 59
-		warnBrainPortalSoon:Schedule(53)
-		specWarnBrainPortalSoon:Schedule(53)
+		warnBrainPortalSoon:Schedule(56)
+		specWarnBrainPortalSoon:Schedule(56)
 		warnP2:Show()
 		warnP2:Play("ptwo")
 		if self.Options.ShowSaraHealth then
@@ -294,7 +295,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				DBM.BossHealth:Hide()
 			end
 		end
-	elseif args:IsSpellID(64167, 64163) then	-- Lunatic Gaze (reduces sanity)
+	elseif spellId == 64163 then	-- Lunatic Gaze phase 3 (reduces sanity) ; 64167 Lunatic Gaze is related to Laughing Skulls, which is not important
 		timerLunaticGaze:Start()
 	elseif spellId == 64465 then -- Shadow Beacon
 		if self.Options.SetIconOnBeacon then
@@ -316,8 +317,8 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif spellId == 63894 then		-- Shadowy Barrier removed from Yogg-Saron (start p3)
 		-- "<298.03 19:54:54> [CLEU] SPELL_AURA_REMOVED:0xF150008208000F6B:Yogg-Saron:0xF150008208000F6B:Yogg-Saron:63894:Shadowy Barrier:BUFF:nil:", -- [15528]
 		self:SendSync("Phase3")			-- Sync this because you don't get it in your combat log if you are in brain room.
-	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 2) then	-- Lunatic Gaze
-		timerNextLunaticGaze:Start()
+	elseif spellId == 64163 then	-- Lunatic Gaze phase 3 ; 64167 Lunatic Gaze is related to Laughing Skulls, which is not important
+		timerNextLunaticGaze:Start() -- 12s interval - 4s cast = 8s for next cast
 	elseif args:IsSpellID(63830, 63881) and self.Options.SetIconOnFearTarget then   -- Malady of the Mind (Death Coil)
 		self:SetIcon(args.destName, 0)
 	elseif spellId == 64465 then -- Shadow Beacon
@@ -358,5 +359,6 @@ function mod:OnSync(msg)
 		warnEmpowerSoon:Schedule(40)
 		timerNextDeafeningRoar:Start(22) -- S2 VOD review
 		warnDeafeningRoarSoon:Schedule(17)
+		timerNextLunaticGaze:Start(12) -- S3 VOD review
 	end
 end
