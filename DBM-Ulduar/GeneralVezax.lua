@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220715223633")
+mod:SetRevision("20220716115609")
 mod:SetCreatureID(33271)
 mod:SetUsedIcons(7, 8)
 
@@ -154,6 +154,12 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	if emote == L.EmoteSaroniteVapors or emote:find(L.EmoteSaroniteVapors) then
+		self:SendSync("SaroniteVaporsSpawned") -- REVIEW! Range restriced, so attempt to work around it by syncing. If still not reliable enough, implement a repeater scheduling instead.
+	end
+end
+
+function mod:OnSync(msg)
+	if msg == "SaroniteVaporsSpawned" and self:AntiSpam(3, 1) then
 		self.vb.vaporsCount = self.vb.vaporsCount + 1
 		warnSaroniteVapor:Show(self.vb.vaporsCount)
 		if self.vb.vaporsCount < 6 then
