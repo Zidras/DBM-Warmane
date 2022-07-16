@@ -13,7 +13,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
-## X-DBM-StatTypes: normal25
+## X-DBM-StatTypes: normal25, timewalking
 ## X-DBM-Mod-MapID: 781
 ## X-DBM-Mod-Sort: 1005
 ## X-DBM-Mod-Name: Serpentshrine Cavern
