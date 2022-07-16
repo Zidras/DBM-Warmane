@@ -1,7 +1,9 @@
 local mod = DBM:NewMod("Commander", "DBM-Party-WotLK", 8)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod.statTypes = "normal,heroic,mythic"
+
+mod:SetRevision("20220716213948")
 
 if UnitFactionGroup("player") == "Alliance" then
 	mod:SetCreatureID(26798)
