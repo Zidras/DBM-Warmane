@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220716014818")
+mod:SetRevision("20220716103701")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -105,6 +105,8 @@ local warnP3						= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 
 -- Yogg-Saron
 -- mod:AddTimerLine(L.YoggSaron)
+local specWarnLunaticGaze			= mod:NewSpecialWarningLookAway(64163, nil, nil, nil, 1, 2)
+
 local timerLunaticGaze				= mod:NewCastTimer(4, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Yogg-Saron's Gaze
 local timerNextLunaticGaze			= mod:NewCDTimer(8, 64163, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- Yogg-Saron's Gaze, Log reviewed (25 man NM  2022/07/10) - [cast_success: apply 4s cast time correction factor] 12.0, 12.0, 12.1, 12.1, 12.0, 12.0
 
@@ -296,6 +298,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	elseif spellId == 64163 then	-- Lunatic Gaze phase 3 (reduces sanity) ; 64167 Lunatic Gaze is related to Laughing Skulls, which is not important
+		specWarnLunaticGaze:Show(args.sourceName)
+		specWarnLunaticGaze:Play("turnaway")
 		timerLunaticGaze:Start()
 	elseif spellId == 64465 then -- Shadow Beacon
 		if self.Options.SetIconOnBeacon then
