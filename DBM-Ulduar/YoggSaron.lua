@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220716103701")
+mod:SetRevision("20220716111445")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -128,7 +128,7 @@ local warnDeafeningRoarSoon			= mod:NewPreWarnAnnounce(64189, 5, 3)
 local specWarnDeafeningRoar			= mod:NewSpecialWarningSpell(64189, nil, nil, nil, 1, 2)
 
 local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189, nil, nil, nil, 2)
-local timerNextDeafeningRoar		= mod:NewNextTimer(58, 64189, nil, nil, nil, 2) -- S2 VOD review
+local timerNextDeafeningRoar		= mod:NewNextTimer(58, 64189, nil, nil, nil, 2) -- S2 VOD || S3 VOD 2022/07/15 - 58 || 58, 58, 58, 58, 60, 60, 60
 
 local targetWarningsShown = {}
 local brainLinkTargets = {}
@@ -190,7 +190,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnMadnessOutNow:Schedule(55) -- TO DO: implement brain room check?
 	elseif spellId == 64189 then		--Deafening Roar
 		timerNextDeafeningRoar:Start()
-		warnDeafeningRoarSoon:Schedule(55)
+		warnDeafeningRoarSoon:Schedule(53)
 		timerCastDeafeningRoar:Start()
 		specWarnDeafeningRoar:Show()
 		specWarnDeafeningRoar:Play("silencesoon")
@@ -361,8 +361,8 @@ function mod:OnSync(msg)
 		warnP3:Show()
 		warnP3:Play("pthree")
 		warnEmpowerSoon:Schedule(40)
-		timerNextDeafeningRoar:Start(22) -- S2 VOD review
-		warnDeafeningRoarSoon:Schedule(17)
+		timerNextDeafeningRoar:Start(20) -- Has variance (S2 VOD || S3 VOD 2022/07/15) - 21 || 22, 21.5, 20.6, 22.1, 20.0, 28, 28
+		warnDeafeningRoarSoon:Schedule(15)
 		timerNextLunaticGaze:Start(12) -- S3 VOD review
 	end
 end
