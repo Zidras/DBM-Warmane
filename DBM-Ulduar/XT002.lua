@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("XT002", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220716001836")
+mod:SetRevision("20220717185812")
 mod:SetCreatureID(33293)
 mod:SetUsedIcons(1, 2)
 
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 )
 
 -- General
-local enrageTimer					= mod:NewBerserkTimer(360)
+local enrageTimer					= mod:NewBerserkTimer(600)
 local timerAchieve					= mod:NewAchievementTimer(205, 2937)
 
 mod:AddRangeFrameOption(12, nil, true)
