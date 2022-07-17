@@ -180,7 +180,7 @@ L:SetMiscLocalization({
 	Health_Body				= "Kologarn Body",
 	Health_Right_Arm		= "Right Arm",
 	Health_Left_Arm			= "Left Arm",
-	FocusedEyebeam			= "his eyes on you"
+	FocusedEyebeam			= "Kologarn focuses his eyes on you!"
 })
 
 ---------------
