@@ -1263,7 +1263,8 @@ function rangeCheck:DisableBossMode()
 	if mainFrame and mainFrame.bossMode then
 		mainFrame.bossMode = false
 		mainFrame.bossUnit = nil
-		mainFrame.range = mainFrame.previousRange or restoreRange
+		mainFrame.range = mainFrame.previousRange
+		restoreRange = mainFrame.range
 		if not mainFrame.previouslyShown then
 			self:Hide()
 		end
