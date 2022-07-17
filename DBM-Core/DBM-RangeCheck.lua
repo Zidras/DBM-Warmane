@@ -1226,6 +1226,7 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	if not restrictionsActive and (DBM.Options.RangeFrameFrames == "radar" or DBM.Options.RangeFrameFrames == "both") and not radarFrame:IsShown() then
 		radarFrame:Show()
 	end
+	mainFrame.previousRange = mainFrame.range or range
 	mainFrame.range = range
 	mainFrame.filter = filter
 	mainFrame.redCircleNumPlayers = redCircleNumPlayers
@@ -1233,7 +1234,6 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	mainFrame.hideTime = hideTime and (GetTime() + hideTime) or 0
 	mainFrame.restrictions = restrictionsActive
 	mainFrame.onlySummary = onlySummary
-	mainFrame.previousRange = mainFrame.range or range
 	mainFrame.previouslyShown = true
 	mainFrame.bossUnit = bossUnit
 	mainFrame.bossMode = bossUnit ~= nil
@@ -1263,7 +1263,7 @@ function rangeCheck:DisableBossMode()
 	if mainFrame and mainFrame.bossMode then
 		mainFrame.bossMode = false
 		mainFrame.bossUnit = nil
-		mainFrame.range = restoreRange
+		mainFrame.range = mainFrame.previousRange or restoreRange
 		if not mainFrame.previouslyShown then
 			self:Hide()
 		end
