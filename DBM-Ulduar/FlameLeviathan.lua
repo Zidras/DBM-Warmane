@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("FlameLeviathan", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220718203335")
+mod:SetRevision("20220718223013")
 
 mod:SetCreatureID(33113)
 
@@ -70,11 +70,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 62475 then	-- Systems Shutdown / Overload
 		timerSystemOverload:Start()
 		timerNextFlameVents:Stop()
-		if self:IsDifficulty("normal10") then
-			timerNextFlameVents:Start(40)
-		else
-			timerNextFlameVents:Start(50)
-		end
+		timerNextFlameVents:Start(40) -- Same for 10 and 25m (S3 FM 25HM cleu log 2022/07/16)
 		specWarnSystemOverload:Show()
 		specWarnSystemOverload:Play("attacktank")
 	elseif spellId == 62374 then	-- Pursued
