@@ -1226,6 +1226,7 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	if not restrictionsActive and (DBM.Options.RangeFrameFrames == "radar" or DBM.Options.RangeFrameFrames == "both") and not radarFrame:IsShown() then
 		radarFrame:Show()
 	end
+	mainFrame.previousRange = mainFrame.range or range
 	mainFrame.range = range
 	mainFrame.filter = filter
 	mainFrame.redCircleNumPlayers = redCircleNumPlayers
@@ -1233,7 +1234,6 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	mainFrame.hideTime = hideTime and (GetTime() + hideTime) or 0
 	mainFrame.restrictions = restrictionsActive
 	mainFrame.onlySummary = onlySummary
-	mainFrame.previousRange = mainFrame.range or range
 	mainFrame.previouslyShown = true
 	mainFrame.bossUnit = bossUnit
 	mainFrame.bossMode = bossUnit ~= nil
@@ -1263,7 +1263,8 @@ function rangeCheck:DisableBossMode()
 	if mainFrame and mainFrame.bossMode then
 		mainFrame.bossMode = false
 		mainFrame.bossUnit = nil
-		mainFrame.range = restoreRange
+		mainFrame.range = mainFrame.previousRange
+		restoreRange = mainFrame.range
 		if not mainFrame.previouslyShown then
 			self:Hide()
 		end
@@ -1271,7 +1272,7 @@ function rangeCheck:DisableBossMode()
 end
 
 function rangeCheck:Hide(force)
-	if restoreRange and not force then -- Restore range frame to way it was when boss mod is done with it
+	if not DBM.Options.DontRestoreRange and restoreRange and not force then -- Restore range frame to way it was when boss mod is done with it
 		rangeCheck:Show(restoreRange, restoreFilter, true, restoreThreshold, restoreReverse)
 	else
 		restoreRange, restoreFilter, restoreThreshold, restoreReverse = nil, nil, nil, nil
