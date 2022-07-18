@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("FlameLeviathan", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220717222440")
+mod:SetRevision("20220718203335")
 
 mod:SetCreatureID(33113)
 
@@ -23,7 +23,7 @@ local specWarnPursue			= mod:NewSpecialWarning("SpecialPursueWarnYou", nil, nil,
 local timerSystemOverload		= mod:NewBuffActiveTimer(20, 62475, nil, nil, nil, 6)
 local timerFlameVents			= mod:NewCastTimer(10, 62396, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerNextFlameVents		= mod:NewNextTimer(20, 62396, nil, nil, nil, 2) -- S3 FM Log review 2022/07/17 - 0.1, 20.0, 20.0, 20.1, 20.0, 20.3
-local timerPursued				= mod:NewTargetTimer(30, 62374, nil, nil, nil, 3) -- Variance. Corrected using count. S3 FM Log review 2022/07/17 - 0.1, 11.0, 19.0, 30.0, 30.0, 30.0
+local timerPursued				= mod:NewTargetTimer(30, 62374, nil, nil, nil, 3) -- Variance dependent on whether boss is pulled right after gate opens or not. Corrected using count. S3 FM Log review 2022/07/17 - 0.1, 11.0, 19.0, 30.0, 30.0, 30.0
 
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
@@ -32,7 +32,7 @@ local specWarnWardOfLife		= mod:NewSpecialWarning("warnWardofLife", nil, nil, ni
 local timerNextWardOfLife		= mod:NewNextTimer(30, 62907, nil, nil, nil, 1)
 
 mod.vb.pursueCount = 0
-
+local bossMovingSpeed = 0
 local guids = {}
 local function buildGuidTable(self)
 	table.wipe(guids)
@@ -50,10 +50,12 @@ local function CheckTowers(self, delay)
 end
 
 function mod:OnCombatStart(delay)
+	bossMovingSpeed = GetUnitSpeed("boss1") -- attempt to identify if boss pulled right after gate opens or if it is stationary, since it will affect Pursue timer accuracy.
 	buildGuidTable(self)
 	self.vb.pursueCount = 0
 	timerNextFlameVents:Start(-delay) -- 25 man log review (2022/07/10)
 	self:Schedule(5, CheckTowers, self, delay)
+	DBM:Debug("OnCombatStart boss1 had speed: "..bossMovingSpeed)
 end
 
 function mod:OnTimerRecovery()
@@ -77,14 +79,21 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnSystemOverload:Play("attacktank")
 	elseif spellId == 62374 then	-- Pursued
 		local target = guids[args.destGUID]
-		self.vb.pursueCount = self.vb.pursueCount + 1 -- Variance in 2nd and 3rd. Hardcoded based on logs. S3 FM Log review 2022/07/17 - 0.1, 11.0, 19.0, 30.0, 30.0, 30.0
-		if self.vb.pursueCount == 1 then
-			warnNextPursueSoon:Schedule(5.4)
-			timerPursued:Start(10.4, target) -- S2 Lord 2022/07/17 || S3 FM 2022/07/17 - 10.4 || 11.0
-		elseif self.vb.pursueCount == 2 then
-			warnNextPursueSoon:Schedule(14.0)
-			timerPursued:Start(19.0, target) -- S2 Lord 2022/07/17 || S3 FM 2022/07/17 - 19.6 || 19.0
+		self.vb.pursueCount = self.vb.pursueCount + 1 -- Variance in 2nd and 3rd, when pulled during gate animation. Hardcoded based on logs. S3 FM Log review 2022/07/17 - 0.1, 11.0, 19.0, 30.0, 30.0, 30.0
+		if bossMovingSpeed ~= 0 then
+			DBM:Debug("Running Pursued timer in gate pull mode. boss1 had speed: "..bossMovingSpeed) -- 27.99370765686
+			if self.vb.pursueCount == 1 then
+				warnNextPursueSoon:Schedule(5.4)
+				timerPursued:Start(10.4, target) -- S2 Lord 2022/07/10 || S3 FM 2022/07/17 - 10.4 || 11.0
+			elseif self.vb.pursueCount == 2 then
+				warnNextPursueSoon:Schedule(14.0)
+				timerPursued:Start(19.0, target) -- S2 Lord 2022/07/10 || S3 FM 2022/07/17 - 19.6 || 19.0
+			else
+				warnNextPursueSoon:Schedule(25)
+				timerPursued:Start(target)
+			end
 		else
+			DBM:Debug("Running Pursued timer in stationary pull mode. boss1 had speed: "..bossMovingSpeed) -- 0
 			warnNextPursueSoon:Schedule(25)
 			timerPursued:Start(target)
 		end
