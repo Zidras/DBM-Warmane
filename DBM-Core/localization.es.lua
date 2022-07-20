@@ -173,7 +173,7 @@ L.VOICE_DISABLED				= "Tienes al menos un paquete de voces de DBM instalado, per
 L.VOICE_COUNT_MISSING		= "La voz de cuenta atrás %d está asignada a un paquete de voces que no se ha podido encontrar. Se ha restaurado a la configuración por defecto."
 L.BIG_WIGS						= "BigWigs"
 
-L.UPDATEREMINDER_HEADER			= "Tu versión de Deadly Boss Mods está desfasada.\nPuedes descargar la versión %s (r%d) aquí: "
+L.UPDATEREMINDER_HEADER			= "Tu versión de Deadly Boss Mods está desfasada.\nPuedes descargar la versión %s (%s) aquí: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER			= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C") .. " para copiar el enlace de descarga en tu portapapeles."
 L.UPDATEREMINDER_FOOTER_GENERIC	= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C") .. " para copiar el enlace en tu portapapeles."
 L.UPDATEREMINDER_DISABLE			= "AVISO: Se ha desactivado Deadly Boss Mods porque tu versión está demasiado desfasada. Con tal de prevenir conflictos con las versiones de otros jugadores, no se podrá volver a activar DBM hasta que lo actualices."

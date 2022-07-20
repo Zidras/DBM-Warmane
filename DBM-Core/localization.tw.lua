@@ -174,7 +174,7 @@ L.VOICE_DISABLED				= "你的語音包已安裝但是尚未啟用。如果你想
 L.VOICE_COUNT_MISSING			= "所選取的語音/倒數語音包%d找不到倒數語音。設定已被重置回預設值：%s。"
 L.BIG_WIGS						= "BigWigs"
 
-L.UPDATEREMINDER_HEADER				= "你的Deadly Boss Mod已經過期。\n版本 %s (r%d) 可在此处下载："
+L.UPDATEREMINDER_HEADER				= "你的Deadly Boss Mod已經過期。\n版本 %s (%s) 可在此处下载：" .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER				= "按下" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製下載網址到剪貼簿。"
 L.UPDATEREMINDER_FOOTER_GENERIC		= "按下" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製網址到剪貼簿。"
 L.UPDATEREMINDER_DISABLE			= "警告:  你的DBM版本已大幅度的過期，DBM已被強制關閉並且無法使用直到更新為止。這是為了確保舊而不相容的程式碼不會對你而團隊夥伴造成低落的遊戲體驗。"

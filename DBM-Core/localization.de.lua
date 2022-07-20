@@ -162,7 +162,7 @@ L.VOICE_DISABLED				= "Du hast derzeit mindestens einen DBM Sprachpack installie
 L.VOICE_COUNT_MISSING		= "Für die Countdown-Stimme %d ist ein Sprach-/Zählpack ausgewählt, der nicht gefunden werden konnte. Die Stimme wurde auf die Standardeinstellung zurückgesetzt: %s."
 --L.BIG_WIGS
 
-L.UPDATEREMINDER_HEADER			= "Deine Version von Deadly Boss Mods ist veraltet.\n Version %s (r%d) steht hier zum download bereit: "
+L.UPDATEREMINDER_HEADER			= "Deine Version von Deadly Boss Mods ist veraltet.\n Version %s (%s) steht hier zum download bereit: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER			= "Drücke " .. (IsMacClient() and "Cmd-C" or "Strg+C")  ..  " um den Downloadlink in die Zwischenablage zu kopieren."
 L.UPDATEREMINDER_FOOTER_GENERIC	= "Drücke " .. (IsMacClient() and "Cmd-C" or "Strg+C")  ..  " um den Link in die Zwischenablage zu kopieren."
 L.UPDATEREMINDER_DISABLE			= "WARNUNG: Da dein Deadly Boss Mods zu veraltet ist, hat es sich zwangsweise deaktiviert und kann erst nach einer Aktualisierung wieder genutzt werden. Derart alter und inkompatibler Code kann zu einem schlechten Spielerlebnis bei dir oder deinen Schlachtzugsmitgliedern führen."

@@ -171,7 +171,7 @@ L.VOICE_MISSING				= "선택한 " .. L.DBM .. " 음성팩을 찾을 수 없습�
 L.VOICE_DISABLED				= "현재 " .. L.DBM .. " 음성팩이 한 개 이상 설치되어 있지만 사용하고 있는게 없습니다. 음성팩을 사용하려면 '음성 경고' 항목에서 음성팩이 지정되어 있는지 확인하세요. 음성팩을 사용할 의사가 없으면 음성팩을 삭제하시면 이 메시지는 더이상 출력되지 않습니다"
 L.VOICE_COUNT_MISSING		= "초읽기 음성중 %d초로 설정된 음성/초읽기 팩을 찾을 수 없습니다. 기본 설정으로 초기화 되었습니다: %s"
 
-L.UPDATEREMINDER_HEADER			= "사용중인 " .. L.DEADLY_BOSS_MODS .. " 버전의 사용 기한이 지났습니다.\n 버전 %s(r%d)는 여기에서 다운로드할 수 있습니다."
+L.UPDATEREMINDER_HEADER			= "사용중인 " .. L.DEADLY_BOSS_MODS .. " 버전의 사용 기한이 지났습니다.\n 버전 %s (%s) 는 여기에서 다운로드할 수 있습니다: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER			= (IsMacClient() and "Cmd-C" or "Ctrl-C").. "를 누르면 주소를 복사할 수 있습니다."
 L.UPDATEREMINDER_FOOTER_GENERIC	= (IsMacClient() and "Cmd-C" or "Ctrl-C").. "를 누르면 주소를 복사할 수 있습니다."
 L.UPDATEREMINDER_DISABLE			= "경고: 지금 사용중인 " .. L.DEADLY_BOSS_MODS .. "가 지나치게 오래되어 강제로 비활성화되며 업데이트 전까진 사용할 수 없습니다. 이는 오래되고 호환되지 않는 모드가 당신과 파티/공대원의 플레이에 악영향을 미치지 않게 하기 위함입니다."

@@ -142,7 +142,7 @@ L.VOICE_PACK_OUTDATED		= "Il semble que votre pack de voix DBM manquent de sons 
 L.VOICE_MISSING				= "Vous aviez un pack de voix séléctionné qui ne pouvait pas être trouvé. Votre séléction a été réinitialisée à 'Aucun'. Si ceci est une erreur, assurez vous que votre pack est correctement installé et activé."
 L.VOICE_COUNT_MISSING		= "Le compte à rebours de la voix %d se trouve dans un pack qui ne pouvait pas être trouvé. Il a été reinitilisé à l'option par défaut."
 
-L.UPDATEREMINDER_HEADER			= "Votre version de Deadly Boss Mods est périmée.\nLa version %s (%s) est disponible au téléchargement ici:"
+L.UPDATEREMINDER_HEADER			= "Votre version de Deadly Boss Mods est périmée.\nLa version %s (%s) est disponible au téléchargement ici: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER			= "Faites la combinaison " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " pour copier le lien de téléchargement dans votre presse-papier."
 L.UPDATEREMINDER_FOOTER_GENERIC	= "Faites la combinaison " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " pour copier le lien dans votre presse-papier."
 L.UPDATEREMINDER_DISABLE		= "ALERTE: Compte tenu que votre version DBM est fortement périmée (%d révisions), DBM a été désactivé jusqu'à ce que vous le mettiez à jour. Ceci, pour éviter que des versions incompatibles de DBM ne cause de mauvaises éxpériences de jeu pour vous et les membres du raid."

@@ -158,7 +158,7 @@ L.VOICE_DISABLED						= "You currently have at least one " .. L.DBM .. " voice p
 L.VOICE_COUNT_MISSING					= "Countdown voice %d is set to a voice/count pack that could not be found. It has been reset to default setting: %s."
 L.BIG_WIGS								= "BigWigs"
 
-L.UPDATEREMINDER_HEADER					= "Your version of " .. L.DEADLY_BOSS_MODS.. " is out-of-date.\n Version %s (r%d) is available for download here:"
+L.UPDATEREMINDER_HEADER					= "Your version of " .. L.DEADLY_BOSS_MODS.. " is out-of-date.\n Version %s (%s) is available for download here: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER					= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 L.UPDATEREMINDER_FOOTER_GENERIC			= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
 L.UPDATEREMINDER_DISABLE				= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being too out of date, it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
