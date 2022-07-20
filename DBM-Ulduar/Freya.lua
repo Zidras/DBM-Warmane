@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220709133644")
+mod:SetRevision("20220720190954")
 
 mod:SetCreatureID(32906)
 mod:RegisterCombat("combat")
@@ -42,10 +42,10 @@ local specWarnLifebinder	= mod:NewSpecialWarningSwitch(62869, "Dps", nil, nil, 1
 local specWarnNatureFury	= mod:NewSpecialWarningMoveAway(63571, nil, nil, nil, 1, 2)
 local yellNatureFury		= mod:NewYell(63571)
 
-local timerAlliesOfNature	= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON)--No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set
+local timerAlliesOfNature	= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON) -- REVIEW! From retail: No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set; 60s log reviewed (25 man HM log 2022/07/17)
 local timerSimulKill		= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 62678)
-local timerNatureFury		= mod:NewTargetTimer(10, 63571, nil, nil, nil, 3)
-local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- 10s variance (S2 VOD review)
+local timerNatureFury		= mod:NewTargetTimer(7.9, 63571, nil, nil, nil, 3) -- ~5s variance (25 man HM log 2022/07/17) - 13.6, 7.9, 8.8, 11.7, 11.7, 12.9, 11.4
+local timerLifebinderCD		= mod:NewCDTimer(40, 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- 10s variance (S2 VOD review || 25 man HM log 2022/07/17) - 40 || 42.7, 42.0; 46.8, 47.2
 
 mod:AddRangeFrameOption(8, 63571)
 mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
@@ -67,9 +67,9 @@ local yellIronRoots			= mod:NewYell(62438)
 local specWarnGroundTremor	= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode Elder Stonebark Alive
 local specWarnUnstableBeam	= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
 
-local timerGroundTremorCD	= mod:NewCDTimer(25.5, 62859, nil, nil, nil, 2)--22.9-47.8
-local timerIronRootsCD		= mod:NewCDTimer(12, 62438, nil, nil, nil, 3) -- 4s variance (could be 10s) (2022/07/05 log review) - 12, 16
-local timerUnstableBeamCD	= mod:NewCDTimer(15, 62865, nil, nil, nil, 2) -- Hard mode Sun Beam. 5s variance [15-20] (2022/07/05 log review) - 18.7, 16.6
+local timerGroundTremorCD	= mod:NewCDTimer(25.5, 62859, nil, nil, nil, 2) -- ~10s variance (25 man HM log 2022/07/17) - 27.4, 25.8, 25.5, 26.5; 26.8, 26.1, 26.2, 25.7, 27.2
+local timerIronRootsCD		= mod:NewCDTimer(12.1, 62438, nil, nil, nil, 3) -- ~7s variance (could be 10s) (2022/07/05 log review || 25 man HM log 2022/07/17) - 12, 16 || 15.9, 16.5, 14.8, 18.7, 13.8, 12.8, 13.4, 19.1; 13.2, 17.9, 12.1, 15.7, 15.0, 15.9, 12.3, 15.4
+local timerUnstableBeamCD	= mod:NewCDTimer(15.6, 62865, nil, nil, nil, 2) -- Hard mode Sun Beam. ~5s variance [15-20] (2022/07/05 log review || 25 man HM log 2022/07/17) - 18.7, 16.6 || 15.8, 20.0, 17.3, 18.9, 16.1, 16.6, 15.6 ; 20.4, 17.4, 16.5, 18.3, 16.9, 16.1, 16.3
 
 mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
 
@@ -86,13 +86,11 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerEnrage:Start(-delay)
 	table.wipe(adds)
-	timerAlliesOfNature:Start(10-delay)
-	timerLifebinderCD:Start(25-delay)
+	timerAlliesOfNature:Start(10-delay) -- 9.9
+	timerLifebinderCD:Start(25-delay) -- ~15s variance (could be more, insufficient data). (25 man HM log 2022/07/17) - 26.1, 39.7
 end
 
 function mod:OnCombatEnd(wipe)
-	timerNextNatureBomb:Cancel()
-	specWarnNatureBomb:Cancel()
 	if not wipe then
 		if DBT:GetBar(L.TrashRespawnTimer) then
 			DBT:CancelBar(L.TrashRespawnTimer)
@@ -228,7 +226,10 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.isHardMode = false
 	elseif msg == L.YellPullHard then
 		self.vb.isHardMode = true
-		timerGroundTremorCD:Start(11) -- 6s variance (could be more, insufficient data). 2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review) - 16 || 11, 13, 17
+		timerGroundTremorCD:Start(11) -- 6s variance (could be more, insufficient data). (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log) - 16 || 11, 13, 17 || 17.5, 11.3
+		timerIronRootsCD:Start(8.5) -- ~6s variance (could be more, insufficient data). (25 man FM log) - 8.5, 14.9
+		timerUnstableBeamCD:Start() -- 2s variance (could be more, insufficient data). (25 man FM log) - 17.5, 15.5
+		warnUnstableBeamSoon:Schedule(12)
 	elseif msg == L.SpawnYell then
 		timerAlliesOfNature:Start()
 		if self.Options.HealthFrame then
