@@ -1,11 +1,15 @@
 local mod	= DBM:NewMod("FlameLeviathan", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220718223013")
+mod:SetRevision("20220722003417")
 
 mod:SetCreatureID(33113)
 
 mod:RegisterCombat("yell", L.YellPull)
+
+mod:RegisterEvents(
+	"CHAT_MSG_MONSTER_SAY"
+)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 62396 62475 62374 62297",
@@ -33,6 +37,8 @@ local timerNextWardOfLife		= mod:NewNextTimer(30, 62907, nil, nil, nil, 1)
 
 mod.vb.pursueCount = 0
 local bossMovingSpeed = 0
+local gateSmash = 0
+local firstRushPull = false
 local guids = {}
 local function buildGuidTable(self)
 	table.wipe(guids)
@@ -50,7 +56,13 @@ local function CheckTowers(self, delay)
 end
 
 function mod:OnCombatStart(delay)
-	bossMovingSpeed = GetUnitSpeed("boss1") -- attempt to identify if boss pulled right after gate opens or if it is stationary, since it will affect Pursue timer accuracy.
+	firstRushPull = false
+	DBM:Debug("OnCombatStart boss1 was pulled ".. (gateSmash and (GetTime() - gateSmash) or "nil") .. " seconds after Radio say")
+	bossMovingSpeed = GetUnitSpeed("boss1") -- 2022/07/22: Failed on two logs... || attempt to identify if boss pulled right after gate opens or if it is stationary, since it will affect Pursue timer accuracy.
+	if gateSmash ~= 0 and GetTime() - gateSmash < 6.9 then
+		firstRushPull = true
+		DBM:Debug("OnCombatStart boss1 was rush pulled!")
+	end
 	buildGuidTable(self)
 	self.vb.pursueCount = 0
 	timerNextFlameVents:Start(-delay) -- 25 man log review (2022/07/10)
@@ -76,7 +88,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 62374 then	-- Pursued
 		local target = guids[args.destGUID]
 		self.vb.pursueCount = self.vb.pursueCount + 1 -- Variance in 2nd and 3rd, when pulled during gate animation. Hardcoded based on logs. S3 FM Log review 2022/07/17 - 0.1, 11.0, 19.0, 30.0, 30.0, 30.0
-		if bossMovingSpeed ~= 0 then
+		if firstRushPull or bossMovingSpeed ~= 0 then
 			DBM:Debug("Running Pursued timer in gate pull mode. boss1 had speed: "..bossMovingSpeed) -- 27.99370765686
 			if self.vb.pursueCount == 1 then
 				warnNextPursueSoon:Schedule(5.4)
@@ -123,5 +135,11 @@ function mod:SPELL_SUMMON(args)
 		specWarnWardOfLife:Show()
 		specWarnWardOfLife:Show("bigmob")
 		timerNextWardOfLife:Start() -- S2 VOD review
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_SAY(msg)
+	if msg == L.RadioGateSmash then
+		gateSmash = GetTime() -- 6.9170000000004 seconds until FL full stop
 	end
 end
