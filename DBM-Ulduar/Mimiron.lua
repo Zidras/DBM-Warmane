@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220714204416")
+mod:SetRevision("20220724214025")
 mod:SetCreatureID(33432)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -20,6 +20,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 63666 65026",
 	"SPELL_SUMMON 63811",
 	"UNIT_SPELLCAST_CHANNEL_STOP boss1 boss2 boss3",
+	"UNIT_SPELLCAST_START boss1",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3",
 	"CHAT_MSG_LOOT"
 )
@@ -42,9 +43,9 @@ local specWarnPlasmaBlast			= mod:NewSpecialWarningDefensive(64529, nil, nil, ni
 
 local timerProximityMines			= mod:NewCDTimer(35.0, 63027, nil, nil, nil, 3) -- 25 man NM log review (2022/07/10) + VOD review - 35.0
 local timerShockBlast				= mod:NewCastTimer(4, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNextShockBlast			= mod:NewNextTimer(35, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance?? S2 log shows 38s
+local timerNextShockBlast			= mod:NewNextTimer(35, 63631, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance?? (S2 log || S3 HM log 2022/07/17) - 38 || 44.1, 41.6
 local timerNapalmShell				= mod:NewBuffActiveTimer(6, 63666, nil, "Healer", 2, 5, nil, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.HEALER_ICON)
-local timerPlasmaBlastCD			= mod:NewCDTimer(30, 64529, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerPlasmaBlastCD			= mod:NewCDTimer(31.2, 64529, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! ~13s variance! (S3 HM log 2022/07/17) - 44.2, 31.2 ; 39.6
 
 mod:AddSetIconOption("SetIconOnNapalm", 63666, false, false, {1, 2, 3, 4, 5, 6, 7})
 mod:AddSetIconOption("SetIconOnPlasmaBlast", 64529, false, false, {8})
@@ -89,8 +90,8 @@ mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.MobPhase2)
 local warnFrostBomb					= mod:NewSpellAnnounce(64623, 3)
 
 local timerFrostBombExplosion		= mod:NewCastTimer(15, 65333, nil, nil, nil, 3)
-local timerNextFrostBomb			= mod:NewNextTimer(33, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON) -- REVIEW! variance? Use PEWPEW to add time? VOD review either gave 46s or 33
-local timerNextFlameSuppressantP2	= mod:NewNextTimer(10, 65192, nil, nil, nil, 3) -- 2s variance (S2 VOD review) - 12, 12, 11, 10
+local timerNextFrostBomb			= mod:NewNextTimer(33, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON) -- REVIEW! variance? Use PEWPEW to add time? VOD review || S3 HM log 2022/07/17 - either gave 46 or 33s || 44.2, 44.4, 47.1
+local timerNextFlameSuppressantP2	= mod:NewNextTimer(10, 65192, nil, nil, nil, 3) -- 2s (26.4 outlier??) variance (S2 VOD review) - 12, 12, 11, 10 || 12.3, 12.4, 26.4, 11.3, 12.4
 
 -- Stage Three
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..L.MobPhase3)
@@ -117,7 +118,7 @@ local function ResetRange(self)
 	end
 end
 
-local function Flames(self)	-- Flames -- REVIEW!! UNIT_SPELLCAST_SUCCEEDED works?
+local function Flames(self)	-- Flames -- UNIT_SPELLCAST_SUCCEEDED does not show on etrace
 	timerNextFlames:Start()
 	self:Schedule(28, Flames, self)
 	warnFlamesSoon:Schedule(18)
@@ -151,7 +152,7 @@ local function NextPhase(self)
 		timerNextFlameSuppressantP1:Stop()
 		timerPlasmaBlastCD:Stop()
 		timerP1toP2:Start()
-		timerNextP3Wx2LaserBarrage:Schedule(40, 34) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 34
+		timerNextP3Wx2LaserBarrage:Schedule(40, 31) -- REVIEW! ~3s variance? (25 man NM log 2022/07/10 || S3 HM log 2022/07/17) - 34 || 31
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()
 			DBM.BossHealth:AddBoss(33651, L.MobPhase2)
@@ -232,7 +233,7 @@ end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
-	if spellId == 63631 then -- Shock Blast
+--[[if spellId == 63631 then -- Shock Blast. Replaced with UNIT_SPELLCAST_START since 2022/07/2022 log had one instance where this event was not fired
 		specWarnShockBlast:Show()
 		specWarnShockBlast:Play("runout")
 		timerShockBlast:Start()
@@ -240,8 +241,8 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(33432))
 			self:Schedule(4.5, ResetRange, self)
-		end
-	elseif args:IsSpellID(64529, 62997) then	-- Plasma Blast
+		end]]
+	if args:IsSpellID(64529, 62997) then	-- Plasma Blast
 		if self:IsTanking("player", "boss1", nil, true) then
 			specWarnPlasmaBlast:Show()
 			specWarnPlasmaBlast:Play("defensive")
@@ -320,38 +321,16 @@ function mod:UNIT_SPELLCAST_CHANNEL_STOP(_, spellName)
 	end
 end
 
-function mod:CHAT_MSG_LOOT(msg)
-	local player, itemID = msg:match(L.LootMsg)
-	if player and itemID and tonumber(itemID) == 46029 and self:IsInCombat() then
-		player = DBM:GetUnitFullName(player) or UnitName("player") -- prevents nil string if the player is the one looting it: "You" receive loot...
-		self:SendSync("LootMsg", player)
-	end
-end
-
-function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.YellPull or msg:find(L.YellPull) then -- register Normal Mode
-		self.vb.hardmode = false -- set this here instead of CombatStart to prevent possible overwrites
-		timerPlasmaBlastCD:Start(22.0) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 22.0
-		timerNextShockBlast:Start(31.1) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 31.1
-		timerEnrage:Start()
-	elseif msg == L.YellHardPull or msg:find(L.YellHardPull) then -- register HARD Mode
-		self.vb.hardmode = true
-		self:SetWipeTime(10)
-		timerHardmode:Start()
-		timerPlasmaBlastCD:Start(28) -- REVIEW! variance? S2 VOD review indicates it might be 29s
-		timerNextFlameSuppressantP1:Start(75) -- S2 VOD review
-		timerProximityMines:Start(11) -- S2 VOD review
-		timerNextFlames:Start(6) -- S2 VOD review
-		self:Schedule(6, Flames, self)
-		warnFlamesSoon:Schedule(1)
-		timerNextShockBlast:Start(37)
-		timerEnrage:Start(600) -- REVIEW! 10 or 8 mins? By the yells, it is 10 mins, but wowhead states 8 min enrage timer...
-	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then -- register Phase 2
-		NextPhase(self)
-	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then -- register Phase 3
-		NextPhase(self)
-	elseif msg == L.YellPhase4 or msg:find(L.YellPhase4) then -- register Phase 4
-		NextPhase(self)
+function mod:UNIT_SPELLCAST__START(_, spellName)
+	if spellName == GetSpellInfo(63631) then -- Shock Blast. Used UNIT event instead since I have a log where CLEU missed one SCStart
+		specWarnShockBlast:Show()
+		specWarnShockBlast:Play("runout")
+		timerShockBlast:Start()
+		timerNextShockBlast:Start()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(33432))
+			self:Schedule(4.5, ResetRange, self)
+		end
 	end
 end
 
@@ -394,6 +373,41 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	elseif spellName == GetSpellInfo(63811) then	--Bomb Bot
 		warnBombBotSpawn:Show()
 		timerBombBotSpawn:Start()
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.YellPull or msg:find(L.YellPull) then -- register Normal Mode
+		self.vb.hardmode = false -- set this here instead of CombatStart to prevent possible overwrites
+		timerPlasmaBlastCD:Start(22.0) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 22.0
+		timerNextShockBlast:Start(31.1) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 31.1
+		timerEnrage:Start()
+	elseif msg == L.YellHardPull or msg:find(L.YellHardPull) then -- register HARD Mode
+		self.vb.hardmode = true
+		self:SetWipeTime(10)
+		timerHardmode:Start()
+		timerPlasmaBlastCD:Start(26.6) -- REVIEW! variance? (S2 VOD || S3 HM log 2022/07/17) - 29 || 26.6, 26.6
+		timerNextFlameSuppressantP1:Start(75) -- REVIEW! ~5s variance (S2 VOD review || S3 HM log 2022/07/17) - 75 || 80.0 ; 77.3
+		timerProximityMines:Start(11) -- S2 VOD review
+		timerNextFlames:Start(6) -- S2 VOD review
+		self:Schedule(6, Flames, self)
+		warnFlamesSoon:Schedule(1)
+		timerNextShockBlast:Start(37) -- REVIEW! variance? (S3 HM log 2022/07/17) - 37.9, 37.7
+		timerEnrage:Start(600) -- REVIEW! 10 or 8 mins? By the yells, it is 10 mins, but wowhead states 8 min enrage timer...
+	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then -- register Phase 2
+		NextPhase(self)
+	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then -- register Phase 3
+		NextPhase(self)
+	elseif msg == L.YellPhase4 or msg:find(L.YellPhase4) then -- register Phase 4
+		NextPhase(self)
+	end
+end
+
+function mod:CHAT_MSG_LOOT(msg)
+	local player, itemID = msg:match(L.LootMsg)
+	if player and itemID and tonumber(itemID) == 46029 and self:IsInCombat() then
+		player = DBM:GetUnitFullName(player) or UnitName("player") -- prevents nil string if the player is the one looting it: "You" receive loot...
+		self:SendSync("LootMsg", player)
 	end
 end
 
