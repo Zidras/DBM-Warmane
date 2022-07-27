@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Amanitar", "DBM-Party-WotLK", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod.statTypes = "heroic"
+mod.statTypes = "heroic,mythic"
 
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(30258)
