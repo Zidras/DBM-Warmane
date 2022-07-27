@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220726000635")
+mod:SetRevision("20220727222703")
 
 mod:SetCreatureID(32906)
 mod:RegisterCombat("combat")
@@ -156,7 +156,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		--if self.vb.phase == 2 then
 			timerIronRootsCD:Start()
 		--end
-	elseif args:IsSpellID(62451, 62865) then -- Unstable Energy (Sun Beam)
+	elseif args:IsSpellID(62451, 62865) and self:AntiSpam(5, 2) then -- Unstable Energy (Sun Beam)
 		timerUnstableBeamCD:Start()
 		warnUnstableBeamSoon:Schedule(12)
 	end
