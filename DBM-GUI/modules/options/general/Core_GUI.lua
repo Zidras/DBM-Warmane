@@ -129,6 +129,7 @@ resetbutton2:SetScript("OnClick", function()
 end)
 
 local minWidth, minHeight = optionsFrame:GetMinResize()
+local maxWidth, maxHeight = optionsFrame:GetMaxResize()
 
 local resizeWidth = resizeOptions:CreateEditBox(L.Editbox_WindowWidth, math.floor(DBM.Options.GUIWidth * 10 ^ 2 + 0.5) / 10 ^ 2)
 resizeWidth:SetPoint("TOPLEFT", 20, -40)
@@ -141,8 +142,8 @@ resizeWidth:SetScript("OnEnterPressed", function(self)
 		self:SetText(minWidth)
 		return
 	end
-	if value > UIParent:GetWidth() then
-		self:SetText(UIParent:GetWidth())
+	if value > maxWidth then
+		self:SetText(maxWidth)
 	end
 	DBM.Options.GUIWidth = value
 	optionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
@@ -160,8 +161,8 @@ resizeHeight:SetScript("OnEnterPressed", function(self)
 		self:SetText(minHeight)
 		return
 	end
-	if value > UIParent:GetHeight() then
-		self:SetText(UIParent:GetHeight())
+	if value > maxHeight then
+		self:SetText(maxHeight)
 	end
 	DBM.Options.GUIHeight = value
 	optionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)

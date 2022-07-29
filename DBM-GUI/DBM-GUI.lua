@@ -760,7 +760,6 @@ do
 					statTypes.heroic = PLAYER_DIFFICULTY2
 				end
 
-
 				local lastArea = 0
 
 				for _, statType in ipairs(statOrder) do
