@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Faerlina", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220221015714")
+mod:SetRevision("20220729230518")
 mod:SetCreatureID(15953)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -43,7 +43,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warnEnrageNow:Show()
 		end
-	elseif args:IsSpellID(28732, 54097)	and args:GetDestCreatureID() == 15953 and self:AntiSpam(5) then	-- Widow's Embrace
+	elseif args:IsSpellID(28732, 54097)	and args:GetDestCreatureID() == 15953 and self:AntiSpam(5, 2) then	-- Widow's Embrace
 		warnEmbraceExpire:Cancel()
 		warnEmbraceExpired:Cancel()
 		warnEnrageSoon:Cancel()
