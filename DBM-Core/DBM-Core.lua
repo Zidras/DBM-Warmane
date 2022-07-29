@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220729233931"),
+	Revision = parseCurseDate("20220730003503"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -4592,7 +4592,7 @@ do
 			delayedFunction = nil
 		end
 		if watchFrameRestore then
-			WatchFrame_Expand(WatchFrame)
+			WatchFrame:Show()
 			watchFrameRestore = false
 		end
 		if DBM.Options.FixCLEUOnCombatStart then
@@ -5002,10 +5002,7 @@ do
 			end
 			if self.Options.HideObjectivesFrame and GetNumTrackedAchievements() == 0 then -- doesn't need InCombatLockdown() check since it's not a protected function
 				if WatchFrame:IsVisible() then
-					WatchFrame_Collapse(WatchFrame)
-					self:Schedule(0.05, function() -- repeating the function with a delay because of a bug in the game where the WatchFrame only gets pushed to the side and doesn't collapse.
-						WatchFrame_Collapse(WatchFrame)
-					end)
+					WatchFrame:Hide()
 					watchFrameRestore = true
 				end
 			end
@@ -5377,7 +5374,7 @@ do
 				self.Arrow:Hide(true)
 				-- doesn't need InCombatLockdown() check since it's not a protected function
 				if watchFrameRestore then
-					WatchFrame_Expand(WatchFrame)
+					WatchFrame:Show()
 					watchFrameRestore = false
 				end
 			if tooltipsHidden then
