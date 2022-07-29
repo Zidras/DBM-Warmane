@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Malygos", "DBM-EyeOfEternity")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220729225816")
 mod:SetCreatureID(28859)
 
 --mod:RegisterCombat("yell", L.YellPull)
@@ -179,8 +179,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	end
 end
 
---local free triggers but not reliable in instances that didn't impliment bossN args so backup emote/yell triggers still in place.
---Anti spam will be handled by sync handler
+--localization free triggers that's better but can only be used where boss1 UnitId available
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --	"<39.8> [UNIT_SPELLCAST_SUCCEEDED] Malygos:Possible Target<Omegal>:target:Summon Power Spark::0:56140", -- [998]
 	if spellName == GetSpellInfo(56140) then
@@ -190,6 +189,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 end
 
 function mod:OnSync(event, arg)
+	if not self:IsInCombat() then return end
 --	if event == "Spark" then
 --		warnSpark:Show()
 --		timerSpark:Start()
