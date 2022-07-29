@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("StratWaves", "DBM-Party-WotLK", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220729232625")
 
 mod:RegisterEvents(
 	"UPDATE_WORLD_STATES",
@@ -15,30 +15,38 @@ local warningWaveNow	= mod:NewAnnounce("WarningWaveNow", 3)
 local timerWaveIn		= mod:NewTimer(20, "TimerWaveIn", 57687, nil, nil, 1)
 local timerRoleplay		= mod:NewTimer(162, "TimerRoleplay")
 
+local devouring = L.Devouring
+local meathook = L.Meathook
+local salramm = L.Salramm
+local enraged = L.Enraged
+local necro = L.Necro
+local fiend = L.Fiend
+local abom = L.Abom
+
 local wavesNormal = {
-	{2, L.Devouring},
-	{2, L.Devouring},
-	{2, L.Devouring},
-	{2, L.Devouring},
-	{L.Meathook},
-	{2, L.Devouring},
-	{2, L.Devouring},
-	{2, L.Devouring},
-	{2, L.Devouring},
-	{L.Salramm},
+	{2, devouring},
+	{2, devouring},
+	{2, devouring},
+	{2, devouring},
+	{DBM_COMMON_L.BOSS .. ": " .. meathook},
+	{2, devouring},
+	{2, devouring},
+	{2, devouring},
+	{2, devouring},
+	{DBM_COMMON_L.BOSS .. ": " .. salramm},
 }
 
 local wavesHeroic = {
-	{3, L.Devouring},
-	{1, L.Devouring, 1, L.Enraged, 1, L.Necro},
-	{1, L.Devouring, 1, L.Enraged, 1, L.Necro, 1, L.Fiend},
-	{1, L.Necro, 4, L.Acolyte, 1, L.Fiend},
-	{L.Meathook},
-	{1, L.Devouring, 1, L.Necro, 1, L.Fiend, 1, L.Stalker},
-	{1, L.Devouring, 2, L.Enraged, 1, L.Abom},
-	{1, L.Devouring, 1, L.Enraged, 1, L.Necro, 1, L.Abom},
-	{1, L.Devouring, 1, L.Necro, 1, L.Fiend, 1, L.Abom},
-	{L.Salramm},
+	{3, devouring},
+	{1, devouring, 1, enraged, 1, necro},
+	{1, devouring, 1, enraged, 1, necro, 1, fiend},
+	{1, necro, 4, L.Acolyte, 1, fiend},
+	{DBM_COMMON_L.BOSS .. ": " .. meathook},
+	{1, devouring, 1, necro, 1, fiend, 1, L.Stalker},
+	{1, devouring, 2, enraged, 1, abom},
+	{1, devouring, 1, enraged, 1, necro, 1, abom},
+	{1, devouring, 1, necro, 1, fiend, 1, abom},
+	{DBM_COMMON_L.BOSS .. ": " .. salramm},
 }
 
 local waveInfo
