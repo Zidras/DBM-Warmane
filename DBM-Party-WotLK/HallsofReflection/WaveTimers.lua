@@ -1,7 +1,7 @@
 local mod = DBM:NewMod("HoRWaveTimer", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220729232007")
 mod:SetCreatureID(30658)
 mod:SetZone()
 
@@ -60,7 +60,8 @@ function mod:UPDATE_WORLD_STATES()
 end
 
 function mod:UNIT_DIED(args)
-	if args.sourceName == L.Falric then
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 38112 then--falric
 		timerNextWave:Start(60)
 		warnNewWaveSoon:Schedule(50)
 		FalricDead = true
