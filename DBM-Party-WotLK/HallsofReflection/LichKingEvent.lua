@@ -1,7 +1,7 @@
 local mod = DBM:NewMod("LichKingEvent", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220729231502")
 mod:RegisterEvents(
 	"SPELL_AURA_REMOVED",
 	"CHAT_MSG_MONSTER_YELL"
@@ -11,11 +11,15 @@ local WarnWave		= mod:NewAnnounce("WarnWave", 2)
 
 local timerEscape	= mod:NewAchievementTimer(360, 4526, "achievementEscape")
 
+local ragingGhoul = L.Ghoul
+local witchDoctor = L.WitchDoctor
+local abomination = L.Abom
+
 local addWaves = {
-	[1] = { "6 "..L.Ghoul, "1 "..L.WitchDoctor },
-	[2] = { "6 "..L.Ghoul, "2 "..L.WitchDoctor, "1 "..L.Abom },
-	[3] = { "6 "..L.Ghoul, "2 "..L.WitchDoctor, "2 "..L.Abom },
-	[4] = { "12 "..L.Ghoul, "3 "..L.WitchDoctor, "3 "..L.Abom },
+	[1] = { "6 "..ragingGhoul, "1 "..witchDoctor },
+	[2] = { "6 "..ragingGhoul, "2 "..witchDoctor, "1 "..abomination },
+	[3] = { "6 "..ragingGhoul, "2 "..witchDoctor, "2 "..abomination },
+	[4] = { "12 "..ragingGhoul, "3 "..witchDoctor, "3 "..abomination },
 }
 
 function mod:SPELL_AURA_REMOVED(args)
