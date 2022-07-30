@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20220705003446")
+mod:SetRevision("20220730010020")
 mod:SetCreatureID(28860)
 
 mod:RegisterCombat("combat")
@@ -51,12 +51,9 @@ local lastfire = {}
 local tsort, tinsert, twipe = table.sort, table.insert, table.wipe
 
 local function isunitdebuffed(spellID)
-	local name = DBM:GetSpellInfo(spellID)
-	if not name then return false end
-
 	for uId in DBM:GetGroupMembers() do
 		local debuffname = DBM:UnitDebuff(uId, spellID)
-		if debuffname == name then
+		if debuffname then
 			return true
 		end
 	end
