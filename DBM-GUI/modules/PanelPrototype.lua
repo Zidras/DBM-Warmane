@@ -593,7 +593,7 @@ function PanelPrototype:CreateAbility(titleText, icon)
 		button.toggle:SetPushedTexture(area.hidden and "Interface\\Buttons\\UI-PlusButton-DOWN" or "Interface\\Buttons\\UI-MinusButton-DOWN")
 		_G["DBM_GUI_OptionsFrame"]:DisplayFrame(DBM_GUI.currentViewing)
 	end
-	button:RegisterForClicks(false)
+	button:RegisterForClicks("")
 	--
 	self:SetLastObj(area)
 	return setmetatable({
