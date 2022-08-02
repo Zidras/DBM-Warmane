@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220801183036")
+mod:SetRevision("20220802231248")
 
 mod:SetCreatureID(32906)
 mod:RegisterCombat("combat")
@@ -56,7 +56,7 @@ local warnPhase2				= mod:NewPhaseAnnounce(2, 3, nil, nil, nil, nil, nil, 2)
 
 local specWarnNatureBombSummon	= mod:NewSpecialWarningMove(64604) -- Nature Bomb (Summon) - Move away from area of effect when Nature Bomb is summoned
 
-local timerNextNatureBombSummon	= mod:NewNextTimer(2, 64604, nil, nil, nil, 2) -- Nature Bomb (Summon), estimated from first explosion
+local timerNextNatureBombSummon	= mod:NewNextTimer(2, 64604, nil, nil, nil, 2) -- Nature Bomb (Summon), estimated from first explosion. REVIEW! Has variance (2s?)
 local timerNatureBombExplosion	= mod:NewCastTimer(10, 64587, 34539, nil, nil, 2) -- On explosion, not on summon. Applied a Explosion text. REVIEW! 2s variance from first explosion from the set to the first explosion from the next set (S3 HM log 2022/07/22) - 11, 10.3, 11.9, 11.2, 10.4, 11.3, 10.5
 
 -- Hard Mode
@@ -147,7 +147,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(64587, 64650) then -- Nature Bomb
 		if self:AntiSpam(5, 64650) and self:IsInCombat() then
 			specWarnNatureBombSummon:Cancel()
-			specWarnNatureBombSummon:Schedule(2)
+			specWarnNatureBombSummon:Schedule(4) -- delay to max possible time to avoid warning before bombs are thrown
 			timerNextNatureBombSummon:Start()
 			timerNatureBombExplosion:Start()
 		end
@@ -184,7 +184,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		warnPhase2:Play("ptwo")
 		self:SetStage(2)
 		timerNextNatureBombSummon:Start(6) --  Confirmed bug (2022/08/01) that Freya uses this ability before phase 2 begins! No log to identify a trigger for it. REVIEW! variance [?] (VODs) - ~8; ~6
-		specWarnNatureBombSummon:Schedule(6)
+		specWarnNatureBombSummon:Schedule(8) -- delayed to the maximum timer possible
 		timerNatureBombExplosion:Start(13.4) -- REVIEW! variance [?] (S3 HM log 2022/07/22) - 13.4
 	elseif args:IsSpellID(62861, 62438) then
 		if self.Options.SetIconOnRoots then
