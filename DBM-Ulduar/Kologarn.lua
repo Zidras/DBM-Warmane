@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220718003822")
+mod:SetRevision("20220804193753")
 mod:SetCreatureID(32930)
 mod:SetUsedIcons(5, 6, 7, 8)
 
@@ -184,7 +184,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:OnSync(msg, target)
-	if msg == "EyeBeamOn" then
+	if msg == "EyeBeamOn" and self:AntiSpam(2, 1) then
 		warnFocusedEyebeam:Show(target)
 		if target == UnitName("player") then
 			specWarnEyebeam:Show()
