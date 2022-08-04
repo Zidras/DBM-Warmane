@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220719223907")
+mod:SetRevision("20220804184513")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -9,8 +9,8 @@ mod:RegisterCombat("combat_yell", L.YellPhase1)
 mod:RegisterKill("yell", L.YellKill)
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 62042 62605 64390 62131",
-	"SPELL_CAST_SUCCESS 62042 62466 62279 62130 62604",
+	"SPELL_CAST_START 62042 62597 62605 64390 62131",
+	"SPELL_CAST_SUCCESS 62042 62466 62279 62130 62580 62604",
 	"SPELL_AURA_APPLIED 62042 62507 62130 62526 62527 62279",
 	"SPELL_AURA_APPLIED_DOSE 62279",
 	"SPELL_AURA_REMOVED 62507",
@@ -101,7 +101,7 @@ function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 62042 then
 		timerStormhammerCast:Start()
-	elseif spellId == 62605 then		-- Frost Nova by Sif
+	elseif args:IsSpellID(62597, 62605) then	-- Frost Nova by Sif
 		timerFrostNovaCast:Start()
 		timerFrostNova:Start()
 	elseif args:IsSpellID(64390, 62131) then	-- Chain Lightning by Thorim
@@ -120,7 +120,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerLightningCharge:Start()
 	elseif spellId == 62130 then	-- Unbalancing Strike
 		timerUnbalancingStrike:Start()
-	elseif spellId == 62604 then	-- Frostbolt Volley by Sif
+	elseif args:IsSpellID(62580, 62604) then	-- Frostbolt Volley by Sif
 		timerFBVolley:Start()
 	end
 end
