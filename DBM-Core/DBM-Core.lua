@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220730003503"),
+	Revision = parseCurseDate("20220805235227"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9722,6 +9722,7 @@ do
 			if self.option then
 				countVoice = self.mod.Options[self.option .. "CVoice"]
 				if not self.fade and (type(countVoice) == "string" or countVoice > 0) then--Started without faded and has count voice assigned
+					DBM:Unschedule(playCountSound, id) -- Prevents count sound if timer is started again before timer expires
 					playCountdown(id, timer, countVoice, countVoiceMax)--timerId, timer, voice, count
 				end
 			end
