@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220805235227"),
+	Revision = parseCurseDate("20220806120343"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2935,14 +2935,11 @@ do
 		if _G["BigWigs"] or modAdvertisementShown then return end--If they are running two boss mods at once, lets assume they are only using DBM for a specific feature (such as brawlers) and not nag
 		local timeWalking = savedDifficulty == "timewalker"
 		if oldDungeons[LastInstanceMapID] and (timeWalking or playerLevel < 50) and not GetAddOnInfo("DBM-Party-BC") then
-			AddMsg(self, L.MOD_AVAILABLE:format("DBM Old Dungeon mods"))
-			modAdvertisementShown = true
+			AddMsg(self, L.MOD_AVAILABLE:format("DBM Dungeon mods"))
 		elseif (classicZones[LastInstanceMapID] or bcZones[LastInstanceMapID]) and (timeWalking or playerLevel < 31) and not GetAddOnInfo("DBM-BlackTemple") then
 			AddMsg(self, L.MOD_AVAILABLE:format("DBM BC/Vanilla mods"))
-			modAdvertisementShown = true
 		elseif wrathZones[LastInstanceMapID] and (timeWalking or playerLevel < 31) and not GetAddOnInfo("DBM-Ulduar") then
 			AddMsg(self, L.MOD_AVAILABLE:format("DBM Wrath of the Lich King mods"))
-			modAdvertisementShown = true
 		end
 		local _, instanceType = GetInstanceInfo()
 		if (pvpZones[LastInstanceMapID] or instanceType == "arena") and not GetAddOnInfo("DBM-PvP") then
