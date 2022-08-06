@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20220730010020")
+mod:SetRevision("20220806120808")
 mod:SetCreatureID(28860)
 
 mod:RegisterCombat("combat")
@@ -50,10 +50,10 @@ local lastvoids = {}
 local lastfire = {}
 local tsort, tinsert, twipe = table.sort, table.insert, table.wipe
 
-local function isunitdebuffed(spellID)
+local function isunitdebuffed(spellName)
 	for uId in DBM:GetGroupMembers() do
-		local debuffname = DBM:UnitDebuff(uId, spellID)
-		if debuffname then
+		local debuff = DBM:UnitDebuff(uId, spellName)
+		if debuff then
 			return true
 		end
 	end
@@ -65,7 +65,7 @@ local function CheckDrakes(self, delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(28860, "Sartharion")
 	end
-	if isunitdebuffed(61248) then	-- Power of Tenebron
+	if isunitdebuffed(DBM:GetSpellInfo(61248)) then	-- Power of Tenebron
 		timerTenebron:Start(26 - delay) -- 30
 		warnTenebron:Schedule(21 - delay) -- 25
 		timerTenebronWhelps:Start(- delay)
@@ -74,7 +74,7 @@ local function CheckDrakes(self, delay)
 			DBM.BossHealth:AddBoss(30452, "Tenebron")
 		end
 	end
-	if isunitdebuffed(58105) then	-- Power of Shadron
+	if isunitdebuffed(DBM:GetSpellInfo(58105)) then	-- Power of Shadron
 		timerShadron:Start(74 - delay) -- 75
 		warnShadron:Schedule(69 - delay) -- 70
 		timerShadronPortal:Start(- delay)
@@ -83,7 +83,7 @@ local function CheckDrakes(self, delay)
 			DBM.BossHealth:AddBoss(30451, "Shadron")
 		end
 	end
-	if isunitdebuffed(61251) then	-- Power of Vesperon
+	if isunitdebuffed(DBM:GetSpellInfo(61251)) then	-- Power of Vesperon
 		timerVesperon:Start(119 - delay) -- 120
 		warnVesperon:Schedule(114 - delay) -- 115
 		timerVesperonPortal:Start(- delay)
