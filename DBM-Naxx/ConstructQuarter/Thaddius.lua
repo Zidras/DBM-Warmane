@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220730010855")
+mod:SetRevision("20220806124120")
 mod:SetCreatureID(15928)
 
 mod:RegisterCombat("combat_yell", L.Yell)
@@ -15,10 +15,12 @@ mod:RegisterEventsInCombat(
 
 local warnShiftSoon			= mod:NewPreWarnAnnounce(28089, 5, 3)
 local warnShiftCasting		= mod:NewCastAnnounce(28089, 4)
-local warnChargeChanged		= mod:NewSpecialWarning("WarningChargeChanged", nil, nil, nil, 3, 2, nil, nil, 28089)
-local warnChargeNotChanged	= mod:NewSpecialWarning("WarningChargeNotChanged", false, nil, nil, 1, 12, nil, nil, 28089)
 --local warnThrow				= mod:NewSpellAnnounce(28338, 2)
 local warnThrowSoon			= mod:NewSoonAnnounce(28338, 1)
+
+local warnChargeChanged		= mod:NewSpecialWarning("WarningChargeChanged", nil, nil, nil, 3, 2, nil, nil, 28089)
+local warnChargeNotChanged	= mod:NewSpecialWarning("WarningChargeNotChanged", false, nil, nil, 1, 12, nil, nil, 28089)
+local yellShift				= mod:NewShortPosYell(28089, DBM_CORE_L.AUTO_YELL_CUSTOM_POSITION)
 
 local enrageTimer			= mod:NewBerserkTimer(365)
 local timerNextShift		= mod:NewNextTimer(30, 28089, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
@@ -77,11 +79,13 @@ do
 		while UnitDebuff("player", i) do
 			local _, _, icon, count = UnitDebuff("player", i)
 			if icon == "Interface\\Icons\\Spell_ChargeNegative" then
-				if count > 1 then return end
+				if count > 1 then return end --Incorrect aura, it's stacking damage one
 				charge = L.Charge1
+				yellShift:Yell(7, "- -")
 			elseif icon == "Interface\\Icons\\Spell_ChargePositive" then
-				if count > 1 then return end
+				if count > 1 then return end --Incorrect aura, it's stacking damage one
 				charge = L.Charge2
+				yellShift:Yell(6, "+ +")
 			end
 			i = i + 1
 		end
