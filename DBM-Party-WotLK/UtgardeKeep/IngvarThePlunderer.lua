@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IngvarThePlunderer", "DBM-Party-WotLK", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(23980, 23954)
 mod:SetUsedIcons(8)
 
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 42730 59735",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warningWoeStrike	= mod:NewTargetNoFilterAnnounce(42730, 2, nil, "RemoveCurse", 2)

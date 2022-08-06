@@ -3,13 +3,13 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220716213948")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(26731)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"UNIT_HEALTH boss1",
+	"UNIT_HEALTH",
 	"CHAT_MSG_MONSTER_YELL"
 )
 

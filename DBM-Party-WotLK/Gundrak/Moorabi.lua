@@ -3,14 +3,14 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(29305)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 55098",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH"
 )
 
 -- local warnCopies			= mod:NewSpellAnnounce(55101, 4)

@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(29311)
 
 mod:RegisterCombat("combat")
@@ -13,7 +13,7 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"UNIT_SPELLCAST_START boss1"
+	"UNIT_SPELLCAST_START"
 )
 
 local warnShadowCrash			= mod:NewTargetAnnounce(60848, 4)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Bronjahm", "DBM-Party-WotLK", 14)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(36497)
 
 mod:RegisterCombat("combat")
@@ -9,7 +9,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 68872",
 	"SPELL_AURA_APPLIED 68839",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH"
 )
 
 local warnSoulstormSoon		= mod:NewSoonAnnounce(68872, 2)

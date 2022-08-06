@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ionar", "DBM-Party-WotLK", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(28546)
 mod:SetUsedIcons(8)
 
@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 52658 59795",
 	"SPELL_AURA_REMOVED 52658 59795",
 	"SPELL_CAST_START 52770",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH"
 )
 
 local warningDisperseSoon	= mod:NewSoonAnnounce(52770, 2)

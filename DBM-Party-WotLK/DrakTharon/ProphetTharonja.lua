@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ProphetTharonja", "DBM-Party-WotLK", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220806222721")
 mod:SetCreatureID(26632)
 
 mod:RegisterCombat("combat")
@@ -9,7 +9,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 49548 59969",
 	"SPELL_AURA_APPLIED 49356",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH"
 )
 
 local warningDecayFleshSoon		= mod:NewSoonAnnounce(49356, 2)
