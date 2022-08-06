@@ -13,7 +13,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 37850 38023 38024 38025 38049",
 	"SPELL_CAST_START 37730",
 	"SPELL_CAST_SUCCESS 37764",
-	"SPELL_SUMMON 37854"
+	"SPELL_SUMMON 37854",
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 local warnTidal			= mod:NewSpellAnnounce(37730, 3)
@@ -22,7 +23,7 @@ local warnBubble		= mod:NewSpellAnnounce(37854, 4)
 
 local specWarnMurlocs	= mod:NewSpecialWarning("SpecWarnMurlocs")
 
-local timerGraveCD		= mod:NewCDTimer(28.5, 38049, nil, nil, nil, 3)
+local timerGraveCD		= mod:NewCDTimer(30, 38049, nil, nil, nil, 3)
 local timerMurlocs		= mod:NewTimer(51, "TimerMurlocs", 39088, nil, nil, 1)
 local timerBubble		= mod:NewBuffActiveTimer(35, 37854, nil, nil, nil, 1)
 
@@ -34,7 +35,7 @@ mod.vb.graveIcon = 8
 local function showGraveTargets()
 	warnGrave:Show(table.concat(warnGraveTargets, "<, >"))
 	table.wipe(warnGraveTargets)
-	timerGraveCD:Show()
+	--timerGraveCD:Show()
 end
 
 function mod:OnCombatStart(delay)
@@ -52,7 +53,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, self.vb.graveIcon)
 		end
 		self.vb.graveIcon = self.vb.graveIcon - 1
-		if #warnGraveTargets >= 4 then
+		if #warnGraveTargets >= 1 then
 			showGraveTargets()
 		else
 			self:Schedule(0.3, showGraveTargets)
@@ -66,8 +67,17 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
-function mod:SPELL_CAST_SUCCESS(args)
+--[[function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 37764 then
+		specWarnMurlocs:Show()
+		timerMurlocs:Start()
+	end
+end]]
+
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+	if msg == L.Grave or msg:find(L.Grave) then
+		timerGraveCD:Show()
+	elseif msg == L.Murlocs or msg:find(L.Murlocs) then
 		specWarnMurlocs:Show()
 		timerMurlocs:Start()
 	end
