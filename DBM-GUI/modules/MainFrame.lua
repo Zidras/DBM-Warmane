@@ -318,6 +318,7 @@ local frameListScrollBar = _G[frameListList:GetName() .. "ScrollBar"]
 frameListScrollBar:SetMinMaxValues(0, 11)
 frameListScrollBar:SetValueStep(18)
 frameListScrollBar:SetValue(0)
+frameList:EnableMouseWheel(true)
 frameList:SetScript("OnMouseWheel", function(_, delta)
 	frameListScrollBar:SetValue(frameListScrollBar:GetValue() - (delta * 18))
 end)
