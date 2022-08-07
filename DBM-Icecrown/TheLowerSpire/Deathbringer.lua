@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220624005857")
+mod:SetRevision("20220807114906")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -13,10 +13,11 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 73058 72378 72293",
-	"SPELL_CAST_SUCCESS 72410",
+	"SPELL_CAST_SUCCESS 72410 72769",
 	"SPELL_SUMMON 72172 72173 72356 72357 72358",
 	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737 19753",
 	"SPELL_AURA_REMOVED 72385 72441 72442 72443",
+	"UNIT_DIED",
 	"UNIT_HEALTH boss1"
 )
 
@@ -60,7 +61,10 @@ mod:AddTimerLine(DBM_COMMON_L.ADDS)
 local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 
+local specWarnScentofBlood	= mod:NewSpecialWarningSpell(72769, nil, nil, nil, nil, nil, 3) -- Heroic Ablility
+
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 3)
+local timerNextScentofBlood	= mod:NewNextTimer(10, 72769, nil, nil, nil, 2) -- 10 seconds after Beasts spawn, if any of them is alive
 
 mod:AddSetIconOption("BeastIcons", 72173, true, 5, {8, 7, 6, 5, 4})
 
@@ -68,6 +72,7 @@ mod.vb.warned_preFrenzy = false
 mod.vb.boilingBloodIcon = 1
 mod.vb.beastIcon = 8
 mod.vb.Mark = 0
+mod.vb.bloodBeastAlive = 0
 local boilingBloodTargets = {}
 local spellName = DBM:GetSpellInfo(72370)
 
@@ -124,7 +129,7 @@ function mod:OnCombatStart(delay)
 	else
 		enrageTimer:Start(360-delay)
 	end
-	timerCallBloodBeast:Start(40-delay)
+	timerCallBloodBeast:Start(-delay)
 	warnAddsSoon:Schedule(30-delay)
 	timerBloodNova:Start(-delay)
 	timerRuneofBlood:Start(19.5-delay)
@@ -134,6 +139,7 @@ function mod:OnCombatStart(delay)
 	self.vb.boilingBloodIcon = 1
 	self.vb.beastIcon = 8
 	self.vb.Mark = 0
+	self.vb.bloodBeastAlive = 0
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
@@ -163,7 +169,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 72410 then
+	local spellId = args.spellId
+	if spellId == 72410 then
 		warnRuneofBlood:Show(args.destName)
 		if not args:IsPlayer() then
 			specwarnRuneofBlood:Show(args.destName)
@@ -172,6 +179,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specwarnRuneofBloodYou:Show()
 		end
 		timerRuneofBlood:Start()
+	elseif spellId == 72769 then
+		specWarnScentofBlood:Show()
 	end
 end
 
@@ -179,9 +188,13 @@ function mod:SPELL_SUMMON(args)
 	if args:IsSpellID(72172, 72173) or args:IsSpellID(72356, 72357, 72358) then -- Summon Blood Beasts
 		if self:AntiSpam(5) then
 			self.vb.beastIcon = 8
+			self.vb.bloodBeastAlive = self.vb.bloodBeastAlive + (self:IsDifficulty("normal25", "heroic25") and 5 or 2)
 			warnAdds:Show()
 			warnAddsSoon:Schedule(30)
 			timerCallBloodBeast:Start()
+			if self:IsDifficulty("heroic10", "heroic25") then
+				timerNextScentofBlood:Start()
+			end
 		end
 		if self.Options.BeastIcons then
 			self:ScanForMobs(args.destGUID, 2, self.vb.beastIcon, 1, nil, 10, "BeastIcons")
@@ -218,6 +231,16 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(72385, 72441, 72442, 72443) and self.Options.BoilingBloodIcons then
 		self:SetIcon(args.destName, 0)
+	end
+end
+
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 38508 then -- Blood Beast
+		self.vb.bloodBeastAlive = self.vb.bloodBeastAlive - 1
+		if self.vb.bloodBeastAlive == 0 then
+			timerNextScentofBlood:Cancel()
+		end
 	end
 end
 
