@@ -10,7 +10,7 @@ mod:SetModelScale(0.1)
 mod:RegisterEventsInCombat(
 --	"SPELL_CAST_START 28524",
 	"SPELL_CAST_SUCCESS 28542 55665",
-	"SPELL_AURA_APPLIED 28522 55699 28547",
+	"SPELL_AURA_APPLIED 28522 28547 55699",
 	"CHAT_MSG_MONSTER_EMOTE",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_HEALTH boss1"
@@ -111,7 +111,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			yellIceBlock:Yell()
 		end
-	elseif args:IsSpellID(55699, 28547) and args:IsPlayer() and self:AntiSpam(1) then
+	elseif args:IsSpellID(28547, 55699) and args:IsPlayer() and self:AntiSpam(1) then
 		specWarnBlizzard:Show(args.spellName)
 		specWarnBlizzard:Play("watchfeet")
 	end
