@@ -123,6 +123,11 @@ L:SetOptionLocalization({
 	TimerMurlocs	= "Show timer for Murlocs spawning"
 })
 
+L:SetMiscLocalization({
+--	Grave			= "%s sends his enemies to their watery graves!",
+	Murlocs			= "The violent earthquake has alerted nearby Murlocs!"
+})
+
 -----------------
 --  Lady Vashj --
 -----------------

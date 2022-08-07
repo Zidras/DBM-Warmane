@@ -136,6 +136,11 @@ L:SetOptionLocalization({
 	TimerMurlocs	= "显示鱼人群出现计时"--Translate
 })
 
+L:SetMiscLocalization({
+--	Grave			= "%s sends his enemies to their watery graves!",
+	Murlocs			= "猛烈的地震警告了附近的鱼人们！"
+})
+
 -----------------
 --  Lady Vashj --
 -----------------
