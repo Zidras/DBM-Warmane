@@ -124,6 +124,11 @@ L:SetOptionLocalization({
 	TimerMurlocs	= "멀록 등장 타이머 바 보기"
 })
 
+L:SetMiscLocalization({
+--	Grave			= "%s sends his enemies to their watery graves!",
+	Murlocs			= "근처에 있던 멀록들이 격렬한 지진을 느끼고 주위로 달려듭니다!"
+})
+
 -----------------
 --  Lady Vashj --
 -----------------

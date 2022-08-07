@@ -106,12 +106,6 @@ L:SetGeneralLocalization({
 	name = "Повелитель глубин Каратресс"
 })
 
-
-
-
-
-
-
 L:SetMiscLocalization({
 	Caribdis	= "Fathom-Guard Caribdis",--Translate
 	Tidalvess	= "Fathom-Guard Tidalvess",--Translate
@@ -140,6 +134,11 @@ L:SetOptionLocalization({
 	WarnMurlocs		= "Объявить Мурлоки",
 	SpecWarnMurlocs	= "Show special warning when Murlocs spawning",--Translate
 	TimerMurlocs	= "Show timer for Murlocs spawning"--Translate
+})
+
+L:SetMiscLocalization({
+--	Grave			= "%s sends his enemies to their watery graves!",
+	Murlocs			= "Сильный толчок землетрясения насторожил мурлоков поблизости!"
 })
 
 -----------------
