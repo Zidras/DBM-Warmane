@@ -108,7 +108,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 end)
 
 local CreateFrame, GetCurrentMapAreaID = CreateFrame, GetCurrentMapAreaID
-local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText, flagFrame1, flagFrame2, flagFrame1Text, flagFrame2Text
+local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText, flagFrame1, flagButton1, flagFrame2, flagButton2, flagFrame1Text, flagFrame2Text
 local allyFlag, hordeFlag
 
 local function ShowEstimatedPoints()
@@ -146,17 +146,34 @@ local function ShowFlagDisplay()
 				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", AlwaysUpFrame2DynamicIconButton)
 				flagFrame1:SetPoint("LEFT", "AlwaysUpFrame2DynamicIconButton", "RIGHT", 4, 0)
 				DBM:Debug("DBM_FlagFrame1 anchored to AlwaysUpFrame2DynamicIconButton")
+
+				flagButton1 = flagButton1 or CreateFrame("Button", "DBM_FlagButton1", nil, "SecureActionButtonTemplate")
+				flagButton1:SetPoint("LEFT", "AlwaysUpFrame2", "RIGHT", 15, 0)
+				DBM:Debug("DBM_FlagButton1 anchored to AlwaysUpFrame2")
 			elseif scoreFrame1 then
 				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", scoreFrame1)
 				flagFrame1:SetPoint("LEFT", "DBM_ScoreFrame1Text", "RIGHT", 4, 0)
 				DBM:Debug("DBM_FlagFrame1 anchored to scoreFrame1")
+
+				flagButton1 = flagButton1 or CreateFrame("Button", "DBM_FlagButton1", nil, "SecureActionButtonTemplate")
+				flagButton1:SetPoint("LEFT", "AlwaysUpFrame1", "RIGHT", 50, 0)
+				DBM:Debug("DBM_FlagButton1 anchored to AlwaysUpFrame1 after scoreFrame1")
 			elseif AlwaysUpFrame1 then
 				flagFrame1 = CreateFrame("Frame", "DBM_FlagFrame1", AlwaysUpFrame1)
 				flagFrame1:SetPoint("LEFT", "AlwaysUpFrame1Text", "RIGHT", 4, 0)
 				DBM:Debug("DBM_FlagFrame1 anchored to AlwaysUpFrame1")
+
+				flagButton1 = flagButton1 or CreateFrame("Button", "DBM_FlagButton1", nil, "SecureActionButtonTemplate")
+				flagButton1:SetPoint("LEFT", "AlwaysUpFrame1", "RIGHT", 15, 0)
+				DBM:Debug("DBM_FlagButton1 anchored to AlwaysUpFrame1")
 			end
 			flagFrame1:SetHeight(10)
 			flagFrame1:SetWidth(150)
+
+			flagButton1:SetHeight(15)
+			flagButton1:SetWidth(150)
+			flagButton1:SetAttribute("type", "macro")
+
 			flagFrame1Text = flagFrame1:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
 			flagFrame1Text:SetAllPoints(flagFrame1)
 			flagFrame1Text:SetJustifyH("LEFT")
@@ -166,25 +183,44 @@ local function ShowFlagDisplay()
 				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", AlwaysUpFrame3DynamicIconButton)
 				flagFrame2:SetPoint("LEFT", "AlwaysUpFrame3DynamicIconButton", "RIGHT", 4, 0)
 				DBM:Debug("DBM_FlagFrame2 anchored to AlwaysUpFrame3DynamicIconButton")
+
+				flagButton2 = flagButton2 or CreateFrame("Button", "DBM_FlagButton2", nil, "SecureActionButtonTemplate")
+				flagButton2:SetPoint("LEFT", "AlwaysUpFrame3", "RIGHT", 15, 0)
+				DBM:Debug("DBM_FlagButton2 anchored to AlwaysUpFrame3")
 			elseif scoreFrame2 then
 				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", scoreFrame2)
 				flagFrame2:SetPoint("LEFT", "DBM_ScoreFrame2Text", "RIGHT", 4, 0)
 				DBM:Debug("DBM_FlagFrame2 anchored to scoreFrame2")
+
+				flagButton2 = flagButton2 or CreateFrame("Button", "DBM_FlagButton2", nil, "SecureActionButtonTemplate")
+				flagButton2:SetPoint("LEFT", "AlwaysUpFrame2", "RIGHT", 50, 0)
+				DBM:Debug("DBM_FlagButton2 anchored to AlwaysUpFrame2 after scoreFrame2")
 			elseif AlwaysUpFrame2 then
 				flagFrame2 = CreateFrame("Frame", "DBM_FlagFrame2", AlwaysUpFrame2)
 				flagFrame2:SetPoint("LEFT", "AlwaysUpFrame2Text", "RIGHT", 4, 0)
 				DBM:Debug("DBM_FlagFrame2 anchored to AlwaysUpFrame2")
+
+				flagButton2 = flagButton2 or CreateFrame("Button", "DBM_FlagButton2", nil, "SecureActionButtonTemplate")
+				flagButton2:SetPoint("LEFT", "AlwaysUpFrame2", "RIGHT", 15, 0)
+				DBM:Debug("DBM_FlagButton2 anchored to AlwaysUpFrame2")
 			end
 			flagFrame2:SetHeight(10)
 			flagFrame2:SetWidth(150)
+
+			flagButton2:SetHeight(15)
+			flagButton2:SetWidth(150)
+			flagButton2:SetAttribute("type", "macro")
+
 			flagFrame2Text = flagFrame2:CreateFontString("$parentText", "ARTWORK", "GameFontNormalSmall")
 			flagFrame2Text:SetAllPoints(flagFrame2)
 			flagFrame2Text:SetJustifyH("LEFT")
 		end
 		flagFrame1Text:SetText("")
 		flagFrame1:Show()
+		flagButton1:Show()
 		flagFrame2Text:SetText("")
 		flagFrame2:Show()
+		flagButton2:Show()
 	end
 end
 
@@ -209,8 +245,10 @@ local function UpdateFlagDisplay()
 			else
 				flagFrame1Text:SetText(allyFlag)
 			end
+			flagButton1:SetAttribute("macrotext", "/targetexact "..allyFlag)
 		else
 			flagFrame1Text:SetText("")
+			flagButton1:SetAttribute("macrotext", "")
 		end
 
 		if hordeFlag then
@@ -219,8 +257,10 @@ local function UpdateFlagDisplay()
 			else
 				flagFrame2Text:SetText(hordeFlag)
 			end
+			flagButton2:SetAttribute("macrotext", "/targetexact "..hordeFlag)
 		else
 			flagFrame2Text:SetText("")
+			flagButton2:SetAttribute("macrotext", "")
 		end
 		if allyFlag and hordeFlag then
 			vulnerableTimer:Start()
