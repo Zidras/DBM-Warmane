@@ -1,9 +1,11 @@
 local mod	= DBM:NewMod("ScourgelordTyrannus", "DBM-Party-WotLK", 15)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220809190725")
 mod:SetCreatureID(36658, 36661)
 mod:SetUsedIcons(8)
+mod:SetHotfixNoticeRev(20220809000000)
+mod:SetMinSyncRevision(20220809000000)
 
 -- mod:RegisterCombat("yell", L.CombatStart)
 -- mod:RegisterKill("yell", L.YellCombatEnd)
@@ -15,7 +17,7 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 69629 69167",
+	"SPELL_CAST_START 69629 69167 69172",
 	"SPELL_CAST_SUCCESS 69155 69627",
 	"SPELL_AURA_APPLIED 69172",
 	"SPELL_AURA_REMOVED 69172",
@@ -36,20 +38,22 @@ local specWarnIcyBlast			= mod:NewSpecialWarningMove(69238, nil, nil, nil, 1, 2)
 local specWarnOverlordsBrand	= mod:NewSpecialWarningReflect(69172, nil, nil, nil, 3, 2)
 local specWarnUnholyPower		= mod:NewSpecialWarningSpell(69167, "Tank", nil, nil, 1, 2) --Spell for now. may change to run away if damage is too high for defensive
 
-local timerCombatStart			= mod:NewCombatTimer(44)
-local timerOverlordsBrandCD		= mod:NewCDTimer(12, 69172, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerCombatStart			= mod:NewCombatTimer(45) -- 2022/08/09 Icecrown log
+local timerOverlordsBrandCD		= mod:NewCDTimer(11, 69172, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) -- ~1s variance (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 11.2, 11.3, 11.7, 11.7, 11.8, 11.5, 12.0, 12.0 || 11.1, 11.7, 12.1, 11.3
 local timerOverlordsBrand		= mod:NewTargetTimer(8, 69172, nil, nil, nil, 5)
 local timerUnholyPower			= mod:NewBuffActiveTimer(10, 69167, nil, "Tank|Healer", 2, 5)
-local timerHoarfrostCD			= mod:NewCDTimer(25.5, 69246, nil, nil, nil, 3)
-local timerForcefulSmash		= mod:NewCDTimer(40, 69155, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)--Highly Variable. 40-50
+local timerUnholyPowerCD		= mod:NewCDTimer(41.3, 69167, nil, "Tank|Healer", nil, 5) -- REVIEW! Doesn't cast if kited? ~1s variance? (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 41.3, 41.9 || -
+local timerHoarfrostCD			= mod:NewCDTimer(24.8, 69246, nil, nil, nil, 3) -- SPELL_CAST_START fires 1s after EMOTE, so use EMOTE instead for time diffs. REVIEW! ~2s variance? (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 24.8, 25.9, 25,6 || 26.0
+local timerForcefulSmash		= mod:NewCDTimer(41.4, 69155, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! Doesn't cast if kited? ~1s variance (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 41.4, 41.9 || -
 
 mod:AddSetIconOption("SetIconOnHoarfrostTarget", 69246, true, false, {8})
 mod:AddRangeFrameOption(8, 69246)
 
 function mod:OnCombatStart(delay)
-	timerForcefulSmash:Start(9-delay)--Sems like a WTF
-	timerOverlordsBrandCD:Start(-delay)
-	timerHoarfrostCD:Start(31.5-delay)--Verify
+	timerForcefulSmash:Start(14.3-delay) -- REVIEW! ~1s variance? (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 14.3 || 14.8
+	timerOverlordsBrandCD:Start(4.5-delay) -- REVIEW! ~1s variance? (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 5.5 || 4.5
+	timerHoarfrostCD:Start(26.3-delay) -- REVIEW! ~1s variance? (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 25.3 || 25.8
+	timerUnholyPowerCD:Start(15.3-delay) -- REVIEW! ~1s variance? (2022/08/08 Lordaeron log || 2022/08/09 Icecrown log) - 15.3 || 15.8
 end
 
 function mod:OnCombatEnd()
@@ -63,6 +67,9 @@ function mod:SPELL_CAST_START(args)
 		specWarnUnholyPower:Show()
 		specWarnUnholyPower:Play("justrun")
 		timerUnholyPower:Start()
+		timerUnholyPowerCD:Start()
+	elseif args.spellId == 69172 then						-- Overlord's Brand
+		timerOverlordsBrandCD:Start() -- more accurate here than on SPELL_AURA_APPLIED due to ability travel time
 	end
 end
 
@@ -75,7 +82,6 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69172 then							-- Overlord's Brand
-		timerOverlordsBrandCD:Start()
 		timerOverlordsBrand:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnOverlordsBrand:Show(args.sourceName)
@@ -107,7 +113,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
-	if msg == L.HoarfrostTarget or msg:find(L.HoarfrostTarget) then--Probably don't need this, verify
+	if msg == L.HoarfrostTarget or msg:find(L.HoarfrostTarget) then
 		target = target or msg and msg:match(L.HoarfrostTarget)
 		if not target then return end
 		timerHoarfrostCD:Start()
