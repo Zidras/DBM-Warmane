@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220716004329")
+mod:SetRevision("20220809231440")
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.YellKill) -- fires 24 seconds after fight ends, not accurate enough. Workaround it by using Self Stun UNIT_SPELLCAST_SUCCEEDED, which is fired when he turns friendly and fight is won.
@@ -112,7 +112,6 @@ end
 
 function mod:SPELL_DAMAGE(sourceGUID, _, _, _, _, _, spellId)
 	if (spellId == 65108 or spellId == 64122) and self:AntiSpam(2, spellId .. sourceGUID) then	-- Black Hole Explosion
-		announceBlackHole:Show()
 		if stars[sourceGUID] then
 			local id = stars[sourceGUID]
 			DBM.BossHealth:RemoveBoss(id)
