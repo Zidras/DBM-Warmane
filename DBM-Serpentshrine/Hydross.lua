@@ -1,16 +1,16 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220811223814")
 mod:SetCreatureID(21216)
 
 mod:SetModelID(20162)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("combat_yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 38235 38246",
-	"SPELL_AURA_REMOVED 38246",
+	"SPELL_AURA_APPLIED 38235 38246 37935",
+	"SPELL_AURA_REMOVED 38246 37935",
 	"SPELL_CAST_SUCCESS 38215 38216 38217 38219 38220 38221 38218 38231 40584 38222 38230 40583 25035"
 )
 
@@ -45,7 +45,7 @@ local damageNext = {
 }
 
 function mod:OnCombatStart(delay)
-	timerMark:Start(16-delay, markOfH, "10%")
+	timerMark:Start(14.5-delay, markOfH, "10%")
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
@@ -59,17 +59,23 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 38235 then
+	local spellId = args.spellId
+	if spellId == 38235 then
 		warnTomb:CombinedShow(0.3, args.destName)
-	elseif args.spellId == 38246 then
+	elseif spellId == 38246 then
 		warnSludge:Show(args.destName)
 		timerSludge:Start(args.destName)
+	elseif spellId == 37935 then -- Cleansing Field - Water form -
+		warnPhase:Show(L.Frost)
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 38246 then
+	local spellId = args.spellId
+	if spellId == 38246 then
 		timerSludge:Stop(args.destName)
+	elseif spellId == 37935 then -- Cleansing Field - Poison form -
+		warnPhase:Show(L.Nature)
 	end
 end
 
@@ -84,6 +90,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerMark:Cancel()
 		timerMark:Show(args.spellName, damageNext[args.spellId] or "10%")
 	elseif args.spellId == 25035 and self:AntiSpam(2) then
+		DBM:Addsg("Elemental Spawn-in unhidden from combat log. Notify Zidras on Discord or GitHub")
 		timerMark:Cancel()
 		if args:GetSrcCreatureID() == 22035 then
 			warnPhase:Show(L.Frost)

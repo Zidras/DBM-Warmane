@@ -27,8 +27,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Frost	= "Frost",
-	Nature	= "Nature"
+	Frost		= "Frost",
+	Nature		= "Nature",
+	YellPull	= "I cannot allow you to interfere!"
 })
 
 -----------------------

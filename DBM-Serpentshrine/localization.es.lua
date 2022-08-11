@@ -29,8 +29,10 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Frost	= "Escarcha",
-	Nature	= "Naturaleza"
+	Frost		= "Escarcha",
+	Nature		= "Naturaleza",
+	YellPull	= "¡No puedo permitir que interferáis!" -- esES
+--	YellPull	= "¡No puedo permitir que interfieran!" -- esMX
 })
 
 -----------------------

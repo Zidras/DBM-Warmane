@@ -28,8 +28,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Frost	= "冰霜阶段",
-	Nature	= "自然阶段"
+	Frost		= "冰霜阶段",
+	Nature		= "自然阶段",
+	YellPull	= "我不能允许你们介入！"
 })
 
 -----------------------

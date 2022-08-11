@@ -28,8 +28,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Frost	= "냉기",
-	Nature	= "자연"
+	Frost		= "냉기",
+	Nature		= "자연",
+	YellPull	= "방해하도록 놔두지 않겠습니다!"
 })
 
 -----------------------

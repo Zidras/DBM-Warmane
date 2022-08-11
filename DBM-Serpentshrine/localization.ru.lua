@@ -28,8 +28,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Frost	= "Гидросса",
-	Nature	= "порчи"
+	Frost		= "Гидросса",
+	Nature		= "порчи",
+	YellPull	= "Я не позволю вам вмешиваться!"
 })
 
 -----------------------

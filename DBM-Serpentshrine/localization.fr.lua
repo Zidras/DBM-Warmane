@@ -4,7 +4,11 @@ local L
 ---------------------------
 --  Hydross the Unstable --
 ---------------------------
---L = DBM:GetModLocalization("Hydross")
+L = DBM:GetModLocalization("Hydross")
+
+L:SetMiscLocalization({
+	YellPull	= "Je ne peux pas vous laisser nous gêner !"
+})
 
 -----------------------
 --  The Lurker Below --
