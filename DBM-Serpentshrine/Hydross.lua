@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220811223814")
+mod:SetRevision("20220811225006")
 mod:SetCreatureID(21216)
 
 mod:SetModelID(20162)
@@ -65,7 +65,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 38246 then
 		warnSludge:Show(args.destName)
 		timerSludge:Start(args.destName)
-	elseif spellId == 37935 then -- Cleansing Field - Water form -
+	elseif spellId == 37935 and args:GetDestCreatureID() == 21216 then -- Cleansing Field - Water form -
 		warnPhase:Show(L.Frost)
 	end
 end
@@ -74,7 +74,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 38246 then
 		timerSludge:Stop(args.destName)
-	elseif spellId == 37935 then -- Cleansing Field - Poison form -
+	elseif spellId == 37935 and args:GetDestCreatureID() == 21216 then -- Cleansing Field - Poison form -
 		warnPhase:Show(L.Nature)
 	end
 end
