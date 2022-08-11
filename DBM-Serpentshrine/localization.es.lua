@@ -100,7 +100,8 @@ L:SetGeneralLocalization({
 L:SetMiscLocalization({
 	Caribdis	= "Guardia de las profundidades Caribdis",
 	Tidalvess	= "Guardia de las profundidades Tidalvess",
-	Sharkkis	= "Guardia de las profundidades Sharkkis"
+	Sharkkis	= "Guardia de las profundidades Sharkkis",
+	YellPull	= "¡Guardias, atención! Tenemos visita..."
 })
 
 --------------------------

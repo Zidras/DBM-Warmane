@@ -99,7 +99,8 @@ L:SetGeneralLocalization({
 L:SetMiscLocalization({
 	Caribdis	= "Tiefenwächterin Caribdis",
 	Tidalvess	= "Tiefenwächter Flutvess",
-	Sharkkis	= "Tiefenwächter Haikis"
+	Sharkkis	= "Tiefenwächter Haikis",
+	YellPull	= "Achtung, Wachen! Wir haben Besuch..."
 })
 
 --------------------------

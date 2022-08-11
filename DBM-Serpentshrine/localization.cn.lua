@@ -109,7 +109,8 @@ L:SetGeneralLocalization({
 L:SetMiscLocalization({
 	Caribdis	= "深水卫士卡莉蒂丝",--Translate
 	Tidalvess	= "深水卫士泰达维斯 ",--Translate
-	Sharkkis	= "深水卫士沙克基斯"--Translate
+	Sharkkis	= "深水卫士沙克基斯",--Translate
+	YellPull	= "卫兵！提高警惕！我们有客人来了……"
 })
 
 --------------------------

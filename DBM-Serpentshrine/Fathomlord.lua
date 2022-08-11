@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("Fathomlord", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220811214332")
 mod:SetCreatureID(21214)
 
 mod:SetModelID(20662)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("combat_yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 38451 38452 38455",

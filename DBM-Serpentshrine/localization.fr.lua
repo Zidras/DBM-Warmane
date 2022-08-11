@@ -23,7 +23,11 @@ L:SetGeneralLocalization({
 -----------------------------
 --  Fathom-Lord Karathress --
 -----------------------------
---L = DBM:GetModLocalization("Fathomlord")
+L = DBM:GetModLocalization("Fathomlord")
+
+L:SetMiscLocalization({
+	YellPull	= "Gardes, en position ! Nous avons de la visite…"
+})
 
 --------------------------
 --  Morogrim Tidewalker --

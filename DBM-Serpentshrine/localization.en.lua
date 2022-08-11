@@ -98,7 +98,8 @@ L:SetGeneralLocalization({
 L:SetMiscLocalization({
 	Caribdis	= "Fathom-Guard Caribdis",
 	Tidalvess	= "Fathom-Guard Tidalvess",
-	Sharkkis	= "Fathom-Guard Sharkkis"
+	Sharkkis	= "Fathom-Guard Sharkkis",
+	YellPull	= "Guards, attention! We have visitors...."
 })
 
 --------------------------
