@@ -95,7 +95,8 @@ L:SetMiscLocalization({
 	Human		= "人形态",--Translate
 	Demon		= "恶魔形态",--Translate
 	YellDemon	= "滚开吧，脆弱的精灵。现在我说了算！",
-	YellPhase2	= "不……不！你在干什么？我才是主宰！你听到没有？我……啊啊啊啊！控制……不住了。"
+	YellPhase2	= "不……不！你在干什么？我才是主宰！你听到没有？我……啊啊啊啊！控制……不住了。",
+	YellPull	= "我的放逐终于结束了！"
 })
 
 -----------------------------

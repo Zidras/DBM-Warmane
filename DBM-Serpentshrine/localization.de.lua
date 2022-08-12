@@ -85,7 +85,8 @@ L:SetMiscLocalization({
 	Human		= "Humanoide",
 	Demon		= "Dämonen",
 	YellDemon	= "Hinfort, unbedeutender Elf%.%s*Ich habe jetzt die Kontrolle!",
-	YellPhase2	= "Nein... nein! Was habt Ihr getan? Ich bin der Meister! Hört Ihr? Ich! Ich... aaaaah! Ich kann ihn... nicht aufhalten..."
+	YellPhase2	= "Nein... nein! Was habt Ihr getan? Ich bin der Meister! Hört Ihr? Ich! Ich... aaaaah! Ich kann ihn... nicht aufhalten...",
+	YellPull	= "Endlich hat meine Verbannung ein Ende!"
 })
 
 -----------------------------

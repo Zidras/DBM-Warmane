@@ -94,8 +94,9 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Human		= "Human",--Translate
 	Demon		= "Demon",--Translate
-	YellDemon	= "Be gone, trifling elf%.%s*I am in control now!",--Translate
-	YellPhase2	= "No... no! What have you done? I am the master! Do you hear me? I am... aaggh! Can't... contain him."--Translate
+	YellDemon	= "Прочь, жалкий эльф. Настало мое время!",
+	YellPhase2	= "Нет... нет! Что вы наделали? Я – главный! Слышишь меня? Я... Ааааах! Мне его... не удержать.",
+	YellPull	= "Наконец-то мое заточение окончено!"
 })
 
 -----------------------------

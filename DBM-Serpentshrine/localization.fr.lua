@@ -22,7 +22,12 @@ L:SetGeneralLocalization({
 --------------------------
 --  Leotheras the Blind --
 --------------------------
---L = DBM:GetModLocalization("Leotheras")
+L = DBM:GetModLocalization("Leotheras")
+
+L:SetMiscLocalization({
+	YellDemon	= "Hors d'ici, elfe insignifiant. Je prends le contrôle !",
+	YellPull	= "Enfin, mon exil s'achève !"
+})
 
 -----------------------------
 --  Fathom-Lord Karathress --

@@ -1,18 +1,20 @@
 local mod	= DBM:NewMod("Leotheras", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220811235136")
+mod:SetRevision("20220812200037")
 mod:SetCreatureID(21215)
 
 mod:SetModelID(20514)
 mod:SetUsedIcons(5, 6, 7, 8)
+mod:SetHotfixNoticeRev(20220812000000)
+mod:SetMinSyncRevision(20220812000000)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("yell", L.YellPull) -- avoid using combat for this boss because attacking it on pull causes mod to engage.
 
 --Not using RegisterEventsInCombat on purpose because it uses weird combat rules
-mod:RegisterEvents(
+--[[mod:RegisterEvents(
 	"UNIT_DIED"
-)
+)]]
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 37640 37676 37749",
 	"CHAT_MSG_MONSTER_YELL"
@@ -38,7 +40,7 @@ mod:AddSetIconOption("DemonIcon", 37676, false, false, {8, 7, 6, 5})
 
 local warnDemonTargets = {}
 local warnMCTargets = {}
-mod.vb.binderKill = 0
+--mod.vb.binderKill = 0
 mod.vb.demonIcon = 8
 mod.vb.whirlCount = 0
 
@@ -73,7 +75,7 @@ function mod:OnCombatStart()
 end
 
 function mod:OnCombatEnd()
-	self.vb.binderKill = 0
+--	self.vb.binderKill = 0
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -134,7 +136,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 --TODO, with ENCOUNTER_START this may not be needed anymore, but also have to make sure ES is in right place too, it wasn't on retail which is why this method exists
-function mod:UNIT_DIED(args)
+--[[function mod:UNIT_DIED(args)
 	local cId = self:GetCIDFromGUID(args.destGUID)
 	if cId == 21806 then
 		self.vb.binderKill = self.vb.binderKill + 1
@@ -142,4 +144,4 @@ function mod:UNIT_DIED(args)
 			DBM:StartCombat(self, 0)
 		end
 	end
-end
+end]]

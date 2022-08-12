@@ -84,10 +84,11 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Human		= "humana",
-	Demon		= "demoníaca",
+	Human		= "Humana",
+	Demon		= "Demoníaca",
 	YellDemon	= "Desaparece, elfo pusilánime. ¡Yo mando ahora!",
-	YellPhase2	= "¿Qué has hecho? ¡Yo soy el maestro!"
+	YellPhase2	= "¿Qué has hecho? ¡Yo soy el maestro!",
+	YellPull	= "¡Al fin acaba mi destierro!"
 })
 
 -----------------------------
