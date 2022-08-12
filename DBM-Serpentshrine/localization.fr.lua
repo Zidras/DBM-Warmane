@@ -44,7 +44,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Tidewalker")
 
 L:SetMiscLocalization({
---	Grave			= "%s sends his enemies to their watery graves!",
+	Grave			= "%s envoie ses ennemis six pieds sous l'eau !",
 	Murlocs			= "La violence du tremblement de terre a alerté des murlocs qui passaient non loin !"
 })
 

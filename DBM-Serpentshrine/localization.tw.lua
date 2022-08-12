@@ -128,7 +128,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Grave			= "%s sends his enemies to their watery graves!",
+	Grave			= "%s將敵人放進他們的水墓穴中!",
 	Murlocs			= "強烈的地震驚動了附近的魚人!"
 })
 

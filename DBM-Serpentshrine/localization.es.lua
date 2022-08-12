@@ -132,7 +132,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	Grave			= "%s sends his enemies to their watery graves!",
+	Grave			= "¡%s manda a sus enemigos a sus sepulturas de agua!",
 	Murlocs			= "¡El violento terremoto ha alertado a los múrlocs cercanos!"
 })
 
