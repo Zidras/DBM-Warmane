@@ -49,6 +49,7 @@ CL.BOSSTOGETHER						= "Bosses Together"
 CL.BOSSAPART						= "Bosses Apart"
 CL.TANKCOMBO						= "Tank Combo"
 CL.AOEDAMAGE						= "AOE Damage"
+CL.YOU								= "You"
 
 --Journal Icons should not be copied to non english locals, do not include this section
 local EJIconPath = "AddOns\\DBM-Core\\textures"

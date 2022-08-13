@@ -12,3 +12,4 @@ CL.BACK						= "Derrière"
 CL.MIDDLE					= "Milieu"
 CL.FRONT					= "Devant"--"En face"?/In front
 CL.INTERMISSION				= "Intermission"--No blizz global for this, and will probably be used in most end tier fights with intermission phases
+CL.YOU						= "Vous"
