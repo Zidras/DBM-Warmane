@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LurkerBelow", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220812234259")
+mod:SetRevision("20220813110833")
 mod:SetCreatureID(21217)
 
 --mod:SetModelID(20216)
@@ -40,6 +40,7 @@ local function emerged(self)
 end
 
 local function submerged(self)
+	self:SetStage(2)
 	self.vb.submerged = true
 	self.vb.guardianKill = 0
 	self.vb.ambusherKill = 0
@@ -51,6 +52,7 @@ local function submerged(self)
 end
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	self.vb.submerged = false
 	timerWhirlCD:Start(62.5-delay) -- REVIEW! variance? (25 man FM log 2022/08/11) - 62.5
 	timerSpoutCD:Start(35.5-delay) -- REVIEW! variance? (25 man FM log 2022/08/11) - 35.5
@@ -59,6 +61,7 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 20568 then -- Ragnaros Emerge. Fires when boss emerges
+		self:SetStage(1)
 		timerEmerge:Cancel()
 		warnEmerge:Show()
 		timerSubmerge:Start()
