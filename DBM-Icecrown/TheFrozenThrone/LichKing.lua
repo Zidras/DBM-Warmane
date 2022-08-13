@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220710163039")
+mod:SetRevision("20220813195128")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220623000000)
@@ -83,18 +83,18 @@ local warnDrudgeGhouls				= mod:NewSpellAnnounce(70358, 2) --Phase 1 Add
 local warnShamblingEnrage			= mod:NewTargetNoFilterAnnounce(72143, 3, nil, "Tank|Healer|RemoveEnrage") --Phase 1 Add Ability
 local warnNecroticPlague			= mod:NewTargetNoFilterAnnounce(70337, 3) --Phase 1+ Ability
 local warnNecroticPlagueJump		= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 70337, nil, nil, nil, 70337) --Phase 1+ Ability
-local warnInfest					= mod:NewSpellAnnounce(70541, 3, nil, "Healer|RaidCooldown") --Phase 1 & 2 Ability
+local warnInfest					= mod:NewCountAnnounce(70541, 3, nil, "Healer|RaidCooldown") --Phase 1 & 2 Ability
 local warnTrapCast					= mod:NewTargetNoFilterAnnounce(73539, 4) --Phase 1 Heroic Ability
 
 local specWarnNecroticPlague		= mod:NewSpecialWarningMoveAway(70337, nil, nil, nil, 1, 2) --Phase 1+ Ability
-local specWarnInfest				= mod:NewSpecialWarningSpell(70541, nil, nil, nil, 1) --Phase 1+ Ability
+local specWarnInfest				= mod:NewSpecialWarningCount(70541, nil, nil, nil, 1) --Phase 1+ Ability
 local specWarnTrap					= mod:NewSpecialWarningYou(73539, nil, nil, nil, 3, 2, 3) --Heroic Ability
 local yellTrap						= mod:NewYellMe(73539)
 local specWarnTrapNear				= mod:NewSpecialWarningClose(73539, nil, nil, nil, 3, 2, 3) --Heroic Ability
 local specWarnEnrage				= mod:NewSpecialWarningSpell(72143, "Tank")
 local specWarnEnrageLow				= mod:NewSpecialWarningSpell(28747, false)
 
-local timerInfestCD					= mod:NewNextTimer(22.5, 70541, nil, "Healer|RaidCooldown", nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerInfestCD					= mod:NewCDCountTimer(22.5, 70541, nil, "Healer|RaidCooldown", nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerNecroticPlagueCleanse	= mod:NewTimer(5, "TimerNecroticPlagueCleanse", 70337, "Healer", nil, 5, DBM_COMMON_L.HEALER_ICON, nil, nil, nil, nil, nil, nil, 70337)
 local timerNecroticPlagueCD			= mod:NewNextTimer(30, 70337, nil, nil, nil, 3)
 local timerEnrageCD					= mod:NewCDTimer(20, 72143, nil, "Tank|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON)
@@ -114,10 +114,10 @@ mod:AddBoolOption("AnnouncePlagueStack", false, nil, nil, nil, nil, 70337)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
 local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local valkyrWarning					= mod:NewAnnounce("ValkyrWarning", 3, 71844, nil, nil, nil, 69037)--Phase 2 Ability
-local warnDefileSoon				= mod:NewSoonAnnounce(72762, 3)	--Phase 2+ Ability
-local warnSoulreaper				= mod:NewSpellAnnounce(69409, 4) --Phase 2+ Ability
-local warnDefileCast				= mod:NewTargetNoFilterAnnounce(72762, 4) --Phase 2+ Ability
-local warnSummonValkyr				= mod:NewSpellAnnounce(69037, 3, 71844) --Phase 2 Add
+local warnDefileSoon				= mod:NewSoonCountAnnounce(72762, 3)	--Phase 2+ Ability
+local warnSoulreaper				= mod:NewTargetCountAnnounce(69409, 4) --Phase 2+ Ability
+local warnDefileCast				= mod:NewTargetCountAnnounce(72762, 4, nil, nil, nil, nil, nil, nil, true) --Phase 2+ Ability
+local warnSummonValkyr				= mod:NewCountAnnounce(69037, 3, 71844) --Phase 2 Add
 
 local specWarnYouAreValkd			= mod:NewSpecialWarning("SpecWarnYouAreValkd", nil, nil, nil, 1, 2, nil, 71844, 69037) --Phase 2+ Ability
 local specWarnDefileCast			= mod:NewSpecialWarningMoveAway(72762, nil, nil, nil, 3, 2) --Phase 2+ Ability
@@ -129,9 +129,9 @@ local specWarnSoulreaperOtr			= mod:NewSpecialWarningTaunt(69409, false, nil, ni
 local specWarnValkyrLow				= mod:NewSpecialWarning("SpecWarnValkyrLow", nil, nil, nil, 1, 2, nil, 71844, 69037)
 
 local timerSoulreaper				= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
-local timerSoulreaperCD				= mod:NewNextTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerDefileCD					= mod:NewNextTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)
-local timerSummonValkyr				= mod:NewCDTimer(45, 69037, nil, nil, nil, 1, 71844, DBM_COMMON_L.DAMAGE_ICON, nil, 2, 3)
+local timerSoulreaperCD				= mod:NewCDCountTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerDefileCD					= mod:NewCDCountTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)
+local timerSummonValkyr				= mod:NewCDCountTimer(45, 69037, nil, nil, nil, 1, 71844, DBM_COMMON_L.DAMAGE_ICON, nil, 2, 3)
 
 local soundDefileOnYou				= mod:NewSoundYou(72762)
 local soundSoulReaperSoon			= mod:NewSoundSoon(69409, nil, "Tank|Healer|TargetedCooldown")
@@ -178,17 +178,24 @@ local timerSoulShriekCD				= mod:NewCDTimer(12, 69242, nil, nil, nil, 1)
 mod:AddRangeFrameOption(8, 72133)
 mod:AddSetIconOption("RagingSpiritIcon", 69200, false, 0, {6})
 
-local warnedAchievement = false
+-- P1 variables
 mod.vb.warned_preP2 = false
-mod.vb.warned_preP3 = false
+mod.vb.infestCount = 0
+-- Intermission variables
 mod.vb.ragingSpiritCount = 0
+-- P2 variables
+mod.vb.warned_preP3 = false
+mod.vb.defileCount = 0
+mod.vb.soulReaperCount = 0
+mod.vb.valkyrWaveCount = 0
+mod.vb.valkIcon = 1
 local iceSpheresGUIDs = {}
 local warnedValkyrGUIDs = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 -- local soulshriek = GetSpellInfo(69242)
 local plagueExpires = {}
+local warnedAchievement = false
 local lastPlague
-mod.vb.valkIcon = 1
 
 
 local function RemoveImmunes(self)
@@ -202,6 +209,10 @@ end
 
 local function NextPhase(self)
 	self:SetStage(0)
+	self.vb.infestCount = 0
+	self.vb.defileCount = 0
+	self.vb.valkyrWaveCount = 0
+	self.vb.soulReaperCount = 0
 	if self.vb.phase == 1 then
 		if myRealm == "Lordaeron" and self:IsDifficulty("normal10", "heroic10") then -- only normal10 confirmed, but added heroic10 just in case
 			berserkTimer:Start(720)
@@ -217,29 +228,30 @@ local function NextPhase(self)
 		else
 			timerNecroticPlagueCD:Start(27)
 		end
+		timerInfestCD:Start(5.0, self.vb.infestCount+1)
 	elseif self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		if self.Options.ShowFrame then
 			self:CreateFrame()
 		end
-		timerSummonValkyr:Start(18.5)
-		timerSoulreaperCD:Start(40)
+		timerSummonValkyr:Start(18.5, self.vb.valkyrWaveCount+1)
+		timerSoulreaperCD:Start(40, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(40-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
-		timerDefileCD:Start(37.5)
-		timerInfestCD:Start(14)
+		timerDefileCD:Start(37.5, self.vb.defileCount+1)
+		timerInfestCD:Start(14, self.vb.infestCount+1)
 		soundInfestSoon:Schedule(14-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
-		warnDefileSoon:Schedule(33)
+		warnDefileSoon:Schedule(33, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(33, "scatter") -- Voice Pack - Scatter.ogg: "Spread!"
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
 		timerVileSpirit:Start(17)
-		timerSoulreaperCD:Start(37.5)
+		timerSoulreaperCD:Start(37.5, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(37.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
-		timerDefileCD:Start(33.5)
+		timerDefileCD:Start(33.5, self.vb.defileCount+1)
 		timerHarvestSoulCD:Start(14)
-		warnDefileSoon:Schedule(30)
+		warnDefileSoon:Schedule(30, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(30, "scatter")
 	end
 end
@@ -271,7 +283,7 @@ end
 
 function mod:DefileTarget(targetname, uId)
 	if not targetname then return end
-	warnDefileCast:Show(targetname)
+	warnDefileCast:Show(self.vb.defileCount, targetname)
 	if self.Options.DefileIcon then
 		self:SetIcon(targetname, 7, 4)
 	end
@@ -371,18 +383,20 @@ function mod:SPELL_CAST_START(args)
 		warnSummonVileSpirit:Show()
 		timerVileSpirit:Start()
 	elseif args:IsSpellID(70541, 73779, 73780, 73781) then -- Infest
-		warnInfest:Show()
-		specWarnInfest:Show()
-		timerInfestCD:Start()
+		self.vb.infestCount = self.vb.infestCount + 1
+		warnInfest:Show(self.vb.infestCount)
+		specWarnInfest:Show(self.vb.infestCount)
+		timerInfestCD:Start(nil, self.vb.infestCount+1)
 		soundInfestSoon:Cancel()
 		soundInfestSoon:Schedule(22.5-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 	elseif spellId == 72762 then -- Defile
+		self.vb.defileCount = self.vb.defileCount + 1
 		self:BossTargetScanner(36597, "DefileTarget", 0.02, 15)
 		warnDefileSoon:Cancel()
 		warnDefileSoon:CancelVoice()
-		warnDefileSoon:Schedule(27)
+		warnDefileSoon:Schedule(27, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(27, "scatter")
-		timerDefileCD:Start()
+		timerDefileCD:Start(nil, self.vb.defileCount+1)
 	elseif spellId == 73539 then -- Shadow Trap (Heroic)
 		self:BossTargetScanner(36597, "TrapTarget", 0.02, 15)
 		timerTrapCD:Start()
@@ -417,11 +431,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 			self:SetIcon(lastPlague, 4, 5)
 		end
 	elseif args:IsSpellID(69409, 73797, 73798, 73799) then -- Soul reaper (MT debuff)
+		self.vb.soulReaperCount = self.vb.soulReaperCount + 1
 		timerSoulreaperCD:Cancel()
-		warnSoulreaper:Show(args.destName)
+		warnSoulreaper:Show(self.vb.soulReaperCount, args.destName)
 		specwarnSoulreaper:Show(args.destName)
 		timerSoulreaper:Start(args.destName)
-		timerSoulreaperCD:Start()
+		timerSoulreaperCD:Start(nil, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(30.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		if args:IsPlayer() then
 			specWarnSoulreaper:Show()
@@ -566,9 +581,10 @@ do
 				self:ScanForMobs(args.destGUID, 2, self.vb.valkIcon, 1, nil, 12, "ValkyrIcon")
 			end
 			self.vb.valkIcon = self.vb.valkIcon + 1
+			self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
 			if time() - lastValk > 15 then -- show the warning and timer just once for all three summon events
-				warnSummonValkyr:Show()
-				timerSummonValkyr:Start()
+				warnSummonValkyr:Show(self.vb.valkyrWaveCount)
+				timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
 				lastValk = time()
 				scanValkyrTargets(self)
 				--if self.Options.ValkyrIcon then
