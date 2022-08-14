@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220813195128")
+mod:SetRevision("20220814224628")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220623000000)
@@ -84,7 +84,7 @@ local warnShamblingEnrage			= mod:NewTargetNoFilterAnnounce(72143, 3, nil, "Tank
 local warnNecroticPlague			= mod:NewTargetNoFilterAnnounce(70337, 3) --Phase 1+ Ability
 local warnNecroticPlagueJump		= mod:NewAnnounce("WarnNecroticPlagueJump", 4, 70337, nil, nil, nil, 70337) --Phase 1+ Ability
 local warnInfest					= mod:NewCountAnnounce(70541, 3, nil, "Healer|RaidCooldown") --Phase 1 & 2 Ability
-local warnTrapCast					= mod:NewTargetNoFilterAnnounce(73539, 4) --Phase 1 Heroic Ability
+local warnTrapCast					= mod:NewTargetDistanceAnnounce(73539, 4, nil, nil, nil, nil, nil, nil, true) --Phase 1 Heroic Ability
 
 local specWarnNecroticPlague		= mod:NewSpecialWarningMoveAway(70337, nil, nil, nil, 1, 2) --Phase 1+ Ability
 local specWarnInfest				= mod:NewSpecialWarningCount(70541, nil, nil, nil, 1) --Phase 1+ Ability
@@ -116,7 +116,7 @@ local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local valkyrWarning					= mod:NewAnnounce("ValkyrWarning", 3, 71844, nil, nil, nil, 69037)--Phase 2 Ability
 local warnDefileSoon				= mod:NewSoonCountAnnounce(72762, 3)	--Phase 2+ Ability
 local warnSoulreaper				= mod:NewTargetCountAnnounce(69409, 4) --Phase 2+ Ability
-local warnDefileCast				= mod:NewTargetCountAnnounce(72762, 4, nil, nil, nil, nil, nil, nil, true) --Phase 2+ Ability
+local warnDefileCast				= mod:NewTargetCountDistanceAnnounce(72762, 4, nil, nil, nil, nil, nil, nil, true) --Phase 2+ Ability
 local warnSummonValkyr				= mod:NewCountAnnounce(69037, 3, 71844) --Phase 2 Add
 
 local specWarnYouAreValkd			= mod:NewSpecialWarning("SpecWarnYouAreValkd", nil, nil, nil, 1, 2, nil, 71844, 69037) --Phase 2+ Ability
@@ -138,6 +138,7 @@ local soundSoulReaperSoon			= mod:NewSoundSoon(69409, nil, "Tank|Healer|Targeted
 
 mod:AddSetIconOption("DefileIcon", 72762, true, 0, {7})
 mod:AddSetIconOption("ValkyrIcon", 69037, true, 5, {1, 2, 3})
+mod:AddArrowOption("DefileArrow", 72762, true)
 mod:AddBoolOption("AnnounceValkGrabs", false, nil, nil, nil, nil, 69037)
 
 -- Stage Three
@@ -282,8 +283,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:DefileTarget(targetname, uId)
-	if not targetname then return end
-	warnDefileCast:Show(self.vb.defileCount, targetname)
+	if not targetname and not uId then return end
 	if self.Options.DefileIcon then
 		self:SetIcon(targetname, 7, 4)
 	end
@@ -292,39 +292,41 @@ function mod:DefileTarget(targetname, uId)
 		specWarnDefileCast:Play("runout")
 		soundDefileOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\defileOnYou.mp3")
 		yellDefile:Yell()
-	else
-		if uId then
-			local inRange = CheckInteractDistance(uId, 2)
-			if inRange then
-				specWarnDefileNear:Show(targetname)
+	elseif self:CheckNearby(11, targetname) then
+		specWarnDefileNear:Show(targetname)
+	end
+	warnDefileCast:Show(self.vb.defileCount, targetname, DBM.RangeCheck:GetDistance(uId)) -- Always show announcement, regardless of distance
+	if self.Options.DefileArrow then
+		local x, y = GetPlayerMapPosition(uId)
+			if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition(uId)
 			end
-		end
+		DBM.Arrow:ShowRunAway(x, y, 10, 5)
 	end
 end
 
 function mod:TrapTarget(targetname, uId)
-	if not targetname then return end
-	warnTrapCast:Show(targetname)
+	if not targetname and not uId then return end
 	if self.Options.TrapIcon then
 		self:SetIcon(targetname, 7, 4)
 	end
-	if uId and targetname then
-		if targetname == UnitName("player") then
-			specWarnTrap:Show()
-			specWarnTrap:Play("watchstep")
-			yellTrap:Yell()
-		elseif self:CheckNearby(15, targetname) then
-			specWarnTrapNear:Show(targetname)
-			specWarnTrapNear:Play("watchstep")
-		end
-		if self.Options.TrapArrow then
-			local x, y = GetPlayerMapPosition(uId)
-				if x == 0 and y == 0 then
-					SetMapToCurrentZone()
-					x, y = GetPlayerMapPosition(uId)
-				end
-			DBM.Arrow:ShowRunAway(x, y, 10, 5)
-		end
+	if targetname == UnitName("player") then
+		specWarnTrap:Show()
+		specWarnTrap:Play("watchstep")
+		yellTrap:Yell()
+	elseif self:CheckNearby(15, targetname) then
+		specWarnTrapNear:Show(targetname)
+		specWarnTrapNear:Play("watchstep")
+	end
+	warnTrapCast:Show(targetname, DBM.RangeCheck:GetDistance(uId)) -- Always show announcement, regardless of distance
+	if self.Options.TrapArrow then
+		local x, y = GetPlayerMapPosition(uId)
+			if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition(uId)
+			end
+		DBM.Arrow:ShowRunAway(x, y, 10, 5)
 	end
 end
 
