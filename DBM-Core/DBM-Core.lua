@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220814224658"),
+	Revision = parseCurseDate("20220815000338"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9563,7 +9563,8 @@ do
 		end
 	end
 
-	local function playCountSound(_, path) -- timerId, path
+	local function playCountSound(timerId, path)
+		DBM:Debug("playCountSound originated from timer: "..(timerId or "nil").." with path: "..(path or "nil"), 3) -- doubling this here to confirm sound provenance on debug logs
 		DBM:PlaySoundFile(path)
 	end
 
