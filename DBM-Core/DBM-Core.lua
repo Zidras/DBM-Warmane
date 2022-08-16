@@ -79,7 +79,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220815000338"),
+	Revision = parseCurseDate("20220816232015"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2931,9 +2931,12 @@ do
 	}
 	--This never wants to spam you to use mods for trivial content you don't need mods for.
 	--It's intended to suggest mods for content that's relevant to your level (TW, leveling up in dungeons, or even older raids you can't just roll over)
-	function DBM:CheckAvailableMods()
+	function DBM:CheckAvailableMods(wipeNag)
 		if _G["BigWigs"] or modAdvertisementShown then return end--If they are running two boss mods at once, lets assume they are only using DBM for a specific feature (such as brawlers) and not nag
 		local timeWalking = savedDifficulty == "timewalker"
+		if wipeNag then--Disable message after one wipe nag, don't want to rub in a person is wiping, just nudge (once) that a mod might help
+			modAdvertisementShown = true
+		end
 		if oldDungeons[LastInstanceMapID] and (timeWalking or playerLevel < 50) and not GetAddOnInfo("DBM-Party-BC") then
 			AddMsg(self, L.MOD_AVAILABLE:format("DBM Dungeon mods"))
 		elseif (classicZones[LastInstanceMapID] or bcZones[LastInstanceMapID]) and (timeWalking or playerLevel < 31) and not GetAddOnInfo("DBM-BlackTemple") then
