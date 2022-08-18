@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220818230705"),
+	Revision = parseCurseDate("20220818232247"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -1434,6 +1434,7 @@ do
 				"PARTY_INVITE_REQUEST",
 				"LFG_PROPOSAL_SUCCEEDED",
 				"LFG_UPDATE",
+				"CHARACTER_POINTS_CHANGED",
 				"PLAYER_TALENT_UPDATE"
 			)
 			self:ZONE_CHANGED_NEW_AREA()
@@ -2845,6 +2846,7 @@ function DBM:PLAYER_TALENT_UPDATE()
 		self:SpecChanged()
 	end
 end
+DBM.CHARACTER_POINTS_CHANGED = DBM.PLAYER_TALENT_UPDATE
 
 function DBM:PLAYER_ALIVE()
 	self:PLAYER_TALENT_UPDATE()
