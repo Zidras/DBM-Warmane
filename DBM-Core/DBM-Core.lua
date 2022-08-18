@@ -37,6 +37,9 @@
 --
 local _, private = ...
 
+local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
+local testBuild = false -- no API for 3.3.5a, just assume false since it's a final build for private servers
+
 local DBMPrefix = "DBMv4"
 private.DBMPrefix = DBMPrefix
 
@@ -79,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220816232015"),
+	Revision = parseCurseDate("20220818230705"),
 	DisplayVersion = "9.2.22 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 7, 15) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -101,8 +104,6 @@ end
 function DBM:ReleaseDate(year, month, day, hour, minute, second)
 	return releaseDate(year, month, day, hour, minute, second)
 end
-
-local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
 
 function DBM:GetTOC()
 	return wowTOC, wowVersionString, wowBuild
@@ -425,7 +426,7 @@ local voiceSessionDisabled, statusGuildDisabled, statusWhisperDisabled, targetEv
 -- Nil variables
 local currentSpecID, currentSpecName, currentSpecGroup, pformat, loadOptions, checkWipe, checkBossHealth, checkCustomBossHealth, fireEvent, LastInstanceType, breakTimerStart, AddMsg, delayedFunction, handleSync, savedDifficulty, difficultyText, difficultyIndex, encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex
 -- 0 variables
-local cSyncReceived, showConstantReminder, updateNotificationDisplayed, LastGroupSize = 0, 0, 0, 0
+local dbmToc, cSyncReceived, showConstantReminder, updateNotificationDisplayed, LastGroupSize = 0, 0, 0, 0
 local LastInstanceMapID = -1
 local LastInstanceZoneName = ""
 local SWFilterDisabled = 12
@@ -1245,6 +1246,7 @@ do
 
 	function DBM:ADDON_LOADED(modname)
 		if modname == "DBM-Core" and not isLoaded then
+			dbmToc = tonumber(GetAddOnMetadata("DBM-Core", "X-Min-Interface"))
 			isLoaded = true
 			for _, v in ipairs(onLoadCallbacks) do
 				xpcall(v, geterrorhandler())
@@ -3562,16 +3564,16 @@ do
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, showRealDate(version)))
 					showConstantReminder = 1
 				elseif #newerVersionPerson == 3 and raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
-					--Disable if revision grossly out of date even if not major patch.
-					if raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] then
-						local revDifference = mmin(((raid[newerVersionPerson[1]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[2]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[3]].revision or 0) - DBM.Revision))
-						if revDifference > 100000000 then--Approx 1 month old 20190416172622
-							if updateNotificationDisplayed < 3 then
-								updateNotificationDisplayed = 3
-								AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
-								DBM:Disable(true)
-							end
-						end
+					--Disable if out of date and it's a major patch.
+					if not testBuild and dbmToc < wowTOC then
+						updateNotificationDisplayed = 3
+						AddMsg(DBM, L.UPDATEREMINDER_MAJORPATCH)
+						DBM:Disable(true)
+					--Disallow out of date to run during beta/ptr what so ever.
+					elseif testBuild then
+						updateNotificationDisplayed = 3
+						AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
+						DBM:Disable(true)
 					end
 				end
 			end
