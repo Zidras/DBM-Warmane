@@ -56,11 +56,8 @@ function mod:SPELL_CAST_START(args)
 		specWarnNova:Show()
 		if self.Options.RangeFrame then
 			-- On 10m you receive no damage outside 20 yards,
-			-- on 25m you receive damage either way but 25 yards should be safe
-			DBM.RangeCheck:SetBossRange(
-				self:IsDifficulty("normal10", "heroic10") and 20 or 25,
-				self:GetBossUnitByCreatureId(33993)
-			)
+			-- on 25m you receive damage either way but 20 yards from hitbox should be safe
+			DBM.RangeCheck:SetBossRange(20, self:GetBossUnitByCreatureId(33993))
 			-- 5s cast
 			self:Schedule(5.5, ResetRange, self)
 		end
