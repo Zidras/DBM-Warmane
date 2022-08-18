@@ -1,6 +1,6 @@
 local mod	= DBM:NewMod("Emalon", "DBM-VoA")
 local L		= mod:GetLocalizedStrings()
-
+--
 mod:SetRevision("20220705003611")
 mod:SetCreatureID(33993)
 mod:SetUsedIcons(8)
