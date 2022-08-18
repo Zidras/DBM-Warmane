@@ -1,6 +1,8 @@
 local mod	= DBM:NewMod("ProphetTharonja", "DBM-Party-WotLK", 4)
 local L		= mod:GetLocalizedStrings()
 
+mod.statTypes = "normal,heroic,mythic"
+
 mod:SetRevision("20220806222721")
 mod:SetCreatureID(26632)
 
