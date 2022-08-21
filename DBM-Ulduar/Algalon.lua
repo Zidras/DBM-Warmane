@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220809231440")
+mod:SetRevision("20220821232003")
 mod:SetCreatureID(32871)
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.YellKill) -- fires 24 seconds after fight ends, not accurate enough. Workaround it by using Self Stun UNIT_SPELLCAST_SUCCEEDED, which is fired when he turns friendly and fight is won.
@@ -32,10 +32,10 @@ local specWarnPhasePunch		= mod:NewSpecialWarningStack(64412, nil, 4, nil, nil, 
 local specWarnBigBang			= mod:NewSpecialWarningSpell(64584, nil, nil, nil, 3, 2)
 local specWarnCosmicSmash		= mod:NewSpecialWarningDodge(64596, nil, nil, nil, 2, 2)
 
-local timerNextBigBang			= mod:NewNextTimer(91.0, 64584, nil, nil, nil, 2) -- one log review (2022/07/05)
+local timerNextBigBang			= mod:NewNextTimer(91.0, 64584, nil, nil, nil, 2) -- REVIEW! no data for 2nd cast onwards (2022/07/05 || 25 man Lord log 2022/08/02 || 25 man FM log 2022/08/07 || 10 man FM log 2022/08/09) - 91.0 || 91.0 || 91.0; 91.1; 91.0 || 91.0; 91.0
 local timerBigBangCast			= mod:NewCastTimer(8, 64584, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerNextCollapsingStar	= mod:NewTimer(91, "NextCollapsingStar", "Interface\\Icons\\INV_Enchant_EssenceCosmicGreater", nil, nil, 2, DBM_COMMON_L.HEALER_ICON) -- REVIEW! From log review (2022/07/05), instead of 15s, this event fired with ~91s difference, with 6s variance - 91, 97. Consider running this from big bang event to reduce overhead if logs validate it.
-local timerCDCosmicSmash		= mod:NewCDTimer(25.5, 64596, nil, nil, nil, 3) -- one log review (2022/07/05) - 25.5, 25.5, 25.5, 25.5, 25.5, 25.5, 25.6, 25.5
+local timerNextCollapsingStar	= mod:NewTimer(97.5, "NextCollapsingStar", "Interface\\Icons\\INV_Enchant_EssenceCosmicGreater", nil, nil, 2, DBM_COMMON_L.HEALER_ICON) -- Instead of 15s (retail), this event fired with 97s after the first emote and then 91s difference (S2 || 25 man Lord log 2022/08/02 || 25 man FM log 2022/08/07 || 10 man FM log 2022/08/09) - 91 || 97.5 || 97.5; 97.6, 91.0; 97.5; 97.5; 97.6; 97.6; 97.5; 97.5; 97.5 || 97.5, 91.0; 97.5; 97.5; 97.5; 97.5; 97.5
+local timerCDCosmicSmash		= mod:NewCDTimer(25.5, 64596, nil, nil, nil, 3) -- Log reviewed (2022/07/05 || 25 man FM log 2022/08/07) - 25.5, 25.5, 25.5, 25.5, 25.5, 25.5, 25.6, 25.5 || 25.5, 25.5, 25.6, 25.5, 25.5, 25.5
 local timerCastCosmicSmash		= mod:NewCastTimer(4.5, 64596)
 local timerPhasePunch			= mod:NewTargetTimer(45, 64412, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextPhasePunch		= mod:NewNextTimer(15.5, 64412, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
@@ -46,6 +46,7 @@ local stars = {}
 local stars_hp = {}
 local star_num = 1
 mod.vb.warned_preP2 = false
+mod.vb.collapsingStartCount = 0
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
@@ -54,10 +55,11 @@ function mod:OnCombatStart(delay)
 	stars_hp = {}
 	star_num = 1
 	self.vb.warned_preP2 = false
-	timerNextCollapsingStar:Start(22-delay) -- one log review (2022/07/05)
-	timerCDCosmicSmash:Start(35-delay) -- one log review (2022/07/05)
+	self.vb.collapsingStartCount = 0
+	timerNextCollapsingStar:Start(21.9-delay) -- Chose median. 0.3s variance (2022/07/05 || 10 man FM log 2022/08/01 || 25 man Lord log 2022/08/02 || 25 man FM log 2022/08/07 || 10 man FM log 2022/08/09) - 22.0 || 21.9, 22.0 || 22.0 || 22.0, 22.0, 22.0, 22.1, 21.9, 22.0, 22.0, 22.0, 22.0, 22.0 || 22.0, 22.0, 22.0, 22.0, 21.9, 21.9, 21.8, 21.9, 21.9, 22.0, 22.0
+	timerCDCosmicSmash:Start(35-delay) -- Log reviewed (2022/07/05 || 10 man FM log 2022/08/01 || 25 man Lord log 2022/08/02 || 25 man FM log 2022/08/07) - 35 || 35.0, 35.0 || 35.0 || 35.0, 35.0, 34.9, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0
 	announcePreBigBang:Schedule(90-delay)
-	timerNextBigBang:Start(100-delay) -- Log review (2022/07/05 || 2022/07/10) - 100 || 100
+	timerNextBigBang:Start(100-delay) -- Log reviewed (2022/07/05 || 2022/07/10 || 10 man FM log 2022/08/01 || 25 man Lord log 2022/08/02 || 25 man FM log 2022/08/07 || 10 man FM log 2022/08/09) - 100 || 100 || 100.0, 99.9 || 100 || 99.9, 100.0, 100.0, 100.0, 99.9, 100.0, 100.0, 100.0, 100.0 || 99.9, 100.0, 99.9, 100.0, 100.0, 99.8, 99.9, 100.0, 100.0
 	enrageTimer:Start(360-delay)
 end
 
@@ -124,10 +126,14 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.Emote_CollapsingStar or msg:find(L.Emote_CollapsingStar) then
-		timerNextCollapsingStar:Start()
+		self.vb.collapsingStartCount = self.vb.collapsingStartCount + 1
+		if self.vb.collapsingStartCount > 1 then
+			timerNextCollapsingStar:Start(91)
+		else
+			timerNextCollapsingStar:Start()
+		end
 	end
 end
-
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Phase2 or msg:find(L.Phase2) then
@@ -140,7 +146,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		DBM.BossHealth:AddBoss(32871)
 	end
 end
-
 
 function mod:UNIT_HEALTH(uId)
 	local cid = self:GetUnitCreatureId(uId)
