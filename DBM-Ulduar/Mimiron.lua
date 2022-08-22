@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220820123820")
+mod:SetRevision("20220823001741")
 mod:SetCreatureID(33432)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -321,7 +321,7 @@ function mod:UNIT_SPELLCAST_CHANNEL_STOP(_, spellName)
 	end
 end
 
-function mod:UNIT_SPELLCAST__START(_, spellName)
+function mod:UNIT_SPELLCAST_START(_, spellName)
 	if spellName == GetSpellInfo(63631) then -- Shock Blast. Used UNIT event instead since I have a log where CLEU missed one SCStart
 		specWarnShockBlast:Show()
 		specWarnShockBlast:Play("runout")
