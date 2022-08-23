@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Confessor", "DBM-Party-WotLK", 13)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(34928)
 
 mod:RegisterCombat("combat")
@@ -13,15 +13,15 @@ mod:RegisterEventsInCombat(
 )
 
 local warnReflectiveShield	= mod:NewTargetNoFilterAnnounce(66515, 2)
-local warnOldWounds			= mod:NewTargetAnnounce(66620, 3)
+local warnOldWounds			= mod:NewTargetNoFilterAnnounce(66620, 3, nil, "Tank|Healer")
 
 local specwarnRenew			= mod:NewSpecialWarningDispel(66537, "MagicDispeller", nil, nil, 1, 2)
-local specwarnHolyFire		= mod:NewSpecialWarningDispel(66538, "Healer", nil, nil, 1, 2)
-local specwarnShadows		= mod:NewSpecialWarningDispel(66619, "Healer", nil, nil, 1, 2)
+local specwarnHolyFire		= mod:NewSpecialWarningDispel(66538, "RemoveMagic", nil, nil, 1, 2)
+local specwarnShadows		= mod:NewSpecialWarningDispel(66619, "RemoveMagic", nil, nil, 1, 2)
 
 local timerOldWounds		= mod:NewTargetTimer(12, 67679)
-local timerHolyFire			= mod:NewTargetTimer(8, 66538, nil, "Healer", 2, 5, nil, DBM_COMMON_L.MAGIC_ICON)
-local timerShadows			= mod:NewTargetTimer(5, 66619, nil, "Healer", 2, 5, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerHolyFire			= mod:NewTargetTimer(8, 66538, nil, "RemoveMagic", 2, 5, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerShadows			= mod:NewTargetTimer(5, 66619, nil, "RemoveMagic", 2, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 
 mod.vb.shielded = false
 

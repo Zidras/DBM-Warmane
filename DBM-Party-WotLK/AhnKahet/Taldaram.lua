@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(29308)
 
 mod:RegisterCombat("combat")
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 55959 59513"
 )
 
-local warningEmbrace	= mod:NewTargetAnnounce(55959, 2)
+local warningEmbrace	= mod:NewTargetNoFilterAnnounce(55959, 2)
 local warningFlame		= mod:NewSpellAnnounce(55931, 3)
 
 local timerEmbrace		= mod:NewTargetTimer(20, 55959, nil, nil, nil, 3, nil, DBM_COMMON_L.DAMAGE_ICON)

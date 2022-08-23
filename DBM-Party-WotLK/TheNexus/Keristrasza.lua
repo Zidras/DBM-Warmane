@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220716213948")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(26723)
 
 mod:RegisterCombat("combat")
@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 50997"
 )
 
-local warningChains		= mod:NewTargetAnnounce(50997, 4)
+local warningChains		= mod:NewTargetNoFilterAnnounce(50997, 4)
 local warningNova		= mod:NewSpellAnnounce(48179, 3)
 local warningEnrage		= mod:NewSpellAnnounce(8599, 3, nil, "Tank|Healer", 2)
 

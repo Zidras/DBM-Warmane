@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GrandChampions", "DBM-Party-WotLK", 13)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(34657, 34701, 34702, 34703, 34705, 35569, 35570, 35571, 35572, 35617)
 
 mod:RegisterCombat("combat")
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnHealingWave		= mod:NewSpellAnnounce(67528, 2)
-local warnPolymorph			= mod:NewTargetAnnounce(66043, 1)
+local warnPolymorph			= mod:NewTargetNoFilterAnnounce(66043, 2)
 
 local specWarnPoison		= mod:NewSpecialWarningMove(67594, nil, nil, nil, 1, 8)
 local specWarnHaste			= mod:NewSpecialWarningDispel(66045, "MagicDispeller", nil, nil, 1, 2)

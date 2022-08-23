@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220806222721")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(29311)
 
 mod:RegisterCombat("combat")
@@ -16,11 +16,11 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_START"
 )
 
-local warnShadowCrash			= mod:NewTargetAnnounce(60848, 4)
+local warnShadowCrash			= mod:NewTargetAnnounce(62660, 4)
 local warningInsanity			= mod:NewCastAnnounce(57496, 3)--Not currently working, no CLEU for it
 
-local specWarnShadowCrash		= mod:NewSpecialWarningDodge(60848, nil, nil, nil, 1, 2)
-local specWarnShadowCrashNear	= mod:NewSpecialWarningClose(60848, nil, nil, nil, 1, 2)
+local specWarnShadowCrash		= mod:NewSpecialWarningDodge(62660, nil, nil, nil, 1, 2)
+local specWarnShadowCrashNear	= mod:NewSpecialWarningClose(62660, nil, nil, nil, 1, 2)
 local yellShadowCrash			= mod:NewYell(62660)
 
 local timerInsanity				= mod:NewCastTimer(5, 57496, nil, nil, nil, 6)

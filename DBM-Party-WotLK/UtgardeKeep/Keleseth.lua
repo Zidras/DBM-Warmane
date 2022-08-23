@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Keleseth", "DBM-Party-WotLK", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(23953)
 
 mod:RegisterCombat("combat")
@@ -13,8 +13,8 @@ mod:RegisterEventsInCombat(
 
 local warningTomb	= mod:NewTargetNoFilterAnnounce(48400, 4)
 
-local timerTomb		= mod:NewTargetTimer(10, 48400)
-local timerTombCD	= mod:NewCDTimer(17, 48400)
+local timerTomb		= mod:NewTargetTimer(10, 48400, nil, nil, nil, 3)
+local timerTombCD	= mod:NewCDTimer(17, 48400, nil, nil, nil, 3)
 
 function mod:OnCombatStart()
 	timerTombCD:Start(17)

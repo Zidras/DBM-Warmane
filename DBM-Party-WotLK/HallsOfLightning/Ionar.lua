@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ionar", "DBM-Party-WotLK", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220806222721")
+mod:SetRevision("20220823234921")
 mod:SetCreatureID(28546)
 mod:SetUsedIcons(8)
 
@@ -23,7 +23,7 @@ local specWarnOverload		= mod:NewSpecialWarningMoveAway(52658, nil, nil, nil, 1,
 local timerOverload			= mod:NewTargetTimer(10, 52658, nil, nil, nil, 3)
 
 mod:AddRangeFrameOption(10, 52658)
-mod:AddSetIconOption("SetIconOnOverloadTarget", 59795, true, false, {8})
+mod:AddSetIconOption("SetIconOnOverloadTarget", 52658, true, false, {8})
 
 local warnedDisperse = false
 

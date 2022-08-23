@@ -5,8 +5,8 @@
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mazmorras (WotLK)|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-巫妖王之怒|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0队伍-WotLK|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Групповые подземелья-WotLK|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf05인던전-리치왕의 분노|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Подземелья (Король-лич)|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0던전 (리분)|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMPartyWotLK_AllSavedVars
@@ -27,11 +27,11 @@
 ## X-DBM-Mod-Name: Dungeons (WotLK)
 ## X-DBM-Mod-Name-frFR: Groupe-WotLK
 ## X-DBM-Mod-Name-deDE: Gruppe (WotLK)
-## X-DBM-Mod-Name-ruRU: Групповые подземелья-WotLK
+## X-DBM-Mod-Name-ruRU: Подземелья (Король-лич)
 ## X-DBM-Mod-Name-zhTW: 隊伍首領 (巫妖王之怒)
 ## X-DBM-Mod-Name-zhCN: 队伍首领-WotLK
 ## X-DBM-Mod-Name-esES: Mazmorras (WotLK)
-## X-DBM-Mod-Name-koKR: 5인 던전(리치왕의 분노)
+## X-DBM-Mod-Name-koKR: 던전 (리분)
 ## X-DBM-Mod-Name-esMX: Mazmorras-WotLK
 ## X-DBM-Mod-Sort: 100
 ## X-DBM-Mod-MapID: 523,534,522,535,531,526,527,521,529,524,525,537,603,602,604,543

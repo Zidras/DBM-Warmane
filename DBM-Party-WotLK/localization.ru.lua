@@ -2,9 +2,6 @@ if GetLocale() ~= "ruRU" then return end
 
 local L
 
-local optionWarning		= "Предупреждение для %s"
-local optionPreWarning	= "Предупреждать заранее о %s"
-
 ----------------------------------
 --  Ahn'Kahet: The Old Kingdom  --
 ----------------------------------
@@ -142,7 +139,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningWaveNow	= optionWarning:format("новой волны"),
+	WarningWaveNow	= "Предупреждение о новой волне",
 	TimerWaveIn		= "Отсчет времени до cледующей волны (после босса 5-ой волны)",
 	TimerRoleplay	= "Отсчет времени для вступительного представления"
 })
@@ -391,7 +388,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningPhase	= optionWarning:format("фаз"),
+	WarningPhase	= "Предупреждение о смене фазы",
 	timerEvent		= "Отсчет времени продолжительности события"
 })
 
@@ -708,9 +705,9 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningPortalNow		= optionWarning:format("нового портала"),
-	WarningPortalSoon		= optionPreWarning:format("новом портале"),
-	WarningBossNow			= optionWarning:format("прибытия босса"),
+	WarningPortalNow		= "Предупреждение для нового портала",
+	WarningPortalSoon		= "Предварительное предупреждение для нового портала",
+	WarningBossNow			= "Предупреждение о появлении босса",
 	TimerPortalIn			= "Отсчет времени до следующего портала (после босса)",
 	ShowAllPortalTimers		= "Отсчет времени для всех порталов (неточный)"
 })
@@ -823,7 +820,7 @@ L:SetGeneralLocalization({
 L:SetMiscLocalization({
 	CombatStart	= "Увы, бесстрашные герои, ваша навязчивость ускорила развязку. Вы слышите громыхание костей и скрежет стали за вашими спинами? Это предвестники скорой погибели.",
 	HoarfrostTarget	= "Ледяной змей Иней смотрит на (%S+), готовя морозную атаку!",
-	YellCombatEnd	= "Не может быть... Иней… Предупреди…"
+	YellCombatEnd	= "Не может быть... Иней... Предупреди..."
 })
 
 ----------------------
