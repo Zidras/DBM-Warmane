@@ -38,7 +38,7 @@ L:SetOptionLocalization({
 	ShieldHealthFrame			= "Show boss health with a health bar for $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
 	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight",
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.",
+	EqUneqWeapons				= "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".",
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
 	BlockWeapons				= "Completely block the unequip/equip functions above"
 })
