@@ -231,8 +231,8 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarnPortalOpen				= "Show warning when Nightmare Portals are opened up",
-	TimerPortalsOpen			= "Show timer when Nightmare Portals are opened up",
-	TimerPortalsClose			= "Show timer when Nightmare Portals are closed",
+	TimerPortalsOpen			= "Show timer until Nightmare Portals are opened up",
+	TimerPortalsClose			= "Show timer until Nightmare Portals are closed",
 	TimerBlazingSkeleton		= "Show timer for next Blazing Skeleton spawn"
 })
 
