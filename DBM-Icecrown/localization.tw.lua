@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "小怪再活化",
 	WarnAddsSoon				= "新的小怪即將到來",
 	SpecWarnVengefulShade		= "你被復仇的暗影盯上了 - 快跑開",
-	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
+	WeaponsStatus				= "自動武器卸載/裝備已啟用"
 })
 
 L:SetOptionLocalization({
@@ -36,13 +36,12 @@ L:SetOptionLocalization({
 	WarnReanimating				= "當小怪再活化時顯示警告",
 	TimerAdds					= "為新的小怪顯示計時器",
 	SpecWarnVengefulShade		= "當你被復仇的暗影盯上時顯示特別警告",
-	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
+	WeaponsStatus				= "戰鬥開始時提示自動武器卸載/裝備功能已啟用",
 	ShieldHealthFrame			= "為$spell:70842顯示首領血量框架",
-	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
-	RemoveDruidBuff				= "Remove MotW / GotW 24 seconds into the fight", --Needs Translating
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
-	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.", --Needs Translating
-	BlockWeapons				= "Completely block the unequip/equip functions above" --Needs Translating
+	RemoveDruidBuff				= "戰鬥開始24秒後自動移除野性印記/野性賜福",
+	EqUneqWeapons				= "當支配心智對你施放時，自動卸載當前武器並再結束後重新裝備。若要讓自動裝備成功運作，請使用裝備管理員功能創建一個名為'pve'的全套含武器裝備集",
+	EqUneqTimer					= "永遠依據計時器移除武器，而非當首領唱法時。(假如延遲很高的話)強烈建議將此選項勾選",
+	BlockWeapons				= "完全禁止上列自動武器卸載/裝備功能"
 })
 
 L:SetMiscLocalization({
@@ -51,7 +50,7 @@ L:SetMiscLocalization({
 --	Fanatic1				= "神教狂熱者",
 --	Fanatic2				= "畸形的狂熱者",
 --	Fanatic3				= "再活化的狂熱者",
-	setMissing				= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用",
+	setMissing				= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用，pve裝備集為全套裝備及武器",
 	EqUneqLineDescription	= "自動裝備/取消裝備"
 })
 
@@ -224,7 +223,7 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerPortalsOpen			= "傳送門開啟",
-	TimerPortalsClose			= "Portals close", --Needs Translating
+	TimerPortalsClose			= "傳送門關閉",
 	TimerBlazingSkeleton		= "下一次 熾熱骷髏",
 	TimerAbom					= "下一次 憎惡體 (%s)"
 })
@@ -232,7 +231,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnPortalOpen				= "當夢魘之門開啟時顯示警告",
 	TimerPortalsOpen			= "當夢魘之門開啟時顯示計時器",
-	TimerPortalsClose			= "Show timer when Nightmare Portals are closed", --Needs Translating
+	TimerPortalsClose			= "顯示夢魘之門從場上關閉前的計時器",
 	TimerBlazingSkeleton		= "為下一次熾熱骷髏出現顯示計時器"
 })
 
@@ -315,11 +314,11 @@ L:SetOptionLocalization({
 	AnnounceValkGrabs			= "提示誰被華爾琪影衛抓住到團隊頻道<br/>(需開啟團隊廣播及助理權限)",
 	SpecWarnValkyrLow			= "當華爾琪血量低於55%時顯示特別警告",
 	AnnouncePlagueStack			= "提示$spell:73912層數到團隊頻道 (10層, 10層後每5層提示一次)<br/>(需開啟助理權限)",
-	ShowFrame					= "Show Val'Kyr Targets frame", --Needs Translating
-	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame", --Needs Translating
-	FrameUpwards				= "Expand Val'Kyr target frame upwards", --Needs Translating
-	FrameLocked					= "Lock Val'Kyr Targets frame", --Needs Translating
-	RemoveImmunes				= "Remove immunity spells before exiting Frostmourne room" --Needs Translating
+	ShowFrame					= "顯示華爾琪目標框架",
+	FrameClassColor				= "在華爾琪目標框架中顯示職業顏色",
+	FrameUpwards				= "使華爾琪目標框架向上延伸而非向下顯示",
+	FrameLocked					= "鎖定華爾琪目標框架",
+	RemoveImmunes				= "離開霜之哀傷前自動移除無敵技能"
 })
 
 L:SetMiscLocalization({
@@ -329,14 +328,14 @@ L:SetMiscLocalization({
 	ValkGrabbed				= "華爾琪影衛抓住了%s",
 	PlagueStackWarning		= "警告: %s中了%d層亡域瘟疫",
 	AchievementCompleted	= ">> 成就成功: %s中了%d層亡域瘟疫 <<",
-	FrameTitle				= "Valkyr targets", --Needs Translating
-	FrameLock				= "Frame Lock", --Needs Translating
-	FrameClassColor			= "Use Class Colors", --Needs Translating
-	FrameOrientation		= "Expand upwards", --Needs Translating
-	FrameHide				= "Hide Frame", --Needs Translating
-	FrameClose				= "Close", --Needs Translating
-	FrameGUIDesc			= "瓦格里框架",
-	FrameGUIMoveMe			= "移動瓦格里框架"
+	FrameTitle				= "華爾琪鎖定目標",
+	FrameLock				= "框架鎖定",
+	FrameClassColor			= "使用職業顏色",
+	FrameOrientation		= "向上延伸",
+	FrameHide				= "隱藏框架",
+	FrameClose				= "關閉",
+	FrameGUIDesc			= "華爾琪框架",
+	FrameGUIMoveMe			= "移動華爾琪框架"
 })
 
 -------------
