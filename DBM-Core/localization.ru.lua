@@ -288,7 +288,7 @@ L.ACHIEVEMENT_TIMER_SPEED_KILL		= "Быстрое убийство"
 -- Auto-generated Warning Localizations
 L.AUTO_ANNOUNCE_TEXTS.you			= "%s на тебе"
 L.AUTO_ANNOUNCE_TEXTS.target		= "%s на |3-5(>%%s<)"
-L.AUTO_ANNOUNCE_TEXTS.target		= "%s на |3-5(>%%s<) (%%d м)"
+L.AUTO_ANNOUNCE_TEXTS.targetdistance	= "%s на |3-5(>%%s<) (%%d м)"
 L.AUTO_ANNOUNCE_TEXTS.targetsource	= ">%%s< применяется %s на >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.targetcount	= "%s (%%s) на |3-5(>%%s<)"
 L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s) на |3-5(>%%s<) (%%d м)"
