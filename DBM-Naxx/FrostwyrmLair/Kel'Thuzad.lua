@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220629223621")
+mod:SetRevision("20220827001912")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -149,8 +149,8 @@ local function StartPhase2(self)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		if self:IsDifficulty("normal25") then
-			timerMCCD:Start(61)
-			warnMindControlSoon:Schedule(56)
+			timerMCCD:Start(31)
+			warnMindControlSoon:Schedule(26)
 			if self.Options.EqUneqWeaponsKT and self:IsDps() then
 				self:Schedule(60, UnWKT, self)
 				self:Schedule(60.5, UnWKT, self)
