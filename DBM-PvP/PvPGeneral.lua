@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220827002800")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -911,7 +911,7 @@ do
 
 	local overrideTimers = {
 		-- Alterac Valley
-		[402] = 243
+		[402] = 240
 	}
 	local State = {
 		["ALLY_CONTESTED"]		= 1,
