@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220624005857")
+mod:SetRevision("20220830233220")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
@@ -33,38 +33,32 @@ local specWarnVileGas			= mod:NewSpecialWarningYou(72272, nil, nil, nil, 1, 2)
 
 local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
-local timerSlimeSpray			= mod:NewNextTimer(21, 69508, nil, nil, nil, 3)
+local timerSlimeSpray			= mod:NewNextTimer(20, 69508, nil, nil, nil, 3) -- Log reviewed (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25) - 20.1, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0 || 20.0, 20.1, 20.0, 20.0
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 5)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON, nil, 3)
-local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3)
+local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3) -- REVIEW! 5s variance [30-35]? (25H Lordaeron 2022/07/09) "Vile Gas-72273-npc:36678 = pull:28.9[+2], 1.4, 0.9, 28.5[+1], 0.8, 0.7, 31.7, 2.2[+1], 35.6, 0.1[+3], 38.9, 1.0, 0.8[+1], 30.4, 2.0, 0.9, 30.2, 0.4, 0.1, 33.4, 0.3[+1], 1.5[+1], 38.2"
+
 
 mod:AddRangeFrameOption(10, 72272, "Ranged")
 mod:AddSetIconOption("InfectionIcon", 69674, true, 0, {1, 2})
 mod:AddBoolOption("TankArrow", true, nil, nil, nil, nil, 69674)
 
-local RFVileGasTargets	= {}
 local spamOoze = 0
 mod.vb.InfectionIcon = 1
 
-local function warnRFVileGasTargets()
-	warnVileGas:Show(table.concat(RFVileGasTargets, "<, >"))
-	table.wipe(RFVileGasTargets)
-	timerVileGasCD:Start()
-end
-
-local function WallSlime(self)
+--[[ local function WallSlime(self)
 	self:Unschedule(WallSlime)
 	if self:IsInCombat() then
 		timerWallSlime:Start()
 		self:Schedule(20, WallSlime, self)
 	end
-end
+end ]]
 
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(9-delay) -- Adjust from 25 to 9 to have a correct timer from the start
-	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray
-	timerVileGasCD:Start(29-delay) -- Edited.
-	self:Schedule(25-delay, WallSlime, self)
+	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray. Log reviewed (25H Lordaeron 2022/07/09) - 20.0
+	timerVileGasCD:Start(28.9-delay) -- Edited. REVIEW! variance? (25H Lordaeron 2022/07/09) - 28.9
+--	self:Schedule(25-delay, WallSlime, self)
 	self.vb.InfectionIcon = 1
 	spamOoze = 0
 	if self.Options.RangeFrame then
@@ -134,19 +128,21 @@ function mod:SPELL_AURA_APPLIED(args)
 			self.vb.InfectionIcon = 1
 		end
 	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
-		RFVileGasTargets[#RFVileGasTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
 			specWarnVileGas:Play("scatter")
 		end
-		self:Unschedule(warnRFVileGasTargets)
-		self:Schedule(2.5, warnRFVileGasTargets) -- Yes it does take this long to travel to all 3 targets sometimes, qq.
+		warnVileGas:CombinedShow(2.5, args.destName) -- Yes it does take this long to travel to all 3 targets sometimes, qq.
+		if self:AntiSpam(5, 2) then
+			timerVileGasCD:Start()
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(72272, 72273) then
+		DBM:AddMsg("Vile Gas SPELL_CAST_SUCCESS unhidden from combat log. Notify Zidras on Discord or GitHub")
 		timerVileGasCD:Start()
 	end
 end
@@ -191,6 +187,7 @@ mod.SWING_MISSED = mod.SWING_DAMAGE
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellSlimePipes1 or msg:find(L.YellSlimePipes1)) or (msg == L.YellSlimePipes2 or msg:find(L.YellSlimePipes2)) then
-		WallSlime(self)
+		-- WallSlime(self) -- I can't explain the need for using a scheduling here
+		timerWallSlime:Start()
 	end
 end
