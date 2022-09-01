@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220630221430")
+mod:SetRevision("20220901224021")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -35,7 +35,7 @@ local warnTargetSwitch			= mod:NewAnnounce("WarnTargetSwitch", 3, 70952)
 local warnTargetSwitchSoon		= mod:NewAnnounce("WarnTargetSwitchSoon", 2, 70952)
 
 local timerCombatStart			= mod:NewCombatTimer(29) -- Roleplay for first pull
-local timerTargetSwitch			= mod:NewTimer(47, "TimerTargetSwitch", 70952)	-- every 46-47seconds
+local timerTargetSwitch			= mod:NewTimer(46, "TimerTargetSwitch", 70952)	-- every 46-47seconds
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
 mod:AddSetIconOption("ActivePrinceIcon", nil, false, 5, {8})
@@ -50,7 +50,7 @@ mod:AddBoolOption("ShadowPrisonMetronome", false, "misc", nil, nil, nil, 72999)
 -- Kinetic Bomb
 local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, "Ranged")
 
-local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1) -- Might need tweaking :23
+local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1, nil, nil, true) -- REVIEW! 5s variance? Added "keep" arg. (10N Icecrown 2022/08/25) - 19.2, 23.6, 22.2, 18.5, 19.2
 
 local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
 
@@ -65,8 +65,8 @@ local yellVortex				= mod:NewYellMe(72037)
 local specWarnVortexNear		= mod:NewSpecialWarningClose(72037, nil, nil, nil, 1, 2)
 local specWarnEmpoweredShockV	= mod:NewSpecialWarningMoveAway(72039, nil, nil, nil, 1, 2)
 
-local timerShockVortex			= mod:NewCDTimer(20, 72037, nil, nil, nil, 3, nil, nil, true) -- Seen a range from 16,8 - 21,6 (Warmane: from 2 logs: 19-22s). Added "keep" arg
-local timerEmpoweredShockVortex	= mod:NewCDTimer(30, 72039, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true)  -- Added "keep" arg
+local timerShockVortex			= mod:NewCDTimer(18.5, 72037, nil, nil, nil, 3, nil, nil, true) -- Seen a range from 16,8 - 21,6. Added "keep" arg. (2 Warmane 2021 logs || 25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25) - 19-22s || 20.3, 22.6, 21.3, 19.6, ..., 19.4, 19.7 || 18.5, 18.6
+local timerEmpoweredShockVortex	= mod:NewCDTimer(30, 72039, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true) -- Added "keep" arg
 
 local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
 local soundEmpoweredShockV		= mod:NewSound(72039)
@@ -85,7 +85,7 @@ local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040, nil, nil, nil, 4
 local yellEmpoweredFlames		= mod:NewYellMe(72040)
 
 local timerConjureFlamesCD		= mod:NewCDTimer(20, 71718, nil, nil, nil, 3) -- every 20-30 seconds but never more often than every 20sec
-local timerGlitteringSparksCD	= mod:NewCDTimer(20, 71807, nil, nil, nil, 2) -- This is pretty nasty on heroic
+local timerGlitteringSparksCD	= mod:NewCDTimer(17.5, 71807, nil, nil, nil, 2) -- This is pretty nasty on heroic. REVIEW! variance? Not implementing "keep" just yet (10N Icecrown 2022/08/25) - 36, 17.5
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
 
@@ -95,16 +95,9 @@ mod:AddSetIconOption("EmpoweredFlameIcon", 72040, true, 0, {1})
 mod:AddTimerLine(L.Keleseth)
 local warnDarkNucleus			= mod:NewSpellAnnounce(71943, 1, nil, false)	-- instant cast
 
-local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5)	-- usually every 10 seconds but sometimes more
+local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5, nil, nil, true)	-- usually every 10 seconds but sometimes more. Added "keep" arg
 
 mod.vb.kineticIcon = 7
-local glitteringSparksTargets	= {}
-
-local function warnGlitteringSparksTargets()
-	warnGliteringSparks:Show(table.concat(glitteringSparksTargets, "<, >"))
-	table.wipe(glitteringSparksTargets)
-	timerGlitteringSparksCD:Start()
-end
 
 function mod:OnCombatStart(delay)
 	self.vb.kineticIcon = 7
@@ -113,8 +106,8 @@ function mod:OnCombatStart(delay)
 	warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
 	timerTargetSwitch:Start(-delay)
 	timerEmpoweredShockVortex:Start(15-delay) -- Warmane: random 15-20
-	timerKineticBombCD:Start(20-delay)
-	table.wipe(glitteringSparksTargets)
+	timerKineticBombCD:Start(24-delay) -- REVIEW! Lowest possible timer? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/07/30 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25) - 24 || 24 || 27 || 24.9
+	timerDarkNucleusCD:Start(12-delay) -- REVIEW! Lowest possible timer? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/07/30 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25) - 15 || 12 || 14 || 12
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
@@ -261,9 +254,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	elseif args:IsSpellID(71807, 72796, 72797, 72798) and args:IsDestTypePlayer() then	-- Glittering Sparks(Dot/slow, dangerous on heroic during valanaar)
-		glitteringSparksTargets[#glitteringSparksTargets + 1] = args.destName
-		self:Unschedule(warnGlitteringSparksTargets)
-		self:Schedule(1, warnGlitteringSparksTargets)
+		warnGliteringSparks:CombinedShow(1, args.destName)
+		timerGlitteringSparksCD:Start()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -298,11 +290,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(72080) then
 		warnKineticBomb:Show()
 		soundKineticBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\KineticSpawn.mp3")
-		if self:IsDifficulty("normal10", "heroic10") then
-			timerKineticBombCD:Start(27)
-		else
-			timerKineticBombCD:Start()
-		end
+		timerKineticBombCD:Start()
 		if self.Options.SetIconOnKineticBomb then
 			self:ScanForMobs(38454, 2, self.vb.kineticIcon, 5, nil, 12, "SetIconOnKineticBomb", false, nil, true)
 			self.vb.kineticIcon = self.vb.kineticIcon - 1
