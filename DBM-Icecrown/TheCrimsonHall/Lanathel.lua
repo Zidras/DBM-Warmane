@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lanathel", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220630221430")
+mod:SetRevision("20220901224831")
 mod:SetCreatureID(37955)
 mod:SetModelID("creature/bloodqueen/bloodqueen.m2")
 mod:SetUsedIcons(1, 2, 3, 4, 7)
@@ -190,10 +190,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 73070 then				--Incite Terror (fear before air phase)
 		warnInciteTerror:Show()
 		timerInciteTerror:Start()
-		timerNextSwarmingShadows:Start()--This resets the swarming shadows timer
+		timerNextSwarmingShadows:Restart()--This resets the swarming shadows timer
 		warnSwarmingShadowsSoon:Schedule(25.5)
 		warnSwarmingShadowsSoon:ScheduleVoice(25.5, "flamessoon")
-		timerNextPactDarkfallen:Start(25)--and the Pact timer also reset -5 seconds
+		timerNextPactDarkfallen:Restart(25)--and the Pact timer also reset -5 seconds
 		warnPactDarkfallenSoon:Schedule(20)
 		warnPactDarkfallenSoon:ScheduleVoice(20, "linesoon")
 		if self:IsDifficulty("normal10", "heroic10") then
