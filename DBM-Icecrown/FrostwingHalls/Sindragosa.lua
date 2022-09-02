@@ -1,16 +1,16 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220624005857")
+mod:SetRevision("20220902215713")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
-mod:SetMinSyncRevision(20220623000000)
+mod:SetMinSyncRevision(20220902000000)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 69649 71056 71057 71058 73061 73062 73063 73064 71077",
-	"SPELL_CAST_SUCCESS 70117",
+	"SPELL_CAST_SUCCESS 70117 69762",
 	"SPELL_AURA_APPLIED 70126 69762 70106 69766 70127 72528 72529 72530",
 	"SPELL_AURA_APPLIED_DOSE 70106 69766 70127 72528 72529 72530",
 	"SPELL_AURA_REMOVED 69762 70157 70106 69766 70127 72528 72529 72530",
@@ -45,16 +45,16 @@ local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, mod:IsHeroic
 local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsHeroic() and 4 or 8, nil, nil, 1, 6)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
-local timerNextAirphase			= mod:NewTimer(110, "TimerNextAirphase", 43810, nil, nil, 6)
+local timerNextAirphase			= mod:NewTimer(65, "TimerNextAirphase", 43810, nil, nil, 6)
 local timerNextGroundphase		= mod:NewTimer(45, "TimerNextGroundphase", 43810, nil, nil, 6)
 local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextBlisteringCold	= mod:NewCDTimer(67, 70123, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, true, 2) -- Added "keep" arg
 local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerBlisteringCold		= mod:NewCastTimer(6, 70123, nil, nil, nil, 2)
-local timerUnchainedMagic		= mod:NewCDTimer(30, 69762, nil, nil, nil, 3)
+local timerUnchainedMagic		= mod:NewCDTimer(32, 69762, nil, nil, nil, 3) -- (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25) - 32.0, 63.2, 32.1, 77.8, 32.1, 32.5, 31.9, 34.8 || 35.7, 58.4, 32.1, 77.9, 32.1, 78.6, 32.0, 32.0, 32.1 || 32.0, 62.1, 32.0, Stage 2/68.4, 9.9/78.3, 32.0
 local timerInstability			= mod:NewBuffFadesTimer(5, 69766, nil, nil, nil, 5)
 local timerChilledtotheBone		= mod:NewBuffFadesTimer(8, 70106, nil, nil, nil, 5)
-local timerTailSmash			= mod:NewCDTimer(30, 71077, nil, nil, nil, 2) -- random timer? Need more logs to confirm
+local timerTailSmash			= mod:NewCDTimer(27.4, 71077, nil, nil, nil, 2, nil, nil, true) -- ~7s variance [27-34]? Added "keep" arg. (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25) - 28.7; 93.3, 30.6, 83.1, 29.2, 29.6, 29.6, 33.8; 29.2, 65.7, 30.8, 79.1, 27.9, 31.1, 27.9, 27.4; 29.7; 28.9, 64.7, 27.4, 84.3, 32.4, 30.0, 29.2 || 94.0, 31.5, Stage 2/59.0, 19.1/78.0, 31.9
 
 local soundUnchainedMagic		= mod:NewSoundYou(69762, nil, "SpellCaster")
 
@@ -147,7 +147,6 @@ local function warnUnchainedTargets(self)
 		end
 	end
 	warnUnchainedMagic:Show(table.concat(unchainedTargets, "<, >"))
-	timerUnchainedMagic:Start()
 	table.wipe(unchainedTargets)
 	self.vb.unchainedIcons = 1
 	playerUnchained = false
@@ -188,8 +187,9 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerNextAirphase:Start(50-delay)
-	timerNextBlisteringCold:Start(33-delay)
-	timerTailSmash:Start(20-delay)
+	timerNextBlisteringCold:Start(32.9-delay)
+	timerTailSmash:Start(20-delay) -- (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25) - 20.0 || 20.0 || 20.0
+	timerUnchainedMagic:Start(10-delay) -- (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25) - 10.1 || 10.1 || 10.0
 	self.vb.warned_P2 = false
 	self.vb.warnedfailed = false
 	table.wipe(beaconTargets)
@@ -227,6 +227,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			DBM.RangeCheck:SetBossRange(25, self:GetBossUnitByCreatureId(36853))
 			self:Schedule(5.5, ResetRange, self)
 		end
+	elseif spellId == 69762 then	-- Unchained Magic
+		timerUnchainedMagic:Start()
 	end
 end
 
@@ -370,19 +372,34 @@ function mod:UNIT_HEALTH(uId)
 	end
 end
 
+function mod:UNIT_TARGET(uId)
+	-- Attempt to catch when she lands by checking for Sindragosa's target being a raid member
+	if UnitExists(uId.."target") then
+		self:SetStage(1)
+		timerNextAirphase:Start()
+		timerUnchainedMagic:Start(10) -- REVIEW!
+		timerTailSmash:Start(19) -- REVIEW! 5s variance [19-23]? (10N Icecrown 2022/08/25) - 19.0
+		timerNextBlisteringCold:Start(35) -- 5s variance [35-40]
+		self:UnregisterShortTermEvents()
+	end
+end
+
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellAirphase or msg:find(L.YellAirphase)) or (msg == L.YellAirphaseDem or msg:find(L.YellAirphaseDem)) then
 		if self.Options.ClearIconsOnAirphase then
 			self:ClearIcons()
 		end
+		self:SetStage(1.5)
 		warnAirphase:Show()
 		timerNextFrostBreath:Cancel()
-		timerUnchainedMagic:Start(55)
-		timerNextBlisteringCold:Start(80)--Not exact anywhere from 80-110seconds after airphase begin
-		timerNextAirphase:Start()
+		timerUnchainedMagic:Cancel()
+		timerNextBlisteringCold:Cancel()
+		timerTailSmash:Cancel()
 		timerNextGroundphase:Start()
-		timerTailSmash:Start(68) -- 2 logs from late 2021 with 68 seconds after airphase begin. Need more logs to validate
 		warnGroundphaseSoon:Schedule(37.5)
+		self:RegisterShortTermEvents(
+			"UNIT_TARGET boss1"
+		)
 	elseif (msg == L.YellPhase2 or msg:find(L.YellPhase2)) or (msg == L.YellPhase2Dem or msg:find(L.YellPhase2Dem)) then
 		self:SetStage(2)
 		warnPhase2:Show()
@@ -391,6 +408,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextAirphase:Cancel()
 		timerNextGroundphase:Cancel()
 		warnGroundphaseSoon:Cancel()
-		timerNextBlisteringCold:Start(35)
+		timerNextBlisteringCold:Restart(35)
+		self:UnregisterShortTermEvents() -- REVIEW! not sure it's needed, but doesn't hurt. Would need validation on event order when boss is intermissioned with health right above phase 2 threshold, to check which of the events come first (TARGET or YELL)
 	end
 end
