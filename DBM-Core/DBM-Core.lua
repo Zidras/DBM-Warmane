@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220901202105"),
+	Revision = parseCurseDate("20220903122820"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2202,12 +2202,9 @@ function DBM:GetCIDFromGUID(guid)
 end
 
 function DBM:IsNonPlayableGUID(guid)
-	if type(guid) == "number" then return false end
-	local guidsub = guid:sub(1, 5)
-	if type(guidsub) == "number" then
-		local guidType = bband(guidsub, 0x00F)
-		return guidType and (guidType == 3 or guidType == 5) -- Creature and NPC. To determine, add pet or not?
-	end
+	if not guid or type(guid) ~= "string" then return false end
+	local guidType = tonumber(guid:sub(5,5), 16)
+	return guidType and (guidType == 3 or guidType == 5) -- Creature and NPC. To determine, add pet or not?
 end
 
 function DBM:IsCreatureGUID(guid)
