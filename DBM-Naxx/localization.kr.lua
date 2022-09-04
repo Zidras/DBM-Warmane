@@ -361,7 +361,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	EmoteBreath				= "숨을 깊게 들이마십니다."
+	EmoteBreath				= "숨을 깊게 들이마십니다.",
+	AirPhase				= "사피론이 공중으로 떠오릅니다!",
+	LandingPhase			= "사피론이 다시 공격합니다!"
 })
 
 ------------------

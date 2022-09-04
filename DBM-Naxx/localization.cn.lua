@@ -354,7 +354,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	EmoteBreath			= "%s深深地吸了一口气。"
+	EmoteBreath			= "%s深深地吸了一口气。",
+	AirPhase			= "萨菲隆缓缓升空！",
+	LandingPhase		= "萨菲隆再次发动了攻击！"
 })
 
 ------------------
