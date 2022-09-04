@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220903131057"),
+	Revision = parseCurseDate("20220904101202"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3014,7 +3014,7 @@ do
 		end
 		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
-			DBM:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU")
 		end
 		--These can still change even if mapID doesn't
 		difficultyIndex = difficulty
@@ -3072,7 +3072,7 @@ do
 		self:Schedule(5, SecondaryLoadCheck, self)
 		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
-			DBM:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU")
 		end
 	end
 
@@ -4596,9 +4596,9 @@ do
 			WatchFrame:Show()
 			watchFrameRestore = false
 		end
-		if DBM.Options.FixCLEUOnCombatStart then
+		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
-			DBM:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU")
 		end
 	end
 
@@ -5146,8 +5146,9 @@ do
 				SendWorldSync(self, "WBE", modId.."\t"..playerRealm.."\t"..startHp.."\t8\t"..name)
 			end
 		end
-		if DBM.Options.FixCLEUOnCombatStart then
+		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries) -- schedule prevents client crash with DBM:StartCombat function (tested on Leotheras)
+			self:Debug("Scheduled FixCLEU")
 		end
 	end
 
