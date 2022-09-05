@@ -57,6 +57,7 @@ local timerZombies				= mod:NewNextTimer(20, 71159, nil, nil, nil, 1)
 local timerMortalWound			= mod:NewTargetTimer(15, 71127, nil, nil, nil, 5)
 local timerDecimate				= mod:NewNextTimer(33, 71123, nil, nil, nil, 2)
 local timerBlightBomb			= mod:NewCastTimer(5, 71088, nil, nil, nil, 3)
+local timerProfessorEvent		= mod:NewRPTimer(90, 70475, nil, nil, nil, 2)
 --Crimson Hall
 local timerBloodMirror			= mod:NewTargetTimer(30, 70451, nil, "Healer|Tank", nil, 5)
 local timerBloodSap				= mod:NewTargetTimer(8, 70432, nil, "Healer|Tank", nil, 5)
@@ -71,6 +72,8 @@ mod:AddSetIconOption("SetIconOnDarkReckoning", 69483, true, 0, {8})
 mod:AddSetIconOption("SetIconOnDeathPlague", 72865, true, 7, {1, 2, 3, 4, 5, 6, 7, 8})
 --Crimson Hall
 mod:AddSetIconOption("BloodMirrorIcon", 70451, false, 0, {2})
+
+local eventProfessorStarted = false
 
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
@@ -119,6 +122,9 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 71298 then
 		warnBanish:Show(args.destName)
 		timerBanish:Start(args.destName)
+	elseif spellId == 70475 and not eventProfessorStarted then -- Giant Insect Swarm
+		eventProfessorStarted = true
+		timerProfessorEvent:Start()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
