@@ -1,18 +1,19 @@
 local mod	= DBM:NewMod("Deathwhisper", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220703230401")
+mod:SetRevision("20220905184453")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
+mod:SetMinSyncRevision(20220905000000)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 71420 72007 72501 72502 70900 70901 72499 72500 72497 72496",
+	"SPELL_CAST_SUCCESS 71289",
 	"SPELL_AURA_APPLIED 71289 71001 72108 72109 72110 71237 70674 71204",
 	"SPELL_AURA_APPLIED_DOSE 71204",
 	"SPELL_AURA_REMOVED 70842 71289",
-	"SPELL_CAST_START 71420 72007 72501 72502 70900 70901 72499 72500 72497 72496",
-	"SPELL_CAST_SUCCESS 71289",
 	"SPELL_INTERRUPT",
 	"SPELL_SUMMON 71426",
 	"SWING_DAMAGE",
@@ -51,7 +52,7 @@ local warnDominateMind				= mod:NewTargetNoFilterAnnounce(71289, 3)
 local specWarnDeathDecay			= mod:NewSpecialWarningGTFO(71001, nil, nil, nil, 1, 8)
 
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289, nil, nil, nil, 5)
-local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3)
+local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3, nil, nil, true) -- 5s variance [40-45]. Added "keep" arg (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 42.9, 43.5, Stage 2/17.3, 27.1/44.4, 43.6, 43.9, 43.7, 42.2 || 42.1, 40.1, Stage 2/31.9, 10.0/41.9
 
 mod:AddInfoFrameOption(70842, false)
 mod:AddSetIconOption("SetIconOnDeformedFanatic", 70900, true, 5, {8})
@@ -147,7 +148,6 @@ end
 local function showDominateMindWarning(self)
 	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 	timerDominateMind:Start()
-	timerDominateMindCD:Start()
 	if (not tContains(dominateMindTargets, UnitName("player")) and self.Options.EqUneqWeapons and self:IsDps()) then
 		DBM:Debug("Equipping scheduled")
 		self:Schedule(0.1, EqW, self)
@@ -224,7 +224,7 @@ function mod:OnCombatStart(delay)
 	warnAddsSoon:Schedule(2.5)			-- 3sec pre-warning on start
 	self:Schedule(5.5, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
-		timerDominateMindCD:Start(27.5)		-- Sometimes 1 fails at the start, then the next will be applied 70 secs after start ?? :S
+		timerDominateMindCD:Start(27)	-- REVIEW! 2s variance? (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 28.7 || 27.0
 		if self.Options.RemoveDruidBuff then  -- Edit to automaticly remove Mark/Gift of the Wild on entering combat
 			self:Schedule(24, RemoveBuffs)
 		end
@@ -247,6 +247,41 @@ function mod:OnCombatEnd()
 	self:Unschedule(EqW)
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
+	end
+end
+
+function mod:SPELL_CAST_START(args)
+	local spellId = args.spellId
+	if args:IsSpellID(71420, 72007, 72501, 72502) and self:CheckInterruptFilter(args.sourceGUID) then
+		specWarnFrostbolt:Show(args.sourceName)
+		specWarnFrostbolt:Play("kickcast")
+		timerFrostboltCast:Start()
+	elseif spellId == 70900 then
+		warnDarkTransformation:Show()
+		if self.Options.SetIconOnDeformedFanatic then
+			self:ScanForMobs(args.sourceGUID, 2, 8, 1, nil, 12, "SetIconOnDeformedFanatic")
+		end
+	elseif spellId == 70901 then
+		warnDarkEmpowerment:Show()
+		if self.Options.SetIconOnEmpoweredAdherent then
+			self:ScanForMobs(args.sourceGUID, 2, 7, 1, nil, 12, "SetIconOnEmpoweredAdherent")
+		end
+	elseif args:IsSpellID(72499, 72500, 72497, 72496) then
+		specWarnDarkMartyrdom:Show()
+		specWarnDarkMartyrdom:Play("justrun")
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 71289 then -- Fires 1x/3x on 10/25m
+		timerDominateMindCD:Restart()
+		DBM:Debug("MC on "..args.destName, 2)
+		if self.Options.EqUneqWeapons and args.destName == UnitName("player") and self:IsDps() then
+			UnW(self)
+			UnW(self)
+			self:Schedule(0.01, UnW, self)
+			DBM:Debug("Unequipping", 2)
+		end
 	end
 end
 
@@ -314,41 +349,6 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:Schedule(5.0, EqW, self)
 			self:Schedule(8.0, EqW, self)
 			self:Schedule(9.9, EqW, self)
-		end
-	end
-end
-
-function mod:SPELL_CAST_START(args)
-	local spellId = args.spellId
-	if args:IsSpellID(71420, 72007, 72501, 72502) and self:CheckInterruptFilter(args.sourceGUID) then
-		specWarnFrostbolt:Show(args.sourceName)
-		specWarnFrostbolt:Play("kickcast")
-		timerFrostboltCast:Start()
-	elseif spellId == 70900 then
-		warnDarkTransformation:Show()
-		if self.Options.SetIconOnDeformedFanatic then
-			self:ScanForMobs(args.sourceGUID, 2, 8, 1, nil, 12, "SetIconOnDeformedFanatic")
-		end
-	elseif spellId == 70901 then
-		warnDarkEmpowerment:Show()
-		if self.Options.SetIconOnEmpoweredAdherent then
-			self:ScanForMobs(args.sourceGUID, 2, 7, 1, nil, 12, "SetIconOnEmpoweredAdherent")
-		end
-	elseif args:IsSpellID(72499, 72500, 72497, 72496) then
-		specWarnDarkMartyrdom:Show()
-		specWarnDarkMartyrdom:Play("justrun")
-	end
-end
-
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 71289 then
-		timerDominateMindCD:Start()
-		DBM:Debug("MC on "..args.destName, 2)
-		if self.Options.EqUneqWeapons and args.destName == UnitName("player") and self:IsDps() then
-			UnW(self)
-			UnW(self)
-			self:Schedule(0.01, UnW, self)
-			DBM:Debug("Unequipping", 2)
 		end
 	end
 end
