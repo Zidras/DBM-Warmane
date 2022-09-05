@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220624005857")
+mod:SetRevision("20220905105840")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
@@ -34,7 +34,7 @@ local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279, nil, nil, nil, 3)
 local timerVileGas			= mod:NewBuffFadesTimer(6, 69240, nil, "Ranged", nil, 3)
 local timerGasSporeCD		= mod:NewNextTimer(40, 69279, nil, nil, nil, 3)		-- Every 40 seconds except after 3rd and 6th cast, then it's 50sec CD
 local timerPungentBlight	= mod:NewNextTimer(34, 69195, nil, nil, nil, 2)		-- Edited. ~34 seconds after 3rd stack of inhaled
-local timerInhaledBlight	= mod:NewNextTimer(34, 69166, nil, nil, nil, 6)		-- 34 seconds'ish
+local timerInhaledBlight	= mod:NewNextTimer(34.2, 69166, nil, nil, nil, 6)	-- variance? (25H Lordaeron 2022/09/04) - 34.2, 34.7, *, 34.2
 local timerGastricBloat		= mod:NewTargetTimer(100, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)	-- 100 Seconds until expired
 local timerGastricBloatCD	= mod:NewCDTimer(12, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)		-- 10 to 14 seconds
 local timerGooCD			= mod:NewCDTimer(10, 72297, nil, nil, nil, 3)
@@ -71,7 +71,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	timerInhaledBlight:Start(-delay)
+	timerInhaledBlight:Start(32.0-delay) -- this includes cast time (28.5 spell_cast_start + 3.5 cast time). REVIEW! Seems fixed timer (25H Lordaeron 2022/09/04) - 32.0
 	timerGasSporeCD:Start(20-delay)--This may need tweaking
 	table.wipe(gasSporeTargets)
 	table.wipe(vileGasTargets)
@@ -103,11 +103,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69279 then	-- Gas Spore
 		gasSporeTargets[#gasSporeTargets + 1] = args.destName
 		self.vb.gasSporeCast = self.vb.gasSporeCast + 1
-		--25 man is 3 sets of 3 and 10 man is 3 sets of 2, totallying 9 and 6 respectively
+		--25 man is 3 sets of 3 and 10 man is 3 sets of 2, totalling 9 and 6 respectively
 		if (self.vb.gasSporeCast < 9 and self:IsDifficulty("normal25", "heroic25")) or (self.vb.gasSporeCast < 6 and self:IsDifficulty("normal10", "heroic10")) then
-			timerGasSporeCD:Start()
+			timerGasSporeCD:Restart()
 		elseif (self.vb.gasSporeCast >= 9 and self:IsDifficulty("normal25", "heroic25")) or (self.vb.gasSporeCast >= 6 and self:IsDifficulty("normal10", "heroic10")) then
-			timerGasSporeCD:Start(50)--Basically, the third time spores are placed on raid, it'll be an extra 10 seconds before he applies first set of spores again.
+			timerGasSporeCD:Restart(50)--Basically, the third time spores are placed on raid, it'll be an extra 10 seconds before he applies first set of spores again.
 			self.vb.gasSporeCast = 0
 		end
 		if args:IsPlayer() then
