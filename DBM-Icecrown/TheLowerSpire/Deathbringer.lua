@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220807114906")
+mod:SetRevision("20220905180250")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
+mod:SetMinSyncRevision(20220905000000)
 
 mod:RegisterCombat("combat")
 
@@ -13,10 +14,10 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 73058 72378 72293",
-	"SPELL_CAST_SUCCESS 72410 72769",
-	"SPELL_SUMMON 72172 72173 72356 72357 72358",
+	"SPELL_CAST_SUCCESS 72410 72769 72385 72441 72442 72443",
 	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737 19753",
 	"SPELL_AURA_REMOVED 72385 72441 72442 72443",
+	"SPELL_SUMMON 72172 72173 72356 72357 72358",
 	"UNIT_DIED",
 	"UNIT_HEALTH boss1"
 )
@@ -47,8 +48,8 @@ local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerBoilingBlood		= mod:NewNextTimer(15.5, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerBloodNova		= mod:NewNextTimer(20, 72378, nil, nil, nil, 2)
+local timerBoilingBlood		= mod:NewCDTimer(15.5, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) -- 5s variance [15-20]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04) - 19.2, 15.5, 15.7, 17.7, 18.1, 15.7, 16.9, 19.5, 15.3, 19.5, 18.5, 15.2, 19.9 || 15.1, 19.4, 19.0, 15.4, 15.0, 16.8, 19.1, 15.9, 17.1
+local timerBloodNova		= mod:NewCDTimer(20, 72378, nil, nil, nil, 2, nil, nil, true) -- 5s variance [20-25]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04) - 21.7, 21.7, 20.9, 22.6, 20.2, 24.8, 24.6, 20.7, 22.2, 22.4 || 24.9, 21.8, 21.0, 22.8, 23.2, 24.3, 22.2
 
 local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
@@ -73,7 +74,6 @@ mod.vb.boilingBloodIcon = 1
 mod.vb.beastIcon = 8
 mod.vb.Mark = 0
 mod.vb.bloodBeastAlive = 0
-local boilingBloodTargets = {}
 local spellName = DBM:GetSpellInfo(72370)
 
 do	-- add the additional Rune Power Bar
@@ -100,13 +100,6 @@ do	-- add the additional Rune Power Bar
 	end
 end
 
-local function warnBoilingBloodTargets(self)
-	warnBoilingBlood:Show(table.concat(boilingBloodTargets, "<, >"))
-	table.wipe(boilingBloodTargets)
-	self.vb.boilingBloodIcon = 1
-	timerBoilingBlood:Start()
-end
-
 function mod:FallenMarkTarget(targetname)
 	if not targetname then return end
 	if targetname == UnitName("player") then
@@ -131,10 +124,9 @@ function mod:OnCombatStart(delay)
 	end
 	timerCallBloodBeast:Start(-delay)
 	warnAddsSoon:Schedule(30-delay)
-	timerBloodNova:Start(-delay)
-	timerRuneofBlood:Start(19.5-delay)
-	timerBoilingBlood:Start(19-delay)
-	table.wipe(boilingBloodTargets)
+	timerBloodNova:Start(17-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 17.1 || 17.0 || 17.0
+	timerRuneofBlood:Start(-delay)
+	timerBoilingBlood:Start(15.5-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 15.5 || 15.5|| 15.5
 	self.vb.warned_preFrenzy = false
 	self.vb.boilingBloodIcon = 1
 	self.vb.beastIcon = 8
@@ -181,6 +173,34 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerRuneofBlood:Start()
 	elseif spellId == 72769 then
 		specWarnScentofBlood:Show()
+	elseif args:IsSpellID(72385, 72441, 72442, 72443) then -- Boiling Blood
+		self.vb.boilingBloodIcon = 1
+		timerBoilingBlood:Start()
+	end
+end
+
+function mod:SPELL_AURA_APPLIED(args)
+	local spellId = args.spellId
+	if spellId == 72293 then		-- Mark of the Fallen Champion
+		self.vb.Mark = self.vb.Mark + 1
+		warnMark:Show(self.vb.Mark, args.destName)
+		specwarnMark:Show(args.destName)
+	elseif args:IsSpellID(72385, 72441, 72442, 72443) then	-- Boiling Blood
+		if self.Options.BoilingBloodIcons then
+			self:SetIcon(args.destName, self.vb.boilingBloodIcon)
+		end
+		self.vb.boilingBloodIcon = self.vb.boilingBloodIcon + 1
+		warnBoilingBlood:CombinedShow(0.5, args.destName)
+	elseif spellId == 72737 then						-- Frenzy
+		warnFrenzy:Show()
+	elseif spellId == 19753 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
+		CancelUnitBuff("player", GetSpellInfo(19753))
+	end
+end
+
+function mod:SPELL_AURA_REMOVED(args)
+	if args:IsSpellID(72385, 72441, 72442, 72443) and self.Options.BoilingBloodIcons then
+		self:SetIcon(args.destName, 0)
 	end
 end
 
@@ -200,37 +220,6 @@ function mod:SPELL_SUMMON(args)
 			self:ScanForMobs(args.destGUID, 2, self.vb.beastIcon, 1, nil, 10, "BeastIcons")
 		end
 		self.vb.beastIcon = self.vb.beastIcon - 1
-	end
-end
-
-function mod:SPELL_AURA_APPLIED(args)
-	local spellId = args.spellId
-	if spellId == 72293 then		-- Mark of the Fallen Champion
-		self.vb.Mark = self.vb.Mark + 1
-		warnMark:Show(self.vb.Mark, args.destName)
-		specwarnMark:Show(args.destName)
-	elseif args:IsSpellID(72385, 72441, 72442, 72443) then	-- Boiling Blood
-		boilingBloodTargets[#boilingBloodTargets + 1] = args.destName
-		if self.Options.BoilingBloodIcons then
-			self:SetIcon(args.destName, self.vb.boilingBloodIcon)
-		end
-		self.vb.boilingBloodIcon = self.vb.boilingBloodIcon + 1
-		self:Unschedule(warnBoilingBloodTargets)
-		if self:IsDifficulty("normal10", "heroic10") or (self:IsDifficulty("normal25", "heroic25") and #boilingBloodTargets >= 3) then	-- Boiling Blood
-			warnBoilingBloodTargets(self)
-		else
-			self:Schedule(0.5, warnBoilingBloodTargets, self)
-		end
-	elseif spellId == 72737 then						-- Frenzy
-		warnFrenzy:Show()
-	elseif spellId == 19753 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
-		CancelUnitBuff("player", GetSpellInfo(19753))
-	end
-end
-
-function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(72385, 72441, 72442, 72443) and self.Options.BoilingBloodIcons then
-		self:SetIcon(args.destName, 0)
 	end
 end
 
