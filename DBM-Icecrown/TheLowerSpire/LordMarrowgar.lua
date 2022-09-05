@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LordMarrowgar", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220831230337")
+mod:SetRevision("20220905105426")
 mod:SetCreatureID(36612)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -104,7 +104,7 @@ mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 function mod:SPELL_SUMMON(args)
 	if args:IsSpellID(69062, 72669, 72670) then			-- Impale
 		warnImpale:CombinedShow(0.3, args.sourceName)
-		timerBoned:Start()
+		timerBoned:Restart()
 		if self.Options.SetIconOnImpale then
 			self:SetIcon(args.sourceName, self.vb.impaleIcon)
 		end
