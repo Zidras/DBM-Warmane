@@ -1,10 +1,13 @@
 local mod	= DBM:NewMod("Putricide", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220702001333")
+local GetTime = GetTime
+local format = string.format
+
+mod:SetRevision("20220905173355")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetMinSyncRevision(3860)
+mod:SetMinSyncRevision(20220905000000)
 
 mod:RegisterCombat("combat")
 
@@ -28,7 +31,7 @@ local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, false, nil, 5, n
 local timerRegurgitatedOoze			= mod:NewTargetTimer(20, 70539, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 -- Stage One
-mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": 100% – 80%")
 local warnSlimePuddle				= mod:NewSpellAnnounce(70341, 2)
 local warnUnstableExperimentSoon	= mod:NewSoonAnnounce(70351, 3)
 local warnUnstableExperiment		= mod:NewSpellAnnounce(70351, 4)
@@ -46,7 +49,7 @@ local yellUnboundPlague				= mod:NewYellMe(70911, false)	-- Heroic Ability, disa
 local timerGaseousBloat				= mod:NewTargetTimer(20, 70672, nil, nil, nil, 3)			-- Duration of debuff
 local timerGaseousBloatCast			= mod:NewCastTimer(3, 70672, nil, nil, nil, 3)				-- Cast duration
 local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- Approx
-local timerUnstableExperimentCD		= mod:NewNextTimer(38, 70351, nil, nil, nil, 1, nil, DBM_COMMON_L.DEADLY_ICON)			-- Used every 38 seconds exactly except after phase changes
+local timerUnstableExperimentCD		= mod:NewCDTimer(35, 70351, nil, nil, nil, 1, nil, DBM_COMMON_L.DEADLY_ICON, true) -- 5s variance [35-40]. Added "keep" arg (10N Icecrown 2022/08/20 || 10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 39.1, 38.0 || 39.1, 38.0 || Stage 1/30.7, 36.2 ; Stage 1/33.9, 67.6, Stage 2/2.1, 36.5/38.6, 36.7; Stage 1/30.5, 35.7, Stage 2/41.6 || Stage 1/30.5, 68.3, Stage 2/4.9, 32.8/37.7, 37.7
 local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
 local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
 
@@ -57,7 +60,7 @@ mod:AddSetIconOption("GaseousBloatIcon", 70672, true, 0, {2})--Orange Icon for o
 mod:AddSetIconOption("UnboundPlagueIcon", 70911, true, 0, {3})
 
 -- Stage Two
-mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": 80% – 35%")
 local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Melee")
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Phase 2 ability
@@ -80,7 +83,7 @@ local soundChokingGasSoon			= mod:NewSoundSoon(71255, nil, "Melee")
 --mod:AddArrowOption("GooArrow", 72295)
 
 -- Stage Three
-mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3))
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": 35% – 0%")
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
 
@@ -109,7 +112,7 @@ mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 
 local function NextPhase(self)
-	self:SetStage(0)
+	self:SetStage(self.vb.phase + 0.5)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
@@ -155,7 +158,7 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerSlimePuddleCD:Start(10-delay)
-	timerUnstableExperimentCD:Start(30-delay)
+	timerUnstableExperimentCD:Start(30-delay) -- REVIEW! need P1 N log data to determine whether H/N has difference. heroic 5s variance (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 61 || 33.0; 30.7; 30.5; 33.9 || 30.5
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	table.wipe(redOozeGUIDsCasts)
 	PuddleTime = 0
@@ -171,14 +174,17 @@ end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
-	if args:IsSpellID(70351, 71966, 71967, 71968) then
+	if args:IsSpellID(70351, 71966, 71967, 71968) then	-- Unstable Experiment
 		warnUnstableExperimentSoon:Cancel()
 		warnUnstableExperiment:Show()
 		timerUnstableExperimentCD:Start()
-		warnUnstableExperimentSoon:Schedule(33)
+		warnUnstableExperimentSoon:Schedule(30)
 	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase)
+		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnTearGas:Show()
-	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin); Warmane does not have this event
+	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin)
+		-- TO DO: check whether delaying all running timers by 30s is accurate, according to TC. According to AC is 24+25s
+		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
@@ -188,15 +194,17 @@ function mod:SPELL_CAST_START(args)
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
+		local puddleTimeAdjust = GetTime() - PuddleTime
+		DBM:Debug("During Create Concoction, PuddleTime is: "..puddleTimeAdjust, 2)
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
-		if (GetTime()-PuddleTime) > 35 then
-			timerUnstableExperimentCD:Start(90-(GetTime()-PuddleTime))
+		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
+		if puddleTimeAdjust > 35 then
+			timerUnstableExperimentCD:Start(90-puddleTimeAdjust)
 		else
-			timerUnstableExperimentCD:Start(55-(GetTime()-PuddleTime))
+			timerUnstableExperimentCD:Start(53.8-puddleTimeAdjust) -- REVIEW! Variance? Lowest possible timer? (25H Lordaeron 2022/09/04) - 31
 		end
 		if self:IsHeroic() then
 			self:Schedule(35, NextPhase, self)	--after 5s PP sets target
@@ -227,25 +235,31 @@ function mod:SPELL_CAST_START(args)
 			specWarnGaseousBloatCast:Play("targetchange")
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
+		local currentTime = GetTime()
+		local puddleTimeAdjust = currentTime-PuddleTime
+		local gooTimeAdjust = currentTime-GooTime
+		local chokingTimeAdjust = currentTime-ChokingTime
+		local unboundTimeAdjust = currentTime-UnboundTime
+		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d, GooTime is %d, ChokingTime is %d and UnboundTime is %d", puddleTimeAdjust, gooTimeAdjust, chokingTimeAdjust, unboundTimeAdjust), 2)
 		timerUnstableExperimentCD:Cancel()
 		timerMalleableGooCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-		timerSlimePuddleCD:Start(65-(GetTime()-PuddleTime))
-		timerMalleableGooCD:Start(50-(GetTime()-GooTime))
-		soundMalleableGooSoon:Schedule((50-(GetTime()-GooTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		timerChokingGasBombCD:Start(66-(GetTime()-ChokingTime))
-		soundChokingGasSoon:Schedule((66-(GetTime()-ChokingTime))-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-		warnChokingGasBombSoon:Schedule((66-(GetTime()-ChokingTime))-5)
+		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
+		timerMalleableGooCD:Start(50-gooTimeAdjust)
+		soundMalleableGooSoon:Schedule((50-gooTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		timerChokingGasBombCD:Start(66-chokingTimeAdjust)
+		soundChokingGasSoon:Schedule((66-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		warnChokingGasBombSoon:Schedule((66-chokingTimeAdjust)-5)
 		if self:IsDifficulty("heroic10") then
 			self:Schedule(38, NextPhase, self)	--after 8s PP sets target
 			timerNextPhase:Start(38)
-			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
+			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 		elseif mod:IsDifficulty("heroic25") then
 			self:Schedule(28, NextPhase, self)
 			timerNextPhase:Start(28)
-			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))		--this requires more analysis
+			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 		else
 			timerNextPhase:Start(12.5)
 		end
