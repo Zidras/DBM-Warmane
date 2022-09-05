@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220904141346")
+mod:SetRevision("20220905010015")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220904000000)
@@ -25,6 +25,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_MISSED 68983 73791 73792 73793",
 	"UNIT_HEALTH target focus",
 	"UNIT_AURA_UNFILTERED",
+	"UNIT_ENTERING_VEHICLE",
 	"UNIT_EXITING_VEHICLE",
 	"UNIT_DIED"
 --	"UNIT_SPELLCAST_SUCCEEDED"
@@ -533,11 +534,22 @@ do
 	local valkyrTargets = {}
 	local grabIcon = 1
 	local lastValk = 0
+	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
 	local UnitIsUnit, UnitInVehicle, IsInRaid = UnitIsUnit, UnitInVehicle, IsInRaid
 
+	local function numberOfValkyrTargets(tbl)
+		if not tbl then return 0 end
+		local count = 0
+		for _ in pairs(tbl) do
+			count = count + 1
+		end
+		return count
+	end
+
 	local function scanValkyrTargets(self)
-		if (time() - lastValk) < 10 then	-- scan for like 10secs
+		if numberOfValkyrTargets(valkyrTargets) < maxValks and (time() - lastValk) < 10 then	-- scan for like 10secs, but exit earlier if all the valks have spawned and grabbed their players
 			for uId in DBM:GetGroupMembers() do		-- for every raid member check ..
+				DBM:Debug("Valkyr UnitInVehicle for " .. UnitName(uId) .. " is returning " .. (UnitInVehicle(uId) or "nil") .. ". Checking if it is already cached: " .. (valkyrTargets[uId] and "true" or "nil."), 3)
 				if UnitInVehicle(uId) and not valkyrTargets[uId] then	  -- if person #i is in a vehicle and not already announced
 					valkyrWarning:Show(UnitName(uId))
 					valkyrTargets[uId] = true
@@ -677,7 +689,12 @@ end
 --	end
 --end
 
+function mod:UNIT_ENTERING_VEHICLE(uId)
+	DBM:Debug(UnitName(uId) .. " (".. uId .. ") has entered a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
+end
+
 function mod:UNIT_EXITING_VEHICLE(uId)
+	DBM:Debug(UnitName(uId) .. " (".. uId .. ") has exited a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
 	mod:RemoveEntry(UnitName(uId))
 end
 
