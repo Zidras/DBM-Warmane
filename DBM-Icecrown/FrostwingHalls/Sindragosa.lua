@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220902215713")
+mod:SetRevision("20220906221219")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
-mod:SetMinSyncRevision(20220902000000)
+mod:SetHotfixNoticeRev(20220906000000)
+mod:SetMinSyncRevision(20220906000000)
 
 mod:RegisterCombat("combat")
 
@@ -109,7 +110,7 @@ local function warnBeaconTargets(self)
 		end
 	end
 	if self.Options.AssignWarnDirectionsCount then
-		if self.vb.phase == 1 then
+		if self.vb.phase == 1.5 then
 			if self:IsDifficulty("normal25") then
 				-- 5 beacons
 				warnFrostBeacon:Show("\n<   >"..
@@ -239,7 +240,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			playerBeaconed = true
 			-- Beacon Direction snippet
-			if self.vb.phase == 1 and self.Options.SpecWarn70126moveto then
+			if self.vb.phase == 1.5 and self.Options.SpecWarn70126moveto then
 				for i = 1, #beaconTargets do
 					local targetName = beaconTargets[i]
 					if targetName == DBM:GetMyPlayerInfo() then
