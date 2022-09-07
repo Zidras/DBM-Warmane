@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220609005636")
+mod:SetRevision("20220907232753")
 mod:SetCreatureID(34458, 34451, 34459, 34448, 34449, 34445, 34456, 34447, 34441, 34454, 34444, 34455, 34450, 34453, 34461, 34460, 34469, 34467, 34468, 34471, 34465, 34466, 34473, 34472, 34470, 34463, 34474, 34475)
+mod:SetMinSyncRevision(20220907000000)
 
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.AllianceVictory, L.HordeVictory)
@@ -120,32 +121,29 @@ local specWarnAvengingWrath = mod:NewSpecialWarningDispel(66011, "MagicDispeller
 local specWarnBloodlust	= mod:NewSpecialWarningDispel(65980, "MagicDispeller", nil, nil, 1, 2)
 local specWarnHeroism		= mod:NewSpecialWarningDispel(65983, "MagicDispeller", nil, nil, 1, 2)
 
+-- log timers for this fight are all over the place. I suspect it is due to CC, and thus, only fixes I will do are if debug catches early refreshes.
 local timerBladestorm		= mod:NewBuffActiveTimer(8, 65947, nil, nil, nil, 2)
-local timerShadowstepCD		= mod:NewCDTimer(30, 66178, nil, nil, nil, 3)
+local timerShadowstepCD		= mod:NewCDTimer(30, 66178, nil, nil, nil, 3) -- (25H Lordaeron 2022/09/03) - pull:25.7
 local timerBlindCD			= mod:NewCDTimer(120, 65960)
-local timerDeathgripCD		= mod:NewCDTimer(35, 66017, nil, nil, nil, 3)
-local timerBladestormCD		= mod:NewCDTimer(90, 65947, nil, nil, nil, 2)
-local timerFrostTrapCD		= mod:NewCDTimer(30, 65880)
-local timerDisengageCD		= mod:NewCDTimer(30, 65869)
-local timerPsychicScreamCD	= mod:NewCDTimer(30, 65543)
-local timerBlinkCD			= mod:NewCDTimer(15, 65793)
-local timerHoJCD			= mod:NewCDTimer(40, 66613)
+local timerDeathgripCD		= mod:NewCDTimer(21.5, 66017, nil, nil, nil, 3) -- REVIEW! High variance (25H Lordaeron 2022/09/03) - pull:22.9, 31.5, 45.1, 34.9, 24.2, 21.9, 31.1, 61.4, 43.9, 21.5
+local timerBladestormCD		= mod:NewCDTimer(90.1, 65947, nil, nil, nil, 2) -- (25H Lordaeron 2022/09/03) - pull:49.0, 90.1, 90.1
+local timerFrostTrapCD		= mod:NewCDTimer(31.8, 65880) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - pull:46.2, 31.8
+local timerDisengageCD		= mod:NewCDTimer(30, 65869) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - pull:32.6, 40.4
+local timerPsychicScreamCD	= mod:NewCDTimer(30, 65543) -- variance (25H Lordaeron 2022/09/03) - pull:49.1, 30.0, 31.7, 30.1, 33.5, 31.3, 30.6, 44.0, 37.2, 31.0
+local timerBlinkCD			= mod:NewCDTimer(17.6, 65793) -- REVIEW! High variance (25H Lordaeron 2022/09/03) - pull:21.1, 17.6, 135.2, 20.2, 44.0, 34.7, 27.3, 18.1, 20.6, 19.2
+local timerHoJCD			= mod:NewCDTimer(40, 66613) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - pull:178.8
 local timerRepentanceCD		= mod:NewCDTimer(60, 66008)
-local timerHoPCD			= mod:NewCDTimer(300, 66009)
+local timerHoPCD			= mod:NewCDTimer(300, 66009) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - pull:32.5
 local timerSilenceCD		= mod:NewCDTimer(45, 65542)
 local timerHeroismCD		= mod:NewCDTimer(300, 65983)
-local timerBloodlustCD		= mod:NewCDTimer(300, 65980)
+local timerBloodlustCD		= mod:NewCDTimer(300, 65980) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - pull:26.9
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	-- Death Knight
 	if args:IsSpellID(66017, 68753, 68754, 68755) and args:IsDestTypePlayer() then	-- Death Grip
 		warnDeathgrip:Show(args.destName)
-		if self:IsDifficulty("heroic25") then
-			timerShadowstepCD:Start(20)
-		else
-			timerShadowstepCD:Start()
-		end
+		timerDeathgripCD:Start()
 	elseif spellId == 66020 and args:IsDestTypePlayer() then	-- Chains of Ice
 		warnChainsofIce:Show(args.destName)
 	-- Paladin
@@ -183,7 +181,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnBladestorm:Show()
 		timerBladestorm:Start()
 		timerBladestormCD:Start()
-		preWarnBladestorm:Schedule(85)
+		preWarnBladestorm:Schedule(85.1)
 		elseif spellId == 65932 then							-- Retaliation
 		warnRetaliation:Show()
 	elseif spellId == 65931 then								-- Intimidating Shout
