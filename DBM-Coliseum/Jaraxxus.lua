@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220609005636")
-mod:SetMinSyncRevision(7007)
+mod:SetRevision("20220907103245")
 mod:SetCreatureID(34780)
 --mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
+mod:SetMinSyncRevision(20220907000000)
 
 mod:RegisterCombat("combat")
 
@@ -15,7 +15,7 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 66532 66963 66964 66965",
-	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66269 67898 67899 67900 66197 68123 68124 68125",
+	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66269 67898 67899 67900 66197 68123 68124 68125 67051 67050 67049 66237",
 	"SPELL_AURA_APPLIED 67051 67050 67049 66237 66197 68123 68124 68125 66334 67905 67906 67907 66532 66963 66964 66965",
 	"SPELL_AURA_REMOVED 67051 67050 67049 66237",
 	"SPELL_DAMAGE 66877 67070 67071 67072 66496 68716 68717 68718",
@@ -41,12 +41,12 @@ local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66532, "RemoveMagi
 
 local timerCombatStart			= mod:NewCombatTimer(76)--roleplay for first pull
 local timerFlame				= mod:NewTargetTimer(8, 66197, nil, nil, nil, 3)--There are 8 debuff Ids. Since we detect first to warn, use an 8sec timer to cover duration of trigger spell and damage debuff.
-local timerFlameCD				= mod:NewCDTimer(30, 66197, nil, nil, nil, 3)
-local timerNetherPowerCD		= mod:NewCDTimer(42.5, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerFlameCD				= mod:NewNextTimer(30, 66197, nil, nil, nil, 3) -- (25H Lordaeron 2022/09/03) - 30.0, 30.0, 30.1, 30.0, 30.1, 30.0
+local timerNetherPowerCD		= mod:NewNextTimer(45, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON) -- (25H Lordaeron 2022/09/03) - 45.1, 45.0, 45.0, 45.0
 local timerFlesh				= mod:NewTargetTimer(12, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerFleshCD				= mod:NewCDTimer(23, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerPortalCD				= mod:NewCDTimer(120, 66269, nil, nil, nil, 1)
-local timerVolcanoCD			= mod:NewCDTimer(120, 66258, nil, nil, nil, 1)
+local timerFleshCD				= mod:NewNextTimer(30, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON) -- (25H Lordaeron 2022/09/03) - 30.0, 30.0, 30.0, 30.1, 30.0, 30.0
+local timerPortalCD				= mod:NewNextTimer(120, 66269, nil, nil, nil, 1) -- REVIEW! CD or Next method? variance? (25H Lordaeron 2022/09/03) - 120.0
+local timerVolcanoCD			= mod:NewNextTimer(120, 66258, nil, nil, nil, 1) -- REVIEW! CD or Next method? variance? (25H Lordaeron 2022/09/03) - 120.0
 
 local enrageTimer				= mod:NewBerserkTimer(600)
 
@@ -65,13 +65,13 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
 	self.vb.fleshCount = 0
-	timerPortalCD:Start(22-delay)
+	timerPortalCD:Start(22-delay) -- (25H Lordaeron 2022/09/03) - 22.0
 	warnPortalSoon:Schedule(17-delay)
-	timerVolcanoCD:Start(82-delay)
+	timerVolcanoCD:Start(82-delay) -- (25H Lordaeron 2022/09/03) - 82.0
 	warnVolcanoSoon:Schedule(77-delay)
-	timerNetherPowerCD:Start(15-delay)
-	timerFleshCD:Start(14-delay)
-	timerFlameCD:Start(20-delay)
+	timerNetherPowerCD:Start(15-delay) -- (25H Lordaeron 2022/09/03) - 15.0
+	timerFleshCD:Start(13-delay) -- (25H Lordaeron 2022/09/03) - 13.0
+	timerFlameCD:Start(20-delay) -- (25H Lordaeron 2022/09/03) - 20.0
 	enrageTimer:Start(-delay)
 end
 
@@ -144,14 +144,17 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnNetherPower:Show(args.sourceName)
 		specWarnNetherPower:Play("dispelboss")
 		timerNetherPowerCD:Start()
-	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Volcano
+	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Eruption
 		timerVolcanoCD:Start()
 		warnVolcanoSoon:Schedule(110)
 	elseif args:IsSpellID(66269, 67898, 67899, 67900) then		-- Nether Portal
 		timerPortalCD:Start()
 		warnPortalSoon:Schedule(110)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
+		timerFlameCD:Start()
 		warnFlame:Show(args.destName)
+	elseif args:IsSpellID(67051, 67050, 67049, 66237) then		-- Incinerate Flesh
+		timerFleshCD:Start()
 	end
 end
 
@@ -159,7 +162,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(67051, 67050, 67049, 66237) then			-- Incinerate Flesh
 		self.vb.fleshCount = self.vb.fleshCount + 1
 		timerFlesh:Start(args.destName)
-		timerFleshCD:Start()
 		if self.Options.IncinerateFleshIcon then
 			self:SetIcon(args.destName, 8, 15)
 		end
@@ -177,7 +179,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		setIncinerateTarget(self, args.destGUID, args.destName)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
 		timerFlame:Start(args.destName)
-		timerFlameCD:Start()
 		if args:IsPlayer() then
 			specWarnFlame:Show()
 			specWarnFlame:Play("runout")
