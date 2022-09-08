@@ -39,7 +39,8 @@ L:SetOptionLocalization({
 	WeaponsStatus				= "Alerte spéciale si la fonction de déséquipement n'est pas active au début du combat",
 	ShieldHealthFrame			= "Montre la vie du boss avec une barre de vie pour la $spell:70842",
 	SoundWarnCountingMC			= "Jouer un son à 5 secondes du Contrôle mental",
-	RemoveDruidBuff				= "Retire MotW / GotW 24 secondes après le début du combat",
+	RemoveDruidBuff				= "Retire $spell:48469 / $spell:48470 24 secondes après le début du combat",
+	RemoveDruidBuffOnMCOnly     = "Retire $spell:48469 / $spell:48470 uniquement si $spell:71289 est lancé sur vous",
 	EqUneqWeapons				= "Retire/équipe les armes si le Cntrôle mental est lancé sur vous. Pour que cela fonctionne, créez un set appellé 'pve'.",
 	EqUneqTimer					= "Retire les armes à CHAQUE fois selon le timer (si votre ping est élevé). L'option de dessus doit être active.",
 	BlockWeapons				= "Bloquer complètement la fonction de déséquipement"
