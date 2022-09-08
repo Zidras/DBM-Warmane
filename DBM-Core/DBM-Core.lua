@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220908011608"),
+	Revision = parseCurseDate("20220908222525"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3014,7 +3014,7 @@ do
 		end
 		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
-			self:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU from SecondaryLoadCheck")
 		end
 		--These can still change even if mapID doesn't
 		difficultyIndex = difficulty
@@ -3072,7 +3072,7 @@ do
 		self:Schedule(5, SecondaryLoadCheck, self)
 		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
-			self:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU from ZONE_CHANGED_NEW_AREA")
 		end
 	end
 
@@ -4598,7 +4598,7 @@ do
 		end
 		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries)
-			self:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU from PLAYER_REGEN_DISABLED")
 		end
 	end
 
@@ -5148,7 +5148,7 @@ do
 		end
 		if self.Options.FixCLEUOnCombatStart then
 			self:Schedule(0.5, CombatLogClearEntries) -- schedule prevents client crash with DBM:StartCombat function (tested on Leotheras)
-			self:Debug("Scheduled FixCLEU")
+			self:Debug("Scheduled FixCLEU from CombatStart")
 		end
 	end
 
