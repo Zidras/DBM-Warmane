@@ -39,6 +39,7 @@ L:SetOptionLocalization({
 	WeaponsStatus				= "戰鬥開始時提示自動武器卸載/裝備功能已啟用",
 	ShieldHealthFrame			= "為$spell:70842顯示首領血量框架",
 	RemoveDruidBuff				= "戰鬥開始24秒後自動移除野性印記/野性賜福",
+	RemoveDruidBuffOnMCOnly     = "僅在對您施放 $spell:71289 時移除 $spell:48469 / $spell:48470",
 	EqUneqWeapons				= "當支配心智對你施放時，自動卸載當前武器並再結束後重新裝備。若要讓自動裝備成功運作，請使用裝備管理員功能創建一個名為'pve'的全套含武器裝備集",
 	EqUneqTimer					= "永遠依據計時器移除武器，而非當首領唱法時。(假如延遲很高的話)強烈建議將此選項勾選",
 	BlockWeapons				= "完全禁止上列自動武器卸載/裝備功能"

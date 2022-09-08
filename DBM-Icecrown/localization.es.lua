@@ -40,6 +40,7 @@ L:SetOptionLocalization({
 	ShieldHealthFrame			= "Mostrar barra de vida del boss con una barra de vida para $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
 	RemoveDruidBuff				= "Quitar $spell:48469 / $spell:48470 24 segundos después de la pelea",
+	RemoveDruidBuffOnMCOnly     = "Quitar $spell:48469 / $spell:48470 solo si eres objetivo de $spell:71289",
 	EqUneqWeapons				= "Desequipar/equipar armas si se lanza Control mental sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.",
 	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no al lanzarlas (si el ping es alto). La opción anterior debe estar habilitada.",
 	BlockWeapons				= "Bloquear completamente las funciones de desequipar/equipar arriba"
