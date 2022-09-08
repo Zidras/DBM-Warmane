@@ -4,10 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20220905173355")
+mod:SetRevision("20220908184858")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetMinSyncRevision(20220905000000)
+mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
 
@@ -71,11 +71,11 @@ local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Ph
 local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 
-local timerChokingGasBombCD			= mod:NewNextTimer(35.5, 71255, nil, nil, nil, 3)
-local timerMalleableGooCD			= mod:NewCDTimer(20, 72295, nil, nil, nil, 3)
+local timerChokingGasBombCD			= mod:NewCDTimer(35.3, 71255, nil, nil, nil, 3) -- REVIEW! 3s variance [35.3-38.7? (25H Lordaeron 2022/09/07) - pull:126.3/Stage 2/22.8, 35.3, 35.5, 35.9; pull:126.4/Stage 2/22.1, 36.6, 35.9, 37.3, 38.7, Stage 2.5/7.8, Stage 3/31.9, 30.0/61.9/69.7, 38.2
+local timerMalleableGooCD			= mod:NewNextTimer(20, 72295, nil, nil, nil, 3) -- (25H Lordaeron 2022/09/07) - pull:113.6/Stage 2/10.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0; pull:114.4/Stage 2/10.1, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, Stage 2.5/8.1, Stage 3/31.9, 10.0/41.9/50.0, 20.0, 20.0, 20.0, 20.0"
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
-local soundMalleableGooSoon		= mod:NewSoundSoon(72295, nil, "Ranged")
+local soundMalleableGooSoon			= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
 local soundChokingGasSoon			= mod:NewSoundSoon(71255, nil, "Melee")
 
@@ -209,11 +209,11 @@ function mod:SPELL_CAST_START(args)
 		if self:IsHeroic() then
 			self:Schedule(35, NextPhase, self)	--after 5s PP sets target
 			timerNextPhase:Start(35)
-			timerMalleableGooCD:Start(45.5)
-			soundMalleableGooSoon:Schedule(45.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			timerChokingGasBombCD:Start(57)
-			soundChokingGasSoon:Schedule(57-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(57-5)
+			timerMalleableGooCD:Start(45.1) -- timer after phase 2 (25H Lordaeron 2022/09/07) - 10.1 ; 10.1
+			soundMalleableGooSoon:Schedule(45.1-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			timerChokingGasBombCD:Start(57.1) -- timer after phase 2 (25H Lordaeron 2022/09/07) - 22.8 ; 22.1
+			soundChokingGasSoon:Schedule(57.1-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(57.1-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
 			timerNextPhase:Start(9.5)
@@ -273,7 +273,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		soundSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
 		timerSlimePuddleCD:Start()
 		PuddleTime = GetTime()
-	elseif spellId == 71255 then
+	elseif spellId == 71255 then -- Choking Gas
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
 		soundSpecWarnChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking.mp3")
@@ -285,7 +285,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 		UnboundTime = GetTime()
-	elseif args:IsSpellID(72615, 72295, 74280, 74281) then
+	elseif args:IsSpellID(72615, 72295, 74280, 74281) then -- Malleable Goo
 		--self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
 		specWarnMalleableGooCast:Show()
 		--specWarnMalleableGooCast:Play("watchstep")
