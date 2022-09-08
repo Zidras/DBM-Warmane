@@ -32,6 +32,7 @@ local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm 
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("ShieldHealthFrame", false, "misc")
 mod:AddBoolOption("RemoveDruidBuff", false, "misc")
+mod:AddBoolOption("RemoveDruidBuffOnMCOnly", false, "misc")
 
 -- Adds
 mod:AddTimerLine(DBM_COMMON_L.ADDS)
@@ -281,6 +282,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerDominateMindCD:Restart()
 		DBM:Debug("MC on "..args.destName, 2)
 		if args.destName == UnitName("player") then
+			if self.Options.RemoveDruidBuffOnMCOnly then
+				RemoveBuffs()
+			end
 			if canShadowmeld then
 				soundSpecWarnDominateMind:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Shadowmeld.ogg")
 			elseif canVanish then
