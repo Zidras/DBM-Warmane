@@ -165,9 +165,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerEmerge				= "Emerge",
-	TimerSubmerge			= "Submerge",
-	timerAdds				= "New adds"
+--	TimerEmerge				= "Emerge",
+--	TimerSubmerge			= "Submerge",
+--	timerAdds				= "New adds"
 })
 
 L:SetWarningLocalization({
@@ -193,9 +193,9 @@ L:SetOptionLocalization({
 	WarnSubmerge				= "Show warning for submerge",
 	WarnSubmergeSoon			= "Show pre-warning for submerge",
 	warnAdds					= "Announce new adds",
-	timerAdds					= "Show timer for new adds",
-	TimerEmerge					= "Show timer for emerge",
-	TimerSubmerge				= "Show timer for submerge",
+--	timerAdds					= "Show timer for new adds",
+--	TimerEmerge					= "Show timer for emerge",
+--	TimerSubmerge				= "Show timer for submerge",
 	AnnouncePColdIcons			= "Announce icons for $spell:66013 targets to raid chat (requires raid leader)",
 	AnnouncePColdIconsRemoved	= "Announce when icons are removed for $spell:66013 (requires raid leader)",
 	RemoveHealthBuffsInP3		= "Remove HP buffs at start of Phase 3"

@@ -175,11 +175,11 @@ L:SetGeneralLocalization({
 	name					= "Anub'arak"
 })
 
-L:SetTimerLocalization({
-	TimerEmerge				= "Emersión",
-	TimerSubmerge			= "Sumersión",
-	timerAdds				= "Siguientes esbirros"
-})
+--L:SetTimerLocalization({
+--	TimerEmerge				= "Emersión",
+--	TimerSubmerge			= "Sumersión",
+--	timerAdds				= "Siguientes esbirros"
+--})
 
 L:SetWarningLocalization({
 	WarnEmerge				= "Anub'arak regresa a la superficie",
@@ -205,9 +205,9 @@ L:SetOptionLocalization({
 	WarnSubmerge			= "Mostrar aviso cuando Anub'arak se entierre en el suelo",
 	WarnSubmergeSoon		= "Mostrar aviso previo para cuando Anub'arak se entierre en el suelo",
 	warnAdds				= "Anunciar cuando aparezcan esbirros",
-	timerAdds				= "Mostrar temporizador para los siguientes esbirros",
-	TimerEmerge				= "Mostrar temporizador para cuando Anub'arak regrese a la superficie",
-	TimerSubmerge			= "Mostrar temporizador para cuando Anub'arak se entierre en el suelo",
+--	timerAdds				= "Mostrar temporizador para los siguientes esbirros",
+--	TimerEmerge				= "Mostrar temporizador para cuando Anub'arak regrese a la superficie",
+--	TimerSubmerge			= "Mostrar temporizador para cuando Anub'arak se entierre en el suelo",
 	AnnouncePColdIcons		= "Anunciar iconos de los objetivos de $spell:66013 en el chat de banda (requiere líder o ayudante)",
 	AnnouncePColdIconsRemoved	= "Anunciar iconos quitados de los objetivos de $spell:66013 (requiere que la opción anterior esté habilitada)",
 	RemoveHealthBuffsInP3	= "Quitar bufos de vida al inicio de la fase 3"

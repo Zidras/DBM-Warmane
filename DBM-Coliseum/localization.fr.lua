@@ -158,11 +158,11 @@ L:SetGeneralLocalization({
 	name					= "Anub'arak"
 })
 
-L:SetTimerLocalization({
-	TimerEmerge				= "Sort du sol",
-	TimerSubmerge			= "Rentre dans le sol",
-	timerAdds				= "Nouveaux add dans"
-})
+--L:SetTimerLocalization({
+--	TimerEmerge				= "Sort du sol",
+--	TimerSubmerge			= "Rentre dans le sol",
+--	timerAdds				= "Nouveaux add dans"
+--})
 
 L:SetWarningLocalization({
 	WarnEmerge				= "Anub'arak Sort du sol",
@@ -187,9 +187,9 @@ L:SetOptionLocalization({
 	WarnSubmerge			= "Montre une alerte quand le boss rentre dans le sol",
 	WarnSubmergeSoon		= "Montre une alerte avant que le boss ne rentre dans le sol",
 	warnAdds				= "Montre une alerte pour l'arrivée des add",
-	timerAdds				= "Montre le timer avant l'arrivée des nouveaux add",
-	TimerEmerge				= "Montre le timer pour la sortie du boss",
-	TimerSubmerge			= "Montre le timer pour la rentrée du boss dans la terre",
+--	timerAdds				= "Montre le timer avant l'arrivée des nouveaux add",
+--	TimerEmerge				= "Montre le timer pour la sortie du boss",
+--	TimerSubmerge			= "Montre le timer pour la rentrée du boss dans la terre",
 	AnnouncePColdIcons		= "Marque les icones des cible du Froid pénétrant dans le chatt (Requiert les annonces activer et être le leader ou avoir une promot)",
 	AnnouncePColdIconsRemoved	= "Annoncez également lorsque les icônes sont supprimées pour $spell:66013 (nécessite l'option ci-dessus)",
 	RemoveHealthBuffsInP3	= "Enlève les buffs de soins au début de la phase 3"

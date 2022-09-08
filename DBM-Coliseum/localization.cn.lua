@@ -164,11 +164,11 @@ L:SetGeneralLocalization({
 	name				= "阿努巴拉克"
 })
 
-L:SetTimerLocalization({
-	TimerEmerge			= "钻地结束",
-	TimerSubmerge		= "钻地",
-	timerAdds			= "下一次 掘地者出现"
-})
+--L:SetTimerLocalization({
+--	TimerEmerge			= "钻地结束",
+--	TimerSubmerge		= "钻地",
+--	timerAdds			= "下一次 掘地者出现"
+--})
 
 L:SetWarningLocalization({
 	WarnEmerge			= "阿努巴拉克钻出地面了",
@@ -192,9 +192,9 @@ L:SetOptionLocalization({
 	WarnSubmerge		= "为钻进地里显示警报",
 	WarnSubmergeSoon	= "为钻进地里显示提前警报",
 	warnAdds			= "提示掘地者出现",
-	timerAdds			= "为下一次掘地者出现显示计时器",
-	TimerEmerge			= "为首领钻地显示计时器",
-	TimerSubmerge		= "为下一次钻地显示计时器",
+--	timerAdds			= "为下一次掘地者出现显示计时器",
+--	TimerEmerge			= "为首领钻地显示计时器",
+--	TimerSubmerge		= "为下一次钻地显示计时器",
 	AnnouncePColdIcons	= "公布$spell:68510目标设置的标记到团队频道 (需要团长或助理权限)",
 	AnnouncePColdIconsRemoved	= "当移除$spell:68510的标记时也提示 (需要上述选项)",
 	RemoveHealthBuffsInP3	= "在第 3 阶段开始时移除健康增益"

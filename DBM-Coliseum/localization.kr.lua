@@ -159,11 +159,11 @@ L:SetGeneralLocalization({
 	name				= "아눕아락"
 })
 
-L:SetTimerLocalization({
-	TimerEmerge			= "다음 출현",
-	TimerSubmerge		= "다음 잠수",
-	timerAdds			= "다음 네루비안 땅무지"
-})
+--L:SetTimerLocalization({
+--	TimerEmerge			= "다음 출현",
+--	TimerSubmerge		= "다음 잠수",
+--	timerAdds			= "다음 네루비안 땅무지"
+--})
 
 L:SetWarningLocalization({
 	WarnEmerge				= "아눕아락 출현",
@@ -189,9 +189,9 @@ L:SetOptionLocalization({
 	WarnSubmerge				= "잠수 알림 보기",
 	WarnSubmergeSoon			= "잠수 이전에 알림 보기",
 	warnAdds					= "네루비안 땅무지 알림 보기",
-	timerAdds					= "다음 네루비안 땅무지 바 보기",
-	TimerEmerge					= "다음 출현 바 보기",
-	TimerSubmerge				= "다음 잠수 바 보기",
+--	timerAdds					= "다음 네루비안 땅무지 바 보기",
+--	TimerEmerge					= "다음 출현 바 보기",
+--	TimerSubmerge				= "다음 잠수 바 보기",
 	AnnouncePColdIcons			= "$spell:66013 전술 목표 아이콘 설정시 공격대 대화로 알리기(공격대장 권한 필요)",
 	AnnouncePColdIconsRemoved	= "$spell:66013 전술 목표 아이콘 제거시 공격대 대화로 알리기(위 설정 필요)",
 	RemoveHealthBuffsInP3		= "3 페이즈를 시작할 때 HP 버프 지우기"

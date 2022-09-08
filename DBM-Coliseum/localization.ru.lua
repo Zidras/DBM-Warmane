@@ -159,11 +159,11 @@ L:SetGeneralLocalization({
 	name					= "Ануб'арак"
 })
 
-L:SetTimerLocalization({
-	TimerEmerge				= "Появление через",
-	TimerSubmerge			= "Зарывание через",
-	timerAdds				= "Призыв помощников через"
-})
+--L:SetTimerLocalization({
+--	TimerEmerge				= "Появление через",
+--	TimerSubmerge			= "Зарывание через",
+--	timerAdds				= "Призыв помощников через"
+--})
 
 L:SetWarningLocalization({
 	WarnEmerge				= "Ануб'арак появляется",
@@ -188,9 +188,9 @@ L:SetOptionLocalization({
 	WarnSubmerge			= "Предупреждение о зарывании",
 	WarnSubmergeSoon		= "Предупреждать заранее о зарывании",
 	warnAdds				= "Предупреждение о призыве помощников",
-	timerAdds				= "Отсчет времени до призыва помощников",
-	TimerEmerge				= "Отсчет времени до появления",
-	TimerSubmerge			= "Отсчет времени до зарывания",
+--	timerAdds				= "Отсчет времени до призыва помощников",
+--	TimerEmerge				= "Отсчет времени до появления",
+--	TimerSubmerge			= "Отсчет времени до зарывания",
 	AnnouncePColdIcons		= "Объявлять метки целей заклинания $spell:68510 в рейд-чат (требуются права лидера или помощника)",
 	AnnouncePColdIconsRemoved	= "Объявлять также о снятии меток с целей заклинания $spell:68510 (требуется предыдущая опция)",
 	RemoveHealthBuffsInP3	= "Удалять усиления здоровья в начале фазы 3"

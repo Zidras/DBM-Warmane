@@ -159,11 +159,11 @@ L:SetGeneralLocalization({
 	name					= "Anub'arak"
 })
 
-L:SetTimerLocalization({
-	TimerEmerge				= "Auftauchen",
-	TimerSubmerge			= "Abtauchen",
-	timerAdds				= "Neue Adds"
-})
+--L:SetTimerLocalization({
+--	TimerEmerge				= "Auftauchen",
+--	TimerSubmerge			= "Abtauchen",
+--	timerAdds				= "Neue Adds"
+--})
 
 L:SetWarningLocalization({
 	WarnEmerge				= "Auftauchen",
@@ -188,9 +188,9 @@ L:SetOptionLocalization({
 	WarnSubmerge			= "Zeige Warnung für Abtauchen",
 	WarnSubmergeSoon		= "Zeige Vorwarnung für Abtauchen",
 	warnAdds				= "Verkünde neue Adds",
-	timerAdds				= "Zeige Zeit bis neue Adds erscheinen",
-	TimerEmerge				= "Zeige Zeit bis Auftauchen",
-	TimerSubmerge			= "Zeige Zeit bis Abtauchen",
+--	timerAdds				= "Zeige Zeit bis neue Adds erscheinen",
+--	TimerEmerge				= "Zeige Zeit bis Auftauchen",
+--	TimerSubmerge			= "Zeige Zeit bis Abtauchen",
 	AnnouncePColdIcons		= "Verkünde Zeichen für Ziele von $spell:66013 im Schlachtzugchat (nur als Leiter)",
 	AnnouncePColdIconsRemoved	= "Verkünde auch das Entfernen von Zeichen für $spell:66013 (benötigt obige Einstellung)",
 	RemoveHealthBuffsInP3	= "Entferne lebenspunktesteigernde Buffs in Phase 3"
