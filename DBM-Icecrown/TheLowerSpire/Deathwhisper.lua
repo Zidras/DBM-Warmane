@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathwhisper", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220905184453")
+mod:SetRevision("20220908104613")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -20,6 +20,8 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
+local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
+local canVanish = select(2, UnitClass("player")) == "ROGUE"
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
@@ -53,6 +55,8 @@ local specWarnDeathDecay			= mod:NewSpecialWarningGTFO(71001, nil, nil, nil, 1, 
 
 local timerDominateMind				= mod:NewBuffActiveTimer(12, 71289, nil, nil, nil, 5)
 local timerDominateMindCD			= mod:NewCDTimer(40, 71289, nil, nil, nil, 3, nil, nil, true) -- 5s variance [40-45]. Added "keep" arg (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 42.9, 43.5, Stage 2/17.3, 27.1/44.4, 43.6, 43.9, 43.7, 42.2 || 42.1, 40.1, Stage 2/31.9, 10.0/41.9
+
+local soundSpecWarnDominateMind		= mod:NewSound(71289, nil, canShadowmeld or canVanish)
 
 mod:AddInfoFrameOption(70842, false)
 mod:AddSetIconOption("SetIconOnDeformedFanatic", 70900, true, 5, {8})
@@ -276,11 +280,18 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 71289 then -- Fires 1x/3x on 10/25m
 		timerDominateMindCD:Restart()
 		DBM:Debug("MC on "..args.destName, 2)
-		if self.Options.EqUneqWeapons and args.destName == UnitName("player") and self:IsDps() then
-			UnW(self)
-			UnW(self)
-			self:Schedule(0.01, UnW, self)
-			DBM:Debug("Unequipping", 2)
+		if args.destName == UnitName("player") then
+			if canShadowmeld then
+				soundSpecWarnDominateMind:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Shadowmeld.ogg")
+			elseif canVanish then
+				soundSpecWarnDominateMind:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Vanish.ogg")
+			end
+			if self.Options.EqUneqWeapons and self:IsDps() then
+				UnW(self)
+				UnW(self)
+				self:Schedule(0.01, UnW, self)
+				DBM:Debug("Unequipping", 2)
+			end
 		end
 	end
 end
