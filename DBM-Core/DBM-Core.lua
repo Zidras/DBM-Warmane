@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220904101202"),
+	Revision = parseCurseDate("20220908011608"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -7578,15 +7578,15 @@ do
 	local font2u = CreateFrame("Frame", "DBMWarning2Updater", UIParent)
 	local font3u = CreateFrame("Frame", "DBMWarning3Updater", UIParent)
 	local font1 = frame:CreateFontString("DBMWarning1", "OVERLAY", "GameFontNormal")
-	font1:SetWidth(1024)
+	font1:SetWidth(0) -- Don't hardcode, it WILL cause client crashes if a string with icons and certain fonts reach a certain FontHeight on the OnUpdate grow
 	font1:SetHeight(0)
 	font1:SetPoint("TOP", 0, 0)
 	local font2 = frame:CreateFontString("DBMWarning2", "OVERLAY", "GameFontNormal")
-	font2:SetWidth(1024)
+	font2:SetWidth(0) -- Don't hardcode, it WILL cause client crashes if a string with icons and certain fonts reach a certain FontHeight on the OnUpdate grow
 	font2:SetHeight(0)
 	font2:SetPoint("TOP", font1, "BOTTOM", 0, 0)
 	local font3 = frame:CreateFontString("DBMWarning3", "OVERLAY", "GameFontNormal")
-	font3:SetWidth(1024)
+	font3:SetWidth(0) -- Don't hardcode, it WILL cause client crashes if a string with icons and certain fonts reach a certain FontHeight on the OnUpdate grow
 	font3:SetHeight(0)
 	font3:SetPoint("TOP", font2, "BOTTOM", 0, 0)
 	frame:SetMovable(1)
