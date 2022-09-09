@@ -1,6 +1,8 @@
 local _, private = ...
 
 local twipe = table.wipe
+local GetNumGroupMembers, GetNumSubgroupMembers = private.GetNumGroupMembers, private.GetNumSubgroupMembers
+local IsInRaid, IsInGroup = private.IsInRaid, private.IsInGroup
 local UnitExists, UnitPlayerOrPetInRaid, UnitGUID =
 	UnitExists, UnitPlayerOrPetInRaid, UnitGUID
 

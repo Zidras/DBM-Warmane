@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220905105840")
+mod:SetRevision("20220909005309")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
@@ -52,8 +52,8 @@ mod.vb.gasSporeCast = 0
 mod.vb.warnedfailed = false
 
 function mod:AnnounceSporeIcons(uId, icon)
-	if self.Options.AnnounceSporeIcons and IsInGroup() and DBM:GetRaidRank() > 1 then
-		SendChatMessage(L.SporeSet:format(icon, DBM:GetUnitFullName(uId)), IsInRaid() and "RAID" or "PARTY")
+	if self.Options.AnnounceSporeIcons and DBM:IsInGroup() and DBM:GetRaidRank() > 1 then
+		SendChatMessage(L.SporeSet:format(icon, DBM:GetUnitFullName(uId)), DBM:IsInRaid() and "RAID" or "PARTY")
 	end
 end
 

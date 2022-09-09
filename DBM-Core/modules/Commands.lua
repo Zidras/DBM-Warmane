@@ -5,6 +5,8 @@ local L = DBM_CORE_L
 local LibStub = _G["LibStub"]
 local LibLatency, LibDurability, AceTimer = LibStub("LibLatency", true), LibStub("LibDurability", true), LibStub("AceTimer-3.0")
 
+local IsInGroup = private.IsInGroup
+
 local playerName = UnitName("player")
 
 local function strFromTime(time)

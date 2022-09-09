@@ -81,7 +81,7 @@ function mod:OnCombatStart(delay)
 	timerEntangleCD:Start(29.5-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 29.5 || 29.5
 	timerChargeCD:Start(11.6-delay) -- REVIEW! 10s variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 11.6 || 16.3
 	timerShockBlastCD:Start(15.2-delay) -- REVIEW! 10s variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 25.2 || 15.2
---	if IsInGroup() and DBM:GetRaidRank() == 2 then
+--	if DBM:IsInGroup() and DBM:GetRaidRank() == 2 then
 --		lootmethod, _, masterlooterRaidID = GetLootMethod()
 --	end
 end
@@ -91,7 +91,7 @@ function mod:OnCombatEnd()
 		DBM.RangeCheck:Hide()
 	end
 	self:UnregisterShortTermEvents()
---	if IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
+--	if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 --		if masterlooterRaidID then
 --			SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
 --		else
@@ -199,7 +199,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerStrider:Start(nil, tostring(self.vb.striderCount))
 		warnStrider:Schedule(57, tostring(self.vb.striderCount))
 		self:Schedule(63, StriderSpawn, self)
---		if IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
+--		if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 --			SetLootMethod("freeforall")
 --		end
 		self:RegisterShortTermEvents(
@@ -218,7 +218,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:Unschedule(StriderSpawn)
 		self:UnregisterShortTermEvents()
 		timerChargeCD:Start()
---		if IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
+--		if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
 --			if masterlooterRaidID then
 --				SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
 --			else

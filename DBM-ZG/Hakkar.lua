@@ -1,10 +1,8 @@
 local mod	= DBM:NewMod("Hakkar", "DBM-ZG", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220909005309")
 mod:SetCreatureID(14834)
-
-
 
 mod:RegisterCombat("combat")
 
@@ -48,8 +46,8 @@ local enrageTimer				= mod:NewBerserkTimer(585)
 mod:AddRangeFrameOption(10, 24328)
 
 local function IsHardMode(self)
-	if IsInRaid() then
-		for i = 1, GetNumGroupMembers() do
+	if DBM:IsInRaid() then
+		for i = 1, DBM:GetNumGroupMembers() do
 			local UnitID = "raid"..i.."target"
 			local guid = UnitGUID(UnitID)
 			if guid then
@@ -61,8 +59,8 @@ local function IsHardMode(self)
 				end
 			end
 		end
-	elseif IsInGroup() then
-		for i = 1, GetNumSubgroupMembers() do
+	elseif DBM:IsInGroup() then
+		for i = 1, DBM:GetNumSubgroupMembers() do
 			local UnitID = "party"..i.."target"
 			local guid = UnitGUID(UnitID)
 			if guid then

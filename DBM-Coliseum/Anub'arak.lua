@@ -4,11 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff = CancelUnitBuff
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20220908010824")
-mod:SetMinSyncRevision(7007)
+mod:SetRevision("20220909005309")
 mod:SetCreatureID(34564)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 8)
-mod:SetMinSyncRevision(20220908000000)
+mod:SetMinSyncRevision(20220909000000)
 
 mod:RegisterCombat("combat")
 
@@ -112,8 +111,8 @@ local function EmergeFix(self)
 end
 
 function mod:AnnouncePcoldIcons(uId, icon)
-	if self.Options.AnnouncePColdIcons and IsInGroup() and DBM:GetRaidRank() > 1 then
-		SendChatMessage(L.PcoldIconSet:format(icon, DBM:GetUnitFullName(uId)), IsInRaid() and "RAID" or "PARTY")
+	if self.Options.AnnouncePColdIcons and DBM:IsInGroup() and DBM:GetRaidRank() > 1 then
+		SendChatMessage(L.PcoldIconSet:format(icon, DBM:GetUnitFullName(uId)), DBM:IsInRaid() and "RAID" or "PARTY")
 	end
 end
 

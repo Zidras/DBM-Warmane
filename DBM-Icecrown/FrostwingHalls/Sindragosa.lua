@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220906221219")
+mod:SetRevision("20220909005309")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 mod:SetHotfixNoticeRev(20220906000000)
@@ -179,8 +179,8 @@ local function ResetRange(self)
 end
 
 function mod:AnnounceBeaconIcons(uId, icon)
-	if self.Options.AnnounceFrostBeaconIcons and IsInGroup() and DBM:GetRaidRank() > 1 then
-		SendChatMessage(L.BeaconIconSet:format(icon, DBM:GetUnitFullName(uId)), IsInRaid() and "RAID" or "PARTY")
+	if self.Options.AnnounceFrostBeaconIcons and DBM:IsInGroup() and DBM:GetRaidRank() > 1 then
+		SendChatMessage(L.BeaconIconSet:format(icon, DBM:GetUnitFullName(uId)), DBM:IsInRaid() and "RAID" or "PARTY")
 	end
 end
 
@@ -257,8 +257,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerNextBeacon:Start(16, self.vb.beaconP2Count)
 			if self.Options.SetIconOnFrostBeacon then
 				self:SetIcon(args.destName, 8)
-				if self.Options.AnnounceFrostBeaconIcons and IsInGroup() and DBM:GetRaidRank() > 1 then
-					SendChatMessage(L.BeaconIconSet:format(8, args.destName), IsInRaid() and "RAID" or "PARTY")
+				if self.Options.AnnounceFrostBeaconIcons and DBM:IsInGroup() and DBM:GetRaidRank() > 1 then
+					SendChatMessage(L.BeaconIconSet:format(8, args.destName), DBM:IsInRaid() and "RAID" or "PARTY")
 				end
 			end
 			warnBeaconTargets(self)

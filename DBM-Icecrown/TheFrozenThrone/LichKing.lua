@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220905010015")
+mod:SetRevision("20220909005309")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220904000000)
@@ -360,7 +360,7 @@ function mod:SPELL_CAST_START(args)
 			DBM.RangeCheck:Show(8)
 		end
 	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
-		local shamblingCount = tIndexOf(shamblingHorrorsGUIDs, args.sourceGUID)
+		local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.sourceGUID)
 		warnShamblingEnrage:Show(args.sourceName)
 		specWarnEnrage:Show()
 		timerEnrageCD:Stop(shamblingCount, args.sourceGUID) -- Stop/Unschedule required for multi arg timers, instead of Restart/Cancel - Core bug with mismatched args
@@ -535,7 +535,7 @@ do
 	local grabIcon = 1
 	local lastValk = 0
 	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
-	local UnitIsUnit, UnitInVehicle, IsInRaid = UnitIsUnit, UnitInVehicle, IsInRaid
+	local UnitIsUnit, UnitInVehicle, IsInRaid = UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
 	local function numberOfValkyrTargets(tbl)
 		if not tbl then return 0 end
@@ -564,7 +564,7 @@ do
 						specWarnYouAreValkd:Show()
 						specWarnYouAreValkd:Play("targetyou")
 					end
-					if IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
+					if DBM:IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
 						local channel = (IsInRaid() and "RAID") or "PARTY"
 						if self.Options.ValkyrIcon then
 							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName(uId)), channel)
@@ -610,7 +610,7 @@ do
 			end
 		elseif spellId == 70372 then -- Shambling Horror
 			tinsert(shamblingHorrorsGUIDs, args.destGUID) -- Spawn order. Idea was to somehow distinguish shamblings, so let's do this on the assumption that it's visually easy to differentiate them due to HP diff.
-			local shamblingCount = tIndexOf(shamblingHorrorsGUIDs, args.destGUID)
+			local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.destGUID)
 			warnShamblingSoon:Cancel()
 			warnShamblingHorror:Show()
 			warnShamblingSoon:Schedule(55)
@@ -656,7 +656,7 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 37698 then--Shambling Horror
-		local shamblingCount = tIndexOf(shamblingHorrorsGUIDs, args.sourceGUID)
+		local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.sourceGUID)
 		timerEnrageCD:Stop(shamblingCount, args.sourceGUID)
 		timerEnrageCD:Unschedule(nil, shamblingCount, args.sourceGUID)
 	elseif cid == 36701 then -- Raging Spirit
