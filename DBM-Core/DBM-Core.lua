@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220909010309"),
+	Revision = parseCurseDate("20220909160016"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -809,11 +809,16 @@ do
 							break
 						end
 					end
-					-- Remove empty tables
+					-- Remove empty event uId table
 					if #mod.registeredUnitEvents[event] <= 0 then
 						mod.registeredUnitEvents[event] = nil
 					end
-					if #mod.registeredUnitEvents <= 0 then
+					-- Remove empty registered unit events table
+					local count = 0
+					for _ in pairs(mod.registeredUnitEvents) do
+						count = count + 1
+					end
+					if count <= 0 then
 						mod.registeredUnitEvents = nil
 					end
 				end
