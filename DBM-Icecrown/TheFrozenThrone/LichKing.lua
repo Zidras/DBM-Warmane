@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220918185030")
+mod:SetRevision("20220918185730")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220904000000)
@@ -549,7 +549,7 @@ do
 	local function scanValkyrTargets(self)
 		if numberOfValkyrTargets(valkyrTargets) < maxValks and (time() - lastValk) < 10 then	-- scan for like 10secs, but exit earlier if all the valks have spawned and grabbed their players
 			for uId in DBM:GetGroupMembers() do		-- for every raid member check ..
-				DBM:Debug("Valkyr check for "..  UnitName(uId) ..": UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning" .. (UnitInRange(uId) or "nil") .. ". Checking if it is already cached: " .. (valkyrTargets[uId] and "true" or "nil."), 3)
+				DBM:Debug("Valkyr check for "..  UnitName(uId) ..": UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning" .. (UnitInRange(uId) or "nil") .. " with distance: " .. DBM.RangeCheck:GetDistance(uId) .."yd. Checking if it is already cached: " .. (valkyrTargets[uId] and "true" or "nil."), 3)
 				if UnitInVehicle(uId) and not valkyrTargets[uId] then	  -- if person #i is in a vehicle and not already announced
 					valkyrWarning:Show(UnitName(uId))
 					valkyrTargets[uId] = true
