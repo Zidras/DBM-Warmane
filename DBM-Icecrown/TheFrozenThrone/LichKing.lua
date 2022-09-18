@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220918185730")
+mod:SetRevision("20220918194618")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220904000000)
@@ -25,8 +25,6 @@ mod:RegisterEventsInCombat(
 	"SPELL_MISSED 68983 73791 73792 73793",
 	"UNIT_HEALTH target focus",
 	"UNIT_AURA_UNFILTERED",
-	"UNIT_ENTERING_VEHICLE",
-	"UNIT_EXITING_VEHICLE",
 	"UNIT_DIED"
 --	"UNIT_SPELLCAST_SUCCEEDED"
 )
@@ -243,6 +241,10 @@ local function NextPhase(self)
 		soundInfestSoon:Schedule(14-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 		warnDefileSoon:Schedule(33, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(33, "scatter") -- Voice Pack - Scatter.ogg: "Spread!"
+		self:RegisterShortTermEvents(
+			"UNIT_ENTERING_VEHICLE",
+			"UNIT_EXITING_VEHICLE"
+		)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
@@ -372,8 +374,8 @@ function mod:SPELL_CAST_START(args)
 		warnQuake:Show()
 		timerRagingSpiritCD:Cancel()
 		self:SetStage(self.vb.phase + 0.5) -- Return back to whole number
-		NextPhase(self)
 		self:UnregisterShortTermEvents()
+		NextPhase(self) -- keep this after UnregisterShortTermEvents for P2 vehicle events
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
@@ -535,7 +537,7 @@ do
 	local grabIcon = 1
 	local lastValk = 0
 	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
-	local UnitIsUnit, UnitInVehicle, IsInRaid = UnitIsUnit, UnitInVehicle, DBM.IsInRaid
+	local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
 	local function numberOfValkyrTargets(tbl)
 		if not tbl then return 0 end
