@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220725221707")
+mod:SetRevision("20220919235925")
 mod:SetCreatureID(33271)
 mod:SetUsedIcons(7, 8)
 
@@ -74,16 +74,16 @@ function mod:ShadowCrashTarget(targetname, uId)
 	elseif self:CheckNearby(11, targetname) then
 		specWarnShadowCrashNear:Show(targetname)
 		specWarnShadowCrashNear:Play("runaway")
-		if uId and self.Options.CrashArrow then
-			local x, y = GetPlayerMapPosition(uId)
-			if x == 0 and y == 0 then
-				SetMapToCurrentZone()
-				x, y = GetPlayerMapPosition(uId)
-			end
-			DBM.Arrow:ShowRunAway(x, y, 15, 5)
-		end
 	else
 		warnShadowCrash:Show(targetname)
+	end
+	if uId and self.Options.CrashArrow then
+		local x, y = GetPlayerMapPosition(uId)
+		if x == 0 and y == 0 then
+			SetMapToCurrentZone()
+			x, y = GetPlayerMapPosition(uId)
+		end
+		DBM.Arrow:ShowRunAway(x, y, 13, 5) -- 15yd was too conservative. Try 13yd instead (from personal testing, the hitbox was around ~12.5yd)
 	end
 end
 
