@@ -1,21 +1,21 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220919235925")
+mod:SetRevision("20220920005536")
 mod:SetCreatureID(33271)
 mod:SetUsedIcons(7, 8)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
---	"SPELL_CAST_START 62661 62662",
-	"SPELL_INTERRUPT 62661",
-	"SPELL_AURA_APPLIED 62662 63276",
+	"SPELL_CAST_START 62661 62662",
+	"SPELL_CAST_SUCCESS 62660 63276 63364",
+	"SPELL_AURA_APPLIED 62662",
 	"SPELL_AURA_REMOVED 62662",
---	"SPELL_CAST_SUCCESS 62660 63276 63364",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_SPELLCAST_START boss1",
-	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"SPELL_INTERRUPT 62661",
+	"CHAT_MSG_RAID_BOSS_EMOTE"
+--	"UNIT_SPELLCAST_START boss1",
+--	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local warnShadowCrash				= mod:NewTargetAnnounce(62660, 4)
@@ -62,7 +62,7 @@ local function saroniteVaporsSpawned(self)
 	end
 end
 
-function mod:ShadowCrashTarget(targetname, uId)
+--[[function mod:ShadowCrashTarget(targetname, uId)
 	if not targetname then return end
 	if self.Options.SetIconOnShadowCrash then
 		self:SetIcon(targetname, 8, 5)
@@ -85,7 +85,7 @@ function mod:ShadowCrashTarget(targetname, uId)
 		end
 		DBM.Arrow:ShowRunAway(x, y, 13, 5) -- 15yd was too conservative. Try 13yd instead (from personal testing, the hitbox was around ~12.5yd)
 	end
-end
+end]]
 
 function mod:OnCombatStart(delay)
 	self.vb.interruptCount = 0
@@ -100,7 +100,8 @@ function mod:OnCombatStart(delay)
 end
 
 -- Confirmed as of 2022/07/25: CLEU SPELL_CAST_x is randomly failing on Warmane and not firing - https://www.warmane.com/bugtracker/report/112497. Resort to AURA/UNIT_SPELLCAST_x events for now.
---[[function mod:SPELL_CAST_START(args)
+-- EDIT 20/09/2022: after several log reviews and troubleshooting, https://www.warmane.com/bugtracker/report/112497 has been fixed serverside. Reinstating CLEU events.
+function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 62661 then	-- Searing Flames
 		self.vb.interruptCount = self.vb.interruptCount + 1
@@ -118,49 +119,35 @@ end
 		end
 		timerNextSurgeofDarkness:Start()
 	end
-end]]
-
-function mod:SPELL_INTERRUPT(args)
-	if args.spellId == 62661 then
-		timerSearingFlamesCast:Stop()
-	end
 end
 
-function mod:SPELL_AURA_APPLIED(args)
-	local spellId = args.spellId
-	if spellId == 62662 then	-- Surge of Darkness
-		timerSurgeofDarkness:Start()
-	elseif spellId == 63276 then	-- Mark of the Faceless
-		if self.Options.SetIconOnLifeLeach then
-			self:SetIcon(args.destName, 7, 10)
-		end
-		timerMarkoftheFaceless:Start(args.destName)
-		timerMarkoftheFacelessCD:Start()
-		if args:IsPlayer() then
-			specWarnMarkoftheFacelessYou:Show()
-			specWarnMarkoftheFacelessYou:Play("runout")
-			yellMarkoftheFaceless:Yell()
-		elseif self:CheckNearby(11, args.destName) then
-			specWarnMarkoftheFacelessNear:Show(args.destName)
-			specWarnMarkoftheFacelessNear:Play("runaway")
-		else
-			warnLeechLife:Show(args.destName)
-		end
-	end
-end
-
-function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 62662 then
-		timerSurgeofDarkness:Stop()
-	end
-end
-
--- Confirmed as of 2022/07/25: CLEU SPELL_CAST_x is randomly failing on Warmane and not firing - https://www.warmane.com/bugtracker/report/112497. Resort to AURA/UNIT_SPELLCAST_x events for now.
---[[function mod:SPELL_CAST_SUCCESS(args)
+function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 62660 then		-- Shadow Crash
-		self:BossTargetScanner(33271, "ShadowCrashTarget", 0.05, 20)
+--		self:BossTargetScanner(33271, "ShadowCrashTarget", 0.05, 20) -- this method is not needed, since CLEU has destName
 		timerShadowCrashCD:Start()
+		if self.Options.SetIconOnShadowCrash then
+			self:SetIcon(args.destName, 8, 5)
+		end
+		if args:IsPlayer() then
+			specWarnShadowCrash:Show()
+			specWarnShadowCrash:Play("runaway")
+			yellShadowCrash:Yell()
+		elseif self:CheckNearby(11, args.destName) then
+			specWarnShadowCrashNear:Show(args.destName)
+			specWarnShadowCrashNear:Play("runaway")
+		else
+			warnShadowCrash:Show(args.destName)
+		end
+		if self.Options.CrashArrow then
+			local uId = DBM:GetRaidUnitId(args.destName)
+			local x, y = GetPlayerMapPosition(uId)
+			if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition(uId)
+			end
+			DBM.Arrow:ShowRunAway(x, y, 13, 5) -- 15yd was too conservative. Try 13yd instead (from personal testing, the hitbox was around ~12.5yd)
+		end
 	elseif spellId == 63276 then	-- Mark of the Faceless
 		if self.Options.SetIconOnLifeLeach then
 			self:SetIcon(args.destName, 7, 10)
@@ -181,7 +168,42 @@ end
 		specWarnAnimus:Show()
 		specWarnAnimus:Play("bigmob")
 	end
-end]]
+end
+
+function mod:SPELL_AURA_APPLIED(args)
+	local spellId = args.spellId
+	if spellId == 62662 then	-- Surge of Darkness
+		timerSurgeofDarkness:Start()
+--[[elseif spellId == 63276 then	-- Mark of the Faceless
+		if self.Options.SetIconOnLifeLeach then
+			self:SetIcon(args.destName, 7, 10)
+		end
+		timerMarkoftheFaceless:Start(args.destName)
+		timerMarkoftheFacelessCD:Start()
+		if args:IsPlayer() then
+			specWarnMarkoftheFacelessYou:Show()
+			specWarnMarkoftheFacelessYou:Play("runout")
+			yellMarkoftheFaceless:Yell()
+		elseif self:CheckNearby(11, args.destName) then
+			specWarnMarkoftheFacelessNear:Show(args.destName)
+			specWarnMarkoftheFacelessNear:Play("runaway")
+		else
+			warnLeechLife:Show(args.destName)
+		end]]
+	end
+end
+
+function mod:SPELL_AURA_REMOVED(args)
+	if args.spellId == 62662 then
+		timerSurgeofDarkness:Stop()
+	end
+end
+
+function mod:SPELL_INTERRUPT(args)
+	if args.spellId == 62661 then
+		timerSearingFlamesCast:Stop()
+	end
+end
 
 -- Range restriced, not reliable enough to sync CHAT_MSG_RAID_BOSS_EMOTE, so a repeating schedule was implemented instead and emote is only used for timer correction.
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
@@ -190,7 +212,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
 	end
 end
 
-function mod:UNIT_SPELLCAST_START(_, spellName)
+--[[function mod:UNIT_SPELLCAST_START(_, spellName)
 	if spellName == GetSpellInfo(62661) then	-- Searing Flames
 		self.vb.interruptCount = self.vb.interruptCount + 1
 		if self.vb.interruptCount == 4 then
@@ -219,7 +241,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		specWarnAnimus:Show()
 		specWarnAnimus:Play("bigmob")
 	end
-end
+end]]
 
 function mod:OnSync(msg)
 	if msg == "SaroniteVaporsSpawned" and self:AntiSpam(3, 1) then
