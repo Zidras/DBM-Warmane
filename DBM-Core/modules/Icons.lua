@@ -258,6 +258,7 @@ do
 			--Scan already expired
 			return
 		end
+		local unitName = UnitName(unitId)
 		local guid = UnitGUID(unitId)
 		local cid = DBM:GetCIDFromGUID(guid)
 		local isFriend = UnitIsFriend("player", unitId)
@@ -271,14 +272,14 @@ do
 			--Table based scanning, used if applying to multiple creature Ids in a single scan
 			--Can be used in both ascending/descending icon assignment or even specific icons per Id
 			if guid and iconVariables[scanId].scanTable and type(iconVariables[scanId].scanTable) == "table" and iconVariables[scanId].scanTable[cid] and not addsGUIDs[guid] then
-				DBM:Debug("Match found in mobUids, SHOULD be setting table icon on "..unitId, 1)
+				DBM:Debug("Match found in mobUids, SHOULD be setting table icon on "..unitId.." ("..unitName..")", 1)
 				if type(iconVariables[scanId].scanTable[cid]) == "number" then--CID in table is assigned a specific icon number
 					SetRaidTarget(unitId, iconVariables[scanId].scanTable[cid])
-					DBM:Debug("DBM called SetRaidTarget on "..unitId.." with icon value of "..iconVariables[scanId].scanTable[cid], 2)
+					DBM:Debug("DBM called SetRaidTarget on "..unitId.." ("..unitName..") with icon value of "..iconVariables[scanId].scanTable[cid], 2)
 					success = true
 				else--Incremental Icon method (ie the table value for the cid was true not a number)
 					SetRaidTarget(unitId, addsIcon[scanId])
-					DBM:Debug("DBM called SetRaidTarget on "..unitId.." with icon value of "..addsIcon[scanId], 2)
+					DBM:Debug("DBM called SetRaidTarget on "..unitId.." ("..unitName..") with icon value of "..addsIcon[scanId], 2)
 					success = true
 					if iconVariables[scanId].iconSetMethod == 1 then
 						addsIcon[scanId] = addsIcon[scanId] + 1
@@ -287,14 +288,14 @@ do
 					end
 				end
 			elseif guid and (guid == scanId or cid == scanId) and not addsGUIDs[guid] then
-				DBM:Debug("Match found in mobUids, SHOULD be setting icon on "..unitId, 1)
+				DBM:Debug("Match found in mobUids, SHOULD be setting icon on "..unitId.." ("..unitName..")", 1)
 				if iconVariables[scanId].iconSetMethod == 2 then--Fixed Icon
 					SetRaidTarget(unitId, addsIcon[scanId])
-					DBM:Debug("DBM called SetRaidTarget on "..unitId.." with icon value of "..addsIcon[scanId], 2)
+					DBM:Debug("DBM called SetRaidTarget on "..unitId.." ("..unitName..") with icon value of "..addsIcon[scanId], 2)
 					success = true
 				else--Incremental Icon method
 					SetRaidTarget(unitId, addsIcon[scanId])
-					DBM:Debug("DBM called SetRaidTarget on "..unitId.." with icon value of "..addsIcon[scanId], 2)
+					DBM:Debug("DBM called SetRaidTarget on "..unitId.." ("..unitName..") with icon value of "..addsIcon[scanId], 2)
 					success = true
 					if iconVariables[scanId].iconSetMethod == 1 then--Asscending
 						addsIcon[scanId] = addsIcon[scanId] + 1
