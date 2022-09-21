@@ -3,10 +3,10 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 
-mod:SetRevision("20220918201019")
+mod:SetRevision("20220921235955")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
-mod:SetMinSyncRevision(20220904000000)
+mod:SetMinSyncRevision(20220921000000)
 
 mod:RegisterCombat("combat")
 
@@ -25,8 +25,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_MISSED 68983 73791 73792 73793",
 	"UNIT_HEALTH target focus",
 	"UNIT_AURA_UNFILTERED",
-	"UNIT_DIED"
---	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 --TODO, possibly switch to faster less cpu wasting UNIT_TARGET scanning method
@@ -130,7 +130,7 @@ local specWarnValkyrLow				= mod:NewSpecialWarning("SpecWarnValkyrLow", nil, nil
 local timerSoulreaper				= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
 local timerSoulreaperCD				= mod:NewCDCountTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerDefileCD					= mod:NewCDCountTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)
-local timerSummonValkyr				= mod:NewCDCountTimer(45, 69037, nil, nil, nil, 1, 71844, DBM_COMMON_L.DAMAGE_ICON, nil, 2, 3)
+local timerSummonValkyr				= mod:NewCDCountTimer(45.2, 69037, nil, nil, nil, 1, 71844, DBM_COMMON_L.DAMAGE_ICON, true, 2, 3) -- 5s variance [45-50]. Added "keep" arg (25H Lordaeron 2022/09/21_wipe1 || 25H Lordaeron 2022/09/21_wipe2 || 25H Lordaeron 2022/09/21_kill) - 46.5, 47.1, 45.2 || 50.0, 46.8, 46.2 || 47.8, 48.1, 47.8
 
 local soundDefileOnYou				= mod:NewSoundYou(72762)
 local soundSoulReaperSoon			= mod:NewSoundSoon(69409, nil, "Tank|Healer|TargetedCooldown")
@@ -233,7 +233,7 @@ local function NextPhase(self)
 		if self.Options.ShowFrame then
 			self:CreateFrame()
 		end
-		timerSummonValkyr:Start(18.5, self.vb.valkyrWaveCount+1)
+		timerSummonValkyr:Start(17.4, self.vb.valkyrWaveCount+1) -- (25H Lordaeron 2022/09/21_wipe1 || 25H Lordaeron 2022/09/21_wipe2 || 25H Lordaeron 2022/09/21_kill) - 17.5 || 17.5 || 17.4
 		timerSoulreaperCD:Start(40, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(40-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(37.5, self.vb.defileCount+1)
@@ -535,8 +535,8 @@ end
 do
 	local valkyrTargets = {}
 	local grabIcon = 1
-	local lastValk = 0
-	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
+--	local lastValk = 0
+--	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
 	local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
 	local function numberOfValkyrTargets(tbl)
@@ -547,7 +547,7 @@ do
 		end
 		return count
 	end
-
+--[[
 	local function scanValkyrTargets(self)
 		if numberOfValkyrTargets(valkyrTargets) < maxValks and (time() - lastValk) < 10 then	-- scan for like 10secs, but exit earlier if all the valks have spawned and grabbed their players
 			for uId in DBM:GetGroupMembers() do		-- for every raid member check ..
@@ -584,7 +584,7 @@ do
 			self.vb.valkIcon = 1
 		end
 	end
-
+--]]
 	function mod:SPELL_SUMMON(args)
 		local spellId = args.spellId
 		if spellId == 69037 then -- Summon Val'kyr
@@ -595,7 +595,7 @@ do
 				self:ScanForMobs(args.destGUID, 2, self.vb.valkIcon, 1, nil, 12, "ValkyrIcon")
 			end
 			self.vb.valkIcon = self.vb.valkIcon + 1
-			self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
+--[[		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
 			if time() - lastValk > 15 then -- show the warning and timer just once for all three summon events
 				warnSummonValkyr:Show(self.vb.valkyrWaveCount)
 				timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
@@ -609,7 +609,7 @@ do
 				--		self:ScanForMobs(args.destGUID, 1, 2, 1, nil, 20, "ValkyrIcon")
 				--	end
 				--end
-			end
+			end--]]
 		elseif spellId == 70372 then -- Shambling Horror
 			tinsert(shamblingHorrorsGUIDs, args.destGUID) -- Spawn order. Idea was to somehow distinguish shamblings, so let's do this on the assumption that it's visually easy to differentiate them due to HP diff.
 			local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.destGUID)
@@ -619,6 +619,52 @@ do
 			timerShamblingHorror:Start()
 			timerEnrageCD:Start(12.3, shamblingCount, args.destGUID) -- -20s from Shambling Enrage summon. 34.4 || 34.3; 32.3; 33.4
 			timerEnrageCD:Schedule(12.3+21, nil, shamblingCount, args.destGUID) -- apparently on Warmane if you stun on pre-cast, it skips the Enrage. Couldn't repro on test server nor validate it, but doesn't really hurt because SCS has Restart method
+		end
+	end
+
+	function mod:UNIT_ENTERING_VEHICLE(uId)
+		local unitName = UnitName(uId)
+		DBM:Debug("UNIT_ENTERING_VEHICLE Val'kyr check for "..  unitName .. " (" .. uId .. "): UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning " .. (UnitInRange(uId) or "nil") .. " with distance: " .. DBM.RangeCheck:GetDistance(uId) .."yd. Checking if it is already cached: " .. (valkyrTargets[unitName] and "true" or "nil."), 3)
+--		DBM:Debug(unitName .. " (" .. uId .. ") has entered a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
+		if UnitInVehicle(uId) and not valkyrTargets[unitName] then	  -- if person is in a vehicle and not already announced (API is probably unneeded, need more logs to confirm. Cache check is required to prevent this event from multifiring for the same raid member with more than one uId)
+			valkyrWarning:Show(unitName)
+			valkyrTargets[unitName] = true
+			local raidIndex = UnitInRaid(uId)
+			local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(raidIndex + 1)
+			if name == unitName then
+				local grp = subgroup
+				local class = fileName
+				mod:AddEntry(name, grp or 0, class, grabIcon)
+			end
+			if UnitIsUnit(uId, "player") then
+				specWarnYouAreValkd:Show()
+				specWarnYouAreValkd:Play("targetyou")
+			end
+			if DBM:IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
+				local channel = (IsInRaid() and "RAID") or "PARTY"
+				if self.Options.ValkyrIcon then
+					SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, unitName), channel)
+				else
+					SendChatMessage(L.ValkGrabbed:format(unitName), channel)
+				end
+			end
+			grabIcon = grabIcon + 1--Makes assumption discovery order of vehicle grabs will match combat log order, since there is a delay
+		end
+	end
+
+	function mod:UNIT_EXITING_VEHICLE(uId)
+		local unitName = UnitName(uId)
+		DBM:Debug(unitName .. " (" .. uId .. ") has exited a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
+		if self:AntiSpam(5, unitName) then -- on Val'kyr passenger drop, it sometimes fires twice in one second succession
+			valkyrTargets[unitName] = nil
+			mod:RemoveEntry(unitName)
+			self:Schedule(1, function() -- REVIEW! Is it needed or it's just me being overzealous? - Prevent case when a passenger is ejected sooner than the second target gets grabbed (example: Warlocks)
+				if numberOfValkyrTargets(valkyrTargets) <= 0 then -- Check whether all grabbed passengers were dropped
+					table.wipe(valkyrTargets)	   -- no more valkyrs this round, so lets clear the table
+					grabIcon = 1
+					self.vb.valkIcon = 1
+				end
+			end)
 		end
 	end
 end
@@ -685,19 +731,14 @@ function mod:UNIT_AURA_UNFILTERED(uId)
 	end
 end
 
---function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --	if spellName == soulshriek and mod:LatencyCheck() then
 --		self:SendSync("SoulShriek", UnitGUID(uId))
---	end
---end
-
-function mod:UNIT_ENTERING_VEHICLE(uId)
-	DBM:Debug(UnitName(uId) .. " (".. uId .. ") has entered a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
-end
-
-function mod:UNIT_EXITING_VEHICLE(uId)
-	DBM:Debug(UnitName(uId) .. " (".. uId .. ") has exited a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
-	mod:RemoveEntry(UnitName(uId))
+	if spellName == GetSpellInfo(74361) then -- Summon Val'kyr Periodic
+		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
+		warnSummonValkyr:Show(self.vb.valkyrWaveCount)
+		timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
+	end
 end
 
 function mod:UPDATE_MOUSEOVER_UNIT()
