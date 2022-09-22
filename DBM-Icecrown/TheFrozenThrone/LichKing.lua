@@ -2,8 +2,9 @@ local mod	= DBM:NewMod("LichKing", "DBM-Icecrown", 5)
 local L		= mod:GetLocalizedStrings()
 
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
+local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20220921235955")
+mod:SetRevision("20220922184439")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -112,7 +113,7 @@ mod:AddBoolOption("AnnouncePlagueStack", false, nil, nil, nil, nil, 70337)
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
 local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
-local valkyrWarning					= mod:NewAnnounce("ValkyrWarning", 3, 71844, nil, nil, nil, 69037)--Phase 2 Ability
+local valkyrGrabWarning				= mod:NewAnnounce("ValkyrWarning", 3, 71844, nil, nil, nil, 69037)--Phase 2 Ability
 local warnDefileSoon				= mod:NewSoonCountAnnounce(72762, 3)	--Phase 2+ Ability
 local warnSoulreaper				= mod:NewTargetCountAnnounce(69409, 4) --Phase 2+ Ability
 local warnDefileCast				= mod:NewTargetCountDistanceAnnounce(72762, 4, nil, nil, nil, nil, nil, nil, true) --Phase 2+ Ability
@@ -192,12 +193,63 @@ mod.vb.valkIcon = 1
 local shamblingHorrorsGUIDs = {}
 local iceSpheresGUIDs = {}
 local warnedValkyrGUIDs = {}
+local valkyrTargets = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 -- local soulshriek = GetSpellInfo(69242)
 local plagueExpires = {}
+local grabIcon = 1
+--	local lastValk = 0
+--	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
 local warnedAchievement = false
 local lastPlague
 
+--[[
+local function numberOfValkyrTargets(tbl)
+	if not tbl then return 0 end
+	local count = 0
+	for _ in pairs(tbl) do
+		count = count + 1
+	end
+	return count
+end
+
+local function scanValkyrTargets(self)
+	if numberOfValkyrTargets(valkyrTargets) < maxValks and (time() - lastValk) < 10 then	-- scan for like 10secs, but exit earlier if all the valks have spawned and grabbed their players
+		for uId in DBM:GetGroupMembers() do		-- for every raid member check ..
+			DBM:Debug("Valkyr check for "..  UnitName(uId) ..": UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning " .. (UnitInRange(uId) or "nil") .. " with distance: " .. DBM.RangeCheck:GetDistance(uId) .."yd. Checking if it is already cached: " .. (valkyrTargets[uId] and "true" or "nil."), 3)
+			if UnitInVehicle(uId) and not valkyrTargets[uId] then	  -- if person #i is in a vehicle and not already announced
+				valkyrGrabWarning:Show(UnitName(uId))
+				valkyrTargets[uId] = true
+				local raidIndex = UnitInRaid(uId)
+				local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(raidIndex + 1)
+				if name == UnitName(uId) then
+					local grp = subgroup
+					local class = fileName
+					mod:AddEntry(name, grp or 0, class, grabIcon)
+				end
+				if UnitIsUnit(uId, "player") then
+					specWarnYouAreValkd:Show()
+					specWarnYouAreValkd:Play("targetyou")
+				end
+				if DBM:IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
+					local channel = (IsInRaid() and "RAID") or "PARTY"
+					if self.Options.ValkyrIcon then
+						SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName(uId)), channel)
+					else
+						SendChatMessage(L.ValkGrabbed:format(UnitName(uId)), channel)
+					end
+				end
+				grabIcon = grabIcon + 1--Makes assumption discovery order of vehicle grabs will match combat log order, since there is a delay
+			end
+		end
+		self:Schedule(0.5, scanValkyrTargets, self)  -- check for more targets in a few
+	else
+		table.wipe(valkyrTargets)	   -- no more valkyrs this round, so lets clear the table
+		grabIcon = 1
+		self.vb.valkIcon = 1
+	end
+end
+--]]
 
 local function RemoveImmunes(self)
 	if self.Options.RemoveImmunes then -- cancelaura bop bubble iceblock Dintervention
@@ -532,140 +584,40 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	end
 end
 
-do
-	local valkyrTargets = {}
-	local grabIcon = 1
---	local lastValk = 0
---	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
-	local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
-
-	local function numberOfValkyrTargets(tbl)
-		if not tbl then return 0 end
-		local count = 0
-		for _ in pairs(tbl) do
-			count = count + 1
+function mod:SPELL_SUMMON(args)
+	local spellId = args.spellId
+	if spellId == 69037 then -- Summon Val'kyr
+		if self.Options.ShowFrame then
+			self:CreateFrame()
 		end
-		return count
-	end
---[[
-	local function scanValkyrTargets(self)
-		if numberOfValkyrTargets(valkyrTargets) < maxValks and (time() - lastValk) < 10 then	-- scan for like 10secs, but exit earlier if all the valks have spawned and grabbed their players
-			for uId in DBM:GetGroupMembers() do		-- for every raid member check ..
-				DBM:Debug("Valkyr check for "..  UnitName(uId) ..": UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning " .. (UnitInRange(uId) or "nil") .. " with distance: " .. DBM.RangeCheck:GetDistance(uId) .."yd. Checking if it is already cached: " .. (valkyrTargets[uId] and "true" or "nil."), 3)
-				if UnitInVehicle(uId) and not valkyrTargets[uId] then	  -- if person #i is in a vehicle and not already announced
-					valkyrWarning:Show(UnitName(uId))
-					valkyrTargets[uId] = true
-					local raidIndex = UnitInRaid(uId)
-					local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(raidIndex + 1)
-					if name == UnitName(uId) then
-						local grp = subgroup
-						local class = fileName
-						mod:AddEntry(name, grp or 0, class, grabIcon)
-					end
-					if UnitIsUnit(uId, "player") then
-						specWarnYouAreValkd:Show()
-						specWarnYouAreValkd:Play("targetyou")
-					end
-					if DBM:IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
-						local channel = (IsInRaid() and "RAID") or "PARTY"
-						if self.Options.ValkyrIcon then
-							SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, UnitName(uId)), channel)
-						else
-							SendChatMessage(L.ValkGrabbed:format(UnitName(uId)), channel)
-						end
-					end
-					grabIcon = grabIcon + 1--Makes assumption discovery order of vehicle grabs will match combat log order, since there is a delay
-				end
-			end
-			self:Schedule(0.5, scanValkyrTargets, self)  -- check for more targets in a few
-		else
-			table.wipe(valkyrTargets)	   -- no more valkyrs this round, so lets clear the table
-			grabIcon = 1
-			self.vb.valkIcon = 1
+		if self.Options.ValkyrIcon then
+			self:ScanForMobs(args.destGUID, 2, self.vb.valkIcon, 1, nil, 12, "ValkyrIcon")
 		end
-	end
---]]
-	function mod:SPELL_SUMMON(args)
-		local spellId = args.spellId
-		if spellId == 69037 then -- Summon Val'kyr
-			if self.Options.ShowFrame then
-				self:CreateFrame()
-			end
-			if self.Options.ValkyrIcon then
-				self:ScanForMobs(args.destGUID, 2, self.vb.valkIcon, 1, nil, 12, "ValkyrIcon")
-			end
-			self.vb.valkIcon = self.vb.valkIcon + 1
+		self.vb.valkIcon = self.vb.valkIcon + 1
 --[[		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
-			if time() - lastValk > 15 then -- show the warning and timer just once for all three summon events
-				warnSummonValkyr:Show(self.vb.valkyrWaveCount)
-				timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
-				lastValk = time()
-				scanValkyrTargets(self)
-				--if self.Options.ValkyrIcon then
-				--	local cid = self:GetCIDFromGUID(args.destGUID)
-				--	if self:IsDifficulty("normal25", "heroic25") then
-				--		self:ScanForMobs(args.destGUID, 1, 2, 3, nil, 20, "ValkyrIcon")--mod, scanId, iconSetMethod, mobIcon, maxIcon,
-				--	else
-				--		self:ScanForMobs(args.destGUID, 1, 2, 1, nil, 20, "ValkyrIcon")
-				--	end
-				--end
-			end--]]
-		elseif spellId == 70372 then -- Shambling Horror
-			tinsert(shamblingHorrorsGUIDs, args.destGUID) -- Spawn order. Idea was to somehow distinguish shamblings, so let's do this on the assumption that it's visually easy to differentiate them due to HP diff.
-			local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.destGUID)
-			warnShamblingSoon:Cancel()
-			warnShamblingHorror:Show()
-			warnShamblingSoon:Schedule(55)
-			timerShamblingHorror:Start()
-			timerEnrageCD:Start(12.3, shamblingCount, args.destGUID) -- -20s from Shambling Enrage summon. 34.4 || 34.3; 32.3; 33.4
-			timerEnrageCD:Schedule(12.3+21, nil, shamblingCount, args.destGUID) -- apparently on Warmane if you stun on pre-cast, it skips the Enrage. Couldn't repro on test server nor validate it, but doesn't really hurt because SCS has Restart method
-		end
-	end
-
-	function mod:UNIT_ENTERING_VEHICLE(uId)
-		local unitName = UnitName(uId)
-		DBM:Debug("UNIT_ENTERING_VEHICLE Val'kyr check for "..  unitName .. " (" .. uId .. "): UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning " .. (UnitInRange(uId) or "nil") .. " with distance: " .. DBM.RangeCheck:GetDistance(uId) .."yd. Checking if it is already cached: " .. (valkyrTargets[unitName] and "true" or "nil."), 3)
---		DBM:Debug(unitName .. " (" .. uId .. ") has entered a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
-		if UnitInVehicle(uId) and not valkyrTargets[unitName] then	  -- if person is in a vehicle and not already announced (API is probably unneeded, need more logs to confirm. Cache check is required to prevent this event from multifiring for the same raid member with more than one uId)
-			valkyrWarning:Show(unitName)
-			valkyrTargets[unitName] = true
-			local raidIndex = UnitInRaid(uId)
-			local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(raidIndex + 1)
-			if name == unitName then
-				local grp = subgroup
-				local class = fileName
-				mod:AddEntry(name, grp or 0, class, grabIcon)
-			end
-			if UnitIsUnit(uId, "player") then
-				specWarnYouAreValkd:Show()
-				specWarnYouAreValkd:Play("targetyou")
-			end
-			if DBM:IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
-				local channel = (IsInRaid() and "RAID") or "PARTY"
-				if self.Options.ValkyrIcon then
-					SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, unitName), channel)
-				else
-					SendChatMessage(L.ValkGrabbed:format(unitName), channel)
-				end
-			end
-			grabIcon = grabIcon + 1--Makes assumption discovery order of vehicle grabs will match combat log order, since there is a delay
-		end
-	end
-
-	function mod:UNIT_EXITING_VEHICLE(uId)
-		local unitName = UnitName(uId)
-		DBM:Debug(unitName .. " (" .. uId .. ") has exited a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
-		if self:AntiSpam(5, unitName) then -- on Val'kyr passenger drop, it sometimes fires twice in one second succession
-			valkyrTargets[unitName] = nil
-			mod:RemoveEntry(unitName)
-			self:Schedule(1, function() -- REVIEW! Is it needed or it's just me being overzealous? - Prevent case when a passenger is ejected sooner than the second target gets grabbed (example: Warlocks)
-				if numberOfValkyrTargets(valkyrTargets) <= 0 then -- Check whether all grabbed passengers were dropped
-					table.wipe(valkyrTargets)	   -- no more valkyrs this round, so lets clear the table
-					grabIcon = 1
-					self.vb.valkIcon = 1
-				end
-			end)
-		end
+		if time() - lastValk > 15 then -- show the warning and timer just once for all three summon events
+			warnSummonValkyr:Show(self.vb.valkyrWaveCount)
+			timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
+			lastValk = time()
+			scanValkyrTargets(self)
+			--if self.Options.ValkyrIcon then
+			--	local cid = self:GetCIDFromGUID(args.destGUID)
+			--	if self:IsDifficulty("normal25", "heroic25") then
+			--		self:ScanForMobs(args.destGUID, 1, 2, 3, nil, 20, "ValkyrIcon")--mod, scanId, iconSetMethod, mobIcon, maxIcon,
+			--	else
+			--		self:ScanForMobs(args.destGUID, 1, 2, 1, nil, 20, "ValkyrIcon")
+			--	end
+			--end
+		end--]]
+	elseif spellId == 70372 then -- Shambling Horror
+		tinsert(shamblingHorrorsGUIDs, args.destGUID) -- Spawn order. Idea was to somehow distinguish shamblings, so let's do this on the assumption that it's visually easy to differentiate them due to HP diff.
+		local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.destGUID)
+		warnShamblingSoon:Cancel()
+		warnShamblingHorror:Show()
+		warnShamblingSoon:Schedule(55)
+		timerShamblingHorror:Start()
+		timerEnrageCD:Start(12.3, shamblingCount, args.destGUID) -- -20s from Shambling Enrage summon. 34.4 || 34.3; 32.3; 33.4
+		timerEnrageCD:Schedule(12.3+21, nil, shamblingCount, args.destGUID) -- apparently on Warmane if you stun on pre-cast, it skips the Enrage. Couldn't repro on test server nor validate it, but doesn't really hurt because SCS has Restart method
 	end
 end
 
@@ -731,10 +683,52 @@ function mod:UNIT_AURA_UNFILTERED(uId)
 	end
 end
 
+function mod:UNIT_ENTERING_VEHICLE(uId)
+	local unitName = UnitName(uId)
+	DBM:Debug("UNIT_ENTERING_VEHICLE Val'kyr check for "..  unitName .. " (" .. uId .. "): UnitInVehicle is returning " .. (UnitInVehicle(uId) or "nil") .. " and UnitInRange is returning " .. (UnitInRange(uId) or "nil") .. " with distance: " .. DBM.RangeCheck:GetDistance(uId) .."yd. Checking if it is already cached: " .. (valkyrTargets[unitName] and "true" or "nil."), 3)
+--		DBM:Debug(unitName .. " (" .. uId .. ") has entered a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
+	if UnitInVehicle(uId) and not valkyrTargets[unitName] then	  -- if person is in a vehicle and not already announced (API is probably unneeded, need more logs to confirm. Cache check is required to prevent this event from multifiring for the same raid member with more than one uId)
+		valkyrGrabWarning:Show(unitName)
+		valkyrTargets[unitName] = true
+		local raidIndex = UnitInRaid(uId)
+		local name, _, subgroup, _, _, fileName = GetRaidRosterInfo(raidIndex + 1)
+		if name == unitName then
+			local grp = subgroup
+			local class = fileName
+			self:AddEntry(name, grp or 0, class, grabIcon)
+		end
+		if UnitIsUnit(uId, "player") then
+			specWarnYouAreValkd:Show()
+			specWarnYouAreValkd:Play("targetyou")
+		end
+		if DBM:IsInGroup() and self.Options.AnnounceValkGrabs and DBM:GetRaidRank() > 1 then
+			local channel = (IsInRaid() and "RAID") or "PARTY"
+			if self.Options.ValkyrIcon then
+				SendChatMessage(L.ValkGrabbedIcon:format(grabIcon, unitName), channel)
+			else
+				SendChatMessage(L.ValkGrabbed:format(unitName), channel)
+			end
+		end
+		grabIcon = grabIcon + 1--Makes assumption discovery order of vehicle grabs will match combat log order, since there is a delay
+	end
+end
+
+function mod:UNIT_EXITING_VEHICLE(uId)
+	local unitName = UnitName(uId)
+	DBM:Debug(unitName .. " (" .. uId .. ") has exited a vehicle. Confirming API: " .. (UnitInVehicle(uId) or "nil"))
+	if valkyrTargets[unitName] then -- on Val'kyr passenger drop, it sometimes fires twice in one second succession, so check cache (AntiSpam was a bit too much for this)
+		valkyrTargets[unitName] = nil
+		self:RemoveEntry(unitName)
+	end
+end
+
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --	if spellName == soulshriek and mod:LatencyCheck() then
 --		self:SendSync("SoulShriek", UnitGUID(uId))
 	if spellName == GetSpellInfo(74361) then -- Summon Val'kyr Periodic
+		table.wipe(valkyrTargets)	-- reset valkyr cache for next round
+		grabIcon = 1
+		self.vb.valkIcon = 1
 		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
 		warnSummonValkyr:Show(self.vb.valkyrWaveCount)
 		timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
