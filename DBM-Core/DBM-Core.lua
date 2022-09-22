@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220918171357"),
+	Revision = parseCurseDate("20220922191851"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5698,6 +5698,10 @@ do
 			currentSpecID, currentSpecName = fallbackClassToRole[playerClass], playerClass
 		end
 	end
+
+	function DBM:GetUnitRole(uId, class)
+		return GetSpecializationRole(uId, class)
+	end
 end
 
 function DBM:GetCurrentInstanceDifficulty()
@@ -7285,8 +7289,12 @@ end
 function bossModPrototype:IsDps(uId)
 	if uId then--External unit call.
 		--no SpecID checks because SpecID is only availalbe with DBM/Bigwigs, but both DBM/Bigwigs auto set DAMAGER/HEALER/TANK roles anyways so it'd be redundant
-		local _, _, isDamager = UnitGroupRolesAssigned(uId)
-		return isDamager or not GetPartyAssignment("MAINTANK", uId, 1)
+		if IsPartyLFG() then -- On WotLK, Role API only works on LFG
+			local _, _, isDamager = UnitGroupRolesAssigned(uId)
+			return isDamager -- or not GetPartyAssignment("MAINTANK", uId, 1) -- Using this GetPartyAssignment API here makes no sense, since it being a non MAINTANK could be a healer...
+		else
+			return DBM:GetUnitRole(uId) == "DAMAGER"
+		end
 	end
 	if not currentSpecID then
 		DBM:SetCurrentSpecInfo()
@@ -7297,8 +7305,12 @@ end
 function bossModPrototype:IsHealer(uId)
 	if uId then--External unit call.
 		--no SpecID checks because SpecID is only availalbe with DBM/Bigwigs, but both DBM/Bigwigs auto set DAMAGER/HEALER/TANK roles anyways so it'd be redundant
-		local _, isHealer = UnitGroupRolesAssigned(uId)
-		return isHealer
+		if IsPartyLFG() then -- On WotLK, Role API only works on LFG
+			local _, isHealer = UnitGroupRolesAssigned(uId)
+			return isHealer
+		else
+			return DBM:GetUnitRole(uId) == "HEALER"
+		end
 	end
 	if not currentSpecID then
 		DBM:SetCurrentSpecInfo()
@@ -7379,9 +7391,13 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID,
 			return true
 		end
 		--no SpecID checks because SpecID is only availalbe with DBM/Bigwigs, but both DBM/Bigwigs auto set DAMAGER/HEALER/TANK roles anyways so it'd be redundant
-		local isTank = UnitGroupRolesAssigned(unit)
-		if isTank then
-			return true
+		if IsPartyLFG() then -- On WotLK, Role API only works on LFG
+			local isTank = UnitGroupRolesAssigned(unit)
+			if isTank then
+				return true
+			end
+		else
+			return DBM:GetUnitRole(unit) == "TANK"
 		end
 	end
 	return false
