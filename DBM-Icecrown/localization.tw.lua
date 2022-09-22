@@ -293,7 +293,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	ValkyrWarning			= ">%s< 給抓住了!",
+	ValkyrWarning			= "%s >%s< %s 給抓住了!",
 	SpecWarnYouAreValkd		= "你給抓住了",
 	WarnNecroticPlagueJump	= "亡域瘟疫跳到>%s<身上",
 	SpecWarnValkyrLow		= "華爾琪血量低於55%"

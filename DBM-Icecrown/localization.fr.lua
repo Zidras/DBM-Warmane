@@ -295,7 +295,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	ValkyrWarning			= ">%s< est saisi !",
+	ValkyrWarning			= "%s >%s< %s est saisi !",
 	SpecWarnYouAreValkd		= "Vous avez été saisi",
 	WarnNecroticPlagueJump	= "La Peste nécrotique a sauter sur >%s<",
 	SpecWarnValkyrLow		= "Valkyr sous les 55%"

@@ -296,7 +296,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	ValkyrWarning			= "|3-3(>%s<) схватили!",
+	ValkyrWarning			= "%s |3-3(>%s<) %s схватили!",
 	SpecWarnYouAreValkd		= "Вас схватили",
 	WarnNecroticPlagueJump	= "Мертвящая чума перепрыгнула на |3-3(>%s<)",
 	SpecWarnValkyrLow		= "У Валь'киры меньше 55%"

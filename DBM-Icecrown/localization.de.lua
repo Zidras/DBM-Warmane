@@ -294,7 +294,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	ValkyrWarning			= ">%s< wurde gegriffen!",
+	ValkyrWarning			= "%s >%s< %s wurde gegriffen!",
 	SpecWarnYouAreValkd		= "Du wurdest gegriffen",
 	WarnNecroticPlagueJump	= "Nekrotische Seuche auf >%s< gesprungen",
 	SpecWarnValkyrLow		= "Schattenwächterin unter 55%%"

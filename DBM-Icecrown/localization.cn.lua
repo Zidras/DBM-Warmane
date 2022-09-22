@@ -291,7 +291,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	ValkyrWarning = ">%s< 被抓住了!",
+	ValkyrWarning = "%s >%s< %s 被抓住了!",
 	SpecWarnYouAreValkd = "你被抓住了",
 	WarnNecroticPlagueJump = "亡域瘟疫跳到>%s<身上",
 	SpecWarnValkyrLow = "瓦基里安血量低于55%"

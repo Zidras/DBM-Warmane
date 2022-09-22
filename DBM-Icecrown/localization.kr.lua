@@ -298,7 +298,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	ValkyrWarning				= "발키리 납치 : >%s<",
+	ValkyrWarning				= "발키리 납치 : %s >%s< %s",
 	SpecWarnYouAreValkd			= "발키리가 납치 중!",
 	WarnNecroticPlagueJump		= "괴저 역병 전이 : >%s<",
 	SpecWarnValkyrLow			= "발키리 HP 55% 이하!!"

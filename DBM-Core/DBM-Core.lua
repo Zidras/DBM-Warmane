@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220922191851"),
+	Revision = parseCurseDate("20220922222418"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5563,6 +5563,7 @@ end
 do
 	-- From Kader's Compat lib
 	local LGTRoleTable = {melee = "DAMAGER", caster = "DAMAGER", healer = "HEALER", tank = "TANK"}
+	local roleIconTable = {["DAMAGER"] = CL.DAMAGE_ICON, ["HEALER"] = CL.HEALER_ICON, ["TANK"] = CL.TANK_ICON, ["NONE"] = "|TInterface\\Icons\\INV_Misc_QuestionMark:16:16:0:0:64:64:5:59:5:59|t"}
 	local specsTable = {
 		["MAGE"] = {62, 63, 64},
 		["PRIEST"] = {256, 257, 258},
@@ -5701,6 +5702,11 @@ do
 
 	function DBM:GetUnitRole(uId, class)
 		return GetSpecializationRole(uId, class)
+	end
+
+	function DBM:GetUnitRoleIcon(uId, class)
+		local role = GetSpecializationRole(uId, class)
+		return roleIconTable[role]
 	end
 end
 
