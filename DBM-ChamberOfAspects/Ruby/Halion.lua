@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220709195438")
+mod:SetRevision("20220923224759")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
-mod:SetMinSyncRevision(4358)
+mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
 
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.Kill)
@@ -76,6 +76,8 @@ local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 local playerInShadowRealm = false
+local fieryCombustionCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
+local soulConsumptionCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
 local previousCorporeality = 0
 
 function mod:OnCombatStart(delay)--These may still need retuning too, log i had didn't have pull time though.
@@ -83,6 +85,8 @@ function mod:OnCombatStart(delay)--These may still need retuning too, log i had 
 	self.vb.warned_preP3 = false
 	self:SetStage(1)
 	playerInShadowRealm = false
+	fieryCombustionCLEU = false
+	soulConsumptionCLEU = false
 	previousCorporeality = 0
 	berserkTimer:Start(-delay)
 	timerMeteorCD:Start(20-delay)
@@ -114,6 +118,7 @@ function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff time
 		else
 			timerShadowConsumptionCD:Start()
 		end
+		soulConsumptionCLEU = true
 		if self:LatencyCheck() then
 			self:SendSync("ShadowCD")
 		end
@@ -123,7 +128,8 @@ function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff time
 		else
 			timerFieryConsumptionCD:Start()
 		end
-		if self:LatencyCheck() then
+		fieryCombustionCLEU = true
+		if self.vb.phase > 1 and self:LatencyCheck() then -- useless on phase 1 since everyone is in the same realm
 			self:SendSync("FieryCD")
 		end
 	end
@@ -295,15 +301,17 @@ function mod:OnSync(msg, target)
 			warningFieryCombustion:Show(target)
 		end
 	elseif msg == "ShadowCD" then
-		if self.Options.AnnounceAlternatePhase then
+		if self.Options.AnnounceAlternatePhase and not soulConsumptionCLEU then
+			soulConsumptionCLEU = false -- reset state for next CLEU/sync check
 			if self:IsHeroic() then
 				timerShadowConsumptionCD:Start(20)
 			else
 				timerShadowConsumptionCD:Start()
 			end
 		end
-	elseif msg == "FieryCD" then
-		if self.Options.AnnounceAlternatePhase then
+	elseif msg == "FieryCD" and self.vb.phase > 1 then -- block old comms that run this for the entirety of the raid, which is useless on phase 1 since everyone is in the same realm
+		if self.Options.AnnounceAlternatePhase and not fieryCombustionCLEU then
+			fieryCombustionCLEU = false -- reset state for next CLEU/sync check
 			if self:IsHeroic() then
 				timerFieryConsumptionCD:Start(20)
 			else
