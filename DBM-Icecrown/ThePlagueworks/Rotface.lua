@@ -36,7 +36,7 @@ local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
 local timerSlimeSpray			= mod:NewNextTimer(20, 69508, nil, nil, nil, 3) -- Log reviewed (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25) - 20.1, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0 || 20.0, 20.1, 20.0, 20.0
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 5)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON, nil, 3)
-local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3) -- REVIEW! 5s variance [30-35]? (25H Lordaeron 2022/07/09) "Vile Gas-72273-npc:36678 = pull:28.9[+2], 1.4, 0.9, 28.5[+1], 0.8, 0.7, 31.7, 2.2[+1], 35.6, 0.1[+3], 38.9, 1.0, 0.8[+1], 30.4, 2.0, 0.9, 30.2, 0.4, 0.1, 33.4, 0.3[+1], 1.5[+1], 38.2"
+local timerVileGasCD			= mod:NewCDTimer(29.6, 72272, nil, nil, nil, 3) -- REVIEW! ~5s variance [29.6-35]? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/09/23) "Vile Gas-72273-npc:36678 = pull:28.9[+2], 1.4, 0.9, 28.5[+1], 0.8, 0.7, 31.7, 2.2[+1], 35.6, 0.1[+3], 38.9, 1.0, 0.8[+1], 30.4, 2.0, 0.9, 30.2, 0.4, 0.1, 33.4, 0.3[+1], 1.5[+1], 38.2" || "Vile Gas-72273-npc:36678-1684 = pull:29.1, 1.5[+1], 0.2, 29.9[+2], 1.9, 30.9[+2], 1.4, 33.9[+1], 2.0, 0.7, 29.8[+1], 0.8[+1], 29.6, 1.1[+2], 0.1, 28.4, 0.6, 1.6, 28.8[+1], 0.1, 2.0"
 
 
 mod:AddRangeFrameOption(10, 72272, "Ranged")
@@ -57,7 +57,7 @@ end ]]
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(9-delay) -- Adjust from 25 to 9 to have a correct timer from the start
 	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray. Log reviewed (25H Lordaeron 2022/07/09) - 20.0
-	timerVileGasCD:Start(28.9-delay) -- Edited. REVIEW! variance? (25H Lordaeron 2022/07/09) - 28.9
+	timerVileGasCD:Start(28.9-delay) -- Edited. REVIEW! variance? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/09/23) - 28.9 || 29.1
 --	self:Schedule(25-delay, WallSlime, self)
 	self.vb.InfectionIcon = 1
 	spamOoze = 0
