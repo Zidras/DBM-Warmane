@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925112618")
+mod:SetRevision("20220925123508")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -50,9 +50,9 @@ local specWarnAnger3		= mod:NewSpecialWarningStack(66636, "Tank|Healer", 3, nil,
 local specWarnGTFO			= mod:NewSpecialWarningGTFO(66317, nil, nil, nil, 1, 2)
 local specWarnSilence		= mod:NewSpecialWarningSpell(66330, "SpellCaster", nil, nil, 1, 2)
 
-local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON, nil, mod:IsSpellCaster() and 3 or nil, 3) -- (25H Lordaeron 2022/09/03) -- 20.0, 20.0, 20.0
+local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON, nil, mod:IsSpellCaster() and 3 or nil, 3) -- (25H Lordaeron 2022/09/03) - 20.0, 20.0, 20.0
 local timerImpaleCD			= mod:NewCDTimer(8, 66331, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- 2s variance [8.0-9.9]. Added "keep" arg (10H 2021/10/22 || 10N 2021/10/22 || 25H Lordaeron 2022/09/03) - 8.3, 8.6, 9.4, 8.0, 9.6, 9.4, 9.0, 9.1, 8.7, 9.4, 9.9, 8.2, 8.6 || 8.6, 8.1, 9.5, 9.6, 9.8, 8.7, 8.8, 9.6 || 9.2, 9.5, 9.7, 9.3, 9.5, 8.3, 8.5
-local timerRisingAnger		= mod:NewNextTimer(20.5, 66636, nil, nil, nil, 1) -- REVIEW! need log with dose to check ms variance (25H Lordaeron 2022/09/03) -- 20, 25
+local timerRisingAnger		= mod:NewCDTimer(20.5, 66636, nil, nil, nil, 1, nil, nil, true) -- REVIEW! Normal Dose > 3 is all over the place! Heroic variance? Added "keep" arg (25H Lordaeron 2022/09/03 || 25N Lordaeron 2022/09/23 || 25H Lordaeron 2022/09/24) - 20, 25 || 28.9, 22.6, 2.4, 13.1, 6.8, 7.4, 4.1, 0.6, 1.7, 3.8 || 24.7
 
 -- Stage Two: Acidmaw & Dreadscale
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..dreadscale.." & "..acidmaw)
@@ -142,9 +142,9 @@ function mod:OnCombatStart(delay)
 	specWarnSilence:ScheduleVoice(14-delay, "silencesoon")
 	if self:IsHeroic() then
 		timerNextBoss:Start(-delay)
-		timerRisingAnger:Start(18-delay) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - 18.9
+		timerRisingAnger:Start(18-delay) -- REVIEW! ~10s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 18.9 || 29.7
 	else
-		timerRisingAnger:Start(27-delay)
+		timerRisingAnger:Start(26-delay) -- REVIEW! variance? (25N Lordaeron 2022/09/23) - 26.1
 	end
 	timerNextStomp:Start(15-delay) -- (25H Lordaeron 2022/09/03) - 15.0
 	timerImpaleCD:Start() -- REVIEW! same 2s variance? (10H 2021/10/22 || 10N 2021/10/22 || 25H Lordaeron 2022/09/03) - 8 || 8 || 9.9
@@ -289,7 +289,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 		local amount = args.amount or 1
 		WarningSnobold:Show(args.destName)
 		if amount <= 3 then
-			timerRisingAnger:Start()
+			timerRisingAnger:Start() -- (25N Lordaeron 2022/09/23) - 26.1, 28.9, 22.6
 		elseif amount >= 3 then
 			specWarnAnger3:Show(amount)
 			specWarnAnger3:Play("stackhigh")
@@ -478,7 +478,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 		local unitName = UnitName(uId) or UNKNOWN
 		DBM:Debug("Submerge casted by " .. unitName.. ": " .. tostring(npcId), 2)
 		if npcId == 35144 then -- Acidmaw
-			acidmawSubmerged = true -- this workaround is necessary since I had one log (25H Lordaeron 2022/09/23) that Emerged fired 1.0s after IEEU, so enforce submerge/emerge conditional logic
+			acidmawSubmerged = true -- this workaround is necessary since I had one log (25H Lordaeron 2022/09/24) that Emerged fired 1.0s after IEEU, so enforce submerge/emerge conditional logic
 			timerAcidicSpewCD:Stop()
 			timerParalyticBiteCD:Stop()
 			timerParalyticSprayCD:Stop()
