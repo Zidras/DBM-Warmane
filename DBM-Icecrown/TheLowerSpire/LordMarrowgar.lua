@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LordMarrowgar", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220918161536")
+mod:SetRevision("20220923125420")
 mod:SetCreatureID(36612)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -43,7 +43,7 @@ mod.vb.impaleIcon = 8
 
 function mod:OnCombatStart(delay)
 	preWarnWhirlwind:Schedule(40-delay)
-	timerWhirlwindCD:Start(45-delay) -- REVIEW! variance? (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/08 || 25H Lordaeron 2022/09/14) - pull:52.2 || pull:48.3 || pull:45.2
+	timerWhirlwindCD:Start(45-delay) -- REVIEW! H ~3s / N variance? (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/08 || 25H Lordaeron 2022/09/14 || 25H Lordaeron 2022/09/23) - pull:52.2 || pull:48.3 || pull:45.2 || pull:46.9
 	timerBoneSpike:Start(15-delay) -- Fixed timer - 15.0
 	berserkTimer:Start(-delay)
 end
@@ -72,7 +72,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif spellId == 69076 then
 		timerWhirlwind:Cancel()
-		timerWhirlwindCD:Start() -- REVIEW! On Jul 3, 2021 I changed this to only trigger on Bone Storm finish, although looking at TC script this might be sllightly innacurate since it reschedules on EVENT_WARN_BONE_STORM... Keep a close eye on this with more log data and also VOD review (25H Lordaeron 2022/09/14) - [-36s cf] 33.4, 32.7
+		timerWhirlwindCD:Start() -- REVIEW! On Jul 3, 2021 I changed this to only trigger on Bone Storm finish, although looking at TC script this might be slightly innacurate since it reschedules on EVENT_WARN_BONE_STORM... Keep a close eye on this with more log data and also VOD review (25H Lordaeron 2022/09/14) - [-36s cf] 33.4, 32.7 || [no cf] 69.1, 69.0
 		preWarnWhirlwind:Schedule(25)
 		if self:IsNormal() then
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
