@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925123508")
+mod:SetRevision("20220925123610")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -291,6 +291,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 		if amount <= 3 then
 			timerRisingAnger:Start() -- (25N Lordaeron 2022/09/23) - 26.1, 28.9, 22.6
 		elseif amount >= 3 then
+			timerRisingAnger:Stop()
 			specWarnAnger3:Show(amount)
 			specWarnAnger3:Play("stackhigh")
 		end
