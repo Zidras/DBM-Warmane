@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ahune", "DBM-WorldEvents")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220630185628")
+mod:SetRevision("20220925182747")
 mod:SetCreatureID(25740)--25740 Ahune, 25755, 25756 the two types of adds
 
 mod:SetReCombatTime(10)
@@ -17,12 +17,12 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 45954"
 )
 
-local warnSubmerged				= mod:NewAnnounce("Submerged", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
+local warnSubmerged				= mod:NewSpellAnnounce(37751, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnEmerged				= mod:NewAnnounce("Emerged", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
 local specWarnAttack			= mod:NewSpecialWarning("specWarnAttack", nil, nil, nil, 1, 2)
 
-local timerCombatStart			= mod:NewCombatTimer(10)--rollplay for first pull
+local timerCombatStart			= mod:NewCombatTimer(10)--roleplay for first pull
 local timerEmerge				= mod:NewTimer(33.5, "EmergeTimer", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerSubmerge				= mod:NewTimer(92, "SubmergeTimer", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)--Variable, 92-96
 
