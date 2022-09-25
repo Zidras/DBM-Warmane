@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220907103245")
+mod:SetRevision("20220925124606")
 mod:SetCreatureID(34780)
 --mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
@@ -45,8 +45,8 @@ local timerFlameCD				= mod:NewNextTimer(30, 66197, nil, nil, nil, 3) -- (25H Lo
 local timerNetherPowerCD		= mod:NewNextTimer(45, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON) -- (25H Lordaeron 2022/09/03) - 45.1, 45.0, 45.0, 45.0
 local timerFlesh				= mod:NewTargetTimer(12, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerFleshCD				= mod:NewNextTimer(30, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON) -- (25H Lordaeron 2022/09/03) - 30.0, 30.0, 30.0, 30.1, 30.0, 30.0
-local timerPortalCD				= mod:NewNextTimer(120, 66269, nil, nil, nil, 1) -- REVIEW! CD or Next method? variance? (25H Lordaeron 2022/09/03) - 120.0
-local timerVolcanoCD			= mod:NewNextTimer(120, 66258, nil, nil, nil, 1) -- REVIEW! CD or Next method? variance? (25H Lordaeron 2022/09/03) - 120.0
+local timerPortalCD				= mod:NewCDTimer(120, 66269, nil, nil, nil, 1, nil, nil, true) -- REVIEW! 7s variance? Added "Keep" arg (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 127.0
+local timerVolcanoCD			= mod:NewCDTimer(120, 66258, nil, nil, nil, 1) -- REVIEW! ~1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 120.8
 
 local enrageTimer				= mod:NewBerserkTimer(600)
 
@@ -65,9 +65,9 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
 	self.vb.fleshCount = 0
-	timerPortalCD:Start(22-delay) -- (25H Lordaeron 2022/09/03) - 22.0
+	timerPortalCD:Start(22-delay) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 22.0 || 22.0
 	warnPortalSoon:Schedule(17-delay)
-	timerVolcanoCD:Start(82-delay) -- (25H Lordaeron 2022/09/03) - 82.0
+	timerVolcanoCD:Start(82-delay) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 82.0 || 89.0
 	warnVolcanoSoon:Schedule(77-delay)
 	timerNetherPowerCD:Start(15-delay) -- (25H Lordaeron 2022/09/03) - 15.0
 	timerFleshCD:Start(13-delay) -- (25H Lordaeron 2022/09/03) - 13.0
