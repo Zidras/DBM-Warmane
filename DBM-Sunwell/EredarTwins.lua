@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925155424")
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(7, 8)
 
@@ -34,7 +34,7 @@ local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
 local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
 local yellNova				= mod:NewYell(45329)
 local specWarnPyro			= mod:NewSpecialWarningDispel(45230, "MagicDispeller", nil, 2, 1, 2)
-local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, nil, 8, nil, nil, 1, 6)
+local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, false, 5, nil, 2, 1, 6)
 local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, false, 5, nil, nil, 1, 6)
 
 local timerBladeCD			= mod:NewCDTimer(11.5, 45248, nil, "Melee", 2, 2)
@@ -70,12 +70,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnPyro:Show(args.destName)
 		specWarnPyro:Play("dispelboss")
 	elseif args.spellId == 45347 and args:IsPlayer() then
-		if (args.amount or 1) >= 8 then
+		if (args.amount or 1) >= 5 and (args.amount % 5 == 0) then
 			specWarnDarkTouch:Show(args.amount)
 			specWarnDarkTouch:Play("stackhigh")
 		end
 	elseif args.spellId == 45348 and args:IsPlayer() then
-		if (args.amount or 1) >= 5 then
+		if (args.amount or 1) >= 5 and (args.amount % 5 == 0) then
 			specWarnFlameTouch:Show(args.amount)
 			specWarnFlameTouch:Play("stackhigh")
 		end
