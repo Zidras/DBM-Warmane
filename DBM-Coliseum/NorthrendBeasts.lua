@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220907010557")
+mod:SetRevision("20220925112618")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
-mod:SetMinSyncRevision(20220905000000)
+mod:SetMinSyncRevision(20220925000000)
 mod:SetMinCombatTime(30)
 mod:SetBossHPInfoToHighest()
 
@@ -102,6 +102,7 @@ mod:GroupSpells(52311, 66758, 66759)--Furious Charge, Staggering Daze, and Froth
 local bileName = DBM:GetSpellInfo(66869)
 local phases = {}
 local acidmawEngaged = false
+local acidmawSubmerged = false
 local dreadscaleEngaged = false
 mod.vb.burnIcon = 1
 mod.vb.DreadscaleMobile = true
@@ -129,6 +130,7 @@ end
 function mod:OnCombatStart(delay)
 	table.wipe(phases)
 	acidmawEngaged = false
+	acidmawSubmerged = false
 	dreadscaleEngaged = false
 	self.vb.burnIcon = 8
 	self.vb.DreadscaleMobile = true
@@ -357,6 +359,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.Phase2 or msg:find(L.Phase2) then
 --		self:ScheduleMethod(13.5, "WormsEmerge")
 		timerCombatStart:Start(13.5)
+		timerNextBoss:Cancel()
 		updateHealthFrame(2)
 		self:SetStage(1.5)
 		if self.Options.RangeFrame then
@@ -475,6 +478,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 		local unitName = UnitName(uId) or UNKNOWN
 		DBM:Debug("Submerge casted by " .. unitName.. ": " .. tostring(npcId), 2)
 		if npcId == 35144 then -- Acidmaw
+			acidmawSubmerged = true -- this workaround is necessary since I had one log (25H Lordaeron 2022/09/23) that Emerged fired 1.0s after IEEU, so enforce submerge/emerge conditional logic
 			timerAcidicSpewCD:Stop()
 			timerParalyticBiteCD:Stop()
 			timerParalyticSprayCD:Stop()
@@ -493,8 +497,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 		local npcId = self:GetUnitCreatureId(uId)
 		local unitName = UnitName(uId) or UNKNOWN
 		DBM:Debug("Emerge casted by " .. unitName.. ": " .. tostring(npcId), 2)
-		if npcId == 35144 then -- Acidmaw
+		if npcId == 35144 and acidmawSubmerged then -- Acidmaw
 			self.vb.AcidmawMobile = not self.vb.AcidmawMobile
+			acidmawSubmerged = false
 			DBM:Debug("Acidmaw PHASE_STATIONARY: " .. tostring(self.vb.AcidmawMobile), 2)
 			timerSubmerge:Start(43, acidmaw)
 			if self.vb.AcidmawMobile then
