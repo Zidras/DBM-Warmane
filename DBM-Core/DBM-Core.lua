@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20220922222418"),
+	Revision = parseCurseDate("20220925180445"),
 	DisplayVersion = "9.2.23 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 8, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -6887,59 +6887,6 @@ function bossModPrototype:IsValidWarning(sourceGUID, customunitID, loose)
 	return false
 end
 
---force param is used when CheckInterruptFilter is actually being used for a simpe target/focus check and nothing more.
---checkCooldown should never be passed with skip or COUNT interrupt warnings. It should be passed with any other interrupt filter
-function bossModPrototype:CheckInterruptFilter(sourceGUID, force, checkCooldown, ignoreTandF)
-	if DBM.Options.FilterInterrupt2 == "None" and not force then return true end --user doesn't want to use interrupt filter, always return true
-	--Pummel, Mind Freeze, Counterspell, Kick, Feral Charge, Silence, Wind Shear
-	local InterruptAvailable = true
-	local requireCooldown = checkCooldown
-	if (DBM.Options.FilterInterrupt2 == "onlyTandF") or self.isTrashMod and (DBM.Options.FilterInterrupt2 == "TandFandBossCooldown") then
-		requireCooldown = false
-	end
-	if requireCooldown and (UnitIsDeadOrGhost("player") or (GetSpellCooldown(6552)) ~= 0 or (GetSpellCooldown(47528)) ~= 0 or (GetSpellCooldown(2139)) ~= 0 or (GetSpellCooldown(1766)) ~= 0 or (GetSpellCooldown(49377)) ~= 0 or (GetSpellCooldown(15487)) ~= 0 or (GetSpellCooldown(57994)) ~= 0) then
-		InterruptAvailable = false --checkCooldown check requested and player has no spell that can interrupt available (or is dead)
-	end
-	local unitID = (UnitGUID("target") == sourceGUID) and "target" or (UnitGUID("focus") == sourceGUID) and "focus" or nil
-	if InterruptAvailable and (ignoreTandF or unitID) then
-		--Check if it's casting something that's not interruptable at the moment
-		--retail: needed since many mobs can have interrupt immunity with same spellIds as other mobs that can be interrupted
-		if unitID then
-			if UnitCastingInfo(unitID) then
-				local _, _, _, _, _, _, _, _, notInterruptible = UnitCastingInfo(unitID)
-				if notInterruptible then return false end
-			elseif UnitChannelInfo(unitID) then
-				local _, _, _, _, _, _, _, _, notInterruptible = UnitChannelInfo(unitID)
-				if notInterruptible then return false end
-			end
-		end
-		return true
-	end
-	return false
-end
-
-do
-	local lastCheck, lastReturn = 0, true
-	function bossModPrototype:CheckDispelFilter()
-		if not DBM.Options.FilterDispel then return true end
-		--Druid: Abolish Poison (2893), Cure Poison (8946), Remove Curse (2782); Priest: Dispel Magic (527), Abolish Disease (552), Cure Disease (528), Mass Dispel (32375); Paladin: Cleanse (4987), Purify (1152); Shaman: Cleanse Spirit (51886), Cure Toxins (526); Mage: Remove Curse (475)
-		--start, duration, enable = GetSpellCooldown
-		--start & duration == 0 if spell not on cd
-		if UnitIsDeadOrGhost("player") then return false end --if dead, can't dispel
-		if GetTime() - lastCheck < 0.1 then--Recently returned status, return same status to save cpu from aggressive api checks caused by CheckDispelFilter running on multiple raid members getting debuffed at once
-			return lastReturn
-		end
-		if (GetSpellCooldown(2893)) ~= 0 or (GetSpellCooldown(8946)) ~= 0 or (GetSpellCooldown(2782)) ~= 0 or (GetSpellCooldown(527)) ~= 0 or (GetSpellCooldown(528)) ~= 0 or (GetSpellCooldown(552)) ~= 0 or (GetSpellCooldown(32375)) ~= 0 or (GetSpellCooldown(4987)) ~= 0  or (GetSpellCooldown(1152)) ~= 0 or (GetSpellCooldown(51886)) ~= 0 or (GetSpellCooldown(526)) ~= 0 or (GetSpellCooldown(475)) ~= 0 then
-			lastCheck = GetTime()
-			lastReturn = false
-			return false
-		end
-		lastCheck = GetTime()
-		lastReturn = true
-		return true
-	end
-end
-
 function bossModPrototype:IsEquipmentSetAvailable(setName)
 	setName = setName or 'pve'
 	local _, index = GetEquipmentSetInfoByName(setName)
@@ -7308,7 +7255,7 @@ function bossModPrototype:IsDps(uId)
 	return private.specRoleTable[currentSpecID]["Dps"]
 end
 
-function bossModPrototype:IsHealer(uId)
+function DBM:IsHealer(uId)
 	if uId then--External unit call.
 		--no SpecID checks because SpecID is only availalbe with DBM/Bigwigs, but both DBM/Bigwigs auto set DAMAGER/HEALER/TANK roles anyways so it'd be redundant
 		if IsPartyLFG() then -- On WotLK, Role API only works on LFG
@@ -7323,6 +7270,7 @@ function bossModPrototype:IsHealer(uId)
 	end
 	return private.specRoleTable[currentSpecID]["Healer"]
 end
+bossModPrototype.IsHealer = DBM.IsHealer
 
 function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID, includeTarget, onlyS3)
 	if isName then--Passed combat log name, so pull unit ID
@@ -7420,6 +7368,168 @@ function bossModPrototype:GetNumAliveTanks()
 		end
 	end
 	return count
+end
+
+-----------------------
+--  Filter Methods  --
+-----------------------
+
+do
+	local interruptSpells = {
+		[1766] = true,--Rogue Kick
+		[2139] = true,--Mage Counterspell
+		[6552] = true,--Warrior Pummel
+		[15487] = true,--Priest Silence
+		[47528] = true,--Death Knight Mind Freeze
+		[49377] = true,--Druid Feral Charge
+		[57994] = true,--Shaman Wind Shear
+	}
+	--onlyTandF param is used when CheckInterruptFilter is actually being used for a simple target/focus check and nothing more.
+	--checkCooldown should always be passed true except for special rotations like count warnings when you should be alerted it's your turn even if you dropped ball and put it on CD at wrong time
+	--ignoreTandF is passed usually when interrupt is on a main boss or event that is global to entire raid and should always be alerted regardless of targetting.
+	function bossModPrototype:CheckInterruptFilter(sourceGUID, checkOnlyTandF, checkCooldown, ignoreTandF)
+		--Just return true if interrupt filtering is disabled (and it's actually for an interrupt)
+		if DBM.Options.FilterInterrupt2 == "None" and not checkOnlyTandF then return true end
+
+		local unitID = (UnitGUID("target") == sourceGUID) and "target" or (UnitGUID("focus") == sourceGUID) and "focus"
+
+		--Just return true if target or focus is ONLY requirement (not an interrupt check) and we already confirmed T and F
+		if unitID and checkOnlyTandF then return true end--checkOnlyTandF means this isn't an interrupt check at all, skip all the rest and return true if we met TandF rquirement
+
+		--TandF required in all checks except "None" or if ignoreTandF is passed
+		--Just return false if source isn't our target or focus, no need to do further checks
+		if not ignoreTandF and not unitID then
+			return false
+		end
+
+		--Check if cooldown check is actually required
+		local cooldownRequired = checkCooldown--First set to default value defined by arg
+		if cooldownRequired and ((DBM.Options.FilterInterrupt2 == "onlyTandF") or self.isTrashMod and (DBM.Options.FilterInterrupt2 == "TandFandBossCooldown")) then
+			cooldownRequired = false
+		end
+
+		local InterruptAvailable = true--We want to default to true versus false, since some interrupts don't require CD checks
+		if cooldownRequired then
+			for spellID, _ in pairs(interruptSpells) do
+				--For an inverse check, don't need to check if it's known, if it's on cooldown it's known
+				--This is possible since no class has 2 interrupt spells (well, actual interrupt spells)
+				if (GetSpellCooldown(spellID)) ~= 0 then--Spell is on cooldown
+					InterruptAvailable = false
+				end
+			end
+		end
+		if InterruptAvailable then
+			--Check if it's casting something that's not interruptable at the moment
+			--needed for torghast since many mobs can have interrupt immunity with same spellIds as other mobs that can be interrupted
+			if unitID then
+				if UnitCastingInfo(unitID) then
+					local _, _, _, _, _, _, _, _, notInterruptible = UnitCastingInfo(unitID)
+					if notInterruptible then return false end
+				elseif UnitChannelInfo(unitID) then
+					local _, _, _, _, _, _, _, notInterruptible = UnitChannelInfo(unitID)
+					if notInterruptible then return false end
+				end
+			end
+			return true
+		end
+		return false
+	end
+end
+
+do
+	--lazyCheck mostly for migration, doesn't distinguish dispel types
+	local lazyCheck = {
+		[2782] = true,--Druid: Remove Curse (Curse and Poison)
+		[2893] = true,--Druid: Abolish Poison (Poison)
+		[8946] = true,--Druid: Cure Poison (Poison)
+		[527] = true,--Priest: Dispel Magic (Magic and Disease)
+		[528] = true,--Priest: Cure Disease (Disease)
+		[552] = true,--Priest: Abolish Disease (Disease)
+		[32375] = true,--Priest: Mass Dispel (Magic and Disease)
+		[1022] = true,--Paladin: Hand of Protection (Bleed)
+		[1152] = true,--Paladin: Purify (Poison and Disease)
+		[4987] = true,--Paladin: Cleanse (Magic, Poison and Disease)
+		[526] = true,--Shaman: Cure Toxins (Poison and Disease)
+		[51886] = true,--Shaman: Cleanse Spirit (Curse, Poison and Disease)
+		[475] = true,--Mage: Remove Curse (Curse)
+	}
+	--Obviously only checks spells relevant for the dispel type
+	local typeCheck = {
+		["magic"] = {
+			[527] = true,--Priest: Dispel Magic (Magic and Disease)
+			[32375] = true,--Priest: Mass Dispel (Magic and Disease)
+			[4987] = true,--Paladin: Cleanse (Magic, Poison and Disease)
+			[77130] = true,--Shaman: Purify Spirit (Magic and Curse)
+		},
+		["curse"] = {
+			[2782] = true,--Druid: Remove Curse (Curse and Poison)
+			[51886] = DBM:IsHealer() and true,--Shaman: Cleanse Spirit (Curse, Poison and Disease)
+			[475] = true,--Mage: Remove Curse (Curse)
+		},
+		["poison"] = {
+			[2782] = true,--Druid: Remove Corruption (Curse and Poison)
+			[2893] = true,--Druid: Abolish Poison (Poison)
+			[8946] = true,--Druid: Cure Poison (Poison)
+			[1152] = true,--Paladin: Purify (Poison and Disease)
+			[4987] = true,--Paladin: Cleanse (Magic, Poison and Disease)
+			[526] = true,--Shaman: Cure Toxins (Poison and Disease)
+			[51886] = DBM:IsHealer() and true,--Shaman: Cleanse Spirit (Curse, Poison and Disease)
+		},
+		["disease"] = {
+			[527] = true,--Priest: Dispel Magic (Magic and Disease)
+			[528] = true,--Priest: Cure Disease (Disease)
+			[552] = true,--Priest: Abolish Disease (Disease)
+			[32375] = true,--Priest: Mass Dispel (Magic and Disease)
+			[1152] = true,--Paladin: Purify (Poison and Disease)
+			[4987] = true,--Paladin: Cleanse (Magic, Poison and Disease)
+			[526] = true,--Shaman: Cure Toxins (Poison and Disease)
+			[51886] = DBM:IsHealer() and true,--Shaman: Cleanse Spirit (Curse, Poison and Disease)
+		},
+		["bleed"] = {
+			[1022] = true,--Paladin: Hand of Protection (Bleed)
+		},
+	}
+	local lastCheck, lastReturn = 0, true
+	function bossModPrototype:CheckDispelFilter(dispelType)
+		if not DBM.Options.FilterDispel then return true end
+		-- WotLK: Druid: Abolish Poison (2893), Cure Poison (8946), Remove Curse (2782); Priest: Dispel Magic (527), Abolish Disease (552), Cure Disease (528), Mass Dispel (32375); Paladin: Cleanse (4987), Purify (1152); Shaman: Cleanse Spirit (51886), Cure Toxins (526); Mage: Remove Curse (475), Warlock (pet Felhunter): Devour Magic (48011)
+		--start, duration, enable = GetSpellCooldown
+		--start & duration == 0 if spell not on cd
+		if UnitIsDeadOrGhost("player") then return false end--if dead, can't dispel
+		if GetTime() - lastCheck < 0.1 then--Recently returned status, return same status to save cpu from aggressive api checks caused by CheckDispelFilter running on multiple raid members getting debuffed at once
+			return lastReturn
+		end
+		if dispelType then
+			--Devour Magic requires checking if Felhunter pet is out (Warlock only)
+			--Only checking 48011 (rank 7) for convenience, since API returns 0 for every other rank below it (possibly an unwanted behaviour with API and pet)
+			if dispelType == "magic" and (GetSpellCooldown(48011)) == 0 and (UnitExists("pet") and self:GetCIDFromGUID(UnitGUID("pet")) == 6) then
+				lastCheck = GetTime()
+				lastReturn = true
+				return true
+			end
+			--We cannot do inverse check here because some classes actually have two dispels for same type (such as evoker)
+			--Therefor, we can't go false if only one of them are on cooldown. We have to go true of any of them aren't on CD instead
+			--As such, we have to check if a spell is known in addition to it not being on cooldown
+			for spellID, _ in pairs(typeCheck[dispelType]) do
+				if typeCheck[dispelType][spellID] and IsSpellKnown(spellID) and (GetSpellCooldown(spellID)) == 0 then--Spell is known and not on cooldown
+					lastCheck = GetTime()
+					lastReturn = true
+					return true
+				end
+			end
+		else--use lazy check until all mods are migrated to define type
+			for spellID, _ in pairs(lazyCheck) do
+				if IsSpellKnown(spellID) and (GetSpellCooldown(spellID)) == 0 then--Spell is known and not on cooldown
+					lastCheck = GetTime()
+					lastReturn = true
+					return true
+				end
+			end
+		end
+		lastCheck = GetTime()
+		lastReturn = false
+		return false
+	end
 end
 
 -------------------------

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("EadricthePure", "DBM-Party-WotLK", 13)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(35119)
 mod:SetUsedIcons(8)
 
@@ -38,7 +38,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnHammerTarget then
 			self:SetIcon(args.destName, 8, 6)
 		end
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnHammerofJustice:Show(args.destName)
 			specwarnHammerofJustice:Play("helpdispel")
 		end

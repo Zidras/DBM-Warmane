@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ZulJin", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(23863)
 
 mod:SetZone()
@@ -42,7 +42,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(43095) then
 		warnParalyzeSoon:Schedule(22)
-		if self.Options.SpecWarn43095dispel and self:CheckDispelFilter() then
+		if self.Options.SpecWarn43095dispel and self:CheckDispelFilter("magic") then
 			specWarnParalyze:Show(DBM_COMMON_L.ALLIES)
 			specWarnParalyze:Play("helpdispel")
 		else

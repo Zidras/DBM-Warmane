@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Confessor", "DBM-Party-WotLK", 13)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220823234921")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(34928)
 
 mod:RegisterCombat("combat")
@@ -44,13 +44,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnOldWounds:Show(args.destName)
 		timerOldWounds:Show(args.destName)
 	elseif args:IsSpellID(66538, 67676) and args:IsDestTypePlayer() then	-- Holy Fire
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnHolyFire:Show(args.destName)
 			specwarnHolyFire:Play("helpdispel")
 		end
 		timerHolyFire:Show(args.destName)
 	elseif args:IsSpellID(66619, 67678) then									-- Shadows of the Past
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnShadows:Show(args.destName)
 			specwarnShadows:Play("helpdispel")
 		end

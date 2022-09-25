@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Cyanigosa", "DBM-Party-WotLK", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(31134)
 
 mod:RegisterCombat("combat")
@@ -41,7 +41,7 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 59374 then
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnMana:Show(args.destName)
 			specwarnMana:Play("helpdispel")
 		end

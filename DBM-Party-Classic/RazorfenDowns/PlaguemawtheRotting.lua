@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("PlaguemawtheRotting", "DBM-Party-Classic", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(7356)
 
 mod:RegisterCombat("combat")
@@ -28,10 +28,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 12946 and self:CheckDispelFilter() then
+	if args.spellId == 12946 and self:CheckDispelFilter("disease") then
 		specWarnPutridStench:Show(args.destName)
 		specWarnPutridStench:Play("helpdispel")
-	elseif args.spellId == 11442 and self:CheckDispelFilter() then
+	elseif args.spellId == 11442 and self:CheckDispelFilter("disease") then
 		warningWitheredTouch:Show(args.destName)
 	end
 end

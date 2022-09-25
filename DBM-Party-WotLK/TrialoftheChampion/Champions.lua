@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GrandChampions", "DBM-Party-WotLK", 13)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220823234921")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(34657, 34701, 34702, 34703, 34705, 35569, 35570, 35571, 35572, 35617)
 
 mod:RegisterCombat("combat")
@@ -39,7 +39,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(66043, 68311) then								-- Polymorph on <x>
 		warnPolymorph:Show(args.destName)
-	elseif args.spellId == 67534 and self:CheckDispelFilter() then		-- Hex of Mending on <x>
+	elseif args.spellId == 67534 and self:CheckDispelFilter("curse") then		-- Hex of Mending on <x>
 		specWarnHex:Show(args.destName)
 		specWarnHex:Play("helpdispel")
 	elseif args:IsSpellID(67594, 68316) and args:IsPlayer() then		-- Standing in Poison Bottle.

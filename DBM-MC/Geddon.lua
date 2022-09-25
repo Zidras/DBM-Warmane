@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Geddon", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(12056)
 
 mod:SetModelID(12129)
@@ -58,7 +58,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warnBomb:Show(args.destName)
 		end
-	elseif args.spellId == 19659 and self:CheckDispelFilter() then
+	elseif args.spellId == 19659 and self:CheckDispelFilter("magic") then
 		specWarnIgnite:CombinedShow(0.3, args.destName)
 		specWarnIgnite:ScheduleVoice(0.3, "helpdispel")
 	end

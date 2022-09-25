@@ -374,7 +374,6 @@ L.FilterInterruptsHeader	= "Patrón para ocultar avisos de facultades interrumpi
 L.FilterInterrupts			= "Si no es tu objetivo o foco (siempre)"
 L.FilterInterrupts2			= "Si no es tu objetivo o foco (siempre) o no puedes interrumpir (solo jefes)"
 L.FilterInterrupts3			= "Si no es tu objetivo o foco (siempre) o no puedes interrumpir (todos los enemigos)"
-L.FilterInterrupts4			= "Ocultar todos los avisos de interrupción"
 L.FilterInterruptNoteName	= "Ocultar avisos de facultades interrumpibles con orden de interrupciones si el aviso no contiene tu nombre en la nota"
 L.FilterDispels				= "Ocular avisos de facultades disipables si tu disipación no está disponible"
 L.FilterTrashWarnings		= "Ocultar todos los avisos de enemigos menores en mazmorras normales y heroicas"

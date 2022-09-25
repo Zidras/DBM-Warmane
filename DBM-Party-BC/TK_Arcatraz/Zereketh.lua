@@ -1,7 +1,7 @@
 local mod = DBM:NewMod(548, "DBM-Party-BC", 15, 254)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20220925180445")
 mod:SetCreatureID(20870)
 
 mod:SetModelID(19882)
@@ -49,7 +49,7 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(39367, 32863) then
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnSoC:Show(args.destName)
 			specwarnSoC:Play("dispelnow")
 		end
