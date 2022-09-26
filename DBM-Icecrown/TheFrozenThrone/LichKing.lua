@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20220926230715")
+mod:SetRevision("20220926231751")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -391,7 +391,11 @@ function mod:SPELL_CAST_START(args)
 		self.vb.ragingSpiritCount = 1
 		warnRemorselessWinter:Show()
 		timerPhaseTransition:Start()
-		timerRagingSpiritCD:Start(6, self.vb.ragingSpiritCount)
+		if self.vb.phase == 1.5 then
+			timerRagingSpiritCD:Start(6, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 6.0 for first intermission
+		else
+			timerRagingSpiritCD:Start(5, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 5.0 for second intermission
+		end
 		warnShamblingSoon:Cancel()
 		timerShamblingHorror:Cancel()
 		timerDrudgeGhouls:Cancel()
