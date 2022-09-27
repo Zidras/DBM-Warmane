@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Malygos", "DBM-EyeOfEternity")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220729225816")
+mod:SetRevision("20220927225043")
 mod:SetCreatureID(28859)
 
 --mod:RegisterCombat("yell", L.YellPull)
@@ -14,43 +14,53 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 60936 57407",
-	"SPELL_CAST_START 57430 56505",
+	"SPELL_CAST_START 56505",
 	"SPELL_CAST_SUCCESS 56105 57430",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
+-- General
+local enrageTimer				= mod:NewBerserkTimer(615)
+local timerAchieve				= mod:NewAchievementTimer(360, 1875)
 
-local warnSpark					= mod:NewSpellAnnounce(56140, 2, 59381)
+-- Stage One
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
+local warnSummonPowerSpark		= mod:NewSpellAnnounce(56140, 2, 59381)
 local warnVortex				= mod:NewSpellAnnounce(56105, 3)
 local warnVortexSoon			= mod:NewSoonAnnounce(56105, 2)
-local warnBreathInc				= mod:NewSoonAnnounce(56505, 3)
-local warnSurge					= mod:NewTargetAnnounce(60936, 3)
-local warnStaticField			= mod:NewTargetNoFilterAnnounce(57430, 3)
+
+local timerSummonPowerSpark		= mod:NewNextTimer(30, 56140, nil, nil, nil, 1, 59381, DBM_COMMON_L.DAMAGE_ICON) -- (10man Lordaeron 2022/09/27 || 25man Lordaeron 2022/09/27) - 30.0 || 30.0, 30.0
+local timerVortex				= mod:NewCastTimer(11, 56105, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerVortexCD				= mod:NewNextTimer(60, 56105, nil, nil, nil, 2)
+
+-- Stage Two
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
 local warnPhase2				= mod:NewPhaseAnnounce(2)
-local warnPhase3				= mod:NewPhaseAnnounce(3)
+local warnBreathInc				= mod:NewSoonAnnounce(56505, 3)
 
 local specWarnBreath			= mod:NewSpecialWarningSpell(56505, nil, nil, nil, 2, 2)
+
+local timerBreath				= mod:NewBuffActiveTimer(8, 56505, nil, nil, nil, 5) --lasts 5 seconds plus 3 sec cast.
+local timerBreathCD				= mod:NewCDTimer(59, 56505, nil, nil, nil, 2)
+local timerIntermission			= mod:NewPhaseTimer(22)
+
+-- Stage Three
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3))
+local warnPhase3				= mod:NewPhaseAnnounce(3)
+local warnSurge					= mod:NewTargetAnnounce(60936, 3)
+local warnStaticField			= mod:NewTargetNoFilterAnnounce(57430, 3)
+
 local specWarnSurge				= mod:NewSpecialWarningDefensive(60936, nil, nil, nil, 1, 2)
 local specWarnP3SurgeOfPowerSoon= mod:NewSpecialWarningYou(60936, nil, nil, nil, 1, 2)
 local specWarnStaticField		= mod:NewSpecialWarningYou(57430, nil, nil, nil, 1, 2)
 local specWarnStaticFieldNear	= mod:NewSpecialWarningClose(57430, nil, nil, nil, 1, 2)
 local yellStaticField			= mod:NewYellMe(57430)
 
-local timerSpark				= mod:NewNextTimer(30, 56140, nil, nil, nil, 1, 59381, DBM_COMMON_L.DAMAGE_ICON)
-local timerVortex				= mod:NewCastTimer(11, 56105, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerVortexCD				= mod:NewNextTimer(60, 56105, nil, nil, nil, 2)
-local timerBreath				= mod:NewBuffActiveTimer(8, 56505, nil, nil, nil, 5) --lasts 5 seconds plus 3 sec cast.
-local timerBreathCD				= mod:NewCDTimer(59, 56505, nil, nil, nil, 2)
-local timerStaticFieldCD		= mod:NewCDTimer(12.5, 57430, nil, nil, nil, 3) --High 15-25 second variation
-local timerAchieve				= mod:NewAchievementTimer(360, 1875)
-local timerIntermission		= mod:NewPhaseTimer(22)
+local timerStaticFieldCD		= mod:NewCDTimer(10, 57430, nil, nil, nil, 3, nil, nil, true) --REVIEW! ~10s variance? Added "keep" arg (10man Lordaeron 2022/09/27 || 25man Lordaeron 2022/09/27) - 10.0, 16.2, 11.6, 10.2, 10.4 || 15.1, 20.1, 13.8, 19.5, 19.6, 11.4, 18.5
 --local timerAttackable			= mod:NewTimer(24, "Malygos Wipes Debuffs") -- Not enough info nor locales on the code from previous contributor to know what this is intended for. Disabled for now
-
-local enrageTimer				= mod:NewBerserkTimer(615)
 
 local tableBuild = false
 local guids = {}
-local surgeTargets = {}
 
 local function buildGuidTable()
 	table.wipe(guids)
@@ -60,11 +70,6 @@ local function buildGuidTable()
 		guids[UnitGUID(uId.."pet") or "none"] = fullName
 	end
 	tableBuild = true
-end
-
-local function announceTargets(self)
-	warnSurge:Show(table.concat(surgeTargets, "<, >"))
-	table.wipe(surgeTargets)
 end
 
 function mod:StaticFieldTarget()
@@ -90,9 +95,10 @@ end
 function mod:OnCombatStart(delay)
 	tableBuild = false
 	self:SetStage(1)
-	timerVortexCD:Start(40) -- 44.6-delay
 	enrageTimer:Start(-delay)
 	timerAchieve:Start(-delay)
+	timerVortexCD:Start(38.7) -- REVIEW! ~4s variance? (10man Lordaeron 2022/09/27 || 25man Lordaeron 2022/09/27) - pull:42.6/Stage 1/42.6 || pull:38.8/Stage 1/38.8 (but debug gave 1.3 delta)
+	timerSummonPowerSpark:Start(28.1-delay) -- REVIEW! ~3s variance? (10man Lordaeron 2022/09/27 || 25man Lordaeron 2022/09/27) - pull:31.4/Stage 1/31.4 || pull:28.1/Stage 1/28.1
 	table.wipe(guids)
 end
 
@@ -101,13 +107,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		DBM:Debug("SURGE" .. guids[args.destGUID], 2)
 		local target = guids[args.destGUID or 0]
 		if target then
-			surgeTargets[#surgeTargets + 1] = target
-			self:Unschedule(announceTargets)
-			if #surgeTargets >= 3 then
-				announceTargets(self)
-			else
-				self:Schedule(0.5, announceTargets, self)
-			end
+			warnSurge:CombinedShow(0.5, target)
 			if target == UnitName("player") then
 				specWarnSurge:Show()
 				specWarnSurge:Play("defensive")
@@ -127,10 +127,6 @@ function mod:SPELL_CAST_START(args)
 		specWarnBreath:Play("findshield")
 		timerBreath:Start()
 		timerBreathCD:Start()
-	elseif spellId == 57430 then
-		self:ScheduleMethod(0.1, "StaticFieldTarget")
-		--warnStaticField:Show()
-		timerStaticFieldCD:Start()
 	end
 end
 
@@ -144,9 +140,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnVortexSoon:Schedule(54)
 		warnVortex:Show()
 		timerVortex:Start()
-		if timerSpark:GetTime() < 11 and timerSpark:IsStarted() then
-			timerSpark:Update(18, 30)
-		end
+		-- Commenting this block out, since Sparks are fixed on a 30s interval... no need to correct anything on the fly
+--		if timerSummonPowerSpark:GetTime() < 11 and timerSummonPowerSpark:IsStarted() then
+--			timerSummonPowerSpark:Update(18, 30)
+--		end
 	elseif spellId == 57430 then
 		self:ScheduleMethod(0.1, "StaticFieldTarget")
 		--warnStaticField:Show()
@@ -183,24 +180,24 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --	"<39.8> [UNIT_SPELLCAST_SUCCEEDED] Malygos:Possible Target<Omegal>:target:Summon Power Spark::0:56140", -- [998]
 	if spellName == GetSpellInfo(56140) then
-		warnSpark:Show()
-		timerSpark:Start()
+		warnSummonPowerSpark:Show()
+		timerSummonPowerSpark:Start()
 	end
 end
 
 function mod:OnSync(event, arg)
 	if not self:IsInCombat() then return end
 --	if event == "Spark" then
---		warnSpark:Show()
---		timerSpark:Start()
+--		warnSummonPowerSpark:Show()
+--		timerSummonPowerSpark:Start()
 	if event == "Phase2" then
 		self:SetStage(2)
-		timerSpark:Cancel()
+		timerSummonPowerSpark:Cancel()
 		timerVortexCD:Cancel()
 		warnVortexSoon:Cancel()
 		warnPhase2:Show()
 		timerIntermission:Start()
-		timerBreathCD:Start(92) -- 94
+		timerBreathCD:Start(67.9) -- REVIEW! no variance? (10man Lordaeron 2022/09/27 || 25man Lordaeron 2022/09/27) - Stage 2/68.0 || Stage 2/68.0
 	elseif event == "BreathSoon" then
 		warnBreathInc:Show()
 	elseif event == "Phase3" then
@@ -208,7 +205,7 @@ function mod:OnSync(event, arg)
 		warnPhase3:Show()
 		self:Schedule(6, buildGuidTable)
 		timerBreathCD:Cancel()
---		timerStaticFieldCD:Start(49.5)--Consistent?
+		timerStaticFieldCD:Start(20.2) -- REVIEW! ~4s variance? (10man Lordaeron 2022/09/27 || 25man Lordaeron 2022/09/27) - Stage 3/24.5 || Stage 3/20.2
 	elseif event == "MalygosSurge" then
 		warnSurge:CombinedShow(0.2, arg)
 		if arg == UnitName("player") then
