@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20220926232319")
+mod:SetRevision("20220928193627")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -105,7 +105,7 @@ local timerTrapCD					= mod:NewNextTimer(15.5, 73539, nil, nil, nil, 3, nil, DBM
 local soundInfestSoon				= mod:NewSoundSoon(70541, nil, "Healer|RaidCooldown")
 local soundNecroticOnYou			= mod:NewSoundYou(70337)
 
-mod:AddSetIconOption("NecroticPlagueIcon", 70337, true, 0, {4})
+mod:AddSetIconOption("NecroticPlagueIcon", 70337, true, 0, {1})
 mod:AddSetIconOption("TrapIcon", 73539, true, 0, {7})
 mod:AddArrowOption("TrapArrow", 73539, true)
 mod:AddBoolOption("AnnouncePlagueStack", false, nil, nil, nil, nil, 70337)
@@ -137,7 +137,7 @@ local soundDefileOnYou				= mod:NewSoundYou(72762)
 local soundSoulReaperSoon			= mod:NewSoundSoon(69409, nil, "Tank|Healer|TargetedCooldown")
 
 mod:AddSetIconOption("DefileIcon", 72762, true, 0, {7})
-mod:AddSetIconOption("ValkyrIcon", 69037, true, 5, {1, 2, 3})
+mod:AddSetIconOption("ValkyrIcon", 69037, true, 5, {2, 3, 4}) -- Despite icon convention, keep 2,3,4 for grabIcon backwards compatibility, since iconSetter may be an old DBM/BW user, and detect target marker on a loop would be too CPU heavy for just this
 mod:AddArrowOption("DefileArrow", 72762, true)
 mod:AddBoolOption("AnnounceValkGrabs", false, nil, nil, nil, nil, 69037)
 
@@ -189,7 +189,7 @@ mod.vb.warned_preP3 = false
 mod.vb.defileCount = 0
 mod.vb.soulReaperCount = 0
 mod.vb.valkyrWaveCount = 0
-mod.vb.valkIcon = 1
+mod.vb.valkIcon = 2
 local shamblingHorrorsGUIDs = {}
 local iceSpheresGUIDs = {}
 local warnedValkyrGUIDs = {}
@@ -197,7 +197,7 @@ local valkyrTargets = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 -- local soulshriek = GetSpellInfo(69242)
 local plagueExpires = {}
-local grabIcon = 1
+local grabIcon = 2
 --	local lastValk = 0
 --	local maxValks = mod:IsDifficulty("normal25", "heroic25") and 3 or 1
 local warnedAchievement = false
@@ -245,8 +245,8 @@ local function scanValkyrTargets(self)
 		self:Schedule(0.5, scanValkyrTargets, self)  -- check for more targets in a few
 	else
 		table.wipe(valkyrTargets)	   -- no more valkyrs this round, so lets clear the table
-		grabIcon = 1
-		self.vb.valkIcon = 1
+		grabIcon = 2
+		self.vb.valkIcon = 2
 	end
 end
 --]]
@@ -317,7 +317,7 @@ end
 function mod:OnCombatStart()
 	self:DestroyFrame()
 	self:SetStage(1)
-	self.vb.valkIcon = 1
+	self.vb.valkIcon = 2
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self.vb.ragingSpiritCount = 0
@@ -731,8 +731,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --		self:SendSync("SoulShriek", UnitGUID(uId))
 	if spellName == GetSpellInfo(74361) then -- Summon Val'kyr Periodic
 		table.wipe(valkyrTargets)	-- reset valkyr cache for next round
-		grabIcon = 1
-		self.vb.valkIcon = 1
+		grabIcon = 2
+		self.vb.valkIcon = 2
 		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
 		warnSummonValkyr:Show(self.vb.valkyrWaveCount)
 		timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
