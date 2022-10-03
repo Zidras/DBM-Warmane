@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20220925151717")
+mod:SetRevision("20221003171909")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetMinSyncRevision(20220908000000)
@@ -224,7 +224,7 @@ function mod:SPELL_CAST_START(args)
 			warnChokingGasBombSoon:Schedule(30.5-5)
 		end
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
-		timerGaseousBloatCast:Start()
+		timerGaseousBloatCast:Start(args.sourceGUID) -- account for multiple red oozes
 		if not redOozeGUIDsCasts[args.sourceGUID] then
 			redOozeGUIDsCasts[args.sourceGUID] = 1
 		else
