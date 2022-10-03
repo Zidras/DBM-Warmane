@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220921220313")
+mod:SetRevision("20221003165303")
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
@@ -104,7 +104,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 69705 then
+	if args.spellId == 69705 and self:AntiSpam(2, 2) then -- Fires for all Gunship Cannons
 		timerBelowZeroCD:Start()
 	end
 end
