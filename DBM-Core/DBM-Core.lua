@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20221004102417"),
+	Revision = parseCurseDate("20221004104310"),
 	DisplayVersion = "9.2.24 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 9, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2477,7 +2477,7 @@ end
 function DBM:PLAYER_LEVEL_CHANGED()
 	playerLevel = UnitLevel("player")
 	if playerLevel < 15 and playerLevel > 9 then
-		self:PLAYER_TALENT_UPDATE()
+		self:CHARACTER_POINTS_CHANGED()
 	end
 end
 
@@ -2857,22 +2857,33 @@ function DBM:READY_CHECK()
 	self:Schedule(4, self.TransitionToDungeonBGM, self)
 end
 
-function DBM:PLAYER_TALENT_UPDATE()
-	local lastSpecID = currentSpecID
-	if GetNumTalentTabs() == 0 then
-		self:Debug("No talents detected. Registering PLAYER_ALIVE for talent data")
-		self:RegisterEvents("PLAYER_ALIVE")
+do
+	local function throttledTalentCheck(self)
+		local lastSpecID = currentSpecID
+		if GetNumTalentTabs() == 0 then
+			self:Debug("No talents detected. Registering PLAYER_ALIVE for talent data")
+			self:RegisterEvents("PLAYER_ALIVE")
+		end
+		self:SetCurrentSpecInfo() -- always delay a bit (previously had it at 0.1s) because Unit API like UnitExists and UnitClass were returning nil on this event.
+		if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
+			self:SpecChanged()
+		end
 	end
-	self:Schedule(0.1, self.SetCurrentSpecInfo) -- delay a bit because Unit API like UnitExists and UnitClass were returning nil on this event.
-	if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
-		self:SpecChanged()
-	end
-end
-DBM.CHARACTER_POINTS_CHANGED = DBM.PLAYER_TALENT_UPDATE
 
-function DBM:PLAYER_ALIVE()
-	self:PLAYER_TALENT_UPDATE()
-	mainFrame:UnregisterEvent("PLAYER_ALIVE")
+	--Throttle checks on talent point updates so that if multiple CHARACTER_POINTS_CHANGED fire in succession
+	--It doesnt spam DBMs code and cause performance lag
+	function DBM:CHARACTER_POINTS_CHANGED() -- Classic/BCC support
+		self:Unschedule(throttledTalentCheck)
+		self:Schedule(2, throttledTalentCheck, self)
+	end
+	--Throttle this api too.
+	DBM.PLAYER_TALENT_UPDATE = DBM.CHARACTER_POINTS_CHANGED -- Wrath support
+
+	-- This workaround is likely not needed anymore since talent check is now delayed by two seconds
+	function DBM:PLAYER_ALIVE()
+		self:CHARACTER_POINTS_CHANGED()
+		mainFrame:UnregisterEvent("PLAYER_ALIVE")
+	end
 end
 
 do
