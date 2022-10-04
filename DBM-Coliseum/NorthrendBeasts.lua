@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221002094950")
+mod:SetRevision("20221002101812")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -451,8 +451,8 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 					timerNextBoss:Start()
 				end
 				timerSubmerge:Start(49.3, bossName) -- REVIEW! 2s delay from visual to submerge (25H Lordaeron 2022/09/03) - 50
-				timerSweepCD:Start(24, bossName) -- (2021/10/21 || 25H Lordaeron 2022/09/03) - 22-24s (N/H?) || 24
-				timerParalyticSprayCD:Start(20)	-- (2021/10/21 || 25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 18-20s (N/H?) || 22 || 20.2
+				timerSweepCD:Start(20, bossName) -- (2021/10/21 || 25H Lordaeron 2022/09/03 || 10N Lordaeron 2022/10/02) - 22-24s (N/H?) || 24 || 20.0
+				timerParalyticSprayCD:Start(20)	-- (2021/10/21 || 25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 10N Lordaeron 2022/10/02) - 18-20s (N/H?) || 22 || 20.2 || 30.3
 			elseif cid == 34799 and not dreadscaleEngaged then -- Dreadscale (mobile on engage)
 				dreadscaleEngaged = true
 				timerSubmerge:Start(bossName)
