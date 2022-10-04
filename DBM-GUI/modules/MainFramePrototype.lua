@@ -286,6 +286,9 @@ function frame:CreateTab(tab)
 	self.tabs[i] = tab
 	local button = CreateFrame("Button", "DBM_GUI_OptionsFrameTab" .. i, self, "OptionsFrameTabButtonTemplate")
 	local buttonText = _G[button:GetName() .. "Text"]
+	button.Text = buttonText
+	button.Left = _G[button:GetName() .. "Left"]
+	button.Right = _G[button:GetName() .. "Right"]
 	buttonText:SetText(tab.name)
 	buttonText:SetPoint("LEFT", 22, -2)
 	buttonText:Show()
