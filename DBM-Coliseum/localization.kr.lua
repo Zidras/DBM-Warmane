@@ -22,6 +22,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery	= "$spell:31821 사운드를 재생하여 $spell:66330의 효과를 무효화합니다($spell:19746의 소유자인 |cFFF48CBA성기사|r만 해당)",
 	WarningSnobold			= "스노볼트 부하 생성 알림 보기",
 	PingCharge				= "얼음울음에게 사나운 돌진의 대상이 될 경우 미니맵에 핑 표시하기",
 	ClearIconsOnIceHowl		= "사나운 돌진 전에 모든 전술 목표 아이콘 지움",

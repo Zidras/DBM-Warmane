@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221002101812")
+mod:SetRevision("20221004185328")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -48,11 +48,14 @@ local WarningSnobold		= mod:NewAnnounce("WarningSnobold", 4)
 local specWarnImpale3		= mod:NewSpecialWarningStack(66331, nil, 3, nil, nil, 1, 6)
 local specWarnAnger3		= mod:NewSpecialWarningStack(66636, "Tank|Healer", 3, nil, nil, 1, 6)
 local specWarnGTFO			= mod:NewSpecialWarningGTFO(66317, nil, nil, nil, 1, 2)
-local specWarnSilence		= mod:NewSpecialWarningSpell(66330, "SpellCaster", nil, nil, 1, 2)
+local specWarnSilence		= mod:NewSpecialWarningSpell(66330, "SpellCaster")
+local specWarnStompPreWarn	= mod:NewSpecialWarningPreWarn(66330, "SpellCaster", 3, nil, nil, 1, 2)
 
 local timerNextStomp		= mod:NewNextTimer(20, 66330, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON, nil, mod:IsSpellCaster() and 3 or nil, 3) -- (25H Lordaeron 2022/09/03) - 20.0, 20.0, 20.0
 local timerImpaleCD			= mod:NewCDTimer(8, 66331, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- 2s variance [8.0-9.9]. Added "keep" arg (10H 2021/10/22 || 10N 2021/10/22 || 25H Lordaeron 2022/09/03) - 8.3, 8.6, 9.4, 8.0, 9.6, 9.4, 9.0, 9.1, 8.7, 9.4, 9.9, 8.2, 8.6 || 8.6, 8.1, 9.5, 9.6, 9.8, 8.7, 8.8, 9.6 || 9.2, 9.5, 9.7, 9.3, 9.5, 8.3, 8.5
 local timerRisingAnger		= mod:NewCDTimer(20.5, 66636, nil, nil, nil, 1, nil, nil, true) -- REVIEW! Normal Dose > 2 is all over the place! Heroic variance? Added "keep" arg (25H Lordaeron 2022/09/03 || 25N Lordaeron 2022/09/23 || 25H Lordaeron 2022/09/24 || 25H Lordaeron 2022/09/28 || 10N Lordaeron 2022/10/02) - 20, 25 || 28.9, 22.6, 2.4, 13.1, 6.8, 7.4, 4.1, 0.6, 1.7, 3.8 || 24.7 || 29.9, 17.5 || 26.8, 12.7, 3.4, 1.1
+
+local soundAuraMastery		= mod:NewSound(66330, "soundConcAuraMastery")
 
 -- Stage Two: Acidmaw & Dreadscale
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..dreadscale.." & "..acidmaw)
@@ -127,6 +130,16 @@ local function updateHealthFrame(phase)
 	end
 end
 
+local function isBuffOwner(uId, spellId)
+	if not uId and not spellId then return end
+	local _, _, _, _, _, _, _, unitCaster = DBM:UnitBuff(uId, spellId)
+	if unitCaster == uId then
+		return true
+	else
+		return false
+	end
+end
+
 function mod:OnCombatStart(delay)
 	table.wipe(phases)
 	acidmawEngaged = false
@@ -138,8 +151,12 @@ function mod:OnCombatStart(delay)
 	self.vb.DreadscaleDead = false
 	self.vb.AcidmawDead = false
 	self:SetStage(1)
-	specWarnSilence:Schedule(14-delay)
-	specWarnSilence:ScheduleVoice(14-delay, "silencesoon")
+	specWarnStompPreWarn:Schedule(12-delay) -- 3s pre-warn. (10N Lordaeron 2022/10/02) - 14.9
+	if self.Options.soundConcAuraMastery and isBuffOwner("player", 19746) then -- Concentration Aura Mastery by a Paladin will negate the interrupt effect of Staggering Stomp
+		soundAuraMastery:Schedule(12-delay, "Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\AuraMastery.ogg")
+	else
+		specWarnStompPreWarn:ScheduleVoice(12-delay, "silencesoon")
+	end
 	if self:IsHeroic() then
 		timerNextBoss:Start(-delay)
 	end
@@ -209,8 +226,13 @@ function mod:SPELL_CAST_START(args)
 		warnFireBomb:Show()
 	elseif args:IsSpellID(66330, 67647, 67648, 67649) then		-- Staggering Stomp
 		timerNextStomp:Start()
-		specWarnSilence:Schedule(19)							-- prewarn ~1,5 sec before next
-		specWarnSilence:ScheduleVoice(19, "silencesoon")
+		specWarnSilence:Show()
+		specWarnStompPreWarn:Schedule(17) -- prewarn 3 sec before next
+		if self.Options.soundConcAuraMastery and isBuffOwner("player", 19746) then -- Concentration Aura Mastery by a Paladin will negate the interrupt effect of Staggering Stomp
+			soundAuraMastery:Schedule(17, "Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\AuraMastery.ogg")
+		else
+			specWarnStompPreWarn:ScheduleVoice(17, "silencesoon")
+		end
 	elseif args:IsSpellID(66794, 67644, 67645, 67646) then		-- Sweep stationary worm
 		timerSweepCD:Start(args.sourceName)
 	elseif spellId == 66821 then							-- Molten spew
@@ -397,8 +419,9 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 34796 then
-		specWarnSilence:Cancel()
-		specWarnSilence:CancelVoice()
+		specWarnStompPreWarn:Cancel()
+		specWarnStompPreWarn:CancelVoice()
+		soundAuraMastery:Cancel()
 		timerNextStomp:Stop()
 		timerImpaleCD:Stop()
 		timerRisingAnger:Stop()

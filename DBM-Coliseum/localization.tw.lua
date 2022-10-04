@@ -22,6 +22,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery= "播放 $spell:31821 聲音以抵消 $spell:66330 的效果（僅適用於 $spell:19746 的所有者 |cFFF48CBA聖騎士|r）",
 	WarningSnobold		= "為極地狗頭人奴僕出現顯示警告",
 	PingCharge			= "當冰嚎即將衝鋒你時自動點擊小地圖",
 	ClearIconsOnIceHowl	= "衝鋒前消除所有標記",

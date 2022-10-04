@@ -27,6 +27,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery= "播放$spell:31821的声音来否定$spell:66330的效果（只针对$spell:19746的主人|cFFF48CBA圣骑士|r",
 	WarningSnobold		= "为狗头人奴隶出现显示警报",
 	PingCharge			= "当冰吼即将向你你冲锋时自动点击小地图",
 	ClearIconsOnIceHowl	= "冲锋前清除所有标记",

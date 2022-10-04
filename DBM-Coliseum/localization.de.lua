@@ -22,6 +22,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery= "Spielt den Sound von $spell:31821, um die Effekte von $spell:66330 zu negieren (nur für den |cFFF48CBAPaladin|r, der der Besitzer von $spell:19746 ist)",
 	WarningSnobold		= "Zeige Warnung, wenn ein Schneeboldvasall erscheint",
 	PingCharge			= "Ping die Minimap wenn Eisheuler dich niedertrampeln will",
 	ClearIconsOnIceHowl	= "Entferne alle Zeichen vor dem Trampeln",

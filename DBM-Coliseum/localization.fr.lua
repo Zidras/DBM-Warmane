@@ -22,6 +22,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery		= "Jouer le son $spell:31821 pour annuler les effets de $spell:66330 (seulement pour le |cFFF48CBAPaladin|r qui est le propriétaire de $spell:19746)",
 	WarningSnobold				= "Montre une alerte quand les Vassal arrivent",
 	PingCharge					= "Ping sur la minimap quand Glace-hurlante va vous charger",
 	ClearIconsOnIceHowl			= "Enlève toutes les icônes avant la prochaine charge",

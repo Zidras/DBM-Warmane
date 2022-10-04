@@ -22,6 +22,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery= "Воспроизвести звук $spell:31821, чтобы отменить эффекты $spell:66330 (только для |cFFF48CBAПаладин|r, который является владельцем $spell:19746)",
 	WarningSnobold		= "Предупреждение о призыве Снобольда-вассала",
 	PingCharge			= "Показать на миникарте место, куда попадает Ледяной Рев, если он избрал вас целью",
 	ClearIconsOnIceHowl	= "Снимать все иконки перед Топотом",

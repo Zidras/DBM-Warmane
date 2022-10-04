@@ -20,6 +20,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	soundConcAuraMastery= "Play $spell:31821 sound to negate the effects of $spell:66330 (only for the |cFFF48CBAPaladin|r that is the owner of $spell:19746)",
 	WarningSnobold		= "Show warning for Snobold Vassal spawns",
 	PingCharge			= "Ping the minimap when Icehowl is about to charge you",
 	ClearIconsOnIceHowl	= "Clear all icons before charge",
