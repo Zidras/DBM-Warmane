@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20221004111440")
 mod:SetCreatureID(26631)
 
 mod:RegisterCombat("yell", L.YellPull)
@@ -16,14 +16,14 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local WarnCrystalHandler		= mod:NewAnnounce("WarnCrystalHandler", 2, 59910)
+local WarnCrystalHandler		= mod:NewAddsLeftAnnounce(49179, 2, 59910)
 local warnPhase2				= mod:NewPhaseAnnounce(2)
 local warnCurseTarget			= mod:NewTargetAnnounce(59856)
 
 local specwarnCurse				= mod:NewSpecialWarningDispel(59856, "RemoveCurse")
 local specwarnSnow				= mod:NewSpecialWarningMove(59854)
 
-local timerCrystalHandler		= mod:NewTimer(20, "timerCrystalHandler", 59910, nil, nil, 1, DBM_COMMON_L.DAMAGE_ICON)
+local timerCrystalHandler		= mod:NewNextTimer(20, 49179, nil, nil, nil, 1, 59910, DBM_COMMON_L.DAMAGE_ICON)
 local timerNextCurse			= mod:NewCDTimer(20, 59856)
 
 mod.vb.CrystalHandlers = 4
