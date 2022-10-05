@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220923224759")
+mod:SetRevision("20221005154102")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -41,7 +41,7 @@ local specWarnMeteorStrike			= mod:NewSpecialWarningMove(74648, nil, nil, nil, 1
 local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3)
 local timerMeteorCD					= mod:NewNextTimer(40, 74648, nil, nil, nil, 3)--Target or aoe? tough call. It's a targeted aoe!
 local timerMeteorCast				= mod:NewCastTimer(7, 74648)--7-8 seconds from boss yell the meteor impacts.
-local timerFieryBreathCD			= mod:NewCDTimer(16, 74525, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)--But unique icons are nice pertaining to phase you're in ;)
+local timerFieryBreathCD			= mod:NewCDTimer(13, 74525, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~4s variance [13.1-16.9]. Added "keep" arg (25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/23) - 16.1, 13.1, 13.8, 14.9, 14.6, 16.3, Stage 2/2.0, Stage 3/109.9, 17.4/127.3/129.3, 16.4 || 15.7, 15.7, 16.9, 16.7, 15.1, Stage 2/9.3, Stage 3/93.0, 13.0/106.0/115.4, 14.2, 14.5, 13.5, 13.8, 15.7, 15.0, 15.9, 16.0, 13.4, 15.0, 16.2, 16.8, 16.2
 
 mod:AddSetIconOption("SetIconOnFireConsumption", 74562, true, false, {7})--Red x for Fire
 
@@ -62,7 +62,7 @@ local timerShadowConsumptionCD		= mod:NewNextTimer(25, 74792, nil, nil, nil, 3)
 local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
-local timerShadowBreathCD			= mod:NewCDTimer(16, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)--Edited. Same as debuff timers, same CD, can be merged into 1.
+local timerShadowBreathCD			= mod:NewCDTimer(13, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~4s variance [13.0-16.9]. Added "keep" arg (25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/23) -- 14.0, 15.9, 13.8, 14.9, 14.3, 13.0 || 15.8, 13.7, 16.9, 15.3
 
 mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Purple diamond for shadow
 
@@ -91,7 +91,7 @@ function mod:OnCombatStart(delay)--These may still need retuning too, log i had 
 	berserkTimer:Start(-delay)
 	timerMeteorCD:Start(20-delay)
 	timerFieryConsumptionCD:Start(15-delay)
-	timerFieryBreathCD:Start(10-delay)
+	timerFieryBreathCD:Start(10-delay) -- (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 10.5 || 11.3 || 12.4 || 10.3
 end
 
 function mod:OnCombatEnd()
@@ -325,7 +325,7 @@ function mod:OnSync(msg, target)
 		timerFieryConsumptionCD:Cancel()
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerShadowBreathCD:Start(18) -- Edited.
+		timerShadowBreathCD:Start() -- ~5s variance [13.7-18.4] (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 15.9 || 13.7 || 18.1 || 18.4
 		timerShadowConsumptionCD:Start(25)--Edited. not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this
 		if self:IsHeroic() then --These i'm not sure if they start regardless of drake aggro, or if it should be moved too.
 			timerTwilightCutterCD:Start(30)
