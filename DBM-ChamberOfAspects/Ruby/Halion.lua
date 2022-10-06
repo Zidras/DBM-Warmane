@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221005154102")
+mod:SetRevision("20221006212659")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -42,6 +42,7 @@ local timerFieryConsumptionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3)
 local timerMeteorCD					= mod:NewNextTimer(40, 74648, nil, nil, nil, 3)--Target or aoe? tough call. It's a targeted aoe!
 local timerMeteorCast				= mod:NewCastTimer(7, 74648)--7-8 seconds from boss yell the meteor impacts.
 local timerFieryBreathCD			= mod:NewCDTimer(13, 74525, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~4s variance [13.1-16.9]. Added "keep" arg (25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/23) - 16.1, 13.1, 13.8, 14.9, 14.6, 16.3, Stage 2/2.0, Stage 3/109.9, 17.4/127.3/129.3, 16.4 || 15.7, 15.7, 16.9, 16.7, 15.1, Stage 2/9.3, Stage 3/93.0, 13.0/106.0/115.4, 14.2, 14.5, 13.5, 13.8, 15.7, 15.0, 15.9, 16.0, 13.4, 15.0, 16.2, 16.8, 16.2
+local timerTailLashCD				= mod:NewCDTimer(10, 74531, nil, nil, nil, 2) -- Almost a fixed timer, with very occasional delay, on both Physical and Shadow realms. (25H Lordaeron 2022/09/23) - pull:10.1/Stage 1/10.1, 10.0, 10.0, 10.0, 10.1, 10.5, 10.0, 10.1, 11.7, Stage 2/13.5, 10.1, 10.0, 10.0, 10.1, 10.0, 10.0, 10.0, Stage 3/10.0, 10.0, 11.2, 10.0, 10.0, 10.0, 10.1, 10.1, 10.0, 10.0, 10.0, 10.0, 10.0, 10.1, 10.0, 10.0, 10.0, 11.0, 10.0
 
 mod:AddSetIconOption("SetIconOnFireConsumption", 74562, true, false, {7})--Red x for Fire
 
@@ -92,6 +93,7 @@ function mod:OnCombatStart(delay)--These may still need retuning too, log i had 
 	timerMeteorCD:Start(20-delay)
 	timerFieryConsumptionCD:Start(15-delay)
 	timerFieryBreathCD:Start(10-delay) -- (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 10.5 || 11.3 || 12.4 || 10.3
+	timerTailLashCD:Start(-delay)
 end
 
 function mod:OnCombatEnd()
@@ -132,6 +134,8 @@ function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff time
 		if self.vb.phase > 1 and self:LatencyCheck() then -- useless on phase 1 since everyone is in the same realm
 			self:SendSync("FieryCD")
 		end
+	elseif spellId == 74531 then -- Tail Lash
+		timerTailLashCD:Start()
 	end
 end
 
