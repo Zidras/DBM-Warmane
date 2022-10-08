@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221003200727")
+mod:SetRevision("20221008111348")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
-mod:SetHotfixNoticeRev(20220906000000)
-mod:SetMinSyncRevision(20220906000000)
+mod:SetHotfixNoticeRev(20221008000000)
+mod:SetMinSyncRevision(20221008000000)
 
 mod:RegisterCombat("combat")
 
@@ -47,7 +47,7 @@ local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsHe
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
 local timerNextAirphase			= mod:NewTimer(65.7, "TimerNextAirphase", 43810, nil, nil, 6) -- (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 65.7; 65.8 || 65.8; 65.8; 65.8
-local timerNextGroundphase		= mod:NewTimer(44.2, "TimerNextGroundphase", 43810, nil, nil, 6) -- 0.4s variance (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 44.2; 44.2 || 44.2; 44.3, 44.6; 44.2
+local timerNextGroundphase		= mod:NewTimer(44.2, "TimerNextGroundphase", 43810, nil, nil, 6) -- 0.4s variance (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/06) - 44.2; 44.2 || 44.2; 44.3, 44.6; 44.2 || 45.1
 local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextBlisteringCold	= mod:NewCDTimer(66, 70123, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, true, 2) -- Added "keep" arg
 local timerNextBeacon			= mod:NewNextCountTimer(16, 70126, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
@@ -176,6 +176,17 @@ local function ResetRange(self)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:DisableBossMode()
 	end
+end
+
+-- Warmane workaround, since there is no dedicated event for Sindragosa Landing Phase, and there have been instances where UNIT_TARGET never fires
+local function landingPhaseWorkaround(self, timeOffset)
+	DBM:Debug("UNIT_TARGET boss1 didn't fire. Landing Phase scheduled")
+	self:SetStage(1)
+	timerNextAirphase:Start(-timeOffset)
+	timerUnchainedMagic:Start(10-timeOffset)
+	timerTailSmash:Start(19-timeOffset)
+	timerNextBlisteringCold:Start(34-timeOffset)
+	self:UnregisterShortTermEvents()
 end
 
 function mod:AnnounceBeaconIcons(uId, icon)
@@ -376,6 +387,7 @@ end
 function mod:UNIT_TARGET(uId)
 	-- Attempt to catch when she lands by checking for Sindragosa's target being a raid member
 	if UnitExists(uId.."target") then
+		self:Unschedule(landingPhaseWorkaround)
 		self:SetStage(1)
 		timerNextAirphase:Start()
 		timerUnchainedMagic:Start(10) -- (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 10.0; 10.0 || 10.0; 10.0, 10.0; 10.0
@@ -398,6 +410,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerTailSmash:Cancel()
 		timerNextGroundphase:Start()
 		warnGroundphaseSoon:Schedule(37.5)
+		self:Schedule(landingPhaseWorkaround, self, 45.2, 1) -- giving a 0.2s cushion from 45s (max I have on logs is 45.1s). 1s comes from 45.2-44.2s from ground timer
 		self:RegisterShortTermEvents(
 			"UNIT_TARGET boss1"
 		)
@@ -410,6 +423,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextGroundphase:Cancel()
 		warnGroundphaseSoon:Cancel()
 		timerNextBlisteringCold:Restart(35) -- REVIEW! Stage 1 to Stage 2 needs logic! (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - Stage 1/44.2, Stage 2/24.6, 50.9 || 42.7; Stage 1/44.6, 22.6/67.2/79.9, Stage 2/3.2, 24.2 ; 39.5
+		self:Unschedule(landingPhaseWorkaround)
 		self:UnregisterShortTermEvents() -- REVIEW! not sure it's needed, but doesn't hurt. Would need validation on event order when boss is intermissioned with health right above phase 2 threshold, to check which of the events come first (TARGET or YELL)
 	end
 end
