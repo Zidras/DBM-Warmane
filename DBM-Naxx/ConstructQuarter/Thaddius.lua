@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220806124120")
+mod:SetRevision("20221008164846")
 mod:SetCreatureID(15928)
 
 mod:RegisterCombat("combat_yell", L.Yell)
@@ -60,7 +60,7 @@ function mod:OnCombatStart(delay)
 end
 
 do
-	local lastShift = 0
+	local lastShift
 	function mod:SPELL_CAST_START(args)
 		if args.spellId == 28089 then
 			self:SetStage(2)
@@ -73,7 +73,7 @@ do
 	end
 
 	function mod:UNIT_AURA()
-		if self.vb.phase ~= 2 or (GetTime() - lastShift) > 5 or (GetTime() - lastShift) < 3 then return end
+		if self.vb.phase ~= 2 or not lastShift or (GetTime() - lastShift) < 3 then return end
 		local charge
 		local i = 1
 		while UnitDebuff("player", i) do
@@ -90,7 +90,7 @@ do
 			i = i + 1
 		end
 		if charge then
-			lastShift = 0
+			lastShift = nil
 			if charge == currentCharge then
 				warnChargeNotChanged:Show()
 				warnChargeNotChanged:Play("dontmove")
