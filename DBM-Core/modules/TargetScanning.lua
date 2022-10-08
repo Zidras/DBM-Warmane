@@ -24,13 +24,11 @@ end
 
 do
 	local CL = DBM_COMMON_L
-	local bossTargetuIds = {
-		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target", "mouseover"
-	}
 
 	local function getBossTarget(guid, scanOnlyBoss)
 		local name, uid, bossuid
 		local cacheuid = bossuIdCache[guid] or "boss1"
+		--Try to check last used unit token cache before iterating again.
 		if UnitGUID(cacheuid) == guid then
 			bossuid = cacheuid
 			name = DBM:GetUnitFullName(cacheuid.."target")
@@ -38,37 +36,13 @@ do
 			bossuIdCache[guid] = bossuid
 		end
 		if name then return name, uid, bossuid end
-		for _, uId in ipairs(bossTargetuIds) do
-			if UnitGUID(uId) == guid then
-				bossuid = uId
-				name = DBM:GetUnitFullName(uId.."target")
-				uid = uId.."target"
-				bossuIdCache[guid] = bossuid
-				break
-			end
-		end
-		if name or scanOnlyBoss then return name, uid, bossuid end
-		-- failed to detect from default uIds, scan all group members's target.
-		if IsInRaid() then
-			for i = 1, GetNumGroupMembers() do
-				if UnitGUID("raid"..i.."target") == guid then
-					bossuid = "raid"..i.."target"
-					name = DBM:GetUnitFullName("raid"..i.."targettarget")
-					uid = "raid"..i.."targettarget"
-					bossuIdCache[guid] = bossuid
-					break
-				end
-			end
-		elseif IsInGroup() then
-			for i = 1, GetNumSubgroupMembers() do
-				if UnitGUID("party"..i.."target") == guid then
-					bossuid = "party"..i.."target"
-					name = DBM:GetUnitFullName("party"..i.."targettarget")
-					uid = "party"..i.."targettarget"
-					bossuIdCache[guid] = bossuid
-					break
-				end
-			end
+		--Else, perform iteration again
+		local unitID = DBM:GetUnitIdFromGUID(guid, scanOnlyBoss)
+		if unitID then
+			bossuid = unitID
+			name = DBM:GetUnitFullName(unitID.."target")
+			uid = unitID.."target"
+			bossuIdCache[guid] = bossuid
 		end
 		return name, uid, bossuid
 	end
