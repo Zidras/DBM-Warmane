@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221008111348")
+mod:SetRevision("20221008215629")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
-mod:SetHotfixNoticeRev(20221008000000)
-mod:SetMinSyncRevision(20221008000000)
+mod:SetHotfixNoticeRev(20221008210000)
+mod:SetMinSyncRevision(20221008210000)
 
 mod:RegisterCombat("combat")
 
@@ -410,7 +410,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerTailSmash:Cancel()
 		timerNextGroundphase:Start()
 		warnGroundphaseSoon:Schedule(37.5)
-		self:Schedule(landingPhaseWorkaround, self, 45.2, 1) -- giving a 0.2s cushion from 45s (max I have on logs is 45.1s). 1s comes from 45.2-44.2s from ground timer
+		self:Schedule(45.2, landingPhaseWorkaround, self, 1) -- giving a 0.2s cushion from 45s (max I have on logs is 45.1s). 1s comes from 45.2-44.2s from ground timer
 		self:RegisterShortTermEvents(
 			"UNIT_TARGET boss1"
 		)
