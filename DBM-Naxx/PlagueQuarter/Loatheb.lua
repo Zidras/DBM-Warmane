@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Loatheb", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220629223621")
+mod:SetRevision("20221008165244")
 mod:SetCreatureID(16011)
 
 mod:RegisterCombat("combat")--Maybe change to a yell later so pull detection works if you chain pull him from tash gauntlet
@@ -81,12 +81,13 @@ function mod:OnCombatStart(delay)
 --	timerRemoveCurseCD:Start(3 - delay)
 	if self:IsDifficulty("normal25") then
 		self.vb.sporeTimer = 15
+		timerDoom:Start(90 - delay, 1)
 	else
 		self.vb.sporeTimer = 36
+		timerDoom:Start(120 - delay, 1)
 	end
 	timerSpore:Start(self.vb.sporeTimer - delay, 1)
 	warnSporeSoon:Schedule(self.vb.sporeTimer - 5 - delay)
-	timerDoom:Start(90 - delay, self.vb.doomCounter + 1)
 
 	local startTime = GetTime()
 	table.wipe(hadCorrupted)
