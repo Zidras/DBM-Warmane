@@ -263,7 +263,13 @@ function DBM_GUI:CreateDropdown(title, values, vartype, var, callfunc, width, he
 	-- Check Values
 	if type(values) == "table" then
 		for _, entry in next, values do
-			entry.text = entry.text or "Missing entry.text"
+			if entry.text then
+				if entry.text:find("%$spell:") then
+					entry.text = entry.text:gsub("%$spell:(%d+)", replaceSpellLinks)
+				end
+			else
+				entry.text = "Missing entry.text"
+			end
 			entry.value = entry.value or entry.text
 		end
 	end
