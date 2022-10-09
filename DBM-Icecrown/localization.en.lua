@@ -37,8 +37,13 @@ L:SetOptionLocalization({
 	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled",
 	ShieldHealthFrame			= "Show boss health with a health bar for $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
-	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight",
-	RemoveDruidBuffOnMCOnly     = "Remove $spell:48469 / $spell:48470 only if $spell:71289 is cast on you",
+--	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight",
+	RemoveBuffsOnMC				= "Remove buffs when $spell:71289 is cast on you. Each option is cumulative.",
+	Never						= NEVER, -- don't translate
+	Gift						= "Remove $spell:48469 / $spell:48470. Minimal approach to prevent $spell:33786 resists.",
+	CCFree						= "+ Remove $spell:48169 / $spell:48170. Account for resists of spells in the Shadow school.",
+	ShortOffensiveProcs			= "+ Remove offensive procs that have a low duration. Recommended for raid safety without compromising raid damage output.",
+	MostOffensiveBuffs			= "+ Remove most offensive buffs (mainly for Casters and |cFFFF7C0AFeral Druids|r). Maximum raid safety with loss of damage output and need to self-rebuff/shapeshift!",
 	EqUneqWeapons				= "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".",
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
 	BlockWeapons				= "Completely block the unequip/equip functions above"

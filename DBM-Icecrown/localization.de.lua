@@ -39,8 +39,12 @@ L:SetOptionLocalization({
 	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
 	ShieldHealthFrame			= "Zeige Bossleben mit einer Leiste für $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
-	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight", --Needs Translating
-	RemoveDruidBuffOnMCOnly     = "Entferne $spell:48469 / $spell:48470 nur, wenn $spell:71289 auf dich gewirkt wird",
+--	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight", --Needs Translating
+	RemoveBuffsOnMC				= "Entferne Buffs, wenn $spell:71289 auf dich gewirkt wird. Jede Option ist kumulativ.",
+	Gift						= "Entferne $spell:48469 / $spell:48470. Minimaler Ansatz, um $spell:33786 Resistenzen zu verhindern.",
+	CCFree						= "+ Entferne $spell:48169 / $spell:48170. Berücksichtige die Resistenzen von Zaubern der Schattenschule.",
+	ShortOffensiveProcs			= "+ Entferne offensive Procs, die eine geringe Dauer haben. Empfohlen für die Sicherheit des Schlachtzugs, ohne den Schadensoutput des Schlachtzugs zu beeinträchtigen.",
+	MostOffensiveBuffs			= "+ Entfernt die meisten offensiven Buffs (hauptsächlich für Zauberwirker und |cFFFF7C0AWildheit-Druide|r). Maximale Schlachtzugsicherheit bei gleichzeitigem Verlust des Schadensoutputs und der Notwendigkeit, sich selbst zu rebuffen/shapeshiften!",
 	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.", --Needs Translating
 	BlockWeapons				= "Completely block the unequip/equip functions above" --Needs Translating
