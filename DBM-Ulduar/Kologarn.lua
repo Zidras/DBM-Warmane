@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220804193753")
+mod:SetRevision("20221010192909")
 mod:SetCreatureID(32930)
 mod:SetUsedIcons(5, 6, 7, 8)
 
@@ -42,7 +42,7 @@ local yellBeam					= mod:NewYell(63346)
 
 local timerCrunch10				= mod:NewTargetTimer(6, 63355)
 local timerNextSmash			= mod:NewCDTimer(14.4, 64003, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 3s variance (2022/07/05 log review) - 16.7, 14.4, 14.4, 16.8, 14.4, 14.4 || 13.7, 16.8, 14.4, 14.4, 14.4 || 16.0, 14.3, 16.8, 14.4 || 16.8, 14.4, 14.4, 14.4, 16.8 || 14.1, 14.4, 16.8, 14.4
-local timerNextEyebeam			= mod:NewCDTimer(18.2, 63346, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON) -- 17s variance! (2022/07/05 log review) - 28, 31, 27 || 21, 19, 17, 33 || 25 || 33, 23 || 30, 16
+local timerNextEyebeam			= mod:NewCDTimer(15.9, 63346, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON, true) -- almost 20s variance! Added "keep" arg (2022/07/05 log review || ... ||| 25m Lordaeron 2022/10/09) - 28, 31, 27 || 21, 19, 17, 33 || 25 || 33, 23 || 30, 16 ||| 23.0, 15.9, 23.3, 25.2
 
 mod:AddSetIconOption("SetIconOnEyebeamTarget", 63346, true, false, {8})
 
