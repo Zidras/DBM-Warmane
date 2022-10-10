@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("XT002", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220718000855")
+mod:SetRevision("20221010223308")
 mod:SetCreatureID(33293)
 mod:SetUsedIcons(1, 2)
 
@@ -125,7 +125,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 63849 then	-- Exposed Heart
 		self:SetStage(1)
 		timerHeart:Stop()
-		timerTympanicTantrumCD:Start(35.9) -- REVIEW! Variance? Only one log so far (S3 FM Log review 2022/07/17)
+		timerTympanicTantrumCD:Start(35.6) -- REVIEW! Variance? (S3 FM Log review 2022/07/17 || 25m Lordearon 2022/10/10) -- 35.9 || 35.6
 	end
 end
 
