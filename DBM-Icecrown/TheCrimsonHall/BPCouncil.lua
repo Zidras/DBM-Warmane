@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220908165836")
+mod:SetRevision("20221011184846")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -84,7 +84,7 @@ local warnGliteringSparks		= mod:NewTargetAnnounce(71807, 2, nil, false)
 local specWarnEmpoweredFlames	= mod:NewSpecialWarningRun(72040, nil, nil, nil, 4, 2)
 local yellEmpoweredFlames		= mod:NewYellMe(72040)
 
-local timerConjureFlamesCD		= mod:NewCDTimer(18, 71718, nil, nil, nil, 3, nil, nil, true) -- normal + empowered. REVIEW! ~11s variance [18.0-29.4]. Added "keep" arg (25H Lordaeron 2022/09/07) -- 20.0, 29.4, 24.3, 18.0, 23.5, 21.3, 27.6, 20.5, 22.3
+local timerConjureFlamesCD		= mod:NewCDTimer(17.7, 71718, nil, nil, nil, 3, nil, nil, true) -- normal + empowered. REVIEW! ~11s variance [17.7-29.4]. Added "keep" arg (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/10/09) -- 20.0, 29.4, 24.3, 18.0, 23.5, 21.3, 27.6, 20.5, 22.3 || 20.0, 29.9, 22.0, 17.7, 24.6, 29.1, 29.9
 local timerGlitteringSparksCD	= mod:NewCDTimer(16.9, 71807, nil, nil, nil, 2, nil, nil, true) -- This is pretty nasty on heroic. Very high variance! Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/07) - 36, 17.5 || pull:12.5, 43.5, 20.8, 44.3, 38.6, 16.9, 33.3
 
 local soundEmpoweredFlames		= mod:NewSound(72040)
