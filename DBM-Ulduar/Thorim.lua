@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220804184513")
+mod:SetRevision("20221011212336")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -33,7 +33,7 @@ local yellRuneDetonation			= mod:NewYell(62526)
 local specWarnLightningShock		= mod:NewSpecialWarningMove(62017, nil, nil, nil, 1, 2)
 
 local timerStormhammerCast			= mod:NewCastTimer(2, 62042, nil, nil, nil, 3)
-local timerStormhammerCD			= mod:NewCDTimer(14.8, 62042, nil, nil, nil, 3) -- ~5s variance (25 man NM log 2022/07/10 || 25 man HM log 2022/07/17) - 16.2, 15.5, 16.8, 19.4, 17.8, 15.5, 16.8 || 16.9, 17.7, 18.0, 14.8
+local timerStormhammerCD			= mod:NewCDTimer(14.2, 62042, nil, nil, nil, 3, nil, nil, true) -- ~5s variance. Added "keep" arg (25 man NM log 2022/07/10 || 25 man HM log 2022/07/17 || 25m Lordaeron 2022/10/09) - 16.2, 15.5, 16.8, 19.4, 17.8, 15.5, 16.8 || 16.9, 17.7, 18.0, 14.8 || 15.1, 16.2, 17.0, 14.2, 16.1, 15.6, 15.8
 
 mod:AddSetIconOption("SetIconOnRuneDetonation", 62527, false, false, {7})
 
@@ -201,6 +201,6 @@ function mod:OnSync(event)
 		enrageTimer:Stop()
 		timerHardmode:Stop()
 		enrageTimer:Start(300)
-		timerLightningCharge:Start(36) -- S3 VOD review 2022/07/15, reconfirmed with S3 FM HM log 2022/07/17
+		timerLightningCharge:Start(35.6) -- (S3 VOD review 2022/07/15, reconfirmed with S3 FM HM log 2022/07/17 || 25m Lordaeron 2022/10/09) - 36 || 35.6
 	end
 end
