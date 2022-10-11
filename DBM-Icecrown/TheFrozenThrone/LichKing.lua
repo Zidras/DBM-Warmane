@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20220928193627")
+mod:SetRevision("20221011185226")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -130,7 +130,7 @@ local specWarnValkyrLow				= mod:NewSpecialWarning("SpecWarnValkyrLow", nil, nil
 
 local timerSoulreaper				= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
 local timerSoulreaperCD				= mod:NewCDCountTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerDefileCD					= mod:NewCDCountTimer(32, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true, 1, 4) -- REVIEW! ~3s variance [32-34.7]. Added "keep" arg, but might need sync for Normal Harvest Soul since CLEU could be OOR - need Normal log from a harvested soul - (25H Lordaeron 2022/09/26_wipe1 || 25H Lordaeron 2022/09/26_wipe2 || 25H Lordaeron 2022/09/26_wipe3 || 25H Lordaeron 2022/09/26_wipe4 || 25H Lordaeron 2022/09/26_wipe5 || 25H Lordaeron 2022/09/26_wipe6) - 33.8, 34.2, 32.3, 34.0, 32.8 || 32.4, 34.5, 33.6, 34.4, 33.7 || 33.4, 32.1, 33.0, 32.5, 33.5, 33.3, 33.5 || 33.6, 33.4, 33.0 || Stage 2/37.5, 32.2, 32.0, 33.0, 33.5, 32.1, 32.1, 33.4, Stage 2.5/25.8, Stage 3/62.5, 64.0/126.6/152.4, 32.7, 73.6, 32.6, 74.5 || 32.6, 34.7, 32.5, 34.2, 33.7
+local timerDefileCD					= mod:NewCDCountTimer(32, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true, 1, 4) -- REVIEW! ~3s variance [32-34.7]. Added "keep" arg, but might need sync for Normal Harvest Soul since CLEU could be OOR - need Normal log from a harvested soul - (25H Lordaeron 2022/09/26_wipe1 || 25H Lordaeron 2022/09/26_wipe2 || 25H Lordaeron 2022/09/26_wipe3 || 25H Lordaeron 2022/09/26_wipe4 || 25H Lordaeron 2022/09/26_wipe5 || 25H Lordaeron 2022/09/26_wipe6 || 10N Lordaeron 2022/10/08) - 33.8, 34.2, 32.3, 34.0, 32.8 || 32.4, 34.5, 33.6, 34.4, 33.7 || 33.4, 32.1, 33.0, 32.5, 33.5, 33.3, 33.5 || 33.6, 33.4, 33.0 || Stage 2/37.5, 32.2, 32.0, 33.0, 33.5, 32.1, 32.1, 33.4, Stage 2.5/25.8, Stage 3/62.5, 64.0/126.6/152.4, 32.7, 73.6, 32.6, 74.5 || 32.6, 34.7, 32.5, 34.2, 33.7 || Stage 2/37.5, 32.1, 32.8, Stage 2.5/24.2, Stage 3/62.5, 32.9/95.5/119.6, 32.7, 32.7, 32.9
 local timerSummonValkyr				= mod:NewCDCountTimer(45.2, 69037, nil, nil, nil, 1, 71844, DBM_COMMON_L.DAMAGE_ICON, true, 2, 3) -- 5s variance [45-50]. Added "keep" arg (25H Lordaeron 2022/09/21_wipe1 || 25H Lordaeron 2022/09/21_wipe2 || 25H Lordaeron 2022/09/21_kill) - 46.5, 47.1, 45.2 || 50.0, 46.8, 46.2 || 47.8, 48.1, 47.8
 
 local soundDefileOnYou				= mod:NewSoundYou(72762)
@@ -303,7 +303,7 @@ local function NextPhase(self)
 		timerVileSpirit:Start(17)
 		timerSoulreaperCD:Start(37.5, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(37.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
-		timerDefileCD:Start(33.5, self.vb.defileCount+1)
+		timerDefileCD:Start(nil, self.vb.defileCount+1)
 		timerHarvestSoulCD:Start(14)
 		warnDefileSoon:Schedule(30, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(30, "scatter")
