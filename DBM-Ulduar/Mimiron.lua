@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220823001741")
+mod:SetRevision("20221011214859")
 mod:SetCreatureID(33432)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetHotfixNoticeRev(20220823000000)
@@ -66,7 +66,7 @@ mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..L.MobPhase3)
 local warnLootMagneticCore			= mod:NewAnnounce("MagneticCore", 1, 64444, nil, nil, nil, 64444)
 local warnBombBotSpawn				= mod:NewAnnounce("WarnBombSpawn", 3, 63811, nil, nil, nil, 63811)
 
-local timerBombBotSpawn				= mod:NewCDTimer(16.6, 63811, nil, nil, nil, 1) -- REVIEW! variance? 25 man NM log review (2022/07/10) - 16.6
+local timerBombBotSpawn				= mod:NewCDTimer(16.6, 63811, nil, nil, nil, 1) -- REVIEW! variance? 25 man NM log review (2022/07/10 || 25H Lordaeron 2022/10/09) - 16.6 || 21.0
 
 mod:AddBoolOption("AutoChangeLootToFFA", true, nil, nil, nil, nil, 64444)
 
@@ -91,7 +91,7 @@ mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..L.MobPhase2)
 local warnFrostBomb					= mod:NewSpellAnnounce(64623, 3)
 
 local timerFrostBombExplosion		= mod:NewCastTimer(15, 65333, nil, nil, nil, 3)
-local timerNextFrostBomb			= mod:NewNextTimer(33, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON) -- REVIEW! variance? Use PEWPEW to add time? VOD review || S3 HM log 2022/07/17 - either gave 46 or 33s || 44.2, 44.4, 47.1
+local timerNextFrostBomb			= mod:NewNextTimer(30.4, 64623, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON, true) -- REVIEW! variance? Use PEWPEW to add time? Added "keep" arg (VOD review || S3 HM log 2022/07/17 || 25H Lordaeron 2022/10/09) - either gave 46 or 33s || 44.2, 44.4, 47.1 || Stage 2/44.3, 32.6, Stage 4/88.2, 28.8/116.9/145.5, 47.7, 30.4
 local timerNextFlameSuppressantP2	= mod:NewNextTimer(10, 65192, nil, nil, nil, 3) -- 2s (26.4 outlier??) variance (S2 VOD review) - 12, 12, 11, 10 || 12.3, 12.4, 26.4, 11.3, 12.4
 
 -- Stage Three
@@ -162,7 +162,7 @@ local function NextPhase(self)
 			DBM.RangeCheck:Hide()
 		end
 		if self.vb.hardmode then
-			timerNextFrostBomb:Start(46)
+			timerNextFrostBomb:Start(44.3) -- (25H Lordaeron 2022/10/09) - 44.3
 		end
 	elseif self.vb.phase == 3 then
 		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
@@ -172,7 +172,7 @@ local function NextPhase(self)
 		timerNextP3Wx2LaserBarrage:Cancel()
 		timerNextFrostBomb:Cancel()
 		timerP2toP3:Start()
-		timerBombBotSpawn:Start(33) -- 25 man NM log review (2022/07/10)
+		timerBombBotSpawn:Start(32.5) -- 25 man NM log review (2022/07/10 || 25H Lordaeron 2022/10/09) - 33 || 32.5
 		if self.Options.HealthFrame then
 			DBM.BossHealth:Clear()
 			DBM.BossHealth:AddBoss(33670, L.MobPhase3)
@@ -256,6 +256,7 @@ function mod:SPELL_CAST_START(args)
 		timerFrostBombExplosion:Start()
 		timerNextFrostBomb:Start()
 	elseif spellId == 64383 then -- Self Repair (phase 4)
+		-- REVIEW! Makes sense to cancel timers when each part dies? Or timers are continuous?
 		timerSelfRepair:Start(args.sourceName)
 	end
 end
@@ -393,7 +394,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextFlames:Start(6) -- S2 VOD review
 		self:Schedule(6, Flames, self)
 		warnFlamesSoon:Schedule(1)
-		timerNextShockBlast:Start(37) -- REVIEW! variance? (S3 HM log 2022/07/17) - 37.9, 37.7
+		timerNextShockBlast:Start(35.8) -- REVIEW! variance? (S3 HM log 2022/07/17 || 25H Lordaeron 2022/10/09) - 37.9, 37.7 || 35.8
 		timerEnrage:Start(600) -- REVIEW! 10 or 8 mins? By the yells, it is 10 mins, but wowhead states 8 min enrage timer...
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then -- register Phase 2
 		NextPhase(self)
