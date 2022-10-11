@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ignis", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220710214001")
+mod:SetRevision("20221011211626")
 mod:SetCreatureID(33118)
 mod:SetUsedIcons(8)
 
@@ -21,10 +21,10 @@ local specWarnFlameJetsCast		= mod:NewSpecialWarningCast(63472, "SpellCaster", n
 local specWarnFlameBrittle		= mod:NewSpecialWarningSwitch(62382, "Dps", nil, nil, 1, 2)
 
 local timerFlameJetsCast		= mod:NewCastTimer(2.7, 63472, nil, nil, nil, 5, nil, DBM_COMMON_L.IMPORTANT_ICON)
-local timerFlameJetsCooldown	= mod:NewCDTimer(45.1, 63472, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON) -- ~3s variance (25 man log review 2022/07/10) - 45.1, 47.0
-local timerActivateConstruct	= mod:NewCDCountTimer(30, 62488, nil, nil, nil, 1) -- REVIEW: variance in a timer that's different between raid modes... consider "keep" arg?
+local timerFlameJetsCooldown	= mod:NewCDTimer(45.1, 63472, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true) -- 10/25 diff. ~3s variance. Transcriptor snippet below. Added "keep" arg
+local timerActivateConstruct	= mod:NewCDCountTimer(30, 62488, nil, nil, nil, 1, nil, nil, true) -- 10/25 diff. ~6s variance. Transcriptor snippet below. Added "keep" arg
 local timerScorchCast			= mod:NewCastTimer(3, 63473)
-local timerScorchCooldown		= mod:NewCDTimer(31.0, 63473, nil, nil, nil, 5) -- 1s variance (25 man log review 2022/07/10) - 31.0, 32.0, 31.0
+local timerScorchCooldown		= mod:NewCDTimer(31, 63473, nil, nil, nil, 5) -- 10/25 diff. ~1s variance. Transcriptor snippet below
 local timerSlagPot				= mod:NewTargetTimer(10, 63477, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerAchieve				= mod:NewAchievementTimer(240, 2930)
 
@@ -47,12 +47,8 @@ end
 function mod:OnCombatStart(delay)
 	self.vb.ConstructCount = 0
 	timerAchieve:Start()
-	if self:IsDifficulty("normal10") then
-		timerActivateConstruct:Start(40-delay, self.vb.ConstructCount)
-	else
-		timerActivateConstruct:Start(30-delay, self.vb.ConstructCount)
-	end
-	timerScorchCooldown:Start(-delay) -- 25 man log review (2022/07/10)
+	timerActivateConstruct:Start(15-delay, 1) -- REVIEW! variance? (10m Frostmourne 2022/07/17 || 25m Lordaeron 2022/10/05 || 25m Lordaeron 2022/10/09) - 15.0 || 15.0 || 15.0
+	timerScorchCooldown:Start(25-delay) -- (10m Frostmourne 2022/07/17 || 25m Lordaeron 2022/10/05 || 25m Lordaeron 2022/10/09) - 25.0 || 25.0 || 25.0
 	timerFlameJetsCooldown:Start(30-delay) -- 25 man log review (2022/07/10)
 end
 
@@ -65,12 +61,12 @@ function mod:SPELL_CAST_START(args)
 		else
 			specWarnFlameJetsCast:Play("stopcast")
 		end
-		timerFlameJetsCooldown:Start()
+		timerFlameJetsCooldown:Start(self:IsDifficulty("normal10") and 41.5 or 45.1) -- 10/25 different. ~5s variance (25 man log review 2022/07/10 || 10m Frostmourne 2022/07/17 || 25m Lordaeron 2022/10/05 || 25m Lordaeron 2022/10/09) - 45.1, 47.0 || 43.5, 41.5, 45.9, 41.9 || 47.2, 45.8, 47.0 || 48.9, 46.6
 	elseif args.spellId == 62488 then		-- Activate Construct
 		self.vb.ConstructCount = self.vb.ConstructCount + 1
 		warnConstruct:Show(self.vb.ConstructCount)
 		if self.vb.ConstructCount < 20 then
-			timerActivateConstruct:Start(self:IsDifficulty("normal10") and 40 or 33.5, self.vb.ConstructCount) -- ~5s variance (25 man log review 2022/07/10) - 33.5, 38.5, 37.8
+			timerActivateConstruct:Start(self:IsDifficulty("normal10") and 43 or 33, self.vb.ConstructCount+1) -- 10/25 different. ~6s variance (25 man log review 2022/07/10 || 10m Frostmourne 2022/07/17 || 25m Lordaeron 2022/10/05 || 25m Lordaeron 2022/10/09) - 33.5, 38.5, 37.8 || 43.1, 46.0, 43.0, 46.0, 43.0 || 33.0, 39.1, 38.7, 39.0 || 33.0, 39.0, 36.0, 39.0
 		end
 	end
 end
@@ -78,7 +74,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(62548, 63474) then	-- Scorch
 		timerScorchCast:Start()
-		timerScorchCooldown:Start()
+		timerScorchCooldown:Start(self:IsDifficulty("normal10") and 28 or 31) -- 10/25 different. ~1s variance (25 man log review 2022/07/10 || 10m Frostmourne 2022/07/17 || 25m Lordaeron 2022/10/05 || 25m Lordaeron 2022/10/09) - 31.0, 32.0, 31.0 || 28.0, 28.1, 28.1, 28.0, 28.0, 29.0, 28.0 || 31.0, 32.1, 31.1, 31.0, 31.0 || 31.0, 32.0, 31.0, 31.1
 	end
 end
 
