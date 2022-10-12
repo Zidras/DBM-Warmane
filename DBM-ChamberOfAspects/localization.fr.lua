@@ -13,6 +13,10 @@ L:SetGeneralLocalization({
 	name = "Obscuron"
 })
 
+L:SetMiscLocalization({
+	YellShadronPull	= "Je n'ai peur de rien ! Et surtout pas de vous !",
+})
+
 ----------------
 --  Tenebron  --
 ----------------
@@ -22,6 +26,10 @@ L:SetGeneralLocalization({
 	name = "Ténébron"
 })
 
+L:SetMiscLocalization({
+	YellTenebronPull	= "Vous n'avez pas votre place ici ! Votre place... est parmi les disparus !",
+})
+
 ----------------
 --  Vesperon  --
 ----------------
@@ -29,6 +37,10 @@ L = DBM:GetModLocalization("Vesperon")
 
 L:SetGeneralLocalization({
 	name = "Vespéron"
+})
+
+L:SetMiscLocalization({
+	YellVesperonPull	= "Vous n'êtes pas une menace, êtres inférieurs ! Faites de votre mieux !",
 })
 
 ------------------
@@ -85,6 +97,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellSarthPull	= "Ces œufs sont sous ma responsabilité. Je vous ferai brûler avant de vous laisser y toucher !",
 	Wall			= "lave qui entoure",
 	Portal			= "commence à incanter un portail",
 	NameTenebron	= "Ténébron",

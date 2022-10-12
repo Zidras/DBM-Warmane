@@ -3,13 +3,14 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20221012185210")
+mod:SetRevision("20221012211527")
 mod:SetCreatureID(30449)
 mod:SetHotfixNoticeRev(20221012000000)
 mod:SetMinSyncRevision(20221012000000)
 mod:DisableMultiBossPulls()
 
-mod:RegisterCombat("combat")
+--mod:RegisterCombat("combat") -- Don't use IEEU, because on Warmane 3 Drakes, Sartharion NOT is engaged first, but Tenebron > Shadron > Vesperon > Sartharion (Sartharion will end up on boss1).
+mod:RegisterCombat("yell", L.YellVesperonPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 57579 59127"

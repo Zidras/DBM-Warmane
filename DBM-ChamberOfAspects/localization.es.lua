@@ -14,6 +14,11 @@ L:SetGeneralLocalization({
 	name = "Shadron"
 })
 
+L:SetMiscLocalization({
+	YellShadronPull	= "¡No temo a nada! ¡Y menos a vosotros!", -- esES
+--	YellShadronPull	= "¡A nada le temo! ¡Y menos a ti!", -- esMX
+})
+
 --------------
 -- Tenebron --
 --------------
@@ -23,6 +28,11 @@ L:SetGeneralLocalization({
 	name = "Tenebron"
 })
 
+L:SetMiscLocalization({
+	YellTenebronPull	= "¡No tenéis cabida aquí! ¡Vuestro lugar está... entre... los fallecidos!", -- esES
+--	YellTenebronPull	= "¡No tienes cabida aquí! ¡Sino entre... los difuntos!", -- esMX
+})
+
 --------------
 -- Vesperon --
 --------------
@@ -30,6 +40,11 @@ L = DBM:GetModLocalization("Vesperon")
 
 L:SetGeneralLocalization({
 	name = "Vesperon"
+})
+
+L:SetMiscLocalization({
+	YellVesperonPull	= "¡No suponéis una amenaza, seres inferiores! ¡A ver qué valéis!", -- esES
+--	YellVesperonPull	= "¡No representan ninguna amenaza, seres inferiores! ¡Demuestren su poderío!", -- esMX
 })
 
 ----------------
@@ -86,6 +101,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellSarthPull	= "Mi tarea es cuidar de estos huevos. ¡Arderéis antes de hacerles el más mínimo daño!", -- esES
+--	YellSarthPull	= "Mi tarea es cuidar de estos huevos. ¡Te carbonizaré antes que le causes algún daño!", -- esMX
 	Wall			= "¡La lava se arremolina alrededor de %s!",
 	Portal			= "%s comienza a abrir un Portal Crepuscular",
 	NameTenebron	= "Tenebron",

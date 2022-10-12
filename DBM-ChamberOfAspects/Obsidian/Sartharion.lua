@@ -3,10 +3,34 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20220925145940")
+mod:SetRevision("20221012211527")
 mod:SetCreatureID(28860)
 
-mod:RegisterCombat("combat")
+--mod:RegisterCombat("combat") -- Don't use IEEU, because on Warmane 3 Drakes, Sartharion NOT is engaged first, but Tenebron > Shadron > Vesperon > Sartharion (Sartharion will end up on boss1).
+-- "<15.29 22:46:09> [CHAT_MSG_MONSTER_YELL] It is my charge to watch over these eggs. I will see you burn before any harm comes to them!:Sartharion:::::0:0::0:6450::0:", -- [120]
+-- "<15.30 22:46:09> [CLEU] SPELL_CAST_SUCCESS:0xF1300076F4000109:Tenebron:0x0000000000000000:nil:61248:Power of Tenebron:nil:nil:", -- [121]
+-- "<15.30 22:46:09> [DBM_Debug] INSTANCE_ENCOUNTER_ENGAGE_UNIT event fired for zoneId532:3:", -- [122]
+-- "<15.30 22:46:09> [DBM_Debug] StartCombat called by : IEEU for mod : Tenebron. LastInstanceMapID is 532:nil:", -- [123]
+-- "<15.30 22:46:09> [DBM_Pull] Tenebron:0:nil:100:", -- [124]
+-- "<15.30 22:46:09> [DBM_Debug] DBMv4-Pull 0 Tenebron 20220806121300 100 20221004114721 20220805000000 IEEU:3:", -- [125]
+-- "<15.30 22:46:09> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args::boss1:1:1:1:Tenebron:30452:0xF1300076F4000109:worldboss:1337325:boss2:nil:nil:nil:??:1:nil:normal:0:boss3:nil:nil:nil:??:1:nil:normal:0:boss4:nil:nil:nil:??:1:nil:normal:0:boss5:nil:nil:nil:??:1:nil:normal:0:Real Args::", -- [126]
+-- "<15.30 22:46:09> [CLEU] SPELL_CAST_SUCCESS:0xF1300076F300010A:Shadron:0x0000000000000000:nil:58105:Power of Shadron:nil:nil:", -- [127]
+-- "<15.30 22:46:09> [DBM_Debug] INSTANCE_ENCOUNTER_ENGAGE_UNIT event fired for zoneId532:3:", -- [128]
+-- "<15.30 22:46:09> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args::boss1:1:1:1:Tenebron:30452:0xF1300076F4000109:worldboss:1337325:boss2:1:1:1:Shadron:30451:0xF1300076F300010A:worldboss:1337325:boss3:nil:nil:nil:??:1:nil:normal:0:boss4:nil:nil:nil:??:1:nil:normal:0:boss5:nil:nil:nil:??:1:nil:normal:0:Real Args::", -- [129]
+-- "<15.30 22:46:09> [DBM_Debug] INSTANCE_ENCOUNTER_ENGAGE_UNIT event fired for zoneId532:3:", -- [130]
+-- "<15.30 22:46:09> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args::boss1:1:1:1:Tenebron:30452:0xF1300076F4000109:worldboss:1337325:boss2:1:1:1:Shadron:30451:0xF1300076F300010A:worldboss:1337325:boss3:1:1:1:Vesperon:30449:0xF1300076F100010B:worldboss:1337325:boss4:nil:nil:nil:??:1:nil:normal:0:boss5:nil:nil:nil:??:1:nil:normal:0:Real Args::", -- [131]
+-- "<15.30 22:46:09> [UNIT_SPELLCAST_SUCCEEDED] Vesperon(??) -Power of Vesperon- [[boss3:Power of Vesperon::0:]]", -- [132]
+-- "<15.30 22:46:09> [CLEU] SPELL_CAST_SUCCESS:0xF1300076F100010B:Vesperon:0x0000000000000000:nil:61251:Power of Vesperon:nil:nil:", -- [133]
+-- "<15.30 22:46:09> [UNIT_SPELLCAST_SUCCEEDED] Sartharion(Sanarticon) -Will of Sartharion- [[target:Will of Sartharion::0:]]", -- [134]
+-- "<15.30 22:46:09> [CLEU] SPELL_CAST_SUCCESS:0xF1300070BC000062:Sartharion:0x0000000000000000:nil:61254:Will of Sartharion:nil:nil:", -- [135]
+-- "<15.30 22:46:09> [DBM_Debug] INSTANCE_ENCOUNTER_ENGAGE_UNIT event fired for zoneId532:3:", -- [136]
+-- "<15.30 22:46:09> [DBM_Debug] StartCombat called by : IEEU for mod : Sartharion. LastInstanceMapID is 532:nil:", -- [137]
+-- "<15.30 22:46:09> [DBM_Pull] Sartharion:0:nil:100:", -- [138]
+-- "<15.30 22:46:09> [DBM_TimerStart] Timer43113next:Next Fire Wall:30:Interface\\Icons\\Spell_Fire_MoltenBlood:next:43113:2:Sartharion:nil:nil:Fire Wall:nil:", -- [139]
+-- "<15.30 22:46:09> [DBM_TimerStart] Timer58956cd:Flame Breath CD:10:Interface\\Icons\\Spell_Fire_Fire:cd:58956:5:Sartharion:nil:nil:Flame Breath:nil:", -- [140]
+-- "<15.30 22:46:09> [DBM_Debug] DBMv4-Pull 0 Sartharion 20220925145940 100 20221004114721 0 IEEU:3:", -- [141]
+-- "<15.30 22:46:09> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args::boss1:1:1:1:Sartharion:28860:0xF1300070BC000062:worldboss:4392675:boss2:1:1:1:Tenebron:30452:0xF1300076F4000109:worldboss:1337325:boss3:1:1:1:Shadron:30451:0xF1300076F300010A:worldboss:1337325:boss4:1:1:1:Vesperon:30449:0xF1300076F100010B:worldboss:1337325:boss5:nil:nil:nil:??:1:nil:normal:0:Real Args::", -- [142]
+mod:RegisterCombat("yell", L.YellSarthPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 56908 58956",

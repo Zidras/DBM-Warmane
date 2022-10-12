@@ -13,6 +13,10 @@ L:SetGeneralLocalization({
 	name = "Shadron"
 })
 
+L:SetMiscLocalization({
+	YellShadronPull	= "Ich fürchte nichts und niemanden! Am allerwenigsten euch!",
+})
+
 ----------------
 --  Tenebron  --
 ----------------
@@ -22,6 +26,10 @@ L:SetGeneralLocalization({
 	name = "Tenebron"
 })
 
+L:SetMiscLocalization({
+	YellTenebronPull	= "Ihr gehört nicht hierher! Euer Platz... ist bei den Gefallenen!",
+})
+
 ----------------
 --  Vesperon  --
 ----------------
@@ -29,6 +37,10 @@ L = DBM:GetModLocalization("Vesperon")
 
 L:SetGeneralLocalization({
 	name = "Vesperon"
+})
+
+L:SetMiscLocalization({
+	YellVesperonPull	= "Ihr stellt keine Bedrohung dar, niedere Wesen! Zeigt mir, was in Euch steckt!",
 })
 
 ------------------
@@ -85,6 +97,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellSarthPull	= "Meine Aufgabe ist es, über diese Eier zu wachen. Kommt ihnen zu nahe und von euch bleibt nur ein Häuflein Asche.",
 	Wall			= "Die Lava um %s brodelt!",
 	Portal			= "%s beginnt, ein Portal des Zwielichts zu öffnen!",
 	NameTenebron	= "Tenebron",

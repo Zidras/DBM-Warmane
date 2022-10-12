@@ -13,6 +13,10 @@ L:SetGeneralLocalization({
 	name = "샤드론"
 })
 
+L:SetMiscLocalization({
+	YellShadronPull	= "난 두렵지 않다! 특히 너희 같은 것들은!",
+})
+
 ---------------
 --  테네브론  --
 ---------------
@@ -22,6 +26,10 @@ L:SetGeneralLocalization({
 	name = "테네브론"
 })
 
+L:SetMiscLocalization({
+	YellTenebronPull	= "여기에 너희 자리는 없다! 네놈들이 가야 할 곳은... 바로 저승이다!",
+})
+
 ---------------
 --  베스페론  --
 ---------------
@@ -29,6 +37,10 @@ L = DBM:GetModLocalization("Vesperon")
 
 L:SetGeneralLocalization({
 	name = "베스페론"
+})
+
+L:SetMiscLocalization({
+	YellVesperonPull	= "네놈들 따위 겁낼 줄 아느냐... 비천한 것들! 어디 한번 덤벼봐라!",
 })
 
 ---------------
@@ -85,6 +97,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellSarthPull	= "내 임무는 알을 보호하는 것. 알에 손대지 못하게 모두 불태워 주마.",
 	Wall			= "둘러싼 용암이 끓어오릅니다!",
 	Portal			= "황혼의 차원문을 엽니다!!",
 	NameTenebron	= "테네브론",

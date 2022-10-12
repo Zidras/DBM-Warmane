@@ -13,6 +13,10 @@ L:SetGeneralLocalization({
 	name = "夏德朗"
 })
 
+L:SetMiscLocalization({
+	YellShadronPull	= "我無所畏懼!你們根本不值一提!",
+})
+
 ----------------
 --  Tenebron  --
 ----------------
@@ -22,6 +26,10 @@ L:SetGeneralLocalization({
 	name = "坦納伯朗"
 })
 
+L:SetMiscLocalization({
+	YellTenebronPull	= "你們沒資格來這裡!你們的歸宿...在死者的國度!",
+})
+
 ----------------
 --  Vesperon  --
 ----------------
@@ -29,6 +37,10 @@ L = DBM:GetModLocalization("Vesperon")
 
 L:SetGeneralLocalization({
 	name = "維斯佩朗"
+})
+
+L:SetMiscLocalization({
+	YellVesperonPull	= "你們這些下等生物根本無法對我構成任何威脅!使出全力戰鬥吧!",
 })
 
 ------------------
@@ -85,6 +97,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellSarthPull	= "我的職責就是要看守這些龍蛋。在他們受到任何傷害之前，我將會看著你陷入火焰之中!",
 	Wall			= "圍繞著%s的熔岩開始劇烈地翻騰!",
 	Portal			= "%s開始開啟暮光傳送門!",
 	NameTenebron	= "坦納伯朗",
