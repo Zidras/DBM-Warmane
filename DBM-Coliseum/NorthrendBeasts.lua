@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221011000022")
+mod:SetRevision("20221012212948")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -69,7 +69,7 @@ local specWarnBile			= mod:NewSpecialWarningYou(66869, nil, nil, nil, 1, 2)
 
 local timerSubmerge			= mod:NewCDSourceTimer(45, 66948, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local timerEmerge			= mod:NewBuffActiveTimer(5, 66947, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local timerSweepCD			= mod:NewCDSourceTimer(21, 66794, nil, "Melee", nil, 3)
+local timerSweepCD			= mod:NewCDSourceTimer(16.5, 66794, nil, "Melee", nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg. (25H Lordaeron 2022/10/09) - 16.5
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- Added "Keep" arg
 local timerMoltenSpewCD		= mod:NewCDTimer(19, 66820, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28) - 19.1
 local timerParalyticSprayCD	= mod:NewCDTimer(16.2, 66901, nil, nil, nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || 25H Lordaeron 2022/10/09) - 27.8 || 16.2
