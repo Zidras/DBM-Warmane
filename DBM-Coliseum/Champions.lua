@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925115014")
+mod:SetRevision("20221012221236")
 mod:SetCreatureID(34458, 34451, 34459, 34448, 34449, 34445, 34456, 34447, 34441, 34454, 34444, 34455, 34450, 34453, 34461, 34460, 34469, 34467, 34468, 34471, 34465, 34466, 34473, 34472, 34470, 34463, 34474, 34475)
 mod:SetMinSyncRevision(20220907000000)
 
@@ -125,7 +125,7 @@ local specWarnHeroism		= mod:NewSpecialWarningDispel(65983, "MagicDispeller", ni
 local timerBladestorm		= mod:NewBuffActiveTimer(8, 65947, nil, nil, nil, 2)
 local timerShadowstepCD		= mod:NewCDTimer(30, 66178, nil, nil, nil, 3) -- (25H Lordaeron 2022/09/03) - pull:25.7
 local timerBlindCD			= mod:NewCDTimer(120, 65960)
-local timerDeathgripCD		= mod:NewCDTimer(21.5, 66017, nil, nil, nil, 3) -- REVIEW! High variance (25H Lordaeron 2022/09/03) - pull:22.9, 31.5, 45.1, 34.9, 24.2, 21.9, 31.1, 61.4, 43.9, 21.5
+local timerDeathgripCD		= mod:NewCDTimer(20.7, 66017, nil, nil, nil, 3) -- REVIEW! High variance (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/10/12) - pull:22.9, 31.5, 45.1, 34.9, 24.2, 21.9, 31.1, 61.4, 43.9, 21.5 || pull:62.4, 20.7, 21.3, 41.0
 local timerBladestormCD		= mod:NewCDTimer(90.1, 65947, nil, nil, nil, 2) -- (25H Lordaeron 2022/09/03) - pull:49.0, 90.1, 90.1
 local timerFrostTrapCD		= mod:NewCDTimer(31.6, 65880) -- REVIEW! variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/23-npc:34467) - pull:46.2, 31.8 || pull:22.7, 34.4, 31.6
 local timerDisengageCD		= mod:NewCDTimer(30, 65869) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - pull:32.6, 40.4
