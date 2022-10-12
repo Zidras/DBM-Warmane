@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20221009222854"),
+	Revision = parseCurseDate("20221012185001"),
 	DisplayVersion = "9.2.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 10, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3337,7 +3337,7 @@ do
 				modHFRevision = tonumber(modHFRevision or 0) or 0
 				startHp = tonumber(startHp or -1) or -1
 				--if dbmRevision < 10481 then return end
-				if mod and delay and (not mod.zones or mod.zones[LastInstanceMapID] or mod.zones[LastInstanceZoneName]) and (not mod.minSyncRevision or modRevision >= mod.minSyncRevision) then
+				if mod and delay and (not mod.zones or mod.zones[LastInstanceMapID] or mod.zones[LastInstanceZoneName]) and (not mod.minSyncRevision or modRevision >= mod.minSyncRevision) and not (#inCombat > 0 and mod.noMultiBoss) then
 					DBM:StartCombat(mod, delay + lag, "SYNC from - "..sender, true, startHp, event)
 					if mod.revision < modHFRevision then--mod.revision because we want to compare to OUR revision not senders
 						--There is a newer RELEASE version of DBM out that has this mods fixes that we do not possess
@@ -4711,9 +4711,9 @@ do
 		local combat = combatInfo[LastInstanceMapID] or combatInfo[LastInstanceZoneName]
 		if dbmIsEnabled and combat then
 			for _, v in ipairs(combat) do
-				if v.type == type and checkEntry(v.msgs, msg) or v.type == type .. "_regex" and checkExpressionList(v.msgs, msg) then
+				if v.type == type and checkEntry(v.msgs, msg) or v.type == type .. "_regex" and checkExpressionList(v.msgs, msg) and not (#inCombat > 0 and v.noMultiBoss) then
 					self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
-				elseif v.type == "combat_" .. type .. "find" and tContains(v.msgs, msg) or v.type == "combat_" .. type and checkEntry(v.msgs, msg) then
+				elseif v.type == "combat_" .. type .. "find" and tContains(v.msgs, msg) or v.type == "combat_" .. type and checkEntry(v.msgs, msg) and not (#inCombat > 0 and v.noMultiBoss) then
 					if IsInInstance() then--Indoor boss that uses both combat and message for combat, so in other words (such as hodir), don't require "target" of boss for yell like scanForCombat does for World Bosses
 						self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 					else--World Boss
