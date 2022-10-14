@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221012212948")
+mod:SetRevision("20221014233833")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -71,7 +71,7 @@ local timerSubmerge			= mod:NewCDSourceTimer(45, 66948, nil, nil, nil, 6, "Inter
 local timerEmerge			= mod:NewBuffActiveTimer(5, 66947, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local timerSweepCD			= mod:NewCDSourceTimer(16.5, 66794, nil, "Melee", nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg. (25H Lordaeron 2022/10/09) - 16.5
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- Added "Keep" arg
-local timerMoltenSpewCD		= mod:NewCDTimer(19, 66820, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28) - 19.1
+local timerMoltenSpewCD		= mod:NewCDTimer(16.1, 66820, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || ) - 19.1 || 16.1
 local timerParalyticSprayCD	= mod:NewCDTimer(16.2, 66901, nil, nil, nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || 25H Lordaeron 2022/10/09) - 27.8 || 16.2
 local timerBurningSprayCD	= mod:NewCDTimer(19, 66902, nil, nil, nil, 3, nil, nil, true) -- REVIEW! 5s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 20.6, 19.0 || 24.7
 local timerParalyticBiteCD	= mod:NewCDTimer(25, 66824, nil, "Melee", nil, 3, nil, nil, true) -- Added "Keep" arg
@@ -480,8 +480,8 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 				dreadscaleEngaged = true
 				timerSubmerge:Start(bossName)
 				timerSlimePoolCD:Start(15, bossName) -- (25H Lordaeron 2022/09/03) - 15
-				timerMoltenSpewCD:Start(23.2) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 24 || 23.2
-				timerBurningBiteCD:Start(19) -- (25H Lordaeron 2022/09/03) - 19
+				timerMoltenSpewCD:Start(19.2) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25N Lordaeron 2022/10/13) - 24 || 23.2 || 19.2
+				timerBurningBiteCD:Start(15.4) -- (25H Lordaeron 2022/09/03 || 25N Lordaeron 2022/10/13) - 19 || 15.4
 			elseif cid == 34797 then -- Icehowl
 				self:SetStage(3)
 				timerNextCrash:Start(40.9) -- REVIEW!
@@ -532,7 +532,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 			timerSubmerge:Start(43, acidmaw)
 			if self.vb.AcidmawMobile then
 				timerSlimePoolCD:Start(acidmaw) -- (25H Lordaeron 2022/09/03) - 12
-				timerParalyticBiteCD:Start(22) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25H Lordearon 2022/10/09) - 28 || 26.2 || 22.0
+				timerParalyticBiteCD:Start(20.2) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25H Lordearon 2022/10/09 || 25N Lordaeron 2022/10/13) - 28 || 26.2 || 22.0 || 20.2
 				timerAcidicSpewCD:Start(15.9) -- (25H Lordaeron 2022/09/03) - 21 || 15.9
 			else
 				timerSweepCD:Start(22, acidmaw)	-- Log review: 22-24s (N/H?)
@@ -544,7 +544,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 			timerSubmerge:Start(44, dreadscale)
 			if self.vb.DreadscaleMobile then
 				timerSlimePoolCD:Start(dreadscale) -- (25H Lordaeron 2022/09/03) - 12
-				timerMoltenSpewCD:Start(21.8) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 24 || 21.8
+				timerMoltenSpewCD:Start(21.4) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25N Lordaeron 2022/10/13) - 24 || 21.8 || 21.4
 				timerBurningBiteCD:Start(14.2) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 19 || 14.2
 			else
 				timerSweepCD:Start(17, dreadscale) -- (25H Lordaeron 2022/09/03) - 17
