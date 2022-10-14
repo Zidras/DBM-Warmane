@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 
-mod:SetRevision("20221009102520")
+mod:SetRevision("20221014235421")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -17,9 +17,10 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 71204",
 	"SPELL_AURA_REMOVED 70842 71289",
 	"SPELL_INTERRUPT",
-	"SPELL_SUMMON 71426",
+--	"SPELL_SUMMON 71426",
 	"SWING_DAMAGE",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
@@ -76,7 +77,7 @@ local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, ni
 local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, "HasInterrupt", nil, 2, 1, 2)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true, nil, nil, nil, 1, 2, nil, 71426, 71426)
 
-local timerSummonSpiritCD			= mod:NewCDTimer(9.4, 71426, nil, true, nil, 3, nil, nil, true) -- SUMMON cleu event is fired much later than UNIT_SPELLCAST_SUCCEEDED (11.0-12.4), and with higher variance too (but consider it anyway since it's closer to spawn). ~5s variance [9.4-14.1]. Added "keep" arg (10H Lordaeron 2022/10/02) - 9.9, 12.1, 11.7, 14.1, 10.1, 11.1, 11.7, 11.7, 13.1, 12.1, 9.4
+local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true) -- SUMMON cleu event is fired much later than UNIT_SPELLCAST_SUCCEEDED (11.0-13.8), and with higher variance too. Initially using CLEU, but switched to UNIT event. ~5s variance for CLEU [9.4-14.1]. Added "keep" arg (10H Lordaeron 2022/10/02) - 9.9, 12.1, 11.7, 14.1, 10.1, 11.1, 11.7, 11.7, 13.1, 12.1, 9.4 ||| Stage 2/11.4, 11.3, 11.6, 11.3, 11.1, 11.1, 11.2, 11.5, 12.0, 11.3, 11.5, 11.7, 11.1, 11.7, 11.9, 11.4, 11.2, 11.7, 11.8, 11.1, 13.8
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 
@@ -85,6 +86,7 @@ local soundWarnSpirit				= mod:NewSound(71426)
 local dominateMindTargets = {}
 mod.vb.dominateMindIcon = 1
 local shieldName = DBM:GetSpellInfo(70842)
+local summonSpiritName = DBM:GetSpellInfo(71426)
 
 local playerClass = select(2, UnitClass("player"))
 local isHunter = playerClass == "HUNTER"
@@ -443,13 +445,14 @@ function mod:SPELL_INTERRUPT(args)
 	end
 end
 
+--[[very inconsistent timer due to spirit travel distance until spawn. Moved to UNIT_SPELLCAST_SUCCEEDED
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 71426 and self:AntiSpam(5, 1) then -- Summon Vengeful Shade
 		warnSummonSpirit:Show()
 		timerSummonSpiritCD:Start()
 		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\spirits.mp3")
 	end
-end
+end]]
 
 function mod:SWING_DAMAGE(sourceGUID, _, _, destGUID)
 	if destGUID == UnitGUID("player") and self:GetCIDFromGUID(sourceGUID) == 38222 then
@@ -461,5 +464,13 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellReanimatedFanatic or msg:find(L.YellReanimatedFanatic) then
 		warnReanimating:Show()
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == summonSpiritName and self:AntiSpam(5, 1) then -- Summon Spirit
+		warnSummonSpirit:Show()
+		timerSummonSpiritCD:Start()
+		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\spirits.mp3")
 	end
 end
