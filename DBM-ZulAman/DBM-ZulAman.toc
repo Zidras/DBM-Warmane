@@ -14,6 +14,7 @@
 ## X-DBM-Mod-Name: Zul'Aman
 ## X-DBM-Mod-Name-zhCN: 祖阿曼
 ## X-DBM-Mod-Name-ruRU: Зул'Аман
+## X-DBM-Mod-LoadZone: Zul'Aman
 ## X-DBM-Mod-LoadZone-zhCN: 祖阿曼
 
 localization.en.lua
