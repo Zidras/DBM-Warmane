@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220827001912")
+mod:SetRevision("20221016193642")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -37,10 +37,10 @@ local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
 local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
-local timerFissureCD 		= mod:NewCDTimer(14, 27810)
+local timerFissureCD 		= mod:NewCDTimer(11.5, 27810, nil, nil, nil, 3, nil, nil, true) -- Huge variance! Added "keep" arg (25m Lordaeron 2022/10/16) - Stage 2/*, 22.8, 41.2, 77.5, 11.5
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
-local timerPhase2			= mod:NewTimer(227, "TimerPhase2", nil, nil, nil, 6)
+local timerPhase2			= mod:NewTimer(228, "TimerPhase2", nil, nil, nil, 6) -- (25m Lordaeron 2022/10/16) - 228.0
 
 mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
@@ -168,9 +168,12 @@ function mod:OnCombatStart(delay)
 	table.wipe(frostBlastTargets)
 	self.vb.warnedAdds = false
 	self.vb.MCIcon = 1
-	specwarnP2Soon:Schedule(217-delay)
+	specwarnP2Soon:Schedule(218-delay)
 	timerPhase2:Start()
-	self:Schedule(226, StartPhase2, self)
+--	self:Schedule(226, StartPhase2, self)
+	self:RegisterShortTermEvents(
+		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
+	)
 end
 
 function mod:OnCombatEnd()
@@ -195,12 +198,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnFissure:Show(args.destName)
 		end
 	elseif args.spellId == 28410 then
-		timerMCCD:Start()
 		DBM:Debug("MC on "..args.destName,2)
 		if self.Options.EqUneqWeaponsKT2 and args.destName == UnitName("player") then
 			UnWKT(self)
 			self:Schedule(0.05, UnWKT, self)
 			DBM:Debug("Unequipping",2)
+		end
+		if self:AntiSpam(2, 2) then
+			timerMCCD:Start()
 		end
 	elseif spellId == 27819 then
 		timerManaBomb:Start()
@@ -267,6 +272,13 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:Schedule(9.0, EqWKT, self)
 			self:Schedule(11.0, EqWKT, self)
 		end
+	end
+end
+
+function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+	if UnitExists("boss1") and self:GetUnitCreatureId("boss1") == 15990 then
+		StartPhase2(self)
+		self:UnregisterShortTermEvents()
 	end
 end
 
