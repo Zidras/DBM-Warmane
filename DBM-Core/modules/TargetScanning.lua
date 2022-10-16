@@ -26,7 +26,7 @@ do
 	local CL = DBM_COMMON_L
 
 	local bossTargetuIds = {
-		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target"
+		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target", "mouseover"
 	}
 
 	local function getBossTarget(guid, scanOnlyBoss)
@@ -107,8 +107,7 @@ do
 	end
 
 	function module:GetBossUnitByCreatureId(mod, cid)
-		for i = 1, 5 do
-			local uId = "boss"..i
+		for _, uId in ipairs(bossTargetuIds) do
 			if mod:GetUnitCreatureId(uId) == cid then
 				return uId
 			end

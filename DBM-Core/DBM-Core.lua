@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20221012185001"),
+	Revision = parseCurseDate("20221016130005"),
 	DisplayVersion = "9.2.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 10, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2102,7 +2102,7 @@ do
 	}
 
 	local bossTargetuIds = {
-		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target"
+		"boss1", "boss2", "boss3", "boss4", "boss5", "focus", "target", "mouseover"
 	}
 
 	--Not to be confused with GetUnitIdFromCID
