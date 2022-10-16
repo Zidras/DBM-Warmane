@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razuvious", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220629223621")
+mod:SetRevision("20221016184543")
 mod:SetCreatureID(16061)
 
 mod:RegisterCombat("combat_yell", L.Yell1, L.Yell2, L.Yell3, L.Yell4)
@@ -16,7 +16,7 @@ local warnShoutNow		= mod:NewSpellAnnounce(29107, 1)
 local warnShoutSoon		= mod:NewSoonAnnounce(29107, 3)
 local warnShieldWall	= mod:NewAnnounce("WarningShieldWallSoon", 3, 29061, nil, nil, nil, 29061)
 
-local timerShout		= mod:NewNextTimer(16, 29107, nil, nil, nil, 2)
+local timerShout		= mod:NewNextTimer(15, 29107, nil, nil, nil, 2)
 local timerTaunt		= mod:NewCDTimer(20, 29060, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerShieldWall	= mod:NewCDTimer(20, 29061, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerMindControl	= mod:NewBuffActiveTimer(60, 605, nil, nil, nil, 6)
