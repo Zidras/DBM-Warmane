@@ -1,7 +1,9 @@
 local mod	= DBM:NewMod("Noth", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220629223621")
+local GetSpellInfo = GetSpellInfo
+
+mod:SetRevision("20221016181317")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -23,15 +25,17 @@ local specWarnAdds		= mod:NewSpecialWarningAdds(29212, "-Healer", nil, nil, 1, 2
 
 local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6)
 local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6)
-local timerCurseCD		= mod:NewCDTimer(53.3, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
+local timerCurseCD		= mod:NewCDTimer(56.7, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON) -- REVIEW! variance? (25man Frostmourne 2022/05/25 || 25man Lordaeron 2022/10/16) -  56.7, 99.1! || 57.4
 local timerAddsCD		= mod:NewAddsTimer(30, 29212, nil, "-Healer")
-local timerBlink		= mod:NewNextTimer(25, 29208)
+local timerBlink		= mod:NewNextTimer(30, 29208) -- (25N Lordaeron 2022/10/16) - 30.1, 30.0
 
 mod.vb.teleCount = 0
 mod.vb.addsCount = 0
 mod.vb.curseCount = 0
+local teleportBalconyName = GetSpellInfo(29216) -- Teleport
+local teleportBackName = GetSpellInfo(29231)
 
-function mod:Balcony()
+--[[function mod:Balcony()
 	self.vb.teleCount = self.vb.teleCount + 1
 	self.vb.addsCount = 0
 	timerCurseCD:Stop()
@@ -56,19 +60,19 @@ function mod:Balcony()
 --	self:ScheduleMethod(timer, "BackInRoom")
 end
 
--- function mod:BackInRoom(delay)
---	delay = delay or 0
---	self:SetStage(0)
---	local timer
---	if self.vb.phase == 1 then timer = 90 - delay
---	elseif self.vb.phase == 2 then timer = 110 - delay
---	elseif self.vb.phase == 3 then timer = 180 - delay
---	else return end
---	timerTeleport:Show(timer)
---	warnTeleportSoon:Schedule(timer - 20)
---	warnTeleportNow:Schedule(timer)
---	self:ScheduleMethod(timer, "Balcony")
--- end
+function mod:BackInRoom(delay)
+	delay = delay or 0
+	self:SetStage(0)
+	local timer
+	if self.vb.phase == 1 then timer = 90 - delay
+	elseif self.vb.phase == 2 then timer = 110 - delay
+	elseif self.vb.phase == 3 then timer = 180 - delay
+	else return end
+	timerTeleport:Show(timer)
+	warnTeleportSoon:Schedule(timer - 20)
+	warnTeleportNow:Schedule(timer)
+	self:ScheduleMethod(timer, "Balcony")
+end]]
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 0
@@ -76,10 +80,11 @@ function mod:OnCombatStart(delay)
 	self.vb.addsCount = 0
 	self.vb.curseCount = 0
 	timerAddsCD:Start(7-delay)
-	timerCurseCD:Start(9.5-delay)
-	timerTeleport:Start(90.8-delay)
-	warnTeleportSoon:Schedule(70.8-delay)
-	self:ScheduleMethod(90.8-delay, "Balcony")
+	timerCurseCD:Start(15-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 15.0
+	timerBlink:Start(23.8-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 23.8
+	timerTeleport:Start(90-delay)
+	warnTeleportSoon:Schedule(70-delay)
+--	self:ScheduleMethod(90.8-delay, "Balcony")
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
@@ -115,7 +120,29 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(29231) then--Teleport Return
+	if spellName ==  teleportBalconyName then -- Teleport
+		self.vb.teleCount = self.vb.teleCount + 1
+		self.vb.addsCount = 0
+		timerCurseCD:Stop()
+		timerAddsCD:Stop()
+		timerBlink:Stop()
+		local timer
+		if self.vb.teleCount == 1 then
+			timer = 70
+			timerAddsCD:Start(5)--Always 5
+		elseif self.vb.teleCount == 2 then
+			timer = 97
+			timerAddsCD:Start(5)--Always 5
+		elseif self.vb.teleCount == 3 then
+			timer = 126
+			timerAddsCD:Start(5)--Always 5
+		else
+			timer = 55
+		end
+		timerTeleportBack:Start(timer)
+		warnTeleportSoon:Schedule(timer - 20)
+		warnTeleportNow:Schedule(timer)
+	elseif spellName ==  teleportBackName then -- Teleport Return
 		self.vb.addsCount = 0
 		self.vb.curseCount = 0
 		timerAddsCD:Stop()
@@ -139,7 +166,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		else
 			timerCurseCD:Start(11)
 		end
-		self:ScheduleMethod(timer, "Balcony")
+--		self:ScheduleMethod(timer, "Balcony")
 	end
 end
 
