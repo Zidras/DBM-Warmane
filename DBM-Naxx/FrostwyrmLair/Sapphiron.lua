@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220904180117")
+mod:SetRevision("20221016192235")
 mod:SetCreatureID(15989)
 mod:SetMinSyncRevision(20220904000000)
 
@@ -80,7 +80,7 @@ function mod:OnCombatStart(delay)
 	self.vb.isFlying = false
 	warnDrainLifeSoon:Schedule(6.5-delay)
 	timerDrainLife:Start(12-delay) -- (25man Lordaeron 2022/09/02) - 12.0
-	timerBlizzard:Start(8.8-delay) -- REVIEW! variance? (25man Lordaeron 2022/09/02) - 8.8
+	timerBlizzard:Start(6.1-delay) -- REVIEW! ~3s variance? (25man Lordaeron 2022/09/02 || 25man Lordaeron 2022/10/16) - 8.8 || 6.1
 	timerTailSweep:Start(-delay)
 	warnAirPhaseSoon:Schedule(38.4-delay)
 	timerAirPhase:Start(48.4-delay) -- REVIEW! ~0.1s variance? (25man Lordaeron 2022/09/02) - 48.4
