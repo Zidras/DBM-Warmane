@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20221011185226")
+mod:SetRevision("20221020203817")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -729,7 +729,7 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --	if spellName == soulshriek and mod:LatencyCheck() then
 --		self:SendSync("SoulShriek", UnitGUID(uId))
-	if spellName == GetSpellInfo(74361) then -- Summon Val'kyr Periodic
+	if spellName == GetSpellInfo(74361) or spellName == GetSpellInfo(69037) then -- Summon Val'kyr Periodic (10H, 25N, 25H) | Summon Val'kyr (10N)
 		table.wipe(valkyrTargets)	-- reset valkyr cache for next round
 		grabIcon = 2
 		self.vb.valkIcon = 2
