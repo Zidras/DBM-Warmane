@@ -372,6 +372,7 @@ L.AUTO_SPEC_WARN_TEXTS = {
 	switchcount							= "%s - switch targets (%%s)",
 	gtfo								= "%%s damage - move away",
 	adds								= "Incoming Adds - switch targets",--Basically a generic of switch
+	addscount							= "Incoming Adds - switch targets (%%s)",--Basically a generic of switch
 	addscustom							= "Incoming Adds - %%s",--Same as above, but more info, pretty much made for like 3 boss mods, such as akama
 	targetchange						= "Target Change - switch to %%s"
 }
@@ -420,6 +421,7 @@ L.AUTO_SPEC_WARN_OPTIONS = {
 	switchcount							= "Show special announce (with count) to switch targets for $spell:%s",
 	gtfo								= "Show special announce to move out of bad stuff on ground",
 	adds								= "Show special announce to switch targets for incoming adds",
+	addscount							= "Show special announce (with count) to switch targets for incoming adds",
 	addscustom							= "Show special announce for incoming adds",
 	targetchange						= "Show special announce for priority target changes"
 }

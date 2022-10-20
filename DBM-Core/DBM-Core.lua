@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20221020214142"),
+	Revision = parseCurseDate("20221020215045"),
 	DisplayVersion = "9.2.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 10, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -8972,6 +8972,7 @@ do
 		["switch"] = "spell",
 		["switchcount"] = "count",
 --		["adds"] = "spell",
+--		["addscount"] = "spell",
 --		["addscustom"] = "spell",
 		["targetchange"] = "target",
 		["gtfo"] = "spell",
@@ -9048,6 +9049,7 @@ do
 		["switch"] = "switch",
 		["switchcount"] = "switch",
 		["adds"] = "switch",
+		["addscount"] = "switch",
 		["addscustom"] = "switch",
 		["targetchange"] = "switch",
 		["gtfo"] = "gtfo",
@@ -9173,9 +9175,9 @@ do
 			--Icon: Texture path/id for icon
 			--Type: Announce type
 			----Types: spell, ends, fades, soon, bait, dispel, interrupt, interruptcount, you, youcount, youpos, soakpos, target, targetcount, defensive, taunt, close, move, keepmove, stopmove,
-			----gtfo, dodge, dodgecount, dodgeloc, moveaway, moveawaycount, moveto, soak, jump, run, cast, lookaway, reflect, count, sooncount, stack, switch, switchcount, adds, addscustom, targetchange, prewarn
+			----gtfo, dodge, dodgecount, dodgeloc, moveaway, moveawaycount, moveto, soak, jump, run, cast, lookaway, reflect, count, sooncount, stack, switch, switchcount, adds, addscount, addscustom, targetchange, prewarn
 			------General Target Messages (but since it's a special warning, it applies to you in some way): target, targetcount
-			------Fight Changes (Stages, adds, boss buff/debuff, etc): adds, addscustom, targetchange, switch, switchcount, ends
+			------Fight Changes (Stages, adds, boss buff/debuff, etc): adds, addscount, addscustom, targetchange, switch, switchcount, ends
 			------General (can really apply to anything): spell, count, soon, sooncount, prewarn
 			------Personal/Role (Applies to you, or your job): Everything Else
 			--SpellId: Raw spell or encounter journal Id if available.
@@ -9247,6 +9249,7 @@ do
 --		["switch"] = "spell",
 --		["switchcount"] = "count",
 		["adds"] = "mobsoon",--Remaps sound to say mobs incoming only, not to kill them or cc them or anything else.
+		["addscount"] = "mobsoon",
 		["addscustom"] = "mobsoon",--Remaps sound to say mobs incoming only, not to kill them or cc them or anything else.
 --		["targetchange"] = "target",
 --		["gtfo"] = "spell",
@@ -9604,6 +9607,10 @@ do
 
 	function bossModPrototype:NewSpecialWarningAdds(spellId, optionDefault, ...)
 		return newSpecialWarning(self, "adds", spellId, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningAddsCount(spellId, optionDefault, ...)
+		return newSpecialWarning(self, "addscount", spellId, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningAddsCustom(spellId, optionDefault, ...)
@@ -11007,7 +11014,7 @@ function bossModPrototype:SetOptionCategory(name, cat, optionType)
 	for _, options in pairs(self.optionCategories) do
 		removeEntry(options, name)
 	end
-	if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and self.groupSpells[name] and not (optionType == "gtfo" or optionType == "adds" or optionType == "addscustom" or optionType:find("stage") or cat == "icon" and DBM.Options.GroupOptionsExcludeIcon) then
+	if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and self.groupSpells[name] and not (optionType == "gtfo" or optionType == "adds" or optionType == "addscount" or optionType == "addscustom" or optionType:find("stage") or cat == "icon" and DBM.Options.GroupOptionsExcludeIcon) then
 		local sSpell = self.groupSpells[name]
 		if not self.groupOptions[sSpell] then
 			self.groupOptions[sSpell] = {}

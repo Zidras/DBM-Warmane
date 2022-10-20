@@ -376,6 +376,7 @@ L.AUTO_SPEC_WARN_TEXTS.switch		= "%s - 대상 바꾸세요"
 L.AUTO_SPEC_WARN_TEXTS.switchcount	= "%s - 대상 바꾸세요 (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.gtfo		= "%%s 깔림 - 피하세요"
 L.AUTO_SPEC_WARN_TEXTS.adds		= "쫄 등장 - 대상 바꾸세요"
+L.AUTO_SPEC_WARN_TEXTS.addscount	= "쫄 등장 - 대상 바꾸세요 (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.addscustom	= "쫄 등장 - %%s"
 L.AUTO_SPEC_WARN_TEXTS.targetchange	= "대상 변경 - %%s 치세요"
 
@@ -422,6 +423,7 @@ L.AUTO_SPEC_WARN_OPTIONS.switch			= "$spell:%s에 대상 변경 특수 알림 �
 L.AUTO_SPEC_WARN_OPTIONS.switchcount		= "$spell:%s에 대상 변경 특수 알림 보기 (횟수 포함)"
 L.AUTO_SPEC_WARN_OPTIONS.gtfo			= "바닥 피하기 특수 알림 보기"
 L.AUTO_SPEC_WARN_OPTIONS.adds			= "쫄 등장시 대상 변경 특수 알림 보기"
+L.AUTO_SPEC_WARN_OPTIONS.addscount		= "쫄 등장시 대상 변경 특수 알림 보기 (횟수 포함)"
 L.AUTO_SPEC_WARN_OPTIONS.addscustom		= "쫄 등장시 특수 알림 보기"
 L.AUTO_SPEC_WARN_OPTIONS.targetchange		= "점사 우선순위 변경시 특수 알림 보기"
 
@@ -445,6 +447,7 @@ L.AUTO_TIMER_TEXTS.adds			= "쫄 등장"
 L.AUTO_TIMER_TEXTS.addsshort		= "쫄"
 L.AUTO_TIMER_TEXTS.addscustom		= "쫄 등장 (%%s)"
 L.AUTO_TIMER_TEXTS.addscustomshort	= "쫄 (%%s)"
+L.AUTO_TIMER_TEXTS.roleplay		= "NPC 대사"
 
 L.AUTO_TIMER_OPTIONS.target		= "$spell:%s 디버프 타이머 바 보기 (%ds)"
 L.AUTO_TIMER_OPTIONS.targetcount	= "$spell:%s 디버프 타이머 바 보기 (횟수 포함) (%ds)"
@@ -466,7 +469,7 @@ L.AUTO_TIMER_OPTIONS.achievement		= "%s 업적의 타이머 바 보기 (%ds)"
 L.AUTO_TIMER_OPTIONS.stage		= "다음 단계 타이머 바 보기 (%ds)"
 L.AUTO_TIMER_OPTIONS.adds		= "쫄 등장 타이머 바 보기 (%ds)"
 L.AUTO_TIMER_OPTIONS.addscustom		= "쫄 등장 타이머 바 보기 (%ds)"
-L.AUTO_TIMER_OPTIONS.roleplay		= "역할 수행(롤플레이) 지속 시간 타이머 바 보기 (%ds)"
+L.AUTO_TIMER_OPTIONS.roleplay		= "NPC 대사 지속 시간 타이머 바 보기"
 
 L.AUTO_ICONS_OPTION_TARGETS				= "$spell:%s 대상에 공격대 징표 설정"--Usually used for player targets with no specific sorting
 L.AUTO_ICONS_OPTION_TARGETS_TANK_A		= "$spell:%s 대상에 공격대 징표 설정 (탱커 근접 원거리 순서 및 이름 순서 우선)"
