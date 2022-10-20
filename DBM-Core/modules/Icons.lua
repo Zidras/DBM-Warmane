@@ -106,6 +106,42 @@ do
 	local function SortByGroup(v1, v2)
 		return DBM:GetGroupId(DBM:GetUnitFullName(v1), true) < DBM:GetGroupId(DBM:GetUnitFullName(v2), true)
 	end
+	local function SortByTankAlpha(v1, v2)
+		--Tank > Melee > Ranged prio, and if two of any of types, alphabetical names are preferred
+		if DBM:IsTanking(v1) == DBM:IsTanking(v2) then
+			return DBM:GetUnitFullName(v1) < DBM:GetUnitFullName(v2)
+		--if one is tank and one isn't, they are not equal so it goes to the below elseifs that prio melee
+		elseif DBM:IsTanking(v1) and not DBM:IsTanking(v2) then
+			return true
+		elseif DBM:IsTanking(v2) and not DBM:IsTanking(v1) then
+			return false
+		elseif DBM:IsMelee(v1) == DBM:IsMelee(v2) then
+			return DBM:GetUnitFullName(v1) < DBM:GetUnitFullName(v2)
+		--if one is melee and one is ranged, they are not equal so it goes to the below elseifs that prio melee
+		elseif DBM:IsMelee(v1) and not DBM:IsMelee(v2) then
+			return true
+		elseif DBM:IsMelee(v2) and not DBM:IsMelee(v1) then
+			return false
+		end
+	end
+	local function SortByTankRoster(v1, v2)
+		--Tank > Melee > Ranged prio, and if two of any of types, roster index as secondary
+		if DBM:IsTanking(v1) == DBM:IsTanking(v2) then
+			return DBM:GetGroupId(DBM:GetUnitFullName(v1), true) < DBM:GetGroupId(DBM:GetUnitFullName(v2), true)
+		--if one is melee and one is ranged, they are not equal so it goes to the below elseifs that prio melee
+		elseif DBM:IsTanking(v1) and not DBM:IsTanking(v2) then
+			return true
+		elseif DBM:IsTanking(v2) and not DBM:IsTanking(v1) then
+			return false
+		elseif DBM:IsMelee(v1) == DBM:IsMelee(v2) then
+			return DBM:GetGroupId(DBM:GetUnitFullName(v1), true) < DBM:GetGroupId(DBM:GetUnitFullName(v2), true)
+		--if one is melee and one is ranged, they are not equal so it goes to the below elseifs that prio melee
+		elseif DBM:IsMelee(v1) and not DBM:IsMelee(v2) then
+			return true
+		elseif DBM:IsMelee(v2) and not DBM:IsMelee(v1) then
+			return false
+		end
+	end
 	local function SortByMeleeAlpha(v1, v2)
 		--if both are melee, the return values are equal and we use alpha sort
 		--if both are ranged, the return values are equal and we use alpha sort
@@ -155,7 +191,11 @@ do
 		end
 	end
 	local function SetIconBySortedTable(mod, sortType, startIcon, descendingIcon, returnFunc, scanId)
-		if sortType == "meleealpha" then
+		if sortType == "tankalpha" then
+			tsort(iconSortTable[scanId], SortByTankAlpha)
+		elseif sortType == "tankroster" then
+			tsort(iconSortTable[scanId], SortByTankRoster)
+		elseif sortType == "meleealpha" then
 			tsort(iconSortTable[scanId], SortByMeleeAlpha)
 		elseif sortType == "meleeroster" then
 			tsort(iconSortTable[scanId], SortByMeleeRoster)
