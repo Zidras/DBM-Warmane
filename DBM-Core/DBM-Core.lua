@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20221016130005"),
+	Revision = parseCurseDate("20221020191814"),
 	DisplayVersion = "9.2.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 10, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -1747,7 +1747,7 @@ do
 			return
 		end
 		if sender and ignore[sender] then return end
-		text = text:sub(1, 16)
+--		text = text:sub(1, 16) -- I don't see any point in limiting text to 16 char string
 		text = text:gsub("%%t", UnitName("target") or "<no target>")
 		if time < 3 then
 			self:AddMsg(L.PIZZA_ERROR_USAGE)
