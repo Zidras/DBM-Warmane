@@ -304,7 +304,7 @@ local function NextPhase(self)
 		timerSoulreaperCD:Start(37.5, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(37.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(nil, self.vb.defileCount+1)
-		timerHarvestSoulCD:Start(14)
+		timerHarvestSoulCD:Start(13.6) -- REVIEW! variance? (25H Lordaeron 2022/10/21) - 13.6
 		warnDefileSoon:Schedule(30, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(30, "scatter")
 	end
