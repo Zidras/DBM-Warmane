@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20221020215045"),
+	Revision = parseCurseDate("20221022095815"),
 	DisplayVersion = "9.2.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 10, 4) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -11312,6 +11312,14 @@ do
 
 	function bossModPrototype:SetIcon(...)
 		return iconsModule:SetIcon(self, ...)
+	end
+
+	function bossModPrototype:SetIconByTable(...)
+		return iconsModule:SetIconByTable(self, ...)
+	end
+
+	function bossModPrototype:SetUnsortedIcon(...)
+		return iconsModule:SetUnsortedIcon(self, ...)
 	end
 
 	--Backwards compat for old mods using this method, which is now merged into SetSortedIcon
