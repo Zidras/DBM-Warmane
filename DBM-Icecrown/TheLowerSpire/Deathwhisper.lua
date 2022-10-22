@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 
-mod:SetRevision("20221014235421")
+mod:SetRevision("20221022085625")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -414,7 +414,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerSummonSpiritCD:Start(12)
+		timerSummonSpiritCD:Start() -- (25H Lordaeron 2022/10/21) - Stage 2/11.0
 		timerAdds:Cancel()
 		warnAddsSoon:Cancel()
 		self:Unschedule(addsTimer)
