@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221014233833")
+mod:SetRevision("20221022084119")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -308,14 +308,14 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	elseif args.spellId == 66636 then	-- Rising Anger
 		local amount = args.amount or 1
 		WarningSnobold:Show(args.destName)
-		if amount <= 3 then
-			if self:IsHeroic() then
+		if amount < 3 then
+--			if self:IsHeroic() then
 				timerRisingAnger:Start(17.5) -- (25H Lordaeron 2022/09/28) - 17.5
-			else
-				if amount < 3 then
-					timerRisingAnger:Start() -- Variance for normal dose is all over the place... Only first dose is timed since it has "some" level of consistency. (25N Lordaeron 2022/09/23 || 10N Lordaeron 2022/10/02 wipe || 10N Lordaeron 2022/10/02 kill) - 26.1, 28.9, 22.6 || 26.8, 12.7 || 20.8, 30.0
-				end
-			end
+--			else
+--				if amount < 3 then
+--					timerRisingAnger:Start() -- Variance for normal dose is all over the place... Only first dose is timed since it has "some" level of consistency. (25N Lordaeron 2022/09/23 || 10N Lordaeron 2022/10/02 wipe || 10N Lordaeron 2022/10/02 kill || 25N Lordaeron 2022/10/21) - 26.1, 28.9, 22.6 || 26.8, 12.7 || 20.8, 30.0 || 17.7
+--				end
+--			end
 		elseif amount >= 3 then
 			timerRisingAnger:Stop()
 			specWarnAnger3:Show(amount)
