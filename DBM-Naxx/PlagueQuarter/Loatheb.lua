@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Loatheb", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221008165244")
+mod:SetRevision("20221022102923")
 mod:SetCreatureID(16011)
 
 mod:RegisterCombat("combat")--Maybe change to a yell later so pull detection works if you chain pull him from tash gauntlet
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 
 --TODO, verify infoframe and spellIds ported from Classic as accurate, they didn't have to be accurate in classic since it just matched name, but here it does
 --Also, 55593 is used instead of classic ID since classic ID has no tooltip
-local warnSporeNow	= mod:NewSpellAnnounce(32329, 2)
+local warnSporeNow	= mod:NewCountAnnounce(32329, 2)
 local warnSporeSoon	= mod:NewSoonAnnounce(32329, 1)
 local warnDoomNow	= mod:NewSpellAnnounce(29204, 3)
 local warnRemoveCurse		= mod:NewSpellAnnounce(30281, 3)
@@ -115,7 +115,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if spellId == 29234 then
 		self.vb.sporeCounter = self.vb.sporeCounter + 1
 		timerSpore:Start(self.vb.sporeTimer, self.vb.sporeCounter + 1)
-		warnSporeNow:Show()
+		warnSporeNow:Show(self.vb.sporeCounter)
 		warnSporeSoon:Schedule(self.vb.sporeTimer - 5)
 	elseif args:IsSpellID(29204, 55052) then  -- Inevitable Doom
 		self.vb.doomCounter = self.vb.doomCounter + 1
