@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221022084119")
+mod:SetRevision("20221022085026")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -72,7 +72,7 @@ local timerEmerge			= mod:NewBuffActiveTimer(5, 66947, nil, nil, nil, 6, "Interf
 local timerSweepCD			= mod:NewCDSourceTimer(16.5, 66794, nil, "Melee", nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg. (25H Lordaeron 2022/10/09) - 16.5
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- Added "Keep" arg
 local timerMoltenSpewCD		= mod:NewCDTimer(16.1, 66820, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || ) - 19.1 || 16.1
-local timerParalyticSprayCD	= mod:NewCDTimer(16.2, 66901, nil, nil, nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || 25H Lordaeron 2022/10/09) - 27.8 || 16.2
+local timerParalyticSprayCD	= mod:NewCDTimer(16.2, 66901, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~11s variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || 25H Lordaeron 2022/10/09 || 25N Lordaeron 2022/10/21) - 27.8 || 16.2 || 26.1
 local timerBurningSprayCD	= mod:NewCDTimer(19, 66902, nil, nil, nil, 3, nil, nil, true) -- REVIEW! 5s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 20.6, 19.0 || 24.7
 local timerParalyticBiteCD	= mod:NewCDTimer(25, 66824, nil, "Melee", nil, 3, nil, nil, true) -- Added "Keep" arg
 local timerBurningBiteCD	= mod:NewCDTimer(15, 66879, nil, "Melee", nil, 3, nil, nil, true) -- REVIEW! 2s variance?  Added "Keep" arg (25H Lordaeron 2022/09/03) - 16.3
@@ -475,7 +475,7 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 				end
 				timerSubmerge:Start(49.3, bossName) -- REVIEW! 2s delay from visual to submerge (25H Lordaeron 2022/09/03) - 50
 				timerSweepCD:Start(18.6, bossName) -- (2021/10/21 || 25H Lordaeron 2022/09/03 || 10N Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/09) - 22-24s (N/H?) || 24 || 20.0 || 18.6
-				timerParalyticSprayCD:Start(20)	-- (2021/10/21 || 25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 10N Lordaeron 2022/10/02) - 18-20s (N/H?) || 22 || 20.2 || 30.3
+				timerParalyticSprayCD:Start(15.5)	-- (2021/10/21 || 25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 10N Lordaeron 2022/10/02 || 25N Lordaeron 2022/10/21) - 18-20s (N/H?) || 22 || 20.2 || 30.3 || 15.5
 			elseif cid == 34799 and not dreadscaleEngaged then -- Dreadscale (mobile on engage)
 				dreadscaleEngaged = true
 				timerSubmerge:Start(bossName)
@@ -532,7 +532,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 			timerSubmerge:Start(43, acidmaw)
 			if self.vb.AcidmawMobile then
 				timerSlimePoolCD:Start(acidmaw) -- (25H Lordaeron 2022/09/03) - 12
-				timerParalyticBiteCD:Start(20.2) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25H Lordearon 2022/10/09 || 25N Lordaeron 2022/10/13) - 28 || 26.2 || 22.0 || 20.2
+				timerParalyticBiteCD:Start(16.5) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25H Lordearon 2022/10/09 || 25N Lordaeron 2022/10/13 || 25N Lordaeron 2022/10/21) - 28 || 26.2 || 22.0 || 20.2 || 16.5
 				timerAcidicSpewCD:Start(15.9) -- (25H Lordaeron 2022/09/03) - 21 || 15.9
 			else
 				timerSweepCD:Start(22, acidmaw)	-- Log review: 22-24s (N/H?)
@@ -547,7 +547,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 				timerMoltenSpewCD:Start(21.4) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25N Lordaeron 2022/10/13) - 24 || 21.8 || 21.4
 				timerBurningBiteCD:Start(14.2) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 19 || 14.2
 			else
-				timerSweepCD:Start(17, dreadscale) -- (25H Lordaeron 2022/09/03) - 17
+				timerSweepCD:Start(14.8, dreadscale) -- (25H Lordaeron 2022/09/03 || 25N Lordaeron 2022/10/21) - 17 || 14.8
 				timerBurningSprayCD:Start(13.4) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28) - 20 || 13.5
 			end
 		end
