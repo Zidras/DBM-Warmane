@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221020212613")
+mod:SetRevision("20221027184046")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -30,7 +30,7 @@ local specWarnManaBombNear	= mod:NewSpecialWarningClose(27819, nil, nil, nil, 1,
 local yellManaBomb			= mod:NewShortYell(27819)
 local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
 local specWarnFissureYou	= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
-local specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 2)
+local specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 8)
 local yellFissure			= mod:NewYellMe(27810)
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
@@ -196,6 +196,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnFissureClose:Play("watchfeet")
 		else
 			warnFissure:Show(args.destName)
+			warnFissure:Play("watchstep")
 		end
 	elseif args.spellId == 28410 then
 		DBM:Debug("MC on "..args.destName,2)
