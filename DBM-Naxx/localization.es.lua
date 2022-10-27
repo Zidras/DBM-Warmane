@@ -80,7 +80,7 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarningTeleportNow	= "Teletransporte",
-	WarningTeleportSoon	= "Teletransporte en 20 s"
+	WarningTeleportSoon	= "Teletransporte en 10 s"
 })
 
 L:SetTimerLocalization({

@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20221016181317")
+mod:SetRevision("20221027184343")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -55,7 +55,7 @@ local teleportBackName = GetSpellInfo(29231)
 		timer = 55
 	end
 	timerTeleportBack:Start(timer)
-	warnTeleportSoon:Schedule(timer - 20)
+	warnTeleportSoon:Schedule(timer - 10)
 	warnTeleportNow:Schedule(timer)
 --	self:ScheduleMethod(timer, "BackInRoom")
 end
@@ -69,7 +69,7 @@ function mod:BackInRoom(delay)
 	elseif self.vb.phase == 3 then timer = 180 - delay
 	else return end
 	timerTeleport:Show(timer)
-	warnTeleportSoon:Schedule(timer - 20)
+	warnTeleportSoon:Schedule(timer - 10)
 	warnTeleportNow:Schedule(timer)
 	self:ScheduleMethod(timer, "Balcony")
 end]]
@@ -83,7 +83,7 @@ function mod:OnCombatStart(delay)
 	timerCurseCD:Start(15-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 15.0
 	timerBlink:Start(23.8-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 23.8
 	timerTeleport:Start(90-delay)
-	warnTeleportSoon:Schedule(70-delay)
+	warnTeleportSoon:Schedule(80-delay)
 --	self:ScheduleMethod(90.8-delay, "Balcony")
 end
 
@@ -140,7 +140,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 			timer = 55
 		end
 		timerTeleportBack:Start(timer)
-		warnTeleportSoon:Schedule(timer - 20)
+		warnTeleportSoon:Schedule(timer - 10)
 		warnTeleportNow:Schedule(timer)
 	elseif spellName ==  teleportBackName then -- Teleport Return
 		self.vb.addsCount = 0
@@ -159,7 +159,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 			timer = 35
 		end
 		timerTeleport:Start(timer)
-		warnTeleportSoon:Schedule(timer - 20)
+		warnTeleportSoon:Schedule(timer - 10)
 		warnTeleportNow:Show()
 		if self.vb.teleCount == 4 then--11-12 except after 4th return it's 17
 			timerCurseCD:Start(17)--verify consistency though

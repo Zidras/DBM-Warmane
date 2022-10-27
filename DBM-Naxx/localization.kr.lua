@@ -83,7 +83,7 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarningTeleportNow	= "순간이동",
-	WarningTeleportSoon	= "20초 후 순간이동"
+	WarningTeleportSoon	= "10초 후 순간이동"
 })
 
 L:SetTimerLocalization({
