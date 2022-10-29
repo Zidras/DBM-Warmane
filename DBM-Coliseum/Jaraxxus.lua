@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925124606")
+mod:SetRevision("20220929114018")
 mod:SetCreatureID(34780)
 --mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
@@ -15,7 +15,7 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 66532 66963 66964 66965",
-	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66269 67898 67899 67900 66197 68123 68124 68125 67051 67050 67049 66237",
+	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66269 67898 67899 67900 66197 68123 68124 68125 67051 67050 67049 66237 66528 67029 67030 67031",
 	"SPELL_AURA_APPLIED 67051 67050 67049 66237 66197 68123 68124 68125 66334 67905 67906 67907 66532 66963 66964 66965",
 	"SPELL_AURA_REMOVED 67051 67050 67049 66237",
 	"SPELL_DAMAGE 66877 67070 67071 67072 66496 68716 68717 68718",
@@ -29,6 +29,7 @@ local warnPortalSoon			= mod:NewSoonAnnounce(66269, 3)
 local warnVolcanoSoon			= mod:NewSoonAnnounce(66258, 3)
 local warnFlame					= mod:NewTargetAnnounce(66197, 4)
 local warnFlesh					= mod:NewTargetNoFilterAnnounce(66237, 4, nil, "Healer")
+local warnFelLightning			= mod:NewSpellAnnounce(67031, 3, nil, false)
 
 local specWarnFlame				= mod:NewSpecialWarningRun(66877, nil, nil, 2, 4, 2)
 local specWarnFlameGTFO			= mod:NewSpecialWarningMove(66877, nil, nil, 2, 4, 2)
@@ -45,8 +46,9 @@ local timerFlameCD				= mod:NewNextTimer(30, 66197, nil, nil, nil, 3) -- (25H Lo
 local timerNetherPowerCD		= mod:NewNextTimer(45, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON) -- (25H Lordaeron 2022/09/03) - 45.1, 45.0, 45.0, 45.0
 local timerFlesh				= mod:NewTargetTimer(12, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerFleshCD				= mod:NewNextTimer(30, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON) -- (25H Lordaeron 2022/09/03) - 30.0, 30.0, 30.0, 30.1, 30.0, 30.0
-local timerPortalCD				= mod:NewCDTimer(120, 66269, nil, nil, nil, 1, nil, nil, true) -- REVIEW! 7s variance? Added "Keep" arg (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 127.0
+local timerPortalCD				= mod:NewCDTimer(120, 66269, nil, nil, nil, 1, nil, nil, true) -- REVIEW! 7s variance? Added "keep" arg (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 127.0
 local timerVolcanoCD			= mod:NewCDTimer(120, 66258, nil, nil, nil, 1) -- REVIEW! ~1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 120.8
+local timerFelLightning			= mod:NewCDTimer(10, 67031, nil, nil, nil, 3, nil, nil, true) -- 7s variance [10-17]. Added "keep" arg (25H Lordaeron 2022/09/24 || 10N Lordaeron 2022/10/02) - 15.0, 12.8, 16.3, 12.1, 17.0, 14.8, 11.4, 11.1, 13.7, 14.0, 12.9, 14.2, 10.1, 10.5, 11.7 || 11.5, 12.4, 14.6, 13.4, 13.1
 
 local enrageTimer				= mod:NewBerserkTimer(600)
 
@@ -72,6 +74,7 @@ function mod:OnCombatStart(delay)
 	timerNetherPowerCD:Start(15-delay) -- (25H Lordaeron 2022/09/03) - 15.0
 	timerFleshCD:Start(13-delay) -- (25H Lordaeron 2022/09/03) - 13.0
 	timerFlameCD:Start(20-delay) -- (25H Lordaeron 2022/09/03) - 20.0
+	timerFelLightning:Start(-delay) -- (25H Lordaeron 2022/09/24 || 10N Lordaeron 2022/10/02) - 10.0 || 10.1
 	enrageTimer:Start(-delay)
 end
 
@@ -155,6 +158,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnFlame:Show(args.destName)
 	elseif args:IsSpellID(67051, 67050, 67049, 66237) then		-- Incinerate Flesh
 		timerFleshCD:Start()
+	elseif args:IsSpellID(66528, 67029, 67030, 67031) then		-- Fel Lightning
+		timerFelLightning:Start()
+		warnFelLightning:Show()
 	end
 end
 
