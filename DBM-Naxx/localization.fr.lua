@@ -377,7 +377,12 @@ L:SetOptionLocalization({
 	TimerPhase2			= "Afficher le timer pour la Phase 2",
 	specwarnP2Soon		= "Montre un timer pour prévenir 10 secondes avant l'arrivée de Kel'Thuzad",
 	EqUneqWeaponsKT		= "Déséquipez et équipez automatiquement les armes avant et après $spell:28410. Nécessite un ensemble d'équipement nommé \"pve\"",
-	EqUneqWeaponsKT2	= "Déséquiper et équiper automatiquement les armes lorsque $spell:28410 est lancé sur VOUS"
+	EqUneqWeaponsKT2	= "Déséquiper et équiper automatiquement les armes lorsque $spell:28410 est lancé sur VOUS",
+	RemoveBuffsOnMC		= "Retirez les buffs lorsque $spell:28410 est lancé sur vous. Chaque option est cumulative.",
+	Gift				= "Supprimer $spell:48469 / $spell:48470. Approche minimale pour éviter $spell:33786 résistances.",
+	CCFree				= "+ Supprimer $spell:48169 / $spell:48170. Tient compte des résistances des sorts de l'école de l'ombre.",
+	ShortOffensiveProcs	= "+ Supprimer les procs offensifs qui ont une faible durée. Recommandé pour la sécurité du raid sans compromettre les dégâts du raid.",
+	MostOffensiveBuffs	= "+ Supprimer la plupart des buffs offensifs (principalement pour les Casters et les |cFFFF7C0AFarouche Druide|r). Sécurité maximale pour les raids avec une perte de dégâts et la nécessité de s'auto-rebuffer/shapeshift!"
 })
 
 L:SetMiscLocalization({

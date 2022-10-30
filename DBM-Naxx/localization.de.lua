@@ -375,7 +375,12 @@ L:SetOptionLocalization({
 	specwarnP2Soon		= "Spezialwarnung 10 Sekunden bevor Kel'Thuzad angreift",
 	warnAddsSoon		= "Zeige Vorwarnung für Wächter von Eiskrone",
 	EqUneqWeaponsKT		= "Waffen vor und nach $spell:28410 automatisch aus- und ausrüsten. Benötigt Ausrüstungsset namens \"pve\"",
-	EqUneqWeaponsKT2	= "Waffen automatisch ablegen und ausrüsten, wenn $spell:28410 auf DICH gewirkt wird"
+	EqUneqWeaponsKT2	= "Waffen automatisch ablegen und ausrüsten, wenn $spell:28410 auf DICH gewirkt wird",
+	RemoveBuffsOnMC		= "Entferne Buffs, wenn $spell:28410 auf dich gewirkt wird. Jede Option ist kumulativ.",
+	Gift				= "Entferne $spell:48469 / $spell:48470. Minimaler Ansatz, um $spell:33786 Resistenzen zu verhindern.",
+	CCFree				= "+ Entferne $spell:48169 / $spell:48170. Berücksichtige die Resistenzen von Zaubern der Schattenschule.",
+	ShortOffensiveProcs	= "+ Entferne offensive Procs, die eine geringe Dauer haben. Empfohlen für die Sicherheit des Schlachtzugs, ohne den Schadensoutput des Schlachtzugs zu beeinträchtigen.",
+	MostOffensiveBuffs	= "+ Entfernt die meisten offensiven Buffs (hauptsächlich für Zauberwirker und |cFFFF7C0AWildheit-Druide|r). Maximale Schlachtzugsicherheit bei gleichzeitigem Verlust des Schadensoutputs und der Notwendigkeit, sich selbst zu rebuffen/shapeshiften!"
 })
 
 L:SetMiscLocalization({

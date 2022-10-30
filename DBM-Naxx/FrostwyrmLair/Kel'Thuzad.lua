@@ -1,7 +1,11 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221027184046")
+local select, tContains = select, tContains
+local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
+local UnitClass = UnitClass
+
+mod:SetRevision("20221030130154")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -42,13 +46,11 @@ local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
 local timerPhase2			= mod:NewTimer(228, "TimerPhase2", nil, nil, nil, 6) -- (25m Lordaeron 2022/10/16) - 228.0
 
+mod:AddRangeFrameOption(12, 27819)
 mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
 mod:AddSetIconOption("SetIconOnFrostTomb", 27808, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
-mod:AddRangeFrameOption(12, 27819)
-
-local tContains = tContains
-local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
+mod:AddDropdownOption("RemoveBuffsOnMC", {"Never", "Gift", "CCFree", "ShortOffensiveProcs", "MostOffensiveBuffs"}, "Never", "misc", nil, 28410)
 
 local RaidWarningFrame = RaidWarningFrame
 local GetFramesRegisteredForEvent, RaidNotice_AddMessage = GetFramesRegisteredForEvent, RaidNotice_AddMessage
@@ -86,6 +88,7 @@ mod.vb.MCIcon = 1
 local frostBlastTargets = {}
 local chainsTargets = {}
 local isHunter = select(2, UnitClass("player")) == "HUNTER"
+local playerClass = select(2, UnitClass("player"))
 
 local function UnWKT(self)
 	if (self.Options.EqUneqWeaponsKT or self.Options.EqUneqWeaponsKT2) and self:IsEquipmentSetAvailable("pve") then
@@ -108,6 +111,81 @@ local function EqWKT(self)
 		UseEquipmentSet("pve")
 		CancelUnitBuff("player", (GetSpellInfo(25780))) -- Righteous Fury
 	end
+end
+
+local aurastoRemove = { -- ordered by aggressiveness {degree, classFilter}
+	-- 1 (Gift)
+	[48469] = {1, nil}, -- Mark of the Wild
+	[48470] = {1, nil}, -- Gift of the Wild
+	[69381] = {1, nil}, -- Drums of the Wild
+	-- 2 (CCFree)
+	[48169] = {2, nil}, -- Shadow Protection
+	[48170] = {2, nil}, -- Prayer of Shadow Protection
+	-- 3 (ShortOffensiveProcs)
+	[13877] = {3, "ROGUE"}, -- Blade Flurry (Combat Rogue)
+	[70721] = {3, "DRUID"}, -- Omen of Doom (Balance Druid)
+	[48393] = {3, "DRUID"}, -- Owlkin Frenzy (Balance Druid)
+	[53201] = {3, "DRUID"}, -- Starfall (Balance Druid)
+	[50213] = {3, "DRUID"}, -- Tiger's Fury (Feral Druid)
+	[31572] = {3, "MAGE"}, -- Arcane Potency (Arcane Mage)
+	[54490] = {3, "MAGE"}, -- Missile Barrage (Arcane Mage)
+	[48108] = {3, "MAGE"}, -- Hot Streak (Fire Mage)
+	[71165] = {3, "WARLOCK"}, -- Molten Core (Warlock)
+	[63167] = {3, "WARLOCK"}, -- Decimation (Warlock)
+	[70840] = {3, "WARLOCK"}, -- Devious Minds (Warlock)
+	[17941] = {3, "WARLOCK"}, -- Shadow Trance (Warlock)
+	[47197] = {3, "WARLOCK"}, -- Eradication (Affliction Warlock)
+	[34939] = {3, "WARLOCK"}, -- Backlash (Destruction Warlock)
+	[47260] = {3, "WARLOCK"}, -- Backdraft (Destruction Warlock)
+	[16246] = {3, "SHAMAN"}, -- Clearcasting (Elemental Shaman)
+	[64701] = {3, "SHAMAN"}, -- Elemental Mastery (Elemental Shaman)
+	[26297] = {3, nil}, -- Berserking (Troll racial)
+	[54758] = {3, nil}, -- Hyperspeed Acceleration (Hands engi enchant)
+	[59626] = {3, nil}, -- Black Magic (Weapon enchant)
+	[72416] = {3, nil}, -- Frostforged Sage (ICC Rep ring)
+	[64713] = {3, nil}, -- Flame of the Heavens (Flare of the Heavens)
+	[67669] = {3, nil}, -- Elusive Power (Trinket Abyssal Rune)
+	[60064] = {3, nil}, -- Now is the Time! (Trinket Sundial of the Exiled/Mithril Pocketwatch)
+	-- 4 (MostOffensiveBuffs)
+	[48168] = {4, "PRIEST"}, -- Inner Fire (Priest)
+	[15258] = {4, "PRIEST"}, -- Shadow Weaving (Shadow Priest)
+	[48420] = {4, "DRUID"}, -- Master Shapeshifter (Druid)
+	[24932] = {4, "DRUID"}, -- Leader of the Pack (Feral Druid)
+	[67355] = {4, "DRUID"}, -- Agile (Feral Druid idol)
+	[52610] = {4, "DRUID"}, -- Savage Roar (Feral Druid)
+	[24907] = {4, "DRUID"}, -- Moonkin Aura (Balance Druid)
+	[71199] = {4, "DRUID"}, -- Furious (Shaman EoF: Bizuri's Totem of Shattered Ice)
+	[67360] = {4, "DRUID"}, -- Blessing of the Moon Goddess (Druid EoT: Idol of Lunar Fury)
+	[48943] = {4, "PALADIN"}, -- Shadow Resistance Aura (Paladin)
+	[43046] = {4, "MAGE"}, -- Molten Armor (Mage)
+	[47893] = {4, "WARLOCK"}, -- Fel Armor (Warlock)
+	[63321] = {4, "WARLOCK"}, -- Life Tap (Warlock)
+	[55637] = {4, nil}, -- Lightweave (Back tailoring enchant)
+	[71572] = {4, nil}, -- Cultivated Power (Muradin Spyglass)
+	[60235] = {4, nil}, -- Greatness (Darkmoon Card: Greatness)
+	[71644] = {4, nil}, -- Surge of Power (Dislodged Foreign Object)
+	[75473] = {4, nil}, -- Twilight Flames (Charred Twilight Scale)
+	[71636] = {4, nil}, -- Siphoned Power (Phylactery of the Nameless Lich)
+}
+local optionToDegree = {
+	["Gift"] = 1, -- Cyclones resists
+	["CCFree"] = 2, -- CC Shadow resists, life Fear from Psychic Scream
+	["ShortOffensiveProcs"] = 3, -- Short-term procs that would expire during Mind Control anyway
+	["MostOffensiveBuffs"] = 4, -- Most offensive buffs that are easily renewable but would expire after Mind Control ends
+}
+
+local function RemoveBuffs(option) -- Spell is removed based on name so no longer need SpellID for each rank
+	if not option then return end
+	local degreeOption = optionToDegree[option]
+	for aura, infoTable in pairs(aurastoRemove) do
+		local degree, classFilter = unpack(infoTable)
+		if degree <= degreeOption then
+			if not classFilter or classFilter == playerClass then
+				CancelUnitBuff("player", (GetSpellInfo(aura)))
+			end
+		end
+	end
+	DBM:Debug("Buffs removed, using option \"" .. option .. "\" and degree: " .. tostring(degreeOption), 2)
 end
 
 local function AnnounceChainsTargets(self)
@@ -200,10 +278,15 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif args.spellId == 28410 then
 		DBM:Debug("MC on "..args.destName,2)
-		if self.Options.EqUneqWeaponsKT2 and args.destName == UnitName("player") then
-			UnWKT(self)
-			self:Schedule(0.05, UnWKT, self)
-			DBM:Debug("Unequipping",2)
+		if args.destName == UnitName("player") then
+			if self.Options.RemoveBuffsOnMC ~= "Never" then
+				RemoveBuffs(self.Options.RemoveBuffsOnMC)
+			end
+			if self.Options.EqUneqWeaponsKT2 then
+				UnWKT(self)
+				self:Schedule(0.05, UnWKT, self)
+				DBM:Debug("Unequipping",2)
+			end
 		end
 		if self:AntiSpam(2, 2) then
 			timerMCCD:Start()

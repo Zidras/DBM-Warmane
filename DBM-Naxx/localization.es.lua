@@ -375,7 +375,12 @@ L:SetOptionLocalization({
 	specwarnP2Soon		= "Mostrar aviso especial 10 s antes del cambio a Fase 2",
 	warnAddsSoon		= "Mostrar aviso previo para cuando aparezcan los Guardianes de Corona de Hielo",
 	EqUneqWeaponsKT		= "Desequipar y equipar armas automáticamente antes y después del $spell:28410. Requiere equipamiento llamado \"pve\"",
-	EqUneqWeaponsKT2	= "Desequipar y equipar armas automáticamente cuando se lanza $spell:28410 sobre USTED"
+	EqUneqWeaponsKT2	= "Desequipar y equipar armas automáticamente cuando se lanza $spell:28410 sobre USTED",
+	RemoveBuffsOnMC		= "Elimina los buffs cuando $spell:28410 es lanzado sobre ti. Cada opción es acumulativa",
+	Gift				= "Eliminar $spell:48469 / $spell:48470. Enfoque mínimo para evitar que $spell:33786 se resista",
+	CCFree				= "+ Eliminar $spell:48169 / $spell:48170. Tener en cuenta las resistencias de los hechizos de la escuela Sombra",
+	ShortOffensiveProcs	= "+ Elimina los procs ofensivos de baja duración. Recomendado para la seguridad de la raid sin comprometer la producción de daño de la raid",
+	MostOffensiveBuffs	= "+ Elimina la mayoría de los buffs ofensivos (principalmente para los Casters y los |cFFFF7C0ADruidas Ferales|r). Máxima seguridad en la incursión con la pérdida de daño y la necesidad de auto-buff/cambio de forma"
 })
 
 L:SetMiscLocalization({

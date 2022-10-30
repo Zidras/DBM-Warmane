@@ -371,7 +371,12 @@ L:SetOptionLocalization({
 	specwarnP2Soon		= "為科爾蘇加德攻擊前10秒顯示特別警告",
 	warnAddsSoon		= "為寒冰皇冠守護者顯示預先警告",
 	EqUneqWeaponsKT		= "在 $spell:28410 之前和之後自動取消裝備和裝備武器。 需要名為“pve”的裝備套裝",
-	EqUneqWeaponsKT2	= "對你施放 $spell:28410 時自動解除和裝備武器"
+	EqUneqWeaponsKT2	= "對你施放 $spell:28410 時自動解除和裝備武器",
+	RemoveBuffsOnMC		= "當 $spell:28410 對你施放時移除增益。每個選項都是累積的。",
+	Gift				= "移除 $spell:48469 / $spell:48470。防止 $spell:33786 抵抗的最小方法。",
+	CCFree				= "+ 移除 $spell:48169 / $spell:48170。說明影子學派的法術抗性。",
+	ShortOffensiveProcs	= "+ 移除持續時間較短的攻擊性觸發。推薦用於團隊安全而不影響團隊傷害輸出。",
+	MostOffensiveBuffs	= "+ 移除大部分攻擊性增益（主要針對施法者和 |cFFFF7C0A野性戰鬥德魯伊|r）。最大的團隊安全性，損失輸出並需要自我反擊/變形！"
 })
 
 L:SetMiscLocalization({

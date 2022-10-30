@@ -371,7 +371,13 @@ L:SetOptionLocalization({
 	specwarnP2Soon		= "Show special warning 10 seconds before Kel'Thuzad engages",
 	warnAddsSoon		= "Show pre-warning for Guardians of Icecrown",
 	EqUneqWeaponsKT		= "Automatically unequip and equip weapons before and after $spell:28410. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
-	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU"
+	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU",
+	RemoveBuffsOnMC		= "Remove buffs when $spell:28410 is cast on you. Each option is cumulative.",
+	Never				= NEVER, -- don't translate,
+	Gift				= "Remove $spell:48469 / $spell:48470. Minimal approach to prevent $spell:33786 resists.",
+	CCFree				= "+ Remove $spell:48169 / $spell:48170. Account for resists of spells in the Shadow school.",
+	ShortOffensiveProcs	= "+ Remove offensive procs that have a low duration. Recommended for raid safety without compromising raid damage output.",
+	MostOffensiveBuffs	= "+ Remove most offensive buffs (mainly for Casters and |cFFFF7C0AFeral Druids|r). Maximum raid safety with loss of damage output and need to self-rebuff/shapeshift!"
 })
 
 L:SetMiscLocalization({
