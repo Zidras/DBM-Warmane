@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nalorakk", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031114005")
+mod:SetRevision("20221031191110")
 mod:SetCreatureID(23576)
 
 mod:SetZone()
@@ -20,12 +20,12 @@ local warnNormalSoon	= mod:NewAnnounce("WarnNormalSoon", 3, 39414)
 local warnSilence		= mod:NewSpellAnnounce(42398, 3)
 
 local timerBear			= mod:NewTimer(45, "TimerBear", 39414, nil, nil, 6) -- Shape of the Bear. REVIEW! (10m Frostmourne 2022/10/28) - 75.0
-local timerNormal		= mod:NewTimer(30, "TimerNormal", 39414, nil, nil, 6)
+local timerNormal		= mod:NewTimer(30, "TimerNormal", 39414, nil, nil, 6) -- (10m Frostmourne 2022/10/28) - pull:74.5, 75.0
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 
 function mod:OnCombatStart(delay)
-	timerBear:Start()
+	timerBear:Start() -- (10m Frostmourne 2022/10/28) - 45.0
 	warnBearSoon:Schedule(40)
 	berserkTimer:Start(-delay)
 end
