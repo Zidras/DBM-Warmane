@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221011212336")
+mod:SetRevision("20221031100929")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -45,7 +45,7 @@ local warnLightningCharge			= mod:NewSpellAnnounce(62466, 2)
 local specWarnUnbalancingStrikeSelf	= mod:NewSpecialWarningDefensive(62130, nil, nil, nil, 1, 2)
 local specWarnUnbalancingStrike		= mod:NewSpecialWarningTaunt(62130, nil, nil, nil, 1, 2)
 
-local timerLightningCharge			= mod:NewCDTimer(16, 62466, nil, nil, nil, 3) -- Log reviewed (25 man NM log 2022/07/10 || 25 man HM log 2022/07/17)
+local timerLightningCharge			= mod:NewCDTimer(15.2, 62466, nil, nil, nil, 3) -- ~2s variance. (25 man NM log 2022/07/10 || 25 man HM log 2022/07/17 || 25 man Lordaeron 20222/10/30) - ? || ? || 16.7, 15.3, 16.1, 15.9
 local timerUnbalancingStrike		= mod:NewCDTimer(19.6, 62130, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- ~12s variance (25 man NM log 2022/07/10 || 25 man HM log 2022/07/17) - 24.9, 31.4, 31.8, 26.7 || 27.7, 28.5, 19.6, 26.5, 21.5, 28.6, 21.1, 28.5, 26.9
 local timerChainLightning			= mod:NewNextTimer(10.2, 64390) -- ~5s variance (25 man NM log 2022/07/10 || 25 man HM log 2022/07/17) - 14.5, 13.3, 13.8, 14.7, 10.3, 14.8, 10.3, 13.3, 12.4 || 12.3, 10.2, 14.4, 14.9, 12.5, 11.0, 14.4, 12.2, 13.4, 12.3, 11.6, 12.8, 10.6, 12.2, 10.3, 14.1
 
