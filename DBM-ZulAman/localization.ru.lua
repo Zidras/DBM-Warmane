@@ -32,6 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Вперед, стражники! Начнем резню!",
 	YellBear	= "Если вызвать чудовище, то мало не покажется, точно говорю!",
 	YellNormal	= "Пропустите Налоракка!"
 })
@@ -45,6 +46,10 @@ L:SetGeneralLocalization({
 	name = "Акил'зон"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "Я – охотник! Вы – добыча!",
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -55,6 +60,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Духи ветра станут вашей погибелью!",
 	YellBomb	= "Сгиньте в огне!",
 	YellAdds	= "Где мои Наседки? Пора за яйца приниматься!"
 })
@@ -79,6 +85,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "На колени!! Склонитесь пред клыком и когтем!",
 	YellSpirit	= "Со мною дикий дух...",
 	YellNormal	= "О дух, вернись ко мне!"
 })
@@ -106,6 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+--	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "Выучил новый фокус… прямо как братишка-медведь...",
 	YellPhase3	= "От орла нигде не скрыться!",
 	YellPhase4	= "Позвольте представить моих двух братцев: клык и коготь!",

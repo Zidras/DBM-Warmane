@@ -32,6 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "上前去，卫兵！杀戮时间开始了！",
 	YellBear	= "你们召唤野兽？你马上就要大大的后悔了！",
 	YellNormal	= "纳洛拉克，变形，出发！"
 })
@@ -45,6 +46,10 @@ L:SetGeneralLocalization({
 	name = "埃基尔松"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "我是猎鹰，而你们，就是猎物！",
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -55,6 +60,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "风之圣魂将是你的梦魇！",
 	YellBomb	= "烧死你们！",
 	YellAdds	= "雌鹰哪里去了？快去孵蛋！"
 })
@@ -79,6 +85,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "在利爪与尖牙面前，下跪吧，祈祷吧，颤栗吧！",
 	YellSpirit	= "狂野的灵魂与我同在……",
 	YellNormal	= "灵魂，到我这里来！"
 })
@@ -106,6 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+--	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "你看我有许多新招，变个熊……",
 	YellPhase3	= "变成猎鹰，谁也别想逃出我的眼睛！",
 	YellPhase4	= "现在来让你看看我的尖牙和利爪！",

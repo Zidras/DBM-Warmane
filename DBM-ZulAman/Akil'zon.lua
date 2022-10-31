@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod("Akilzon", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031110346")
+mod:SetRevision("20221031114005")
 mod:SetCreatureID(23574)
 
 mod:SetZone()
 mod:SetUsedIcons(1)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("combat_yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 43648"
@@ -28,7 +28,7 @@ mod:AddSetIconOption("StormIcon", 43648, true, false, {1})
 
 function mod:OnCombatStart(delay)
 	warnStormSoon:Schedule(43)
-	timerStormCD:Start(48.5) -- (10m Frostmourne 2022/10/28) - 48.5
+	timerStormCD:Start(48) -- (10m Frostmourne 2022/10/28) - 48.0
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()

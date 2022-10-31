@@ -31,6 +31,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Get da move on, guards! It be killin' time!",
 	YellBear	= "You call on da beast, you gonna get more dan you bargain for!",
 	YellNormal	= "Make way for Nalorakk!"
 })
@@ -44,6 +45,10 @@ L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "I be da predator! You da prey...",
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -54,6 +59,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Spirits of da wind be your doom!",
 	YellBomb	= "I burn ya now!",
 	YellAdds	= "Where ma hatcha? Get to work on dem eggs!"
 })
@@ -78,6 +84,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Get on ya knees and bow.... to da fang and claw!",
 	YellSpirit	= "I fight wit' untamed spirit....",
 	YellNormal	= "Spirit, come back to me!"
 })
@@ -105,6 +112,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "Got me some new tricks... like me brudda bear....",
 	YellPhase3	= "Dere be no hidin' from da eagle!",
 	YellPhase4	= "Let me introduce you to me new bruddas: fang and claw!",

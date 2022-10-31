@@ -32,6 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "上前去，衛兵!殺戮時間開始了!",
 	YellBear	= "你們既然將野獸召喚出來，就將付出更多的代價!",
 	YellNormal	= "沒有人可以擋在納羅拉克的面前!"
 })
@@ -45,6 +46,10 @@ L:SetGeneralLocalization({
 	name = "阿奇爾森"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "我是掠食者!而你們，就是獵物!",
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -55,6 +60,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "風之聖魂將是你的夢魘!",
 	YellBomb	= "燒死你們!",
 	YellAdds	= "雌鷹哪裡去啦?快去孵蛋!"
 })
@@ -79,6 +85,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "在利爪與尖牙面前下跪吧，祈禱吧，顫慄吧!",
 	YellSpirit	= "狂野的靈魂與我同在......",
 	YellNormal	= "靈魂，回到我這裡來!"
 })
@@ -106,6 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+--	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "賜給我一些新的力量……讓我像熊一樣……",
 	YellPhase3	= "在雄鷹之下無所遁形!",
 	YellPhase4	= "讓我來介紹我的新兄弟:尖牙和利爪!",

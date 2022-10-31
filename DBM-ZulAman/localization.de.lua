@@ -32,6 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Vorwärts, Wachen! Zeit zum Töt'n!",
 	YellBear	= "Ihr provoziert die Bestie, jetzt werdet Ihr sie kennenlernen!",
 	YellNormal	= "Macht Platz für Nalorakk!"
 })
@@ -45,6 +46,10 @@ L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "Ich bin der Jäger! Ihr seid die Beute...",
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -55,6 +60,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Die Geister der Winde besiegeln euer Schicksal!",
 	YellBomb	= "Jetzt sollt Ihr brennen!",
 	YellAdds	= "Wo is' meine Brut? Was ist mit den Eiern?"
 })
@@ -79,6 +85,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "Auf die Knie und verneigt euch... vor den Reißzähnen und der Klaue!",
 	YellSpirit	= "Ich kämpfe mit wildem Geist...",
 	YellNormal	= "Geist, zurück zu mir!"
 })
@@ -106,6 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+--	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "Sagt 'Hallo' zu Bruder Bär...",
 	YellPhase3	= "Niemand versteckt sich vor dem Adler!",
 	YellPhase4	= "Lernt meine Brüder kennen: Reißzahn und Klaue!",

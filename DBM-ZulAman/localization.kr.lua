@@ -32,6 +32,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "움직여라, 경비병들! 신나게 썰어 봐라!",
 	YellBear	= "너희들이 짐승을 불러냈다. 놀랄 준비나 해라!",
 	YellNormal	= "날로라크 나가신다!"
 })
@@ -45,6 +46,10 @@ L:SetGeneralLocalization({
 	name = "아킬존"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "나는 사냥꾼이다! 너흰 먹잇감이고...",
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -55,6 +60,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "바람의 혼이 너희를 쓸어내리라!",
 	YellBomb	= "태워버리겠다!",
 	YellAdds	= "다 어디 갔지? 당장 알을 부화시켜!"
 })
@@ -79,6 +85,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "무릎 꿇고 경배하라... 송곳니와 발톱에!",
 	YellSpirit	= "야생의 혼이 내 편이다...",
 	YellNormal	= "혼이여, 이리 돌아오라!"
 })
@@ -106,6 +113,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+--	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "새로운 기술을 익혔지... 내 형제, 곰처럼...",
 	YellPhase3	= "독수리의 눈을 피할 수는 없다!",
 	YellPhase4	= "내 새로운 형제, 송곳니와 발톱을 보아라!",

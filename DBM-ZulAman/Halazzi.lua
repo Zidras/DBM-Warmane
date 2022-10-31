@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("Halazzi", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20221031114005")
 mod:SetCreatureID(23577)
 
 mod:SetZone()
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("combat_yell", L.YellPull) -- on Trinity Core there is no yell
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 43303 43139 43290",

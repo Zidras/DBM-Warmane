@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod("Janalai", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031110947")
+mod:SetRevision("20221031114005")
 mod:SetCreatureID(23578)
 
 mod:SetZone()
 mod:SetUsedIcons(1)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("combat_yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 43140",

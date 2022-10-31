@@ -32,6 +32,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "¡Moveos guardias! ¡Es hora de matar!", -- esES
+--	YellPull	= "¡Muévanse guardias! ¡Es hora de matar!", -- esMX
 	YellBear	= "¡Si llamáis a la bestia, vais a recibir más de lo que esperáis!",
 	YellNormal	= "¡Dejad paso al Nalorakk!"
 })
@@ -45,6 +47,11 @@ L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
 
+L:SetMiscLocalization({
+	YellPull	= "¡Yo soy el depredador! Vosotros la presa...", -- esES
+--	YellPull	= "¡Yo soy el depredador! Ustedes la presa...", -- esMX
+})
+
 ---------------
 --  Jan'alai --
 ---------------
@@ -55,6 +62,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "¡Los eh'píritus del viento serán vueh'tra perdición!", -- esES
+--	YellPull	= "¡Los espíritus del viento serán su maldición!", -- esMX
 	YellBomb	= "¡Ahora os quemaré!",
 	YellAdds	= "¿Dónde está mi criador? ¡A por los huevos!"
 })
@@ -79,6 +88,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	YellPull	= "¡Arrodillaos... ante la garra y el colmillo!", -- esES
+--	YellPull	= "¡Arrodíllense... ante la garra y el colmillo!", -- esMX
 	YellSpirit	= "Lucho con libertad de espíritu...",
 	YellNormal	= "¡Espíritu, vuelve a mí!"
 })
@@ -106,6 +117,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
+--	YellPull	= "Nobody badduh dan me!",
 	YellPhase2	= "Tengo algunos trucos nuevos... como mi hermano el oso...",
 	YellPhase3	= "¡No podéis esconderos del águila!",
 	YellPhase4	= "¡Dejad que os presente a mis nuevos hermanos: colmillo y garra!",
