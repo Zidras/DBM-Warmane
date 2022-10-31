@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221011184153")
+mod:SetRevision("20221031103439")
 mod:SetCreatureID(33288)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -59,7 +59,7 @@ local specWarnMalady				= mod:NewSpecialWarningYou(63830, nil, nil, nil, 1, 2)
 local specWarnMaladyNear			= mod:NewSpecialWarningClose(63830, nil, nil, nil, 1, 2)
 
 local timerBrainLinkCD				= mod:NewCDTimer(23, 63802, nil, nil, nil, 3) -- 3s variance [23-26] + portalled players incurring in a possible ~50-80s variance (25 man NM log 2022/07/10 || S3 HM log 2022/07/21) - 25.4, 26.0 || 25.5, 24.1 ; 24.7, 23.9 ; 24.7, 23.7, 24.1
-local timerMaladyCD					= mod:NewCDTimer(19.3, 63830, nil, nil, nil, 3) -- 7s variance [18-25] + portalled players incurring in a possible ~50-80s variance (25 man NM log 2022/07/10 || S3 HM log 2022/07/21 || 25m Lordaeron 2022/10/09) - 22.3, 22.0 || 21.3, 20.6, 20.2, 52.1, 20.4, 60.8, 20.8, 60.4, 24.8 ; 19.6, 24.5, 60.8, 22.7, 56.8, 21.5, 22.4, 46.5 || 26.0, 19.4, 63.6, 24.1, 51.3, 24.2
+local timerMaladyCD					= mod:NewCDTimer(18.7, 63830, nil, nil, nil, 3) -- 7s variance [18-25] + portalled players incurring in a possible ~50-80s variance (25 man NM log 2022/07/10 || S3 HM log 2022/07/21 || 25m Lordaeron 2022/10/09 || 25m Lordaeron 2022/10/30) - 22.3, 22.0 || 21.3, 20.6, 20.2, 52.1, 20.4, 60.8, 20.8, 60.4, 24.8 ; 19.6, 24.5, 60.8, 22.7, 56.8, 21.5, 22.4, 46.5 || 26.0, 19.4, 63.6, 24.1, 51.3, 24.2 || 18.8, 23.0, 24.9, 52.0, 23.4
 
 mod:AddSetIconOption("SetIconOnBrainLinkTarget", 63802, true, false, {1, 2})
 mod:AddSetIconOption("SetIconOnFearTarget", 63830, true, false, {6})
