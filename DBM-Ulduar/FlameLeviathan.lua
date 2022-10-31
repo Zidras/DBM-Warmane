@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("FlameLeviathan", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220722003417")
+mod:SetRevision("20221031101217")
 
 mod:SetCreatureID(33113)
 
@@ -26,7 +26,7 @@ local specWarnPursue			= mod:NewSpecialWarning("SpecialPursueWarnYou", nil, nil,
 
 local timerSystemOverload		= mod:NewBuffActiveTimer(20, 62475, nil, nil, nil, 6)
 local timerFlameVents			= mod:NewCastTimer(10, 62396, nil, nil, nil, 2, nil, DBM_COMMON_L.INTERRUPT_ICON)
-local timerNextFlameVents		= mod:NewNextTimer(20, 62396, nil, nil, nil, 2) -- S3 FM Log review 2022/07/17 - 0.1, 20.0, 20.0, 20.1, 20.0, 20.3
+local timertFlameVentsCD		= mod:NewCDTimer(19.7, 62396, nil, nil, nil, 2) -- ~0.5s variance (S3 FM Log review 2022/07/17 || 25m Lordaeron 2022/10/30) - 0.1, 20.0, 20.0, 20.1, 20.0, 20.3 || 20.3, 19.7, 20.0, 20.1
 local timerPursued				= mod:NewTargetTimer(30, 62374, nil, nil, nil, 3) -- Variance dependent on whether boss is pulled right after gate opens or not. Corrected using count. S3 FM Log review 2022/07/17 - 0.1, 11.0, 19.0, 30.0, 30.0, 30.0
 
 -- Hard Mode
@@ -65,7 +65,7 @@ function mod:OnCombatStart(delay)
 	end
 	buildGuidTable(self)
 	self.vb.pursueCount = 0
-	timerNextFlameVents:Start(-delay) -- 25 man log review (2022/07/10)
+	timertFlameVentsCD:Start(20-delay) -- 25 man log review (2022/07/10 || 25m Lordaeron 2022/10/30) - 20.0 || 20.0
 	self:Schedule(5, CheckTowers, self, delay)
 	DBM:Debug("OnCombatStart boss1 had speed: "..bossMovingSpeed)
 end
@@ -78,11 +78,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 62396 then		-- Flame Vents
 		timerFlameVents:Start()
-		timerNextFlameVents:Start()
+		timertFlameVentsCD:Start()
 	elseif spellId == 62475 then	-- Systems Shutdown / Overload
 		timerSystemOverload:Start()
-		timerNextFlameVents:Stop()
-		timerNextFlameVents:Start(40) -- Same for 10 and 25m (S3 FM 25HM cleu log 2022/07/16)
+		timertFlameVentsCD:Stop()
+		timertFlameVentsCD:Start(40) -- Same for 10 and 25m (S3 FM 25HM cleu log 2022/07/16)
 		specWarnSystemOverload:Show()
 		specWarnSystemOverload:Play("attacktank")
 	elseif spellId == 62374 then	-- Pursued
