@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ZulJin", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031114005")
+mod:SetRevision("20221031193249")
 mod:SetCreatureID(23863)
 
 mod:SetZone()
@@ -23,24 +23,25 @@ local warnPhase			= mod:NewPhaseChangeAnnounce(2, nil, nil, nil, nil, nil, 2)
 
 local specWarnParalyze	= mod:NewSpecialWarningDispel(43095, "RemoveMagic", nil, nil, 1, 2)
 
-local timerParalyzeCD	= mod:NewCDTimer(27, 43095, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerParalyzeCD	= mod:NewCDTimer(27, 43095, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON) -- (10m Frostmourne 2022/10/28) - 27.0
 
 function mod:OnCombatStart()
 	self:SetStage(1)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(43093) then
+	local spellId = args.spellId
+	if spellId == 43093 then
 		warnThrow:Show(args.destName)
-	elseif args:IsSpellID(43150) then
+	elseif spellId == 43150 then
 		warnClaw:Show(args.destName)
-	elseif args:IsSpellID(43213) then
+	elseif spellId == 43213 then
 		warnFlame:Show()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(43095) then
+	if args.spellId == 43095 then
 		warnParalyzeSoon:Schedule(22)
 		if self.Options.SpecWarn43095dispel and self:CheckDispelFilter("magic") then
 			specWarnParalyze:Show(DBM_COMMON_L.ALLIES)
