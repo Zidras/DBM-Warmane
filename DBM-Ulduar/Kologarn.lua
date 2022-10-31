@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010192909")
+mod:SetRevision("20221031105808")
 mod:SetCreatureID(32930)
 mod:SetUsedIcons(5, 6, 7, 8)
 
@@ -42,7 +42,7 @@ local yellBeam					= mod:NewYell(63346)
 
 local timerCrunch10				= mod:NewTargetTimer(6, 63355)
 local timerNextSmash			= mod:NewCDTimer(14.4, 64003, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 3s variance (2022/07/05 log review) - 16.7, 14.4, 14.4, 16.8, 14.4, 14.4 || 13.7, 16.8, 14.4, 14.4, 14.4 || 16.0, 14.3, 16.8, 14.4 || 16.8, 14.4, 14.4, 14.4, 16.8 || 14.1, 14.4, 16.8, 14.4
-local timerNextEyebeam			= mod:NewCDTimer(15.9, 63346, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON, true) -- almost 20s variance! Added "keep" arg (2022/07/05 log review || ... ||| 25m Lordaeron 2022/10/09) - 28, 31, 27 || 21, 19, 17, 33 || 25 || 33, 23 || 30, 16 ||| 23.0, 15.9, 23.3, 25.2
+local timerNextEyebeam			= mod:NewCDTimer(15.9, 63346, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON, true) -- almost 20s variance! Added "keep" arg (2022/07/05 log review || ... ||| 25m Lordaeron 2022/10/09 || 25m Lordaeron 2022/10/30) - 28, 31, 27 || 21, 19, 17, 33 || 25 || 33, 23 || 30, 16 ||| 23.0, 15.9, 23.3, 25.2 || 21.2, 22.9, 17.5, 30.1, 22.9
 
 mod:AddSetIconOption("SetIconOnEyebeamTarget", 63346, true, false, {8})
 
@@ -50,14 +50,14 @@ mod:AddSetIconOption("SetIconOnEyebeamTarget", 63346, true, false, {8})
 mod:AddTimerLine(L.Health_Right_Arm)
 local warnGrip					= mod:NewTargetNoFilterAnnounce(64292, 2)
 
-local timerNextGrip				= mod:NewCDTimer(25, 62166, nil, nil, nil, 3) -- 25.0 (2022/07/05 log review)
+local timerNextGrip				= mod:NewNextTimer(25, 62166, nil, nil, nil, 3) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 25.0 || 25.0, 25.1, 25.0
 local timerRespawnRightArm		= mod:NewTimer(30, "timerRightArm", nil, nil, nil, 1)
 
 mod:AddSetIconOption("SetIconOnGripTarget", 64292, true, false, {7, 6, 5})
 
 -- Left Arm
 mod:AddTimerLine(L.Health_Left_Arm)
-local timerNextShockwave		= mod:NewCDTimer(25, 63982, nil, nil, nil, 2) -- 25.0 (2022/07/05 log review)
+local timerNextShockwave		= mod:NewNextTimer(25, 63982, nil, nil, nil, 2) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 25.0 || 25.0, 25.0, 25.0, 25.1
 local timerRespawnLeftArm		= mod:NewTimer(30, "timerLeftArm", nil, nil, nil, 1)
 
 -- 5/23 00:33:48.648  SPELL_AURA_APPLIED,0x0000000000000000,nil,0x80000000,0x0480000001860FAC,"Hâzzad",0x4000512,63355,"Crunch Armor",0x1,DEBUFF
@@ -80,9 +80,9 @@ end
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
 	timerNextSmash:Start(5-delay) -- 2s variance (2022/07/05 log review) - [5-7]
-	timerNextEyebeam:Start(21-delay) -- 21 (2022/07/05 log review)
-	timerNextShockwave:Start(19-delay) -- 19 (2022/07/05 log review)
-	timerNextGrip:Start(-delay)
+	timerNextEyebeam:Start(20.2-delay) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 21 || 20.2
+	timerNextShockwave:Start(18.2-delay) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 19 || 18.2
+	timerNextGrip:Start(24.2-delay) --  (25m Lordaeron 2022/10/30) - 24.2
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
