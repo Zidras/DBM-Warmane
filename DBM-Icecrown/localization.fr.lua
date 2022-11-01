@@ -104,7 +104,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RunePowerFrame		= "Montre la barre de vie du boss + la barre de $spell:72371",
-	RemoveDI			= "Supprimez $spell:19752 s'il est utilisé pour empêcher le lancement du sort $spell:72293."
+--	RemoveDI			= "Supprimez $spell:19752 s'il est utilisé pour empêcher le lancement du sort $spell:72293."
 })
 
 L:SetMiscLocalization({

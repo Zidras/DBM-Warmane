@@ -104,7 +104,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RunePowerFrame		= "보스 체력 바와 함께 $spell:72371 바 보기",
-	RemoveDI			= "$spell:19752를 지웁니다. $spell:72293이 캐스팅되지 않도록 합니다."
+--	RemoveDI			= "$spell:19752를 지웁니다. $spell:72293이 캐스팅되지 않도록 합니다."
 })
 
 L:SetMiscLocalization({

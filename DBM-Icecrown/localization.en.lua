@@ -105,7 +105,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RunePowerFrame		= "Show Boss Health + $spell:72371 bar",
-	RemoveDI			= "Remove $spell:19752 if used to prevent $spell:72293 cast"
+--	RemoveDI			= "Remove $spell:19752 if used to prevent $spell:72293 cast"
 })
 
 L:SetMiscLocalization({

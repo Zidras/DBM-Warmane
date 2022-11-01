@@ -104,7 +104,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RunePowerFrame		= "Mostrar barra de vida + barra de $spell:72371",
-	RemoveDI			= "Quitar $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
+--	RemoveDI			= "Quitar $spell:19752 si se utiliza para prevenir lanzamiento de $spell:72293."
 })
 
 L:SetMiscLocalization({

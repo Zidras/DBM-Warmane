@@ -103,7 +103,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	RunePowerFrame		= "顯示首領血量及$spell:72371條",
-	RemoveDI			= "清除 $spell:19752 如果用於防止 $spell:72293"
+--	RemoveDI			= "清除 $spell:19752 如果用於防止 $spell:72293"
 })
 
 L:SetMiscLocalization({
