@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Janalai", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031114005")
+mod:SetRevision("20221101173423")
 mod:SetCreatureID(23578)
 
 mod:SetZone()
@@ -44,12 +44,12 @@ function mod:FlameTarget(targetname)
 end
 
 function mod:OnCombatStart(delay)
-	timerAdds:Start(9.8) -- (10m Frostmourne 2022/10/28) - 9.8
+	timerAdds:Start(10-delay) -- (10m Frostmourne 2022/10/28 +0.5s delay) - 9.8
 	berserkTimer:Start(-delay)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 43140 then
+	if args.spellId == 43140 then -- Flame Breath
 		self:BossTargetScanner(args.sourceGUID, "FlameTarget", 0.1, 8)
 	end
 end
