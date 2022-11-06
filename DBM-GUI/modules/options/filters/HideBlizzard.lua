@@ -18,5 +18,5 @@ local movieOptions = {
 local blockMovieDropDown = hideBlizzArea:CreateDropdown(L.DisableCinematics, movieOptions, "DBM", "MovieFilter2", function(value)
 	DBM.Options.MovieFilter2 = value
 end, 350)
-blockMovieDropDown:SetPoint("TOPLEFT", _G[DisableSFX:GetName() .. "Text"], "BOTTOMLEFT", -26, -5)
+blockMovieDropDown:SetPoint("TOPLEFT", DisableSFX, "BOTTOMLEFT", -15, -25)
 blockMovieDropDown.myheight = 45
