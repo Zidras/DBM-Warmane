@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221030235000")
+mod:SetRevision("20221107192043")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -179,18 +179,18 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
+function mod:SPELL_DAMAGE(sourceGUID, _, _, destGUID, _, _, spellId)
 	if (spellId == 75952 or spellId == 75951 or spellId == 75950 or spellId == 75949 or spellId == 75948 or spellId ==  75947) and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnMeteorStrike:Show()
 		specWarnMeteorStrike:Play("runaway")
 	-- Physical/Shadow Realm detection:
 	-- OnCombatStarts already defines playerInShadowRealm as false.
 	-- Code below is meant to handle P2 and P3
-	elseif self:GetCIDFromGUID(destGUID) == 39863 and self.Options.HealthFrame and playerInShadowRealm then -- check if Physical Realm boss exists and playerInShadowRealm is still cached as true
+	elseif (self:GetCIDFromGUID(sourceGUID) == 39863 or self:GetCIDFromGUID(destGUID) == 39863) and self.Options.HealthFrame and playerInShadowRealm then -- check if Physical Realm boss exists and playerInShadowRealm is still cached as true
 		playerInShadowRealm = false
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(39863, L.NormalHalion)
-	elseif self:GetCIDFromGUID(destGUID) == 40142 and self.Options.HealthFrame and not playerInShadowRealm then -- check if Shadow Realm boss exists
+	elseif (self:GetCIDFromGUID(sourceGUID) == 40142 or self:GetCIDFromGUID(destGUID) == 40142) and self.Options.HealthFrame and not playerInShadowRealm then -- check if Shadow Realm boss exists
 		playerInShadowRealm = true
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(40142, L.TwilightHalion)
