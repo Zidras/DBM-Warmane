@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20221006214112")
+mod:SetRevision("20221116222434")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetMinSyncRevision(20220908000000)
@@ -250,9 +250,9 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
 		timerMalleableGooCD:Start(50-gooTimeAdjust)
 		soundMalleableGooSoon:Schedule((50-gooTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		timerChokingGasBombCD:Start(66-chokingTimeAdjust)
-		soundChokingGasSoon:Schedule((66-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-		warnChokingGasBombSoon:Schedule((66-chokingTimeAdjust)-5)
+		timerChokingGasBombCD:Start(65.8-chokingTimeAdjust) -- (25H Lordaeron 2022/11/16) - -0.2 excess
+		soundChokingGasSoon:Schedule((65.8-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		warnChokingGasBombSoon:Schedule((65.8-chokingTimeAdjust)-5)
 		if self:IsDifficulty("heroic10") then
 			self:Schedule(38, NextPhase, self)	--after 8s PP sets target
 			timerNextPhase:Start(38)
