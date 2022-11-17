@@ -1,9 +1,11 @@
 local mod	= DBM:NewMod("LordMarrowgar", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220923125420")
+mod:SetRevision("20221117212802")
 mod:SetCreatureID(36612)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
+mod:SetHotfixNoticeRev(20221117000000)
+mod:SetMinSyncRevision(20221117000000)
 
 mod:RegisterCombat("combat")
 
@@ -11,8 +13,6 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 69076",
 	"SPELL_AURA_REMOVED 69065 69076",
 	"SPELL_CAST_START 69057 70826 72088 72089 73144 73145 69076",
-	"SPELL_PERIODIC_DAMAGE",
-	"SPELL_PERIODIC_MISSED",
 	"SPELL_SUMMON 69062 72669 72670"
 )
 
@@ -25,8 +25,8 @@ local warnImpale			= mod:NewTargetNoFilterAnnounce(72669, 3)
 local specWarnColdflame		= mod:NewSpecialWarningGTFO(69146, nil, nil, nil, 1, 8)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
-local timerBoneSpike		= mod:NewCDTimer(15, 69057, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, true) -- Has two sets of spellIDs, one before bone storm and one during bone storm (both sets are separated below). Will use UNIT_SPELLCAST_START for calculations since it uses spellName and thus already groups them in the log. 5s variance [15-20]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/14) - pull:15.0, 19.0, 15.2, 49.5 || pull:15.0, 17.3, 16.5, 18.7, 16.0, 19.6, 18.9, 18.7, 16.4, 19.3, 16.0
-local timerWhirlwindCD		= mod:NewCDTimer(30, 69076, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON, true) -- 5s variance? Added "keep" arg
+local timerBoneSpike		= mod:NewCDTimer(15, 69057, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, true) -- Has two sets of spellIDs, one before bone storm and one during bone storm (both sets are separated below). Will use UNIT_SPELLCAST_START for calculations since it uses spellName and thus already groups them in the log. 5s variance [15-20]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/14 || 25H Lordaeron 2022/11/17) - pull:15.0, 19.0, 15.2, 49.5 || pull:15.0, 17.3, 16.5, 18.7, 16.0, 19.6, 18.9, 18.7, 16.4, 19.3, 16.0 || pull:15.0, 19.7, 19.2, 19.6, 15.6, 18.9, 18.5, 16.4, 17.9, 18.4
+local timerWhirlwindCD		= mod:NewCDTimer(90, 69076, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON) -- As of 16/11/2022, Warmane fixed this timer. (25H Lordaeron 2022/11/16 || 25H Lordaeron 2022/11/17) - Bone Storm-69076-npc:36612 = pull:45.0, 90.1 || pull:45.0, 90.0
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
 local timerBoneSpikeUp		= mod:NewCastTimer(69057)
@@ -43,22 +43,27 @@ mod.vb.impaleIcon = 8
 
 function mod:OnCombatStart(delay)
 	preWarnWhirlwind:Schedule(40-delay)
-	timerWhirlwindCD:Start(45-delay) -- REVIEW! H ~3s / N variance? (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/08 || 25H Lordaeron 2022/09/14 || 25H Lordaeron 2022/09/23) - pull:52.2 || pull:48.3 || pull:45.2 || pull:46.9
+	timerWhirlwindCD:Start(45-delay) -- REVIEW! After 16/11/2022, seems to be fixed timer. H ~3s / N variance? (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/08 || 25H Lordaeron 2022/09/14 || 25H Lordaeron 2022/09/23 || 25H Lordaeron 2022/11/16 || 25H Lordaeron 2022/11/17) - pull:52.2 || pull:48.3 || pull:45.2 || pull:46.9
 	timerBoneSpike:Start(15-delay) -- Fixed timer - 15.0
 	berserkTimer:Start(-delay)
+	self:RegisterShortTermEvents(
+		"SPELL_PERIODIC_DAMAGE 69146 70823 70824 70825",
+		"SPELL_PERIODIC_MISSED 69146 70823 70824 70825"
+	)
 end
 
 function mod:OnCombatEnd()
-	DBM.BossHealth:Clear()
+	self:UnregisterShortTermEvents()
 end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69076 then						-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
 		if self:IsHeroic() then
-			timerWhirlwind:Show(37)			--36-38 on HC
+			timerWhirlwind:Show(30)			-- As of 16/11/2022, Warmane fixed this timer - 30s
 		else
-			timerWhirlwind:Show()			--30 on Norm (10N Icecrown 2022/08/25) - pull:52.2
+			timerWhirlwind:Show()			-- REVIEW! After 16/11/2022, needs to be rechecked if it's fixed on 20s. || 30 on Norm (10N Icecrown 2022/08/25) - pull:52.2
 			timerBoneSpike:Cancel()						-- He doesn't do Bone Spike Graveyard during Bone Storm on normal
 		end
 	end
@@ -72,7 +77,6 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif spellId == 69076 then
 		timerWhirlwind:Cancel()
-		timerWhirlwindCD:Start() -- REVIEW! On Jul 3, 2021 I changed this to only trigger on Bone Storm finish, although looking at TC script this might be slightly innacurate since it reschedules on EVENT_WARN_BONE_STORM... Keep a close eye on this with more log data and also VOD review (25H Lordaeron 2022/09/14) - [-36s cf] 33.4, 32.7 || [no cf] 69.1, 69.0
 		preWarnWhirlwind:Schedule(25)
 		if self:IsNormal() then
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
@@ -87,7 +91,7 @@ function mod:SPELL_CAST_START(args)
 		timerBoneSpikeUp:Start()
 		soundBoneSpike:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\Bone_Spike_cast.mp3")
 	elseif args.spellId == 69076 then
-		timerWhirlwindCD:Cancel()
+		timerWhirlwindCD:Start() -- As of 16/11/2022, Warmane fixed this timer. || On Jul 3, 2021 I changed this to only trigger on Bone Storm finish, although looking at TC script this might be slightly innacurate since it reschedules on EVENT_WARN_BONE_STORM... Keep a close eye on this with more log data and also VOD review (25H Lordaeron 2022/09/14) - [-36s cf] 33.4, 32.7 || [no cf] 69.1, 69.0
 		timerWhirlwindStart:Start()
 		soundBoneStorm:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\Bone_Storm_cast.mp3")
 	end
