@@ -458,9 +458,9 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		local map, mapx, mapy = GetMapInfo()
 		local mapID = GetCurrentMapAreaID() or "nil"
 		if DBM:HasMapRestrictions() then
-			DBM:AddMsg(("Location Information\nYou are at zone %u (%s).\nLocal Map ID %u (%s)"):format(map, GetRealZoneText(map), mapID, GetZoneText()))
+			DBM:AddMsg(("Location Information\nYou are at zone %s (%s).\nLocal Map ID %u (%s)"):format(map, GetRealZoneText(map), mapID, GetZoneText()))
 		else
-			DBM:AddMsg(("Location Information\nYou are at zone %u (%s): x=%f, y=%f.\nLocal Map ID %u (%s): x=%f, y=%f"):format(map, GetRealZoneText(map), x, y, mapID, GetZoneText(),mapx, mapy))
+			DBM:AddMsg(("Location Information\nYou are at zone %s (%s): x=%f, y=%f.\nLocal Map ID %u (%s): x=%f, y=%f"):format(map, GetRealZoneText(map), x, y, mapID, GetZoneText(),mapx, mapy))
 		end
 	elseif cmd:sub(1, 7) == "request" then
 		DBM:Unschedule(DBM.RequestTimers)
