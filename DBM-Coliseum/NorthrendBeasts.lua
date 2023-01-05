@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NorthrendBeasts", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221022085026")
+mod:SetRevision("20230105184719")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -532,7 +532,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 			timerSubmerge:Start(43, acidmaw)
 			if self.vb.AcidmawMobile then
 				timerSlimePoolCD:Start(acidmaw) -- (25H Lordaeron 2022/09/03) - 12
-				timerParalyticBiteCD:Start(16.5) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25H Lordearon 2022/10/09 || 25N Lordaeron 2022/10/13 || 25N Lordaeron 2022/10/21) - 28 || 26.2 || 22.0 || 20.2 || 16.5
+				timerParalyticBiteCD:Start(13) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/28 || 25H Lordearon 2022/10/09 || 25N Lordaeron 2022/10/13 || 25N Lordaeron 2022/10/21 || 25N Lordaeron 2022/12/07) - 28 || 26.2 || 22.0 || 20.2 || 16.5 || 13.0
 				timerAcidicSpewCD:Start(15.9) -- (25H Lordaeron 2022/09/03) - 21 || 15.9
 			else
 				timerSweepCD:Start(22, acidmaw)	-- Log review: 22-24s (N/H?)
