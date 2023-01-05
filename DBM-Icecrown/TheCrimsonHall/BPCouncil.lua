@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221029100544")
+mod:SetRevision("20230105185257")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -50,7 +50,7 @@ mod:AddBoolOption("ShadowPrisonMetronome", false, "misc", nil, nil, nil, 72999)
 -- Kinetic Bomb
 local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, "Ranged")
 
-local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1, nil, nil, true) -- REVIEW! 5s variance? Added "keep" arg. (10N Icecrown 2022/08/25) - 19.2, 23.6, 22.2, 18.5, 19.2
+local timerKineticBombCD		= mod:NewCDTimer(18, 72053, nil, "Ranged", nil, 1, nil, nil, true) -- REVIEW! 5s variance? Added "keep" arg. (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/12/07) - 19.2, 23.6, 22.2, 18.5, 19.2 || 18.5, 18.3, 22.1, 19.2, 20.8, 20.4, 19.7, 21.6, 20.9, 19.5, 20.5
 
 local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
 
@@ -107,7 +107,7 @@ function mod:OnCombatStart(delay)
 	warnTargetSwitchSoon:ScheduleVoice(42, "swapsoon")
 	timerTargetSwitch:Start(-delay)
 	timerEmpoweredShockVortex:Start(15-delay) -- REVIEW! 5s variance [15-20] (25H Lordaeron 2022/09/07) - 15.9
-	timerKineticBombCD:Start(23.1-delay) -- REVIEW! Lowest possible timer? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/07/30 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/07) - 24 || 24 || 27 || 24.9 || 23.1
+	timerKineticBombCD:Start(22.1-delay) -- REVIEW! Lowest possible timer? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/07/30 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/12/07) - 24 || 24 || 27 || 24.9 || 23.1 || 22.1
 	timerDarkNucleusCD:Start(12-delay) -- REVIEW! Lowest possible timer? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/07/30 || 10N Icecrown 2022/08/22 || 10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/07) - 15 || 12 || 14 || 12 || 12.3
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
