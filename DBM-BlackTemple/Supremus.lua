@@ -1,29 +1,37 @@
 local mod	= DBM:NewMod("Supremus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20230108174447")
 mod:SetCreatureID(22898)
-
 mod:SetModelID(21145)
 mod:SetUsedIcons(8)
+mod:SetHotfixNoticeRev(20230108000000)
+mod:SetMinSyncRevision(20230108000000)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"CHAT_MSG_RAID_BOSS_EMOTE"
+	"CHAT_MSG_RAID_BOSS_WHISPER"
 )
 
 --TODO, see if CLEU method is reliable enough to scrap scan method. scan method may still have been faster.
-local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
-local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
 
-local specWarnMolten	= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
-local specWarnVolcano	= mod:NewSpecialWarningMove(42052, nil, nil, nil, 1, 2)
-local specWarnFixate	= mod:NewSpecialWarningRun(41295, nil, nil, nil, 4, 2)
+-- General
+local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
 
 local timerPhase		= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
-
 local berserkTimer		= mod:NewBerserkTimer(900)
+
+-- Stage One: Supremus
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
+local specWarnMolten	= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
+
+-- Stage Two: Pursuit
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
+local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
+
+local specWarnVolcano	= mod:NewSpecialWarningMove(42052, nil, nil, nil, 1, 2)
+local specWarnFixate	= mod:NewSpecialWarningRun(41295, nil, nil, nil, 4, 2)
 
 mod:AddBoolOption("KiteIcon", true)
 
@@ -50,6 +58,7 @@ local function ScanTarget(self)
 end
 
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerPhase:Start(-delay, L.Kite)
 	self.vb.lastTarget = "None"
@@ -79,8 +88,9 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg)
 	if msg == L.PhaseKite or msg:find(L.PhaseKite) then
+		self:SetStage(2)
 		warnPhase:Show(L.Kite)
 		timerPhase:Start(L.Tank)
 		self:Unschedule(ScanTarget)
@@ -95,6 +105,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			specWarnFixate:Play("justrun")
 		end
 	elseif msg == L.PhaseTank or msg:find(L.PhaseTank) then
+		self:SetStage(1)
 		warnPhase:Show(L.Tank)
 		timerPhase:Start(L.Kite)
 		self:Unschedule(ScanTarget)
