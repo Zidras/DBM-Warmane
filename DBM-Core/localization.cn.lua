@@ -1,7 +1,7 @@
 -- L.Core
 -- Diablohu(diablohudream@gmail.com)
 -- yleaf(yaroot@gmail.com)
--- Mini Dragon(projecteurs@gmail.com) <流浪者酒馆-Brilla@金色平原> 20210108
+-- Mini Dragon(projecteurs@gmail.com) <流浪者酒馆-Brilla@金色平原> core-20210108 warmarne fix-20230111
 
 if GetLocale() ~= "zhCN" then return end
 if not DBM_CORE_L then DBM_CORE_L = {} end
@@ -294,11 +294,11 @@ L.ACHIEVEMENT_TIMER_SPEED_KILL = "成就：限时击杀"
 
 -- Auto-generated Warning Localizations
 L.AUTO_ANNOUNCE_TEXTS.you				= "你中了%s"
-L.AUTO_ANNOUNCE_TEXTS.target			= "%s -> >%%s<"
-L.AUTO_ANNOUNCE_TEXTS.targetdistance	= "%s -> >%%s< (%%d码)"
-L.AUTO_ANNOUNCE_TEXTS.targetsource		= ">%%s< 施放 %s -> >%%s<"
-L.AUTO_ANNOUNCE_TEXTS.targetcount		= "%s (%%s) -> >%%s<"
-L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s) -> >%%s< (%%d码)"
+L.AUTO_ANNOUNCE_TEXTS.target			= "%s → >%%s<"
+L.AUTO_ANNOUNCE_TEXTS.targetdistance	= "%s → >%%s< (%%d码)"
+L.AUTO_ANNOUNCE_TEXTS.targetsource		= ">%%s< 施放 %s → >%%s<"
+L.AUTO_ANNOUNCE_TEXTS.targetcount		= "%s (%%s) → >%%s<"
+L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s) → >%%s< (%%d码)"
 L.AUTO_ANNOUNCE_TEXTS.spell				= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends				= "%s 结束"
 L.AUTO_ANNOUNCE_TEXTS.endtarget			= "%s 结束: >%%s<"
@@ -313,7 +313,7 @@ L.AUTO_ANNOUNCE_TEXTS.bait				= "%s 即将到来 - 快引诱"
 L.AUTO_ANNOUNCE_TEXTS.stage				= "第%s阶段"
 L.AUTO_ANNOUNCE_TEXTS.prestage			= "第%s阶段 即将到来"
 L.AUTO_ANNOUNCE_TEXTS.count				= "%s (%%s)"
-L.AUTO_ANNOUNCE_TEXTS.stack				= "%s -> >%%s< (%%d)"
+L.AUTO_ANNOUNCE_TEXTS.stack				= "%s → >%%s< (%%d)"
 L.AUTO_ANNOUNCE_TEXTS.moveto				= "%s - 移动到 >%%s<"
 
 L.AUTO_ANNOUNCE_OPTIONS.you				= "警报：中了%s时"
