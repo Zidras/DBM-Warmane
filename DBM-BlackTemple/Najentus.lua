@@ -23,7 +23,7 @@ local yellSpine			= mod:NewYell(39837)
 
 local timerShield		= mod:NewCDTimer(56, 39872, nil, nil, nil, 5)
 
-local berserkTimer		= mod:NewBerserkTimer(480)
+local berserkTimer		= mod:NewBerserkTimer(300)
 
 mod:AddSetIconOption("SpineIcon", 39837)
 mod:AddInfoFrameOption(39878, true)
