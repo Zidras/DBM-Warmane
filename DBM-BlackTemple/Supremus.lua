@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
 
 local timerPhase		= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
-local berserkTimer		= mod:NewBerserkTimer(900)
+local berserkTimer		= mod:NewBerserkTimer(600)
 
 -- Stage One: Supremus
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
