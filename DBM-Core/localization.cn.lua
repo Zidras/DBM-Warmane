@@ -1,7 +1,7 @@
 -- L.Core
 -- Diablohu(diablohudream@gmail.com)
 -- yleaf(yaroot@gmail.com)
--- Mini Dragon(projecteurs@gmail.com) <流浪者酒馆-Brilla@金色平原> 20210108
+-- Mini Dragon(projecteurs@gmail.com) <流浪者酒馆-Brilla@金色平原> 20230111
 
 if GetLocale() ~= "zhCN" then return end
 if not DBM_CORE_L then DBM_CORE_L = {} end
@@ -182,7 +182,7 @@ L.UPDATEREMINDER_FOOTER_GENERIC	= "按下 " .. (IsMacClient() and "Cmd-C" or "Ct
 L.UPDATEREMINDER_DISABLE			= "警告：你的 " .. L.DEADLY_BOSS_MODS .. " 已经过期太久，它已被强制禁用，直到你更新。这是为了确保它不会导致你或其他团队成员出错。"
 L.UPDATEREMINDER_HOTFIX			= "你的 " .. L.DEADLY_BOSS_MODS .. " 版本会在这首领战斗中有问题。最新版的" .. L.DBM .. "已经修复了这个问题。"
 L.UPDATEREMINDER_HOTFIX_ALPHA	= "你的 " .. L.DEADLY_BOSS_MODS .. " 版本会在这首领战斗中有问题。最新版的" .. L.DBM .. "（或Alpha版本）已经修复了这个问题。"
-L.UPDATEREMINDER_MAJORPATCH		= "你的 " .. L.DEADLY_BOSS_MODS .. " 已经过期,它已被禁用,直到你更新.这是为了确保它不会导致你或其他团队成员出错.这次更新是一个非常重要的补丁,请确保你得到的是最新版."
+L.UPDATEREMINDER_MAJORPATCH		= "你的 " .. L.DEADLY_BOSS_MODS .. " 已经过期，它已被禁用，直到你更新。这是为了确保它不会导致你或其他团队成员出错。这次更新是一个非常重要的补丁，请确保你得到的是最新版。"
 L.VEM							= "你好像在使用VEM。" .. L.DEADLY_BOSS_MODS .. "在这种情况下无法被载入。"
 L.OUTDATEDPROFILES					= "警告: DBM-Profiles已经无法和本版本" .. L.DBM .. "兼容。" .. L.DBM .. "核心已经自带配置文件管理系统，请移除DBM-Profiles避免冲突。"
 L.OUTDATEDSPELLTIMERS				= "警告: DBM-SpellTimers 干扰到 " .. L.DBM .. " 运行，必须禁用它， " .. L.DBM .. " 才能正常运行。"
@@ -294,11 +294,11 @@ L.ACHIEVEMENT_TIMER_SPEED_KILL = "成就：限时击杀"
 
 -- Auto-generated Warning Localizations
 L.AUTO_ANNOUNCE_TEXTS.you				= "你中了%s"
-L.AUTO_ANNOUNCE_TEXTS.target			= "%s -> >%%s<"
-L.AUTO_ANNOUNCE_TEXTS.targetdistance	= "%s -> >%%s< (%%d码)"
-L.AUTO_ANNOUNCE_TEXTS.targetsource		= ">%%s< 施放 %s -> >%%s<"
-L.AUTO_ANNOUNCE_TEXTS.targetcount		= "%s (%%s) -> >%%s<"
-L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s) -> >%%s< (%%d码)"
+L.AUTO_ANNOUNCE_TEXTS.target			= "%s: >%%s<"
+L.AUTO_ANNOUNCE_TEXTS.targetdistance	= "%s：>%%s< (%%d码)"
+L.AUTO_ANNOUNCE_TEXTS.targetsource		= ">%%s< 施放 %s 于 >%%s<"
+L.AUTO_ANNOUNCE_TEXTS.targetcount		= "%s (%%s)：>%%s<"
+L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s)：>%%s< (%%d码)"
 L.AUTO_ANNOUNCE_TEXTS.spell				= "%s"
 L.AUTO_ANNOUNCE_TEXTS.ends				= "%s 结束"
 L.AUTO_ANNOUNCE_TEXTS.endtarget			= "%s 结束: >%%s<"
@@ -313,7 +313,7 @@ L.AUTO_ANNOUNCE_TEXTS.bait				= "%s 即将到来 - 快引诱"
 L.AUTO_ANNOUNCE_TEXTS.stage				= "第%s阶段"
 L.AUTO_ANNOUNCE_TEXTS.prestage			= "第%s阶段 即将到来"
 L.AUTO_ANNOUNCE_TEXTS.count				= "%s (%%s)"
-L.AUTO_ANNOUNCE_TEXTS.stack				= "%s -> >%%s< (%%d)"
+L.AUTO_ANNOUNCE_TEXTS.stack				= ">%%s< 中了 %s (%%d)"
 L.AUTO_ANNOUNCE_TEXTS.moveto				= "%s - 移动到 >%%s<"
 
 L.AUTO_ANNOUNCE_OPTIONS.you				= "警报：中了%s时"
@@ -382,6 +382,7 @@ L.AUTO_SPEC_WARN_TEXTS.switch			= "%s - 转换目标"
 L.AUTO_SPEC_WARN_TEXTS.switchcount		= "%s - 转换目标 (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.gtfo				= "注意%%s - 快躲开"
 L.AUTO_SPEC_WARN_TEXTS.adds				= "小怪出现 - 转换目标"
+L.AUTO_SPEC_WARN_TEXTS.addscount		= "小怪出现 - 转换目标 (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.addscustom		= "小怪出现 - %%s"
 L.AUTO_SPEC_WARN_TEXTS.targetchange		= "更换目标 - 请选择 %%s"
 
@@ -428,6 +429,7 @@ L.AUTO_SPEC_WARN_OPTIONS.switch			= "特殊警报：针对$spell:%s需要转换�
 L.AUTO_SPEC_WARN_OPTIONS.switchcount		= "特殊警报：针对$spell:%s需要转换目标(带计数)"
 L.AUTO_SPEC_WARN_OPTIONS.gtfo			= "特殊警报：需要躲开地上的有害技能"
 L.AUTO_SPEC_WARN_OPTIONS.adds			= "特殊警报：需要攻击小怪"
+L.AUTO_SPEC_WARN_OPTIONS.addscount		= "特殊警报：需要攻击小怪(带计数)"
 L.AUTO_SPEC_WARN_OPTIONS.addscustom		= "特殊警报：小怪(自定义)"
 L.AUTO_SPEC_WARN_OPTIONS.targetchange	= "特殊警报：需要立刻切换目标时"
 
@@ -477,6 +479,8 @@ L.AUTO_TIMER_OPTIONS.addscustom			= "计时条：下一波小怪 (%ds)"
 L.AUTO_TIMER_OPTIONS.roleplay			= "计时条：剧情 (%ds)"
 
 L.AUTO_ICONS_OPTION_TARGETS				= "为$spell:%s的目标添加团队标记"
+L.AUTO_ICONS_OPTION_TARGETS_TANK_A		= "为$spell:%s的目标添加团队标记，以坦克高于近战再高于远程排序，并以字母顺序优先"
+L.AUTO_ICONS_OPTION_TARGETS_TANK_R		= "为$spell:%s的目标添加团队标记，以坦克高于近战再高于远程排序，并以团队阵容优先"
 L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "为$spell:%s的目标添加团队标记，以近战和字母顺序优先"
 L.AUTO_ICONS_OPTION_TARGETS_MELEE_R		= "为$spell:%s的目标添加团队标记，以近战和团队阵容优先"
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "为$spell:%s的目标添加团队标记，以远程和字母顺序优先"
