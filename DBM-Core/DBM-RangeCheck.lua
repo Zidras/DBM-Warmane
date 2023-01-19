@@ -71,7 +71,7 @@ DBM:RegisterMapSize("AzuremystIsle",		0, 4070.8330078, 2714.58300781)
 DBM:RegisterMapSize("Badlands",				0, 2487.5, 1658.3334961)
 DBM:RegisterMapSize("Barrens",				0, 10133.33300782, 6756.24987793)
 DBM:RegisterMapSize("BlackTemple",			-- Black Temple (Raid-BC). Has DungeonUsesTerrainMap()
-	0, 783,3333435, 522,916626,
+	0, 783.3333435, 522.916626,
 	1, 1252.2495784784999, 834.833007813,
 	2, 975, 650,
 	3, 1005, 670,
@@ -388,7 +388,7 @@ DBM:RegisterMapSize("Uldaman",				-- Uldaman (Party-Classic)
 	2, 492.57041931180004, 328.3804931642
 )
 DBM:RegisterMapSize("Ulduar",				-- Ulduar (Raid-WotLK). Has DungeonUsesTerrainMap()
-	0, 3287.49987793, 2191.66662598,			-- DUNGEON_FLOOR_ULDUAR0 = "The Grand Approach "
+	0, 3287.49987793, 2191.66662598,			-- DUNGEON_FLOOR_ULDUAR0 = "The Grand Approach"
 	1, 669.45098877000009, 446.30004882999992,	-- DUNGEON_FLOOR_ULDUAR1 = "The Antechamber of Ulduar"
 	2, 1328.4609985349998, 885.63989258000015,	-- DUNGEON_FLOOR_ULDUAR2 = "The Inner Sanctum of Ulduar"
 	3, 910.5, 607,								-- DUNGEON_FLOOR_ULDUAR3 = "The Prison of Yogg-Saron"
