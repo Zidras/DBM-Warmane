@@ -71,7 +71,7 @@ DBM:RegisterMapSize("AzuremystIsle",		0, 4070.8330078, 2714.58300781)
 DBM:RegisterMapSize("Badlands",				0, 2487.5, 1658.3334961)
 DBM:RegisterMapSize("Barrens",				0, 10133.33300782, 6756.24987793)
 DBM:RegisterMapSize("BlackTemple",			-- Black Temple (Raid-BC). Has DungeonUsesTerrainMap()
-	0, 783.3333435, 522.916626,
+	0, 783.333343506, 522.916625977,
 	1, 1252.2495784784999, 834.833007813,
 	2, 975, 650,
 	3, 1005, 670,
@@ -115,7 +115,7 @@ DBM:RegisterMapSize("CoTHillsbradFoothills", -- Caverns of Time: Old Hillsbrad F
 DBM:RegisterMapSize("CoTMountHyjal",		0, 2499.99975586, 1666.6665039)
 DBM:RegisterMapSize("CoTStratholme",		-- The Culling of Stratholme (Party-WotLK) ; API returns levels 1 and 2 - this is corrected with DungeonUsesTerrainMap()
 	0, 1824.999938962, 1216.6665039099998,	-- DUNGEON_FLOOR_COTSTRATHOLME0 = "The Road to Stratholme"
-	1, 1125.299987791, 750.19995117			-- DUNGEON_FLOOR_COTSTRATHOLME1 = "Stratholme City"
+	1, 1125.2999877910001, 750.1999511700003-- DUNGEON_FLOOR_COTSTRATHOLME1 = "Stratholme City"
 )
 DBM:RegisterMapSize("CoTTheBlackMorass",	-- Caverns of Time: The Black Morass (Party-BC)
 	0, 1087.5, 725
@@ -323,7 +323,7 @@ DBM:RegisterMapSize("Stratholme",			-- Stratholme (Party-Classic)
 )
 DBM:RegisterMapSize("Sunwell",				0, 3327.0830078200006, 2218.7490233999997)
 DBM:RegisterMapSize("SunwellPlateau",		-- The Sunwell (Raid-BC)
-	0, 906.25, 604.166626,
+	0, 906.25, 604.16662597999994,
 	1, 465, 310
 )
 DBM:RegisterMapSize("SwampOfSorrows",		0, 2293.75, 1529.1669921899993)
