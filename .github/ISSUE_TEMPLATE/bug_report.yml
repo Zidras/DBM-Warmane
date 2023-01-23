@@ -13,7 +13,7 @@ body:
 - type: textarea
   attributes:
     label: DBM version
-    description: `/dbm ver` to check your DBM version.
+    description: "`/dbm ver` to check your DBM version."
   validations:
     required: true
 - type: textarea
@@ -57,11 +57,6 @@ body:
   - type: textarea
   attributes:
     label: Error log
-    description: |
-      <!--- If you received an error then please post it in the empty space below, -->
-      <!--- so that the error is wrapped in the 3 backquotes (before and after) -->
-     ```
-
-     ```
-  validations:
+    render: lua
+        validations:
     required: false
