@@ -9,7 +9,7 @@ body:
     options:
     - label: "Yes"
       required: true
-- type: textarea
+- type: input
   attributes:
     label: DBM version
     description: "`/dbm ver` to check your DBM version (including the time and date)."
