@@ -58,5 +58,5 @@ body:
   attributes:
     label: Error log
     render: lua
-        validations:
+  validations:
     required: false
