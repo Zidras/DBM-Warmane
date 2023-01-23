@@ -12,7 +12,8 @@ body:
 - type: textarea
   attributes:
     label: DBM version
-    description: "`/dbm ver` to check your DBM version."
+    description: "`/dbm ver` to check your DBM version (including the time and date)."
+     placeholder: "DBM 9.2.26 alpha (2023/01/19 21:42:43)"
   validations:
     required: true
 - type: textarea
