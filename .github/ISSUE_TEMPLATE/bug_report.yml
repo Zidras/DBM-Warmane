@@ -6,7 +6,6 @@ body:
 - type: checkboxes
   attributes:
     label: Are you using the latest DBM version in a Warmane 3.3.5a realm (Icecrown, Lordaeron or Frostmourne)?
-    description: If you are using this DBM in a different server, the report will be rejected.
     options:
     - label: "Yes"
       required: true
