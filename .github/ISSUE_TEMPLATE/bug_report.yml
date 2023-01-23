@@ -10,7 +10,7 @@ body:
     options:
     - label: Yes
       required: true
-  - type: textarea
+- type: textarea
   attributes:
     label: DBM version
     description: `/dbm ver` to check your DBM version.
