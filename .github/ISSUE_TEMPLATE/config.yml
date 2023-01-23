@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord
+    url: https://discord.gg/CyVWDWS
+    about: |
+      - Please check frequently asked questions first on #dbm-faq channel.
+      - For usecase questions, there is also a dedicated #dbm-support channel.
+      - Github issues are ONLY for bug reports and feature requests.

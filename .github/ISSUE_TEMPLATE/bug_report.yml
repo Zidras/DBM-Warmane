@@ -1,0 +1,64 @@
+name: 🐞 Bug Report
+description: File a bug report
+title: "[BUG] "
+labels: [bug]
+body:
+- type: checkboxes
+  attributes:
+    label: Are you using the latest DBM version in a Warmane 3.3.5a realm (Icecrown, Lordaeron or Frostmourne)?
+    options:
+    - label: "Yes"
+      required: true
+- type: input
+  attributes:
+    label: DBM version
+    description: "`/dbm ver` to check your DBM version (including the time and date)."
+    placeholder: "DBM 9.2.26 alpha (2023/01/19 21:42:43)"
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Current Behavior
+    description: A concise description of what you're experiencing.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A concise description of what you expected to happen.
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Steps To Reproduce
+    description: Steps to reproduce the behavior.
+    placeholder: |
+      1. Go to...
+      2. With this config...
+      3. Click on '...'
+      4. See error...
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Transcriptor log
+    description: If bug is related to a raid mechanic/timer, attaching a Transcriptor log is mandatory (https://github.com/Zidras/Transcriptor-WOTLK#how-to-use). Otherwise, type "NA"
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Streams? Anything that will give me more context about the issue you are encountering!
+      Tip: You can attach images or video files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Error log
+    description: |
+      If you received a Lua error, then please post it below.
+      Tip: Make sure you have Lua errors enabled by typing in chat the following commands once: `/console scriptErrors 1` and reload.
+    render: lua
+  validations:
+    required: false

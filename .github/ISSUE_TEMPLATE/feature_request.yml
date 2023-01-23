@@ -1,0 +1,35 @@
+---
+name: Feature request
+description: Suggest an idea for this project
+title: "[REQUEST] "
+labels: enhancement
+body:
+- type: textarea
+  attributes:
+    label: Is your feature request related to a problem? Please describe.
+    description: A clear and concise description of what the problem is.
+    placeholder: I'm always frustrated when [...]
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Desired solution
+    description: Describe the solution you'd like
+    placeholder: Show an announcement when X ability triggers
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Describe alternatives you've considered
+    description: A clear and concise description of any alternative solutions or features you've considered or seen elsewhere
+    placeholder: I saw a Weakaura doing X
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Anything else?
+    description: |
+      Links? References? Streams? Anything that will give me more context about the issue you are encountering!
+      Tip: You can attach images or video files by clicking this area to highlight it and then dragging files in.
+  validations:
+    required: false
