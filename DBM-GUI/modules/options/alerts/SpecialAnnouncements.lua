@@ -131,7 +131,7 @@ end)
 durationSlider.myheight = 0
 
 local sounds = DBM_GUI:MixinSharedMedia3("sound", {
-	{text = L.NoSound, value = ""},
+	{ text = L.NoSound, value = "" },
 	{ text = "Algalon: Beware!", value = "Sound\\Creature\\AlgalonTheObserver\\UR_Algalon_BHole01.wav" },
 	{ text = "BB Wolf: Run Away", value = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav" },
 	{ text = "Blizzard Raid Emote", value = "Interface\\AddOns\\DBM-Core\\sounds\\RetailSupport\\UI_RaidBossWhisperWarning.ogg" },
@@ -141,8 +141,8 @@ local sounds = DBM_GUI:MixinSharedMedia3("sound", {
 	{ text = "Illidan: Not Prepared2", value = "Interface\\AddOns\\DBM-Core\\sounds\\RetailSupport\\VO_703_Illidan_Stormrage_03.ogg" },
 	{ text = "Kaz'rogal: Marked", value = "Sound\\Creature\\KazRogal\\CAV_Kaz_Mark02.wav" },
 	{ text = "Kil'Jaeden: Destruction", value = "Sound\\Creature\\KilJaeden\\KILJAEDEN02.wav" },
-	{ text = "Loatheb: I see you", value = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav" },
 	{ text = "Lady Malande: Flee", value = "Sound\\Creature\\LadyMalande\\BLCKTMPLE_LadyMal_Aggro01.wav" },
+	{ text = "Loatheb: I see you", value = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.wav" },
 	{ text = "Milhouse: Light You Up", value = "Sound\\Creature\\MillhouseManastorm\\TEMPEST_Millhouse_Pyro01.wav" },
 	{ text = "Night Elf Bell", value = "Sound\\Doodad\\BellTollNightElf.wav" },
 	{ text = "PvP Flag", value = "Sound\\Spells\\PVPFlagTaken.wav" },
