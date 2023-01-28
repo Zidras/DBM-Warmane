@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230119214243"),
+	Revision = parseCurseDate("20230128123933"),
 	DisplayVersion = "9.2.26 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 11, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5145,6 +5145,23 @@ do
 					end
 					DBM:Unschedule(SendChatMessage) -- unschedule chat spam on pull
 				end
+				-- stop combat start timer and debug if refreshed early
+--				if DBM.Options.BadTimerAlert or DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
+					local bar = DBT:GetBar(L.GENERIC_TIMER_COMBAT)
+					if bar then
+						local remaining = ("%.1f"):format(bar.timer)
+						local ttext = bar.id
+						if bar.timer > 0.1 then
+							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+								DBM:AddMsg("Timer "..ttext.." refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
+								fireEvent("DBM_Debug", "Timer "..ttext.." refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+							else
+								DBM:Debug("Timer "..ttext.." refreshed before expired. Remaining time is : "..remaining, 2)
+							end
+						end
+						DBT:CancelBar(L.GENERIC_TIMER_COMBAT)
+					end
+--				end
 				local bigWigs = _G["BigWigs"]
 				if bigWigs and bigWigs.db.profile.raidicon and not self.Options.DontSetIcons and self:GetRaidRank() > 0 then--Both DBM and bigwigs have raid icon marking turned on.
 					self:AddMsg(L.BIGWIGS_ICON_CONFLICT)--Warn that one of them should be turned off to prevent conflict (which they turn off is obviously up to raid leaders preference, dbm accepts either or turned off to stop this alert)
