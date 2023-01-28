@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Aran", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20230128131707")
 mod:SetCreatureID(16524)
 
 mod:SetModelID(16621)
@@ -118,7 +118,7 @@ function mod:SPELL_SUMMON(args)
 			timerElementals:Show()
 		end
 		if self.Options.ElementalIcons then
-			self:ScanForMobs(args.destGUID, 2, self.vb.mobIcon, 1, 0.1, 10, "ElementalIcons")--creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName, isFriendly, secondCreatureID, skipMarked
+			self:ScanForMobs(args.destGUID, 2, self.vb.mobIcon, 1, nil, 10, "ElementalIcons")--creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName, isFriendly, secondCreatureID, skipMarked
 		end
 		self.vb.mobIcon = self.vb.mobIcon + 1
 		if self.vb.mobIcon == 5 then self.vb.mobIcon = 1 end
