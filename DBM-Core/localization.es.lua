@@ -190,7 +190,6 @@ L.DBMLDB							= "AVISO: DBM-LDB está ahora incluido en DBM-Core. Es recomendab
 L.DBMLOOTREMINDER				= "AVISO: tienes instalado el módulo de terceros DBM-LootReminder. Este addon ya no es compatible con el cliente de WoW y causa conflictos con los temporizadores de DBM. Es recomendable que lo desinstales."
 L.UPDATE_REQUIRES_RELAUNCH		= "AVISO: Esta actualización de DBM no funcionará correctamente hasta que reinicies el juego. Esta versión contiene nuevos archivos o cambios a los archivos .toc que no pueden recargarse mediante /reload. Es muy probable que DBM no funcione correctamente hasta que reinicies el juego."
 L.OUT_OF_DATE_NAG				= "Tu versión de Deadly Boss Mods está desfasada para este encuentro. Se recomienda que actualices DBM para no perderte ningún aviso, temporizador o indicador crucial para tu grupo de banda."
-L.RETAIL_ONLY					= "AVISO: esta versión de DBM está pensada para la versión actual de World of Warcraft. Desinstala DBM e instala la versión correcta para WoW Classic."
 
 L.MOVABLE_BAR				= "¡Muéveme!"
 
@@ -219,7 +218,7 @@ L.RANGECHECK_OPTION_FRAMES	= "Marcos"
 L.RANGECHECK_OPTION_RADAR	= "Mostrar marco de radar"
 L.RANGECHECK_OPTION_TEXT		= "Mostrar marco de texto"
 L.RANGECHECK_OPTION_BOTH		= "Mostrar ambos"
-L.RANGERADAR_HEADER			= "Radar de distancia (%d m)"
+L.RANGERADAR_HEADER			= "Distancia: %d / Jugadores: %d"
 L.RANGERADAR_BOSS_HEADER		= "Distancia de jefe (%d m)"
 L.RANGERADAR_RHEADER			= "Distancia inversa: %d / Jugadores: %d"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d a distancia (%0.1fm)"--Multi

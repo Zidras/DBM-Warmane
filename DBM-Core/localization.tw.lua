@@ -38,7 +38,7 @@ L.MOD_AVAILABLE					= "%s在此區域有模組可用。你可以在Curse或WoWI�
 
 L.COMBAT_STARTED				= "%s開戰。祝好運與盡興! :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "與%s開戰已進行的戰鬥。祝好運與盡興! :)"
---L.GUILD_COMBAT_STARTED			= "公會已跟%s開戰"--Uncomment when updated, args have changed
+L.GUILD_COMBAT_STARTED			= "%s已經與%s的公會團隊開戰！"
 L.SCENARIO_STARTED				= "%s開始。祝好運與盡興! :)"
 L.SCENARIO_STARTED_IN_PROGRESS	= "加入進行中的%s事件。祝好運與盡興! :)"
 L.BOSS_DOWN						= "擊敗%s，用了%s!"
@@ -48,14 +48,14 @@ L.BOSS_DOWN_NR					= "擊敗%s!用了%s! 這是一個新記錄! (舊紀錄為%s)
 L.RAID_DOWN						= "%s清除 用了%s！"
 L.RAID_DOWN_L					= "%s清除 用時%s！你最快的清除紀錄 %s。"
 L.RAID_DOWN_NR					= "%s清除 用時%s！這是一個新紀錄！(舊紀錄為 %s)。"
---L.GUILD_BOSS_DOWN				= "公會已擊敗%s，用了%s!"--Uncomment when updated, args have changed
+L.GUILD_BOSS_DOWN				= "已擊敗%s，在%s的公會團隊用了%s！"
 L.SCENARIO_COMPLETE				= "%s完成!用了%s!"
 L.SCENARIO_COMPLETE_I			= "%s完成! 你總共完成了%d次。"
 L.SCENARIO_COMPLETE_L			= "%s完成!本次用了%s，上次用了%s，最快紀錄為%s。你總共完成了%d次。"
 L.SCENARIO_COMPLETE_NR			= "%s完成!用了%s! 這是一個新記錄! (舊紀錄為%s) 你總共完成了%d次。"
 L.COMBAT_ENDED_AT				= "%s(%s)的戰鬥經過%s結束。"
 L.COMBAT_ENDED_AT_LONG			= "%s(%s)的戰鬥經過%s結束。你在這個難度總共滅團了%d次。"
---L.GUILD_COMBAT_ENDED_AT			= "公會在%s (%s)的戰鬥滅團，經過%s."--Uncomment when updated, args have changed
+L.GUILD_COMBAT_ENDED_AT			= "%s的公會團隊在%s (%s)的戰鬥滅團，經過%s."
 L.SCENARIO_ENDED_AT				= "%s結束!用了%s!"
 L.SCENARIO_ENDED_AT_LONG		= "%s結束!本次用了%s，你已有共%d次未完成的嘗試在這個難度裡。"
 L.COMBAT_STATE_RECOVERED		= "%s的戰鬥在%s前開始，恢復計時器中..."
@@ -191,7 +191,6 @@ L.DBMLDB							= "警告: DBM-LDB已內建在DBM-核心。雖然它不會造成�
 L.DBMLOOTREMINDER					= "警告：已安裝第三方模組 DBM-LootReminder。 此附加插件不再與正式版WOW客戶端相容，並且將導致DBM中斷並且無法發送請求計時器。 建議卸載此插件。"
 L.UPDATE_REQUIRES_RELAUNCH			= "警告: 如果你沒有重啟你的遊戲，這次DBM更新可能無法正確運作。這次更新包含了新的檔案或是.toc檔更新而不能使用ReloadUI載入。如果沒有將遊戲完全重啟可能會導致錯誤或功能不完整。"
 L.OUT_OF_DATE_NAG					= "你的"..L.DEADLY_BOSS_MODS.."版本已經過期，新版本針對特定的首領戰鬥增加新的功能和錯誤的修復。建議您進行更新來改善您的游戲體驗。"
-L.RETAIL_ONLY						= "警告: 此版本的DBM僅適用於最新正式版魔獸世界。反安裝此版本並為經典魔獸世界安裝正確的DBM版本。"
 
 L.MOVABLE_BAR					= "拖動我!"
 
@@ -265,7 +264,7 @@ L.TIMER_USAGE	= {
 	"-----------------",
 	"/dbm timer <秒數> <文字>: 開始一個時間為<秒數>秒並以<文字>為名稱的計時器。",
 	"/dbm ltimer <秒數> <文字>: 開始一個時間為<秒數>秒的計時器同時無限循環直到取消。",
-	"(在任何計時器指令前加入'Broadcast'可以把指令分享給團隊，如果有團隊隊長或助理權限)",
+	"(如果有團長或助理權限，在'timer'或'ltimer'計時器指令前加入'Broadcast'可以將此分享給團隊)",
 	"/dbm timer endloop: 停止任何無限循環ltimer的計時器。",
 }
 
@@ -341,7 +340,7 @@ L.AUTO_ANNOUNCE_OPTIONS.stack				= "提示：$spell:%s疊加層數"
 L.AUTO_ANNOUNCE_OPTIONS.moveto				= "提示：$spell:%s需要移動到某人或某個地方"
 
 L.AUTO_SPEC_WARN_TEXTS.spell				= "%s!"
-L.AUTO_SPEC_WARN_TEXTS.ends				= "%s結束"
+L.AUTO_SPEC_WARN_TEXTS.ends					= "%s結束"
 L.AUTO_SPEC_WARN_TEXTS.fades				= "%s消退"
 L.AUTO_SPEC_WARN_TEXTS.soon					= "%s即將到來"
 L.AUTO_SPEC_WARN_TEXTS.sooncount			= "%s (%%s)即將到來"
@@ -424,7 +423,7 @@ L.AUTO_SPEC_WARN_OPTIONS.lookaway			= "特別提示：當需要為$spell:%s轉�
 L.AUTO_SPEC_WARN_OPTIONS.reflect			= "特別提示：$spell:%s需要停止攻擊"
 L.AUTO_SPEC_WARN_OPTIONS.count				= "特別提示：$spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.stack				= "特別提示：當疊加了>=%d層$spell:%s時"
-L.AUTO_SPEC_WARN_OPTIONS.switch			= "特別提示：針對$spell:%s需要轉換目標"
+L.AUTO_SPEC_WARN_OPTIONS.switch				= "特別提示：針對$spell:%s需要轉換目標"
 L.AUTO_SPEC_WARN_OPTIONS.switchcount		= "特別提示：針對$spell:%s需要轉換目標 (包含計數)"
 L.AUTO_SPEC_WARN_OPTIONS.gtfo				= "特別提示：當地板出現危險的東西需要躲開時"
 L.AUTO_SPEC_WARN_OPTIONS.adds				= "特別提示：當小怪出現需要更換目標時"
@@ -451,7 +450,7 @@ L.AUTO_TIMER_TEXTS.cdsource					= "%s冷卻:>%%s<"
 L.AUTO_TIMER_TEXTS.cdsourceshort			= "~%s: >%%s<"
 L.AUTO_TIMER_TEXTS.cdspecial				= "特別技能冷卻"
 L.AUTO_TIMER_TEXTS.cdspecialshort			= "~特別技能"
-L.AUTO_TIMER_TEXTS.next					= "下一次%s"
+L.AUTO_TIMER_TEXTS.next						= "下一次%s"
 L.AUTO_TIMER_TEXTS.nextshort				= "%s"
 L.AUTO_TIMER_TEXTS.nextcount				= "下一次%s (%%s)"
 L.AUTO_TIMER_TEXTS.nextcountshort			= "%s (%%s)"
@@ -522,7 +521,7 @@ L.AUTO_YELL_ANNOUNCE_TEXT.fade				= "%s %%d秒後消退!"
 L.AUTO_YELL_ANNOUNCE_TEXT.shortfade			= "%%d"
 L.AUTO_YELL_ANNOUNCE_TEXT.iconfade			= "{rt%%2$d}%%1$d"
 L.AUTO_YELL_ANNOUNCE_TEXT.position			= UnitName("player").." ({rt%%3$d})中了%1$s! (%%1$s - {rt%%2$d})"
-L.AUTO_YELL_ANNOUNCE_TEXT.shortposition	= "{rt%%1$d}%s %%2$d"--Icon, Spellname, number
+L.AUTO_YELL_ANNOUNCE_TEXT.shortposition		= "{rt%%1$d}%s %%2$d"--Icon, Spellname, number
 L.AUTO_YELL_ANNOUNCE_TEXT.combo				= "%s與%%s"--Spell name (from option, plus spellname given in arg)
 L.AUTO_YELL_ANNOUNCE_TEXT.repeatplayer		= UnitName("player")--Doesn't need translation, it's just player name spam
 L.AUTO_YELL_ANNOUNCE_TEXT.repeaticon		= "{rt%%1$d}"
@@ -561,6 +560,7 @@ L.HUD_INVALID_ICON			= "不能設定對無團隊標記的目標"
 L.HUD_SUCCESS				= "HUD成功使用你的參數運作。這會在%s後取消，或是使用'/dbm hud hide'指令取消。"
 L.HUD_USAGE	= {
 	"DBM-HudMap 用法:",
+	"-----------------",
 	"/dbm hud <類型> <目標> <持續時間>: 建立一個指向玩家的HUD",
 	"有效類型: arrow, dot, red, blue, green, yellow, icon(需要團隊標記)",
 	"有效目標: target, focus, <玩家名字>",
@@ -573,6 +573,7 @@ L.ARROW_WAY_USAGE				= "/dway <x> <y>: 建立一個箭頭指向一個指定地�
 L.ARROW_WAY_SUCCESS				= "要隱藏箭頭，鍵入 '/dbm arrow hide' 或到達箭頭"
 L.ARROW_ERROR_USAGE	= {
 	"DBM-Arrow 用法:",
+	"-----------------",
 	"/dbm arrow <x> <y>: 建立一個箭頭在特定的位置(使用世界地圖座標)",
 	"/dbm arrow map <x> <y>: 建立一個箭頭在特定的位置 (使用小地圖座標)",
 	"/dbm arrow <玩家>: 建立並箭頭指向你的隊伍或團隊中特定的玩家",

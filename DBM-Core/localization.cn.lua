@@ -43,7 +43,7 @@ L.MOD_AVAILABLE				= L.DBM .. "已经为%s制作了相关模块。你可以在 d
 
 L.COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗-%s正在作战。祝你走运 :)"
-L.GUILD_COMBAT_STARTED		= "%s已經開戰，在%s的公會團隊於%s之後！"
+L.GUILD_COMBAT_STARTED		= "%2$s开组的公会版%1$s作战开始"
 L.SCENARIO_STARTED			= "场景战役-%s作战开始。祝你走运 :)"
 L.SCENARIO_STARTED_IN_PROGRESS	= "已进行的场景战役-%s正在作战。祝你走运 :)"
 L.BOSS_DOWN					= "%s战斗胜利！用时%s！"
@@ -53,14 +53,14 @@ L.BOSS_DOWN_NR				= "%s战斗胜利！用时%s！新的纪录诞生了！原纪�
 L.RAID_DOWN					= "%s目标达成，用时%s！"
 L.RAID_DOWN_L				= "%s目标达成，用时%s！最快用时%s！"
 L.RAID_DOWN_NR				= "%s目标达成，用时%s！最快用时%s！新的纪录诞生了！原纪录为%s！"
-L.GUILD_BOSS_DOWN			= "已擊敗%s，在%s的公會團隊用了%s！"
+L.GUILD_BOSS_DOWN			= "%2$s开组的公会版%1$s战斗胜利！用时%3$s！"
 L.SCENARIO_COMPLETE			= "场景战役-%s战斗胜利！用时%s!"
 L.SCENARIO_COMPLETE_I		= "场景战役-%s战斗胜利！总计%d次胜利。"
 L.SCENARIO_COMPLETE_L		= "场景战役-%s战斗胜利！用时%s！上次用时%s，最快用时%s。总计%d次胜利。"
 L.SCENARIO_COMPLETE_NR		= "场景战役-%s战斗胜利！用时%s！新的纪录诞生了！原纪录为%s。总计%d次胜利。"
 L.COMBAT_ENDED_AT			= "%s （%s）作战结束，用时%s。"
 L.COMBAT_ENDED_AT_LONG		= "%s （%s）作战结束，用时%s。该难度下总计失败%d次。"
-L.GUILD_COMBAT_ENDED_AT		= "%s的公會團隊在%s (%s)的戰鬥滅團，經過%s。"
+L.GUILD_COMBAT_ENDED_AT		= "%s开组的公会版%s （%s）作战结束，用时%s。"
 L.SCENARIO_ENDED_AT			= "场景战役-%s作战结束，用时%s。"
 L.SCENARIO_ENDED_AT_LONG		= "场景战役-%s作战结束，用时%s。该难度下总计失败%d次。"
 L.COMBAT_STATE_RECOVERED		= "%s作战%s前开始，正在恢复计时条……"
@@ -192,7 +192,6 @@ L.DPMCORE						= "警告: DBM-PVP已经已经很久没人维护了,并无法兼�
 L.DBMLDB							= "警告: DBM-LDB 已经集成入" .. L.DBM .. "核心。建议在插件目录删掉'DBM-LDB'。"
 L.UPDATE_REQUIRES_RELAUNCH		= "警告: 如果你不完全重启游戏，" .. L.DBM .. "可能会工作不正常。此次更新包含了新的文件，或者toc文件的改变，这是重载界面无法加载的。不重启游戏可能导致作战模块功能错误。"
 L.OUT_OF_DATE_NAG				= "你的" .. L.DBM .. "版本已经过期，新版本针对特定的首领战斗增加新的功能和错误的修复。建议您进行更新来改善您的游戏体验。"
-L.RETAIL_ONLY					= "警告: 你所用的是怀旧服版本的" .. L.DBM .. "。请删掉这个" .. L.DBM .. "并下载正式服的" .. L.DBM .. "。"
 
 L.MOVABLE_BAR				= "拖动我！"
 

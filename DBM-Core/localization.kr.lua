@@ -188,7 +188,6 @@ L.DBMLDB							= "경고: DBM-LDB는 이제 DBM-Core에 편입되었습니다. �
 L.DBMLOOTREMINDER				= "경고: 써드파티 모드인 DBM-LootReminder가 설치되었습니다. 이 애드온은 최신 WoW 클라이언트에 더이상 호환되지 않으며 " .. L.DBM .. "이 오작동하여 풀링 타이머를 전송하지 못하게 될 수 있습니다. 애드온 삭제를 권장합니다"
 L.UPDATE_REQUIRES_RELAUNCH		= "경고: 지금 업데이트한 " .. L.DBM .. "은 게임 클라이언트를 완전히 재시작하기 전까진 정상 작동하지 않습니다. 이 업데이트엔 새 파일이 포함되어 있거나 UI 재시작으로는 로딩할 수 없는 .toc 파일의 변경 사항이 있습니다. 클라이언트 재시작 없이 사용할 경우 오류가 발생하거나 작동하지 않을 수 있습니다."
 L.OUT_OF_DATE_NAG				= "현재 사용중인 " .. L.DBM .. " 버전이 오래되었습니다. 이 전투에 대응하는 모듈은 새로운 기능을 탑재했거나 버그가 수정된 상태입니다. 향상된 레이드 경험을 누리고 싶다면 업데이트를 권장합니다."
-L.RETAIL_ONLY					= "경고: 이 " .. L.DBM .. " 버전은 월드 오브 워크래프트 최신 버전용입니다. 삭제하시고 클래식 WoW 전용 DBM을 설치하세요."
 
 L.MOVABLE_BAR				= "드래그 하세요!"
 
@@ -262,8 +261,8 @@ L.TIMER_USAGE	= {
 	"--------------",
 	"/dbm timer <초> <텍스트>: <초> 만큼 지속되는 <텍스트> 타이머가 시작됩니다.",
 	"/dbm ltimer <초> <텍스트>: 취소하기 전까진 자동 반복되는 타이머가 시작됩니다.",
-	"(공대장이나 승급자일 경우 타이머 텍스트 앞에 'Broadcast'를 입력하면 공격대에 공유)",
-	"/dbm timer endloop: ltimer와 반복 작동을 멈춥니다."
+	"(공대장이나 승급자일 경우 'timer'와 'ltimer' 앞에 'Broadcast'를 입력하면 공격대에 공유)",
+	"/dbm timer endloop: 반복 작동중인 모든 ltimer를 멈춥니다."
 }
 
 L.ERROR_NO_PERMISSION				= "이 명령어를 실행하기 위한 권한을 가지고 있지 않습니다."
@@ -298,7 +297,7 @@ L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s): >%%s< (%%d yd)"
 L.AUTO_ANNOUNCE_TEXTS.ends			= "%s 종료"
 L.AUTO_ANNOUNCE_TEXTS.endtarget		= "%s 종료: >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades			= "%s 사라짐"
-L.AUTO_ANNOUNCE_TEXTS.addsleft			= "%s 남은 수: %%d"
+L.AUTO_ANNOUNCE_TEXTS.addsleft		= "%s 남은 수: %%d"
 L.AUTO_ANNOUNCE_TEXTS.cast			= "%s 시전: %.1f초"
 L.AUTO_ANNOUNCE_TEXTS.soon			= "곧 %s"
 L.AUTO_ANNOUNCE_TEXTS.sooncount		= "곧 %s (%%s)"
@@ -360,7 +359,7 @@ L.AUTO_SPEC_WARN_TEXTS.keepmove		= "%s - 계속 이동"
 L.AUTO_SPEC_WARN_TEXTS.stopmove		= "%s - 이동 금지"
 L.AUTO_SPEC_WARN_TEXTS.dodge		= "%s - 피하세요"
 L.AUTO_SPEC_WARN_TEXTS.dodgecount	= "%s (%%s) - 피하세요"
-L.AUTO_SPEC_WARN_TEXTS.dodgeloc		= "%s - %%s|1으로;로; 피하세요"
+L.AUTO_SPEC_WARN_TEXTS.dodgeloc		= "%s - %%s 자리 피하세요"
 L.AUTO_SPEC_WARN_TEXTS.moveaway		= "%s - 거리 이격"
 L.AUTO_SPEC_WARN_TEXTS.moveawaycount	= "%s (%%s) - 밖으로 나오세요"
 L.AUTO_SPEC_WARN_TEXTS.moveto		= "%s - >%%s<|1으로;로; 이동"
@@ -406,7 +405,7 @@ L.AUTO_SPEC_WARN_OPTIONS.keepmove		= "$spell:%s에 계속 이동 특수 알림 �
 L.AUTO_SPEC_WARN_OPTIONS.stopmove		= "$spell:%s에 이동 금지 특수 알림 보기"
 L.AUTO_SPEC_WARN_OPTIONS.dodge			= "$spell:%s 피하기 특수 알림 보기"
 L.AUTO_SPEC_WARN_OPTIONS.dodgecount		= "$spell:%s 피하기 특수 알림 보기 (횟수 포함)"
-L.AUTO_SPEC_WARN_OPTIONS.dodgeloc		= "$spell:%s 피하기 특수 알림 보기 (회피 장소 포함)"
+L.AUTO_SPEC_WARN_OPTIONS.dodgeloc		= "$spell:%s 피하기 특수 알림 보기 (피해야하는 장소 포함)"
 L.AUTO_SPEC_WARN_OPTIONS.moveaway		= "$spell:%s에 거리 이격 특수 알림 보기"
 L.AUTO_SPEC_WARN_OPTIONS.moveawaycount		= "$spell:%s에 밖으로 나오기 특수 알림 보기 (횟수 포함)"
 L.AUTO_SPEC_WARN_OPTIONS.moveto			= "$spell:%s에 특정인 또는 특정 위치로 이동 특수 알림 보기"

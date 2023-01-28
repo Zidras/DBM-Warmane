@@ -319,9 +319,27 @@ local specRoleTable = {
 		["RangedDps"] = true,
 		["ManaUser"] = true,
 		["SpellCaster"] = true,
---			["RemoveMagic"] = true,--Singe Magic (Imp)
+--		["RemoveMagic"] = true,--Singe Magic (Imp)
 		["CasterDps"] = true,
 	},
+	--[266] = {	--Demonology Warlock
+	--	["Dps"] = true,
+	--	["Ranged"] = true,
+	--	["RangedDps"] = true,
+	--	["ManaUser"] = true,
+	--	["SpellCaster"] = true,
+--	--	["RemoveMagic"] = true,--Singe Magic (Imp)
+	--	["CasterDps"] = true,
+	--},
+	--[267] = {	--Destruction Warlock
+	--	["Dps"] = true,
+	--	["Ranged"] = true,
+	--	["RangedDps"] = true,
+	--	["ManaUser"] = true,
+	--	["SpellCaster"] = true,
+--	--	["RemoveMagic"] = true,--Singe Magic (Imp)
+	--	["CasterDps"] = true,
+	--},
 	[1454] = {	--Initial Warlock (used in exiles reach tutorial mode). Treated as hybrid. Utility disabled because that'd require checking tutorial progress
 		["Dps"] = true,
 		["Ranged"] = true,
