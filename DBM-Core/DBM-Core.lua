@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230128182656"),
+	Revision = parseCurseDate("20230128184447"),
 	DisplayVersion = "9.2.26 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 11, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2321,7 +2321,7 @@ function DBM:IsTrivial(customLevel)
 			return true
 		end
 	else
-		--First, auto bail and return non trivial if it's an instancce not in table to prevent nil error
+		--First, auto bail and return non trivial if it's an instance not in table to prevent nil error
 		if not instanceDifficultyBylevel[LastInstanceMapID] then return false end
 		--Content is trivial if player level is 10 higher than content involved
 		if playerLevel >= (instanceDifficultyBylevel[LastInstanceMapID][1]+15) then
@@ -2964,7 +2964,7 @@ end
 --  Load Boss Mods on Demand  --
 --------------------------------
 do
-	local modAdvertisementShown = false
+	local pvpShown = false
 	local classicZones = {[718]=true,[767]=true,[756]=true,[697]=true}
 	local bcZones = {[797]=true,[776]=true,[800]=true,[777]=true,[780]=true,[781]=true,[790]=true,[783]=true,[782]=true}
 	local wrathZones = {[532]=true,[610]=true,[544]=true,[528]=true,[605]=true,[536]=true,[719]=true,[530]=true,[533]=true}
@@ -2976,23 +2976,21 @@ do
 	}
 	--This never wants to spam you to use mods for trivial content you don't need mods for.
 	--It's intended to suggest mods for content that's relevant to your level (TW, leveling up in dungeons, or even older raids you can't just roll over)
-	function DBM:CheckAvailableMods(wipeNag)
-		if _G["BigWigs"] or modAdvertisementShown then return end--If they are running two boss mods at once, lets assume they are only using DBM for a specific feature (such as brawlers) and not nag
-		local timeWalking = savedDifficulty == "timewalker"
-		if wipeNag then--Disable message after one wipe nag, don't want to rub in a person is wiping, just nudge (once) that a mod might help
-			modAdvertisementShown = true
-		end
-		if oldDungeons[LastInstanceMapID] and (timeWalking or playerLevel < 50) and not GetAddOnInfo("DBM-Party-BC") then
-			AddMsg(self, L.MOD_AVAILABLE:format("DBM Dungeon mods"))
-		elseif (classicZones[LastInstanceMapID] or bcZones[LastInstanceMapID]) and (timeWalking or playerLevel < 31) and not GetAddOnInfo("DBM-BlackTemple") then
-			AddMsg(self, L.MOD_AVAILABLE:format("DBM BC/Vanilla mods"))
-		elseif wrathZones[LastInstanceMapID] and (timeWalking or playerLevel < 31) and not GetAddOnInfo("DBM-Ulduar") then
-			AddMsg(self, L.MOD_AVAILABLE:format("DBM Wrath of the Lich King mods"))
+	function DBM:CheckAvailableMods()
+		if _G["BigWigs"] then return end--If they are running two boss mods at once, lets assume they are only using DBM for a specific feature (such as brawlers) and not nag
+		if not self:IsTrivial() then
+			if oldDungeons[LastInstanceMapID] and not GetAddOnInfo("DBM-Party-BC") then
+				AddMsg(self, L.MOD_AVAILABLE:format("DBM Dungeon mods"))
+			elseif (classicZones[LastInstanceMapID] or bcZones[LastInstanceMapID]) and not GetAddOnInfo("DBM-BlackTemple") then
+				AddMsg(self, L.MOD_AVAILABLE:format("DBM BC/Vanilla mods"))
+			elseif wrathZones[LastInstanceMapID] and not GetAddOnInfo("DBM-Ulduar") then
+				AddMsg(self, L.MOD_AVAILABLE:format("DBM Wrath of the Lich King mods"))
+			end
 		end
 		local _, instanceType = GetInstanceInfo()
-		if (pvpZones[LastInstanceMapID] or instanceType == "arena") and not GetAddOnInfo("DBM-PvP") then
+		if (pvpZones[LastInstanceMapID] or instanceType == "arena") and not GetAddOnInfo("DBM-PvP") and not pvpShown then
 			AddMsg(self, L.MOD_AVAILABLE:format("DBM-PvP"))
-			modAdvertisementShown = true
+			pvpShown = true
 		end
 	end
 	function DBM:TransitionToDungeonBGM(force, cleanup)
@@ -3093,9 +3091,9 @@ do
 		-- LoadMod
 		self:LoadModsOnDemand("zone", zoneName)
 		self:LoadModsOnDemand("mapId", mapID)
-		if self.Options.ShowReminders then
+--		if self.Options.ShowReminders then
 			self:CheckAvailableMods()
-		end
+--		end
 		if self:HasMapRestrictions() then
 			self.Arrow:Hide()
 --			self.HudMap:Disable()
