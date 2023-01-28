@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230128180940"),
+	Revision = parseCurseDate("20230128181200"),
 	DisplayVersion = "9.2.26 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 11, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -7316,7 +7316,7 @@ function DBM:IsHealer(uId)
 end
 bossModPrototype.IsHealer = DBM.IsHealer
 
-function bossModPrototype:IsTanking(playerUnitID, enemyUnitID, isName, onlyRequested, enemyGUID, includeTarget, onlyS3)
+function DBM:IsTanking(playerUnitID, enemyUnitID, isName, onlyRequested, enemyGUID, includeTarget, onlyS3)
 	--Didn't have playerUnitID so combat log name was passed
 	if isName then
 		playerUnitID = DBM:GetRaidUnitId(playerUnitID)
@@ -7383,6 +7383,7 @@ function bossModPrototype:IsTanking(playerUnitID, enemyUnitID, isName, onlyReque
 	end
 	return false
 end
+bossModPrototype.IsTanking = DBM.IsTanking
 
 function bossModPrototype:GetNumAliveTanks()
 	if not IsInGroup() then return 1 end--Solo raid, you're the "tank"
