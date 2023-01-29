@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TeronGorefiend", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20230129114417")
 mod:SetCreatureID(22871)
 
 mod:SetModelID(21254)
@@ -28,6 +28,8 @@ local timerDeathCD			= mod:NewCDTimer(32, 40251, nil, nil, nil, 3)--32-40 (small
 local timerDeath			= mod:NewTargetTimer(55, 40251, nil, nil, nil, 3)
 local timerVengefulSpirit	= mod:NewTimer(60, "TimerVengefulSpirit", 40325, nil, nil, 1)
 
+local berserkTimer			= mod:NewBerserkTimer(300)
+
 mod:AddSetIconOption("CrushIcon", 40243, false, false, {1, 2, 3, 4, 5})
 
 local CrushedTargets = {}
@@ -39,9 +41,10 @@ local function showCrushedTargets(self)
 	self.vb.crushIcon = 1
 end
 
-function mod:OnCombatStart()
+function mod:OnCombatStart(delay)
+	berserkTimer:Start(-delay)
 	table.wipe(CrushedTargets)
-	timerDeathCD:Start(11.1)--11-13?
+	timerDeathCD:Start(11.1-delay)--11-13?
 end
 
 function mod:SPELL_AURA_APPLIED(args)
