@@ -44,7 +44,7 @@ end
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	table.wipe(CrushedTargets)
-	timerDeathCD:Start(11.1)--11-13?
+	timerDeathCD:Start(11.1-delay)--11-13?
 end
 
 function mod:SPELL_AURA_APPLIED(args)
