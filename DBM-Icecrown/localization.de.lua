@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Add-Wiederbelebung",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Neue Adds bald",
 	SpecWarnVengefulShade		= "Rachsüchtiger Schatten greift dich an - Lauf",--creatureid 38222
-	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
+	WeaponsStatus				= "Automatisches Entwaffnen aktiv"
 })
 
 L:SetOptionLocalization({
@@ -36,18 +36,18 @@ L:SetOptionLocalization({
 	WarnReanimating				= "Zeige Warnung, wenn ein Add wiederbelebt wird",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Zeige Zeit bis neue Adds erscheinen",
 	SpecWarnVengefulShade		= "Zeige Spezialwarnung, wenn du von Rachsüchtigen Schatten angegriffen wirst",--creatureid 38222
-	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
+	WeaponsStatus				= "Zeige Spezialwarnung bei Kampfbeginn, wenn automatisches Be-/Entwaffnen aktiviert ist",
 	ShieldHealthFrame			= "Zeige Bossleben mit einer Leiste für $spell:70842",
-	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control", --Needs Translating
---	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight", --Needs Translating
-	RemoveBuffsOnMC				= "Entferne Buffs, wenn $spell:71289 auf dich gewirkt wird. Jede Option ist kumulativ.",
-	Gift						= "Entferne $spell:48469 / $spell:48470. Minimaler Ansatz, um $spell:33786 Resistenzen zu verhindern.",
-	CCFree						= "+ Entferne $spell:48169 / $spell:48170. Berücksichtige die Resistenzen von Zaubern der Schattenschule.",
-	ShortOffensiveProcs			= "+ Entferne offensive Procs, die eine geringe Dauer haben. Empfohlen für die Sicherheit des Schlachtzugs, ohne den Schadensoutput des Schlachtzugs zu beeinträchtigen.",
-	MostOffensiveBuffs			= "+ Entfernt die meisten offensiven Buffs (hauptsächlich für Zauberwirker und |cFFFF7C0AWildheit-Druide|r). Maximale Schlachtzugsicherheit bei gleichzeitigem Verlust des Schadensoutputs und der Notwendigkeit, sich selbst zu rebuffen/shapeshiften!",
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
-	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.", --Needs Translating
-	BlockWeapons				= "Completely block the unequip/equip functions above" --Needs Translating
+	SoundWarnCountingMC			= "5 Sekunden Cooldown abspielen für Gedankenkontrolle",
+--	RemoveDruidBuff				= "Entferne $spell:48469 / $spell:48470 24 Sekunden nach Kampfbeginn",
+	RemoveBuffsOnMC				= "Entferne Buffs, wenn $spell:71289 auf dich gewirkt wird. Jede Option ist komulativ.",
+	Gift						= "+ Entferne $spell:48469 / $spell:48470. Notwendig, um $spell:33786 nicht zu widerstehen.",
+	CCFree						= "+ Entferne $spell:48169 / $spell:48170. Berücksichtige die Widerstände von Zaubern der Schattenschule.",
+	ShortOffensiveProcs			= "+ Entferne offensive Procs, die eine geringe Dauer haben. Empfohlen für die Sicherheit des Schlachtzugs, ohne Auswirkungen auf den Gesamtschaden des Raids",
+	MostOffensiveBuffs			= "+ Entfernt die meisten offensiven Buffs (hauptsächlich für Zauberwirkende und Wilder-Kampf Druiden. Maximale Schlachtzugsicherheit, Maximale Schadensreduktion, benötigt selbstständiges rebuffen/gestaltenwechsel",
+	EqUneqWeapons				= "Be-/Entwaffnen, wenn Gedankenkontrolle auf MICH wirkt. Funktioniert nur, wenn ein Ausrüstungsset mit dem Namen *pve* existiert (mit angelegten Waffen). ",
+	EqUneqTimer					= "Entwaffnen IMMER nach Timer, nicht erst bei Gedankenkontrolle (bei höherer Latenz). Die obere Funktion muss aktiviert sein",
+	BlockWeapons				= "Die Be-/Entwaffnen Funktion komplett ignorieren"
 })
 
 L:SetMiscLocalization({
@@ -56,7 +56,7 @@ L:SetMiscLocalization({
 --	Fanatic1				= "Fanatischer Kultist",
 --	Fanatic2				= "Deformierter Fanatiker",
 --	Fanatic3				= "Wiederbelebter Fanatiker",
-	setMissing				= "AUFMERKSAMKEIT! Das automatische Ausrüsten/Ausrüsten von DBM-Waffen funktioniert erst, wenn Sie ein Ausrüstungsset namens pve . erstellen",
+	setMissing				= "ACHTUNG! Das automatische Be-/Entwaffnen funktioniert erst, wenn Sie ein Ausrüstungsset namens *pve* erstellt haben",
 	EqUneqLineDescription	= "Automatisches An-/Ablegen"
 })
 
@@ -273,7 +273,7 @@ L:SetOptionLocalization({
 	TimerNextGroundphase		= "Zeige Zeit bis nächste Bodenphase",
 	AnnounceFrostBeaconIcons	= "Verkünde Zeichen für Ziele von $spell:70126 im SZ-Chat (nur als Leiter)",
 	ClearIconsOnAirphase		= "Entferne alle Zeichen vor der Luftphase",
-	AssignWarnDirectionsCount	= "Weisen Sie $spell:70126 -Zielen eine Wegbeschreibung zu und zählen Sie auf Phase 2",
+	AssignWarnDirectionsCount	= "Weisen Sie $spell:70126 -Zielen eine Wegbeschreibung zu und zählen Sie Phase 2 an",
 	AchievementCheck			= "Verkünde Warnungen für den Erfolg 'Das Buffet ist eröffnet' an Schlachtzug (nur als Leiter/Assistent)",
 	RangeFrame					= "Zeige dynamisches Abstandsfenster (10 m/20 m) basierend auf zuletzt genutzten Bossfähigkeiten und Spieler-Debuffs"
 })
@@ -320,11 +320,11 @@ L:SetOptionLocalization({
 	AnnounceValkGrabs			= "Verkünde Griffziele der Schattenwächterinnen der Val'kyr im SZ-Chat (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)",
 	SpecWarnValkyrLow			= "Spezialwarnung, wenn eine Schattenwächterin der Val'kyr unter 55% Lebenspunkte ist",
 	AnnouncePlagueStack			= "Verkünde $spell:70337 Stapel an den Schlachtzug (ab 10 Stapel, danach alle 5 Stapel) (nur als Leiter/Assistent)",
-	ShowFrame					= "Show Val'Kyr Targets frame", --Needs Translating
-	FrameClassColor				= "Use Class Colors in Val'Kyr Targets frame", --Needs Translating
-	FrameUpwards				= "Expand Val'Kyr target frame upwards", --Needs Translating
-	FrameLocked					= "Lock Val'Kyr Targets frame", --Needs Translating
-	RemoveImmunes				= "Remove immunity spells before exiting Frostmourne room" --Needs Translating
+	ShowFrame					= "Zeige Val'Kyr Zielframe",
+	FrameClassColor				= "Benutze Klassenfarben im Val'Kyr Zielframe",
+	FrameUpwards				= "Erweitere Val'Kyr Zielframe nach oben",
+	FrameLocked					= "Val'Kyr Targets Zielframe sperren",
+	RemoveImmunes				= "Entferne Immunitätszauber vor dem verlassen Frostgrams Kammer"
 })
 
 L:SetMiscLocalization({
@@ -334,12 +334,12 @@ L:SetMiscLocalization({
 	ValkGrabbed				= "Schattenwächterin der Val'kyr hat %s gegriffen",
 	PlagueStackWarning		= "Warnung: %s hat %d Stapel von Nekrotischer Seuche",
 	AchievementCompleted	= ">> ERFOLG FERTIG: %s hat %d Stapel von Nekrotischer Seuche <<",
-	FrameTitle				= "Valkyr targets", --Needs Translating
-	FrameLock				= "Frame Lock", --Needs Translating
-	FrameClassColor			= "Use Class Colors", --Needs Translating
-	FrameOrientation		= "Expand upwards", --Needs Translating
-	FrameHide				= "Hide Frame", --Needs Translating
-	FrameClose				= "Close", --Needs Translating
+	FrameTitle				= "Valkyr Ziele",
+	FrameLock				= "Frame sperren",
+	FrameClassColor			= "Benutze Klassenfarben",
+	FrameOrientation		= "nach oben erweitern",
+	FrameHide				= "Frame verstecken",
+	FrameClose				= "Schließen",
 	FrameGUIDesc			= "Val'Kyr-Rahmen",
 	FrameGUIMoveMe			= "Val'Kyr-Rahmen verschieben"
 })
