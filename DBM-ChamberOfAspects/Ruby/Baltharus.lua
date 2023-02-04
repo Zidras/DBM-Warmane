@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Baltharus", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230203003159")
+mod:SetRevision("20230204133636")
 mod:SetCreatureID(39751)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -35,6 +35,7 @@ mod.vb.warnedSplit3	= false
 local brandTargets = {}
 mod.vb.brandIcon	= 8
 mod.vb.allClonesSpawned = false
+local bossGUIDs = {}
 
 local function showBrandWarning(self)
 	warningWarnBrand:Show(table.concat(brandTargets, "<, >"))
@@ -47,6 +48,7 @@ function mod:OnCombatStart()
 	self.vb.warnedSplit2 = false
 	self.vb.warnedSplit3 = false
 	table.wipe(brandTargets)
+	table.wipe(bossGUIDs)
 	self.vb.brandIcon = 8
 	self.vb.allClonesSpawned = false
 	timerBladeTempest:Start(15, 1, UnitGUID("boss1")) -- REVIEW! (25N Lordaeron 2022-09-19 || 25H Lordaeron 2022-09-23) - 15.0 || 15.0
@@ -72,7 +74,8 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 75125 then
-		local bossN = tonumber(string.match(DBM:GetUnitIdFromGUID(args.destGUID, true) or "0", "%d+")) or 0
+		if not tContains(bossGUIDs, args.destGUID) then tinsert(bossGUIDs, args.destGUID) end -- add boss to table by its first cast, checking for duplicates and preserving index to match bossN
+		local bossN = DBM:tIndexOf(bossGUIDs, args.destGUID)
 		warnWhirlwind:Show()
 		timerWhirlwind:Show()
 		timerBladeTempest:Start(nil, bossN, args.destGUID)
