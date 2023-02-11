@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230210181644"),
+	Revision = parseCurseDate("20230211181804"),
 	DisplayVersion = "9.2.26 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2022, 11, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5151,7 +5151,7 @@ do
 --				if DBM.Options.BadTimerAlert or DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
 					local bar = DBT:GetBar(L.GENERIC_TIMER_COMBAT)
 					if bar then
-						local remaining = ("%.1f"):format(bar.timer)
+						local remaining = ("%.2f"):format(bar.timer)
 						local ttext = bar.id
 						if bar.timer > 0.1 then
 							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
