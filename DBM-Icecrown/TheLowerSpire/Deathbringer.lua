@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230211182723")
+mod:SetRevision("20230211192817")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -47,8 +47,8 @@ local specwarnMark			= mod:NewSpecialWarningTarget(72444, nil, false, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
-local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerBoilingBlood		= mod:NewCDTimer(15.5, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) -- 5s variance [15-20]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04) - 19.2, 15.5, 15.7, 17.7, 18.1, 15.7, 16.9, 19.5, 15.3, 19.5, 18.5, 15.2, 19.9 || 15.1, 19.4, 19.0, 15.4, 15.0, 16.8, 19.1, 15.9, 17.1
+local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! HC -> wipe -> N different script? First two timers stopped being fixed? (25N Lordaeron 2023/02/10) - pull:20.8, 19.3, 20.0, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0
+local timerBoilingBlood		= mod:NewCDTimer(15, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) -- REVIEW! 5s variance [15-20]; there was one 11.7! Same as above?? Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04 || 25N Lordaeron 2023/02/10) - 19.2, 15.5, 15.7, 17.7, 18.1, 15.7, 16.9, 19.5, 15.3, 19.5, 18.5, 15.2, 19.9 || 15.1, 19.4, 19.0, 15.4, 15.0, 16.8, 19.1, 15.9, 17.1 || 11.7, 16.4, 16.5, 17.4, 19.6, 19.0, 16.5, 16.9, 15.5, 16.4, 17.5
 local timerBloodNova		= mod:NewCDTimer(20, 72378, nil, nil, nil, 2, nil, nil, true) -- 5s variance [20-25]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04) - 21.7, 21.7, 20.9, 22.6, 20.2, 24.8, 24.6, 20.7, 22.2, 22.4 || 24.9, 21.8, 21.0, 22.8, 23.2, 24.3, 22.2
 
 --local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
@@ -124,9 +124,9 @@ function mod:OnCombatStart(delay)
 	end
 	timerCallBloodBeast:Start(-delay)
 	warnAddsSoon:Schedule(30-delay)
-	timerBloodNova:Start(17-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 17.1 || 17.0 || 17.0
-	timerRuneofBlood:Start(-delay)
-	timerBoilingBlood:Start(15.5-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 15.5 || 15.5|| 15.5
+	timerBloodNova:Start(17-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 17.1 || 17.0 || 17.0 || 17.0 || 17.0 || 20.3
+	timerRuneofBlood:Start(-delay) -- (25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 20.0 || 20.0 || 20.8
+	timerBoilingBlood:Start(-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 15.5 || 15.5|| 15.5 || 15.6 || 15.5 || 19.4
 	self.vb.warned_preFrenzy = false
 	self.vb.boilingBloodIcon = 1
 	self.vb.beastIcon = 8
