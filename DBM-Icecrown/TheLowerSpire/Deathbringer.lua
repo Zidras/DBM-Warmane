@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230128120512")
+mod:SetRevision("20230211182723")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -27,7 +27,7 @@ mod:RegisterEventsInCombat(
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
-local timerCombatStart		= mod:NewCombatTimer(47.3)
+local timerCombatStart		= mod:NewCombatTimer(47.2)
 local enrageTimer			= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 480)
 
 mod:RemoveOption("HealthFrame")
