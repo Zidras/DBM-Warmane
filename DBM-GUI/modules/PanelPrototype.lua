@@ -2,7 +2,8 @@ local L		= DBM_GUI_L
 local CL	= DBM_COMMON_L
 
 local setmetatable, select, type, tonumber, strsplit, mmax, tinsert = setmetatable, select, type, tonumber, strsplit, math.max, table.insert
-local CreateFrame, GetCursorPosition, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal = CreateFrame, GetCursorPosition, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal
+local CreateFrame, GetCursorPosition, ChatEdit_GetActiveWindow, IsShiftKeyDown, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal = CreateFrame, GetCursorPosition, ChatEdit_GetActiveWindow, IsShiftKeyDown, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal
+local IsInInstance, GetNumRaidMembers = IsInInstance, GetNumRaidMembers
 local DBM, DBM_GUI = DBM, DBM_GUI
 local ElvUI = ElvUI
 
@@ -407,6 +408,17 @@ do
 			buttonText = CreateFrame("SimpleHTML", "$parentText", button)
 			buttonText:SetFontObject("p", "GameFontNormal")
 			buttonText:SetHyperlinksEnabled(true)
+			buttonText:SetScript("OnHyperlinkClick", function(self, _, link)
+				if IsShiftKeyDown() then
+					local msg = link:gsub("|h(.*)|h", "|h[%1]|h")
+					local chatWindow = ChatEdit_GetActiveWindow()
+					if chatWindow then
+						chatWindow:Insert(msg)
+					else
+						SendChatMessage(msg, (select(2, IsInInstance()) == "pvp" and "BATTLEGROUND") or (GetNumRaidMembers() > 0 and "RAID") or "PARTY")
+					end
+				end
+			end)
 			buttonText:SetScript("OnHyperlinkEnter", function(self, data)
 				GameTooltip:SetOwner(self, "ANCHOR_NONE")
 				local linkType = strsplit(":", data)
