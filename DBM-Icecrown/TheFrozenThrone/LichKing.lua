@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20221116221939")
+mod:SetRevision("20230218100746")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -266,7 +266,7 @@ local function NextPhase(self)
 	self.vb.valkyrWaveCount = 0
 	self.vb.soulReaperCount = 0
 	if self.vb.phase == 1 then
-		if myRealm == "Lordaeron" and self:IsDifficulty("normal10", "heroic10") then -- only normal10 confirmed, but added heroic10 just in case
+		if myRealm == "Lordaeron" and self:IsDifficulty("normal10") then -- only normal10 has shorter timer
 			berserkTimer:Start(720)
 		else
 			berserkTimer:Start()
