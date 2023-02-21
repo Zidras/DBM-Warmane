@@ -376,7 +376,7 @@ L:SetWarningLocalization({
 	SpecWarnSanity					= "%d 이성 남음!",
 	SpecWarnGuardianLow				= "수호자 체력 낮음 - 주의!",
 	SpecWarnMadnessOutNow			= "광기 유발 종료 직전 - 밖으로 나가세요!",
-	WarnBrainPortalSoon				= "3초 후 차원문",
+	WarnBrainPortalSoon				= "10초 후 차원문",
 	SpecWarnBrainPortalSoon			= "곧 차원문!"
 })
 

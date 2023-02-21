@@ -377,7 +377,7 @@ L:SetWarningLocalization({
 	SpecWarnSanity					= "剩余理智：%d",
 	SpecWarnGuardianLow				= "停止攻击这只守护者",
 	SpecWarnMadnessOutNow			= "疯狂诱导即将结束 - 立刻传送出去",
-	WarnBrainPortalSoon				= "3秒后 脑部传送门",
+	WarnBrainPortalSoon				= "10秒后 脑部传送门",
 	SpecWarnBrainPortalSoon			= "脑部传送门 即将出现"
 })
 

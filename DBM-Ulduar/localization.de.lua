@@ -377,7 +377,7 @@ L:SetWarningLocalization({
 	SpecWarnSanity					= "%d Geistige Gesundheit übrig",
 	SpecWarnGuardianLow				= "Wächter nicht mehr angreifen!",
 	SpecWarnMadnessOutNow			= "Wahnsinn hervorrufen - LAUF RAUS!",
-	WarnBrainPortalSoon				= "Gehirnportale in 3 Sek",
+	WarnBrainPortalSoon				= "Gehirnportale in 10 Sek",
 	SpecWarnBrainPortalSoon			= "Gehirnportale bald"
 })
 

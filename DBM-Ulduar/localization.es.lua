@@ -387,7 +387,7 @@ L:SetWarningLocalization({
 	SpecWarnSanity					= "%d de Cordura restante",
 	SpecWarnGuardianLow				= "Guardián a poca salud - ¡deja de atacar!",
 	SpecWarnMadnessOutNow			= "Inducir a la locura en breve - ¡sal ya!",
-	WarnBrainPortalSoon				= "Portales en 3 s",
+	WarnBrainPortalSoon				= "Portales en 10 s",
 	SpecWarnBrainPortalSoon			= "Portal en breve"
 })
 

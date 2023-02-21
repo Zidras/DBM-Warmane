@@ -390,7 +390,7 @@ L:SetWarningLocalization({
 	SpecWarnSanity					= "%d de Santé mentale restant",
 	SpecWarnGuardianLow				= "Arrêtez d'attaquer ce gardien !",
 	SpecWarnMadnessOutNow			= "Incantation de Susciter la folie fini - SORTEZ",
-	WarnBrainPortalSoon				= "Portail dans 3 sec",
+	WarnBrainPortalSoon				= "Portail dans 10 sec",
 	SpecWarnBrainPortalSoon			= "Portail bientôt"
 })
 
