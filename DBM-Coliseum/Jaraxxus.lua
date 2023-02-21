@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220929114018")
+mod:SetRevision("20230221160133")
 mod:SetCreatureID(34780)
 --mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 66532 66963 66964 66965",
 	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66269 67898 67899 67900 66197 68123 68124 68125 67051 67050 67049 66237 66528 67029 67030 67031",
 	"SPELL_AURA_APPLIED 67051 67050 67049 66237 66197 68123 68124 68125 66334 67905 67906 67907 66532 66963 66964 66965",
-	"SPELL_AURA_REMOVED 67051 67050 67049 66237",
+	"SPELL_AURA_REMOVED 67051 67050 67049 66237 66197 68123 68124 68125",
 	"SPELL_DAMAGE 66877 67070 67071 67072 66496 68716 68717 68718",
 	"SPELL_MISSED 66877 67070 67071 67072 66496 68716 68717 68718",
 	"SPELL_HEAL",
@@ -32,11 +32,10 @@ local warnFlesh					= mod:NewTargetNoFilterAnnounce(66237, 4, nil, "Healer")
 local warnFelLightning			= mod:NewSpellAnnounce(67031, 3, nil, false)
 
 local specWarnFlame				= mod:NewSpecialWarningRun(66877, nil, nil, 2, 4, 2)
-local specWarnFlameGTFO			= mod:NewSpecialWarningMove(66877, nil, nil, 2, 4, 2)
+local specWarnGTFO				= mod:NewSpecialWarningGTFO(66877, nil, nil, 2, 1, 8)
 local specWarnFlesh				= mod:NewSpecialWarningYou(66237, nil, nil, nil, 1, 2)
 local specWarnKiss				= mod:NewSpecialWarningCast(66334, "SpellCaster", nil, 2, 1, 2)
 local specWarnNetherPower		= mod:NewSpecialWarningDispel(67009, "MagicDispeller", nil, nil, 1, 2)
-local specWarnFelInferno		= mod:NewSpecialWarningMove(66496, nil, nil, nil, 1, 2)
 local SpecWarnFelFireball		= mod:NewSpecialWarningInterrupt(66532, "HasInterrupt", nil, 2, 1, 2)
 local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66532, "RemoveMagic", nil, 2, 1, 2)
 
@@ -155,7 +154,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnPortalSoon:Schedule(110)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
 		timerFlameCD:Start()
-		warnFlame:Show(args.destName)
+		warnFlame:Show(args.destName) -- I prefer to keep this here, rather than a player elseif on aura applied. Faster and unfiltered.
 	elseif args:IsSpellID(67051, 67050, 67049, 66237) then		-- Incinerate Flesh
 		timerFleshCD:Start()
 	elseif args:IsSpellID(66528, 67029, 67030, 67031) then		-- Fel Lightning
@@ -191,7 +190,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFlame:ScheduleVoice(1.5, "keepmove")
 		end
 		if self.Options.LegionFlameIcon then
-			self:SetIcon(args.destName, 7, 8)
+			self:SetIcon(args.destName, 7)
 		end
 	elseif args:IsSpellID(66334, 67905, 67906, 67907) and args:IsPlayer() then
 		specWarnKiss:Show()
@@ -213,16 +212,18 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:RemoveIcon(args.destName)
 		end
 		clearIncinerateTarget(self, args.destName)
+	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
+		timerFlame:Stop(args.destName)
+		if self.Options.LegionFlameIcon then
+			self:RemoveIcon(args.destName)
+		end
 	end
 end
 
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
-	if (spellId == 66877 or spellId == 67070 or spellId == 67071 or spellId == 67072) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then		-- Legion Flame
-		specWarnFlameGTFO:Show()
-		specWarnFlameGTFO:Play("runaway")
-	elseif (spellId == 66496 or spellId == 68716 or spellId == 68717 or spellId == 68718) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then	-- Fel Inferno
-		specWarnFelInferno:Show()
-		specWarnFelInferno:Play("runaway")
+	if (spellId == 66877 or spellId == 67070 or spellId == 67071 or spellId == 67072 or spellId == 66496 or spellId == 68716 or spellId == 68717 or spellId == 68718) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then	-- Legion Flame / Fel Inferno
+		specWarnGTFO:Show()
+		specWarnGTFO:Play("watchfeet")
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
