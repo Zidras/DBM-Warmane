@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220920005536")
+mod:SetRevision("20230221144717")
 mod:SetCreatureID(33271)
 mod:SetUsedIcons(7, 8)
 
@@ -13,6 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 62662",
 	"SPELL_AURA_REMOVED 62662",
 	"SPELL_INTERRUPT 62661",
+	"UNIT_DIED",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 --	"UNIT_SPELLCAST_START boss1",
 --	"UNIT_SPELLCAST_SUCCEEDED boss1"
@@ -202,6 +203,13 @@ end
 function mod:SPELL_INTERRUPT(args)
 	if args.spellId == 62661 then
 		timerSearingFlamesCast:Stop()
+	end
+end
+
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 33488 then--Saronite Vapor
+		timerHardmode:Stop()
 	end
 end
 
