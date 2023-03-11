@@ -180,7 +180,7 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerCutterSpawn	= "Twilight Cutter spawn"
+	TimerCutterSpawn	= "Twilight Cutter beam"
 })
 
 L:SetOptionLocalization({
