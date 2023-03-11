@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221107192043")
+mod:SetRevision("20230311094922")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -63,6 +63,7 @@ local timerSoulConsumptionCD		= mod:NewNextTimer(20, 74792, nil, nil, nil, 3) --
 local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
+local timerTwilightCutterSpawn		= mod:NewTimer(20, "TimerCutterSpawn", 74769, false, nil, 6, nil, nil, nil, nil, nil, nil, nil, 74769) -- Combines CD + Cast, and disables them too
 local timerShadowBreathCD			= mod:NewCDTimer(13, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~4s variance [13.0-16.9]. Added "keep" arg (25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/23) -- 14.0, 15.9, 13.8, 14.9, 14.3, 13.0 || 15.8, 13.7, 16.9, 15.3
 
 mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Purple diamond for shadow
@@ -263,9 +264,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		if not self.Options.AnnounceAlternatePhase then
 			timerTwilightCutterCD:Cancel()
 			warningTwilightCutter:Show()
-			timerTwilightCutterCast:Start()
 			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
-			timerTwilightCutterCD:Schedule(15)
+			if self.Options.TimerCutterSpawn then
+				timerTwilightCutterSpawn:Schedule(15)
+			else
+				timerTwilightCutterCast:Start()
+				timerTwilightCutterCD:Schedule(15)
+			end
 		end
 		if self:LatencyCheck() then
 			self:SendSync("TwilightCutter")
@@ -278,9 +283,13 @@ function mod:OnSync(msg, target)
 		if self.Options.AnnounceAlternatePhase then -- 2022/10/14: Removed antispam workaround since this has been fixed serverside! (~~Edited to circumvent Warmane double cutter boss emote~~)
 			timerTwilightCutterCD:Cancel()
 			warningTwilightCutter:Show()
-			timerTwilightCutterCast:Start()
 			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
-			timerTwilightCutterCD:Schedule(15)
+			if self.Options.TimerCutterSpawn then
+				timerTwilightCutterSpawn:Schedule(15)
+			else
+				timerTwilightCutterCast:Start()
+				timerTwilightCutterCD:Schedule(15)
+			end
 		end
 	elseif msg == "Meteor" then
 		if self.Options.AnnounceAlternatePhase then
@@ -315,7 +324,11 @@ function mod:OnSync(msg, target)
 		warnPhase2:Play("ptwo")
 		timerShadowBreathCD:Start() -- ~5s variance [13.7-18.4] (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 15.9 || 13.7 || 18.1 || 18.4
 		timerSoulConsumptionCD:Start(22.8)--Edited. not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this. (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25H Lordaeron 2022/10/30) - 23.8 || 23.4 || 22.8
-		timerTwilightCutterCD:Start(30) -- (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/09/21) - Stage 2/30.0 || Stage 2/30.0
+		if self.Options.TimerCutterSpawn then
+			timerTwilightCutterSpawn:Start(35)
+		else
+			timerTwilightCutterCD:Start(30) -- (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/09/21) - Stage 2/30.0 || Stage 2/30.0
+		end
 	elseif msg == "Phase3" and self.vb.phase < 3 then
 		self:SetStage(3)
 		warnPhase3:Show()
