@@ -180,25 +180,29 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarnHuman		= "Human Phase",
-	WarnDemon		= "Demon Phase"
+--	WarnDemon		= "Demon Phase"
 })
 
 L:SetTimerLocalization({
 	TimerNextHuman		= "Next Human Phase",
-	TimerNextDemon		= "Next Demon Phase"
+--	TimerNextDemon		= "Next Demon Phase"
 })
 
 L:SetOptionLocalization({
 	WarnHuman		= "Show warning for Human Phase",
-	WarnDemon		= "Show warning for Demon Phase",
-	TimerNextHuman	= "Show time for Next Human Phase",
-	TimerNextDemon	= "Show time for Demon Human Phase",
-	RangeFrame		= "Show range frame (10 yards) in Phase 3 and 4"
+--	WarnDemon		= "Show warning for Demon Phase",
+	TimerNextHuman	= "Show time for Next Human Phase"
+--	TimerNextDemon	= "Show time for Demon Human Phase"
+--	RangeFrame		= "Show range frame (10 yards) in Phase 3 and 4"
 })
 
 L:SetMiscLocalization({
 	Pull			= "Akama. Your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.",
 	Eyebeam			= "Stare into the eyes of the Betrayer!",
 	Demon			= "Behold the power... of the demon within!",
-	Phase4			= "Is this it, mortals? Is this all the fury you can muster?"
+	Phase4			= "Is this it, mortals? Is this all the fury you can muster?",
+	S1YouAreNotPrepared	= "Stage One: You Are Not Prepared",
+	S2FlamesOfAzzinoth	= "Stage Two: Flames of Azzinoth",
+	S3TheDemonWithin	= "Stage Three: The Demon Within",
+	S4TheLongHunt		= "Stage Four: The Long Hunt"
 })

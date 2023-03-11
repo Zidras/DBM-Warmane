@@ -192,5 +192,9 @@ L:SetMiscLocalization({
 	Pull			= "阿卡玛。你的两面三刀并没有让我感到意外。我早就应该把你和你那些畸形的同胞全部杀掉。",
 	Eyebeam			= "直视背叛者的双眼吧！",
 	Demon			= "感受我体内的恶魔之力吧！",
-	Phase4			= "你们就这点本事吗？这就是你们全部的能耐？"
+	Phase4			= "你们就这点本事吗？这就是你们全部的能耐？",
+	S1YouAreNotPrepared	= "第一阶段：自寻死路",
+	S2FlamesOfAzzinoth	= "第二阶段：埃辛诺斯之焰",
+	S3TheDemonWithin	= "第三阶段：心魔",
+	S4TheLongHunt		= "第四阶段：漫长的追猎"
 })

@@ -180,5 +180,9 @@ L:SetMiscLocalization({
 	Pull			= "아카마, 너의 불충은 그리 놀랍지도 않구나. 너희 흉측한 형제들을 벌써 오래전에 없애버렸어야 했는데...",
 	Eyebeam			= "배신자의 눈을 똑바로 쳐다봐라!",
 	Demon			= "내 안에 깃든... 악마의 힘을 보여주마!",
-	Phase4			= "필멸의 종족들이여, 나에 대한 증오가 고작 이 정도냐?"
+	Phase4			= "필멸의 종족들이여, 나에 대한 증오가 고작 이 정도냐?",
+	S1YouAreNotPrepared	= "1단계: 너흰 아직 준비가 안 됐다",
+	S2FlamesOfAzzinoth	= "2단계: 아지노스의 불꽃",
+	S3TheDemonWithin	= "3단계: 내면의 악마",
+	S4TheLongHunt		= "4단계: 기나긴 사냥"
 })

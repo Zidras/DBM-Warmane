@@ -188,5 +188,9 @@ L:SetMiscLocalization({
 	Pull			= "Akama. Tu hipocresía no me sorprende. Debí acabar contigo y con tus malogrados hermanos hace tiempo.",
 	Eyebeam			= "¡Mirad los ojos del Traidor!",
 	Demon			= "¡Observad el poder...del demonio interior!",--sic
-	Phase4			= "¿Esto es todo, mortales? ¿Es esta toda la furia que podéis reunir?"
+	Phase4			= "¿Esto es todo, mortales? ¿Es esta toda la furia que podéis reunir?",
+	S1YouAreNotPrepared	= "Fase 1: No estáis preparados",
+	S2FlamesOfAzzinoth	= "Fase 2: Las llamas de Azzinoth",
+	S3TheDemonWithin	= "Fase 3: El demonio interior",
+	S4TheLongHunt		= "Fase 4: La gran cacería"
 })

@@ -202,7 +202,6 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerCombatStart	= "Combat starts",--Translate
 	TimerNextHuman		= "Next Обычная Фаза",--Translate
 	TimerNextDemon		= "Next Демона Фаза"--Translate
 })
@@ -214,7 +213,6 @@ L:SetOptionLocalization({
 	WarnHumanSoon	= "Show pre-warning for Human Phase",--Translate
 	WarnDemon		= "Show warning for Demon Phase",--Translate
 	WarnDemonSoon	= "Show pre-warning for Demon Phase",--Translate
-	TimerCombatStart= "Show time for start of combat",--Translate
 	TimerNextHuman	= "Show time for Next Human Phase",--Translate
 	TimerNextDemon	= "Show time for Demon Human Phase",--Translate
 	RangeFrame		= "Show range frame (10 yards) in Phase 3 and 4"--Translate
@@ -225,5 +223,8 @@ L:SetMiscLocalization({
 	Eyebeam			= "Посмотри в глаза Предателя!",
 	Demon			= "Узрите мощь демона!",
 	Phase4			= "Это все, смертные? Это и есть вся ваша ярость?",
-	ParasiteWhisper	= "Shadowfiends on you!"--Translate
+	S1YouAreNotPrepared	= "Stage One: You Are Not Prepared",
+	S2FlamesOfAzzinoth	= "Stage Two: Flames of Azzinoth",
+	S3TheDemonWithin	= "Stage Three: The Demon Within",
+	S4TheLongHunt		= "Stage Four: The Long Hunt"
 })

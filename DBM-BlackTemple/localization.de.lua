@@ -185,4 +185,8 @@ L:SetMiscLocalization({
 	Eyebeam			= "Blickt in die Augen des Verräters!",
 	Demon			= "Erzittert vor der Macht des Dämonen!",
 	Phase4			= "War's das schon, Sterbliche? Ist das alles, was Ihr zu bieten habt?",
+	S1YouAreNotPrepared	= "Phase 1: Ihr wisst nicht, was Euch erwartet",
+	S2FlamesOfAzzinoth	= "Phase 2: Flammen von Azzinoth",
+	S3TheDemonWithin	= "Phase 3: Der innere Dämon",
+	S4TheLongHunt		= "Phase 4: Die lange Jagd"
 })

@@ -184,5 +184,9 @@ L:SetMiscLocalization({
 	Pull			= "阿卡瑪。你的謊言真是老套。我很久前就應該殺了你和你那些畸形的同胞。",
 	Eyebeam			= "直視背叛者的雙眼吧!",
 	Demon			= "感受我體內的惡魔之力吧!",
-	Phase4			= "你們就這點本事嗎?這就是你們全部的能耐?"
+	Phase4			= "你們就這點本事嗎?這就是你們全部的能耐?",
+	S1YouAreNotPrepared	= "階段一：你們還沒準備好",
+	S2FlamesOfAzzinoth	= "階段二：埃辛諾斯火焰",
+	S3TheDemonWithin	= "階段三：體內的惡魔",
+	S4TheLongHunt		= "階段四：長久的狩獵"
 })
