@@ -266,7 +266,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			warningTwilightCutter:Show()
 			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
 			if self.Options.TimerCutterSpawn then
-				timerTwilightCutterSpawn:Update(15, 20)
 				timerTwilightCutterSpawn:Schedule(15)
 			else
 				timerTwilightCutterCast:Start()
@@ -286,7 +285,6 @@ function mod:OnSync(msg, target)
 			warningTwilightCutter:Show()
 			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
 			if self.Options.TimerCutterSpawn then
-				timerTwilightCutterSpawn:Update(15, 20)
 				timerTwilightCutterSpawn:Schedule(15)
 			else
 				timerTwilightCutterCast:Start()
