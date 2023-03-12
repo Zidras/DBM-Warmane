@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925154550")
+mod:SetRevision("20230312134131")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
-mod:SetMinSyncRevision(20220623000000)
+mod:SetHotfixNoticeRev(20230312000000)
+mod:SetMinSyncRevision(20230312000000)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 69195 71219 73031 73032",
@@ -41,7 +42,7 @@ local timerGooCD			= mod:NewCDTimer(10, 72297, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
-mod:AddRangeFrameOption(8, 69240, "Ranged")
+mod:AddRangeFrameOption(10, 69240, "Ranged")
 mod:AddSetIconOption("SetIconOnGasSpore", 69279, true, 7, {1, 2, 3})
 mod:AddBoolOption("AnnounceSporeIcons", false, nil, nil, nil, nil, 69279)
 mod:AddBoolOption("AchievementCheck", false, "announce", nil, nil, nil, 4615, "achievement")
@@ -78,7 +79,7 @@ function mod:OnCombatStart(delay)
 	self.vb.gasSporeCast = 0
 	self.vb.warnedfailed = false
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(8)
+		DBM.RangeCheck:Show(10) -- 9.6y is the shortest distance that it doesn't spread (TC test 12/03/2023); set to 10 for safety
 	end
 	if self:IsHeroic() then
 		timerGooCD:Start(13-delay)
