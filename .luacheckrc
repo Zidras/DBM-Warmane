@@ -30,15 +30,6 @@ ignore = {
 }
 
 globals = {
-	-- compat
-	"tInvert",
-	"Round",
-	"tIndexOf",
-	"IsInGroup",
-	"IsInRaid",
-	"GetNumSubgroupMembers",
-	"GetNumGroupMembers",
-
 	-- Saved Variables
 	"DBM_SavedOptions",
 	"DBM_AllSavedOptions",
@@ -66,32 +57,6 @@ globals = {
 	"DBMKalFrameDrag",
 	"DBMKalFrameDragTitle",
 
-	"nop",
-	"ActorPoolMixin",
-	"ActorPool_Hide",
-	"ActorPool_HideAndClearModel",
-	"CreateActorPool",
-	"CreateFixedSizeFramePoolCollection",
-	"CreateFontStringPool",
-	"CreateForbiddenFrame",
-	"CreateFramePool",
-	"CreateFramePoolCollection",
-	"CreateFromMixins",
-	"CreateObjectPool",
-	"CreateTexturePool",
-	"FixedSizeFramePoolCollectionMixin",
-	"FontStringPoolMixin",
-	"FontStringPool_Hide",
-	"FontStringPool_HideAndClearAnchors",
-	"FramePoolCollectionMixin",
-	"FramePoolMixin",
-	"FramePool_Hide",
-	"FramePool_HideAndClearAnchors",
-	"ObjectPoolMixin",
-	"TexturePoolMixin",
-	"TexturePool_Hide",
-	"TexturePool_HideAndClearAnchors",
-
 	"_G",
 	"bit",
 	"Recount",
@@ -114,14 +79,6 @@ globals = {
 	"LOCALE_ruRU",
 	"LOCALE_zhCN",
 	"LOCALE_zhTW",
-
-	-- Sirus
-	"AnimationsToggle_STARTNUMBERS",
-	"TimerTracker",
-	"TimerTracker_OnEvent",
-	"C_Talent",
-	"TimerFrame",
-	"WorldStateTopCenterFrame",
 
 	-- frames created via CreateFrame
 	"AlwaysUpFrame1",
