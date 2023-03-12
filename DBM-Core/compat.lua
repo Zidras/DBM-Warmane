@@ -5,7 +5,7 @@ local ipairs = ipairs
 local GetNumPartyMembers = GetNumPartyMembers
 local GetNumRaidMembers = GetNumRaidMembers
 
-function tIndexOf(tbl, item)
+local function tIndexOf(tbl, item)
 	for i, v in ipairs(tbl) do
 		if item == v then
 			return i;
@@ -14,22 +14,22 @@ function tIndexOf(tbl, item)
 end
 private.tIndexOf = tIndexOf
 
-function IsInGroup()
+local function IsInGroup()
 	return GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0
 end
 private.IsInGroup = IsInGroup
 
-function IsInRaid()
+local function IsInRaid()
 	return GetNumRaidMembers() > 0
 end
 private.IsInRaid = IsInRaid
 
-function GetNumSubgroupMembers()
+local function GetNumSubgroupMembers()
 	return GetNumPartyMembers()
 end
 private.GetNumSubgroupMembers = GetNumSubgroupMembers
 
-function GetNumGroupMembers()
+local function GetNumGroupMembers()
 	return IsInRaid() and GetNumRaidMembers() or GetNumPartyMembers()
 end
 private.GetNumGroupMembers = GetNumGroupMembers
