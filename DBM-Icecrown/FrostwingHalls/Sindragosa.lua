@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221016092739")
+mod:SetRevision("20230314214210")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 mod:SetHotfixNoticeRev(20221008210000)
@@ -25,7 +25,7 @@ local myRealm = select(3, DBM:GetMyPlayerInfo())
 -- General
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
 
-mod:AddBoolOption("RangeFrame", true) -- keep as BoolOption since the localization offers important information regarding boss ability and player debuff behaviour
+mod:AddBoolOption("RangeFrame", true) -- keep as BoolOption since the localization offers important information regarding boss ability and player debuff behaviour (Unchained Magic is Heroic only)
 mod:AddBoolOption("ClearIconsOnAirphase", true) -- don't group with any spellId, it applies to all raid icons
 
 -- Stage One
@@ -140,7 +140,7 @@ local function warnBeaconTargets(self)
 end
 
 local function warnUnchainedTargets(self)
-	if self.Options.RangeFrame then
+	if self.Options.RangeFrame and self:IsHeroic() then
 		if not playerUnchained then
 			DBM.RangeCheck:Show(21, unchainedDebuffFilter) -- 21.5 yd with new radar calculations. 21 here since radar code adds 0.5 to activeRange
 		else
