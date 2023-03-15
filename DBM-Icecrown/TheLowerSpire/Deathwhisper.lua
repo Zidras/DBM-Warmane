@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 
-mod:SetRevision("20221022085625")
+mod:SetRevision("20230315004412")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -12,7 +12,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 71420 72007 72501 72502 70900 70901 72499 72500 72497 72496",
-	"SPELL_CAST_SUCCESS 71289",
+	"SPELL_CAST_SUCCESS 71289 71204",
 	"SPELL_AURA_APPLIED 71289 71001 72108 72109 72110 71237 70674 71204",
 	"SPELL_AURA_APPLIED_DOSE 71204",
 	"SPELL_AURA_REMOVED 70842 71289",
@@ -80,6 +80,7 @@ local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", t
 local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true) -- SUMMON cleu event is fired much later than UNIT_SPELLCAST_SUCCEEDED (11.0-13.8), and with higher variance too. Initially using CLEU, but switched to UNIT event. ~5s variance for CLEU [9.4-14.1]. Added "keep" arg (10H Lordaeron 2022/10/02) - 9.9, 12.1, 11.7, 14.1, 10.1, 11.1, 11.7, 11.7, 13.1, 12.1, 9.4 ||| Stage 2/11.4, 11.3, 11.6, 11.3, 11.1, 11.1, 11.2, 11.5, 12.0, 11.3, 11.5, 11.7, 11.1, 11.7, 11.9, 11.4, 11.2, 11.7, 11.8, 11.1, 13.8
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
+local timerTouchInsignificanceCD	= mod:NewCDTimer(9.1, 71204, nil, "Tank|Healer", nil, 5) -- REVIEW! 4s variance [9.1-12.9]? (25H Lordaeron [2022-09-14]@[19:18:07]) - "Touch of Insignificance-npc:36855-224 = pull:132.1/Stage 2/6.0, 12.7, 12.2, 9.9, 13.0, 10.9, 9.1, 10.8, 12.1, 10.0, 11.6, 11.2, 10.0, 10.3, 9.2, 11.0, 12.3, 9.3, 12.6, 11.8, 12.9"
 
 local soundWarnSpirit				= mod:NewSound(71426)
 
@@ -348,7 +349,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 71289 then -- Fires 1x/3x on 10/25m
+	local spellId = args.spellId
+	if spellId == 71289 then -- Fires 1x/3x on 10/25m
 		timerDominateMindCD:Restart()
 		DBM:Debug("MC on "..args.destName, 2)
 		if args.destName == UnitName("player") then
@@ -367,6 +369,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 				DBM:Debug("Unequipping", 2)
 			end
 		end
+	elseif spellId == 71204 then -- Touch of Insignificance
+		timerTouchInsignificanceCD:Start()
 	end
 end
 
@@ -415,6 +419,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		timerSummonSpiritCD:Start() -- (25H Lordaeron 2022/10/21) - Stage 2/11.0
+		timerTouchInsignificanceCD:Start(6) -- (25H Lordaeron [2022-09-23]@[20:40:18]) - Stage 2/6.0
 		timerAdds:Cancel()
 		warnAddsSoon:Cancel()
 		self:Unschedule(addsTimer)
