@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230211192817")
+mod:SetRevision("20230319131333")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -39,11 +39,11 @@ mod:AddTimerLine(BOSS)
 local warnFrenzySoon		= mod:NewSoonAnnounce(72737, 2, nil, "Tank|Healer")
 local warnFrenzy			= mod:NewSpellAnnounce(72737, 2, nil, "Tank|Healer")
 local warnBloodNova			= mod:NewSpellAnnounce(72378, 2)
-local warnMark				= mod:NewTargetCountAnnounce(72293, 4, 72293, nil, nil, nil, nil, nil, true)
+local warnMark				= mod:NewTargetCountAnnounce(72293, 4, 72293, nil, 28836, nil, nil, nil, true)
 local warnBoilingBlood		= mod:NewTargetNoFilterAnnounce(72385, 2, nil, "Healer")
 local warnRuneofBlood		= mod:NewTargetNoFilterAnnounce(72410, 3, nil, "Tank|Healer")
 
-local specwarnMark			= mod:NewSpecialWarningTarget(72444, nil, false, nil, 1, 2)
+local specwarnMark			= mod:NewSpecialWarningYou(72444, nil, 28836, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
@@ -184,7 +184,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	if spellId == 72293 then		-- Mark of the Fallen Champion
 		self.vb.Mark = self.vb.Mark + 1
 		warnMark:Show(self.vb.Mark, args.destName)
-		specwarnMark:Show(args.destName)
+		if args:IsPlayer() then
+			specwarnMark:Show()
+			specwarnMark:Play("defensive")
+		end
 	elseif args:IsSpellID(72385, 72441, 72442, 72443) then	-- Boiling Blood
 		if self.Options.BoilingBloodIcons then
 			self:SetIcon(args.destName, self.vb.boilingBloodIcon)
