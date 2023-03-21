@@ -109,7 +109,7 @@ end
 mod:AddMiscLine(L.EqUneqLineDescription)
 mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, selfWarnMissingSet)
 mod:AddBoolOption("EqUneqTimer", false)
-mod:AddBoolOption("BlockWeapons", false)
+mod:AddDropdownOption("EqUneqFilter", {"OnlyDPS", "DPSTank", "NoFilter"}, "OnlyDPS", "misc")
 
 local function selfSchedWarnMissingSet(self)
 	if self.Options.EqUneqWeapons and self:IsHeroic() and not self:IsEquipmentSetAvailable("pve") then
@@ -124,8 +124,19 @@ local function selfSchedWarnMissingSet(self)
 end
 mod:Schedule(0.5, selfSchedWarnMissingSet, mod) -- mod options default values were being read before SV ones, so delay this
 
+local function checkWeaponRemovalSetting(self)
+	if not self.Options.EqUneqWeapons then return false end
+
+	local removalOption = self.Options.EqUneqFilter
+	if removalOption == "OnlyDPS" and self:IsDps() then return true
+	elseif removalOption == "DPSTank" and not self:IsHealer() then return true
+	elseif removalOption == "NoFilter" then return true
+	end
+	return false
+end
+
 local function UnW(self)
-	if self.Options.EqUneqWeapons and not self.Options.BlockWeapons and self:IsEquipmentSetAvailable("pve") then
+	if self:IsEquipmentSetAvailable("pve") then
 		PickupInventoryItem(16)
 		PutItemInBackpack()
 		PickupInventoryItem(17)
@@ -140,7 +151,7 @@ local function UnW(self)
 end
 
 local function EqW(self)
-	if self.Options.EqUneqWeapons and not self.Options.BlockWeapons and self:IsEquipmentSetAvailable("pve") then
+	if self:IsEquipmentSetAvailable("pve") then
 		DBM:Debug("trying to equip pve")
 		UseEquipmentSet("pve")
 		if not self:IsTank() then
@@ -227,7 +238,7 @@ end
 local function showDominateMindWarning(self)
 	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 	timerDominateMind:Start()
-	if (not tContains(dominateMindTargets, UnitName("player")) and self.Options.EqUneqWeapons and self:IsDps()) then
+	if not tContains(dominateMindTargets, UnitName("player")) and checkWeaponRemovalSetting(self) then
 		DBM:Debug("Equipping scheduled")
 		self:Schedule(0.1, EqW, self)
 		self:Schedule(1.7, EqW, self)
@@ -238,7 +249,7 @@ local function showDominateMindWarning(self)
 	end
 	table.wipe(dominateMindTargets)
 	self.vb.dominateMindIcon = 1
-	if self.Options.EqUneqWeapons and self:IsDps() and self.Options.EqUneqTimer then
+	if checkWeaponRemovalSetting(self) and self.Options.EqUneqTimer then
 		self:Schedule(39, UnW, self)
 	end
 end
@@ -304,7 +315,7 @@ function mod:OnCombatStart(delay)
 	self:Schedule(5.5, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(27)	-- REVIEW! 2s variance? (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 28.7 || 27.0
-		if self.Options.EqUneqWeapons and self:IsDps() and self.Options.EqUneqTimer then
+		if checkWeaponRemovalSetting(self) and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
 			self:Schedule(26.5, UnW, self)
 		end
@@ -362,7 +373,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			elseif canVanish then
 				soundSpecWarnDominateMind:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Vanish.ogg")
 			end
-			if self.Options.EqUneqWeapons and self:IsDps() then
+			if checkWeaponRemovalSetting(self) then
 				UnW(self)
 				UnW(self)
 				self:Schedule(0.01, UnW, self)
@@ -432,7 +443,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			DBM.InfoFrame:Hide()
 		end
 	elseif spellId == 71289 then
-		if (args.destName == UnitName("player") or args:IsPlayer()) and self.Options.EqUneqWeapons and self:IsDps() then
+		if (args.destName == UnitName("player") or args:IsPlayer()) and checkWeaponRemovalSetting(self) then
 			self:Schedule(0.1, EqW, self)
 			self:Schedule(1.7, EqW, self)
 			self:Schedule(3.3, EqW, self)
