@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230129122341")
+mod:SetRevision("20230321181352")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -73,7 +73,7 @@ local timerEmpoweredShockVortex	= mod:NewCDTimer(30, 72039, nil, nil, nil, 3, ni
 local soundSpecWarnVortexNear	= mod:NewSoundClose(72037)
 local soundEmpoweredShockV		= mod:NewSound(72039)
 
-mod:AddRangeFrameOption(12, 72037)
+mod:AddRangeFrameOption(12, 72039)
 mod:AddArrowOption("VortexArrow", 72037, true)
 
 -- Prince Taldaram
