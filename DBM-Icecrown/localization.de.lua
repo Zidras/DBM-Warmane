@@ -45,9 +45,8 @@ L:SetOptionLocalization({
 	CCFree						= "+ Entferne $spell:48169 / $spell:48170. Berücksichtige die Widerstände von Zaubern der Schattenschule.",
 	ShortOffensiveProcs			= "+ Entferne offensive Procs, die eine geringe Dauer haben. Empfohlen für die Sicherheit des Schlachtzugs, ohne Auswirkungen auf den Gesamtschaden des Raids",
 	MostOffensiveBuffs			= "+ Entfernt die meisten offensiven Buffs (hauptsächlich für Zauberwirkende und Wilder-Kampf Druiden. Maximale Schlachtzugsicherheit, Maximale Schadensreduktion, benötigt selbstständiges rebuffen/gestaltenwechsel",
-	EqUneqWeapons				= "Be-/Entwaffnen, wenn Gedankenkontrolle auf MICH wirkt. Funktioniert nur, wenn ein Ausrüstungsset mit dem Namen *pve* existiert (mit angelegten Waffen). ",
-	EqUneqTimer					= "Entwaffnen IMMER nach Timer, nicht erst bei Gedankenkontrolle (bei höherer Latenz). Die obere Funktion muss aktiviert sein",
-	BlockWeapons				= "Die Be-/Entwaffnen Funktion komplett ignorieren"
+	EqUneqWeapons				= "Be-/Entwaffnen, wenn $spell:71289 auf MICH wirkt. Funktioniert nur, wenn ein Ausrüstungsset mit dem Namen *pve* existiert (mit angelegten Waffen).",
+	EqUneqTimer					= "Entwaffnen IMMER nach Timer, nicht erst bei Gedankenkontrolle (bei höherer Latenz). Die obere Funktion muss aktiviert sein"
 })
 
 L:SetMiscLocalization({

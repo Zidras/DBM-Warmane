@@ -45,9 +45,8 @@ L:SetOptionLocalization({
 	CCFree						= "+ $spell:48169 / $spell:48170을 제거합니다. 그림자 학교의 주문 저항을 설명합니다.",
 	ShortOffensiveProcs			= "+ 지속 시간이 짧은 공격 절차를 제거합니다. 공격대 피해 출력을 손상시키지 않으면서 공격대 안전을 위해 권장됩니다.",
 	MostOffensiveBuffs			= "+ 대부분의 공격 버프를 제거합니다(주로 캐스터 및 |cFFFF7C0A야성 드루이드|r용). 손상 출력 손실로 최대 레이드 안전 및 자체 버프/변형이 필요합니다!",
-	EqUneqWeapons				= "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.", --Needs Translating
-	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.", --Needs Translating
-	BlockWeapons				= "Completely block the unequip/equip functions above" --Needs Translating
+	EqUneqWeapons				= "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".", --Needs Translating
+	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled." --Needs Translating
 })
 
 L:SetMiscLocalization({
