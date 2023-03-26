@@ -43,9 +43,8 @@ L:SetOptionLocalization({
 	CCFree = "+ 删除$spell:48169 / $spell:48170。考虑到阴影学派中法术的抵抗。",
 	ShortOffensiveProcs = "+ 删除持续时间短的攻击性程序。建议在不影响突击队伤害输出的情况下保证突击队的安全。",
 	MostOffensiveBuffs = "+ 移除大部分攻击性BUFF（主要针对施法者和|cFFFF7C0A野性德鲁伊|r）。在损失伤害输出和需要自我补血/移形换影的情况下，最大限度地保证了突击队的安全！",
-	EqUneqWeapons = "Unequip/equip weapons if MC is cast on you. For equipping to work, create an equipment set called 'pve'.",
-	EqUneqTimer = "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
-	BlockWeapons = "Completely block the unequip/equip functions above"
+	EqUneqWeapons = "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".", --Needs Translating
+	EqUneqTimer = "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled." --Needs Translating
 })
 
 L:SetMiscLocalization({

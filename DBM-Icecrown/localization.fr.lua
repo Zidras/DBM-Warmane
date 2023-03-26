@@ -45,9 +45,8 @@ L:SetOptionLocalization({
 	CCFree						= "+ Supprimer $spell:48169 / $spell:48170. Tient compte des résistances des sorts de l'école de l'ombre.",
 	ShortOffensiveProcs			= "+ Supprimer les procs offensifs qui ont une faible durée. Recommandé pour la sécurité du raid sans compromettre les dégâts du raid.",
 	MostOffensiveBuffs			= "+ Supprimer la plupart des buffs offensifs (principalement pour les Casters et les |cFFFF7C0AFarouche Druide|r). Sécurité maximale pour les raids avec une perte de dégâts et la nécessité de s'auto-rebuffer/shapeshift!",
-	EqUneqWeapons				= "Retire/équipe les armes si le Cntrôle mental est lancé sur vous. Pour que cela fonctionne, créez un set appellé 'pve'.",
-	EqUneqTimer					= "Retire les armes à CHAQUE fois selon le timer (si votre ping est élevé). L'option de dessus doit être active.",
-	BlockWeapons				= "Bloquer complètement la fonction de déséquipement"
+	EqUneqWeapons				= "Retire/équipe les armes si le $spell:71289 est lancé sur vous. Pour que cela fonctionne, créez un set appellé 'pve'.",
+	EqUneqTimer					= "Retire les armes à CHAQUE fois selon le timer (si votre ping est élevé). L'option de dessus doit être active."
 })
 
 L:SetMiscLocalization({
