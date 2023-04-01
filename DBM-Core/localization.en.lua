@@ -6,7 +6,9 @@ L.DEADLY_BOSS_MODS						= "Deadly Boss Mods" -- NO TRANSLATE
 L.DBM									= "DBM" -- NO TRANSLATE
 
 -- April Fools
-local _, month, monthDay = CalendarGetDate()
+-- local _, month, monthDay = CalendarGetDate() -- Returns 0,0 on first client login
+local datetable = date("*t") -- use OS date instead
+local month, monthDay = datetable.month, datetable.day
 if monthDay and month and monthDay == 1 and month == 4 then
 	L.DEADLY_BOSS_MODS					= "Harmless Boss Mods"
 	L.DBM								= "HBM"
