@@ -1,12 +1,13 @@
 DBM_GUI_L = {}
 
 local L = DBM_GUI_L
+local CL = DBM_CORE_L
 
-L.MainFrame = "Deadly Boss Mods"
+L.MainFrame = CL.DEADLY_BOSS_MODS -- NO TRANSLATE
 
-L.DBMWarmane				= "DBM-Warmane by Zidras"
+L.DBMWarmane				= CL.DBM .. "-Warmane by Zidras"
 L.TranslationByPrefix		= "Retail backport by "
-L.TranslationBy			= "Barsoom, Bunny67, Zidras"
+L.TranslationBy				= "Barsoom, Bunny67, Zidras"
 L.Website					= "Visit us on discord at |cFF73C2FBhttps://discord.gg/CyVWDWS|r"
 L.WebsiteButton				= "Website"
 

@@ -3,7 +3,7 @@ if not DBM_GUI_L then DBM_GUI_L = {} end
 
 local L = DBM_GUI_L
 
-L.MainFrame = "Deadly Boss Mods"
+--L.MainFrame = "Deadly Boss Mods"
 
 L.TranslationByPrefix		= "Retail backport von "
 L.TranslationBy			= "Barsoom, Bunny67, Zidras"
