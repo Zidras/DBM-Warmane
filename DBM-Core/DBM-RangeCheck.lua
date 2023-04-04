@@ -1206,6 +1206,7 @@ end
 local restoreRange, restoreFilter, restoreThreshold, restoreReverse
 
 function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse, hideTime, onlySummary, bossUnit)
+	DBM:Debug("Range Frame called. #members: " .. DBM:GetNumRealGroupMembers() .. " ; Options: " .. tostring(DBM.Options.DontShowRangeFrame) .. " + " .. tostring(DBM.Options.SpamSpecInformationalOnly) .. " + " .. (DBM.Options.RangeFrameFrames or "nil") .. "; forceshow: " .. (tostring(forceshow) or "nil"), 3)
 	if (DBM:GetNumRealGroupMembers() < 2 or DBM.Options.DontShowRangeFrame or DBM.Options.SpamSpecInformationalOnly) and not forceshow then
 		return
 	end
@@ -1222,10 +1223,12 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	end
 	local restrictionsActive = DBM:HasMapRestrictions()
 	if (DBM.Options.RangeFrameFrames == "text" or DBM.Options.RangeFrameFrames == "both" or restrictionsActive) and not textFrame:IsShown() then
+		DBM:Debug("Range TEXT frame shown", 3)
 		textFrame:Show()
 	end
 	-- TODO, add check for restricted area here so we can prevent radar frame loading.
 	if not restrictionsActive and (DBM.Options.RangeFrameFrames == "radar" or DBM.Options.RangeFrameFrames == "both") and not radarFrame:IsShown() then
+		DBM:Debug("Range RADAR frame shown", 3)
 		radarFrame:Show()
 	end
 	mainFrame.previousRange = mainFrame.range or range
