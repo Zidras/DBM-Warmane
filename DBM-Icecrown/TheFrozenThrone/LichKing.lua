@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20230218100746")
+mod:SetRevision("20230404224115")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -16,7 +16,8 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 68981 74270 74271 74272 72259 74273 74274 74275 72143 72146 72147 72148 72262 70358 70498 70541 73779 73780 73781 72762 73539 73650 72350 69242 73800 73801 73802",
+--	"SPELL_CAST_START 68981 74270 74271 74272 72259 74273 74274 74275 72143 72146 72147 72148 72262 70358 70498 70541 73779 73780 73781 72762 73539 73650 72350 69242 73800 73801 73802", -- Split into CLEU specific and UNIT_SPELLCAST_START
+	"SPELL_CAST_START 72143 72146 72147 72148 73650 69242 73800 73801 73802", -- CLEU specific
 	"SPELL_CAST_SUCCESS 70337 73912 73913 73914 69409 73797 73798 73799 69200 68980 74325 74326 74327 73654 74295 74296 74297",
 	"SPELL_DISPEL",
 	"SPELL_AURA_APPLIED 28747 72754 73708 73709 73710 73650",
@@ -27,6 +28,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_HEALTH target focus",
 	"UNIT_AURA_UNFILTERED",
 	"UNIT_DIED",
+	"UNIT_SPELLCAST_START boss1",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
@@ -386,38 +388,38 @@ end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
-	if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
-		self:SetStage(self.vb.phase + 0.5) -- Intermission. Use + 0.5 workaround to differentiate between intermissions.
-		self.vb.ragingSpiritCount = 1
-		warnRemorselessWinter:Show()
-		timerPhaseTransition:Start()
-		if self.vb.phase == 1.5 then
-			timerRagingSpiritCD:Start(6, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 6.0 for first intermission
-		else
-			timerRagingSpiritCD:Start(5, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 5.0 for second intermission
-		end
-		warnShamblingSoon:Cancel()
-		timerShamblingHorror:Cancel()
-		timerDrudgeGhouls:Cancel()
-		timerSummonValkyr:Cancel()
-		timerInfestCD:Cancel()
-		soundInfestSoon:Cancel()
-		timerNecroticPlagueCD:Cancel()
-		timerTrapCD:Cancel()
-		timerDefileCD:Cancel()
-		warnDefileSoon:Cancel()
-		warnDefileSoon:CancelVoice()
-		timerSoulreaperCD:Cancel()
-		soundSoulReaperSoon:Cancel()
-		self:RegisterShortTermEvents(
-			"UPDATE_MOUSEOVER_UNIT",
-			"UNIT_TARGET_UNFILTERED"
-		)
-		self:DestroyFrame()
-		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(8)
-		end
-	elseif args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
+	-- if args:IsSpellID(68981, 74270, 74271, 74272) or args:IsSpellID(72259, 74273, 74274, 74275) then -- Remorseless Winter (phase transition start)
+	-- 	self:SetStage(self.vb.phase + 0.5) -- Intermission. Use + 0.5 workaround to differentiate between intermissions.
+	-- 	self.vb.ragingSpiritCount = 1
+	-- 	warnRemorselessWinter:Show()
+	-- 	timerPhaseTransition:Start()
+	-- 	if self.vb.phase == 1.5 then
+	-- 		timerRagingSpiritCD:Start(6, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 6.0 for first intermission
+	-- 	else
+	-- 		timerRagingSpiritCD:Start(5, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 5.0 for second intermission
+	-- 	end
+	-- 	warnShamblingSoon:Cancel()
+	-- 	timerShamblingHorror:Cancel()
+	-- 	timerDrudgeGhouls:Cancel()
+	-- 	timerSummonValkyr:Cancel()
+	-- 	timerInfestCD:Cancel()
+	-- 	soundInfestSoon:Cancel()
+	-- 	timerNecroticPlagueCD:Cancel()
+	-- 	timerTrapCD:Cancel()
+	-- 	timerDefileCD:Cancel()
+	-- 	warnDefileSoon:Cancel()
+	-- 	warnDefileSoon:CancelVoice()
+	-- 	timerSoulreaperCD:Cancel()
+	-- 	soundSoulReaperSoon:Cancel()
+	-- 	self:RegisterShortTermEvents(
+	-- 		"UPDATE_MOUSEOVER_UNIT",
+	-- 		"UNIT_TARGET_UNFILTERED"
+	-- 	)
+	-- 	self:DestroyFrame()
+	-- 	if self.Options.RangeFrame then
+	-- 		DBM.RangeCheck:Show(8)
+	-- 	end
+	if args:IsSpellID(72143, 72146, 72147, 72148) then -- Shambling Horror enrage effect.
 		local shamblingCount = DBM:tIndexOf(shamblingHorrorsGUIDs, args.sourceGUID)
 		warnShamblingEnrage:Show(args.sourceName)
 		specWarnEnrage:Show()
@@ -425,51 +427,51 @@ function mod:SPELL_CAST_START(args)
 		timerEnrageCD:Unschedule(nil, shamblingCount, args.sourceGUID)
 		timerEnrageCD:Start(nil, shamblingCount, args.sourceGUID)
 		timerEnrageCD:Schedule(21, nil, shamblingCount, args.sourceGUID)
-	elseif spellId == 72262 then -- Quake (phase transition end)
-		self.vb.ragingSpiritCount = 0
-		warnQuake:Show()
-		timerRagingSpiritCD:Cancel()
-		self:SetStage(self.vb.phase + 0.5) -- Return back to whole number
-		self:UnregisterShortTermEvents()
-		NextPhase(self) -- keep this after UnregisterShortTermEvents for P2 vehicle events
-		if self.Options.RangeFrame then
-			DBM.RangeCheck:Hide()
-		end
-	elseif spellId == 70358 then -- Drudge Ghouls
-		warnDrudgeGhouls:Show()
-		timerDrudgeGhouls:Start()
-	elseif spellId == 70498 then -- Vile Spirits
-		warnSummonVileSpirit:Show()
-		timerVileSpirit:Start()
-	elseif args:IsSpellID(70541, 73779, 73780, 73781) then -- Infest
-		self.vb.infestCount = self.vb.infestCount + 1
-		warnInfest:Show(self.vb.infestCount)
-		specWarnInfest:Show(self.vb.infestCount)
-		timerInfestCD:Start(nil, self.vb.infestCount+1)
-		soundInfestSoon:Cancel()
-		soundInfestSoon:Schedule(22.5-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
-	elseif spellId == 72762 then -- Defile
-		self.vb.defileCount = self.vb.defileCount + 1
-		self:BossTargetScanner(36597, "DefileTarget", 0.02, 15)
-		warnDefileSoon:Cancel()
-		warnDefileSoon:CancelVoice()
-		warnDefileSoon:Schedule(27, self.vb.defileCount+1)
-		warnDefileSoon:ScheduleVoice(27, "scatter")
-		timerDefileCD:Start(nil, self.vb.defileCount+1)
-	elseif spellId == 73539 then -- Shadow Trap (Heroic)
-		self:BossTargetScanner(36597, "TrapTarget", 0.02, 15)
-		timerTrapCD:Start()
+	-- elseif spellId == 72262 then -- Quake (phase transition end)
+	-- 	self.vb.ragingSpiritCount = 0
+	-- 	warnQuake:Show()
+	-- 	timerRagingSpiritCD:Cancel()
+	-- 	self:SetStage(self.vb.phase + 0.5) -- Return back to whole number
+	-- 	self:UnregisterShortTermEvents()
+	-- 	NextPhase(self) -- keep this after UnregisterShortTermEvents for P2 vehicle events
+	-- 	if self.Options.RangeFrame then
+	-- 		DBM.RangeCheck:Hide()
+	-- 	end
+	-- elseif spellId == 70358 then -- Drudge Ghouls
+	-- 	warnDrudgeGhouls:Show()
+	-- 	timerDrudgeGhouls:Start()
+	-- elseif spellId == 70498 then -- Vile Spirits
+	-- 	warnSummonVileSpirit:Show()
+	-- 	timerVileSpirit:Start()
+	-- elseif args:IsSpellID(70541, 73779, 73780, 73781) then -- Infest
+	-- 	self.vb.infestCount = self.vb.infestCount + 1
+	-- 	warnInfest:Show(self.vb.infestCount)
+	-- 	specWarnInfest:Show(self.vb.infestCount)
+	-- 	timerInfestCD:Start(nil, self.vb.infestCount+1)
+	-- 	soundInfestSoon:Cancel()
+	-- 	soundInfestSoon:Schedule(22.5-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
+	-- elseif spellId == 72762 then -- Defile
+	-- 	self.vb.defileCount = self.vb.defileCount + 1
+	-- 	self:BossTargetScanner(36597, "DefileTarget", 0.02, 15)
+	-- 	warnDefileSoon:Cancel()
+	-- 	warnDefileSoon:CancelVoice()
+	-- 	warnDefileSoon:Schedule(27, self.vb.defileCount+1)
+	-- 	warnDefileSoon:ScheduleVoice(27, "scatter")
+	-- 	timerDefileCD:Start(nil, self.vb.defileCount+1)
+	-- elseif spellId == 73539 then -- Shadow Trap (Heroic)
+	-- 	self:BossTargetScanner(36597, "TrapTarget", 0.02, 15)
+	-- 	timerTrapCD:Start()
 	elseif spellId == 73650 then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
 		timerRestoreSoul:Start()
 		if self.Options.RemoveImmunes then
 			self:Schedule(39.99, RemoveImmunes, self)
 		end
-	elseif spellId == 72350 then -- Fury of Frostmourne
-		self:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
-		self:Stop()
-		self:ClearIcons()
-		timerRoleplay:Start()
+	-- elseif spellId == 72350 then -- Fury of Frostmourne
+	-- 	self:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
+	-- 	self:Stop()
+	-- 	self:ClearIcons()
+	-- 	timerRoleplay:Start()
 	elseif args:IsSpellID(69242, 73800, 73801, 73802) then -- Soul Shriek Raging spirits
 		timerSoulShriekCD:Start(args.sourceGUID)
 	end
@@ -723,6 +725,80 @@ function mod:UNIT_EXITING_VEHICLE(uId)
 	if valkyrTargets[unitName] then -- on Val'kyr passenger drop, it sometimes fires twice in one second succession, so check cache (AntiSpam was a bit too much for this)
 		valkyrTargets[unitName] = nil
 		self:RemoveEntry(unitName)
+	end
+end
+
+function mod:UNIT_SPELLCAST_START(_, spellName)
+	if spellName == GetSpellInfo(68981) then -- Remorseless Winter (phase transition start)
+		self:SetStage(self.vb.phase + 0.5) -- Intermission. Use + 0.5 workaround to differentiate between intermissions.
+		self.vb.ragingSpiritCount = 1
+		warnRemorselessWinter:Show()
+		timerPhaseTransition:Start()
+		if self.vb.phase == 1.5 then
+			timerRagingSpiritCD:Start(6, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 6.0 for first intermission
+		else
+			timerRagingSpiritCD:Start(5, self.vb.ragingSpiritCount) -- Fixed timer, confirmed after log review 2022/09/26: 5.0 for second intermission
+		end
+		warnShamblingSoon:Cancel()
+		timerShamblingHorror:Cancel()
+		timerDrudgeGhouls:Cancel()
+		timerSummonValkyr:Cancel()
+		timerInfestCD:Cancel()
+		soundInfestSoon:Cancel()
+		timerNecroticPlagueCD:Cancel()
+		timerTrapCD:Cancel()
+		timerDefileCD:Cancel()
+		warnDefileSoon:Cancel()
+		warnDefileSoon:CancelVoice()
+		timerSoulreaperCD:Cancel()
+		soundSoulReaperSoon:Cancel()
+		self:RegisterShortTermEvents(
+			"UPDATE_MOUSEOVER_UNIT",
+			"UNIT_TARGET_UNFILTERED"
+		)
+		self:DestroyFrame()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(8)
+		end
+	elseif spellName == GetSpellInfo(72262) then -- Quake (phase transition end)
+		self.vb.ragingSpiritCount = 0
+		warnQuake:Show()
+		timerRagingSpiritCD:Cancel()
+		self:SetStage(self.vb.phase + 0.5) -- Return back to whole number
+		self:UnregisterShortTermEvents()
+		NextPhase(self) -- keep this after UnregisterShortTermEvents for P2 vehicle events
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
+	elseif spellName == GetSpellInfo(70358) then -- Drudge Ghouls
+		warnDrudgeGhouls:Show()
+		timerDrudgeGhouls:Start()
+	elseif spellName == GetSpellInfo(70498) then -- Vile Spirits
+		warnSummonVileSpirit:Show()
+		timerVileSpirit:Start()
+	elseif spellName == GetSpellInfo(70541) then -- Infest
+		self.vb.infestCount = self.vb.infestCount + 1
+		warnInfest:Show(self.vb.infestCount)
+		specWarnInfest:Show(self.vb.infestCount)
+		timerInfestCD:Start(nil, self.vb.infestCount+1)
+		soundInfestSoon:Cancel()
+		soundInfestSoon:Schedule(22.5-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
+	elseif spellName == GetSpellInfo(72762) then -- Defile
+		self.vb.defileCount = self.vb.defileCount + 1
+		self:BossTargetScanner(36597, "DefileTarget", 0.02, 15)
+		warnDefileSoon:Cancel()
+		warnDefileSoon:CancelVoice()
+		warnDefileSoon:Schedule(27, self.vb.defileCount+1)
+		warnDefileSoon:ScheduleVoice(27, "scatter")
+		timerDefileCD:Start(nil, self.vb.defileCount+1)
+	elseif spellName == GetSpellInfo(73539) then -- Shadow Trap (Heroic)
+		self:BossTargetScanner(36597, "TrapTarget", 0.02, 15)
+		timerTrapCD:Start()
+	elseif spellName == GetSpellInfo(72350) then -- Fury of Frostmourne
+		self:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
+		self:Stop()
+		self:ClearIcons()
+		timerRoleplay:Start()
 	end
 end
 
