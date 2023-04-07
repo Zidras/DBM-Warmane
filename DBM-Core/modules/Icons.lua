@@ -87,19 +87,19 @@ do
 			end
 			if CustomIcons then
 				SetRaidTarget(v, startIcon[icon])--do not use SetIcon function again. It already checked in SetSortedIcon function.
-				icon = icon + 1
 				if returnFunc then
 					mod[returnFunc](mod, v, startIcon[icon])--Send icon and target to returnFunc. (Generally used by announce icon targets to raid chat feature)
 				end
+				icon = icon + 1
 			else
 				SetRaidTarget(v, icon)--do not use SetIcon function again. It already checked in SetSortedIcon function.
+				if returnFunc then
+					mod[returnFunc](mod, v, icon)--Send unitId and icon to returnFunc. (Generally used by announce icon targets to raid chat feature)
+				end
 				if descendingIcon then
 					icon = icon - 1
 				else
 					icon = icon + 1
-				end
-				if returnFunc then
-					mod[returnFunc](mod, v, icon)--Send unitId and icon to returnFunc. (Generally used by announce icon targets to raid chat feature)
 				end
 			end
 		end
@@ -288,19 +288,19 @@ do
 			end
 			if CustomIcons then
 				SetRaidTarget(v, startIcon[icon])--do not use SetIcon function again. It already checked in SetSortedIcon function.
-				icon = icon + 1
 				if returnFunc then
 					mod[returnFunc](mod, v, startIcon[icon])--Send icon and target to returnFunc. (Generally used by announce icon targets to raid chat feature)
 				end
+				icon = icon + 1
 			else
 				SetRaidTarget(v, icon)--do not use SetIcon function again. It already checked in SetSortedIcon function.
+				if returnFunc then
+					mod[returnFunc](mod, v, icon)--Send unitId and icon to returnFunc. (Generally used by announce icon targets to raid chat feature)
+				end
 				if descendingIcon then
 					icon = icon - 1
 				else
 					icon = icon + 1
-				end
-				if returnFunc then
-					mod[returnFunc](mod, v, icon)--Send unitId and icon to returnFunc. (Generally used by announce icon targets to raid chat feature)
 				end
 			end
 		end
