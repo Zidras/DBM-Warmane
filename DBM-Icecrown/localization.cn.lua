@@ -25,26 +25,26 @@ L:SetTimerLocalization({
 L:SetWarningLocalization({
 	WarnReanimating = "小怪再活化",
 	WarnAddsSoon = "新的小怪即将到来",
-	SpecWarnVengefulShade = "Vengeful Shade attacking you - Run Away", --creatureid 38222 --Needs translating
-	WeaponsStatus = "Auto Unequipping enabled" --Needs translating
+	SpecWarnVengefulShade = "怨毒之影目标是你 - 快躲开", --creatureid 38222 -- Modified by Emi
+	WeaponsStatus = "自动卸下武器开启" -- Modified by Emi
 })
 
 L:SetOptionLocalization({
 	WarnAddsSoon = "为新的小怪出现显示预先警告",
 	WarnReanimating = "当小怪再活化时显示警告",
 	TimerAdds = "为新的小怪显示计时器",
-	SpecWarnVengefulShade = "Show special warning when you are attacked by Vengeful Shade", --creatureid 38222
-	WeaponsStatus = "Special warning at combat start if unequip/equip function is enabled",
-	ShieldHealthFrame = "Show boss health with a health bar for $spell:70842",
-	SoundWarnCountingMC = "Play a 5 second audio countdown for Mind Control",
+	SpecWarnVengefulShade = "当怨毒之影攻击你时显示特殊警报", -- Modified by Emi
+	WeaponsStatus = "如果卸下/装备武器功能启用，在战斗开始时显示特殊警报", -- Modified by Emi
+	ShieldHealthFrame = "显示 Boss 血条，并为 $spell:70842 显示专门血条", -- Modified by Emi
+	SoundWarnCountingMC = "为心灵控制播放5秒声音倒数", -- Modified by Emi
 --	RemoveDruidBuff = "Remove $spell:48469 / $spell:48470 24 seconds into the fight",
 	RemoveBuffsOnMC = "当$spell:71289对你施法时，移除BUFF。每个选项都是累积的。",
 	Gift = "移除$spell:48469 / $spell:48470。防止$spell:33786抵制的最简单方法。",
-	CCFree = "+ 删除$spell:48169 / $spell:48170。考虑到阴影学派中法术的抵抗。",
-	ShortOffensiveProcs = "+ 删除持续时间短的攻击性程序。建议在不影响突击队伤害输出的情况下保证突击队的安全。",
-	MostOffensiveBuffs = "+ 移除大部分攻击性BUFF（主要针对施法者和|cFFFF7C0A野性德鲁伊|r）。在损失伤害输出和需要自我补血/移形换影的情况下，最大限度地保证了突击队的安全！",
-	EqUneqWeapons = "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".", --Needs Translating
-	EqUneqTimer = "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled." --Needs Translating
+	CCFree = "+ 删除$spell:48169 / $spell:48170。考虑到阴影法术的抵抗。", -- Modified by Emi
+	ShortOffensiveProcs = "+ 删除持续时间短的攻击性程序。建议在不影响突击队伤害输出的情况下保证团队的安全。", -- Modified by Emi
+	MostOffensiveBuffs = "+ 移除大部分攻击性BUFF（主要针对施法者和|cFFFF7C0A野性德鲁伊|r）。在损失伤害输出和需要自我补血/移形换影的情况下，最大限度地保证了团队的安全！", -- Modified by Emi
+	EqUneqWeapons = "如果$spell:71289 对你施放，自动卸下/装备武器。要使这一功能正常工作，请创建一个名为\"pve\"的完整套装（要包含你需要装备的武器）。", -- Modified by Emi
+	EqUneqTimer = "不论目标是否是你，总是按照心控计时卸下/装备武器（建议在高延迟时使用）。必须在前一选项开启的情况下使用。" -- Modified by Emi
 })
 
 L:SetMiscLocalization({
@@ -120,7 +120,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	AnnounceSporeIcons = "公布$spell:69279目标设置的标记到团队频道<br/>(需要团队队长)",
-	AchievementCheck = "公布 '流感疫苗短缺' 成就失败到团队频道<br/>(需助理权限)"
+	AchievementCheck = "公布 '勤通风，多喝水' 成就失败到团队频道<br/>(需助理权限)" -- Modified by Emi
 })
 
 L:SetMiscLocalization({
@@ -145,7 +145,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnOozeSpawn = "为小软泥的出现显示警告",
 	SpecWarnLittleOoze = "当你被小软泥怪盯上时显示特別警告",
-	TankArrow = "Show DBM arrow for Big Ooze kiter (Experimental)" --Needs translating
+	TankArrow = "为软泥坦克显示DBM箭头（测试功能）" -- Modified by Emi
 })
 
 L:SetMiscLocalization({
@@ -182,9 +182,9 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	WarnTargetSwitch = "为转换目标显示警告",
-	WarnTargetSwitchSoon = "为转换目标显示预先警告",
+	WarnTargetSwitchSoon = "为转换目标显示临近警告", -- Modified by Emi
 	TimerTargetSwitch = "为转换目标显示冷却计时器",
-	ActivePrinceIcon = "设置标记在強化的亲王身上(头颅)",
+	ActivePrinceIcon = "在強化的王子身上设置标记(骷髅)", -- Modified by Emi
 	ShadowPrisonMetronome = "播放一个重复的1秒钟的点击声，以避免$spell:72999"
 })
 
@@ -225,15 +225,15 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerPortalsOpen = "传送门开启",
-	TimerPortalsClose = "Portals close", --Needs translating
+	TimerPortalsClose = "传送门关闭", -- Modified by Emi
 	TimerBlazingSkeleton = "下一次炽热骷髅",
 	TimerAbom = "下一次憎恶体 (%s)"
 })
 
 L:SetOptionLocalization({
 	WarnPortalOpen = "当梦魇之门开启时显示警告",
-	TimerPortalsOpen = "当梦魇之门开启时显示计时器",
-	TimerPortalsClose = "Show timer when Nightmare Portals are closed", --Needs translating
+	TimerPortalsOpen = "为梦魇之门开启显示计时器", -- Modified by Emi
+	TimerPortalsClose = "为梦魇之门关闭显示计时器", -- Modified by Emi
 	TimerBlazingSkeleton = "为下一次炽热骷髅出现显示计时器"
 })
 
@@ -270,7 +270,7 @@ L:SetOptionLocalization({
 	AnnounceFrostBeaconIcons = "公布$spell:70126目标设置的标记到团队频道<br/>(需要团队队长)",
 	ClearIconsOnAirphase = "空中阶段前清除所有标记",
 	AssignWarnDirectionsCount = "为 $spell:70126 目标分配方向并在第 2 阶段进行计数",
-	AchievementCheck = "公布 '吃到饱' 成就警告到团队频道<br/>(需助理权限)",
+	AchievementCheck = "公布 '极限' 成就警告到团队频道<br/>(需助理权限)", -- Modified by Emi
 	RangeFrame = "根据最后首领使用的技能跟玩家减益显示动态距离框(10/20码)"
 })
 
@@ -296,31 +296,31 @@ L:SetGeneralLocalization({
 L:SetWarningLocalization({
 	ValkyrWarning = "%s >%s< %s 被抓住了!",
 	SpecWarnYouAreValkd = "你被抓住了",
-	WarnNecroticPlagueJump = "亡域瘟疫跳到>%s<身上",
+	WarnNecroticPlagueJump = "死疽跳到>%s<身上", -- Modified by Emi
 	SpecWarnValkyrLow = "瓦基里安血量低于55%"
 })
 
 L:SetTimerLocalization({
 	TimerRoleplay = "角色扮演",
 	PhaseTransition = "转换阶段",
-	TimerNecroticPlagueCleanse = "净化亡域瘟疫"
+	TimerNecroticPlagueCleanse = "驱散死疽" -- Modified by Emi
 })
 
 L:SetOptionLocalization({
 	TimerRoleplay = "为角色扮演事件显示计时器",
 	WarnNecroticPlagueJump = "提示$spell:73912跳跃后的目标",
-	TimerNecroticPlagueCleanse = "为净化第一次堆叠前的亡域瘟疫显示计时器",
+	TimerNecroticPlagueCleanse = "为驱散第一层死疽显示计时器", -- Modified by Emi
 	PhaseTransition = "为转换阶段显示计时器",
-	ValkyrWarning = "提示谁给瓦基里安影卫抓住了",
-	SpecWarnYouAreValkd = "当你给瓦基里安影卫抓住时显示特別警告",
-	AnnounceValkGrabs = "提示谁被瓦基里安影卫抓住到团队频道<br/>(需开启团队广播及助理权限)",
-	SpecWarnValkyrLow = "当瓦基里安血量低于55%时显示特別警告",
+	ValkyrWarning = "提示谁给瓦格里暗影戒卫者抓住了", -- Modified by Emi
+	SpecWarnYouAreValkd = "当你给瓦格里暗影戒卫者抓住时显示特別警告", -- Modified by Emi
+	AnnounceValkGrabs = "提示谁被瓦格里暗影戒卫者抓住到团队频道<br/>(需开启团队广播及助理权限)", -- Modified by Emi
+	SpecWarnValkyrLow = "当瓦格里血量低于55%时显示特別警告", -- Modified by Emi
 	AnnouncePlagueStack = "提示$spell:73912层数到团队频道 (10层, 10层后每5层提示一次)<br/>(需开启助理权限)",
-	ShowFrame = "Show Val'Kyr Targets frame", --Needs translating
-	FrameClassColor = "Use Class Colors in Val'Kyr Targets frame", --Needs translating
-	FrameUpwards = "Expand Val'Kyr target frame upwards", --Needs translating
-	FrameLocked = "Lock Val'Kyr Targets frame", --Needs translating
-	RemoveImmunes = "Remove immunity spells before exiting Frostmourne room" --Needs translating
+	ShowFrame = "显示瓦格里者抓人框架", -- Modified by Emi
+	FrameClassColor = "在瓦格里者抓人框架中显示职业颜色", -- Modified by Emi
+	FrameUpwards = "瓦格里框架向上生长", -- Modified by Emi
+	FrameLocked = "锁定瓦格里框架", -- Modified by Emi
+	RemoveImmunes = "在离开霜之哀伤时移除无敌类Buff" -- Modified by Emi
 })
 
 L:SetMiscLocalization({
@@ -328,14 +328,14 @@ L:SetMiscLocalization({
 	LKRoleplay = "真的是正义在驱使你吗？我很好奇……",
 	ValkGrabbedIcon = "瓦格里影卫{rt%d}抓住了%s",
 	ValkGrabbed = "瓦格里影卫抓住了%s",
-	PlagueStackWarning = "警告: %s中了%d层亡域瘟疫",
-	AchievementCompleted = ">> 成就成功: %s中了%d层亡域瘟疫 <<",
-	FrameTitle = "Valkyr targets", --Needs translating
-	FrameLock = "Frame Lock", --Needs translating
-	FrameClassColor = "Use Class Colors", --Needs translating
-	FrameOrientation = "Expand upwards", --Needs translating
-	FrameHide = "Hide Frame", --Needs translating
-	FrameClose = "Close", --Needs translating
+	PlagueStackWarning = "警告: %s中了%d层死疽", -- Modified by Emi
+	AchievementCompleted = ">> 成就成功: %s中了%d层死疽 <<", -- Modified by Emi
+	FrameTitle = "瓦格里目标", -- Modified by Emi
+	FrameLock = "框架锁定", -- Modified by Emi
+	FrameClassColor = "显示职业颜色", -- Modified by Emi
+	FrameOrientation = "向上生长", -- Modified by Emi
+	FrameHide = "隐藏框架", -- Modified by Emi
+	FrameClose = "关闭", -- Modified by Emi
 	FrameGUIDesc = "瓦格里框架",
 	FrameGUIMoveMe = "移动瓦格里框架"
 })
@@ -346,7 +346,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("ICCTrash")
 
 L:SetGeneralLocalization({
-	name = "Icecrown Trash"
+	name = "冰冠堡垒小怪" -- Modified by Emi
 })
 
 L:SetWarningLocalization({
