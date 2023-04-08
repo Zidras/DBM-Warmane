@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230404190847")
+mod:SetRevision("20230408182312")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 mod:SetHotfixNoticeRev(20221008210000)
@@ -278,7 +278,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else--Phase 1 air phase, multiple beacons
 			local maxBeacon = self:IsDifficulty("heroic25") and 6 or self:IsDifficulty("normal25") and 5 or 2--Heroic 10 and normal 2 are both 2
 			if self.Options.SetIconOnFrostBeacon then
-				self:SetSortedIcon("roster", 0.3, args.destName, 1, maxBeacon, false, "AnnounceBeaconIcons")
+				self:SetUnsortedIcon(0.3, args.destName, 1, maxBeacon, false, "AnnounceBeaconIcons") -- Unsorted, to match CLEU order, which is the one used for announce object. Roster sorting makes icons not reproducible
 			end
 			self:Unschedule(warnBeaconTargets)
 			if #beaconTargets >= maxBeacon then
