@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20230404224115")
+mod:SetRevision("20230408190838")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -18,7 +18,8 @@ mod:RegisterEvents(
 mod:RegisterEventsInCombat(
 --	"SPELL_CAST_START 68981 74270 74271 74272 72259 74273 74274 74275 72143 72146 72147 72148 72262 70358 70498 70541 73779 73780 73781 72762 73539 73650 72350 69242 73800 73801 73802", -- Split into CLEU specific and UNIT_SPELLCAST_START
 	"SPELL_CAST_START 72143 72146 72147 72148 73650 69242 73800 73801 73802", -- CLEU specific
-	"SPELL_CAST_SUCCESS 70337 73912 73913 73914 69409 73797 73798 73799 69200 68980 74325 74326 74327 73654 74295 74296 74297",
+--	"SPELL_CAST_SUCCESS 70337 73912 73913 73914 69409 73797 73798 73799 69200 68980 74325 74326 74327 73654 74295 74296 74297", -- Split into CLEU relevant and UNIT_SPELLCAST_SUCCEEDED. Most were kept since they rely on CLEU payload
+	"SPELL_CAST_SUCCESS 70337 73912 73913 73914 69409 73797 73798 73799 69200 68980 74325 74326 74327", -- CLEU relevant
 	"SPELL_DISPEL",
 	"SPELL_AURA_APPLIED 28747 72754 73708 73709 73710 73650",
 	"SPELL_AURA_APPLIED_DOSE 70338 73785 73786 73787",
@@ -32,7 +33,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
---TODO, possibly switch to faster less cpu wasting UNIT_TARGET scanning method
+-- switching to faster less cpu wasting UNIT_TARGET scanning method is not reliable, since this event only fires for LK if is target/focus. Such approach would require syncs to minimize risk of not catching the mechanic, with the downside of the performance gain being questionable
 --Shadow Trap UNIT_TARGET looks reliable
 -- "<29.57 21:04:20> [UNIT_SPELLCAST_START] The Lich King(player1) - Summon Shadow Trap - 0.5s [[boss1:Summon Shadow Trap::0:]]", -- [2616]
 -- "<29.57 21:04:20> [DBM_Debug] Boss target scan started for 36597:2:", -- [2617]
@@ -535,18 +536,18 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self.Options.HarvestSoulIcon then
 			self:SetIcon(args.destName, 5, 5)
 		end
-	elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
-		specWarnHarvestSouls:Show()
-		--specWarnHarvestSouls:Play("phasechange")
-		timerHarvestSoulCD:Start(106.1) -- Custom edit to make Harvest Souls timers work again. REVIEW! 1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/11/16) - 106.4, 107.5, 106.5 || 106.1, 106.3, 106.6
-		timerVileSpirit:Cancel()
-		timerSoulreaperCD:Cancel()
-		soundSoulReaperSoon:Cancel()
-		timerDefileCD:Cancel()
-		warnDefileSoon:Cancel()
-		warnDefileSoon:CancelVoice()
-		self:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
-		self:Schedule(50, RestoreWipeTime, self)
+	-- elseif args:IsSpellID(73654, 74295, 74296, 74297) then -- Harvest Souls (Heroic)
+	-- 	specWarnHarvestSouls:Show()
+	-- 	--specWarnHarvestSouls:Play("phasechange")
+	-- 	timerHarvestSoulCD:Start(106.1) -- Custom edit to make Harvest Souls timers work again. REVIEW! 1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/11/16) - 106.4, 107.5, 106.5 || 106.1, 106.3, 106.6
+	-- 	timerVileSpirit:Cancel()
+	-- 	timerSoulreaperCD:Cancel()
+	-- 	soundSoulReaperSoon:Cancel()
+	-- 	timerDefileCD:Cancel()
+	-- 	warnDefileSoon:Cancel()
+	-- 	warnDefileSoon:CancelVoice()
+	-- 	self:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
+	-- 	self:Schedule(50, RestoreWipeTime, self)
 	end
 end
 
@@ -812,6 +813,18 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
 		warnSummonValkyr:Show(self.vb.valkyrWaveCount)
 		timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
+	elseif spellName == GetSpellInfo(73654) then -- Harvest Souls (Heroic)
+		specWarnHarvestSouls:Show()
+		--specWarnHarvestSouls:Play("phasechange")
+		timerHarvestSoulCD:Start(106.1) -- Custom edit to make Harvest Souls timers work again. REVIEW! 1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/11/16) - 106.4, 107.5, 106.5 || 106.1, 106.3, 106.6
+		timerVileSpirit:Cancel()
+		timerSoulreaperCD:Cancel()
+		soundSoulReaperSoon:Cancel()
+		timerDefileCD:Cancel()
+		warnDefileSoon:Cancel()
+		warnDefileSoon:CancelVoice()
+		self:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
+		self:Schedule(50, RestoreWipeTime, self)
 	end
 end
 
