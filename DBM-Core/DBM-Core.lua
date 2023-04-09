@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230409185401"),
+	Revision = parseCurseDate("20230409190510"),
 	DisplayVersion = "10.0.22", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 3, 14) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -424,7 +424,7 @@ local newerVersionPerson, cSyncSender, iconSetRevision, iconSetPerson, loadcIds,
 -- False variables
 local voiceSessionDisabled, statusGuildDisabled, statusWhisperDisabled, targetEventsRegistered, combatInitialized, healthCombatInitialized, watchFrameRestore, bossuIdFound, timerRequestInProgress, encounterInProgress = false, false, false, false, false, false, false, false, false, false
 -- Nil variables
-local currentModProfile, currentSpecID, currentSpecName, currentSpecGroup, pformat, loadOptions, checkWipe, checkBossHealth, checkCustomBossHealth, fireEvent, LastInstanceType, breakTimerStart, AddMsg, delayedFunction, handleSync, savedDifficulty, difficultyText, difficultyIndex, encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex, lastGroupLeader
+local currentModProfileScope, currentModProfileName, currentSpecID, currentSpecName, currentSpecGroup, pformat, loadOptions, checkWipe, checkBossHealth, checkCustomBossHealth, fireEvent, LastInstanceType, breakTimerStart, AddMsg, delayedFunction, handleSync, savedDifficulty, difficultyText, difficultyIndex, encounterDifficulty, encounterDifficultyText, encounterDifficultyIndex, lastGroupLeader
 -- 0 variables
 local dbmToc, cSyncReceived, showConstantReminder, updateNotificationDisplayed, LastGroupSize = 0, 0, 0, 0
 local LastInstanceMapID = -1
@@ -2349,6 +2349,7 @@ function DBM:LoadModOptions(modId, inCombat, first, profileName, profileID)
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
 	local savedStatsName = modId:gsub("-", "").."_SavedStats"
 	local fullname = profileName or self.Options.PerCharacterSettings and playerName.."-"..playerRealm or "Global"
+	currentModProfileScope = fullname
 	self:Debug("using profile namespace " .. fullname, 3)
 	if not currentSpecID or not currentSpecGroup or (currentSpecName or "") == playerClass then
 		self:SetCurrentSpecInfo()
@@ -2463,7 +2464,7 @@ function DBM:LoadModOptions(modId, inCombat, first, profileName, profileID)
 	_G[savedVarsName][fullname] = savedOptions
 	if profileNum > 0 then
 		_G[savedVarsName][fullname]["talent"..profileNum] = currentSpecName
-		currentModProfile = ("%s (%s%d-%s)"):format(fullname, L.SPECIALIZATION, profileNum, currentSpecName) -- Example: Global (Specialization1-Holy)
+		currentModProfileName = ("%s (%s%d-%s)"):format(fullname, L.SPECIALIZATION, profileNum, currentSpecName) -- Example: Global (Specialization1-Holy)
 		self:Debug("LoadModOptions-"..modId..": Finished loading "..(_G[savedVarsName][fullname]["talent"..profileNum] or CL.UNKNOWN))
 	end
 	_G[savedStatsName] = savedStats
@@ -2752,9 +2753,9 @@ function DBM:ClearAllStats(modId)
 end
 
 function DBM:CurrentModProfile()
-	local profile = currentModProfile or "(All)"
+	local profile = currentModProfileName or currentModProfileScope .. " (All)"
 	-- Even though this function is not mod specific, the profile name is applied equally to all loaded mods in ModList.
-	self:Debug("Currently loaded mod profile: " .. profile)
+	self:Debug("Currently loaded mod profile: " .. profile, 3)
 	return profile
 end
 
