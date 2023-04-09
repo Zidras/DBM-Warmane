@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230409161620"),
+	Revision = parseCurseDate("20230409185401"),
 	DisplayVersion = "10.0.22", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 3, 14) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2752,9 +2752,10 @@ function DBM:ClearAllStats(modId)
 end
 
 function DBM:CurrentModProfile()
+	local profile = currentModProfile or "(All)"
 	-- Even though this function is not mod specific, the profile name is applied equally to all loaded mods in ModList.
-	self:Debug("Currently loaded mod profile: " .. currentModProfile)
-	return currentModProfile
+	self:Debug("Currently loaded mod profile: " .. profile)
+	return profile
 end
 
 do
@@ -5220,7 +5221,7 @@ do
 				self:Debug("Scheduled FixCLEU from CombatStart")
 			end
 			-- Debug loaded mod profile and options
-			self:Debug("Loaded Mod profile: " .. currentModProfile, 3)
+			self:Debug("Loaded Mod profile: " .. DBM:CurrentModProfile(), 3)
 			for i, v in pairs(mod.Options) do
 				self:Debug(("Mod Option %s returns %s"):format(i, tostring(v)), 3)
 			end
