@@ -42,6 +42,7 @@
 --
 --
 local L = DBM_GUI_L
+local CL = DBM_CORE_L
 
 DBM_GUI = {
 	tabs	= {},
@@ -505,7 +506,7 @@ do
 						for i = 0, 3 do
 							if optionTable[i] then
 								tinsert(modProfileDropdown, {
-									text	= (i == 0 and charname .. " (" .. ALL .. ")") or charname .. " (" .. L.SPECIALIZATION .. i .. "-" .. (charTable["talent" .. i] or "") .. ")",
+									text	= (i == 0 and charname .. " (" .. ALL .. ")") or charname .. " (" .. CL.SPECIALIZATION .. i .. "-" .. (charTable["talent" .. i] or "") .. ")",
 									value	= charname .. "|" .. tostring(i)
 								})
 							end

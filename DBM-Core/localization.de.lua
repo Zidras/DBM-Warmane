@@ -600,5 +600,6 @@ L.AUTO_SPEEDCLEAR_OPTION_TEXT="Zeige Timer für den schnellsten Clear von %s"
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS		= "Weltboss"
 L.SCENARIO_STAGE			= "Phase %d"
+L.SPECIALIZATION			= "Spezialisierung" -- ID: 22433
 -- EJ
 L.HARD_MODE					= "Schwerer Modus" -- 17220

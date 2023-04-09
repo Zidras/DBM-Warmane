@@ -453,4 +453,3 @@ L.LARGE = "Grande"
 L.SMALL = "Pequeño"
 L.PLAYER_DIFFICULTY6 = "Mítica" -- ID: 24525
 L.PLAYER_DIFFICULTY_TIMEWALKER = "Paseo en el tiempo" -- ID: 25846
-L.SPECIALIZATION = "Especialización" -- ID: 22433

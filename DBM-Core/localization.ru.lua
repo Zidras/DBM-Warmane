@@ -614,5 +614,6 @@ L.WORLD_BUFFS.rendHead			= "Самозванец Ренд Чернорук ме�
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS				= "Босс вне подземелья"
 L.SCENARIO_STAGE					= "%d-й этап"
+L.SPECIALIZATION					= "Специализация" -- ID: 22433
 -- EJ
 L.HARD_MODE							= "Сложный режим" -- 17220

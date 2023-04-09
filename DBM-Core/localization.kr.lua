@@ -587,5 +587,6 @@ L.WORLD_BUFFS.rendHead		= "가짜 대족장 렌드 블랙핸드가 쓰러졌도�
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS		= "야외 우두머리"
 L.SCENARIO_STAGE			= "%d단계"
+L.SPECIALIZATION			= "전문화" -- ID: 22433
 -- EJ
 L.HARD_MODE					= "어려움 모드" -- 17220
