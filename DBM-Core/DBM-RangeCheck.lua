@@ -1206,7 +1206,7 @@ end
 local restoreRange, restoreFilter, restoreThreshold, restoreReverse
 
 function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse, hideTime, onlySummary, bossUnit)
-	DBM:Debug("Range Frame called. #members: " .. DBM:GetNumRealGroupMembers() .. " ; Options: " .. tostring(DBM.Options.DontShowRangeFrame) .. " + " .. tostring(DBM.Options.SpamSpecInformationalOnly) .. " + " .. (DBM.Options.RangeFrameFrames or "nil") .. "; forceshow: " .. (tostring(forceshow) or "nil"), 3)
+	DBM:Debug(("Range Frame called. #members: %d ; Options: %s + %s + %s ; forceshow: %s ; MapRestrictions: %s"):format(DBM:GetNumRealGroupMembers(), tostring(DBM.Options.DontShowRangeFrame), tostring(DBM.Options.SpamSpecInformationalOnly), DBM.Options.RangeFrameFrames or "nil", tostring(forceshow) or "nil", tostring(DBM:HasMapRestrictions())), 3)
 	if (DBM:GetNumRealGroupMembers() < 2 or DBM.Options.DontShowRangeFrame or DBM.Options.SpamSpecInformationalOnly) and not forceshow then
 		return
 	end
