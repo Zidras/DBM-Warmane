@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230407161248"),
+	Revision = parseCurseDate("20230409142720"),
 	DisplayVersion = "10.0.22", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 3, 14) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5208,10 +5208,13 @@ do
 				lastBossEngage[modId..playerRealm] = GetTime()--Update last engage time, that way we ignore our own sync
 				SendWorldSync(self, "WBE", modId.."\t"..playerRealm.."\t"..startHp.."\t8\t"..name)
 			end
-		end
-		if self.Options.FixCLEUOnCombatStart then
-			self:Schedule(0.5, CombatLogClearEntries) -- schedule prevents client crash with DBM:StartCombat function (tested on Leotheras)
-			self:Debug("Scheduled FixCLEU from CombatStart")
+			if self.Options.FixCLEUOnCombatStart then
+				self:Schedule(0.5, CombatLogClearEntries) -- schedule prevents client crash with DBM:StartCombat function (tested on Leotheras)
+				self:Debug("Scheduled FixCLEU from CombatStart")
+			end
+			for i, v in pairs(mod.Options) do
+				self:Debug(("Mod Option %s returns %s"):format(i, tostring(v)), 3)
+			end
 		end
 	end
 
@@ -6929,8 +6932,10 @@ function bossModPrototype:IsEquipmentSetAvailable(setName)
 	setName = setName or 'pve'
 	local _, index = GetEquipmentSetInfoByName(setName)
 	if index then
+		DBM:Debug(setName.. " set found.", 2)
 		return true
 	end
+	DBM:Debug(setName.. " set NOT found.", 2)
 	return false
 end
 
