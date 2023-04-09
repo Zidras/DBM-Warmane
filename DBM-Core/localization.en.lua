@@ -627,5 +627,6 @@ L.WORLD_BUFFS = {
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS					= "World Boss"
 L.SCENARIO_STAGE						= "Stage %d"
+L.SPECIALIZATION						= "Specialization" -- ID: 22433
 -- EJ
 L.HARD_MODE								= "Hard Mode" -- 17220

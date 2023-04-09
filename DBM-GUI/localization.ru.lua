@@ -488,4 +488,3 @@ L.LARGE = "Больше"
 L.SMALL = "Меньше"
 L.PLAYER_DIFFICULTY6 = "Эпохальный" -- ID: 24525
 L.PLAYER_DIFFICULTY_TIMEWALKER = "Путешествие во времени" -- ID: 25846
-L.SPECIALIZATION = "Специализация" -- ID: 22433

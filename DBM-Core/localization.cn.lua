@@ -600,5 +600,6 @@ L.WORLD_BUFFS.rendHead		 = "那个假的酋长，雷德·黑手，已经倒下�
 --Retail Globals
 L.RAID_INFO_WORLD_BOSS		= "世界首领"
 L.SCENARIO_STAGE			= "阶段%d"
+L.SPECIALIZATION			= "专精" -- ID: 22433
 -- EJ
 L.HARD_MODE					= "困难模式" -- 17220
