@@ -8,7 +8,7 @@ if not DBM_CORE_L then DBM_CORE_L = {} end
 
 local L = DBM_CORE_L
 
-L.HOW_TO_USE_MOD					= "欢迎使用" .. L.DBM .. "。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口，并对各个Boss模块进行设置，也可以浏览首领击杀记录。DBM 会自动按你的专精做出相应配置，但是你可以进行微调。"
+L.HOW_TO_USE_MOD					= "欢迎使用" .. L.DBM .. "。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口，并对各个Boss模块进行设置，也可以浏览首领击杀记录。"..L.DBM.." 会自动按你的专精做出相应配置，但是你可以进行微调。"
 L.SILENT_REMINDER					= "提示：" .. L.DBM .. " 正处于静音模式。"
 L.COPY_URL_DIALOG_NEWS				= "阅读最新新闻，请点击下方连接"
 
@@ -39,7 +39,7 @@ L.LOOT_SPEC_REMINDER			= "你当前的人物专精为 %s。你当前的拾取选
 
 L.BIGWIGS_ICON_CONFLICT		= L.DBM .. "检测到你同时开启了Bigwigs,请关闭自动标记以避免冲突。"
 
-L.MOD_AVAILABLE				= L.DBM .. "已经为%s制作了相关模块。你可以在 deadlybossmods.com 或Curse上找到新版本。"
+L.MOD_AVAILABLE				= L.DBM .. "已经为%s制作了相关模块。你可以在 " .. L.UPDATEREMINDER_URL .. "上找到新版本。"
 
 L.COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗-%s正在作战。祝你走运 :)"
@@ -68,7 +68,7 @@ L.TRANSCRIPTOR_LOG_START		= "Transcriptor 记录开启。"
 L.TRANSCRIPTOR_LOG_END		= "Transcriptor 记录关闭。"
 
 L.MOVIE_SKIPPED				= "该场景已被跳过。"
-L.BONUS_SKIPPED				= "DBM已经自动关闭奖励拾取窗口。如果需要的话，3分钟内输入 /dbmbonusroll "
+L.BONUS_SKIPPED				= L.DBM.."已经自动关闭奖励拾取窗口。如果需要的话，3分钟内输入 /dbmbonusroll "
 
 L.AFK_WARNING				= "你在战斗中暂离(百分之%d生命值)。如果你真的没有暂离，动一下或者在'其他功能'中关闭本设置。"
 
@@ -164,7 +164,7 @@ L.WHISPER_SCENARIO_END_KILL_STATS	= "%s已在场景战役-%s的战斗中取得�
 L.WHISPER_SCENARIO_END_WIPE			= "%s在场景战役-%s的战斗中灭团了。"
 L.WHISPER_SCENARIO_END_WIPE_STATS	= "%s在场景战役-%s的战斗中灭团了。该难度下总共失败%d次。"
 
-L.VERSIONCHECK_HEADER		= "DBM - 版本检测"
+L.VERSIONCHECK_HEADER		= L.DBM.." - 版本检测"
 L.VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"--One Boss mod
 L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (%s) & %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s：未安装" .. L.DBM
@@ -199,7 +199,6 @@ L.PIZZA_SYNC_INFO				= "|Hplayer:%1$s|h[%1$s]|h向你发送了一个" .. L.DBM .
 L.PIZZA_CONFIRM_IGNORE			= "是否要在该次游戏连接中屏蔽来自%s的计时条？"
 L.PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <时间（秒）> <文本>"
 
---L.MINIMAP_TOOLTIP_HEADER		= "Deadly Boss Mods"
 L.MINIMAP_TOOLTIP_FOOTER		= "Shift+拖动 / 右键拖动：拖动\nAlt+Shift+拖动：自由拖动"
 
 L.RANGECHECK_HEADER			= "距离监视（%d码）"
@@ -261,7 +260,7 @@ L.SLASHCMD_HELP2				= {
 	"/dbm durability: 检测全团装备耐久度"
 }
 L.TIMER_USAGE	= {
-	"DBM计时器可用命令:",
+	L.DBM.."计时器可用命令:",
 	"-----------------",
 	"/dbm timer <秒> <文本>: 启动一个<文本>为名称，长度为<秒>的计时器。",
 	"/dbm ltimer <秒> <文本>: 启动一个<文本>为名称，长度为<秒>的循环计时器。",
@@ -516,7 +515,8 @@ L.AUTO_YELL_ANNOUNCE_TEXT.combo		= "%s, %%s"
 L.AUTO_YELL_CUSTOM_FADE				= "%s 消失"
 L.AUTO_HUD_OPTION_TEXT				= "为$spell:%s显示HudMap(退休了)"
 L.AUTO_HUD_OPTION_TEXT_MULTI			= "为多个机制显示HudMap(退休了)"
-L.AUTO_NAMEPLATE_OPTION_TEXT			= "为$spell:%s显示姓名面板光环"
+L.AUTO_NAMEPLATE_OPTION_TEXT			= "为$spell:%s显示姓名面板光环，包括兼容插件和"..L.DBM
+L.AUTO_NAMEPLATE_OPTION_TEXT_FORCED		= "为$spell:%s显示姓名面板光环，只包括"..L.DBM
 L.AUTO_RANGE_OPTION_TEXT				= "距离监视(%s码)：$spell:%s"--string used for range so we can use things like "5/2" as a value for that field
 L.AUTO_RANGE_OPTION_TEXT_SHORT		= "距离监视(%s码)"--For when a range frame is just used for more than one thing
 L.AUTO_RRANGE_OPTION_TEXT			= "反转距离监视(%s码)：$spell:%s"--Reverse range frame (green when players in range, red when not)
@@ -546,7 +546,7 @@ L.HUD_INVALID_SELF				= "不能把自己设定成HUD目标"
 L.HUD_INVALID_ICON				= "当使用团队标记作为HUD目标定义时，不能定义一个没有团队标记的目标"
 L.HUD_SUCCESS					= "HUD成功地使用了你的参数启动了。HUD会在%s关闭, 或者输入 '/dbm hud hide'来关闭"
 L.HUD_USAGE	= {
-	"DBM-HudMap 可用命令：",
+	L.DBM.."-HudMap 可用命令：",
 	"-----------------",
 	"/dbm hud <类型> <目标> <持续时间> 新建一个指向玩家的HUD指示器",
 	"变量-类型: arrow, dot, red, blue, green, yellow, icon (请输入英语。需要相应的带团队标记的目标。)",
@@ -559,7 +559,7 @@ L.ARROW_MOVABLE				= "可移动箭头"
 L.ARROW_WAY_USAGE				= "/dway <x> <y>: 新建一个箭头到指定位置 (使用区域地图坐标系)"
 L.ARROW_WAY_SUCCESS			= "输入 '/dbm arrow hide' 隐藏箭头, 或到达位置"
 L.ARROW_ERROR_USAGE	= {
-	"DBM-Arrow 可用命令：",
+	L.DBM.."-Arrow 可用命令：",
 	"-----------------",
 	"/dbm arrow <x> <y> 新建一个箭头到指定位置(使用世界坐标系)",
 	"/dbm arrow map <x> <y> 新建一个箭头到指定位置 (使用区域地图坐标系)",
@@ -582,6 +582,8 @@ L.DUR_CHECKING				= "全团装备耐久度检测请稍后... "
 L.DUR_HEADER					= L.DEADLY_BOSS_MODS .. "- 装备耐久度检测结果"
 L.DUR_ENTRY					= "%s: %d 耐久度 / %s件装备损坏"
 L.DUR_FOOTER					= "未反馈此次检测的团员:%s"
+
+L.OVERRIDE_ACTIVATED			= "本次战斗的配置已经被队长的配置覆盖"
 
 --LDB
 L.LDB_TOOLTIP_HELP1	= "左键 打开" .. L.DBM

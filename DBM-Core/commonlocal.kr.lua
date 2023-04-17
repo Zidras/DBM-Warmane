@@ -6,7 +6,7 @@ local CL = DBM_COMMON_L
 --General
 CL.NONE						= "없음"
 CL.RANDOM					= "무작위"
-CL.UNKNOWN					= "알 수 없음"--UNKNOWN
+CL.UNKNOWN					= "알 수 없음"--UNKNOWN which is "Unknown" (does u vs U matter?)
 CL.NEXT						= "다음 %s"
 CL.COOLDOWN					= "%s 쿨타임"
 CL.INCOMING					= "%s 등장"

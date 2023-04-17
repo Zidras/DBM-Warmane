@@ -3,15 +3,15 @@ if not DBM_CORE_L then DBM_CORE_L = {} end
 
 local L = DBM_CORE_L
 
-L.HOW_TO_USE_MOD					= "Bienvenido a DBM. Escribe '/dbm help' para ver la lista de comandos. Para acceder a la configuración no tienes más que escribir '/dbm'."
-L.SILENT_REMINDER					= "Recordatorio: DBM sigue en modo silencioso."
+L.HOW_TO_USE_MOD					= "Bienvenido a "..L.DBM..". Escribe '/dbm help' para ver la lista de comandos. Para acceder a la configuración no tienes más que escribir '/dbm'."
+L.SILENT_REMINDER					= "Recordatorio: "..L.DBM.." sigue en modo silencioso."
 
 L.LOAD_MOD_ERROR				= "Error al cargar el módulo de %s: %s"
 L.LOAD_MOD_SUCCESS			= "Módulo de '%s' cargado. Para más opciones, como alertas de sonido o notas de aviso personalizadas, escribe '/dbm'."
 L.LOAD_MOD_COMBAT			= "Carga del módulo de '%s' aplazada hasta salir de combate."
 L.LOAD_GUI_ERROR				= "No se ha podido cargar la interfaz: %s"
 L.LOAD_GUI_COMBAT			= "La interfaz no se puede cargar en combate. Se cargará la interfaz al salir de combate. Una vez cargada, podrás iniciar la interfaz en combate."
-L.BAD_LOAD					= "DBM ha detectado que no se ha podido cargar el módulo de esta estancia porque estás en combate. Por favor, escribe '/console reloadui' nada más salir de combate."
+L.BAD_LOAD					= ""..L.DBM.." ha detectado que no se ha podido cargar el módulo de esta estancia porque estás en combate. Por favor, escribe '/console reloadui' nada más salir de combate."
 L.LOAD_MOD_VER_MISMATCH		= "No se ha podido cargar el módulo de %s porque tu módulo de DBM-Core no cumple los requisitos necesarios. Se necesita una versión más reciente."
 L.LOAD_MOD_EXP_MISMATCH		= "No se ha podido cargar el módulo de %s porque está diseñado para una expansión que aún no se encuentra disponible. Este módulo se habilitará automáticamente cuando salga la nueva expansión."
 L.LOAD_MOD_TOC_MISMATCH		= "No se ha podido cargar el módulo de %s porque está diseñado para un parche de WoW que aún no se encuentra disponible. Este módulo se habilitará automáticamente cuando salga dicho parche."
@@ -25,13 +25,13 @@ L.NO_RANGE					= "No se puede usar el radar de distancia en estancias. Se proced
 L.NO_ARROW					= "No se puede usar la flecha en estancias."
 L.NO_HUD						= "No se puede usar el indicador en pantalla en estancias."
 
-L.DYNAMIC_DIFFICULTY_CLUMP	= "DBM ha desactivado el marco de distancia dinámico para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
-L.DYNAMIC_ADD_COUNT			= "DBM ha desactivado los avisos de esbirros para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
-L.DYNAMIC_MULTIPLE			= "DBM ha desactivado varias funciones para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
+L.DYNAMIC_DIFFICULTY_CLUMP	= ""..L.DBM.." ha desactivado el marco de distancia dinámico para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
+L.DYNAMIC_ADD_COUNT			= ""..L.DBM.." ha desactivado los avisos de esbirros para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
+L.DYNAMIC_MULTIPLE			= ""..L.DBM.." ha desactivado varias funciones para este combate debido a la falta de información sobre las diferencias según el número de jugadores."
 
 L.LOOT_SPEC_REMINDER			= "Tu especialización es %s. Tu especialización de botín es %s."
 
-L.BIGWIGS_ICON_CONFLICT		= "DBM ha detectado que tienes habilitados los iconos de banda en BigWigs y DBM. Por favor, desactívalos en uno de los dos addons para evitar conflictos con la configuración de tu líder de banda."
+L.BIGWIGS_ICON_CONFLICT		= ""..L.DBM.." ha detectado que tienes habilitados los iconos de banda en BigWigs y "..L.DBM..". Por favor, desactívalos en uno de los dos addons para evitar conflictos con la configuración de tu líder de banda."
 
 L.MOD_AVAILABLE				= "El módulo de %s está disponible para este contenido. Puedes descargarlo a través de Curse, WoWInterface o deadlybossmods.com."
 
@@ -62,14 +62,14 @@ L.TRANSCRIPTOR_LOG_START		= "Registro de Transcriptor iniciado."
 L.TRANSCRIPTOR_LOG_END		= "Registro de Transcriptor finalizado."
 
 L.MOVIE_SKIPPED				= "Cinemática saltada automáticamente."
-L.BONUS_SKIPPED				= "DBM ha cerrado automáticamente la ventana de bonus de botín. Si quieres abrirla, escribe /dbmbonusroll antes de que pasen 3 minutos."
+L.BONUS_SKIPPED				= ""..L.DBM.." ha cerrado automáticamente la ventana de bonus de botín. Si quieres abrirla, escribe /dbmbonusroll antes de que pasen 3 minutos."
 L.BONUS_EXPIRED				= "Has intentado usar /dbmbonusroll para abrir la ventana de bonus de botín, pero no tienes ninguna tirada pendiente."
 
 L.AFK_WARNING				= "Estás ausente y en combate (%d por cierto de salud restante); se procederá a reproducir un sonido de alerta. Sino estás ausente, quítate el estado o desactiva esta opción en 'Funciones adicionales'."
 
 L.COMBAT_STARTED_AI_TIMER	= "Mi unidad central es un procesador de red neuronal: una máquina capaz de aprender. (Este encuentro usará la nueva IA de temporizadores para generar temporizadores aproximados.)"
 
-L.PROFILE_NOT_FOUND			= "<DBM> Tu perfil actual está corrupto. DBM cargará el perfil 'Default'."
+L.PROFILE_NOT_FOUND			= "<"..L.DBM.."> Tu perfil actual está corrupto. "..L.DBM.." cargará el perfil 'Default'."
 L.PROFILE_CREATED			= "Se ha creado el perfil '%s'."
 L.PROFILE_CREATE_ERROR		= "No se ha podido crear el perfil. El nombre del perfil no es válido."
 L.PROFILE_CREATE_ERROR_D		= "No se ha podido crear el perfil. Ya existe un perfil llamado '%s'."
@@ -78,7 +78,7 @@ L.PROFILE_APPLY_ERROR		= "No se ha podido cambiar de perfil. El perfil '%s' no e
 L.PROFILE_COPIED				= "Se ha copiado el perfil '%s'."
 L.PROFILE_COPY_ERROR			= "No se ha podido copiar el perfil. El perfil '%s' no existe."
 L.PROFILE_COPY_ERROR_SELF	= "No se puede copiar un perfil a sí mismo."
-L.PROFILE_DELETED			= "Se ha borrado el perfil '%s'. DBM cambiará ahora al perfil 'Default'."
+L.PROFILE_DELETED			= "Se ha borrado el perfil '%s'. "..L.DBM.." cambiará ahora al perfil 'Default'."
 L.PROFILE_DELETE_ERROR		= "No se ha podido borrar el perfil. El perfil '%s' no existe."
 L.PROFILE_CANNOT_DELETE		= "No se puede borrar el perfil 'Default'."
 L.MPROFILE_COPY_SUCCESS		= "Se ha copiado la configuración de módulo de %s (especialización %d)."
@@ -160,36 +160,36 @@ L.WHISPER_SCENARIO_END_KILL_STATS	= "¡%s ha completado %s! Tiene %d victorias e
 L.WHISPER_SCENARIO_END_WIPE			= "%s no ha completado %s."
 L.WHISPER_SCENARIO_END_WIPE_STATS	= "%s no ha completado %s. Lo ha intentado sin éxito %d veces en total en esta dificultad."
 
-L.VERSIONCHECK_HEADER		= "Deadly Boss Mods - Versiones"
+L.VERSIONCHECK_HEADER		= ""..L.DEADLY_BOSS_MODS.." - Versiones"
 L.VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"--One Boss mod
 L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (%s) y %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	= "%s: Sin instalar"
-L.VERSIONCHECK_FOOTER		= "Se ha encontrado %d jugador(es) con DBM y %d jugador(es) con BigWigs."
-L.VERSIONCHECK_OUTDATED		= "Los siguientes %d jugadores tienen una versión desfasada de DBM: %s"
-L.YOUR_VERSION_OUTDATED		= "Tu versión de Deadly Boss Mods está desfasada. Por favor, visita ".. L.UPDATEREMINDER_URL .." para descargar la última versión."
-L.VOICE_PACK_OUTDATED		= "A este paquete de voces le faltan sonidos compatibles con esta versión de DBM. No se sustituirán los sonidos de avisos especiales que no tengan sustituto. Por favor, descarga una versión más reciente del paquete de voces o contacta con el autor para informarle de los archivos de sonido que faltan."
+L.VERSIONCHECK_FOOTER		= "Se ha encontrado %d jugador(es) con "..L.DBM.." y %d jugador(es) con BigWigs."
+L.VERSIONCHECK_OUTDATED		= "Los siguientes %d jugadores tienen una versión desfasada de "..L.DBM..": %s"
+L.YOUR_VERSION_OUTDATED		= "Tu versión de "..L.DEADLY_BOSS_MODS.." está desfasada. Por favor, visita ".. L.UPDATEREMINDER_URL .." para descargar la última versión."
+L.VOICE_PACK_OUTDATED		= "A este paquete de voces le faltan sonidos compatibles con esta versión de "..L.DBM..". No se sustituirán los sonidos de avisos especiales que no tengan sustituto. Por favor, descarga una versión más reciente del paquete de voces o contacta con el autor para informarle de los archivos de sonido que faltan."
 L.VOICE_MISSING				= "Tenías seleccionado un paquete de voces que no se ha podido encontrar. Se ha restaurado tu selección a 'Ninguno'. Si crees que se trata de un error, asegúrate de que el paquete de voces se haya instalado correctamente y esté habilitado en la lista de Addons."
-L.VOICE_DISABLED				= "Tienes al menos un paquete de voces de DBM instalado, pero ninguno está activado. Si quieres usar un paquete de voces, asegúrate de que lo has asignado en 'Alertas de voz'. Desinstala los paquetes de voces que tengas sin usar para ocultar este mensaje."
+L.VOICE_DISABLED				= "Tienes al menos un paquete de voces de "..L.DBM.." instalado, pero ninguno está activado. Si quieres usar un paquete de voces, asegúrate de que lo has asignado en 'Alertas de voz'. Desinstala los paquetes de voces que tengas sin usar para ocultar este mensaje."
 L.VOICE_COUNT_MISSING		= "La voz de cuenta atrás %d está asignada a un paquete de voces que no se ha podido encontrar. Se ha restaurado a la configuración por defecto."
 L.BIG_WIGS						= "BigWigs"
 
-L.UPDATEREMINDER_HEADER			= "Tu versión de Deadly Boss Mods está desfasada.\nPuedes descargar la versión %s (%s) aquí: " .. L.UPDATEREMINDER_URL
+L.UPDATEREMINDER_HEADER			= "Tu versión de "..L.DEADLY_BOSS_MODS.." está desfasada.\nPuedes descargar la versión %s (%s) aquí: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER			= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C") .. " para copiar el enlace de descarga en tu portapapeles."
 L.UPDATEREMINDER_FOOTER_GENERIC	= "Pulsa " .. (IsMacClient() and "Cmd-C" or "Ctrl-C") .. " para copiar el enlace en tu portapapeles."
-L.UPDATEREMINDER_DISABLE			= "AVISO: Se ha desactivado Deadly Boss Mods porque tu versión está demasiado desfasada. Con tal de prevenir conflictos con las versiones de otros jugadores, no se podrá volver a activar DBM hasta que lo actualices."
-L.UPDATEREMINDER_HOTFIX			= "Tu versión de DBM actual tiene errores conocidos en este encuentro. Por favor, actualiza a la última versión."
-L.UPDATEREMINDER_HOTFIX_ALPHA	= "Tu versión de DBM actual tiene errores conocidos en este encuentro. Estos errores serán corregidos en la próxima versión (o ya están corregidos en la última versión alfa)."
-L.UPDATEREMINDER_MAJORPATCH		= "AVISO: Se ha desactivado Deadly Boss Mods porque tu versión está demasiado desfasada. Como se trata de un parche de contenido importante, y con tal de prevenir conflictos con las versiones de otros jugadores, no se podrá volver a activar DBM hasta que lo actualices."
-L.VEM							= "AVISO: Estás ejecutando Deadly Boss Mods y Voice Encounter Mods a la vez. DBM no funciona correctamente con esta configuración, y por tanto no se ejecutará."
-L.OUTDATEDPROFILES					= "AVISO: DBM-Profiles no es compatible con esta versión de DBM. Con tal de evitar conflictos, DBM no se ejecutará hasta que desactives o desinstales DBM-Profiles."
-L.OUTDATEDSPELLTIMERS				= "AVISO: DBM-SpellTimers provoca que DBM deje de funcionar. Desactívalo para que DBM funcione correctamente."
-L.OUTDATEDRLT						= "AVISO: DBM-RaidLeadTools provoca que DBM deje de funcionar. DBM-RaidLeadTools ya no es compatible con DBM y debe desactivarse para que este funcione correctamente."
-L.VICTORYSOUND					= "AVISO: DBM-VictorySound no es compatible con esta versión de DBM. Con tal de evitar conflictos, DBM no se ejecutará hasta que desactives o desinstales DBM-VictorySound."
-L.DPMCORE						= "AVISO: Deadly PvP Mods ya no está en desarrollo y no es compatible con esta versión de DBM. Con tal de evitar conflictos, DBM no se ejecutará hasta que borres Deadly PvP Mods."
+L.UPDATEREMINDER_DISABLE			= "AVISO: Se ha desactivado "..L.DEADLY_BOSS_MODS.." porque tu versión está demasiado desfasada. Con tal de prevenir conflictos con las versiones de otros jugadores, no se podrá volver a activar "..L.DBM.." hasta que lo actualices."
+L.UPDATEREMINDER_HOTFIX			= "Tu versión de "..L.DBM.." actual tiene errores conocidos en este encuentro. Por favor, actualiza a la última versión."
+L.UPDATEREMINDER_HOTFIX_ALPHA	= "Tu versión de "..L.DBM.." actual tiene errores conocidos en este encuentro. Estos errores serán corregidos en la próxima versión (o ya están corregidos en la última versión alfa)."
+L.UPDATEREMINDER_MAJORPATCH		= "AVISO: Se ha desactivado "..L.DEADLY_BOSS_MODS.." porque tu versión está demasiado desfasada. Como se trata de un parche de contenido importante, y con tal de prevenir conflictos con las versiones de otros jugadores, no se podrá volver a activar "..L.DBM.." hasta que lo actualices."
+L.VEM							= "AVISO: Estás ejecutando "..L.DEADLY_BOSS_MODS.." y Voice Encounter Mods a la vez. "..L.DBM.." no funciona correctamente con esta configuración, y por tanto no se ejecutará."
+L.OUTDATEDPROFILES					= "AVISO: DBM-Profiles no es compatible con esta versión de "..L.DBM..". Con tal de evitar conflictos, "..L.DBM.." no se ejecutará hasta que desactives o desinstales DBM-Profiles."
+L.OUTDATEDSPELLTIMERS				= "AVISO: DBM-SpellTimers provoca que "..L.DBM.." deje de funcionar. Desactívalo para que "..L.DBM.." funcione correctamente."
+L.OUTDATEDRLT						= "AVISO: DBM-RaidLeadTools provoca que "..L.DBM.." deje de funcionar. DBM-RaidLeadTools ya no es compatible con "..L.DBM.." y debe desactivarse para que este funcione correctamente."
+L.VICTORYSOUND					= "AVISO: DBM-VictorySound no es compatible con esta versión de "..L.DBM..". Con tal de evitar conflictos, "..L.DBM.." no se ejecutará hasta que desactives o desinstales DBM-VictorySound."
+L.DPMCORE						= "AVISO: Deadly PvP Mods ya no está en desarrollo y no es compatible con esta versión de "..L.DBM..". Con tal de evitar conflictos, "..L.DBM.." no se ejecutará hasta que borres Deadly PvP Mods."
 L.DBMLDB							= "AVISO: DBM-LDB está ahora incluido en DBM-Core. Es recomendable que borres la carpeta 'DBM-LDB' de tu carpeta de addons."
-L.DBMLOOTREMINDER				= "AVISO: tienes instalado el módulo de terceros DBM-LootReminder. Este addon ya no es compatible con el cliente de WoW y causa conflictos con los temporizadores de DBM. Es recomendable que lo desinstales."
-L.UPDATE_REQUIRES_RELAUNCH		= "AVISO: Esta actualización de DBM no funcionará correctamente hasta que reinicies el juego. Esta versión contiene nuevos archivos o cambios a los archivos .toc que no pueden recargarse mediante /reload. Es muy probable que DBM no funcione correctamente hasta que reinicies el juego."
-L.OUT_OF_DATE_NAG				= "Tu versión de Deadly Boss Mods está desfasada para este encuentro. Se recomienda que actualices DBM para no perderte ningún aviso, temporizador o indicador crucial para tu grupo de banda."
+L.DBMLOOTREMINDER				= "AVISO: tienes instalado el módulo de terceros DBM-LootReminder. Este addon ya no es compatible con el cliente de WoW y causa conflictos con los temporizadores de "..L.DBM..". Es recomendable que lo desinstales."
+L.UPDATE_REQUIRES_RELAUNCH		= "AVISO: Esta actualización de "..L.DBM.." no funcionará correctamente hasta que reinicies el juego. Esta versión contiene nuevos archivos o cambios a los archivos .toc que no pueden recargarse mediante /reload. Es muy probable que "..L.DBM.." no funcione correctamente hasta que reinicies el juego."
+L.OUT_OF_DATE_NAG				= "Tu versión de "..L.DEADLY_BOSS_MODS.." está desfasada para este encuentro. Se recomienda que actualices "..L.DBM.." para no perderte ningún aviso, temporizador o indicador crucial para tu grupo de banda."
 
 L.MOVABLE_BAR				= "¡Muéveme!"
 
@@ -198,7 +198,7 @@ L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h ha compartido un temporizador d
 L.PIZZA_CONFIRM_IGNORE			= "¿Seguro que quieres ignorar los temporizadores de %s para esta sesión?"
 L.PIZZA_ERROR_USAGE				= "Uso: /dbm [broadcast] timer <seg> <texto>. <seg> debe ser mayor que 1."
 
-L.MINIMAP_TOOLTIP_HEADER		= "Deadly Boss Mods"
+L.MINIMAP_TOOLTIP_HEADER		= L.DEADLY_BOSS_MODS
 L.MINIMAP_TOOLTIP_FOOTER		= "MAYÚS-Clic izquierdo o Clic derecho para mover este botón.\nAlt-MAYÚS-Clic izquierdo para moverlo libremente."
 
 L.RANGECHECK_HEADER			= "Comprobación de distancia (%d m)"
@@ -260,7 +260,7 @@ L.SLASHCMD_HELP2				= {
 	"/dbm durability: Realiza una comprobación de durabilidad a toda la banda."
 }
 L.TIMER_USAGE	= {
-	"DBM timer commands:",
+	""..L.DBM.." timer commands:",
 	"-----------------",
 	"/dbm timer <seg> <texto>: Inicia un temporizador con texto.",
 	"/dbm ltimer <seg> <texto>: Inicia un temporizador que se repite hasta que se cancela.",
@@ -539,7 +539,7 @@ L.HUD_INVALID_SELF			= "No puedes usarte a ti mismo como objetivo."
 L.HUD_INVALID_ICON			= "No se puede usar el tipo icono en un objetivo sin icono."
 L.HUD_SUCCESS				= "Indicador en pantalla realizado con éxito. Expirará en %s o al escribir '/dbm hud hide'."
 L.HUD_USAGE	= {
-	"Uso de DBM-HudMap:",
+	"Uso de "..L.DBM.."-HudMap:",
 	"-----------------",
 	"/dbm hud <tipo> <objetivo> <seg>: Crea un indicador en pantalla que apunta al jugador objetivo durante el tiempo designado.",
 	"Tipos válidos: arrow, dot, red, blue, green, yellow, icon (requiere un objetivo con icono de banda)",
@@ -552,7 +552,7 @@ L.ARROW_MOVABLE					= "Flecha desplazable"
 L.ARROW_WAY_USAGE					= "/dway <x> <y>: Crea una flecha que apunta a una ubicación designada mediante coordenadas locales."
 L.ARROW_WAY_SUCCESS				= "Para ocultar la flecha, escribe '/dbm arrow hide' o alcanza la ubicación designada."
 L.ARROW_ERROR_USAGE	= {
-	"Uso de DBM-Arrow:",
+	"Uso de "..L.DBM.."-Arrow:",
 	"-----------------",
 	"/dbm arrow <x> <y>: Crea una flecha que apunta a una ubicación específica (merdiante coordenadas de mundo).",
 	"/dbm arrow map <x> <y>: Crea una flecha que apunta a una ubicación específica (mediante coordenadas de zona).",
@@ -577,7 +577,7 @@ L.DUR_ENTRY					= "%s: Durabilidad [%d%%] / Piezas rotas [%s]"
 L.LAG_FOOTER					= "Sin respuesta: %s"
 
 --LDB
-L.LDB_TOOLTIP_HELP1	= "Clic izquierdo para abrir DBM"
+L.LDB_TOOLTIP_HELP1	= "Clic izquierdo para abrir "..L.DBM..""
 L.LDB_TOOLTIP_HELP2	= "Clic derecho para el menú de configuración"
 L.SILENTMODE_IS		= "El modo silencioso es "
 

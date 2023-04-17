@@ -7,15 +7,15 @@ L.DBM									= "DBM" -- NO TRANSLATE
 
 -- April Fools
 -- local _, month, monthDay = CalendarGetDate() -- Returns 0,0 on first client login
-local datetable = date("*t") -- use OS date instead
-local month, monthDay = datetable.month, datetable.day
-if monthDay and month and monthDay == 1 and month == 4 then
+local dateTable = date("*t") -- use OS date instead
+if dateTable.day and dateTable.month and dateTable.day == 1 and dateTable.month == 4 then
 	L.DEADLY_BOSS_MODS					= "Harmless Boss Mods"
 	L.DBM								= "HBM"
 end
 
 L.HOW_TO_USE_MOD						= "Welcome to " .. L.DBM .. ". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. " .. L.DBM .. " will setup defaults for your spec, but you may want to fine tune these."
 L.SILENT_REMINDER						= "Reminder: " .. L.DBM .. " is still in silent mode."
+--L.NEWS_UPDATE							= "|h|c11ff1111News|r|h: This update is basically a re-release of 9.1.9 to clear a false malware detection on the hash of the previous file release. Read more about it |Hgarrmission:DBM:news|h|cff3588ff[here]|r|h"
 
 L.COPY_URL_DIALOG_NEWS					= "To read latest news, visit link below"
 
@@ -23,8 +23,13 @@ L.UPDATEREMINDER_URL					= "https://github.com/Zidras/DBM-Warmane/"
 
 L.LOAD_MOD_ERROR						= "Error while loading boss mods for %s: %s"
 L.LOAD_MOD_SUCCESS						= "Loaded '%s' mods. For more options such as custom alert sounds and personalized warning notes, type /dbm."
+-- L.LOAD_MOD_COMBAT						= "Loading of '%s' delayed until you leave combat"
 L.LOAD_GUI_ERROR						= "Could not load GUI: %s"
+-- L.LOAD_GUI_COMBAT						= "GUI cannot be initially loaded in combat. GUI will be loaded out of combat. After GUI loaded, you can open GUI in combat."
 L.BAD_LOAD								= L.DBM .. " has detected your mod for this instance failed to fully load correctly because of combat. As soon as you are out of combat, please do /console reloadui as soon as possible."
+L.LOAD_MOD_VER_MISMATCH					= "%s could not be loaded because your DBM-Core does not meet requirements. An updated version is required"
+L.LOAD_MOD_EXP_MISMATCH					= "%s could not be loaded because it is designed for a WoW expansion that's not currently available. When expansion becomes available, this mod will automatically work."
+L.LOAD_MOD_TOC_MISMATCH					= "%s could not be loaded because it is designed for a WoW patch (%s) that's not currently available. When patch becomes available, this mod will automatically work."
 L.LOAD_MOD_DISABLED						= "%s is installed but currently disabled. This mod will not be loaded unless you enable it."
 L.LOAD_MOD_DISABLED_PLURAL				= "%s are installed but currently disabled. These mods will not be loaded unless you enable them."
 
@@ -34,6 +39,12 @@ L.NO_RANGE								= "Range Radar can not be used in instances with no map suppor
 L.NO_ARROW								= "Arrow can not be used in instances with no map support (download a map patch or deal with it)"
 L.NO_HUD								= "HUDMap can not be used in instances with no map support (download a map patch or deal with it)"
 
+-- L.DYNAMIC_DIFFICULTY_CLUMP				= L.DBM .. " has disabled dynamic range frame on this fight do to insufficient information about number of players needed to affect clump check for a group of your size."
+-- L.DYNAMIC_ADD_COUNT						= L.DBM .. " has disabled add count warnings on this fight do to insufficient information about number of adds that spawn for a group of your size."
+-- L.DYNAMIC_MULTIPLE						= L.DBM .. " has disabled multiple features on this fight do to insufficient information about certain mechanics for a group of your size."
+
+-- L.LOOT_SPEC_REMINDER					= "Your current spec is %s. Your current loot choice is %s."
+
 L.BIGWIGS_ICON_CONFLICT					= L.DBM .. " has detected that you have raid icons turned on in both BigWigs and " .. L.DBM .. ". Please disable icons in one of them to avoid conflicts"
 
 L.MOD_AVAILABLE							= "%s is available for this zone. You can find download on " .. L.UPDATEREMINDER_URL
@@ -41,6 +52,8 @@ L.MOD_AVAILABLE							= "%s is available for this zone. You can find download on
 L.COMBAT_STARTED						= "%s engaged. Good luck and have fun! :)"
 L.COMBAT_STARTED_IN_PROGRESS			= "Engaged an in progress fight against %s. Good luck and have fun! :)"
 L.GUILD_COMBAT_STARTED					= "%s has been engaged by %s's guild group"
+-- L.SCENARIO_STARTED						= "%s started. Good luck and have fun! :)"
+-- L.SCENARIO_STARTED_IN_PROGRESS			= "Joined %s a scenario that's in progress. Good luck and have fun! :)"
 L.BOSS_DOWN								= "%s down after %s!"
 L.BOSS_DOWN_I							= "%s down! You have %d total victories."
 L.BOSS_DOWN_L							= "%s down after %s! Your last kill took %s and your fastest kill took %s. You have %d total victories."
@@ -49,14 +62,21 @@ L.RAID_DOWN								= "%s cleared after %s!"
 L.RAID_DOWN_L							= "%s cleared after %s! Your fastest clear took %s."
 L.RAID_DOWN_NR							= "%s cleared after %s! This is a new record! (Old record was %s)."
 L.GUILD_BOSS_DOWN						= "%s has been defeated by %s's guild group after %s!"
+-- L.SCENARIO_COMPLETE						= "%s completed after %s!"
+-- L.SCENARIO_COMPLETE_I					= "%s completed! You have %d total clears."
+-- L.SCENARIO_COMPLETE_L					= "%s completed after %s! Your last clear took %s and your fastest clear took %s. You have %d total clears."
+-- L.SCENARIO_COMPLETE_NR					= "%s completed after %s! This is a new record! (Old record was %s). You have %d total clears."
 L.COMBAT_ENDED_AT						= "Combat against %s (%s) ended after %s."
 L.COMBAT_ENDED_AT_LONG					= "Combat against %s (%s) ended after %s. You have %d total wipe(s) on this difficulty."
 L.GUILD_COMBAT_ENDED_AT					= "%s's Guild group has wiped on %s (%s) after %s."
+-- L.SCENARIO_ENDED_AT						= "%s ended after %s."
+-- L.SCENARIO_ENDED_AT_LONG				= "%s ended after %s. You have %d total incompletes on this difficulty."
 L.COMBAT_STATE_RECOVERED				= "%s was engaged %s ago, recovering timers... "
 L.TRANSCRIPTOR_LOG_START				= "Transcriptor logging started."
 L.TRANSCRIPTOR_LOG_END					= "Transcriptor logging ended."
 
 L.MOVIE_SKIPPED							= L.DBM .. " has attempted to skip a cut scene automatically."
+-- L.BONUS_SKIPPED							= L.DBM .. " has automatically closed bonus loot frame. If you need to get this frame back, type /dbmbonusroll within 3 minutes"
 
 L.AFK_WARNING							= "You are AFK and in combat (%d percent health remaining), firing sound alert. If you are not AFK, clear your AFK flag or disable this option in 'extra features'."
 
@@ -85,6 +105,7 @@ L.MPROFILE_DELETE_SELF_ERROR			= "Cannot delete mod settings currently in use."
 L.MPROFILE_DELETE_S_ERROR				= "Source is corrupted. Settings not deleted or partly deleted. Delete failed."
 
 L.NOTE_SHARE_SUCCESS					= "%s has shared their note for %s"
+-- L.NOTE_SHARE_LINK						= "Click Here to Open Note"
 L.NOTE_SHARE_FAIL						= "%s attempted to share note text with you for %s. However, mod associated with this ability is not installed or is not loaded. If you need this note, make sure you load the mod they are sharing notes for and ask them to share again"
 
 L.NOTEHEADER							= "Enter your note text here for %s. Enclosing a players name with >< class colors it. For alerts with multiple counts, separate notes with '/'"
@@ -146,6 +167,12 @@ L.WHISPER_COMBAT_END_KILL				= "%s has defeated %s!"
 L.WHISPER_COMBAT_END_KILL_STATS			= "%s has defeated %s! They have %d total victories."
 L.WHISPER_COMBAT_END_WIPE_AT			= "%s has wiped on %s at %s"
 L.WHISPER_COMBAT_END_WIPE_STATS_AT		= "%s has wiped on %s at %s. They have %d total wipes on this difficulty."
+--Scenarios (no percents. words like "fighting" or "wipe" changed to better fit scenarios)
+-- L.AUTO_RESPOND_WHISPER_SCENARIO			= "%s is busy in %s (%d/%d people alive)"
+-- L.WHISPER_SCENARIO_END_KILL				= "%s has completed %s!"
+-- L.WHISPER_SCENARIO_END_KILL_STATS		= "%s has completed %s! They have %d total victories."
+-- L.WHISPER_SCENARIO_END_WIPE				= "%s did not complete %s"
+-- L.WHISPER_SCENARIO_END_WIPE_STATS		= "%s did not complete %s. They have %d total incompletes on this difficulty."
 
 L.VERSIONCHECK_HEADER					= "Boss Mod - Versions"
 L.VERSIONCHECK_ENTRY					= "%s: %s (%s) %s"--One Boss mod
@@ -163,9 +190,19 @@ L.BIG_WIGS								= "BigWigs"
 L.UPDATEREMINDER_HEADER					= "Your version of " .. L.DEADLY_BOSS_MODS.. " is out-of-date.\n Version %s (%s) is available for download here: " .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER					= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 L.UPDATEREMINDER_FOOTER_GENERIC			= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
-L.UPDATEREMINDER_DISABLE				= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being too out of date, it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
+L.UPDATEREMINDER_DISABLE				= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being out of date and incompatible with newer versions of DBM, it has been force disabled and cannot be used until updated. This is to ensure incompatible mods do not cause poor play experience for yourself or fellow group members."
+L.UPDATEREMINDER_DISABLETEST			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being out of date and this being a test/beta realm, it has been force disabled and cannot be used until updated. This is to ensure out of date mods aren't being used to generate test feedback"
 L.UPDATEREMINDER_HOTFIX					= L.DBM .. " version you are on has known issues during this boss encounter that are corrected if you update to latest release"
 L.UPDATEREMINDER_HOTFIX_ALPHA			= L.DBM .. " version you are on has known issues during this boss encounter that are corrected in an upcoming release (or latest alpha version)"
+L.UPDATEREMINDER_MAJORPATCH				= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being out of date, " .. L.DBM .. " has been disabled until updated, since this is a major game patch. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow group members. Make sure you download a newer version from Curse, Wago, WoWI, or from GitHub Releases page as soon as possible."
+-- L.VEM									= "WARNING: You are running both " .. L.DEADLY_BOSS_MODS.. " and Voice Encounter Mods. DBM will not run in this configuration and therefore will not be loaded."
+-- L.OUTDATEDPROFILES						= "WARNING: DBM-Profiles not compatible with this version of " .. L.DBM .. ". It must be removed before DBM can proceed, to avoid conflict."
+-- L.OUTDATEDSPELLTIMERS					= "WARNING: DBM-SpellTimers breaks " .. L.DBM .. " and must be disabled for " .. L.DBM .. " to function properly."
+-- L.OUTDATEDRLT							= "WARNING: DBM-RaidLeadTools breaks " .. L.DBM .. ". DBM-RaidLeadTools is no longer supported and must be removed for " .. L.DBM .. " to function properly."
+-- L.VICTORYSOUND							= "WARNING: DBM-VictorySound is not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
+-- L.DPMCORE								= "WARNING: Deadly PvP mods is discontinued and not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
+-- L.DBMLDB								= "WARNING: DBM-LDB is now built into DBM-Core. While it won't do any harm, it's recommended to remove 'DBM-LDB' from your addons folder"
+-- L.DBMLOOTREMINDER						= "WARNING: 3rd party mod DBM-LootReminder is installed. This addon is no longer compatible with Retail WoW client and will cause " .. L.DBM .. " to break and not be able to send pull timers. Uninstall of this addon recommended"
 L.UPDATE_REQUIRES_RELAUNCH				= "WARNING: This " .. L.DBM .. " update will not work correctly if you don't fully restart your game client. This update contains new files or .toc file changes that cannot be loaded via ReloadUI. You may encounter broken functionality or errors if you continue without a client restart."
 L.OUT_OF_DATE_NAG						= "Your version of " .. L.DBM.. " is out-of-date and this specific fight mod has newer features or bug fixes. It is recommended you update for this fight to improve your experience."
 
@@ -176,7 +213,7 @@ L.PIZZA_CONFIRM_IGNORE					= "Do you really want to ignore " .. L.DBM .. " timer
 L.PIZZA_ERROR_USAGE						= "Usage: /dbm [broadcast] timer <time> <text>"
 
 L.MINIMAP_TOOLTIP_HEADER				= L.DEADLY_BOSS_MODS --Technically redundant
-L.MINIMAP_TOOLTIP_FOOTER				= "Shift+click or right-click to move\nAlt+shift+click for free drag and drop"
+L.MINIMAP_TOOLTIP_FOOTER				= "Drag to move"
 
 L.RANGECHECK_HEADER						= "Range Check (%d yd)"
 L.RANGECHECK_HEADERT					= "Range Check (%dy-%dP)"
@@ -206,7 +243,6 @@ L.RANGERADAR_BOSS_HEADER				= "Boss Range (%d yd)"
 L.RANGERADAR_IN_RANGE_TEXT				= "%d in range (%0.1f yd)"--Multi
 L.RANGECHECK_IN_RANGE_TEXT				= "%d in range"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways
 L.RANGERADAR_IN_RANGE_TEXTONE			= "%s (%0.1f yd)"--One target
-L.RANGE_CHECK_ZONE_UNSUPPORTED			= "A %d yard range check is not supported in this zone.\nSupported ranges are 10, 11, 15 and 28 yard."
 
 L.LOCK_FRAME							= "Frame Locked"
 L.INFOFRAME_SHOW_SELF					= "Always show your power"		-- Always show your own power value even if you are below the threshold
@@ -248,7 +284,7 @@ L.TIMER_USAGE							= {
 	"/dbm timer <sec> <text>: Starts a <sec> second timer with your <text>.",
 	"/dbm ltimer <sec> <text>: Starts a timer that also automatically loops until canceled.",
 	"/dbm broadcast timer <x> <text>: Broadcasts a <x> second DBM Timer with the name <text> to the raid (requires leader/promoted status).",
-	"('Broadcast' in front of any timer also shares it with raid if leader/promoted)",
+	"('Broadcast' in front of the 'timer' or 'ltimer' also shares it with raid if leader/promoted)",
 	"/dbm timer endloop: Stops any looping ltimer.",
 	"/dbm break <min>: Starts a break timer for <min> minutes. Gives all raid members with DBM a break timer (requires leader/promoted status)."
 }
@@ -319,7 +355,7 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 	addsleft							= "Announce how many $spell:%s remain",
 	cast								= "Announce when $spell:%s begins casting",
 	soon								= prewarnOption,
-	sooncount							= "Show pre-warning (with count) for $spell:%s",
+	sooncount							= "Show pre-warning (with count) for $spell:%s", -- deviation from retail, since count should be described in the UI
 	countdown							= "Show pre-warning countdown spam for $spell:%s",
 	prewarn								= prewarnOption,
 	bait								= "Show pre-warning (to bait) for $spell:%s",
@@ -333,6 +369,8 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 
 L.AUTO_SPEC_WARN_TEXTS = {
 	spell								= "%s!",
+	incoming							= "%s incoming debuff",
+	incomingcount						= "%s incoming debuff (%%s)",
 	ends								= "%s ended",
 	fades								= "%s faded",
 	soon								= "%s soon",
@@ -365,6 +403,7 @@ L.AUTO_SPEC_WARN_TEXTS = {
 	soakcount							= "%s - soak %%s",
 	jump								= "%s - jump",
 	run									= "%s - run away",
+	runcount							= "%s - run away (%%s)",
 	cast								= "%s - stop casting",
 	lookaway							= "%s on %%s - look away",
 	reflect								= "%s on >%%s< - stop attacking",
@@ -382,22 +421,24 @@ L.AUTO_SPEC_WARN_TEXTS = {
 -- Auto-generated Special Warning Localizations
 L.AUTO_SPEC_WARN_OPTIONS = {
 	spell								= "Show special announce for $spell:%s",
+	incoming							= "Show special announce for incoming $spell:%s debuffs",
+	incomingcount						= "Show special announce (with count) for incoming $spell:%s debuffs",
 	ends								= "Show special announce when $spell:%s has ended",
 	fades								= "Show special announce when $spell:%s has faded",
 	soon								= "Show pre-special announce for $spell:%s",
 	sooncount							= "Show pre-special announce (with count) for $spell:%s",
 	bait								= "Show pre-special announce (to bait) for $spell:%s",
-	prewarn							= "Show pre-special announce %s seconds before $spell:%s",
+	prewarn								= "Show pre-special announce %s seconds before $spell:%s",
 	dispel								= "Show special announce to dispel/spellsteal $spell:%s",
 	interrupt							= "Show special announce to interrupt $spell:%s",
 	interruptcount						= "Show special announce (with count) to interrupt $spell:%s",
-	you								= "Show special announce when you are affected by $spell:%s",
+	you									= "Show special announce when you are affected by $spell:%s",
 	youcount							= "Show special announce (with count) when you are affected by $spell:%s",
 	youpos								= "Show special announce (with position) when you are affected by $spell:%s",
 	youposcount							= "Show special announce (with position and count) when you are affected by $spell:%s",
 	soakpos								= "Show special announce (with position) to help soak others affected by $spell:%s",
 	target								= "Show special announce when someone is affected by $spell:%s",
-	targetcount						= "Show special announce (with count) when someone is affected by $spell:%s",
+	targetcount							= "Show special announce (with count) when someone is affected by $spell:%s",
 	defensive							= "Show special announce to use defensive abilites for $spell:%s",
 	taunt								= "Show special announce to taunt when other tank affected by $spell:%s",
 	close								= "Show special announce when someone close to you is affected by $spell:%s",
@@ -413,10 +454,11 @@ L.AUTO_SPEC_WARN_OPTIONS = {
 	soak								= "Show special announce to soak for $spell:%s",
 	soakcount							= "Show special announce (with count) to soak for $spell:%s",
 	jump								= "Show special announce to move to jump for $spell:%s",
-	run								= "Show special announce to run away from $spell:%s",
+	run									= "Show special announce to run away from $spell:%s",
+	runcount							= "Show special announce (with count) to run away from $spell:%s",
 	cast								= "Show special announce to stop casting for $spell:%s",--Spell Interrupt
 	lookaway							= "Show special announce to look away for $spell:%s",
-	reflect							= "Show special announce to stop attacking $spell:%s",--Spell Reflect
+	reflect								= "Show special announce to stop attacking $spell:%s",--Spell Reflect
 	count								= "Show special announce (with count) for $spell:%s",
 	stack								= "Show special announce when you are affected by >=%d stacks of $spell:%s",
 	switch								= "Show special announce to switch targets for $spell:%s",
@@ -538,8 +580,8 @@ L.AUTO_YELL_CUSTOM_POSITION2			= "{rt%d}%s{rt%d}"--Doesn't need translating. Has
 L.AUTO_YELL_CUSTOM_FADE					= "%s faded"
 L.AUTO_HUD_OPTION_TEXT					= "Show HudMap for $spell:%s (Retired)"
 L.AUTO_HUD_OPTION_TEXT_MULTI			= "Show HudMap for various mechanics (Retired)"
-L.AUTO_NAMEPLATE_OPTION_TEXT			= "Show Nameplate Auras for $spell:%s using compatible nameplate addon or DBM"
-L.AUTO_NAMEPLATE_OPTION_TEXT_FORCED		= "Show Nameplate Auras for $spell:%s using only DBM"
+L.AUTO_NAMEPLATE_OPTION_TEXT			= "Show Nameplate Auras for $spell:%s using compatible nameplate addon or "..L.DBM
+L.AUTO_NAMEPLATE_OPTION_TEXT_FORCED		= "Show Nameplate Auras for $spell:%s using only "..L.DBM
 L.AUTO_RANGE_OPTION_TEXT				= "Show range frame (%s) for $spell:%s"--string used for range so we can use things like "5/2" as a value for that field
 L.AUTO_RANGE_OPTION_TEXT_SHORT			= "Show range frame (%s)"--For when a range frame is just used for more than one thing
 L.AUTO_RRANGE_OPTION_TEXT				= "Show reverse range frame (%s) for $spell:%s"--Reverse range frame (green when players in range, red when not)
@@ -579,6 +621,7 @@ L.ARROW_ERROR_USAGE						= {
 
 L.SPEED_KILL_TIMER_TEXT					= "Record Victory"
 L.SPEED_CLEAR_TIMER_TEXT				= "Best Clear"
+--L.COMBAT_RES_TIMER_TEXT					= "Next CR Charge"
 L.TIMER_RESPAWN							= "%s Respawn"
 
 L.REQ_INSTANCE_ID_PERMISSION			= "%s requested to see your current instance IDs and progress.\nDo you want to send this information to %s? He or she will be able to request this information during your current session (i. e. until you relog)."
@@ -607,6 +650,8 @@ L.DUR_CHECKING							= "Checking raid Durability... "
 L.DUR_HEADER							= L.DEADLY_BOSS_MODS.. " - Durability Results"
 L.DUR_ENTRY								= "%s: Durability [%d percent] / Gear broken [%s]"
 L.LAG_FOOTER							= "No Response: %s"
+
+L.OVERRIDE_ACTIVATED					= "Configuration overrides have been activated for this encounter by RL"
 
 --LDB
 L.LDB_TOOLTIP_HELP1						= "Click to open " .. L.DBM

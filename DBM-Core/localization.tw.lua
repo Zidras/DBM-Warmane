@@ -3,8 +3,10 @@ if not DBM_CORE_L then DBM_CORE_L = {} end
 
 local L = DBM_CORE_L
 
-L.HOW_TO_USE_MOD				= "歡迎使用"..L.DBM.."。在聊天頻道輸入 /dbm 打開設定開始設定。你可以載入特定區域後為任何首領設定你喜歡的特別設置。DBM會在設定你的職業天賦的預設值，但有些選項可能需要調整。"
+L.HOW_TO_USE_MOD				= "歡迎使用"..L.DBM.."。在聊天頻道輸入 /dbm 打開設定開始設定。你可以載入特定區域後為任何首領設定你喜歡的特別設置。"..L.DBM.."會在設定你的職業天賦的預設值，但有些選項可能需要調整。"
 L.SILENT_REMINDER				= "提醒："..L.DBM.."正處於無聲模式。"
+--L.NEWS_UPDATE					= "|h|c11ff1111更新說明|r|h: 此更新基本上是重新發佈的9.1.9，以清除上一個文件發佈時的錯誤惡意軟件檢測驗證。讀取更多訊息在|Hgarrmission:DBM:news|h|cff3588ff[此處]|r|h"
+
 L.COPY_URL_DIALOG_NEWS			= "要閱讀最新說明，請拜訪以下連結"
 
 L.LOAD_MOD_ERROR				= "載入%s模組時發生錯誤：%s"
@@ -13,7 +15,7 @@ L.LOAD_MOD_COMBAT				= "延遲載入'%s'直到離開戰鬥"
 L.LOAD_GUI_ERROR				= "無法載入圖形介面：%s"
 L.LOAD_GUI_COMBAT				= "圖形介面不能在戰鬥中初始化。圖形介面將在脫離戰鬥後自動讀取，這樣就能夠再次在戰鬥中使用。"
 L.BAD_LOAD						= L.DBM.."偵測到你的此副本的模組在戰鬥中讀取失敗。一旦脫離戰鬥，請立即輸入/consoel reloadui重新載入。"
-L.LOAD_MOD_VER_MISMATCH			= "%s不能被讀取因為你的DBM核心未達需求，請更新版本。"
+L.LOAD_MOD_VER_MISMATCH			= "%s不能被讀取因為你的"..L.DBM.."核心未達需求，請更新版本。"
 L.LOAD_MOD_EXP_MISMATCH			= "%s不能被讀取因為這是設計給WoW資料片而目前尚未開放。當資料片開放時，此模組會自動啟用。"
 L.LOAD_MOD_TOC_MISMATCH			= "%s不能被讀取因為這是設計給WoW更新檔(%s)而目前尚未開放。當更新檔更新時，此模組會自動啟用。"
 L.LOAD_MOD_DISABLED				= "%s已安裝但目前停用中。此模組不會載入除非你啟用它。"
@@ -32,9 +34,9 @@ L.DYNAMIC_MULTIPLE				= L.DBM.."已中禁用多項功能，你目前的團隊人
 
 L.LOOT_SPEC_REMINDER			= "你目前的專精為:%s。而你目前的拾取選擇為:%s。"
 
-L.BIGWIGS_ICON_CONFLICT			= L.DBM.."偵測到你同時開啟BigWigs和DBM的團隊圖示。請關閉其中之一的團隊圖示功能以免產生衝突。"
+L.BIGWIGS_ICON_CONFLICT			= L.DBM.."偵測到你同時開啟BigWigs和"..L.DBM.."的團隊圖示。請關閉其中之一的團隊圖示功能以免產生衝突。"
 
-L.MOD_AVAILABLE					= "%s在此區域有模組可用。你可以在Curse或WoWI下載。"
+L.MOD_AVAILABLE					= "%s在此區域有模組可用。你可以在Curse、Wago、WoWI或從GitHub正式版頁面下載。"
 
 L.COMBAT_STARTED				= "%s開戰。祝好運與盡興! :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "與%s開戰已進行的戰鬥。祝好運與盡興! :)"
@@ -165,11 +167,11 @@ L.VERSIONCHECK_HEADER			= "Boss Mods - 版本檢測"
 L.VERSIONCHECK_ENTRY			= "%s: %s (%s) %s"--One Boss mod
 L.VERSIONCHECK_ENTRY_TWO		= "%s: %s (%s) & %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM		= "%s：尚未安裝任何團隊首領模組"
-L.VERSIONCHECK_FOOTER			= "找到有%d玩家正在使用DBM且有%d玩家正在使用Bigwigs"
+L.VERSIONCHECK_FOOTER			= "找到有%d玩家正在使用"..L.DBM.."且有%d玩家正在使用Bigwigs"
 L.VERSIONCHECK_OUTDATED			= "下列有%d玩家正在使用過期的首領模組:%s"
 L.YOUR_VERSION_OUTDATED			= "你的 Deadly Boss Mod 已經過期。" .. L.UPDATEREMINDER_URL
-L.VOICE_PACK_OUTDATED			= "你的DBM語音包可能缺少在這個版本的DBM需要的語音。部分警告音效已經被停用。請下載新版本的語音包或是聯絡語音包作者更新並加入缺少的語音。"
-L.VOICE_MISSING					= "DBM找不到你所選取的語音包。請確定你的語音包已正確的安裝與啟用。"
+L.VOICE_PACK_OUTDATED			= "你的"..L.DBM.."語音包可能缺少在這個版本的"..L.DBM.."需要的語音。部分警告音效已經被停用。請下載新版本的語音包或是聯絡語音包作者更新並加入缺少的語音。"
+L.VOICE_MISSING					= ""..L.DBM.."找不到你所選取的語音包。請確定你的語音包已正確的安裝與啟用。"
 L.VOICE_DISABLED				= "你的語音包已安裝但是尚未啟用。如果你想使用語音包，請確定語言包已在語音警告中被選取，或是刪除不使用的語音包去隱藏此訊息。"
 L.VOICE_COUNT_MISSING			= "所選取的語音/倒數語音包%d找不到倒數語音。設定已被重置回預設值：%s。"
 L.BIG_WIGS						= "BigWigs"
@@ -177,24 +179,25 @@ L.BIG_WIGS						= "BigWigs"
 L.UPDATEREMINDER_HEADER				= "你的Deadly Boss Mod已經過期。\n版本 %s (%s) 可在此处下载：" .. L.UPDATEREMINDER_URL
 L.UPDATEREMINDER_FOOTER				= "按下" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製下載網址到剪貼簿。"
 L.UPDATEREMINDER_FOOTER_GENERIC		= "按下" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製網址到剪貼簿。"
-L.UPDATEREMINDER_DISABLE			= "警告:  你的DBM版本已大幅度的過期，DBM已被強制關閉並且無法使用直到更新為止。這是為了確保舊而不相容的程式碼不會對你而團隊夥伴造成低落的遊戲體驗。"
-L.UPDATEREMINDER_HOTFIX				= "你的DBM版本會在這首領戰鬥有不準確的計時器或警告。這問題已被修正在新版正式版(或是更新到最新的測試版。)"
-L.UPDATEREMINDER_HOTFIX_ALPHA		= "您的DBM版本在此首領戰有些已知問題，將會在未來的正式版修正 (或是最新的測試版)"
-L.UPDATEREMINDER_MAJORPATCH			= "警告: 你的DBM已經過期，DBM已被禁用直到你更新至最新版，因為遊戲大改版。為了不讓舊的程式碼拖累遊戲體驗。請至curse、WoWI或是GitHub發佈頁下載最新版本的DBM。"
+L.UPDATEREMINDER_DISABLE			= "警告: 你的"..L.DBM.."版本已大幅度的過期並且無法與新版本相容，"..L.DBM.."已被強制關閉並且無法使用直到更新為止。這是為了確保舊而不相容的程式碼不會對你而團隊夥伴造成低落的遊戲體驗。"
+L.UPDATEREMINDER_DISABLETEST		= "警告: 你的"..L.DBM.."版本已大幅度的過期並且是在beta伺服器上測試，"..L.DBM.."已被強制關閉並且無法使用直到更新為止。這是為了確保未使用過期版本來生成測試反饋。"
+L.UPDATEREMINDER_HOTFIX				= "你的"..L.DBM.."版本會在這首領戰鬥有不準確的計時器或警告。這問題已被修正在新版正式版(或是更新到最新的測試版。)"
+L.UPDATEREMINDER_HOTFIX_ALPHA		= "您的"..L.DBM.."版本在此首領戰有些已知問題，將會在未來的正式版修正 (或是最新的測試版)"
+L.UPDATEREMINDER_MAJORPATCH			= "警告: 你的"..L.DBM.."已經過期，"..L.DBM.."已被禁用直到你更新至最新版，因為遊戲大改版。為了不讓舊的程式碼拖累遊戲體驗。請至curse、Wago、WoWI或是GitHub發佈頁下載最新版本的DBM。"
 L.VEM								= "警告: 你同時使用DBM和VEM。DBM將停用而無法執行。"
 L.OUTDATEDPROFILES					= "警告: DBM-Profiles不相容此版本DBM。請移除避免衝突。"
 L.OUTDATEDSPELLTIMERS				= "警告：DBM-SpellTimers破壞了" .. L.DBM .. ".必須要移除" .. L.DBM .. "才能正常運作。"
 L.OUTDATEDRLT						= "警告：DBM-RaidLeadTools破壞了" .. L.DBM .. ". DBM-RaidLeadTools已經不再支援並且必須移除" .. L.DBM .. "才能正常運作。"
-L.VICTORYSOUND						= "警告：DBM-VictorySound不相容此版本DBM。請移除避免衝突。"
-L.DPMCORE							= "警告: Deadly PvP 模組已經停止更新而且不相容此版本的DBM。請先移除以避免衝突。"
-L.DBMLDB							= "警告: DBM-LDB已內建在DBM-核心。雖然它不會造成任何傷害，但建議從addons資料夾中刪除“DBM-LDB”"
-L.DBMLOOTREMINDER					= "警告：已安裝第三方模組 DBM-LootReminder。 此附加插件不再與正式版WOW客戶端相容，並且將導致DBM中斷並且無法發送請求計時器。 建議卸載此插件。"
-L.UPDATE_REQUIRES_RELAUNCH			= "警告: 如果你沒有重啟你的遊戲，這次DBM更新可能無法正確運作。這次更新包含了新的檔案或是.toc檔更新而不能使用ReloadUI載入。如果沒有將遊戲完全重啟可能會導致錯誤或功能不完整。"
+L.VICTORYSOUND						= "警告：DBM-VictorySound不相容此版本"..L.DBM.."。請移除避免衝突。"
+L.DPMCORE							= "警告: Deadly PvP 模組已經停止更新而且不相容此版本的"..L.DBM.."。請先移除以避免衝突。"
+L.DBMLDB							= "警告: DBM-LDB已內建在"..L.DBM.."-核心。雖然它不會造成任何傷害，但建議從addons資料夾中刪除“DBM-LDB”"
+L.DBMLOOTREMINDER					= "警告：已安裝第三方模組 DBM-LootReminder。 此附加插件不再與正式版WOW客戶端相容，並且將導致"..L.DBM.."中斷並且無法發送請求計時器。 建議卸載此插件。"
+L.UPDATE_REQUIRES_RELAUNCH			= "警告: 如果你沒有重啟你的遊戲，這次"..L.DBM.."更新可能無法正確運作。這次更新包含了新的檔案或是.toc檔更新而不能使用ReloadUI載入。如果沒有將遊戲完全重啟可能會導致錯誤或功能不完整。"
 L.OUT_OF_DATE_NAG					= "你的"..L.DEADLY_BOSS_MODS.."版本已經過期，新版本針對特定的首領戰鬥增加新的功能和錯誤的修復。建議您進行更新來改善您的游戲體驗。"
 
 L.MOVABLE_BAR					= "拖動我!"
 
-L.PIZZA_SYNC_INFO				= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer: '%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[Cancel this timer]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[Ignore timers from %1$s]|r|h"
+L.PIZZA_SYNC_INFO				= "|Hplayer:%1$s|h[%1$s]|h 向你發送了" .. L.DBM .. "的倒數計時: '%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[取消此倒數計時]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[忽略來自 %1$s 的倒數計時]|r|h"
 --L.PIZZA_SYNC_INFO				= "|Hplayer:%1$s|h[%1$s]|h向你發送了一個倒數計時"
 L.PIZZA_CONFIRM_IGNORE			= "是否要在該次遊戲連結中忽略來自%s的計時？"
 L.PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <時間（秒）> <文字>。<時間>必須大於等於3"
@@ -218,7 +221,7 @@ L.RANGECHECK_OPTION_FRAMES		= "框架"
 L.RANGECHECK_OPTION_RADAR		= "顯示雷達框架"
 L.RANGECHECK_OPTION_TEXT		= "顯示文字框"
 L.RANGECHECK_OPTION_BOTH		= "兩者都顯示"
-L.RANGERADAR_HEADER				= "測距雷達(%d碼)"
+L.RANGERADAR_HEADER				= "距離:%d玩家(%d)"
 L.RANGERADAR_BOSS_HEADER		= "首領範圍%d碼"
 L.RANGERADAR_RHEADER			= "反距離:%d玩家:%d"
 L.RANGERADAR_IN_RANGE_TEXT		= "%d在範圍內(%0.1f碼)"--Multi
@@ -244,16 +247,16 @@ L.SLASHCMD_HELP				= {
 	"/dbm unlock：顯示一個可移動的計時器（也可使用：move）。",
 	"/range <數字> or /distance <數字>: 顯示距離框架。/rrange 或 /rdistance 顯示相反色。",
 	"/hudar <數字>: 顯示基於距離查詢的HUD。",
-	"/dbm timer: 開始一個自訂的DBM計時器，輸入'/dbm timer'獲得更多訊息。",
-	"/dbm arrow: 顯示DBM箭頭，輸入'/dbm arrow help'獲得更多訊息。",
-	"/dbm hud: 顯示DBM hud，輸入'/dbm hud'獲得更多訊息。",
+	"/dbm timer: 開始一個自訂的"..L.DBM.."計時器，輸入'/dbm timer'獲得更多訊息。",
+	"/dbm arrow: 顯示"..L.DBM.."箭頭，輸入'/dbm arrow help'獲得更多訊息。",
+	"/dbm hud: 顯示"..L.DBM.." hud，輸入'/dbm hud'獲得更多訊息。",
 	"/dbm help2: 顯示團隊管理指令",
 }
 L.SLASHCMD_HELP2				= {
 	"可用指令：",
 	"-----------------",
-	"/dbm pull <秒數>: 開始備戰計時器<秒數>。向所有團隊成員發送一個DBM備戰計時器（需要權限）。",
-	"/dbm break <分鐘>: 開始休息計時器<分鐘>。向所有團隊成員發送一個DBM休息計時器（需要權限）。",
+	"/dbm pull <秒數>: 開始備戰計時器<秒數>。向所有團隊成員發送一個"..L.DBM.."備戰計時器（需要權限）。",
+	"/dbm break <分鐘>: 開始休息計時器<分鐘>。向所有團隊成員發送一個"..L.DBM.."休息計時器（需要權限）。",
 	"/dbm version: 進行首領插件的版本檢測（也可使用：ver）。",
 	"/dbm version2: 進行首領插件的版本檢測同時也密語提醒過期的使用者（也可使用：ver2）。",
 	"/dbm lag: 進行團隊範圍內的網路延遲檢測。",
@@ -340,6 +343,8 @@ L.AUTO_ANNOUNCE_OPTIONS.stack				= "提示：$spell:%s疊加層數"
 L.AUTO_ANNOUNCE_OPTIONS.moveto				= "提示：$spell:%s需要移動到某人或某個地方"
 
 L.AUTO_SPEC_WARN_TEXTS.spell				= "%s!"
+L.AUTO_SPEC_WARN_TEXTS.incoming				= "%s 即將到來的減益"
+L.AUTO_SPEC_WARN_TEXTS.incomingcount		= "%s 即將到來的減益 (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.ends					= "%s結束"
 L.AUTO_SPEC_WARN_TEXTS.fades				= "%s消退"
 L.AUTO_SPEC_WARN_TEXTS.soon					= "%s即將到來"
@@ -372,6 +377,7 @@ L.AUTO_SPEC_WARN_TEXTS.soak					= "%s - 踩圈分擔"
 L.AUTO_SPEC_WARN_TEXTS.soakcount			= "%s - 踩圈分擔 %%s"
 L.AUTO_SPEC_WARN_TEXTS.jump					= "%s - 快跳躍"
 L.AUTO_SPEC_WARN_TEXTS.run					= "%s - 快跑開"
+L.AUTO_SPEC_WARN_TEXTS.runcount				= "%s - 快跑開 (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.cast					= "%s - 停止施法"
 L.AUTO_SPEC_WARN_TEXTS.lookaway				= "%s 點名 %%s - 快轉頭"
 L.AUTO_SPEC_WARN_TEXTS.reflect				= ">%%s<中了%s - 停止攻擊"
@@ -386,6 +392,8 @@ L.AUTO_SPEC_WARN_TEXTS.addscustom			= "小怪來了 - %%s"
 L.AUTO_SPEC_WARN_TEXTS.targetchange			= "更換目標 - 轉火 %%s"
 
 L.AUTO_SPEC_WARN_OPTIONS.spell				= "特別提示：$spell:%s"
+L.AUTO_SPEC_WARN_OPTIONS.incoming			= "特別提示：$spell:%s 的減益即將到來"
+L.AUTO_SPEC_WARN_OPTIONS.incomingcount		= "特別提示：$spell:%s 的減益即將到來(包含計數)"
 L.AUTO_SPEC_WARN_OPTIONS.ends				= "特別提示：$spell:%s結束"
 L.AUTO_SPEC_WARN_OPTIONS.fades				= "特別提示：$spell:%s消退"
 L.AUTO_SPEC_WARN_OPTIONS.soon				= "特別提示：$spell:%s即將到來"
@@ -418,6 +426,7 @@ L.AUTO_SPEC_WARN_OPTIONS.soak				= "特別提示：當需要你去踩圈分擔$s
 L.AUTO_SPEC_WARN_OPTIONS.soakcount			= "特別提示：當需要你去踩圈分擔$spell:%s時 (包含計數)"
 L.AUTO_SPEC_WARN_OPTIONS.jump				= "特別提示：當你中了$spell:%s需要跳起來時"
 L.AUTO_SPEC_WARN_OPTIONS.run				= "特別提示：$spell:%s"
+L.AUTO_SPEC_WARN_OPTIONS.runcount			= "特別提示：當你中了$spell:%s需要跑開時 (包含計數)"
 L.AUTO_SPEC_WARN_OPTIONS.cast				= "特別提示：$spell:%s的施放（停止施法）"
 L.AUTO_SPEC_WARN_OPTIONS.lookaway			= "特別提示：當需要為$spell:%s轉頭時"
 L.AUTO_SPEC_WARN_OPTIONS.reflect			= "特別提示：$spell:%s需要停止攻擊"
@@ -432,7 +441,7 @@ L.AUTO_SPEC_WARN_OPTIONS.addscustom			= "特別提示：即將到來的小怪"
 L.AUTO_SPEC_WARN_OPTIONS.targetchange		= "特別提示：當需要更換主要目標時"
 
 L.AUTO_TIMER_TEXTS.target					= "%s: %%s"
-L.AUTO_TIMER_TEXTS.targetcount				= "%s: %%s (%%s)"
+L.AUTO_TIMER_TEXTS.targetcount				= "%s (%%2$s): %%1$s"
 L.AUTO_TIMER_TEXTS.cast						= "%s"
 L.AUTO_TIMER_TEXTS.castshort				= "%s "
 L.AUTO_TIMER_TEXTS.castcount				= "%s (%%s)"
@@ -529,13 +538,16 @@ L.AUTO_YELL_ANNOUNCE_TEXT.repeaticon		= "{rt%%1$d}"
 L.AUTO_YELL_CUSTOM_FADE					= "%s已消退"
 L.AUTO_HUD_OPTION_TEXT					= "為$spell:%s顯示HudMap(不再作用)"
 L.AUTO_HUD_OPTION_TEXT_MULTI			= "為不同的機制顯示HudMap(不再作用)"
-L.AUTO_NAMEPLATE_OPTION_TEXT			= "為$spell:%s顯示姓名版光環"
+L.AUTO_NAMEPLATE_OPTION_TEXT			= "為$spell:%s顯示姓名版光環，使用在相容的名條插件或"..L.DBM..""
+L.AUTO_NAMEPLATE_OPTION_TEXT_FORCED		= "為$spell:%s顯示姓名版光環，使用在"..L.DBM..""
+
 L.AUTO_RANGE_OPTION_TEXT				= "為$spell:%2$s顯示距離框架(%1$s碼)"
 L.AUTO_RANGE_OPTION_TEXT_SHORT			= "顯示距離框架(%s碼)"
 L.AUTO_RRANGE_OPTION_TEXT				= "為$spell:%2$s顯示反色距離框架(%1$s碼)"--Reverse range frame (green when players in range, red when not)
 L.AUTO_RRANGE_OPTION_TEXT_SHORT			= "顯示反色距離框架(%s碼)"
 L.AUTO_INFO_FRAME_OPTION_TEXT			= "為$spell:%s顯示訊息框架"
 L.AUTO_INFO_FRAME_OPTION_TEXT2			= "為戰鬥概覽顯示訊息框架"
+L.AUTO_INFO_FRAME_OPTION_TEXT3			= "為$spell:%s顯示訊息框架(當達到%%s的閥值時)"
 L.AUTO_READY_CHECK_OPTION_TEXT			= "當首領開打時撥放準備檢查的音效(即使沒有選定目標)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT			= "顯示 %s 的最快清除計時器"
 
@@ -559,7 +571,7 @@ L.HUD_INVALID_SELF			= "不能將HUD目标設定成自己"
 L.HUD_INVALID_ICON			= "不能設定對無團隊標記的目標"
 L.HUD_SUCCESS				= "HUD成功使用你的參數運作。這會在%s後取消，或是使用'/dbm hud hide'指令取消。"
 L.HUD_USAGE	= {
-	"DBM-HudMap 用法:",
+	""..L.DBM.."-HudMap 用法:",
 	"-----------------",
 	"/dbm hud <類型> <目標> <持續時間>: 建立一個指向玩家的HUD",
 	"有效類型: arrow, dot, red, blue, green, yellow, icon(需要團隊標記)",
@@ -572,7 +584,7 @@ L.ARROW_MOVABLE					= "可移動箭頭"
 L.ARROW_WAY_USAGE				= "/dway <x> <y>: 建立一個箭頭指向一個指定地點 (使用本地區域地圖座標)"
 L.ARROW_WAY_SUCCESS				= "要隱藏箭頭，鍵入 '/dbm arrow hide' 或到達箭頭"
 L.ARROW_ERROR_USAGE	= {
-	"DBM-Arrow 用法:",
+	""..L.DBM.."-Arrow 用法:",
 	"-----------------",
 	"/dbm arrow <x> <y>: 建立一個箭頭在特定的位置(使用世界地圖座標)",
 	"/dbm arrow map <x> <y>: 建立一個箭頭在特定的位置 (使用小地圖座標)",
@@ -595,6 +607,8 @@ L.DUR_CHECKING					= "檢測團隊裝備耐久度..."
 L.DUR_HEADER					= ""..L.DEADLY_BOSS_MODS.." - 裝備耐久度結果"
 L.DUR_ENTRY						= "%s:耐久度[%d百分比]/裝備損壞[%s]"
 L.LAG_FOOTER					= "無回應:%s"
+
+L.OVERRIDE_ACTIVATED			= "領隊已啟用此首領的配置覆蓋"
 
 --LDB
 L.LDB_TOOLTIP_HELP1				= "點擊開啟" .. L.DBM
