@@ -230,5 +230,5 @@ UpdateColorFrames(color2, color2text, color2reset, 2)
 UpdateColorFrames(color3, color3text, color3reset, 3)
 UpdateColorFrames(color4, color4text, color4reset, 4)
 
-local infotext = raidwarncolors:CreateText(L.InfoRaidWarning, 380, false, GameFontNormalSmall, "LEFT", 0)
+local infotext = raidwarncolors:CreateText(L.InfoRaidWarning, nil, false, GameFontNormalSmall, "LEFT", 0)
 infotext:SetPoint("BOTTOMLEFT", raidwarncolors.frame, "BOTTOMLEFT", 10, 10)
