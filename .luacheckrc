@@ -94,6 +94,9 @@ globals = {
 	"DeclensionFrameSetNext",
 	"DeclensionFrameSetPrev",
 
+	-- Awesome WotLK
+	"C_NamePlate",
+
 	-- Lua Std
 	"assert",
 	"bit.arshift",
