@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230421173226"),
+	Revision = parseCurseDate("20230421173428"),
 	DisplayVersion = "10.0.24 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 4, 19) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -7008,13 +7008,13 @@ function bossModPrototype:IsTimewalking()
 	return diff == "timewalker"
 end
 
-function bossModPrototype:IsValidWarning(sourceGUID, customunitID, loose)
+function bossModPrototype:IsValidWarning(sourceGUID, customunitID, loose, allowFriendly)
 	if loose and InCombatLockdown() and GetNumGroupMembers() < 2 then return true end--In a loose check, this basically just checks if we're in combat, important for solo runs of torghast to not gimp mod too much
 	if customunitID then
-		if UnitExists(customunitID) and UnitGUID(customunitID) == sourceGUID and UnitAffectingCombat(customunitID) then return true end
+		if UnitExists(customunitID) and UnitGUID(customunitID) == sourceGUID and UnitAffectingCombat(customunitID) and (allowFriendly or not UnitIsFriend("player", customunitID)) then return true end
 	else
 		local unitId = DBM:GetUnitIdFromGUID(sourceGUID)
-		if unitId and UnitExists(unitId) and UnitAffectingCombat(unitId) then
+		if unitId and UnitExists(unitId) and UnitAffectingCombat(unitId) and (allowFriendly or not UnitIsFriend("player", unitId)) then
 			return true
 		end
 	end
