@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230421150730"),
+	Revision = parseCurseDate("20230421151344"),
 	DisplayVersion = "10.0.24 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 4, 19) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3862,7 +3862,7 @@ do
 		end
 
 		guildSyncHandlers["DBMv4-GCB"] = function(_, modId, ver, difficulty, name, groupLeader)
-			if not DBM.Options.ShowGuildMessages or not difficulty or (IsInInstance() and DBM:GetRaidRank(groupLeader or "") == 2) then return end
+			if not DBM.Options.ShowGuildMessages or not difficulty or DBM:GetRaidRank(groupLeader or "") == 2 then return end
 			if not ver or ver ~= "4" then return end--Ignore old versions
 			if DBM:AntiSpam(10, "GCB") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
@@ -3885,7 +3885,7 @@ do
 		end
 
 		guildSyncHandlers["DBMv4-GCE"] = function(_, modId, ver, wipe, time, difficulty, name, groupLeader, wipeHP)
-			if not DBM.Options.ShowGuildMessages or not difficulty or (IsInInstance() and DBM:GetRaidRank(groupLeader or "") == 2) then return end
+			if not DBM.Options.ShowGuildMessages or not difficulty or DBM:GetRaidRank(groupLeader or "") == 2 then return end
 			if not ver or ver ~="8" then return end--Ignore old versions
 			if DBM:AntiSpam(10, "GCE") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
