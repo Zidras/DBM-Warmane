@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230421151344"),
+	Revision = parseCurseDate("20230421154400"),
 	DisplayVersion = "10.0.24 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 4, 19) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2323,7 +2323,7 @@ end
 
 function DBM:IsTrivial(customLevel)
 	--if timewalking or mythic it's always non trivial content
-	if savedDifficulty == "timewalker" or savedDifficulty == "mythic" then
+	if difficultyIndex == 24 or difficultyIndex == 33 or difficultyIndex == 23 then
 		return false
 	end
 	--if custom level passed, we always hard check that level for trivial vs non trivial
@@ -3061,7 +3061,7 @@ do
 		local zoneName = GetRealZoneText()
 		local mapID = GetCurrentMapAreaID() > 4 and GetCurrentMapAreaID() or GetCurrentMapContinent() -- workaround to support world bosses mod loading
 		local _, instanceType, difficulty, _, instanceGroupSize = GetInstanceInfo()
-		local currentDifficulty, currentDifficultyText = self:GetCurrentInstanceDifficulty()
+		local currentDifficulty, currentDifficultyText, currentDifficultyIndex = self:GetCurrentInstanceDifficulty()
 		if currentDifficulty and currentDifficulty ~= savedDifficulty then -- added currentDifficulty nil check to prevent this from overriding savedDifficulty when outside instance
 			savedDifficulty, difficultyText = currentDifficulty, currentDifficultyText
 		end
@@ -3079,7 +3079,7 @@ do
 			self:Debug("Scheduled FixCLEU from SecondaryLoadCheck")
 		end
 		--These can still change even if mapID doesn't
-		difficultyIndex = difficulty
+		difficultyIndex = currentDifficultyIndex or difficulty
 		LastGroupSize = instanceGroupSize
 		if LastInstanceMapID == mapID then
 			self:TransitionToDungeonBGM()
@@ -5534,33 +5534,34 @@ do
 		if self.Options.LogCurrentMPlus and (difficultyIndex or 0) == 8 then
 			return true
 		end
-		--Timewalking Raid
-		if self.Options.LogTWRaids and savedDifficulty == "timewalker" and (instanceDifficultyBylevel[LastInstanceMapID] and instanceDifficultyBylevel[LastInstanceMapID][2] == 3) then
+		--Timewalking raid
+		if self.Options.LogTWRaids and (difficultyIndex == 24 or difficultyIndex == 33) and (instanceDifficultyBylevel[LastInstanceMapID] and instanceDifficultyBylevel[LastInstanceMapID][2] == 3) then
 			return true
 		end
 		--Timewalking Dungeon
-		if self.Options.LogTWDungeons and savedDifficulty == "timewalker" and (instanceDifficultyBylevel[LastInstanceMapID] and instanceDifficultyBylevel[LastInstanceMapID][2] == 2) then
+		if self.Options.LogTWDungeons and (difficultyIndex == 24 or difficultyIndex == 33) and (instanceDifficultyBylevel[LastInstanceMapID] and instanceDifficultyBylevel[LastInstanceMapID][2] == 2) then
 			return true
 		end
 
 		--Now we do checks relying on pre coded trivial check table
-		if self.Options.LogCurrentMythicRaids and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 3) and savedDifficulty == "mythic" then
+		--Current level Mythic raid
+		if self.Options.LogCurrentMythicRaids and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 3) and difficultyIndex == 16 then
 			return true
 		end
-		--Current player level non mythic raid
-		if self.Options.LogCurrentRaids and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 3) and savedDifficulty ~= "mythic" then
+		--Current player level non Mythic raid
+		if self.Options.LogCurrentRaids and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 3) and difficultyIndex ~= 16 then
 			return true
 		end
 		--Trivial raid (ie one below players level)
 		if self.Options.LogTrivialRaids and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] < playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 3) then
 			return true
 		end
-		--Current level mythic dungeon
-		if self.Options.LogCurrentMythicZero and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) and savedDifficulty == "mythic" then
+		--Current level Mythic dungeon
+		if self.Options.LogCurrentMythicZero and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) and difficultyIndex == 23 then
 			return true
 		end
-		--Current level heroic dungeon
-		if self.Options.LogCurrentHeroic and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) and (savedDifficulty == "heroic5" or savedDifficulty == "heroic10" or savedDifficulty == "heroic25") then
+		--Current level Heroic dungeon
+		if self.Options.LogCurrentHeroic and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) and (difficultyIndex == 2 or difficultyIndex == 174) then
 			return true
 		end
 
@@ -5758,50 +5759,96 @@ do
 	end
 end
 
+-- https://wowpedia.fandom.com/wiki/DifficultyID
+-- ID	Name				Type		Flavour
+-- 1	Normal				party		retail
+-- 2	Heroic				party		retail
+-- 3	10 Player			raid		retail
+-- 4	25 Player			raid		retail
+-- 5	10 Player (Heroic)	raid		retail
+-- 6	25 Player (Heroic)	raid		retail
+-- 9	40 Player			raid
+-- 16	Mythic				raid
+-- 23	Mythic				party
+-- 24	Timewalking			party
+-- 33	Timewalking			raid
+-- 148	20 Player			raid
+-- 173	Normal				party		classic
+-- 174	Heroic				party		classic
+-- 175	10 Player			raid		classic
+-- 176	25 Player			raid		classic
+-- 186	40 Player			raid		classic (custom?)
+-- 193	10 Player (Heroic)	raid		classic
+-- 194	25 Player (Heroic)	raid		classic
 function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
 	if instanceType == "none" then
-		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", difficulty, maxPlayers
+		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
 	elseif instanceType == "raid" then
 		if isDynamicInstance then -- Dynamic raids (ICC, RS)
 			if difficulty == 1 then -- 10 players
-				return dynamicDifficulty == 0 and "normal10" or dynamicDifficulty == 1 and "heroic10" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+				if dynamicDifficulty == 0 then
+					return "normal10", difficultyName.." - ", 175, maxPlayers
+				elseif dynamicDifficulty == 1 then
+					return "heroic10" , difficultyName.." - ", 193, maxPlayers
+				else
+					return "unknown" , difficultyName.." - ", difficulty, maxPlayers
+				end
 			elseif difficulty == 2 then -- 25 players
-				return dynamicDifficulty == 0 and "normal25" or dynamicDifficulty == 1 and "heroic25" or "unknown", difficultyName.." - ", difficulty, maxPlayers
+				if dynamicDifficulty == 0 then
+					return "normal25", difficultyName.." - ", 176, maxPlayers
+				elseif dynamicDifficulty == 1 then
+					return "heroic25", difficultyName.." - ", 194, maxPlayers
+				else
+					return "unknown", difficultyName.." - ", difficulty, maxPlayers
+				end
 			-- On Warmane, it was confirmed by Midna that difficulty returning only 1 or 2 is their intended behaviour: https://www.warmane.com/bugtracker/report/91065
 			-- code below (difficulty 3 and 4 in dynamic instances) prevents GetCurrentInstanceDifficulty() from breaking on servers that correctly assign difficulty 1-4 in dynamic instances.
 			elseif difficulty == 3 then -- 10 heroic, dynamic
-				return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+				return "heroic10", difficultyName.." - ", 193, maxPlayers
 			elseif difficulty == 4 then -- 25 heroic, dynamic
-				return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+				return "heroic25", difficultyName.." - ", 194, maxPlayers
 			end
 		else -- Non-dynamic raids
 			if difficulty == 1 then
 				-- check for Timewalking instance (workaround using GetRaidDifficulty since on Warmane all the usual APIs fail and return "normal" difficulty)
 				local raidDifficulty = GetRaidDifficulty()
 				if raidDifficulty ~= difficulty and (raidDifficulty == 2 or raidDifficulty == 4) then -- extra checks due to lack of tests and no access to a timewalking server
-					return "timewalker", difficultyName.." - ", raidDifficulty, maxPlayers
+					return "timewalker", difficultyName.." - ", 33, maxPlayers
 				else
-					return maxPlayers and "normal"..maxPlayers or "normal10", difficultyName.." - ", difficulty, maxPlayers
+					if maxPlayers == 40 then
+						return "normal40", difficultyName.." - ", 186, maxPlayers
+					elseif maxPlayers == 25 then
+						return "normal25", difficultyName.." - ", 176, maxPlayers
+					elseif maxPlayers == 20 then -- ZG, AQ20
+						return "normal20", difficultyName.." - ", 148, maxPlayers
+					elseif maxPlayers == 10 then
+						return "normal10", difficultyName.." - ", 175, maxPlayers
+					elseif maxPlayers then
+						DBM:AddMsg("Instance difficulty not registered. Please report this bug! -> ".. maxPlayers)
+						return maxPlayers and "normal"..maxPlayers, difficultyName.." - ", difficulty, maxPlayers
+					else
+						return "unknown", difficultyName.." - ", difficulty, maxPlayers
+					end
 				end
 			elseif difficulty == 2 then
-				return "normal25", difficultyName.." - ", difficulty, maxPlayers
+				return "normal25", difficultyName.." - ", 176, maxPlayers
 			elseif difficulty == 3 then
-				return "heroic10", difficultyName.." - ", difficulty, maxPlayers
+				return "heroic10", difficultyName.." - ", 193, maxPlayers
 			elseif difficulty == 4 then
-				return "heroic25", difficultyName.." - ", difficulty, maxPlayers
+				return "heroic25", difficultyName.." - ", 194, maxPlayers
 			end
 		end
 	elseif instanceType == "party" then -- 5 man Dungeons
 		if difficulty == 1 then
-			return "normal5", difficultyName.." - ", difficulty, maxPlayers
+			return "normal5", difficultyName.." - ", 173, maxPlayers
 		elseif difficulty == 2 then
 			-- check for Mythic instance (workaround using GetDungeonDifficulty since on Warmane all the usual APIs fail and return "heroic" difficulty)
 			local dungeonDifficulty = GetDungeonDifficulty()
 			if dungeonDifficulty == 3 then
-				return "mythic", difficultyName.." - ", dungeonDifficulty, maxPlayers
+				return "mythic", difficultyName.." - ", 23, maxPlayers
 			else
-				return "heroic5", difficultyName.." - ", difficulty, maxPlayers
+				return "heroic5", difficultyName.." - ", 174, maxPlayers
 			end
 		end
 	end
