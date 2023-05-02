@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230421173640"),
+	Revision = parseCurseDate("20230502224346"),
 	DisplayVersion = "10.0.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 4, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -615,24 +615,27 @@ end
 
 -- automatically sends an addon message to the appropriate channel (BATTLEGROUND, RAID or PARTY)
 local function sendSync(prefix, msg)
-	msg = msg or ""
-	local zoneType = select(2, IsInInstance())
-	if zoneType == "pvp" or zoneType == "arena" then
-		SendAddonMessage(prefix, msg, "BATTLEGROUND")
-	elseif GetRealNumRaidMembers() > 0 then
-		SendAddonMessage(prefix, msg, "RAID")
-	elseif GetRealNumPartyMembers() > 0 then
-		SendAddonMessage(prefix, msg, "PARTY")
-	else
-		handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
+	if dbmIsEnabled or prefix == "DBMv4-V" or prefix == "DBMv4-H" then--Only show version checks if force disabled, nothing else
+		msg = msg or ""
+		local zoneType = select(2, IsInInstance())
+		if zoneType == "pvp" or zoneType == "arena" then
+			SendAddonMessage(prefix, msg, "BATTLEGROUND")
+		elseif GetRealNumRaidMembers() > 0 then
+			SendAddonMessage(prefix, msg, "RAID")
+		elseif GetRealNumPartyMembers() > 0 then
+			SendAddonMessage(prefix, msg, "PARTY")
+		else
+			handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
+		end
+		DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 3)
 	end
-	DBM:Debug(prefix.." "..tostring(msg):gsub("\t", " "), 3)
 end
 private.sendSync = sendSync
 
 --Reworked BNet friends to ingame friends since BNet doesn't exist on private servers
 --Sync Object specifically for out in the world sync messages that have different rules than standard syncs
 local function SendWorldSync(self, prefix, msg, noBNet)
+	if not dbmIsEnabled then return end--Block all world syncs if force disabled
 	DBM:Debug("SendWorldSync running for "..prefix)
 	if GetNumRaidMembers() > 0 then
 		SendAddonMessage(DBMPrefix .. "-" .. prefix, msg, "RAID")
@@ -1880,7 +1883,9 @@ do
 			if not inRaid then
 				inRaid = true
 				sendSync("DBMv4-Ver", "Hi!")
-				SendAddonMessage("BWVQ3", bwVersionQueryString:format(0), "RAID")
+				if dbmIsEnabled then
+					SendAddonMessage("BWVQ3", bwVersionQueryString:format(0), "RAID")
+				end
 				self:Schedule(2, DBM.RequestTimers, DBM)
 				fireEvent("raidJoin", playerName) -- backwards compatibility
 				fireEvent("DBM_raidJoin", playerName)
@@ -1951,7 +1956,9 @@ do
 				-- joined a new party
 				inRaid = true
 				sendSync("DBMv4-Ver", "Hi!")
-				SendAddonMessage("BWVQ3", bwVersionQueryString:format(0), "PARTY")
+				if dbmIsEnabled then
+					SendAddonMessage("BWVQ3", bwVersionQueryString:format(0), "PARTY")
+				end
 				fireEvent("partyJoin", playerName) -- backwards compatibility
 				fireEvent("DBM_partyJoin", playerName)
 			end
@@ -2807,7 +2814,7 @@ do
 			DBM_AllSavedOptions[usedProfile] = DBM_SavedOptions
 		end
 		self.Options = DBM_AllSavedOptions[usedProfile] or {}
-		dbmIsEnabled = true
+		self:Enable()
 		self:AddDefaultOptions(self.Options, self.DefaultOptions)
 		DBM_AllSavedOptions[usedProfile] = self.Options
 
@@ -3592,7 +3599,7 @@ do
 			SendAddonMessage("DBMv4-GV", message, "GUILD")
 			return
 		end
-		if DBM.Options.FakeBWVersion then
+		if DBM.Options.FakeBWVersion and not dbmIsEnabled then
 			SendAddonMessage("BWVR3", bwVersionResponseString:format(fakeBWVersion), GetNumRaidMembers() > 0 and "RAID" or "PARTY")
 			return
 		end
@@ -3640,7 +3647,7 @@ do
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, showRealDate(version)))
 					showConstantReminder = 1
-				elseif #newerVersionPerson == 3 and raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
+				elseif #newerVersionPerson >= 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if out of date and it's a major patch.
 					if not testBuild and dbmToc < wowTOC then
 						updateNotificationDisplayed = 3
@@ -4954,6 +4961,7 @@ do
 	local tooltipsHidden = false
 	--Delayed Guild Combat sync object so we allow time for RL to disable them
 	local function delayedGCSync(modId, difficultyIndex, name, thisTime, wipeHP)
+		if not dbmIsEnabled then return end
 		if not private.statusGuildDisabled and updateNotificationDisplayed == 0 then
 			if thisTime then--Wipe event
 				if wipeHP then
@@ -6153,6 +6161,7 @@ do
 	end
 
 	function DBM:RequestTimers(requestNum)
+		if not dbmIsEnabled then return end
 		local sortMe, clientUsed = {}, {}
 		for _, v in pairs(raid) do
 			tinsert(sortMe, v)
@@ -6226,6 +6235,7 @@ end
 do
 	local spamProtection = {}
 	function DBM:SendTimers(target)
+		if not dbmIsEnabled then return end
 		self:Debug("SendTimers requested by "..target, 2)
 		local spamForTarget = spamProtection[target] or 0
 		-- just try to clean up the table, that should keep the hash table at max. 4 entries or something :)
@@ -6260,6 +6270,7 @@ do
 		self:SendTimerInfo(mod, target)
 	end
 	function DBM:SendPVPTimers(target)
+		if not dbmIsEnabled then return end
 		self:Debug("SendPVPTimers requested by "..target, 2)
 		local spamForTarget = spamProtection[target] or 0
 		local time = GetTime()
@@ -6281,10 +6292,12 @@ do
 end
 
 function DBM:SendCombatInfo(mod, target)
+	if not dbmIsEnabled then return end
 	return SendAddonMessage("DBMv4-CombatInfo", ("%s\t%s"):format(mod.id, GetTime() - mod.combatInfo.pull), "WHISPER", target)
 end
 
 function DBM:SendTimerInfo(mod, target)
+	if not dbmIsEnabled then return end
 	for _, v in ipairs(mod.timers) do
 		--Pass on any timer that has no type, or has one that isn't an ai timer
 		if not v.type or v.type and v.type ~= "ai" then
@@ -6306,6 +6319,7 @@ function DBM:SendTimerInfo(mod, target)
 end
 
 function DBM:SendVariableInfo(mod, target)
+	if not dbmIsEnabled then return end
 	for vname, v in pairs(mod.vb) do
 		local v2 = tostring(v)
 		if v2 then
@@ -11440,6 +11454,7 @@ function bossModPrototype:SendSync(event, ...)
 end
 
 function bossModPrototype:SendBigWigsSync(msg, extra)
+	if not dbmIsEnabled then return end
 	msg = "B^".. msg
 	if extra then
 		msg = msg .."^".. extra
