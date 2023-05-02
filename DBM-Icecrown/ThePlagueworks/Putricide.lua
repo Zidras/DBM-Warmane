@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20221116222434")
+mod:SetRevision("20230502225216")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetMinSyncRevision(20220908000000)
@@ -24,7 +24,7 @@ mod:RegisterEventsInCombat(
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
-local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 480 or 600)
+local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and (mod:IsDifficulty("normal25") and 450 or 480) or 600)
 
 -- buffs from "Drink Me"
 local timerMutatedSlash				= mod:NewTargetTimer(20, 70542, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
