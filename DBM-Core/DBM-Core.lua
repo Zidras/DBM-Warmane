@@ -82,9 +82,9 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230503220454"),
-	DisplayVersion = "10.0.25 alpha", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2023, 4, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20230503220612"),
+	DisplayVersion = "10.0.25", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2023, 5, 3) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 
 local fakeBWVersion = 7558
