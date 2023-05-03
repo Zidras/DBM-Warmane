@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230502224346"),
+	Revision = parseCurseDate("20230503220454"),
 	DisplayVersion = "10.0.25 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 4, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -631,6 +631,14 @@ local function sendSync(prefix, msg)
 	end
 end
 private.sendSync = sendSync
+
+local function sendGuildSync(prefix, msg)
+	if IsInGuild() and (dbmIsEnabled or prefix == "DBMv4-V" or prefix == "DBMv4-H") then--Only show version checks if force disabled, nothing else
+		msg = msg or ""
+		SendAddonMessage(prefix, msg, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
+	end
+end
+private.sendGuildSync = sendGuildSync
 
 --Reworked BNet friends to ingame friends since BNet doesn't exist on private servers
 --Sync Object specifically for out in the world sync messages that have different rules than standard syncs
@@ -1269,9 +1277,7 @@ do
 				self.Options.RestoreSettingBreakTimer = nil
 			end
 		end
-		if IsInGuild() then
-			SendAddonMessage("DBMv4-GH", "Hi!", "GUILD")
-		end
+		sendGuildSync("DBMv4-GH", "Hi!")
 		if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
 		end
@@ -3596,7 +3602,7 @@ do
 	local function SendVersion(guild)
 		if guild then
 			local message = ("%s\t%s\t%s"):format(tostring(DBM.Revision), tostring(DBM.ReleaseRevision), DBM.DisplayVersion)
-			SendAddonMessage("DBMv4-GV", message, "GUILD")
+			sendGuildSync("DBMv4-GV", message)
 			return
 		end
 		if DBM.Options.FakeBWVersion and not dbmIsEnabled then
@@ -4965,12 +4971,12 @@ do
 		if not private.statusGuildDisabled and updateNotificationDisplayed == 0 then
 			if thisTime then--Wipe event
 				if wipeHP then
-					SendAddonMessage(DBMPrefix.."-GCE", modId.."\t8\t1\t"..thisTime.."\t"..difficultyIndex.."\t"..name.."\t"..lastGroupLeader.."\t"..wipeHP, "GUILD")
+					sendGuildSync(DBMPrefix.."-GCE", modId.."\t8\t1\t"..thisTime.."\t"..difficultyIndex.."\t"..name.."\t"..lastGroupLeader.."\t"..wipeHP)
 				else
-					SendAddonMessage(DBMPrefix.."-GCE", modId.."\t8\t0\t"..thisTime.."\t"..difficultyIndex.."\t"..name.."\t"..lastGroupLeader, "GUILD")
+					sendGuildSync(DBMPrefix.."-GCE", modId.."\t8\t0\t"..thisTime.."\t"..difficultyIndex.."\t"..name.."\t"..lastGroupLeader)
 				end
 			else
-				SendAddonMessage(DBMPrefix.."-GCB", modId.."\t3\t"..difficultyIndex.."\t"..name, "GUILD")
+				sendGuildSync(DBMPrefix.."-GCB", modId.."\t3\t"..difficultyIndex.."\t"..name)
 			end
 		end
 	end
