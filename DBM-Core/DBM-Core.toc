@@ -1,14 +1,14 @@
 ## Interface: 30300
 ## X-Min-Interface: 30300
 
-## Title:|cffffd200Deadly Boss Mods|r |cff69ccf0Core|r
-## Title-zhCN:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
-## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Ядро|r
-## Title-zhTW:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
-## Title-koKR:|cffffd200Deadly Boss Mods|r |cff69ccf0핵심 모듈|r
-## Title-esES:|cffffd200Deadly Boss Mods|r |cff69ccf0Núcleo|r
-## Title-esMX:|cffffd200Deadly Boss Mods|r |cff69ccf0Núcleo|r
-## Title-frFR:|cffffd200Deadly Boss Mods|r |cff69ccf0Noyau|r
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Core|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0核心|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ядро|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0核心|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0핵심 모듈|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Núcleo|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Núcleo|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Noyau|r
 ## Notes: Deadly Boss Mods
 ## Dependencies: DBM-StatusBarTimers
 ## OptionalDeps: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0, LibDeflate, LibSerialize, LibGroupTalents-1.0, LibTalentQuery-1.0, ElvUI
