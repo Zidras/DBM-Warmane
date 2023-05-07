@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507153418"),
+	Revision = parseCurseDate("20230507154222"),
 	DisplayVersion = "10.0.29 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 3, 23) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10892,9 +10892,8 @@ function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, e
 end
 
 function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, cat, spellId, optionType)
-	if checkDuplicateObjects[name] and name ~= "timer_berserk" then
+	if checkDuplicateObjects[name] then
 		DBM:Debug("|cffff0000Option already exists for: |r"..name)
-		return
 	else
 		checkDuplicateObjects[name] = true
 	end
