@@ -21,7 +21,7 @@
 ## LoadOnDemand: 1
 ## DefaultState: enabled
 ## Author: MysticalOS, QartemisT
-## Version: 10.1.1_alpha
+## Version: 10.1.1
 
 localization.en.lua
 localization.de.lua
