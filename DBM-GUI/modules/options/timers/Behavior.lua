@@ -42,6 +42,7 @@ local ClickThrough = BarBehaviors:CreateCheckButton(L.ClickThrough, true, nil, n
 ClickThrough:SetPoint("TOPLEFT", DecimalSlider, "BOTTOMLEFT", 0, -15)
 ClickThrough.myheight = 25
 
+BarBehaviors:CreateCheckButton(L.DisableRightClickBar, true, nil, nil, "DisableRightClick")
 BarBehaviors:CreateCheckButton(L.ShortTimerText, true, nil, nil, "ShortTimerText")
 BarBehaviors:CreateCheckButton(L.StripTimerText, true, nil, nil, "StripCDText")
 BarBehaviors:CreateCheckButton(L.KeepBar, true, nil, nil, "KeepBars")
