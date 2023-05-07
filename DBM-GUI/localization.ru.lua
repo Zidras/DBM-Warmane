@@ -350,6 +350,7 @@ L.SpamBlockNoRangeFrame		= "Не показывать окно проверки 
 L.SpamBlockNoInfoFrame		= "Не показывать информационное окно"
 L.SpamBlockNoHudMap			= "Не показывать HudMap"
 L.SpamBlockNoNameplate		= "Не показывать Nameplate Auras (отключает полностью)"
+L.SpamBlockNoBossGUIDs		= "Не показывать таймеры главного босса (босс 1) на Plater Nameplates в качестве Nameplate Auras\n(Вы все равно будете видеть таймеры трэша/босса, если эта функция включена в Plater)"
 L.SpamBlockNoNameplateLines	= "Не показывать линии Nameplate Aura (иконки аур будут отображаться)"
 L.SpamBlockNoCountdowns		= "Не воспроизводить звуки обратного отсчета"
 L.SpamBlockNoYells			= "Не отправлять крики в чат"

@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507182124"),
+	Revision = parseCurseDate("20230507182259"),
 	DisplayVersion = "10.1.2 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 18, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -358,6 +358,7 @@ DBM.DefaultOptions = {
 	DontShowInfoFrame = false,
 	DontShowHudMap2 = false,
 	DontShowNameplateIcons = false,
+	DontSendBossGUIDs = false,
 	UseNameplateHandoff = true,
 	NPAuraSize = 40,
 	DontPlayCountdowns = false,
@@ -10219,6 +10220,11 @@ do
 						guid = v--If found, guid will be passed in DBM_TimerStart callback
 					end
 				end
+			end
+			--Mods that have specifically flagged that it's safe to assume all timers from that boss mod belong to boss1
+			--This check is performed secondary to args scan so that no adds guids are overwritten
+			if not guid and self.mod.sendMainBossGUID and not DBM.Options.DontSendBossGUIDs and (self.type == "cd" or self.type == "next" or self.type == "cdcount" or self.type == "nextcount" or self.type == "cdspecial" or self.type == "ai") then
+				guid = UnitGUID("boss1")
 			end
 			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id, self.keep, self.fade, self.name, guid)
 			if not tContains(self.startedTimers, id) then--Make sure timer doesn't exist already before adding it
