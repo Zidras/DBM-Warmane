@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507175447"),
+	Revision = parseCurseDate("20230507180349"),
 	DisplayVersion = "10.0.36 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 17, 45) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9592,7 +9592,10 @@ do
 		end
 		local seticon
 		if texture then
-			seticon = (type(texture) == "string" and texture:match("ej%d+") and select(4, DBM:EJ_GetSectionInfo(string.sub(texture, 3))) ~= "" and select(4, DBM:EJ_GetSectionInfo(string.sub(texture, 3)))) or (type(texture) == "number" and GetSpellTexture(texture)) or nil
+			if type(texture) == "string" and texture:match("ej%d+") then
+				self:AddMsg("|cffff0000Invalid call to EJ_GetSectionInfo for texture: |r"..texture..". Please report this bug")
+			end
+			seticon = type(texture) == "number" and GetSpellTexture(texture) or nil
 		end
 		local obj = setmetatable(
 			{
