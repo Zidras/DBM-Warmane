@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507162305"),
+	Revision = parseCurseDate("20230507164817"),
 	DisplayVersion = "10.0.32 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 16, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2920,6 +2920,10 @@ do
 			self:RegisterEvents("PLAYER_ALIVE")
 		end
 		self:SetCurrentSpecInfo() -- always delay a bit (previously had it at 0.1s) because Unit API like UnitExists and UnitClass were returning nil on this event.
+		if not InCombatLockdown() then
+			--Refresh entire spec table if not in combat
+			DBMExtraGlobal:rebuildSpecTable()
+		end
 		if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
 			self:SpecChanged()
 		end

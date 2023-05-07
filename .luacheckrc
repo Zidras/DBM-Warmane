@@ -45,6 +45,7 @@ globals = {
 	"DBM_CORE_L",
 	"DBM_COMMON_L",
 	"DBM_DISABLE_ZONE_DETECTION",
+	"DBMExtraGlobal",
 	"DBM_GUI",
 	"DBM_GUI_L",
 	"DBM_OPTION_SPACER",
