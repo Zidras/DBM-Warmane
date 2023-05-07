@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507165756"),
+	Revision = parseCurseDate("20230507172252"),
 	DisplayVersion = "10.0.33 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 16, 48) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10336,7 +10336,11 @@ do
 	--In past boss mods have always had to manually call Stop just to restart a timer, to avoid triggering false debug messages
 	--This function should simplify boss mod creation by allowing you to "Restart" a timer with one call in mod instead of 2
 	function timerPrototype:Restart(timer, ...)
-		self:Stop(...)
+		if self.type and (self.type == "cdcount" or self.type == "nextcount") and not self.allowdouble then
+			self:Stop()--Cleanup any count timers left over on a restart
+		else
+			self:Stop(...)
+		end
 		self:Unschedule(...)--Also unschedules not yet started timers that used timer:Schedule()
 		self:Start(timer, ...)
 	end
