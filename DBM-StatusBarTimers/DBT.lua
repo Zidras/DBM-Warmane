@@ -620,7 +620,6 @@ end
 function DBT:CancelBar(id)
 	for bar in self:GetBarIterator() do
 		if id == bar.id then
-			bar.paused = nil
 			bar:Cancel()
 			return true
 		end
@@ -734,7 +733,7 @@ function barPrototype:SetElapsed(elapsed)
 		self:ResetAnimations()
 	-- Bar was small, or moving from small to large when time was removed
 	-- Also force reset animation but this time move it from small anchor into large one
-	elseif (not self.enlarged or self.moving == "enlarge") and self.timer <= enlargeTime then
+	elseif not self.paused and (not self.enlarged or self.moving == "enlarge") and self.timer <= enlargeTime then
 		self:ResetAnimations(true)
 	end
 	self:Update(0)
@@ -965,6 +964,7 @@ function barPrototype:Cancel()
 	DBT.bars[self] = nil
 	unusedBarObjects[self] = self
 	self.dead = true
+	self.paused = nil
 	DBT.numBars = DBT.numBars - 1
 end
 
