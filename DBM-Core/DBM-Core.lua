@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507174722"),
+	Revision = parseCurseDate("20230507175447"),
 	DisplayVersion = "10.0.36 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 17, 45) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -6958,6 +6958,30 @@ function bossModPrototype:SetStage(stage)
 	if self.inCombat then--Safety, in event mod manages to run any phase change calls out of combat/during a wipe we'll just safely ignore it
 		fireEvent("DBM_SetStage", self, self.id, self.vb.phase, self.vb.stageTotality)--Mod, modId, Stage (if available), total number of times SetStage has been called since combat start
 		DBM:Debug("DBM_SetStage: " .. self.vb.phase .. "/" .. self.vb.stageTotality)
+	end
+end
+
+--If args are passed, returns true or false
+--If no args given, just returns current stage and stage total
+--stage: stage value to checkf or true/false rules
+--checkType: 0 or nil for just current stage match, 1 for less than check, 2 for greater than check, 3 not equal check
+--useTotal: uses stage total instead of current
+function bossModPrototype:GetStage(stage, checkType, useTotal)
+	local currentStage, currentTotal = self.vb.phase or 0, self.vb.stageTotality or 0
+	if stage then
+		checkType = checkType or 0--Optional pass if just an exact match check
+		if (checkType == 0) and (useTotal and currentTotal or currentStage) == stage then
+			return true
+		elseif (checkType == 1) and (useTotal and currentTotal or currentStage) < stage then
+			return true
+		elseif (checkType == 2) and (useTotal and currentTotal or currentStage) > stage then
+			return true
+		elseif (checkType == 3) and (useTotal and currentTotal or currentStage) ~= stage then
+			return true
+		end
+		return false
+	else
+		return currentStage, currentTotal
 	end
 end
 
