@@ -100,7 +100,7 @@ local specRoleTable = {
 		["RaidCooldown"] = true,--Rallying Cry
 		["Physical"] = true,
 		["HasInterrupt"] = true,
-		["ImmunityDispeller"] = true,
+		["ImmunityDispeller"] = IsSpellKnown(64382),
 		["TargetedCooldown"] = true,--Intervene
 		["WeaponDependent"] = true,
 	},
@@ -110,7 +110,7 @@ local specRoleTable = {
 		["Physical"] = true,
 		["HasInterrupt"] = true,
 		["RaidCooldown"] = true,--Rallying Cry
-		["ImmunityDispeller"] = true,
+		["ImmunityDispeller"] = IsSpellKnown(64382),
 		["TargetedCooldown"] = true,--Intervene
 	},
 	[1446] = {	--Initial Warrior (used in exiles reach tutorial mode). Treated as hybrid. Utility disabled because that'd require checking tutorial progress
