@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507182259"),
+	Revision = parseCurseDate("20230507183437"),
 	DisplayVersion = "10.1.2 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 18, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10430,7 +10430,7 @@ do
 		fireEvent("DBM_TimerUpdate", id, elapsed, totalTime)
 		if bar then
 			local newRemaining = totalTime-elapsed
-			if newRemaining > 0 then
+			if not bar.keep and newRemaining > 0 then
 				--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
 				self.mod:Unschedule(removeEntry, self.startedTimers, id)
 				self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
@@ -10462,9 +10462,11 @@ do
 				local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
 				if elapsed and total then
 					local newRemaining = (total+extendAmount) - elapsed
+					if not bar.keep then
 					--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
-					self.mod:Unschedule(removeEntry, self.startedTimers, id)
-					self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
+						self.mod:Unschedule(removeEntry, self.startedTimers, id)
+						self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
+					end
 					if self.option then
 						local countVoice = self.mod.Options[self.option .. "CVoice"] or 0
 						if (type(countVoice) == "string" or countVoice > 0) then
@@ -10490,14 +10492,18 @@ do
 			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 			local bar = DBT:GetBar(id)
 			if bar then
-				self.mod:Unschedule(removeEntry, self.startedTimers, id)--Needs to be unscheduled here, or the entry might just get left in table until original expire time, if new expire time is less than 0
+				if not bar.keep then
+					self.mod:Unschedule(removeEntry, self.startedTimers, id)--Needs to be unscheduled here, or the entry might just get left in table until original expire time, if new expire time is less than 0
+				end
 				DBM:Unschedule(playCountSound, id)--Needs to be unscheduled here,or countdown might not be canceled if removing time made it cease to have a > 0 value
 				local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
 				if elapsed and total then
 					local newRemaining = (total-reduceAmount) - elapsed
 					if newRemaining > 0 then
 						--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
-						self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
+						if not bar.keep then
+							self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
+						end
 						if self.option and newRemaining > 2 then
 							local countVoice = self.mod.Options[self.option .. "CVoice"] or 0
 							if (type(countVoice) == "string" or countVoice > 0) then
@@ -10525,7 +10531,9 @@ do
 		local bar = DBT:GetBar(id)
 		if bar then
 			DBM:Unschedule(playCountSound, id)--Kill countdown on pause
-			self.mod:Unschedule(removeEntry, self.startedTimers, id)--Prevent removal from startedTimers table while bar is paused
+			if not bar.keep then
+				self.mod:Unschedule(removeEntry, self.startedTimers, id)--Prevent removal from startedTimers table while bar is paused
+			end
 			fireEvent("DBM_TimerPause", id)
 			return bar:Pause()
 		end
@@ -10538,7 +10546,9 @@ do
 			local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
 			if elapsed and total then
 				local remaining = total - elapsed
-				self.mod:Schedule(remaining, removeEntry, self.startedTimers, id)--Re-schedule the auto remove entry stuff
+				if not bar.keep then
+					self.mod:Schedule(remaining, removeEntry, self.startedTimers, id)--Re-schedule the auto remove entry stuff
+				end
 				--Have to check if paused bar had a countdown on resume so we can restore it
 				if self.option and not bar.fade then
 					local countVoice = self.mod.Options[self.option .. "CVoice"] or 0
