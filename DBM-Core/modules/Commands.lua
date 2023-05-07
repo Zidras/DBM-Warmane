@@ -202,6 +202,10 @@ end
 --local trackedHudMarkers = {}
 SLASH_DEADLYBOSSMODS1 = "/dbm"
 SlashCmdList["DEADLYBOSSMODS"] = function(msg)
+	if not private.dbmIsEnabled then
+		DBM:ForceDisableSpam()
+		return
+	end
 	local cmd = msg:lower()
 	if cmd == "ver" or cmd == "version" then
 		DBM:ShowVersions(false)
