@@ -17,7 +17,7 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## Author: Barsoom, Bunny67, Zidras, DBM-Frostmourne contributors, original DBM team
-## Version: 10.0.32_alpha
+## Version: 10.0.32
 ## X-Website: https://github.com/Zidras/DBM-Warmane/
 
 compat.lua
