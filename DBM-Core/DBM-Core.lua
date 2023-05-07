@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507165401"),
+	Revision = parseCurseDate("20230507165756"),
 	DisplayVersion = "10.0.33 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 16, 48) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9223,6 +9223,7 @@ do
 		["moveto"] = "spell",
 		["jump"] = "spell",
 		["run"] = "spell",
+		["runcount"] = "spell",
 		["cast"] = "spell",
 		["lookaway"] = "spell",
 		["reflect"] = "target",
@@ -9501,6 +9502,7 @@ do
 --		["moveto"] = "spell",
 --		["jump"] = "spell",
 --		["run"] = "spell",
+--		["runcount"] = "spell",
 --		["cast"] = "spell",
 --		["lookaway"] = "spell",
 --		["reflect"] = "target",
@@ -9664,7 +9666,7 @@ do
 				if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" then
 					catType = "announceother"
 				--Directly affects you
-				elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakcount" or announceType == "soakpos" then
+				elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "runcount" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakcount" or announceType == "soakpos" then
 					catType = "announcepersonal"
 				--Things you have to do to fulfil your role
 				elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" or announceType == "switch" or announceType == "switchcount" then
@@ -9804,6 +9806,10 @@ do
 
 	function bossModPrototype:NewSpecialWarningRun(spellId, optionDefault, optionName, optionVersion, runSound, ...)
 		return newSpecialWarning(self, "run", spellId, nil, optionDefault, optionName, optionVersion, runSound or 4, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningRunCount(spellId, optionDefault, optionName, optionVersion, runSound, ...)
+		return newSpecialWarning(self, "runcount", spellId, nil, optionDefault, optionName, optionVersion, runSound or 4, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningCast(spellId, optionDefault, ...)
