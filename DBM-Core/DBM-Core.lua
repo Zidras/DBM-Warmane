@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507161654"),
+	Revision = parseCurseDate("20230507161924"),
 	DisplayVersion = "10.0.31 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 16) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9550,7 +9550,7 @@ do
 			return
 		end
 		if type(text) == "string" and text:match("OptionVersion") then
-			print("NewSpecialWarning: you must provide remove optionversion hack for "..optionDefault)
+			error("NewSpecialWarning: you must provide remove optionversion hack for "..optionDefault)
 			return
 		end
 		if runSound == true then

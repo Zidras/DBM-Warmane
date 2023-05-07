@@ -402,7 +402,7 @@ do
 			iconVariables[scanId].wipeGUID = wipeGUID and true or false
 			if not scanExpires[scanId] then
 				scanExpires[scanId] = GetTime() + (scanningTime or 8)
-				DBM:Schedule((scanningTime or 8)+1, expireScan, scanId, iconVariables[scanId].wipeGUID)
+				DBM:Schedule((scanningTime or 8)+2, expireScan, scanId, iconVariables[scanId].wipeGUID)
 			end
 			if scanTable and type(scanTable) == "table" then
 				iconVariables[scanId].scanTable = scanTable
