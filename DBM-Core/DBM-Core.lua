@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507181447"),
+	Revision = parseCurseDate("20230507181618"),
 	DisplayVersion = "10.1.1 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 18) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3669,7 +3669,7 @@ do
 						updateNotificationDisplayed = 3
 						DBM:ForceDisableSpam()
 						DBM:Disable(true)
-					--Disallow out of date to run during beta/ptr what so ever.
+						--Disallow out of date to run during beta/ptr what so ever.
 					elseif testBuild then
 						updateNotificationDisplayed = 3
 						DBM:ForceDisableSpam()
