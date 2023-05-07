@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507173724"),
+	Revision = parseCurseDate("20230507174002"),
 	DisplayVersion = "10.0.35 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 17, 31) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9682,6 +9682,14 @@ do
 
 	function bossModPrototype:NewSpecialWarningSpell(spellId, optionDefault, ...)
 		return newSpecialWarning(self, "spell", spellId, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningIncoming(spellId, optionDefault, ...)
+		return newSpecialWarning(self, "incoming", spellId, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningIncomingCount(spellId, optionDefault, ...)
+		return newSpecialWarning(self, "incomingcount", spellId, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningEnd(spellId, optionDefault, ...)
