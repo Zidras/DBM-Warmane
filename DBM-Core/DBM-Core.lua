@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507155223"),
+	Revision = parseCurseDate("20230507155420"),
 	DisplayVersion = "10.0.30 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -7625,6 +7625,7 @@ do
 		[2139] = true,--Mage Counterspell
 		[6552] = true,--Warrior Pummel
 		[15487] = true,--Priest Silence
+		[19647] = true,--Warlock pet Spell Lock
 		[47528] = true,--Death Knight Mind Freeze
 		[49377] = true,--Druid Feral Charge
 		[57994] = true,--Shaman Wind Shear
