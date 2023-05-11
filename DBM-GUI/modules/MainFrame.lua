@@ -171,7 +171,7 @@ end
 do
 	local count = 0
 
-	local frameHeaderButton = CreateFrame("Frame", nil, frame)
+	local frameHeaderButton = CreateFrame("Button", nil, frame)
 	frameHeaderButton:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 20, 18)
 	frameHeaderButton:SetSize(frameRevision:GetSize())
 	frameHeaderButton:EnableMouse(true)
@@ -181,6 +181,7 @@ do
 			count = 0
 			DBM:PlaySoundFile("Interface\\AddOns\\DBM-Core\\Sounds\\RetailSupport\\VO_DHNightElfMalePissed04.ogg", true)
 		end
+		DBM:ShowUpdateReminder(nil, nil, CL.COPY_URL_DIALOG, DBM.DisplayVersion.. " (" .. DBM:ShowRealDate(DBM.Revision) .. ")") -- Custom, for easier copy paste
 	end)
 end
 
