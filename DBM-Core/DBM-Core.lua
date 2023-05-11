@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230507222723"),
+	Revision = parseCurseDate("20230511222711"),
 	DisplayVersion = "10.1.3 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 7, 18, 35) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -1874,7 +1874,7 @@ do
 				raid[playerName] = {}
 				raid[playerName].name = playerName
 				raid[playerName].shortname = playerName
-				raid[playerName].guid = UnitGUID("player")
+				raid[playerName].guid = UnitGUID("player") or ""
 				raid[playerName].rank = 0
 				raid[playerName].class = playerClass
 				raid[playerName].id = "player"
@@ -2040,7 +2040,7 @@ do
 			raid[playerName] = {}
 			raid[playerName].name = playerName
 			raid[playerName].shortname = playerName
-			raid[playerName].guid = UnitGUID("player")
+			raid[playerName].guid = UnitGUID("player") or "" -- 2023/04/20: On Warmane, UnitGUID("player") can be nil
 			raid[playerName].rank = 0
 			raid[playerName].class = playerClass
 			raid[playerName].id = "player"
@@ -2049,7 +2049,7 @@ do
 			raid[playerName].version = DBM.ReleaseRevision
 			raid[playerName].displayVersion = DBM.DisplayVersion
 			raid[playerName].locale = GetLocale()
-			raidGuids[UnitGUID("player")] = playerName
+			raidGuids[UnitGUID("player") or ""] = playerName
 			lastGroupLeader = nil
 		end
 	end
