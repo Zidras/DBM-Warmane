@@ -421,6 +421,7 @@ L.SpamBlockNoRangeFrame		= "거리 창 표시 안함"
 L.SpamBlockNoInfoFrame		= "정보 창 표시 안함"
 L.SpamBlockNoHudMap			= "HUD 표시 안함"
 L.SpamBlockNoNameplate		= "이름표 오라 표시 안함"
+L.SpamBlockNoBossGUIDs		= "메인 보스 (boss1)의 타이머를 Plater 이름표 오라로 표시 안함\n(Plater에서 해당 기능을 활성화 했다면 일반몹/보스 쫄의 타이머는 볼 수 있습니다)"
 L.SpamBlockNoYells			= "말풍선 알림 사용 안함"
 L.SpamBlockNoNoteSync		= "메모 공유 수락 안함"
 
