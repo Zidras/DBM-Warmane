@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230511231638"),
+	Revision = parseCurseDate("20230521132848"),
 	DisplayVersion = "10.1.6 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -11568,7 +11568,7 @@ function bossModPrototype:SendSync(event, ...)
 	--Mod syncs are more strict and enforce latency threshold always.
 	--Do not put latency check in main sendSync local function (line 313) though as we still want to get version information, etc from these users.
 	if not private.modSyncSpam[spamId] or (time - private.modSyncSpam[spamId]) > 8 then
-		self:ReceiveSync(event, playerName, self.revision or 0, tostringall(...))
+		self:ReceiveSync(event, nil, self.revision or 0, tostringall(...)) -- keep sender as nil, for (self.blockSyncs and sender) check
 		sendSync("DBMv4-Mod", str)
 	end
 end
