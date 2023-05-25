@@ -308,6 +308,8 @@ L.AUTO_ANNOUNCE_TEXTS.targetsource	= ">%%s< применяется %s на >%%s<
 L.AUTO_ANNOUNCE_TEXTS.targetcount	= "%s (%%s) на |3-5(>%%s<)"
 L.AUTO_ANNOUNCE_TEXTS.targetcountdistance	= "%s (%%s) на |3-5(>%%s<) (%%d м)"
 L.AUTO_ANNOUNCE_TEXTS.spell			= "%s"
+L.AUTO_ANNOUNCE_TEXTS.incoming		= "%s входящий дебафф"
+L.AUTO_ANNOUNCE_TEXTS.incomingcount	= "%s входящий дебафф (%%s)"
 L.AUTO_ANNOUNCE_TEXTS.ends			= "%s заканчивается"
 L.AUTO_ANNOUNCE_TEXTS.endtarget		= "%s заканчивается: >%%s<"
 L.AUTO_ANNOUNCE_TEXTS.fades			= "%s спадает"
@@ -333,6 +335,8 @@ L.AUTO_ANNOUNCE_OPTIONS.targetsource	= "Объявлять цели заклин
 L.AUTO_ANNOUNCE_OPTIONS.targetcount		= "Объявлять цели заклинания $spell:%s (со счётчиком)"
 L.AUTO_ANNOUNCE_OPTIONS.targetcountdistance	= "Объявлять цели заклинания $spell:%s (со счётчиком и расстоянием)"
 L.AUTO_ANNOUNCE_OPTIONS.spell			= "Предупреждение для $spell:%s"
+L.AUTO_ANNOUNCE_OPTIONS.incoming		= "Объявлять, когда $spell:%s получает отрицательные эффекты"
+L.AUTO_ANNOUNCE_OPTIONS.incomingcount	= "Объявлять (со счётчиком), когда $spell:%s получает отрицательные эффекты"
 L.AUTO_ANNOUNCE_OPTIONS.ends			= "Предупреждать об окончании $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget		= "Предупреждать об окончании $spell:%s (цель)"
 L.AUTO_ANNOUNCE_OPTIONS.fades			= "Предупреждать о спадении $spell:%s"
@@ -351,8 +355,6 @@ L.AUTO_ANNOUNCE_OPTIONS.stack			= "Объявлять количество ст�
 L.AUTO_ANNOUNCE_OPTIONS.moveto			= "Объявлять, когда нужно переместиться к кому-то или куда-то для $spell:%s"
 
 L.AUTO_SPEC_WARN_TEXTS.spell			= "%s!"
-L.AUTO_SPEC_WARN_TEXTS.incoming			= "%s входящий дебафф"
-L.AUTO_SPEC_WARN_TEXTS.incomingcount	= "%s входящий дебафф (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.ends				= "%s заканчивается"
 L.AUTO_SPEC_WARN_TEXTS.fades			= "%s спадает"
 L.AUTO_SPEC_WARN_TEXTS.soon				= "Скоро %s"
@@ -401,8 +403,6 @@ L.AUTO_SPEC_WARN_TEXTS.targetchange		= "Смена цели - переключи
 
 -- Auto-generated Special Warning Localizations
 L.AUTO_SPEC_WARN_OPTIONS.spell			= "Спецпредупреждение для $spell:%s"
-L.AUTO_SPEC_WARN_OPTIONS.incoming		= "Спецпредупреждение о входящих дебаффах $spell:%s"
-L.AUTO_SPEC_WARN_OPTIONS.incomingcount	= "Спецпредупреждение (со счётчиком) о входящих дебаффах $spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.ends			= "Спецпредупреждение об окончании $spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.fades			= "Спецпредупреждение о спадении $spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.soon			= "Спецпредупреждение, что скоро $spell:%s"
