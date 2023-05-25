@@ -561,6 +561,7 @@ L.AUTO_INFO_FRAME_OPTION_TEXT2		= "Показывать информационн
 L.AUTO_INFO_FRAME_OPTION_TEXT3		= "Показать информационный фрейм для $spell:%s (при достижении порогового значения %%s)"
 L.AUTO_READY_CHECK_OPTION_TEXT		= "Проигрывать звук проверки готовности, когда пулят босса (даже если он не является целью)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT		= "Показать таймер для быстрой зачистки %s"
+L.AUTO_PRIVATEAURA_OPTION_TEXT		= "Воспроизводить звуковые оповещения DBM для приватных аур $spell:%s в этом бою. Приоритет звука: голосовой пакет, если он доступен, резервный - Воздушный горн (Air Horn)"
 
 --Sounds
 L.AUTO_SOUND_OPTION_TEXT			= "Звуковой сигнал при $spell:%d"

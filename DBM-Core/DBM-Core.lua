@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230525182820"),
+	Revision = parseCurseDate("20230525183333"),
 	DisplayVersion = "10.1.6 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -11013,6 +11013,56 @@ function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, c
 	self:SetOptionCategory(name, cat, optionType)
 end
 
+--[[
+--auraspellId must match debuff ID so EnablePrivateAuraSound function can call right option key and right debuff ID
+--groupSpellId is used if a diff option key is used in all other options with spell (will be quite common)
+function bossModPrototype:AddPrivateAuraSoundOption(auraspellId, default, groupSpellId)
+	self.DefaultOptions["PrivateAuraSound"..auraspellId] = (default == nil) or default
+	if default and type(default) == "string" then
+		default = self:GetRoleFlagValue(default)
+	end
+	self.Options["PrivateAuraSound"..auraspellId] = (default == nil) or default
+	self.localization.options["PrivateAuraSound"..auraspellId] = L.AUTO_PRIVATEAURA_OPTION_TEXT:format(auraspellId)
+	self:GroupSpells(groupSpellId or auraspellId, "PrivateAuraSound"..auraspellId)
+	self:SetOptionCategory("PrivateAuraSound"..auraspellId, "misc")
+end
+
+--Function to actually register specific media to specific auras
+--auraspellId: Private aura spellId
+--voice: voice pack media path
+--voiceVersion: Required voice pack verion (if not met, falls back to airhorn
+function bossModPrototype:EnablePrivateAuraSound(auraspellId, voice, voiceVersion)
+	if self.Options["PrivateAuraSound"..auraspellId] then
+		if not self.paSounds then self.paSounds = {} end
+		local mediaPath
+		--Check valid voice pack sound
+		local chosenVoice = DBM.Options.ChosenVoicePack2
+		if chosenVoice ~= "None" and not voiceSessionDisabled and voiceVersion <= SWFilterDisabled then
+			mediaPath = "Interface\\AddOns\\DBM-VP"..chosenVoice.."\\"..voice..".ogg"
+		else
+			mediaPath = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg"
+		end
+		self.paSounds[#self.paSounds + 1] = C_UnitAuras.AddPrivateAuraAppliedSound({
+			spellID = auraspellId,
+			unitToken = "player",
+			soundFileName = mediaPath,
+			outputChannel = "master",
+		})
+	end
+end
+
+function bossModPrototype:DisablePrivateAuraSounds()
+	for _, id in next, self.paSounds do
+		C_UnitAuras.RemovePrivateAuraAppliedSound(id)
+	end
+	self.paSounds = nil
+end
+--]]
+
+--Extended Icon Usage Notes
+--Any time extended icons is used, option must be OFF by default
+--Option must be hidden from GUI if extended icoins not enabled
+--If extended icons are disabled, then on mod load, users option is reset to default (off) to prevent their mod from still executing SetIcon functions (this is because even if it's hidden from GUI, if option was created and enabled, it'd still run)
 function bossModPrototype:AddSetIconOption(name, spellId, default, iconType, iconsUsed, conflictWarning)
 	self.DefaultOptions[name] = (default == nil) or default
 	if default and type(default) == "string" then
