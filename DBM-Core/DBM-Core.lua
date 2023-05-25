@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230521132848"),
+	Revision = parseCurseDate("20230525180351"),
 	DisplayVersion = "10.1.6 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3773,6 +3773,7 @@ do
 		"Pause!",			-- DE
 		"Pause",			-- DE (old DBM)
 		"Break time!",		-- EN, FR (old DBM)
+		"Break starting now -- you have %s! (Sent by %s)", -- EN (wrong locale, pre 7.09)
 		"¡Toca descanso!",	-- ES
 		"¡Descanso!",		-- ES (old DBM)
 		"Pause !",			-- FR
