@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230528190700")
+mod:SetRevision("20230528202740")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
-mod:SetHotfixNoticeRev(20221008210000)
-mod:SetMinSyncRevision(20221008210000)
+mod:SetHotfixNoticeRev(20230528000000)
+mod:SetMinSyncRevision(20230528000000)
 
 mod:RegisterCombat("combat")
 
@@ -179,7 +179,7 @@ local function ResetRange(self)
 	end
 end
 
--- Warmane workaround, since there is no dedicated event for Sindragosa Landing Phase, and there have been instances where UNIT_TARGET never fires
+-- Warmane workaround, since there is no dedicated event for Sindragosa Landing Phase, and UNIT_TARGET boss1 only fires if Sindragosa is targeted or focused (sync'ed below)
 local function landingPhaseWorkaround(self, timeOffset)
 	DBM:Debug("UNIT_TARGET boss1 didn't fire. Landing Phase scheduled")
 	self:SetStage(1)
@@ -389,13 +389,7 @@ end
 function mod:UNIT_TARGET(uId)
 	-- Attempt to catch when she lands by checking for Sindragosa's target being a raid member
 	if UnitExists(uId.."target") then
-		self:Unschedule(landingPhaseWorkaround)
-		self:SetStage(1)
-		timerNextAirphase:Start()
-		timerUnchainedMagic:Start(10) -- (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 10.0; 10.0 || 10.0; 10.0, 10.0; 10.0
-		timerTailSmash:Start(19) -- ~5s variance [19-23.8]? (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 19.0 || 21.4; 21.9 || 21.4; 23.8, 22.6; 22.2
-		timerNextBlisteringCold:Start(34) -- 6s variance [34-40]? (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 34.0; 34.0 || 34.0; 34.0; 34.0
-		self:UnregisterShortTermEvents()
+		self:SendSync("SindragosaLanded") -- Sync landing with raid since UNIT_TARGET:boss1 event requires Sindragosa to be target/focus, which not all members do
 	end
 end
 
@@ -427,5 +421,18 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextBlisteringCold:Restart(35) -- REVIEW! Stage 1 to Stage 2 needs logic! (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - Stage 1/44.2, Stage 2/24.6, 50.9 || 42.7; Stage 1/44.6, 22.6/67.2/79.9, Stage 2/3.2, 24.2 ; 39.5
 		self:Unschedule(landingPhaseWorkaround)
 		self:UnregisterShortTermEvents() -- REVIEW! not sure it's needed, but doesn't hurt. Would need validation on event order when boss is intermissioned with health right above phase 2 threshold, to check which of the events come first (TARGET or YELL)
+	end
+end
+
+function mod:OnSync(msg)
+	if not self:IsInCombat() then return end
+	if msg == "SindragosaLanded" then
+		self:Unschedule(landingPhaseWorkaround)
+		self:SetStage(1)
+		timerNextAirphase:Start()
+		timerUnchainedMagic:Start(10) -- (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 10.0; 10.0 || 10.0; 10.0, 10.0; 10.0
+		timerTailSmash:Start(19) -- ~5s variance [19-23.8]? (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 19.0 || 21.4; 21.9 || 21.4; 23.8, 22.6; 22.2
+		timerNextBlisteringCold:Start(34) -- 6s variance [34-40]? (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 34.0; 34.0 || 34.0; 34.0; 34.0
+		self:UnregisterShortTermEvents()
 	end
 end
