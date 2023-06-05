@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LordMarrowgar", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221117212802")
+mod:SetRevision("20230605220610")
 mod:SetCreatureID(36612)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetHotfixNoticeRev(20221117000000)
@@ -77,7 +77,6 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif spellId == 69076 then
 		timerWhirlwind:Cancel()
-		preWarnWhirlwind:Schedule(25)
 		if self:IsNormal() then
 			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
 		end
@@ -91,6 +90,7 @@ function mod:SPELL_CAST_START(args)
 		timerBoneSpikeUp:Start()
 		soundBoneSpike:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\Bone_Spike_cast.mp3")
 	elseif args.spellId == 69076 then
+		preWarnWhirlwind:Schedule(85)
 		timerWhirlwindCD:Start() -- As of 16/11/2022, Warmane fixed this timer (Transcriptor snippets above) || On Jul 3, 2021 I changed this to only trigger on Bone Storm finish, although looking at TC script this might be slightly innacurate since it reschedules on EVENT_WARN_BONE_STORM... Keep a close eye on this with more log data and also VOD review (25H Lordaeron 2022/09/14) - [-36s cf] 33.4, 32.7 || [no cf] 69.1, 69.0
 		timerWhirlwindStart:Start()
 		soundBoneStorm:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\Bone_Storm_cast.mp3")
