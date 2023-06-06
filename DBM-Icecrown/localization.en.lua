@@ -215,7 +215,7 @@ L:SetGeneralLocalization({
 
 L:SetMiscLocalization({
 	SwarmingShadows			= "Shadows amass and swarm around (%S+)!",
-	YellFrenzy				= "I'm hungry!"
+	YellFrenzy				= "I'm hungry!" -- Player did not bite; not to be confused with BQL Berserk (This ends NOW!)
 })
 
 -----------------------------

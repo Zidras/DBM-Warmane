@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" then return end
+if GetLocale() ~= "esMX" then return end
 
 local L
 
@@ -50,7 +50,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellReanimatedFanatic	= "¡Álzate y goza de tu verdadera forma!",
+	YellReanimatedFanatic	= "¡Álzate y goza de tu forma pura!",
 	ShieldPercent			= "Barrera de maná",
 --	Fanatic1				= "Fanático del Culto",
 --	Fanatic2				= "Fanático deformado",
@@ -82,14 +82,14 @@ L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
-	PullAlliance	= "¡Arrancad los motores! ¡Tenemos una cita con el destino, muchachos!",
-	PullHorde		= "¡Alzaos, hijos e hijas de la Horda! ¡Hoy nos enfrentamos a un odiado enemigo de la Horda! ¡LOK'TAR OGAR!",
-	AddsAlliance	= "¡Atracadores, sargentos, atacad!",
-	AddsHorde		= "¡Soldados, sargentos, atacad!",
-	MageAlliance	= "Nos están dañando el casco, ¡traed un mago de batalla aquí para acabar con esos cañones!",
-	MageHorde		= "Nos están dañando el casco, ¡traed un brujo aquí para acabar con esos cañones!",
-	KillAlliance	= "¡No digáis que no lo avisé, sinvergüenzas! Adelante, hermanos.",
-	KillHorde		= "La Alianza retrocede. ¡Hacia el Rey Exánime!"
+	PullAlliance	= "¡Enciendan los motores! ¡Tenemos una cita con el destino, muchachos!",
+	PullHorde		= "¡Levántense, hijos e hijas de la Horda! ¡Hoy nos enfrentamos a un enemigo odiado por todos! ¡LOK'TAR OGAR!",
+	AddsAlliance	= "¡Atracadores, sargentos, ataquen!",
+	AddsHorde		= "¡Soldados, sargentos, ataquen!",
+	MageAlliance	= "¡Nos están dañando el casco, traigan a un mago de batalla para que acabe con esos cañones!",
+	MageHorde		= "¡Nos están dañando el casco, traigan a un brujo para que acabe con esos cañones!",
+	KillAlliance	= "¡No digan que no les avisé, sinvergüenzas! ¡Adelante, hermanos y hermanas!",
+	KillHorde		= "La Alianza flaquea. ¡Hacia el Rey Exánime!"
 })
 
 ------------------------------
@@ -108,8 +108,8 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	RunePower			= "Poder de sangre",
-	PullAlliance		= "Por cada soldado de la Horda que matasteis... Por cada perro de la Alianza que cayó, el ejército del Rey Exánime creció. Ahora, hasta las Val'kyr alzan a los caídos para la Plaga.",
-	PullHorde			= "¡Kor'kron, vámonos! Campeones, vigilad vuestra retaguardia. La Plaga ha sido..."
+	PullAlliance		= "Por cada soldado de la Horda que mataron... Por cada perro de la Alianza que cayó, el ejército del Rey Exánime creció. Ahora, hasta las Val'kyr alzan a los caídos para la Plaga.",
+	PullHorde			= "¡Kor'kron, vámonos! Campeones, vigilen su retaguardia. La Plaga ha sido…"
 })
 
 ------------------
@@ -153,7 +153,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellSlimePipes1	= "¡Buenas noticias, amigos! He arreglado las tuberías de babosas venenosas.",	-- Professor Putricide
-	YellSlimePipes2	= "¡Grandes noticias, amigos! Las babosas vuelven a fluir."	-- Professor Putricide
+	YellSlimePipes2	= "¡Buenas noticias, amigos! ¡La baba ha vuelto a fluir!"	-- Professor Putricide
 })
 
 -------------------------
@@ -195,7 +195,7 @@ L:SetMiscLocalization({
 	Keleseth			= "Príncipe Keleseth",
 	Taldaram			= "Príncipe Taldaram",
 	Valanar				= "Príncipe Valanar",
-	FirstPull			= "Estúpidos. ¿Pensasteis que nos derrotaríais tan fácilmente? Los San'layn son los soldados inmortales del Rey Exánime. ¡Ahora os enfrentaréis a todos juntos!",
+	FirstPull			= "Mortales imbéciles. ¿Pensaron que nos derrotarían tan fácilmente? ¡Los San'layn son los soldados inmortales del Rey Exánime! ¡Ahora se enfrentarán a todo su poder combinado!",
 	EmpoweredFlames		= "¡Llamas potenciadas arremeten contra (%S+)!"
 })
 
@@ -241,8 +241,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull		= "Han entrado intrusos en el Sagrario Interior. Apresuraos en acabar con el dragón verde. ¡Dejad solo huesos y tendones para la reanimación!",
-	YellPortals		= "He abierto un portal al Sueño. Vuestra salvación está dentro, héroes..."
+	YellPull		= "Hay Intrusos en el Sagrario Interior. ¡Apresuren la destrucción del dragón verde! ¡Dejen sólo huesos y tendones para la reanimación!",
+	YellPortals		= "He abierto un portal al Sueño. Su salvación está dentro, héroes…"
 })
 
 ----------------
@@ -278,8 +278,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellAirphase		= "¡Aquí termina vuestra incursión! ¡Nadie sobrevivirá!",
-	YellPhase2			= "¡Ahora sentid el poder sin fin de mi maestro y desesperad!",
+	YellAirphase		= "¡Aquí termina su incursión! ¡Nadie sobrevivirá!",
+	YellPhase2			= "¡Ahora sientan el poder ilimitado de mi amo y tiemblen!",
 	YellAirphaseDem		= "Rikk zilthuras rikk zila Aman adare tiriosh ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	YellPhase2Dem		= "Zar kiel xi romathIs zilthuras revos ruk toralar ",--Demonic, since curse of tonges is used by some guilds and it messes up yell detection.
 	BeaconIconSet		= "Icono {rt%d} de Señal de Escarcha en %s",
@@ -327,8 +327,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	LKPull					= "¿Así que por fin ha llegado la elogiada justicia de la Luz? ¿Debería deponer la Agonía de Escarcha y confiar en tu piedad, Vadín?",
-	LKRoleplay				= "¿Me pregunto si de verdad os mueve la... rectitud?",
+	LKPull					= "¿Así que por fin ha llegado la tan anunciada justicia de la Luz? ¿Debería dejar la Agonía de Escarcha y someterme a tu piedad, Vadín?",
+	LKRoleplay				= "Me pregunto... ¿será verdad que los guía la rectitud?",
 	ValkGrabbedIcon			= "Una Val'kyr ha agarrado a %s {rt%d}",
 	ValkGrabbed				= "Una Val'kyr ha agarrado a %s",
 	PlagueStackWarning		= "Aviso: %s tiene %d acumulaciones de Peste necrótica",
@@ -368,8 +368,8 @@ L:SetMiscLocalization({
 	WarderTrap1			= "¿Quién... anda ahí?",
 	WarderTrap2			= "Estoy despierto...",
 	WarderTrap3			= "El sagrario del maestro ha sido perturbado.",
-	FleshreaperTrap1	= "Rápido, ¡atacaremos por la espalda!",
-	FleshreaperTrap2	= "¡No... puedes escapar!",
+	FleshreaperTrap1	= "Rápido, ¡los emboscaremos por la espalda!",
+	FleshreaperTrap2	= "¡No podrán escapar!",
 	FleshreaperTrap3	= "¿Los vivos? ¿¡Aquí!?",
-	SindragosaEvent		= "No debéis acercaros a la Reina de Escarcha. ¡Detenedlos, rápido!"
+	SindragosaEvent		= "No se acercarán a la Reina de Escarcha. ¡Deténganlos, rápido!"
 })
