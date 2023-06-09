@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 
-mod:SetRevision("20230315004412")
+mod:SetRevision("20230609165430")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -238,20 +238,22 @@ end
 local function showDominateMindWarning(self)
 	warnDominateMind:Show(table.concat(dominateMindTargets, "<, >"))
 	timerDominateMind:Start()
-	if not tContains(dominateMindTargets, UnitName("player")) and checkWeaponRemovalSetting(self) then
-		DBM:Debug("Equipping scheduled")
-		self:Schedule(0.1, EqW, self)
-		self:Schedule(1.7, EqW, self)
-		self:Schedule(3.3, EqW, self)
-		self:Schedule(5.5, EqW, self)
-		self:Schedule(7.5, EqW, self)
-		self:Schedule(9.9, EqW, self)
+	if checkWeaponRemovalSetting(self) then
+		if not tContains(dominateMindTargets, UnitName("player")) then
+			DBM:Debug("Equipping scheduled")
+			self:Schedule(0.1, EqW, self)
+			self:Schedule(1.7, EqW, self)
+			self:Schedule(3.3, EqW, self)
+			self:Schedule(5.5, EqW, self)
+			self:Schedule(7.5, EqW, self)
+			self:Schedule(9.9, EqW, self)
+		end
+		if self.Options.EqUneqTimer then
+			self:Schedule(39, UnW, self)
+		end
 	end
 	table.wipe(dominateMindTargets)
 	self.vb.dominateMindIcon = 1
-	if checkWeaponRemovalSetting(self) and self.Options.EqUneqTimer then
-		self:Schedule(39, UnW, self)
-	end
 end
 
 local function addsTimer(self)

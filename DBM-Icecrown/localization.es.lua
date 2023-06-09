@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Esbirro reanimado",			-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Esbirros en breve",
 	SpecWarnVengefulShade		= "¡Sombra vengativa te ataca! ¡Corre!",--creatureid 38222
-	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
+	WeaponsStatus				= "Desequipar automático habilitado"
 })
 
 L:SetOptionLocalization({
@@ -45,7 +45,7 @@ L:SetOptionLocalization({
 	CCFree						= "+ Eliminar $spell:48169 / $spell:48170. Tener en cuenta las resistencias de los hechizos de la escuela Sombra",
 	ShortOffensiveProcs			= "+ Elimina los procs ofensivos de baja duración. Recomendado para la seguridad de la raid sin comprometer la producción de daño de la raid",
 	MostOffensiveBuffs			= "+ Elimina la mayoría de los buffs ofensivos (principalmente para los Casters y los |cFFFF7C0ADruidas Ferales|r). Máxima seguridad en la incursión con la pérdida de daño y la necesidad de auto-buff/cambio de forma",
-	EqUneqWeapons				= "Desequipar/equipar armas si se lanza $spell:71289 sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado 'pve'.",
+	EqUneqWeapons				= "Desequipar/equipar armas si se lanza $spell:71289 sobre ti. Para que el equipo funcione, cree un gestor de equipamiento llamado \"pve\".",
 	EqUneqTimer					= "Retirar las armas con el temporizador SIEMPRE, no en el lanzamiento (si el ping es alto). La opción anterior debe estar habilitada.",
 })
 
