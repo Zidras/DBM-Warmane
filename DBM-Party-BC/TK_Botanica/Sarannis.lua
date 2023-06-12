@@ -16,7 +16,7 @@ function mod:OnCombatStart(delay)
 	if self:IsNormal() then
 		self:RegisterShortTermEvents("UNIT_HEALTH")
 	else
-		self:RegisterShortTermEvnts("UNIT_SPELLCAST_SUCCEEDED")
+		self:RegisterShortTermEvents("UNIT_SPELLCAST_SUCCEEDED")
 		timerReinforcements:Start(60 - delay)
 		warnReinforcementsSoon:Schedule(55 - delay)
 	end
