@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lanathel", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220901224831")
+mod:SetRevision("20230613234949")
 mod:SetCreatureID(37955)
 mod:SetModelID("creature/bloodqueen/bloodqueen.m2")
 mod:SetUsedIcons(1, 2, 3, 4, 7)
@@ -89,12 +89,12 @@ function mod:OnCombatStart(delay)
 	end
 	if self:IsDifficulty("normal10", "heroic10") then
 		timerNextInciteTerror:Start(124-delay)
-		warnInciteTerrorSoon:Schedule(119)
-		warnInciteTerrorSoon:ScheduleVoice(119, "fearsoon")
+		warnInciteTerrorSoon:Schedule(119-delay)
+		warnInciteTerrorSoon:ScheduleVoice(119-delay, "fearsoon")
 	else
 		timerNextInciteTerror:Start(127-delay)
-		warnInciteTerrorSoon:Schedule(122)
-		warnInciteTerrorSoon:ScheduleVoice(122, "fearsoon")
+		warnInciteTerrorSoon:Schedule(122-delay)
+		warnInciteTerrorSoon:ScheduleVoice(122-delay, "fearsoon")
 	end
 end
 

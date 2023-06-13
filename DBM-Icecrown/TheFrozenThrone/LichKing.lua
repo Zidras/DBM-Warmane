@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20230408190838")
+mod:SetRevision("20230613234949")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -263,25 +263,25 @@ local function RemoveImmunes(self)
 	end
 end
 
-local function NextPhase(self)
+local function NextPhase(self, delay)
 	self.vb.infestCount = 0
 	self.vb.defileCount = 0
 	self.vb.valkyrWaveCount = 0
 	self.vb.soulReaperCount = 0
 	if self.vb.phase == 1 then
 		if myRealm == "Lordaeron" and self:IsDifficulty("normal10") then -- only normal10 has shorter timer
-			berserkTimer:Start(720)
+			berserkTimer:Start(720-delay)
 		else
-			berserkTimer:Start()
+			berserkTimer:Start(-delay)
 		end
-		warnShamblingSoon:Schedule(15)
-		timerShamblingHorror:Start(20)
-		timerDrudgeGhouls:Start(10)
+		warnShamblingSoon:Schedule(15-delay)
+		timerShamblingHorror:Start(20-delay)
+		timerDrudgeGhouls:Start(10-delay)
 		if self:IsHeroic() then
-			timerTrapCD:Start()
+			timerTrapCD:Start(-delay)
 		end
-		timerNecroticPlagueCD:Start() -- no difference between N and H. (10N Icecrown 2022/08/20 || 10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/03) - 31.1; 32.6 || 31.6 || 30.7; 32.1; 31.0; 32.7; 30.4; 31.7; 31.5; 32.8; 30.8
-		timerInfestCD:Start(5.0, self.vb.infestCount+1) -- Fixed timer, confirmed on log review 2022/09/03
+		timerNecroticPlagueCD:Start(-delay) -- no difference between N and H. (10N Icecrown 2022/08/20 || 10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/03) - 31.1; 32.6 || 31.6 || 30.7; 32.1; 31.0; 32.7; 30.4; 31.7; 31.5; 32.8; 30.8
+		timerInfestCD:Start(5.0-delay, self.vb.infestCount+1) -- Fixed timer, confirmed on log review 2022/09/03
 	elseif self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
@@ -317,14 +317,14 @@ local function RestoreWipeTime(self)
 	self:SetWipeTime(5) --Restore it after frostmourn room.
 end
 
-function mod:OnCombatStart()
+function mod:OnCombatStart(delay)
 	self:DestroyFrame()
 	self:SetStage(1)
 	self.vb.valkIcon = 2
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	self.vb.ragingSpiritCount = 0
-	NextPhase(self)
+	NextPhase(self, delay)
 	table.wipe(shamblingHorrorsGUIDs)
 	table.wipe(iceSpheresGUIDs)
 	table.wipe(warnedValkyrGUIDs)

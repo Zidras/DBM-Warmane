@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230613194020")
+mod:SetRevision("20230613234949")
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
@@ -65,8 +65,8 @@ end
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
 	timerAdds:Start(12-delay)
-	warnAddsSoon:Schedule(7)
-	self:Schedule(12, Adds, self)
+	warnAddsSoon:Schedule(7-delay)
+	self:Schedule(12-delay, Adds, self)
 	self.vb.firstMage = false
 	if UnitFactionGroup("player") == "Alliance" then
 		timerBelowZeroCD:Start(39-delay) --Approximate, since it depends on cannon damage. Corrected on yell later

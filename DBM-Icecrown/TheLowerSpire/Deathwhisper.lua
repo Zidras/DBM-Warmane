@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 
-mod:SetRevision("20230609165430")
+mod:SetRevision("20230613234949")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -312,14 +312,14 @@ function mod:OnCombatStart(delay)
 		self:ScheduleMethod(0.5, "CreateShildHPFrame")
 	end
 	berserkTimer:Start(-delay)
-	timerAdds:Start(5.5)
-	warnAddsSoon:Schedule(2.5)			-- 3sec pre-warning on start
-	self:Schedule(5.5, addsTimer, self)
+	timerAdds:Start(5.5-delay)
+	warnAddsSoon:Schedule(2.5-delay)			-- 3sec pre-warning on start
+	self:Schedule(5.5-delay, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
-		timerDominateMindCD:Start(27)	-- REVIEW! 2s variance? (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 28.7 || 27.0
+		timerDominateMindCD:Start(27-delay)	-- REVIEW! 2s variance? (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 28.7 || 27.0
 		if checkWeaponRemovalSetting(self) and self.Options.EqUneqTimer then
 			specWarnWeapons:Show()
-			self:Schedule(26.5, UnW, self)
+			self:Schedule(26.5-delay, UnW, self)
 		end
 	end
 	table.wipe(dominateMindTargets)
