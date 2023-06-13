@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221003165303")
+mod:SetRevision("20230613194020")
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
@@ -54,7 +54,7 @@ mod:RemoveOption("HealthFrame")
 mod.vb.firstMage = false
 
 local function Adds(self)
-	timerAdds:Stop()
+--	timerAdds:Stop()
 	timerAdds:Start()
 	warnAddsSoon:Cancel()
 	warnAddsSoon:Schedule(55)
@@ -64,9 +64,9 @@ end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
-	timerAdds:Start(15-delay) --First adds might come early or late so timer should be taken as a proximity only.
-	warnAddsSoon:Schedule(10)
-	self:Schedule(15, Adds, self)
+	timerAdds:Start(12-delay)
+	warnAddsSoon:Schedule(7)
+	self:Schedule(12, Adds, self)
 	self.vb.firstMage = false
 	if UnitFactionGroup("player") == "Alliance" then
 		timerBelowZeroCD:Start(39-delay) --Approximate, since it depends on cannon damage. Corrected on yell later
