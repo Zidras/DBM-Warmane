@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230606190434"),
+	Revision = parseCurseDate("20230614000156"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -4386,8 +4386,9 @@ do
 
 	local function checkForPull(mob, combatInfo)
 		healthCombatInitialized = false
-		--This just can't be avoided, tryig to save cpu by using C_TimerAfter broke this
+		--This just can't be avoided, trying to save cpu by using C_TimerAfter broke this
 		--This needs the redundancy and ability to pass args.
+		scanForCombat(combatInfo.mod, mob, 0)
 		DBM:Schedule(0.5, scanForCombat, combatInfo.mod, mob, 0.5)
 		-- DBM:Schedule(1.25, scanForCombat, combatInfo.mod, mob, 1.25)
 		DBM:Schedule(2, scanForCombat, combatInfo.mod, mob, 2)
