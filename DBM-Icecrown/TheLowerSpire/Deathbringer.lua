@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230319131333")
+mod:SetRevision("20230614213545")
 mod:SetCreatureID(37813)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -126,7 +126,7 @@ function mod:OnCombatStart(delay)
 	warnAddsSoon:Schedule(30-delay)
 	timerBloodNova:Start(17-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 17.1 || 17.0 || 17.0 || 17.0 || 17.0 || 20.3
 	timerRuneofBlood:Start(-delay) -- (25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 20.0 || 20.0 || 20.8
-	timerBoilingBlood:Start(-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 15.5 || 15.5|| 15.5 || 15.6 || 15.5 || 19.4
+	timerBoilingBlood:Start(15.5-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 15.5 || 15.5|| 15.5 || 15.6 || 15.5 || 19.4
 	self.vb.warned_preFrenzy = false
 	self.vb.boilingBloodIcon = 1
 	self.vb.beastIcon = 8
@@ -215,7 +215,7 @@ function mod:SPELL_SUMMON(args)
 			warnAdds:Show()
 			warnAddsSoon:Schedule(30)
 			timerCallBloodBeast:Start()
-			if self:IsDifficulty("heroic10", "heroic25") then
+			if self:IsHeroic() then
 				timerNextScentofBlood:Start()
 			end
 		end
