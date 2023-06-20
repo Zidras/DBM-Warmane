@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230620194424"),
+	Revision = parseCurseDate("20230620231223"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -4369,12 +4369,12 @@ do
 		twipe(targetList)
 	end
 
-	local function scanForCombat(mod, mob, delay)
+	local function scanForCombat(mod, mob, delay, force) -- custom "force" arg for 3.3.5a PLAYER_REGEN_DISABLED
 		if not checkEntry(inCombat, mob) then
 			buildTargetList()
 			if targetList[mob] then
 				if mod.noFriendlyEngagement and UnitIsFriend("player", targetList[mob]) then return end
-				if delay > 0 and UnitAffectingCombat(targetList[mob]) and not (UnitPlayerOrPetInRaid(targetList[mob]) or UnitPlayerOrPetInParty(targetList[mob])) then
+				if (force or delay > 0) and UnitAffectingCombat(targetList[mob]) and not (UnitPlayerOrPetInRaid(targetList[mob]) or UnitPlayerOrPetInParty(targetList[mob])) then
 					DBM:StartCombat(mod, delay, "PLAYER_REGEN_DISABLED")
 				elseif (delay == 0) then
 					DBM:StartCombat(mod, 0, "PLAYER_REGEN_DISABLED_AND_MESSAGE")
@@ -4388,7 +4388,7 @@ do
 		healthCombatInitialized = false
 		--This just can't be avoided, trying to save cpu by using C_TimerAfter broke this
 		--This needs the redundancy and ability to pass args.
-		DBM:Schedule(0.01, scanForCombat, combatInfo.mod, mob, 0.01)
+		scanForCombat(combatInfo.mod, mob, 0, true) -- Since 3.3.5a does not have ENCOUNTER_START, and IEEU is not implemented everywhere, a scan is fired instantly on PLAYER_REGEN_DISABLED, rather than waiting 0.5s. Uses custom arg to use the scanForCombat UnitAffectingCombat checks
 		DBM:Schedule(0.5, scanForCombat, combatInfo.mod, mob, 0.5)
 		-- DBM:Schedule(1.25, scanForCombat, combatInfo.mod, mob, 1.25)
 		DBM:Schedule(2, scanForCombat, combatInfo.mod, mob, 2)
