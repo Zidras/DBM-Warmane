@@ -427,8 +427,8 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 --			elseif subCmd == "map" then
 --				DBM.Arrow:ShowRunTo(yNum, zNum, 0, nil, true)
 --				return
-			elseif DBM:GetRaidUnitId(subCmd) then
-				DBM.Arrow:ShowRunTo(subCmd)
+			elseif DBM:GetRaidUnitId(DBM:Capitalize(subCmd)) then
+				DBM.Arrow:ShowRunTo(DBM:Capitalize(subCmd))
 				return
 			end
 		end

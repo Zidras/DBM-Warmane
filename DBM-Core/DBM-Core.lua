@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230621092101"),
+	Revision = parseCurseDate("20230621215549"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -6426,6 +6426,19 @@ DBT:SetAnnounceHook(function(bar)
 		return ("%s: %s  %d:%02d"):format(prefix, _G[bar.frame:GetName().."BarName"]:GetText(), floor(bar.timer / 60), bar.timer % 60)
 	end
 end)
+
+function DBM:Capitalize(str)
+	local firstByte = str:byte(1, 1)
+	local numBytes = 1
+	if firstByte >= 0xF0 then -- firstByte & 0b11110000
+		numBytes = 4
+	elseif firstByte >= 0xE0 then -- firstByte & 0b11100000
+		numBytes = 3
+	elseif firstByte >= 0xC0 then  -- firstByte & 0b11000000
+		numBytes = 2
+	end
+	return str:sub(1, numBytes):upper()..str:sub(numBytes + 1):lower()
+end
 
 -- An anti spam function to throttle spammy events (e.g. SPELL_AURA_APPLIED on all group members)
 -- @param time the time to wait between two events (optional, default 2.5 seconds)
