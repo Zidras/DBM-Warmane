@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230312134131")
+mod:SetRevision("20230621220910")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
-mod:SetHotfixNoticeRev(20230312000000)
+mod:SetHotfixNoticeRev(20230621000000)
 mod:SetMinSyncRevision(20230312000000)
 
 mod:RegisterEventsInCombat(
@@ -132,8 +132,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnInhaled3:Show(amount)
 			specWarnInhaled3:Play("defensive")
 			timerPungentBlight:Start()
---		else	--Prevent timer from starting after 3rd stack since he won't cast it a 4th time, he does Pungent instead.
---			timerInhaledBlight:Start()
+		else	--Prevent timer from starting after 3rd stack since he won't cast it a 4th time, he does Pungent instead.
+			timerInhaledBlight:Start()
 		end
 	elseif args:IsSpellID(72219, 72551, 72552, 72553) then	-- Gastric Bloat
 		local amount = args.amount or 1
