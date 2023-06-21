@@ -1,5 +1,5 @@
 
-local LD = LibStub:NewLibrary("LibDurability", 1)
+local LD = LibStub:NewLibrary("LibDurability", 2)
 if not LD then return end -- No upgrade needed
 
 -- Throttle times for separate channels
@@ -20,8 +20,16 @@ local callbackMap = LD.callbackMap
 local frame = LD.frame
 
 local next, type, error, tonumber, format, match = next, type, error, tonumber, string.format, string.match
-local GetTime, GetInventoryItemDurability, IsInGroup, IsInRaid, SendAddonMessage = GetTime, GetInventoryItemDurability, IsInGroup, IsInRaid, SendAddonMessage
+local GetTime, GetInventoryItemDurability, GetNumPartyMembers, GetNumRaidMembers, SendAddonMessage = GetTime, GetInventoryItemDurability, GetNumPartyMembers, GetNumRaidMembers, SendAddonMessage
 local pName = UnitName("player")
+
+local function IsInGroup()
+	return GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0
+end
+
+local function IsInRaid()
+	return GetNumRaidMembers() > 0
+end
 
 local function GetDurability()
 	local curTotal, maxTotal, broken = 0, 0, 0

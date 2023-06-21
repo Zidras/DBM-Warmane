@@ -1,5 +1,5 @@
 
-local LL = LibStub:NewLibrary("LibLatency", 2)
+local LL = LibStub:NewLibrary("LibLatency", 3)
 if not LL then return end -- No upgrade needed
 
 -- Throttle times for separate channels
@@ -24,9 +24,17 @@ local frame = LL.frame
 local serverFrame = LL.serverFrame
 
 local next, type, error, tonumber, format, match = next, type, error, tonumber, string.format, string.match
-local GetTime, GetNetStats, IsInGroup, IsInRaid, SendAddonMessage = GetTime, GetNetStats, IsInGroup, IsInRaid, SendAddonMessage
+local GetTime, GetNetStats, GetNumPartyMembers, GetNumRaidMembers, SendAddonMessage = GetTime, GetNetStats, GetNumPartyMembers, GetNumRaidMembers, SendAddonMessage
 local SendChatMessage = SendChatMessage
 local pName = UnitName("player")
+
+local function IsInGroup()
+	return GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0
+end
+
+local function IsInRaid()
+	return GetNumRaidMembers() > 0
+end
 
 frame:SetScript("OnEvent", function(_, _, prefix, msg, channel, sender)
 	if prefix == "Lag" and throttleTable[channel] then
