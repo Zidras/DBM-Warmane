@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230621220910")
+mod:SetRevision("20230621232017")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
@@ -9,14 +9,13 @@ mod:SetHotfixNoticeRev(20230621000000)
 mod:SetMinSyncRevision(20230312000000)
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 69195 71219 73031 73032",
+	"SPELL_CAST_START 69195 71219 73031 73032 69278 71221",
 	"SPELL_AURA_APPLIED 69279 69166 71912 72219 72551 72552 72553 69240 71218 73019 73020 69291 72101 72102 72103",
 	"SPELL_AURA_APPLIED_DOSE 69166 71912 72219 72551 72552 72553 69291 72101 72102 72103",
 	"SPELL_AURA_REMOVED 69279",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
---TODO, use actual cast event for handling gasSporeCast to make it robust against under sized groups/retail soloing. Should be counting actual casts not debuff counts
 local warnInhaledBlight		= mod:NewStackAnnounce(69166, 3)
 local warnGastricBloat		= mod:NewStackAnnounce(72219, 2, nil, "Tank|Healer")
 local warnGasSpore			= mod:NewTargetNoFilterAnnounce(69279, 4)
@@ -96,20 +95,20 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69195, 71219, 73031, 73032) then	-- Pungent Blight
 		specWarnPungentBlight:Show()
 		specWarnPungentBlight:Play("aesoon")
+	elseif args:IsSpellID(69278, 71221) then	-- Gas Spore (10 man, 25 man)
+		self.vb.gasSporeCast = self.vb.gasSporeCast + 1
+		if self.vb.gasSporeCast < 3 then
+			timerGasSporeCD:Start()
+		elseif self.vb.gasSporeCast >= 3 then
+			timerGasSporeCD:Start(50)--Basically, the third time spores are placed on raid, it'll be an extra 10 seconds before he applies first set of spores again.
+			self.vb.gasSporeCast = 0
+		end
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69279 then	-- Gas Spore
 		gasSporeTargets[#gasSporeTargets + 1] = args.destName
-		self.vb.gasSporeCast = self.vb.gasSporeCast + 1
-		--25 man is 3 sets of 3 and 10 man is 3 sets of 2, totalling 9 and 6 respectively
-		if (self.vb.gasSporeCast < 9 and self:IsDifficulty("normal25", "heroic25")) or (self.vb.gasSporeCast < 6 and self:IsDifficulty("normal10", "heroic10")) then
-			timerGasSporeCD:Restart()
-		elseif (self.vb.gasSporeCast >= 9 and self:IsDifficulty("normal25", "heroic25")) or (self.vb.gasSporeCast >= 6 and self:IsDifficulty("normal10", "heroic10")) then
-			timerGasSporeCD:Restart(50)--Basically, the third time spores are placed on raid, it'll be an extra 10 seconds before he applies first set of spores again.
-			self.vb.gasSporeCast = 0
-		end
 		if args:IsPlayer() then
 			specWarnGasSpore:Show()
 			specWarnGasSpore:Play("targetyou")
