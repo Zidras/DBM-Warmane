@@ -1,15 +1,16 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230622001240")
+mod:SetRevision("20230627182332")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
-mod:SetHotfixNoticeRev(20230622000000)
-mod:SetMinSyncRevision(20230622000000)
+mod:SetHotfixNoticeRev(20230627000000)
+mod:SetMinSyncRevision(20230627000000)
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 69195 71219 73031 73032 69278 71221",
+	"SPELL_CAST_START 69195 71219 73031 73032",
+	"SPELL_CAST_SUCCESS 69278 71221",
 	"SPELL_AURA_APPLIED 69279 69166 71912 72219 72551 72552 72553 69240 71218 73019 73020 69291 72101 72102 72103",
 	"SPELL_AURA_APPLIED_DOSE 69166 71912 72219 72551 72552 72553 69291 72101 72102 72103",
 	"SPELL_AURA_REMOVED 69279",
@@ -95,7 +96,11 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69195, 71219, 73031, 73032) then	-- Pungent Blight
 		specWarnPungentBlight:Show()
 		specWarnPungentBlight:Play("aesoon")
-	elseif args:IsSpellID(69278, 71221) then	-- Gas Spore (10 man, 25 man)
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args:IsSpellID(69278, 71221) then	-- Gas Spore (10 man, 25 man)
 		self.vb.gasSporeCast = self.vb.gasSporeCast + 1
 		if self.vb.gasSporeCast == 6 then
 			timerGasSporeCD:Start(50) -- From all the 2023 logs I have, there was only one 50s instance, and it was on the 6->7th cast
