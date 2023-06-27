@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230627195047")
+mod:SetRevision("20230627231130")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
@@ -72,7 +72,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	timerInhaledBlight:Start(32.0-delay) -- REVIEW! ~1s variance? (25H Lordaeron 2022/09/04 || 25H Lordaeron 2022/09/25) - pull:32.0 || pull:32.9
+	timerInhaledBlight:Start(32.0-delay) -- REVIEW! ~1s variance? (25H Lordaeron 2022/09/04 || 25H Lordaeron 2022/09/25 || 25H Lordaeron [2023-06-27]@[20:34:49]) - pull:32.0 || pull:32.9 || pull:30.6
 	timerGasSporeCD:Start(20-delay) -- ~5s variance [20.1 - 24.9]. Added "keep" arg. (25H Lordaeron [2022-09-14]@[20:34:44] || 25H Lordaeron [2022-09-23]@[21:13:34] || 25N Lordaeron [2023-02-10]@[19:23:53] || 25N Lordaeron [2023-02-14]@[20:56:07] || 10H Icecrown [2023-04-05]@[22:46:14] || 25H Lordaeron [2023-04-07]@[19:35:55) - pull:24.1 || pull:24.9 || pull:21.5 || pull:21.1|| pull:20.1|| pull:20.3
 	timerGastricBloatCD:Start(-delay)
 	table.wipe(gasSporeTargets)
