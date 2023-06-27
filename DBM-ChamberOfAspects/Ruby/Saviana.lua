@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Saviana", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220923234021")
+mod:SetRevision("20230627230650")
 mod:SetCreatureID(39747)
 mod:SetUsedIcons(8, 7, 6, 5, 4)
 
@@ -23,7 +23,7 @@ local specWarnTranq			= mod:NewSpecialWarningDispel(78722, "RemoveEnrage", nil, 
 local timerBeacon			= mod:NewBuffActiveTimer(5, 74453, nil, nil, nil, 3)
 local timerConflag			= mod:NewBuffActiveTimer(5, 74456, nil, nil, nil, 3)
 local timerConflagCD		= mod:NewCDTimer(63.8, 74452, nil, nil, nil, 3) -- REVIEW! Using UNIT_SPELLCAST_SUCCEEDED since it only fires once. 1s variance? if it's this low, not worth enabling "Keep" (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) -- 63.8 || 64.3
-local timerBreath			= mod:NewCDTimer(25, 74403, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~15 variance! Added "Keep" arg (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) -- 38.8, 29.5, 34.2 || 38.4, 25.7
+local timerBreath			= mod:NewCDTimer(22.1, 74403, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~17 variance! Added "Keep" arg (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23 || 25N Lordaeron [2023-06-27]@[19:12:05]) -- 38.8, 29.5, 34.2 || 38.4, 25.7 || 38.1, 22.1
 local timerEnrage			= mod:NewBuffActiveTimer(10, 78722, nil, "RemoveEnrage|Tank|Healer", nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON..DBM_COMMON_L.TANK_ICON)
 
 mod:AddRangeFrameOption(10, 74456)
@@ -42,7 +42,7 @@ end
 
 function mod:OnCombatStart(delay)
 	timerConflagCD:Start(30.1-delay) -- REVIEW! variance? (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) -- 30.1 || 30.2
-	timerBreath:Start(14-delay) -- REVIEW! variance? (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) - 14.0 || 14.0
+	timerBreath:Start(14-delay) -- (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23 || 25N Lordaeron [2023-06-27]@[19:12:05]) - 14.0 || 14.0 || 14.0
 	table.wipe(beaconTargets)
 	self.vb.beaconIcon = 8
 	if self.Options.RangeFrame then
