@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230627182332")
+mod:SetRevision("20230627195047")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
@@ -33,11 +33,11 @@ local specWarnGoo			= mod:NewSpecialWarningDodge(72297, true, nil, nil, 1, 2) --
 
 local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279, nil, nil, nil, 3)
 local timerVileGas			= mod:NewBuffFadesTimer(6, 69240, nil, "Ranged", nil, 3)
-local timerGasSporeCD		= mod:NewCDTimer(40.6, 69279, nil, nil, nil, 3, nil, nil, true)	-- REVIEW! ~5s variance [40.6 - 50.3]. Added "keep" arg. (25H Lordaeron [2022-09-14]@[20:34:44] || 25H Lordaeron [2022-09-23]@[21:13:34] || 25N Lordaeron [2023-02-10]@[19:23:53] ||  25N Lordaeron [2023-02-14]@[20:56:07] || 10H Icecrown [2023-04-05]@[22:46:14] || 25H Lordaeron [2023-04-07]@[19:35:55) - "Gas Spore-71221-npc:36626-1002 = pull:24.1, 42.9, 41.9, 45.9, 44.7 || "Gas Spore-71221-npc:36626-1507 = pull:24.9, 43.6, 41.5, 42.0, 41.9" || "Gas Spore-71221-npc:36626-1086 = pull:21.5, 43.9, 41.9, 43.0, 41.2, 43.5 || "Gas Spore-71221-npc:36626-1575 = pull:21.1, 44.1, 40.6, 48.7, 43.2, 44.1 || "Gas Spore-69278-npc:36626-852 = pull:20.1, 46.1, 41.2" || "Gas Spore-71221-npc:36626-1098 = pull:20.3, 43.1, 43.3, 43.6, 43.3, 43.1, 50.3"
+local timerGasSporeCD		= mod:NewCDTimer(40.6, 69279, nil, nil, nil, 3, nil, nil, true)	-- REVIEW! ~5s variance [40.6 - 50.3]. Added "keep" arg. (25H Lordaeron [2022-09-14]@[20:34:44] || 25H Lordaeron [2022-09-23]@[21:13:34] || 25N Lordaeron [2023-02-10]@[19:23:53] || 25N Lordaeron [2023-02-14]@[20:56:07] || 10H Icecrown [2023-04-05]@[22:46:14] || 25H Lordaeron [2023-04-07]@[19:35:55) - "Gas Spore-71221-npc:36626-1002 = pull:24.1, 42.9, 41.9, 45.9, 44.7 || "Gas Spore-71221-npc:36626-1507 = pull:24.9, 43.6, 41.5, 42.0, 41.9" || "Gas Spore-71221-npc:36626-1086 = pull:21.5, 43.9, 41.9, 43.0, 41.2, 43.5 || "Gas Spore-71221-npc:36626-1575 = pull:21.1, 44.1, 40.6, 48.7, 43.2, 44.1 || "Gas Spore-69278-npc:36626-852 = pull:20.1, 46.1, 41.2" || "Gas Spore-71221-npc:36626-1098 = pull:20.3, 43.1, 43.3, 43.6, 43.3, 43.1, 50.3"
 local timerPungentBlight	= mod:NewCDTimer(33.5, 69195, nil, nil, nil, 2)		-- Edited. ~34 seconds after 3rd stack of inhaled. REVIEW! (25H Lordaeron 2022/09/25) - pull:131.4 [33.5]
 local timerInhaledBlight	= mod:NewCDTimer(33.8, 69166, nil, nil, nil, 6)	-- Timer is based on Aura. ~1s variance? (25H Lordaeron 2022/09/04 || 25H Lordaeron 2022/09/25) - 34.2, 34.7, *, 34.2 || 34.3, 33.8, 67.5 [33.5-pungent, 34.0], 34.2
 local timerGastricBloat		= mod:NewTargetTimer(100, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)	-- 100 Seconds until expired
-local timerGastricBloatCD	= mod:NewCDTimer(12, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)		-- 10 to 14 seconds
+local timerGastricBloatCD	= mod:NewCDTimer(13.1, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! ~3s variance [13.1 - 16.2]. (25H Lordaeron [2023-04-07]@[19:29:03] || 25H Icecrown [2023-05-28]@[16:21:49]) - "Gastric Bloat-72553-npc:36626-1098 = pull:13.8, 13.1, 13.5, 13.1, 13.2, 14.0, 13.8, 13.4, 13.2, 13.9, 13.4, 13.8 || "Gastric Bloat-72553-npc:36626-752 = pull:13.6, 16.2, 13.4, 13.1, 13.4, 13.3, 14.3, 13.4, 13.1, 14.1, 13.1, 14.8, 13.1
 local timerGooCD			= mod:NewCDTimer(10, 72297, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(300)
@@ -73,7 +73,8 @@ end
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerInhaledBlight:Start(32.0-delay) -- REVIEW! ~1s variance? (25H Lordaeron 2022/09/04 || 25H Lordaeron 2022/09/25) - pull:32.0 || pull:32.9
-	timerGasSporeCD:Start(20-delay)--This may need tweaking
+	timerGasSporeCD:Start(20-delay) -- ~5s variance [20.1 - 24.9]. Added "keep" arg. (25H Lordaeron [2022-09-14]@[20:34:44] || 25H Lordaeron [2022-09-23]@[21:13:34] || 25N Lordaeron [2023-02-10]@[19:23:53] || 25N Lordaeron [2023-02-14]@[20:56:07] || 10H Icecrown [2023-04-05]@[22:46:14] || 25H Lordaeron [2023-04-07]@[19:35:55) - pull:24.1 || pull:24.9 || pull:21.5 || pull:21.1|| pull:20.1|| pull:20.3
+	timerGastricBloatCD:Start(-delay)
 	table.wipe(gasSporeTargets)
 	table.wipe(vileGasTargets)
 	self.vb.gasSporeCast = 0
@@ -179,6 +180,7 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(72299) then -- Malleable Goo Summon Trigger (10 player normal) (the other 3 spell ids are not needed here since all spells have the same name)
+		DBM:AddMsg("Malleable Goo Summon Trigger UNIT_SPELLCAST_SUCCEEDED unhidden from combat log. Notify Zidras on Discord or GitHub")
 		specWarnGoo:Show()
 		specWarnGoo:Play("watchstep")
 		if self:IsDifficulty("heroic25") then
