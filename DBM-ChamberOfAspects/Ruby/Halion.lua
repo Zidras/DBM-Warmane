@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230311094922")
+mod:SetRevision("20230627224652")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -334,7 +334,7 @@ function mod:OnSync(msg, target)
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
 		timerMeteorCD:Start(23.2) --These i'm not sure if they start regardless of drake aggro, or if it varies as well. (25H Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/30) - Stage 3/25.8 || 23.2
-		timerFieryCombustionCD:Start(18.5) -- (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15) - 18.5 || 19.4
+		timerFieryCombustionCD:Start(17.8) -- REVIEW! source of variance? (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25N Lordaeron [2023-06-27]@[19:37:57]) - 18.5 || 19.4 || 17.8
 	elseif msg == "Phase3soon" and not self.vb.warned_preP3 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
