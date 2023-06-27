@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230613234949")
+mod:SetRevision("20230627225738")
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
@@ -53,20 +53,20 @@ mod:RemoveOption("HealthFrame")
 
 mod.vb.firstMage = false
 
-local function Adds(self)
+local function Adds(self) -- no longer on a timed loop, since YELL event is available
 --	timerAdds:Stop()
 	timerAdds:Start()
 	warnAddsSoon:Cancel()
 	warnAddsSoon:Schedule(55)
-	self:Unschedule(Adds)
-	self:Schedule(60, Adds, self)
+--	self:Unschedule(Adds)
+--	self:Schedule(60, Adds, self)
 end
 
 function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
 	timerAdds:Start(12-delay)
 	warnAddsSoon:Schedule(7-delay)
-	self:Schedule(12-delay, Adds, self)
+--	self:Schedule(12-delay, Adds, self)
 	self.vb.firstMage = false
 	if UnitFactionGroup("player") == "Alliance" then
 		timerBelowZeroCD:Start(39-delay) --Approximate, since it depends on cannon damage. Corrected on yell later
@@ -127,7 +127,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg:find(L.PullHorde) then
 		timerCombatStart:Start(45)
 	elseif (msg:find(L.AddsAlliance) or msg:find(L.AddsHorde)) and self:IsInCombat() then
-		self:Unschedule(Adds)
+--		self:Unschedule(Adds)
 		Adds(self)
 	elseif (msg:find(L.MageAlliance) or msg == L.MageAlliance) and self:IsInCombat() then
 		if not self.vb.firstMage then
