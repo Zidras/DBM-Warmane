@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230312195827")
+mod:SetRevision("20230628190827")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
@@ -57,7 +57,9 @@ end ]]
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(9-delay) -- Adjust from 25 to 9 to have a correct timer from the start
 	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray. Log reviewed (25H Lordaeron 2022/07/09) - 20.0
-	timerVileGasCD:Start(28.9-delay) -- Edited. REVIEW! variance? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/09/23) - 28.9 || 29.1
+	if self:IsHeroic() then
+		timerVileGasCD:Start(28.9-delay) -- Edited. REVIEW! variance? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/09/23) - 28.9 || 29.1
+	end
 --	self:Schedule(25-delay, WallSlime, self)
 	self.vb.InfectionIcon = 1
 	spamOoze = 0
