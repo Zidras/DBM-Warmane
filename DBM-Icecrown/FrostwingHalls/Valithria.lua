@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Valithria", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010214742")
+mod:SetRevision("20230705224739")
 mod:SetCreatureID(36789)
 mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
@@ -10,7 +10,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 70754 71748 72023 72024 71189",
-	"SPELL_CAST_SUCCESS 71179 70588",
+	"SPELL_CAST_SUCCESS 71179 71741 70588",
 	"SPELL_AURA_APPLIED 70633 71283 72025 72026 70751 71738 72022 72023 69325 71730 70873 71941",
 	"SPELL_AURA_APPLIED_DOSE 70751 71738 72022 72023 70873 71941",
 	"SPELL_AURA_REMOVED 70633 71283 72025 72026 69325 71730 70873 71941",
@@ -38,8 +38,8 @@ local timerNextPortal		= mod:NewCDCountTimer(45, 72483, nil, nil, nil, 5, nil, D
 local timerPortalsOpen		= mod:NewTimer(15, "TimerPortalsOpen", 72483, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 72483)
 local timerPortalsClose		= mod:NewTimer(10, "TimerPortalsClose", 72483, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 72483)
 local timerHealerBuff		= mod:NewBuffFadesTimer(40, 70873, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerGutSpray			= mod:NewTargetTimer(12, 70633, nil, "Tank|Healer", nil, 5)
-local timerCorrosion		= mod:NewTargetTimer(6, 70751, nil, false, nil, 3)
+local timerGutSpray			= mod:NewBuffFadesTimer(12, 70633, nil, "Tank|Healer", nil, 5)
+local timerCorrosion		= mod:NewBuffFadesTimer(6, 70751, nil, false, nil, 3)
 local timerBlazingSkeleton	= mod:NewNextTimer(50, 70933, "TimerBlazingSkeleton", nil, nil, 1, 17204)
 local timerAbom				= mod:NewNextCountTimer(50, 70922, "TimerAbom", nil, nil, 1)
 local timerSuppressers		= mod:NewNextCountTimer(60, 70935, nil, nil, nil, 1)
@@ -108,12 +108,12 @@ local function StartAbomTimer(self)
 	if self.vb.AbomSpawn == 1 then
 		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Timer is 60 seconds after first early abom, it's set to 60 on combat start.
 		self:Schedule(self.vb.AbomTimer, StartAbomTimer, self)
-		self.vb.AbomTimer = self.vb.AbomTimer - 5--Right after first abom timer starts, change it from 60 to 55.
+		self.vb.AbomTimer = self.vb.AbomTimer - 5--Right after second abom timer starts, change it from 60 to 55.
 	elseif self.vb.AbomSpawn == 2 or self.vb.AbomSpawn == 3 then
-		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Start first and second 55 second timer
+		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Start first and second 55 second timer (third and fourth abom spawn)
 		self:Schedule(self.vb.AbomTimer, StartAbomTimer, self)
 	elseif self.vb.AbomSpawn >= 4 then--after 4th abom, the timer starts subtracting again.
-		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Start third 55 second timer before subtracking from it again.
+		timerAbom:Start(self.vb.AbomTimer, self.vb.AbomSpawn + 1)--Start third 55 second timer before subtracting from it again.
 		self:Schedule(self.vb.AbomTimer, StartAbomTimer, self)
 		if self.vb.AbomTimer >= 10 then--Keep it from dropping below 5
 			self.vb.AbomTimer = self.vb.AbomTimer - 5--Rest of timers after 3rd 55 second timer will be 5 less than previous until they come every 5 seconds.
@@ -150,7 +150,7 @@ function mod:OnCombatStart(delay)
 	self:Schedule(30-delay, StartBlazingSkeletonTimer, self)
 	self:Schedule(5-delay, StartAbomTimer, self)
 	timerBlazingSkeleton:Start(30-delay)
-	timerAbom:Start(5-delay, 1) -- Hardcode 1 on combatStart, there's no need to calculate self.vb.portalCount+1
+	timerAbom:Start(5-delay, 1) -- Hardcode 1 on combatStart, there's no need to calculate self.vb.AbomSpawn+1
 	self.vb.SuppressersWave = 1
 	timerSuppressers:Start(30-delay, self.vb.SuppressersWave)
 	specWarnSuppressers:Schedule(30)
@@ -171,7 +171,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if spellId == 71179 then--Mana Void
+	if args:IsSpellID(71179, 71741) then--Mana Void
 		warnManaVoid:Show()
 	elseif spellId == 70588 and self:AntiSpam(5, 1) then--Supression
 		warnSupression:Show(args.destName)
