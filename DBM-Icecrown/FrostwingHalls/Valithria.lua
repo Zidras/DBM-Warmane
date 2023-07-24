@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Valithria", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230705224739")
+mod:SetRevision("20230724165320")
 mod:SetCreatureID(36789)
 mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
@@ -130,7 +130,7 @@ local function Portals(self)
 	warnPortalOpen:Schedule(15)
 	timerPortalsOpen:Start()
 	timerPortalsClose:Schedule(15)
-	warnPortalSoon:Schedule(41)
+	warnPortalSoon:Schedule(40)
 	timerNextPortal:Start(nil, self.vb.portalCount+1)
 --	self:Unschedule(Portals)
 --	self:Schedule(45.4, Portals, self)--This will never be perfect, since it's never same. 45-48sec variations
@@ -142,7 +142,7 @@ function mod:OnCombatStart(delay)
 	end
 	self.vb.portalCount = 0
 	timerNextPortal:Start(nil, 1) -- Hardcode 1 on combatStart, there's no need to calculate self.vb.portalCount+1
-	warnPortalSoon:Schedule(41)
+	warnPortalSoon:Schedule(40)
 --	self:Schedule(45.4, Portals, self)--This will never be perfect, since it's never same. 45-48sec variations
 	self.vb.BlazingSkeletonTimer = 60
 	self.vb.AbomTimer = 60
