@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230627215931"),
+	Revision = parseCurseDate("20230724135237"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -4769,6 +4769,9 @@ do
 			if mod.combatInfo.noCombatInVehicle and UnitInVehicle("player") then -- HACK
 				return
 			end
+			if self.Options.RecordOnlyBosses then
+				self:StartLogging(0)
+			end
 			if event then
 				self:Debug("StartCombat called by : "..event.." for mod : "..mod.id..". LastInstanceMapID is "..LastInstanceMapID)
 			else
@@ -4847,9 +4850,10 @@ do
 			end
 			--process global options
 			self:HideBlizzardEvents(1)
-			if self.Options.RecordOnlyBosses then
-				self:StartLogging(0)
-			end
+--			I prefer starting the log at the beginning of the function, to catch the StartCombat debug
+--			if self.Options.RecordOnlyBosses then
+--				self:StartLogging(0)
+--			end
 			if self.Options.HideObjectivesFrame and GetNumTrackedAchievements() == 0 then -- doesn't need InCombatLockdown() check since it's not a protected function
 				if WatchFrame:IsVisible() then
 					WatchFrame:Hide()
