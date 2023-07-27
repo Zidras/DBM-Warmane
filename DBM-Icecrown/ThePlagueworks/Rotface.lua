@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230628190827")
+mod:SetRevision("20230727015029")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
@@ -30,8 +30,9 @@ local specWarnSlimeSpray		= mod:NewSpecialWarningSpell(69508, false, nil, nil, 1
 local specWarnRadiatingOoze		= mod:NewSpecialWarningSpell(69760, "-Tank", nil, nil, 1, 2)
 local specWarnLittleOoze		= mod:NewSpecialWarning("SpecWarnLittleOoze", false, nil, nil, 1, 2)
 local specWarnVileGas			= mod:NewSpecialWarningYou(72272, nil, nil, nil, 1, 2, 3) -- Heroic Ability
+local specWarnStickyOozeSpit	= mod:NewSpecialWarningLookAway(69774, nil, nil, nil, 1, 2) -- Ooze target to face away from melee group
 
-local timerStickyOoze			= mod:NewNextTimer(15, 69774, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerStickyOoze			= mod:NewNextTimer(15, 69774, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- TO DO: add source
 local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
 local timerSlimeSpray			= mod:NewNextTimer(20, 69508, nil, nil, nil, 3) -- Log reviewed (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25) - 20.1, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0 || 20.0, 20.1, 20.0, 20.0
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 5)
@@ -43,7 +44,11 @@ mod:AddRangeFrameOption(10, 72272, "Ranged")
 mod:AddSetIconOption("InfectionIcon", 69674, true, 0, {1, 2})
 mod:AddBoolOption("TankArrow", true, nil, nil, nil, nil, 69674)
 
+local oozeGUIDsByTarget = {}
+local oozeSpawnGUIDs = {}
 local spamOoze = 0
+local playerName = UnitName("player")
+local oozeCachedTarget
 mod.vb.InfectionIcon = 1
 
 --[[ local function WallSlime(self)
@@ -54,6 +59,34 @@ mod.vb.InfectionIcon = 1
 	end
 end ]]
 
+local function stickyOozeSpitLookAway(sourceGUID)
+	if not sourceGUID then return end
+
+	for raidTargetName, oozeGUID in pairs(oozeGUIDsByTarget) do
+		if oozeGUID == sourceGUID then
+			oozeCachedTarget = raidTargetName
+	--[[else
+			local oozeUnit = DBM:GetUnitIdFromGUID(sourceGUID)
+			if oozeUnit then
+				local oozeTarget = UnitName(oozeUnit.."target")
+				if not oozeTarget then
+					oozeCachedTarget = UNKNOWN
+				end
+			else
+				oozeCachedTarget = UNKNOWN
+			end]]
+
+			DBM:Debug("Ooze cached target: " .. oozeCachedTarget)
+			if oozeCachedTarget == playerName then
+				specWarnStickyOozeSpit:Show(oozeCachedTarget)
+				specWarnStickyOozeSpit:Play("turnaway")
+			end
+			oozeCachedTarget = nil
+			break
+		end
+	end
+end
+
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(9-delay) -- Adjust from 25 to 9 to have a correct timer from the start
 	timerSlimeSpray:Start(20-delay) -- Custom add for the first Slime Spray. Log reviewed (25H Lordaeron 2022/07/09) - 20.0
@@ -63,6 +96,7 @@ function mod:OnCombatStart(delay)
 --	self:Schedule(25-delay, WallSlime, self)
 	self.vb.InfectionIcon = 1
 	spamOoze = 0
+	oozeCachedTarget = nil
 	if self.Options.RangeFrame and self:IsHeroic() then
 		DBM.RangeCheck:Show(10) -- Increased from 8 to 10
 	end
@@ -72,6 +106,8 @@ function mod:OnCombatStart(delay)
 		"SWING_DAMAGE",
 		"SWING_MISSED"
 	)
+	table.wipe(oozeGUIDsByTarget)
+	table.wipe(oozeSpawnGUIDs)
 end
 
 function mod:OnCombatEnd()
@@ -90,6 +126,10 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 69774 then
 		timerStickyOoze:Start(args.sourceGUID)
 		warnStickyOoze:Show()
+		self:Schedule(13, stickyOozeSpitLookAway, args.sourceGUID)
+		if not oozeSpawnGUIDs[args.sourceGUID] then
+			oozeSpawnGUIDs[args.sourceGUID] = true -- Correct Ooze cache which wasn't picked up by SWING detector
+		end
 	elseif spellId == 69839 then --Unstable Ooze Explosion (Big Ooze)
 		if GetTime() - spamOoze < 4 then --This will prevent spam but breaks if there are 2 oozes. GUID work is required
 			specWarnOozeExplosion:Cancel()
@@ -173,10 +213,23 @@ function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, destGUID, _, _, s
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-function mod:SWING_DAMAGE(sourceGUID, sourceName, sourceFlags, destGUID)
-	if self:GetCIDFromGUID(sourceGUID) == 36897 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then --Little ooze hitting you
-		specWarnLittleOoze:Show()
-		specWarnLittleOoze:Play("keepmove")
+function mod:SWING_DAMAGE(sourceGUID, sourceName, sourceFlags, destGUID, destName)
+	if self:GetCIDFromGUID(sourceGUID) == 36897 then -- Little Ooze
+		if not oozeGUIDsByTarget[destName] and not oozeSpawnGUIDs[sourceGUID] then -- very first swing from an uncached Little Ooze AND uncached ooze target
+			oozeGUIDsByTarget[destName] = sourceGUID
+			self:Schedule(3, stickyOozeSpitLookAway, sourceGUID)
+			timerStickyOoze:Start(5, sourceGUID) -- calculated from Little Ooze spawn (using first SWING from an uncached GUID) and SCStart (25H Rotface [2023-06-30]@[21:24:45]) - 5.04, 5.01, 5.04, 5.03,...
+		end
+		if not oozeSpawnGUIDs[sourceGUID] then
+			oozeSpawnGUIDs[sourceGUID] = true -- Cache Little Ooze first swing to determine which ooze GUID has just spawned
+		end
+		if oozeGUIDsByTarget[destName] ~= sourceGUID then
+			oozeGUIDsByTarget[destName] = sourceGUID -- Cached Little Ooze does not match original target, so correct it
+		end
+		if destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then --Little ooze hitting you
+			specWarnLittleOoze:Show()
+			specWarnLittleOoze:Play("keepmove")
+		end
 	elseif self:GetCIDFromGUID(destGUID) == 36899 and bit.band(sourceFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0 and self:IsInCombat() then
 		if sourceGUID ~= UnitGUID("player") then
 			if self.Options.TankArrow then
