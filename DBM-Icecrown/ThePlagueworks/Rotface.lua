@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230628190827")
+mod:SetRevision("20230727014918")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
@@ -129,7 +129,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self.vb.InfectionIcon = 1
 		end
-	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas(Heroic Rotface only, 25 man spellid the same as 10?)
+	elseif args:IsSpellID(72272, 72273) and args:IsDestTypePlayer() then	-- Vile Gas (Heroic Rotface only)
 		if args:IsPlayer() then
 			specWarnVileGas:Show()
 			specWarnVileGas:Play("scatter")
