@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230502225216")
+mod:SetRevision("202300802234557")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetMinSyncRevision(20220908000000)
@@ -257,7 +257,7 @@ function mod:SPELL_CAST_START(args)
 			self:Schedule(38, NextPhase, self)	--after 8s PP sets target
 			timerNextPhase:Start(38)
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
-		elseif mod:IsDifficulty("heroic25") then
+		elseif self:IsDifficulty("heroic25") then
 			self:Schedule(28, NextPhase, self)
 			timerNextPhase:Start(28)
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
