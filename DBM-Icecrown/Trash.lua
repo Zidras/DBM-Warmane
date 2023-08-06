@@ -1,7 +1,9 @@
 local mod	= DBM:NewMod("ICCTrash", "DBM-Icecrown", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220624005857")
+local UnitGUID = UnitGUID
+
+mod:SetRevision("20230806234313")
 mod:SetModelID(37007)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod.isTrashMod = true
@@ -15,6 +17,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE",
 	"SPELL_MISSED",
 	"UNIT_DIED",
+	"UNIT_TARGET",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -40,6 +43,7 @@ local specWarnDarkReckoning		= mod:NewSpecialWarningMoveAway(69483)
 local specWarnDeathPlague		= mod:NewSpecialWarningYou(72865)
 local specWarnTrapL				= mod:NewSpecialWarning("SpecWarnTrapL")
 --Plagueworks
+local specWarnSeveredEssence	= mod:NewSpecialWarningMove(71942)
 local specWarnDecimate			= mod:NewSpecialWarningSpell(71123)
 local specWarnMortalWound		= mod:NewSpecialWarningStack(71127, "Tank|Healer", 6)
 local specWarnTrapP				= mod:NewSpecialWarning("SpecWarnTrapP")
@@ -53,6 +57,7 @@ local timerDisruptingShout		= mod:NewCastTimer(3, 71022, nil, nil, nil, 2)
 local timerDarkReckoning		= mod:NewTargetTimer(8, 69483, nil, nil, nil, 5)
 local timerDeathPlague			= mod:NewTargetTimer(15, 72865, nil, nil, nil, 3)
 --Plagueworks
+local timerSeveredEssence		= mod:NewNextTimer(25, 71942, nil, nil, nil, 1) -- REVIEW! Only confirmed on test server, need logs
 local timerZombies				= mod:NewNextTimer(20, 71159, nil, nil, nil, 1)
 local timerMortalWound			= mod:NewTargetTimer(15, 71127, nil, nil, nil, 5)
 local timerDecimate				= mod:NewNextTimer(33, 71123, nil, nil, nil, 2)
@@ -73,6 +78,7 @@ mod:AddSetIconOption("SetIconOnDeathPlague", 72865, true, 7, {1, 2, 3, 4, 5, 6, 
 --Crimson Hall
 mod:AddSetIconOption("BloodMirrorIcon", 70451, false, 0, {2})
 
+local valkyrHeraldGUID = {}
 local eventProfessorStarted = false
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -159,6 +165,11 @@ function mod:SPELL_CAST_START(args)
 		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
 		warnDecimateSoon:Schedule(28)
 		timerDecimate:Start()
+	elseif spellId == 71942 then
+		local sourceGUID = args.sourceGUID
+		valkyrHeraldGUID[sourceGUID] = true
+		specWarnSeveredEssence:Show()
+		timerSeveredEssence:Start(sourceGUID)
 	end
 end
 
@@ -177,7 +188,8 @@ end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:UNIT_DIED(args)
-	local cid = self:GetCIDFromGUID(args.destGUID)
+	local destGUID = args.destGUID
+	local cid = self:GetCIDFromGUID(destGUID)
 	if cid == 37025 then
 		warnDecimateSoon:Cancel()
 		timerDecimate:Cancel()
@@ -185,6 +197,16 @@ function mod:UNIT_DIED(args)
 		timerZombies:Cancel()
 		warnDecimateSoon:Cancel()
 		timerDecimate:Cancel()
+	elseif cid == 37098 then -- Val'kyr Herald
+		timerSeveredEssence:Cancel(destGUID)
+	end
+end
+
+function mod:UNIT_TARGET(uId)
+	if self:GetUnitCreatureId(uId) ~= 37098 then return end
+	local valkGUID = UnitGUID(uId)
+	if not valkyrHeraldGUID[valkGUID] then
+		self:SendSync("ValkyrAggro", valkGUID)
 	end
 end
 
@@ -198,12 +220,15 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg)
+function mod:OnSync(msg, guid)
 	if msg == "WarderTrap" then
 		specWarnTrapL:Show()
 	elseif msg == "FleshTrap" then
 		specWarnTrapP:Show()
 	elseif msg == "GauntletStart" then
 		specWarnGosaEvent:Show()
+	elseif msg == "ValkyrAggro" and guid then
+		valkyrHeraldGUID[guid] = true
+		timerSeveredEssence:Start(8, guid) -- REVIEW! variance [8-10]? On Warmane, based on aggro, touchdown or swing?
 	end
 end
