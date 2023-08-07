@@ -3,19 +3,19 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20230807115405")
+mod:SetRevision("20230807124717")
 mod:SetModelID(37007)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod.isTrashMod = true
 
 mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_START",
-	"SPELL_SUMMON",
-	"SPELL_DAMAGE",
-	"SPELL_MISSED",
+	"SPELL_CAST_START 71022 71088 71123 71942",
+	"SPELL_AURA_APPLIED 69483 72865 71127 70451 70432 70645 71785 71298 70475",
+	"SPELL_AURA_APPLIED_DOSE 71127",
+	"SPELL_AURA_REMOVED 70451 70432 70645 71785 71298",
+	"SPELL_SUMMON 71159",
+	"SPELL_DAMAGE 70305",
+	"SPELL_MISSED 70305",
 	"UNIT_DIED",
 	"UNIT_TARGET",
 	"CHAT_MSG_MONSTER_YELL"
@@ -80,6 +80,28 @@ mod:AddSetIconOption("BloodMirrorIcon", 70451, false, 0, {2})
 
 local valkyrHeraldGUID = {}
 local eventProfessorStarted = false
+
+function mod:SPELL_CAST_START(args)
+	local spellId = args.spellId
+	if spellId == 71022 then
+		warnDisruptingShout:Show()
+		specWarnDisruptingShout:Show()
+		timerDisruptingShout:Start()
+	elseif spellId == 71088 then
+		specWarnBlightBomb:Show()
+		timerBlightBomb:Start(args.sourceGUID)
+	elseif spellId == 71123 then
+		specWarnDecimate:Show()
+		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
+		warnDecimateSoon:Schedule(28)
+		timerDecimate:Start()
+	elseif spellId == 71942 then
+		local sourceGUID = args.sourceGUID
+		valkyrHeraldGUID[sourceGUID] = true
+		specWarnSeveredEssence:Show()
+		timerSeveredEssence:Start(sourceGUID)
+	end
+end
 
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
@@ -148,28 +170,6 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerConflag:Cancel(args.destName)
 	elseif spellId == 71298 then
 		timerBanish:Cancel(args.destName)
-	end
-end
-
-function mod:SPELL_CAST_START(args)
-	local spellId = args.spellId
-	if spellId == 71022 then
-		warnDisruptingShout:Show()
-		specWarnDisruptingShout:Show()
-		timerDisruptingShout:Start()
-	elseif spellId == 71088 then
-		specWarnBlightBomb:Show()
-		timerBlightBomb:Start(args.sourceGUID)
-	elseif spellId == 71123 then
-		specWarnDecimate:Show()
-		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
-		warnDecimateSoon:Schedule(28)
-		timerDecimate:Start()
-	elseif spellId == 71942 then
-		local sourceGUID = args.sourceGUID
-		valkyrHeraldGUID[sourceGUID] = true
-		specWarnSeveredEssence:Show()
-		timerSeveredEssence:Start(sourceGUID)
 	end
 end
 
