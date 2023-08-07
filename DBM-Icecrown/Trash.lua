@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20230806234313")
+mod:SetRevision("20230807115405")
 mod:SetModelID(37007)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod.isTrashMod = true
@@ -159,7 +159,7 @@ function mod:SPELL_CAST_START(args)
 		timerDisruptingShout:Start()
 	elseif spellId == 71088 then
 		specWarnBlightBomb:Show()
-		timerBlightBomb:Start()
+		timerBlightBomb:Start(args.sourceGUID)
 	elseif spellId == 71123 then
 		specWarnDecimate:Show()
 		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
@@ -197,6 +197,8 @@ function mod:UNIT_DIED(args)
 		timerZombies:Cancel()
 		warnDecimateSoon:Cancel()
 		timerDecimate:Cancel()
+	elseif cid == 10404 then -- Pustulating Horror
+		timerBlightBomb:Cancel(destGUID)
 	elseif cid == 37098 then -- Val'kyr Herald
 		timerSeveredEssence:Cancel(destGUID)
 	end
