@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230808213403")
+mod:SetRevision("20230808232832")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20230808000000)
@@ -174,6 +174,10 @@ function mod:OnCombatStart(delay)
 	end
 end
 
+function mod:OnCombatEnd()
+	self:UnregisterShortTermEvents()
+end
+
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if args:IsSpellID(70351, 71966, 71967, 71968) then	-- Unstable Experiment
@@ -209,7 +213,12 @@ function mod:SPELL_CAST_START(args)
 			timerUnstableExperimentCD:Start(53.8-puddleTimeAdjust) -- REVIEW! Variance? Lowest possible timer? (25H Lordaeron 2022/09/04) - 31
 		end
 		if self:IsHeroic() then
-			self:Schedule(35, NextPhase, self)	--after 5s PP sets target
+			if self:IsDifficulty("heroic10") then
+				self:Schedule(35, NextPhase, self) -- REVIEW! No logs
+				self:RegisterShortTermEvents(
+					"UNIT_TARGET boss1"
+				)
+			end
 			timerNextPhase:Start(35)
 			timerMalleableGooCD:Start(45.1) -- timer after phase 2 (25H Lordaeron 2022/09/07) - 10.1 ; 10.1
 			soundMalleableGooSoon:Schedule(45.1-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
@@ -255,11 +264,13 @@ function mod:SPELL_CAST_START(args)
 		soundChokingGasSoon:Schedule((65.8-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule((65.8-chokingTimeAdjust)-5)
 		if self:IsDifficulty("heroic10") then
-			self:Schedule(38, NextPhase, self)	--after 8s PP sets target
-			timerNextPhase:Start(38)
+			self:Schedule(38.69, NextPhase, self)
+			timerNextPhase:Start(38.69)
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
+			self:RegisterShortTermEvents(
+				"UNIT_TARGET boss1"
+			)
 		elseif self:IsDifficulty("heroic25") then
-			self:Schedule(28, NextPhase, self)
 			timerNextPhase:Start(28)
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 		else
@@ -397,6 +408,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerRegurgitatedOoze:Cancel(args.destName)
 	elseif spellId == 70542 then
 		timerMutatedSlash:Cancel(args.destName)
+	elseif (args:IsSpellID(70352, 74118) or args:IsSpellID(70353, 74119)) and (self.vb.phase == 1.5 or self.vb.phase == 2.5) then	-- Ooze Variable / Gas Variable (Heroic 25 - Phase 2 and 3)
+		NextPhase(self)
 	end
 end
 
@@ -415,5 +428,37 @@ function mod:UNIT_HEALTH(uId)
 		warnChokingGasBombSoon:Cancel()
 		soundMalleableGooSoon:Cancel()
 		soundChokingGasSoon:Cancel()
+	end
+end
+
+-- On 10 Heroic, there is no event we can use to accurately trigger phasing
+-- UNIT_TARGET only fires if boss is targeted or focused (sync'ed below)
+function mod:UNIT_TARGET(uId)
+	if self:GetUnitCreatureId(uId) ~= 36678 then return end
+	-- Attempt to catch when boss phases by checking for Putricide's target being a raid member
+	if UnitExists(uId.."target") then
+		if self.vb.phase == 1.5 then
+			self:SendSync("ProfessorPhase2") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
+		elseif self.vb.phase == 2.5 then
+			self:SendSync("ProfessorPhase3") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
+		else
+			self:UnregisterShortTermEvents()
+			DBM:Debug("UNIT_TARGET phasing did not work since phase was wrongly set: " .. self.vb.phase)
+		end
+	end
+end
+
+function mod:OnSync(msg)
+	if not self:IsInCombat() then return end
+	if msg == "ProfessorPhase2" and self.vb.phase == 1.5 then
+		self:Unschedule(NextPhase)
+		NextPhase(self)
+		DBM:Debug("Putricide phase 2 via UNIT_TARGET sync")
+		self:UnregisterShortTermEvents()
+	elseif msg == "ProfessorPhase3" and self.vb.phase == 2.5 then
+		self:Unschedule(NextPhase)
+		NextPhase(self)
+		DBM:Debug("Putricide phase 3 via UNIT_TARGET sync")
+		self:UnregisterShortTermEvents()
 	end
 end
