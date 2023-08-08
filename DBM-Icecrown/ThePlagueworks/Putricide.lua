@@ -4,9 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("202300802234557")
+mod:SetRevision("20230808213403")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
+mod:SetHotfixNoticeRev(20230808000000)
 mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
@@ -390,7 +391,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.UnboundPlagueIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif spellId == 71615 and self:AntiSpam(5, 2) then	-- Tear Gas Removal
+	elseif spellId == 71615 and (self.vb.phase == 1.5 or self.vb.phase == 2.5) then	-- Tear Gas Removal. Requires phase check because sometimes Tear Gas is removed from Abomination much later than the rest of the raid, during phase 2, causing another phasing to 2.5 (Logs: 10N Frostmourne [2023-01-07]@[17:20:22] and [2023-01-07]@[17:42:33] || 10N Icecrown [2023-04-05]@[22:54:25])
 		NextPhase(self)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
