@@ -4,10 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230808232832")
+mod:SetRevision("20230810233917")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20230808000000)
+mod:SetHotfixNoticeRev(20230810000000)
 mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
@@ -107,7 +107,6 @@ local timerNextPhase				= mod:NewPhaseTimer(30)
 
 local redOozeGUIDsCasts = {}
 local PuddleTime = 0
-local GooTime = 0
 local ChokingTime = 0
 local UnboundTime = 0
 mod.vb.warned_preP2 = false
@@ -164,7 +163,6 @@ function mod:OnCombatStart(delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	table.wipe(redOozeGUIDsCasts)
 	PuddleTime = 0
-	GooTime = 0
 	ChokingTime = 0
 	UnboundTime = 0
 	self.vb.warned_preP2 = false
@@ -185,20 +183,29 @@ function mod:SPELL_CAST_START(args)
 		warnUnstableExperiment:Show()
 		timerUnstableExperimentCD:Start()
 		warnUnstableExperimentSoon:Schedule(30)
-	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase)
+	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase) (Normal intermission)
 		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnTearGas:Show()
-	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (heroic phase change begin)
+		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
+			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be 50s after the previous Malleable Goo cast, so calculate elapsed time and run Update with 50-elapsed
+			timerMalleableGooCD:Update(50-gooElapsed, 50)
+			soundMalleableGooSoon:Schedule(50-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		end
+	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (Heroic intermission)
 		-- TO DO: check whether delaying all running timers by 30s is accurate, according to TC. According to AC is 24+25s
 		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerMalleableGooCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
+		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - First intermission: 52.45 || 49.14 || 49.97 || 48.50 ; Second intermission: 30.41 || x || 38.82 || x.
+			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be 50s after the previous Malleable Goo cast, so calculate elapsed time and run Update with 50-elapsed
+			timerMalleableGooCD:Update(50-gooElapsed, 50)
+			soundMalleableGooSoon:Schedule(50-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		end
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
 		local puddleTimeAdjust = GetTime() - PuddleTime
 		DBM:Debug("During Create Concoction, PuddleTime is: "..puddleTimeAdjust, 2)
@@ -220,15 +227,15 @@ function mod:SPELL_CAST_START(args)
 				)
 			end
 			timerNextPhase:Start(35)
-			timerMalleableGooCD:Start(45.1) -- timer after phase 2 (25H Lordaeron 2022/09/07) - 10.1 ; 10.1
-			soundMalleableGooSoon:Schedule(45.1-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			timerMalleableGooCD:Start(45.14) --  On first intermission, timer delta is fixed [45.1] (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - 45.18 || 45.14 || 45.20 || 45.16
+			soundMalleableGooSoon:Schedule(45.14-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(56.3) -- timer after phase 2 (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/09/23 wipe1 || 25H Lordaeron 2022/09/23 kill) - 22.8 ; 22.1 || 21.9 || 21.3
 			soundChokingGasSoon:Schedule(56.3-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(56.3-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
 			timerNextPhase:Start(9.5)
-			timerMalleableGooCD:Start(19)
+			timerMalleableGooCD:Start(19) -- On first intermission, timer delta is almost fixed [19-19.2]
 			soundMalleableGooSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(30.5)
 			soundChokingGasSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
@@ -248,18 +255,15 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		local currentTime = GetTime()
 		local puddleTimeAdjust = currentTime-PuddleTime
-		local gooTimeAdjust = currentTime-GooTime
 		local chokingTimeAdjust = currentTime-ChokingTime
 		local unboundTimeAdjust = currentTime-UnboundTime
-		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d, GooTime is %d, ChokingTime is %d and UnboundTime is %d", puddleTimeAdjust, gooTimeAdjust, chokingTimeAdjust, unboundTimeAdjust), 2)
+		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d, ChokingTime is %d and UnboundTime is %d", puddleTimeAdjust, chokingTimeAdjust, unboundTimeAdjust), 2)
 		timerUnstableExperimentCD:Cancel()
 		timerMalleableGooCD:Cancel()
 		timerSlimePuddleCD:Cancel()
 		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
-		timerMalleableGooCD:Start(50-gooTimeAdjust)
-		soundMalleableGooSoon:Schedule((50-gooTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		timerChokingGasBombCD:Start(65.8-chokingTimeAdjust) -- (25H Lordaeron 2022/11/16) - -0.2 excess
 		soundChokingGasSoon:Schedule((65.8-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule((65.8-chokingTimeAdjust)-5)
@@ -307,7 +311,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 		soundMalleableGooSoon:Cancel()
 		soundMalleableGooSoon:Schedule(20-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		GooTime = GetTime()
 	end
 end
 
