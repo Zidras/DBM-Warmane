@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20230807124717")
+mod:SetRevision("20230816130746")
 mod:SetModelID(37007)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod.isTrashMod = true
@@ -17,7 +17,7 @@ mod:RegisterEvents(
 	"SPELL_DAMAGE 70305",
 	"SPELL_MISSED 70305",
 	"UNIT_DIED",
-	"UNIT_TARGET",
+	"UNIT_TARGET", -- currently unfiltered due to CORE not defaulting legacy uIds. Review valkyr code below if Core is changed
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -200,15 +200,50 @@ function mod:UNIT_DIED(args)
 	elseif cid == 10404 then -- Pustulating Horror
 		timerBlightBomb:Cancel(destGUID)
 	elseif cid == 37098 then -- Val'kyr Herald
-		timerSeveredEssence:Cancel(destGUID)
+		self:SendSync("ValkyrDeaggro", destGUID) -- would work with just timer cancel method, but switched to sync too since valk table is heavily dependant on syncing, and CLEU has a history of breaking
 	end
 end
 
-function mod:UNIT_TARGET(uId)
-	if self:GetUnitCreatureId(uId) ~= 37098 then return end
-	local valkGUID = UnitGUID(uId)
-	if not valkyrHeraldGUID[valkGUID] then
-		self:SendSync("ValkyrAggro", valkGUID)
+do
+	local UnitExists = UnitExists
+	local valkGUID
+	local uIdTarget
+	local valkHasTarget
+	function mod:UNIT_TARGET(uId)
+		uIdTarget = uId.."target"
+		local unitTargetIsValk = self:GetUnitCreatureId(uIdTarget) == 37098
+		local unitIsValk =  self:GetUnitCreatureId(uId) == 37098
+		if not unitIsValk and not unitTargetIsValk then return end -- Stop if unit is not Valk or if raid member did not target a Valk
+
+		if unitTargetIsValk then -- Raid member fired this event
+			valkGUID = UnitGUID(uIdTarget)
+			valkHasTarget = UnitExists(uIdTarget.."target")
+
+			if not valkHasTarget and valkyrHeraldGUID[valkGUID] then
+				valkyrHeraldGUID[valkGUID] = nil -- Valk does not have a target -> hasn't aggroed anything or was reset
+				self:SendSync("ValkyrDeaggro", valkGUID)
+				DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' was reset")
+			end
+			if valkHasTarget and not valkyrHeraldGUID[valkGUID] then
+				valkyrHeraldGUID[valkGUID] = true -- Valkyr already had a raid target at the time of this check, meaning it was aggroed before, so prevent it from sending an aggro sync since timer would be innacurate.
+				DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' already had aggro!")
+			end
+			return -- rest of code does not need to run, so return here
+		end
+
+		if unitIsValk then -- Valk fired this event
+			valkGUID = UnitGUID(uId)
+			valkHasTarget = UnitExists(uIdTarget)
+			if not valkHasTarget and valkyrHeraldGUID[valkGUID] then
+				valkyrHeraldGUID[valkGUID] = nil -- Valk does not have a target -> hasn't aggroed anything or was reset
+				self:SendSync("ValkyrDeaggro", valkGUID)
+				DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' was reset")
+			end
+			if valkHasTarget and not valkyrHeraldGUID[valkGUID] then
+				valkyrHeraldGUID[valkGUID] = true -- duplicated from the OnSync handler, to prevent this code from running twice, as well as to workaround antispam measures
+				self:SendSync("ValkyrAggro", valkGUID)
+			end
+		end
 	end
 end
 
@@ -232,5 +267,8 @@ function mod:OnSync(msg, guid)
 	elseif msg == "ValkyrAggro" and guid then
 		valkyrHeraldGUID[guid] = true
 		timerSeveredEssence:Start(8, guid) -- REVIEW! variance [8-10]? On Warmane, based on aggro, touchdown or swing?
+	elseif msg == "ValkyrDeaggro" and guid then
+		valkyrHeraldGUID[guid] = nil
+		timerSeveredEssence:Cancel(guid)
 	end
 end
