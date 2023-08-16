@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230811185546")
+mod:SetRevision("20230816222222")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20230811000000)
@@ -229,9 +229,9 @@ function mod:SPELL_CAST_START(args)
 			timerNextPhase:Start(35)
 			timerMalleableGooCD:Start(45.14) --  On first intermission, timer delta is fixed [45.1] (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - 45.18 || 45.14 || 45.20 || 45.16
 			soundMalleableGooSoon:Schedule(45.14-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			timerChokingGasBombCD:Start(56.3) -- timer after phase 2 (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/09/23 wipe1 || 25H Lordaeron 2022/09/23 kill) - 22.8 ; 22.1 || 21.9 || 21.3
-			soundChokingGasSoon:Schedule(56.3-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(56.3-5)
+			timerChokingGasBombCD:Start(55) -- timer after phase 2. 5s variance [20-25s] (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/09/23 wipe1 || 25H Lordaeron 2022/09/23 kill || 25H Lordaeron [2023-06-28]@[20:42:59] || 10H Lordaeron [2023-08-12]@[20:28:10]) - 22.8 ; 22.1 || 21.9 || 21.3 || 20.3 || 24.8
+			soundChokingGasSoon:Schedule(55-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(55-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
 			timerNextPhase:Start(9.5)
