@@ -4,10 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230816222222")
+mod:SetRevision("20230816234940")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20230811000000)
+mod:SetHotfixNoticeRev(20230816000000)
 mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
@@ -220,13 +220,13 @@ function mod:SPELL_CAST_START(args)
 			timerUnstableExperimentCD:Start(53.8-puddleTimeAdjust) -- REVIEW! Variance? Lowest possible timer? (25H Lordaeron 2022/09/04) - 31
 		end
 		if self:IsHeroic() then
-			if self:IsDifficulty("heroic10") then
-				self:Schedule(35, NextPhase, self) -- REVIEW! No logs
+--			if self:IsDifficulty("heroic10") then -- Apply to both 10H and 25H (reason below)
+				self:Schedule(35.63, NextPhase, self) -- using longest timer found, since this is a schedule
 				self:RegisterShortTermEvents(
 					"UNIT_TARGET boss1"
 				)
-			end
-			timerNextPhase:Start(35)
+--			end
+			timerNextPhase:Start(35.59) -- Until Gas/Ooze Variable SAR. no variance [35.59-35.63] (25H Lordaeron [2022-07-07]@[21:47:34] || 25H Lordaeron [2023-06-28]@[20:50:27] || 10H Lordaeron [2023-08-12]@[20:34:20]) - 35.60 || 35.63 || 35.59
 			timerMalleableGooCD:Start(45.14) --  On first intermission, timer delta is fixed [45.1] (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - 45.18 || 45.14 || 45.20 || 45.16
 			soundMalleableGooSoon:Schedule(45.14-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(55) -- timer after phase 2. 5s variance [20-25s] (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/09/23 wipe1 || 25H Lordaeron 2022/09/23 kill || 25H Lordaeron [2023-06-28]@[20:42:59] || 10H Lordaeron [2023-08-12]@[20:28:10]) - 22.8 ; 22.1 || 21.9 || 21.3 || 20.3 || 24.8
@@ -266,16 +266,20 @@ function mod:SPELL_CAST_START(args)
 		timerChokingGasBombCD:Start(65.8-chokingTimeAdjust) -- (25H Lordaeron 2022/11/16) - -0.2 excess
 		soundChokingGasSoon:Schedule((65.8-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule((65.8-chokingTimeAdjust)-5)
-		if self:IsDifficulty("heroic10") then
-			self:Schedule(38.69, NextPhase, self)
-			timerNextPhase:Start(38.69)
+		if self:IsDifficulty("heroic10") then -- REVIEW! Refactor needed
+			self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
+			timerNextPhase:Start(38.67) -- (10H Lordaeron [2023-08-12]@[20:34:20]) - 38.67
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 			self:RegisterShortTermEvents(
 				"UNIT_TARGET boss1"
 			)
 		elseif self:IsDifficulty("heroic25") then
-			timerNextPhase:Start(28)
+			self:Schedule(28.62, NextPhase, self)
+			timerNextPhase:Start(28.62) -- (25H Lordaeron: [2023-05-28]@[17:19:33] || [2023-06-28]@[20:50:27]) - 28.62 || 28.62
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
+			self:RegisterShortTermEvents(
+				"UNIT_TARGET boss1"
+			)
 		else
 			timerNextPhase:Start(12.5)
 		end
@@ -410,8 +414,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerRegurgitatedOoze:Cancel(args.destName)
 	elseif spellId == 70542 then
 		timerMutatedSlash:Cancel(args.destName)
-	elseif (args:IsSpellID(70352, 74118) or args:IsSpellID(70353, 74119)) and (self.vb.phase == 1.5 or self.vb.phase == 2.5) then	-- Ooze Variable / Gas Variable (Heroic 25 - Phase 2 and 3)
-		NextPhase(self)
+	elseif (args:IsSpellID(70352, 74118) or args:IsSpellID(70353, 74119)) and (self.vb.phase == 1.5 or self.vb.phase == 2.5) then	-- Ooze Variable / Gas Variable (Heroic 25 - Phase 2 and 3). Disabled for two main reasons: raid member dying will trigger this event, and I have found multiple logs with early SAR
+		DBM:Debug("Variable phasing time marker")
+--		NextPhase(self)
 	end
 end
 
@@ -433,7 +438,7 @@ function mod:UNIT_HEALTH(uId)
 	end
 end
 
--- On 10 Heroic, there is no event we can use to accurately trigger phasing
+-- On 10 Heroic, there is no event we can use to accurately trigger phasing. On 25 Heroic, we could use SPELL_AURA_REMOVED, but not reliable without UnitBuff checks or table management which would add unnecessary overhead (see above)
 -- UNIT_TARGET only fires if boss is targeted or focused (sync'ed below)
 function mod:UNIT_TARGET(uId)
 	if self:GetUnitCreatureId(uId) ~= 36678 then return end
