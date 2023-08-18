@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031100929")
+mod:SetRevision("20230818114428")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
 
@@ -19,8 +19,8 @@ mod:RegisterEventsInCombat(
 )
 
 -- General
-local enrageTimer					= mod:NewBerserkTimer(369)
-
+local enrageTimerStage1				= mod:NewBerserkTimer(300, nil, DBM_CORE_L.GENERIC_TIMER_BERSERK..": "..DBM_CORE_L.SCENARIO_STAGE:format(1)) -- REVIEW! Need log to validate, only used Wowhead as reference
+local enrageTimerStage2				= mod:NewBerserkTimer(300, nil, DBM_CORE_L.GENERIC_TIMER_BERSERK..": "..DBM_CORE_L.SCENARIO_STAGE:format(2)) -- REVIEW! Need log to validate, only used Wowhead as reference
 mod:AddRangeFrameOption("8")
 
 -- Stage One
@@ -67,7 +67,7 @@ local lastcharge = {}
 
 function mod:OnCombatStart()
 	self:SetStage(1)
-	enrageTimer:Start()
+	enrageTimerStage1:Start()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(8)
 	end
@@ -198,9 +198,9 @@ function mod:OnSync(event)
 		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		enrageTimer:Stop()
+		enrageTimerStage1:Stop()
 		timerHardmode:Stop()
-		enrageTimer:Start(300)
+		enrageTimerStage2:Start(300)
 		timerLightningCharge:Start(35.6) -- (S3 VOD review 2022/07/15, reconfirmed with S3 FM HM log 2022/07/17 || 25m Lordaeron 2022/10/09) - 36 || 35.6
 	end
 end
