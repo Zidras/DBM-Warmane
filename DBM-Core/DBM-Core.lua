@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230821095942"),
+	Revision = parseCurseDate("20230822223306"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -4964,7 +4964,7 @@ do
 					if bar then
 						local remaining = ("%.2f"):format(bar.timer)
 						local ttext = bar.id
-						if bar.timer > 0.1 then
+						if bar.timer > 0.1 then -- Also shortened time window
 							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
 								DBM:AddMsg("Timer "..ttext.." refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
 								fireEvent("DBM_Debug", "Timer "..ttext.." refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
@@ -9844,11 +9844,13 @@ do
 							local remaining = ("%.1f"):format(bar.timer)
 							local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 							ttext = ttext.."("..self.id..")"
-							if bar.timer > 0.2 then
+							if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 								local phaseText = self.mod.vb.phase and " ("..L.SCENARIO_STAGE:format(self.mod.vb.phase)..")" or ""
 								if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
 									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
 									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+								elseif bar.timer < 0 then
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
 								else
 									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
 								end
@@ -9900,7 +9902,7 @@ do
 						local bar = DBT:GetBar(id)
 						if bar then
 							local remaining = ("%.1f"):format(bar.timer)
-							if bar.timer > 0.2 then
+							if bar.timer > 0.1 then -- Shortened time window
 								self["phase"..timer.."CastTimer"] = self["phase"..timer.."CastTimer"] - remaining
 								DBM:Debug("AI timer learned a lower first timer for current phase of "..self["phase"..timer.."CastTimer"], 2)
 							end
@@ -9919,11 +9921,13 @@ do
 						local remaining = ("%.1f"):format(bar.timer)
 						local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 						ttext = ttext.."("..self.id..")"
-						if bar.timer > 0.2 then
+						if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 							local phaseText = self.mod.vb.phase and " ("..L.SCENARIO_STAGE:format(self.mod.vb.phase)..")" or ""
 							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
 								DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
 								fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+							elseif bar.timer < 0 then
+								DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
 							else
 								DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
 							end
