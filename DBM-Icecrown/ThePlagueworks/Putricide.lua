@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230816234940")
+mod:SetRevision("20230822225948")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20230816000000)
@@ -117,9 +117,11 @@ local function NextPhase(self)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
+		self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
+		self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	end
 end
 
@@ -461,11 +463,9 @@ function mod:OnSync(msg)
 		self:Unschedule(NextPhase)
 		NextPhase(self)
 		DBM:Debug("Putricide phase 2 via UNIT_TARGET sync")
-		self:UnregisterShortTermEvents()
 	elseif msg == "ProfessorPhase3" and self.vb.phase == 2.5 then
 		self:Unschedule(NextPhase)
 		NextPhase(self)
 		DBM:Debug("Putricide phase 3 via UNIT_TARGET sync")
-		self:UnregisterShortTermEvents()
 	end
 end
