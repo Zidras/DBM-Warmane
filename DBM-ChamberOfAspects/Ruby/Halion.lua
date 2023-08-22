@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230627224652")
+mod:SetRevision("20230823000630")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -79,8 +79,16 @@ mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 local playerInShadowRealm = false
 local fieryCombustionCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
+local fieryBreathCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
 local soulConsumptionCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
+local shadowBreathCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
 local previousCorporeality = 0
+
+local function clearKeepTimers(self) -- Attempt to clear "keep" negative timers that are not relevant to the realm and would otherwise tick to infinity
+--	if not self.AnnounceAlternatePhase then return end
+	if timerShadowBreathCD:GetRemaining() < 0 then timerShadowBreathCD:Stop() end
+	if timerFieryBreathCD:GetRemaining() < 0 then timerFieryBreathCD:Stop() end
+end
 
 function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
@@ -88,7 +96,9 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	playerInShadowRealm = false
 	fieryCombustionCLEU = false
+	fieryBreathCLEU = false
 	soulConsumptionCLEU = false
+	shadowBreathCLEU = false
 	previousCorporeality = 0
 	berserkTimer:Start(-delay)
 	timerMeteorCD:Start(20-delay) -- REVIEW! ~5s variance (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/10/09) - 20.7 || 24.5
@@ -107,9 +117,17 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(74806, 75954, 75955, 75956) then
 		warningShadowBreath:Show()
 		timerShadowBreathCD:Start()
+		shadowBreathCLEU = true
+		if self:LatencyCheck() then
+			self:SendSync("ShadowBreathCD")
+		end
 	elseif args:IsSpellID(74525, 74526, 74527, 74528) then
 		warningFieryBreath:Show()
 		timerFieryBreathCD:Start()
+		fieryBreathCLEU = true
+		if self:LatencyCheck() then
+			self:SendSync("FieryBreathCD")
+		end
 	end
 end
 
@@ -310,6 +328,18 @@ function mod:OnSync(msg, target)
 			soulConsumptionCLEU = false -- reset state for next CLEU/sync check
 			timerSoulConsumptionCD:Start()
 		end
+	elseif msg == "ShadowBreathCD" then
+		if self.Options.AnnounceAlternatePhase and not shadowBreathCLEU then
+			shadowBreathCLEU = false -- reset state for next CLEU/sync check
+			warningShadowBreath:Show()
+			timerShadowBreathCD:Start()
+		end
+	elseif msg == "FieryBreathCD" then
+		if self.Options.AnnounceAlternatePhase and not fieryBreathCLEU then
+			fieryBreathCLEU = false -- reset state for next CLEU/sync check
+			warningFieryBreath:Show()
+			timerFieryBreathCD:Start()
+		end
 	elseif msg == "FieryCD" and self.vb.phase > 1 then -- block old comms that run this for the entirety of the raid, which is useless on phase 1 since everyone is in the same realm
 		if self.Options.AnnounceAlternatePhase and not fieryCombustionCLEU then
 			fieryCombustionCLEU = false -- reset state for next CLEU/sync check
@@ -329,12 +359,14 @@ function mod:OnSync(msg, target)
 		else
 			timerTwilightCutterCD:Start(30) -- (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/09/21) - Stage 2/30.0 || Stage 2/30.0
 		end
+		self:Schedule(20, clearKeepTimers, self)
 	elseif msg == "Phase3" and self.vb.phase < 3 then
 		self:SetStage(3)
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
 		timerMeteorCD:Start(23.2) --These i'm not sure if they start regardless of drake aggro, or if it varies as well. (25H Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/30) - Stage 3/25.8 || 23.2
 		timerFieryCombustionCD:Start(17.8) -- REVIEW! source of variance? (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25N Lordaeron [2023-06-27]@[19:37:57]) - 18.5 || 19.4 || 17.8
+		self:Schedule(20, clearKeepTimers, self)
 	elseif msg == "Phase3soon" and not self.vb.warned_preP3 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
