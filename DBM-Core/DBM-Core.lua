@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230822223306"),
+	Revision = parseCurseDate("20230823093255"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9841,7 +9841,7 @@ do
 --					if DBM.Options.BadTimerAlert or DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
 						local bar = DBT:GetBar(self.startedTimers[i])
 						if bar then
-							local remaining = ("%.1f"):format(bar.timer)
+							local remaining = ("%.2f"):format(bar.timer)
 							local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 							ttext = ttext.."("..self.id..")"
 							if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
@@ -9918,7 +9918,7 @@ do
 				if not self.type or (self.type ~= "target" and self.type ~= "active" and self.type ~= "fades" and self.type ~= "ai") and not self.allowdouble then
 					local bar = DBT:GetBar(id)
 					if bar then
-						local remaining = ("%.1f"):format(bar.timer)
+						local remaining = ("%.2f"):format(bar.timer)
 						local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 						ttext = ttext.."("..self.id..")"
 						if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
