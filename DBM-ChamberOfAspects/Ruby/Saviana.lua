@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Saviana", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230627230650")
+mod:SetRevision("20230824234130")
 mod:SetCreatureID(39747)
 mod:SetUsedIcons(8, 7, 6, 5, 4)
 
@@ -23,7 +23,7 @@ local specWarnTranq			= mod:NewSpecialWarningDispel(78722, "RemoveEnrage", nil, 
 local timerBeacon			= mod:NewBuffActiveTimer(5, 74453, nil, nil, nil, 3)
 local timerConflag			= mod:NewBuffActiveTimer(5, 74456, nil, nil, nil, 3)
 local timerConflagCD		= mod:NewCDTimer(63.8, 74452, nil, nil, nil, 3) -- REVIEW! Using UNIT_SPELLCAST_SUCCEEDED since it only fires once. 1s variance? if it's this low, not worth enabling "Keep" (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) -- 63.8 || 64.3
-local timerBreath			= mod:NewCDTimer(22.1, 74403, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~17 variance! Added "Keep" arg (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23 || 25N Lordaeron [2023-06-27]@[19:12:05]) -- 38.8, 29.5, 34.2 || 38.4, 25.7 || 38.1, 22.1
+local timerBreath			= mod:NewCDTimer(19.3, 74403, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~17s variance! Added "Keep" arg (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23 || 25N Lordaeron [2023-06-27]@[19:12:05]) -- 38.8, 29.5, 34.2 || 38.4, 25.7 || 38.1, 22.1
 local timerEnrage			= mod:NewBuffActiveTimer(10, 78722, nil, "RemoveEnrage|Tank|Healer", nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON..DBM_COMMON_L.TANK_ICON)
 
 mod:AddRangeFrameOption(10, 74456)
@@ -40,7 +40,25 @@ local function warnConflagTargets(self)
 	self.vb.beaconIcon = 8
 end
 
+local function savianaPhaseCatcher(self)
+	self:RegisterShortTermEvents(
+		"UNIT_TARGET boss1"
+	)
+end
+
+local function savianaLanding(self)
+	self:SetStage(1)
+	self:UnregisterShortTermEvents()
+end
+
+local function savianaAirphase(self)
+	self:SetStage(1.5)
+	self:UnregisterShortTermEvents()
+end
+
+
 function mod:OnCombatStart(delay)
+	self:SetStage(1)
 	timerConflagCD:Start(30.1-delay) -- REVIEW! variance? (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) -- 30.1 || 30.2
 	timerBreath:Start(14-delay) -- (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23 || 25N Lordaeron [2023-06-27]@[19:12:05]) - 14.0 || 14.0 || 14.0
 	table.wipe(beaconTargets)
@@ -48,12 +66,15 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end
+	self:Schedule(24.5, savianaPhaseCatcher, self)
+	self:Schedule(25, savianaAirphase, self) -- Lowest 24.96
 end
 
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
+	self:UnregisterShortTermEvents()
 end
 
 function mod:SPELL_CAST_START(args)
@@ -95,5 +116,27 @@ end
 function mod: UNIT_SPELLCAST_SUCCEEDED(_, spellName) -- UNIT_SPELLCAST_START/CLEU fires and stops right after, and only gets SUCCEEDED one second after, one time only, which is better to optimize some calls
 	if spellName == GetSpellInfo(74454) then -- Conflagration
 		timerConflagCD:Start()
+		self:Schedule(7, savianaPhaseCatcher, self)
+		self:Schedule(7.89, savianaLanding, self) -- Lowest 7.88
+	end
+end
+
+function mod:UNIT_TARGET(uId)
+	local unitTarget = UnitExists(uId.."target")
+	if not unitTarget and  self.vb.phase == 1 then
+		self:SendSync("SavianaAired") -- Sync airphase with raid since UNIT_TARGET:boss1 event requires boss to be target/focus, which not all members do
+	elseif unitTarget and self.vb.phase == 1.5 then
+		self:SendSync("SavianaLanded") -- Sync landing with raid since UNIT_TARGET:boss1 event requires boss to be target/focus, which not all members do
+	end
+end
+
+function mod:OnSync(msg)
+	if not self:IsInCombat() then return end
+	if msg == "SavianaAired" and self.vb.phase == 1 then
+		self:Unschedule(savianaAirphase)
+		savianaAirphase(self)
+	elseif msg == "SavianaLanded" and self.vb.phase == 1.5 then
+		self:Unschedule(savianaLanding)
+		savianaLanding(self)
 	end
 end
