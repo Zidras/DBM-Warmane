@@ -2,8 +2,9 @@ local mod	= DBM:NewMod("Deathwhisper", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
+local UnitGUID = UnitGUID
 
-mod:SetRevision("20230724113806")
+mod:SetRevision("20230824105143")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -76,6 +77,8 @@ local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237, nil, nil, nil, 1, 
 local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, nil, nil, 1, 6)
 local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, "HasInterrupt", nil, 2, 1, 2)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true, nil, nil, nil, 1, 2, nil, 71426, 71426)
+local specWarnVengefulShadeOnYou	= mod:NewSpecialWarningRun(71426, nil, nil, nil, 4, 2)
+local yellVengefulShadeOnMe			= mod:NewYellMe(71426)
 
 local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true) -- SUMMON cleu event is fired much later than UNIT_SPELLCAST_SUCCEEDED (11.0-13.8), and with higher variance too. Initially using CLEU, but switched to UNIT event. ~5s variance for CLEU [9.4-14.1]. Added "keep" arg (10H Lordaeron 2022/10/02) - 9.9, 12.1, 11.7, 14.1, 10.1, 11.1, 11.7, 11.7, 13.1, 12.1, 9.4 ||| Stage 2/11.4, 11.3, 11.6, 11.3, 11.1, 11.1, 11.2, 11.5, 12.0, 11.3, 11.5, 11.7, 11.1, 11.7, 11.9, 11.4, 11.2, 11.7, 11.8, 11.1, 13.8
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
@@ -88,6 +91,7 @@ local dominateMindTargets = {}
 mod.vb.dominateMindIcon = 1
 local shieldName = DBM:GetSpellInfo(70842)
 local summonSpiritName = DBM:GetSpellInfo(71426)
+local playerHadTarget = false
 
 local playerClass = select(2, UnitClass("player"))
 local isHunter = playerClass == "HUNTER"
@@ -304,6 +308,10 @@ do	-- add the additional Shield Bar
 	end
 end
 
+local function unregisterShortTermEvents(self) -- only used for the scheduling below
+	self:UnregisterShortTermEvents()
+end
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	if self.Options.ShieldHealthFrame then
@@ -324,6 +332,7 @@ function mod:OnCombatStart(delay)
 	end
 	table.wipe(dominateMindTargets)
 	self.vb.dominateMindIcon = 6
+	playerHadTarget = false
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(shieldName)
 		DBM.InfoFrame:Show(1, "enemypower", 2)
@@ -337,6 +346,7 @@ function mod:OnCombatEnd()
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
+	self:UnregisterShortTermEvents()
 end
 
 function mod:SPELL_CAST_START(args)
@@ -485,10 +495,35 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
+-- "<235.53 ...> [UNIT_SPELLCAST_SUCCEEDED] Lady Deathwhisper(54.8%-0.0%){Target:...} -Summon Spirit- [[boss1:Summon Spirit::0:]]", -- [20525]
+-- "<235.53 ...> [DBM_Announce] Summon Spirit:Interface\\Icons\\Spell_Holy_SenseUndead:spell:71426:Deathwhisper:false:", -- [20526]
+-- "<235.53 ...> [DBM_Debug] PlaySoundFile playing with media Sound\\Doodad\\BellTollNightElf.wav:3:", -- [20527]
+-- "<235.53 ...> [DBM_Debug] Timer Summon Spirit CD(Timer71426cd) (Stage 2) refreshed after zero. Remaining time is : -0.92:2:", -- [20528]
+-- "<235.53 ...> [DBM_TimerStart] Timer71426cd:Summon Spirit CD:11:Interface\\Icons\\Spell_Holy_SenseUndead:cd:71426:3:Deathwhisper:true:nil:Summon Spirit:nil:", -- [20529]
+-- "<235.53 ...> [UNIT_SPELLCAST_SUCCEEDED] Lady Deathwhisper(54.8%-0.0%){Target:...} -Summon Spirit- [[boss1:Summon Spirit::0:]]", -- [20530]
+-- "<235.53 ...> [PLAYER_TARGET_CHANGED] -1 Hostile (elite Undead) - Lady Deathwhisper # 0xF130008FF7000026", -- [20531]
+-- "<235.53 ...> [UNIT_SPELLCAST_SUCCEEDED] Lady Deathwhisper(54.8%-0.0%){Target:...} -Summon Spirit- [[boss1:Summon Spirit::0:]]", -- [20532]
+function mod:PLAYER_TARGET_CHANGED()
+	if not playerHadTarget and self:GetCIDFromGUID(UnitGUID("target")) == 36855 then
+		specWarnVengefulShadeOnYou:Show()
+		specWarnVengefulShadeOnYou:Play("runaway")
+		yellVengefulShadeOnMe:Yell()
+	end
+	self:Unschedule(unregisterShortTermEvents)
+	self:UnregisterShortTermEvents() -- outside the if check, since I only care about the first event, whether or not it targeted boss
+end
+
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == summonSpiritName and self:AntiSpam(5, 1) then -- Summon Spirit
+		playerHadTarget = UnitGUID("target") and true
 		warnSummonSpirit:Show()
 		timerSummonSpiritCD:Start()
 		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\spirits.mp3")
+		if not playerHadTarget then
+			self:RegisterShortTermEvents(
+				"PLAYER_TARGET_CHANGED"
+			)
+			self:Schedule(0.1, unregisterShortTermEvents, self)
+		end
 	end
 end
