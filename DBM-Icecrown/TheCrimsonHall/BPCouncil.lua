@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230630112543")
+mod:SetRevision("20230826161606")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -21,8 +21,9 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 72037 72039 73037 73038 73039 71718 72040",
-	"SPELL_AURA_APPLIED 70952 70981 70982 72999 71807 72796 72797 72798",
+	"SPELL_AURA_APPLIED 70952 70981 70982 72999 71807 72796 72797 72798 71822",
 	"SPELL_AURA_APPLIED_DOSE 72999",
+	"SPELL_AURA_REMOVED 71822",
 	"SPELL_SUMMON 71943",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
@@ -102,10 +103,12 @@ local timerDarkNucleusCD		= mod:NewCDTimer(10, 71943, nil, false, nil, 5, nil, n
 
 mod.vb.kineticIcon = 7
 mod.vb.kineticCount = 0
+local personalNucleusCount = 0
 
 function mod:OnCombatStart(delay)
 	self.vb.kineticIcon = 7
 	self.vb.kineticCount = 0
+	personalNucleusCount = 0
 	berserkTimer:Start(-delay)
 	warnTargetSwitchSoon:Schedule(42-delay)
 	warnTargetSwitchSoon:ScheduleVoice(42-delay, "swapsoon")
@@ -241,7 +244,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 72999 then	--Shadow Prison (hard mode)
 		if args:IsPlayer() then
 			timerShadowPrison:Start()
-			if (args.amount or 1) >= 10 then	--Placeholder right now, might use a different value
+			if personalNucleusCount < 3 and (args.amount or 1) >= 10 then	--Placeholder right now, might use a different value. Ignore if player has more than 3 Dark Nucleus
 				specWarnShadowPrison:Show(args.amount)
 				specWarnShadowPrison:Play("stackhigh")
 			end
@@ -260,9 +263,17 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(71807, 72796, 72797, 72798) and args:IsDestTypePlayer() then	-- Glittering Sparks(Dot/slow, dangerous on heroic during valanaar)
 		warnGliteringSparks:CombinedShow(1, args.destName)
+	elseif spellId == 71822 and args:IsPlayer() then -- Shadow Resonance (from Dark Nucleus)
+		personalNucleusCount = personalNucleusCount + 1 -- 35% reduction for each nucleus
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
+
+function mod:SPELL_AURA_REMOVED(args)
+	if args.spellId == 71822 and args:IsPlayer() then -- Shadow Resonance (from Dark Nucleus)
+		personalNucleusCount = personalNucleusCount - 1
+	end
+end
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 71943 then
