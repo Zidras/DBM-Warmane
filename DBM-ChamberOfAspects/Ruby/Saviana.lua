@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Saviana", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230826163333")
+mod:SetRevision("20230826164155")
 mod:SetCreatureID(39747)
 mod:SetUsedIcons(8, 7, 6, 5, 4)
 
@@ -25,8 +25,8 @@ local timerConflag			= mod:NewBuffActiveTimer(5, 74456, nil, nil, nil, 3)
 local timerConflagCD		= mod:NewCDTimer(63.8, 74452, nil, nil, nil, 3) -- Using UNIT_SPELLCAST_SUCCEEDED since it only fires once. Variance depends on travel time (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23) -- 63.8 || 64.3
 local timerBreath			= mod:NewCDTimer(19.3, 74403, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~10s variance [19.3-29.5] Added "Keep" arg (25N Lordaeron 2022/09/19 || 25H Lordaeron 2022/09/23 || 25N Lordaeron [2023-06-27]@[19:12:05]) -- 38.8, 29.5, 34.2 || 38.4, 25.7 || 38.1, 22.1
 local timerEnrage			= mod:NewBuffActiveTimer(10, 78722, nil, "RemoveEnrage|Tank|Healer", nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON..DBM_COMMON_L.TANK_ICON)
-local timerFlight			= mod:NewNextTimer(50, 34873, nil, nil, nil, 6, 43810)
-local timerLanding			= mod:NewNextTimer(8, 30202, nil, nil, nil, 6, 43810)
+local timerFlight			= mod:NewNextTimer(50, 34873, nil, nil, nil, 6, 54950)
+local timerLanding			= mod:NewNextTimer(8, 30202, nil, nil, nil, 6, 54950)
 
 mod:AddRangeFrameOption(10, 74456)
 mod:AddSetIconOption("beaconIcon", 74453, true, false, {8, 7, 6, 5, 4})
