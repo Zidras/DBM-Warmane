@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20230824105143")
+mod:SetRevision("20230827194026")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -78,7 +78,7 @@ local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, ni
 local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, "HasInterrupt", nil, 2, 1, 2)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true, nil, nil, nil, 1, 2, nil, 71426, 71426)
 local specWarnVengefulShadeOnYou	= mod:NewSpecialWarningRun(71426, nil, nil, nil, 4, 2)
-local yellVengefulShadeOnMe			= mod:NewYellMe(71426)
+--local yellVengefulShadeOnMe			= mod:NewYellMe(71426)
 
 local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true) -- SUMMON cleu event is fired much later than UNIT_SPELLCAST_SUCCEEDED (11.0-13.8), and with higher variance too. Initially using CLEU, but switched to UNIT event. ~5s variance for CLEU [9.4-14.1]. Added "keep" arg (10H Lordaeron 2022/10/02) - 9.9, 12.1, 11.7, 14.1, 10.1, 11.1, 11.7, 11.7, 13.1, 12.1, 9.4 ||| Stage 2/11.4, 11.3, 11.6, 11.3, 11.1, 11.1, 11.2, 11.5, 12.0, 11.3, 11.5, 11.7, 11.1, 11.7, 11.9, 11.4, 11.2, 11.7, 11.8, 11.1, 13.8
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
@@ -507,7 +507,8 @@ function mod:PLAYER_TARGET_CHANGED()
 	if not playerHadTarget and self:GetCIDFromGUID(UnitGUID("target")) == 36855 then
 		specWarnVengefulShadeOnYou:Show()
 		specWarnVengefulShadeOnYou:Play("runaway")
-		yellVengefulShadeOnMe:Yell()
+--		yellVengefulShadeOnMe:Yell() -- disabled since live run proved to be ineffective to catch target without false positives
+		DBM:AddMsg("Experimental feature with spirit targeting. If you received a Special Announcement saying Summon Spirit - run away, but were NOT the real player targeted by the spirits, please share VOD/Transcriptor log with Zidras on Github or Discord.")
 	end
 	self:Unschedule(unregisterShortTermEvents)
 	self:UnregisterShortTermEvents() -- outside the if check, since I only care about the first event, whether or not it targeted boss
