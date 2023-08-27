@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230827162927")
+mod:SetRevision("20230827165720")
 mod:SetCreatureID(36626)
 mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 2, 3)
@@ -33,7 +33,7 @@ local specWarnGoo			= mod:NewSpecialWarningDodge(72297, true, nil, nil, 1, 2) --
 
 local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279, nil, nil, nil, 3)
 local timerVileGas			= mod:NewBuffFadesTimer(6, 69240, nil, "Ranged", nil, 3)
-local timerGasSporeCD		= mod:NewCDTimer(40.6, 69279, nil, nil, nil, 3, nil, nil, true)	-- REVIEW! ~5s variance [40.6 - 50.3]. Added "keep" arg. (25H Lordaeron [2022-09-14]@[20:34:44] || 25H Lordaeron [2022-09-23]@[21:13:34] || 25N Lordaeron [2023-02-10]@[19:23:53] || 25N Lordaeron [2023-02-14]@[20:56:07] || 10H Icecrown [2023-04-05]@[22:46:14] || 25H Lordaeron [2023-04-07]@[19:35:55) - "Gas Spore-71221-npc:36626-1002 = pull:24.1, 42.9, 41.9, 45.9, 44.7 || "Gas Spore-71221-npc:36626-1507 = pull:24.9, 43.6, 41.5, 42.0, 41.9" || "Gas Spore-71221-npc:36626-1086 = pull:21.5, 43.9, 41.9, 43.0, 41.2, 43.5 || "Gas Spore-71221-npc:36626-1575 = pull:21.1, 44.1, 40.6, 48.7, 43.2, 44.1 || "Gas Spore-69278-npc:36626-852 = pull:20.1, 46.1, 41.2" || "Gas Spore-71221-npc:36626-1098 = pull:20.3, 43.1, 43.3, 43.6, 43.3, 43.1, 50.3"
+local timerGasSporeCD		= mod:NewCDTimer(40.6, 69279, nil, nil, nil, 3, nil, nil, true)	-- REVIEW! ~10s variance [40.6 - 50.3]. Added "keep" arg. (25H Lordaeron [2022-09-14]@[20:34:44] || 25H Lordaeron [2022-09-23]@[21:13:34] || 25N Lordaeron [2023-02-10]@[19:23:53] || 25N Lordaeron [2023-02-14]@[20:56:07] || 10H Icecrown [2023-04-05]@[22:46:14] || 25H Lordaeron [2023-04-07]@[19:35:55) - "Gas Spore-71221-npc:36626-1002 = pull:24.1, 42.9, 41.9, 45.9, 44.7 || "Gas Spore-71221-npc:36626-1507 = pull:24.9, 43.6, 41.5, 42.0, 41.9" || "Gas Spore-71221-npc:36626-1086 = pull:21.5, 43.9, 41.9, 43.0, 41.2, 43.5 || "Gas Spore-71221-npc:36626-1575 = pull:21.1, 44.1, 40.6, 48.7, 43.2, 44.1 || "Gas Spore-69278-npc:36626-852 = pull:20.1, 46.1, 41.2" || "Gas Spore-71221-npc:36626-1098 = pull:20.3, 43.1, 43.3, 43.6, 43.3, 43.1, 50.3"
 local timerPungentBlight	= mod:NewCDTimer(33.5, 69195, nil, nil, nil, 2)		-- Edited. ~34 seconds after 3rd stack of inhaled. REVIEW! (25H Lordaeron 2022/09/25) - pull:131.4 [33.5]
 local timerInhaledBlight	= mod:NewCDTimer(33.5, 69166, nil, nil, nil, 6, nil, nil, true)	-- Timer is based on Aura. ~9s variance on pull, 1.5s variance [33.5-35.0]. Added "keep" arg (25H Lordaeron 2022/09/04 || 25H Lordaeron 2022/09/25) - 34.2, 34.7, *, 34.2 || 34.3, 33.8, 67.5 [33.5-pungent, 34.0], 34.2
 local timerGastricBloat		= mod:NewTargetTimer(100, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)	-- 100 Seconds until expired
