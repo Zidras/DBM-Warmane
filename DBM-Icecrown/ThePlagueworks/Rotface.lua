@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230727014918")
+mod:SetRevision("20230827115516")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
@@ -33,7 +33,7 @@ local specWarnVileGas			= mod:NewSpecialWarningYou(72272, nil, nil, nil, 1, 2, 3
 
 local timerStickyOoze			= mod:NewNextTimer(15, 69774, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerWallSlime			= mod:NewNextTimer(25, 69789) -- Edited.
-local timerSlimeSpray			= mod:NewNextTimer(20, 69508, nil, nil, nil, 3) -- Log reviewed (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25) - 20.1, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0 || 20.0, 20.1, 20.0, 20.0
+local timerSlimeSpray			= mod:NewNextTimer(20, 69508, nil, nil, nil, 3) -- Some instances, timer is not fixed (cause unknown, but self-corrected on the next timer). (25H Lordaeron 2022/07/09 || 10N Icecrown 2022/08/25 || 25H Lordaeron [2023-08-23]@[20:45:25]) - 20.1, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0 || 20.0, 20.1, 20.0, 20.0 || pull:20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.1, 20.0, 21.4, 18.6, 20.0, 20.0
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674, nil, nil, nil, 5)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON, nil, 3)
 local timerVileGasCD			= mod:NewCDTimer(29.1, 72272, nil, nil, nil, 3) -- REVIEW! ~5s variance [29.1-35]? (25H Lordaeron 2022/07/09 || 25H Lordaeron 2022/09/23 || 10H Lordaeron 2022/10/02) "Vile Gas-72273-npc:36678 = pull:28.9[+2], 1.4, 0.9, 28.5[+1], 0.8, 0.7, 31.7, 2.2[+1], 35.6, 0.1[+3], 38.9, 1.0, 0.8[+1], 30.4, 2.0, 0.9, 30.2, 0.4, 0.1, 33.4, 0.3[+1], 1.5[+1], 38.2" || "Vile Gas-72273-npc:36678-1684 = pull:29.1, 1.5[+1], 0.2, 29.9[+2], 1.9, 30.9[+2], 1.4, 33.9[+1], 2.0, 0.7, 29.8[+1], 0.8[+1], 29.6, 1.1[+2], 0.1, 28.4, 0.6, 1.6, 28.8[+1], 0.1, 2.0" || "Vile Gas-72273-npc:36678-577 = pull:31.1, 0.1, 0.6, 28.4[+2], 1.3, 29.7[+2], 1.7, 0.1, 36.3[+1], 0.1, 1.2, 32.2, 1.6, 0.6[+1], 30.7, 0.8[+1], 1.5, 31.3, 1.6, 0.9[+1], 27.1, 1.2, 0.4[+2]"
