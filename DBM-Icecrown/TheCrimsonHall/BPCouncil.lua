@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230827115052")
+mod:SetRevision("20230827165223")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -53,7 +53,7 @@ local warnKineticBomb			= mod:NewSpellAnnounce(72053, 3, nil, false)
 
 local specWarnKineticBomb		= mod:NewSpecialWarningCount(72053, "Ranged", nil, nil, 1)
 
-local timerKineticBombCD		= mod:NewCDCountTimer(18, 72053, nil, "Ranged", nil, 1, nil, nil, true) -- REVIEW! 5s variance? Added "keep" arg. (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/12/07) - 19.2, 23.6, 22.2, 18.5, 19.2 || 18.5, 18.3, 22.1, 19.2, 20.8, 20.4, 19.7, 21.6, 20.9, 19.5, 20.5
+local timerKineticBombCD		= mod:NewCDCountTimer(18, 72053, nil, "Ranged", nil, 1, nil, nil, true) -- ~6s variance [18.0-23.9] Added "keep" arg. (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/12/07 || 25H Lordaeron [2023-08-23]@[21:05:58]) - 19.2, 23.6, 22.2, 18.5, 19.2 || 18.5, 18.3, 22.1, 19.2, 20.8, 20.4, 19.7, 21.6, 20.9, 19.5, 20.5 || pull:19.8, 23.9, 21.9, 19.6, 21.4, 23.9, 18.5, 22.0, 18.5, 21.9, 21.6
 
 local soundKineticBomb			= mod:NewSound(72053, nil, "Ranged")
 
