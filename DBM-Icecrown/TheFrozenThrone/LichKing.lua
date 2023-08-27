@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20230613234949")
+mod:SetRevision("20230827110817")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -679,7 +679,7 @@ function mod:UNIT_AURA_UNFILTERED(uId)
 	if (spellId == 73787 or spellId == 70338 or spellId == 73785 or spellId == 73786) and expires > 0 and not plagueExpires[expires] then
 		plagueExpires[expires] = true
 		warnNecroticPlagueJump:Show(name)
-		timerNecroticPlagueCleanse:Start()
+		timerNecroticPlagueCleanse:Restart() -- prevent timer debug, since dispel can (and should) happen before the 5s expires
 		if name == UnitName("player") and not mod:IsTank() then
 			specWarnNecroticPlague:Show()
 			soundNecroticOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\necroticOnYou.mp3")
