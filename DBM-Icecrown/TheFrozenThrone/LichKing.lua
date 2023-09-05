@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20230827110817")
+mod:SetRevision("20230906004820")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -23,6 +23,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_DISPEL",
 	"SPELL_AURA_APPLIED 28747 72754 73708 73709 73710 73650",
 	"SPELL_AURA_APPLIED_DOSE 70338 73785 73786 73787",
+--	"SPELL_AURA_REMOVED 73655", -- 68980 74325 is 10N and 25N, not needed for FM
 	"SPELL_SUMMON 69037 70372",
 	"SPELL_DAMAGE 68983 73791 73792 73793",
 	"SPELL_MISSED 68983 73791 73792 73793",
@@ -310,7 +311,22 @@ local function NextPhase(self, delay)
 		timerHarvestSoulCD:Start(13.6) -- REVIEW! variance? (25H Lordaeron 2022/10/21 || 25H Lordaeron 2022/11/16) - 13.6 || 14.0
 		warnDefileSoon:Schedule(30, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(30, "scatter")
+--		if self:IsHeroic() then
+--			self:RegisterShortTermEvents(
+--				"ZONE_CHANGED"
+--			)
+--		end
 	end
+end
+
+local function leftFrostmourne(self)
+	DBM:Debug("Left Frostmourne")
+	timerHarvestSoulCD:Start(58.72) -- Subtract [58.72]s from Exit FM to next CAST_SUCCESS diff. Timestamps: Harvest cast success > Enter Frostmourne (SAA 73655) > Exit FM (SAR 73655) > Harvest cast. (25H Lordaeron [2023-08-23]@[22:14:48]) - "Harvest Souls-74297-npc:36597-3706 = pull:452.4/Stage 3/14.0, 107.3, 107.2" => '107.3 calculation as follows': 452.42 > 458.44 [6.02] > 500.97 [42.53/48.55] > 559.69 [58.72/101.25/107.27]
+	timerDefileCD:Start(1.5, self.vb.defileCount+1) -- As soon as the group leaves FM
+	warnDefileSoon:Show(self.vb.defileCount+1)
+	warnDefileSoon:Play("scatter") -- Voice Pack - Scatter.ogg: "Spread!"
+	timerSoulreaperCD:Start(3.5, self.vb.soulReaperCount+1) -- After Defile cast (+2s)
+	soundSoulReaperSoon:Schedule(3.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 end
 
 local function RestoreWipeTime(self)
@@ -465,6 +481,7 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 73650 then -- Restore Soul (Heroic)
 		warnRestoreSoul:Show()
 		timerRestoreSoul:Start()
+		self:Schedule(40, leftFrostmourne, self) -- Always 40s
 		if self.Options.RemoveImmunes then
 			self:Schedule(39.99, RemoveImmunes, self)
 		end
@@ -590,6 +607,14 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 		end
 	end
 end
+
+--[[ This would probably fail on early UNIT_DIED, so schedule it instead
+function mod:SPELL_AURA_REMOVED(args)
+	if args.spellId == 73655 and args:IsPlayer() then -- Harvest Soul (25H)
+		timerHarvestSoulCD:Start(57.5) -- Subtract [48.56]s to CAST_SUCCESS diff. Timestamps: Harvest cast > Enter Frostmourne > Exit FM > Harvest cast. (25H Lordaeron [2023-08-23]@[22:14:48]) - "Harvest Souls-74297-npc:36597-3706 = pull:452.4/Stage 3/14.0, 107.3, 107.2" => '107.3 calculation as follows': 452.42 > 458.87 [6.45] > 500.98 > 501.39 [0.41/42.52/48.97] > 559.69 [58.30/58.71/100.82/107.27]
+	end
+end
+]]
 
 function mod:SPELL_SUMMON(args)
 	local spellId = args.spellId
@@ -816,7 +841,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	elseif spellName == GetSpellInfo(73654) then -- Harvest Souls (Heroic)
 		specWarnHarvestSouls:Show()
 		--specWarnHarvestSouls:Play("phasechange")
-		timerHarvestSoulCD:Start(106.1) -- Custom edit to make Harvest Souls timers work again. REVIEW! 1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/11/16) - 106.4, 107.5, 106.5 || 106.1, 106.3, 106.6
+--		timerHarvestSoulCD:Start(106.1) -- Custom edit to make Harvest Souls timers work again. REVIEW! 1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/11/16) - 106.4, 107.5, 106.5 || 106.1, 106.3, 106.6
 		timerVileSpirit:Cancel()
 		timerSoulreaperCD:Cancel()
 		soundSoulReaperSoon:Cancel()
@@ -825,6 +850,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		warnDefileSoon:CancelVoice()
 		self:SetWipeTime(50)--We set a 45 sec min wipe time to keep mod from ending combat if you die while rest of raid is in frostmourn
 		self:Schedule(50, RestoreWipeTime, self)
+--		self:Schedule(48.55, leftFrostmourne, self) -- Subtract [48.55]s from Exit FM to last CAST_SUCCESS diff. Timestamps: Harvest cast success > Enter Frostmourne (SAA 73655) > Exit FM (SAR 73655) > Exit FM (ZONE_CHANGED) > Harvest cast. (25H Lordaeron [2023-08-23]@[22:14:48]) - "Harvest Souls-74297-npc:36597-3706 = pull:452.4/Stage 3/14.0, 107.3, 107.2" => '107.3 calculation as follows': 452.42 > 458.44 [6.02] > 500.97 [42.53/48.55] > 501.39 [0.42/42.95/48.97] > 559.69 [58.30/58.72/101.25/107.27]
 	end
 end
 
@@ -853,6 +879,19 @@ function mod:UNIT_TARGET_UNFILTERED(uId)
 		end
 	end
 end
+
+--[[
+-- "<673.50 22:26:02> [DBM_Debug] Indoor/SubZone changed on zoneID: 605 and subZone: Frostmourne:nil:"
+-- "<673.51 22:26:02> [ZONE_CHANGED_INDOORS] The Frozen Throne:Icecrown Citadel:Frostmourne:"
+
+-- "<715.75 22:26:44> [DBM_Debug] Indoor/SubZone changed on zoneID: 605 and subZone: The Frozen Throne:nil:"
+-- "<715.76 22:26:44> [ZONE_CHANGED] Icecrown Citadel:Icecrown Citadel:The Frozen Throne:"
+
+-- This would probably fail on early UNIT_DIED, and is personal event, so schedule it instead
+function mod:ZONE_CHANGED() -- [ZONE_CHANGED] Icecrown Citadel:Icecrown Citadel:The Frozen Throne:
+	timerHarvestSoulCD:Start(58.3)
+end
+]]
 
 function mod:OnSync(msg, target)
 	if msg == "CombatStart" then
