@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20230906004820")
+mod:SetRevision("20230913201929")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetMinSyncRevision(20220921000000)
@@ -321,6 +321,7 @@ end
 
 local function leftFrostmourne(self)
 	DBM:Debug("Left Frostmourne")
+	DBM:AddSpecialEventToTranscriptorLog("Left Frostmourne")
 	timerHarvestSoulCD:Start(58.72) -- Subtract [58.72]s from Exit FM to next CAST_SUCCESS diff. Timestamps: Harvest cast success > Enter Frostmourne (SAA 73655) > Exit FM (SAR 73655) > Harvest cast. (25H Lordaeron [2023-08-23]@[22:14:48]) - "Harvest Souls-74297-npc:36597-3706 = pull:452.4/Stage 3/14.0, 107.3, 107.2" => '107.3 calculation as follows': 452.42 > 458.44 [6.02] > 500.97 [42.53/48.55] > 559.69 [58.72/101.25/107.27]
 	timerDefileCD:Start(1.5, self.vb.defileCount+1) -- As soon as the group leaves FM
 	warnDefileSoon:Show(self.vb.defileCount+1)
