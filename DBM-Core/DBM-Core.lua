@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230827230444"),
+	Revision = parseCurseDate("20230913200803"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5407,6 +5407,24 @@ do
 				autoTLog = false
 				self:AddMsg("|cffffff00"..L.TRANSCRIPTOR_LOG_END.."|r")
 				transcriptor:StopLog(1)
+			end
+		end
+	end
+
+	function DBM:AddSpecialEventToTranscriptorLog(name) -- custom implementation, to further improve Transcriptor timer diffs with scheduled functions from DBM
+		local transcriptor = _G["Transcriptor"]
+		if not transcriptor then return end
+
+		if transcriptor:IsLogging() then -- checking for running log (might be unnecessary, but doesnt hurt)
+			if not transcriptor.InsertSpecialEvent then -- checking for existence of function, to prevent nil from outdated Transcriptor versions
+				DBM:AddMsg("Transcriptor addon is outdated. Download the latest version from the following link: https://github.com/Zidras/Transcriptor-WOTLK")
+				return
+			end
+			if name and type(name) == "string" then
+				self:Debug("Added Special Event to Transcriptor Log: "..name)
+				transcriptor.InsertSpecialEvent(name)
+			else
+				error("DBM:AddEventToTranscriptorLog(name) must receive a string.")
 			end
 		end
 	end
