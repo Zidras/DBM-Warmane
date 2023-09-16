@@ -118,6 +118,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Submerge	= "出现吧，我的奴仆! 保卫你们的主人!",
+	Submerge2	= "你们不是烈焰之王的敌人！出现吧，火焰的奴仆！你们的主人在召唤你们！",
 	Pull		= "你这个莽撞的家伙!你简直是自寻死路!看吧，你惊动了主人!"
 })
 

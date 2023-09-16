@@ -117,7 +117,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.Submerge then
+	if msg == L.Submerge or msg == L.Submerge2 then
 		self:SendSync("Submerge")
 	elseif msg == L.Pull and self:AntiSpam(5, 4) then
 		self:SendSync("SummonRag")

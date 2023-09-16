@@ -118,6 +118,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Submerge	= "VENEZ, MES SERVITEURS ! DÉFENDEZ VOTRE MAÎTRE !",
+	Submerge2	= "VOUS NE POUVEZ VAINCRE LA FLAMME VIVANTE ! VENEZ, SERVITEURS DU FEU ! VENEZ, CRÉATURES DE LA HAINE ! VOTRE MAÎTRE VOUS APPELLE !",
 	Pull		= "Impudents imbéciles ! Vous vous êtes précipités vers votre propre mort ! Voyez, à présent, le Maître remue !"
 })
 

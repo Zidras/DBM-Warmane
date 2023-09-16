@@ -118,6 +118,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Submerge	= "KOMMT HERBEI, MEINE DIENER! VERTEIDIGT EUREN HERRN!",
+	Submerge2	= "NIEMAND BESIEGT DIE LEBENDE FLAMME! KOMMT, IHR DIENER DES FEUERS! VORWÄRTS, IHR KREATUREN DES HASSES! EUER MEISTER RUFT EUCH!",
 	Pull		= "Unverschämte Welpen! Ihr seid sehenden Auges dem Tod in die Arme gelaufen! Seht her, der Meister regt sich!"
 })
 

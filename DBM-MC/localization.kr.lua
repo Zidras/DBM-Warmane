@@ -118,6 +118,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Submerge	= "나의 종들아! 어서 나와 주인을 돕거라!",
+	Submerge2	= "누구도 살아있는 불꽃을 꺾을 수는 없다! 나타나라! 불의 신하들이여! 나오너라! 증오의 피조물들이여! 네 주인이 부르노라!",
 	Pull		= "건방진 젖먹이! 죽고 싶어 안달이구나! 자, 보아라. 주인님께서 일어나신다!"
 })
 
