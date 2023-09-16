@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("202309234444")
+mod:SetRevision("20230917003137")
 mod:SetCreatureID(11502)
 
 mod:SetModelID(11121)
@@ -15,25 +15,26 @@ mod:RegisterEvents(
 )
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 20568",
-	"SPELL_CAST_SUCCESS 20566"
---	"UNIT_DIED"
+	"SPELL_CAST_SUCCESS 20566",
+	"UNIT_DIED"
 )
 
 --[[
 ability.id = 20566 and type = "cast" or target.id = 12143 and type = "death"
 --]]
-local warnWrathRag		= mod:NewSpellAnnounce(20566, 3)
-local warnSubmerge		= mod:NewSpellAnnounce(21107, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-local warnEmerge		= mod:NewSpellAnnounce(20568, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local warnWrathRag			= mod:NewSpellAnnounce(20566, 3)
+local warnSubmerge			= mod:NewSpellAnnounce(21107, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
+local warnEmerge			= mod:NewSpellAnnounce(20568, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local warnSonsOfFlameLeft	= mod:NewAddsLeftAnnounce(19629, 2, 19774) -- spellId 21108 (Summon of Sons of Flame) returns nil, so use a similar spellId: 19629 (Summon Flames)
 
-local timerWrathRag		= mod:NewCDTimer(22.1, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~7s variance [22.1-29.0]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92"
-local timerSubmerge		= mod:NewNextTimer(180, 21107, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 1, 5)
-local timerEmerge		= mod:NewNextTimer(90, 20568, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 1, 5)
-local timerCombatStart	= mod:NewCombatTimer(78)
+local timerWrathRag			= mod:NewCDTimer(22.1, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~7s variance [22.1-29.0]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92"
+local timerSubmerge			= mod:NewNextTimer(180, 21107, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 1, 5)
+local timerEmerge			= mod:NewNextTimer(90, 20568, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 1, 5)
+local timerCombatStart		= mod:NewCombatTimer(78)
 
 mod:AddRangeFrameOption("18", nil, "-Melee")
 
---mod.vb.addLeft = 0
+mod.vb.addLeft = 0
 --mod.vb.ragnarosEmerged = true
 --local addsGuidCheck = {}
 local firstBossMod = DBM:GetModByName("MCTrash")
@@ -51,7 +52,7 @@ end
 
 function mod:OnCombatStart(delay)
 --	table.wipe(addsGuidCheck)
---	self.vb.addLeft = 0
+	self.vb.addLeft = 0
 --	self.vb.ragnarosEmerged = true
 	timerWrathRag:Start(30-delay)
 	timerSubmerge:Start(180-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
@@ -113,23 +114,24 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
---[[
+
 function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	if self:GetCIDFromGUID(guid) == 12143 then--Son of Flame
 		--self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
 		--We're in range of event, no reason to wait for sync, especially in a raid that might not have many DBM users
-		if not addsGuidCheck[guid] then
-			addsGuidCheck[guid] = true
+--		if not addsGuidCheck[guid] then
+--			addsGuidCheck[guid] = true
 			self.vb.addLeft = self.vb.addLeft - 1
-			if not self.vb.ragnarosEmerged and self.vb.addLeft == 0 then--After all 8 die he emerges immediately
-				self:Unschedule(emerged)
-				emerged(self)
-			end
-		end
+--			if not self.vb.ragnarosEmerged and self.vb.addLeft == 0 then--After all 8 die he emerges immediately
+--				self:Unschedule(emerged)
+--				emerged(self)
+--			end
+--		end
+		warnSonsOfFlameLeft:Show(self.vb.addLeft)
 	end
 end
-]]
+
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Submerge or msg == L.Submerge2 then
@@ -152,7 +154,7 @@ function mod:OnSync(msg--[[, guid]])
 		timerEmerge:Start(90)
 		timerSubmerge:Start() -- Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179.99]
 --		self:Schedule(90, emerged, self)
---		self.vb.addLeft = self.vb.addLeft + 8
+		self.vb.addLeft = self.vb.addLeft + 8
 	--[[elseif msg == "AddDied" and self:IsInCombat() and guid and not addsGuidCheck[guid] then
 		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
 		addsGuidCheck[guid] = true
