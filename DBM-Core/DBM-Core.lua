@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230913200803"),
+	Revision = parseCurseDate("20230916173612"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -432,7 +432,7 @@ local mainFrame, unitMainFrame = CreateFrame("Frame", "DBMMainFrame"), CreateFra
 local playerName = UnitName("player")
 local playerLevel = UnitLevel("player")
 local playerRealm = GetRealmName()
-local lastCombatStarted = GetTime()
+--local lastCombatStarted = GetTime()
 local chatPrefix = "<Deadly Boss Mods> "
 local chatPrefixShort = "<" .. L.DBM .. "> "
 local usedProfile = "Default"
@@ -4401,7 +4401,7 @@ do
 
 	-- detects a boss pull based on combat state, this is required for pre-ICC bosses that do not fire INSTANCE_ENCOUNTER_ENGAGE_UNIT events on engage
 	function DBM:PLAYER_REGEN_DISABLED()
-		lastCombatStarted = GetTime()
+--		lastCombatStarted = GetTime()
 		if not combatInitialized then return end
 		local combat = combatInfo[LastInstanceMapID] or combatInfo[LastInstanceZoneName]
 		if dbmIsEnabled and combat then
@@ -5045,8 +5045,8 @@ do
 					for _, v in ipairs(combat) do
 						if v.mod.Options.Enabled and not v.mod.disableHealthCombat and v.type:find("combat") and (v.multiMobPullDetection and checkEntry(v.multiMobPullDetection, cId) or v.mob == cId) and not (#inCombat > 0 and v.noMultiBoss) then
 							if v.mod.noFriendlyEngagement and UnitIsFriend("player", uId) then return end
-							-- Delay set, > 97% = 0.5 (consider as normal pulling), max dealy limited to 20s.
-							self:StartCombat(v.mod, health > 97 and 0.5 or mmin(GetTime() - lastCombatStarted, 20), "UNIT_HEALTH", nil, health)
+							-- No sense in assuming delay based on boss health! Realistically, delay is 0 since it fires as soon as boss drops HP. This ensures a more accurate StartCombat. (Previous logic from retail: Delay set, > 97% = 0.5 (consider as normal pulling), max delay limited to 20s.)
+							self:StartCombat(v.mod, 0--[[health > 97 and 0.5 or mmin(GetTime() - lastCombatStarted, 20)]], "UNIT_HEALTH", nil, health)
 						end
 					end
 				end
