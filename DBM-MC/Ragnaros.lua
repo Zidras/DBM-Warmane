@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230916183313")
+mod:SetRevision("20230916221424")
 mod:SetCreatureID(11502)
 
 mod:SetModelID(11121)
@@ -76,11 +76,12 @@ function mod:OnCombatEnd(wipe)
 end
 
 local function emerged(self)
+	DBM:AddSpecialEventToTranscriptorLog("Emerged")
 	self.vb.ragnarosEmerged = true
 	timerEmerge:Stop()
 	warnEmerge:Show()
 	timerWrathRag:Start(26.7)--need to find out what it is first.
-	timerSubmerge:Start(180)
+	timerSubmerge:Start(90) -- 180s from last Submerge, so account for the 90s from emerge timer. Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179,99]
 end
 
 function mod:SPELL_CAST_START(args)
@@ -128,6 +129,7 @@ function mod:OnSync(msg--[[, guid]])
 	if msg == "SummonRag" and self:AntiSpam(5, 2) then
 		timerCombatStart:Start()
 	elseif msg == "Submerge" and self:IsInCombat() then
+		DBM:AddSpecialEventToTranscriptorLog("Submerged")
 		self.vb.ragnarosEmerged = false
 		self:Unschedule(emerged)
 		timerWrathRag:Stop()
