@@ -110,6 +110,8 @@ L.AutologBosses				= "Enregistrement auto du combat contre un boss en utilisant 
 L.AdvancedAutologBosses		= "Enregistrement auto du combat contre un boss en utilisant Transcriptor"
 L.RecordOnlyBosses			= "N'enregistrer que les boss et exclure tous les trash. Utilisez '/dbm pull' avant les boss pour prendre en compte les potions (pre pot) &amp; ENCOUNTER_START"
 L.LogOnlyNonTrivial			= "N'enregistrer que les combats importants (difficulté normale ou supérieure du contenu actuel de raid &amp; donjons Mythique+)"
+L.LogCurrentNormal			= "Donjons normaux de niveau actuel (Remarque : si vous faites quelque chose d'héroïque via l'outil de recherche de raid et que vous souhaitez que cela soit enregistré, désactivez le filtre LFG)"
+L.LogTrivialDungeons		= "Donjons triviaux (en dessous du niveau du personnage)"
 --
 L.Area_3rdParty				= "Options des Addons tiers"
 L.oRA3AnnounceConsumables	= "Annoncer la vérification des consommables oRA3 au début du combat"

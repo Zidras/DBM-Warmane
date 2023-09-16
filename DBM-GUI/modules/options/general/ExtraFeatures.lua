@@ -33,6 +33,8 @@ bossLoggingContent:CreateCheckButton(L.LogCurrentMPlus, true, nil, "LogCurrentMP
 bossLoggingContent:CreateCheckButton(L.LogCurrentMythicZero, true, nil, "LogCurrentMythicZero")
 bossLoggingContent:CreateCheckButton(L.LogTWDungeons, true, nil, "LogTWDungeons")
 bossLoggingContent:CreateCheckButton(L.LogCurrentHeroic, true, nil, "LogCurrentHeroic")
+bossLoggingContent:CreateCheckButton(L.LogCurrentNormal, true, nil, "LogCurrentNormal")
+bossLoggingContent:CreateCheckButton(L.LogTrivialDungeons, true, nil, "LogTrivialDungeons")
 
 local thirdPartyArea = extraFeaturesPanel:CreateArea(L.Area_3rdParty)
 --if _G["oRA3Frame"] then

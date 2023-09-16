@@ -126,6 +126,8 @@ L.LogCurrentMPlus					= "Current level M+ dungeons"--Retail Only
 L.LogCurrentMythicZero				= "Current level Mythic 0 dungeons"--Retail Only
 L.LogTWDungeons						= "Timewalking or Chromie Time dungeons"--Retail Only
 L.LogCurrentHeroic					= "Current level Heroic dungeons (Note: if you are doing heroic via queuing and want it logged, turn off LFG filter)"
+L.LogCurrentNormal					= "Current level Normal dungeons (Note: if you are doing heroic via queuing and want it logged, turn off LFG filter)"
+L.LogTrivialDungeons				= "Trivial (below character level) dungeons"
 --
 L.Area_3rdParty						= "3rd Party Addon Options"
 L.oRA3AnnounceConsumables			= "Announce oRA3 consumables check on combat start"

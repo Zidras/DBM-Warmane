@@ -96,6 +96,8 @@ L.AutologBosses				= "Registrar encuentros automáticamente con el registro de c
 L.AdvancedAutologBosses		= "Registrar encuentros automáticamente con Transcriptor"
 L.RecordOnlyBosses			= "Registrar solo encuentros de jefe (excluye todos los combates contra enemigos que no son jefes; usa '/dbm pull' antes de un jefe para registrar el uso previo de pociones)"
 L.LogOnlyNonTrivial			= "Registrar solo el contenido importante (excluye el buscador de bandas, las mazmorras, las gestas y todo el contenido antiguo)"
+L.LogCurrentNormal			= "Mazmorras normales de nivel actual (Nota: si estás haciendo algo heroico a través del buscador de bandas y quieres que se registre, desactiva el filtro LFG)"
+L.LogTrivialDungeons		= "Mazmorras triviales (inferior al nivel del personaje)"
 --
 L.Area_3rdParty				= "Opciones de addons de terceros"
 --L.oRA3AnnounceConsumables	= "Announce oRA3 consumables check on combat start"

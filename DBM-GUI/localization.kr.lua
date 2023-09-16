@@ -121,6 +121,8 @@ L.LogCurrentMPlus			= "현재 확장팩 신화+ 던전"--Retail Only
 L.LogCurrentMythicZero		= "현재 확장팩 신화 0단 던전"--Retail Only
 L.LogTWDungeons				= "시간여행 또는 크로미의 시간 레이드"--Retail Only
 L.LogCurrentHeroic			= "현재 확장팩 영웅 던전 (알림: 던전 찾기를 통해 영던을 돌면서 로그를 기록하고 싶다면 던전 찾기 기록 안함 옵션을 끄세요)"
+L.LogCurrentNormal			= "현재 확장팩 일반 던전 (알림: 던전 찾기를 통해 영던을 돌면서 로그를 기록하고 싶다면 던전 찾기 기록 안함 옵션을 끄세요)"
+L.LogTrivialDungeons		= "구 던전 (이전 확장팩)"
 --
 L.Area_3rdParty				= "써드파티 애드온 설정"
 L.oRA3AnnounceConsumables	= "전투 시작시 oRA3 버프 검사 알림"

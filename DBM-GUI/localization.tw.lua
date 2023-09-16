@@ -125,6 +125,8 @@ L.LogCurrentMPlus			= "當前等級傳奇+地下城"--Retail Only
 L.LogCurrentMythicZero		= "當前等級傳奇0層地下城"--Retail Only
 L.LogTWDungeons				= "時光漫遊 或 克羅米時光地下城"--Retail Only
 L.LogCurrentHeroic			= "當前等級英雄地下城 (注意：如果您通過地城搜尋器佇列英雄並想要記錄，請關閉地城搜尋器過濾)"
+L.LogCurrentNormal			= "當前等級普通模式地下城 (注意：如果您通過地城搜尋器佇列英雄並想要記錄，請關閉地城搜尋器過濾)"
+L.LogTrivialDungeons		= "低等隊伍副本 (低於角色等級)"
 --
 L.Area_3rdParty				= "協力插件選項"
 L.oRA3AnnounceConsumables	= "在戰鬥開始時通告oRA3消耗品檢查"

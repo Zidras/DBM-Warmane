@@ -228,6 +228,7 @@ DBM.DefaultOptions = {
 	LogCurrentMPlus = true,
 	LogCurrentMythicZero = false,
 	LogCurrentHeroic = false,
+	LogCurrentNormal = false,
 	LogTrivialRaids = false,
 	LogTWRaids = false,
 	LogTrivialDungeons = false,
@@ -5365,6 +5366,14 @@ do
 		end
 		--Current level Heroic dungeon
 		if self.Options.LogCurrentHeroic and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) and (difficultyIndex == 2 or difficultyIndex == 174) then
+			return true
+		end
+		--Current level Normal dungeon
+		if self.Options.LogCurrentNormal and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] >= playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) and (difficultyIndex == 1 or difficultyIndex == 173) then
+			return true
+		end
+		--Trivial dungeon (ie one below players level)
+		if self.Options.LogTrivialDungeons and instanceDifficultyBylevel[LastInstanceMapID] and (instanceDifficultyBylevel[LastInstanceMapID][1] < playerLevel) and (instanceDifficultyBylevel[LastInstanceMapID][2] == 2) then
 			return true
 		end
 

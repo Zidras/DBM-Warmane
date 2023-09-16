@@ -127,6 +127,8 @@ L.LogTrivialRaids			= "低等级团队"
 L.LogCurrentMPlus			= "当前等级的M+5人本"--Retail Only
 L.LogTWDungeons				= "时光5人本或通过克罗米进入的5人本"--Retail Only
 L.LogCurrentHeroic			= "当前等级的英雄5人本"
+L.LogCurrentNormal			= "当前等级的普通5人本"
+L.LogTrivialDungeons		= "低等级地下城"
 --
 L.Area_3rdParty				= "第三方插件选项"
 L.oRA3AnnounceConsumables	= "在战斗开始时通报oRA3消耗品检查"
