@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230916221424")
+mod:SetRevision("202309234444")
 mod:SetCreatureID(11502)
 
 mod:SetModelID(11121)
@@ -10,38 +10,50 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_CAST_START 19774",
-	"SPELL_CAST_SUCCESS 20566 19773",
+	"SPELL_CAST_SUCCESS 19773",
 	"CHAT_MSG_MONSTER_YELL"
 )
 mod:RegisterEventsInCombat(
---	"SPELL_CAST_SUCCESS 20566 19773",
-	"UNIT_DIED"
+	"SPELL_CAST_START 20568",
+	"SPELL_CAST_SUCCESS 20566"
+--	"UNIT_DIED"
 )
 
 --[[
 ability.id = 20566 and type = "cast" or target.id = 12143 and type = "death"
 --]]
 local warnWrathRag		= mod:NewSpellAnnounce(20566, 3)
-local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-local warnEmerge		= mod:NewAnnounce("WarnEmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local warnSubmerge		= mod:NewSpellAnnounce(21107, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
+local warnEmerge		= mod:NewSpellAnnounce(20568, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
-local timerWrathRag		= mod:NewCDTimer(25, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, nil, mod:IsMelee() and 1, 4)--25-31.6
-local timerSubmerge		= mod:NewTimer(180, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, nil, nil, 1, 5)
-local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, nil, nil, 1, 5)
-local timerCombatStart	= mod:NewTimer(78, "timerCombatStart", "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, nil, nil, nil, 1, 3)
+local timerWrathRag		= mod:NewCDTimer(22.1, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~7s variance [22.1-29.0]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92"
+local timerSubmerge		= mod:NewNextTimer(180, 21107, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 1, 5)
+local timerEmerge		= mod:NewNextTimer(90, 20568, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 1, 5)
+local timerCombatStart	= mod:NewCombatTimer(78)
 
 mod:AddRangeFrameOption("18", nil, "-Melee")
 
-mod.vb.addLeft = 0
-mod.vb.ragnarosEmerged = true
-local addsGuidCheck = {}
+--mod.vb.addLeft = 0
+--mod.vb.ragnarosEmerged = true
+--local addsGuidCheck = {}
 local firstBossMod = DBM:GetModByName("MCTrash")
 
-function mod:OnCombatStart(delay)
-	table.wipe(addsGuidCheck)
-	self.vb.addLeft = 0
+--[[
+local function emerged(self)
+	DBM:AddSpecialEventToTranscriptorLog("Emerged")
 	self.vb.ragnarosEmerged = true
-	timerWrathRag:Start(26.7-delay)
+	timerEmerge:Stop()
+	warnEmerge:Show()
+	timerWrathRag:Start(26.7)--need to find out what it is first.
+	timerSubmerge:Start(90) -- 180s from last Submerge, so account for the 90s from emerge timer. Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179,99]
+end
+]]
+
+function mod:OnCombatStart(delay)
+--	table.wipe(addsGuidCheck)
+--	self.vb.addLeft = 0
+--	self.vb.ragnarosEmerged = true
+	timerWrathRag:Start(30-delay)
 	timerSubmerge:Start(180-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(18)
@@ -75,32 +87,33 @@ function mod:OnCombatEnd(wipe)
 	end
 end
 
-local function emerged(self)
-	DBM:AddSpecialEventToTranscriptorLog("Emerged")
-	self.vb.ragnarosEmerged = true
-	timerEmerge:Stop()
-	warnEmerge:Show()
-	timerWrathRag:Start(26.7)--need to find out what it is first.
-	timerSubmerge:Start(90) -- 180s from last Submerge, so account for the 90s from emerge timer. Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179,99]
-end
-
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 19774 and self:AntiSpam(5, 4) then
+	local spellId = args.spellId
+	if spellId == 19774 and self:AntiSpam(5, 4) then
 		--This is still going to use a sync event because someone might start this RP from REALLY REALLY far away
 		self:SendSync("SummonRag")
+	elseif spellId == 20568 then -- Ragnaros Emerge
+		DBM:AddSpecialEventToTranscriptorLog("Emerged")
+--		self.vb.ragnarosEmerged = true
+		timerEmerge:Stop()
+		warnEmerge:Show()
+		timerWrathRag:Start(30) -- REVIEW! (40N Lordaeron [2023-09-13]@[19:05:07]) - 2222.61 > 2252.60 [29.99]
+		-- Don't start Submerge timer here, since Ragnaros will emerge after 90 seconds from Submerge/Summon Sons of Flames OR once all 8 are defeated (whichever happens first). The latter is variable and therefore not suitable for any timer
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 20566 then
+	local spellId = args.spellId
+	if spellId == 20566 then
 		warnWrathRag:Show()
 		timerWrathRag:Start()
-	elseif args.spellId == 19773 then
+	elseif spellId == 19773 then
 		--This is still going to use a sync event because someone might start this RP from REALLY REALLY far away
 		self:SendSync("DomoDeath")
 	end
 end
 
+--[[
 function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	if self:GetCIDFromGUID(guid) == 12143 then--Son of Flame
@@ -116,6 +129,7 @@ function mod:UNIT_DIED(args)
 		end
 	end
 end
+]]
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Submerge or msg == L.Submerge2 then
@@ -130,14 +144,15 @@ function mod:OnSync(msg--[[, guid]])
 		timerCombatStart:Start()
 	elseif msg == "Submerge" and self:IsInCombat() then
 		DBM:AddSpecialEventToTranscriptorLog("Submerged")
-		self.vb.ragnarosEmerged = false
-		self:Unschedule(emerged)
+--		self.vb.ragnarosEmerged = false
+--		self:Unschedule(emerged)
 		timerWrathRag:Stop()
 		timerSubmerge:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start(90)
-		self:Schedule(90, emerged, self)
-		self.vb.addLeft = self.vb.addLeft + 8
+		timerSubmerge:Start() -- Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179.99]
+--		self:Schedule(90, emerged, self)
+--		self.vb.addLeft = self.vb.addLeft + 8
 	--[[elseif msg == "AddDied" and self:IsInCombat() and guid and not addsGuidCheck[guid] then
 		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
 		addsGuidCheck[guid] = true
