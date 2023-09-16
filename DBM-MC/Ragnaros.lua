@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20230916183313")
 mod:SetCreatureID(11502)
 
 mod:SetModelID(11121)
@@ -42,7 +42,7 @@ function mod:OnCombatStart(delay)
 	self.vb.addLeft = 0
 	self.vb.ragnarosEmerged = true
 	timerWrathRag:Start(26.7-delay)
-	timerSubmerge:Start(180-delay)
+	timerSubmerge:Start(180-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(18)
 	end
@@ -131,6 +131,7 @@ function mod:OnSync(msg--[[, guid]])
 		self.vb.ragnarosEmerged = false
 		self:Unschedule(emerged)
 		timerWrathRag:Stop()
+		timerSubmerge:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start(90)
 		self:Schedule(90, emerged, self)
