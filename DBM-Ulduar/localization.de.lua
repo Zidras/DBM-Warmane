@@ -229,16 +229,19 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerHardmode	= "Zeige Timer für Hard Mode",
-	AnnounceFails	= "Verkünde Spieler im Schlachtzugchat, die bei $spell:62466 scheitern (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)"
+	specWarnHardmode	= "Spezialwarnung, wenn der Schwerer Modus aktiviert ist",
+	TimerHardmode		= "Zeige Timer für Hard Mode",
+	AnnounceFails		= "Verkünde Spieler im Schlachtzugchat, die bei $spell:62466 scheitern (benötigt aktivierte Mitteilungen und Leiter-/Assistentenstatus)"
 })
 
 L:SetMiscLocalization({
-	YellPhase1	= " Eindringlinge! Ihr Sterblichen, die Ihr es wagt, Euch in mein Vergnügen einzumischen, werdet... Wartet... Ihr...",
-	YellPhase2	= "Ihr unverschämtes Geschmeiß! Ihr wagt es, mich in meinem Refugium herauszufordern? Ich werde Euch eigenhändig zerschmettern!",
-	YellKill	= "Senkt Eure Waffen! Ich ergebe mich!",
-	ChargeOn	= "Blitzladung: %s",
-	Charge		= "Fehler bei Blitzladung (dieser Versuch): %s"
+	YellPhase1			= " Eindringlinge! Ihr Sterblichen, die Ihr es wagt, Euch in mein Vergnügen einzumischen, werdet... Wartet... Ihr...",
+	YellPhase2			= "Ihr unverschämtes Geschmeiß! Ihr wagt es, mich in meinem Refugium herauszufordern? Ich werde Euch eigenhändig zerschmettern!",
+	YellKill			= "Senkt Eure Waffen! Ich ergebe mich!",
+	YellHardModeActive	= "Unmöglich! Lord Thorim, ich werde Euren Feinden einen kalten Tod bescheren!",
+	YellHardModeFailed	= "Diese armseligen Sterblichen sind harmlos, unter meiner Würde. Entfernt sie!",
+	ChargeOn			= "Blitzladung: %s",
+	Charge				= "Fehler bei Blitzladung (dieser Versuch): %s"
 })
 
 -------------

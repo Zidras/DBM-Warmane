@@ -229,6 +229,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	specWarnHardmode	= "特殊警报：困难模式",
 	TimerHardmode		= "为困难模式显示计时条",
 	AnnounceFails		= "公布中了闪电充能的玩家到团队频道<br/>(需要团长或助理权限)"
 })
@@ -237,6 +238,8 @@ L:SetMiscLocalization({
 	YellPhase1			= "入侵者！你们这些凡人竟敢坏了我的兴致，看我怎么……等等，你们……",
 	YellPhase2			= "狂妄的小崽子们，竟敢在我的地盘上挑战我？我要亲自碾碎你们！",
 	YellKill			= "住手！我认输了！",
+	YellHardModeActive	= "这不可能！托里姆陛下，我要让您的敌人在严寒中死去！",
+	YellHardModeFailed	= "这些可悲的凡人毫无威胁，根本不值得我动手。干掉他们！",
 	ChargeOn			= "闪电充能 -> %s",
 	Charge				= "中了闪电充能(这一次): %s"
 })

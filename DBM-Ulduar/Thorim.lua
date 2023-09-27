@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230926180940")
+mod:SetRevision("20230927234351")
 mod:SetCreatureID(32865)
 mod:SetUsedIcons(7)
+mod:SetHotfixNoticeRev(20230927000000)
 
 mod:RegisterCombat("yell", L.YellPhase1) -- [2023-09-24]@[21:34:20]: do not use combat_yell, for some reason on Warmane, PRD triggered combat start on arena adds engage
 mod:RegisterKill("yell", L.YellKill)
@@ -13,7 +14,6 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 62042 62466 62279 62130 62580 62604",
 	"SPELL_AURA_APPLIED 62042 62507 62130 62526 62527 62279",
 	"SPELL_AURA_APPLIED_DOSE 62279",
-	"SPELL_AURA_REMOVED 62507",
 	"SPELL_DAMAGE 62017",
 	"CHAT_MSG_MONSTER_YELL"
 )
@@ -53,20 +53,24 @@ mod:AddBoolOption("AnnounceFails", false, "announce", nil, nil, nil, 62466)
 
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
+local specWarnHardModeActivated		= mod:NewSpecialWarning("specWarnHardmode", nil, nil, nil, nil, nil, 3, "Interface\\Icons\\achievement_boss_thorim", "at3183") -- Lose Your Illusion (25 player)
 local specWarnHardModeFailed		= mod:NewSpecialWarningEnd(62507, nil, nil, nil, 1, 2)
 
-local timerHardmode					= mod:NewTimer(150, "TimerHardmode", "Interface\\Icons\\achievement_boss_thorim", nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, 62507) -- 25 man NM log review (2022/07/10), 2:30 from 62507 SPELL_AURA_APPLIED to SPELL_AURA_REMOVED
+local timerHardmode					= mod:NewTimer(150, "TimerHardmode", "Interface\\Icons\\achievement_boss_thorim", nil, nil, 0, nil, nil, nil, nil, nil, nil, nil, "at3183") -- 25 man NM log review (2022/07/10), 2:30 from 62507 SPELL_AURA_APPLIED to SPELL_AURA_REMOVED
 local timerFrostNova				= mod:NewNextTimer(10.4, 62605, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON) -- ~10s variance (25 man HM log 2022/07/17) - 16.0, 13.1, 16.6, 11.8, 14.4, 13.6, 20.3, 10.4, 19.0, 18.3, 19.8, 13.0, 12.4
 local timerFrostNovaCast			= mod:NewCastTimer(2.5, 62605, nil, nil, nil, 2, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerFBVolley					= mod:NewCDTimer(8.0, 62604) -- ~8s variance (25 man HM log 2022/07/17) - 8.6, 15.1, 9.3, 14.3, 9.6, 8.0, 9.9, 13.4, 8.0, 9.8, 16.0, 12.3, 9.5, 16.2, 9.9, 8.1, 11.4, 8.0, 9.0
 
 --mod:GroupSpells(62042, 62470) -- Stormhammer, Deafening Thunder
 mod:GroupSpells(62526, 62527) -- Rune of Detonation
+mod:GroupSpells("at3183", 62507) -- Lose Your Illusion (25 player), Touch of Dominion
 
 local lastcharge = {}
+mod.vb.isHardMode = false
 
 function mod:OnCombatStart()
 	self:SetStage(1)
+	self.vb.isHardMode = false
 	enrageTimerStage1:Start()
 	timerStormhammerCD:Start(40) -- ~8s variance [40.0-48.1]. SCS: 25m Lordaeron [2022-07-31]@[19:31:40] || 25 Lordaeron [2022-09-07]@[20:23:07]) - pull:40.0 || pull:48.1
 	if self.Options.RangeFrame then
@@ -166,12 +170,6 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	end
 end
 
-function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 62507 then -- Touch of Dominion removed from Sif, Hard Mode failed
-        specWarnHardModeFailed:Show()
-    end
-end
-
 function mod:SPELL_DAMAGE(_, _, _, _, destName, destFlags, spellId)
 	if spellId == 62017 then -- Lightning Shock
 		if bit.band(destFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0
@@ -191,6 +189,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:SendSync("Phase2")
 	-- elseif msg == L.YellKill or msg:find(L.YellKill) then
 	--	enrageTimer:Stop()
+	elseif msg == L.YellHardModeFailed or msg:find(L.YellHardModeFailed) then -- Hard Mode failed
+		self.vb.isHardMode = false
+		specWarnHardModeFailed:Show()
+	elseif msg == L.YellHardModeActive or msg:find(L.YellHardModeActive) then -- Hard Mode activated
+		self.vb.isHardMode = true
+		specWarnHardModeActivated:Show()
 	end
 end
 
@@ -200,7 +204,7 @@ function mod:OnSync(event)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		enrageTimerStage1:Stop()
-		timerHardmode:Stop()
+		timerHardmode:Stop() -- Phase 2 detection happens before the yell, so keep this here
 		timerStormhammerCD:Stop()
 		enrageTimerStage2:Start(300)
 		timerLightningCharge:Start(35.6) -- (S3 VOD review 2022/07/15, reconfirmed with S3 FM HM log 2022/07/17 || 25m Lordaeron 2022/10/09) - 36 || 35.6

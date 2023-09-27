@@ -233,16 +233,21 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerHardmode	= "Mostrar temporizador para el modo difícil",
-	AnnounceFails	= "Anunciar jugadores que reciban daño de $spell:62017 en el chat de banda (requiere líder o ayudante)"
+	specWarnHardmode	= "Mostrar anuncio especial cuando el Modo difícil se ha activado",
+	TimerHardmode		= "Mostrar temporizador para el modo difícil",
+	AnnounceFails		= "Anunciar jugadores que reciban daño de $spell:62017 en el chat de banda (requiere líder o ayudante)"
 })
 
 L:SetMiscLocalization({
-	YellPhase1	= "¡Intrusos! Vosotros, mortales que osáis interferir en mi diversión, pagaréis... Un momento...",
-	YellPhase2	= "Gusanos impertinentes, ¿cómo osáis desafiarme en mi pedestal? ¡Os machacaré con mis propias manos!",
-	YellKill	= "¡Guardad las armas! ¡Me rindo!",
-	ChargeOn	= "Carga relámpago: %s",
-	Charge		= "Fallos en Carga relámpago (en este intento): %s"
+	YellPhase1			= "¡Intrusos! Vosotros, mortales que osáis interferir en mi diversión, pagaréis... Un momento...",
+	YellPhase2			= "Gusanos impertinentes, ¿cómo osáis desafiarme en mi pedestal? ¡Os machacaré con mis propias manos!",
+	YellKill			= "¡Guardad las armas! ¡Me rindo!",
+	YellHardModeActive	= "¡Imposible! ¡Thorim, mi señor, llevaré a tus enemigos a una muerte gélida!", -- esES
+--	YellHardModeActive	= "¡Imposible! ¡Señor Thorim, daré a sus enemigos una muerte glacial!", -- esMX
+	YellHardModeFailed	= "Esos patéticos mortales son inofensivos, no están a mi altura. ¡Deshazte de ellos!", -- esES
+--	YellHardModeFailed	= "Estos patéticos mortales son inofensivos, por debajo de mi casta. ¡Deshazte de ellos!", -- esMX
+	ChargeOn			= "Carga relámpago: %s",
+	Charge				= "Fallos en Carga relámpago (en este intento): %s"
 })
 
 -------------

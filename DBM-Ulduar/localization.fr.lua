@@ -241,16 +241,19 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	specWarnHardmode		= "Afficher une alerte spéciale lorsque le Mode difficile est activé",
 	TimerHardmode			= "Afficher le timer pour le mode difficile",
 	AnnounceFails			= "Affiche les joueurs qui n'ont pas évité les Charges de foudre (Nécessite l'activation des annonces et être promu ou leader)"
 })
 
 L:SetMiscLocalization({
-	YellPhase1		= "Des intrus ! Mortels, vous qui osez me déranger en plein divertissement allez pay -  Attendez, vous -",
-	YellPhase2		= "Avortons impertinents, vous osez me défier sur mon piédestal ? Je vais vous écraser moi-même !",
-	YellKill		= "Retenez vos coups ! Je me rends !",
-	ChargeOn		= "Charge(s) de foudre: %s",
-	Charge			= "Charge(s) de foudre non évitée(s) (cet essai): %s"
+	YellPhase1			= "Des intrus ! Mortels, vous qui osez me déranger en plein divertissement allez pay -  Attendez, vous -",
+	YellPhase2			= "Avortons impertinents, vous osez me défier sur mon piédestal ? Je vais vous écraser moi-même !",
+	YellKill			= "Retenez vos coups ! Je me rends !",
+	YellHardModeActive	= "Impossible ! Mon seigneur Thorim, je vais offrir à tes ennemis une mort glaciale !",
+	YellHardModeFailed	= "Ces pitoyables mortels sont inoffensifs, indignes de m'affronter. Débarrasse-toi d'eux !",
+	ChargeOn			= "Charge(s) de foudre: %s",
+	Charge				= "Charge(s) de foudre non évitée(s) (cet essai): %s"
 })
 
 -------------

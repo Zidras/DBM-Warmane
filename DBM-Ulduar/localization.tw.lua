@@ -228,16 +228,19 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerHardmode	= "為困難模式顯示計時器",
-	AnnounceFails	= "公佈中了閃電充能的玩家到團隊頻道<br/>(需要團隊隊長或助理權限)"
+	specWarnHardmode	= "特別提示：困難模式",
+	TimerHardmode		= "為困難模式顯示計時器",
+	AnnounceFails		= "公佈中了閃電充能的玩家到團隊頻道<br/>(需要團隊隊長或助理權限)"
 })
 
 L:SetMiscLocalization({
-	YellPhase1	= "擅闖者!像你們這種膽敢干涉我好事的凡人將付出...等等--你...",
-	YellPhase2	= "無禮的小輩，你竟敢在我的王座之上挑戰我?我會親手碾碎你們!",
-	YellKill	= "住手!我認輸了!",
-	ChargeOn	= "閃電充能: %s",
-	Charge		= "中了閃電充能 (這一次): %s"
+	YellPhase1			= "擅闖者!像你們這種膽敢干涉我好事的凡人將付出...等等--你...",
+	YellPhase2			= "無禮的小輩，你竟敢在我的王座之上挑戰我?我會親手碾碎你們!",
+	YellKill			= "住手!我認輸了!",
+	YellHardModeActive	= "不可能!索林姆王，我將讓你的仇敵們在嚴寒之中死去!",
+	YellHardModeFailed	= "這些可悲的凡人根本毫無威脅，不在我的考量之中。解決他們!",
+	ChargeOn			= "閃電充能: %s",
+	Charge				= "中了閃電充能 (這一次): %s"
 })
 
 -------------
