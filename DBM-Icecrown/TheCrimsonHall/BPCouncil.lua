@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230827165223")
+mod:SetRevision("20231003231330")
 mod:SetCreatureID(37970, 37972, 37973)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
@@ -36,7 +36,7 @@ local warnTargetSwitch			= mod:NewAnnounce("WarnTargetSwitch", 3, 70952)
 local warnTargetSwitchSoon		= mod:NewAnnounce("WarnTargetSwitchSoon", 2, 70952)
 
 local timerCombatStart			= mod:NewCombatTimer(29) -- Roleplay for first pull
-local timerTargetSwitch			= mod:NewTimer(46, "TimerTargetSwitch", 70952)	-- every 46-47seconds
+local timerTargetSwitch			= mod:NewTimer(46.5, "TimerTargetSwitch", 70952) -- REVIEW! ~0.2s variance [46.42-46.60], with 46.0/46.2 outliers. Since these outliers are very rare, I prefer keeping this timer as the most probable cd seen in the logs
 local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 360 or 600)
 
 mod:AddSetIconOption("ActivePrinceIcon", nil, false, 5, {8})
