@@ -23,8 +23,11 @@
 ## X-DBM-Mod-Name-ruRU: Плато Солнечного Колодца
 ## X-DBM-Mod-MapID: 790
 ## X-DBM-Mod-LoadZone: Sunwell Plateau
-## X-DBM-Mod-LoadZone-zhCN: 太阳之井高地
 ## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца
+## X-DBM-Mod-LoadZone-zhCN: 太阳之井高地
+## X-DBM-Mod-LoadZone-zhTW: 太陽之井高地
+## X-DBM-Mod-LoadZone-deDE: Sonnenbrunnenplateau
+## X-DBM-Mod-LoadZone-esES: Meseta de La Fuente del Sol
 
 localization.en.lua
 localization.cn.lua

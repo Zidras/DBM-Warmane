@@ -42,6 +42,14 @@
 ## X-DBM-Mod-Name-zhCN: 队伍首领(经典旧世)
 ## X-DBM-Mod-Sort: 1115
 ## X-DBM-Mod-MapID: 689,705,722,757,700,692,751,681,761,762,763,764,765,691,766,688,693,750,687
+## X-DBM-Mod-LoadZone: Blackfathom Deeps,Blackrock Depths,Lower Blackrock Spire,Upper Blackrock Spire,The Deadmines,Dire Maul,Gnomeregan,Maraudon,Ragefire Chasm,Razorfen Downs,Razorfen Kraul,Scarlet Monastery,Scholomance,Shadowfang Keep,Stormwind Stockade,Stratholme,Sunken Temple,Uldaman,Wailing Caverns,Zul'Farrak
+## X-DBM-Mod-LoadZone-deDE: Tiefschwarze Grotte,Schwarzfelstiefen,Untere Schwarzfelsspitze,Obere Schwarzfelsspitze,Die Todesminen,Düsterbruch,Gnomeregan,Maraudon,Der Flammenschlund,Hügel der Klingenhauer,Kral der Klingenhauer,Das Scharlachrote Kloster,Scholomance,Burg Schattenfang,Verlies von Sturmwind,Stratholme,Versunkener Tempel,Uldaman,Die Höhlen des Wehklagens,	Zul'Farrak
+## X-DBM-Mod-LoadZone-esES: Cavernas de Brazanegra,Profundidades de Roca Negra,Cumbre de Roca Negra Inferior,Cumbre de Roca Negra Superior,Las Minas de la Muerte,La Masacre,Gnomeregan,Maraudon,Sima Ígnea,Zahúrda Rajacieno,Horado Rajacieno,Monasterio Escarlata,Scholomance,Castillo de Colmillo Oscuro,Mazmorras de Ventormenta,Stratholme,Templo Sumergido,Uldaman,Cuevas de los Lamentos,Zul'Farrak
+## X-DBM-Mod-LoadZone-esMX: Cavernas de Brazanegra,Profundidades de Roca Negra,Cumbre de Roca Negra inferior,Cumbre de Roca Negra superior,Las Minas de la Muerte,La Masacre,Gnomeregan,Maraudon,Sima Ígnea,Zahúrda Rajacieno,Horado Rajacieno,Monasterio Escarlata,Scholomance,Castillo de Colmillo Oscuro,Mazmorras de Ventormenta,Stratholme,Templo Sumergido,Uldaman,Cuevas de los Lamentos,Zul'Farrak
+## X-DBM-Mod-LoadZone-frFR: Profondeurs de Brassenoire,Profondeurs de Rochenoire,Bas du pic Rochenoire,Sommet du pic Rochenoire,Les Mortemines,Hache-Tripes,Gnomeregan,Maraudon,Gouffre de Ragefeu,Souilles de Tranchebauge,Kraal de Tranchebauge,Monastère Écarlate,Scholomance,Donjon d’Ombrecroc,Prison de Hurlevent,Stratholme,Temple englouti,Uldaman,Cavernes des Lamentations,Zul’Farrak
+## X-DBM-Mod-LoadZone-ruRU: Непроглядная Пучина,Глубины Черной горы,Нижняя часть пика Черной горы,Верхняя часть пика Черной горы,Мертвые копи,Забытый город,Гномреган,Мародон,Огненная Пропасть,Курганы Иглошкурых,Лабиринты Иглошкурых,Монастырь Алого ордена,Некроситет,Крепость Темного Клыка,Тюрьма Штормграда,Стратхольм,Затонувший храм,Ульдаман,Пещеры Стенаний,Зул'Фаррак
+## X-DBM-Mod-LoadZone-koKR: 검은심연 나락,검은바위 나락,검은바위 첨탑 하층,검은바위 첨탑 상층,죽음의 폐광,혈투의 전장,놈리건,마라우돈,성난불길 협곡,가시덩굴 구릉,가시덩굴 우리,붉은십자군 수도원,스칼로맨스,그림자송곳니 성채,스톰윈드 지하감옥,스트라솔름,가라앉은 사원,울다만,통곡의 동굴,줄파락
+## X-DBM-Mod-LoadZone-zhTW: 黑澗深淵,黑石深淵,黑石塔下層,黑石塔上層,死亡礦坑,厄運之槌,諾姆瑞根,瑪拉頓,怒焰裂谷,剃刀高地,剃刀沼澤,血色修道院,通靈學院,影牙城堡,暴風城監獄,斯坦索姆,沉沒的神廟,奧達曼,哀嚎洞穴,祖爾法拉克
 ## X-DBM-Mod-LoadZone-zhCN: 黑暗深渊,黑石深渊,黑石塔下层,黑石塔上层,死亡矿井,厄运之槌,诺莫瑞根,玛拉顿,怒焰裂谷,剃刀高地,剃刀沼泽,血色修道院,通灵学院,影牙城堡,暴风城监狱,斯坦索姆,沉没的神庙,奥达曼,哀嚎洞穴,祖尔法拉克
 
 localization.en.lua

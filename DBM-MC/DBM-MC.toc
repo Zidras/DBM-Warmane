@@ -21,7 +21,15 @@
 ## X-DBM-Mod-Name: Molten Core
 ## X-DBM-Mod-Name-zhCN: 熔火之心
 ## X-DBM-Mod-Name-ruRU: Огненные Недра
+## X-DBM-Mod-LoadZone: Molten Core
+## X-DBM-Mod-LoadZone-esES: Núcleo de Magma
+## X-DBM-Mod-LoadZone-ruRU: Огненные Недра
+## X-DBM-Mod-LoadZone-frFR: Cœur du Magma
+## X-DBM-Mod-LoadZone-esMX: Núcleo de Magma
+## X-DBM-Mod-LoadZone-zhTW: 熔火之心
 ## X-DBM-Mod-LoadZone-zhCN: 熔火之心
+## X-DBM-Mod-LoadZone-koKR: 화산 심장부
+## X-DBM-Mod-LoadZone-deDE: Geschmolzener Kern
 
 localization.en.lua
 localization.es.lua

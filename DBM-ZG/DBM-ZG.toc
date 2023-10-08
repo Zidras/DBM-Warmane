@@ -23,8 +23,14 @@
 ## X-DBM-Mod-Name-zhCN: 祖尔格拉布
 ## X-DBM-Mod-Name-ruRU: Зул'Гуруб
 ## X-DBM-Mod-LoadZone: Zul'Gurub
-## X-DBM-Mod-LoadZone-zhCN: 祖尔格拉布
+## X-DBM-Mod-LoadZone-esES: Zul'Gurub
 ## X-DBM-Mod-LoadZone-ruRU: Зул'Гуруб
+## X-DBM-Mod-LoadZone-frFR: Zul'Gurub
+## X-DBM-Mod-LoadZone-esMX: Zul'Gurub
+## X-DBM-Mod-LoadZone-zhTW: 祖爾格拉布
+## X-DBM-Mod-LoadZone-zhCN: 祖尔格拉布
+## X-DBM-Mod-LoadZone-koKR: 줄구룹
+## X-DBM-Mod-LoadZone-deDE: Zul'Gurub
 
 localization.en.lua
 localization.de.lua

@@ -20,7 +20,10 @@
 ## X-DBM-Mod-Name-zhCN: 黑暗神殿
 ## X-DBM-Mod-Name-ruRU: Черный храм
 ## X-DBM-Mod-LoadZone: Black Temple
+## X-DBM-Mod-LoadZone-deDE: Der Schwarze Tempel
 ## X-DBM-Mod-LoadZone-zhCN: 黑暗神殿
+## X-DBM-Mod-LoadZone-zhTW: 黑暗神廟
+## X-DBM-Mod-LoadZone-ruRU: Черный храм
 
 localization.en.lua
 localization.cn.lua

@@ -17,7 +17,10 @@
 ## X-DBM-Mod-Name: Karazhan
 ## X-DBM-Mod-Name-zhCN: 卡拉赞
 ## X-DBM-Mod-Name-ruRU: Каражан
+## X-DBM-Mod-LoadZone: Karazhan
+## X-DBM-Mod-LoadZone-zhTW: 卡拉贊
 ## X-DBM-Mod-LoadZone-zhCN: 卡拉赞
+## X-DBM-Mod-LoadZone-ruRU: Каражан
 
 localization.en.lua
 localization.de.lua

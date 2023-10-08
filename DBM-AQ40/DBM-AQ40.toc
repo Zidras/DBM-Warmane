@@ -21,7 +21,15 @@
 ## X-DBM-Mod-Name: The Temple of Ahn'Qiraj
 ## X-DBM-Mod-Name-zhCN: 安其拉神殿
 ## X-DBM-Mod-Name-ruRU: Храм Ан'Киража
-## X-DBM-Mod-LoadZone-zhCN: 安其拉神殿
+## X-DBM-Mod-LoadZone: Ahn'Qiraj
+## X-DBM-Mod-LoadZone-esES: Ahn'Qiraj
+## X-DBM-Mod-LoadZone-ruRU: Ан'Кираж
+## X-DBM-Mod-LoadZone-frFR: Ahn'Qiraj
+## X-DBM-Mod-LoadZone-esMX: Ahn'Qiraj
+## X-DBM-Mod-LoadZone-zhTW: 安其拉
+## X-DBM-Mod-LoadZone-zhCN: 安其拉
+## X-DBM-Mod-LoadZone-koKR: 안퀴라즈
+## X-DBM-Mod-LoadZone-deDE: Ahn'Qiraj
 
 localization.en.lua
 localization.de.lua
