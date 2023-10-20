@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HeadlessHorseman", "DBM-WorldEvents")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925182747")
+mod:SetRevision("20231020175720")
 mod:SetCreatureID(23682, 23775)
 
 mod:SetReCombatTime(10)
@@ -27,7 +27,7 @@ local warnHorsemanHead			= mod:NewAnnounce("warnHorsemanHead", 3)
 
 local specWarnHorsemanHead		= mod:NewSpecialWarning("specWarnHorsemanHead")
 
-local timerCombatStart			= mod:NewCombatTimer(17)--roleplay for first pull
+local timerCombatStart			= mod:NewCombatTimer(21.7)--roleplay for first pull
 local timerConflag				= mod:NewTargetTimer(4, 42380)
 local timerSquashSoul			= mod:NewTargetTimer(15, 42514)
 
