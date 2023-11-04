@@ -393,7 +393,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 				DBM:Debug("Unequipping", 2)
 			end
 		end
-    if args:IsSpellId(72905, 72906, 72907, 72908) then -- Frostbolt Volley
+    if args:IsSpellID(72905, 72906, 72907, 72908) then -- Frostbolt Volley
 		timerFrostboltVolleyCD:Start()
 	end
 	elseif spellId == 71204 then -- Touch of Insignificance
