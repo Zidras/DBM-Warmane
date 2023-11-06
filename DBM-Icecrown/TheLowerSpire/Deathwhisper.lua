@@ -395,7 +395,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif args:IsSpellID(72905, 72906, 72907, 72908) then -- Frostbolt Volley
 		timerFrostboltVolleyCD:Start()
-	end
 	elseif spellId == 71204 then -- Touch of Insignificance
 		timerTouchInsignificanceCD:Start()
 	end
