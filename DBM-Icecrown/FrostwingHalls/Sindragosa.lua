@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230528202740")
+mod:SetRevision("20231118001414")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 mod:SetHotfixNoticeRev(20230528000000)
@@ -23,7 +23,7 @@ local strupper = strupper
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
-local berserkTimer				= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
+local berserkTimer				= mod:NewBerserkTimer(myRealm == "Frostmourne" and 420 or 600) -- Lordaeron hardcore berserk timer removed (Warmane Changelog November 15th 2023 )
 
 mod:AddBoolOption("RangeFrame", true) -- keep as BoolOption since the localization offers important information regarding boss ability and player debuff behaviour (Unchained Magic is Heroic only)
 mod:AddBoolOption("ClearIconsOnAirphase", true) -- don't group with any spellId, it applies to all raid icons
