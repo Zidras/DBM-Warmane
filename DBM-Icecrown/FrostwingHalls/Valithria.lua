@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Valithria", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230724165320")
+mod:SetRevision("20231118004517")
 mod:SetCreatureID(36789)
 mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
@@ -136,6 +136,8 @@ local function Portals(self)
 --	self:Schedule(45.4, Portals, self)--This will never be perfect, since it's never same. 45-48sec variations
 end
 
+-- archmage (all times relative to combat start): 45, 75
+-- zombie: 65,
 function mod:OnCombatStart(delay)
 	if self:IsHeroic() then
 		berserkTimer:Start(-delay)
@@ -147,15 +149,15 @@ function mod:OnCombatStart(delay)
 	self.vb.BlazingSkeletonTimer = 60
 	self.vb.AbomTimer = 60
 	self.vb.AbomSpawn = 0
-	self:Schedule(30-delay, StartBlazingSkeletonTimer, self)
-	self:Schedule(5-delay, StartAbomTimer, self)
-	timerBlazingSkeleton:Start(30-delay)
-	timerAbom:Start(5-delay, 1) -- Hardcode 1 on combatStart, there's no need to calculate self.vb.AbomSpawn+1
+	timerBlazingSkeleton:Start(53-delay)
+	self:Schedule(53-delay, StartBlazingSkeletonTimer, self)
+	timerAbom:Start(22-delay, 1) -- Hardcode 1 on combatStart, there's no need to calculate self.vb.AbomSpawn+1
+	self:Schedule(22-delay, StartAbomTimer, self)
 	self.vb.SuppressersWave = 1
-	timerSuppressers:Start(30-delay, self.vb.SuppressersWave)
-	specWarnSuppressers:Schedule(30)
-	soundSpecWarnSuppressers:Schedule(30, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
-	self:Schedule(30, Suppressers, self)
+	timerSuppressers:Start(28-delay, self.vb.SuppressersWave)
+	specWarnSuppressers:Schedule(28)
+	soundSpecWarnSuppressers:Schedule(28, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+	self:Schedule(28, Suppressers, self)
 end
 
 function mod:SPELL_CAST_START(args)
