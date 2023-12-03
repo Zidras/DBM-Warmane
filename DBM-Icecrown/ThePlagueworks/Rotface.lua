@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230827115516")
+mod:SetRevision("20231203191447")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
@@ -135,7 +135,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnVileGas:Play("scatter")
 		end
 		warnVileGas:CombinedShow(2.5, args.destName) -- Yes it does take this long to travel to all 3 targets sometimes, qq.
-		if self:AntiSpam(5, 2) then
+		if self:AntiSpam(5, 3) then
 			timerVileGasCD:Start()
 		end
 	end
