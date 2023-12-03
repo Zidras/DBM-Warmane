@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20230926231819"),
+	Revision = parseCurseDate("20231203193200"),
 	DisplayVersion = "10.1.7 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 5, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3114,7 +3114,7 @@ do
 		--These can still change even if mapID doesn't
 		difficultyIndex = currentDifficultyIndex or difficulty
 		LastGroupSize = instanceGroupSize
-		if LastInstanceMapID == mapID then
+		if LastInstanceMapID == mapID and LastInstanceZoneName == zoneName then -- ZoneName check for non-patch users
 			self:TransitionToDungeonBGM()
 			self:Debug("No action taken because mapID hasn't changed since last check", 2)
 			return
