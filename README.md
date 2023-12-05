@@ -13,7 +13,7 @@
 
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle).
 
-This repository aims to deliver more accurate timers and features from retail to all three Warmane WotLK realms - Icecrown, Lordaeron and Frostmourne.
+This repository aims to deliver more accurate timers and features from retail to all three Warmane WotLK realms - Icecrown, Lordaeron, Frostmourne and Onyxia.
 
 # What's new?
 - Boss modules now have dedicated fields for type of bar and associated voice speech (countdown for bars, and sound on Special Warnings)
@@ -58,4 +58,5 @@ To open the options window, type `/dbm` into your chat and hit enter or use the 
 
 # Problems
 * If you've discovered something that's clearly wrong, or if you get an error, please create a [ticket](https://github.com/Zidras/DBM-Warmane/issues).
+* If the problem is related to a boss mechanic or timer, a [Transcriptor](https://github.com/Zidras/Transcriptor-WOTLK) log (with debug level 3) will be required - instructions can be found [here](https://github.com/Zidras/Transcriptor-WOTLK#how-to-use).
 * Feel free to join our [Discord](https://discord.gg/CyVWDWS) to talk, get help and discuss anything DBM related!
