@@ -13,7 +13,7 @@
 
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle).
 
-This repository aims to deliver more accurate timers and features from retail to all three Warmane WotLK realms - Icecrown, Lordaeron, Frostmourne and Onyxia.
+This repository aims to deliver more accurate timers and features from retail to all four Warmane WotLK realms - Icecrown, Lordaeron, Frostmourne and Onyxia.
 
 # What's new?
 - Boss modules now have dedicated fields for type of bar and associated voice speech (countdown for bars, and sound on Special Warnings)
