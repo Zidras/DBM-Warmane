@@ -116,11 +116,6 @@ L:SetGeneralLocalization({
 	name = "Zwillingsval'kyr"
 })
 
-L:SetTimerLocalization({
-	TimerSpecialSpell	= "Nächste Spezialfähigkeit",
-	TimerAnubRoleplay	= "Bodeneinbrüche in"
-})
-
 L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "Spezialfähigkeit bald",
 	SpecWarnSpecial				= "Farbe wechseln",
@@ -130,12 +125,9 @@ L:SetWarningLocalization({
 	WarningPoweroftheTwins2		= "Macht der Zwillinge - Mehr Heilung auf >%s<"
 })
 
-L:SetMiscLocalization({
---	YellPull	= "Im Namen unseres dunklen Meisters. Für den Lichkönig. Ihr. Werdet. Sterben.",
---	CombatStart	= "Nur gemeinsam werdet Ihr den letzten Kampf meistern. Aus den Tiefen Eiskrones stammen diese zwei der mächtigsten Kommandanten der Geißel: schreckliche Val'kyr, geflügelte Boten des Lichkönigs!",
-	Fjola		= "Fjola Lichtbann",
-	Eydis		= "Eydis Nachtbann",
-	AnubRP		= "Dem Lichkönig wurde ein schwerer Schlag versetzt! Ihr habt Euch als würdige Champions erwiesen. Gemeinsam werden wir den Angriff auf die Eiskronenzitadelle durchführen und den Rest der Geißel zerstören! Gemeinsam meistern wir alles!"
+L:SetTimerLocalization({
+	TimerSpecialSpell	= "Nächste Spezialfähigkeit",
+	TimerAnubRoleplay	= "Bodeneinbrüche in"
 })
 
 L:SetOptionLocalization({
@@ -149,6 +141,15 @@ L:SetOptionLocalization({
 	SetIconOnDebuffTarget		= "Setze Zeichen auf Ziele von Berührung des Lichts/der Nacht (heroisch)",
 	WarningTouchDebuff			= "Verkünde Ziele von Berührung des Lichts/der Nacht",
 	WarningPoweroftheTwins2		= "Verkünde Ziele von Macht der Zwillinge"
+})
+
+L:SetMiscLocalization({
+--	YellPull	= "Im Namen unseres dunklen Meisters. Für den Lichkönig. Ihr. Werdet. Sterben.",
+--	CombatStart	= "Nur gemeinsam werdet Ihr den letzten Kampf meistern. Aus den Tiefen Eiskrones stammen diese zwei der mächtigsten Kommandanten der Geißel: schreckliche Val'kyr, geflügelte Boten des Lichkönigs!",
+	Fjola		= "Fjola Lichtbann",
+	Eydis		= "Eydis Nachtbann",
+	ValksRP		= "Lasst die Spiele beginnen!", -- 35709
+	AnubRP		= "Dem Lichkönig wurde ein schwerer Schlag versetzt! Ihr habt Euch als würdige Champions erwiesen. Gemeinsam werden wir den Angriff auf die Eiskronenzitadelle durchführen und den Rest der Geißel zerstören! Gemeinsam meistern wir alles!"
 })
 
 -----------------

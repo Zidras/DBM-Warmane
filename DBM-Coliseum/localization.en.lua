@@ -121,11 +121,6 @@ L:SetGeneralLocalization({
 	name = "Val'kyr Twins"
 })
 
-L:SetTimerLocalization({
-	TimerSpecialSpell	= "Next special ability",
-	TimerAnubRoleplay	= "Floor breaks in"
-})
-
 L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "Special ability soon",
 	SpecWarnSpecial				= "Change color",
@@ -135,12 +130,9 @@ L:SetWarningLocalization({
 	WarningPoweroftheTwins2		= "Power of the Twins - More healing on >%s<"
 })
 
-L:SetMiscLocalization({
---	YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
---	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
-	Fjola		= "Fjola Lightbane",
-	Eydis		= "Eydis Darkbane",
-	AnubRP		= "A mighty blow has been dealt to the Lich King! You have proven yourselves as able bodied champions of the Argent Crusade. Together we will strike against Icecrown Citadel and destroy what remains of the Scourge! There is no challenge that we cannot face united!"
+L:SetTimerLocalization({
+	TimerSpecialSpell			= "Next special ability",
+	TimerAnubRoleplay			= "Floor breaks in"
 })
 
 L:SetOptionLocalization({
@@ -154,6 +146,15 @@ L:SetOptionLocalization({
 	SetIconOnDebuffTarget		= "Set icons on Touch of Light/Darkness debuff targets (heroic)",
 	WarningTouchDebuff			= "Announce Touch of Light/Darkness debuff targets",
 	WarningPoweroftheTwins2		= "Announce Power of the Twins targets"
+})
+
+L:SetMiscLocalization({
+--	YellPull	= "In the name of our dark master. For the Lich King. You. Will. Die.",
+--	CombatStart	= "Only by working together will you overcome the final challenge. From the depths of Icecrown come two of the Scourge's most powerful lieutenants: fearsome val'kyr, winged harbingers of the Lich King!",
+	Fjola		= "Fjola Lightbane",
+	Eydis		= "Eydis Darkbane",
+	ValksRP		= "Let the games begin!", -- 35709
+	AnubRP		= "A mighty blow has been dealt to the Lich King! You have proven yourselves as able bodied champions of the Argent Crusade. Together we will strike against Icecrown Citadel and destroy what remains of the Scourge! There is no challenge that we cannot face united!"
 })
 
 -----------------

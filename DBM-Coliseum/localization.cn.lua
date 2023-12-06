@@ -121,11 +121,6 @@ L:SetGeneralLocalization({
 	name = "瓦格里双子"
 })
 
-L:SetTimerLocalization({
-	TimerSpecialSpell		= "下一次 特殊技能",
-	TimerAnubRoleplay		= "坠落"
-})
-
 L:SetWarningLocalization({
 	WarnSpecialSpellSoon	= "特殊技能 即将到来",
 	SpecWarnSpecial			= "立刻变换颜色",
@@ -135,12 +130,9 @@ L:SetWarningLocalization({
 	WarningPoweroftheTwins2	= "双生之能 - 加大治疗 -> >%s<"
 })
 
-L:SetMiscLocalization({
---	YellPull = "以黑暗之主的名义。为了巫妖王。你必死无疑。",
---	CombatStart	= "你们只有团结才能战胜最终的挑战。来自于冰冠冰川的深处，天灾军团最强的战将：巫妖王的双翼使者，恐怖的瓦格里！",
-	Fjola		= "光明邪使菲奥拉",
-	Eydis		= "黑暗邪使艾蒂丝",
-	AnubRP		= "这是对巫妖王的一次重创！你的实力绝不亚于银色北伐军的勇士。很快，我们将携手攻入冰冠堡垒，消灭天灾军团的残余！只要心齐，我们必将胜利！"
+L:SetTimerLocalization({
+	TimerSpecialSpell		= "下一次 特殊技能",
+	TimerAnubRoleplay		= "坠落"
 })
 
 L:SetOptionLocalization({
@@ -154,6 +146,15 @@ L:SetOptionLocalization({
 	SetIconOnDebuffTarget	= "为光明或黑暗之触的目标设置标记(英雄模式)",
 	WarningTouchDebuff		= "提示光明或黑暗之触的目标",
 	WarningPoweroftheTwins2	= "提示双生之能的目标"
+})
+
+L:SetMiscLocalization({
+--	YellPull = "以黑暗之主的名义。为了巫妖王。你必死无疑。",
+--	CombatStart	= "你们只有团结才能战胜最终的挑战。来自于冰冠冰川的深处，天灾军团最强的战将：巫妖王的双翼使者，恐怖的瓦格里！",
+	Fjola		= "光明邪使菲奥拉",
+	Eydis		= "黑暗邪使艾蒂丝",
+	ValksRP		= "让游戏开始吧！", -- 35709
+	AnubRP		= "这是对巫妖王的一次重创！你的实力绝不亚于银色北伐军的勇士。很快，我们将携手攻入冰冠堡垒，消灭天灾军团的残余！只要心齐，我们必将胜利！"
 })
 
 -----------------

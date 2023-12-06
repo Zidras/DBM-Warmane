@@ -130,11 +130,6 @@ L:SetGeneralLocalization({
 	name = "Gemelas Val'kyr"
 })
 
-L:SetTimerLocalization({
-	TimerSpecialSpell	= "Siguiente facultad especial",
-	TimerAnubRoleplay	= "El piso se rompe en"
-})
-
 L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "Facultad especial en breve",
 	SpecWarnSpecial				= "Cambia de color",
@@ -144,14 +139,9 @@ L:SetWarningLocalization({
 	WarningPoweroftheTwins2		= "Poder de las Gemelas - ¡más sanación en >%s<!"
 })
 
-L:SetMiscLocalization({
---	YellPull	= "En el nombre de nuestro oscuro maestro. Por el Rey Exánime. Morirás.",
---	CombatStart	= "Solo superaréis el reto final si trabajáis juntos. Desde las profundidades de Corona de Hielo, llegan dos de los tenientes más poderosos de la Plaga: las temibles Val'kyr, presagistas aladas del Rey Exánime.",	-- esES
---	CombatStart	= "Sólo trabajando juntos superarán el desafío final. De las profundidades de Corona de Hielo llegan estos poderosos tenientes de la Plaga: ¡los val'kyres, heraldos alados del Rey Exánime!",	-- esMX
-	Fjola		= "Fjola Penívea",
-	Eydis		= "Eydis Penaumbra",
-	AnubRP		= "¡Se ha asestado un gran golpe al Rey Exánime! Habéis demostrado ser diestros campeones de la Cruzada Argenta. ¡Juntos atacaremos la Ciudadela de la Corona de Hielo y acabaremos con lo que queda de la Plaga! ¡No hay ningún reto al que no podamos enfrentarnos si estamos unidos!" -- esES
---	AnubRP		= "¡El Rey Exánime ha sufrido un poderoso revés! Han demostrado ser campeones dignos de la Cruzada Argenta. ¡Juntos atacaremos la Ciudadela Corona de Hielo y destruiremos lo que queda de la Plaga! ¡No existe el desafío que no podamos enfrentar unidos!"	-- esMX
+L:SetTimerLocalization({
+	TimerSpecialSpell			= "Siguiente facultad especial",
+	TimerAnubRoleplay			= "El piso se rompe en"
 })
 
 L:SetOptionLocalization({
@@ -165,6 +155,17 @@ L:SetOptionLocalization({
 	SetIconOnDebuffTarget		= "Poner iconos en los objetivos de los perjuicios de $spell:65950 y $spell:66001 (dificultad heroica)",
 	WarningTouchDebuff			= "Anunciar objetivos de los perjuicios de $spell:65950 y $spell:66001",
 	WarningPoweroftheTwins2		= "Anunciar la gemela afectada por $spell:65916"
+})
+
+L:SetMiscLocalization({
+--	YellPull	= "En el nombre de nuestro oscuro maestro. Por el Rey Exánime. Morirás.",
+--	CombatStart	= "Solo superaréis el reto final si trabajáis juntos. Desde las profundidades de Corona de Hielo, llegan dos de los tenientes más poderosos de la Plaga: las temibles Val'kyr, presagistas aladas del Rey Exánime.",	-- esES
+--	CombatStart	= "Sólo trabajando juntos superarán el desafío final. De las profundidades de Corona de Hielo llegan estos poderosos tenientes de la Plaga: ¡los val'kyres, heraldos alados del Rey Exánime!",	-- esMX
+	Fjola		= "Fjola Penívea",
+	Eydis		= "Eydis Penaumbra",
+	ValksRP		= "¡Que comiencen los juegos!", -- 35709
+	AnubRP		= "¡Se ha asestado un gran golpe al Rey Exánime! Habéis demostrado ser diestros campeones de la Cruzada Argenta. ¡Juntos atacaremos la Ciudadela de la Corona de Hielo y acabaremos con lo que queda de la Plaga! ¡No hay ningún reto al que no podamos enfrentarnos si estamos unidos!" -- esES
+--	AnubRP		= "¡El Rey Exánime ha sufrido un poderoso revés! Han demostrado ser campeones dignos de la Cruzada Argenta. ¡Juntos atacaremos la Ciudadela Corona de Hielo y destruiremos lo que queda de la Plaga! ¡No existe el desafío que no podamos enfrentar unidos!"	-- esMX
 })
 
 ---------------

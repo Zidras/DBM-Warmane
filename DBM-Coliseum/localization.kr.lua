@@ -116,11 +116,6 @@ L:SetGeneralLocalization({
 	name = "발키르 쌍둥이"
 })
 
-L:SetTimerLocalization({
-	TimerSpecialSpell	= "다음 소용돌이/서약",
-	TimerAnubRoleplay	= "바닥 파손"
-})
-
 L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "곧 소용돌이 또는 서약",
 	SpecWarnSpecial				= "차원문 클릭하여 반대 속성으로 변경!",
@@ -130,12 +125,9 @@ L:SetWarningLocalization({
 	WarningPoweroftheTwins2		= "쌍둥이의 힘 : %s",
 })
 
-L:SetMiscLocalization({
---	YellPull	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
---	CombatStart	= "함께 힘을 모아야만 마지막 도전을 이겨낼 수 있네. 얼음왕관 심연에서 가장 강력한 스컬지 대리인 둘이 왔네. 무시무시한 발키르, 날개를 단 리치 왕의 전령일세!",
-	Fjola		= "피욜라 라이트베인",
-	Eydis		= "아이디스 다크베인",
-	AnubRP		= "리치 왕에게 큰 타격을 주었군! 그대들은 은빛십자군의 강건한 용사임을 입증했네. 우리는 함께 얼음왕관 성채를 공격하고 남은 스컬지를 물리칠 걸세! 힘을 합친 우리가 이겨내지 못할 도전은 없네!"
+L:SetTimerLocalization({
+	TimerSpecialSpell			= "다음 소용돌이/서약",
+	TimerAnubRoleplay			= "바닥 파손"
 })
 
 L:SetOptionLocalization({
@@ -149,6 +141,15 @@ L:SetOptionLocalization({
 	SetIconOnDebuffTarget		= "빛/어둠의 손길 대상에게 전술 목표 아이콘 설정(영웅 난이도)",
 	WarningTouchDebuff			= "빛/어둠의 손길 대상 알림 보기",
 	WarningPoweroftheTwins2		= "쌍둥이의 힘 대상 알림 보기",
+})
+
+L:SetMiscLocalization({
+--	YellPull	= "어둠의 주인님을 받들어. 리치 왕을 위하여. 너희에게. 죽음을. 안기리라.",
+--	CombatStart	= "함께 힘을 모아야만 마지막 도전을 이겨낼 수 있네. 얼음왕관 심연에서 가장 강력한 스컬지 대리인 둘이 왔네. 무시무시한 발키르, 날개를 단 리치 왕의 전령일세!",
+	Fjola		= "피욜라 라이트베인",
+	Eydis		= "아이디스 다크베인",
+	ValksRP		= "경기를 시작하게!", -- 35709
+	AnubRP		= "리치 왕에게 큰 타격을 주었군! 그대들은 은빛십자군의 강건한 용사임을 입증했네. 우리는 함께 얼음왕관 성채를 공격하고 남은 스컬지를 물리칠 걸세! 힘을 합친 우리가 이겨내지 못할 도전은 없네!"
 })
 
 ------------------

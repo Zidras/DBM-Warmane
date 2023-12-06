@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ValkTwins", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230222223012")
+mod:SetRevision("20231206000342")
 mod:SetCreatureID(34497, 34496)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4)
@@ -34,6 +34,7 @@ local specWarnPoweroftheTwins		= mod:NewSpecialWarningDefensive(65916, "Tank", n
 local specWarnEmpoweredDarkness		= mod:NewSpecialWarningYou(65724)--No voice ideas for this
 local specWarnEmpoweredLight		= mod:NewSpecialWarningYou(65748)--No voice ideas for this
 
+local timerCombatStart				= mod:NewCombatTimer(22)
 local enrageTimer					= mod:NewBerserkTimer(360)
 local timerSpecial					= mod:NewTimer(45, "TimerSpecialSpell", "Interface\\Icons\\INV_Enchant_EssenceMagicLarge", nil, nil, 6)
 local timerHeal						= mod:NewCastTimer(15, 65875, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
@@ -263,7 +264,9 @@ function mod:SPELL_INTERRUPT(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.AnubRP or msg:find(L.AnubRP) then
+	if msg == L.ValksRP or msg:find(L.ValksRP) then
+		timerCombatStart:Start()
+	elseif msg == L.AnubRP or msg:find(L.AnubRP) then
 		timerAnubRoleplay:Start()
 	end
 end

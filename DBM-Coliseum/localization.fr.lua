@@ -115,11 +115,6 @@ L:SetGeneralLocalization({
 	name = "Soeurs Val'kyr"
 })
 
-L:SetTimerLocalization({
-	TimerSpecialSpell	= "Prochaine Capacité Spéciale",
-	TimerAnubRoleplay	= "Pauses de sol en"
-})
-
 L:SetWarningLocalization({
 	WarnSpecialSpellSoon		= "Capacité spéciale Bientôt !",
 	SpecWarnSpecial				= "Changement de couleur !",
@@ -129,12 +124,9 @@ L:SetWarningLocalization({
 	WarningPoweroftheTwins2		= "Puissance des jumelles - plus de soins sur >%s<"
 })
 
-L:SetMiscLocalization({
---	YellPull	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
---	CombatStart	= "Ce n'est qu'en travaillant côte à côte que vous pourrez triompher de l'ultime défi. Venus des profondeurs de la Couronne de glace, voici deux des lieutenants les plus puissants du Fléau : de redoutables val'kyrs, messagères ailées du roi-liche !",
-	Fjola		= "Fjola Plaie-lumineuse",
-	Eydis		= "Eydis Plaie-sombre",
-	AnubRP		= "C'est un rude coup qui vient d'être porté au roi-liche ! Vous avez prouvé que vous êtes aptes à servir comme champions de la Croisade d'argent. Ensemble, nous frapperons la citadelle de la Couronne de glace, et détruirons ce qui reste du Fléau ! Aucun défi ne pourra résister à notre unité !"
+L:SetTimerLocalization({
+	TimerSpecialSpell			= "Prochaine Capacité Spéciale",
+	TimerAnubRoleplay			= "Pauses de sol en"
 })
 
 L:SetOptionLocalization({
@@ -148,6 +140,15 @@ L:SetOptionLocalization({
 	SetIconOnDebuffTarget		= "Met des icônes sur les cibles des Toucher (héroique)",
 	WarningTouchDebuff			= "Annoncer les cibles des débuff Toucher de Lumière/des Ténèbres",
 	WarningPoweroftheTwins2		= "Annoncer la cible pour Puissance des jumelles"
+})
+
+L:SetMiscLocalization({
+--	YellPull	= "Au nom de notre ténébreux maître. Pour le roi-liche. Vous. Allez. Mourir.",
+--	CombatStart	= "Ce n'est qu'en travaillant côte à côte que vous pourrez triompher de l'ultime défi. Venus des profondeurs de la Couronne de glace, voici deux des lieutenants les plus puissants du Fléau : de redoutables val'kyrs, messagères ailées du roi-liche !",
+	Fjola		= "Fjola Plaie-lumineuse",
+	Eydis		= "Eydis Plaie-sombre",
+	ValksRP		= "Que les jeux commencent !", -- 35709
+	AnubRP		= "C'est un rude coup qui vient d'être porté au roi-liche ! Vous avez prouvé que vous êtes aptes à servir comme champions de la Croisade d'argent. Ensemble, nous frapperons la citadelle de la Couronne de glace, et détruirons ce qui reste du Fléau ! Aucun défi ne pourra résister à notre unité !"
 })
 
 -----------------
