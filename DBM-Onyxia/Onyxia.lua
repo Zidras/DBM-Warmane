@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221016121650")
+mod:SetRevision("20231219231417")
 mod:SetCreatureID(10184)
 
 mod:RegisterCombat("combat")
@@ -19,8 +19,11 @@ mod:RegisterEventsInCombat(
 	"UNIT_HEALTH boss1"
 )
 
+local myRealm = select(3, DBM:GetMyPlayerInfo())
+local onyxiaRealm = myRealm == "Onyxia"
+
 -- General
-local timerAchieve			= mod:NewAchievementTimer(300, 4405)
+local timerAchieve			= not onyxiaRealm and mod:NewAchievementTimer(300, 4405)
 
 mod:AddBoolOption("SoundWTF3", false, "sound")
 
@@ -47,7 +50,7 @@ local specWarnBlastNova		= mod:NewSpecialWarningRun(68958, "Melee", nil, nil, 4,
 local timerBreathCast		= mod:NewCastTimer(8, 18584, nil, nil, nil, 3)
 local timerNextDeepBreath	= mod:NewCDTimer(35, 18584, nil, nil, nil, 3)--Range from 35-60seconds in between based on where she moves to.
 local timerWhelps			= mod:NewNextTimer(105, 17646, nil, nil, nil, 1, 69004)
-local timerAchieveWhelps	= mod:NewAchievementTimer(10, 4406)
+local timerAchieveWhelps	= not onyxiaRealm and mod:NewAchievementTimer(10, 4406)
 local timerBigAddCD			= mod:NewNextTimer(44.9, 68959, nil, "-Healer", nil, 1, 10697) -- Ignite Weapon for Onyxian Lair Guard
 
 -- Stage Three (40% – 0%)
@@ -83,7 +86,9 @@ function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	timerNextFlameBreath:Start(12.1-delay) -- REVIEW! variance? (25N Lordaeron 2022/10/13) - 12.1
-	timerAchieve:Start(-delay)
+	if not onyxiaRealm then
+		timerAchieve:Start(-delay)
+	end
 	if self.Options.SoundWTF3 then
 		DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\dps-very-very-slowly.ogg")
 		self:Schedule(20, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\hit-it-like-you-mean-it.ogg")
@@ -164,7 +169,9 @@ function mod:OnSync(msg)
 		timerBigAddCD:Start(20) -- (25N Lordaeron 2022/10/13) - Stage 2/20.0
 --		preWarnDeepBreath:Schedule(72)	-- Pre-Warn Deep Breath
 		timerNextDeepBreath:Start(75.5) -- Breath-17086. REVIEW! variance? (25N Lordaeron 2022/10/13) - 75.5
-		timerAchieveWhelps:Start()
+		if not onyxiaRealm then
+			timerAchieveWhelps:Start()
+		end
 		timerNextFlameBreath:Cancel()
 		self:Schedule(5, Whelps, self)
 		if self.Options.SoundWTF3 then
