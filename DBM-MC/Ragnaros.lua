@@ -1,21 +1,21 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230917003137")
+mod:SetRevision("20231219194834")
 mod:SetCreatureID(11502)
-
 mod:SetModelID(11121)
+mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
-	"SPELL_CAST_START 19774",
-	"SPELL_CAST_SUCCESS 19773",
+	"SPELL_CAST_START 19774 20568",
+	"SPELL_CAST_SUCCESS 20566 19773",
 	"CHAT_MSG_MONSTER_YELL"
 )
-mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 20568",
-	"SPELL_CAST_SUCCESS 20566",
+mod:RegisterEventsInCombat( -- 2023/12/19: Cannot have already registered events, or it will fire in duplicate
+--	"SPELL_CAST_START 20568",
+--	"SPELL_CAST_SUCCESS 20566",
 	"UNIT_DIED"
 )
 
@@ -27,7 +27,7 @@ local warnSubmerge			= mod:NewSpellAnnounce(21107, 2, "Interface\\AddOns\\DBM-Co
 local warnEmerge			= mod:NewSpellAnnounce(20568, 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local warnSonsOfFlameLeft	= mod:NewAddsLeftAnnounce(19629, 2, 19774) -- spellId 21108 (Summon of Sons of Flame) returns nil, so use a similar spellId: 19629 (Summon Flames)
 
-local timerWrathRag			= mod:NewCDTimer(22.1, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~7s variance [22.1-29.0]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92"
+local timerWrathRag			= mod:NewCDTimer(20.09, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~10s variance [20.09-29.66]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07] || 25N Onyxia [2023-11-25]@[17:36:30]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92" || "Wrath of Ragnaros-20566-npc:11502-130 = pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, Emerged/0.00, 30.08/30.08/120.06/145.69"
 local timerSubmerge			= mod:NewNextTimer(180, 21107, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 1, 5)
 local timerEmerge			= mod:NewNextTimer(90, 20568, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 1, 5)
 local timerCombatStart		= mod:NewCombatTimer(78)
@@ -98,7 +98,7 @@ function mod:SPELL_CAST_START(args)
 --		self.vb.ragnarosEmerged = true
 		timerEmerge:Stop()
 		warnEmerge:Show()
-		timerWrathRag:Start(30) -- REVIEW! (40N Lordaeron [2023-09-13]@[19:05:07]) - 2222.61 > 2252.60 [29.99]
+		timerWrathRag:Start(30) -- (40N Lordaeron [2023-09-13]@[19:05:07] || ) - 2222.61 > 2252.60 [29.99] || "Wrath of Ragnaros-20566-npc:11502-130 = pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, Emerged/0.00, 30.08/30.08/120.06/145.69"
 		-- Don't start Submerge timer here, since Ragnaros will emerge after 90 seconds from Submerge/Summon Sons of Flames OR once all 8 are defeated (whichever happens first). The latter is variable and therefore not suitable for any timer
 	end
 end
