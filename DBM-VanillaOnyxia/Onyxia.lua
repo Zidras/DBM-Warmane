@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
+local mod	= DBM:NewMod("Onyxia-Vanilla", "DBM-VanillaOnyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231223195525")
+mod:SetRevision("20231219231417")
 mod:SetCreatureID(10184)
 
 mod:RegisterCombat("combat")
@@ -20,8 +20,6 @@ mod:RegisterEventsInCombat(
 )
 
 -- General
-local timerAchieve			= mod:NewAchievementTimer(300, 4405)
-
 mod:AddBoolOption("SoundWTF3", false, "sound")
 
 -- Stage One (100% – 65%)
@@ -47,7 +45,6 @@ local specWarnBlastNova		= mod:NewSpecialWarningRun(68958, "Melee", nil, nil, 4,
 local timerBreathCast		= mod:NewCastTimer(8, 18584, nil, nil, nil, 3)
 local timerNextDeepBreath	= mod:NewCDTimer(35, 18584, nil, nil, nil, 3)--Range from 35-60seconds in between based on where she moves to.
 local timerWhelps			= mod:NewNextTimer(105, 17646, nil, nil, nil, 1, 69004)
-local timerAchieveWhelps	= mod:NewAchievementTimer(10, 4406)
 local timerBigAddCD			= mod:NewNextTimer(44.9, 68959, nil, "-Healer", nil, 1, 10697) -- Ignite Weapon for Onyxian Lair Guard
 
 -- Stage Three (40% – 0%)
@@ -83,11 +80,10 @@ function mod:OnCombatStart(delay)
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
 	timerNextFlameBreath:Start(12.1-delay) -- REVIEW! variance? (25N Lordaeron 2022/10/13) - 12.1
-	timerAchieve:Start(-delay)
 	if self.Options.SoundWTF3 then
-		DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\dps-very-very-slowly.ogg")
-		self:Schedule(20, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\hit-it-like-you-mean-it.ogg")
-		self:Schedule(30, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\now-hit-it-very-hard-and-fast.ogg")
+		DBM:PlaySoundFile("Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\dps-very-very-slowly.ogg")
+		self:Schedule(20, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\hit-it-like-you-mean-it.ogg")
+		self:Schedule(30, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\now-hit-it-very-hard-and-fast.ogg")
 	end
 end
 
@@ -122,7 +118,7 @@ end
 
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 	if (spellId == 68867 or spellId == 69286) and destGUID == UnitGUID("player") and self.Options.SoundWTF3 then		-- Tail Sweep
-		DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\watch-the-tail.ogg")
+		DBM:PlaySoundFile("Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\watch-the-tail.ogg")
 	end
 end
 
@@ -138,7 +134,7 @@ end
 
 function mod:UNIT_DIED(args)
 	if self:IsInCombat() and args:IsPlayer() and self.Options.SoundWTF3 then
-		DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\thats-a-fucking-fifty-dkp-minus.ogg")
+		DBM:PlaySoundFile("Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\thats-a-fucking-fifty-dkp-minus.ogg")
 	end
 end
 
@@ -164,14 +160,13 @@ function mod:OnSync(msg)
 		timerBigAddCD:Start(20) -- (25N Lordaeron 2022/10/13) - Stage 2/20.0
 --		preWarnDeepBreath:Schedule(72)	-- Pre-Warn Deep Breath
 		timerNextDeepBreath:Start(75.5) -- Breath-17086. REVIEW! variance? (25N Lordaeron 2022/10/13) - 75.5
-		timerAchieveWhelps:Start()
 		timerNextFlameBreath:Cancel()
 		self:Schedule(5, Whelps, self)
 		if self.Options.SoundWTF3 then
 			self:Unschedule(DBM.PlaySoundFile, DBM)
-			DBM:PlaySoundFile("Interface\\AddOns\\DBM-Onyxia\\sounds\\i-dont-see-enough-dots.ogg")
-			self:Schedule(10, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\throw-more-dots.ogg")
-			self:Schedule(17, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\whelps-left-side-even-side-handle-it.ogg") -- 18
+			DBM:PlaySoundFile("Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\i-dont-see-enough-dots.ogg")
+			self:Schedule(10, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\throw-more-dots.ogg")
+			self:Schedule(17, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\whelps-left-side-even-side-handle-it.ogg") -- 18
 		end
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(8)
@@ -187,9 +182,9 @@ function mod:OnSync(msg)
 --		preWarnDeepBreath:Cancel()
 		if self.Options.SoundWTF3 then
 			self:Unschedule(DBM.PlaySoundFile, DBM)
-			self:Schedule(15, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\dps-very-very-slowly.ogg")
-			self:Schedule(35, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\hit-it-like-you-mean-it.ogg")
-			self:Schedule(45, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\now-hit-it-very-hard-and-fast.ogg")
+			self:Schedule(15, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\dps-very-very-slowly.ogg")
+			self:Schedule(35, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\hit-it-like-you-mean-it.ogg")
+			self:Schedule(45, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-VanillaOnyxia\\sounds\\now-hit-it-very-hard-and-fast.ogg")
 		end
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()

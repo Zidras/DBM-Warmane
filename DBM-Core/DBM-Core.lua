@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20231205225227"),
+	Revision = parseCurseDate("20231223195525"),
 	DisplayVersion = "10.1.8 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 12, 5) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -1341,6 +1341,8 @@ do
 								name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or "",
 								zone			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadZone") or CL.UNKNOWN)},
 								mapId			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")},
+								realm			= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadRealm") or "")},
+								blockRealm		= {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-BlockRealm") or "None")}, -- meant to prevent double load by blocking mod if it exists in different expansions
 								subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
 								oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1, -- Deprecated
 								hasLFR			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-LFR") or 0) == 1, -- Deprecated
@@ -1367,6 +1369,12 @@ do
 								else
 									tremove(self.AddOns[#self.AddOns].mapId, j)
 								end
+							end
+							for k, _ in ipairs(self.AddOns[#self.AddOns].realm) do
+								self.AddOns[#self.AddOns].realm[k] = (self.AddOns[#self.AddOns].realm[k]):trim()
+							end
+							for k, _ in ipairs(self.AddOns[#self.AddOns].blockRealm) do
+								self.AddOns[#self.AddOns].blockRealm[k] = (self.AddOns[#self.AddOns].blockRealm[k]):trim()
 							end
 							if self.AddOns[#self.AddOns].subTabs then
 								local subTabs = self.AddOns[#self.AddOns].subTabs
@@ -3142,8 +3150,8 @@ do
 			end
 		end
 		-- LoadMod
-		self:LoadModsOnDemand("zone", zoneName)
-		self:LoadModsOnDemand("mapId", mapID)
+		self:LoadModsOnDemand("zone", zoneName, playerRealm)
+		self:LoadModsOnDemand("mapId", mapID, playerRealm)
 --		if self.Options.ShowReminders then
 			self:CheckAvailableMods()
 --		end
@@ -3177,18 +3185,22 @@ do
 	end
 	DBM.ZONE_CHANGED = DBM.ZONE_CHANGED_INDOORS
 
-	function DBM:LoadModsOnDemand(checkTable, checkValue)
+	function DBM:LoadModsOnDemand(checkTable, checkValue, checkRealm)
 		self:Debug("LoadModsOnDemand fired")
 		for _, v in ipairs(self.AddOns) do
 			local modTable = v[checkTable]
+			local modRealm = v.realm
+			local modBlockRealm = v.blockRealm
 			local _, _, _, enabled = GetAddOnInfo(v.modId)
 			--self:Debug(v.modId.." is "..enabled, 2)
 			if not IsAddOnLoaded(v.modId) and modTable and checkEntry(modTable, checkValue) then
-				if enabled then
-					self:LoadMod(v)
-				else
-					if self.Options.ShowReminders then
-						self:AddMsg(L.LOAD_MOD_DISABLED:format(v.name))
+				if not checkEntry(modBlockRealm, checkRealm) and (modRealm[1] == "" or checkEntry(modRealm, checkRealm)) then -- custom realm check (for non-WotLK specific mods, like Vanilla Onyxia). Toc only filled if necessary for conditional mod load based on realm
+					if enabled then
+						self:LoadMod(v)
+					else
+						if self.Options.ShowReminders then
+							self:AddMsg(L.LOAD_MOD_DISABLED:format(v.name))
+						end
 					end
 				end
 			end
