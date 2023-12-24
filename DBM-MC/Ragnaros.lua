@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231219232602")
+mod:SetRevision("20231224101919")
 mod:SetCreatureID(11502)
 mod:SetModelID(11121)
 mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
@@ -93,7 +93,7 @@ function mod:SPELL_CAST_START(args)
 	if spellId == 19774 and self:AntiSpam(5, 4) then
 		--This is still going to use a sync event because someone might start this RP from REALLY REALLY far away
 		self:SendSync("SummonRag")
-	elseif spellId == 20568 then -- Ragnaros Emerge
+	elseif spellId == 20568 and self:IsInCombat() then -- Ragnaros Emerge ; needs boss engage check since Emerge will fire during his RP pre-IEEU script, and this was a regression after RegisterEventsInCombat was switched to RegisterEvents.
 		DBM:AddSpecialEventToTranscriptorLog("Emerged")
 --		self.vb.ragnarosEmerged = true
 		timerEmerge:Stop()
@@ -114,7 +114,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-
 function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	if self:GetCIDFromGUID(guid) == 12143 then--Son of Flame
@@ -131,7 +130,6 @@ function mod:UNIT_DIED(args)
 		warnSonsOfFlameLeft:Show(self.vb.addLeft)
 	end
 end
-
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Submerge or msg == L.Submerge2 then
