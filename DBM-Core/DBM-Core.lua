@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20231226210503"),
+	Revision = parseCurseDate("20231226221700"),
 	DisplayVersion = "10.1.9 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 12, 24) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -8049,7 +8049,7 @@ do
 	-- TODO: is there a good reason that this is a weak table?
 	local cachedColorFunctions = setmetatable({}, {__mode = "kv"})
 
-	local function setText(announceType, spellId, castTime, preWarnTime, customName)
+	local function setText(announceType, spellId, castTime, preWarnTime, customName, originalSpellID)
 		local spellName
 		if customName then
 			spellName = customName
@@ -8059,7 +8059,7 @@ do
 		local text
 		if announceType == "cast" then
 			local spellHaste = select(7, DBM:GetSpellInfo(53142)) / 10000 -- 53142 = Dalaran Portal, should have 10000 ms cast time
-			local timer = (select(7, DBM:GetSpellInfo(spellId)) or 1000) / spellHaste
+			local timer = (select(7, DBM:GetSpellInfo(originalSpellID or spellId)) or 1000) / spellHaste
 			text = L.AUTO_ANNOUNCE_TEXTS[announceType]:format(spellName, castTime or (timer / 1000))
 		elseif announceType == "prewarn" then
 			if type(preWarnTime) == "string" then
@@ -8309,7 +8309,7 @@ do
 			print("newAnnounce for "..color.." is using OptionVersion hack. this is depricated")
 			return
 		end
-		local text, spellName = setText(announceType, alternateSpellId or spellId, castTime, preWarnTime)
+		local text, spellName = setText(announceType, alternateSpellId or spellId, castTime, preWarnTime, nil, spellId)
 		icon = icon or spellId
 		local obj = setmetatable( -- todo: fix duplicate code
 			{
