@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20231226223415"),
+	Revision = parseCurseDate("20231226224550"),
 	DisplayVersion = "10.1.10 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 12, 26) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9728,7 +9728,7 @@ do
 	end
 
 	do
-		local minVoicePackVersion = 13
+		local minVoicePackVersion = 14
 
 		function DBM:CheckVoicePackVersion(value)
 			local activeVP = self.Options.ChosenVoicePack2
