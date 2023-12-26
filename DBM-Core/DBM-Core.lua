@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20231226224550"),
+	Revision = parseCurseDate("20231226231655"),
 	DisplayVersion = "10.1.10 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 12, 26) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -8305,10 +8305,6 @@ do
 		if soundOption and type(soundOption) == "boolean" then
 			soundOption = 0--No Sound
 		end
-		if type(spellId) == "string" and spellId:match("OptionVersion") then
-			print("newAnnounce for "..color.." is using OptionVersion hack. this is depricated")
-			return
-		end
 		local text, spellName = setText(announceType, alternateSpellId or spellId, castTime, preWarnTime, nil, spellId)
 		icon = icon or spellId
 		local obj = setmetatable( -- todo: fix duplicate code
@@ -8694,10 +8690,6 @@ do
 	local function newYell(self, yellType, spellId, yellText, optionDefault, optionName, chatType)
 		if not spellId and not yellText then
 			error("NewYell: you must provide either spellId or yellText", 2)
-			return
-		end
-		if type(spellId) == "string" and spellId:match("OptionVersion") then
-			DBM:Debug("newYell for: "..yellText.." is using OptionVersion hack. This is depricated", 2)
 			return
 		end
 		local optionVersion
