@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20231227192103"),
+	Revision = parseCurseDate("20231227194407"),
 	DisplayVersion = "10.1.10 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2023, 12, 26) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -155,6 +155,7 @@ DBM.DefaultOptions = {
 	VPReplacesSA2 = true,
 	VPReplacesSA3 = true,
 	VPReplacesSA4 = true,
+	VPReplacesGTFO = true,
 	VPReplacesCustom = false,
 	AlwaysPlayVoice = false,
 	VPDontMuteSounds = false,
@@ -9089,7 +9090,9 @@ do
 	local function canVoiceReplace(self, soundId)
 		soundId = soundId or self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
 		local isVoicePackUsed
-		if type(soundId) == "number" then
+		if self.announceType == "gtfo" then
+			isVoicePackUsed = DBM.Options.VPReplacesGTFO
+		elseif type(soundId) == "number" then
 			isVoicePackUsed = DBM.Options["VPReplacesSA"..soundId]
 		else
 			isVoicePackUsed = DBM.Options.VPReplacesCustom

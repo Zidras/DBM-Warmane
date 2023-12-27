@@ -51,6 +51,7 @@ local VPReplaceSA1			= voiceReplaceArea:CreateCheckButton(L.ReplacesSA1, true, n
 local VPReplaceSA2			= voiceReplaceArea:CreateCheckButton(L.ReplacesSA2, true, nil, "VPReplacesSA2")
 local VPReplaceSA3			= voiceReplaceArea:CreateCheckButton(L.ReplacesSA3, true, nil, "VPReplacesSA3")
 local VPReplaceSA4			= voiceReplaceArea:CreateCheckButton(L.ReplacesSA4, true, nil, "VPReplacesSA4")
+local VPReplacesGTFO		= voiceReplaceArea:CreateCheckButton(L.ReplacesGTFO, true, nil, "VPReplacesGTFO")
 local VPReplaceCustom		= voiceReplaceArea:CreateCheckButton(L.ReplacesCustom, true, nil, "VPReplacesCustom")
 
 local resetbutton = voiceReplaceArea:CreateButton(L.SpecWarn_ResetMe, 120, 16)
@@ -64,6 +65,7 @@ resetbutton:SetScript("OnClick", function()
 	DBM.Options.VPReplacesSA2 = DBM.DefaultOptions.VPReplacesSA2
 	DBM.Options.VPReplacesSA3 = DBM.DefaultOptions.VPReplacesSA3
 	DBM.Options.VPReplacesSA4 = DBM.DefaultOptions.VPReplacesSA4
+	DBM.Options.VPReplacesGTFO = DBM.DefaultOptions.VPReplacesGTFO
 	DBM.Options.VPReplacesCustom = DBM.DefaultOptions.VPReplacesCustom
 	-- Set UI visuals
 	VPReplaceAnnounce:SetChecked(DBM.Options.VPReplacesAnnounce)
@@ -71,6 +73,7 @@ resetbutton:SetScript("OnClick", function()
 	VPReplaceSA2:SetChecked(DBM.Options.VPReplacesSA2)
 	VPReplaceSA3:SetChecked(DBM.Options.VPReplacesSA3)
 	VPReplaceSA4:SetChecked(DBM.Options.VPReplacesSA4)
+	VPReplacesGTFO:SetChecked(DBM.Options.VPReplacesGTFO)
 	VPReplaceCustom:SetChecked(DBM.Options.VPReplacesCustom)
 end)
 

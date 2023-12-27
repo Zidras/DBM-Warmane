@@ -227,6 +227,8 @@ L.VoicePackChoice			= "Paquete de voz para alertas de voz"
 L.Area_CountdownOptions		= "Opciones de cuenta atrás"
 L.SWFNever					= "Nunca"
 L.SpecWarn_AlwaysVoice		= "Reproducir siempre todas las alertas de voz (ignora las opciones de jefe; útil para líderes de banda)"
+L.ReplacesSA1						= "Reemplazar los sonidos del anuncio especial 1 (personal también conocido como 'pvpflag' que no son GTFO)"
+L.ReplacesGTFO						= "Reemplazar los sonidos GTFO del anuncio especial"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 L.Area_BrowseOtherVP		= "Explorar otros paquetes de voz en Curse"
 L.BrowseOtherVPs			= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/search?search=dbm+voice|r"
