@@ -417,10 +417,12 @@ L.SpamBlockRaidWarning		= "过滤其他首领预警插件警报"
 L.SpamBlockBossWhispers		= "战斗中过滤DBM密语警报"
 
 
-L.Area_SpamFilter_Timers	= "计时器过滤选项"
-L.SpamBlockNoShowTimers		= "不显示 DBM 原装计时条"
-L.SpamBlockNoShowUTimers	= "不显示用户自定义生成的计时条(Custom/Pull/Break)"
-L.SpamBlockNoCountdowns		= "不要播放倒计时语音"
+L.Area_SpamFilter_Timers			= "计时器过滤选项"
+L.SpamBlockNoShowBossTimers			= "不为Boss显示计时条"
+L.SpamBlockNoShowTrashTimers		= "不为小怪显示计时条（同时关闭姓名版CD）"
+L.SpamBlockNoShowEventTimers		= "不显示事件计时条（角色扮演，Boss刷新）"
+L.SpamBlockNoShowUTimers			= "不显示用户自定义生成的计时条(Custom/Pull/Break)"
+L.SpamBlockNoCountdowns				= "不要播放倒计时语音"
 
 L.Area_SpamFilter_Misc		= "全局过滤设置"
 L.SpamBlockNoSetIcon		= "不在目标上设定标记"

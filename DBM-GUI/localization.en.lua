@@ -404,7 +404,9 @@ L.SpamBlockNoSpecWarnVibrate		= "Do not vibrate controller on special announce"
 L.SpamBlockNoSpecWarnSound			= "Do not play special announce sounds (still permits voice packs, if one is enabled in Spoken Alerts panel)"
 
 L.Area_SpamFilter_Timers			= "Timer Global Disable & Filter Options"
-L.SpamBlockNoShowTimers				= "Do not show mod timers (Boss Mod/CM/LFG/Respawn)"
+L.SpamBlockNoShowBossTimers			= "Do not show timers for dungeon/raid bosses"
+L.SpamBlockNoShowTrashTimers		= "Do not show timers for dungeon/raid trash (Note: this also disables nameplate CDs)"
+L.SpamBlockNoShowEventTimers		= "Do not show timers for events or prompts (Queue pop, boss respawn, etc)"
 L.SpamBlockNoShowUTimers			= "Do not show user sent timers (Custom/Pull/Break)"
 L.SpamBlockNoCountdowns				= "Do not play countdown sounds"
 

@@ -414,8 +414,10 @@ L.SpamBlockNoSpecWarnSound			= "不播放特別提示音效 (如果在“語音�
 L.SpamBlockRaidWarning				= "過濾其他首領模組的警告"
 L.SpamBlockBossWhispers				= "當戰鬥時過濾 DBM 密語警告"
 
-L.Area_SpamFilter_Timers	= "全局計時禁用及過濾選項"
-L.SpamBlockNoShowTimers		= "不顯示計時器(首領模組/挑戰模式/尋求組隊/重生)"
+L.Area_SpamFilter_Timers			= "全局計時禁用及過濾選項"
+L.SpamBlockNoShowBossTimers			= "不顯示地城/團隊首領的計時器"
+L.SpamBlockNoShowTrashTimers		= "不顯示地城/團隊小怪的計時器(注意: 這也會停用名條的技能冷卻)"
+L.SpamBlockNoShowEventTimers		= "不顯示事件與提示計時器(佇列提示/首領重生..等)"
 L.SpamBlockNoShowUTimers	= "不顯示玩家送出的計時器(自訂/拉怪/休息)"
 L.SpamBlockNoCountdowns		= "不播放倒數音效"
 

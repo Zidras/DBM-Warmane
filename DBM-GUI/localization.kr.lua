@@ -413,8 +413,10 @@ L.SpamBlockNoSpecWarnSound	= "특수 알림 효과음 재생 안함 (음성 경�
 L.SpamBlockRaidWarning		= "다른 보스 모드가 알리는 경보 감추기"
 L.SpamBlockBossWhispers		= "전투 중 사용되는 DBM 경보 귓속말 감추기"
 
-L.Area_SpamFilter_Timers	= "타이머 관련 기능 끄기 및 필터 설정"
-L.SpamBlockNoShowTimers		= "모드 타이머 표시 안함 (보스 모드/도전모드/파티찾기/재생성)"
+L.Area_SpamFilter_Timers	= "타이머"
+L.SpamBlockNoShowBossTimers		= "던전/레이드 보스 타이머 표시 안함"
+L.SpamBlockNoShowTrashTimers		= "던전/레이드 일반몹 타이머 표시 안함 (알림: 이름표의 쿨타임도 표시되지 않습니다)"
+L.SpamBlockNoShowEventTimers		= "이벤트나 알림 타이머 표시 안함 (대기열, 보스 재생성 등)"
 L.SpamBlockNoShowUTimers	= "사용자 전송 타이머 표시 안함 (사용자 지정/풀링/휴식)"
 L.SpamBlockNoCountdowns		= "초읽기 음성 재생 안함"
 
