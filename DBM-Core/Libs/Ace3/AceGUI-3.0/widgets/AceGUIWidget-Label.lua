@@ -2,7 +2,7 @@
 Label Widget
 Displays text and optionally an icon.
 -------------------------------------------------------------------------------]]
-local Type, Version = "Label", 21
+local Type, Version = "Label", 28
 local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
@@ -11,10 +11,6 @@ local max, select, pairs = math.max, select, pairs
 
 -- WoW APIs
 local CreateFrame, UIParent = CreateFrame, UIParent
-
--- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
--- List them here for Mikk's FindGlobals script
--- GLOBALS: GameFontHighlightSmall
 
 --[[-----------------------------------------------------------------------------
 Support functions
@@ -39,21 +35,30 @@ local function UpdateImageAnchor(self)
 			label:SetPoint("TOP", image, "BOTTOM")
 			label:SetPoint("LEFT")
 			label:SetWidth(width)
-			height = image:GetHeight() + label:GetHeight()
+			height = image:GetHeight() + label:GetStringHeight()
 		else
 			-- image on the left
 			image:SetPoint("TOPLEFT")
-			label:SetPoint("TOPLEFT", image, "TOPRIGHT", 4, 0)
+			if image:GetHeight() > label:GetStringHeight() then
+				label:SetPoint("LEFT", image, "RIGHT", 4, 0)
+			else
+				label:SetPoint("TOPLEFT", image, "TOPRIGHT", 4, 0)
+			end
 			label:SetWidth(width - imagewidth - 4)
-			height = max(image:GetHeight(), label:GetHeight())
+			height = max(image:GetHeight(), label:GetStringHeight())
 		end
 	else
 		-- no image shown
 		label:SetPoint("TOPLEFT")
 		label:SetWidth(width)
-		height = label:GetHeight()
+		height = label:GetStringHeight()
 	end
-	
+
+	-- avoid zero-height labels, since they can used as spacers
+	if not height or height == 0 then
+		height = 1
+	end
+
 	self.resizing = true
 	frame:SetHeight(height)
 	frame.height = height
@@ -74,6 +79,8 @@ local methods = {
 		self:SetImageSize(16, 16)
 		self:SetColor()
 		self:SetFontObject()
+		self:SetJustifyH("LEFT")
+		self:SetJustifyV("TOP")
 
 		-- reset the flag
 		self.resizing = nil
@@ -102,7 +109,7 @@ local methods = {
 	["SetImage"] = function(self, path, ...)
 		local image = self.image
 		image:SetTexture(path)
-		
+
 		if image:GetTexture() then
 			self.imageshown = true
 			local n = select("#", ...)
@@ -118,17 +125,30 @@ local methods = {
 	end,
 
 	["SetFont"] = function(self, font, height, flags)
-		self.label:SetFont(font, height, flags)
+		if not self.fontObject then
+			self.fontObject = CreateFont("AceGUI30LabelFont" .. AceGUI:GetNextWidgetNum(Type))
+		end
+		self.fontObject:SetFont(font, height, flags)
+		self:SetFontObject(self.fontObject)
 	end,
 
 	["SetFontObject"] = function(self, font)
-		self:SetFont((font or GameFontHighlightSmall):GetFont())
+		self.label:SetFontObject(font or GameFontHighlightSmall)
+		UpdateImageAnchor(self)
 	end,
 
 	["SetImageSize"] = function(self, width, height)
 		self.image:SetWidth(width)
 		self.image:SetHeight(height)
 		UpdateImageAnchor(self)
+	end,
+
+	["SetJustifyH"] = function(self, justifyH)
+		self.label:SetJustifyH(justifyH)
+	end,
+
+	["SetJustifyV"] = function(self, justifyV)
+		self.label:SetJustifyV(justifyV)
 	end,
 }
 
@@ -140,9 +160,6 @@ local function Constructor()
 	frame:Hide()
 
 	local label = frame:CreateFontString(nil, "BACKGROUND", "GameFontHighlightSmall")
-	label:SetJustifyH("LEFT")
-	label:SetJustifyV("TOP")
-
 	local image = frame:CreateTexture(nil, "BACKGROUND")
 
 	-- create widget
