@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Baltharus", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230204134918")
+mod:SetRevision("20240105184622")
 mod:SetCreatureID(39751)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -43,7 +43,7 @@ local function showBrandWarning(self)
 	self.vb.brandIcon = 8
 end
 
-function mod:OnCombatStart()
+function mod:OnCombatStart(delay)
 	self.vb.warnedSplit1 = false
 	self.vb.warnedSplit2 = false
 	self.vb.warnedSplit3 = false
@@ -51,7 +51,7 @@ function mod:OnCombatStart()
 	table.wipe(bossGUIDs)
 	self.vb.brandIcon = 8
 	self.vb.allClonesSpawned = false
-	timerBladeTempest:Start(15, 1, UnitGUID("boss1")) -- REVIEW! (25N Lordaeron 2022-09-19 || 25H Lordaeron 2022-09-23) - 15.0 || 15.0
+	timerBladeTempest:Start(15-delay, 1, UnitGUID("boss1")) -- REVIEW! (25N Lordaeron 2022-09-19 || 25H Lordaeron 2022-09-23) - 15.0 || 15.0
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
