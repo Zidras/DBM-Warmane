@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Valithria", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231118004517")
+mod:SetRevision("20240105190710")
 mod:SetCreatureID(36789)
 mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
@@ -17,7 +17,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_DAMAGE 71086 71743 71086 72030",
 	"SPELL_MISSED 71086 71743 71086 72030",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"UPDATE_MOUSEOVER_UNIT",
+	"UNIT_SPELLCAST_SUCCEEDED boss1",
+	"UNIT_TARGET_UNFILTERED"
 )
 
 local warnCorrosion			= mod:NewStackAnnounce(70751, 2, nil, false)
@@ -53,40 +55,49 @@ mod:AddSetIconOption("SetIconOnBlazingSkeleton", 70933, true, 5, {8})
 mod.vb.BlazingSkeletonTimer = 60
 mod.vb.AbomSpawn = 0
 mod.vb.AbomTimer = 60
-mod.vb.SuppressersWave = 0
+mod.vb.SuppressersIncomingWave = 1
+mod.vb.suppresserSpawnCount = 0
+mod.vb.SuppressersIncomingWaveSynced = 1
 mod.vb.portalCount = 0
+local AbomGUIDs = {}
+local ArchmageGUIDs = {}
+local BlazingSkeletonGUIDs = {}
+local SuppressersGUIDs = {}
+local ZombieGUIDs = {}
 local portalNameN = GetSpellInfo(71305)
 local portalNameH = GetSpellInfo(71987)
+local suppresserWaveNotDetected = true
+local supresserAddsPerWave = 4
 
 local function Suppressers(self)
-	self.vb.SuppressersWave = self.vb.SuppressersWave + 1
-	if self.vb.SuppressersWave == 2 then
+	self.vb.SuppressersIncomingWave = self.vb.SuppressersIncomingWave + 1
+	if self.vb.SuppressersIncomingWave == 2 then
 		timerSuppressers:Stop()
-		timerSuppressers:Start(58, self.vb.SuppressersWave)
+		timerSuppressers:Start(58, self.vb.SuppressersIncomingWave)
 		specWarnSuppressers:Cancel()
 		specWarnSuppressers:Schedule(58)
 		soundSpecWarnSuppressers:Schedule(58, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 		self:Unschedule(Suppressers)
 		self:Schedule(58, Suppressers, self)
-	elseif self.vb.SuppressersWave == 3 then
+	elseif self.vb.SuppressersIncomingWave == 3 then
 		timerSuppressers:Stop()
-		timerSuppressers:Start(62, self.vb.SuppressersWave)
+		timerSuppressers:Start(62, self.vb.SuppressersIncomingWave)
 		specWarnSuppressers:Cancel()
 		specWarnSuppressers:Schedule(62)
 		soundSpecWarnSuppressers:Schedule(62, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 		self:Unschedule(Suppressers)
 		self:Schedule(62, Suppressers, self)
-	elseif self.vb.SuppressersWave == 4 then
+	elseif self.vb.SuppressersIncomingWave == 4 then
 		timerSuppressers:Stop()
-		timerSuppressers:Start(50, self.vb.SuppressersWave)
+		timerSuppressers:Start(50, self.vb.SuppressersIncomingWave)
 		specWarnSuppressers:Cancel()
 		specWarnSuppressers:Schedule(50)
 		soundSpecWarnSuppressers:Schedule(50, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 		self:Unschedule(Suppressers)
 		self:Schedule(50, Suppressers, self)
-	elseif self.vb.SuppressersWave > 4 then -- using dummy values since I have no Warmane VODs past 4 waves.
+	elseif self.vb.SuppressersIncomingWave > 4 then -- using dummy values since I have no Warmane VODs past 4 waves.
 		timerSuppressers:Stop()
-		timerSuppressers:Start(50, self.vb.SuppressersWave)
+		timerSuppressers:Start(50, self.vb.SuppressersIncomingWave)
 		specWarnSuppressers:Cancel()
 		specWarnSuppressers:Schedule(50)
 		soundSpecWarnSuppressers:Schedule(50, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
@@ -136,8 +147,58 @@ local function Portals(self)
 --	self:Schedule(45.4, Portals, self)--This will never be perfect, since it's never same. 45-48sec variations
 end
 
--- archmage (all times relative to combat start): 45, 75
--- zombie: 65,
+local function addsScan(self, uId, sendSync)
+	local unitToScan = uId == "mouseover" and uId or uId.."target"
+	if DBM:GetUnitCreatureId(unitToScan) == 37886 then -- Gluttonous Abomination
+		local abomGUID = UnitGUID(unitToScan)
+		if abomGUID and not AbomGUIDs[abomGUID] then
+			if sendSync then
+				self:SendSync("AbomDetected", abomGUID)
+			else
+				self:OnSync("AbomDetected", abomGUID)
+			end
+		end
+	elseif DBM:GetUnitCreatureId(unitToScan) == 37868 then -- Risen Archmage
+		local archmageGUID = UnitGUID(unitToScan)
+		if archmageGUID and not ArchmageGUIDs[archmageGUID] then
+			if sendSync then
+				self:SendSync("ArchmageDetected", archmageGUID)
+			else
+				self:OnSync("ArchmageDetected", archmageGUID)
+			end
+		end
+	elseif DBM:GetUnitCreatureId(unitToScan) == 36791 then -- Blazing Skeleton
+		local blazingSkeletonGUID = UnitGUID(unitToScan)
+		if blazingSkeletonGUID and not BlazingSkeletonGUIDs[blazingSkeletonGUID] then
+			if sendSync then
+				self:SendSync("BlazingSkeletonDetected", blazingSkeletonGUID)
+			else
+				self:OnSync("BlazingSkeletonDetected", blazingSkeletonGUID)
+			end
+		end
+	elseif DBM:GetUnitCreatureId(unitToScan) == 37863 then -- Suppresser
+		local suppresserGUID = UnitGUID(unitToScan)
+		if suppresserGUID and not SuppressersGUIDs[suppresserGUID] then
+			if sendSync then
+				self:SendSync("SuppresserDetected", suppresserGUID)
+			else
+				self:OnSync("SuppresserDetected", suppresserGUID)
+			end
+		end
+	elseif DBM:GetUnitCreatureId(unitToScan) == 37934 then -- Blistering Zombie
+		local zombieGUID = UnitGUID(unitToScan)
+		if zombieGUID and not ZombieGUIDs[zombieGUID] then
+			if sendSync then
+				self:SendSync("ZombieDetected", zombieGUID)
+			else
+				self:OnSync("ZombieDetected", zombieGUID)
+			end
+		end
+	end
+end
+
+-- Risen Archmage (all times relative to combat start): 45, 75
+-- Blistering Zombie: 65,
 function mod:OnCombatStart(delay)
 	if self:IsHeroic() then
 		berserkTimer:Start(-delay)
@@ -153,11 +214,20 @@ function mod:OnCombatStart(delay)
 	self:Schedule(53-delay, StartBlazingSkeletonTimer, self)
 	timerAbom:Start(22-delay, 1) -- Hardcode 1 on combatStart, there's no need to calculate self.vb.AbomSpawn+1
 	self:Schedule(22-delay, StartAbomTimer, self)
-	self.vb.SuppressersWave = 1
-	timerSuppressers:Start(28-delay, self.vb.SuppressersWave)
+	self.vb.SuppressersIncomingWave = 1
+	timerSuppressers:Start(28-delay, self.vb.SuppressersIncomingWave)
 	specWarnSuppressers:Schedule(28)
 	soundSpecWarnSuppressers:Schedule(28, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
 	self:Schedule(28, Suppressers, self)
+	suppresserWaveNotDetected = true
+	supresserAddsPerWave = self:IsDifficulty("normal25", "heroic25") and 6 or 4 -- 10man: 4/wave; 25man: 6/wave.
+	self.vb.suppresserSpawnCount = 0
+	self.vb.SuppressersIncomingWaveSynced = 1
+	table.wipe(AbomGUIDs)
+	table.wipe(ArchmageGUIDs)
+	table.wipe(BlazingSkeletonGUIDs)
+	table.wipe(SuppressersGUIDs)
+	table.wipe(ZombieGUIDs)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -226,16 +296,55 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	end
 end
 
+function mod:UPDATE_MOUSEOVER_UNIT()
+	addsScan(self, "mouseover", true)
+end
+
+function mod:UNIT_TARGET_UNFILTERED(uId) -- requires sync due to portal phasing
+	addsScan(self, uId)
+end
+
 -- I have multiple logs where Yell event is missing due to a bad flag in the SQL, most likely. Best to use boss1 unit events that have proven to be reliable for Warmane, which is also much more efficient
 --[[function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.YellPortals or msg:find(L.YellPortals)) and self:LatencyCheck() then
 		self:SendSync("NightmarePortal")
 	end
 end
-
-function mod:OnSync(msg)
-	if msg == "NightmarePortal" and self:IsInCombat() then
-		self:Unschedule(Portals)
-		Portals(self)
+]]
+function mod:OnSync(msg, guid)
+--	if msg == "NightmarePortal" and self:IsInCombat() then
+--		self:Unschedule(Portals)
+--		Portals(self)
+	if msg == "AbomDetected" and guid then
+		AbomGUIDs[guid] = true
+--		self:Unschedule(StartAbomTimer)
+--		StartAbomTimer(self)
+		DBM:Debug("Gluttonous Abomination detected!")
+	elseif msg == "ArchmageDetected" and guid then
+		ArchmageGUIDs[guid] = true
+		DBM:Debug("Risen Archmage detected!")
+	elseif msg == "BlazingSkeletonDetected" and guid then
+		BlazingSkeletonGUIDs[guid] = true
+--		self:Unschedule(StartBlazingSkeletonTimer)
+--		StartBlazingSkeletonTimer(self)
+		DBM:Debug("Blazing Skeleton detected!")
+	elseif msg == "SuppresserDetected" and guid then
+		SuppressersGUIDs[guid] = true
+		self.vb.suppresserSpawnCount = self.vb.suppresserSpawnCount + 1
+		if suppresserWaveNotDetected and self.vb.SuppressersIncomingWaveSynced < self.vb.SuppressersIncomingWave then -- TO DO! confirm operator and logic of waves
+			self:Unschedule(Suppressers)
+			Suppressers(self)
+			specWarnSuppressers:Show()
+			soundSpecWarnSuppressers:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\suppressersSpawned.mp3")
+			suppresserWaveNotDetected = false
+		end
+		if self.vb.suppresserSpawnCount % supresserAddsPerWave == 0 then -- when all the adds from the wave are cached, set var back to false for the full function to run on the next wave
+			suppresserWaveNotDetected = true
+			self.vb.SuppressersIncomingWaveSynced =	self.vb.SuppressersIncomingWaveSynced + 1
+		end
+		DBM:Debug("Suppresser detected!")
+	elseif msg == "ZombieDetected" and guid then
+		ZombieGUIDs[guid] = true
+		DBM:Debug("Blistering Zombie detected!")
 	end
-end]]
+end
