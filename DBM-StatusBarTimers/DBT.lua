@@ -1077,6 +1077,7 @@ do
 	end
 end
 
+-- MoveToNextPosition: Animates the bars up and down when a timer is added or deleted.
 function barPrototype:MoveToNextPosition()
 	if self.moving == "enlarge" or not self.frame then
 		return
@@ -1107,6 +1108,7 @@ function barPrototype:MoveToNextPosition()
 	self.moveElapsed = 0
 end
 
+-- Enlarge: Fires once when a Small Bar starts to move towards the Huge Bar anchor
 function barPrototype:Enlarge()
 	local oldX = self.frame:GetRight() - self.frame:GetWidth()/2
 	local oldY = self.frame:GetTop()
@@ -1131,6 +1133,7 @@ function barPrototype:Enlarge()
 	self.moveElapsed = 0
 end
 
+-- AnimateEnlarge: Moves a Small Bar to the Huge Bar anchor
 function barPrototype:AnimateEnlarge(elapsed)
 	self.moveElapsed = self.moveElapsed + elapsed
 	local melapsed = self.moveElapsed
