@@ -508,6 +508,12 @@ L.AUTO_TIMER_TEXTS = {
 	addscustomshort						= "Adds (%%s)",
 	roleplay							= "Role play"
 }
+--This basically clones np only bar option and display text from regular counterparts
+L.AUTO_TIMER_TEXTS.cdnp = L.AUTO_TIMER_TEXTS.cd
+L.AUTO_TIMER_TEXTS.nextnp = L.AUTO_TIMER_TEXTS.next
+L.AUTO_TIMER_TEXTS.cdcountnp = L.AUTO_TIMER_TEXTS.cdcount
+L.AUTO_TIMER_TEXTS.nextcountnp = L.AUTO_TIMER_TEXTS.nextcount
+
 
 L.AUTO_TIMER_OPTIONS = {
 	target								= "Show timer for $spell:%s debuff (%ds)",
@@ -520,10 +526,14 @@ L.AUTO_TIMER_OPTIONS = {
 	ai									= "Show AI timer for $spell:%s cooldown (%ds)",
 	cd									= "Show timer for $spell:%s cooldown (%ds)",
 	cdcount								= "Show timer for $spell:%s cooldown (%ds)",
+	cdnp								= "Show nameplate only timer for $spell:%s cooldown (%ds)",
+	cdnpcount							= "Show nameplate only timer (with count) for $spell:%s cooldown (%ds)",
 	cdsource							= "Show timer (with source) for $spell:%s cooldown (%ds)",--Maybe better wording?
 	cdspecial							= "Show timer for special ability cooldown (%ds)",
 	next								= "Show timer for next $spell:%s (%ds)",
 	nextcount							= "Show timer for next $spell:%s (%ds)",
+	nextnp								= "Show nameplate only timer for next $spell:%s (%ds)",
+	nextnpcount							= "Show nameplate only timer (with count) for next $spell:%s (%ds)",
 	nextsource							= "Show timer (with source) for next $spell:%s (%ds)",--Maybe better wording?
 	nextspecial							= "Show timer for next special ability (%ds)",
 	achievement							= "Show timer for %s (%ds)",
