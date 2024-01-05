@@ -5844,20 +5844,30 @@ function DBM:GetStage(modId)
 	end
 end
 
-function DBM:HasMapRestrictions()
-	local playerX, playerY = GetPlayerMapPosition("player")
-	-- if playerX == 0 or playerY == 0 then -- attempt to fix zone once. Disabled for now to confirm LK 2.5 FPS issues.
-	-- 	SetMapToCurrentZone() -- DO NOT RUN THIS FUNCTION IN A LOOP! It's a waste of cpu power and will tank FPS due to radar loop scan.
-	-- 	playerX, playerY = GetPlayerMapPosition("player")
-	-- end
-	local mapName = GetMapInfo()
-	local level = GetCurrentMapDungeonLevel()
-	local usesTerrainMap = DungeonUsesTerrainMap()
-	level = usesTerrainMap and level - 1 or level
-	if (playerX == 0 and playerY == 0) or (self.MapSizes[mapName] and not self.MapSizes[mapName][level]) then
-		return true
+do
+	local lastMapUpdate = 0
+	local function ThrottledSetMapToCurrentZone() -- throttled SetMapToCurrentZone function to prevent lag issues with unsupported WorldMap addons
+		if GetTime() - lastMapUpdate > 1 then
+			lastMapUpdate = GetTime()
+			return SetMapToCurrentZone()
+		end
 	end
-	return false
+
+	function DBM:HasMapRestrictions()
+		local playerX, playerY = GetPlayerMapPosition("player")
+		if playerX == 0 or playerY == 0 then -- attempt to fix zone once, with throttling
+			ThrottledSetMapToCurrentZone() -- DO NOT RUN SetMapToCurrentZone IN A LOOP! It's a waste of cpu power and will tank FPS due to radar loop scan (e.g. LK)
+			playerX, playerY = GetPlayerMapPosition("player")
+		end
+		local mapName = GetMapInfo()
+		local level = GetCurrentMapDungeonLevel()
+		local usesTerrainMap = DungeonUsesTerrainMap()
+		level = usesTerrainMap and level - 1 or level
+		if (playerX == 0 and playerY == 0) or (self.MapSizes[mapName] and not self.MapSizes[mapName][level]) then
+			return true
+		end
+		return false
+	end
 end
 
 do
