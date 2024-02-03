@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Broodlord", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240203230300")
 mod:SetCreatureID(12017)
 
 mod:SetModelID(14308)
@@ -20,10 +20,16 @@ local warnKnockAway		= mod:NewSpellAnnounce(18670, 3)
 local warnMortal		= mod:NewTargetNoFilterAnnounce(24573, 2, nil, "Tank|Healer", 4)
 
 local timerMortal		= mod:NewTargetTimer(5, 24573, nil, "Tank|Healer", 4, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerBlastWaveCD	= mod:NewCDTimer(8.2, 23331, nil, nil, nil, 2, nil, nil, true) -- ~4s variance [8.20-12.53]. Added "keep" arg. (25m Onyxia [2024-02-03]@[22:41:24]) - "Blast Wave-23331-npc:12017-135 = pull:28.34, 11.30, 10.76, 8.39, 9.12, 8.20, 12.53, 10.57, 10.51, 12.82, 12.24, 8.67, 12.19"
+
+function mod:OnCombatStart(delay)
+	timerBlastWaveCD:Start(28.34-delay)
+end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 23331 and args:IsSrcTypeHostile() then
 		warnBlastWave:Show()
+		timerBlastWaveCD:Start()
 	elseif args.spellId == 18670 then
 		warnKnockAway:Show()
 	end
