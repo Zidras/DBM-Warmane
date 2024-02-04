@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240204222143")
+mod:SetRevision("20240204223937")
 mod:SetCreatureID(14020)
 
 mod:SetModelID(14367)
@@ -49,12 +49,12 @@ local vulnerabilities = {
 --Constants
 -- https://wow.gamepedia.com/COMBAT_LOG_EVENT
 local spellInfo = {
-	[2] =	{"Holy",	{r=255, g=230, b=128},	"135924"},-- Smite
-	[4] =	{"Fire",	{r=255, g=128, b=0},	"135808"},-- Pyroblast
-	[8] =	{"Nature",	{r=77, g=255, b=77},	"136006"},-- Wrath
-	[16] =	{"Frost",	{r=128, g=255, b=255},	"135846"},-- Frostbolt
-	[32] =	{"Shadow",	{r=128, g=128, b=255},	"136197"},-- Shadow Bolt
-	[64] =	{"Arcane",	{r=255, g=128, b=255},	"136096"},-- Arcane Missiles
+	[2] =	{"Holy",	{r=255, g=230, b=128},	"585"},-- Smite
+	[4] =	{"Fire",	{r=255, g=128, b=0},	"11366"},-- Pyroblast
+	[8] =	{"Nature",	{r=77, g=255, b=77},	"5176"},-- Wrath
+	[16] =	{"Frost",	{r=128, g=255, b=255},	"116"},-- Frostbolt
+	[32] =	{"Shadow",	{r=128, g=128, b=255},	"686"},-- Shadow Bolt
+	[64] =	{"Arcane",	{r=255, g=128, b=255},	"5143"},-- Arcane Missiles
 }
 
 local vulnSpells = {
