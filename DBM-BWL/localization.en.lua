@@ -19,9 +19,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Phase2Emote	= "flee as the controlling power of the orb is drained.",
-	YellEgg1 = "You'll pay for forcing me to do this!",
-	YellEgg2 = "Fools! These eggs are more precious than you know!",
-	YellEgg3 = "No - not another one! I'll have your heads for this atrocity!",
 	YellPull	= "Intruders have breached the hatchery! Sound the alarm! Protect the eggs at all costs!\r\n"--Yes this yell actually has a return and new line in it. as grabbed by transcriptor
 })
 
@@ -35,7 +32,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Event				= "Too late, friends! Nefarius' corruption has taken hold...I cannot...control myself."
+	Event				= "Too late, friends! Nefarius' corruption has taken hold...I cannot...control myself.\n"
 })
 
 -----------------
@@ -185,6 +182,5 @@ L:SetMiscLocalization({
 	YellWarlock	= "Warlocks, you shouldn't be playing with magic you don't understand. See what happens?",
 	YellHunter	= "Hunters and your annoying pea-shooters!",
 	YellMage	= "Mages too? You should be more careful when you play with magic...",
-	YellDK		= "Death Knights... get over here!",
-	YellMonk	= "Monk"
+	YellDK		= "Death Knights... get over here!"
 })

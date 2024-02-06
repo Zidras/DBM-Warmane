@@ -20,9 +20,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Phase2Emote	= "huyen mientras se consume el poder del orbe.",
-	YellEgg1	= "¡Pagarán por obligarme a hacer esto!",
-	YellEgg2	= "¡Locos! ¡Esos huevos son más valiosos de lo que creen!",
-	YellEgg3	= "¡No, otro no! ¡Rodarán sus cabezas por esta infamia!",
 	YellPull	= "¡Los invasores han penetrado en El Criadero! ¡Activa la alarma! ¡Hay que proteger los huevos a toda costa!"
 })
 

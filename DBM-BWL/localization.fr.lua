@@ -20,9 +20,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Phase2Emote	= "s'enfuit car le contrôle de l'orbe s'affaiblit.",
-	YellEgg1 = "Vous allez payer pour m'avoir forcé à faire ça !",
-	YellEgg2 = "Imbéciles ! Vous n'avez pas idée de la valeur de ces œufs !",
-	YellEgg3 = "Non, pas un autre ! J'aurai vos têtes pour venger cette atrocité !",
 	YellPull = "La chambre des œufs est envahie ! Sonnez l'alarme ! Protégez les œufs à tout prix !"
 })
 
