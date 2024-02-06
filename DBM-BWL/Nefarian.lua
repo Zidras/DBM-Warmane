@@ -1,11 +1,10 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925180445")
+mod:SetRevision("20240206193739")
 mod:SetCreatureID(11583)
-
 mod:SetModelID(11380)
-mod:RegisterCombat("yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
+mod:RegisterCombat("combat_yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
 mod:SetWipeTime(50)--guesswork
 
 mod:RegisterEvents(
@@ -16,7 +15,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 22539 22686",
 	"SPELL_AURA_APPLIED 22687 22667",
 	"UNIT_DIED",
-	"UNIT_HEALTH mouseover target"
+	"UNIT_HEALTH boss1 mouseover target"
 )
 
 local WarnAddsLeft			= mod:NewAnnounce("WarnAddsLeft", 2, "136116")
@@ -32,7 +31,7 @@ local specwarnClassCall		= mod:NewSpecialWarning("specwarnClassCall", nil, nil, 
 
 local timerPhase			= mod:NewPhaseTimer(15)
 local timerClassCall		= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
-local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, nil, 3, 2)--26-42.5
+local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, nil, nil, 2)--26-42.5
 
 mod.vb.addLeft = 42
 local addsGuidCheck = {}
@@ -69,21 +68,23 @@ function mod:OnCombatEnd(wipe)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 22539 then
+	local spellId = args.spellId
+	if spellId == 22539 then
 		warnShadowFlame:Show()
-	elseif args.spellId == 22686 then
+	elseif spellId == 22686 then
 		warnFear:Show()
 		timerFearNext:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 22687 then
+	local spellId = args.spellId
+	if spellId == 22687 then
 		if self:CheckDispelFilter("curse") then
 			specwarnVeilShadow:Show(args.destName)
 			specwarnVeilShadow:Play("dispelnow")
 		end
-	elseif args.spellId == 22667 then
+	elseif spellId == 22667 then
 		specwarnShadowCommand:Show(args.destName)
 		specwarnShadowCommand:Play("findmc")
 	end
@@ -112,25 +113,25 @@ function mod:UNIT_HEALTH(uId)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.YellDK or msg:find(L.YellDK) then--This mod will likely persist all the way til Classic WoTLK, don't remove DK
+	if msg == L.YellDK or msg:find(L.YellDK) then
 		self:SendSync("ClassCall", "DEATHKNIGHT")
-	elseif (msg == L.YellDruid or msg:find(L.YellDruid)) and self:AntiSpam(5, "ClassCall") then
+	elseif msg == L.YellDruid or msg:find(L.YellDruid) then
 		self:SendSync("ClassCall", "DRUID")
-	elseif (msg == L.YellHunter or msg:find(L.YellHunter)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellHunter or msg:find(L.YellHunter) then
 		self:SendSync("ClassCall", "HUNTER")
-	elseif (msg == L.YellWarlock or msg:find(L.YellWarlock)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellWarlock or msg:find(L.YellWarlock) then
 		self:SendSync("ClassCall", "WARLOCK")
-	elseif (msg == L.YellMage or msg:find(L.YellMage)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellMage or msg:find(L.YellMage) then
 		self:SendSync("ClassCall", "MAGE")
-	elseif (msg == L.YellPaladin or msg:find(L.YellPaladin)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellPaladin or msg:find(L.YellPaladin) then
 		self:SendSync("ClassCall", "PALADIN")
-	elseif (msg == L.YellPriest or msg:find(L.YellPriest)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellPriest or msg:find(L.YellPriest) then
 		self:SendSync("ClassCall", "PRIEST")
-	elseif (msg == L.YellRogue or msg:find(L.YellRogue)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellRogue or msg:find(L.YellRogue) then
 		self:SendSync("ClassCall", "ROGUE")
-	elseif (msg == L.YellShaman or msg:find(L.YellShaman)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellShaman or msg:find(L.YellShaman) then
 		self:SendSync("ClassCall", "SHAMAN")
-	elseif (msg == L.YellWarrior or msg:find(L.YellWarrior)) and self:AntiSpam(5, "ClassCall")  then
+	elseif msg == L.YellWarrior or msg:find(L.YellWarrior) then
 		self:SendSync("ClassCall", "WARRIOR")
 	elseif msg == L.YellP2 or msg:find(L.YellP2) then
 		self:SendSync("Phase", 2)
@@ -142,11 +143,8 @@ end
 do
 	local playerClass = UnitClass("player")
 
-	function mod:OnSync(msg, arg)
-		if self:AntiSpam(5, msg) then
-			--Do nothing, this is just an antispam threshold for syncing
-		end
-		if msg == "Phase" and arg then
+	function mod:OnSync(msg, arg, sender)
+		if msg == "Phase" and sender then
 			local phase = tonumber(arg) or 0
 			if phase == 2 then
 				self:SetStage(2)
@@ -158,7 +156,7 @@ do
 			warnPhase:Show(DBM_CORE_L.AUTO_ANNOUNCE_TEXTS.stage:format(arg))
 		end
 		if not self:IsInCombat() then return end
-		if msg == "ClassCall" and arg then
+		if msg == "ClassCall" and sender then
 			local className = LOCALIZED_CLASS_NAMES_MALE[arg]
 			if playerClass == className then
 				specwarnClassCall:Show()
