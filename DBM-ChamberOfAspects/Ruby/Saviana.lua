@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Saviana", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230826164155")
+mod:SetRevision("20240206213742")
 mod:SetCreatureID(39747)
 mod:SetUsedIcons(8, 7, 6, 5, 4)
 
@@ -71,7 +71,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(beaconTargets)
 	self.vb.beaconIcon = 8
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10)
+		DBM.RangeCheck:Show(12)
 	end
 	self:Schedule(24.5, savianaPhaseCatcher, self)
 	self:Schedule(25, savianaAirphase, self) -- Lowest 24.96
