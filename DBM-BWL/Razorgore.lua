@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Razorgore", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240206210519")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
-
 --mod:DisableEEKillDetection()--So disable only EE
 mod:SetModelID(12435)
 
@@ -21,7 +20,7 @@ mod:RegisterEventsInCombat(
 --ability.id = 22425 and type = "begincast" or (ability.id = 23040 or ability.id = 19873) and type = "cast"
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 local warnFireballVolley	= mod:NewCastAnnounce(22425, 3)
-local warnConflagration		= mod:NewTargetNoFilterAnnounce(23023, 2)
+local warnConflagration		= mod:NewTargetAnnounce(23023, 2)
 local warnEggsLeft			= mod:NewCountAnnounce(19873, 1)
 
 local specWarnFireballVolley= mod:NewSpecialWarningMoveTo(22425, false, nil, nil, 2, 2)
@@ -33,9 +32,9 @@ mod:AddSpeedClearOption("BWL", true)
 mod.vb.eggsLeft = 30
 mod.vb.firstEngageTime = nil
 
-function mod:OnCombatStart()
+function mod:OnCombatStart(delay)
 	self:SetStage(1)
-	timerAddsSpawn:Start()
+	timerAddsSpawn:Start(-delay)
 	self.vb.eggsLeft = 30
 	if not self.vb.firstEngageTime then
 		self.vb.firstEngageTime = time()
@@ -47,7 +46,8 @@ function mod:OnCombatStart()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 23023 and args:IsDestTypePlayer() then
+	local spellId = args.spellId
+	if spellId == 23023 and args:IsDestTypePlayer() then
 		if self.Options.SpecWarn22425moveto then
 			specWarnFireballVolley:Show(DBM_COMMON_L.BREAK_LOS)
 			specWarnFireballVolley:Play("findshelter")
@@ -58,18 +58,20 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 23040 and self.vb.phase < 2 then
+	local spellId = args.spellId
+	if spellId == 23040 and self.vb.phase < 2 then
 		warnPhase2:Show()
 		self:SetStage(2)
 	--This may not be accurate, it depends on how large expanded combat log range is
-	elseif args.spellId == 19873 then
+	elseif spellId == 19873 then
 		self.vb.eggsLeft = self.vb.eggsLeft - 1
 		warnEggsLeft:Show(string.format("%d/%d",30-self.vb.eggsLeft,30))
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 23023 and args:IsDestTypePlayer() then
+	local spellId = args.spellId
+	if spellId == 23023 and args:IsDestTypePlayer() then
 		warnConflagration:CombinedShow(0.3, args.destName)
 	end
 end
