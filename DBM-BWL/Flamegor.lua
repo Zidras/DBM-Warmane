@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240206220120")
 mod:SetCreatureID(11981)
 mod:SetModelID(6377)
 mod:RegisterCombat("combat")
@@ -20,13 +20,13 @@ local warnFrenzy			= mod:NewSpellAnnounce(23342, 3, nil, "Tank|RemoveEnrage|Heal
 
 local specWarnFrenzy		= mod:NewSpecialWarningDispel(23342, "RemoveEnrage", nil, nil, 1, 6)
 
-local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)
-local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21
+local timerWingBuffet		= mod:NewNextTimer(30, 23339, nil, nil, nil, 2) -- Fixed timer. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Wing Buffet-23339-npc:11981-357 = pull:31.79, 30.02"
+local timerShadowFlameCD	= mod:NewCDTimer(12.55, 22539, nil, false, nil, 5, nil, nil, true) -- ~5s variance [12.55-17.44]. Added "keep" arg. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Shadow Flame-22539-npc:11981-357 = pull:17.22, 12.55, 17.03, 17.74"
 local timerFrenzy			= mod:NewBuffActiveTimer(10, 23342, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_COMMON_L.ENRAGE_ICON)
 
 function mod:OnCombatStart(delay)
-	timerShadowFlameCD:Start(18-delay)
-	timerWingBuffet:Start(30-delay)
+	timerShadowFlameCD:Start(17.22-delay)
+	timerWingBuffet:Start(31.79-delay)
 end
 
 function mod:SPELL_CAST_START(args)--did not see ebon use any of these abilities
