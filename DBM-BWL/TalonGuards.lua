@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TalonGuards", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240206211052")
 mod:SetCreatureID(12460, 12461, 99999)--99999 to prevent mod from ending combat after one of each talon guard type die. Mod will effectively ALWAYS wipe, but it has disabled stats/reporting so irrelevant
 mod:SetModelID(12460)
 mod:RegisterCombat("combat")
@@ -27,12 +27,12 @@ local vulnMobs = {
 
 -- https://wow.gamepedia.com/COMBAT_LOG_EVENT
 local spellInfo = {
-	[2] =	{"Holy",	{r=255, g=230, b=128},	"135924"},-- Smite
-	[4] =	{"Fire",	{r=255, g=128, b=0},	"135808"},-- Pyroblast
-	[8] =	{"Nature",	{r=77, g=255, b=77},	"136006"},-- Wrath
-	[16] =	{"Frost",	{r=128, g=255, b=255},	"135846"},-- Frostbolt
-	[32] =	{"Shadow",	{r=128, g=128, b=255},	"136197"},-- Shadow Bolt
-	[64] =	{"Arcane",	{r=255, g=128, b=255},	"136096"},-- Arcane Missiles
+	[2] =	{"Holy",	{r=255, g=230, b=128},	"585"},-- Smite
+	[4] =	{"Fire",	{r=255, g=128, b=0},	"11366"},-- Pyroblast
+	[8] =	{"Nature",	{r=77, g=255, b=77},	"5176"},-- Wrath
+	[16] =	{"Frost",	{r=128, g=255, b=255},	"116"},-- Frostbolt
+	[32] =	{"Shadow",	{r=128, g=128, b=255},	"686"},-- Shadow Bolt
+	[64] =	{"Arcane",	{r=255, g=128, b=255},	"5143"},-- Arcane Missiles
 }
 
 local vulnSpells = {
@@ -47,7 +47,7 @@ local vulnSpells = {
 --Local Functions
 -- in theory this should only alert on a new vulnerability on your target or when you change target
 local function update_vulnerability(self)
-	local target = UnitGUID("target")
+	local target = UnitGUID("target") or ""
 	local spellSchool = vulnerabilities[target]
 	local cid = self:GetCIDFromGUID(target)
 	if not spellSchool or not vulnMobs[cid] then
