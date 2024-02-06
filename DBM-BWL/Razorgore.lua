@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorgore", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206210519")
+mod:SetRevision("20240206223500")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
 --mod:DisableEEKillDetection()--So disable only EE
 mod:SetModelID(12435)
@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 22425",
 	"SPELL_CAST_SUCCESS 23040 19873",
 	"SPELL_AURA_APPLIED 23023",
-	"CHAT_MSG_MONSTER_EMOTE",
+--	"CHAT_MSG_MONSTER_EMOTE",
 	"UNIT_DIED"
 )
 
@@ -76,12 +76,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
---For some reason this no longer works
-function mod:CHAT_MSG_MONSTER_EMOTE(msg)
+--[[function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	if (msg == L.Phase2Emote or msg:find(L.Phase2Emote)) and self.vb.phase < 2 then
 		self:SendSync("Phase2")
 	end
-end
+end]]
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
@@ -94,9 +93,9 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:OnSync(msg)
+--[[function mod:OnSync(msg)
 	if msg == "Phase2" and self.vb.phase < 2 then
 		warnPhase2:Show()
 		self:SetStage(2)
 	end
-end
+end]]
