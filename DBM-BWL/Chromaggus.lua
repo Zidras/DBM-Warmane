@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240204223937")
+mod:SetRevision("20240206184730")
 mod:SetCreatureID(14020)
-
 mod:SetModelID(14367)
 mod:RegisterCombat("combat")
 
@@ -16,13 +15,13 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_EMOTE"
 )
 
---(ability.id = 23309 or ability.id = 23313 or ability.id = 23189 or ability.id = 23315 or ability.id = 23312) and type = "begincast"
+--(ability.id = 23309 or ability.id = 23313 or ability.id = 23189 or ability.id = 23315 or ability.id = 23312 or ability.id = 23314) and type = "begincast"
 local warnBreath		= mod:NewAnnounce("WarnBreath", 2, 23316)
 local warnRed			= mod:NewSpellAnnounce(23155, 2, nil, false)
 local warnGreen			= mod:NewSpellAnnounce(23169, 2, nil, false)
 local warnBlue			= mod:NewSpellAnnounce(23153, 2, nil, false)
 local warnBlack			= mod:NewSpellAnnounce(23154, 2, nil, false)
-local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank|RemoveEnrage|Healer", 5)
+local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank|RemoveEnrage|Healer", 4)
 local warnPhase2Soon	= mod:NewPrePhaseAnnounce(2, 1)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnMutation		= mod:NewCountAnnounce(23174, 4)
@@ -33,7 +32,7 @@ local specWarnFrenzy	= mod:NewSpecialWarningDispel(23128, "RemoveEnrage", nil, n
 
 local timerBreath		= mod:NewTimer(2, "TimerBreath", 23316, nil, nil, 3)
 local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
-local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.ENRAGE_ICON)
+local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.ENRAGE_ICON)
 local timerVuln			= mod:NewTimer(17, "TimerVulnCD")-- seen 16.94 - 25.53, avg 21.8
 
 --mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
@@ -198,7 +197,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 23155 and self:AntiSpam(3, 1) then
+	local spellId = args.spellId
+	if spellId == 23155 and self:AntiSpam(3, 1) then
 		if self:AntiSpam(3, 3) then
 			warnRed:Show()
 		end
@@ -208,7 +208,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				warnMutation:Show(mydebuffs.."/5")
 			end
 		end
-	elseif args.spellId == 23169 and self:AntiSpam(3, 2) then
+	elseif spellId == 23169 and self:AntiSpam(3, 2) then
 		if self:AntiSpam(3, 4) then
 			warnGreen:Show()
 		end
@@ -218,7 +218,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				warnMutation:Show(mydebuffs.."/5")
 			end
 		end
-	elseif args.spellId == 23153 and self:AntiSpam(3, 3) then
+	elseif spellId == 23153 and self:AntiSpam(3, 3) then
 		if self:AntiSpam(3, 5) then
 			warnBlue:Show()
 		end
@@ -228,7 +228,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				warnMutation:Show(mydebuffs.."/5")
 			end
 		end
-	elseif args.spellId == 23154 and self:AntiSpam(3, 4) then
+	elseif spellId == 23154 and self:AntiSpam(3, 4) then
 		if self:AntiSpam(3, 6) then
 			warnBlack:Show()
 		end
@@ -238,14 +238,14 @@ function mod:SPELL_AURA_APPLIED(args)
 				warnMutation:Show(mydebuffs.."/5")
 			end
 		end
-	elseif args.spellId == 23170 and args:IsPlayer() then
+	elseif spellId == 23170 and args:IsPlayer() then
 		specWarnBronze:Show()
 		specWarnBronze:Play("useitem")
 		mydebuffs = mydebuffs + 1
 		if mydebuffs >= 3 then
 			warnMutation:Show(mydebuffs.."/5")
 		end
-	elseif args.spellId == 23128 and args:IsDestTypeHostile() then
+	elseif spellId == 23128 and args:IsDestTypeHostile() then
 		if self.Options.SpecWarn23128dispel then
 			specWarnFrenzy:Show(args.destName)
 			specWarnFrenzy:Play("enrage")
@@ -253,7 +253,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnFrenzy:Show()
 		end
 		timerFrenzy:Start()
-	elseif args.spellId == 23537 and args:IsDestTypeHostile() then
+	elseif spellId == 23537 and args:IsDestTypeHostile() then
 		if self.vb.phase < 2 then
 			self:SetStage(2)
 			warnPhase2:Show()
@@ -264,17 +264,18 @@ end
 --mod.SPELL_AURA_REFRESH = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 23128 and args:IsPlayer() then
+	local spellId = args.spellId
+	if spellId == 23128 and args:IsPlayer() then
 		mydebuffs = mydebuffs - 1
-	elseif args.spellId == 23169 and self:AntiSpam(3, 2) and args:IsPlayer() then
+	elseif spellId == 23169 and self:AntiSpam(3, 2) and args:IsPlayer() then
 		mydebuffs = mydebuffs - 1
-	elseif args.spellId == 23153 and self:AntiSpam(3, 3) and args:IsPlayer() then
+	elseif spellId == 23153 and self:AntiSpam(3, 3) and args:IsPlayer() then
 		mydebuffs = mydebuffs - 1
-	elseif args.spellId == 23154 and self:AntiSpam(3, 4) and args:IsPlayer() then
+	elseif spellId == 23154 and self:AntiSpam(3, 4) and args:IsPlayer() then
 		mydebuffs = mydebuffs - 1
-	elseif args.spellId == 23170 and args:IsPlayer() then
+	elseif spellId == 23170 and args:IsPlayer() then
 		mydebuffs = mydebuffs - 1
-	elseif args.spellId == 23128 and args:IsDestTypeHostile() then
+	elseif spellId == 23128 and args:IsDestTypeHostile() then
 		timerFrenzy:Stop()
 	end
 end
