@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240206211402")
 mod:SetCreatureID(13020)
-
 mod:SetModelID(13992)
 mod:SetUsedIcons(8, 7, 6)
 
@@ -20,16 +19,16 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 18173"
 )
 
-local warnBreath			= mod:NewCastAnnounce(23461, 2, nil, nil, "Tank", 3)
+local warnBreath			= mod:NewCastAnnounce(23461, 2, nil, nil, "Tank", 2)
 local warnAdrenaline		= mod:NewTargetNoFilterAnnounce(18173, 2)
 
 local specWarnAdrenaline	= mod:NewSpecialWarningYou(18173, nil, nil, nil, 1, 2)
-local specWarnAdrenalineOut	= mod:NewSpecialWarningMoveAway(18173, nil, nil, 2, 3, 2)
+local specWarnAdrenalineOut	= mod:NewSpecialWarningMoveAway(18173, nil, nil, nil, 1, 2)
 local yellAdrenaline		= mod:NewYell(18173, nil, false)
 local yellAdrenalineFades	= mod:NewShortFadesYell(18173)
 
 local timerAdrenalineCD		= mod:NewCDTimer(15.7, 18173, nil, nil, nil, 3)
-local timerAdrenaline		= mod:NewTargetTimer(20, 18173, nil, nil, nil, 5)
+local timerAdrenaline		= mod:NewTargetTimer(20, 18173, nil, nil, nil, 3)
 local timerCombatStart		= mod:NewCombatTimer(43)
 
 mod:AddSetIconOption("SetIconOnDebuffTarget2", 18173, true, false, {8, 7, 6})
@@ -42,19 +41,22 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 23461 then
+	local spellId = args.spellId
+	if spellId == 23461 then
 		warnBreath:Show()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 18173 then
+	local spellId = args.spellId
+	if spellId == 18173 then
 		timerAdrenalineCD:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 18173 then
+	local spellId = args.spellId
+	if spellId == 18173 then
 		timerAdrenaline:Start(args.destName)
 		if self.Options.SetIconOnDebuffTarget2 then
 			self:SetIcon(args.destName, self.vb.debuffIcon)
@@ -77,7 +79,8 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 18173 then
+	local spellId = args.spellId
+	if spellId == 18173 then
 		if args:IsPlayer() then
 			specWarnAdrenalineOut:Cancel()
 			specWarnAdrenalineOut:CancelVoice()
@@ -90,15 +93,13 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
---Missing first line
+--"<??> [CHAT_MSG_MONSTER_YELL] Too late, friends! Nefarius' corruption has taken hold...I cannot...control myself.\r\n#Vaelastrasz the Corrupt###Omegal##0#0##0#7803#nil#0#false#false#false#false",
 --"<8.85 19:59:36> [CHAT_MSG_MONSTER_YELL] I beg you, mortals - FLEE! Flee before I lose all sense of control! The black fire rages within my heart! I MUST- release it! #Vaelastrasz the Corrupt###Adornment##0#0##0#13862#nil#0#false#false#
 --"<28.25 19:59:55> [CHAT_MSG_MONSTER_YELL] FLAME! DEATH! DESTRUCTION! Cower, mortals before the wrath of Lord...NO - I MUST fight this! Alexstrasza help me, I MUST fight it! #Vaelastrasz the Corrupt###Adornment
 --"<38.98 20:00:06> [ENCOUNTER_START] 611#Vaelastrasz the Corrupt#9#40", -- [152]
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Event or msg:find(L.Event) then
-		if self:AntiSpam(5, "PullRP") then
-			self:SendSync("PullRP")
-		end
+		self:SendSync("PullRP")
 	end
 end
 
