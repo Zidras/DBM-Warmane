@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206193739")
+mod:SetRevision("20240208235105")
 mod:SetCreatureID(11583)
 mod:SetModelID(11380)
 mod:RegisterCombat("combat_yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
 mod:SetWipeTime(50)--guesswork
+mod:SetHotfixNoticeRev(20240208000000)
 
 mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
