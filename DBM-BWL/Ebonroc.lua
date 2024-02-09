@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ebonroc", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206215708")
+mod:SetRevision("20240209130416")
 mod:SetCreatureID(14601)
 mod:SetModelID(6377)
 mod:RegisterCombat("combat")
@@ -21,11 +21,11 @@ local specWarnShadowYou	= mod:NewSpecialWarningYou(23340, nil, nil, nil, 1, 2)
 local specWarnShadow	= mod:NewSpecialWarningTaunt(23340, nil, nil, nil, 1, 2)
 
 local timerWingBuffet	= mod:NewNextTimer(30, 23339, nil, nil, nil, 2) -- Fixed timer. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Wing Buffet-23339-npc:14601-356 = pull:29.98, 30.03
-local timerShadowFlameCD= mod:NewCDTimer(14, 22539, nil, false, nil, 5, nil, nil, true) -- ~5s variance [14.02-19.44]. Added "keep" arg. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Shadow Flame-22539-npc:14601-356 = pull:13.31, 19.44, 17.96, 14.02, 16.53
+local timerShadowFlameCD= mod:NewNextTimer(20, 22539, nil, false, nil, 5) -- 08/02/2024 Warmane Changelog: Fixed Shadow Flame timer for Ebonroc. 20 seconds. Obsolete log parse will be kept for history: ~5s variance [14.02-19.44]. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Shadow Flame-22539-npc:14601-356 = pull:13.31, 19.44, 17.96, 14.02, 16.53
 local timerShadow		= mod:NewTargetTimer(8, 23340, nil, "Tank|Healer", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
-	timerShadowFlameCD:Start(13.31-delay)
+	timerShadowFlameCD:Start(-delay)
 	timerWingBuffet:Start(-delay)
 end
 
