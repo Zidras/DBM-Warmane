@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorgore", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206223500")
+mod:SetRevision("20240210155715")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
 --mod:DisableEEKillDetection()--So disable only EE
 mod:SetModelID(12435)
@@ -14,7 +14,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 23040 19873",
 	"SPELL_AURA_APPLIED 23023",
 --	"CHAT_MSG_MONSTER_EMOTE",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 --ability.id = 22425 and type = "begincast" or (ability.id = 23040 or ability.id = 19873) and type = "cast"
@@ -31,6 +32,7 @@ mod:AddSpeedClearOption("BWL", true)
 
 mod.vb.eggsLeft = 30
 mod.vb.firstEngageTime = nil
+local destroyEggName = DBM:GetSpellInfo(19873)
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
@@ -64,8 +66,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self:SetStage(2)
 	--This may not be accurate, it depends on how large expanded combat log range is
 	elseif spellId == 19873 then
-		self.vb.eggsLeft = self.vb.eggsLeft - 1
-		warnEggsLeft:Show(string.format("%d/%d",30-self.vb.eggsLeft,30))
+		DBM:AddMsg("Destroy Egg SPELL_CAST_SUCCESS unhidden from combat log. Notify Zidras on Discord or GitHub")
+--		self.vb.eggsLeft = self.vb.eggsLeft - 1
+--		warnEggsLeft:Show(string.format("%d/%d",30-self.vb.eggsLeft,30))
 	end
 end
 
@@ -90,6 +93,13 @@ function mod:UNIT_DIED(args)
 		else
 			DBM:EndCombat(self, true)--Pass wipe arg end combat
 		end
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == destroyEggName then
+		self.vb.eggsLeft = self.vb.eggsLeft - 1
+		warnEggsLeft:Show(string.format("%d/%d",30-self.vb.eggsLeft,30))
 	end
 end
 
