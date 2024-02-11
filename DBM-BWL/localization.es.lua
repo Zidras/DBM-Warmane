@@ -20,7 +20,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Phase2Emote	= "huyen mientras se consume el poder del orbe.",
-	YellPull	= "¡Tenemos intrusos en El Criadero! ¡Haced sonar la alarma! ¡Proteged los huevos a toda costa!"
+	YellPull	= "¡Los invasores han penetrado en El Criadero! ¡Activad la alarma! ¡Hay que proteger los huevos a toda costa!"
 })
 
 -------------------
@@ -33,7 +33,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Event				= "¡Demasiado tarde, amigos! La corrupción de Nefarius me ha vencido... No... No puedo controlarme."
+	Event				= "¡Demasiado tarde, amigos! Ahora estoy poseído por la corrupción de Nefarius... No puedo... controlarme."
 })
 
 -----------------
@@ -46,7 +46,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull	= "¡Ninguno de los vuestros debería estar aquí! ¡Os habéis condenado vosotros mismos!"
+	Pull	= "¡Nadie de vuestra raza debería estar aquí! ¡Os aniquilaré!"
 })
 
 ---------------
@@ -172,18 +172,16 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellP1		= "¡Que comiencen los juegos!",
-	YellP2		= "Bien hecho, esbirros. La valentía de los mortales empieza a menguar. Ahora, ¡veamos cómo se enfrentan al verdadero Señor de la Cubre de Roca Negra!",
-	YellP3		= "¡Imposible! ¡Levantaos, esbirros! ¡Servid a vuestro maestro una vez más!",
-	YellShaman	= "¡Chamanes, mostradme lo que pueden hacer vuestros totems!",
+	YellP2		= "Bien hecho, mis esbirros. El coraje de los mortales empieza a mermar. ¡Veamos ahora cómo se enfrentan al verdadero Señor de la Cumbre de Roca Negra!",
+	YellP3		= "¡Imposible! ¡Erguíos, mis esbirros! ¡Servid a vuestro maestro una vez más!",
+	YellShaman	= "¡Chamanes, mostradme lo que pueden hacer vuestros tótems!",
 	YellPaladin	= "Paladines... He oído que tenéis muchas vidas. Demostrádmelo.",
 	YellDruid	= "Los druidas y vuestro estúpido poder de cambiar de forma. ¡Veámoslo en acción!",
 	YellPriest	= "¡Sacerdotes! Si vais a seguir curando de esa forma, ¡podíamos hacerlo más interesante!",
-	YellWarrior	= "¡Vamos guerreros, sé que podéis golpear más fuerte que eso! ¡Veámoslo!",
+	YellWarrior	= "¡Sé que podéis golpear más fuerte, guerreros! ¡Veámoslo!",
 	YellRogue	= "¿Pícaros? ¡Dejad de esconderos y enfrentaos a mí!",
 	YellWarlock	= "Brujos... No deberíais estar jugando con magia que no comprendéis. ¿Veis lo que pasa?",
 	YellHunter	= "¡Cazadores y vuestras molestas cerbatanas!",
-	YellMage	= "¿Magos también? Deberíais tener más cuidado cuando jugáis con la magia..."
---	YellDK		= "¡Caballeros de la Muerte... venid aquí!",
---	YellMonk	= "Monjes, ¿no os mareáis con tanta vuelta?",
---	YellDH		= "¿Cazadores de demonios? Qué raro eso de taparos los ojos así. ¿No os cuesta ver lo que tenéis alrededor?"--Demon Hunter call; I know this hasn't been implemented yet in DBM, but I added it just in case.
+	YellMage	= "¿Magos también? Deberíais tener más cuidado cuando jugáis con la magia...",
+	YellDK		= "¡Caballeros de la Muerte... venid aquí!"
 })

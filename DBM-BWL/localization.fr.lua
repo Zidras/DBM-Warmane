@@ -20,7 +20,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Phase2Emote	= "s'enfuit car le contrôle de l'orbe s'affaiblit.",
-	YellPull = "La chambre des œufs est envahie ! Sonnez l'alarme ! Protégez les œufs à tout prix !"
+	YellPull = "La chambre des œufs est envahie ! Sonnez l'alarme ! Protégez les œufs à tout prix !"
 })
 
 -------------------
@@ -33,7 +33,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Event				= "Trop tard, mes amis ! La corruption de Nefarius s'empare de moi… Je ne peux plus… me contrôler."
+	Event				= "Trop tard, mes amis ! La corruption de Nefarius s'empare de moi… Je ne peux plus… me contrôler."
 })
 
 -----------------
@@ -46,7 +46,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull	= "Aucun membre de votre espèce ne devrait être ici ! Vous vous êtes condamnés vous-mêmes !"
+	Pull	= "Aucun membre de votre espèce ne devrait être ici ! Vous vous êtes condamnés vous-mêmes !	"
 })
 
 ---------------
@@ -170,16 +170,17 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellP1			= "Que les jeux commencent !",
-	YellP2			= "Beau travail ! Le courage des mortels commence à faiblir ! Voyons maintenant s'ils peuvent lutter contre le véritable seigneur du pic Blackrock !",
-	YellP3			= "C'est impossible ! Relevez-vous, serviteurs ! Servez une nouvelle fois votre maître !",
-	YellShaman		= "Chamans, montrez-moi ce que vos totems peuvent faire !",
-	YellPaladin		= "Les paladins... J'en entendu dire que vous aviez de nombreuses vies... Montrez-moi.",
-	YellDruid		= "Les druides et leur stupides changements de forme. Voyons ce qu'ils donnent en vrai...",
-	YellPriest		= "Prêtres ! Si vous continuez à soigner comme ça, nous pourrions rendre le processus plus intéressant !",
-	YellWarrior		= "Guerriers, je sais que vous pouvez frapper plus fort que ça ! Voyons ça !",
-	YellRogue		= "Voleurs, arrêtez de vous cacher et affrontez-moi !",
-	YellWarlock		= "Démonistes, vous ne devriez pas jouer avec une magie qui vous dépasse. Vous voyez ce qui arrive ?",
-	YellHunter		= "Ah, les chasseurs et les stupides sarbacanes !",
-	YellMage		= "Les mages aussi ? Vous devriez être plus prudents lorsque vous jouez avec la magie."
+	YellP1			= "Que les jeux commencent !",
+	YellP2			= "Beau travail ! Le courage des mortels commence à faiblir ! Voyons maintenant s'ils peuvent lutter contre le véritable seigneur du pic Rochenoire !",
+	YellP3			= "C'est impossible ! Relevez-vous, serviteurs ! Servez une nouvelle fois votre maître !",
+	YellShaman		= "Chamans, montrez-moi ce que vos totems peuvent faire !",
+	YellPaladin		= "Les paladins… J'ai entendu dire que vous aviez de nombreuses vies… Montrez-moi.",
+	YellDruid		= "Les druides et leur stupides changements de forme. Voyons ce qu'ils donnent en vrai…",
+	YellPriest		= "Prêtres ! Si vous continuez à soigner comme ça, nous pourrions rendre le processus plus intéressant !",
+	YellWarrior		= "Guerriers, je sais que vous pouvez frapper plus fort que ça ! Voyons ça !",
+	YellRogue		= "Voleurs, arrêtez de vous cacher et affrontez-moi !",
+	YellWarlock		= "Démonistes, vous ne devriez pas jouer avec une magie qui vous dépasse. Vous voyez ce qui arrive ?",
+	YellHunter		= "Ah, les chasseurs et les stupides sarbacanes !",
+	YellMage		= "Les mages aussi ? Vous devriez être plus prudents lorsque vous jouez avec la magie.",
+	YellDK			= "Chevalier de la mort… Venez ici !"
 })

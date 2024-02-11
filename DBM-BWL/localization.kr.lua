@@ -19,7 +19,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Phase2Emote	= "지배의 수정구가 힘을 잃고 작동을 멈춥니다!",
+	Phase2Emote	= "수정 구슬에서 통제력이 빠져나가자 %s|1이;가; 도망칩니다.",
 	YellPull	= "침입자들이 들어왔다! 어떤 희생이 있더라도 알을 반드시 수호하라!"
 })
 
@@ -133,7 +133,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Breath1	= "1번 숨결",
 	Breath2	= "2번 숨결",
-	VulnEmote	= "%s 주춤하면서 물러나면서 가죽이 빛납니다.",
+	VulnEmote	= "%s|1이;가; 가죽을 빛내며 주춤 물러섭니다.",
 	Vuln		= "약화 속성",
 	Fire		= "화염",
 	Nature		= "자연",
@@ -170,7 +170,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellP1			= "게임을 시작하자!",
+	YellP1			= "경기를 시작하게!",
 	YellP2			= "잘했다! 적들의 사기가 떨어지고 있다! 검은바위 첨탑의 군주에게 도전한 대가를 치르게 해주자!",
 	YellP3			= "말도 안 돼! 일어나라! 다시 한 번 너희 주인을 섬겨라!",
 	YellShaman		= "주술사, 네 놈의 토템이 얼마나 쓸모 있는지 한번 보자!",
@@ -179,9 +179,8 @@ L:SetMiscLocalization({
 	YellPriest		= "사제야, 그렇게 치유를 계속할 테냐?! 그럼 어디 좀 더 재미있게 만들어 줄까!",
 	YellWarrior		= "전사들이로군, 네가 그보다 더 강하게 내려 칠 수 있다는 걸 알고 있다! 어디 한번 제대로 쳐 보란 말이다!",
 	YellRogue		= "도적들인가? 숨어 다니지만 말고 나와서 나와 맞서라!",
-	YellWarlock		= "흑마법사여, 네가 이해하지도 못하는 마법을 가지고 장난을 쳐서야 쓰나... 바로 이런 꼴이 되어 버렸지 않은가!",
+	YellWarlock		= "흑마법사여, 네가 이해하지도 못하는 마법을 가지고 장난을 쳐서야 쓰나... 바로 이런 꼴이 되어 버렸지 않는가!",
 	YellHunter		= "사냥꾼 놈에다 그 장난감 같은 총이라니, 정말 거슬리는구나!",
 	YellMage		= "네가 마법사냐? 마법을 가지고 장난칠 상대를 고를 때는 좀 더 신중했어야지...",
-	YellDK			= "죽음의 기사",
-	YellMonk		= "수도사"
+	YellDK			= "죽음의 기사여... 당장 이리 와라!"
 })
