@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231224101919")
+mod:SetRevision("20240212180252")
 mod:SetCreatureID(11502)
 mod:SetModelID(11121)
 mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
@@ -134,7 +134,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Submerge or msg == L.Submerge2 then
 		self:SendSync("Submerge")
-	elseif msg == L.Pull and self:AntiSpam(5, 4) then
+	elseif (msg == L.Pull or msg:find(L.Pull)) and self:AntiSpam(5, 4) then
 		self:SendSync("SummonRag")
 	end
 end
