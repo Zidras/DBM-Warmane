@@ -4,9 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20240207224038")
+mod:SetRevision("20240220115333")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
+mod:SetHotfixNoticeRev(20240220000000)
 mod:SetMinSyncRevision(20220921000000)
 
 mod:RegisterCombat("combat")
@@ -821,7 +822,7 @@ function mod:UNIT_SPELLCAST_START(_, spellName)
 		warnDefileSoon:ScheduleVoice(27, "scatter")
 		timerDefileCD:Start(nil, self.vb.defileCount+1)
 	elseif spellName == GetSpellInfo(73539) then -- Shadow Trap (Heroic)
-		self:BossTargetScanner(36597, "TrapTarget", 0.02, 15)
+		self:BossTargetScanner(36597, "TrapTarget", 0.02, 10)
 		timerTrapCD:Start()
 	elseif spellName == GetSpellInfo(72350) then -- Fury of Frostmourne
 		self:SetWipeTime(190) --Change min wipe time mid battle to force dbm to keep module loaded for this long out of combat roleplay, hopefully without breaking mod.
