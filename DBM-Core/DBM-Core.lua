@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20240223181737"),
+	Revision = parseCurseDate("2024025190711"),
 	DisplayVersion = "10.1.12 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 02, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -7383,8 +7383,8 @@ function DBM:IsTanking(playerUnitID, enemyUnitID, isName, onlyRequested, enemyGU
 	--We have both units. No need to find unitID
 	if enemyUnitID then
 		--Check threat first
-		local tanking, status = UnitDetailedThreatSituation(playerUnitID, enemyUnitID)
-		DBM:Debug(("Threat API arguments - tanking: %s ; status: %s"):format(tostring(tanking) or "nil", tostring(status) or "nil"), 3)
+		local tanking, status, scaledPercent, rawPercent, threatValue = UnitDetailedThreatSituation(playerUnitID, enemyUnitID)
+		DBM:Debug(("Threat API arguments - tanking: %s ; status: %s ; scaledPercent: %s ; rawPercent: %s ; threatValue: %s"):format(tostring(tanking) or "nil", tostring(status) or "nil", tostring(scaledPercent) or "nil", tostring(rawPercent) or "nil", tostring(threatValue) or "nil"), 3)
 		if (not onlyS3 and tanking) or (status == 3) then
 			return true
 		end
