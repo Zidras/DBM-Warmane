@@ -8,10 +8,12 @@ mod:SetModelID(15348)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CREATE 25648",
+	"SPELL_CREATE 25648", -- spawn spell differently on CC
 	"SPELL_AURA_APPLIED 25646 26527",
 	"SPELL_AURA_APPLIED_DOSE 25646",
-	"SPELL_AURA_REMOVED 25646"
+	"SPELL_AURA_REMOVED 25646",
+	"SPELL_CAST_SUCCESS 3391",
+	"SPELL_EXTRA_ATTACKS 3391"
 )
 
 local warnWound			= mod:NewStackAnnounce(25646, 2, nil, "Tank", 2)
@@ -19,19 +21,22 @@ local warnSandTrap		= mod:NewTargetNoFilterAnnounce(25656, 3)
 local warnFrenzy		= mod:NewTargetNoFilterAnnounce(26527, 3)
 
 local specWarnSandTrap	= mod:NewSpecialWarningYou(25656, nil, nil, nil, 1, 2)
+local specWarnSandTrapNearby = mod:NewSpecialWarningClose(25656, nil, nil, nil, 2, 2)
 local yellSandTrap		= mod:NewYell(25656)
 local specWarnWound		= mod:NewSpecialWarningStack(25646, nil, 5, nil, nil, 1, 6)
 local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
 local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerSandTrapCD	= mod:NewCDTimer(8, 25656, nil, nil, nil, 3)
+local timerSandTrapCD	= mod:NewCDTimer(8-3, 25656, nil, nil, nil, 3)
+local timerThrashCD		= mod:NewCDTimer(16, 3391, nil, nil, nil, 3)
 
 --mod:AddSpeedClearOption("AQ20", true)
 
 --mod.vb.firstEngageTime = nil
 
 function mod:OnCombatStart(delay)
-	timerSandTrapCD:Start(8-delay)
+	timerSandTrapCD:Start(8-3-delay)
+	timerThrashCD:Start(16-delay)
 --[[	if not self.vb.firstEngageTime then
 		self.vb.firstEngageTime = time()
 		if self.Options.FastestClear and self.Options.SpeedClearTimer then
@@ -48,6 +53,9 @@ function mod:SPELL_CREATE(args)
 			specWarnSandTrap:Show()
 			specWarnSandTrap:Play("targetyou")
 			yellSandTrap:Yell()
+		elseif self:CheckNearby(10+2, args.destName) then
+			specWarnSandTrapNearby:Show(args.destName)
+			specWarnSandTrapNearby:Play("watchfeet")
 		else
 			warnSandTrap:Show(args.sourceName)
 		end
@@ -83,3 +91,10 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerWound:Stop(args.destName)
 	end
 end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellID == 3391 then
+		timerThrashCD:Start()
+	end
+end
+mod.SPELL_EXTRA_ATTACKS = mod.SPELL_CAST_SUCCESS

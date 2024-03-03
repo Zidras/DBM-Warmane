@@ -24,6 +24,8 @@ local yellOrder			= mod:NewYell(25471)
 local timerOrder		= mod:NewTargetTimer(10, 25471, nil, nil, nil, 3)
 local timerCloud		= mod:NewBuffActiveTimer(15, 26550, nil, nil, nil, 3)--? Good color?
 
+local timerThundercrashCD	= mod:NewCDTimer(21, 25599, nil, nil, nil, 3)
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 25471 then
 		timerOrder:Start(args.destName)
@@ -43,6 +45,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerCloud:Start()
 	elseif args.spellId == 25599 then
 		warnThundercrash:Show()
+		timerThundercrashCD:Start()
 	end
 end
 

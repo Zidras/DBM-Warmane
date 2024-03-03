@@ -68,7 +68,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	PursueEmote	= "%s sets eyes on"
+	PursueEmote	= "%s sets eyes on %s!"
 })
 
 -------------
