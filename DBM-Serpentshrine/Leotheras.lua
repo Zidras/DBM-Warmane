@@ -28,10 +28,10 @@ local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
 local specWarnWhirl				= mod:NewSpecialWarningRun(37640, nil, nil, nil, 4, 2)
 local specWarnDemon				= mod:NewSpecialWarningYou(37676, nil, nil, nil, 1, 2)
 
-local timerWhirlCD				= mod:NewCDTimer(27, 37640, nil, nil, nil, 2) -- 25 man FM 2022/07/27 log - 27.0, 27.1, 27.0
+local timerWhirlCD				= mod:NewCDTimer(27+3.25, 37640, nil, nil, nil, 2) -- 25 man FM 2022/07/27 log - 27.0, 27.1, 27.0
 local timerWhirl				= mod:NewBuffActiveTimer(12, 37640, nil, nil, nil, 2)
 local timerPhase				= mod:NewTimer(60, "TimerPhase", 39088, nil, nil, 6)
-local timerInsidiousWhisperCD	= mod:NewCDTimer(26, 37676, nil, nil, nil, 6) -- REVIEW! variance? (25 man FM 2022/07/27 log) - 26
+local timerInsidiousWhisperCD	= mod:NewCDTimer(26-1.75, 37676, nil, nil, nil, 6) -- REVIEW! variance? (25 man FM 2022/07/27 log) - 26
 local timerInsidiousWhisper		= mod:NewBuffFadesTimer(30, 37676, nil, nil, nil, 6)
 
 local berserkTimer				= mod:NewBerserkTimer(600)
@@ -43,11 +43,13 @@ local warnMCTargets = {}
 --mod.vb.binderKill = 0
 mod.vb.demonIcon = 8
 mod.vb.whirlCount = 0
+mod.vb.isHuman = 1
 
 local function humanWarns(self)
 	self.vb.whirlCount = 0
 	warnPhase:Show(L.Human)
-	timerWhirlCD:Start(13) -- REVIEW! variance? (25 man FM 2022/07/27 log) - 13
+	self.vb.isHuman = 1
+	timerWhirlCD:Start(13+12.05) -- REVIEW! variance? (25 man FM 2022/07/27 log) - 13
 	timerPhase:Start(nil, L.Demon)
 end
 
@@ -66,10 +68,11 @@ end
 function mod:OnCombatStart()
 	self.vb.demonIcon = 8
 	self.vb.whirlCount = 0
+	self.vb.isHuman = 1
 	self:SetStage(1)
 	table.wipe(warnMCTargets)
 	table.wipe(warnDemonTargets)
-	timerWhirlCD:Start(15.0) -- 25 man FM 2022/07/27 log - 15.0
+	timerWhirlCD:Start(15.0+10.05) -- 25 man FM 2022/07/27 log - 15.0
 	timerPhase:Start(60, L.Demon)
 	berserkTimer:Start()
 end
@@ -117,6 +120,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellDemon or msg:find(L.YellDemon) then
 		warnPhase:Show(L.Demon)
+		self.vb.isHuman = 0
 		timerWhirl:Cancel()
 		timerWhirlCD:Cancel()
 		timerPhase:Cancel()
@@ -127,11 +131,16 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:SetStage(2)
 		self:Unschedule(humanWarns)
 		timerPhase:Cancel()
+		timerPhase:Start(6, "2")
 		timerWhirl:Cancel()
 		timerWhirlCD:Cancel()
 		timerInsidiousWhisperCD:Cancel()
 		warnPhase2:Show()
-		timerWhirlCD:Start(11.5) -- REVIEW! variance? (25 man FM 2022/07/27 log) - 11.5
+		if self.vb.isHuman == 1 then
+			timerWhirlCD:Start(11.5+5.5) -- REVIEW! variance? (25 man FM 2022/07/27 log) - 11.5
+		else
+			timerWhirlCD:Start(25.05+10+10)
+		end
 	end
 end
 

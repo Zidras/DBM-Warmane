@@ -23,8 +23,9 @@ local warnBubble		= mod:NewSpellAnnounce(37854, 4)
 
 local specWarnMurlocs	= mod:NewSpecialWarning("SpecWarnMurlocs", nil, nil, nil, nil, nil, nil, 24984, 37764)
 
-local timerGraveCD		= mod:NewCDTimer(30, 38049, nil, nil, nil, 3) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 30.1, 30.0, 30.0, 30.0, 30.0 || 32.0, 30.1, 30.1
-local timerMurlocs		= mod:NewTimer(51, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
+local timerTidalCD		= mod:NewCDTimer(20, 37730, nil, nil, nil, 3)
+local timerGraveCD		= mod:NewCDTimer(30-5, 38049, nil, nil, nil, 3) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 30.1, 30.0, 30.0, 30.0, 30.0 || 32.0, 30.1, 30.1
+local timerMurlocs		= mod:NewTimer(51-6, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
 local timerBubble		= mod:NewBuffActiveTimer(35, 37854, nil, nil, nil, 1)
 
 mod:AddSetIconOption("GraveIcon", 38049, true, false, {5, 6, 7, 8})
@@ -40,13 +41,15 @@ end
 function mod:OnCombatStart(delay)
 	self.vb.graveIcon = 8
 	table.wipe(warnGraveTargets)
-	timerGraveCD:Start(19.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 19.4 || 19.5
-	timerMurlocs:Start(40.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 40.5 || 40.4
+	timerGraveCD:Start(19.4+0.6-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 19.4 || 19.5
+	timerMurlocs:Start(40.4-0.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 40.5 || 40.4
+	timerTidalCD:Start(10-delay)
 end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 37730 then
 		warnTidal:Show()
+		timerTidalCD:Start()
 	end
 end
 
@@ -69,6 +72,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			showGraveTargets()
 		else
 			self:Schedule(0.3, showGraveTargets)
+		end
+		if self:AntiSpam(10,10) then
+			timerGraveCD:Start()
 		end
 	end
 end
