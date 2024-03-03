@@ -16,15 +16,15 @@ mod:RegisterEventsInCombat(
 local warnCharge			= mod:NewSpellAnnounce(32637, 3)
 local warnQuake				= mod:NewSpellAnnounce(32686, 3)
 
-local timerChargeCD			= mod:NewCDTimer(42, 32637, nil, nil, nil, 3)
-local timerQuakeCD			= mod:NewCDTimer(52, 32686, nil, nil, nil, 2)
+local timerChargeCD			= mod:NewCDTimer(42-17, 32637, nil, nil, nil, 3)
+local timerQuakeCD			= mod:NewCDTimer(52-22, 32686, nil, nil, nil, 2)
 local timerQuake			= mod:NewBuffActiveTimer(8, 32686, nil, nil, nil, 2)
 
-mod:AddRangeFrameOption("10")
+mod:AddRangeFrameOption("13") -- ChromieCraft adjustment because hitbox is calculated from outer border of char instead of center point
 
 function mod:OnCombatStart()
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10)
+		DBM.RangeCheck:Show(10+3)
 	end
 end
 
@@ -42,7 +42,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 32686 and self:AntiSpam(30, 2) then
+	if args.spellId == 32686 and self:AntiSpam(30-10, 2) then
 		warnQuake:Show()
 		timerQuake:Start()
 		timerQuakeCD:Show()

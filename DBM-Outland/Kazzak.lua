@@ -23,19 +23,23 @@ local specWarnTwisted	= mod:NewSpecialWarningDispel(21063, "Healer", nil, nil, 1
 
 local timerFrenzy		= mod:NewBuffActiveTimer(10, 32964)
 local timerFrenzyCD		= mod:NewCDTimer(60, 32964, nil, nil, nil, 3)
---local timerTwistedCD	= mod:NewCDTimer(30, 21063, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.MAGIC_ICON)--Unknown, but would be nice to have
+local timerTwistedCD	= mod:NewCDTimer(30-15, 21063, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.MAGIC_ICON)--Unknown, but would be nice to have
 local timerMark			= mod:NewTargetTimer(10, 32960, nil, nil, nil, 3)
+local timerMarkCD		= mod:NewCDTimer(20, 32960, nil, nil, nil, 2)
 
 mod:AddSetIconOption("SetIconOnMark", 32960, true, false, {8})
 
 function mod:OnCombatStart(delay)
 	timerFrenzyCD:Start(-delay)
+	timerTwistedCD:Start(33-delay)
+	timerMarkCD:Start(25-delay)
 end
 
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 32960 then
 		timerMark:Start(args.destName)
+		timerMarkCD:Start()
 		if args:IsPlayer() then
 			specWarnMark:Show()
 			specWarnMark:Play("targetyou")
@@ -56,7 +60,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warningTwisted:Show(args.destName)
 		end
---		timerTwistedCD:Start()
+		timerTwistedCD:Start()
 	end
 end
 
