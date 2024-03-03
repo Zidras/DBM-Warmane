@@ -21,5 +21,8 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnGrowth	= "為$spell:36300顯示警告"
+	WarnGrowth	= "為$spell:36300顯示警告",
+	RangeDistance	= "Range frame distance for $spell:33654",
+	Smaller			= "Smaller distance (14)",
+	Safe			= "Safer distance (20)"
 })

@@ -23,6 +23,6 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	WarnGrowth		= "Показывать предупреждение для $spell:36300",
 	RangeDistance	= "Фрейм дистанции для $spell:33654",
-	Smaller			= "Маленькая дистанция (11)",
-	Safe			= "Безопасная дистанция (18)"
+	Smaller			= "Маленькая дистанция (14)",
+	Safe			= "Безопасная дистанция (20)"
 })
