@@ -83,10 +83,10 @@ do
 		local cid = self:GetCIDFromGUID(GUID)
 		if startCreatureIds[cid] then
 			if not self.vb.firstEngageTime then
-				self.vb.firstEngageTime = time()
+				self.vb.firstEngageTime = GetServerTime()
 				if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Nature_TimeStop")
+					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
 				end
 				self:SendSync("AQ40Started", self.vb.firstEngageTime)--Also sync engage time
 			end
@@ -103,7 +103,7 @@ do
 
 	-- todo: thorns
 	local playerGUID = UnitGUID("player")
-	function mod:SPELL_DAMAGE(_, sourceName, _, destGUID, _, _, spellId)
+	function mod:SPELL_DAMAGE(_, sourceName, _, _, destGUID, _, _, _, _, spellName)
 		if spellId == 26555 and destGUID == playerGUID and self:AntiSpam(3, 3) then
 			specWarnShadowStorm:Show(sourceName)
 			specWarnShadowStorm:Play("findshelter")
@@ -127,12 +127,12 @@ do
 		end
 	end
 
-	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, destGUID)
+	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-	function mod:SWING_DAMAGE(_, _, _, destGUID)
+	function mod:SWING_DAMAGE(_, _, _, _, destGUID)
 		checkFirstPull(self, destGUID or 0)
 	end
 	mod.SWING_MISSED = mod.SWING_DAMAGE
@@ -144,7 +144,7 @@ do
 				if self.vb.requiredBosses == 5 then
 					DBT:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 					if self.vb.firstEngageTime then
-						local thisTime = time() - self.vb.firstEngageTime
+						local thisTime = GetServerTime() - self.vb.firstEngageTime
 						if thisTime and thisTime > 0 then
 							if not self.Options.FastestClear3 then
 								--First clear, just show current clear time

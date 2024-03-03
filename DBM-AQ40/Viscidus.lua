@@ -20,13 +20,13 @@ local warnShatter				= mod:NewAnnounce("WarnShatter", 2, 12982)
 
 local specWarnGTFO				= mod:NewSpecialWarningGTFO(25989, nil, nil, nil, 1, 8)
 
-local timerPoisonBoltVolleyCD	= mod:NewCDCountTimer(11, 25991, nil, nil, nil, 2, nil, DBM_COMMON_L.POISON_ICON)
+local timerPoisonBoltVolleyCD	= mod:NewCDCountTimer(11-1, 25991, nil, nil, nil, 2, nil, DBM_COMMON_L.POISON_ICON)
 
 mod.vb.volleyCount = 0
 
 function mod:OnCombatStart()
 	self.vb.volleyCount = 0
-	timerPoisonBoltVolleyCD:Start(12.9, 1)
+	timerPoisonBoltVolleyCD:Start(12.9-2.9, 1)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)

@@ -11,7 +11,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 26615",
 	"SPELL_CAST_START 26102 26103",
 	"SPELL_CAST_SUCCESS 26058",
-	"UNIT_HEALTH mouseover focus target"
+	"UNIT_HEALTH mouseover focus target",
+	"SPELL_SUMMON 26058"
 )
 
 --Submerge timer is not timer based, it has some kind of hidden condition we do not know. It's not health based either (other than fact the faster you kill boss less likely you are to see it)
@@ -30,8 +31,9 @@ local specWarnBlast		= mod:NewSpecialWarningSpell(26102, nil, nil, nil, 2, 2)
 
 local timerSubmerge		= mod:NewTimer(30, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
 local timerEmerge		= mod:NewTimer(30, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
-local timerSweepCD		= mod:NewNextTimer(20.5, 26103, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerBlastCD		= mod:NewNextTimer(23, 26102, nil, nil, nil, 2)
+local timerSweepCD		= mod:NewNextTimer(20.5+1.5, 26103, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerBlastCD		= mod:NewNextTimer(23-3, 26102, nil, nil, nil, 2)
+local timerMounds		= mod:NewTimer(20, "Mounds", 26058)
 
 mod.vb.prewarn_Berserk = false
 mod.vb.Berserked = false
@@ -41,14 +43,14 @@ function mod:OnCombatStart(delay)
 	self.vb.Berserked = false
 	timerSweepCD:Start(22-delay)--22-25
 	timerBlastCD:Start(20-delay)--20-26
-	timerSubmerge:Start(184-delay)
+	timerSubmerge:Start(184-94-delay)
 end
 
 function mod:Emerge()
 	warnEmerge:Show()
-	timerSweepCD:Start(23)--23-24 (it might be 22-25 like pull)
-	timerBlastCD:Start(24)--24-26 (it might be 20-26 like pull)
-	timerSubmerge:Start(184)
+	timerSweepCD:Start(23-1)--23-24 (it might be 22-25 like pull)
+	timerBlastCD:Start(24-4)--24-26 (it might be 20-26 like pull)
+	timerSubmerge:Start(184-94)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -56,6 +58,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.Berserked = true
 		warnBerserk:Show()
 		timerSubmerge:Stop()
+		timerMounds:Start()
 	end
 end
 
@@ -80,9 +83,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self:ScheduleMethod(30, "Emerge")
 	end
 end
+mod.SPELL_SUMMON = mod.SPELL_CAST_SUCCESS
 
 function mod:UNIT_HEALTH(uId)
-	if self:GetUnitCreatureId(uId) == 15517 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.23 and not self.vb.prewarn_Berserk then
+	if self:GetUnitCreatureId(uId) == 15517 and UnitHealthMax(uId) and UnitHealthMax(uId) > 0 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.23 and not self.vb.prewarn_Berserk then
 		self.vb.prewarn_Berserk = true
 		warnBerserkSoon:Show()
 	end

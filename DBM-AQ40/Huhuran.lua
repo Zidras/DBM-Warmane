@@ -28,12 +28,12 @@ local specWarnFrenzy	= mod:NewSpecialWarningDispel(26051, "RemoveEnrage", nil, n
 
 local timerSting		= mod:NewBuffFadesTimer(12, 26180, nil, nil, nil, 5, nil, DBM_COMMON_L.POISON_ICON..DBM_COMMON_L.DEADLY_ICON)
 local timerStingCD		= mod:NewCDTimer(25, 26180, nil, nil, nil, 3, nil, DBM_COMMON_L.POISON_ICON..DBM_COMMON_L.DEADLY_ICON)
-local timerPoisonCD		= mod:NewCDTimer(11, 26053, nil, nil, nil, 3)
+local timerPoisonCD		= mod:NewCDTimer(11-1, 26053, nil, nil, nil, 3)
 local timerPoison		= mod:NewBuffFadesTimer(8, 26053)
-local timerFrenzyCD		= mod:NewCDTimer(11.8, 26051, nil, false, 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON)--Off by default do to ridiculous variation
+local timerFrenzyCD		= mod:NewCDTimer(11.8+0.2, 26051, nil, false, 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON)--Off by default do to ridiculous variation
 local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 3, 5, nil, DBM_COMMON_L.TANK_ICON)
 
-mod:AddRangeFrameOption("18", nil, "-Melee")
+mod:AddRangeFrameOption("20", nil, "-Melee") -- Blizz 18, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
 
 mod.vb.prewarn_berserk = false
 local StingTargets = {}
@@ -41,11 +41,11 @@ local StingTargets = {}
 function mod:OnCombatStart(delay)
 	self.vb.prewarn_berserk = false
 	table.wipe(StingTargets)
-	timerFrenzyCD:Start(9.6-delay)
-	timerPoisonCD:Start(11-delay)
-	timerStingCD:Start(20-delay)
+	timerFrenzyCD:Start(9.6+2.4-delay)
+	timerPoisonCD:Start(11-1-delay)
+	timerStingCD:Start(20+5-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(18)
+		DBM.RangeCheck:Show(18+2) -- Blizz 18, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
 	end
 end
 
@@ -123,7 +123,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 and self:GetUnitCreatureId(uId) == 15509 and not self.vb.prewarn_berserk then
+	if UnitHealthMax(uId) and UnitHealthMax(uId) > 0 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 and self:GetUnitCreatureId(uId) == 15509 and not self.vb.prewarn_berserk then
 		warnBerserkSoon:Show()
 		self.vb.prewarn_berserk = true
 	end
