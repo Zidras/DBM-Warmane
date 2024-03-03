@@ -10,6 +10,9 @@ mod:RegisterCombat("emote", L.DBM_MAG_EMOTE_PULL)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 30528 30616",
 	"SPELL_CAST_SUCCESS 30511",
+	"SPELL_AURA_APPLIED 30757",
+	"SPELL_AURA_REFRESH 30757",
+	"UNIT_SPELLCAST_SUCCEEDED 30657",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -23,9 +26,12 @@ local specWarnBlastNova		= mod:NewSpecialWarningInterrupt(30616, nil, nil, nil, 
 local specWarnHeal			= mod:NewSpecialWarningInterrupt(30528, "HasInterrupt", nil, nil, 1, 2)
 
 local timerHeal				= mod:NewCastTimer(2, 30528, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
-local timerPhase2			= mod:NewTimer(120, "timerP2", "135566", nil, nil, 6)
-local timerBlastNovaCD		= mod:NewCDCountTimer(54, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerPhase2			= mod:NewTimer(120+3, "timerP2", "135566", nil, nil, 6)
+local timerBlastNovaCD		= mod:NewCDCountTimer(54+0.35, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerDebris			= mod:NewNextTimer(15, 36449, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.TANK_ICON)--Only happens once per fight, after the phase 3 yell.
+
+local timerQuakeCD			= mod:NewCDTimer(53+2.65, 30657, nil, nil, nil, 2)
+local specWarnGTFO			= mod:NewSpecialWarningGTFO(30757, nil, nil, nil, 1, 8)
 
 mod.vb.blastNovaCounter = 1
 
@@ -49,6 +55,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnBlastNova:Show(L.name)
 		specWarnBlastNova:Play("kickcast")
 		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
+		timerQuakeCD:AddTime(10)
 	end
 end
 
@@ -58,23 +65,40 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
+function mod:UNIT_SPELLCAST_SUCCEEDED(args)
+	if args.spellId == 30657 then
+		timerBlastNovaCD:AddTime(7, self.vb.blastNovaCounter)
+	end
+end
+
+function mod:SPELL_AURA_APPLIED(args)
+	if args.spellId == 30757 and args:IsPlayer() and self:AntiSpam(3, 3) then
+		specWarnGTFO:Show(spellName)
+		specWarnGTFO:Play("watchfeet")
+	end
+end
+mod.SPELL_AURA_REFRESH = mod.SPELL_AURA_APPLIED
+
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) then
 		self:SetStage(2)
 		warnPhase2:Show()
-		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
+		timerBlastNovaCD:Start(55.65+3, self.vb.blastNovaCounter)
+		timerQuakeCD:Start(28.3+3)
 		timerPhase2:Cancel()
 	elseif msg == L.DBM_MAG_YELL_PHASE3 or msg:find(L.DBM_MAG_YELL_PHASE3) then
 		self:SetStage(3)
 		warnPhase3:Show()
 		--If time less than 20, extend existing timer to 20, else do nothing
-		if timerBlastNovaCD:GetRemaining(self.vb.blastNovaCounter) < 20 then
-			local elapsed, total = timerBlastNovaCD:GetTime(self.vb.blastNovaCounter)
-			local extend = 20 - (total-elapsed)
-			DBM:Debug("timerBlastNovaCD extended by: "..extend, 2)
-			timerBlastNovaCD:Stop()
-			timerBlastNovaCD:Update(elapsed, total+extend, self.vb.blastNovaCounter)
-		end
+--		if timerBlastNovaCD:GetRemaining(self.vb.blastNovaCounter) < 20 then
+--			local elapsed, total = timerBlastNovaCD:GetTime(self.vb.blastNovaCounter)
+--			local extend = 20 - (total-elapsed)
+--			DBM:Debug("timerBlastNovaCD extended by: "..extend, 2)
+--			timerBlastNovaCD:Stop()
+--			timerBlastNovaCD:Update(elapsed, total+extend, self.vb.blastNovaCounter)
+--		end
+		timerBlastNovaCD:AddTime(18, self.vb.blastNovaCounter)
+		timerQuakeCD:AddTime(18)
 		timerDebris:Start()
 	end
 end
