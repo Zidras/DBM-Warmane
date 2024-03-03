@@ -46,7 +46,7 @@ local specWarnBlastNova		= mod:NewSpecialWarningRun(68958, "Melee", nil, nil, 4,
 
 local timerBreathCast		= mod:NewCastTimer(8, 18584, nil, nil, nil, 3)
 local timerNextDeepBreath	= mod:NewCDTimer(35, 18584, nil, nil, nil, 3)--Range from 35-60seconds in between based on where she moves to.
-local timerWhelps			= mod:NewNextTimer(105, 17646, nil, nil, nil, 1, 69004)
+local timerWhelps			= mod:NewNextTimer(105-15, 17646, nil, nil, nil, 1, 69004)
 local timerAchieveWhelps	= mod:NewAchievementTimer(10, 4406)
 local timerBigAddCD			= mod:NewNextTimer(44.9, 68959, nil, "-Healer", nil, 1, 10697) -- Ignite Weapon for Onyxian Lair Guard
 
@@ -64,12 +64,12 @@ local function Whelps(self)
 	if self:IsInCombat() then
 		self.vb.whelpsCount = self.vb.whelpsCount + 1
 		timerWhelps:Start()
-		warnWhelpsSoon:Schedule(95)
-		self:Schedule(105, Whelps, self)
+		warnWhelpsSoon:Schedule(95-15)
+		self:Schedule(105-15, Whelps, self)
 	end
 end
 
-function mod:FireballTarget(targetname)
+function mod:FireballTarget(targetname, uId)
 	if not targetname then return end
 	warnFireball:Show(targetname)
 	if targetname == UnitName("player") then
@@ -127,9 +127,9 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
---	if msg == L.YellPull and not self:IsInCombat() then
---		DBM:StartCombat(self, 0)
-	if msg == L.YellP2 or msg:find(L.YellP2) then
+	if msg == L.YellPull and not self:IsInCombat() then
+		DBM:StartCombat(self, 0)
+	elseif msg == L.YellP2 or msg:find(L.YellP2) then
 		self:SendSync("Phase2")
 	elseif msg == L.YellP3 or msg:find(L.YellP3) then
 		self:SendSync("Phase3")
@@ -161,9 +161,9 @@ function mod:OnSync(msg)
 		self:SetStage(2)
 		self.vb.whelpsCount = 0
 		warnPhase2:Show()
-		timerBigAddCD:Start(20) -- (25N Lordaeron 2022/10/13) - Stage 2/20.0
+--		timerBigAddCD:Start(20) -- (25N Lordaeron 2022/10/13) - Stage 2/20.0
 --		preWarnDeepBreath:Schedule(72)	-- Pre-Warn Deep Breath
-		timerNextDeepBreath:Start(75.5) -- Breath-17086. REVIEW! variance? (25N Lordaeron 2022/10/13) - 75.5
+		timerNextDeepBreath:Start(75.5+1.5) -- Breath-17086. REVIEW! variance? (25N Lordaeron 2022/10/13) - 75.5
 		timerAchieveWhelps:Start()
 		timerNextFlameBreath:Cancel()
 		self:Schedule(5, Whelps, self)
@@ -174,7 +174,7 @@ function mod:OnSync(msg)
 			self:Schedule(17, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\whelps-left-side-even-side-handle-it.ogg") -- 18
 		end
 		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(8)
+			DBM.RangeCheck:Show(8+2)
 		end
 	elseif msg == "Phase3" then
 		self:SetStage(3)
