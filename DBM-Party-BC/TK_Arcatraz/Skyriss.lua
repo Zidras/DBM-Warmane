@@ -8,12 +8,18 @@ mod:SetModelID(19943)
 mod:SetModelScale(0.4)
 mod:RegisterCombat("combat")
 
+mod:RegisterEvents(
+	"CHAT_MSG_MONSTER_YELL"
+)
+
 mod:RegisterEventsInCombat(
-	"CHAT_MSG_MONSTER_YELL",
+--	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_AURA_APPLIED 39019 37162 36924 36929 39017 39021",
 	"SPELL_AURA_REMOVED 39019 37162 36924 36929 39017 39021",
 	"UNIT_HEALTH"
 )
+
+local timerCombatStart	= mod:NewCombatTimer(37)
 
 local warnSplitSoon		= mod:NewAnnounce("warnSplitSoon", 2)
 local warnSplit			= mod:NewAnnounce("warnSplit", 3)
@@ -52,6 +58,8 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Split then
 		warnSplit:Show()
+	elseif msg == L.Lastcell or msg:find(L.Lastcell) then
+		timerCombatStart:Start()
 	end
 end
 
