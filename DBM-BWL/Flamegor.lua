@@ -21,11 +21,11 @@ local warnFrenzy			= mod:NewSpellAnnounce(23342, 3, nil, "Tank|RemoveEnrage|Heal
 local specWarnFrenzy		= mod:NewSpecialWarningDispel(23342, "RemoveEnrage", nil, nil, 1, 6)
 
 local timerWingBuffet		= mod:NewNextTimer(30, 23339, nil, nil, nil, 2) -- Fixed timer. (25m Onyxia: [2024-02-04]@[19:03:58] || [2024-02-25]@[19:27:42]) - "Wing Buffet-23339-npc:11981-357 = pull:31.79, 30.02" || "Wing Buffet-23339-npc:11981-357 = pull:29.99, 30.02
-local timerShadowFlameCD	= mod:NewNextTimer(20, 22539, nil, false, nil, 5) -- 08/02/2024 Warmane Changelog: Fixed Shadow Flame timer for Flamegor. 20 seconds. Obsolete log parse will be kept for history: ~5s variance [12.55-17.44]. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Shadow Flame-22539-npc:11981-357 = pull:17.22, 12.55, 17.03, 17.74"
+local timerShadowFlameCD	= mod:NewNextTimer(20-5, 22539, nil, false, nil, 5) -- 08/02/2024 Warmane Changelog: Fixed Shadow Flame timer for Flamegor. 20 seconds. Obsolete log parse will be kept for history: ~5s variance [12.55-17.44]. (25m Onyxia: [2024-02-04]@[19:03:58]) - "Shadow Flame-22539-npc:11981-357 = pull:17.22, 12.55, 17.03, 17.74"
 local timerFrenzy			= mod:NewBuffActiveTimer(10, 23342, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_COMMON_L.ENRAGE_ICON)
 
 function mod:OnCombatStart(delay)
-	timerShadowFlameCD:Start(-delay)
+	timerShadowFlameCD:Start(18-delay)
 	timerWingBuffet:Start(-delay)
 end
 

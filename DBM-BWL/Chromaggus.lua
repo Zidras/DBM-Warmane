@@ -8,9 +8,9 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 23308 23309 23313 23314 23187 23189 23315 23316 23310 23312",
-	"SPELL_AURA_APPLIED 23155 23169 23153 23154 23170 23128 23537",
+	"SPELL_AURA_APPLIED 23155 23169 23153 23154 23170 23128 23537 28371",
 --	"SPELL_AURA_REFRESH",
-	"SPELL_AURA_REMOVED 23155 23169 23153 23154 23170 23128",
+	"SPELL_AURA_REMOVED 23155 23169 23153 23154 23170 23128 28371",
 	"UNIT_HEALTH boss1 mouseover target",
 	"CHAT_MSG_MONSTER_EMOTE"
 )
@@ -34,6 +34,7 @@ local timerBreath		= mod:NewTimer(2, "TimerBreath", 23316, nil, nil, 3)
 local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
 local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.ENRAGE_ICON)
 local timerVuln			= mod:NewTimer(17, "TimerVulnCD") -- 2024/02/08 Warmane Changelog: 17-25
+local timerFrenzyCD		= mod:NewCDTimer(10, 23128, nil, nil)
 
 --mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
 mod:AddInfoFrameOption(22277, true)
@@ -131,7 +132,7 @@ local function check_spell_damage(self, target, amount, spellSchool, critical)
 	if cid ~= 14020 then
 		return
 	end
-	if amount > (critical and 1600 or 800) then
+	if amount > (critical and 2400 or 1600) then
 		if not vulnerabilities[target] or vulnerabilities[target] ~= spellSchool then
 			vulnerabilities[target] = spellSchool
 			update_vulnerability(self)
@@ -157,6 +158,7 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerBreathCD:Start(30-delay, L.Breath1)
 	timerBreathCD:Start(60-delay, L.Breath2)--60
+	timerFrenzyCD:Start(15)
 	mydebuffs = 0
 	table.wipe(vulnerabilities)
 	if self.Options.WarnVulnerable then--Don't register high cpu combat log events if option isn't enabled
@@ -253,6 +255,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnFrenzy:Show()
 		end
 		timerFrenzy:Start()
+		timerFrenzyCD:Start()
 	elseif spellId == 23537 and args:IsDestTypeHostile() then
 		if self.vb.phase < 2 then
 			self:SetStage(2)
