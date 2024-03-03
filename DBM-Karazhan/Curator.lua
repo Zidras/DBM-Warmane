@@ -9,7 +9,8 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 30254 30403",
-	"SPELL_CAST_SUCCESS 30235"
+	"SPELL_CAST_SUCCESS 30235",
+	"SPELL_DAMAGE 30235"
 )
 
 --TODO, fix evocate timer in classic TBC, it was fucked with on retail and kinda broken but should work fine in TBC
@@ -23,9 +24,9 @@ local warnArcaneInfusion= mod:NewSpellAnnounce(30403, 4)
 local timerEvo			= mod:NewBuffActiveTimer(20, 30254, nil, nil, nil, 6)
 --local timerNextEvo		= mod:NewNextTimer(115, 30254, nil, nil, nil, 6)
 
-local berserkTimer		= mod:NewBerserkTimer(720)
+local berserkTimer		= mod:NewBerserkTimer(720-120)
 
-mod:AddRangeFrameOption("10", nil, true)
+mod:AddRangeFrameOption("10+3", nil, true)
 
 local addGUIDS = {}
 
@@ -34,7 +35,7 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 --	timerNextEvo:Start(-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10)
+		DBM.RangeCheck:Show(10+3)
 	end
 end
 
@@ -56,6 +57,15 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 30235 and not addGUIDS[args.sourceGUID] then
+		addGUIDS[args.sourceGUID] = true
+		if self:AntiSpam(3, 1) then
+			warnAdd:Show()
+		end
+	end
+end
+--mod.SPELL_DAMAGE = mod.SPELL_CAST_SUCCESS
+function mod:SPELL_DAMAGE(args)
 	if args.spellId == 30235 and not addGUIDS[args.sourceGUID] then
 		addGUIDS[args.sourceGUID] = true
 		if self:AntiSpam(3, 1) then

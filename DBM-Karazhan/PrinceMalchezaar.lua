@@ -29,16 +29,17 @@ local warningSWP				= mod:NewTargetNoFilterAnnounce(30898, 2, nil, "RemoveMagic"
 local specWarnEnfeeble			= mod:NewSpecialWarningYou(30843, nil, nil, nil, 3, 2)
 local specWarnNova				= mod:NewSpecialWarningRun(30852, "Melee", nil, nil, 4, 2)
 
-local timerNovaCD				= mod:NewCDTimer(18.1, 30852, nil, nil, nil, 2)--18.1-30
+local timerNovaCD				= mod:NewCDTimer(18.1+11.9, 30852, nil, nil, nil, 2)--18.1-30
 local timerNextInfernal			= mod:NewCDTimer(45, 37277, nil, nil, nil, 1)--Spawning
-local timerHellfire				= mod:NewCDTimer(14.5, 30859, nil, nil, nil, 3)--Landing/activating Hellfire
+local timerHellfire				= mod:NewCDTimer(14.5-4.5, 30859, nil, nil, nil, 3)--Landing/activating Hellfire
 local timerEnfeebleCD			= mod:NewNextTimer(30, 30843, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerEnfeeble				= mod:NewBuffFadesTimer(9, 30843)
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
-	timerNextInfernal:Start(14.5-delay)--14-21?
+	timerNextInfernal:Start(14.5+25.5-delay)--14-21?
 	timerEnfeebleCD:Start(30-delay)
+	timerNovaCD:Start(35.5-delay)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -49,7 +50,7 @@ function mod:SPELL_CAST_START(args)
 		else
 			warningNovaCast:Show()
 		end
-		timerNovaCD:Start(self.vb.phase == 3 and 18.1 or 30)
+		timerNovaCD:Start(self.vb.phase == 3 and 18.1+11.9 or 30)
 	end
 end
 
@@ -81,9 +82,9 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.DBM_PRINCE_YELL_INF1 or msg == L.DBM_PRINCE_YELL_INF2 then
 		warningInfernal:Show()
-		timerHellfire:Start(14.5)--14-16
-		timerNextInfernal:Start(self.vb.phase == 3 and 19.3 or 44.7)--44-48
-	elseif msg == L.DBM_PRINCE_YELL_P3 then
+		timerHellfire:Start()--14-16
+		timerNextInfernal:Start(self.vb.phase == 3 and 19.3-4.3 or 44.7+0.3)--44-48
+	elseif msg == L.DBM_PRINCE_YELL_P3 or msg == L.DBM_PRINCE_YELL_P3_2 then
 		self:SendSync("Phase3")
 	elseif msg == L.DBM_PRINCE_YELL_P2 then
 		self:SetStage(2)
@@ -105,12 +106,12 @@ function mod:OnSync(msg)
 	if msg == "Phase3" then
 		self:SetStage(3)
 		warnPhase3:Show()
-		timerNovaCD:Stop()
-		timerNextInfernal:Stop()
+--		timerNovaCD:Stop()
+--		timerNextInfernal:Stop()
 		timerEnfeebleCD:Stop()
-		timerNovaCD:Start(19.2)
+--		timerNovaCD:Start(19.2)
 		--"<326.45 01:12:48> [DBM_Announce] Stage 3#136116#stage#3#Prince#false", -- [759]
 		--"<366.46 01:13:28> [CHAT_MSG_MONSTER_YELL] You face not Malchezaar alone, but the legions I command!#Prince Malchezaar#####0#0##0#163#nil#0#false#false#false#false", -- [883]
-		timerNextInfernal:Start(40)
+--		timerNextInfernal:Start(40)
 	end
 end
