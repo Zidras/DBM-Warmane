@@ -11,6 +11,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEvents(
 	"SPELL_CAST_START 19774 20568",
 	"SPELL_CAST_SUCCESS 20566 19773",
+	"SPELL_INSTAKILL 19773",
 	"CHAT_MSG_MONSTER_YELL"
 )
 mod:RegisterEventsInCombat( -- 2023/12/19: Cannot have already registered events, or it will fire in duplicate
@@ -30,25 +31,25 @@ local warnSonsOfFlameLeft	= mod:NewAddsLeftAnnounce(19629, 2, 19774) -- spellId 
 local timerWrathRag			= mod:NewCDTimer(25, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~10s variance [20.09-29.66] |||| EDIT 19/12/2023 - https://www.warmane.com/bugtracker/report/120178: 5s variance [25-30]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07] || 25N Onyxia [2023-11-25]@[17:36:30] |||| 25N Onyxia [2023-12-19]@[21:24:51] || 25N Onyxia [2023-12-19]@[21:43:01] || 25N Onyxia [2023-12-19]@[22:05:18]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92" || pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, 30.08/120.06/145.69 |||| pull:30.00, 28.58, 28.30, 25.31 || pull:29.99, 27.22, 29.88, 29.00, 29.52, 25.80, Submerged/9.53, Emerged/90.02, 30.03/120.05/129.58, 25.73, 29.77, Submerged/5.42, Emerged/90.05 || pull:29.99, 25.43, 26.70, 25.08, 27.40, 27.25, Submerged/18.87, Emerged/90.07
 local timerSubmerge			= mod:NewNextTimer(180, 21107, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 1, 5)
 local timerEmerge			= mod:NewNextTimer(90, 20568, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 1, 5)
-local timerCombatStart		= mod:NewCombatTimer(78)
+local timerCombatStart		= mod:NewCombatTimer(78+2)
 
-mod:AddRangeFrameOption("18", nil, "-Melee")
+mod:AddRangeFrameOption("20") -- Blizz 18, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
 
 mod.vb.addLeft = 0
---mod.vb.ragnarosEmerged = true
+mod.vb.ragnarosEmerged = true
 --local addsGuidCheck = {}
 local firstBossMod = DBM:GetModByName("MCTrash")
 
---[[
+
 local function emerged(self)
-	DBM:AddSpecialEventToTranscriptorLog("Emerged")
+--	DBM:AddSpecialEventToTranscriptorLog("Emerged")
 	self.vb.ragnarosEmerged = true
 	timerEmerge:Stop()
 	warnEmerge:Show()
-	timerWrathRag:Start(26.7)--need to find out what it is first.
-	timerSubmerge:Start(90) -- 180s from last Submerge, so account for the 90s from emerge timer. Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179,99]
+	timerWrathRag:Start(26.7+3.3)--need to find out what it is first.
+	timerSubmerge:Start(90+90) -- 180s from last Submerge, so account for the 90s from emerge timer. Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179,99]
 end
-]]
+
 
 function mod:OnCombatStart(delay)
 --	table.wipe(addsGuidCheck)
@@ -57,7 +58,7 @@ function mod:OnCombatStart(delay)
 	timerWrathRag:Start(30-delay)
 	timerSubmerge:Start(180-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(18)
+		DBM.RangeCheck:Show(18+2) -- Blizz 10, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
 	end
 end
 
@@ -94,11 +95,11 @@ function mod:SPELL_CAST_START(args)
 		--This is still going to use a sync event because someone might start this RP from REALLY REALLY far away
 		self:SendSync("SummonRag")
 	elseif spellId == 20568 and self:IsInCombat() then -- Ragnaros Emerge ; needs boss engage check since Emerge will fire during his RP pre-IEEU script, and this was a regression after RegisterEventsInCombat was switched to RegisterEvents.
-		DBM:AddSpecialEventToTranscriptorLog("Emerged")
+--		DBM:AddSpecialEventToTranscriptorLog("Emerged")
 --		self.vb.ragnarosEmerged = true
-		timerEmerge:Stop()
-		warnEmerge:Show()
-		timerWrathRag:Start(30) -- (40N Lordaeron [2023-09-13]@[19:05:07] || ) - 2222.61 > 2252.60 [29.99] || "Wrath of Ragnaros-20566-npc:11502-130 = pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, Emerged/0.00, 30.08/30.08/120.06/145.69"
+--		timerEmerge:Stop()
+--		warnEmerge:Show()
+--		timerWrathRag:Start(30) -- (40N Lordaeron [2023-09-13]@[19:05:07] || ) - 2222.61 > 2252.60 [29.99] || "Wrath of Ragnaros-20566-npc:11502-130 = pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, Emerged/0.00, 30.08/30.08/120.06/145.69"
 		-- Don't start Submerge timer here, since Ragnaros will emerge after 90 seconds from Submerge/Summon Sons of Flames OR once all 8 are defeated (whichever happens first). The latter is variable and therefore not suitable for any timer
 	end
 end
@@ -122,12 +123,15 @@ function mod:UNIT_DIED(args)
 --		if not addsGuidCheck[guid] then
 --			addsGuidCheck[guid] = true
 			self.vb.addLeft = self.vb.addLeft - 1
---			if not self.vb.ragnarosEmerged and self.vb.addLeft == 0 then--After all 8 die he emerges immediately
---				self:Unschedule(emerged)
---				emerged(self)
---			end
+			if not self.vb.ragnarosEmerged and self.vb.addLeft == 0 then--After all 8 die he emerges immediately
+				self:Unschedule(emerged)
+				emerged(self)
+			end
 --		end
-		warnSonsOfFlameLeft:Show(self.vb.addLeft)
+--		warnSonsOfFlameLeft:Show(self.vb.addLeft)
+		if self.vb.addLeft > 0 then
+			warnSonsOfFlameLeft:Show(self.vb.addLeft)
+		end
 	end
 end
 
@@ -139,19 +143,26 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
+function mod:SPELL_INSTAKILL(args)
+	if args.spellId == 19773 then
+		--This is still going to use a sync event because someone might start this RP from REALLY REALLY far away
+		self:SendSync("DomoDeath")
+	end
+end
+
 function mod:OnSync(msg--[[, guid]])
 	if msg == "SummonRag" and self:AntiSpam(5, 2) then
 		timerCombatStart:Start()
 	elseif msg == "Submerge" and self:IsInCombat() then
-		DBM:AddSpecialEventToTranscriptorLog("Submerged")
---		self.vb.ragnarosEmerged = false
+--		DBM:AddSpecialEventToTranscriptorLog("Submerged")
+		self.vb.ragnarosEmerged = false
 --		self:Unschedule(emerged)
 		timerWrathRag:Stop()
 		timerSubmerge:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start(90)
-		timerSubmerge:Start() -- Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179.99]
---		self:Schedule(90, emerged, self)
+--		timerSubmerge:Start() -- Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179.99]
+		self:Schedule(90, emerged, self)
 		self.vb.addLeft = self.vb.addLeft + 8
 	--[[elseif msg == "AddDied" and self:IsInCombat() and guid and not addsGuidCheck[guid] then
 		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
@@ -164,13 +175,15 @@ function mod:OnSync(msg--[[, guid]])
 	elseif msg == "DomoDeath" and self:AntiSpam(5, 3) then
 		--The timer between yell/summon start and ragnaros being attackable is variable, but time between domo death and him being attackable is not.
 		--As such, we start lowest timer of that variation on the RP start, but adjust timer if it's less than 10 seconds at time domo dies
-		local remaining = timerCombatStart:GetRemaining()
-		if remaining then
-			if remaining < 10 then
-				timerCombatStart:AddTime(10 - remaining)
-			elseif remaining > 10 then
-				timerCombatStart:RemoveTime(remaining - 10)
-			end
-		end
+--		local remaining = timerCombatStart:GetRemaining()
+--		if remaining then
+--			if remaining < 10 then
+--				timerCombatStart:AddTime(10 - remaining)
+--			elseif remaining > 10 then
+--				timerCombatStart:RemoveTime(remaining - 10)
+--			end
+--		end
+	timerCombatStart:Stop()
+	timerCombatStart:Start(7)
 	end
 end

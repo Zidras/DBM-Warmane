@@ -22,11 +22,11 @@ local warnFist		= mod:NewTargetAnnounce(20277, 2, nil, false, 2)
 local specWarnGTFO	= mod:NewSpecialWarningGTFO(19717, nil, nil, nil, 1, 8)
 
 local timerRoF		= mod:NewCDTimer(6, 19717, nil, false, nil, 3)
-local timerCurse	= mod:NewCDTimer(26.7, 19716, nil, nil, nil, 3, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.CURSE_ICON)--26.7-30
---local timerFist		= mod:NewBuffActiveTimer(4, 20277, nil, false, 2, 3)
+local timerCurse	= mod:NewCDTimer(26.7-0.7, 19716, nil, nil, nil, 3, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.CURSE_ICON)--26.7-30
+local timerFist		= mod:NewBuffActiveTimer(4, 20277, nil, false, 2, 3)
 
 function mod:OnCombatStart(delay)
-	timerCurse:Start(6-delay)
+	timerCurse:Start(6+2-delay)
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_PERIODIC_DAMAGE 19717",

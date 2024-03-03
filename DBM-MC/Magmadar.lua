@@ -24,7 +24,7 @@ local warnConflagration	= mod:NewTargetNoFilterAnnounce(19428, 2, nil , false)
 
 local specWarnEnrage	= mod:NewSpecialWarningDispel(19451, "RemoveEnrage", nil, nil, 1, 6)
 
-local timerPanicCD		= mod:NewCDTimer(30, 19408, nil, nil, nil, 2)--30-40
+local timerPanicCD		= mod:NewCDTimer(30, 19408, nil, nil, nil, 2, nil, nil, true)--30-40
 local timerEnrage		= mod:NewBuffActiveTimer(8, 19451, nil, nil, nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
