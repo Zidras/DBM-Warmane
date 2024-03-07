@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 30511",
 	"SPELL_AURA_APPLIED 30757",
 	"SPELL_AURA_REFRESH 30757",
-	"UNIT_SPELLCAST_SUCCEEDED 30657",
+	"UNIT_SPELLCAST_SUCCEEDED",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -34,6 +34,7 @@ local timerQuakeCD			= mod:NewCDTimer(53+2.65, 30657, nil, nil, nil, 2)
 local specWarnGTFO			= mod:NewSpecialWarningGTFO(30757, nil, nil, nil, 1, 8)
 
 mod.vb.blastNovaCounter = 1
+local quakeName = DBM:GetSpellInfo(30657)
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
@@ -65,8 +66,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(args)
-	if args.spellId == 30657 then
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == quakeName then
 		timerBlastNovaCD:AddTime(7, self.vb.blastNovaCounter)
 	end
 end
