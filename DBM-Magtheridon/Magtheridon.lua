@@ -69,6 +69,7 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == quakeName then
 		timerBlastNovaCD:AddTime(7, self.vb.blastNovaCounter)
+		timerQuakeCD:Start()
 	end
 end
 
