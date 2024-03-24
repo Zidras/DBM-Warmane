@@ -148,7 +148,7 @@ function mod:SPELL_HEAL(_, _, _, _, _, _, spellId)
 		timerNextPlatform:Cancel()
 	end
 end
-
+--]]
 --[[
 function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
 	if (spellId == 35181 or spellId == 45680) and self:AntiSpam(30, 2) then
@@ -156,7 +156,7 @@ function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 --]]
---]]
+
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 34342 then
