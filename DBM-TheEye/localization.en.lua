@@ -62,6 +62,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellSplit1		= "I will crush your delusions of grandeur!",
 	YellSplit2		= "You are hopelessly outmatched!",
+	YellPhase2CC	= "Enough of this!",
 	YellPhase2		= "I become"
 })
 
@@ -103,8 +104,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
---	YellPull1	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome... to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",
---	YellPull2	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",--Apparently a variation exists and either can be used?
+	YellPull1	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome... to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",
+	YellPull2	= "Energy. Power. My people are addicted to it... a dependence made manifest after the Sunwell was destroyed. Welcome to the future. A pity you are too late to stop it. No one can stop me now! Selama ashal'anore!",--Apparently a variation exists and either can be used?
 	YellPhase2	= "As you see, I have many weapons in my arsenal....",
 	YellPhase3	= "Perhaps I underestimated you. It would be unfair to make you fight all four advisors at once, but... fair treatment was never shown to my people. I'm just returning the favor.",
 	YellPhase4	= "Alas, sometimes one must take matters into one's own hands. Balamore shanal!",
