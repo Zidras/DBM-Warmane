@@ -25,8 +25,10 @@ local specWarnMurlocs	= mod:NewSpecialWarning("SpecWarnMurlocs", nil, nil, nil, 
 
 local timerTidalCD		= mod:NewCDTimer(20, 37730, nil, nil, nil, 3)
 local timerGraveCD		= mod:NewCDTimer(30-5, 38049, nil, nil, nil, 3) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 30.1, 30.0, 30.0, 30.0, 30.0 || 32.0, 30.1, 30.1
-local timerMurlocs		= mod:NewTimer(51-6, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
+local timerMurlocs		= mod:NewTimer(51-43, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
 local timerBubble		= mod:NewBuffActiveTimer(35, 37854, nil, nil, nil, 1)
+
+local timerQuakeCD		= mod:NewCDTimer(45, 37764, nil, nil, nil, 3)
 
 mod:AddSetIconOption("GraveIcon", 38049, true, false, {5, 6, 7, 8})
 
@@ -42,8 +44,9 @@ function mod:OnCombatStart(delay)
 	self.vb.graveIcon = 8
 	table.wipe(warnGraveTargets)
 	timerGraveCD:Start(19.4+0.6-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 19.4 || 19.5
-	timerMurlocs:Start(40.4-0.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 40.5 || 40.4
+--	timerMurlocs:Start(40.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 40.5 || 40.4
 	timerTidalCD:Start(10-delay)
+	timerQuakeCD:Start(40-delay)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -53,12 +56,13 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
---[[function mod:SPELL_CAST_SUCCESS(args)
+function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 37764 then
-		specWarnMurlocs:Show()
+		specWarnMurlocs:Schedule(8)
 		timerMurlocs:Start()
+		timerQuakeCD:Start()
 	end
-end]]
+end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(37850, 38023, 38024, 38025, 38049) then -- Watery Grave. Warmane bugged this (as of 2022/08/11) and it's not triggering the ability at random intervals. The emote still fires every 30 seconds, so use that for timer
@@ -85,7 +89,7 @@ function mod:SPELL_SUMMON(args)
 		timerBubble:Start()
 	end
 end
-
+--[[
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.Grave or msg:find(L.Grave) then
 		timerGraveCD:Show()
@@ -94,3 +98,4 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerMurlocs:Start()
 	end
 end
+]]
