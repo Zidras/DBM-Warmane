@@ -178,7 +178,7 @@ local function ElementalSpawn(self)
 	self.vb.elementalCount = self.vb.elementalCount + 1
 	warnElemental:Schedule(45, tostring(self.vb.elementalCount))
 	timerElementalCD:Start(nil, tostring(self.vb.elementalCount))
-	self:Schedule(45, ElementalSpawn, self)
+	self:Schedule(45+5, ElementalSpawn, self)
 end
 
 function mod:UNIT_SPELLCAST_FAILED_QUIET_UNFILTERED(uId, spellName)
