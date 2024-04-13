@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231118001414")
+mod:SetRevision("20240413163721")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 mod:SetHotfixNoticeRev(20230528000000)
@@ -190,6 +190,12 @@ local function landingPhaseWorkaround(self, timeOffset)
 	self:UnregisterShortTermEvents()
 end
 
+local function cycleMysticBuffet(self)
+--	timerNextMysticBuffet:Stop() -- disabled for debugging
+	timerNextMysticBuffet:Start()
+	self:Schedule(6, cycleMysticBuffet, self)
+end
+
 function mod:AnnounceBeaconIcons(uId, icon)
 	if self.Options.AnnounceFrostBeaconIcons and DBM:IsInGroup() and DBM:GetRaidRank() > 1 then
 		SendChatMessage(L.BeaconIconSet:format(icon, DBM:GetUnitFullName(uId)), DBM:IsInRaid() and "RAID" or "PARTY")
@@ -328,7 +334,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(70127, 72528, 72529, 72530) then	--Mystic Buffet (phase 2 - everyone)
 		if args:IsPlayer() then
 			timerMysticBuffet:Start()
-			timerNextMysticBuffet:Start()
+--			timerNextMysticBuffet:Start()
 			if (args.amount or 1) >= 5 then
 				specWarnMysticBuffet:Show(args.amount)
 				specWarnMysticBuffet:Play("stackhigh")
@@ -347,6 +353,10 @@ function mod:SPELL_AURA_APPLIED(args)
 					self.vb.warnedfailed = true
 					SendChatMessage(L.AchievementFailed:format(args.destName, (args.amount or 1)), "RAID_WARNING")
 				end
+			end
+			if self:AntiSpam(5, 2) then -- real time correction if any raid member receives the debuff in a 5 second window
+				self:Unschedule(cycleMysticBuffet)
+				cycleMysticBuffet(self)
 			end
 		end
 	end
@@ -419,6 +429,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextGroundphase:Cancel()
 		warnGroundphaseSoon:Cancel()
 		timerNextBlisteringCold:Restart(35) -- REVIEW! Stage 1 to Stage 2 needs logic! (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - Stage 1/44.2, Stage 2/24.6, 50.9 || 42.7; Stage 1/44.6, 22.6/67.2/79.9, Stage 2/3.2, 24.2 ; 39.5
+		timerNextMysticBuffet:Start(6)
+		self:Schedule(6, cycleMysticBuffet, self)
 		self:Unschedule(landingPhaseWorkaround)
 		self:UnregisterShortTermEvents() -- REVIEW! not sure it's needed, but doesn't hurt. Would need validation on event order when boss is intermissioned with health right above phase 2 threshold, to check which of the events come first (TARGET or YELL)
 	end
