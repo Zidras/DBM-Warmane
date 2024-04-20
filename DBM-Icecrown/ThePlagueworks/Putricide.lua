@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20230823103810")
+mod:SetRevision("20240420110414")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20230823000000)
@@ -216,11 +216,8 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
-		if puddleTimeAdjust > 35 then
-			timerUnstableExperimentCD:Start(90-puddleTimeAdjust)
-		else
-			timerUnstableExperimentCD:Start(53.8-puddleTimeAdjust) -- REVIEW! Variance? Lowest possible timer? (25H Lordaeron 2022/09/04) - 31
-		end
+		timerUnstableExperimentCD:Schedule(self:IsHeroic() and 30 or 4, 30) -- 19/04/2024: (Heroic) Unstable Experiement scheduled 30 seconds after Create Concoction finishes. https://www.warmane.com/bugtracker/report/121798#comment-114099
+		warnUnstableExperimentSoon:Schedule((self:IsHeroic() and 30 or 4) + 25) -- (Heroic) 30 seconds to finish Create Concoction start, and 30-5s
 		if self:IsHeroic() then
 --			if self:IsDifficulty("heroic10") then -- Apply to both 10H and 25H (reason below)
 				self:Schedule(35.63, NextPhase, self) -- using longest timer found, since this is a schedule
