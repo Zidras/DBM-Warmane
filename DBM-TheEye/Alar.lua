@@ -163,9 +163,9 @@ function mod:SPELL_CAST_START(args)
 		self:SetStage(2)
 		warnPhase2:Show()
 		berserkTimer:Start()
-		timerMeteor:Start(50+4)--This seems to vary slightly depending on where in room he shoots it.
+		timerMeteor:Start(50-16)--This seems to vary slightly depending on where in room he shoots it.
 	elseif args.spellId == 35369 then
-		timerMeteor:Start(50-5-6-4)
+		timerMeteor:Start(50-5-6-4+7)
 	end
 end
 

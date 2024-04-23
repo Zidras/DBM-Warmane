@@ -27,9 +27,9 @@ local yellWrath			= mod:NewYell(42783)
 
 --local timerWrath		= mod:NewTargetTimer(8, 33045)--42783 (and 6 seconds) later
 local timerWrath		= mod:NewTargetTimer(6, 42783)
-local timerSplit		= mod:NewTimer(90-22.5, "TimerSplit", 39414, nil, nil, 6) --Lys: ticket pending for 90 seconds
-local timerAgent		= mod:NewTimer(4+2, "TimerAgent", 39414, nil, nil, 1) --Lys: ticket pending
-local timerPriest		= mod:NewTimer(20, "TimerPriest", 39414, nil, nil, 1)
+local timerSplit		= mod:NewTimer(90-2.5, "TimerSplit", 39414, nil, nil, 6)
+local timerAgent		= mod:NewTimer(4+1, "TimerAgent", 39414, nil, nil, 1)
+local timerPriest		= mod:NewTimer(20+1, "TimerPriest", 39414, nil, nil, 1)
 local timerWrathCD		= mod:NewCDTimer(21.8, 42783, nil, nil, nil, 2)
 local timerFearCD		= mod:NewCDTimer(12, 34322, nil, nil, nil, 2)
 
@@ -112,11 +112,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellSplit1 or msg:find(L.YellSplit1) or msg == L.YellSplit2 or msg:find(L.YellSplit2) then
 		warnSplit:Show()
 		timerAgent:Start()
-		warnAgent:Schedule(4+2) --Lys: ticket pending
+		warnAgent:Schedule(4)
 		timerPriest:Start()
 		warnPriest:Schedule(20)
 		timerSplit:Start()
-		timerWrathCD:AddTime(21)
+		timerWrathCD:AddTime(22-2)
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) or msg:find(L.YellPhase2CC) then
 		warnPhase2:Show()
 		timerAgent:Cancel()

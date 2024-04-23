@@ -48,9 +48,9 @@ local specWarnVapor		= mod:NewSpecialWarningStack(35859, nil, 2, nil, nil, 1, 6)
 local timerPhase		= mod:NewTimer(105, "TimerPhase", 28131, nil, nil, 6, nil, nil, 1, 4)
 local timerPhase1mob	= mod:NewTimer(30, "TimerPhase1mob", 28131, nil, nil, 1, nil, nil, 1, 4)
 local timerNextGaze		= mod:NewTimer(8.5+1.5, "TimerNextGaze", 39414, nil, nil, 3)
-local timerFearCD		= mod:NewCDTimer(31-16, 44863, nil, nil, nil, 2)
+local timerFearCD		= mod:NewCDTimer(31-1, 44863, nil, nil, nil, 2)
 local timerToy			= mod:NewTargetTimer(60, 37027, nil, false, nil, 3)
-local timerPhoenixCD	= mod:NewCDTimer(45-13.55, 36723, nil, nil, nil, 1)
+local timerPhoenixCD	= mod:NewCDTimer(45-9.55, 36723, nil, nil, nil, 1)
 local timerRebirth		= mod:NewTimer(15, "TimerRebirth", 36723, nil, nil, 1)
 local timerShieldCD		= mod:NewCDTimer(60-10, 36815, nil, nil, nil, 4)
 local timerGravityCD	= mod:NewNextTimer(92-2, 35941, nil, nil, nil, 6)
@@ -229,7 +229,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 36723 then
 		warnPhoenix:Show()
 		if self.vb.phase == 5 then
-			timerPhoenixCD:Start(90)
+			timerPhoenixCD:Start(90-28.55)
 		else
 			timerPhoenixCD:Start()
 		end
@@ -356,7 +356,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		DBM.BossHealth:AddBoss(19622, L.name)
 		warnPhase4:Show()
 		timerPhase:Cancel()
-		timerPhoenixCD:Start(50-20)
+		timerPhoenixCD:Start(50)
 		timerShieldCD:Start(60)
 		timerMCCD:Start(40-20)
 		timerFlameStrikeCD:Start(15)
@@ -371,7 +371,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnPhase5:Schedule(45-9)
 		timerFlameStrikeCD:Start(36+10)
 		timerGravityCD:Start(60-24+5)
-		timerPhoenixCD:Start(137-101+20)
+		timerPhoenixCD:Start(137-101+71) -- Lys: transition event is 36s
 	end
 end
 
@@ -383,7 +383,7 @@ end
 
 function mod:OnSync(event)
 	if not self:IsInCombat() then return end
-	if event == "Flamestrike" then
+	if event == "Flamestrike" and self.vb.phase > 3 then --too many wrong triggers from bad addons in p1-3
 		warnFlamestrike:Show()
 		timerFlameStrikeCD:Start()
 	end
