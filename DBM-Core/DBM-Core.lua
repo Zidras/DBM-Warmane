@@ -1806,6 +1806,7 @@ do
 			return
 		end
 		DBT:CreateBar(time, text, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME")
+		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time) -- for weakauras to pickup the event and show timer correctly.
 		if broadcast and self:GetRaidRank() >= 1 then
 			sendSync("DBMv4-Pizza", ("%s\t%s"):format(time, text))
 		end
