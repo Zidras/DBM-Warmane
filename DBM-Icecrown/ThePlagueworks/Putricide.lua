@@ -4,11 +4,11 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20240420110414")
+mod:SetRevision("20240520000141")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20230823000000)
-mod:SetMinSyncRevision(20220908000000)
+mod:SetHotfixNoticeRev(20240520000000)
+mod:SetMinSyncRevision(20240520000000)
 
 mod:RegisterCombat("combat")
 
@@ -19,7 +19,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 72451 72463 72671 72672 70542",
 	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
 	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH boss1",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local myRealm = select(3, DBM:GetMyPlayerInfo())
@@ -114,14 +115,22 @@ mod.vb.warned_preP3 = false
 
 local function NextPhase(self)
 	self:SetStage(self.vb.phase + 0.5)
+	timerChokingGasBombCD:Start(25) -- timer after phasing: 5s variance [25-30s]
+	soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+	warnChokingGasBombSoon:Schedule(25-5)
+
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
+		-- timer for EVENT_RESUME_ATTACK: 5500ms
+		timerMalleableGooCD:Start(15) -- Fixed timer after phase 2: 15s
+		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		--self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
-		self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
+		-- timer for EVENT_RESUME_ATTACK: 8500ms
+		--self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	end
 end
 
@@ -174,9 +183,9 @@ function mod:OnCombatStart(delay)
 	end
 end
 
-function mod:OnCombatEnd()
+--[[function mod:OnCombatEnd()
 	self:UnregisterShortTermEvents()
-end
+end]]
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
@@ -220,25 +229,20 @@ function mod:SPELL_CAST_START(args)
 		warnUnstableExperimentSoon:Schedule((self:IsHeroic() and 30 or 4) + 25) -- (Heroic) 30 seconds to finish Create Concoction start, and 30-5s
 		if self:IsHeroic() then
 --			if self:IsDifficulty("heroic10") then -- Apply to both 10H and 25H (reason below)
-				self:Schedule(35.63, NextPhase, self) -- using longest timer found, since this is a schedule
+				--[[self:Schedule(35.63, NextPhase, self) -- using longest timer found, since this is a schedule
 				self:RegisterShortTermEvents(
 					"UNIT_TARGET boss1"
-				)
+				)]]
 --			end
 			timerNextPhase:Start(35.59) -- Until Gas/Ooze Variable SAR. no variance [35.59-35.63] (25H Lordaeron [2022-07-07]@[21:47:34] || 25H Lordaeron [2023-06-28]@[20:50:27] || 10H Lordaeron [2023-08-12]@[20:34:20]) - 35.60 || 35.63 || 35.59
-			timerMalleableGooCD:Start(45.14) --  On first intermission, timer delta is fixed [45.1] (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - 45.18 || 45.14 || 45.20 || 45.16
-			soundMalleableGooSoon:Schedule(45.14-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			timerChokingGasBombCD:Start(55) -- timer after phase 2. 5s variance [20-25s] (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/09/23 wipe1 || 25H Lordaeron 2022/09/23 kill || 25H Lordaeron [2023-06-28]@[20:42:59] || 10H Lordaeron [2023-08-12]@[20:28:10]) - 22.8 ; 22.1 || 21.9 || 21.3 || 20.3 || 24.8
-			soundChokingGasSoon:Schedule(55-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(55-5)
 			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
 		else
 			timerNextPhase:Start(9.5)
-			timerMalleableGooCD:Start(19) -- On first intermission, timer delta is almost fixed [19-19.2]
+			--[[timerMalleableGooCD:Start(19) -- On first intermission, timer delta is almost fixed [19-19.2]
 			soundMalleableGooSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			timerChokingGasBombCD:Start(30.5)
 			soundChokingGasSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(30.5-5)
+			warnChokingGasBombSoon:Schedule(30.5-5)]]
 		end
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
 		timerGaseousBloatCast:Start(args.sourceGUID) -- account for multiple red oozes
@@ -269,16 +273,16 @@ function mod:SPELL_CAST_START(args)
 			self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
 			timerNextPhase:Start(38.67) -- (10H Lordaeron [2023-08-12]@[20:34:20]) - 38.67
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
-			self:RegisterShortTermEvents(
+			--[[self:RegisterShortTermEvents(
 				"UNIT_TARGET boss1"
-			)
+			)]]
 		elseif self:IsDifficulty("heroic25") then
 			self:Schedule(28.62, NextPhase, self)
 			timerNextPhase:Start(28.62) -- (25H Lordaeron: [2023-05-28]@[17:19:33] || [2023-06-28]@[20:50:27]) - 28.62 || 28.62
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
-			self:RegisterShortTermEvents(
+			--[[self:RegisterShortTermEvents(
 				"UNIT_TARGET boss1"
-			)
+			)]]
 		else
 			timerNextPhase:Start(12.5)
 		end
@@ -439,7 +443,7 @@ end
 
 -- On 10 Heroic, there is no event we can use to accurately trigger phasing. On 25 Heroic, we could use SPELL_AURA_REMOVED, but not reliable without UnitBuff checks or table management which would add unnecessary overhead (see above)
 -- UNIT_TARGET only fires if boss is targeted or focused (sync'ed below)
-function mod:UNIT_TARGET(uId)
+--[[function mod:UNIT_TARGET(uId)
 	if self:GetUnitCreatureId(uId) ~= 36678 then return end
 	-- Attempt to catch when boss phases by checking for Putricide's target being a raid member
 	if UnitExists(uId.."target") then
@@ -452,9 +456,15 @@ function mod:UNIT_TARGET(uId)
 			DBM:Debug("UNIT_TARGET phasing did not work since phase was wrongly set: " .. self.vb.phase)
 		end
 	end
+end]]
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(72851) or spellName == GetSpellInfo(73121) then -- Create Concoction (phase 2) or Guzzle Potion (phase 3). Cast Succeeded triggers new phase
+		NextPhase(self)
+	end
 end
 
-function mod:OnSync(msg)
+--[[function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "ProfessorPhase2" and self.vb.phase == 1.5 then
 		self:Unschedule(NextPhase)
@@ -465,4 +475,4 @@ function mod:OnSync(msg)
 		NextPhase(self)
 		DBM:Debug("Putricide phase 3 via UNIT_TARGET sync")
 	end
-end
+end]]
