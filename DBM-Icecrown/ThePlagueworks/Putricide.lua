@@ -6,10 +6,10 @@ local format = string.format
 local select = select
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20240521214055")
+mod:SetRevision("20240521225232")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20240521000000)
+mod:SetHotfixNoticeRev(20240521000001)
 mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
@@ -21,6 +21,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 72451 72463 72671 72672 70542",
 	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
 	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
+	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_HEALTH boss1"
 --	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
@@ -100,11 +101,13 @@ local warnPhase2Soon				= mod:NewPrePhaseAnnounce(2)
 local warnPhase3Soon				= mod:NewPrePhaseAnnounce(3)
 local warnTearGas					= mod:NewSpellAnnounce(71617, 2)		-- Phase transition normal
 local warnVolatileExperiment		= mod:NewSpellAnnounce(72843, 4)		-- Phase transition heroic
+local warnReengage					= mod:NewAnnounce("WarnReengage", 6, 1180)
 
 local specWarnOozeVariable			= mod:NewSpecialWarningYou(70352, nil, nil, nil, nil, nil, 3)	-- Heroic Ability
 local specWarnGasVariable			= mod:NewSpecialWarningYou(70353, nil, nil, nil, nil, nil, 3)	-- Heroic Ability
 
 local timerNextPhase				= mod:NewPhaseTimer(30)
+local timerReengage					= mod:NewTimer(20, "TimerReengage", 1180, nil, nil, 6)
 --local timerTearGas					= mod:NewBuffFadesTimer(16, 71617, nil, nil, nil, 6)
 --local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
 
@@ -120,18 +123,18 @@ local function NextPhase(self)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		-- TO DO: timer for EVENT_RESUME_ATTACK: 5500ms (based on [CHAT_MSG_MONSTER_YELL] Hrm, I don't feel a thing. Wha?! Where'd those come from?)
+		-- EVENT_PHASE_TRANSITION - scheduled for Create Concoction cast + 100 ms (will fire [CHAT_MSG_MONSTER_YELL] Hrm, I don't feel a thing. Wha?! Where'd those come from?)
 		timerMalleableGooCD:Start(15) -- Fixed timer after phase 2: 15s
 		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		timerChokingGasBombCD:Start(25) -- timer after phasing: 5s variance [25-30s]
 		soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule(25-5)
-		self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
+	--	self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
-		-- timer for EVENT_RESUME_ATTACK: 8500ms (based on [CHAT_MSG_MONSTER_YELL] Tastes like... Cherry! OH! Excuse me!)
-		self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
+		-- EVENT_PHASE_TRANSITION - scheduled for Guzzle Potions cast + 100 ms (will fire [CHAT_MSG_MONSTER_YELL] Tastes like... Cherry! OH! Excuse me!)
+	--	self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	end
 end
 
@@ -429,6 +432,17 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	-- EVENT_RESUME_ATTACK
+	if msg == L.YellTransform1 or msg:find(L.YellTransform1) then
+		warnReengage:Schedule(5.5, L.name)
+		timerReengage:Start(5.5)
+	elseif msg == L.YellTransform2 or msg:find(L.YellTransform2) then
+		warnReengage:Schedule(8.5, L.name)
+		timerReengage:Start(8.5)
+	end
+end
+
 --values subject to tuning depending on dps and his health pool
 function mod:UNIT_HEALTH(uId)
 	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
@@ -453,9 +467,9 @@ function mod:UNIT_TARGET(uId)
 	if self:GetUnitCreatureId(uId) ~= 36678 then return end
 	-- Attempt to catch when boss phases by checking for Putricide's target being a raid member
 	if UnitExists(uId.."target") then
-		if self.vb.phase == 1.5 then
+		if self.vb.phase == --[[1.5]]2 then -- new script phases before boss reengage
 			self:SendSync("ProfessorPhase2") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
-		elseif self.vb.phase == 2.5 then
+		elseif self.vb.phase == --[[2.5]]3 then -- new script phases before boss reengage
 			self:SendSync("ProfessorPhase3") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
 		else
 			self:UnregisterShortTermEvents()
@@ -472,13 +486,15 @@ end]]
 
 function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
-	if msg == "ProfessorPhase2" and self.vb.phase == 1.5 then
+	if msg == "ProfessorPhase2" and self.vb.phase == --[[1.5]]2 then
 		--self:Unschedule(NextPhase)
 		--NextPhase(self)
+		self:UnregisterShortTermEvents()
 		DBM:Debug("Putricide phase 2 via UNIT_TARGET sync")
-	elseif msg == "ProfessorPhase3" and self.vb.phase == 2.5 then
+	elseif msg == "ProfessorPhase3" and self.vb.phase == --[[2.5]]3 then
 		--self:Unschedule(NextPhase)
 		--NextPhase(self)
+		self:UnregisterShortTermEvents()
 		DBM:Debug("Putricide phase 3 via UNIT_TARGET sync")
 	end
 end

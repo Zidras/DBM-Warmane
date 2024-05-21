@@ -170,6 +170,24 @@ L:SetGeneralLocalization({
 	name = "Professor Putricide"
 })
 
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Re-Engage"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Re-Engage"
+})
+
+L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage",
+	TimerReengage			= "Show timer for Boss re-engage"
+})
+
+L:SetMiscLocalization({
+	YellTransform1			= "Hrm, I don't feel a thing. Wha?! Where'd those come from?",
+	YellTransform2			= "Tastes like... Cherry! OH! Excuse me!"
+})
+
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------

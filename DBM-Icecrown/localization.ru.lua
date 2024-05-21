@@ -167,6 +167,24 @@ L:SetGeneralLocalization({
 	name = "Профессор Мерзоцид"
 })
 
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Повторное столкновение"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Повторное столкновение"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "Хм, что-то я ничего не чувствую. Что?! Это еще откуда?",
+	YellTransform2			= "На вкус, как вишенка! ОЙ! Извиниите!"
+})
+
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------
