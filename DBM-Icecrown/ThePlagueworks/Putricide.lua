@@ -4,11 +4,11 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 
-mod:SetRevision("20240520000141")
+mod:SetRevision("20240521093705")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20240520000000)
-mod:SetMinSyncRevision(20240520000000)
+mod:SetHotfixNoticeRev(20240521000000)
+mod:SetMinSyncRevision(20240521000000)
 
 mod:RegisterCombat("combat")
 
@@ -115,16 +115,15 @@ mod.vb.warned_preP3 = false
 
 local function NextPhase(self)
 	self:SetStage(self.vb.phase + 0.5)
-	timerChokingGasBombCD:Start(25) -- timer after phasing: 5s variance [25-30s]
-	soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-	warnChokingGasBombSoon:Schedule(25-5)
-
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		-- timer for EVENT_RESUME_ATTACK: 5500ms
 		timerMalleableGooCD:Start(15) -- Fixed timer after phase 2: 15s
 		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		timerChokingGasBombCD:Start(25) -- timer after phasing: 5s variance [25-30s]
+		soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		warnChokingGasBombSoon:Schedule(25-5)
 		--self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
@@ -207,15 +206,17 @@ function mod:SPELL_CAST_START(args)
 		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
-		warnChokingGasBombSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
 		timerSlimePuddleCD:Cancel()
-		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - First intermission: 52.45 || 49.14 || 49.97 || 48.50 ; Second intermission: 30.41 || x || 38.82 || x.
 			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be 50s after the previous Malleable Goo cast, so calculate elapsed time and update timer
 			timerMalleableGooCD:Update(gooElapsed, 50)
 			soundMalleableGooSoon:Schedule(50-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second intermission, the next Choking Gas Bomb will always be 75-80s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
+			timerChokingGasBombCD:Update(chokingElapsed, 75)
+			soundChokingGasSoon:Schedule(75-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(75-chokingElapsed-5)
 		end
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
 		local puddleTimeAdjust = GetTime() - PuddleTime
@@ -263,22 +264,18 @@ function mod:SPELL_CAST_START(args)
 		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d, ChokingTime is %d and UnboundTime is %d", puddleTimeAdjust, chokingTimeAdjust, unboundTimeAdjust), 2)
 		timerUnstableExperimentCD:Cancel()
 		timerSlimePuddleCD:Cancel()
-		timerChokingGasBombCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
-		timerChokingGasBombCD:Start(65.8-chokingTimeAdjust) -- (25H Lordaeron 2022/11/16) - -0.2 excess
-		soundChokingGasSoon:Schedule((65.8-chokingTimeAdjust)-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-		warnChokingGasBombSoon:Schedule((65.8-chokingTimeAdjust)-5)
 		if self:IsDifficulty("heroic10") then -- REVIEW! Refactor needed
-			self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
-			timerNextPhase:Start(38.67) -- (10H Lordaeron [2023-08-12]@[20:34:20]) - 38.67
+			--self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
+			--timerNextPhase:Start(38.67) -- (10H Lordaeron [2023-08-12]@[20:34:20]) - 38.67
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 			--[[self:RegisterShortTermEvents(
 				"UNIT_TARGET boss1"
 			)]]
 		elseif self:IsDifficulty("heroic25") then
-			self:Schedule(28.62, NextPhase, self)
-			timerNextPhase:Start(28.62) -- (25H Lordaeron: [2023-05-28]@[17:19:33] || [2023-06-28]@[20:50:27]) - 28.62 || 28.62
+			--self:Schedule(28.62, NextPhase, self)
+			--timerNextPhase:Start(28.62) -- (25H Lordaeron: [2023-05-28]@[17:19:33] || [2023-06-28]@[20:50:27]) - 28.62 || 28.62
 			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 			--[[self:RegisterShortTermEvents(
 				"UNIT_TARGET boss1"
