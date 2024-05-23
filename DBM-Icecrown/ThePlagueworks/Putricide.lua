@@ -4,12 +4,11 @@ local L		= mod:GetLocalizedStrings()
 local GetTime = GetTime
 local format = string.format
 local select = select
-local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20240521225232")
+mod:SetRevision("20240523112608")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20240521000001)
+mod:SetHotfixNoticeRev(20240523000000)
 mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
@@ -228,7 +227,7 @@ function mod:SPELL_CAST_START(args)
 			warnChokingGasBombSoon:Schedule(75-chokingElapsed-5)
 		end
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
-		local castTime = (select(7, GetSpellInfo(args.spellId)))/1000 -- Normal and Heroic have different cast times, so cache the cast time in seconds.
+		local castTime = self:IsHeroic() and 30 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
 		local puddleTimeAdjust = GetTime() - PuddleTime
 		DBM:Debug("During Create Concoction, PuddleTime is: "..puddleTimeAdjust, 2)
 		warnUnstableExperimentSoon:Cancel()
@@ -268,6 +267,7 @@ function mod:SPELL_CAST_START(args)
 			specWarnGaseousBloatCast:Play("targetchange")
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
+		local castTime = self:IsHeroic() and 20 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
 		local currentTime = GetTime()
 		local puddleTimeAdjust = currentTime-PuddleTime
 		local chokingTimeAdjust = currentTime-ChokingTime
@@ -277,6 +277,7 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
+		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Guzzle Potions does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
 		if self:IsDifficulty("heroic10") then -- REVIEW! Refactor needed
 			--self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
 			--timerNextPhase:Start(38.67) -- (10H Lordaeron [2023-08-12]@[20:34:20]) - 38.67
