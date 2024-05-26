@@ -5,7 +5,7 @@ local GetTime = GetTime
 local format = string.format
 local select = select
 
-mod:SetRevision("20240526200149")
+mod:SetRevision("20240526234318")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20240523000000)
@@ -122,6 +122,8 @@ local function NextPhase(self)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
+		timerUnstableExperimentCD:Start(30) -- 19/04/2024: (Heroic) Unstable Experiement scheduled 30 seconds after Create Concoction finishes. https://www.warmane.com/bugtracker/report/121798#comment-114099
+		warnUnstableExperimentSoon:Schedule(25) -- (Heroic) 30 seconds to finish Create Concoction start, and 30-5s
 		-- EVENT_PHASE_TRANSITION - scheduled for Create Concoction cast + 100 ms (will fire [CHAT_MSG_MONSTER_YELL] Hrm, I don't feel a thing. Wha?! Where'd those come from?)
 		timerMalleableGooCD:Start(15) -- Fixed timer after phase 2: 15s
 		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
@@ -237,8 +239,6 @@ function mod:SPELL_CAST_START(args)
 		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
-		timerUnstableExperimentCD:Schedule(self:IsHeroic() and 30 or 4, 30) -- 19/04/2024: (Heroic) Unstable Experiement scheduled 30 seconds after Create Concoction finishes. https://www.warmane.com/bugtracker/report/121798#comment-114099
-		warnUnstableExperimentSoon:Schedule((self:IsHeroic() and 30 or 4) + 25) -- (Heroic) 30 seconds to finish Create Concoction start, and 30-5s
 		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Create Concoction does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
 		if self:IsHeroic() then
 --			if self:IsDifficulty("heroic10") then -- Apply to both 10H and 25H (reason below)
