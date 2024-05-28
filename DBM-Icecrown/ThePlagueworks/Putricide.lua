@@ -5,7 +5,7 @@ local GetTime = GetTime
 local format = string.format
 local select = select
 
-mod:SetRevision("20240526235454")
+mod:SetRevision("20240528230520")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20240523000000)
@@ -203,12 +203,12 @@ function mod:SPELL_CAST_START(args)
 		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnTearGas:Show()
 		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
-			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be [60:25H/70:10H/44:25N/?:10N]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
-			local gooMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 60 or self:IsDifficulty("heroic10") and 70 or 44 -- REVIEW! 25H confirmed, 10H need more data, 25N only one log, 10N no log
+			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be [60:25H/70:10H/44:25N/44:10N]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
+			local gooMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 60 or self:IsDifficulty("heroic10") and 70 or 44 -- REVIEW! 25H confirmed, 10H need more data, 25N only one log, 10N only one log
 			timerMalleableGooCD:Update(gooElapsed, gooMaxTimePerDifficulty)
 			soundMalleableGooSoon:Schedule(gooMaxTimePerDifficulty-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second intermission, the next Choking Gas Bomb will always be [75-80:25H/?:10H/55-60:25N/?:10N]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
-			local chokingMaxTimePerDifficulty = self:IsHeroic() and 75 or 55 -- REVIEW! 25H confirmed, 10H no log, 25N only one log, 10N no log
+			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second intermission, the next Choking Gas Bomb will always be [75-80:25H/89.39:10H/59.28-61.10:25N/60.17:10N]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
+			local chokingMaxTimePerDifficulty = self:IsHeroic() and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- REVIEW! 25H confirmed, 10H only one log, 25N only two log, 10N only one log
 			timerChokingGasBombCD:Update(chokingElapsed, chokingMaxTimePerDifficulty)
 			soundChokingGasSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-5)
