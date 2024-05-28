@@ -5,10 +5,10 @@ local GetTime = GetTime
 local format = string.format
 local select = select
 
-mod:SetRevision("20240528233040")
+mod:SetRevision("20240529001904")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
-mod:SetHotfixNoticeRev(20240523000000)
+mod:SetHotfixNoticeRev(20240529000000)
 mod:SetMinSyncRevision(20220908000000)
 
 mod:RegisterCombat("combat")
@@ -202,43 +202,42 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase) (Normal intermission)
 		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
 		warnTearGas:Show()
+		local puddleElapsed = timerSlimePuddleCD:GetTime()
+		timerSlimePuddleCD:Update(puddleElapsed, 59) -- the next Normal Slime Puddle will always be [59.03:25N/59.03:10N]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
 		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
-			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be [60:25H/70:10H/44:25N/44:10N]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
+			local gooElapsed = timerMalleableGooCD:GetTime() -- On second Normal intermission, the next Malleable Goo will always be [44:25N/44:10N]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
+			timerMalleableGooCD:Update(gooElapsed, 44)
+			soundMalleableGooSoon:Schedule(44-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second Normal intermission, the next Choking Gas Bomb will always be [59.28-61.10:25N/60.17:10N]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
+			timerChokingGasBombCD:Update(chokingElapsed, 59)
+			soundChokingGasSoon:Schedule(59-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(59-chokingElapsed-5)
+		end
+	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (Heroic intermission)
+		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
+		warnVolatileExperiment:Show()
+		warnUnstableExperimentSoon:Cancel()
+		timerUnstableExperimentCD:Cancel()
+		timerUnboundPlagueCD:Cancel()
+		local puddleElapsed = timerSlimePuddleCD:GetTime()
+		local puddleMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- the next Heroic Slime Puddle will always be [75.05:25H/84.99:10H]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
+		timerSlimePuddleCD:Update(puddleElapsed, puddleMaxTimePerDifficulty)
+		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
+			local gooElapsed = timerMalleableGooCD:GetTime() -- On second Heroic intermission, the next Malleable Goo will always be [60:25H/70:10H]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
 			local gooMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 60 or self:IsDifficulty("heroic10") and 70 or 44 -- REVIEW! 25H confirmed, 10H need more data, 25N only one log, 10N only one log
 			timerMalleableGooCD:Update(gooElapsed, gooMaxTimePerDifficulty)
 			soundMalleableGooSoon:Schedule(gooMaxTimePerDifficulty-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second intermission, the next Choking Gas Bomb will always be [75-80:25H/89.39:10H/59.28-61.10:25N/60.17:10N]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
+			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second Heroic intermission, the next Choking Gas Bomb will always be [75-80:25H/89.39:10H]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
 			local chokingMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- REVIEW! 25H confirmed, 10H only one log, 25N only two log, 10N only one log
 			timerChokingGasBombCD:Update(chokingElapsed, chokingMaxTimePerDifficulty)
 			soundChokingGasSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-5)
 		end
-	elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (Heroic intermission)
-		-- TO DO: check whether delaying all running timers by 30s is accurate, according to TC. According to AC is 24+25s
-		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
-		warnVolatileExperiment:Show()
-		warnUnstableExperimentSoon:Cancel()
-		timerUnstableExperimentCD:Cancel()
-		timerSlimePuddleCD:Cancel()
-		timerUnboundPlagueCD:Cancel()
-		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below (25H Icecrown [2023-05-28]@[17:19:33] || [2023-05-28]@[16:42:29] || [2023-05-28]@[16:59:21] || [2023-05-28]@[16:32:41]) - First intermission: 52.45 || 49.14 || 49.97 || 48.50 ; Second intermission: 30.41 || x || 38.82 || x.
-			local gooElapsed = timerMalleableGooCD:GetTime() -- On second intermission, the next Malleable Goo will always be 50s after the previous Malleable Goo cast, so calculate elapsed time and update timer
-			timerMalleableGooCD:Update(gooElapsed, 50)
-			soundMalleableGooSoon:Schedule(50-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second intermission, the next Choking Gas Bomb will always be 75-80s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
-			timerChokingGasBombCD:Update(chokingElapsed, 75)
-			soundChokingGasSoon:Schedule(75-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(75-chokingElapsed-5)
-		end
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
 		local castTime = self:IsHeroic() and 30 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
-		local puddleTimeAdjust = GetTime() - PuddleTime
-		DBM:Debug("During Create Concoction, PuddleTime is: "..puddleTimeAdjust, 2)
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
 		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Create Concoction does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
 		if self:IsHeroic() then
 --			if self:IsDifficulty("heroic10") then -- Apply to both 10H and 25H (reason below)
@@ -272,13 +271,10 @@ function mod:SPELL_CAST_START(args)
 		local castTime = self:IsHeroic() and 20 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
 		local currentTime = GetTime()
 		local puddleTimeAdjust = currentTime-PuddleTime
-		local chokingTimeAdjust = currentTime-ChokingTime
 		local unboundTimeAdjust = currentTime-UnboundTime
-		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d, ChokingTime is %d and UnboundTime is %d", puddleTimeAdjust, chokingTimeAdjust, unboundTimeAdjust), 2)
+		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d and UnboundTime is %d", puddleTimeAdjust, unboundTimeAdjust), 2)
 		timerUnstableExperimentCD:Cancel()
-		timerSlimePuddleCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
-		timerSlimePuddleCD:Start(65-puddleTimeAdjust)
 		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Guzzle Potions does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
 		if self:IsDifficulty("heroic10") then -- REVIEW! Refactor needed
 			--self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
