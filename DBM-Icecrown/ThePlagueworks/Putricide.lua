@@ -1,11 +1,9 @@
 local mod	= DBM:NewMod("Putricide", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-local GetTime = GetTime
-local format = string.format
 local select = select
 
-mod:SetRevision("20240529085557")
+mod:SetRevision("20240529105100")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20240529000000)
@@ -111,9 +109,10 @@ local timerReengage					= mod:NewTimer(20, "TimerReengage", 1180, nil, nil, 6)
 --local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
 
 local redOozeGUIDsCasts = {}
-local UnboundTime = 0
+local firstIntermisisonUnboundElapsed = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
+mod.vb.unboundCount = 0
 
 local function NextPhase(self)
 	self:SetStage(self.vb.phase + 0.5)
@@ -176,9 +175,10 @@ function mod:OnCombatStart(delay)
 	timerUnstableExperimentCD:Start(30-delay) -- REVIEW! need P1 N log data to determine whether H/N has difference. heroic 5s variance (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 61 || 33.0; 30.7; 30.5; 33.9 || 30.5
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	table.wipe(redOozeGUIDsCasts)
-	UnboundTime = 0
+	firstIntermisisonUnboundElapsed = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
+	self.vb.unboundCount = 0
 	if self:IsHeroic() then
 		timerUnboundPlagueCD:Start(20-delay)
 	end
@@ -214,11 +214,19 @@ function mod:SPELL_CAST_START(args)
 		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerUnboundPlagueCD:Cancel()
 		local puddleElapsed = timerSlimePuddleCD:GetTime()
 		local puddleMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- the next Heroic Slime Puddle will always be [75.05:25H/84.99:10H]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
 		timerSlimePuddleCD:Update(puddleElapsed, puddleMaxTimePerDifficulty)
-		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
+		local unboundElapsed = timerUnboundPlagueCD:GetTime()
+		if self.vb.phase == 1.5 then
+			firstIntermisisonUnboundElapsed = unboundElapsed -- cache for second intermission if necessary
+			timerUnboundPlagueCD:Update(unboundElapsed, 130)
+		elseif self.vb.phase == 2.5 then
+			if self.vb.unboundCount == 1 then -- only 1 Unbound Plague cast during whole raid (rushed phase 2)
+				timerUnboundPlagueCD:Update(firstIntermisisonUnboundElapsed, 170) -- 170s between Unbound Plague from Phase 1 and Phase 3
+			else
+				timerUnboundPlagueCD:Update(unboundElapsed, 130) -- REVIEW! One log had 220.04 (25H Lordaeron [2024-05-21]@[21:15:56]), it needs investigation
+			end
 			local gooElapsed = timerMalleableGooCD:GetTime() -- On second Heroic intermission, the next Malleable Goo will always be [60:25H/70:10H]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
 			local gooMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 60 or self:IsDifficulty("heroic10") and 70 or 44 -- REVIEW! 25H confirmed, 10H need more data, 25N only one log, 10N only one log
 			timerMalleableGooCD:Update(gooElapsed, gooMaxTimePerDifficulty)
@@ -233,7 +241,7 @@ function mod:SPELL_CAST_START(args)
 		local castTime = self:IsHeroic() and 30 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerUnboundPlagueCD:Cancel()
+		timerNextPhase:Start(castTime) -- Script phasing happens right after UNIT_SPELLCAST_SUCCEEDED. Boss re-engage is timed to account for the remaining time (check YELL)
 		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Create Concoction does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
 		if self:IsHeroic() then
 --			if self:IsDifficulty("heroic10") then -- Apply to both 10H and 25H (reason below)
@@ -242,15 +250,6 @@ function mod:SPELL_CAST_START(args)
 					"UNIT_TARGET boss1"
 				)
 --			end
-			timerNextPhase:Start(35.59) -- Until Gas/Ooze Variable SAR. no variance [35.59-35.63] (25H Lordaeron [2022-07-07]@[21:47:34] || 25H Lordaeron [2023-06-28]@[20:50:27] || 10H Lordaeron [2023-08-12]@[20:34:20]) - 35.60 || 35.63 || 35.59
-			timerUnboundPlagueCD:Start(120-(GetTime()-UnboundTime))
-		else
-			timerNextPhase:Start(9.5)
-			--[[timerMalleableGooCD:Start(19) -- On first intermission, timer delta is almost fixed [19-19.2]
-			soundMalleableGooSoon:Schedule(19-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			timerChokingGasBombCD:Start(30.5)
-			soundChokingGasSoon:Schedule(30.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(30.5-5)]]
 		end
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
 		timerGaseousBloatCast:Start(args.sourceGUID) -- account for multiple red oozes
@@ -265,28 +264,15 @@ function mod:SPELL_CAST_START(args)
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		local castTime = self:IsHeroic() and 20 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
-		local currentTime = GetTime()
-		local unboundTimeAdjust = currentTime-UnboundTime
-		DBM:Debug(format("During Guzzle Potions, UnboundTime is %d", unboundTimeAdjust), 2)
 		timerUnstableExperimentCD:Cancel()
-		timerUnboundPlagueCD:Cancel()
+		timerNextPhase:Start(castTime) -- Script phasing happens right after UNIT_SPELLCAST_SUCCEEDED. Boss re-engage is timed to account for the remaining time (check YELL)
 		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Guzzle Potions does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
-		if self:IsDifficulty("heroic10") then -- REVIEW! Refactor needed
+		if self:IsHeroic() then
 			--self:Schedule(38.69, NextPhase, self) -- REVIEW! using longest timer found, since this is a schedule
 			--timerNextPhase:Start(38.67) -- (10H Lordaeron [2023-08-12]@[20:34:20]) - 38.67
-			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
 			self:RegisterShortTermEvents(
 				"UNIT_TARGET boss1"
 			)
-		elseif self:IsDifficulty("heroic25") then
-			--self:Schedule(28.62, NextPhase, self)
-			--timerNextPhase:Start(28.62) -- (25H Lordaeron: [2023-05-28]@[17:19:33] || [2023-06-28]@[20:50:27]) - 28.62 || 28.62
-			timerUnboundPlagueCD:Start(120-unboundTimeAdjust)		--this requires more analysis
-			self:RegisterShortTermEvents(
-				"UNIT_TARGET boss1"
-			)
-		else
-			timerNextPhase:Start(12.5)
 		end
 	end
 end
@@ -307,8 +293,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerChokingGasBombExplosion:Start()
 		warnChokingGasBombSoon:Schedule(30.5)
 	elseif args:IsSpellID(72855, 72856, 70911) then
+		self.vb.unboundCount = self.vb.unboundCount + 1
 		timerUnboundPlagueCD:Start()
-		UnboundTime = GetTime()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then -- Malleable Goo
 		--self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
 		specWarnMalleableGooCast:Show()
@@ -482,11 +468,11 @@ function mod:OnSync(msg)
 		--self:Unschedule(NextPhase)
 		--NextPhase(self)
 		self:UnregisterShortTermEvents()
-		DBM:Debug("Putricide phase 2 via UNIT_TARGET sync")
+		DBM:Debug("Putricide (phase 2) re-engaged via UNIT_TARGET sync")
 	elseif msg == "ProfessorPhase3" and self.vb.phase == --[[2.5]]3 then
 		--self:Unschedule(NextPhase)
 		--NextPhase(self)
 		self:UnregisterShortTermEvents()
-		DBM:Debug("Putricide phase 3 via UNIT_TARGET sync")
+		DBM:Debug("Putricide (phase 3) re-engaged via UNIT_TARGET sync")
 	end
 end
