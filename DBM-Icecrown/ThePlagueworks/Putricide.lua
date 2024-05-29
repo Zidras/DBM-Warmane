@@ -5,7 +5,7 @@ local GetTime = GetTime
 local format = string.format
 local select = select
 
-mod:SetRevision("20240529001904")
+mod:SetRevision("20240529085557")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20240529000000)
@@ -111,8 +111,6 @@ local timerReengage					= mod:NewTimer(20, "TimerReengage", 1180, nil, nil, 6)
 --local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
 
 local redOozeGUIDsCasts = {}
-local PuddleTime = 0
-local ChokingTime = 0
 local UnboundTime = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
@@ -178,8 +176,6 @@ function mod:OnCombatStart(delay)
 	timerUnstableExperimentCD:Start(30-delay) -- REVIEW! need P1 N log data to determine whether H/N has difference. heroic 5s variance (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04) - 61 || 33.0; 30.7; 30.5; 33.9 || 30.5
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	table.wipe(redOozeGUIDsCasts)
-	PuddleTime = 0
-	ChokingTime = 0
 	UnboundTime = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
@@ -270,9 +266,8 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
 		local castTime = self:IsHeroic() and 20 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
 		local currentTime = GetTime()
-		local puddleTimeAdjust = currentTime-PuddleTime
 		local unboundTimeAdjust = currentTime-UnboundTime
-		DBM:Debug(format("During Guzzle Potions, PuddleTime is %d and UnboundTime is %d", puddleTimeAdjust, unboundTimeAdjust), 2)
+		DBM:Debug(format("During Guzzle Potions, UnboundTime is %d", unboundTimeAdjust), 2)
 		timerUnstableExperimentCD:Cancel()
 		timerUnboundPlagueCD:Cancel()
 		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Guzzle Potions does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
@@ -302,7 +297,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnSlimePuddle:Show()
 		soundSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
 		timerSlimePuddleCD:Start()
-		PuddleTime = GetTime()
 	elseif spellId == 71255 then -- Choking Gas
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
@@ -312,7 +306,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerChokingGasBombCD:Start()
 		timerChokingGasBombExplosion:Start()
 		warnChokingGasBombSoon:Schedule(30.5)
-		ChokingTime = GetTime()
 	elseif args:IsSpellID(72855, 72856, 70911) then
 		timerUnboundPlagueCD:Start()
 		UnboundTime = GetTime()
