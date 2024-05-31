@@ -1,3 +1,10 @@
+
+
+# No more updates
+
+There wont be any further updates to this DBM fork because I quit playing CC after ridiculous accusations by the server staff.
+Feel free to fork or switch to the DBM maintained by others e.g. https://gitlab.com/UndoUreche/dbm-debatable-cc/-/tree/master
+<details>
 <div align="center">
 
 # DBM-Warmane (3.3.5a)
@@ -60,3 +67,4 @@ To open the options window, type `/dbm` into your chat and hit enter or use the 
 * If you've discovered something that's clearly wrong, or if you get an error, please create a [ticket](https://github.com/Zidras/DBM-Warmane/issues).
 * If the problem is related to a boss mechanic or timer, a [Transcriptor](https://github.com/Zidras/Transcriptor-WOTLK) log (with debug level 3) will be required - instructions can be found [here](https://github.com/Zidras/Transcriptor-WOTLK#how-to-use).
 * Feel free to join our [Discord](https://discord.gg/CyVWDWS) to talk, get help and discuss anything DBM related!
+</details>
