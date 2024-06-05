@@ -165,6 +165,24 @@ L:SetGeneralLocalization({
 	name = "Professor Seuchenmord"
 })
 
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Neustarten"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Neustarten"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "Hm, ich spüre gar nichts. Nanu?! Wo kommen die denn her?",
+	YellTransform2			= "Schmeckt nach... Kirsche! OH! Verzeihung!"
+})
+
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------

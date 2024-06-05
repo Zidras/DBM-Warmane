@@ -165,6 +165,24 @@ L:SetGeneralLocalization({
 	name = "Profesor Putricidio"
 })
 
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Reatracción"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Reatracción"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "Mmm, no siento nada. ¿¡Qué!? ¿De dónde salió eso?",
+	YellTransform2			= "¡Sabe a... fresa! ¡Ups! Perdón."
+})
+
 ------------------------------------
 -- Consejo de Príncipes de Sangre --
 ------------------------------------

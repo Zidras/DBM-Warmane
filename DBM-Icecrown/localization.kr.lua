@@ -165,6 +165,24 @@ L:SetGeneralLocalization({
 	name = "교수 퓨트리사이드"
 })
 
+L:SetWarningLocalization({
+	WarnReengage			= "%s: 재전투"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "재전투"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "흠, 아무 느낌도 없군요. 엥?! 이건 어디서 온 거지요?",
+	YellTransform2			= "이 맛은... 체리군요! 오! 이런 실례!"
+})
+
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------

@@ -162,6 +162,24 @@ L:SetGeneralLocalization({
 	name = "普崔塞德教授"
 })
 
+L:SetWarningLocalization({
+	WarnReengage = "%s: 重新加入"
+})
+
+L:SetTimerLocalization({
+	TimerReengage = "重新加入"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage = "Show warning for Boss re-engage", -- needs localization
+	TimerReengage = "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1 = "嗯，什么感觉也没有。什么？！这是哪儿来的？",
+	YellTransform2 = "味道像……樱桃！哦！见笑了！"
+})
+
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------
