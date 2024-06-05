@@ -166,17 +166,17 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnReengage			= "%s: Neustarten"
+	WarnReengage			= "%s: Erneuter Angriff"
 })
 
 L:SetTimerLocalization({
-	TimerReengage			= "Neustarten"
+	TimerReengage			= "Erneuter Angriff"
 })
 
---[[L:SetOptionLocalization({
-	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
-	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
-})]]
+L:SetOptionLocalization({
+	WarnReengage			= "Zeige Warnung für erneuten Angriff",
+	TimerReengage			= "Zeige Zeit bis erneuten Angriff"
+})
 
 L:SetMiscLocalization({
 	YellTransform1			= "Hm, ich spüre gar nichts. Nanu?! Wo kommen die denn her?",
