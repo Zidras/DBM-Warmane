@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local select = select
 
-mod:SetRevision("20240529105100")
+mod:SetRevision("20240605114258")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20240529000000)
@@ -74,7 +74,7 @@ local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, n
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 
 local timerChokingGasBombCD			= mod:NewCDTimer(35.2, 71255, nil, nil, nil, 3, nil, nil, true) -- ~5s variance [35.2-39.8]. Added "keep" arg (25H Lordaeron 2022/09/07 || 25H Lordaeron 2022/09/23 wipe1 || 25H Lordaeron 2022/09/23 kill) - pull:126.3/Stage 2/22.8, 35.3, 35.5, 35.9; pull:126.4/Stage 2/22.1, 36.6, 35.9, 37.3, 38.7, Stage 2.5/7.8, Stage 3/31.9, 30.0/61.9/69.7, 38.2 || pull:121.2/Stage 2/21.9, 37.2, 38.7, 37.7, 38.7, Stage 2.5/2.3, Stage 3/33.0, 33.2/66.1/68.4, 39.4" || Stage 2/21.3, 38.0, 35.2, 35.8, 39.8, Stage 2.5/11.6, Stage 3/33.2, 23.9/57.1/68.8, 35.5
-local timerChokingGasBombExplosion	= mod:NewCastTimer(12, 71255, nil, nil, nil, 2)
+local timerChokingGasBombExplosion	= mod:NewCastTimer(12, 71279, nil, nil, nil, 2)
 local timerMalleableGooCD			= mod:NewNextTimer(20, 72295, nil, nil, nil, 3) -- (25H Lordaeron 2022/09/07) - pull:113.6/Stage 2/10.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0; pull:114.4/Stage 2/10.1, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0, Stage 2.5/8.1, Stage 3/31.9, 10.0/41.9/50.0, 20.0, 20.0, 20.0, 20.0"
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
@@ -107,6 +107,8 @@ local timerNextPhase				= mod:NewPhaseTimer(30)
 local timerReengage					= mod:NewTimer(20, "TimerReengage", 1180, nil, nil, 6)
 --local timerTearGas					= mod:NewBuffFadesTimer(16, 71617, nil, nil, nil, 6)
 --local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
+
+mod:GroupSpells(71255, 71279) -- Choking Gas Bomb, Choking Gas Explosion
 
 local redOozeGUIDsCasts = {}
 local firstIntermisisonUnboundElapsed = 0
