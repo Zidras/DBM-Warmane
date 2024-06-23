@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20240623223141"),
+	Revision = parseCurseDate("20240623231148"),
 	DisplayVersion = "10.1.12 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 02, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -1806,7 +1806,7 @@ do
 			return
 		end
 		DBT:CreateBar(time, text, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME")
-		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time) -- for weakauras to pickup the event and show timer correctly.
+		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME", "pizzatimer", nil, 0)
 		if broadcast and self:GetRaidRank() >= 1 then
 			sendSync("DBMv4-Pizza", ("%s\t%s"):format(time, text))
 		end
