@@ -163,7 +163,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnReengage = "%s: 重新激活" -- more accurate traslation
+	WarnReengage = "%s: 重新激活" -- more accurate translation
 })
 
 L:SetTimerLocalization({
