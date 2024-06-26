@@ -163,17 +163,17 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnReengage = "%s: 重新加入"
+	WarnReengage = "%s: 重新激活" -- more accurate translation
 })
 
 L:SetTimerLocalization({
-	TimerReengage = "重新加入"
+	TimerReengage = "重新激活" -- more accurate translation
 })
 
---[[L:SetOptionLocalization({
-	WarnReengage = "Show warning for Boss re-engage", -- needs localization
-	TimerReengage = "Show timer for Boss re-engage" -- needs localization
-})]]
+L:SetOptionLocalization({
+	WarnReengage = "为Boss重新激活显示警告",
+	TimerReengage = "为Boss重新激活显示计时器"
+})
 
 L:SetMiscLocalization({
 	YellTransform1 = "嗯，什么感觉也没有。什么？！这是哪儿来的？",
@@ -201,7 +201,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnTargetSwitch = "为转换目标显示警告",
 	WarnTargetSwitchSoon = "为转换目标显示临近警告", -- Modified by Emi
-	TimerTargetSwitch = "为转换目标显示冷却计时器",
+	TimerTargetSwitch = "为转换目标显示计时器", -- more accurate translation
 	ActivePrinceIcon = "在強化的王子身上设置标记(骷髅)", -- Modified by Emi
 	ShadowPrisonMetronome = "播放一个重复的1秒钟的点击声，以避免$spell:72999"
 })
