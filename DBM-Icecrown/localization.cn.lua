@@ -201,7 +201,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnTargetSwitch = "为转换目标显示警告",
 	WarnTargetSwitchSoon = "为转换目标显示临近警告", -- Modified by Emi
-	TimerTargetSwitch = "为转换目标显示计时器", -- more accurate traslation
+	TimerTargetSwitch = "为转换目标显示计时器", -- more accurate translation
 	ActivePrinceIcon = "在強化的王子身上设置标记(骷髅)", -- Modified by Emi
 	ShadowPrisonMetronome = "播放一个重复的1秒钟的点击声，以避免$spell:72999"
 })
