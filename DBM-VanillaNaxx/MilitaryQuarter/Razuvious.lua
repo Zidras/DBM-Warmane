@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razuvious-Vanilla", "DBM-VanillaNaxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240705232605")
 mod:SetCreatureID(16061)
 
 mod:RegisterCombat("combat_yell", L.Yell1, L.Yell2, L.Yell3, L.Yell4)
@@ -16,14 +16,14 @@ local warnShoutNow		= mod:NewSpellAnnounce(29107, 1)
 local warnShoutSoon		= mod:NewSoonAnnounce(29107, 3)
 local warnShieldWall	= mod:NewAnnounce("WarningShieldWallSoon", 3, 29061, nil, nil, nil, 29061)
 
-local timerShout		= mod:NewNextTimer(15, 29107, nil, nil, nil, 2)
+local timerShout		= mod:NewNextTimer(25, 29107, nil, nil, nil, 2) -- [2024-07-01]@[19:09:31] - "Disrupting Shout-29107-npc:16061-627 = pull:24.97, 25.01, 25.02, 25.02, 25.01"
 local timerTaunt		= mod:NewCDTimer(20, 29060, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerShieldWall	= mod:NewCDTimer(20, 29061, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerMindControl	= mod:NewBuffActiveTimer(60, 605, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)
-	timerShout:Start(16 - delay)
-	warnShoutSoon:Schedule(11 - delay)
+	timerShout:Start(-delay)
+	warnShoutSoon:Schedule(21-delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
@@ -31,7 +31,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(55543, 29107) then  -- Disrupting Shout
 		timerShout:Start()
 		warnShoutNow:Show()
-		warnShoutSoon:Schedule(11)
+		warnShoutSoon:Schedule(21)
 	elseif spellId == 29060 then -- Taunt
 		timerTaunt:Start(20, args.sourceGUID)
 	elseif spellId == 29061 then -- ShieldWall
