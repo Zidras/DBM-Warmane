@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Horsemen-Vanilla", "DBM-VanillaNaxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240705231210")
 mod:SetCreatureID(16063, 16064, 16065, 30549)
 
 mod:RegisterCombat("combat", 16063, 16064, 16065, 30549)
@@ -27,13 +27,13 @@ local specWarnMarkOnPlayer		= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer"
 local specWarnVoidZone			= mod:NewSpecialWarningYou(28863, nil, nil, nil, 1, 2)
 local yellVoidZone				= mod:NewYell(28863)
 
-local timerLadyMark				= mod:NewNextTimer(16, 28833, nil, nil, nil, 3)
-local timerZeliekMark			= mod:NewNextTimer(16, 28835, nil, nil, nil, 3)
-local timerBaronMark			= mod:NewNextTimer(15, 28834, nil, nil, nil, 3)
-local timerThaneMark			= mod:NewNextTimer(15, 28832, nil, nil, nil, 3)
-local timerMeteorCD				= mod:NewCDTimer(11.1, 57467, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~10s variance? Added "keep" arg (25man Lordaeron 2022/10/16 wipe || 25man Lordaeron 2022/10/16 kill) - 17.8, 17.7, 17.8, 17.7, 15.5 || 17.7, 15.5, 17.8, 17.9, 11.1, 17.7, 13.4, 20.0, 13.3, 20.0
---local timerVoidZoneCD			= mod:NewCDTimer(12.9, 28863, nil, nil, nil, 3)-- 12.9-16
-local timerHolyWrathCD			= mod:NewCDTimer(13, 28883, nil, nil, nil, 3)
+local timerLadyMark				= mod:NewNextTimer(15.44, 28833, nil, nil, nil, 3) -- ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Mark of Blaumeux-28833-npc:16065-5 = pull:20.59" || "Mark of Blaumeux-28833-npc:16065-5 = pull:20.62, 15.47, 15.45, 15.44"
+local timerZeliekMark			= mod:NewNextTimer(15.44, 28835, nil, nil, nil, 3) -- ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Mark of Zeliek-28835-npc:16063-6 = pull:21.11" || "Mark of Zeliek-28835-npc:16063-6 = pull:21.09, 15.52, 15.46, 15.44"
+local timerBaronMark			= mod:NewNextTimer(12, 28834, nil, nil, nil, 3) -- ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Mark of Mograine-28834-npc:30549-8 = pull:19.99, 12.01" || "Mark of Mograine-28834-npc:30549-8 = pull:20.00, 12.02, 12.00, 12.03, 12.00"
+local timerThaneMark			= mod:NewNextTimer(12, 28832, nil, nil, nil, 3) -- ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Mark of Korth'azz-28832-npc:16064-7 = pull:19.99, 12.03" || "Mark of Korth'azz-28832-npc:16064-7 = pull:20.00, 12.04"
+local timerMeteorCD				= mod:NewNextTimer(15, 57467, nil, nil, nil, 3, nil, nil, true) -- Fixed timer ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Meteor-28884-npc:16064-7 = pull:14.97, 15.02" || "Meteor-28884-npc:16064-7 = pull:15.01, 15.00"
+local timerVoidZoneCD			= mod:NewCDTimer(15.4, 28863, nil, nil, nil, 3)-- ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Void Zone-28863-npc:16065-5 = pull:16.20" || "Void Zone-28863-npc:16065-5 = pull:16.31, 15.37, 15.44, 15.47"
+local timerHolyWrathCD			= mod:NewCDTimer(15.43, 28883, nil, nil, nil, 3) -- ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - "Holy Wrath-28883-npc:16063-6 = pull:16.70, 15.43" || "Holy Wrath-28883-npc:16063-6 = pull:32.16, 15.49, 15.47"
 local timerBoneBarrier			= mod:NewTargetTimer(20, 29061, nil, nil, nil, 5)
 
 mod:AddRangeFrameOption("12")
@@ -56,13 +56,13 @@ end]]
 
 function mod:OnCombatStart()
 	self.vb.markCount = 0
-	timerLadyMark:Start()
-	timerZeliekMark:Start()
-	timerBaronMark:Start()
-	timerThaneMark:Start()
-	warnMarkSoon:Schedule(12)
+	timerLadyMark:Start(20.59)
+	timerZeliekMark:Start(21.09)
+	timerBaronMark:Start(20)
+	timerThaneMark:Start(20)
+	warnMarkSoon:Schedule(15)
 	timerMeteorCD:Start()
-	timerHolyWrathCD:Start(10.1) -- REVIEW! ~2s variance? (25man Lordaeron 2022/10/16 wipe || 25man Lordaeron 2022/10/16 kill) - 12.3 || 10.1
+	timerHolyWrathCD:Start(16.7) -- REVIEW! variance? ([2024-07-01]@[19:58:05] || [2024-07-01]@[20:09:25]) - 16.7 || 32.16
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(12)
 	end
@@ -87,17 +87,17 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(28832, 28833, 28834, 28835) and self:AntiSpam(5, spellId) then
 		self.vb.markCount = self.vb.markCount + 1
 		if spellId == 28833 then -- Lady Mark
-			timerLadyMark:Start(15)
+			timerLadyMark:Start()
 		elseif spellId == 28835 then -- Zeliek Mark
-			timerZeliekMark:Start(15)
+			timerZeliekMark:Start()
 		elseif spellId == 28834 then -- Baron Mark
 			timerBaronMark:Start()
 		elseif spellId == 28832 then -- Thane Mark
 			timerThaneMark:Start()
 		end
-		warnMarkSoon:Schedule(12)
-	elseif args.spellId == 28863 then
---		timerVoidZoneCD:Start()
+		warnMarkSoon:Schedule(8)
+	elseif spellId == 28863 then
+		timerVoidZoneCD:Start()
 		if args:IsPlayer() then
 			specWarnVoidZone:Show()
 			specWarnVoidZone:Play("targetyou")
