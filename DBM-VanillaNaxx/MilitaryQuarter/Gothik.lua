@@ -1,13 +1,14 @@
 local mod	= DBM:NewMod("Gothik-Vanilla", "DBM-VanillaNaxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240705235659")
 mod:SetCreatureID(16060)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"UNIT_DIED"
+--	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 --TODO, sync infoframe from classic era version?
@@ -18,9 +19,9 @@ local warnRiderDown		= mod:NewAnnounce("WarningRiderDown", 4)
 local warnKnightDown	= mod:NewAnnounce("WarningKnightDown", 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2, 3)
 
-local timerPhase2		= mod:NewTimer(277, "TimerPhase2", 27082, nil, nil, 6)
+local timerPhase2		= mod:NewTimer(275, "TimerPhase2", 27082, nil, nil, 6)
 local timerWave			= mod:NewTimer(20, "TimerWave", 5502, nil, nil, 1)
-local timerGate			= mod:NewTimer(155, "Gate Opens", 9484)
+local timerGate			= mod:NewTimer(233, "Gate Opens", 9484)
 
 mod.vb.wave = 0
 local wavesNormal = {
@@ -104,11 +105,11 @@ function mod:OnCombatStart()
 	self.vb.wave = 0
 	timerGate:Start()
 	timerPhase2:Start()
-	warnPhase2:Schedule(277)
+	warnPhase2:Schedule(275)
 	timerWave:Start(25, self.vb.wave + 1)
 	warnWaveSoon:Schedule(22, self.vb.wave + 1, getWaveString(self.vb.wave + 1))
 	self:Schedule(25, NextWave, self)
-	self:Schedule(277, StartPhase2, self)
+	self:Schedule(275, StartPhase2, self)
 end
 
 function mod:OnTimerRecovery()
@@ -129,3 +130,9 @@ function mod:UNIT_DIED(args)
 		end
 	end
 end
+
+--[[function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(28025) and self.vb.phase == 1 then -- Teleport Left. Boss casts this teleportation spell, together with Yell: I have waited long enough. Now you face the harvester of souls.
+		self:SetStage(2)
+	end
+end]]
