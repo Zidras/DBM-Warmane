@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ouro", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240707231146")
 mod:SetCreatureID(15517)
 
 mod:SetModelID(15517)
@@ -28,10 +28,10 @@ local warnBerserkSoon	= mod:NewSoonAnnounce(26615, 2)
 
 local specWarnBlast		= mod:NewSpecialWarningSpell(26102, nil, nil, nil, 2, 2)
 
-local timerSubmerge		= mod:NewTimer(30, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
-local timerEmerge		= mod:NewTimer(30, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
-local timerSweepCD		= mod:NewNextTimer(20.5, 26103, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerBlastCD		= mod:NewNextTimer(23, 26102, nil, nil, nil, 2)
+local timerSubmerge		= mod:NewTimer(184, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6) -- REVIEW! No data
+local timerEmerge		= mod:NewTimer(58, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
+local timerSweepCD		= mod:NewNextTimer(20, 26103, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- (Onyxia: 25N [2024-07-05]@[19:56:12]) - "Sweep-26103-npc:15517-449 = pull:21.97, 20.05, 20.03, 20.04, 86.38, 20.02, 22.00"
+local timerBlastCD		= mod:NewNextTimer(20, 26102, nil, nil, nil, 2) -- (Onyxia: 25N [2024-07-05]@[19:56:12]) - "Sand Blast-26102-npc:15517-449 = pull:19.92, 20.05, 20.01, 20.03, 86.42, 19.98, 20.01"
 
 mod.vb.prewarn_Berserk = false
 mod.vb.Berserked = false
@@ -40,15 +40,15 @@ function mod:OnCombatStart(delay)
 	self.vb.prewarn_Berserk = false
 	self.vb.Berserked = false
 	timerSweepCD:Start(22-delay)--22-25
-	timerBlastCD:Start(20-delay)--20-26
-	timerSubmerge:Start(184-delay)
+	timerBlastCD:Start(19.92-delay)--20-26
+	timerSubmerge:Start(90-delay)
 end
 
 function mod:Emerge()
 	warnEmerge:Show()
 	timerSweepCD:Start(23)--23-24 (it might be 22-25 like pull)
 	timerBlastCD:Start(24)--24-26 (it might be 20-26 like pull)
-	timerSubmerge:Start(184)
+	timerSubmerge:Start()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -77,7 +77,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerSubmerge:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start()
-		self:ScheduleMethod(30, "Emerge")
+		self:ScheduleMethod(58, "Emerge")
 	end
 end
 
