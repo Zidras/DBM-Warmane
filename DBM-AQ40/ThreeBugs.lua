@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ThreeBugs", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240707190747")
 mod:SetCreatureID(15544, 15511, 15543)
 
 mod:SetModelID(15544)
@@ -22,10 +22,10 @@ local specWarnGTFO		= mod:NewSpecialWarningGTFO(25786, nil, nil, nil, 1, 8)
 
 --"Toxic Volley-25812-npc:15511 = pull:11.8, 13.6, 16.8, 34.1, 14.8, 7.3, 8.3, 12.1, 15.8, 9.7, 19.6, 9.8", -- [12]
 --If users ask for a toxic volley timer, unless classic is different than retail (which i doubt), 7-34 second variable timer is not acceptable
-local timerFearCD		= mod:NewCDTimer(20.5, 26580, nil, nil, nil, 2)
+local timerFearCD		= mod:NewCDTimer(20, 26580, nil, nil, nil, 2) -- (Lordaeron: Timewalking [2024-05-11]@[22:21:34] || Onyxia: 25N [2024-07-05]@[18:18:12]) - "Fear-26580-npc:15543-192 = pull:12.00" || "Fear-26580-npc:15543-193 = pull:11.99, 20.01"
 
 function mod:OnCombatStart(delay)
-	timerFearCD:Start(10-delay)
+	timerFearCD:Start(12-delay)
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_AURA_APPLIED 25786 25989",
