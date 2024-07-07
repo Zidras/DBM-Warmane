@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Viscidus", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240707194121")
 mod:SetCreatureID(15299)
 
 mod:SetModelID(15299)
@@ -20,20 +20,20 @@ local warnShatter				= mod:NewAnnounce("WarnShatter", 2, 12982)
 
 local specWarnGTFO				= mod:NewSpecialWarningGTFO(25989, nil, nil, nil, 1, 8)
 
-local timerPoisonBoltVolleyCD	= mod:NewCDCountTimer(11, 25991, nil, nil, nil, 2, nil, DBM_COMMON_L.POISON_ICON)
+local timerPoisonBoltVolleyCD	= mod:NewCDCountTimer(10.88, 25991, nil, nil, nil, 2, nil, DBM_COMMON_L.POISON_ICON, true) -- ~5s variance [10.88-14.70]. Added "keep" arg (Onyxia: 25N [2024-07-05]@[18:31:25]) - "Poison Bolt Volley-25991-npc:15299-773 = pull:7.78, 11.25, 10.88, 51.85, 14.70, 13.66"
 
 mod.vb.volleyCount = 0
 
 function mod:OnCombatStart()
 	self.vb.volleyCount = 0
-	timerPoisonBoltVolleyCD:Start(12.9, 1)
+	timerPoisonBoltVolleyCD:Start(7.78, 1)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 25991 then
 		self.vb.volleyCount = self.vb.volleyCount + 1
 		warnPoisonBoltVolley:Show(self.vb.volleyCount)
-		timerPoisonBoltVolleyCD:Start(11, self.vb.volleyCount+1)
+		timerPoisonBoltVolleyCD:Start(nil, self.vb.volleyCount+1)
 	end
 end
 
