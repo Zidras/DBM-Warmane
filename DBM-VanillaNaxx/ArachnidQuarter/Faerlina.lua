@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Faerlina-Vanilla", "DBM-VanillaNaxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240709224520")
+mod:SetRevision("20240709230003")
 mod:SetCreatureID(15953)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -23,7 +23,7 @@ local specWarnGTFO			= mod:NewSpecialWarningGTFO(28794, nil, nil, nil, 1, 8)
 
 local timerEmbrace			= mod:NewBuffActiveTimer(30, 28732, nil, nil, nil, 6)
 local timerEnrage			= mod:NewCDTimer(60, 28131, nil, nil, nil, 6)
-local timerPoisonVolleyCD	= mod:NewCDTimer(8.13, 54098, nil, nil, nil, 5) -- ~1s variance [8.13-9.58] (Onyxia: [2024-07-08]@[19:04:03]) - "Poison Bolt Volley-28796-npc:15953-798 = pull:13.51, 8.13, 9.58, 8.98, 8.84, 9.50, 8.88, 8.26, 9.01"
+local timerPoisonVolleyCD	= mod:NewCDTimer(8.13, 28796, nil, nil, nil, 5) -- ~1s variance [8.13-9.58] (Onyxia: [2024-07-08]@[19:04:03]) - "Poison Bolt Volley-28796-npc:15953-798 = pull:13.51, 8.13, 9.58, 8.98, 8.84, 9.50, 8.88, 8.26, 9.01"
 
 mod.vb.enraged = false
 
