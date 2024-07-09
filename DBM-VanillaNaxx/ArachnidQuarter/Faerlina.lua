@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Faerlina-Vanilla", "DBM-VanillaNaxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240709224520")
 mod:SetCreatureID(15953)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -23,14 +23,14 @@ local specWarnGTFO			= mod:NewSpecialWarningGTFO(28794, nil, nil, nil, 1, 8)
 
 local timerEmbrace			= mod:NewBuffActiveTimer(30, 28732, nil, nil, nil, 6)
 local timerEnrage			= mod:NewCDTimer(60, 28131, nil, nil, nil, 6)
-local timerPoisonVolleyCD	= mod:NewCDTimer(8.2, 54098, nil, nil, nil, 5) -- REVIEW! ~1s variance? (25man Lordaeron 2022/10/16) - 9.1, 9.3, 9.1, 8.5, 8.4, 8.5, 8.2, 8.8
+local timerPoisonVolleyCD	= mod:NewCDTimer(8.13, 54098, nil, nil, nil, 5) -- ~1s variance [8.13-9.58] (Onyxia: [2024-07-08]@[19:04:03]) - "Poison Bolt Volley-28796-npc:15953-798 = pull:13.51, 8.13, 9.58, 8.98, 8.84, 9.50, 8.88, 8.26, 9.01"
 
 mod.vb.enraged = false
 
 function mod:OnCombatStart(delay)
 	timerEnrage:Start(-delay)
 	warnEnrageSoon:Schedule(55 - delay)
-	timerPoisonVolleyCD:Start(12.6-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 12.6
+	timerPoisonVolleyCD:Start(13.51-delay) -- REVIEW! variance?
 	self.vb.enraged = false
 end
 
@@ -65,7 +65,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(28796, 54098) then -- Poison Bolt Volley
-		timerPoisonVolleyCD:Start(10)
+		timerPoisonVolleyCD:Start()
 	end
 end
 
