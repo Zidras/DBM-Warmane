@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240714161608")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -141,7 +141,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		end
 		timerTeleportBack:Start(timer)
 		warnTeleportSoon:Schedule(timer - 10)
-		warnTeleportNow:Schedule(timer)
 	elseif spellName ==  teleportBackName then -- Teleport Return
 		self.vb.addsCount = 0
 		self.vb.curseCount = 0
