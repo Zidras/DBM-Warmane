@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Gluth-Vanilla", "DBM-VanillaNaxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240710091626")
+mod:SetRevision("20240714122458")
 mod:SetCreatureID(15932)
 
 mod:RegisterCombat("combat")
@@ -18,8 +18,8 @@ mod:RegisterEventsInCombat(
 local warnEnrage			= mod:NewTargetNoFilterAnnounce(19451, 3, nil , "Healer|Tank|RemoveEnrage", 2)
 local warnDecimateSoon		= mod:NewSoonAnnounce(28375, 2)
 local warnDecimateNow		= mod:NewSpellAnnounce(28375, 3)
-local warnTerryfingRoarSoon	= mod:NewSoonAnnounce(29685, 3)
-local warnTerryfingRoar		= mod:NewSpellAnnounce(29685, 3)
+local warnTerrifyingRoarSoon= mod:NewSoonAnnounce(29685, 3)
+local warnTerrifyingRoar	= mod:NewSpellAnnounce(29685, 3)
 
 local specWarnEnrage		= mod:NewSpecialWarningDispel(19451, "RemoveEnrage", nil, nil, 1, 6)
 
@@ -32,7 +32,7 @@ function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
 	timerDecimate:Start(-delay) -- 25m Log review from 2022-05-05 - 1 minutes 50 seconds
 	warnDecimateSoon:Schedule(95-delay)
-	warnTerryfingRoarSoon:Schedule(15)
+	warnTerrifyingRoarSoon:Schedule(15)
 	timerTerrifyingRoarCD:Start()
 end
 
@@ -56,8 +56,8 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 29685 then
-		warnTerryfingRoar:Show()
-		warnTerryfingRoarSoon:Schedule(15)
+		warnTerrifyingRoar:Show()
+		warnTerrifyingRoarSoon:Schedule(15)
 		timerTerrifyingRoarCD:Start()
 	end
 end
