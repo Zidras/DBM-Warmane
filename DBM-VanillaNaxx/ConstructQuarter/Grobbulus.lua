@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Grobbulus-Vanilla", "DBM-VanillaNaxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240714121055")
 mod:SetCreatureID(15931)
 mod:SetUsedIcons(1, 2, 3, 4)
 
@@ -23,7 +23,7 @@ local yellInjection			= mod:NewYellMe(28169, nil, false)
 
 local timerInjection		= mod:NewTargetTimer(10, 28169, nil, nil, nil, 3)
 local timerCloud			= mod:NewNextTimer(15, 28240, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerSlimeSprayCD		= mod:NewCDTimer(32, 54364, nil, nil, nil, 2) -- Transcriptor snippet below
+local timerSlimeSprayCD		= mod:NewCDTimer(27, 54364, nil, nil, nil, 2) -- 5s variance [27.09-32.60] (Onyxia PTR: [2024-07-08]@[18:49:31] || [2024-07-13]@[13:26:41]) - "Slime Spray-28157-npc:15931-797 = pull:32.60, 28.40, 59.54, 32.22, 64.35" || "Slime Spray-28157-npc:15931-797 = pull:27.09"
 local enrageTimer			= mod:NewBerserkTimer(720)
 
 mod:AddSetIconOption("SetIconOnInjectionTarget", 28169, false, false, {1, 2, 3, 4})
@@ -52,8 +52,8 @@ function mod:OnCombatStart(delay)
 	self.vb.slimeSprays = 1
 	table.wipe(mutateIcons)
 	enrageTimer:Start(-delay)
-	warnSlimeSpraySoon:Schedule(27)
-	timerSlimeSprayCD:Start(31) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 31.0
+	warnSlimeSpraySoon:Schedule(23)
+	timerSlimeSprayCD:Start()
 end
 
 function mod:OnCombatEnd()
@@ -94,13 +94,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(28157, 54364) then
 		warnSlimeSprayNow:Show()
 		self.vb.slimeSprays = self.vb.slimeSprays + 1
-		 -- REVIEW! variance? (25man Lordaeron 2022/10/16) - pull:31.0, 27.7, 61.1, 25.5
 		if self.vb.slimeSprays % 2 == 0 then -- every 2/4/6... spray short cd
-			warnSlimeSpraySoon:Schedule(20.5)
-			timerSlimeSprayCD:Start(25.5)
+			warnSlimeSpraySoon:Schedule(23.4)
+			timerSlimeSprayCD:Start(28.4)
 		else -- every 3/5/7... spray long cd
-			warnSlimeSpraySoon:Schedule(54)
-			timerSlimeSprayCD:Start(59)
+			warnSlimeSpraySoon:Schedule(54.5)
+			timerSlimeSprayCD:Start(59.5)
 		end
 	end
 end
