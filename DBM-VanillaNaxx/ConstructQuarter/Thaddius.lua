@@ -2,14 +2,15 @@
 local mod	= DBM:NewMod("Thaddius-Vanilla", "DBM-VanillaNaxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240714131813")
 mod:SetCreatureID(15928)
 
 mod:RegisterCombat("combat_yell", L.Yell)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 28089",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"CHAT_MSG_MONSTER_EMOTE",
+	"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
 	"UNIT_AURA player"
 )
 
@@ -50,20 +51,30 @@ local function TankThrow(self)
 	self:Schedule(20.6, TankThrow, self)
 end
 
+local function StartPhase2(self)
+	self:SetStage(2)
+	self:Unschedule(TankThrow)
+	timerThrow:Cancel()
+	warnThrowSoon:Cancel()
+	DBM.BossHealth:Hide()
+	timerNextShift:Start(14.5) -- IEEU - U_S_S: [2024-07-13]@[13:33:37] - 14.5s
+	warnShiftSoon:Schedule(9.5)
+	enrageTimer:Start()
+end
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	currentCharge = nil
 	down = 0
-	self:Schedule(20.6 - delay, TankThrow, self)
+	self:Schedule(20.6-delay, TankThrow, self)
 	timerThrow:Start(-delay)
-	warnThrowSoon:Schedule(17.6 - delay)
+	warnThrowSoon:Schedule(17.6-delay)
 end
 
 do
 	local lastShift
 	function mod:SPELL_CAST_START(args)
 		if args.spellId == 28089 then
-			self:SetStage(2)
 			timerNextShift:Start()
 			timerShiftCast:Start()
 			warnShiftCasting:Show()
@@ -115,16 +126,23 @@ do
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg:match(L.Emote) or msg:match(L.Emote2) or msg:find(L.Emote) or msg:find(L.Emote2) or msg == L.Emote or msg == L.Emote2 then
+function mod:CHAT_MSG_MONSTER_EMOTE(msg)
+	if msg:match(L.Emote) or msg:match(L.Emote2) or msg:find(L.Emote) or msg:find(L.Emote2) or msg == L.Emote or msg == L.Emote2 then -- 2024/07/13 it was confirmed to be left out of the script on purpose, however it is NOT in line with vanilla (https://www.warmane.com/bugtracker/report/123124)
+		DBM:AddMsg("Thaddius Tesla Coil emote implemented on Warmane Onyxia server script. Notify Zidras on Discord or GitHub")
 		down = down + 1
 		if down >= 2 then
 			self:Unschedule(TankThrow)
 			timerThrow:Cancel()
 			warnThrowSoon:Cancel()
 			DBM.BossHealth:Hide()
-			enrageTimer:Start()
+--			enrageTimer:Start()
 		end
+	end
+end
+
+function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+	if UnitExists("boss1") and self:GetUnitCreatureId("boss1") == 15928 then
+		StartPhase2(self)
 	end
 end
 
