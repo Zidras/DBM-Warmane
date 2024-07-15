@@ -396,7 +396,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!",
-	YellPhase2	= "¡El final se cierne sobre ti!", -- 12997
+	Yell1Phase2	= "¡Ruega por piedad!", -- 12995
+	Yell2Phase2	= "¡Exhala el último aliento!", -- 12996
+	Yell3Phase2	= "¡El final se cierne sobre ti!", -- 12997
 	YellPhase3	= "¡Amo, requiero ayuda!", -- 12998
 	YellGuardians	= "Muy bien. Guerreros de los páramos helados, ¡levántense! ¡Les ordeno luchar, matar y morir por su amo! ¡Que nadie sobreviva!", -- 12994
 	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",

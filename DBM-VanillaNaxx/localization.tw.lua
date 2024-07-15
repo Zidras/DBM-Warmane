@@ -381,7 +381,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell = "僕從們，侍衛們，隸屬於黑暗與寒冷的戰士們!聽從科爾蘇加德的召喚!",
-	YellPhase2	= "你的末日臨近了!", -- 12997
+	Yell1Phase2	= "祈禱我的慈悲吧!", -- 12995
+	Yell2Phase2	= "呼出你的最後一口氣!", -- 12996
+	Yell3Phase2	= "你的末日臨近了!", -- 12997
 	YellPhase3	= "主人，我需要幫助!", -- 12998
 	YellGuardians	= "非常好，凍原的戰士們，起來吧!我命令你們作戰，為你們的主人殺戮或獻身吧!不要留下活口!", -- 12994
 	setMissing	= "注意力！ 在您創建名為 pve 的裝備集之前，DBM 自動武器卸載/裝備將不起作用",

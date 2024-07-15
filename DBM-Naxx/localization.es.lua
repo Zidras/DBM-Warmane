@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
+if GetLocale() ~= "esES" then return end
 local L
 
 -----------------
@@ -385,7 +385,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!",
-	YellPhase2	= "¡Vuestra hora ha llegado!", -- 12997
+	Yell1Phase2	= "¡Pedid misericordia!", -- 12995
+	Yell2Phase2	= "¡Gritad antes de vuestro último suspiro!", -- 12996
+	Yell3Phase2	= "¡Vuestra hora ha llegado!", -- 12997
 	YellPhase3	= "¡Maestro, necesito ayuda!", -- 12998
 	YellGuardians	= "Muy bien. ¡Guerreros del desierto helado! ¡Levantaos, os ordeno luchar, matar y morir por vuestro maestro! ¡Que no sobreviva ninguno!", -- 12994
 	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",

@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20240715131219")
+mod:SetRevision("20240715133533")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -363,7 +363,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then
+	if msg == L.Yell1Phase2 or msg:find(L.Yell1Phase2) or msg == L.Yell2Phase2 or msg:find(L.Yell2Phase2) or msg == L.Yell3Phase2 or msg:find(L.Yell3Phase2) then
 		StartPhase2(self)
 		self:UnregisterShortTermEvents() -- Unregister IEEU
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
