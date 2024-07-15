@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20240715125500")
+mod:SetRevision("20240715131219")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -250,9 +250,9 @@ function mod:OnCombatStart(delay)
 	specwarnP2Soon:Schedule(300-delay)
 	timerPhase2:Start()
 --	self:Schedule(226, StartPhase2, self)
---[[self:RegisterShortTermEvents(
+	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
-	)]]
+	)
 end
 
 function mod:OnCombatEnd()
@@ -363,6 +363,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then
 		StartPhase2(self)
+		self:UnregisterShortTermEvents() -- Unregister IEEU
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
 		self:SetStage(3)
 		warnPhase3:Show()
@@ -371,12 +372,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
---[[function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT() -- Keeping this just in case one of the YellPhase2 Localizations is wrong
 	if UnitExists("boss1") and self:GetUnitCreatureId("boss1") == 15990 then
 		StartPhase2(self)
 		self:UnregisterShortTermEvents()
 	end
-end]]
+end
 
 function mod:UNIT_HEALTH(uId)
 	if not self.vb.warnedAdds and self:GetUnitCreatureId(uId) == 15990 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.48 then

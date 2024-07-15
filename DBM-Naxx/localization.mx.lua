@@ -1,16 +1,23 @@
-if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
+if GetLocale() ~= "esMX" then return end
 local L
 
 -----------------
 -- Anub'Rekhan --
 -----------------
-L = DBM:GetModLocalization("Anub'Rekhan")
+L = DBM:GetModLocalization("Anub'Rekhan-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Anub'Rekhan"
 })
 
+L:SetWarningLocalization({
+	SpecialLocust		= "Enjambre de langostas",
+	WarningLocustFaded	= "Enjambre de langostas ha terminado"
+})
+
 L:SetOptionLocalization({
+	SpecialLocust		= "Mostrar aviso especial para $spell:28785",
+	WarningLocustFaded	= "Mostrar aviso cuando termine $spell:28785",
 	ArachnophobiaTimer	= "Mostrar temporizador para el logro 'Aracnofobia'"
 })
 
@@ -23,18 +30,20 @@ L:SetMiscLocalization({
 -------------------------
 -- Gran Viuda Faerlina --
 -------------------------
-L = DBM:GetModLocalization("Faerlina")
+L = DBM:GetModLocalization("Faerlina-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Gran Viuda Faerlina"
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "Abrazo de la viuda expirando en 5 s"
+	WarningEmbraceExpire	= "Abrazo de la viuda expirando en 5 s",
+	WarningEmbraceExpired	= "Abrazo de la viuda ha expirado"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda"
+	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda",
+	WarningEmbraceExpired	= "Mostrar aviso cuando expire Abrazo de la viuda"
 })
 
 L:SetMiscLocalization({
@@ -44,7 +53,7 @@ L:SetMiscLocalization({
 -------------
 -- Maexxna --
 -------------
-L = DBM:GetModLocalization("Maexxna")
+L = DBM:GetModLocalization("Maexxna-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Maexxna"
@@ -72,7 +81,7 @@ L:SetMiscLocalization({
 -----------------------
 -- Noth el Pesteador --
 -----------------------
-L = DBM:GetModLocalization("Noth")
+L = DBM:GetModLocalization("Noth-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Noth el Pesteador"
@@ -97,6 +106,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull				= "¡Muere, intruso!",
+	AddsYell			= "¡Levantaos, soldados míos! ¡Levantaos y luchad una vez más!",
 	Adds				= "invoca a guerreros esqueletos!",
 	AddsTwo				= "alza más esqueletos!"
 })
@@ -104,7 +114,7 @@ L:SetMiscLocalization({
 ----------------------
 -- Heigan el Impuro --
 ----------------------
-L = DBM:GetModLocalization("Heigan")
+L = DBM:GetModLocalization("Heigan-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Heigan el Impuro"
@@ -132,7 +142,7 @@ L:SetMiscLocalization({
 -------------
 -- Loatheb --
 -------------
-L = DBM:GetModLocalization("Loatheb")
+L = DBM:GetModLocalization("Loatheb-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Loatheb"
@@ -155,7 +165,7 @@ L:SetOptionLocalization({
 ---------------
 -- Remendejo --
 ---------------
-L = DBM:GetModLocalization("Patchwerk")
+L = DBM:GetModLocalization("Patchwerk-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Remendejo"
@@ -174,7 +184,7 @@ L:SetMiscLocalization({
 ---------------
 -- Grobbulus --
 ---------------
-L = DBM:GetModLocalization("Grobbulus")
+L = DBM:GetModLocalization("Grobbulus-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Grobbulus"
@@ -183,7 +193,7 @@ L:SetGeneralLocalization({
 -----------
 -- Gluth --
 -----------
-L = DBM:GetModLocalization("Gluth")
+L = DBM:GetModLocalization("Gluth-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Gluth"
@@ -192,7 +202,7 @@ L:SetGeneralLocalization({
 --------------
 -- Thaddius --
 --------------
-L = DBM:GetModLocalization("Thaddius")
+L = DBM:GetModLocalization("Thaddius-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Thaddius"
@@ -224,7 +234,7 @@ L:SetMiscLocalization({
 --------------------------
 -- Instructor Razuvious --
 --------------------------
-L = DBM:GetModLocalization("Razuvious")
+L = DBM:GetModLocalization("Razuvious-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Instructor Razuvious"
@@ -239,16 +249,16 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Yell1 = "¡No tengáis piedad!",
-	Yell2 = "¡El tiempo de practicar ha pasado! ¡Quiero ver lo que habéis aprendido!",
-	Yell3 = "¡Poned en práctica lo que os he enseñado!",
+	Yell1 = "¡No tengan piedad!",
+	Yell2 = "¡Se ha acabado el tiempo de práctica! ¡Quiero ver lo que han aprendido!",
+	Yell3 = "¡Hagan lo que les enseñé!",
 	Yell4 = "Un barrido con pierna... ¿Tienes algún problema?"
 })
 
 --------------------------
 -- Gothik el Cosechador --
 --------------------------
-L = DBM:GetModLocalization("Gothik")
+L = DBM:GetModLocalization("Gothik-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Gothik el Cosechador"
@@ -289,7 +299,7 @@ L:SetMiscLocalization({
 ------------------------
 -- Los Cuatro Jinetes --
 ------------------------
-L = DBM:GetModLocalization("Horsemen")
+L = DBM:GetModLocalization("Horsemen-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Los Cuatro Jinetes"
@@ -315,7 +325,7 @@ L:SetMiscLocalization({
 ---------------
 -- Sapphiron --
 ---------------
-L = DBM:GetModLocalization("Sapphiron")
+L = DBM:GetModLocalization("Sapphiron-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Sapphiron"
@@ -343,19 +353,20 @@ L:SetOptionLocalization({
 	TimerLanding		= "Mostrar temporizador para el cambio a fase en tierra",
 	TimerIceBlast		= "Mostrar temporizador para $spell:28524",
 	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524",
+	WarningIceblock		= "Gritar cuando te afecte $spell:28522",
 	SpecWarnSapphLow	= "Advertencia especial para fase de ejecución del 10% (cancelación de fase de aire)"
 })
 
 L:SetMiscLocalization({
 	EmoteBreath			= "%s respira hondo.",
-	AirPhase			= "¡Sapphiron se eleva en el aire!",
-	LandingPhase		= "¡Sapphiron reanuda su ataque!"
+	WarningYellIceblock	= "¡Soy un bloque de hielo!"
 })
 
 ----------------
 -- Kel'Thuzad --
 ----------------
-L = DBM:GetModLocalization("Kel'Thuzad")
+
+L = DBM:GetModLocalization("Kel'Thuzad-Vanilla")
 
 L:SetGeneralLocalization({
 	name = "Kel'Thuzad"
@@ -385,9 +396,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!",
-	YellPhase2	= "¡Vuestra hora ha llegado!", -- 12997
-	YellPhase3	= "¡Maestro, necesito ayuda!", -- 12998
-	YellGuardians	= "Muy bien. ¡Guerreros del desierto helado! ¡Levantaos, os ordeno luchar, matar y morir por vuestro maestro! ¡Que no sobreviva ninguno!", -- 12994
+	YellPhase2	= "¡El final se cierne sobre ti!", -- 12997
+	YellPhase3	= "¡Amo, requiero ayuda!", -- 12998
+	YellGuardians	= "Muy bien. Guerreros de los páramos helados, ¡levántense! ¡Les ordeno luchar, matar y morir por su amo! ¡Que nadie sobreviva!", -- 12994
 	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",
 	EqUneqLineDescription	= "Equipar/desequipar automático"
 })

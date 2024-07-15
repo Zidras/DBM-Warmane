@@ -399,6 +399,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "어둠의 문지기와 하수인, 그리고 병사들이여! 나 켈투자드가 부르니 명을 받들라!",
+	YellPhase2	= "최후를 맞이하라!", -- 12997
+	YellPhase3	= "주인님, 도와주소서!", -- 12998
+	YellGuardians	= "좋다. 얼어붙은 땅의 전사들이여, 일어나라! 너희에게 싸울 것을 명하노라. 날 위해 죽고, 날 위해 죽여라! 한 놈도 살려두지 마라!", -- 12994
 	setMissing	= "주목! DBM 자동 무기 해제/장착은 pve라는 장비 세트를 생성할 때까지 작동하지 않습니다.",
 	EqUneqLineDescription	= "자동 장착/장비 해제"
 })

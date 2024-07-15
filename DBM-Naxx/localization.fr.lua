@@ -387,6 +387,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "Serviteurs, valets et soldats des ténèbres glaciales ! Répondez à l'appel de Kel'Thuzad !",
+	YellPhase2	= "Votre fin est proche !", -- 12997
+	YellPhase3	= "Maître, j'ai besoin d'aide !", -- 12998
+	YellGuardians	= "Très bien. Guerriers des terres gelées, relevez-vous ! Je vous ordonne de combattre, de tuer et de mourir pour votre maître ! N'épargnez personne !", -- 12994
 	setMissing	= "ATTENTION! DBM auto-déséquipement d'arme ne fonctionnera pas tant que vous n'aurez pas créer un set apellé pve",
 	EqUneqLineDescription	= "Équiper/Déséquiper automatiquement"
 })

@@ -384,6 +384,9 @@ L:SetMiscLocalization({
 	Yell		= "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
 --	YellMC1		= "Your soul is bound to me, now!",
 --	YellMC2		= "There will be no escape!",
+	YellPhase2	= "The end is upon you!", -- 12997
+	YellPhase3	= "Master, I require aid!", -- 12998
+	YellGuardians	= "Very well. Warriors of the frozen wastes, rise up! I command you to fight, kill and die for your master! Let none survive!", -- 12994
 	setMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve",
 	EqUneqLineDescription	= "Automatic Equip/Unequip"
 })
