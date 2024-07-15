@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20240715105815")
+mod:SetRevision("20240715111906")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -15,25 +15,27 @@ mod:RegisterEvents(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
-local warnTeleportNow	= mod:NewAnnounce("WarningTeleportNow", 3, 46573)
-local warnTeleportSoon	= mod:NewAnnounce("WarningTeleportSoon", 1, 46573)
+local warnTeleportNow	= mod:NewAnnounce("WarningTeleportNow", 3, 46573, nil, nil, nil, 29216)
+local warnTeleportSoon	= mod:NewAnnounce("WarningTeleportSoon", 1, 46573, nil, nil, nil, 29216)
 local warnCurse			= mod:NewSpellAnnounce(29213, 2)
 local warnBlinkSoon		= mod:NewSoonAnnounce(29208, 1)
 local warnBlink			= mod:NewSpellAnnounce(29208, 3)
 
 local specWarnAdds		= mod:NewSpecialWarningAdds(29212, "-Healer", nil, nil, 1, 2)
 
-local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6)
-local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6)
+local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 29216)
+local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 29231)
 local timerCurseCD		= mod:NewCDTimer(50, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON) -- REVIEW! variance? (Onyxia PTR: [2024-07-13]@[13:54:46]) - "Curse of the Plaguebringer-29213-npc:15954-267 = pull:9.98, 50.05, 117.46"
 local timerAddsCD		= mod:NewAddsTimer(30, 29212, nil, "-Healer")
 local timerBlink		= mod:NewNextTimer(30, 29208) -- No variance (Onyxia PTR: [2024-07-13]@[13:54:46]) - "Blink-npc:15954-267 = pull:22.57, 30.03, 30.03"
+
+mod:GroupSpells(29216, 29231) -- Teleport, Teleport Return
 
 mod.vb.teleCount = 0
 mod.vb.addsCount = 0
 mod.vb.curseCount = 0
 local teleportBalconyName = GetSpellInfo(29216) -- Teleport
-local teleportBackName = GetSpellInfo(29231)
+local teleportBackName = GetSpellInfo(29231) -- Teleport Return
 local summonPlaguedWarriorName = GetSpellInfo(29247)
 local summonPlaguedChampionName = GetSpellInfo(29217)
 --local summonPlaguedGuardian = GetSpellInfo(29226) -- NYI
@@ -158,6 +160,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		end
 		timerTeleportBack:Start(timer)
 		warnTeleportSoon:Schedule(timer - 10)
+		warnTeleportNow:Show()
 	elseif spellName ==  teleportBackName then -- Teleport Return
 		DBM:AddSpecialEventToTranscriptorLog("Teleport Return")
 		self.vb.addsCount = 0
