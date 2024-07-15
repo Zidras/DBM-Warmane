@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20240714161608")
+mod:SetRevision("20240715105815")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -11,7 +11,7 @@ mod:RegisterCombat("combat_yell", L.Pull)
 mod:RegisterEvents(
 	"SPELL_CAST_SUCCESS 29213 54835 29212 29208",
 	"SPELL_AURA_APPLIED 29208 29209 29210 29211",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
+	"CHAT_MSG_RAID_BOSS_EMOTE", -- 2024/07/14 it was confirmed to be left out of the script on purpose, to keep it Vanilla.
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
@@ -25,15 +25,28 @@ local specWarnAdds		= mod:NewSpecialWarningAdds(29212, "-Healer", nil, nil, 1, 2
 
 local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6)
 local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6)
-local timerCurseCD		= mod:NewCDTimer(56.7, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON) -- REVIEW! variance? (25man Frostmourne 2022/05/25 || 25man Lordaeron 2022/10/16) -  56.7, 99.1! || 57.4
+local timerCurseCD		= mod:NewCDTimer(50, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON) -- REVIEW! variance? (Onyxia PTR: [2024-07-13]@[13:54:46]) - "Curse of the Plaguebringer-29213-npc:15954-267 = pull:9.98, 50.05, 117.46"
 local timerAddsCD		= mod:NewAddsTimer(30, 29212, nil, "-Healer")
-local timerBlink		= mod:NewNextTimer(30, 29208) -- (25N Lordaeron 2022/10/16) - 30.1, 30.0
+local timerBlink		= mod:NewNextTimer(30, 29208) -- No variance (Onyxia PTR: [2024-07-13]@[13:54:46]) - "Blink-npc:15954-267 = pull:22.57, 30.03, 30.03"
 
 mod.vb.teleCount = 0
 mod.vb.addsCount = 0
 mod.vb.curseCount = 0
 local teleportBalconyName = GetSpellInfo(29216) -- Teleport
 local teleportBackName = GetSpellInfo(29231)
+local summonPlaguedWarriorName = GetSpellInfo(29247)
+local summonPlaguedChampionName = GetSpellInfo(29217)
+--local summonPlaguedGuardian = GetSpellInfo(29226) -- NYI
+local allTimers = {
+	["normal25"] = {
+		[1] = {
+--			"Summon Plagued Champion-npc:15954-267 = pull:91.98, 30.03"
+--			"Summon Plagued Warrior-npc:15954-267 = pull:29.98, 30.05, 109.94"
+			["adds"] = {30, 30, --[[Balcony-Champion:]]32, 30, --[[Ground-Warrior:]]48}, -- REVIEW! longer fights needed
+		},
+	},
+}
+
 
 --[[function mod:Balcony()
 	self.vb.teleCount = self.vb.teleCount + 1
@@ -79,10 +92,11 @@ function mod:OnCombatStart(delay)
 	self.vb.teleCount = 0
 	self.vb.addsCount = 0
 	self.vb.curseCount = 0
-	timerAddsCD:Start(7-delay)
-	timerCurseCD:Start(15-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 15.0
-	timerBlink:Start(23.8-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 23.8
-	timerTeleport:Start(90-delay)
+	timerAddsCD:Start(30-delay)
+	timerCurseCD:Start(10-delay)
+	timerBlink:Start(22.57-delay)
+	warnBlinkSoon:Schedule(17.57-delay)
+	timerTeleport:Start(-delay)
 	warnTeleportSoon:Schedule(80-delay)
 --	self:ScheduleMethod(90.8-delay, "Balcony")
 end
@@ -107,51 +121,55 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(29208, 29209, 29210, 29211) then -- Blink
 		warnBlink:Show()
 		timerBlink:Start()
-		warnBlinkSoon:Schedule(26)
+		warnBlinkSoon:Schedule(25)
 	end
 end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.Adds or msg:find(L.Adds) then
-		self:SendSync("Adds")--Syncing to help unlocalized clients
+		DBM:AddMsg("Noth adds emote implemented on Warmane Onyxia server script. Notify Zidras on Discord or GitHub")
+--		self:SendSync("Adds")--Syncing to help unlocalized clients
 	elseif msg == L.AddsTwo or msg:find(L.AddsTwo) then
-		self:SendSync("AddsTwo")--Syncing to help unlocalized clients
+		DBM:AddMsg("Noth adds2 emote implemented on Warmane Onyxia server script. Notify Zidras on Discord or GitHub")
+--		self:SendSync("AddsTwo")--Syncing to help unlocalized clients
 	end
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName ==  teleportBalconyName then -- Teleport
+		DBM:AddSpecialEventToTranscriptorLog("Teleport")
 		self.vb.teleCount = self.vb.teleCount + 1
 		self.vb.addsCount = 0
 		timerCurseCD:Stop()
-		timerAddsCD:Stop()
+--		timerAddsCD:Stop()
 		timerBlink:Stop()
 		local timer
 		if self.vb.teleCount == 1 then
 			timer = 70
-			timerAddsCD:Start(5)--Always 5
+--			timerAddsCD:Start(5)--Always 5
 		elseif self.vb.teleCount == 2 then
 			timer = 97
-			timerAddsCD:Start(5)--Always 5
+--			timerAddsCD:Start(5)--Always 5
 		elseif self.vb.teleCount == 3 then
 			timer = 126
-			timerAddsCD:Start(5)--Always 5
+--			timerAddsCD:Start(5)--Always 5
 		else
 			timer = 55
 		end
 		timerTeleportBack:Start(timer)
 		warnTeleportSoon:Schedule(timer - 10)
 	elseif spellName ==  teleportBackName then -- Teleport Return
+		DBM:AddSpecialEventToTranscriptorLog("Teleport Return")
 		self.vb.addsCount = 0
 		self.vb.curseCount = 0
-		timerAddsCD:Stop()
+--		timerAddsCD:Stop()
 		local timer
 		if self.vb.teleCount == 1 then
 			timer = 109
-			timerAddsCD:Start(10)
+--			timerAddsCD:Start(10)
 		elseif self.vb.teleCount == 2 then
 			timer = 173
-			timerAddsCD:Start(17)
+--			timerAddsCD:Start(17)
 		elseif self.vb.teleCount == 3 then
 			timer = 93
 		else
@@ -166,6 +184,18 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 			timerCurseCD:Start(11)
 		end
 --		self:ScheduleMethod(timer, "Balcony")
+	elseif spellName == summonPlaguedWarriorName and self:AntiSpam(2, 1) then
+		self.vb.addsCount = self.vb.addsCount + 1
+		specWarnAdds:Show()
+		specWarnAdds:Play("killmob")
+		local timer = self:GetFromTimersTable(allTimers, "normal25", 1, "adds", self.vb.addsCount+1) or 30
+		timerAddsCD:Start(timer)
+	elseif spellName == summonPlaguedChampionName and self:AntiSpam(2, 2) then -- REVIEW! longer fights needed
+		self.vb.addsCount = self.vb.addsCount + 1
+		specWarnAdds:Show()
+		specWarnAdds:Play("killmob")
+		local timer = self:GetFromTimersTable(allTimers, "normal25", 1, "adds", self.vb.addsCount+1) or 30
+		timerAddsCD:Start(timer)
 	end
 end
 
