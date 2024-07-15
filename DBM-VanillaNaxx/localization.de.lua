@@ -385,6 +385,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell = "Lakaien, Diener, Soldaten der eisigen Finsternis! Folgt dem Ruf von Kel'Thuzad!",
+	YellPhase2 = "Euer Ende ist gekommen!", -- 12997
+	YellPhase3 = "Meister, ich benötige Beistand.", -- 12998
+	YellGuardians = "Wohlan, Krieger der Eisigen Weiten, erhebt euch! Ich befehle euch für euren Meister zu kämpfen, zu töten und zu sterben! Keiner darf überleben!", -- 12994
 	setMissing	= "AUFMERKSAMKEIT! Das automatische Ausrüsten/Ausrüsten von DBM-Waffen funktioniert erst, wenn Sie ein Ausrüstungsset namens pve . erstellen",
 	EqUneqLineDescription	= "Automatisches An-/Ablegen"
 })

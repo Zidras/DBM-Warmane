@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20240701222429")
+mod:SetRevision("20240715125500")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -17,6 +17,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 27808 27819 28410",
 	"SPELL_AURA_REMOVED 28410",
 	"SPELL_CAST_SUCCESS 27810 27819 27808 28410",
+	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_HEALTH boss1"
 )
 
@@ -27,6 +28,7 @@ local warnFissure			= mod:NewTargetNoFilterAnnounce(27810, 4)
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
 local warnMindControlSoon	= mod:NewSoonAnnounce(28410, 4)
+local warnPhase3			= mod:NewPhaseAnnounce(3, 3)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
@@ -36,15 +38,16 @@ local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1
 local specWarnFissureYou	= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
 local specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 8)
 local yellFissure			= mod:NewYellMe(27810)
+local specWarnAddsGuardians	= mod:NewSpecialWarningAdds(29897, "-Healer", nil, nil, 1, 2) -- "Guardians of Icecrown. There's no spellID for this, so used something close: Guardians of Icecrown Passive"
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
+local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3) -- "Detonate Mana-27819-npc:15990-3 = pull:331.16/[Stage 1/0.00, Stage 2/310.52] 20.64/331.16, 19.99, 20.00, 20.91, 20.02, 20.00, 20.15"
 local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
-local timerFissureCD 		= mod:NewCDTimer(11.5, 27810, nil, nil, nil, 3, nil, nil, true) -- Huge variance! Added "keep" arg (25m Lordaeron 2022/10/16) - Stage 2/*, 22.8, 41.2, 77.5, 11.5
+local timerFissureCD 		= mod:NewCDTimer(10, 27810, nil, nil, nil, 3) -- ~1s variance [9.99-11.13]. (Onyxia PTR: [2024-07-13]@[15:18:40]) - "Shadow Fissure-27810-npc:15990-3 = pull:320.05/[Stage 1/0.00, Stage 2/310.52] 9.53/320.05, 11.13, 9.99, 10.03, 9.99, 10.03, 10.01, 10.85, 10.99, 10.03, 9.99, 10.05, 10.01, 10.03"
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
-local timerPhase2			= mod:NewTimer(228, "TimerPhase2", nil, nil, nil, 6) -- (25m Lordaeron 2022/10/16) - 228.0
+local timerPhase2			= mod:NewTimer(310, "TimerPhase2", nil, nil, nil, 6) -- YELL-YELL. P2 script starts on Yell or Emote, and IEEU fires 0.55s after. (Onyxia PTR: [2024-07-13]@[15:18:40]) - 310
 
 mod:AddRangeFrameOption(12, 27819)
 mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
@@ -67,8 +70,8 @@ local function selfWarnMissingSet()
 end
 
 mod:AddMiscLine(L.EqUneqLineDescription)
-mod:AddBoolOption("EqUneqWeaponsKT", mod:IsDps(), nil, selfWarnMissingSet)
-mod:AddBoolOption("EqUneqWeaponsKT2")
+mod:AddBoolOption("EqUneqWeaponsKT", false)
+mod:AddBoolOption("EqUneqWeaponsKT2", mod:IsDps(), nil, selfWarnMissingSet)
 
 local function selfSchedWarnMissingSet(self)
 	if self.Options.EqUneqWeaponsKT and not self:IsEquipmentSetAvailable("pve") then
@@ -226,17 +229,15 @@ local function StartPhase2(self)
 		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		if self:IsDifficulty("normal25") then
-			timerMCCD:Start(31)
-			warnMindControlSoon:Schedule(26)
-			if self.Options.EqUneqWeaponsKT and self:IsDps() then
-				self:Schedule(60, UnWKT, self)
-				self:Schedule(60.5, UnWKT, self)
-			end
+		timerMCCD:Start(31)
+		warnMindControlSoon:Schedule(26)
+		if self.Options.EqUneqWeaponsKT and self:IsDps() then
+			self:Schedule(60, UnWKT, self)
+			self:Schedule(60.5, UnWKT, self)
 		end
-		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(12)
-		end
+	end
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(12)
 	end
 end
 
@@ -246,12 +247,12 @@ function mod:OnCombatStart(delay)
 	table.wipe(frostBlastTargets)
 	self.vb.warnedAdds = false
 	self.vb.MCIcon = 1
-	specwarnP2Soon:Schedule(218-delay)
+	specwarnP2Soon:Schedule(300-delay)
 	timerPhase2:Start()
 --	self:Schedule(226, StartPhase2, self)
-	self:RegisterShortTermEvents(
+--[[self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
-	)
+	)]]
 end
 
 function mod:OnCombatEnd()
@@ -359,12 +360,23 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.YellPhase2 or msg:find(L.YellPhase2) then
+		StartPhase2(self)
+	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
+		self:SetStage(3)
+		warnPhase3:Show()
+	elseif msg == L.YellGuardians or msg:find(L.YellGuardians) then
+		specWarnAddsGuardians:Show()
+	end
+end
+
+--[[function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if UnitExists("boss1") and self:GetUnitCreatureId("boss1") == 15990 then
 		StartPhase2(self)
 		self:UnregisterShortTermEvents()
 	end
-end
+end]]
 
 function mod:UNIT_HEALTH(uId)
 	if not self.vb.warnedAdds and self:GetUnitCreatureId(uId) == 15990 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.48 then

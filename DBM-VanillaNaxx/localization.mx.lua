@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" then return end
+if GetLocale() ~= "esMX" then return end
 local L
 
 -----------------
@@ -10,7 +10,14 @@ L:SetGeneralLocalization({
 	name = "Anub'Rekhan"
 })
 
+L:SetWarningLocalization({
+	SpecialLocust		= "Enjambre de langostas",
+	WarningLocustFaded	= "Enjambre de langostas ha terminado"
+})
+
 L:SetOptionLocalization({
+	SpecialLocust		= "Mostrar aviso especial para $spell:28785",
+	WarningLocustFaded	= "Mostrar aviso cuando termine $spell:28785",
 	ArachnophobiaTimer	= "Mostrar temporizador para el logro 'Aracnofobia'"
 })
 
@@ -30,11 +37,13 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningEmbraceExpire	= "Abrazo de la viuda expirando en 5 s"
+	WarningEmbraceExpire	= "Abrazo de la viuda expirando en 5 s",
+	WarningEmbraceExpired	= "Abrazo de la viuda ha expirado"
 })
 
 L:SetOptionLocalization({
-	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda"
+	WarningEmbraceExpire	= "Mostrar aviso previo para cuando expire Abrazo de la viuda",
+	WarningEmbraceExpired	= "Mostrar aviso cuando expire Abrazo de la viuda"
 })
 
 L:SetMiscLocalization({
@@ -97,6 +106,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull				= "¡Muere, intruso!",
+	AddsYell			= "¡Levantaos, soldados míos! ¡Levantaos y luchad una vez más!",
 	Adds				= "invoca a guerreros esqueletos!",
 	AddsTwo				= "alza más esqueletos!"
 })
@@ -239,9 +249,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Yell1 = "¡No tengáis piedad!",
-	Yell2 = "¡El tiempo de practicar ha pasado! ¡Quiero ver lo que habéis aprendido!",
-	Yell3 = "¡Poned en práctica lo que os he enseñado!",
+	Yell1 = "¡No tengan piedad!",
+	Yell2 = "¡Se ha acabado el tiempo de práctica! ¡Quiero ver lo que han aprendido!",
+	Yell3 = "¡Hagan lo que les enseñé!",
 	Yell4 = "Un barrido con pierna... ¿Tienes algún problema?"
 })
 
@@ -343,18 +353,19 @@ L:SetOptionLocalization({
 	TimerLanding		= "Mostrar temporizador para el cambio a fase en tierra",
 	TimerIceBlast		= "Mostrar temporizador para $spell:28524",
 	WarningDeepBreath	= "Mostrar aviso especial para $spell:28524",
+	WarningIceblock		= "Gritar cuando te afecte $spell:28522",
 	SpecWarnSapphLow	= "Advertencia especial para fase de ejecución del 10% (cancelación de fase de aire)"
 })
 
 L:SetMiscLocalization({
 	EmoteBreath			= "%s respira hondo.",
-	AirPhase			= "¡Sapphiron se eleva en el aire!",
-	LandingPhase		= "¡Sapphiron reanuda su ataque!"
+	WarningYellIceblock	= "¡Soy un bloque de hielo!"
 })
 
 ----------------
 -- Kel'Thuzad --
 ----------------
+
 L = DBM:GetModLocalization("Kel'Thuzad-Vanilla")
 
 L:SetGeneralLocalization({
@@ -385,9 +396,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Yell		= "¡Esbirros, sirvientes, soldados de la fría oscuridad! ¡Obedeced la llamada de Kel'Thuzad!",
-	YellPhase2	= "¡Vuestra hora ha llegado!", -- 12997
-	YellPhase3	= "¡Maestro, necesito ayuda!", -- 12998
-	YellGuardians	= "Muy bien. ¡Guerreros del desierto helado! ¡Levantaos, os ordeno luchar, matar y morir por vuestro maestro! ¡Que no sobreviva ninguno!", -- 12994
+	YellPhase2	= "¡El final se cierne sobre ti!", -- 12997
+	YellPhase3	= "¡Amo, requiero ayuda!", -- 12998
+	YellGuardians	= "Muy bien. Guerreros de los páramos helados, ¡levántense! ¡Les ordeno luchar, matar y morir por su amo! ¡Que nadie sobreviva!", -- 12994
 	setMissing	= "¡ATENCIÓN! El desequipamiento / equipamiento automático de armas de DBM no funcionará hasta que cree un equipamiento llamado pve",
 	EqUneqLineDescription	= "Equipar/desequipar automático"
 })

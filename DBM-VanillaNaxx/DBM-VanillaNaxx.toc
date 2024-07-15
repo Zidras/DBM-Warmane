@@ -46,6 +46,7 @@ localization.ru.lua
 localization.tw.lua
 localization.kr.lua
 localization.es.lua
+localization.mx.lua
 localization.cn.lua
 
 ArachnidQuarter\Anub'Rekhan.lua
