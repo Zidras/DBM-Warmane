@@ -10,6 +10,10 @@ L:SetGeneralLocalization({
 	name = "예언자 스케람"
 })
 
+L:SetMiscLocalization({
+	YellKillSkeram = "이런다고 피할 수는 없다!"
+})
+
 ----------------
 -- Three Bugs --
 ----------------
