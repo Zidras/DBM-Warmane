@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20240716163232"),
+	Revision = parseCurseDate("20240716165208"),
 	DisplayVersion = "10.1.12 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 02, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -11280,6 +11280,9 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	end
 	if self.WBEsync then
 		info.WBEsync = self.WBEsync
+	end
+	if self.noBossDeathKill then
+		info.noBossDeathKill = self.noBossDeathKill
 	end
 	-- use pull-mobs as kill mobs by default, can be overriden by RegisterKill
 	if self.multiMobPullDetection then
