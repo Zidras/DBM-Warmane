@@ -34,7 +34,7 @@ L:SetOptionLocalization({
 	WarnReanimating				= "Show warning when an add is being revived",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Show timer for new adds",
 	SpecWarnVengefulShade		= "Show special warning when you are attacked by Vengeful Shade",--creatureid 38222
-	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled",
+	WeaponsStatus				= "Show special warning at combat start if unequip/equip function is enabled",
 	ShieldHealthFrame			= "Show boss health with a health bar for $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
 --	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight",
