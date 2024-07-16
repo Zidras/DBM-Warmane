@@ -382,7 +382,7 @@ L:SetOptionLocalization({
 	specwarnP2Soon		= "为克尔苏加德攻击前10秒显示特别警报",
 	warnAddsSoon		= "为寒冰皇冠卫士显示提前警报",
 	EqUneqWeaponsKT		= "在 $spell:28410 之前和之后自动取消装备和装备武器。 需要名为“pve”的装备套装",
-	EqUneqWeaponsKT2	= "对你施放 $spell:28410 时自动解除和装备武器",
+	EqUneqWeaponsKT2	= "对你施放 $spell:28410 时自动解除和装备武器。 需要名为“pve”的装备套装",
 	RemoveBuffsOnMC		= "当$spell:28410对你施法时，移除BUFF。每个选项都是累积的。",
 	Gift				= "移除$spell:48469 / $spell:48470。防止$spell:33786抵制的最简单方法。",
 	CCFree				= "+ 删除$spell:48169 / $spell:48170。考虑到阴影学派中法术的抵抗。",

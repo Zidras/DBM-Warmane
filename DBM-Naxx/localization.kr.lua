@@ -389,7 +389,7 @@ L:SetOptionLocalization({
 	specwarnP2Soon		= "2 단계 10초 전에 특수 경고 보기",
 	warnAddsSoon		= "얼음왕관의 수호자 이전에 알림 보기",
 	EqUneqWeaponsKT		= "$spell:28410 전후에 자동으로 무기를 장착 해제하고 장착합니다. \"pve\"라는 장비 세트가 필요합니다.",
-	EqUneqWeaponsKT2	= "$spell:28410이 당신에게 시전되면 자동으로 무기를 장착 해제하고 장착합니다.",
+	EqUneqWeaponsKT2	= "$spell:28410이 당신에게 시전되면 자동으로 무기를 장착 해제하고 장착합니다. \"pve\"라는 장비 세트가 필요합니다.",
 	RemoveBuffsOnMC		= "$spell:28410를 시전하면 버프를 제거합니다. 각 옵션은 누적됩니다.",
 	Gift				= "$spell:48469 / $spell:48470을 제거합니다. $spell:33786 저항을 방지하기 위한 최소한의 접근입니다.",
 	CCFree				= "+ $spell:48169 / $spell:48170을 제거합니다. 그림자 학교의 주문 저항을 설명합니다.",
