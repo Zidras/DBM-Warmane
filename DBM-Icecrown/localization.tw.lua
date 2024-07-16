@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "小怪再活化",
 	WarnAddsSoon				= "新的小怪即將到來",
 	SpecWarnVengefulShade		= "你被復仇的暗影盯上了 - 快跑開",
-	WeaponsStatus				= "自動武器卸載/裝備已啟用"
+	WeaponsStatus				= "自動武器卸載/裝備已啟用: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({

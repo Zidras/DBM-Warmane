@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "이교도 부활",			-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "곧 새로운 이교도 등장",
 	SpecWarnVengefulShade		= "복수의 망령 공격 - 피하세요!",--creatureid 38222
-	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
+	WeaponsStatus				= "Auto Unequipping enabled: %s (%s - %s)" --Needs Translating
 })
 
 L:SetOptionLocalization({

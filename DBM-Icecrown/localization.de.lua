@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Add-Wiederbelebung",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Neue Adds bald",
 	SpecWarnVengefulShade		= "Rachsüchtiger Schatten greift dich an - Lauf",--creatureid 38222
-	WeaponsStatus				= "Automatisches Entwaffnen aktiv"
+	WeaponsStatus				= "Automatisches Entwaffnen aktiv: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({

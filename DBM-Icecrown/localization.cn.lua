@@ -26,7 +26,7 @@ L:SetWarningLocalization({
 	WarnReanimating = "小怪再活化",
 	WarnAddsSoon = "新的小怪即将到来",
 	SpecWarnVengefulShade = "怨毒之影目标是你 - 快躲开", --creatureid 38222 -- Modified by Emi
-	WeaponsStatus = "自动卸下武器开启" -- Modified by Emi
+	WeaponsStatus = "自动卸下武器开启: %s (%s - %s)" -- Modified by Emi
 })
 
 L:SetOptionLocalization({

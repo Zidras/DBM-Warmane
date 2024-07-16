@@ -26,7 +26,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Add reviving",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "New adds soon",
 	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away",--creatureid 38222
-	WeaponsStatus				= "Auto Unequipping enabled"
+	WeaponsStatus				= "Auto Unequip/Equip weapons: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({

@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Les adds revivent",
 	WarnAddsSoon				= "Nouveaux adds bientôt",
 	SpecWarnVengefulShade		= "Ombre vengeresse vous attaque - COUREZ",
-	WeaponsStatus				= "Auto-déséquipement activé"
+	WeaponsStatus				= "Auto-déséquipement activé: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({

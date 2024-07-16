@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Помощник воскрешается",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Скоро призыв помощников",
 	SpecWarnVengefulShade		= "Мстительный дух атакует вас - бегите", --creatureid 38222
-	WeaponsStatus				= "Cнятие оружий включено"
+	WeaponsStatus				= "Cнятие оружий включено: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({

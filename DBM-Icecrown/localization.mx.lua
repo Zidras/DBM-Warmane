@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Esbirro reanimado",			-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Esbirros en breve",
 	SpecWarnVengefulShade		= "¡Sombra vengativa te ataca! ¡Corre!",--creatureid 38222
-	WeaponsStatus				= "Desequipar automático habilitado"
+	WeaponsStatus				= "Desequipar automático habilitado: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({
