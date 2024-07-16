@@ -363,7 +363,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Kel'Thuzad greift in 10 Sekunden an",
-	warnAddsSoon	= "Wächter von Eiskrone bald"
+	warnAddsSoon	= "Wächter von Eiskrone bald",
+	WeaponsStatus	= "Automatisches Entwaffnen aktiv: %s (%s - %s)"
 })
 
 L:SetTimerLocalization({
@@ -374,6 +375,7 @@ L:SetOptionLocalization({
 	TimerPhase2			= "Zeige Zeit bis Phase 2",
 	specwarnP2Soon		= "Spezialwarnung 10 Sekunden bevor Kel'Thuzad angreift",
 	warnAddsSoon		= "Zeige Vorwarnung für Wächter von Eiskrone",
+	WeaponsStatus		= "Zeige Spezialwarnung bei Kampfbeginn, wenn automatisches Be-/Entwaffnen aktiviert ist",
 	EqUneqWeaponsKT		= "Waffen vor und nach $spell:28410 automatisch aus- und ausrüsten. Benötigt Ausrüstungsset namens \"pve\"",
 	EqUneqWeaponsKT2	= "Waffen automatisch ablegen und ausrüsten, wenn $spell:28410 auf DICH gewirkt wird. Benötigt Ausrüstungsset namens \"pve\"",
 	RemoveBuffsOnMC		= "Entferne Buffs, wenn $spell:28410 auf dich gewirkt wird. Jede Option ist kumulativ.",

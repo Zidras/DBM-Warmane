@@ -359,7 +359,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Kel'Thuzad engages in 10 Seconds",
-	warnAddsSoon	= "Guardians of Icecrown incoming soon"
+	warnAddsSoon	= "Guardians of Icecrown incoming soon",
+	WeaponsStatus	= "Auto Unequip/Equip weapons: %s (%s - %s)"
 })
 
 L:SetTimerLocalization({
@@ -370,6 +371,7 @@ L:SetOptionLocalization({
 	TimerPhase2			= "Show timer for Phase 2",
 	specwarnP2Soon		= "Show special warning 10 seconds before Kel'Thuzad engages",
 	warnAddsSoon		= "Show pre-warning for Guardians of Icecrown",
+	WeaponsStatus		= "Show special warning at combat start if unequip/equip function is enabled",
 	EqUneqWeaponsKT		= "Automatically unequip and equip weapons on a timer, before and after $spell:28410. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
 	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
 	RemoveBuffsOnMC		= "Remove buffs when $spell:28410 is cast on you. Each option is cumulative.",

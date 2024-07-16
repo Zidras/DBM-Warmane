@@ -359,7 +359,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "10秒後科爾蘇加德開始攻擊",
-	warnAddsSoon	= "寒冰皇冠守護者即將出現"
+	warnAddsSoon	= "寒冰皇冠守護者即將出現",
+	WeaponsStatus	= "自動武器卸載/裝備已啟用: %s (%s - %s)"
 })
 
 L:SetTimerLocalization({
@@ -370,6 +371,7 @@ L:SetOptionLocalization({
 	TimerPhase2			= "為第二階段顯示計時器",
 	specwarnP2Soon		= "為科爾蘇加德攻擊前10秒顯示特別警告",
 	warnAddsSoon		= "為寒冰皇冠守護者顯示預先警告",
+	WeaponsStatus		= "戰鬥開始時提示自動武器卸載/裝備功能已啟用",
 	EqUneqWeaponsKT		= "在 $spell:28410 之前和之後自動取消裝備和裝備武器。 需要名為“pve”的裝備套裝",
 	EqUneqWeaponsKT2	= "對你施放 $spell:28410 時自動解除和裝備武器。 需要名為“pve”的裝備套裝",
 	RemoveBuffsOnMC		= "當 $spell:28410 對你施放時移除增益。每個選項都是累積的。",

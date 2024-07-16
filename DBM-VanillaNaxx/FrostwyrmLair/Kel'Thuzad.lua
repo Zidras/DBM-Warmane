@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20240716125116")
+mod:SetRevision("20240716154330")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -20,6 +20,8 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_HEALTH boss1"
 )
+
+local specWarnWeapons		= mod:NewSpecialWarning("WeaponsStatus", false)
 
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1, "Interface\\Icons\\INV_Misc_MonsterSpiderCarapace_01")
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
@@ -248,6 +250,7 @@ local function StartPhase2(self)
 		warnPhase2:Play("ptwo")
 		timerMCCD:Start(30)
 		warnMindControlSoon:Schedule(25)
+		specWarnWeapons:Show(checkWeaponRemovalSetting(self) and ENABLE or ADDON_DISABLED, (self.Options.EqUneqWeaponsKT2 and self.Options.EqUneqWeaponsKT and (SLASH_STOPWATCH2):sub(2)) or (self.Options.EqUneqWeaponsKT2 and COMBAT_LOG) or NONE, self.Options.EqUneqFilter)
 		if self.Options.EqUneqWeaponsKT and checkWeaponRemovalSetting(self) then
 			self:Schedule(29.95, UnWKT, self)
 			self:Schedule(30, UnWKT, self)

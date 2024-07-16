@@ -374,7 +374,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Fase 2 en 10 s",
-	warnAddsSoon	= "Guardianes de Corona de Hielo en breve"
+	warnAddsSoon	= "Guardianes de Corona de Hielo en breve",
+	WeaponsStatus	= "Desequipar automático habilitado: %s (%s - %s)"
 })
 
 L:SetTimerLocalization({
@@ -385,6 +386,7 @@ L:SetOptionLocalization({
 	TimerPhase2			= "Mostrar temporizador para el cambio a Fase 2",
 	specwarnP2Soon		= "Mostrar aviso especial 10 s antes del cambio a Fase 2",
 	warnAddsSoon		= "Mostrar aviso previo para cuando aparezcan los Guardianes de Corona de Hielo",
+	WeaponsStatus		= "Advertencia especial al inicio del combate si la función desequipar/equipar está habilitada",
 	EqUneqWeaponsKT		= "Desequipar y equipar armas automáticamente con temporizador, antes y después del $spell:28410. Requiere equipamiento llamado \"pve\"",
 	EqUneqWeaponsKT2	= "Desequipar y equipar armas automáticamente cuando se lanza $spell:28410 sobre USTED. Requiere equipamiento llamado \"pve\"",
 	RemoveBuffsOnMC		= "Elimina los buffs cuando $spell:28410 es lanzado sobre ti. Cada opción es acumulativa",

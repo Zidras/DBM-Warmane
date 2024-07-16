@@ -377,7 +377,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon		= "10초 후 2 단계",
-	warnAddsSoon		= "곧 얼음왕관의 수호자"
+	warnAddsSoon		= "곧 얼음왕관의 수호자",
+	WeaponsStatus		= "Auto Unequipping enabled: %s (%s - %s)" --Needs Translating
 })
 
 L:SetTimerLocalization({
@@ -388,6 +389,7 @@ L:SetOptionLocalization({
 	TimerPhase2			= "2 단계 바 보기",
 	specwarnP2Soon		= "2 단계 10초 전에 특수 경고 보기",
 	warnAddsSoon		= "얼음왕관의 수호자 이전에 알림 보기",
+	WeaponsStatus		= "Special warning at combat start if unequip/equip function is enabled", --Needs Translating
 	EqUneqWeaponsKT		= "$spell:28410 전후에 자동으로 무기를 장착 해제하고 장착합니다. \"pve\"라는 장비 세트가 필요합니다.",
 	EqUneqWeaponsKT2	= "$spell:28410이 당신에게 시전되면 자동으로 무기를 장착 해제하고 장착합니다. \"pve\"라는 장비 세트가 필요합니다.",
 	RemoveBuffsOnMC		= "$spell:28410를 시전하면 버프를 제거합니다. 각 옵션은 누적됩니다.",

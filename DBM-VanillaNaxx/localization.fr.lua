@@ -365,7 +365,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	specwarnP2Soon		= "Kel'Thuzad sera actif dans 10 secondes"
+	specwarnP2Soon		= "Kel'Thuzad sera actif dans 10 secondes",
+	WeaponsStatus		= "Auto-déséquipement activé: %s (%s - %s)"
 })
 
 L:SetTimerLocalization({
@@ -376,6 +377,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TimerPhase2			= "Afficher le timer pour la Phase 2",
 	specwarnP2Soon		= "Montre un timer pour prévenir 10 secondes avant l'arrivée de Kel'Thuzad",
+	WeaponsStatus		= "Alerte spéciale si la fonction de déséquipement n'est pas active au début du combat",
 	EqUneqWeaponsKT		= "Déséquipez et équipez automatiquement les armes avant et après $spell:28410. Nécessite un ensemble d'équipement nommé \"pve\"",
 	EqUneqWeaponsKT2	= "Déséquiper et équiper automatiquement les armes lorsque $spell:28410 est lancé sur VOUS. Nécessite un ensemble d'équipement nommé \"pve\"",
 	RemoveBuffsOnMC		= "Retirez les buffs lorsque $spell:28410 est lancé sur vous. Chaque option est cumulative.",
