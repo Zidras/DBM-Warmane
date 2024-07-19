@@ -5,7 +5,7 @@ local UnitExists, UnitGUID, UnitName = UnitExists, UnitGUID, UnitName
 local GetSpellInfo = GetSpellInfo
 local GetPlayerMapPosition, SetMapToCurrentZone = GetPlayerMapPosition, SetMapToCurrentZone
 
-mod:SetRevision("20230827170336")
+mod:SetRevision("20240719121932")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -95,6 +95,7 @@ local specWarnChargeNear	= mod:NewSpecialWarningClose(52311, nil, nil, nil, 3, 2
 local specWarnFrothingRage	= mod:NewSpecialWarningDispel(66759, "RemoveEnrage", nil, nil, 1, 2)
 
 local timerBreath			= mod:NewCastTimer(5, 66689, nil, nil, nil, 3)--3 or 5? is it random target or tank?
+local timerBreathCD			= mod:NewCDTimer(20, 66689, nil, nil, nil, 3)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerNextCrash		= mod:NewCDTimer(63.4, 66683, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - 63.4, 63.7
 
@@ -225,6 +226,7 @@ function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if args:IsSpellID(66689, 67650, 67651, 67652) then			-- Arctic Breath
 		timerBreath:Start()
+		timerBreathCD:Start()
 		warnBreath:Show()
 	elseif spellId == 66313 then						-- FireBomb (Impaler)
 		warnFireBomb:Show()
@@ -289,6 +291,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 66758 then	-- Staggered Daze
 		timerStaggeredDaze:Start()
+		timerBreathCD:Start(15)
 	elseif spellId == 66636 then	-- Rising Anger
 		WarningSnobold:Show(args.destName)
 		timerRisingAnger:Start()
@@ -480,6 +483,7 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 				timerBurningBiteCD:Start(15.4) -- (25H Lordaeron 2022/09/03 || 25N Lordaeron 2022/10/13) - 19 || 15.4
 			elseif cid == 34797 then -- Icehowl
 				self:SetStage(3)
+				timerBreathCD:Start()
 				timerNextCrash:Start(40.9) -- REVIEW!
 				self:UnregisterShortTermEvents()
 			end
@@ -493,6 +497,7 @@ end
 function mod:UNIT_SPELLCAST_START(_, spellName)
 	if spellName == GetSpellInfo(66683) then -- Massive Crash
 		timerNextCrash:Start()
+		timerBreathCD:Cancel()
 	end
 end
 
