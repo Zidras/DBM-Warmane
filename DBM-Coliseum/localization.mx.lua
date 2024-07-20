@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "esES" then return end
+﻿if GetLocale() ~= "esMX" then return end
 
 local L
 
@@ -34,9 +34,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Charge				= "¡%%s mira a (%S+) y emite un bramido!",
-	CombatStart			= "Desde las cavernas más oscuras y profundas de Las Cumbres Tormentosas: ¡Gormok el Empalador! ¡A luchar, héroes!",
-	Phase2				= "Preparaos, héroes, para los temibles gemelos: ¡Fauceácida y Aterraescama! ¡A la arena!",
-	Phase3				= "El propio aire se congela al presentar a nuestro siguiente combatiente: ¡Aullahielo! ¡Matad o morid, campeones!",
+	CombatStart			= "¡De las cavernas más profundas y oscuras de las Cumbres Tormentosas: Gormok el Empalador! ¡Al combate, héroes!",
+	Phase2				= "¡Prepárense, héroes: los gemelos terribles, Fauceácida y Aterraescama, entran a la arena!",
+	Phase3				= "El mismísimo aire se congela al presentar a nuestro próximo combatiente, ¡Aullahielo! ¡Maten o mueran, campeones!",
 	Gormok				= "Gormok el Empalador",
 	Acidmaw				= "Fauceácida",
 	Dreadscale			= "Aterraescama",
