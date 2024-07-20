@@ -44,6 +44,7 @@ localization.kr.lua
 localization.tw.lua
 localization.es.lua
 localization.cn.lua
+localization.mx.lua
 
 NorthrendBeasts.lua
 Jaraxxus.lua
