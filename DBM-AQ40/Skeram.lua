@@ -1,14 +1,16 @@
 local mod	= DBM:NewMod("Skeram", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716170300")
 mod:SetCreatureID(15263)
 
 mod:SetModelID(15263)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
-mod.noBossDeathKill = true
+mod:DisableBossDeathKill()
+mod:SetHotfixNoticeRev(20240716000000)
 
 mod:RegisterCombat("combat")
+mod:RegisterKill("yell", L.YellKillSkeram)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 785",

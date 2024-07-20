@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240708001514")
 mod:SetCreatureID(15589, 15727)
 
 mod:SetUsedIcons(1)
@@ -15,7 +15,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 26476",
 	"SPELL_AURA_REMOVED 26476",
 	"CHAT_MSG_MONSTER_EMOTE",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnEyeTentacle			= mod:NewAnnounce("WarnEyeTentacle", 2, 126)
@@ -29,8 +30,8 @@ local specWarnWeakened			= mod:NewSpecialWarning("SpecWarnWeakened", nil, nil, n
 local specWarnEyeBeam			= mod:NewSpecialWarningYou(26134, nil, nil, nil, 1, 2)
 local yellEyeBeam				= mod:NewYell(26134)
 
-local timerDarkGlareCD			= mod:NewNextTimer(86, 26029)
-local timerDarkGlare			= mod:NewBuffActiveTimer(39, 26029)
+local timerDarkGlareCD			= mod:NewNextTimer(86, 26029) -- [2024-07-05]@[19:45:12] - "Dark Glare-26029-npc:15589-188 = pull:53.52...
+local timerDarkGlare			= mod:NewBuffActiveTimer(39, 26029) -- [...], 0.98, 0.98, 1.02, 1.03, 0.97, 1.02, 1.01, 0.98, 1.00, 1.00, 1.01, 0.99, 1.00, 1.00, 1.00, 0.99, 1.02, 0.98, 1.01, 0.99, 0.99, 1.00, 1.01, 1.01, 1.00, 1.01, 0.99 = 26.99 (but missing more)
 local timerEyeTentacle			= mod:NewTimer(45, "TimerEyeTentacle", 126, nil, nil, 1)
 local timerGiantEyeTentacle		= mod:NewTimer(60, "TimerGiantEyeTentacle", 126, nil, nil, 1)
 local timerClawTentacle			= mod:NewTimer(8, "TimerClawTentacle", 26391, nil, nil, 1) -- every 8 seconds
@@ -64,7 +65,7 @@ do
 			local uId = DBM:GetRaidUnitId(name)
 			if uId then
 				--First, display their stomach debuff stacks
-				local spellName, _, count = DBM:UnitDebuff(uId, 26476)
+				local spellName, _, _, count = DBM:UnitDebuf(uId, 26476)
 				if spellName and count then
 					addLine(name, count)
 				end
@@ -92,9 +93,9 @@ function mod:OnCombatStart(delay)
 	table.wipe(diedTentacles)
 	self:SetStage(1)
 	timerClawTentacle:Start(9-delay) -- Combatlog told me, the first Claw Tentacle spawn in 00:00:09, but need more test.
-	timerEyeTentacle:Start(45-delay)
-	timerDarkGlareCD:Start(46-delay)
-	self:ScheduleMethod(46-delay, "DarkGlare")
+	timerEyeTentacle:Start(40.48-delay)
+	timerDarkGlareCD:Start(53.52-delay)
+	self:ScheduleMethod(53.52-delay, "DarkGlare")
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end
@@ -149,6 +150,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 26586 then
+		DBM:AddMsg("Birth 26586 SPELL_CAST_SUCCESS fixed on server script. Notify Zidras on Discord or GitHub")
 		 local cid = self:GetCIDFromGUID(args.sourceGUID)
 		 if self:AntiSpam(5, cid) then--Throttle multiple spawn within 5 seconds
 			if cid == 15726 then--Eye Tentacle
@@ -213,6 +215,12 @@ function mod:UNIT_DIED(args)
 	elseif cid == 15802 then -- Flesh Tentacle
 		fleshTentacles[args.destGUID] = nil
 		diedTentacles[args.destGUID] = true
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == DBM:GetSpellInfo(26586) then
+		DBM:Debug("Birth") -- Since CLEU is hidden, this is here only as a placeholder until I get a VOD to ascertain whether or not this can be a generic warning (no cid is available, so perhaps target scanning?).
 	end
 end
 

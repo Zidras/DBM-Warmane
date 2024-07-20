@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Jaraxxus", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230221160133")
+mod:SetRevision("20240521122708")
 mod:SetCreatureID(34780)
 --mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
@@ -36,6 +36,7 @@ local specWarnGTFO				= mod:NewSpecialWarningGTFO(66877, nil, nil, 2, 1, 8)
 local specWarnFlesh				= mod:NewSpecialWarningYou(66237, nil, nil, nil, 1, 2)
 local specWarnKiss				= mod:NewSpecialWarningCast(66334, "SpellCaster", nil, 2, 1, 2)
 local specWarnNetherPower		= mod:NewSpecialWarningDispel(67009, "MagicDispeller", nil, nil, 1, 2)
+local specWarnFelInferno		= mod:NewSpecialWarningMove(66496, nil, nil, nil, 1, 2)
 local SpecWarnFelFireball		= mod:NewSpecialWarningInterrupt(66532, "HasInterrupt", nil, 2, 1, 2)
 local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66532, "RemoveMagic", nil, 2, 1, 2)
 
@@ -221,9 +222,12 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
-	if (spellId == 66877 or spellId == 67070 or spellId == 67071 or spellId == 67072 or spellId == 66496 or spellId == 68716 or spellId == 68717 or spellId == 68718) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then	-- Legion Flame / Fel Inferno
+	if (spellId == 66877 or spellId == 67070 or spellId == 67071 or spellId == 67072) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then	-- Legion Flame
 		specWarnGTFO:Show()
 		specWarnGTFO:Play("watchfeet")
+	elseif (spellId == 66496 or spellId == 68716 or spellId == 68717 or spellId == 68718) and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then	-- Fel Inferno (does not make sense to fire watchfeet for radius AoE)
+		specWarnFelInferno:Show()
+		specWarnFelInferno:Play("runaway")
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE

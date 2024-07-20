@@ -26,7 +26,7 @@ L:SetWarningLocalization({
 	WarnReanimating = "小怪再活化",
 	WarnAddsSoon = "新的小怪即将到来",
 	SpecWarnVengefulShade = "怨毒之影目标是你 - 快躲开", --creatureid 38222 -- Modified by Emi
-	WeaponsStatus = "自动卸下武器开启" -- Modified by Emi
+	WeaponsStatus = "自动卸下武器开启: %s (%s - %s)" -- Modified by Emi
 })
 
 L:SetOptionLocalization({
@@ -162,6 +162,24 @@ L:SetGeneralLocalization({
 	name = "普崔塞德教授"
 })
 
+L:SetWarningLocalization({
+	WarnReengage = "%s: 重新激活" -- more accurate translation
+})
+
+L:SetTimerLocalization({
+	TimerReengage = "重新激活" -- more accurate translation
+})
+
+L:SetOptionLocalization({
+	WarnReengage = "为Boss重新激活显示警告",
+	TimerReengage = "为Boss重新激活显示计时器"
+})
+
+L:SetMiscLocalization({
+	YellTransform1 = "嗯，什么感觉也没有。什么？！这是哪儿来的？",
+	YellTransform2 = "味道像……樱桃！哦！见笑了！"
+})
+
 ----------------------------
 --  Blood Prince Council  --
 ----------------------------
@@ -183,7 +201,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	WarnTargetSwitch = "为转换目标显示警告",
 	WarnTargetSwitchSoon = "为转换目标显示临近警告", -- Modified by Emi
-	TimerTargetSwitch = "为转换目标显示冷却计时器",
+	TimerTargetSwitch = "为转换目标显示计时器", -- more accurate translation
 	ActivePrinceIcon = "在強化的王子身上设置标记(骷髅)", -- Modified by Emi
 	ShadowPrisonMetronome = "播放一个重复的1秒钟的点击声，以避免$spell:72999"
 })

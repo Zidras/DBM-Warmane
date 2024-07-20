@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240212180252")
+mod:SetRevision("20240305183404")
 mod:SetCreatureID(11502)
 mod:SetModelID(11121)
 mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
@@ -55,7 +55,7 @@ function mod:OnCombatStart(delay)
 	self.vb.addLeft = 0
 --	self.vb.ragnarosEmerged = true
 	timerWrathRag:Start(30-delay)
-	timerSubmerge:Start(180-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
+	timerSubmerge:Start(-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(18)
 	end
@@ -99,7 +99,7 @@ function mod:SPELL_CAST_START(args)
 		timerEmerge:Stop()
 		warnEmerge:Show()
 		timerWrathRag:Start(30) -- (40N Lordaeron [2023-09-13]@[19:05:07] || ) - 2222.61 > 2252.60 [29.99] || "Wrath of Ragnaros-20566-npc:11502-130 = pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, Emerged/0.00, 30.08/30.08/120.06/145.69"
-		-- Don't start Submerge timer here, since Ragnaros will emerge after 90 seconds from Submerge/Summon Sons of Flames OR once all 8 are defeated (whichever happens first). The latter is variable and therefore not suitable for any timer
+		timerSubmerge:Start()
 	end
 end
 
@@ -124,7 +124,7 @@ function mod:UNIT_DIED(args)
 			self.vb.addLeft = self.vb.addLeft - 1
 --			if not self.vb.ragnarosEmerged and self.vb.addLeft == 0 then--After all 8 die he emerges immediately
 --				self:Unschedule(emerged)
---				emerged(self)
+--				emerged(self) -- not needed since SPELL_CAST_START:20568 exists, and will fire regardless of 90s script or early 8 Son of Flames clearance
 --			end
 --		end
 		warnSonsOfFlameLeft:Show(self.vb.addLeft)
@@ -149,8 +149,7 @@ function mod:OnSync(msg--[[, guid]])
 		timerWrathRag:Stop()
 		timerSubmerge:Stop()
 		warnSubmerge:Show()
-		timerEmerge:Start(90)
-		timerSubmerge:Start() -- Submerge Yells diff (40N Lordaeron [2023-09-13]@[19:05:07]) - 2209.92 > 2389.91 [179.99]
+		timerEmerge:Start()
 --		self:Schedule(90, emerged, self)
 		self.vb.addLeft = self.vb.addLeft + 8
 	--[[elseif msg == "AddDied" and self:IsInCombat() and guid and not addsGuidCheck[guid] then

@@ -14,6 +14,10 @@ L:SetGeneralLocalization({
 	name = "预言者斯克拉姆"
 })
 
+L:SetMiscLocalization({
+	YellKillSkeram = "你是在逃避必然的命运！"
+})
+
 ----------------
 -- Three Bugs --
 ----------------

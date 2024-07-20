@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Huhuran", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716231909")
 mod:SetCreatureID(15509)
 
 mod:SetModelID(15509)
@@ -32,6 +32,7 @@ local timerPoisonCD		= mod:NewCDTimer(11, 26053, nil, nil, nil, 3)
 local timerPoison		= mod:NewBuffFadesTimer(8, 26053)
 local timerFrenzyCD		= mod:NewCDTimer(11.8, 26051, nil, false, 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON)--Off by default do to ridiculous variation
 local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 3, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerBerserk		= mod:NewBerserkTimer(300)
 
 mod:AddRangeFrameOption("18", nil, "-Melee")
 
@@ -44,6 +45,7 @@ function mod:OnCombatStart(delay)
 	timerFrenzyCD:Start(9.6-delay)
 	timerPoisonCD:Start(11-delay)
 	timerStingCD:Start(20-delay)
+	timerBerserk:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(18)
 	end
@@ -91,6 +93,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerStingCD:Stop()
 		timerFrenzyCD:Stop()
 		timerPoisonCD:Stop()
+		timerBerserk:Stop()
 	--elseif args.spellId == 26050 and not self:IsTrivial(80) then
 	elseif args.spellId == 26050 and args:IsPlayer() then
 		local amount = args.amount or 1

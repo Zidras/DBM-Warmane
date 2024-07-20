@@ -797,15 +797,17 @@ do
 			local zones = v.zones
 			local handler = v[event]
 			local modEvents = v.registeredUnitEvents
-			if isUnitEvent --[[and v.id == DBM.currentModId]] then -- Me and Kader initially coded a current mod check to save some CPU but noticed it would not work with RegisterEvents (to be listened out of modCombat) since currentModId is being set on StartCombat
+			--if isUnitEvent --[[and v.id == DBM.currentModId]] then -- Me and Kader initially coded a current mod check to save some CPU but noticed it would not work with RegisterEvents (to be listened out of modCombat) since currentModId is being set on StartCombat
 				-- Workaround for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1"). Check if we have valid units registered and filter out everything else.
 				-- v is mod here... so we check registered mods for registered events with registered uIds (v.registeredUnitEvents[event]).
 				-- then we check if we have our unit (args) in the table ... self.registeredUnitEvents[event] = args which is defined below
-				if modEvents and modEvents[event] and not checkEntry(modEvents[event], ...) then return end
-			end
+				--if modEvents and modEvents[event] and not checkEntry(modEvents[event], ...) then return end
+			--end
 
-			if handler and (not zones or zones[LastInstanceMapID] or zones[LastInstanceZoneName]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
-				handler(v, ...)
+			if not (isUnitEvent and modEvents and modEvents[event] and not checkEntry(modEvents[event], ...)) then
+				if handler and (not zones or zones[LastInstanceMapID] or zones[LastInstanceZoneName]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
+					handler(v, ...)
+				end
 			end
 		end
 	end
@@ -1804,6 +1806,7 @@ do
 			return
 		end
 		DBT:CreateBar(time, text, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME")
+		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME", "pizzatimer", nil, 0)
 		if broadcast and self:GetRaidRank() >= 1 then
 			sendSync("DBMv4-Pizza", ("%s\t%s"):format(time, text))
 		end
@@ -10564,7 +10567,7 @@ do
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
 			self.localization.options[id] = L.AUTO_TIMER_OPTIONS[timerType]:format(GetAchievementLink(spellId):gsub("%[(.+)%]", "%1"), timer)
-		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" or timerType == "roleplay" then--Timers without spellid, generic
+		elseif timerType == "cdspecial" or timerType == "cdcombo" or timerType == "nextspecial" or timerType == "nextcombo" or timerType == "stage" or timerType == "stagecount" or timerType == "stagecountcycle" or timerType == "intermission" or timerType == "intermissioncount" or timerType == "adds" or timerType == "addscustom" or timerType == "roleplay" or timerType == "combat" then--Timers without spellid, generic (do not add stagecontext here, it has spellname parsing)
 			self.localization.options[id] = L.AUTO_TIMER_OPTIONS[timerType]:format(timer)--Using more than 1 stage timer or more than 1 special timer will break this, fortunately you should NEVER use more than 1 of either in a mod
 		else
 			self.localization.options[id] = L.AUTO_TIMER_OPTIONS[timerType]:format(unparsedId, timer)
@@ -11278,6 +11281,9 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	if self.WBEsync then
 		info.WBEsync = self.WBEsync
 	end
+	if self.noBossDeathKill then
+		info.noBossDeathKill = self.noBossDeathKill
+	end
 	-- use pull-mobs as kill mobs by default, can be overriden by RegisterKill
 	if self.multiMobPullDetection then
 		for _, v in ipairs(self.multiMobPullDetection) do
@@ -11381,6 +11387,19 @@ function bossModPrototype:EnableWBEngageSync()
 	if self.combatInfo then
 		self.combatInfo.WBEsync = true
 	end
+end
+
+---Used when a bosses death condition should be ignored (maybe they die repeatedly for example)
+function bossModPrototype:DisableBossDeathKill()
+	self.noBossDeathKill = true
+	if self.combatInfo then
+		self.combatInfo.noBossDeathKill = true
+	end
+end
+
+---Used when a boss is scripted in a hacky way that their creature Id changes mid fight, and we want to treat multiple IDs as a single boss
+function bossModPrototype:SetMultiIDSingleBoss()
+	self.multiIDSingleBoss = true
 end
 
 --used for knowing if a specific mod is engaged

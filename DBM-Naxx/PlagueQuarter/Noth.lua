@@ -3,37 +3,41 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20221027184343")
+mod:SetRevision("20240715212942")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
 
 mod:RegisterEvents(
-	"SPELL_CAST_SUCCESS 29213 54835 29212 29208",
-	"SPELL_AURA_APPLIED 29208 29209 29210 29211",
+	"SPELL_CAST_SUCCESS 29213 54835 29212 29208 29209 29210 29211",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
-local warnTeleportNow	= mod:NewAnnounce("WarningTeleportNow", 3, 46573)
-local warnTeleportSoon	= mod:NewAnnounce("WarningTeleportSoon", 1, 46573)
+local warnTeleportNow	= mod:NewAnnounce("WarningTeleportNow", 3, 46573, nil, nil, nil, 29216)
+local warnTeleportSoon	= mod:NewAnnounce("WarningTeleportSoon", 1, 46573, nil, nil, nil, 29216)
 local warnCurse			= mod:NewSpellAnnounce(29213, 2)
 local warnBlinkSoon		= mod:NewSoonAnnounce(29208, 1)
 local warnBlink			= mod:NewSpellAnnounce(29208, 3)
 
-local specWarnAdds		= mod:NewSpecialWarningAdds(29212, "-Healer", nil, nil, 1, 2)
+local specWarnAdds		= mod:NewSpecialWarningAdds(29247, "-Healer", nil, nil, 1, 2)
 
-local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6)
-local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6)
+local timerTeleport		= mod:NewTimer(90, "TimerTeleport", 46573, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 29216)
+local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", 46573, nil, nil, 6, nil, nil, nil, nil, nil, nil, nil, 29231)
 local timerCurseCD		= mod:NewCDTimer(56.7, 29213, nil, nil, nil, 5, nil, DBM_COMMON_L.CURSE_ICON) -- REVIEW! variance? (25man Frostmourne 2022/05/25 || 25man Lordaeron 2022/10/16) -  56.7, 99.1! || 57.4
-local timerAddsCD		= mod:NewAddsTimer(30, 29212, nil, "-Healer")
+local timerAddsCD		= mod:NewAddsTimer(30, 29247, nil, "-Healer")
 local timerBlink		= mod:NewNextTimer(30, 29208) -- (25N Lordaeron 2022/10/16) - 30.1, 30.0
+
+--local timerBerserk		= mod:NewBerserkTimer(665.07) -- spellId = 27680
+
+mod:GroupSpells(29216, 29231) -- Teleport, Teleport Return
 
 mod.vb.teleCount = 0
 mod.vb.addsCount = 0
 mod.vb.curseCount = 0
+mod.vb.blinkCount = 0
 local teleportBalconyName = GetSpellInfo(29216) -- Teleport
-local teleportBackName = GetSpellInfo(29231)
+local teleportBackName = GetSpellInfo(29231) -- Teleport Return
 
 --[[function mod:Balcony()
 	self.vb.teleCount = self.vb.teleCount + 1
@@ -79,9 +83,11 @@ function mod:OnCombatStart(delay)
 	self.vb.teleCount = 0
 	self.vb.addsCount = 0
 	self.vb.curseCount = 0
-	timerAddsCD:Start(7-delay)
+	self.vb.blinkCount = 0
+	timerAddsCD:Start(-delay)
 	timerCurseCD:Start(15-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 15.0
 	timerBlink:Start(23.8-delay) -- REVIEW! variance? (25man Lordaeron 2022/10/16) - 23.8
+	warnBlinkSoon:Schedule(18.8-delay)
 	timerTeleport:Start(90-delay)
 	warnTeleportSoon:Schedule(80-delay)
 --	self:ScheduleMethod(90.8-delay, "Balcony")
@@ -98,16 +104,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 --	elseif args.spellId == 29212 then--Cripple that's always cast when he teleports away
 
---	elseif args.spellId == 29208 then
---		warnBlink:Show()
-	end
-end
-
-function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(29208, 29209, 29210, 29211) then -- Blink
+	elseif args:IsSpellID(29208, 29209, 29210, 29211) and args:GetDestCreatureID() == 15954 then -- Blink
+		self.vb.blinkCount = self.vb.blinkCount + 1
 		warnBlink:Show()
-		timerBlink:Start()
-		warnBlinkSoon:Schedule(26)
+		if self.vb.blinkCount < 3 then
+			timerBlink:Start()
+			warnBlinkSoon:Schedule(25)
+		end
 	end
 end
 
@@ -122,10 +125,12 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName ==  teleportBalconyName then -- Teleport
 		self.vb.teleCount = self.vb.teleCount + 1
+		DBM:AddSpecialEventToTranscriptorLog(format("Teleport %d", self.vb.teleCount))
 		self.vb.addsCount = 0
 		timerCurseCD:Stop()
 		timerAddsCD:Stop()
 		timerBlink:Stop()
+		warnBlinkSoon:Cancel()
 		local timer
 		if self.vb.teleCount == 1 then
 			timer = 70
@@ -141,8 +146,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		end
 		timerTeleportBack:Start(timer)
 		warnTeleportSoon:Schedule(timer - 10)
-		warnTeleportNow:Schedule(timer)
+		warnTeleportNow:Show()
 	elseif spellName ==  teleportBackName then -- Teleport Return
+		DBM:AddSpecialEventToTranscriptorLog("Teleport Return")
 		self.vb.addsCount = 0
 		self.vb.curseCount = 0
 		timerAddsCD:Stop()

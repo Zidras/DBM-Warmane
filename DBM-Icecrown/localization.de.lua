@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Add-Wiederbelebung",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Neue Adds bald",
 	SpecWarnVengefulShade		= "Rachsüchtiger Schatten greift dich an - Lauf",--creatureid 38222
-	WeaponsStatus				= "Automatisches Entwaffnen aktiv"
+	WeaponsStatus				= "Automatisches Entwaffnen aktiv: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({
@@ -163,6 +163,24 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Professor Seuchenmord"
+})
+
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Erneuter Angriff"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Erneuter Angriff"
+})
+
+L:SetOptionLocalization({
+	WarnReengage			= "Zeige Warnung für erneuten Angriff",
+	TimerReengage			= "Zeige Zeit bis erneuten Angriff"
+})
+
+L:SetMiscLocalization({
+	YellTransform1			= "Hm, ich spüre gar nichts. Nanu?! Wo kommen die denn her?",
+	YellTransform2			= "Schmeckt nach... Kirsche! OH! Verzeihung!"
 })
 
 ----------------------------

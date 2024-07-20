@@ -21,7 +21,7 @@
 ## X-DBM-Mod-Name-zhCN: 风暴要塞
 ## X-DBM-Mod-Name-zhTW: 風暴要塞
 ## X-DBM-Mod-Name-ruRU: Крепость Бурь - Око
-## X-DBM-Mod-MapID: 776
+## X-DBM-Mod-MapID: 783
 ## X-DBM-Mod-LoadZone: Tempest Keep
 ## X-DBM-Mod-LoadZone-zhCN: 风暴要塞
 ## X-DBM-Mod-LoadZone-ruRU: Крепость Бурь
