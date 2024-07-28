@@ -65,7 +65,7 @@ do
 			local uId = DBM:GetRaidUnitId(name)
 			if uId then
 				--First, display their stomach debuff stacks
-				local spellName, _, _, count = DBM:UnitDebuf(uId, 26476)
+				local spellName, _, _, count = DBM:UnitDebuff(uId, 26476)
 				if spellName and count then
 					addLine(name, count)
 				end
