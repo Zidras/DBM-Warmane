@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20240730222104")
+mod:SetRevision("20240730223200")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -48,7 +48,7 @@ local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_CO
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
 local timerFissureCD 		= mod:NewCDTimer(10, 27810, nil, nil, nil, 3) -- ~1s variance [9.99-11.13]. (Onyxia PTR: [2024-07-13]@[15:18:40]) - "Shadow Fissure-27810-npc:15990-3 = pull:320.05/[Stage 1/0.00, Stage 2/310.52] 9.53/320.05, 11.13, 9.99, 10.03, 9.99, 10.03, 10.01, 10.85, 10.99, 10.03, 9.99, 10.05, 10.01, 10.03"
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
-local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
+local timerMCCD				= mod:NewCDTimer(60, 28410, nil, nil, nil, 3) -- (Onyxia: [2024-07-29]@[21:53:38]) - "Chains of Kel'Thuzad-28410-npc:15990-3 = pull:276.01/[Stage 1/0.00, Stage 2/246.00] 30.01/276.01, 60.00, Stage 3/5.94, 54.08/60.02"
 local timerPhase2			= mod:NewTimer(246, "TimerPhase2", nil, nil, nil, 6) -- YELL-YELL. P2 script starts on Yell or Emote, and IEEU fires 0.55s after. (Onyxia PTR: [2024-07-13]@[15:18:40] ||| Onyxia: [2024-07-29]@[21:17:18] || [2024-07-29]@[20:49:47] || [2024-07-29]@[21:53:38] || [2024-07-29]@[21:03:10]) - 310 ||| 245.98 || 245.99 || 246.00 || 245.96
 
 mod:AddRangeFrameOption(12, 27819)
@@ -348,7 +348,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:AntiSpam() then
 			timerMC:Start()
 			timerMCCD:Start()
-			warnMindControlSoon:Schedule(60)
+			warnMindControlSoon:Schedule(55)
 		end
 		if self.Options.SetIconOnMC then
 			self:SetIcon(args.destName, self.vb.MCIcon)
