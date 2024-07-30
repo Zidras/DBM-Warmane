@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20240715212942")
+mod:SetRevision("20240730223300")
 mod:SetCreatureID(15954)
 
 mod:RegisterCombat("combat_yell", L.Pull)
@@ -113,7 +113,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerCurseCD:Start()
 --	elseif args.spellId == 29212 then--Cripple that's always cast when he teleports away
 
-	elseif args:IsSpellID(29208, 29209, 29210, 29211) and args:GetDestCreatureID() == 15954 then -- Blink
+	elseif args:IsSpellID(29208, 29209, 29210, 29211) and args:GetSrcCreatureID() == 15954 then -- Blink
 		self.vb.blinkCount = self.vb.blinkCount + 1
 		warnBlink:Show()
 		if self.vb.blinkCount < 3 then
