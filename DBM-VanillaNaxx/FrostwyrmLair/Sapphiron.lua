@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron-Vanilla", "DBM-VanillaNaxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240714115710")
+mod:SetRevision("20240730214013")
 mod:SetCreatureID(15989)
 mod:SetMinSyncRevision(20220904000000)
 
@@ -253,8 +253,8 @@ function mod:OnSync(msg)
 		specWarnDeepBreath:Show()
 		specWarnDeepBreath:Play("findshelter")]]
 	if msg == "SapphironFlying" and self.vb.phase == 1 then
-		Flying()
+		Flying(self)
 	elseif msg == "SapphironLanded" and self.vb.phase == 2 then
-		Landing()
+		Landing(self)
 	end
 end
