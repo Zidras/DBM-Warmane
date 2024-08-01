@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius-Vanilla", "DBM-VanillaNaxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240714131813")
+mod:SetRevision("20240801122112")
 mod:SetCreatureID(15928)
 
 mod:RegisterCombat("combat_yell", L.Yell)
@@ -127,8 +127,7 @@ do
 end
 
 function mod:CHAT_MSG_MONSTER_EMOTE(msg)
-	if msg:match(L.Emote) or msg:match(L.Emote2) or msg:find(L.Emote) or msg:find(L.Emote2) or msg == L.Emote or msg == L.Emote2 then -- 2024/07/13 it was confirmed to be left out of the script on purpose, however it is NOT in line with vanilla (https://www.warmane.com/bugtracker/report/123124)
-		DBM:AddMsg("Thaddius Tesla Coil emote implemented on Warmane Onyxia server script. Notify Zidras on Discord or GitHub")
+	if msg:match(L.Emote) or msg:match(L.Emote2) or msg:find(L.Emote) or msg:find(L.Emote2) or msg == L.Emote or msg == L.Emote2 then
 		down = down + 1
 		if down >= 2 then
 			self:Unschedule(TankThrow)
