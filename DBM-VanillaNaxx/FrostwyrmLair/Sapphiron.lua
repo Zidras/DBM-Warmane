@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron-Vanilla", "DBM-VanillaNaxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240730214013")
+mod:SetRevision("20240814163209")
 mod:SetCreatureID(15989)
 mod:SetMinSyncRevision(20220904000000)
 
@@ -35,7 +35,7 @@ local warnBlizzard		= mod:NewSpellAnnounce(28560, 4)
 
 local specWarnBlizzard	= mod:NewSpecialWarningGTFO(28547, nil, nil, nil, 1, 8)
 
-local timerDrainLife	= mod:NewCDTimer(24, 28542, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON) -- (Onyxia PTR: [2024-07-13]@[15:10:23]) - "Life Drain-28542-npc:15989-1847 = pull:12.01/[Stage 1/0.00] 12.01, 23.99, Stage 2/8.99,
+local timerDrainLife	= mod:NewCDTimer(24, 28542, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON) -- (Onyxia PTR: [2024-07-13]@[15:10:23] ||| Onyxia: [2024-07-29]@[20:01:58]) - "Life Drain-28542-npc:15989-1847 = pull:12.01/[Stage 1/0.00] 12.01, 23.99, Stage 2/8.99, ||| "Life Drain-28542-npc:15989-3730 = pull:11.99/[Stage 1/0.00] 11.99, 24.03, Stage 2/9.00, Stage 1/22.22, 12.98/35.20/44.20, 24.03, 24.00, Stage 2/6.00, Stage 1/22.87, 13.00/35.87/41.86, 24.03"
 local timerAirPhase		= mod:NewTimer(67, "TimerAir", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerBlizzard		= mod:NewNextTimer(20, 28560, nil, nil, nil, 3) -- REVIEW!
 local timerTailSweep	= mod:NewNextTimer(9, 55696, nil, nil, nil, 2) -- (Onyxia PTR: [2024-07-13]@[15:10:23]) - "Tail Sweep-55697-npc:15989-1847 = pull:9.01/[Stage 1/0.00] 9.01, 9.01, 8.99, 9.04, Stage 2/8.94,...
@@ -89,8 +89,8 @@ local function Landing(self)
 	self.vb.isFlying = false
 	self.vb.iceboltCount = 0
 	warnLanded:Show()
-	warnDrainLifeSoon:Schedule(5)
-	timerDrainLife:Start(10.5) -- REVIEW!
+	warnDrainLifeSoon:Schedule(8)
+	timerDrainLife:Start(13)
 	warnAirPhaseSoon:Schedule(62)
 	timerAirPhase:Start() -- 67s after first landing onwards
 	self:Schedule(67, Flying, self)
