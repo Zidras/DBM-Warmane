@@ -34,7 +34,7 @@
 ## X-DBM-Mod-Name-esMX: Naxxramas (Clásico)
 ## X-DBM-Mod-Sort: 6
 ## X-DBM-Mod-MapID: 536
-X-DBM-Mod-LoadRealm: Onyxia, Vanilla Naxxamas PTR
+## X-DBM-Mod-LoadRealm: Onyxia, Vanilla Naxxamas PTR
 ## X-DBM-Mod-LoadZone: Naxxramas
 ## X-DBM-Mod-LoadZone-zhCN: 纳克萨玛斯
 ## X-DBM-Mod-LoadZone-ruRU: Наксрамас
