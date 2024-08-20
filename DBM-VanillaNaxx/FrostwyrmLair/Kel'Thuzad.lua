@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20240730223200")
+mod:SetRevision("20240820230038")
 mod:SetCreatureID(15990)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
@@ -267,7 +267,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(frostBlastTargets)
 	self.vb.warnedAdds = false
 	self.vb.MCIcon = 1
-	specwarnP2Soon:Schedule(300-delay)
+	specwarnP2Soon:Schedule(236-delay) -- 246-10
 	timerPhase2:Start()
 --	self:Schedule(226, StartPhase2, self)
 	self:RegisterShortTermEvents(
