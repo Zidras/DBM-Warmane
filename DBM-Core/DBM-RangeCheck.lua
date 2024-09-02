@@ -233,6 +233,9 @@ DBM:RegisterMapSize("MagtheridonsLair",	-- Magtheridon's Lair (Raid-BC)
 DBM:RegisterMapSize("Mana-Tombs",		-- Mana-Tombs (Party-BC)
 	1, 823.28515625, 548.85681152329994
 )
+DBM:RegisterMapSize("ManaTombs",		-- Mana-Tombs (Party-BC) Alternative Name
+	1, 823.28515625, 548.85681152329994 -- (Map name returned by [MPQ Patch] Classic/BC Dungeon Maps for WotLK)
+)
 DBM:RegisterMapSize("Maraudon",			-- Maraudon (Party-Classic)
 	1, 975, 650,
 	2, 1637.5, 1091.666000367
