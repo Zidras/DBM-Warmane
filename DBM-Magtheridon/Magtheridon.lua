@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Magtheridon", "DBM-Magtheridon")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240910004146")
 mod:SetCreatureID(17257)
 
 mod:SetModelID(18527)
@@ -59,7 +59,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) then
+	if msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or  L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2) then -- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
 		self:SetStage(2)
 		warnPhase2:Show()
 		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
