@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20240911192931")
+mod:SetRevision("20240911213453")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -250,13 +250,9 @@ local function colorizeFlagName(name)
 	end
 
 	if classUpper then
-		if CUSTOM_CLASS_COLORS then
-			local classTextColor = CUSTOM_CLASS_COLORS[classUpper]
-			local hexClassColor = format("ff%02X%02X%02X", 255 * classTextColor.r, 255 * classTextColor.g, 255 * classTextColor.b)
-			name = format("|c%s%s|r", hexClassColor, name)
-		else
-			name = format("|c%s%s|r", RAID_CLASS_COLORS[classUpper].colorStr, name)
-		end
+		local classTextColor = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[classUpper] or RAID_CLASS_COLORS[classUpper]
+		local hexClassColor = format("ff%02X%02X%02X", 255 * classTextColor.r, 255 * classTextColor.g, 255 * classTextColor.b)
+		name = format("|c%s%s|r", hexClassColor, name)
 	else
 		DBM:Debug("Couldn't find class for "..name..", requesting data from server")
 		requestedScoreData = true
