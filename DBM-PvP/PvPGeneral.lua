@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20220827002800")
+mod:SetRevision("20240910182741")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -237,13 +237,36 @@ local function HideFlagDisplay()
 	end
 end
 
+local function colorizeFlagName(name)
+--	if not mod.Options.ColorByClass then return name end
+	local classUpper
+	for i = 1, GetNumBattlefieldScores() do
+		local nameScoreboard, _, _, _, _, _, _, _, _, classToken = GetBattlefieldScore(i)
+		local noRealmName = strsplit("-", nameScoreboard) -- remove realm name, since Flag msg events never contain realm name
+		if noRealmName == name then
+			classUpper = classToken
+			break
+		end
+	end
+	if classUpper then
+		if CUSTOM_CLASS_COLORS then
+			local classTextColor = CUSTOM_CLASS_COLORS[classUpper]
+			local hexClassColor = format("ff%02X%02X%02X", 255 * classTextColor.r, 255 * classTextColor.g, 255 * classTextColor.b)
+			name = format("|c%s%s|r", hexClassColor, name)
+		else
+			name = format("|c%s%s|r", RAID_CLASS_COLORS[classUpper].colorStr, name)
+		end
+	end
+	return name
+end
+
 local function UpdateFlagDisplay()
 	if flagFrame1Text and flagFrame2Text then
 		if allyFlag then
 			if GetCurrentMapAreaID() == 483 then -- EotS
-				flagFrame1Text:SetText(L.Flag..": "..allyFlag)
+				flagFrame1Text:SetText(L.Flag..": "..colorizeFlagName(allyFlag))
 			else
-				flagFrame1Text:SetText(allyFlag)
+				flagFrame1Text:SetText(colorizeFlagName(allyFlag))
 			end
 			flagButton1:SetAttribute("macrotext", "/targetexact "..allyFlag)
 		else
@@ -253,9 +276,9 @@ local function UpdateFlagDisplay()
 
 		if hordeFlag then
 			if GetCurrentMapAreaID() == 483 then -- EotS
-				flagFrame2Text:SetText(L.Flag..": "..hordeFlag)
+				flagFrame2Text:SetText(L.Flag..": "..colorizeFlagName(hordeFlag))
 			else
-				flagFrame2Text:SetText(hordeFlag)
+				flagFrame2Text:SetText(colorizeFlagName(hordeFlag))
 			end
 			flagButton2:SetAttribute("macrotext", "/targetexact "..hordeFlag)
 		else
