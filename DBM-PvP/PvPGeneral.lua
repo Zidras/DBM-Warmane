@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20240910182741")
+mod:SetRevision("20240911192931")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -109,7 +109,7 @@ end)
 
 local CreateFrame, GetCurrentMapAreaID = CreateFrame, GetCurrentMapAreaID
 local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText, flagFrame1, flagButton1, flagFrame2, flagButton2, flagFrame1Text, flagFrame2Text
-local allyFlag, hordeFlag
+local allyFlag, hordeFlag, requestedScoreData
 
 local function ShowEstimatedPoints()
 	if AlwaysUpFrame1 and AlwaysUpFrame2 then
@@ -248,6 +248,7 @@ local function colorizeFlagName(name)
 			break
 		end
 	end
+
 	if classUpper then
 		if CUSTOM_CLASS_COLORS then
 			local classTextColor = CUSTOM_CLASS_COLORS[classUpper]
@@ -256,7 +257,12 @@ local function colorizeFlagName(name)
 		else
 			name = format("|c%s%s|r", RAID_CLASS_COLORS[classUpper].colorStr, name)
 		end
+	else
+		DBM:Debug("Couldn't find class for "..name..", requesting data from server")
+		requestedScoreData = true
+		RequestBattlefieldScoreData()
 	end
+
 	return name
 end
 
@@ -393,7 +399,8 @@ function mod:SubscribeFlags()
 	end
 	self:RegisterShortTermEvents(
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
-		"CHAT_MSG_BG_SYSTEM_HORDE"
+		"CHAT_MSG_BG_SYSTEM_HORDE",
+		"UPDATE_BATTLEFIELD_SCORE"
 	)
 end
 
@@ -680,6 +687,13 @@ do
 				flagTimer:UpdateIcon("Interface\\Icons\\INV_BannerPVP_01")
 			end
 			vulnerableTimer:Cancel()
+		end
+	end
+
+	function mod:UPDATE_BATTLEFIELD_SCORE()
+		if requestedScoreData then -- Attempt to scope this only to run when flag coloring runs
+			UpdateFlagDisplay()
+			requestedScoreData = false
 		end
 	end
 
