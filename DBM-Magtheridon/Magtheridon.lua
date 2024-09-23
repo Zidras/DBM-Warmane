@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 30528 30616",
 	"SPELL_CAST_SUCCESS 30511",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 --Get custom voice pack sound for cubes
