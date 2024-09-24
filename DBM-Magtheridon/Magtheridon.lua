@@ -62,7 +62,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if (msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or msg == L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2)) and self:GetStage(2) == false then -- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
+	if (msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or msg == L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2)) and self:GetStage(2, 1) == false then-- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
 		self:SetStage(2)
 		warnPhase2:Show()
 		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
