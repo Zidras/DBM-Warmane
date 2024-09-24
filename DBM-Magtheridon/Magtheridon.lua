@@ -26,8 +26,8 @@ local specWarnHeal			= mod:NewSpecialWarningInterrupt(30528, "HasInterrupt", nil
 local timerHeal				= mod:NewCastTimer(2, 30528, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerPhase2			= mod:NewTimer(120, "timerP2", "Interface\\Icons\\INV_Weapon_Halberd16", nil, nil, 6)
 local timerConflagration	= mod:NewCDTimer(30, 30757, nil, nil, nil, 2, nil, nil, true)
-local timerQuake			= mod:NewCDTimer(50, 26093, nil, nil, nil, 2)
-local timerBlastNovaCD		= mod:NewCDCountTimer(54, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerQuake			= mod:NewCDTimer(50, 30657, nil, nil, nil, 2, "Interface\\Icons\\Spell_Nature_Earthquake")
+local timerBlastNovaCD		= mod:NewCDCountTimer(60, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerDebris			= mod:NewNextTimer(15, 36449, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.TANK_ICON)--Only happens once per fight, after the phase 3 yell.
 
 mod.vb.blastNovaCounter = 1
@@ -62,7 +62,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or msg == L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2) then -- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
+	if (msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or msg == L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2)) and self:GetStage(2) == false then -- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
 		self:SetStage(2)
 		warnPhase2:Show()
 		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
@@ -89,7 +89,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(26093) then
+	if spellName == GetSpellInfo(30657) then
 		timerQuake:Start()
 	-- "<99.72 20:36:19> [UNIT_SPELLCAST_SUCCEEDED] Magtheridon(31.4%-0.0%){Target:Player} -Blaze- [[boss1:Blaze::0:]]", -- [1219]
 	-- "<100.03 20:36:19> [CLEU] SPELL_AURA_APPLIED#0x0F000000000A3F3A#Player#0x0F000000000A3F3A#Player#30757#Conflagration#DEBUFF#nil#", -- [1220]
