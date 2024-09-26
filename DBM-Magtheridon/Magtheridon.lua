@@ -83,7 +83,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		-- +18 to the timers
 		timerConflagration:AddTime(18)
 		timerQuake:AddTime(18)
-		timerBlastNovaCD:AddTime(18)
+		timerBlastNovaCD:AddTime(18, self.vb.blastNovaCounter)
 		timerDebris:Start()
 	end
 end
