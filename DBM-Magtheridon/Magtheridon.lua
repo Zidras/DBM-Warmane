@@ -32,11 +32,11 @@ local timerQuake			= mod:NewCDTimer(50, 30657, nil, nil, nil, 2, "Interface\\Ico
 local timerBlastNovaCD		= mod:NewCDCountTimer(60, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerDebris			= mod:NewNextTimer(15, 36449, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.TANK_ICON)--Only happens once per fight, after the phase 3 yell.
 
-mod.vb.blastNovaCounter = 1
+mod.vb.blastNovaCounter = 0
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
-	self.vb.blastNovaCounter = 1
+	self.vb.blastNovaCounter = 0
 	timerPhase2:Start(-delay)
 end
 
@@ -53,7 +53,7 @@ function mod:SPELL_CAST_START(args)
 		self.vb.blastNovaCounter = self.vb.blastNovaCounter + 1
 		specWarnBlastNova:Show(L.name)
 		specWarnBlastNova:Play("kickcast")
-		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
+		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter + 1)
 	end
 end
 
@@ -67,7 +67,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if (msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or msg == L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2)) and self:GetStage(2, 1) then-- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
 		self:SetStage(2)
 		warnPhase2:Show()
-		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter)
+		timerBlastNovaCD:Start(nil, self.vb.blastNovaCounter + 1)
 		timerPhase2:Cancel()
 		timerConflagration:Start(10) -- First Conflagration cd at least 10-25 (15 sec randomness)
 		timerQuake:Start(40) -- First Quake in 40 seconds
@@ -85,7 +85,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		-- +18 to the timers
 		timerConflagration:AddTime(18)
 		timerQuake:AddTime(18)
-		timerBlastNovaCD:AddTime(18, self.vb.blastNovaCounter)
+		timerBlastNovaCD:AddTime(18, self.vb.blastNovaCounter + 1)
 		timerDebris:Start()
 	end
 end
