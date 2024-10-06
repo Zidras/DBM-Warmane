@@ -15,9 +15,11 @@ mod:RegisterEventsInCombat(
 )
 
 --Get custom voice pack sound for cubes
-local warningHeal			= mod:NewSpellAnnounce(30528, 3)
-local warningInfernal		= mod:NewSpellAnnounce(30511, 2)
+local warnHeal				= mod:NewSpellAnnounce(30528, 3)
+local warnInfernal			= mod:NewSpellAnnounce(30511, 2)
 local warnPhase2			= mod:NewPhaseAnnounce(2)
+local warnConflagration		= mod:NewSpellAnnounce(30757, 2)
+local warnQuake				= mod:NewSpellAnnounce(30657, 2, "Interface\\Icons\\Spell_Nature_Earthquake")
 local warnPhase3			= mod:NewPhaseAnnounce(3)
 
 local specWarnBlastNova		= mod:NewSpecialWarningInterrupt(30616, nil, nil, nil, 3, 2)
@@ -26,7 +28,7 @@ local specWarnHeal			= mod:NewSpecialWarningInterrupt(30528, "HasInterrupt", nil
 local timerHeal				= mod:NewCastTimer(2, 30528, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerPhase2			= mod:NewTimer(120, "timerP2", "Interface\\Icons\\INV_Weapon_Halberd16", nil, nil, 6)
 local timerConflagration	= mod:NewCDTimer(30, 30757, nil, nil, nil, 2, nil, nil, true)
-local timerQuake			= mod:NewCDTimer(50, 30657, nil, nil, nil, 2, "Interface\\Icons\\Spell_Nature_Earthquake")
+local timerQuake			= mod:NewCDTimer(50, 30657, nil, nil, nil, 2, "Interface\\Icons\\Spell_Nature_Earthquake", nil, true)
 local timerBlastNovaCD		= mod:NewCDCountTimer(60, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerDebris			= mod:NewNextTimer(15, 36449, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.TANK_ICON)--Only happens once per fight, after the phase 3 yell.
 
@@ -45,7 +47,7 @@ function mod:SPELL_CAST_START(args)
 			specWarnHeal:Play("kickcast")
 			timerHeal:Start()
 		else
-			warningHeal:Show()
+			warnHeal:Show()
 		end
 	elseif args.spellId == 30616 then
 		self.vb.blastNovaCounter = self.vb.blastNovaCounter + 1
@@ -57,7 +59,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 30511 and self:AntiSpam(3, 1) then
-		warningInfernal:Show()
+		warnInfernal:Show()
 	end
 end
 
@@ -91,9 +93,11 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(30657) then
 		timerQuake:Start()
+		warnQuake:Show()
 	-- "<99.72 20:36:19> [UNIT_SPELLCAST_SUCCEEDED] Magtheridon(31.4%-0.0%){Target:Player} -Blaze- [[boss1:Blaze::0:]]", -- [1219]
 	-- "<100.03 20:36:19> [CLEU] SPELL_AURA_APPLIED#0x0F000000000A3F3A#Player#0x0F000000000A3F3A#Player#30757#Conflagration#DEBUFF#nil#", -- [1220]
 	elseif spellName == GetSpellInfo(40637) then
 		timerConflagration:Start()
+		warnConflagration:Show()
 	end
 end
