@@ -75,12 +75,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:SetStage(3)
 		warnPhase3:Show()
 		--If time less than 20, extend existing timer to 20, else do nothing
-		--[[if timerBlastNovaCD:GetRemaining(self.vb.blastNovaCounter) < 20 then
-			local elapsed, total = timerBlastNovaCD:GetTime(self.vb.blastNovaCounter)
+		--[[if timerBlastNovaCD:GetRemaining(self.vb.blastNovaCounter + 1) < 20 then
+			local elapsed, total = timerBlastNovaCD:GetTime(self.vb.blastNovaCounter + 1)
 			local extend = 20 - (total-elapsed)
 			DBM:Debug("timerBlastNovaCD extended by: "..extend, 2)
 			timerBlastNovaCD:Stop()
-			timerBlastNovaCD:Update(elapsed, total+extend, self.vb.blastNovaCounter)
+			timerBlastNovaCD:Update(elapsed, total+extend, self.vb.blastNovaCounter + 1)
 		end]]
 		-- +18 to the timers
 		timerConflagration:AddTime(18)
