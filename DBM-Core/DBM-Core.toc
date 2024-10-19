@@ -84,6 +84,7 @@ DBM-BossHealth.lua
 DBM-BossHealth.xml
 DBM-TimerTracker.xml
 DBM-TimerTracker.lua
+DBM-BossBannerToast.lua
 
 # Modules
 modules\Commands.lua

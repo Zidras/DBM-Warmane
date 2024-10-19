@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20240720234424"),
+	Revision = parseCurseDate("20241019191133"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3345,6 +3345,7 @@ do
 	-- WBA = World Buff Activation
 	-- RLO = Raid Leader Override
 	-- NS = Note Share
+	-- L = Boss Loot Info
 
 	syncHandlers["DBMv4-Mod"] = function(sender, mod, revision, event, ...)
 		mod = DBM:GetModByName(mod or "")
@@ -3464,6 +3465,32 @@ do
 		if select(2, IsInInstance()) == "pvp" or select(2, IsInInstance()) == "none" then return end
 		cId = tonumber(cId or "")
 		if cId then DBM:OnMobKill(cId, true) end
+	end
+
+	syncHandlers["DBMv4-L"] = function(sender, encounterId, _, lootSourceName, lootSourceGUID, itemID, itemLink, quantity, slot, texture, finalItem) -- encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem
+		if not BossBanner then return end
+		if DBM:AntiSpam(60, "L"..encounterId..slot) then -- prevent same loot spam
+			if DBM:AntiSpam(1, "L"..encounterId..sender..slot) then -- prevent spam from one user
+				quantity = tonumber(quantity)
+				slot = tonumber(slot)
+				-- check if BossBanner.pendingLoot already has the looted item
+				if next(BossBanner.pendingLoot) == nil then
+					DBM:Debug("Sending BossBanner event, no pendingLoot: ENCOUNTER_LOOT_RECEIVED, with args: "..encounterId..", "..itemID..", "..itemLink..", "..quantity..", "..slot..", "..texture..", "..lootSourceName..", "..lootSourceGUID..", "..finalItem, 3)
+					BossBanner:OnEvent("ENCOUNTER_LOOT_RECEIVED", encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID)
+				else
+					local sendLootEvent = true
+					for _, lootEntry in ipairs(BossBanner.pendingLoot) do -- indexed table with each pair being a loot entry with { itemID = itemID, quantity = quantity, slot = slot, lootNameToDisplay = lootNameToDisplay, itemLink = itemLink }
+						if lootEntry["itemID"] == itemID and lootEntry["slot"] == slot then -- item already added to pendingLoot, don't add it again
+							sendLootEvent = false
+						end
+					end
+					if sendLootEvent then
+						DBM:Debug("Sending BossBanner event: ENCOUNTER_LOOT_RECEIVED, with args: "..encounterId..", "..itemID..", "..itemLink..", "..quantity..", "..slot..", "..texture..", "..lootSourceName..", "..lootSourceGUID..", "..finalItem, 3)
+						BossBanner:OnEvent("ENCOUNTER_LOOT_RECEIVED", encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID)
+					end
+				end
+			end
+		end
 	end
 
 	local dummyMod -- dummy mod for the pull timer
@@ -5239,6 +5266,10 @@ do
 				end
 				fireEvent("kill", mod) -- Backwards compatibility
 				fireEvent("DBM_Kill", mod)
+				if BossBanner then
+					local encounterName = mod.localization.general.name or "Unknown"
+					BossBanner:OnEvent("BOSS_KILL", modId, encounterName) -- modId is mocked up as encounterID, encounterName is mocked up via mod translation table
+				end
 				if savedDifficulty == "worldboss" and mod.WBEsync then
 					if lastBossDefeat[modId..playerRealm] and (GetTime() - lastBossDefeat[modId..playerRealm] < 30) then return end--Someone else synced in last 10 seconds so don't send out another sync to avoid needless sync spam.
 					lastBossDefeat[modId..playerRealm] = GetTime()--Update last defeat time before we send it, so we don't handle our own sync

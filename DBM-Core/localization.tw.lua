@@ -627,3 +627,5 @@ L.SCENARIO_STAGE				= "階段%d"
 L.SPECIALIZATION				= "專精" -- ID: 22433
 -- EJ
 L.HARD_MODE						= "困難模式" -- 17220
+L.BOSS_YOU_DEFEATED				= "你擊敗了" -- 25559
+L.BOSS_KILL_SUBTITLE			= "被擊敗了" -- 25560

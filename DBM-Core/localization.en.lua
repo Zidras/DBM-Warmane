@@ -686,3 +686,5 @@ L.SCENARIO_STAGE						= "Stage %d"
 L.SPECIALIZATION						= "Specialization" -- ID: 22433
 -- EJ
 L.HARD_MODE								= "Hard Mode" -- 17220
+L.BOSS_YOU_DEFEATED						= "You Defeated" -- 25559
+L.BOSS_KILL_SUBTITLE					= "has been defeated" -- 25560
