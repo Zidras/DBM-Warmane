@@ -15,6 +15,7 @@ local GetItemInfo = GetItemInfo
 local GetLootSlotInfo = GetLootSlotInfo
 local GetLootSlotLink = GetLootSlotLink
 local GetNumLootItems = GetNumLootItems
+local IsDressableItem = IsDressableItem
 local PlaySoundFile = PlaySoundFile
 local UnitIsDead = UnitIsDead
 local UnitIsFriend = UnitIsFriend
@@ -22,6 +23,7 @@ local UnitGUID = UnitGUID
 local UnitName = UnitName
 
 local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
+--local ITEM_SET_NAME = ITEM_SET_NAME
 
 local L = DBM_CORE_L
 
@@ -441,15 +443,15 @@ local function createLootFrame(parent)
 	ItemName:SetSize(204, 0)
 	ItemName:SetPoint("TOPLEFT", frame, 56, -7)
 
-	-- FontString for Set Name (hidden). Not yet implemented since Sets are only retrievable via Tooltip
---	frame.SetName = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
---	local SetName = frame.SetName
---	SetName:SetWordWrap(false) -- try to mimic maxLines = 1
---	SetName:SetJustifyH("LEFT")
---	SetName:SetSize(204, 0)
---	SetName:SetPoint("TOPLEFT", ItemName, "BOTTOMLEFT", 0, 0)
---	SetName:SetTextColor(0, 1.0, 0)
---	SetName:Hide()
+	-- FontString for Set Name (hidden)
+	frame.SetName = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+	local SetName = frame.SetName
+	SetName:SetWordWrap(false) -- try to mimic maxLines = 1
+	SetName:SetJustifyH("LEFT")
+	SetName:SetSize(204, 0)
+	SetName:SetPoint("TOPLEFT", ItemName, "BOTTOMLEFT", 0, 0)
+	SetName:SetTextColor(0, 1.0, 0)
+	SetName:Hide()
 
 	-- FontString for Player Name (originally), re-used for looted Boss name)
 	frame.PlayerName = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
@@ -527,7 +529,7 @@ local function createLootFrame(parent)
 	GlowWhite.animForAnim = GlowWhite:CreateAnimationGroup()
 	ItemName.animForAnim = ItemName:CreateAnimationGroup()
 	PlayerName.animForAnim = PlayerName:CreateAnimationGroup()
---	SetName.animForAnim = SetName:CreateAnimationGroup()
+	SetName.animForAnim = SetName:CreateAnimationGroup()
 
 	-- Animation
 	CreateAlphaAnim(Background.animForAnim, 1, 0, -1) -- Workaround to SetAlpha bug on OnFinished. fromAlpha="0" toAlpha="1"
@@ -556,7 +558,6 @@ local function createLootFrame(parent)
 	CreateAlphaAnim(Glow.animForAnim, 1, 0.10, 1, 0.15) -- Workaround to SetAlpha bug on OnFinished. fromAlpha="1" toAlpha="0"
 	CreateAlphaAnim(Glow.animForAnim, 1, 1, -1, 0.25) -- REVIEW order of this animation. May change order and delays
 
-
 	CreateAlphaAnim(GlowWhite.animForAnim, 1, 0, -1) -- Workaround to SetAlpha bug on OnFinished. fromAlpha="0" toAlpha="1"
 	CreateAlphaAnim(GlowWhite.animForAnim, 1, 0.25, 1, nil, "IN")
 	CreateAlphaAnim(GlowWhite.animForAnim, 1, 0.25, -1, 0.25) --  REVIEW order
@@ -568,6 +569,9 @@ local function createLootFrame(parent)
 
 	CreateAlphaAnim(PlayerName.animForAnim, 1, 0, -1, 0.4)
 	CreateAlphaAnim(PlayerName.animForAnim, 1, 0.25, 1, 0.4)
+
+	CreateAlphaAnim(SetName.animForAnim, 1, 0, -1, 0.4)
+	CreateAlphaAnim(SetName.animForAnim, 1, 0.25, 1, 0.4)
 
 	-- AnimationGroup
 	frame.Anim = {}
@@ -582,6 +586,7 @@ local function createLootFrame(parent)
 	Anim.GlowWhite = GlowWhite.animForAnim
 	Anim.ItemName = ItemName.animForAnim
 	Anim.PlayerName = PlayerName.animForAnim
+	Anim.SetName = SetName.animForAnim
 
 	Anim.Background.DebugName = "Background"
 	Anim.Icon.DebugName = "Icon"
@@ -593,6 +598,7 @@ local function createLootFrame(parent)
 	Anim.GlowWhite.DebugName = "GlowWhite"
 	Anim.ItemName.DebugName = "ItemName"
 	Anim.PlayerName.DebugName = "PlayerName"
+	Anim.SetName.DebugName = "SetName"
 
 --	local animCounter, animFinishedCounter = 0,0
 	Anim.Play = function(self)
@@ -933,10 +939,23 @@ local colorRarity = {
 	["ffe6cc80"] = 6,	-- Artifact/Heirloom
 }
 
---local itemScanTooltip
+local function findSetName(text)
+    -- Pattern to match (X/Y) at the end of a string
+    local pattern = "(.+)%s?%((%d+)/(%d+)%)$"
+
+	local setName, current, total = text:match(pattern)
+
+	if setName then
+		return setName:trim(), tonumber(current), tonumber(total)
+	end
+
+    return nil  -- Set name not found
+end
+
+local itemScanTooltip
 local function BossBanner_ConfigureLootFrame(lootFrame, data) -- moved up from retail source code, to avoid globals
 	-- data: { itemID = itemID, quantity = quantity, slot = slot, lootSourceName = lootSourceName, itemLink = itemLink, texture = texture }
-	local _, itemName, itemRarity, itemTexture, colorString, rarityColor
+	local _, itemName, itemRarity, itemTexture, colorString, rarityColor, setName
 	itemName, _, itemRarity, _, _, _, _, _, _, itemTexture = GetItemInfo(data.itemLink)
 
 	if not itemTexture then -- uncached item
@@ -946,14 +965,20 @@ local function BossBanner_ConfigureLootFrame(lootFrame, data) -- moved up from r
 		itemRarity = colorRarity[colorString]
 
 		itemTexture = data.texture
-		--[[ retrieve item texture through a hidden tooltip, but it's unreliable because tooltip text returns "Retrieving item information"
+	end
+
+	if IsDressableItem(data.itemLink) then -- is gear
+		-- retrieve item set through a hidden tooltip
 		itemScanTooltip = itemScanTooltip or CreateFrame("GameTooltip", "BossBannerItemScanningTooltip", nil, "GameTooltipTemplate")
 		itemScanTooltip:SetOwner(UIParent, "ANCHOR_NONE")
 		itemScanTooltip:SetHyperlink(data.itemLink)
-		local text = _G["BossBannerItemScanningTooltipTextLeft1"]:GetText()
-		if text and text ~= "" then
-			itemTexture = strmatch(text, "|T([^|]+)|t")
-		end]]
+		for i = 2, itemScanTooltip:NumLines() do
+			local text = _G["BossBannerItemScanningTooltipTextLeft"..i]:GetText()
+			setName = findSetName(text)
+			if setName then
+				break
+			end
+		end
 	end
 
 	lootFrame.ItemName:SetText(itemName)
@@ -971,11 +996,20 @@ local function BossBanner_ConfigureLootFrame(lootFrame, data) -- moved up from r
 		lootFrame.Count:Hide()
 	end
 
-	lootFrame.ItemName:ClearAllPoints()
-	lootFrame.ItemName:SetPoint("TOPLEFT", 56, -7)
---	lootFrame.SetName:Hide()
-	lootFrame.PlayerName:ClearAllPoints()
-	lootFrame.PlayerName:SetPoint("TOPLEFT", lootFrame.ItemName, "BOTTOMLEFT", 0, 0)
+	if setName then
+		lootFrame.ItemName:ClearAllPoints()
+		lootFrame.ItemName:SetPoint("TOPLEFT", 56, -2)
+		lootFrame.SetName:SetText(("Set: %s"):format(setName))
+		lootFrame.SetName:Show()
+		lootFrame.PlayerName:ClearAllPoints()
+		lootFrame.PlayerName:SetPoint("TOPLEFT", lootFrame.SetName, "BOTTOMLEFT", 0, 0)
+	else
+		lootFrame.ItemName:ClearAllPoints()
+		lootFrame.ItemName:SetPoint("TOPLEFT", 56, -7)
+		lootFrame.SetName:Hide()
+		lootFrame.PlayerName:ClearAllPoints()
+		lootFrame.PlayerName:SetPoint("TOPLEFT", lootFrame.ItemName, "BOTTOMLEFT", 0, 0)
+	end
 
 	lootFrame.PlayerName:SetText(data.lootSourceName) -- Will be used for looted Boss/Treasure Chest name, so replaced data.playerName with a custom value
 --	local classColor = RAID_CLASS_COLORS[data.className]
@@ -1238,7 +1272,8 @@ function BossBanner:Test(mode)
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45087, "|cff0070dd|Hitem:45087:0:0:0:0:0:0:0:80|h[Runed Orb]|h|r", 1, 4, "Interface\\Icons\\inv_misc_runedorb_01", "Auriaya", "0xF1300082EB000A6D") -- blue loot (from boss)
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45857, "|cffa335ee|Hitem:45857:0:0:0:0:0:0:0:80|h[Archivum Data Disc]|h|r", 1, 5, "Interface\\Icons\\INV_Misc_Platnumdisks", "Runemaster Molgeim", "0xF13000809F00091F") -- purple loot (from boss), quest item
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45466, "|cffa335ee|Hitem:45466:0:0:0:0:0:0:0:80|h[Scale of Fates]|h|r", 1, 6, "Interface\\Icons\\INV_SpiritShard_02", "Cache of Storms", "") -- purple loot (from chest)
-		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45246, "|cffa335ee|Hitem:45246:0:0:0:0:0:0:0:80|h[Golem-Shard Sticker]|h|r", 1, 7, "Interface\\Icons\\INV_Weapon_Shortblade_78", "XT-002 Deconstructor", "0xF15000820D0001AB#") -- purple loot (from boss)
+--		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45246, "|cffa335ee|Hitem:45246:0:0:0:0:0:0:0:80|h[Golem-Shard Sticker]|h|r", 1, 7, "Interface\\Icons\\INV_Weapon_Shortblade_78", "XT-002 Deconstructor", "0xF15000820D0001AB#") -- purple loot (from boss)
+		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 51172, "|cffa335ee|Hitem:51172:0:0:0:0:0:0:0:80|h[Sanctified Lightsworn Handguards]|h|r", 1, 7, "Interface\\Icons\\inv_gauntlets_85", "Toravon the Ice Watcher", "0xF13000962100000F") -- purple loot (from boss), setitem
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45038, "|cffff8000|Hitem:45038:0:0:0:0:0:0:0:80|h[Fragment of Val'anyr]|h|r", 1, 8, "Interface\\Icons\\INV_Ingot_Titansteel_red", "Cache of Storms", "") -- legendary loot (from chest)
 	else
 		self:OnEvent("BOSS_KILL", "TestMod", "DBM Boss Test")
@@ -1249,7 +1284,8 @@ function BossBanner:Test(mode)
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45087, "|cff0070dd|Hitem:45087:0:0:0:0:0:0:0:80|h[Runed Orb]|h|r", 1, 4, "Interface\\Icons\\inv_misc_runedorb_01", "Auriaya", "0xF1300082EB000A6D") -- blue loot (from boss)
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45857, "|cffa335ee|Hitem:45857:0:0:0:0:0:0:0:80|h[Archivum Data Disc]|h|r", 1, 5, "Interface\\Icons\\INV_Misc_Platnumdisks", "Runemaster Molgeim", "0xF13000809F00091F") -- purple loot (from boss), quest item
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45466, "|cffa335ee|Hitem:45466:0:0:0:0:0:0:0:80|h[Scale of Fates]|h|r", 1, 6, "Interface\\Icons\\INV_SpiritShard_02", "Cache of Storms", "") -- purple loot (from chest)
-		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45246, "|cffa335ee|Hitem:45246:0:0:0:0:0:0:0:80|h[Golem-Shard Sticker]|h|r", 1, 7, "Interface\\Icons\\INV_Weapon_Shortblade_78", "XT-002 Deconstructor", "0xF15000820D0001AB#") -- purple loot (from boss)
+--		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45246, "|cffa335ee|Hitem:45246:0:0:0:0:0:0:0:80|h[Golem-Shard Sticker]|h|r", 1, 7, "Interface\\Icons\\INV_Weapon_Shortblade_78", "XT-002 Deconstructor", "0xF15000820D0001AB#") -- purple loot (from boss)
+		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 51172, "|cffa335ee|Hitem:51172:0:0:0:0:0:0:0:80|h[Sanctified Lightsworn Handguards]|h|r", 1, 7, "Interface\\Icons\\inv_gauntlets_85", "Toravon the Ice Watcher", "0xF13000962100000F") -- purple loot (from boss), setitem
 		self:OnEvent("ENCOUNTER_LOOT_RECEIVED", "TestMod", 45038, "|cffff8000|Hitem:45038:0:0:0:0:0:0:0:80|h[Fragment of Val'anyr]|h|r", 1, 8, "Interface\\Icons\\INV_Ingot_Titansteel_red", "Cache of Storms", "") -- legendary loot (from chest)
 	end
 end
