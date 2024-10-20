@@ -123,7 +123,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 				local _, _, _, _, itemID --[[_, _, Color, Ltype, Id, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, unique, LinkLvl, Name]] = strfind(itemLink, "|?c?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
 				local finalItem = tostring(slot == numLootItems)
 
-				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
+				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
 		end
 	end
@@ -935,7 +935,7 @@ local colorRarity = {
 
 --local itemScanTooltip
 local function BossBanner_ConfigureLootFrame(lootFrame, data) -- moved up from retail source code, to avoid globals
-	-- data: { itemID = itemID, quantity = quantity, slot = slot, lootSourceName = lootSourceName, itemLink = itemLink }
+	-- data: { itemID = itemID, quantity = quantity, slot = slot, lootSourceName = lootSourceName, itemLink = itemLink, texture = texture }
 	local _, itemName, itemRarity, itemTexture, colorString, rarityColor
 	itemName, _, itemRarity, _, _, _, _, _, _, itemTexture = GetItemInfo(data.itemLink)
 
@@ -1154,12 +1154,12 @@ function BossBanner:OnEvent(event, ...)
 		wipe(self.pendingLoot)
 		local encounterID, name = ...
 		TopBannerManager_Show(self, { encounterID = encounterID, name = name, mode = "KILL" }, BossBanner_IsExclusiveQueued)
-	elseif event == "ENCOUNTER_LOOT_RECEIVED" then -- encounterId, itemID, itemLink, quantity, slot, lootSourceName, lootSourceGUID
+	elseif event == "ENCOUNTER_LOOT_RECEIVED" then -- encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID
 		local encounterID, itemID, itemLink, quantity, slot, texture, lootSourceName = ...
 		-- local _, instanceType = GetInstanceInfo()
 		if encounterID == self.encounterID --[[and (instanceType == "party" or instanceType == "raid")]] then
 			-- add loot to pending list
-			local data = { itemID = itemID, quantity = quantity, slot = slot, lootSourceName = lootSourceName, itemLink = itemLink, texture = texture }
+			local data = { itemID = itemID, quantity = quantity, slot = slot, lootSourceName = lootSourceName, itemLink = itemLink, texture = texture } -- added texture to circumvent uncached items
 			tinsert(self.pendingLoot, data)
 			-- check state
 			if ( self.animState == BB_STATE_LOOT_INSERT and self.lootShown < BB_MAX_LOOT ) then
