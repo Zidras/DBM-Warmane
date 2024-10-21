@@ -7,7 +7,7 @@ local _, private = ...
 --  Locals  --
 --------------
 local strfind = strfind
-local next, tinsert, wipe = next, tinsert, table.wipe
+local next, tContains, tinsert, wipe = next, tContains, tinsert, table.wipe
 local floor, max = math.floor, max
 
 local CreateFrame = CreateFrame
@@ -100,17 +100,51 @@ local function CreateTranslationAnim(group, order, duration, xOffset, yOffset, d
 end
 
 -- Loot Handling
+local encounterLootCache = {}
 local function BossBanner_FetchAndSyncLootItems(self)
 	local numLootItems = GetNumLootItems()
-	local encounterId = self.encounterID or "Unknown ID"
+	local encounterId = self.encounterID
 	local encounterName = self.encounterName or "Unknown encounter"
 	local targetNpcDead = not UnitIsFriend("player", "target") and UnitIsDead("target")
 	local lootSourceName = targetNpcDead and UnitName("target")
 	local lootSourceGUID = targetNpcDead and UnitGUID("target") or ""
-
-	if not lootSourceName then
+	if not lootSourceName then -- not a npc corpse, so fetch tooltip text from gob container name (e.g. Treasure chest)
 		lootSourceName = (_G["GameTooltipTextLeft1"]:GetText()) or ""
 	end
+	local lootSourceID = lootSourceGUID ~= "" and lootSourceGUID or lootSourceName
+
+	-- build encounter loot cache
+	encounterLootCache[encounterId] = encounterLootCache[encounterId] or {}
+
+	-- check if looted corpse belongs to the DBM boss mod
+	if lootSourceGUID then
+		local lootSourceCID = DBM:GetCIDFromGUID(lootSourceGUID)
+		local encounterBossMod = DBM:GetModByName(encounterId)
+
+		if not encounterBossMod then
+			DBM:Debug("BossBanner: no mod found for encounter "..tostring(encounterId)..". Ending fetching and syncing process.")
+			return
+		end
+
+		if encounterBossMod.combatInfo.killMobs then -- Mod has multiple mobs
+			if not encounterBossMod.combatInfo.killMobs[lootSourceCID] then
+				DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod (multiboss). Ending fetching and syncing process.", 3)
+				return
+			end
+		else
+			if encounterBossMod.creatureId ~= lootSourceCID then
+				DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod. Ending fetching and syncing process.", 3)
+				return
+			end
+		end
+	end
+
+	-- check if lootID already looted
+	if encounterLootCache[encounterId][lootSourceID] then
+		DBM:Debug("BossBanner: Boss already looted. Ending fetching and syncing process.", 3)
+		return
+	end
+	encounterLootCache[encounterId][lootSourceID] = encounterLootCache[encounterId][lootSourceID] or {}
 
 	if numLootItems > 0 then
 		for slot = 1, numLootItems do
@@ -124,6 +158,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 			if itemLink then
 				local _, _, _, _, itemID --[[_, _, Color, Ltype, Id, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, unique, LinkLvl, Name]] = strfind(itemLink, "|?c?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
 				local finalItem = tostring(slot == numLootItems)
+				encounterLootCache[encounterId][lootSourceID][slot] = itemLink -- cache itemLink, not currently used
 
 				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
@@ -240,6 +275,7 @@ BossBanner:SetPoint("TOP", UIParent, 0, -120)
 BossBanner:EnableMouse(true) -- required for Mouse scripts
 BossBanner:SetAlpha(1)
 BossBanner.LootFrames = {}
+BossBanner.encounterLootCache = encounterLootCache -- custom, for debugging purposes
 
 local bossBannerEffectiveScale = BossBanner:GetEffectiveScale() -- workaround to 3.3.5a bug with UIScale not being accounted for in Translation animations
 
@@ -1256,6 +1292,10 @@ BossBanner_OnLoad(BossBanner) -- simulate OnLoad script
 BossBanner:SetScript("OnEvent", BossBanner_OnEvent)
 BossBanner:SetScript("OnUpdate", BossBanner_OnUpdate)
 BossBanner:SetScript("OnMouseDown", BossBanner_OnMouseDown)
+
+function BossBanner:ClearEncounterId()
+	self.encounterID = nil
+end
 
 function BossBanner:Test(mode)
 	if mode == "KILL" then
