@@ -7,7 +7,7 @@ local _, private = ...
 --  Locals  --
 --------------
 local strfind = strfind
-local next, tContains, tinsert, wipe = next, tContains, tinsert, table.wipe
+local next, tinsert, wipe = next, tinsert, table.wipe
 local floor, max = math.floor, max
 
 local CreateFrame = CreateFrame
@@ -107,7 +107,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 	local encounterName = self.encounterName or "Unknown encounter"
 	local targetNpcDead = not UnitIsFriend("player", "target") and UnitIsDead("target")
 	local lootSourceName = targetNpcDead and UnitName("target")
-	local lootSourceGUID = targetNpcDead and UnitGUID("target") or ""
+	local lootSourceGUID = targetNpcDead and UnitGUID("target")
 	if not lootSourceName then -- not a npc corpse, so fetch tooltip text from gob container name (e.g. Treasure chest)
 		lootSourceName = (_G["GameTooltipTextLeft1"]:GetText()) or ""
 	end
@@ -160,7 +160,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 				local finalItem = tostring(slot == numLootItems)
 				encounterLootCache[encounterId][lootSourceID][slot] = itemLink -- cache itemLink, not currently used
 
-				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
+				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
 		end
 	end
