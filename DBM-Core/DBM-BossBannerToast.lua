@@ -106,18 +106,16 @@ local function BossBanner_FetchAndSyncLootItems(self)
 	local encounterId = self.encounterID
 	local encounterName = self.encounterName or "Unknown encounter"
 	local targetNpcDead = not UnitIsFriend("player", "target") and UnitIsDead("target")
-	local lootSourceName = targetNpcDead and UnitName("target")
+	local lootSourceName = _G["GameTooltipTextLeft1"]:GetText() or "" -- fetch tooltip text from mouseover, to also catch gob container name (e.g. Treasure chest). Will fail with Interact with Target keybind if mouseover on something else
+	local lootSourceMobName = targetNpcDead and UnitName("target")
 	local lootSourceGUID = targetNpcDead and UnitGUID("target")
-	if not lootSourceName then -- not a npc corpse, so fetch tooltip text from gob container name (e.g. Treasure chest)
-		lootSourceName = (_G["GameTooltipTextLeft1"]:GetText()) or ""
-	end
 	local lootSourceID = lootSourceGUID ~= "" and lootSourceGUID or lootSourceName
 
 	-- build encounter loot cache
 	encounterLootCache[encounterId] = encounterLootCache[encounterId] or {}
 
 	-- check if looted corpse belongs to the DBM boss mod
-	if lootSourceGUID then
+	if lootSourceGUID and lootSourceName == lootSourceMobName then
 		local lootSourceCID = DBM:GetCIDFromGUID(lootSourceGUID)
 		local encounterBossMod = DBM:GetModByName(encounterId)
 
