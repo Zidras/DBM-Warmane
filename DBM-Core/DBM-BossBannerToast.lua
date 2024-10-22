@@ -938,7 +938,9 @@ local function BossBanner_AnimSwitch(self, entry)
 	if next(self.pendingLoot) then
 		-- we have loot
 		self.AnimSwitch:Play()
-		PlaySoundFile(SOUNDKIT.UI_PERSONAL_LOOT_BANNER)
+		if DBM.Options.PlayBBSound then
+			PlaySoundFile(SOUNDKIT.UI_PERSONAL_LOOT_BANNER)
+		end
 		entry.duration = 0.5
 	else
 		entry.duration = 0
@@ -1184,7 +1186,9 @@ local function BossBanner_Play(self, data)
 			self.encounterID = data.encounterID
 			self.encounterName = data.name
 			BossBanner_BeginAnims(self)
-			PlaySoundFile(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
+			if DBM.Options.PlayBBSound then
+				PlaySoundFile(SOUNDKIT.UI_RAID_BOSS_DEFEATED)
+			end
 		elseif data.mode == "LOOT" then
 			self.BannerTop:SetAlpha(1)
 			self.BannerBottom:SetAlpha(1)
@@ -1199,7 +1203,9 @@ local function BossBanner_Play(self, data)
 			self.SubTitle:Hide()
 			self:Show()
 			BossBanner_BeginAnims(self, BB_STATE_LOOT_EXPAND)
-			PlaySoundFile(SOUNDKIT.UI_PERSONAL_LOOT_BANNER)
+			if DBM.Options.PlayBBSound then
+				PlaySoundFile(SOUNDKIT.UI_PERSONAL_LOOT_BANNER)
+			end
 		end
 	end
 end
@@ -1217,12 +1223,13 @@ end
 
 
 function BossBanner:OnEvent(event, ...)
+	if not DBM.Options.EnableBB then return end
 	DBM:Debug("DBM BossBanner:OnEvent called with the following args--> event: "..event..", vararg: "..table.concat({...}, ", "), 3)
 	if event == "BOSS_KILL" then
 		wipe(self.pendingLoot)
 		local encounterID, name = ...
 		TopBannerManager_Show(self, { encounterID = encounterID, name = name, mode = "KILL" }, BossBanner_IsExclusiveQueued)
-	elseif event == "ENCOUNTER_LOOT_RECEIVED" then -- encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID
+	elseif event == "ENCOUNTER_LOOT_RECEIVED" and DBM.Options.PlayBBLoot then -- encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID
 		local encounterID, itemID, itemLink, quantity, slot, texture, lootSourceName = ...
 		-- local _, instanceType = GetInstanceInfo()
 		if encounterID == self.encounterID --[[and (instanceType == "party" or instanceType == "raid")]] then

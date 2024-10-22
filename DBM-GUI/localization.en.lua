@@ -443,6 +443,11 @@ L.PlayTT							= "Enable TimerTracker"
 L.PlayTTCountdown					= "Play TimerTracker countdown sound"
 L.PlayTTCountdownFinished			= "Play TimerTracker countdown finished sound"
 
+L.Area_BossBanner					= "Boss Banner Options"
+L.EnableBB							= "Enable Boss Banner"
+L.PlayBBLoot						= "Play Boss Banner Loot animation"
+L.PlayBBSound						= "Play Boss Banner sound"
+
 -- Panel: Reduce Information
 L.Panel_ReducedInformation			= "Reduce Information"
 
