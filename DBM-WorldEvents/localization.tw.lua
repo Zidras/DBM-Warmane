@@ -84,5 +84,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	HorsemanSummon			= "騎士甦醒...",
-	HorsemanSoldiers		= "士兵們起立，挺身奮戰!讓這個位死去的騎士得到最後的勝利!"
+	HorsemanHead			= "過來這裡，你這白痴!",
+	HorsemanSoldiers		= "士兵們起立，挺身奮戰!讓這個位死去的騎士得到最後的勝利!",
+	SayCombatStart			= "我也曾面對過這樣的末路。還有什麼新的冒險在等著呢?"
 })

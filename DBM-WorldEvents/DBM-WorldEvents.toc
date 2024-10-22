@@ -38,6 +38,7 @@ localization.tw.lua
 localization.kr.lua
 localization.de.lua
 localization.es.lua
+localization.mx.lua
 localization.cn.lua
 
 Holidays\ApothecaryTrio.lua

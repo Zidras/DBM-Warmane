@@ -107,7 +107,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	HorsemanSummon			= "无头骑士来了……",
-	HorsemanHead			= "过来这里，你这白痴!",
-	HorsemanSoldiers		= "士兵们，起来战斗吧！为死去的骑士带来胜利的荣耀！",
-	SayCombatEnd			= "我也曾面对过这样的末路。还有什么新的冒险在等着呢?"
+	HorsemanHead			= "过来这里，你这白痴!", -- CONFIRM! local SQL has different string - 白痴，到这边来！
+	HorsemanSoldiers		= "士兵们，起来战斗吧！为死去的骑士带来胜利的荣耀！", -- 23861
+	SayCombatEnd			= "我也曾面对过这样的末路。还有什么新的冒险在等着呢?" -- 23455 (CONFIRM! local SQL has different string - 我曾经经历过这样的结局。这次会有新意吗？)
 })
