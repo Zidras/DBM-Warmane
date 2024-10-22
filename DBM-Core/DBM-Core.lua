@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241021212451"),
+	Revision = parseCurseDate("20241021214939"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3469,8 +3469,8 @@ do
 
 	syncHandlers["DBMv4-L"] = function(sender, encounterId, _, lootSourceName, lootSourceGUID, itemID, itemLink, quantity, slot, texture, finalItem) -- encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem
 		if not BossBanner then return end
-		if DBM:AntiSpam(60, "L"..encounterId..slot) then -- prevent same loot spam
-			if DBM:AntiSpam(1, "L"..encounterId..sender..slot) then -- prevent spam from one user
+		if DBM:AntiSpam(60, "L"..encounterId..slot..itemID) then -- prevent same loot spam
+			if DBM:AntiSpam(1, "L"..encounterId..sender..slot..itemID) then -- prevent spam from one user
 				quantity = tonumber(quantity)
 				slot = tonumber(slot)
 				-- check if BossBanner.pendingLoot already has the looted item
