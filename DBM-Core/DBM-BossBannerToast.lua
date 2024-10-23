@@ -100,14 +100,21 @@ local function CreateTranslationAnim(group, order, duration, xOffset, yOffset, d
 end
 
 -- Loot Handling
+local tooltipTextCache
+local function GameTooltipCacheName()
+	tooltipTextCache = _G["GameTooltipTextLeft1"]:GetText() -- fetch tooltip text from mouseover, to also catch gob container name (e.g. Treasure chest). Will fail with Interact with Target keybind if mouseover on something else
+end
+GameTooltip:SetScript("OnShow", GameTooltipCacheName) -- Tooltip fetching resulting in unreliable results, where on a split frame it would not update the text (either nil or different than expected), so run it always to catch it as fast as possible. Will fail if mouseover another unit, since TT updates before LOOT_OPENED.
+
 local encounterLootCache = {}
 local function BossBanner_FetchAndSyncLootItems(self)
 	local numLootItems = GetNumLootItems()
 	local encounterId = self.encounterID
 	local encounterName = self.encounterName or "Unknown encounter"
 	local targetNpcDead = not UnitIsFriend("player", "target") and UnitIsDead("target")
-	local lootSourceName = _G["GameTooltipTextLeft1"]:GetText() or "" -- fetch tooltip text from mouseover, to also catch gob container name (e.g. Treasure chest). Will fail with Interact with Target keybind if mouseover on something else
-	local lootSourceMobName = targetNpcDead and UnitName("target")
+	local lootSourceTTName = tooltipTextCache -- Not reliable to fetch tooltip text here (see above)
+	local lootSourceMobName = targetNpcDead and UnitName("target") -- targeted loot always refreshes in time
+	local lootSourceName = lootSourceMobName or lootSourceTTName -- Prefer target unit rather than mouseover (chances of this being wrong are lower than the inverse)
 	local lootSourceGUID = targetNpcDead and UnitGUID("target")
 	local lootSourceID = lootSourceGUID ~= "" and lootSourceGUID or lootSourceName
 
@@ -115,24 +122,27 @@ local function BossBanner_FetchAndSyncLootItems(self)
 	encounterLootCache[encounterId] = encounterLootCache[encounterId] or {}
 
 	-- check if looted corpse belongs to the DBM boss mod
-	if lootSourceGUID and lootSourceName == lootSourceMobName then
+	if lootSourceGUID then
 		local lootSourceCID = DBM:GetCIDFromGUID(lootSourceGUID)
-		local encounterBossMod = DBM:GetModByName(encounterId)
+		DBM:Debug("BossBanner: pre-check on CID: "..tostring(lootSourceCID).." and lootSouceName: "..tostring(lootSourceName).." and lootSourceMobName: "..tostring(lootSourceMobName)..". Npcdead is: "..tostring(targetNpcDead), 3)
+		if lootSourceName == lootSourceMobName then
+			local encounterBossMod = DBM:GetModByName(encounterId)
 
-		if not encounterBossMod then
-			DBM:Debug("BossBanner: no mod found for encounter "..tostring(encounterId)..". Ending fetching and syncing process.")
-			return
-		end
-
-		if encounterBossMod.combatInfo.killMobs then -- Mod has multiple mobs
-			if not encounterBossMod.combatInfo.killMobs[lootSourceCID] then
-				DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod (multiboss). Ending fetching and syncing process.", 3)
+			if not encounterBossMod then
+				DBM:Debug("BossBanner: no mod found for encounter "..tostring(encounterId)..". Ending fetching and syncing process.")
 				return
 			end
-		else
-			if encounterBossMod.creatureId ~= lootSourceCID then
-				DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod. Ending fetching and syncing process.", 3)
-				return
+
+			if encounterBossMod.combatInfo.killMobs then -- Mod has multiple mobs
+				if not encounterBossMod.combatInfo.killMobs[lootSourceCID] then
+					DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod (multiboss). Ending fetching and syncing process.", 3)
+					return
+				end
+			else
+				if encounterBossMod.creatureId ~= lootSourceCID then
+					DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod. Ending fetching and syncing process.", 3)
+					return
+				end
 			end
 		end
 	end
@@ -158,6 +168,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 				local finalItem = tostring(slot == numLootItems)
 				encounterLootCache[encounterId][lootSourceID][slot] = itemLink -- cache itemLink, not currently used
 
+				DBM:Debug("BossBanner: Sending sync with the following args: "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
 				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
 		end
