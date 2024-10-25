@@ -6,9 +6,9 @@ local _, private = ...
 --------------
 --  Locals  --
 --------------
-local strfind = strfind
+local strfind, strformat, tostring = strfind, string.format, tostring
 local next, tinsert, wipe = next, tinsert, table.wipe
-local floor, max = math.floor, max
+local max, tonumber = max, tonumber
 
 local CreateFrame = CreateFrame
 local GetItemInfo = GetItemInfo
@@ -42,6 +42,11 @@ local SOUNDKIT = {
 	["UI_RAID_BOSS_DEFEATED"] = "Interface\\AddOns\\DBM-Core\\sounds\\RetailSupport\\UI_Raid_Boss_Defeated_01.ogg", -- 50111
 	["UI_PERSONAL_LOOT_BANNER"] = "Interface\\AddOns\\DBM-Core\\sounds\\RetailSupport\\UI_Raid_Loot_Banner_01.ogg", -- 50893
 }
+
+-- math toolkit
+local function round(value, dp)
+	return tonumber(strformat("%."..(dp or 14).."f", tostring(value)))
+end
 
 -- Animations
 local function CreateScaleAnim(group, order, duration, scaleX, scaleY, delay, smoothing, endDelay, originPoint, originOffsetX, originOffsetY)
@@ -101,8 +106,24 @@ end
 
 -- Loot Handling
 local tooltipTextCache
-local function GameTooltipCacheName()
-	tooltipTextCache = _G["GameTooltipTextLeft1"]:GetText() -- fetch tooltip text from mouseover, to also catch gob container name (e.g. Treasure chest). Will fail with Interact with Target keybind if mouseover on something else
+local tooltipSwitchCounter = 0
+local function GameTooltipCacheName(self)
+	-- Fetch tooltip text from mouseover to also catch gob container name (e.g. Treasure chest).
+
+	-- Don't keep cache indefinitely. Main use is to preserve the gob container name.
+	tooltipSwitchCounter = tooltipSwitchCounter + 1
+	if tooltipSwitchCounter > 2 then -- REVIEW!
+		tooltipTextCache = nil
+	end
+
+	-- Will fail with Interact with Target keybind if mouseover on something else, so attempt to mitigate it by restricting the caching to tooltips with only 1 line (to be confirmed wether there is any boss chest with more than 1 line)
+	if _G["GameTooltipTextLeft2"]:GetText() == nil then
+		local rt, gt, bt, at = _G["GameTooltipTextLeft1"]:GetTextColor()
+		if round(rt) == 0.99999780301005 and round(gt) == 0.82352757453918 and round(bt) == 0 and round(at) == 0.99999779462814 then -- yellow text from gob
+			tooltipSwitchCounter = 0
+			tooltipTextCache = _G["GameTooltipTextLeft1"]:GetText()
+		end
+	end
 end
 GameTooltip:SetScript("OnShow", GameTooltipCacheName) -- Tooltip fetching resulting in unreliable results, where on a split frame it would not update the text (either nil or different than expected), so run it always to catch it as fast as possible. Will fail if mouseover another unit, since TT updates before LOOT_OPENED.
 
@@ -152,6 +173,12 @@ local function BossBanner_FetchAndSyncLootItems(self)
 		DBM:Debug("BossBanner: Boss already looted. Ending fetching and syncing process.", 3)
 		return
 	end
+
+	if not lootSourceID then
+		DBM:Debug("BossBanner: no lootSourceID. Ending fetching and syncing process.", 3)
+		return
+	end
+
 	encounterLootCache[encounterId][lootSourceID] = encounterLootCache[encounterId][lootSourceID] or {}
 
 	if numLootItems > 0 then
@@ -1141,10 +1168,10 @@ local defaultTranslationOffsetsTable = {
 local xOffset, yOffset
 local function validateOffsets(animation, defaultkey, effectiveScale)
 	xOffset, yOffset = animation:GetOffset()
-	if floor(xOffset) ~= floor((defaultTranslationOffsetsTable[defaultkey][1]*effectiveScale)) then -- due to inconsistent precision with floats, use math.floor for a preventive measure
+	if round(xOffset, 0) ~= round((defaultTranslationOffsetsTable[defaultkey][1]*effectiveScale), 0) then -- due to inconsistent precision with floats, use round for a preventive measure
 		xOffset = defaultTranslationOffsetsTable[defaultkey][1]*effectiveScale
 	end
-	if floor(yOffset) ~= floor((defaultTranslationOffsetsTable[defaultkey][2]*effectiveScale)) then -- due to inconsistent precision with floats, use math.floor for a preventive measure
+	if round(yOffset, 0) ~= round((defaultTranslationOffsetsTable[defaultkey][2]*effectiveScale), 0) then -- due to inconsistent precision with floats, use round for a preventive measure
 		yOffset = defaultTranslationOffsetsTable[defaultkey][2]*effectiveScale
 	end
 
@@ -1240,6 +1267,7 @@ function BossBanner:OnEvent(event, ...)
 		wipe(self.pendingLoot)
 		local encounterID, name = ...
 		TopBannerManager_Show(self, { encounterID = encounterID, name = name, mode = "KILL" }, BossBanner_IsExclusiveQueued)
+		DBM:Schedule(150, BossBanner.ClearEncounterCache, BossBanner)
 	elseif event == "ENCOUNTER_LOOT_RECEIVED" and DBM.Options.PlayBBLoot then -- encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID
 		local encounterID, itemID, itemLink, quantity, slot, texture, lootSourceName = ...
 		-- local _, instanceType = GetInstanceInfo()
@@ -1309,8 +1337,10 @@ BossBanner:SetScript("OnEvent", BossBanner_OnEvent)
 BossBanner:SetScript("OnUpdate", BossBanner_OnUpdate)
 BossBanner:SetScript("OnMouseDown", BossBanner_OnMouseDown)
 
-function BossBanner:ClearEncounterId()
+function BossBanner:ClearEncounterCache()
+	wipe(self.pendingLoot)
 	self.encounterID = nil
+	DBM:Debug("BossBanner:ClearEncounterCache called", 3)
 end
 
 function BossBanner:Test(mode)
