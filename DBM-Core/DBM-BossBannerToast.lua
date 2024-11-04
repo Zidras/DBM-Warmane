@@ -7,7 +7,7 @@ local _, private = ...
 --  Locals  --
 --------------
 local strfind, strformat, tostring = strfind, string.format, tostring
-local next, tinsert, wipe = next, tinsert, table.wipe
+local next, pairs, tinsert, wipe = next, pairs, tinsert, table.wipe
 local max, tonumber = max, tonumber
 
 local CreateFrame = CreateFrame
@@ -143,6 +143,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 	encounterLootCache[encounterId] = encounterLootCache[encounterId] or {}
 
 	-- check if looted corpse belongs to the DBM boss mod
+	DBM:Debug("BossBanner for "..encounterId.." ("..encounterName.."), with loot arguments --> lootSourceGUID: "..tostring(lootSourceGUID).. " ; lootSourceName: "..tostring(lootSourceName).. " ; TT name: "..tostring(_G["GameTooltipTextLeft1"]:GetText()), 3)
 	if lootSourceGUID then
 		local lootSourceCID = DBM:GetCIDFromGUID(lootSourceGUID)
 		DBM:Debug("BossBanner: pre-check on CID: "..tostring(lootSourceCID).." and lootSouceName: "..tostring(lootSourceName).." and lootSourceMobName: "..tostring(lootSourceMobName)..". Npcdead is: "..tostring(targetNpcDead), 3)
@@ -155,7 +156,14 @@ local function BossBanner_FetchAndSyncLootItems(self)
 			end
 
 			if encounterBossMod.combatInfo.killMobs then -- Mod has multiple mobs
-				if not encounterBossMod.combatInfo.killMobs[lootSourceCID] then
+				local found = false
+				for mobId in pairs(encounterBossMod.combatInfo.killMobs) do -- key checking required, as value can be either true or false
+					if mobId == lootSourceCID then
+						found = true
+						break
+					end
+				end
+				if not found then
 					DBM:Debug("BossBanner: LootSourceCID ("..lootSourceCID..") does not belong to DBM mod (multiboss). Ending fetching and syncing process.", 3)
 					return
 				end
