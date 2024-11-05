@@ -116,13 +116,13 @@ local function GameTooltipCacheName(self)
 		tooltipTextCache = nil
 	end
 
-	-- Will fail with Interact with Target keybind if mouseover on something else, so attempt to mitigate it by restricting the caching to tooltips with only 1 line (to be confirmed wether there is any boss chest with more than 1 line)
-	if _G["GameTooltipTextLeft2"]:GetText() == nil then
-		local rt, gt, bt, at = _G["GameTooltipTextLeft1"]:GetTextColor()
-		if round(rt) == 0.99999780301005 and round(gt) == 0.82352757453918 and round(bt) == 0 and round(at) == 0.99999779462814 then -- yellow text from gob
-			tooltipSwitchCounter = 0
-			tooltipTextCache = _G["GameTooltipTextLeft1"]:GetText()
-		end
+	if not self:IsOwned(UIParent) then return end -- Only cache if tooltip refers to UIParent (used by gob tooltips). Discards many false positives like PlayerFrame, Interface Options, ElvUI, etc, that are picked up by below color text.
+
+	-- Will fail with Interact with Target keybind if mouseover on something else, so attempt to mitigate it by restricting the caching to tooltips with only yellow text on the first line (can't restrict to only 1 line since there is, at least, one chest, on Hodir [gob 194201] - Rare Cache of Winter - which will have more than 1 line with the Quest [13822] "Heroic: Hodir's Sigil")
+	local rt, gt, bt, at = _G["GameTooltipTextLeft1"]:GetTextColor()
+	if round(rt) == 0.99999780301005 and round(gt) == 0.82352757453918 and round(bt) == 0 and round(at) == 0.99999779462814 then -- yellow text from gob
+		tooltipSwitchCounter = 0
+		tooltipTextCache = _G["GameTooltipTextLeft1"]:GetText()
 	end
 end
 GameTooltip:SetScript("OnShow", GameTooltipCacheName) -- Tooltip fetching resulting in unreliable results, where on a split frame it would not update the text (either nil or different than expected), so run it always to catch it as fast as possible. Will fail if mouseover another unit, since TT updates before LOOT_OPENED.
