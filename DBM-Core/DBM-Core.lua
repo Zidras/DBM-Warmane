@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241105002200"),
+	Revision = parseCurseDate("20241106114658"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3470,13 +3470,15 @@ do
 		if cId then DBM:OnMobKill(cId, true) end
 	end
 
-	syncHandlers["DBMv4-L"] = function(sender, encounterId, _, lootSourceName, lootSourceGUID, itemID, itemLink, quantity, slot, texture, finalItem) -- encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem
+	syncHandlers["DBMv4-L"] = function(sender, version, encounterId, _, lootSourceName, lootSourceGUID, itemID, itemLink, quantity, slot, texture, finalItem) -- version, encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem
 		if not BossBanner then return end
+		DBM:Debug("Receiving BossBanner loot sync from "..sender..", with args --> version: "..version..", encounterId: "..encounterId..", itemID: "..itemID..", itemLink: "..itemLink..", quantity: "..quantity..", slot: "..slot..", texture: "..texture..", finalItem: "..finalItem, 3)
+		if not version or version ~= "1" then return end -- ignore old versions (previous sync had no version and antispam string changed during development)
 		if DBM:AntiSpam(60, "L"..encounterId..slot..itemID) then -- prevent same loot spam
 			if DBM:AntiSpam(1, "L"..encounterId..sender..slot..itemID) then -- prevent spam from one user
 				quantity = tonumber(quantity)
 				slot = tonumber(slot)
-				-- check if BossBanner.pendingLoot already has the looted item
+				-- check if BossBanner.pendingLoot is empty or already has the looted item
 				if next(BossBanner.pendingLoot) == nil then
 					DBM:Debug("Sending BossBanner event, no pendingLoot: ENCOUNTER_LOOT_RECEIVED, with args: "..encounterId..", "..itemID..", "..itemLink..", "..quantity..", "..slot..", "..texture..", "..lootSourceName..", "..lootSourceGUID..", "..finalItem, 3)
 					BossBanner:OnEvent("ENCOUNTER_LOOT_RECEIVED", encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID)

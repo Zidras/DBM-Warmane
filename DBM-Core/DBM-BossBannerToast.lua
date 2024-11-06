@@ -7,14 +7,17 @@ local _, private = ...
 --  Locals  --
 --------------
 local strfind, strformat, tostring = strfind, string.format, tostring
-local next, pairs, tinsert, wipe = next, pairs, tinsert, table.wipe
+local next, pairs, tconcat, tinsert, wipe = next, pairs, table.concat, tinsert, table.wipe
 local max, tonumber = max, tonumber
 
 local CreateFrame = CreateFrame
+local GetCurrentMapAreaID = GetCurrentMapAreaID
+local GetCurrentMapContinent = GetCurrentMapContinent
 local GetItemInfo = GetItemInfo
 local GetLootSlotInfo = GetLootSlotInfo
 local GetLootSlotLink = GetLootSlotLink
 local GetNumLootItems = GetNumLootItems
+local GetRealZoneText = GetRealZoneText
 local IsDressableItem = IsDressableItem
 local PlaySoundFile = PlaySoundFile
 local UnitIsDead = UnitIsDead
@@ -203,8 +206,8 @@ local function BossBanner_FetchAndSyncLootItems(self)
 				local finalItem = tostring(slot == numLootItems)
 				encounterLootCache[encounterId][lootSourceID][slot] = itemLink -- cache itemLink, not currently used
 
-				DBM:Debug("BossBanner: Sending sync with the following args: "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
-				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
+				DBM:Debug("BossBanner: Sending sync (v1) with the following args: "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
+				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(--[[version]]"1", encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
 		end
 	end
@@ -1270,7 +1273,7 @@ end
 
 function BossBanner:OnEvent(event, ...)
 	if not DBM.Options.EnableBB then return end
-	DBM:Debug("DBM BossBanner:OnEvent called with the following args--> event: "..event..", vararg: "..table.concat({...}, ", "), 3)
+	DBM:Debug("DBM BossBanner:OnEvent called with the following args--> event: "..event..", vararg: "..tconcat({...}, ", "), 3)
 	if event == "BOSS_KILL" then
 		wipe(self.pendingLoot)
 		local encounterID, name = ...
@@ -1304,9 +1307,35 @@ local function BossBanner_OnLoad(self)
 	self.baseHeight = self:GetHeight()
 end
 
+local function keyPairsConcat(table, separator)
+	local array = {}
+	for k in pairs(table) do
+		tinsert(array, k)
+	end
+	if not array then return "" end
+	return tconcat(array, separator or ", ")
+end
+
 local function BossBanner_OnEvent(self, event)
 	if event == "LOOT_OPENED" then
 		if self.encounterID then
+			local encounterBossMod = DBM:GetModByName(self.encounterID)
+			-- check if DBM mod exists/is loaded
+			if not encounterBossMod then
+				DBM:Debug("BossBanner: no mod found for encounter "..tostring(self.encounterID)..". Loot fetching denied.", 3)
+				return
+			end
+
+			-- check if player is in DBM mod mapID/zone
+			local zoneName = GetRealZoneText()
+			local mapID = GetCurrentMapAreaID() > 4 and GetCurrentMapAreaID() or GetCurrentMapContinent() -- workaround to support world bosses mod loading
+			local encounterBossModMapOrZone = encounterBossMod.zones
+			DBM:Debug("BossBanner: Before fetching loot, checking encounter "..tostring(self.encounterID).." zones {"..keyPairsConcat(encounterBossModMapOrZone).."}, for map: "..tostring(mapID).." or zone: "..tostring(zoneName)..". Results are: map-"..tostring(encounterBossModMapOrZone[mapID])..", zone-"..tostring(encounterBossModMapOrZone[zoneName]), 3)
+			if not encounterBossModMapOrZone[mapID] and not encounterBossModMapOrZone[zoneName] then
+				DBM:Debug("BossBanner: Looting outside of zone for encounter "..tostring(self.encounterID)..". Loot fetching denied.", 3)
+				return
+			end
+			DBM:Debug("BossBanner: Loot fetching allowed for encounter "..tostring(self.encounterID), 3)
 			BossBanner_FetchAndSyncLootItems(self)
 		end
 	end
