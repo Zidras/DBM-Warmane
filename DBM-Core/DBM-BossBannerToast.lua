@@ -1278,6 +1278,7 @@ function BossBanner:OnEvent(event, ...)
 		wipe(self.pendingLoot)
 		local encounterID, name = ...
 		TopBannerManager_Show(self, { encounterID = encounterID, name = name, mode = "KILL" }, BossBanner_IsExclusiveQueued)
+		DBM:Unschedule(BossBanner.ClearEncounterCache)
 		DBM:Schedule(150, BossBanner.ClearEncounterCache, BossBanner)
 	elseif event == "ENCOUNTER_LOOT_RECEIVED" and DBM.Options.PlayBBLoot then -- encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID
 		local encounterID, itemID, itemLink, quantity, slot, texture, lootSourceName = ...
