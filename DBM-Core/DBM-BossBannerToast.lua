@@ -140,7 +140,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 	local lootSourceMobName = targetNpcDead and UnitName("target") -- targeted loot always refreshes in time
 	local lootSourceName = lootSourceMobName or lootSourceTTName -- Prefer target unit rather than mouseover (chances of this being wrong are lower than the inverse)
 	local lootSourceGUID = targetNpcDead and UnitGUID("target")
-	local lootSourceID = lootSourceGUID ~= "" and lootSourceGUID or lootSourceName
+	local lootSourceID = lootSourceGUID or lootSourceName
 
 	-- build encounter loot cache
 	encounterLootCache[encounterId] = encounterLootCache[encounterId] or {}
@@ -179,24 +179,27 @@ local function BossBanner_FetchAndSyncLootItems(self)
 		end
 	end
 
-	-- check if lootID already looted
-	if encounterLootCache[encounterId][lootSourceID] then
-		DBM:Debug("BossBanner: Boss already looted. Ending fetching and syncing process.", 3)
-		return
-	end
-
+	-- check if lootSourceID exists
 	if not lootSourceID then
 		DBM:Debug("BossBanner: no lootSourceID. Ending fetching and syncing process.", 3)
 		return
 	end
 
-	encounterLootCache[encounterId][lootSourceID] = encounterLootCache[encounterId][lootSourceID] or {}
+	-- check if player already opened loot window
+	if encounterLootCache[encounterId][lootSourceID] and encounterLootCache[encounterId][lootSourceID].looted then
+		DBM:Debug("BossBanner: Boss already looted. Ending fetching and syncing process.", 3)
+		return
+	end
 
+	encounterLootCache[encounterId][lootSourceID] = encounterLootCache[encounterId][lootSourceID] or {}
+	encounterLootCache[encounterId][lootSourceID].looted = true
+
+	local tempLootItemCounter = {}
 	if numLootItems > 0 then
 		for slot = 1, numLootItems do
 			local texture, _, quantity = GetLootSlotInfo(slot) -- texture, itemName, quantity, quality, locked
 			local itemLink = GetLootSlotLink(slot)
-			-- Duplicate loot items cannot be distinguished from each other. Only by lootslot, which is kept consistent, even after looting
+			-- Duplicate loot items cannot be distinguished from each other. Only by lootslot, which will only be preserved during looting while loot window is open. If loot window reopened after item(s) have been looted, it will be repopulated with ascending index.
 			-- Dump: value=GetLootSlotLink(3)
 			-- [1]="|cffa335ee|Hitem:50603:0:0:0:0:0:0:0:80|h[Cryptmaker]|h|r"
 			-- Dump: value=GetLootSlotLink(4)
@@ -204,10 +207,28 @@ local function BossBanner_FetchAndSyncLootItems(self)
 			if itemLink then
 				local _, _, _, _, itemID --[[_, _, Color, Ltype, Id, Enchant, Gem1, Gem2, Gem3, Gem4, Suffix, unique, LinkLvl, Name]] = strfind(itemLink, "|?c?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
 				local finalItem = tostring(slot == numLootItems)
-				encounterLootCache[encounterId][lootSourceID][slot] = itemLink -- cache itemLink, not currently used
 
-				DBM:Debug("BossBanner: Sending sync (v1) with the following args: "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
-				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(--[[version]]"1", encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
+				encounterLootCache[encounterId][lootSourceID][itemID] = encounterLootCache[encounterId][lootSourceID][itemID] or {}
+				tempLootItemCounter[itemID] = (tempLootItemCounter[itemID] or 0) + 1
+
+				if next(encounterLootCache[encounterId][lootSourceID][itemID]) == nil then
+					tinsert(encounterLootCache[encounterId][lootSourceID][itemID], false) -- insert it this way to account for duplicates. Boolean will be used in the Core sync handler
+				else
+
+					for key, synced in ipairs(encounterLootCache[encounterId][lootSourceID][itemID]) do
+						if key < tempLootItemCounter[itemID] and not synced then
+							tinsert(encounterLootCache[encounterId][lootSourceID][itemID], false) -- insert it this way to account for duplicates. Boolean will be used in the Core sync handler
+							break
+						end
+					end
+				end
+
+				if finalItem == "true" then
+					wipe(tempLootItemCounter)
+				end
+
+				DBM:Debug("BossBanner: Sending sync (v2) with the following args: "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
+				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(--[[version:]]"2", encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
 		end
 	end
