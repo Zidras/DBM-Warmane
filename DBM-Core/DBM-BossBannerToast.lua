@@ -187,7 +187,7 @@ local function BossBanner_FetchAndSyncLootItems(self)
 
 	-- check if player already opened loot window
 	if encounterLootCache[encounterId][lootSourceID] and encounterLootCache[encounterId][lootSourceID].looted then
-		DBM:Debug("BossBanner: Boss already looted. Ending fetching and syncing process.", 3)
+		DBM:Debug("BossBanner: Boss/Container ("..lootSourceID..") already looted. Ending fetching and syncing process.", 3)
 		return
 	end
 

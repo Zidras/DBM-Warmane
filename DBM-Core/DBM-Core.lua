@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241109153447"),
+	Revision = parseCurseDate("20241109190424"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3472,19 +3472,14 @@ do
 
 	do
 		local lootTableBySender = {}
-		local lootContinueCheckingFlag = false -- used to manage when to insert a new item
-		local function lootValidateAndSendEvent(encounterId, lootSourceName, lootSourceGUID, lootSourceID, itemID, itemLink, quantity, slot, texture, finalItem)
+		local function lootValidateAndSendEvent(encounterId, lootSourceName, lootSourceGUID, lootSourceID, itemID, itemLink, quantity, slot, texture, finalItem, counter)
 			-- build BossBanner encounter cache if needed
 			BossBanner.encounterLootCache[encounterId] = BossBanner.encounterLootCache[encounterId] or {}
 			BossBanner.encounterLootCache[encounterId][lootSourceID] = BossBanner.encounterLootCache[encounterId][lootSourceID] or {}
 			BossBanner.encounterLootCache[encounterId][lootSourceID][itemID] = BossBanner.encounterLootCache[encounterId][lootSourceID][itemID] or {}
-			if next(BossBanner.encounterLootCache[encounterId][lootSourceID][itemID]) == nil then
-				lootContinueCheckingFlag = true
+
+			if BossBanner.encounterLootCache[encounterId][lootSourceID][itemID][counter] == nil then -- only check for nil. false has different meaning (cached, not synced)
 				tinsert(BossBanner.encounterLootCache[encounterId][lootSourceID][itemID], false)
-			else
-				if lootContinueCheckingFlag then
-					tinsert(BossBanner.encounterLootCache[encounterId][lootSourceID][itemID], false)
-				end
 			end
 
 			-- check if BossBanner encounterLootCache already has the looted item
@@ -3501,11 +3496,6 @@ do
 					DBM:Debug("BossBanner: item already cached and synced. Ending sync for encounterId: "..encounterId..", lootSourceName: "..lootSourceName..", lootSourceGUID: "..lootSourceGUID..", itemID: "..itemID..", itemLink: "..itemLink..", quantity: "..quantity..", slot: "..slot..", texture: "..texture, 3)
 					return
 				end
-			end
-
-			-- clear the flag
-			if finalItem then
-				lootContinueCheckingFlag = false
 			end
 
 			-- check if BossBanner.pendingLoot is empty or already has the looted item
@@ -3533,9 +3523,12 @@ do
 			lootTableBySender[sender][encounterId][lootSourceID][slot] = { itemID = itemID, itemLink = itemLink, quantity = quantity, slot = slot, texture = texture, finalItem = finalItem }
 
 			if finalItem then
+				-- add counter of each itemID and max number of duplicates
+				local lootCounter = {}
 				for _, lootSlotTable in pairs(lootTableBySender[sender][encounterId][lootSourceID]) do
-					DBM:Debug("Dispatching BossBanner loot by sender"..sender..", with args: "..encounterId..", "..lootSourceName..", "..lootSourceGUID..", "..lootSlotTable.itemID..", "..lootSlotTable.itemLink..", "..lootSlotTable.quantity..", "..lootSlotTable.slot..", "..lootSlotTable.texture..", "..tostring(lootSlotTable.finalItem), 3)
-					lootValidateAndSendEvent(encounterId, lootSourceName, lootSourceGUID, lootSourceID, lootSlotTable.itemID, lootSlotTable.itemLink, lootSlotTable.quantity, lootSlotTable.slot, lootSlotTable.texture, lootSlotTable.finalItem)
+					lootCounter[lootSlotTable.itemID] = (lootCounter[lootSlotTable.itemID] or 0) + 1
+					DBM:Debug("Dispatching BossBanner loot by sender "..sender..", with args: encounterId: "..encounterId..", lootSourceName: "..lootSourceName..", lootSourceGUID: "..lootSourceGUID..", itemID: "..lootSlotTable.itemID..", itemLink: "..lootSlotTable.itemLink..", quantity: "..lootSlotTable.quantity..", slot: "..lootSlotTable.slot..", texture: "..lootSlotTable.texture..", finalItem: "..tostring(lootSlotTable.finalItem)..", lootCounter: "..lootCounter[lootSlotTable.itemID], 3)
+					lootValidateAndSendEvent(encounterId, lootSourceName, lootSourceGUID, lootSourceID, lootSlotTable.itemID, lootSlotTable.itemLink, lootSlotTable.quantity, lootSlotTable.slot, lootSlotTable.texture, lootSlotTable.finalItem, lootCounter[lootSlotTable.itemID])
 				end
 			end
 		end
