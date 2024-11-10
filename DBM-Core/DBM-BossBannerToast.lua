@@ -14,6 +14,7 @@ local CreateFrame = CreateFrame
 local GetCurrentMapAreaID = GetCurrentMapAreaID
 local GetCurrentMapContinent = GetCurrentMapContinent
 local GetItemInfo = GetItemInfo
+local GetLocale = GetLocale
 local GetLootSlotInfo = GetLootSlotInfo
 local GetLootSlotLink = GetLootSlotLink
 local GetNumLootItems = GetNumLootItems
@@ -131,6 +132,7 @@ end
 GameTooltip:SetScript("OnShow", GameTooltipCacheName) -- Tooltip fetching resulting in unreliable results, where on a split frame it would not update the text (either nil or different than expected), so run it always to catch it as fast as possible. Will fail if mouseover another unit, since TT updates before LOOT_OPENED.
 
 local encounterLootCache = {}
+local locale = GetLocale()
 local function BossBanner_FetchAndSyncLootItems(self)
 	local numLootItems = GetNumLootItems()
 	local encounterId = self.encounterID
@@ -227,8 +229,8 @@ local function BossBanner_FetchAndSyncLootItems(self)
 					wipe(tempLootItemCounter)
 				end
 
-				DBM:Debug("BossBanner: Sending sync (v2) with the following args: "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
-				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(--[[version:]]"2", encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
+				DBM:Debug("BossBanner: Sending sync (v3) with the following args: "..locale..", "..encounterId..", "..encounterName..", "..lootSourceName..", "..tostring(lootSourceGUID)..", "..itemID..", "..itemLink..", "..tostring(quantity)..", "..tostring(slot)..", "..texture..", "..finalItem, 3)
+				private.sendSync("DBMv4-L", ("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s"):format(--[[version:]]"3", locale, encounterId, encounterName, lootSourceName, tostring(lootSourceGUID), itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem)) -- needs to be less than 255 characters, otherwise it won't be sent
 			end
 		end
 	end
