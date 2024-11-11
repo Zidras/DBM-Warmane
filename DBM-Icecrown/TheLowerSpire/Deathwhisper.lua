@@ -352,7 +352,7 @@ end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
-	if args:IsSpellID(71420, 72007, 72501, 72502) and self:CheckInterruptFilter(args.sourceGUID) then
+	if args:IsSpellID(71420, 72007, 72501, 72502) and self:CheckInterruptFilter(args.sourceGUID, false, true) then
 		specWarnFrostbolt:Show(args.sourceName)
 		specWarnFrostbolt:Play("kickcast")
 		timerFrostboltCast:Start()
