@@ -1032,7 +1032,23 @@ do
 						hordeBases = hordeBases + 1
 					end
 				end
-				self:UpdateWinTimer(1600, tonumber(smatch((select(3, GetWorldStateUIInfo(subscribedMapID == 483 and 2 or 1)) or ""), "(%d+)/1600")) or 0, tonumber(smatch((select(3, GetWorldStateUIInfo(subscribedMapID == 483 and 3 or 2)) or ""), "(%d+)/1600")) or 0, allyBases, hordeBases)
+
+				local isEotS = subscribedMapID == 483
+				local allyIndex = isEotS and 2 or 1
+				local hordeIndex = isEotS and 3 or 2
+
+				-- ex ab: "Bases: 0 Resources: 0/1600"
+				local allyScoreText = select(3, GetWorldStateUIInfo(allyIndex)) or ""
+				local hordeScoreText = select(3, GetWorldStateUIInfo(hordeIndex)) or ""
+
+				local allyCurrent, maxResources = allyScoreText:match("Resources:%s*(%d+)/(%d+)")
+				allyCurrent = tonumber(allyCurrent) or 0
+				maxResources = tonumber(maxResources) or 1600
+
+				local hordeCurrent = hordeScoreText:match("Resources:%s*(%d+)")
+				hordeCurrent = tonumber(hordeCurrent) or 0
+
+				self:UpdateWinTimer(maxResources, allyCurrent, hordeCurrent, allyBases, hordeBases)
 			end
 		end
 	end
