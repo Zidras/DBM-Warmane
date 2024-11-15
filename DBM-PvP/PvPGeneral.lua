@@ -1041,11 +1041,11 @@ do
 				local allyScoreText = select(3, GetWorldStateUIInfo(allyIndex)) or ""
 				local hordeScoreText = select(3, GetWorldStateUIInfo(hordeIndex)) or ""
 
-				local allyCurrent, maxResources = allyScoreText:match("Resources:%s*(%d+)/(%d+)")
+				local allyCurrent, maxResources = smatch(allyScoreText, "(%d+)/(%d+)")
 				allyCurrent = tonumber(allyCurrent) or 0
 				maxResources = tonumber(maxResources) or 1600
 
-				local hordeCurrent = hordeScoreText:match("Resources:%s*(%d+)")
+				local hordeCurrent = smatch(hordeScoreText, "(%d+)/")
 				hordeCurrent = tonumber(hordeCurrent) or 0
 
 				self:UpdateWinTimer(maxResources, allyCurrent, hordeCurrent, allyBases, hordeBases)
