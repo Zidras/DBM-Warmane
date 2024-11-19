@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20220827002800")
+mod:SetRevision("20241119131458")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
