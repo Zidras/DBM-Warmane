@@ -105,9 +105,9 @@ L:SetOptionLocalization({
 	specWarnHorsemanHead	= "为旋风斩显示特别警报(第二次及最后的头颅出现)"
 })
 
-L:SetMiscLocalization({
-	HorsemanSummon			= "无头骑士来了……",
-	HorsemanHead			= "过来这里，你这白痴!",
-	HorsemanSoldiers		= "士兵们，起来战斗吧！为死去的骑士带来胜利的荣耀！",
-	SayCombatEnd			= "我也曾面对过这样的末路。还有什么新的冒险在等着呢?"
+L:SetMiscLocalization({ -- 2024/10/22: On Warmane SQL, there are no translations of these broadcasts to zhCN, so defaulted to English.
+--	HorsemanSummon			= "无头骑士来了……",
+--	HorsemanHead			= "过来这里，你这白痴!", -- local SQL has different string - 白痴，到这边来！
+--	HorsemanSoldiers		= "士兵们，起来战斗吧！为死去的骑士带来胜利的荣耀！", -- 23861
+--	SayCombatEnd			= "我也曾面对过这样的末路。还有什么新的冒险在等着呢?" -- 23455 (local SQL has different string - 我曾经经历过这样的结局。这次会有新意吗？)
 })
