@@ -606,3 +606,5 @@ L.SCENARIO_STAGE			= "%d단계"
 L.SPECIALIZATION			= "전문화" -- ID: 22433
 -- EJ
 L.HARD_MODE					= "어려움 모드" -- 17220
+L.BOSS_YOU_DEFEATED			= "우두머리 처치" -- 25559
+L.BOSS_KILL_SUBTITLE		= "위르그림" -- 25560

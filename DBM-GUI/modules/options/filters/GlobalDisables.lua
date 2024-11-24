@@ -57,3 +57,8 @@ local spamTTArea = spamPanel:CreateArea(L.Area_TimerTracker)
 spamTTArea:CreateCheckButton(L.PlayTT, true, nil, "PlayTT")
 spamTTArea:CreateCheckButton(L.PlayTTCountdown, true, nil, "PlayTTCountdown")
 spamTTArea:CreateCheckButton(L.PlayTTCountdownFinished, true, nil, "PlayTTCountdownFinished")
+
+local spamBBArea = spamPanel:CreateArea(L.Area_BossBanner)
+spamBBArea:CreateCheckButton(L.EnableBB, true, nil, "EnableBB")
+spamBBArea:CreateCheckButton(L.PlayBBLoot, true, nil, "PlayBBLoot")
+spamBBArea:CreateCheckButton(L.PlayBBSound, true, nil, "PlayBBSound")
