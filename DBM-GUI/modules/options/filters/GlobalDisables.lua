@@ -62,3 +62,84 @@ local spamBBArea = spamPanel:CreateArea(L.Area_BossBanner)
 spamBBArea:CreateCheckButton(L.EnableBB, true, nil, "EnableBB")
 spamBBArea:CreateCheckButton(L.PlayBBLoot, true, nil, "PlayBBLoot")
 spamBBArea:CreateCheckButton(L.PlayBBSound, true, nil, "PlayBBSound")
+local overrideBBFont = spamBBArea:CreateCheckButton(L.OverrideBBFont, true, nil, "OverrideBBFont")
+overrideBBFont:HookScript("OnClick", function()
+	BossBanner:UpdateStyle()
+end)
+
+-- BossBanner Font
+local Fonts = DBM_GUI:MixinSharedMedia3("font", {
+	{
+		text	= DEFAULT,
+		value	= "standardFont"
+	},
+	{
+		text	= "Arial",
+		value	= "Fonts\\ARIALN.TTF"
+	},
+	{
+		text	= "Skurri",
+		value	= "Fonts\\SKURRI.TTF"
+	},
+	{
+		text	= "Morpheus",
+		value	= "Fonts\\MORPHEUS.TTF"
+	}
+})
+
+local FontDropDown = spamBBArea:CreateDropdown(L.FontType, Fonts, "DBM", "BBFont", function(value)
+	DBM.Options.BBFont = value
+	BossBanner:UpdateStyle()
+end)
+FontDropDown:SetPoint("TOPLEFT", overrideBBFont, "BOTTOMLEFT", 0, -10)
+
+-- BossBanner Font Style
+local FontStyles = {
+	{
+		text	= L.None,
+		value	= "None"
+	},
+	{
+		text	= L.Outline,
+		value	= "OUTLINE",
+		flag	= true
+	},
+	{
+		text	= L.ThickOutline,
+		value	= "THICKOUTLINE",
+		flag	= true
+	},
+	{
+		text	= L.MonochromeOutline,
+		value	= "MONOCHROME,OUTLINE",
+		flag	= true
+	},
+	{
+		text	= L.MonochromeThickOutline,
+		value	= "MONOCHROME,THICKOUTLINE",
+		flag	= true
+	}
+}
+
+local FontStyleDropDown = spamBBArea:CreateDropdown(L.FontStyle, FontStyles, "DBM", "BBFontStyle", function(value)
+	DBM.Options.BBFontStyle = value
+	BossBanner:UpdateStyle()
+end)
+FontStyleDropDown:SetPoint("TOPLEFT", FontDropDown, "BOTTOMLEFT", 0, -10)
+
+-- BossBanner Font Shadow
+local FontShadow = spamBBArea:CreateCheckButton(L.FontShadow, nil, nil, "BBFontShadow")
+FontShadow:SetScript("OnClick", function()
+	DBM.Options.BBFontShadow = not DBM.Options.BBFontShadow
+	BossBanner:UpdateStyle()
+end)
+FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", 35, 0)
+
+-- BossBanner Font Size (add/subtract to default size)
+local fontSizeSlider = spamBBArea:CreateSlider(L.FontSize, -10, 10, 1, 200)
+fontSizeSlider:SetPoint("TOPLEFT", FontStyleDropDown, "TOPLEFT", 20, -45)
+fontSizeSlider:SetValue(DBM.Options.BBFontSize)
+fontSizeSlider:HookScript("OnValueChanged", function(self)
+	DBM.Options.BBFontSize = self:GetValue()
+	BossBanner:UpdateStyle()
+end)

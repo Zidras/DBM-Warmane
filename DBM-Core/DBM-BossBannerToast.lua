@@ -47,6 +47,21 @@ local SOUNDKIT = {
 	["UI_PERSONAL_LOOT_BANNER"] = "Interface\\AddOns\\DBM-Core\\sounds\\RetailSupport\\UI_Raid_Loot_Banner_01.ogg", -- 50893
 }
 
+--Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
+local standardFont
+local BBfont = nil -- keep Luacheck happy
+if LOCALE_koKR then
+	standardFont = "Fonts\\2002.TTF"
+elseif LOCALE_zhCN then
+	standardFont = "Fonts\\ARKai_T.ttf"
+elseif LOCALE_zhTW then
+	standardFont = "Fonts\\blei00d.TTF"
+elseif LOCALE_ruRU then
+	standardFont = "Fonts\\FRIZQT___CYR.TTF"
+else
+	standardFont = "Fonts\\FRIZQT__.TTF"
+end
+
 -- math toolkit
 local function round(value, dp)
 	return tonumber(strformat("%."..(dp or 14).."f", tostring(value)))
@@ -542,6 +557,12 @@ local function createLootFrame(parent)
 	-- FontString for Item Count
 	frame.Count = frame:CreateFontString(nil, "ARTWORK", "NumberFontNormal")
 	local Count = frame.Count
+	if BBfont then
+		Count:SetFont(BBfont, 14 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		if DBM.Options.BBFontShadow then
+			Count:SetShadowOffset(1, -1)
+		end
+	end
 	Count:SetJustifyH("RIGHT")
 	Count:SetPoint("BOTTOMRIGHT", Icon, -5, 2)
 	Count:Hide()
@@ -549,6 +570,12 @@ local function createLootFrame(parent)
 	-- FontString for Item Name
 	frame.ItemName = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalMed3") -- Same as retail GameFontNormalMed2
 	local ItemName = frame.ItemName
+	if BBfont then
+		ItemName:SetFont(BBfont, 14 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		if DBM.Options.BBFontShadow then
+			ItemName:SetShadowOffset(1, -1)
+		end
+	end
 	ItemName:SetWordWrap(false) -- try to mimic maxLines = 1
 	ItemName:SetJustifyH("LEFT")
 	ItemName:SetSize(204, 0)
@@ -557,6 +584,12 @@ local function createLootFrame(parent)
 	-- FontString for Set Name (hidden)
 	frame.SetName = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
 	local SetName = frame.SetName
+	if BBfont then
+		SetName:SetFont(BBfont, 12 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		if DBM.Options.BBFontShadow then
+			SetName:SetShadowOffset(1, -1)
+		end
+	end
 	SetName:SetWordWrap(false) -- try to mimic maxLines = 1
 	SetName:SetJustifyH("LEFT")
 	SetName:SetSize(204, 0)
@@ -567,6 +600,12 @@ local function createLootFrame(parent)
 	-- FontString for Player Name (originally), re-used for looted Boss name)
 	frame.PlayerName = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 	local PlayerName = frame.PlayerName
+	if BBfont then
+		PlayerName:SetFont(BBfont, 12 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		if DBM.Options.BBFontShadow then
+			PlayerName:SetShadowOffset(1, -1)
+		end
+	end
 	PlayerName:SetWordWrap(false) -- try to mimic maxLines = 1
 	PlayerName:SetJustifyH("LEFT")
 	PlayerName:SetSize(204, 0)
@@ -1407,6 +1446,39 @@ function BossBanner:ClearEncounterCache()
 	wipe(self.pendingLoot)
 	self.encounterID = nil
 	DBM:Debug("BossBanner:ClearEncounterCache called", 3)
+end
+
+function BossBanner:UpdateStyle()
+	if not DBM.Options.OverrideBBFont then return end
+	BBfont = DBM.Options.BBFont == "standardFont" and standardFont or DBM.Options.BBFont
+	Title:SetFont(BBfont, 30 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+	SubTitle:SetFont(BBfont, 16 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+	if DBM.Options.BBFontShadow then
+		Title:SetShadowOffset(1, -1)
+		SubTitle:SetShadowOffset(1, -1)
+	else
+		Title:SetShadowOffset(0, 0)
+		SubTitle:SetShadowOffset(0, 0)
+	end
+
+	for _, lootFrame in ipairs(BossBanner.LootFrames) do
+		lootFrame.Count:SetFont(BBfont, 14 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		lootFrame.ItemName:SetFont(BBfont, 14 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		lootFrame.SetName:SetFont(BBfont, 12 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+		lootFrame.PlayerName:SetFont(BBfont, 12 + DBM.Options.BBFontSize, DBM.Options.BBFontStyle)
+
+		if DBM.Options.BBFontShadow then
+			lootFrame.Count:SetShadowOffset(1, -1)
+			lootFrame.ItemName:SetShadowOffset(1, -1)
+			lootFrame.SetName:SetShadowOffset(1, -1)
+			lootFrame.PlayerName:SetShadowOffset(1, -1)
+		else
+			lootFrame.Count:SetShadowOffset(0, 0)
+			lootFrame.ItemName:SetShadowOffset(0, 0)
+			lootFrame.SetName:SetShadowOffset(0, 0)
+			lootFrame.PlayerName:SetShadowOffset(0, 0)
+		end
+	end
 end
 
 function BossBanner:Test(mode)
