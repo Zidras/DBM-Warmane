@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240413163721")
+mod:SetRevision("20241203222222")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
-mod:SetHotfixNoticeRev(20230528000000)
-mod:SetMinSyncRevision(20230528000000)
+mod:SetHotfixNoticeRev(20241203000000)
+mod:SetMinSyncRevision(20241203000000)
 
 mod:RegisterCombat("combat")
 
@@ -220,6 +220,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
+	self:UnregisterShortTermEvents()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
