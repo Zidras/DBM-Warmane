@@ -27,7 +27,6 @@ local addWaves = {
 }
 
 function mod:SPELL_AURA_REMOVED(args)
-	-- print(args.spellId, args:IsSpellID(69708, 70194))
 	if args:IsSpellID(69708, 70194) then			--Lich King has broken out of his Ice Prison (alliance) / Dark Binding (horde), this starts actual event
 		DBM:StartCombat(self, 0, "SPELL_AURA_REMOVED")
 		if self:IsDifficulty("heroic5") then
