@@ -160,3 +160,8 @@ showButton:SetHighlightFontObject(GameFontNormalSmall)
 showButton:SetScript("OnClick", function()
 	BossBanner:Show()
 end)
+
+-- BossBanner Keybinds
+local keybindsString = "|cffffffff"..string.upper(KEY_BINDINGS).."|r\n"..KEY_BUTTON2..": "..HIDE
+local keybindsInfotext = spamBBArea:CreateText(keybindsString, nil, false, GameFontNormal, "LEFT", 0)
+keybindsInfotext:SetPoint("BOTTOMLEFT", spamBBArea.frame, "BOTTOMLEFT", 10, 10)
