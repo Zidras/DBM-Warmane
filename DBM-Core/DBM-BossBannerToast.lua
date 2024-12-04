@@ -309,7 +309,7 @@ local function TopBannerManager_BannerFinished()
 --		TopBannerMgr.currentBanner.frame:PlayBanner(TopBannerMgr.currentBanner.data) -- Needs investigation, crashes the client!
 		DBM:Schedule(0, TopBannerMgr.currentBanner.frame.PlayBanner, TopBannerMgr.currentBanner.frame, TopBannerMgr.currentBanner.data)
 	else
-		if next(TopBannerMgr.currentBanner.frame.pendingLoot) then -- has pending loot, send next
+		if TopBannerMgr.currentBanner and next(TopBannerMgr.currentBanner.frame.pendingLoot) then -- has pending loot, send next. Checking for currentBanner to prevent nil Lua error on right-click
 			TopBannerMgr.currentBanner.data.mode = "LOOT" -- change mode to LOOT, since KILL would show kill banner again
 			DBM:Schedule(0, TopBannerMgr.currentBanner.frame.PlayBanner, TopBannerMgr.currentBanner.frame, TopBannerMgr.currentBanner.data)
 		else
