@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241203222222")
+mod:SetRevision("20241204002438")
 mod:SetCreatureID(36853)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 mod:SetHotfixNoticeRev(20241203000000)
@@ -46,7 +46,7 @@ local specWarnInstability		= mod:NewSpecialWarningStack(69766, nil, mod:IsHeroic
 local specWarnChilledtotheBone	= mod:NewSpecialWarningStack(70106, nil, mod:IsHeroic() and 4 or 8, nil, nil, 1, 6)
 local specWarnBlisteringCold	= mod:NewSpecialWarningRun(70123, nil, nil, nil, 4, 2)
 
-local timerNextAirphase			= mod:NewTimer(65.7, "TimerNextAirphase", 43810, nil, nil, 6) -- (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 65.7; 65.8 || 65.8; 65.8; 65.8
+local timerNextAirphase			= mod:NewTimer(110, "TimerNextAirphase", 43810, nil, nil, 6) -- Fixed timer on Air Yell: 110s
 local timerNextGroundphase		= mod:NewTimer(44.2, "TimerNextGroundphase", 43810, nil, nil, 6) -- 0.4s variance (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/06) - 44.2; 44.2 || 44.2; 44.3, 44.6; 44.2 || 45.1
 local timerNextFrostBreath		= mod:NewNextTimer(22, 69649, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextBlisteringCold	= mod:NewCDTimer(66, 70123, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, true, 2) -- Added "keep" arg
@@ -183,7 +183,6 @@ end
 local function landingPhaseWorkaround(self, timeOffset)
 	DBM:Debug("UNIT_TARGET boss1 didn't fire. Landing Phase scheduled")
 	self:SetStage(1)
-	timerNextAirphase:Start(-timeOffset)
 	timerUnchainedMagic:Start(10-timeOffset)
 	timerTailSmash:Start(19-timeOffset)
 	timerNextBlisteringCold:Start(34-timeOffset)
@@ -415,6 +414,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerUnchainedMagic:Cancel()
 		timerNextBlisteringCold:Cancel()
 		timerTailSmash:Cancel()
+		timerNextAirphase:Start()
 		timerNextGroundphase:Start()
 		warnGroundphaseSoon:Schedule(37.5)
 		self:Schedule(45.2, landingPhaseWorkaround, self, 1) -- giving a 0.2s cushion from 45s (max I have on logs is 45.1s). 1s comes from 45.2-44.2s from ground timer
@@ -439,10 +439,9 @@ end
 
 function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
-	if msg == "SindragosaLanded" then
+	if msg == "SindragosaLanded" and self:GetStage(1.5) then
 		self:Unschedule(landingPhaseWorkaround)
 		self:SetStage(1)
-		timerNextAirphase:Start()
 		timerUnchainedMagic:Start(10) -- (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 10.0; 10.0 || 10.0; 10.0, 10.0; 10.0
 		timerTailSmash:Start(19) -- ~5s variance [19-23.8]? (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 19.0 || 21.4; 21.9 || 21.4; 23.8, 22.6; 22.2
 		timerNextBlisteringCold:Start(34) -- 6s variance [34-40]? (10H Lordaeron 2022/10/02 || 25H Lordaeron 2022/10/02) - 34.0; 34.0 || 34.0; 34.0; 34.0
