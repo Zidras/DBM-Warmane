@@ -281,6 +281,13 @@ do
 		local icon2 = bar:CreateTexture("$parentIcon2", "OVERLAY")
 		icon2:SetPoint("LEFT", bar, "RIGHT")
 		icon2:SetSize(20, 20)
+		local varianceTex = bar:CreateTexture("$parentVariance", "OVERLAY")
+		varianceTex:SetPoint("RIGHT", bar, "RIGHT")
+		varianceTex:SetPoint("TOPRIGHT", bar, "TOPRIGHT")
+		varianceTex:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT")
+		varianceTex:SetTexture("Interface\\TargetingFrame\\UI-StatusBar.blp")
+		varianceTex:SetWidth(20)
+		varianceTex:SetBlendMode("ADD")
 
 		fCounter = fCounter + 1
 
@@ -290,8 +297,33 @@ do
 
 	local mt = {__index = barPrototype}
 
+	local function parseTimer(timer)
+		if not timer then return end
+
+		if type(timer) == "number" then
+			if timer <= 0 then return end
+
+			return timer -- Normal number timer, no variance
+		end
+
+		-- Check for variance format like "v30-40"
+		if type(timer) == "string" then
+			if not timer:match("^v(%d+)%-(%d+)$") then return end
+
+			local minTimer, maxTimer = timer:match("v(%d+)%-(%d+)")
+			minTimer, maxTimer = tonumber(minTimer), tonumber(maxTimer)
+			local varianceDuration = maxTimer - minTimer
+
+			return maxTimer, minTimer, varianceDuration  -- Total duration, variance duration
+		end
+
+		return -- Invalid input
+	end
+
 	function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, inlineIcon, keep, fade, countdown, countdownMax)
-		if (not timer or type(timer) == "string" or timer <= 0) or (self.numBars >= 15 and not isDummy) then
+		local varianceMinTimer, varianceDuration
+		timer, varianceMinTimer, varianceDuration = parseTimer(timer) -- either normal number or with variance
+		if not timer or (self.numBars >= 15 and not isDummy) then
 			return
 		end
 		-- Most efficient place to block it, nil colorType instead of checking option every update
@@ -335,6 +367,9 @@ do
 				newBar.fade = fade
 				newBar.countdown = countdown
 				newBar.countdownMax = countdownMax
+				newBar.minTimer = varianceMinTimer or nil
+				newBar.varianceDuration = varianceDuration or 0
+				newBar.hasVariance = varianceMinTimer and true or false
 			else -- Duplicate code ;(
 				local newFrame = createBarFrame(self)
 				newBar = setmetatable({
@@ -355,6 +390,9 @@ do
 					fade = fade,
 					countdown = countdown,
 					countdownMax = countdownMax,
+					minTimer = varianceMinTimer or nil,
+					varianceDuration = varianceDuration or 0,
+					hasVariance = varianceMinTimer and true or false,
 					lastUpdate = GetTime()
 				}, mt)
 				newFrame.obj = newBar
@@ -770,6 +808,18 @@ function barPrototype:SetColor(color)
 	_G[frame_name .. "BarSpark"]:SetVertexColor(color.r, color.g, color.b)
 end
 
+function barPrototype:SetVariance()
+	local frame_name = self.frame:GetName()
+	local varianceTex = _G[frame_name.."BarVariance"]
+	if self.hasVariance then
+		local varianceWidth = self.frame:GetWidth() * (self.varianceDuration / self.totalTime)
+		varianceTex:SetWidth(varianceWidth)
+		varianceTex:Show()
+	else
+		varianceTex:Hide()
+	end
+end
+
 local colorVariables = {
 	[1] = "A",--Add
 	[2] = "AE",--AoE
@@ -951,6 +1001,7 @@ function barPrototype:Update(elapsed)
 		self:Enlarge()
 	end
 	DBT:UpdateBars()
+	self:SetVariance() -- OPTIMIZE! Does not need to run all the time!
 end
 
 function barPrototype:RemoveFromList()
