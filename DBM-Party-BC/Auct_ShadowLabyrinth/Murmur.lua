@@ -1,7 +1,7 @@
 local mod = DBM:NewMod(547, "DBM-Party-BC", 10, 253)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20241205233154")
 mod:SetCreatureID(18708)
 
 mod:SetModelID(18839)
@@ -11,8 +11,8 @@ mod:SetUsedIcons(8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 33711",
-	"SPELL_AURA_REMOVED 33711",
+	"SPELL_AURA_APPLIED 33711 38794",
+	"SPELL_AURA_REMOVED 33711 38794",
 	"SPELL_CAST_START 33923 38796"
 )
 
@@ -35,7 +35,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 33711 then
+	if args.spellId == 33711 or args.spellId == 38794 then
 		timerTouch:Start(args.destName)
 		if self.Options.SetIconOnTouchTarget then
 			self:SetIcon(args.destName, 8, 14)
@@ -50,7 +50,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 33711 then
+	if args.spellId == 33711 or args.spellId == 38794 then
 		timerTouch:Stop(args.destName)
 		if self.Options.SetIconOnTouchTarget then
 			self:SetIcon(args.destName, 0)
