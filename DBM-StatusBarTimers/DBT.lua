@@ -1001,7 +1001,6 @@ function barPrototype:Update(elapsed)
 		self:Enlarge()
 	end
 	DBT:UpdateBars()
-	self:SetVariance() -- OPTIMIZE! Does not need to run all the time!
 end
 
 function barPrototype:RemoveFromList()
@@ -1094,6 +1093,7 @@ function barPrototype:ApplyStyle()
 		icon1:SetSize(sizeHeight, sizeHeight)
 		icon2:SetSize(sizeHeight, sizeHeight)
 	end
+	self:SetVariance()
 	self.frame:Show()
 	if sparkEnabled then
 		spark:SetAlpha(1)

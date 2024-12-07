@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241206223454"),
+	Revision = parseCurseDate("20241207225353"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -6530,7 +6530,7 @@ do
 		testTimer1:Start("v5-10", "Test Bar")
 		testTimer2:Start("v10-30", "Adds")
 		testTimer3:Start(43, "Evil Debuff")
-		testTimer4:Start(20, "Important Interrupt")
+		testTimer4:Start("v15-20", "Important Interrupt")
 		testTimer5:Start("v50-60", "Boom!")
 		testTimer6:Start(35, "Handle your Role")
 		testTimer7:Start(50, "Next Stage")
