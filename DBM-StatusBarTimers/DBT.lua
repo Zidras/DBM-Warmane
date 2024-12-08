@@ -314,7 +314,7 @@ do
 			minTimer, maxTimer = tonumber(minTimer), tonumber(maxTimer)
 			local varianceDuration = maxTimer - minTimer
 
-			return maxTimer, minTimer, varianceDuration  -- Total duration, variance duration
+			return maxTimer, minTimer, varianceDuration  -- maximum possible timer from the variance window, minimum..., variance duration
 		end
 
 		return -- Invalid input
