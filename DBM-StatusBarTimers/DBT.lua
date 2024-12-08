@@ -818,6 +818,23 @@ function barPrototype:SetVariance()
 	if self.hasVariance then
 		local varianceWidth = self.frame:GetWidth() * (self.varianceDuration / self.totalTime)
 		varianceTex:SetWidth(varianceWidth)
+
+		-- change SetPoints based on fillUpBars
+		local bar = _G[frame_name.."Bar"]
+		varianceTex:ClearAllPoints()
+		local isEnlarged = self.enlarged and not self.paused
+		local fillUpBars = isEnlarged and DBT.Options.FillUpLargeBars or not isEnlarged and DBT.Options.FillUpBars
+
+		if fillUpBars then
+			varianceTex:SetPoint("RIGHT", bar, "RIGHT")
+			varianceTex:SetPoint("TOPRIGHT", bar, "TOPRIGHT")
+			varianceTex:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT")
+		else
+			varianceTex:SetPoint("LEFT", bar, "LEFT")
+			varianceTex:SetPoint("TOPLEFT", bar, "TOPLEFT")
+			varianceTex:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT")
+		end
+
 		varianceTex:Show()
 	else
 		varianceTex:Hide()
