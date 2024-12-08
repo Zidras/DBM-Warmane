@@ -285,9 +285,16 @@ do
 		varianceTex:SetPoint("RIGHT", bar, "RIGHT")
 		varianceTex:SetPoint("TOPRIGHT", bar, "TOPRIGHT")
 		varianceTex:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT")
-		varianceTex:SetTexture("Interface\\TargetingFrame\\UI-StatusBar.blp")
+		varianceTex:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
 		varianceTex:SetWidth(20)
 		varianceTex:SetBlendMode("ADD")
+
+		local varianceTexBorder = bar:CreateTexture("$parentVarianceBorder", "OVERLAY")
+		varianceTexBorder:SetVertexColor(0, 0, 0, 1)
+		varianceTexBorder:SetPoint("TOPLEFT", varianceTex, "TOPLEFT", -1, 0)
+		varianceTexBorder:SetPoint("BOTTOMLEFT", varianceTex, "BOTTOMLEFT", -1, 0)
+		varianceTexBorder:SetTexture("Interface\\Buttons\\WHITE8X8")
+		varianceTexBorder:SetWidth(1)
 
 		fCounter = fCounter + 1
 
@@ -815,6 +822,7 @@ end
 function barPrototype:SetVariance()
 	local frame_name = self.frame:GetName()
 	local varianceTex = _G[frame_name.."BarVariance"]
+	local varianceTexBorder = _G[frame_name.."BarVarianceBorder"]
 	if self.hasVariance then
 		local varianceWidth = self.frame:GetWidth() * (self.varianceDuration / self.totalTime)
 		varianceTex:SetWidth(varianceWidth)
@@ -822,6 +830,7 @@ function barPrototype:SetVariance()
 		-- change SetPoints based on fillUpBars
 		local bar = _G[frame_name.."Bar"]
 		varianceTex:ClearAllPoints()
+		varianceTexBorder:ClearAllPoints()
 		local isEnlarged = self.enlarged and not self.paused
 		local fillUpBars = isEnlarged and DBT.Options.FillUpLargeBars or not isEnlarged and DBT.Options.FillUpBars
 
@@ -829,15 +838,21 @@ function barPrototype:SetVariance()
 			varianceTex:SetPoint("RIGHT", bar, "RIGHT")
 			varianceTex:SetPoint("TOPRIGHT", bar, "TOPRIGHT")
 			varianceTex:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT")
+			varianceTexBorder:SetPoint("TOPLEFT", varianceTex, "TOPLEFT", -1, 0)
+			varianceTexBorder:SetPoint("BOTTOMLEFT", varianceTex, "BOTTOMLEFT", -1, 0)
 		else
 			varianceTex:SetPoint("LEFT", bar, "LEFT")
 			varianceTex:SetPoint("TOPLEFT", bar, "TOPLEFT")
 			varianceTex:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT")
+			varianceTexBorder:SetPoint("TOPRIGHT", varianceTex, "TOPRIGHT", 1, 0)
+			varianceTexBorder:SetPoint("BOTTOMRIGHT", varianceTex, "BOTTOMRIGHT", 1, 0)
 		end
 
 		varianceTex:Show()
+		varianceTexBorder:Show()
 	else
 		varianceTex:Hide()
+		varianceTexBorder:Hide()
 	end
 end
 
