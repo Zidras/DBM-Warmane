@@ -398,7 +398,7 @@ do
 				newFrame.obj = newBar
 			end
 			self.numBars = self.numBars + 1
-			if ((colorType and colorType == 7 and self.Options.Bar7ForceLarge) or (timer <= (self.Options.EnlargeBarTime or 11) or huge)) and self.Options.HugeBarsEnabled then -- Start enlarged
+			if ((colorType and colorType == 7 and self.Options.Bar7ForceLarge) or ((varianceMinTimer or timer) <= (self.Options.EnlargeBarTime or 11) or huge)) and self.Options.HugeBarsEnabled then -- Start enlarged
 				newBar.enlarged = true
 				newBar.huge = true
 				tinsert(largeBars, newBar)
@@ -849,6 +849,7 @@ function barPrototype:Update(elapsed)
 	local paused = self.paused
 	self.timer = self.timer - (paused and 0 or elapsed)
 	local timerValue = self.timer
+	local timerLowestValueFromVariance = self.varianceDuration and timerValue - self.varianceDuration or timerValue
 	local totaltimeValue = self.totalTime
 	local barOptions = DBT.Options
 	local currentStyle = barOptions.BarStyle
@@ -996,7 +997,7 @@ function barPrototype:Update(elapsed)
 		self:ApplyStyle()
 		DBT:UpdateBars(true)
 	end
-	if not paused and (timerValue <= enlargeTime) and not self.small and not isEnlarged and isMoving ~= "enlarge" and enlargeEnabled then
+	if not paused and (timerLowestValueFromVariance <= enlargeTime) and not self.small and not isEnlarged and isMoving ~= "enlarge" and enlargeEnabled then
 		self:RemoveFromList()
 		self:Enlarge()
 	end
