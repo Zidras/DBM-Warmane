@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241204193401"),
+	Revision = parseCurseDate("20241208233607"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -6519,7 +6519,7 @@ do
 			testSpecialWarning2 = testMod:NewSpecialWarning(" %s ", nil, nil, nil, 2, 2)
 			testSpecialWarning3 = testMod:NewSpecialWarning("  %s  ", nil, nil, nil, 3, 2) -- hack: non auto-generated special warnings need distinct names (we could go ahead and give them proper names with proper localization entries, but this is much easier)
 		end
-		testTimer1:Stop("Test Bar")
+		testTimer1:Stop("Test Bar showing 5s Variance")
 		testTimer2:Stop("Adds")
 		testTimer3:Stop("Evil Debuff")
 		testTimer4:Stop("Important Interrupt")
@@ -6527,10 +6527,10 @@ do
 		testTimer6:Stop("Handle your Role")
 		testTimer7:Stop("Next Stage")
 		testTimer8:Stop("Custom User Bar")
-		testTimer1:Start(10, "Test Bar")
-		testTimer2:Start(30, "Adds")
+		testTimer1:Start("v5-10", "Test Bar showing 5s Variance")
+		testTimer2:Start("v10-30", "Adds")
 		testTimer3:Start(43, "Evil Debuff")
-		testTimer4:Start(20, "Important Interrupt")
+		testTimer4:Start("v15-20", "Important Interrupt")
 		testTimer5:Start(60, "Boom!")
 		testTimer6:Start(35, "Handle your Role")
 		testTimer7:Start(50, "Next Stage")
@@ -6550,7 +6550,7 @@ do
 		testWarning3:Schedule(20, "Pew Pew Laser Owl!")
 		testWarning2:Schedule(38, "Evil Spell in 5 sec!")
 		testWarning2:Schedule(43, "Evil Spell!")
-		testWarning1:Schedule(10, "Test bar expired!")
+		testWarning1:Schedule(10, "Test Bar expired!")
 		testSpecialWarning1:Schedule(20, "Pew Pew Laser Owl")
 		testSpecialWarning1:ScheduleVoice(20, "runaway")
 		testSpecialWarning2:Schedule(43, "Fear!")
@@ -9978,10 +9978,60 @@ do
 		end
 	end
 
+	local function parseVarianceFromTimer(timer)
+		if not timer then
+			DBM:Debug("|cffff0000No timer passed to parseVarianceFromTimer function.|r")
+			return
+		end
+
+		if type(timer) == "number" then
+			if timer <= 0 then return end
+
+			return timer -- Normal number timer, no variance
+		end
+
+		-- Check for variance format like "v30.5-40" or "dv30.5-40"
+		if type(timer) == "string" then
+			-- ^(d?v) matches starting character d (optional) or v
+			-- (%d+%.?%d*) matches any number of digits with optional decimal
+			-- %- matches literal character "-"
+			-- (%d+%.?%d*)$ matches any number of digits with optional decimal, at the end of the string
+			if not timer:match("^(d?v)(%d+%.?%d*)%-(%d+%.?%d*)$") then return end
+
+			local minTimer, maxTimer = timer:match("v(%d+%.?%d*)%-(%d+%.?%d*)")
+			minTimer, maxTimer = tonumber(minTimer), tonumber(maxTimer)
+			local varianceDuration = maxTimer - minTimer
+
+			return maxTimer, minTimer, varianceDuration  -- maximum possible timer from the variance window, minimum..., variance duration
+		end
+
+		DBM:Debug("|cffff0000Invalid input to parseVarianceFromTimer function.|r")
+		return -- Invalid input
+	end
+
+	local function correctWithVarianceDuration(numberToCorrect, timerBar)
+		if not numberToCorrect then
+			DBM:Debug("|cffff0000No number passed to correctWithVarianceDuration function.|r")
+			return
+		end
+
+		if not timerBar then
+			DBM:Debug("|cffff0000No timerBar passed to correctWithVarianceDuration function.|r")
+			return numberToCorrect
+		end
+
+		return timerBar.hasVariance and (numberToCorrect + timerBar.varianceDuration) or numberToCorrect
+	end
+
 	function timerPrototype:Start(timer, ...)
 		if not self.mod.isDummyMod then--Don't apply following rulesets to pull timers and such
 			if DBM.Options.DontShowBossTimers and not self.mod.isTrashMod then return end
 			if DBM.Options.DontShowTrashTimers and self.mod.isTrashMod then return end
+		end
+		local timerStringWithVariance, minTimer
+		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
+			timerStringWithVariance = timer -- cache timer string
+			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
 		end
 		if timer and type(timer) ~= "number" then
 			return self:Start(nil, timer, ...) -- first argument is optional!
@@ -9993,17 +10043,29 @@ do
 						local bar = DBT:GetBar(self.startedTimers[i])
 						if bar then
 							local remaining = ("%.2f"):format(bar.timer)
+							local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 							local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 							ttext = ttext.."("..self.id..")"
 							if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 								local phaseText = self.mod.vb.phase and " ("..L.SCENARIO_STAGE:format(self.mod.vb.phase)..")" or ""
-								if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
-									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
-									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
-								elseif bar.timer < -5 then
-									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
-								elseif bar.timer > 0.1 then
-									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+								if bar.hasVariance then
+									if DBM.Options.BadTimerAlert and bar.timer > correctWithVarianceDuration(1, bar) then--If greater than 1 seconds off, report this out of debug mode to all users
+										DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug")
+										fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug", 2)
+									elseif bar.timer < correctWithVarianceDuration(-5, bar) then -- arbitrary limit. Would be useful to implement a variance detector, and report outside the known variance, however this would need to happen on a timer after it was refreshed.
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+									elseif bar.timer > correctWithVarianceDuration(0.1, bar) then
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer..")", 2)
+									end
+								else -- duplicated code, should be refactored
+									if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+										DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
+										fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+									elseif bar.timer < -5 then
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+									elseif bar.timer > 0.1 then
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+									end
 								end
 							end
 						end
@@ -10070,17 +10132,29 @@ do
 					local bar = DBT:GetBar(id)
 					if bar then
 						local remaining = ("%.2f"):format(bar.timer)
+						local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 						local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 						ttext = ttext.."("..self.id..")"
 						if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 							local phaseText = self.mod.vb.phase and " ("..L.SCENARIO_STAGE:format(self.mod.vb.phase)..")" or ""
-							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
-								DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
-								fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
-							elseif bar.timer < -5 then
-								DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
-							elseif bar.timer > 0.1 then
-								DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+							if bar.hasVariance then
+								if DBM.Options.BadTimerAlert and bar.timer > correctWithVarianceDuration(1, bar) then--If greater than 1 seconds off, report this out of debug mode to all users
+									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug")
+									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug", 2)
+								elseif bar.timer < correctWithVarianceDuration(-5, bar) then -- arbitrary limit. Would be useful to implement a variance detector, and report outside the known variance, however this would need to happen on a timer after it was refreshed.
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+								elseif bar.timer > correctWithVarianceDuration(0.1, bar) then
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer..")", 2)
+								end
+							else -- duplicated code, should be refactored
+								if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
+									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+								elseif bar.timer < -5 then
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+								elseif bar.timer > 0.1 then
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+								end
 							end
 						end
 					end
@@ -10099,10 +10173,12 @@ do
 				countVoice = self.mod.Options[self.option .. "CVoice"]
 				if not self.fade and (type(countVoice) == "string" or countVoice > 0) then--Started without faded and has count voice assigned
 					DBM:Unschedule(playCountSound, id) -- Prevents count sound if timer is started again before timer expires
-					playCountdown(id, timer, countVoice, countVoiceMax, self.requiresCombat)--timerId, timer, voice, count
+					-- minTimer checks for the minimum possible timer in the variance timer string sent from Start method, self.minTimer is from newTimer constructor. Else, use timer value
+					playCountdown(id, minTimer or self.minTimer or timer, countVoice, countVoiceMax, self.requiresCombat)--timerId, timer, voice, count
 				end
 			end
-			local bar = DBT:CreateBar(timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
+			-- timerStringWithVariance checks for timer string sent from Start method, self.timerStringWithVariance is from newTimer constructor. Else, use timer value
+			local bar = DBT:CreateBar(timerStringWithVariance or self.timerStringWithVariance or timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
@@ -10548,6 +10624,14 @@ do
 			DBM:Debug("|cffff0000spellID texture path or colorType is in inlineIcon field and needs to be fixed for |r"..name..inlineIcon)
 			inlineIcon = nil--Fix it for users
 		end
+		local hasVariance, timerStringWithVariance, minTimer, varianceDuration
+		if type(timer) == "string" then
+			if timer:match("^v%d+%.?%d*%-%d+%.?%d*$") then -- parse variance, e.g. "v20.5-25.5"
+				hasVariance = true
+				timerStringWithVariance = timer
+				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
+			end
+		end
 		local icon = type(texture) == "number" and ( texture <=8 and (iconFolder .. texture) or select(3, GetSpellInfo(texture))) or texture or "Interface\\Icons\\Spell_Nature_WispSplode"
 		local obj = setmetatable(
 			{
@@ -10564,6 +10648,10 @@ do
 				g = g,
 				b = b,
 				requiresCombat = requiresCombat,
+				hasVariance = hasVariance,
+				minTimer = minTimer,
+				timerStringWithVariance = timerStringWithVariance,
+				varianceDuration = varianceDuration,
 				startedTimers = {},
 				mod = self,
 			},
@@ -10592,10 +10680,21 @@ do
 			optionVersion = optionName
 			optionName = nil
 		end
-		local allowdouble
-		if type(timer) == "string" and timer:match("d%d+") then
-			allowdouble = true
-			timer = tonumber(string.sub(timer, 2))
+		local allowdouble, hasVariance, timerStringWithVariance, minTimer, varianceDuration
+		if type(timer) == "string" then
+			if timer:match("d%d+") then -- parse doubling timers, e.g. "d20"
+				allowdouble = true
+				timer = tonumber(string.sub(timer, 2))
+			elseif timer:match("^v%d+%.?%d*%-%d+%.?%d*$") then -- parse variance, e.g. "v20.5-25.5"
+				hasVariance = true
+				timerStringWithVariance = timer
+				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
+			elseif timer:match("dv%d+%.?%d*%-%d+%.?%d*$") then -- parse doubling and variance, e.g. "dv20.5-25.5"
+				allowdouble = true
+				hasVariance = true
+				timerStringWithVariance = timer
+				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
+			end
 		end
 		local spellName, icon
 		local unparsedId = spellId
@@ -10652,6 +10751,10 @@ do
 				b = b,
 				requiresCombat = requiresCombat,
 				allowdouble = allowdouble,
+				hasVariance = hasVariance,
+				minTimer = minTimer,
+				timerStringWithVariance = timerStringWithVariance,
+				varianceDuration = varianceDuration,
 				startedTimers = {},
 				mod = self,
 			},
