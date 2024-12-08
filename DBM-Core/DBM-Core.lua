@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241208172819"),
+	Revision = parseCurseDate("20241208184611"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9990,11 +9990,15 @@ do
 			return timer -- Normal number timer, no variance
 		end
 
-		-- Check for variance format like "v30-40" or "dv30-40"
+		-- Check for variance format like "v30.5-40" or "dv30.5-40"
 		if type(timer) == "string" then
-			if not timer:match("^(d?v)(%d+)%-(%d+)$") then return end
+			-- ^(d?v) matches starting character d (optional) or v
+			-- (%d+%.?%d*) matches any number of digits with optional decimal
+			-- %- matches literal character "-"
+			-- (%d+%.?%d*)$ matches any number of digits with optional decimal, at the end of the string
+			if not timer:match("^(d?v)(%d+%.?%d*)%-(%d+%.?%d*)$") then return end
 
-			local minTimer, maxTimer = timer:match("v(%d+)%-(%d+)")
+			local minTimer, maxTimer = timer:match("v(%d+%.?%d*)%-(%d+%.?%d*)")
 			minTimer, maxTimer = tonumber(minTimer), tonumber(maxTimer)
 			local varianceDuration = maxTimer - minTimer
 
@@ -10011,7 +10015,7 @@ do
 			if DBM.Options.DontShowTrashTimers and self.mod.isTrashMod then return end
 		end
 		local timerStringWithVariance, minTimer
-		if type(timer) == "string" and timer:match("^v%d+-%d+$") then -- catch "timer variance" pattern, expressed like v10-20
+		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
 			timerStringWithVariance = timer -- cache timer string
 			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
 		end
@@ -10584,7 +10588,7 @@ do
 		end
 		local hasVariance, timerStringWithVariance, minTimer, varianceDuration
 		if type(timer) == "string" then
-			if timer:match("^v%d+-%d+") then -- parse variance, e.g. "v20-25"
+			if timer:match("^v%d+%.?%d*%-%d+%.?%d*$") then -- parse variance, e.g. "v20.5-25.5"
 				hasVariance = true
 				timerStringWithVariance = timer
 				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
@@ -10643,11 +10647,11 @@ do
 			if timer:match("d%d+") then -- parse doubling timers, e.g. "d20"
 				allowdouble = true
 				timer = tonumber(string.sub(timer, 2))
-			elseif timer:match("^v%d+-%d+") then -- parse variance, e.g. "v20-25"
+			elseif timer:match("^v%d+%.?%d*%-%d+%.?%d*$") then -- parse variance, e.g. "v20.5-25.5"
 				hasVariance = true
 				timerStringWithVariance = timer
 				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
-			elseif timer:match("^dv%d+-%d+") then -- parse doubling and variance, e.g. "dv20-25"
+			elseif timer:match("dv%d+%.?%d*%-%d+%.?%d*$") then -- parse doubling and variance, e.g. "dv20.5-25.5"
 				allowdouble = true
 				hasVariance = true
 				timerStringWithVariance = timer

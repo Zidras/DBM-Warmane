@@ -306,11 +306,15 @@ do
 			return timer -- Normal number timer, no variance
 		end
 
-		-- Check for variance format like "v30-40"
+		-- Check for variance format like "v30.5-40" or "dv30.5-40"
 		if type(timer) == "string" then
-			if not timer:match("^v(%d+)%-(%d+)$") then return end
+			-- ^v matches starting character d (optional) or v
+			-- (%d+%.?%d*) matches any number of digits with optional decimal
+			-- %- matches literal character "-"
+			-- (%d+%.?%d*)$ matches any number of digits with optional decimal, at the end of the string
+			if not timer:match("^v(%d+%.?%d*)%-(%d+%.?%d*)$") then return end
 
-			local minTimer, maxTimer = timer:match("v(%d+)%-(%d+)")
+			local minTimer, maxTimer = timer:match("v(%d+%.?%d*)%-(%d+%.?%d*)")
 			minTimer, maxTimer = tonumber(minTimer), tonumber(maxTimer)
 			local varianceDuration = maxTimer - minTimer
 
