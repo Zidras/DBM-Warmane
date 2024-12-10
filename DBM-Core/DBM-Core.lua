@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241209223619"),
+	Revision = parseCurseDate("20241210235130"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10028,8 +10028,10 @@ do
 			if DBM.Options.DontShowBossTimers and not self.mod.isTrashMod then return end
 			if DBM.Options.DontShowTrashTimers and self.mod.isTrashMod then return end
 		end
+		local hasVariance = type(timer) == "number" and false or not timer and self.hasVariance -- to separate from metadata, to account for metavariant timers with a fixed timer start, like timer:Start(10)
 		local timerStringWithVariance, minTimer
 		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
+			hasVariance = true
 			timerStringWithVariance = timer -- cache timer string
 			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
 		end
@@ -10053,7 +10055,7 @@ do
 										DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug")
 										fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug", 2)
 									elseif bar.timer < -0.1 then -- Would be useful to implement a variance detector, and report outside the known variance, however this would need to happen on a timer after it was refreshed. For the moment, only "keep" arg can achieve this.
-										DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero, outside known variance window. Remaining time is : "..remaining, 2)
 									elseif bar.timer > correctWithVarianceDuration(0.1, bar) then
 										DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer..")", 2)
 									end
@@ -10142,7 +10144,7 @@ do
 									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug")
 									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug", 2)
 								elseif bar.timer < -0.1 then -- Would be useful to implement a variance detector, and report outside the known variance, however this would need to happen on a timer after it was refreshed. For the moment, only "keep" arg can achieve this.
-									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero, outside known variance window. Remaining time is : "..remaining, 2)
 								elseif bar.timer > correctWithVarianceDuration(0.1, bar) then
 									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer..")", 2)
 								end
@@ -10178,7 +10180,7 @@ do
 				end
 			end
 			-- timerStringWithVariance checks for timer string sent from Start method, self.timerStringWithVariance is from newTimer constructor. Else, use timer value
-			local bar = DBT:CreateBar(timerStringWithVariance or self.timerStringWithVariance or timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
+			local bar = DBT:CreateBar(timerStringWithVariance or (hasVariance and self.timerStringWithVariance) or timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
