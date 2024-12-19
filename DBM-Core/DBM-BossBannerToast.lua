@@ -1011,19 +1011,20 @@ local function BossBanner_OnAnimOutFinished(self) -- moved up from retail source
 	banner.lootShown = 0
 	banner:Hide()
 	banner:SetHeight(banner.baseHeight)
-	banner.BannerTop:SetAlpha(0)
-	banner.BannerBottom:SetAlpha(0)
-	banner.BannerMiddle:SetAlpha(0)
-	banner.BottomFillagree:SetAlpha(0)
-	banner.SkullSpikes:SetAlpha(0)
-	banner.RightFillagree:SetAlpha(0)
-	banner.LeftFillagree:SetAlpha(0)
-	banner.Title:SetAlpha(0)
-	banner.SubTitle:SetAlpha(0)
-	banner.FlashBurst:SetAlpha(0)
-	banner.FlashBurstLeft:SetAlpha(0)
-	banner.FlashBurstCenter:SetAlpha(0)
-	banner.RedFlash:SetAlpha(0)
+	-- Disabling all of these SetAlpha due to 3.3.5a animation bug that holds attributes like alpha hostage until AnimationGroup OnFinished ends.
+	-- banner.BannerTop:SetAlpha(0)
+	-- banner.BannerBottom:SetAlpha(0)
+	-- banner.BannerMiddle:SetAlpha(0)
+	-- banner.BottomFillagree:SetAlpha(0)
+	-- banner.SkullSpikes:SetAlpha(0)
+	-- banner.RightFillagree:SetAlpha(0)
+	-- banner.LeftFillagree:SetAlpha(0)
+	-- banner.Title:SetAlpha(0)
+	-- banner.SubTitle:SetAlpha(0)
+	-- banner.FlashBurst:SetAlpha(0)
+	-- banner.FlashBurstLeft:SetAlpha(0)
+	-- banner.FlashBurstCenter:SetAlpha(0)
+	-- banner.RedFlash:SetAlpha(0)
 	for i = 1, #banner.LootFrames do
 		banner.LootFrames[i]:Hide()
 	end
@@ -1433,7 +1434,8 @@ local function BossBanner_OnMouseDown(...)
 	local frame, button = ...
 	if button == "RightButton" then
 		BossBanner_Stop(frame)
-		TopBannerManager_BannerFinished(frame)
+		BossBanner_OnAnimOutFinished(BossBanner.AnimOut) -- passing a children frame of BossBanner to reuse code of self:GetParent, without disrupting the retail diff.
+--		TopBannerManager_BannerFinished(frame) -- disabling this since it does not properly cancel the banner, and will cause previous shown loot to populate lootframes. This is a bug that is present on Retail blizzard code. To work around it, fire BossBanner_OnAnimOutFinished instead.
 	end
 end
 
