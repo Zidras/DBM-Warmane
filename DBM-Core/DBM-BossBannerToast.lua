@@ -1434,7 +1434,8 @@ local function BossBanner_OnMouseDown(...)
 	local frame, button = ...
 	if button == "RightButton" then
 		BossBanner_Stop(frame)
-		BossBanner_OnAnimOutFinished(BossBanner.AnimOut) -- passing a children frame of BossBanner to reuse code of self:GetParent, without disrupting the retail diff.
+		wipe(frame.pendingLoot) -- prevent pending loot from refiring BossBanner on my workaround in TopBannerManager_BannerFinished
+		BossBanner_OnAnimOutFinished(frame.AnimOut) -- passing a children frame of BossBanner to reuse code of self:GetParent, without disrupting the retail diff.
 --		TopBannerManager_BannerFinished(frame) -- disabling this since it does not properly cancel the banner, and will cause previous shown loot to populate lootframes. This is a bug that is present on Retail blizzard code. To work around it, fire BossBanner_OnAnimOutFinished instead.
 	end
 end
