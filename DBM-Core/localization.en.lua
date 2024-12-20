@@ -483,6 +483,7 @@ L.AUTO_TIMER_TEXTS = {
 	active								= "%s ends",--Buff/Debuff/event on boss
 	fades								= "%s fades",--Buff/Debuff on players
 	ai									= "%s AI",
+
 	cd									= "%s CD",
 	cdshort								= "~%s",
 	cdcount								= "%s (%%s) CD",
@@ -491,6 +492,7 @@ L.AUTO_TIMER_TEXTS = {
 	cdsourceshort						= "~%s: >%%s<",
 	cdspecial							= "Special CD",
 	cdspecialshort						= "~Special",
+
 	next								= "Next %s",
 	nextshort							= "%s",
 	nextcount							= "Next %s (%%s)",
@@ -499,6 +501,13 @@ L.AUTO_TIMER_TEXTS = {
 	nextsourceshort						= "%s: %%s",
 	nextspecial							= "Next Special",
 	nextspecialshort					= "Special",
+
+	var									= "%s",
+	varcount							= "%s (%%s)",
+	varsource							= "%s: >%%s<",--Now same as next, as the ~ was moved to timer number -- OPTIONAL
+	varspecial							= "Special",--Now same as next, as the ~ was moved to timer number
+	varcombo							= "%%1$s + %%2$s",--Now same as next, as the ~ was moved to timer number -- OPTIONAL
+
 	achievement							= "%s",
 	stage								= "Next Stage",
 	stageshort							= "Stage",
@@ -509,10 +518,11 @@ L.AUTO_TIMER_TEXTS = {
 	roleplay							= "Role play"
 }
 --This basically clones np only bar option and display text from regular counterparts
-L.AUTO_TIMER_TEXTS.cdnp = L.AUTO_TIMER_TEXTS.cd
-L.AUTO_TIMER_TEXTS.nextnp = L.AUTO_TIMER_TEXTS.next
-L.AUTO_TIMER_TEXTS.cdcountnp = L.AUTO_TIMER_TEXTS.cdcount
-L.AUTO_TIMER_TEXTS.nextcountnp = L.AUTO_TIMER_TEXTS.nextcount
+--TODO, cleanup lots of duplication here and above
+L.AUTO_TIMER_TEXTS.cdnp					= L.AUTO_TIMER_TEXTS.cd
+L.AUTO_TIMER_TEXTS.nextnp				= L.AUTO_TIMER_TEXTS.next
+L.AUTO_TIMER_TEXTS.cdcountnp			= L.AUTO_TIMER_TEXTS.cdcount
+L.AUTO_TIMER_TEXTS.nextcountnp			= L.AUTO_TIMER_TEXTS.nextcount
 
 
 L.AUTO_TIMER_OPTIONS = {
@@ -524,18 +534,29 @@ L.AUTO_TIMER_OPTIONS = {
 	active								= "Show timer for $spell:%s duration (%ds)",
 	fades								= "Show timer for when $spell:%s fades from players (%ds)",
 	ai									= "Show AI timer for $spell:%s cooldown (%ds)",
+
 	cd									= "Show timer for $spell:%s cooldown (%ds)",
 	cdcount								= "Show timer for $spell:%s cooldown (%ds)",
 	cdnp								= "Show nameplate only timer for $spell:%s cooldown (%ds)",
 	cdnpcount							= "Show nameplate only timer (with count) for $spell:%s cooldown (%ds)",
 	cdsource							= "Show timer (with source) for $spell:%s cooldown (%ds)",--Maybe better wording?
 	cdspecial							= "Show timer for special ability cooldown (%ds)",
+
 	next								= "Show timer for next $spell:%s (%ds)",
 	nextcount							= "Show timer for next $spell:%s (%ds)",
 	nextnp								= "Show nameplate only timer for next $spell:%s (%ds)",
 	nextnpcount							= "Show nameplate only timer (with count) for next $spell:%s (%ds)",
 	nextsource							= "Show timer (with source) for next $spell:%s (%ds)",--Maybe better wording?
 	nextspecial							= "Show timer for next special ability (%ds)",
+
+	var									= "Show timer (with variance) for $spell:%s cooldown window (%ss)",
+	varcount							= "Show timer (with count and variance) for $spell:%s cooldown window (%ss)",
+	varnp								= "Show nameplate only timer (with variance) for $spell:%s cooldown window (%ss)",
+	varpnp								= "Show priority nameplate only timer (with variance) for $spell:%s cooldown window (%ss)",
+	varsource							= "Show timer (with source and variance) for $spell:%s cooldown window (%ss)",
+	varspecial							= "Show timer (with variance) for special ability cooldown window (%ss)",
+	varcombo							= "Show timer (with variance) for ability combo cooldown window (%ss)",
+
 	achievement							= "Show timer for %s (%ds)",
 	stage								= "Show timer for next stage (%ds)",
 	adds								= "Show timer for incoming adds (%ds)",

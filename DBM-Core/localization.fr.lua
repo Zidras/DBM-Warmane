@@ -330,14 +330,23 @@ L.AUTO_TIMER_TEXTS.cast		= "%s"
 L.AUTO_TIMER_TEXTS.active		= "%s se termine" --Buff/Debuff/event on boss,
 L.AUTO_TIMER_TEXTS.fades		= "%s se dissipe" --Buff/Debuff on players,
 L.AUTO_TIMER_TEXTS.ai			= "%s AI"
+
 L.AUTO_TIMER_TEXTS.cd			= "Rech. %s"
 L.AUTO_TIMER_TEXTS.cdcount		= "Rech. %s (%%s)"
 L.AUTO_TIMER_TEXTS.cdsource	= "Rech. %s: >%%s<"
 L.AUTO_TIMER_TEXTS.cdspecial	= "CD d'abilité spéciale"
+
 L.AUTO_TIMER_TEXTS.next		= "Proch. %s"
 L.AUTO_TIMER_TEXTS.nextcount	= "Proch. %s (%%s)"
 L.AUTO_TIMER_TEXTS.nextsource	= "Proch. %s: >%%s<"
 L.AUTO_TIMER_TEXTS.nextspecial	= "Abilité spéciale suivante"
+
+L.AUTO_TIMER_TEXTS.var			= "%s"
+L.AUTO_TIMER_TEXTS.varcount		= "%s (%%s)"
+L.AUTO_TIMER_TEXTS.varsource	= "%s: >%%s<"--Now same as next, as the ~ was moved to timer number -- OPTIONAL
+L.AUTO_TIMER_TEXTS.varspecial	= "Capacité spéciale"--Now same as next, as the ~ was moved to timer number
+L.AUTO_TIMER_TEXTS.varcombo		= "%%1$s + %%2$s"--Now same as next, as the ~ was moved to timer number -- OPTIONAL
+
 L.AUTO_TIMER_TEXTS.achievement	= "%s"
 L.AUTO_TIMER_TEXTS.stage		= "Phase Suivante"
 
@@ -346,14 +355,25 @@ L.AUTO_TIMER_OPTIONS.cast		= "Durée d'incantation de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.active		= "Durée d'activité de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.fades		= "Délai avant la dissipation de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.ai			= "Afficher le timer IA pour le cooldown de $spell:%s (%ds)"
+
 L.AUTO_TIMER_OPTIONS.cd			= "Durée de recharge de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.cdcount	= "Durée de recharge de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.cdsource	= "Durée de recharge de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.cdspecial	= "Afficher le timer pour le cooldown d'abilité spéciale (%ds)"
+
 L.AUTO_TIMER_OPTIONS.next		= "Délai avant le prochain $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.nextcount	= "Délai avant le prochain $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.nextsource	= "Délai avant le prochain $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.nextspecial= "Afficher le timer de l'abilité spéciale suivante (%ds)"
+
+L.AUTO_TIMER_OPTIONS.var				= "Afficher un chronomètre (avec variation) pour le recharge de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varcount			= "Afficher un chronomètre (avec compte et variation) pour le recharge de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varnp				= "Afficher uniquement un chronomètre sur la plaque de nom (avec variation) pour le recharge de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varpnp				= "Afficher uniquement un chronomètre prioritaire sur la plaque de nom (avec variation) pour le recharge de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varsource			= "Afficher un chronomètre (avec source et variation) pour le recharge de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varspecial			= "Afficher un chronomètre (avec variation) pour le recharge de capacité spéciale (%ss)"
+L.AUTO_TIMER_OPTIONS.varcombo			= "Afficher un chronomètre (avec variation) pour le recharge de combo de capacités (%ss)"
+
 L.AUTO_TIMER_OPTIONS.achievement= "Délai pour réussir %s (%ds)"
 L.AUTO_TIMER_OPTIONS.stage		= "Afficher le timer de la phase suivante (%ds)"
 L.AUTO_TIMER_OPTIONS.roleplay	= "Afficher le timer de la durée du roleplay (%ds)"--This does need localizing though.
