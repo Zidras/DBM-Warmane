@@ -1,13 +1,13 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Onyxia (Vanilla)|r
-## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Repaire d'Onyxia (Vanilla)|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ониксия (Vanilla)|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Repaire d'Onyxia (Classique)|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ониксия (классический)|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Guarida de Onyxia (Vanilla)|r
 ## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Guarida de Onyxia (Vanilla)|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0奧妮克希亞 (Vanilla)|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0奥妮克希亚 (Vanilla)|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0오닉시아| (Vanilla)r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Onyxias Hort| (Vanilla)r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0오닉시아 (클래식)|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Onyxias Hort (Vanilla)|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMVanillaOnyxia_AllSavedVars
@@ -20,13 +20,13 @@
 ## X-DBM-Mod-MapID: 719
 ## X-DBM-Mod-LoadRealm: Onyxia
 ## X-DBM-Mod-Name: Onyxia's Lair (Vanilla)
-## X-DBM-Mod-Name-frFR: Repaire d'Onyxia (Vanilla)
-## X-DBM-Mod-Name-ruRU: Логово Ониксии (Vanilla)
-## X-DBM-Mod-Name-esES: Guarida de Onyxia (Vanilla)
-## X-DBM-Mod-Name-esMX: Guarida de Onyxia (Vanilla)
+## X-DBM-Mod-Name-frFR: Repaire d'Onyxia (Classique)
+## X-DBM-Mod-Name-ruRU: Логово Ониксии (классический)
+## X-DBM-Mod-Name-esES: Guarida de Onyxia (Clásico)
+## X-DBM-Mod-Name-esMX: Guarida de Onyxia (Clásico)
 ## X-DBM-Mod-Name-zhTW: 奧妮克希亞 (Vanilla)
 ## X-DBM-Mod-Name-zhCN: 奥妮克希亚的巢穴 (Vanilla)
-## X-DBM-Mod-Name-koKR: 오닉시아 (Vanilla)
+## X-DBM-Mod-Name-koKR: 오닉시아 (클래식)
 ## X-DBM-Mod-Name-deDE: Onyxias Hort (Vanilla)
 ## X-DBM-Mod-LoadZone: Onyxia's Lair
 ## X-DBM-Mod-LoadZone-frFR: Repaire d'Onyxia

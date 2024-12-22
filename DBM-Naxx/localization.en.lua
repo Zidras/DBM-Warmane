@@ -359,7 +359,8 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	specwarnP2Soon	= "Kel'Thuzad engages in 10 Seconds",
-	warnAddsSoon	= "Guardians of Icecrown incoming soon"
+	warnAddsSoon	= "Guardians of Icecrown incoming soon",
+	WeaponsStatus	= "Auto Unequip/Equip weapons: %s (%s - %s)"
 })
 
 L:SetTimerLocalization({
@@ -370,20 +371,30 @@ L:SetOptionLocalization({
 	TimerPhase2			= "Show timer for Phase 2",
 	specwarnP2Soon		= "Show special warning 10 seconds before Kel'Thuzad engages",
 	warnAddsSoon		= "Show pre-warning for Guardians of Icecrown",
-	EqUneqWeaponsKT		= "Automatically unequip and equip weapons before and after $spell:28410. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
-	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU",
+	WeaponsStatus		= "Show special warning at combat start if unequip/equip function is enabled",
+	EqUneqWeaponsKT		= "Automatically unequip and equip weapons on a timer, before and after $spell:28410. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
+	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
 	RemoveBuffsOnMC		= "Remove buffs when $spell:28410 is cast on you. Each option is cumulative.",
 	Never				= NEVER, -- don't translate,
 	Gift				= "Remove $spell:48469 / $spell:48470. Minimal approach to prevent $spell:33786 resists.",
 	CCFree				= "+ Remove $spell:48169 / $spell:48170. Account for resists of spells in the Shadow school.",
 	ShortOffensiveProcs	= "+ Remove offensive procs that have a low duration. Recommended for raid safety without compromising raid damage output.",
-	MostOffensiveBuffs	= "+ Remove most offensive buffs (mainly for Casters and |cFFFF7C0AFeral Druids|r). Maximum raid safety with loss of damage output and need to self-rebuff/shapeshift!"
+	MostOffensiveBuffs	= "+ Remove most offensive buffs (mainly for Casters and |cFFFF7C0AFeral Druids|r). Maximum raid safety with loss of damage output and need to self-rebuff/shapeshift!",
+	EqUneqFilter		= FILTER, -- don't translate
+	OnlyDPS				= DBM_COMMON_L.DAMAGE_ICON, -- don't translate
+	DPSTank				= DBM_COMMON_L.DAMAGE_ICON..DBM_COMMON_L.TANK_ICON, -- don't translate
+	NoFilter			= DBM_COMMON_L.DAMAGE_ICON..DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON -- don't translate
 })
 
 L:SetMiscLocalization({
 	Yell		= "Minions, servants, soldiers of the cold dark! Obey the call of Kel'Thuzad!",
 --	YellMC1		= "Your soul is bound to me, now!",
 --	YellMC2		= "There will be no escape!",
+	Yell1Phase2	= "Pray for mercy!", -- 12995
+	Yell2Phase2	= "Scream your dying breath!", -- 12996
+	Yell3Phase2	= "The end is upon you!", -- 12997
+	YellPhase3	= "Master, I require aid!", -- 12998
+	YellGuardians	= "Very well. Warriors of the frozen wastes, rise up! I command you to fight, kill and die for your master! Let none survive!", -- 12994
 	setMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve",
 	EqUneqLineDescription	= "Automatic Equip/Unequip"
 })

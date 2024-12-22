@@ -57,3 +57,111 @@ local spamTTArea = spamPanel:CreateArea(L.Area_TimerTracker)
 spamTTArea:CreateCheckButton(L.PlayTT, true, nil, "PlayTT")
 spamTTArea:CreateCheckButton(L.PlayTTCountdown, true, nil, "PlayTTCountdown")
 spamTTArea:CreateCheckButton(L.PlayTTCountdownFinished, true, nil, "PlayTTCountdownFinished")
+
+local spamBBArea = spamPanel:CreateArea(L.Area_BossBanner)
+spamBBArea:CreateCheckButton(L.EnableBB, true, nil, "EnableBB")
+spamBBArea:CreateCheckButton(L.PlayBBLoot, true, nil, "PlayBBLoot")
+spamBBArea:CreateCheckButton(L.PlayBBSound, true, nil, "PlayBBSound")
+local overrideBBFont = spamBBArea:CreateCheckButton(L.OverrideBBFont, true, nil, "OverrideBBFont")
+overrideBBFont:HookScript("OnClick", function()
+	BossBanner:UpdateStyle()
+end)
+
+-- BossBanner Font
+local Fonts = DBM_GUI:MixinSharedMedia3("font", {
+	{
+		text	= DEFAULT,
+		value	= "standardFont"
+	},
+	{
+		text	= "Arial",
+		value	= "Fonts\\ARIALN.TTF"
+	},
+	{
+		text	= "Skurri",
+		value	= "Fonts\\SKURRI.TTF"
+	},
+	{
+		text	= "Morpheus",
+		value	= "Fonts\\MORPHEUS.TTF"
+	}
+})
+
+local FontDropDown = spamBBArea:CreateDropdown(L.FontType, Fonts, "DBM", "BBFont", function(value)
+	DBM.Options.BBFont = value
+	BossBanner:UpdateStyle()
+end)
+FontDropDown:SetPoint("TOPLEFT", overrideBBFont, "BOTTOMLEFT", 0, -10)
+
+-- BossBanner Font Style
+local FontStyles = {
+	{
+		text	= L.None,
+		value	= "None"
+	},
+	{
+		text	= L.Outline,
+		value	= "OUTLINE",
+		flag	= true
+	},
+	{
+		text	= L.ThickOutline,
+		value	= "THICKOUTLINE",
+		flag	= true
+	},
+	{
+		text	= L.MonochromeOutline,
+		value	= "MONOCHROME,OUTLINE",
+		flag	= true
+	},
+	{
+		text	= L.MonochromeThickOutline,
+		value	= "MONOCHROME,THICKOUTLINE",
+		flag	= true
+	}
+}
+
+local FontStyleDropDown = spamBBArea:CreateDropdown(L.FontStyle, FontStyles, "DBM", "BBFontStyle", function(value)
+	DBM.Options.BBFontStyle = value
+	BossBanner:UpdateStyle()
+end)
+FontStyleDropDown:SetPoint("TOPLEFT", FontDropDown, "BOTTOMLEFT", 0, -10)
+
+-- BossBanner Font Shadow
+local FontShadow = spamBBArea:CreateCheckButton(L.FontShadow, nil, nil, "BBFontShadow")
+FontShadow:SetScript("OnClick", function()
+	DBM.Options.BBFontShadow = not DBM.Options.BBFontShadow
+	BossBanner:UpdateStyle()
+end)
+FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", 35, 0)
+
+-- BossBanner Font Size (add/subtract to default size)
+local fontSizeSlider = spamBBArea:CreateSlider(L.FontSize, -10, 10, 1, 200)
+fontSizeSlider:SetPoint("TOPLEFT", FontStyleDropDown, "TOPLEFT", 20, -45)
+fontSizeSlider:SetValue(DBM.Options.BBFontSize)
+fontSizeSlider:HookScript("OnValueChanged", function(self)
+	DBM.Options.BBFontSize = self:GetValue()
+	BossBanner:UpdateStyle()
+end)
+
+-- BossBanner Test Buttons
+local testButton = spamBBArea:CreateButton(ANIMATION, 120, 16)
+testButton:SetPoint("TOPRIGHT", spamBBArea.frame, "TOPRIGHT", -2, -4)
+testButton:SetNormalFontObject(GameFontNormalSmall)
+testButton:SetHighlightFontObject(GameFontNormalSmall)
+testButton:SetScript("OnClick", function()
+	BossBanner:Test()
+end)
+
+local showButton = spamBBArea:CreateButton(SHOW_TOAST_WINDOW_TEXT, 100, 16)
+showButton:SetPoint("BOTTOMRIGHT", testButton, "BOTTOMLEFT", -2, 0)
+showButton:SetNormalFontObject(GameFontNormalSmall)
+showButton:SetHighlightFontObject(GameFontNormalSmall)
+showButton:SetScript("OnClick", function()
+	BossBanner:Show()
+end)
+
+-- BossBanner Keybinds
+local keybindsString = "|cffffffff"..string.upper(KEY_BINDINGS).."|r\n"..KEY_BUTTON2..": "..HIDE
+local keybindsInfotext = spamBBArea:CreateText(keybindsString, nil, false, GameFontNormal, "LEFT", 0)
+keybindsInfotext:SetPoint("BOTTOMLEFT", spamBBArea.frame, "BOTTOMLEFT", 10, 10)

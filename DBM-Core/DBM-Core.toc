@@ -17,7 +17,7 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## Author: Barsoom, Bunny67, Zidras, DBM-Frostmourne contributors, original DBM team
-## Version: 10.1.12_alpha
+## Version: 10.1.13_alpha
 ## X-Website: https://github.com/Zidras/DBM-Warmane/
 
 compat.lua
@@ -84,6 +84,7 @@ DBM-BossHealth.lua
 DBM-BossHealth.xml
 DBM-TimerTracker.xml
 DBM-TimerTracker.lua
+DBM-BossBannerToast.lua
 
 # Modules
 modules\Commands.lua

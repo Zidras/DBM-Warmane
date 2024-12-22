@@ -899,7 +899,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LichKingEvent")
 
 L:SetGeneralLocalization({
-	name = "리치 왕 이벤트"
+	name = "아서스에게서 도망치기"
 })
 
 L:SetTimerLocalization({
@@ -911,6 +911,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	ArthasYellKill	= "발사! 발사!",
 	Ghoul			= "분노한 구울",		--creature id 36940. Not sure how to use these in function above to simplify locals though
 	Abom			= "육중한 누더기골렘",	--creature id 37069
 	WitchDoctor		= "되살아난 의술사",	--creature id 36941

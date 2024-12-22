@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
+if GetLocale() ~= "esES" then return end
 local L
 
 ------------------------------
@@ -84,5 +84,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	HorsemanSummon			= "Jinete álzate...",
-	HorsemanSoldiers		= "Soldados, alzaos y luchad, tomad vuestro acero. Dad la victoria a este deshonrado caballero."
+	HorsemanHead			= "¡Ven aquí, idiota!",
+	HorsemanSoldiers		= "Soldados, alzaos y luchad, tomad vuestro acero. Dad la victoria a este deshonrado caballero.",
+	SayCombatEnd			= "Este final a mi me suena. Veamos que nueva me espera." -- CONFIRM!
 })

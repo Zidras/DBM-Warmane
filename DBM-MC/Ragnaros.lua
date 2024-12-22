@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240212180252")
+mod:SetRevision("20240305183404")
 mod:SetCreatureID(11502)
 mod:SetModelID(11121)
 mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
@@ -56,7 +56,7 @@ function mod:OnCombatStart(delay)
 	self.vb.addLeft = 0
 --	self.vb.ragnarosEmerged = true
 	timerWrathRag:Start(30-delay)
-	timerSubmerge:Start(180-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
+	timerSubmerge:Start(-delay) -- (40N Lordaeron [2023-09-13]@[19:05:07]) - 180
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(18+2) -- Blizz 10, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
 	end
@@ -117,8 +117,8 @@ end
 
 function mod:UNIT_DIED(args)
 	local guid = args.destGUID
-	if self:GetCIDFromGUID(guid) == 12143 then--Son of Flame
-		--self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
+	if self:GetCIDFromGUID(guid) == 12143 then --Son of Flame
+--self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
 		--We're in range of event, no reason to wait for sync, especially in a raid that might not have many DBM users
 --		if not addsGuidCheck[guid] then
 --			addsGuidCheck[guid] = true
@@ -134,6 +134,7 @@ function mod:UNIT_DIED(args)
 		end
 	end
 end
+
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Submerge or msg == L.Submerge2 then

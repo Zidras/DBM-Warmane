@@ -1,10 +1,11 @@
 local mod = DBM:NewMod("Thekal", "DBM-ZG", 1)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20241022104932")
 mod:SetCreatureID(14509, 11348, 11347)
 
 mod:SetBossHPInfoToHighest()
+mod:DisableBossDeathKill() -- Instructs mod to ignore boss deaths, since Thekal dies twice
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
 

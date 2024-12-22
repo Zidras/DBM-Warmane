@@ -1,15 +1,15 @@
 local mod	= DBM:NewMod("AQ40Trash", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240529121936")
 mod:SetModelID(15264) -- Anubisath Sentinel
 
 mod.isTrashMod = true
 
 mod:RegisterEvents(
 	--"ENCOUNTER_END",
-	"SPELL_AURA_APPLIED 22997 25698 26079",
-	"SPELL_AURA_REMOVED 22997",
+	"SPELL_AURA_APPLIED 22997 26556 25698 26079",
+	"SPELL_AURA_REMOVED 22997 26556",
 	"SPELL_DAMAGE",
 	"SPELL_MISSED"
 )
@@ -46,7 +46,8 @@ do-- Anubisath Plague/Explode - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash
 
 	-- aura applied didn't seem to catch the reflects and other buffs
 	function mod:SPELL_AURA_APPLIED(args)
-		if args.spellId == 22997 then
+		local spellId = args.spellId
+		if spellId == 22997 or spellId == 26556 then
 			if args:IsPlayer() then
 				specWarnPlague:Show()
 				specWarnPlague:Play("runout")
@@ -57,16 +58,16 @@ do-- Anubisath Plague/Explode - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash
 			else
 				warnPlague:Show(args.destName)
 			end
-		elseif args.spellId == 25698 then
+		elseif spellId == 25698 then
 			specWarnExplode:Show()
 			specWarnExplode:Play("justrun")
-		elseif args.spellId == 26079 then
+		elseif spellId == 26079 then
 			warnCauseInsanity:CombinedShow(0.75, args.destName)
 		end
 	end
 
 	function mod:SPELL_AURA_REMOVED(args)
-		if args.spellId == 22997 then
+		if args.spellId == 22997 or args.spellId == 26556 then
 			if args:IsPlayer() and self.Options.RangeFrame then
 				DBM.RangeCheck:Hide()
 			end

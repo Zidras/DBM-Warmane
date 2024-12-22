@@ -30,10 +30,15 @@
 ## X-DBM-Mod-Name-zhTW: 隊伍首領 (燃燒的遠征)
 ## X-DBM-Mod-Name-zhCN: 队伍首领 (燃烧的远征)
 ## X-DBM-Mod-Sort: 1015
-## X-DBM-Mod-MapID: 723,798,799,733,735,724,725,732,734,726,730,731,711,729,728,727
-## X-DBM-Mod-LoadZone: Auchenai Crypts, Hellfire Ramparts, Mana-Tombs, The Blood Furnace, Underbog, The Steamvault, The Shattered Halls, Sethekk Halls, The Slave Pens, The Arcatraz, Shadow Labyrinth, The Botanica, The Mechanar, Old Hillsbrad Foothills, Magisters' Terrace, Black Morass
+## X-DBM-Mod-MapID: 723,798,733,726,727,728,711,724,729,732,725,730,731,735,799,734
+## X-DBM-Mod-LoadZone: Auchenai Crypts, Hellfire Ramparts, Mana-Tombs, The Blood Furnace, The Underbog, The Steamvault, The Shattered Halls, Sethekk Halls, The Slave Pens, The Arcatraz, Shadow Labyrinth, The Botanica, The Mechanar, Old Hillsbrad Foothills, Magisters' Terrace, The Black Morass
 ## X-DBM-Mod-LoadZone-zhCN: 地狱火堡垒,鲜血熔炉,破碎大厅,奴隶围栏,幽暗沼泽,蒸汽地窖,奥金尼地穴,法力陵墓,赛泰克大厅,暗影迷宮,逃离敦霍尔德,开启黑暗之门,能源舰,生态船,禁魔监狱,博学者殿堂
 ## X-DBM-Mod-LoadZone-ruRU: Аукенайские гробницы, Бастионы Адского Пламени, Гробницы Маны, Кузня Крови, Нижетопь, Паровое подземелье, Разрушенные залы, Сетеккские залы, Узилище, Аркатрац, Темный лабиринт, Ботаника, Механар, Старые предгорья Хилсбрада, Терраса Магистров, Черные топи
+## X-DBM-Mod-LoadZone-esES: Criptas Auchenai, Murallas del Fuego Infernal, Tumbas de Maná, El Horno de Sangre, La Sotiénaga, La Cámara de Vapor, Las Salas Arrasadas, Salas Sethekk, Recinto de los Esclavos, El Arcatraz, Laberinto de las Sombras, El Invernáculo, El Mechanar, Antiguas Laderas de Trabalomas, Bancal del Magister, La Ciénaga Negra
+## X-DBM-Mod-LoadZone-esMX: Criptas Auchenai, Murallas del Fuego Infernal, Tumbas de Maná, El Horno de Sangre, La Sotiénaga, La Cámara de Vapor, Las Salas Arrasadas, Salas Sethekk, Recinto de los Esclavos, El Arcatraz, Laberinto de las Sombras, El Invernáculo, El Mechanar, Antiguas Laderas de Trabalomas, Bancal del Magister, La Ciénaga Negra
+## X-DBM-Mod-LoadZone-zhTW: 奧奇奈地穴, 地獄火壁壘, 法力墓地, 血熔爐, 深幽泥沼, 蒸汽洞窟, 破碎大廳, 塞司克大廳, 奴隸監獄, 亞克崔茲, 暗影迷宮, 波塔尼卡, 麥克納爾, 逃離敦霍爾德, 博學者殿堂, 開啟黑暗之門
+## X-DBM-Mod-LoadZone-deDE: Auchenaikrypta, Höllenfeuerbollwerk, Managruft, Der Blutkessel, Der Tiefensumpf, Die Dampfkammer, Die zerschmetterten Hallen, Sethekkhallen, Die Sklavenunterkünfte, Die Arkatraz, Schattenlabyrinth, Die Botanika, Die Mechanar, Vorgebirge des Alten Hügellands, Terrasse der Magister, Der schwarze Morast
+## X-DBM-Mod-LoadZone-koKR: 아키나이 납골당, 지옥불 성루, 마나 무덤, 피의 용광로, 지하수렁, 증기 저장고, 으스러진 손의 전당, 세데크 전당, 강제 노역소, 알카트라즈, 어둠의 미궁, 신록의 정원, 메카나르, 옛 힐스브래드 구릉지, 마법학자의 정원, 검은늪
 
 localization.en.lua
 localization.de.lua

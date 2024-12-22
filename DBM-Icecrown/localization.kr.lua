@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "이교도 부활",			-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "곧 새로운 이교도 등장",
 	SpecWarnVengefulShade		= "복수의 망령 공격 - 피하세요!",--creatureid 38222
-	WeaponsStatus				= "Auto Unequipping enabled" --Needs Translating
+	WeaponsStatus				= "Auto Unequipping enabled: %s (%s - %s)" --Needs Translating
 })
 
 L:SetOptionLocalization({
@@ -163,6 +163,24 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "교수 퓨트리사이드"
+})
+
+L:SetWarningLocalization({
+	WarnReengage			= "%s: 재전투"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "재전투"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "흠, 아무 느낌도 없군요. 엥?! 이건 어디서 온 거지요?",
+	YellTransform2			= "이 맛은... 체리군요! 오! 이런 실례!"
 })
 
 ----------------------------

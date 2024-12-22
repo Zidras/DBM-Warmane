@@ -1,9 +1,13 @@
 local mod = DBM:NewMod("LichKingEvent", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220729231502")
+mod:SetRevision("20241130163642")
+
+mod:RegisterCombat("combat")
+mod:SetWipeTime(17) -- 16s from gossip to PRD=wave1
+
 mod:RegisterEvents(
-	"SPELL_AURA_REMOVED",
+	"SPELL_AURA_REMOVED 69708 70194",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -23,7 +27,8 @@ local addWaves = {
 }
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 69708 then			--Lich King has broken out of his iceblock, this starts actual event
+	if args:IsSpellID(69708, 70194) then			--Lich King has broken out of his Ice Prison (alliance) / Dark Binding (horde), this starts actual event
+		DBM:StartCombat(self, 0, "SPELL_AURA_REMOVED")
 		if self:IsDifficulty("heroic5") then
 			timerEscape:Start()
 		end
@@ -39,5 +44,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		WarnWave:Show(table.concat(addWaves[3], ", "))
 	elseif msg == L.Wave4 or msg:find(L.Wave4) then
 		WarnWave:Show(table.concat(addWaves[4], ", "))
+	elseif msg == L.ArthasYellKill or msg:find(L.ArthasYellKill) then
+		self:Schedule(UnitFactionGroup("player") == "Horde" and 5.55 or 5, DBM.EndCombat, DBM, self, nil, nil, "Scheduled yell")
 	end
 end

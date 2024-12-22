@@ -91,6 +91,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	HorsemanSummon			= "Le cavalier sans tête se lève...",
-	HorsemanSoldiers			= "Levez-vous, mes recrues ! Au combat sans surseoir ! Au chevalier déchu, donnez enfin victoire !"
+	HorsemanSummon			= "Le cavalier sans tête se lève...", -- CONFIRM! local SQL has different string: Lève-toi, cavalier...
+	HorsemanHead			= "Viens donc ici , sombre abruti !",  -- Attention, espace avant la virgule. CONFIRM! local SQL has different string: Viens donc ici, sombre abruti !
+	HorsemanSoldiers		= "Levez-vous, mes recrues ! Au combat sans surseoir ! Au chevalier déchu, donnez enfin victoire !",
+	SayCombatEnd			= "Je la connais trop bien, cette fin importune. Que faut-il au destin pour changer ma fortune ?"
 })

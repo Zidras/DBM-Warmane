@@ -26,7 +26,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Add reviving",	-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "New adds soon",
 	SpecWarnVengefulShade		= "Vengeful Shade attacking you - Run Away",--creatureid 38222
-	WeaponsStatus				= "Auto Unequipping enabled"
+	WeaponsStatus				= "Auto Unequip/Equip weapons: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({
@@ -34,7 +34,7 @@ L:SetOptionLocalization({
 	WarnReanimating				= "Show warning when an add is being revived",	-- Reanimated Adherent/Fanatic spawning
 	TimerAdds					= "Show timer for new adds",
 	SpecWarnVengefulShade		= "Show special warning when you are attacked by Vengeful Shade",--creatureid 38222
-	WeaponsStatus				= "Special warning at combat start if unequip/equip function is enabled",
+	WeaponsStatus				= "Show special warning at combat start if unequip/equip function is enabled",
 	ShieldHealthFrame			= "Show boss health with a health bar for $spell:70842",
 	SoundWarnCountingMC			= "Play a 5 second audio countdown for Mind Control",
 --	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight",
@@ -168,6 +168,24 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Professor Putricide"
+})
+
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Re-Engage"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Re-Engage"
+})
+
+L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage",
+	TimerReengage			= "Show timer for Boss re-engage"
+})
+
+L:SetMiscLocalization({
+	YellTransform1			= "Hrm, I don't feel a thing. Wha?! Where'd those come from?",
+	YellTransform2			= "Tastes like... Cherry! OH! Excuse me!"
 })
 
 ----------------------------

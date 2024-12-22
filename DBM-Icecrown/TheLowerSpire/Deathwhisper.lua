@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20231104194135")
+mod:SetRevision("20240716152353")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -326,8 +326,8 @@ function mod:OnCombatStart(delay)
 	self:Schedule(5.5-delay, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
 		timerDominateMindCD:Start(27-delay)	-- REVIEW! 2s variance? (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron [2023-07-05]@[19:41:47]) - 28.7 || 27.0 || 27.0
+		specWarnWeapons:Show(checkWeaponRemovalSetting(self) and ENABLE or ADDON_DISABLED, (self.Options.EqUneqWeapons and self.Options.EqUneqTimer and (SLASH_STOPWATCH2):sub(2)) or (self.Options.EqUneqWeapons and COMBAT_LOG) or NONE, self.Options.EqUneqFilter)
 		if checkWeaponRemovalSetting(self) and self.Options.EqUneqTimer then
-			specWarnWeapons:Show()
 			self:Schedule(26.5-delay, UnW, self)
 		end
 	end
@@ -460,6 +460,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif spellId == 71289 then
 		if (args.destName == UnitName("player") or args:IsPlayer()) and checkWeaponRemovalSetting(self) then
+			DBM:Debug("Equipping scheduled", 2)
 			self:Schedule(0.1, EqW, self)
 			self:Schedule(1.7, EqW, self)
 			self:Schedule(3.3, EqW, self)

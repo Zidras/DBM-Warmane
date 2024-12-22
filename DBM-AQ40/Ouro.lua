@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ouro", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240707231146")
 mod:SetCreatureID(15517)
 
 mod:SetModelID(15517)
@@ -28,12 +28,12 @@ local warnBerserk		= mod:NewSpellAnnounce(26615, 3)
 local warnBerserkSoon	= mod:NewSoonAnnounce(26615, 2)
 
 local specWarnBlast		= mod:NewSpecialWarningSpell(26102, nil, nil, nil, 2, 2)
-
 local timerSubmerge		= mod:NewTimer(30, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
 local timerEmerge		= mod:NewTimer(30, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerSweepCD		= mod:NewNextTimer(20.5+1.5, 26103, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerBlastCD		= mod:NewNextTimer(23-3, 26102, nil, nil, nil, 2)
 local timerMounds		= mod:NewTimer(20, "Mounds", 26058)
+
 
 mod.vb.prewarn_Berserk = false
 mod.vb.Berserked = false
@@ -44,6 +44,7 @@ function mod:OnCombatStart(delay)
 	timerSweepCD:Start(22-delay)--22-25
 	timerBlastCD:Start(20-delay)--20-26
 	timerSubmerge:Start(184-94-delay)
+
 end
 
 function mod:Emerge()
@@ -51,6 +52,7 @@ function mod:Emerge()
 	timerSweepCD:Start(23-1)--23-24 (it might be 22-25 like pull)
 	timerBlastCD:Start(24-4)--24-26 (it might be 20-26 like pull)
 	timerSubmerge:Start(184-94)
+
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -80,7 +82,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerSubmerge:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start()
-		self:ScheduleMethod(30, "Emerge")
+		self:ScheduleMethod(58, "Emerge")
 	end
 end
 mod.SPELL_SUMMON = mod.SPELL_CAST_SUCCESS

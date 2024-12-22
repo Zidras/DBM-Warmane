@@ -5,7 +5,7 @@ local UnitExists, UnitGUID, UnitName = UnitExists, UnitGUID, UnitName
 local GetSpellInfo = GetSpellInfo
 local GetPlayerMapPosition, SetMapToCurrentZone = GetPlayerMapPosition, SetMapToCurrentZone
 
-mod:SetRevision("20230827170336")
+mod:SetRevision("20240720124842")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
@@ -18,11 +18,11 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 66689 67650 67651 67652 66313 66330 67647 67648 67649 66794 67644 67645 67646 66821 66818 66901 67615 67616 67617 66902 67627 67628 67629",
-	"SPELL_CAST_SUCCESS 67641 66883 67642 67643 66824 67612 67613 67614 66879 67624 67625 67626",
+	"SPELL_CAST_START 66313 66330 67647 67648 67649 66794 67644 67645 67646 66821 66818 66901 67615 67616 67617 66902 67627 67628 67629",
+	"SPELL_CAST_SUCCESS 67641 66883 67642 67643 66824 67612 67613 67614 66879 67624 67625 67626 66689 67650 67651 67652",
 	"SPELL_AURA_APPLIED 67477 66331 67478 67479 67657 66759 67658 67659 66823 67618 67619 67620 66869 66758 66636 68335",
 	"SPELL_AURA_APPLIED_DOSE 67477 66331 67478 67479 66636",
-	"SPELL_AURA_REMOVED 66869",
+	"SPELL_AURA_REMOVED 66869 66758",
 	"SPELL_DAMAGE 66320 67472 67473 67475 66317 66881 67638 67639 67640",
 	"SPELL_MISSED 66320 67472 67473 67475 66317 66881 67638 67639 67640",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
@@ -72,7 +72,7 @@ local specWarnToxin			= mod:NewSpecialWarningMoveTo(66823, nil, nil, nil, 1, 2)
 local specWarnBile			= mod:NewSpecialWarningYou(66869, nil, nil, nil, 1, 2)
 
 local timerSubmerge			= mod:NewCDSourceTimer(45, 66948, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
-local timerEmerge			= mod:NewBuffActiveTimer(5, 66947, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
+local timerEmerge			= mod:NewNextSourceTimer(5, 66947, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 local timerSweepCD			= mod:NewCDSourceTimer(16.5, 66794, nil, "Melee", nil, 3, nil, nil, true) -- REVIEW! variance? Added "Keep" arg. (25H Lordaeron 2022/10/09) - 16.5
 local timerAcidicSpewCD		= mod:NewCDTimer(21, 66819, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- Added "Keep" arg
 local timerMoltenSpewCD		= mod:NewCDTimer(16.1, 66820, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! variance? Added "Keep" arg (25H Lordaeron 2022/09/28 || ) - 19.1 || 16.1
@@ -94,7 +94,8 @@ local specWarnCharge		= mod:NewSpecialWarningRun(52311, nil, nil, nil, 4, 2)
 local specWarnChargeNear	= mod:NewSpecialWarningClose(52311, nil, nil, nil, 3, 2)
 local specWarnFrothingRage	= mod:NewSpecialWarningDispel(66759, "RemoveEnrage", nil, nil, 1, 2)
 
-local timerBreath			= mod:NewCastTimer(5, 66689, nil, nil, nil, 3)--3 or 5? is it random target or tank?
+local timerBreath			= mod:NewCastTimer(5, 66689, nil, nil, nil, 3) -- 5s channel. is it random target or tank?
+local timerBreathCD			= mod:NewCDTimer(20, 66689, nil, nil, nil, 3)
 local timerStaggeredDaze	= mod:NewBuffActiveTimer(15, 66758, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
 local timerNextCrash		= mod:NewCDTimer(63.4, 66683, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON) -- REVIEW! variance? (25H Lordaeron 2022/09/03) - 63.4, 63.7
 
@@ -223,10 +224,7 @@ end]]
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
-	if args:IsSpellID(66689, 67650, 67651, 67652) then			-- Arctic Breath
-		timerBreath:Start()
-		warnBreath:Show()
-	elseif spellId == 66313 then						-- FireBomb (Impaler)
+	if spellId == 66313 then									-- FireBomb (Impaler)
 		warnFireBomb:Show()
 	elseif args:IsSpellID(66330, 67647, 67648, 67649) then		-- Staggering Stomp
 		timerNextStomp:Start()
@@ -259,6 +257,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerParalyticBiteCD:Start()
 	elseif args:IsSpellID(66879, 67624, 67625, 67626) then		-- Burning Bite
 		timerBurningBiteCD:Start()
+	elseif args:IsSpellID(66689, 67650, 67651, 67652) then		-- Arctic Breath
+		timerBreath:Start()
+		timerBreathCD:Start()
+		warnBreath:Show()
 	end
 end
 
@@ -268,6 +270,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerImpaleCD:Start()
 		warnImpaleOn:Show(args.destName, 1)
 	elseif args:IsSpellID(67657, 66759, 67658, 67659) then	-- Frothing Rage
+		timerBreathCD:Start(5.5) -- variance? (Lordaeron 10N [2024-07-04]@[22:52:09]) - 5.5
 		warnRage:Show()
 		specWarnFrothingRage:Show()
 		specWarnFrothingRage:Play("trannow")
@@ -320,7 +323,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 --					timerRisingAnger:Start() -- Variance for normal dose is all over the place... Only first dose is timed since it has "some" level of consistency. (25N Lordaeron 2022/09/23 || 10N Lordaeron 2022/10/02 wipe || 10N Lordaeron 2022/10/02 kill || 25N Lordaeron 2022/10/21) - 26.1, 28.9, 22.6 || 26.8, 12.7 || 20.8, 30.0 || 17.7
 --				end
 --			end
-		elseif amount >= 3 then
+		elseif amount >= 4 then -- only 4 snobolds
 			timerRisingAnger:Stop()
 			specWarnAnger3:Show(amount)
 			specWarnAnger3:Play("stackhigh")
@@ -329,10 +332,13 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 66869 then
+	local spellId = args.spellId
+	if spellId == 66869 then
 		if self.Options.SetIconOnBileTarget then
 			self:SetIcon(args.destName, 0)
 		end
+	elseif spellId == 66758 then -- Staggered Daze
+		timerBreathCD:Start(5) -- 3s variance?
 	end
 end
 
@@ -380,11 +386,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.CombatStart or msg:find(L.CombatStart) then
 		timerCombatStart:Start()
 	elseif msg == L.Phase2 or msg:find(L.Phase2) then
+		self:SetStage(1.5)
 --		self:ScheduleMethod(13.5, "WormsEmerge")
 		timerCombatStart:Start(13.5)
 		timerNextBoss:Cancel()
 		updateHealthFrame(2)
-		self:SetStage(1.5)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(10)
 		end
@@ -422,26 +428,28 @@ function mod:UNIT_DIED(args)
 		timerImpaleCD:Stop()
 		timerRisingAnger:Stop()
 		DBM.BossHealth:RemoveBoss(cid) -- remove Gormok from the health frame
-	elseif cid == 35144 then
+	elseif cid == 35144 then -- Acidmaw dead
 		self.vb.AcidmawDead = true
 		timerParalyticSprayCD:Cancel()
 		timerParalyticBiteCD:Cancel()
 		timerAcidicSpewCD:Cancel()
-		if self.vb.DreadscaleMobile then
-			timerSweepCD:Cancel(args.destName)
-		else
+		timerSubmerge:Cancel(acidmaw)
+		if self.vb.AcidmawMobile then
 			timerSlimePoolCD:Cancel(args.destName)
+		else
+			timerSweepCD:Cancel(args.destName)
 		end
 		if self.vb.DreadscaleDead then
 			timerNextBoss:Cancel()
 			DBM.BossHealth:RemoveBoss(35144)
 			DBM.BossHealth:RemoveBoss(34799)
 		end
-	elseif cid == 34799 then
+	elseif cid == 34799 then -- Dreadscale dead
 		self.vb.DreadscaleDead = true
 		timerBurningSprayCD:Cancel()
 		timerBurningBiteCD:Cancel()
 		timerMoltenSpewCD:Cancel()
+		timerSubmerge:Cancel(dreadscale)
 		if self.vb.DreadscaleMobile then
 			timerSlimePoolCD:Cancel(args.destName)
 		else
@@ -480,6 +488,7 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 				timerBurningBiteCD:Start(15.4) -- (25H Lordaeron 2022/09/03 || 25N Lordaeron 2022/10/13) - 19 || 15.4
 			elseif cid == 34797 then -- Icehowl
 				self:SetStage(3)
+				timerBreathCD:Start()
 				timerNextCrash:Start(40.9) -- REVIEW!
 				self:UnregisterShortTermEvents()
 			end
@@ -492,6 +501,7 @@ end
 
 function mod:UNIT_SPELLCAST_START(_, spellName)
 	if spellName == GetSpellInfo(66683) then -- Massive Crash
+		timerBreathCD:Cancel()
 		timerNextCrash:Start()
 	end
 end
@@ -508,14 +518,14 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName)
 			timerParalyticSprayCD:Stop()
 			timerSlimePoolCD:Stop(acidmaw)
 			timerSweepCD:Stop(acidmaw)
-			timerEmerge:Start(7.5, UnitGUID(uId)) -- REVIEW! 3s delay from visual to emerge (25H Lordaeron 2022/09/03) - 8, 7
+			timerEmerge:Start(7.5, unitName) -- REVIEW! 3s delay from visual to emerge (25H Lordaeron 2022/09/03) - 8, 7
 		elseif npcId == 34799 then -- Dreadscale
 			timerMoltenSpewCD:Stop()
 			timerBurningBiteCD:Stop()
 			timerBurningSprayCD:Stop()
 			timerSlimePoolCD:Stop(dreadscale)
 			timerSweepCD:Stop(dreadscale)
-			timerEmerge:Start(6.5, UnitGUID(uId)) -- (25H Lordaeron 2022/09/03) - 7, 6
+			timerEmerge:Start(6.5, unitName) -- (25H Lordaeron 2022/09/03) - 7, 6
 		end
 	elseif spellName == GetSpellInfo(66947) then -- Emerge
 		local npcId = self:GetUnitCreatureId(uId)

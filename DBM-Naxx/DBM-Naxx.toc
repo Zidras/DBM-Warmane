@@ -34,6 +34,7 @@
 ## X-DBM-Mod-Name-esMX: Naxxramas
 ## X-DBM-Mod-Sort: 6
 ## X-DBM-Mod-MapID: 536
+## X-DBM-Mod-BlockRealm: Onyxia, Vanilla Naxxamas PTR
 ## X-DBM-Mod-LoadZone: Naxxramas
 ## X-DBM-Mod-LoadZone-zhCN: 纳克萨玛斯
 ## X-DBM-Mod-LoadZone-ruRU: Наксрамас
@@ -45,6 +46,7 @@ localization.ru.lua
 localization.tw.lua
 localization.kr.lua
 localization.es.lua
+localization.mx.lua
 localization.cn.lua
 
 ArachnidQuarter\Anub'Rekhan.lua

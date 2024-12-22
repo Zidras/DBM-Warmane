@@ -901,7 +901,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LichKingEvent")
 
 L:SetGeneralLocalization({
-	name = "逃離巫妖王事件"
+	name = "逃離阿薩斯"
 })
 
 L:SetTimerLocalization({
@@ -913,6 +913,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	ArthasYellKill	= "開火!開火!",
 	Ghoul			= "狂怒食屍鬼",
 	Abom			= "笨拙憎惡體",
 	WitchDoctor		= "復活的巫醫",

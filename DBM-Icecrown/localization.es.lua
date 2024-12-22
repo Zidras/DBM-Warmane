@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "Esbirro reanimado",			-- Reanimating an adherent or fanatic
 	WarnAddsSoon				= "Esbirros en breve",
 	SpecWarnVengefulShade		= "¡Sombra vengativa te ataca! ¡Corre!",--creatureid 38222
-	WeaponsStatus				= "Desequipar automático habilitado"
+	WeaponsStatus				= "Desequipar automático habilitado: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({
@@ -163,6 +163,24 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "Profesor Putricidio"
+})
+
+L:SetWarningLocalization({
+	WarnReengage			= "%s: Reatracción"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "Reatracción"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "Mmm, no siento nada. ¿¡Qué!? ¿De dónde salió eso?",
+	YellTransform2			= "¡Sabe a... fresa! ¡Ups! Perdón."
 })
 
 ------------------------------------

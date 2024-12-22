@@ -52,6 +52,7 @@ globals = {
 	"DBM_SpellsUsed_Translations",
 	"DBT",
 	"TT",
+	"BossBanner",
 	-- DBM mod frames
 	"DBMLichKingFrameDrag",
 	"DBMLichKingFrameDragTitle",

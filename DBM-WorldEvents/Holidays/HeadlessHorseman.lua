@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HeadlessHorseman", "DBM-WorldEvents")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231020175720")
+mod:SetRevision("20241122155852")
 mod:SetCreatureID(23682, 23775)
 
 mod:SetReCombatTime(10)
@@ -16,6 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 42380 42514",
 	"UNIT_SPELLCAST_SUCCEEDED",
 	"CHAT_MSG_MONSTER_SAY",
+	"PARTY_KILL",
 	"UNIT_DIED"
 )
 
@@ -86,8 +87,10 @@ function mod:CHAT_MSG_SAY(msg)
 	end
 end
 
-function mod:UNIT_DIED(args)
+function mod:UNIT_DIED(args) -- 2024/10/22: found one log where only PARTY_KILL was fired, no UNIT_DIED
+	if not self:IsInCombat() then return end
 	if self:GetCIDFromGUID(args.destGUID) == 23775 then
 		DBM:EndCombat(self)
 	end
 end
+mod.PARTY_KILL = mod.UNIT_DIED

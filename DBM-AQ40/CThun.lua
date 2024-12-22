@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240708001514")
 mod:SetCreatureID(15589, 15727)
 
 mod:SetUsedIcons(1)
@@ -16,7 +16,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 26476",
 	"SPELL_AURA_REMOVED 26476",
 	"CHAT_MSG_MONSTER_EMOTE",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnEyeTentacle			= mod:NewAnnounce("WarnEyeTentacle", 2, 126)
@@ -92,10 +93,12 @@ function mod:OnCombatStart(delay)
 	table.wipe(fleshTentacles)
 	table.wipe(diedTentacles)
 	self:SetStage(1)
+
 	timerClawTentacle:Start(9-1-delay) -- Combatlog told me, the first Claw Tentacle spawn in 00:00:09, but need more test.
 	timerEyeTentacle:Start(45-delay)
 	timerDarkGlareCD:Start(46-delay)
 	self:ScheduleMethod(46-delay, "DarkGlare")
+	
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10+2) -- Blizz 10, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
 	end
@@ -155,6 +158,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 26586 then
+		DBM:AddMsg("Birth 26586 SPELL_CAST_SUCCESS fixed on server script. Notify Zidras on Discord or GitHub")
 		 local cid = self:GetCIDFromGUID(args.sourceGUID)
 		 if self:AntiSpam(5, cid) then--Throttle multiple spawn within 5 seconds
 			if cid == 15726 then--Eye Tentacle
@@ -246,6 +250,12 @@ function mod:UNIT_DIED(args)
 	elseif cid == 15802 then -- Flesh Tentacle
 		fleshTentacles[args.destGUID] = nil
 		diedTentacles[args.destGUID] = true
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == DBM:GetSpellInfo(26586) then
+		DBM:Debug("Birth") -- Since CLEU is hidden, this is here only as a placeholder until I get a VOD to ascertain whether or not this can be a generic warning (no cid is available, so perhaps target scanning?).
 	end
 end
 
