@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240818000000")
 mod:SetCreatureID(19622)
 
 mod:RegisterCombat("yell", L.YellPull1, L.YellPull2)
@@ -29,10 +29,10 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnMobDead		= mod:NewAnnounce("WarnMobDead", 3, nil, false)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
-local warnDisruption	= mod:NewSpellAnnounce(36834, 3)
+local warnDisruption		= mod:NewSpellAnnounce(36834, 3)
 local warnMC			= mod:NewTargetNoFilterAnnounce(36797, 4)
 local warnPhoenix		= mod:NewSpellAnnounce(36723, 2)
-local warnFlamestrike	= mod:NewSpellAnnounce(36735, 4)
+local warnFlamestrike		= mod:NewSpellAnnounce(36735, 4)
 local warnEgg			= mod:NewAnnounce("WarnEgg", 4, 36723)
 local warnPyro			= mod:NewCastAnnounce(36819, 4)
 local warnPhase5		= mod:NewPhaseAnnounce(5)
@@ -41,24 +41,24 @@ local warnGravity		= mod:NewSpellAnnounce(35941, 3)
 local specWarnGaze		= mod:NewSpecialWarning("SpecWarnGaze", nil, nil, nil, 4, 2)
 local specWarnToy		= mod:NewSpecialWarningYou(37027, nil, nil, nil, 1, 2)
 local specWarnEgg		= mod:NewSpecialWarning("SpecWarnEgg", nil, nil, nil, 1, 2)
-local specWarnShield	= mod:NewSpecialWarningSpell(36815)--No decent voice for this
+local specWarnShield		= mod:NewSpecialWarningSpell(36815)--No decent voice for this
 local specWarnPyro		= mod:NewSpecialWarningInterrupt(36819, "HasInterrupt", nil, nil, 1, 2)
 local specWarnVapor		= mod:NewSpecialWarningStack(35859, nil, 2, nil, nil, 1, 6)
 
 local timerPhase		= mod:NewTimer(105, "TimerPhase", 28131, nil, nil, 6, nil, nil, 1, 4)
-local timerPhase1mob	= mod:NewTimer(30, "TimerPhase1mob", 28131, nil, nil, 1, nil, nil, 1, 4)
+local timerPhase1mob		= mod:NewTimer(30, "TimerPhase1mob", 28131, nil, nil, 1, nil, nil, 1, 4)
 local timerNextGaze		= mod:NewTimer(8.5+1.5, "TimerNextGaze", 39414, nil, nil, 3)
 local timerFearCD		= mod:NewCDTimer(31-1, 44863, nil, nil, nil, 2)
 local timerToy			= mod:NewTargetTimer(60, 37027, nil, false, nil, 3)
-local timerPhoenixCD	= mod:NewCDTimer(45-9.55, 36723, nil, nil, nil, 1)
+local timerPhoenixCD		= mod:NewCDTimer(45-9.55, 36723, nil, nil, nil, 1)
 local timerRebirth		= mod:NewTimer(15, "TimerRebirth", 36723, nil, nil, 1)
 local timerShieldCD		= mod:NewCDTimer(60-10, 36815, nil, nil, nil, 4)
-local timerGravityCD	= mod:NewNextTimer(92-2, 35941, nil, nil, nil, 6)
+local timerGravityCD		= mod:NewNextTimer(92-2, 35941, nil, nil, nil, 6)
 local timerGravity		= mod:NewBuffActiveTimer(32, 35941, nil, nil, nil, 6)
 local timerMCCD			= mod:NewCDTimer(60-10-27, 36797)
 
-local timerFlameStrikeCD= mod:NewCDTimer(30.25, 36735)
-local timerConflagCD	= mod:NewCDTimer(18.5, 37018)
+local timerFlameStrikeCD	= mod:NewCDTimer(30.25, 36735)
+local timerConflagCD		= mod:NewCDTimer(18.5, 37018)
 
 mod:AddSetIconOption("MCIcon", 36797, true, false, {8, 7, 6})
 mod:AddBoolOption("GazeIcon", false)
@@ -74,12 +74,14 @@ local function showConflag()
 	table.wipe(warnConflagTargets)
 	timerConflagCD:Start()
 end
+
 --[[
 local function MCFailsafe(self)
 	timerMCCD:Start(70)
 	self:Schedule(70, MCFailsafe, self)
 end
 ]]--
+
 local function showMC(self)
 	warnMC:Show(table.concat(warnMCTargets, "<, >"))
 	table.wipe(warnMCTargets)
@@ -89,7 +91,7 @@ end
 
 local showShieldHealthBar, hideShieldHealthBar
 do
-	local frame = CreateFrame("Frame") -- using a separate frame avoids the overhead of the DBM event handlers which are not meant to be used with frequently occuring events like all damage events...
+	local frame = CreateFrame("Frame")
 	local shieldedMob
 	local absorbRemaining = 0
 	local maxAbsorb = 0
@@ -322,10 +324,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		DBM.BossHealth:AddBoss(20063, L.Telonicus)
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
 		self:SetStage(2)
---		timerPhase:Start(105)--105
-		timerPhase:Start(120+6)
+		timerPhase:Start(120+6-30) --new adjustment for CC 2024.07.10
 		warnPhase2:Show()
---		warnPhase3:Schedule(105)--210
 		warnPhase3:Schedule(120+6)
 		DBM.BossHealth:AddBoss(21268, L.Bow)
 		DBM.BossHealth:AddBoss(21269, L.Axe)
@@ -347,7 +347,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			DBM.BossHealth:AddBoss(20060, L.Sanguinar)
 			DBM.BossHealth:AddBoss(20062, L.Capernian)
 			DBM.BossHealth:AddBoss(20063, L.Telonicus)
---			timerPhase:Start(73)--83 pre nerf, 183 post nerf
 			timerPhase:Start(180+12)
 			timerConflagCD:Start(7)
 		end)
@@ -369,9 +368,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerMCCD:Cancel()
 		timerPhase:Start(45-9)
 		warnPhase5:Schedule(45-9)
-		timerFlameStrikeCD:Start(36+10)
-		timerGravityCD:Start(60-24+5)
-		timerPhoenixCD:Start(137-101+71) -- Lys: transition event is 36s
+		timerFlameStrikeCD:Start(36+10) --2024.07.06 adjustment to 10,000ms
+		timerGravityCD:Start(36+5)
+		timerPhoenixCD:Start(36+50) -- Lys: transition event is 36s, 2024.07.06 adjusted to 50s after RP (36s)
 	end
 end
 
