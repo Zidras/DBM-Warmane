@@ -1,9 +1,8 @@
 
 
-# No more updates
+# 
 
-There wont be any further updates to this DBM fork because I quit playing CC after ridiculous accusations by the server staff.
-Feel free to fork or switch to the DBM maintained by others e.g. https://gitlab.com/UndoUreche/dbm-debatable-cc/-/tree/master
+Trying to keep DBM updated for Chromie
 <details>
 <div align="center">
 
