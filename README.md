@@ -2,8 +2,13 @@
 
 # No more updates
 
-There wont be any further updates to this DBM fork because I quit playing CC after ridiculous accusations by the server staff.
-Feel free to fork or switch to the DBM maintained by others e.g. https://gitlab.com/UndoUreche/dbm-debatable-cc/-/tree/master
+Trying to continue DBM for chromie.
+
+Current changelog:
+
+- updated the DBM-Core to the current version from Zidras while mantaining balleny's specific changes to Chromiecraft. 
+-
+
 <details>
 <div align="center">
 
