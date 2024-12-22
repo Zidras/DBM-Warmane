@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
+﻿if GetLocale() ~= "esES" then return end
 
 local L
 
@@ -33,7 +33,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Charge				= "¡Aullahielo mira a (%S+) y emite un bramido!",
+	Charge				= "¡%%s mira a (%S+) y emite un bramido!",
 	CombatStart			= "Desde las cavernas más oscuras y profundas de Las Cumbres Tormentosas: ¡Gormok el Empalador! ¡A luchar, héroes!",
 	Phase2				= "Preparaos, héroes, para los temibles gemelos: ¡Fauceácida y Aterraescama! ¡A la arena!",
 	Phase3				= "El propio aire se congela al presentar a nuestro siguiente combatiente: ¡Aullahielo! ¡Matad o morid, campeones!",

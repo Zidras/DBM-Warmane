@@ -900,7 +900,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LichKingEvent")
 
 L:SetGeneralLocalization({
-	name = "Побег от Короля-лича"
+	name = "Побег от Артаса"
 })
 
 L:SetTimerLocalization({
@@ -912,6 +912,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	ArthasYellKill	= "ОГОНЬ! ОГОНЬ!",
 	Ghoul			= "Гневный вурдалак",		--creature id 36940. Not sure how to use these in function above to simplify locals though. :\
 	Abom			= "Неуклюжее поганище",		--creature id 37069
 	WitchDoctor		= "Воскрешенный ведьмак",	--creature id 36941

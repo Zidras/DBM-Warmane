@@ -897,7 +897,7 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("LichKingEvent")
 
 L:SetGeneralLocalization({
-	name = "Lich King event"
+	name = "Escape from Arthas"
 })
 
 L:SetWarningLocalization({
@@ -913,6 +913,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
+	ArthasYellKill	= "FIRE! FIRE!",
 	Ghoul			= "Raging Ghoul",			--creature id 36940. Not sure how to use these in function above to simplify locals though. :\
 	Abom			= "Lumbering Abomination",	--creature id 37069
 	WitchDoctor		= "Risen Witch Doctor",		--creature id 36941

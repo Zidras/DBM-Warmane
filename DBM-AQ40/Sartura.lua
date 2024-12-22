@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sartura", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716174010")
 mod:SetCreatureID(15516)
 
 mod:SetModelID(15516)
@@ -23,12 +23,13 @@ local specWarnWhirlwind	= mod:NewSpecialWarningRun(26083, false, nil, nil, 4, 2)
 
 local WhirlwindCD		= mod:NewCDTimer(20, 26083, nil, nil, nil, 2)
 
+
 mod.vb.prewarn_enrage = false
 
-function mod:OnCombatStart()
+function mod:OnCombatStart(delay)
 	self.vb.prewarn_enrage = false
 	WhirlwindCD:Start(12)
-end
+
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 26083 and args:IsSrcTypeHostile() and self:AntiSpam(4, 1) then

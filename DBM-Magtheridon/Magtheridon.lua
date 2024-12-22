@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Magtheridon", "DBM-Magtheridon")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20241008150020")
 mod:SetCreatureID(17257)
 
 mod:SetModelID(18527)
@@ -17,9 +17,11 @@ mod:RegisterEventsInCombat(
 )
 
 --Get custom voice pack sound for cubes
-local warningHeal			= mod:NewSpellAnnounce(30528, 3)
-local warningInfernal		= mod:NewSpellAnnounce(30511, 2)
+local warnHeal				= mod:NewSpellAnnounce(30528, 3)
+local warnInfernal			= mod:NewSpellAnnounce(30511, 2)
 local warnPhase2			= mod:NewPhaseAnnounce(2)
+local warnConflagration		= mod:NewSpellAnnounce(30757, 2)
+local warnQuake				= mod:NewSpellAnnounce(30657, 2, "Interface\\Icons\\Spell_Nature_Earthquake")
 local warnPhase3			= mod:NewPhaseAnnounce(3)
 
 local specWarnBlastNova		= mod:NewSpecialWarningInterrupt(30616, nil, nil, nil, 3, 2)
@@ -38,7 +40,7 @@ local quakeName = DBM:GetSpellInfo(30657)
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
-	self.vb.blastNovaCounter = 1
+	self.vb.blastNovaCounter = 0
 	timerPhase2:Start(-delay)
 end
 
@@ -49,7 +51,7 @@ function mod:SPELL_CAST_START(args)
 			specWarnHeal:Play("kickcast")
 			timerHeal:Start()
 		else
-			warningHeal:Show()
+			warnHeal:Show()
 		end
 	elseif args.spellId == 30616 then
 		self.vb.blastNovaCounter = self.vb.blastNovaCounter + 1
@@ -62,7 +64,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 30511 and self:AntiSpam(3, 1) then
-		warningInfernal:Show()
+		warnInfernal:Show()
 	end
 end
 
@@ -82,12 +84,14 @@ end
 mod.SPELL_AURA_REFRESH = mod.SPELL_AURA_APPLIED
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) then
+	if (msg == L.DBM_MAG_YELL_PHASE2 or msg:find(L.DBM_MAG_YELL_PHASE2) or msg == L.DBM_MAG_ALTERNATIVE_YELL_PHASE2 or msg:find(L.DBM_MAG_ALTERNATIVE_YELL_PHASE2)) and self:GetStage(2, 1) then-- Alternative yell not in line with Blizzard: https://www.warmane.com/bugtracker/report/124104
 		self:SetStage(2)
 		warnPhase2:Show()
 		timerBlastNovaCD:Start(55.65+3, self.vb.blastNovaCounter)
 		timerQuakeCD:Start(28.3+3)
 		timerPhase2:Cancel()
+		timerConflagration:Start(10) -- First Conflagration cd at least 10-25 (15 sec randomness)
+		timerQuake:Start(40) -- First Quake in 40 seconds
 	elseif msg == L.DBM_MAG_YELL_PHASE3 or msg:find(L.DBM_MAG_YELL_PHASE3) then
 		self:SetStage(3)
 		warnPhase3:Show()
@@ -102,5 +106,17 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerBlastNovaCD:AddTime(18, self.vb.blastNovaCounter)
 		timerQuakeCD:AddTime(18)
 		timerDebris:Start()
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(30657) then
+		timerQuake:Start()
+		warnQuake:Show()
+	-- "<99.72 20:36:19> [UNIT_SPELLCAST_SUCCEEDED] Magtheridon(31.4%-0.0%){Target:Player} -Blaze- [[boss1:Blaze::0:]]", -- [1219]
+	-- "<100.03 20:36:19> [CLEU] SPELL_AURA_APPLIED#0x0F000000000A3F3A#Player#0x0F000000000A3F3A#Player#30757#Conflagration#DEBUFF#nil#", -- [1220]
+	elseif spellName == GetSpellInfo(40637) then
+		timerConflagration:Start()
+		warnConflagration:Show()
 	end
 end

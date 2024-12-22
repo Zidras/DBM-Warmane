@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Viscidus", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716232440")
 mod:SetCreatureID(15299)
 
 mod:SetModelID(15299)
@@ -33,7 +33,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 25991 then
 		self.vb.volleyCount = self.vb.volleyCount + 1
 		warnPoisonBoltVolley:Show(self.vb.volleyCount)
-		timerPoisonBoltVolleyCD:Start(11, self.vb.volleyCount+1)
+		timerPoisonBoltVolleyCD:Start(nil, self.vb.volleyCount+1)
 	end
 end
 

@@ -28,7 +28,7 @@ L:SetWarningLocalization({
 	WarnReanimating				= "小怪再活化",
 	WarnAddsSoon				= "新的小怪即將到來",
 	SpecWarnVengefulShade		= "你被復仇的暗影盯上了 - 快跑開",
-	WeaponsStatus				= "自動武器卸載/裝備已啟用"
+	WeaponsStatus				= "自動武器卸載/裝備已啟用: %s (%s - %s)"
 })
 
 L:SetOptionLocalization({
@@ -162,6 +162,24 @@ L = DBM:GetModLocalization("Putricide")
 
 L:SetGeneralLocalization({
 	name = "普崔希德教授"
+})
+
+L:SetWarningLocalization({
+	WarnReengage			= "%s: 重新加入"
+})
+
+L:SetTimerLocalization({
+	TimerReengage			= "重新加入"
+})
+
+--[[L:SetOptionLocalization({
+	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
+	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
+})]]
+
+L:SetMiscLocalization({
+	YellTransform1			= "嗯，我看不出來有何不同。啊?!這些東西從哪來的?",
+	YellTransform2			= "嚐起來像是...櫻桃!喔!抱歉!"
 })
 
 ----------------------------

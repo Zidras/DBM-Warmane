@@ -1,7 +1,7 @@
 local mod = DBM:NewMod(545, "DBM-Party-BC", 10, 253)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20241202202344")
 mod:SetCreatureID(18667)
 
 mod:SetModelID(18058)
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 local warnChaos			= mod:NewSpellAnnounce(33676, 4)
 
 local timerChaos		= mod:NewBuffActiveTimer(15, 33676, nil, nil, nil, 3)
-local timerNextChaos	= mod:NewNextTimer(70, 33676, nil, nil, nil, 6)
+local timerNextChaos	= mod:NewNextTimer(40.5, 33676, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)
 	timerNextChaos:Start(15-delay)

@@ -16,7 +16,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 26476",
 	"SPELL_AURA_REMOVED 26476",
 	"CHAT_MSG_MONSTER_EMOTE",
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnEyeTentacle			= mod:NewAnnounce("WarnEyeTentacle", 2, 126)
@@ -155,6 +156,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 26586 then
+		DBM:AddMsg("Birth 26586 SPELL_CAST_SUCCESS fixed on server script. Notify Zidras on Discord or GitHub")
 		 local cid = self:GetCIDFromGUID(args.sourceGUID)
 		 if self:AntiSpam(5, cid) then--Throttle multiple spawn within 5 seconds
 			if cid == 15726 then--Eye Tentacle
@@ -246,6 +248,12 @@ function mod:UNIT_DIED(args)
 	elseif cid == 15802 then -- Flesh Tentacle
 		fleshTentacles[args.destGUID] = nil
 		diedTentacles[args.destGUID] = true
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == DBM:GetSpellInfo(26586) then
+		DBM:Debug("Birth") -- Since CLEU is hidden, this is here only as a placeholder until I get a VOD to ascertain whether or not this can be a generic warning (no cid is available, so perhaps target scanning?).
 	end
 end
 
