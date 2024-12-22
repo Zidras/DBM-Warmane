@@ -7,7 +7,7 @@ Trying to continue DBM for chromie.
 Current changelog:
 
 - updated the DBM-Core to the current version from Zidras while mantaining balleny's specific changes to Chromiecraft. 
--
+- Archimonde respawn timer from: https://github.com/UndoUreche/DBM-CC-Solaris
 
 <details>
 <div align="center">
