@@ -82,9 +82,9 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("2024025190711"),
-	DisplayVersion = "10.1.12 alpha", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2024, 02, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20241219220430"),
+	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 
 local fakeBWVersion = 7558
@@ -378,6 +378,14 @@ DBM.DefaultOptions = {
 	PlayTT = true,
 	PlayTTCountdown = false,
 	PlayTTCountdownFinished = false,
+	EnableBB = true,
+	PlayBBLoot = true,
+	PlayBBSound = false,
+	OverrideBBFont = false,
+	BBFont = "standardFont",
+	BBFontStyle = "OUTLINE",
+	BBFontShadow = true,
+	BBFontSize = 0,
 	LatencyThreshold = 250,
 	BigBrotherAnnounceToRaid = false,
 	SettingsMessageShown = false,
@@ -797,15 +805,17 @@ do
 			local zones = v.zones
 			local handler = v[event]
 			local modEvents = v.registeredUnitEvents
-			if isUnitEvent --[[and v.id == DBM.currentModId]] then -- Me and Kader initially coded a current mod check to save some CPU but noticed it would not work with RegisterEvents (to be listened out of modCombat) since currentModId is being set on StartCombat
+			--if isUnitEvent --[[and v.id == DBM.currentModId]] then -- Me and Kader initially coded a current mod check to save some CPU but noticed it would not work with RegisterEvents (to be listened out of modCombat) since currentModId is being set on StartCombat
 				-- Workaround for retail-like mod:RegisterEvents("UNIT_SPELLCAST_START boss1"). Check if we have valid units registered and filter out everything else.
 				-- v is mod here... so we check registered mods for registered events with registered uIds (v.registeredUnitEvents[event]).
 				-- then we check if we have our unit (args) in the table ... self.registeredUnitEvents[event] = args which is defined below
-				if modEvents and modEvents[event] and not checkEntry(modEvents[event], ...) then return end
-			end
+				--if modEvents and modEvents[event] and not checkEntry(modEvents[event], ...) then return end
+			--end
 
-			if handler and (not zones or zones[LastInstanceMapID] or zones[LastInstanceZoneName]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
-				handler(v, ...)
+			if not (isUnitEvent and modEvents and modEvents[event] and not checkEntry(modEvents[event], ...)) then
+				if handler and (not zones or zones[LastInstanceMapID] or zones[LastInstanceZoneName]) and not (not v.isTrashModBossFightAllowed and v.isTrashMod and #inCombat > 0) then
+					handler(v, ...)
+				end
 			end
 		end
 	end
@@ -1804,6 +1814,7 @@ do
 			return
 		end
 		DBT:CreateBar(time, text, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME")
+		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time, "Interface\\Icons\\SPELL_HOLY_BORROWEDTIME", "pizzatimer", nil, 0)
 		if broadcast and self:GetRaidRank() >= 1 then
 			sendSync("DBMv4-Pizza", ("%s\t%s"):format(time, text))
 		end
@@ -2857,6 +2868,9 @@ do
 		-- load special warning options
 		self:UpdateWarningOptions()
 		self:UpdateSpecialWarningOptions()
+		if BossBanner then
+			BossBanner:UpdateStyle()
+		end
 		self.Options.CoreSavedRevision = self.Revision
 		--Fix fonts if they are nil
 		if not self.Options.WarningFont then
@@ -3342,6 +3356,7 @@ do
 	-- WBA = World Buff Activation
 	-- RLO = Raid Leader Override
 	-- NS = Note Share
+	-- L = Boss Loot Info
 
 	syncHandlers["DBMv4-Mod"] = function(sender, mod, revision, event, ...)
 		mod = DBM:GetModByName(mod or "")
@@ -3461,6 +3476,85 @@ do
 		if select(2, IsInInstance()) == "pvp" or select(2, IsInInstance()) == "none" then return end
 		cId = tonumber(cId or "")
 		if cId then DBM:OnMobKill(cId, true) end
+	end
+
+	do
+		local lootTableBySender = {}
+		local function lootValidateAndSendEvent(encounterId, lootSourceName, lootSourceGUID, lootSourceID, itemID, itemLink, quantity, slot, texture, _, counter) -- finalItem
+			-- build BossBanner encounter cache if needed
+			BossBanner.encounterLootCache[encounterId] = BossBanner.encounterLootCache[encounterId] or {}
+			BossBanner.encounterLootCache[encounterId][lootSourceID] = BossBanner.encounterLootCache[encounterId][lootSourceID] or {}
+			BossBanner.encounterLootCache[encounterId][lootSourceID][itemID] = BossBanner.encounterLootCache[encounterId][lootSourceID][itemID] or {}
+
+			if BossBanner.encounterLootCache[encounterId][lootSourceID][itemID][counter] == nil then -- only check for nil. false has different meaning (cached, not synced)
+				tinsert(BossBanner.encounterLootCache[encounterId][lootSourceID][itemID], false)
+			end
+
+			-- check if BossBanner encounterLootCache already has the looted item
+			if BossBanner.encounterLootCache[encounterId] and BossBanner.encounterLootCache[encounterId][lootSourceID] and BossBanner.encounterLootCache[encounterId][lootSourceID][itemID] then
+				local foundUnsyncedItem = false
+				for lootItemIdx, synced in ipairs(BossBanner.encounterLootCache[encounterId][lootSourceID][itemID]) do
+					if not synced then
+						foundUnsyncedItem = true
+						BossBanner.encounterLootCache[encounterId][lootSourceID][itemID][lootItemIdx] = true
+						break
+					end
+				end
+				if not foundUnsyncedItem then
+					DBM:Debug("BossBanner: item already cached and synced. Ending sync for encounterId: "..encounterId..", lootSourceName: "..lootSourceName..", lootSourceGUID: "..lootSourceGUID..", itemID: "..itemID..", itemLink: "..itemLink..", quantity: "..quantity..", slot: "..slot..", texture: "..texture, 3)
+					return
+				end
+			end
+
+			-- check if BossBanner.pendingLoot is empty or already has the looted item
+			if next(BossBanner.pendingLoot) == nil then
+				DBM:Debug("Sending BossBanner event, no pendingLoot: ENCOUNTER_LOOT_RECEIVED, with args: "..encounterId..", "..itemID..", "..itemLink..", "..quantity..", "..slot..", "..texture..", "..lootSourceName..", "..lootSourceGUID, 3)
+				BossBanner:OnEvent("ENCOUNTER_LOOT_RECEIVED", encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID)
+			else
+				local sendLootEvent = true
+				for _, lootEntry in ipairs(BossBanner.pendingLoot) do -- indexed table with each pair being a loot entry with { itemID = itemID, quantity = quantity, slot = slot, lootNameToDisplay = lootNameToDisplay, itemLink = itemLink }
+					if lootEntry["itemID"] == itemID and lootEntry["slot"] == slot then -- item already added to pendingLoot, don't add it again
+						sendLootEvent = false
+					end
+				end
+				if sendLootEvent then
+					DBM:Debug("Sending BossBanner event: ENCOUNTER_LOOT_RECEIVED, with args: "..encounterId..", "..itemID..", "..itemLink..", "..quantity..", "..slot..", "..texture..", "..lootSourceName..", "..lootSourceGUID, 3)
+					BossBanner:OnEvent("ENCOUNTER_LOOT_RECEIVED", encounterId, itemID, itemLink, quantity, slot, texture, lootSourceName, lootSourceGUID)
+				end
+			end
+		end
+
+		local function lootDispatcher(sender, encounterId, lootSourceID, lootSourceName, lootSourceGUID, itemID, itemLink, quantity, slot, texture, finalItem)
+			lootTableBySender[sender] = lootTableBySender[sender] or {}
+			lootTableBySender[sender][encounterId] = lootTableBySender[sender][encounterId] or {}
+			lootTableBySender[sender][encounterId][lootSourceID] = lootTableBySender[sender][encounterId][lootSourceID] or {}
+			lootTableBySender[sender][encounterId][lootSourceID][slot] = { itemID = itemID, itemLink = itemLink, quantity = quantity, slot = slot, texture = texture, finalItem = finalItem }
+
+			if finalItem then
+				-- add counter of each itemID and max number of duplicates
+				local lootCounter = {}
+				for _, lootSlotTable in pairs(lootTableBySender[sender][encounterId][lootSourceID]) do
+					lootCounter[lootSlotTable.itemID] = (lootCounter[lootSlotTable.itemID] or 0) + 1
+					DBM:Debug("Dispatching BossBanner loot by sender "..sender..", with args: encounterId: "..encounterId..", lootSourceName: "..lootSourceName..", lootSourceGUID: "..lootSourceGUID..", itemID: "..lootSlotTable.itemID..", itemLink: "..lootSlotTable.itemLink..", quantity: "..lootSlotTable.quantity..", slot: "..lootSlotTable.slot..", texture: "..lootSlotTable.texture..", finalItem: "..tostring(lootSlotTable.finalItem)..", lootCounter: "..lootCounter[lootSlotTable.itemID], 3)
+					lootValidateAndSendEvent(encounterId, lootSourceName, lootSourceGUID, lootSourceID, lootSlotTable.itemID, lootSlotTable.itemLink, lootSlotTable.quantity, lootSlotTable.slot, lootSlotTable.texture, lootSlotTable.finalItem, lootCounter[lootSlotTable.itemID])
+				end
+				twipe(lootCounter)
+			end
+		end
+
+		syncHandlers["DBMv4-L"] = function(sender, version, locale, encounterId, _, lootSourceName, lootSourceGUID, itemID, itemLink, quantity, slot, texture, finalItem) -- version, locale, encounterId, encounterName, lootSourceName, lootSourceGUID, itemID, itemLink, tostring(quantity), tostring(slot), texture, finalItem
+			if not BossBanner then return end
+			DBM:Debug("Receiving BossBanner loot sync from "..sender..", with args --> version: "..tostring(version)..", locale: "..tostring(locale)..", encounterId: "..tostring(encounterId)..", lootSourceName: "..tostring(lootSourceName)..", lootSourceGUID: "..tostring(lootSourceGUID)..", itemID: "..tostring(itemID)..", itemLink: "..tostring(itemLink)..", quantity: "..tostring(quantity)..", slot: "..tostring(slot)..", texture: "..tostring(texture)..", finalItem: "..tostring(finalItem), 3)
+			if not version or version ~= "3" then return end -- ignore old versions (previous sync had no version and antispam string changed during development)
+			-- check BossBanner encounterLootCache for the looted item
+			local isNPC = lootSourceGUID ~= "nil"
+			local lootSourceID = isNPC and lootSourceGUID or lootSourceName
+			if not isNPC and locale ~= GetLocale() then
+				DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..").", 3)
+				return
+			end
+			lootDispatcher(sender, encounterId, lootSourceID, lootSourceName, lootSourceGUID, itemID, itemLink, tonumber(quantity), tonumber(slot), texture, (finalItem == "true" and true or false))
+		end
 	end
 
 	local dummyMod -- dummy mod for the pull timer
@@ -4530,9 +4624,9 @@ do
 		local combat = combatInfo[LastInstanceMapID] or combatInfo[LastInstanceZoneName]
 		if dbmIsEnabled and combat then
 			for _, v in ipairs(combat) do
-				if v.type == type and checkEntry(v.msgs, msg) or v.type == type .. "_regex" and checkExpressionList(v.msgs, msg) and not (#inCombat > 0 and v.noMultiBoss) then
+				if (v.type == type and checkEntry(v.msgs, msg) or v.type == type .. "_regex" and checkExpressionList(v.msgs, msg)) and not (#inCombat > 0 and v.noMultiBoss) then
 					self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
-				elseif v.type == "combat_" .. type .. "find" and tContains(v.msgs, msg) or v.type == "combat_" .. type and checkEntry(v.msgs, msg) and not (#inCombat > 0 and v.noMultiBoss) then
+				elseif (v.type == "combat_" .. type .. "find" and tContains(v.msgs, msg) or v.type == "combat_" .. type and checkEntry(v.msgs, msg)) and not (#inCombat > 0 and v.noMultiBoss) then
 					if IsInInstance() then--Indoor boss that uses both combat and message for combat, so in other words (such as hodir), don't require "target" of boss for yell like scanForCombat does for World Bosses
 						self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 					else--World Boss
@@ -5236,6 +5330,10 @@ do
 				end
 				fireEvent("kill", mod) -- Backwards compatibility
 				fireEvent("DBM_Kill", mod)
+				if BossBanner then
+					local encounterName = mod.localization.general.name or "Unknown"
+					BossBanner:OnEvent("BOSS_KILL", modId, encounterName) -- modId is mocked up as encounterID, encounterName is mocked up via mod translation table
+				end
 				if savedDifficulty == "worldboss" and mod.WBEsync then
 					if lastBossDefeat[modId..playerRealm] and (GetTime() - lastBossDefeat[modId..playerRealm] < 30) then return end--Someone else synced in last 10 seconds so don't send out another sync to avoid needless sync spam.
 					lastBossDefeat[modId..playerRealm] = GetTime()--Update last defeat time before we send it, so we don't handle our own sync
@@ -6421,7 +6519,7 @@ do
 			testSpecialWarning2 = testMod:NewSpecialWarning(" %s ", nil, nil, nil, 2, 2)
 			testSpecialWarning3 = testMod:NewSpecialWarning("  %s  ", nil, nil, nil, 3, 2) -- hack: non auto-generated special warnings need distinct names (we could go ahead and give them proper names with proper localization entries, but this is much easier)
 		end
-		testTimer1:Stop("Test Bar")
+		testTimer1:Stop("Test Bar showing 5s Variance")
 		testTimer2:Stop("Adds")
 		testTimer3:Stop("Evil Debuff")
 		testTimer4:Stop("Important Interrupt")
@@ -6429,12 +6527,12 @@ do
 		testTimer6:Stop("Handle your Role")
 		testTimer7:Stop("Next Stage")
 		testTimer8:Stop("Custom User Bar")
-		testTimer1:Start(10, "Test Bar")
-		testTimer2:Start(30, "Adds")
+		testTimer1:Start("v5-10", "Test Bar showing 5s Variance")
+		testTimer2:Start("v25-30", "Adds")
 		testTimer3:Start(43, "Evil Debuff")
 		testTimer4:Start(20, "Important Interrupt")
 		testTimer5:Start(60, "Boom!")
-		testTimer6:Start(35, "Handle your Role")
+		testTimer6:Start("v32-35", "Handle your Role")
 		testTimer7:Start(50, "Next Stage")
 		testTimer8:Start(55, "Custom User Bar")
 		testWarning1:Cancel()
@@ -6452,7 +6550,7 @@ do
 		testWarning3:Schedule(20, "Pew Pew Laser Owl!")
 		testWarning2:Schedule(38, "Evil Spell in 5 sec!")
 		testWarning2:Schedule(43, "Evil Spell!")
-		testWarning1:Schedule(10, "Test bar expired!")
+		testWarning1:Schedule(10, "Test Bar expired!")
 		testSpecialWarning1:Schedule(20, "Pew Pew Laser Owl")
 		testSpecialWarning1:ScheduleVoice(20, "runaway")
 		testSpecialWarning2:Schedule(43, "Fear!")
@@ -9880,10 +9978,50 @@ do
 		end
 	end
 
+	-- Parse variance from timer string (v30.5-40" or "dv30.5-40"), into minimum and maximum timer, and calculated variance duration
+	---@param timer string
+	---@return number maxTimer, number minTimer, number varianceDuration
+	local function parseVarianceFromTimer(timer)
+		-- ^(d?v) matches starting character d (optional) or v
+		-- (%d+%.?%d*) matches any number of digits with optional decimal
+		-- %- matches literal character "-"
+		-- (%d+%.?%d*)$ matches any number of digits with optional decimal, at the end of the string
+		local minTimer, maxTimer = timer:match("v(%d+%.?%d*)%-(%d+%.?%d*)")
+		minTimer, maxTimer = tonumber(minTimer), tonumber(maxTimer)
+		if type(minTimer) ~= "number" or type(maxTimer) ~= "number" then
+			DBM:Debug("|cffff0000No timers found in the string passed to parseVarianceFromTimer function: "..timer..". Returning zero.|r")
+			return 0, 0, 0
+			end
+		local varianceDuration = maxTimer - minTimer
+
+		return maxTimer, minTimer, varianceDuration  -- maximum possible timer from the variance window, minimum..., variance duration
+	end
+
+	local function correctWithVarianceDuration(numberToCorrect, timerBar)
+		if not numberToCorrect then
+			DBM:Debug("|cffff0000No number passed to correctWithVarianceDuration function.|r")
+			return
+		end
+
+		if not timerBar then
+			DBM:Debug("|cffff0000No timerBar passed to correctWithVarianceDuration function.|r")
+			return numberToCorrect
+		end
+
+		return timerBar.hasVariance and (numberToCorrect + timerBar.varianceDuration) or numberToCorrect
+	end
+
 	function timerPrototype:Start(timer, ...)
 		if not self.mod.isDummyMod then--Don't apply following rulesets to pull timers and such
 			if DBM.Options.DontShowBossTimers and not self.mod.isTrashMod then return end
 			if DBM.Options.DontShowTrashTimers and self.mod.isTrashMod then return end
+		end
+		local hasVariance = type(timer) == "number" and false or not timer and self.hasVariance -- to separate from metadata, to account for metavariant timers with a fixed timer start, like timer:Start(10)
+		local timerStringWithVariance, minTimer
+		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
+			hasVariance = true
+			timerStringWithVariance = timer -- cache timer string
+			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
 		end
 		if timer and type(timer) ~= "number" then
 			return self:Start(nil, timer, ...) -- first argument is optional!
@@ -9895,17 +10033,29 @@ do
 						local bar = DBT:GetBar(self.startedTimers[i])
 						if bar then
 							local remaining = ("%.2f"):format(bar.timer)
+							local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 							local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 							ttext = ttext.."("..self.id..")"
 							if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 								local phaseText = self.mod.vb.phase and " ("..L.SCENARIO_STAGE:format(self.mod.vb.phase)..")" or ""
-								if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
-									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
-									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
-								elseif bar.timer < -5 then
-									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
-								elseif bar.timer > 0.1 then
-									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+								if bar.hasVariance then
+									if DBM.Options.BadTimerAlert and bar.timer > correctWithVarianceDuration(1, bar) then--If greater than 1 seconds off, report this out of debug mode to all users
+										DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug")
+										fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug", 2)
+									elseif bar.timer < -0.1 then -- Would be useful to implement a variance detector, and report outside the known variance, however this would need to happen on a timer after it was refreshed. For the moment, only "keep" arg can achieve this.
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero, outside known variance window. Remaining time is : "..remaining, 2)
+									elseif bar.timer > correctWithVarianceDuration(0.1, bar) then
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer..")", 2)
+									end
+								else -- duplicated code, should be refactored
+									if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+										DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
+										fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+									elseif bar.timer < -5 then -- arbitrary threshold
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+									elseif bar.timer > 0.1 then
+										DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+									end
 								end
 							end
 						end
@@ -9972,17 +10122,29 @@ do
 					local bar = DBT:GetBar(id)
 					if bar then
 						local remaining = ("%.2f"):format(bar.timer)
+						local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 						local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 						ttext = ttext.."("..self.id..")"
 						if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 							local phaseText = self.mod.vb.phase and " ("..L.SCENARIO_STAGE:format(self.mod.vb.phase)..")" or ""
-							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
-								DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
-								fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
-							elseif bar.timer < -5 then
-								DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
-							elseif bar.timer > 0.1 then
-								DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+							if bar.hasVariance then
+								if DBM.Options.BadTimerAlert and bar.timer > correctWithVarianceDuration(1, bar) then--If greater than 1 seconds off, report this out of debug mode to all users
+									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug")
+									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired, outside known variance window. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer.."). Please report this bug", 2)
+								elseif bar.timer < -0.1 then -- Would be useful to implement a variance detector, and report outside the known variance, however this would need to happen on a timer after it was refreshed. For the moment, only "keep" arg can achieve this.
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero, outside known variance window. Remaining time is : "..remaining, 2)
+								elseif bar.timer > correctWithVarianceDuration(0.1, bar) then
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining.." (until variance minimum timer: "..deltaFromVarianceMinTimer..")", 2)
+								end
+							else -- duplicated code, should be refactored
+								if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+									DBM:AddMsg("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug")
+									fireEvent("DBM_Debug", "Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+								elseif bar.timer < -5 then -- arbitrary threshold
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed after zero. Remaining time is : "..remaining, 2)
+								elseif bar.timer > 0.1 then
+									DBM:Debug("Timer "..ttext..phaseText.. " refreshed before expired. Remaining time is : "..remaining, 2)
+								end
 							end
 						end
 					end
@@ -10001,10 +10163,12 @@ do
 				countVoice = self.mod.Options[self.option .. "CVoice"]
 				if not self.fade and (type(countVoice) == "string" or countVoice > 0) then--Started without faded and has count voice assigned
 					DBM:Unschedule(playCountSound, id) -- Prevents count sound if timer is started again before timer expires
-					playCountdown(id, timer, countVoice, countVoiceMax, self.requiresCombat)--timerId, timer, voice, count
+					-- minTimer checks for the minimum possible timer in the variance timer string sent from Start method, self.minTimer is from newTimer constructor. Else, use timer value
+					playCountdown(id, minTimer or (hasVariance and self.minTimer) or timer, countVoice, countVoiceMax, self.requiresCombat)--timerId, timer, voice, count
 				end
 			end
-			local bar = DBT:CreateBar(timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
+			-- timerStringWithVariance checks for timer string sent from Start method, self.timerStringWithVariance is from newTimer constructor. Else, use timer value
+			local bar = DBT:CreateBar(timerStringWithVariance or (hasVariance and self.timerStringWithVariance) or timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
@@ -10450,6 +10614,14 @@ do
 			DBM:Debug("|cffff0000spellID texture path or colorType is in inlineIcon field and needs to be fixed for |r"..name..inlineIcon)
 			inlineIcon = nil--Fix it for users
 		end
+		local hasVariance, timerStringWithVariance, minTimer, varianceDuration
+		if type(timer) == "string" then
+			if timer:match("^v%d+%.?%d*%-%d+%.?%d*$") then -- parse variance, e.g. "v20.5-25.5"
+				hasVariance = true
+				timerStringWithVariance = timer
+				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
+			end
+		end
 		local icon = type(texture) == "number" and ( texture <=8 and (iconFolder .. texture) or select(3, GetSpellInfo(texture))) or texture or "Interface\\Icons\\Spell_Nature_WispSplode"
 		local obj = setmetatable(
 			{
@@ -10466,6 +10638,10 @@ do
 				g = g,
 				b = b,
 				requiresCombat = requiresCombat,
+				hasVariance = hasVariance,
+				minTimer = minTimer,
+				timerStringWithVariance = timerStringWithVariance,
+				varianceDuration = varianceDuration,
 				startedTimers = {},
 				mod = self,
 			},
@@ -10494,10 +10670,21 @@ do
 			optionVersion = optionName
 			optionName = nil
 		end
-		local allowdouble
-		if type(timer) == "string" and timer:match("d%d+") then
-			allowdouble = true
-			timer = tonumber(string.sub(timer, 2))
+		local allowdouble, hasVariance, timerStringWithVariance, minTimer, varianceDuration
+		if type(timer) == "string" then
+			if timer:match("d%d+") then -- parse doubling timers, e.g. "d20"
+				allowdouble = true
+				timer = tonumber(string.sub(timer, 2))
+			elseif timer:match("^v%d+%.?%d*%-%d+%.?%d*$") then -- parse variance, e.g. "v20.5-25.5"
+				hasVariance = true
+				timerStringWithVariance = timer
+				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
+			elseif timer:match("dv%d+%.?%d*%-%d+%.?%d*$") then -- parse doubling and variance, e.g. "dv20.5-25.5"
+				allowdouble = true
+				hasVariance = true
+				timerStringWithVariance = timer
+				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
+			end
 		end
 		local spellName, icon
 		local unparsedId = spellId
@@ -10554,6 +10741,10 @@ do
 				b = b,
 				requiresCombat = requiresCombat,
 				allowdouble = allowdouble,
+				hasVariance = hasVariance,
+				minTimer = minTimer,
+				timerStringWithVariance = timerStringWithVariance,
+				varianceDuration = varianceDuration,
 				startedTimers = {},
 				mod = self,
 			},
@@ -10564,7 +10755,7 @@ do
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
 			self.localization.options[id] = L.AUTO_TIMER_OPTIONS[timerType]:format(GetAchievementLink(spellId):gsub("%[(.+)%]", "%1"), timer)
-		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" or timerType == "roleplay" then--Timers without spellid, generic
+		elseif timerType == "cdspecial" or timerType == "cdcombo" or timerType == "nextspecial" or timerType == "nextcombo" or timerType == "stage" or timerType == "stagecount" or timerType == "stagecountcycle" or timerType == "intermission" or timerType == "intermissioncount" or timerType == "adds" or timerType == "addscustom" or timerType == "roleplay" or timerType == "combat" then--Timers without spellid, generic (do not add stagecontext here, it has spellname parsing)
 			self.localization.options[id] = L.AUTO_TIMER_OPTIONS[timerType]:format(timer)--Using more than 1 stage timer or more than 1 special timer will break this, fortunately you should NEVER use more than 1 of either in a mod
 		else
 			self.localization.options[id] = L.AUTO_TIMER_OPTIONS[timerType]:format(unparsedId, timer)
@@ -11278,6 +11469,9 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	if self.WBEsync then
 		info.WBEsync = self.WBEsync
 	end
+	if self.noBossDeathKill then
+		info.noBossDeathKill = self.noBossDeathKill
+	end
 	-- use pull-mobs as kill mobs by default, can be overriden by RegisterKill
 	if self.multiMobPullDetection then
 		for _, v in ipairs(self.multiMobPullDetection) do
@@ -11381,6 +11575,19 @@ function bossModPrototype:EnableWBEngageSync()
 	if self.combatInfo then
 		self.combatInfo.WBEsync = true
 	end
+end
+
+---Used when a bosses death condition should be ignored (maybe they die repeatedly for example)
+function bossModPrototype:DisableBossDeathKill()
+	self.noBossDeathKill = true
+	if self.combatInfo then
+		self.combatInfo.noBossDeathKill = true
+	end
+end
+
+---Used when a boss is scripted in a hacky way that their creature Id changes mid fight, and we want to treat multiple IDs as a single boss
+function bossModPrototype:SetMultiIDSingleBoss()
+	self.multiIDSingleBoss = true
 end
 
 --used for knowing if a specific mod is engaged

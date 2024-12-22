@@ -596,3 +596,5 @@ L.SCENARIO_STAGE			= "Fase %d"
 L.SPECIALIZATION			= "Especialización" -- ID: 22433
 -- EJ
 L.HARD_MODE					= "Modo difícil" -- 17220
+L.BOSS_YOU_DEFEATED			= "Has derrotado a" -- 25559
+L.BOSS_KILL_SUBTITLE		= "ha caído" -- 25560
