@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TeronGorefiend", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230129114417")
+mod:SetRevision("20230129114417_cafe20240915v1")
 mod:SetCreatureID(22871)
 
 mod:SetModelID(21254)
@@ -17,16 +17,16 @@ mod:RegisterEventsInCombat(
 
 --Incinerate useful?
 local warnCrushed			= mod:NewTargetNoFilterAnnounce(40243, 3, nil, "Healer")
-local warnIncinerate		= mod:NewSpellAnnounce(40239, 3)
+local warnIncinerate			= mod:NewSpellAnnounce(40239, 3)
 local warnDeath				= mod:NewTargetNoFilterAnnounce(40251, 3)
 
 local specWarnDeath			= mod:NewSpecialWarningYou(40251, nil, nil, nil, 1, 2)
-local specWarnDeathEnding	= mod:NewSpecialWarningMoveAway(40251, nil, nil, nil, 3, 2)
+local specWarnDeathEnding		= mod:NewSpecialWarningMoveAway(40251, nil, nil, nil, 3, 2)
 
 local timerCrushed			= mod:NewBuffActiveTimer(15, 40243, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerDeathCD			= mod:NewCDTimer(32, 40251, nil, nil, nil, 3)--32-40 (small sample size, could be bigger range)
 local timerDeath			= mod:NewTargetTimer(55, 40251, nil, nil, nil, 3)
-local timerVengefulSpirit	= mod:NewTimer(60, "TimerVengefulSpirit", 40325, nil, nil, 1)
+local timerVengefulSpirit		= mod:NewTimer(60, "TimerVengefulSpirit", 40325, nil, nil, 1)
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
@@ -63,7 +63,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnDeath:Show()
 			specWarnDeath:Play("targetyou")
 			specWarnDeathEnding:Schedule(50)
-			specWarnDeathEnding:ScheduleVoice(50, "runout")
+			specWarnDeathEnding:ScheduleVoice(40, "runout") --just enough time for you to get to the back of room
 		else
 			warnDeath:Show(args.destName)
 		end

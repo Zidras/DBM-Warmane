@@ -37,9 +37,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	PhaseTank		= "punches the ground in anger!",
+	PhaseTank		= "Supremus punches the ground in anger!",
 	PhaseKite		= "The ground begins to crack open!",
-	ChangeTarget	= "acquires a new target",
+	ChangeTarget		= "Supremus acquires a new target!",
 	Kite			= "Kite",
 	Tank			= "Tank"
 })
@@ -121,9 +121,16 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Suffering		= "Essence of Suffering",
 	Desire			= "Essence of Desire",
+	Phase1Start1		= "Pain and suffering are all that await you!",
+	Phase1Start2		= "Don't leave me alone!",
+	Phase2Start		= "You can have anything you desire... for a price.",
+	Phase3Start1		= "Beware: I live!",
+	Phase3Start2		= "So... foolish.",
 	Anger			= "Essence of Anger",
-	Phase1End		= "I don't want to go back!",
-	Phase2End		= "I won't be far!"
+	Phase1End1		= "I don't want to go back!",
+	Phase1End2		= "Now what do I do?!",
+	Phase2End		= "I won't be far!",
+	Phase3End		= "Beware, cowards!"
 })
 
 -----------------------
@@ -199,8 +206,10 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Pull			= "Akama. Your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.",
 	Eyebeam			= "Stare into the eyes of the Betrayer!",
-	Demon			= "Behold the power... of the demon within!",
+	Phase2			= "I will not be touched by rabble such as you!", --newly added line
 	Phase4			= "Is this it, mortals? Is this all the fury you can muster?",
+	Demon			= "Behold the power... of the demon within!",
+	Phase5enrage		= "You've wasted too much time mortals, now you shall fall!", --newly added line
 	S1YouAreNotPrepared	= "Stage One: You Are Not Prepared",
 	S2FlamesOfAzzinoth	= "Stage Two: Flames of Azzinoth",
 	S3TheDemonWithin	= "Stage Three: The Demon Within",
