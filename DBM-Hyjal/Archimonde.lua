@@ -24,10 +24,11 @@ local specWarnBurst		= mod:NewSpecialWarningYou(32014, nil, nil, nil, 3, 2)
 local yellBurst			= mod:NewYell(32014)
 
 local timerNextFear		= mod:NewNextTimer(42, 31970, nil, nil, nil, 2)
-
 local timerNextDoomfire		= mod:NewNextTimer(8, 31943, nil, nil, nil, 2)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
+
+mod:AddBoolOption("ShowRespawn", true)
 
 mod:AddSetIconOption("BurstIcon", 32014, true, false, {8})
 
@@ -59,6 +60,13 @@ function mod:OnCombatStart(delay)
 	timerNextDoomfire:Start(-delay)
 
 	timerNextDoomfire:UpdateName("Doomfire CD")
+end
+
+function mod:OnCombatEnd(wipe, isSecondRun)
+
+	if wipe and not isSecondRun and self.Options.ShowRespawn then
+		DBT:CreateBar(293, DBM_CORE_L.TIMER_RESPAWN:format(L.name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
