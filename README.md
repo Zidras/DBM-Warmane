@@ -1,6 +1,6 @@
 
 
-# updates
+# Work in progress use at your own risk
 
 Trying to continue DBM for chromie. 
 
