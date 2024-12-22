@@ -15,7 +15,7 @@ mod.noStatistics = true
 local warnWave			= mod:NewAnnounce("WarnWave", 1)
 local warnCannibalize	= mod:NewSpellAnnounce(31538, 2)
 
-local timerWave			= mod:NewTimer(125, "TimerWave", nil, nil, nil, 1)
+local timerWave			= mod:NewTimer(125+5, "TimerWave", nil, nil, nil, 1)
 
 mod:AddBoolOption("DetailedWave")
 mod:RemoveOption("HealthFrame")
@@ -88,19 +88,32 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
+
+local waveTimes = {
+	{ 130, 130, 130, 130, 130, 130, 130, 190, 0 },   -- Winterchill
+	{ 130, 130, 130, 130, 130, 130, 130, 190, 0 },   -- Anetheron
+	{ 130, 155, 130, 155, 130, 130, 155, 225, 0 },   -- Kaz'rogal
+	{ 130, 190, 190, 190, 130, 155, 190, 225, 0 }    -- Azgalor
+}
+
+local function getTimePerBossAndWave(boss, currentWave) 
+  if (boss == 0) or (currentWave == 0) or (boss > 8) or (currentWave > 8) then
+    return 0
+  end
+	return waveTimes[boss][currentWave]
+end
+
 function mod:WaveFunction(currentWave)
 	local timer = 0
 	currentWave = tonumber(currentWave)
 	lastWave = tonumber(lastWave)
+
+	timer = getTimePerBossAndWave(boss, currentWave) 
 	if currentWave > lastWave then
 		if boss == 0 then--unconfirmed
-			timer = 125
+			timer = 125+5
 			warnWave:Show(L.WarnWave_0:format(currentWave))
 		elseif boss == 1 or boss == 2 then
-			timer = 125
-			if currentWave == 8 then
-				timer = 140
-			end
 			if self.Options.DetailedWave and boss == 1 then
 				if currentWave == 1 then
 					warnWave:Show(L.WarnWave_1:format(currentWave, 10, L.Ghoul))
@@ -142,16 +155,6 @@ function mod:WaveFunction(currentWave)
 			end
 			self:SendSync("boss", boss)
 		elseif boss == 3 or boss == 4 then
-			timer = 135
-			if currentWave == 2 or currentWave == 4 then
-				timer = 165
-			elseif currentWave == 3 then
-				timer = 160
-			elseif currentWave == 7 then
-				timer = 195
-			elseif currentWave == 8 then
-				timer = 225
-			end
 			if self.Options.DetailedWave and boss == 3 then
 				if currentWave == 1 then
 					warnWave:Show(L.WarnWave_4:format(currentWave, 4, L.Ghoul, 4, L.Abomination, 2, L.Necromancer, 2, L.Banshee))

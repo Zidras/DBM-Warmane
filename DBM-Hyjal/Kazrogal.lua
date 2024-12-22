@@ -17,6 +17,8 @@ local warnStomp		= mod:NewSpellAnnounce(31480, 2)
 local timerMark		= mod:NewBuffFadesTimer(6.2, 31447, nil, nil, nil, 2)
 local timerMarkCD	= mod:NewNextCountTimer(45, 31447, nil, nil, nil, 2)
 
+local timerStompCD	= mod:NewCDTimer(15, 31480, nil, nil, nil, 3) --new CD timer added Cafe2024.05.31
+
 mod.vb.count = 0
 mod.vb.time = 45
 
@@ -41,5 +43,6 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 31480 then
 		warnStomp:Show()
+		timerStompCD:Start() --new CD timer added Cafe2024.05.31
 	end
 end
