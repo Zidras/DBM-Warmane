@@ -436,6 +436,7 @@ L.AUTO_TIMER_TEXTS.castsourceshort		= "%s: %%s "--Resolve short timer conflict w
 L.AUTO_TIMER_TEXTS.active		= "%s termina"--Buff/Debuff/event on boss
 L.AUTO_TIMER_TEXTS.fades		= "%s expira"--Buff/Debuff on players
 L.AUTO_TIMER_TEXTS.ai			= "IA de %s"
+
 L.AUTO_TIMER_TEXTS.cd			= "%s TdR"
 L.AUTO_TIMER_TEXTS.cdshort		= "~%s"
 L.AUTO_TIMER_TEXTS.cdcount		= "%s (%%s) TdR"
@@ -444,6 +445,7 @@ L.AUTO_TIMER_TEXTS.cdsource		= "%s TdR: >%%s<"
 L.AUTO_TIMER_TEXTS.cdsourceshort	= "~%s: >%%s<"
 L.AUTO_TIMER_TEXTS.cdspecial	= "Facultad especial TdR"
 L.AUTO_TIMER_TEXTS.cdspecialshort		= "~Facultad especial"
+
 L.AUTO_TIMER_TEXTS.next			= "Siguiente %s"
 L.AUTO_TIMER_TEXTS.nextshort	= "%s"
 L.AUTO_TIMER_TEXTS.nextcount	= "Siguiente %s (%%s)"
@@ -452,6 +454,12 @@ L.AUTO_TIMER_TEXTS.nextsource	= "Siguiente %s: %%s"
 L.AUTO_TIMER_TEXTS.nextsourceshort		= "%s: %%s"
 L.AUTO_TIMER_TEXTS.nextspecial	= "Siguiente facultad especial"
 L.AUTO_TIMER_TEXTS.nextspecialshort		= "Facultad especial"
+
+L.AUTO_TIMER_TEXTS.varcount		= "%s (%%s)"
+L.AUTO_TIMER_TEXTS.varsource	= "%s: >%%s<"--Now same as next, as the ~ was moved to timer number -- OPTIONAL
+L.AUTO_TIMER_TEXTS.varspecial	= "Facultad especial"--Now same as next, as the ~ was moved to timer number
+L.AUTO_TIMER_TEXTS.varcombo		= "%%1$s + %%2$s"--Now same as next, as the ~ was moved to timer number -- OPTIONAL
+
 L.AUTO_TIMER_TEXTS.achievement	= "Logro: %s"
 L.AUTO_TIMER_TEXTS.stage		= "Siguiente fase"
 L.AUTO_TIMER_TEXTS.stageshort	= "Fase"
@@ -468,14 +476,25 @@ L.AUTO_TIMER_OPTIONS.castsource	= "Mostrar temporizador (y quién lo lanza) para
 L.AUTO_TIMER_OPTIONS.active		= "Mostrar temporizador para la duración de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.fades		= "Mostrar temporizador para el tiempo restante del perjuicio de $spell:%s en los jugadores (%ds)"
 L.AUTO_TIMER_OPTIONS.ai			= "Mostrar temporizador inteligente para el tiempo de reutilización de $spell:%s (%ds)"
+
 L.AUTO_TIMER_OPTIONS.cd			= "Mostrar temporizador para el tiempo de reutilización de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.cdcount	= "Mostrar temporizador (con contador) para el tiempo de reutilización de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.cdsource	= "Mostrar temporizador (y quién lo lanza) para el tiempo de reutilización de $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.cdspecial	= "Mostrar temporizador para el tiempo de reutilización de 'Facultad especial'. (%ds)"
+
 L.AUTO_TIMER_OPTIONS.next		= "Mostrar temporizador para el siguiente $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.nextcount	= "Mostrar temporizador (con contador) para el siguiente $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.nextsource	= "Mostrar temporizador (y quién lo lanza) para el siguiente $spell:%s (%ds)"
 L.AUTO_TIMER_OPTIONS.nextspecial	= "Mostrar temporizador para la siguiente 'Facultad especial'. (%ds)"
+
+L.AUTO_TIMER_OPTIONS.var				= "Mostrar temporizador (con variación) para el tiempo de reutilización de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varcount			= "Mostrar temporizador (con contador y variación) para el tiempo de reutilización de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varnp				= "Mostrar solo el temporizador en la placa de nombre (con variación) para el tiempo de reutilización de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varpnp				= "Mostrar solo el temporizador prioritario en la placa de nombre (con variación) para el tiempo de reutilización de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varsource			= "Mostrar temporizador (con variación y quién lo lanza) para el tiempo de reutilización de $spell:%s (%ss)"
+L.AUTO_TIMER_OPTIONS.varspecial			= "Mostrar temporizador (con variación) para el tiempo de reutilización de facultad especial (%ss)"
+L.AUTO_TIMER_OPTIONS.varcombo			= "Mostrar temporizador (con variación) para el tiempo de reutilización de combo de facultades (%ss)"
+
 L.AUTO_TIMER_OPTIONS.achievement	= "Mostrar temporizador para el logro %s (%ds)"
 L.AUTO_TIMER_OPTIONS.stage		= "Mostrar temporizador para la siguiente fase (%ds)"
 L.AUTO_TIMER_OPTIONS.adds		= "Mostrar temporizador para la siguiente aparición de esbirros (%ds)"

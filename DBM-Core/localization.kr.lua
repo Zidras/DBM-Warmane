@@ -448,6 +448,9 @@ L.AUTO_TIMER_TEXTS.nextcount		= "다음 %s (%%s)"
 L.AUTO_TIMER_TEXTS.nextsource		= "다음 %s: %%s"
 L.AUTO_TIMER_TEXTS.nextspecial		= "다음 특수 능력"
 L.AUTO_TIMER_TEXTS.nextspecialshort	= "특수 능력"
+
+L.AUTO_TIMER_TEXTS.varspecial			= "특수 스킬"--Now same as next, as the ~ was moved to timer number
+
 L.AUTO_TIMER_TEXTS.stage			= "다음 단계"
 L.AUTO_TIMER_TEXTS.stageshort		= "단계"
 L.AUTO_TIMER_TEXTS.adds			= "쫄 등장"
@@ -476,6 +479,15 @@ L.AUTO_TIMER_OPTIONS.nextnp				= "다음 $spell:%s 타이머를 이름표에만 
 L.AUTO_TIMER_OPTIONS.nextnpcount		= "다음 $spell:%s 타이머를 이름표에만 표시 (횟수 포함) (%ds)"
 L.AUTO_TIMER_OPTIONS.nextsource		= "다음 $spell:%s 타이머 바 보기 (시전자 이름 포함) (%ds)"
 L.AUTO_TIMER_OPTIONS.nextspecial		= "다음 특수 능력 타이머 바 보기 (%ds)"
+
+L.AUTO_TIMER_OPTIONS.var				= "$spell:%s 쿨타임 타이머 바 보기 (시간 차이 포함) (%ss)"
+L.AUTO_TIMER_OPTIONS.varcount			= "$spell:%s 쿨타임 타이머 바 보기 (횟수 및 시간 차이 포함) (%ss)"
+L.AUTO_TIMER_OPTIONS.varnp			= "$spell:%s 쿨타임을 이름표 전용 타이머로 보기 (시간 차이 포함) (%ss)"
+L.AUTO_TIMER_OPTIONS.varpnp			= "$spell:%s 쿨타임을 이름표 전용 타이머로 가장 우선해서 보기 (시간 차이 포함) (%ss)"
+L.AUTO_TIMER_OPTIONS.varsource			= "$spell:%s 쿨타임 타이머 바 보기 (시전자 및 시간 차이 포함) (%ss)"
+L.AUTO_TIMER_OPTIONS.varspecial			= "특수 스킬 쿨타임 타이머 바 보기 (시간 차이 포함) (%ss)"
+L.AUTO_TIMER_OPTIONS.varcombo			= "연계 스킬 쿨타임 타이머 바 보기 (시간 차이 포함) (%ss)"
+
 L.AUTO_TIMER_OPTIONS.achievement		= "%s 업적의 타이머 바 보기 (%ds)"
 L.AUTO_TIMER_OPTIONS.stage		= "다음 단계 타이머 바 보기 (%ds)"
 L.AUTO_TIMER_OPTIONS.adds		= "쫄 등장 타이머 바 보기 (%ds)"
