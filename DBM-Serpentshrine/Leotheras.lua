@@ -49,7 +49,7 @@ local function humanWarns(self)
 	self.vb.whirlCount = 0
 	warnPhase:Show(L.Human)
 	self.vb.isHuman = 1
-	timerWhirlCD:Start(28.05) -- REVIEW! 25.05 before; To-do add a variance timer 
+	timerWhirlCD:Start("v25.05-32") -- 25.05s minimum cd confirmed after PTR-tests; 32 was the longest so far
 	timerPhase:Start(nil, L.Demon)
 end
 
@@ -72,7 +72,7 @@ function mod:OnCombatStart()
 	self:SetStage(1)
 	table.wipe(warnMCTargets)
 	table.wipe(warnDemonTargets)
-	timerWhirlCD:Start(28.05) -- review: 25.05 before; added 4 seconds seems to fine overall 
+	timerWhirlCD:Start("25.05-32") -- 25.05s minimum cd confirmed after PTR-tests; 32 was the longest so far
 	timerPhase:Start(60, L.Demon)
 	berserkTimer:Start()
 end
