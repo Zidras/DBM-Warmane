@@ -1,4 +1,4 @@
-local mod	= DBM:NewMod("CorenDirebrew", "DBM-WorldEvents")
+local mod	= DBM:NewMod("CorenDirebrew", "DBM-WorldEvents", 1)
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220925182747")

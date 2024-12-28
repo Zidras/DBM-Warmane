@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241222230857"),
+	Revision = parseCurseDate("20241228174232"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5710,6 +5710,7 @@ end
 -- 6	25 Player (Heroic)	raid		retail
 -- 9	40 Player			raid
 -- 16	Mythic				raid
+-- 18	Event				raid		retail (custom)
 -- 23	Mythic				party
 -- 24	Timewalking			party
 -- 33	Timewalking			raid
@@ -5722,7 +5723,7 @@ end
 -- 193	10 Player (Heroic)	raid		classic
 -- 194	25 Player (Heroic)	raid		classic
 function DBM:GetCurrentInstanceDifficulty()
-	local _, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
+	local instanceName, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
 	if instanceType == "none" then
 		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
 	elseif instanceType == "raid" then
@@ -5765,6 +5766,8 @@ function DBM:GetCurrentInstanceDifficulty()
 						return "normal20", difficultyName.." - ", 148, maxPlayers
 					elseif maxPlayers == 10 then
 						return "normal10", difficultyName.." - ", 175, maxPlayers
+					elseif maxPlayers == 0 and instanceName == "Azshara Crater" then -- Warmane 2024 Tower Defense, with completely borked API
+						return "event25", "Event - ", 18, 25
 					elseif maxPlayers then
 						DBM:AddMsg("Instance difficulty not registered. Please report this bug! -> ".. maxPlayers)
 						return maxPlayers and "normal"..maxPlayers, difficultyName.." - ", difficulty, maxPlayers
