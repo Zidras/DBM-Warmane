@@ -17,7 +17,7 @@
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-World-Boss: 1
-## X-DBM-Mod-SubCategories: Holidays, Warmane - Tower Defense
+## X-DBM-Mod-SubCategories: Holidays, Warmane
 ## X-DBM-Mod-Name: World Events
 ## X-DBM-Mod-Name-esES: Eventos del Mundo
 ## X-DBM-Mod-Name-ruRU: Игровые события
@@ -47,4 +47,4 @@ Holidays\Ahune.lua
 Holidays\CorenDirebrew.lua
 Holidays\HeadlessHorseman.lua
 
-WarmaneEvents\Round1.lua
+WarmaneEvents\TowerDefense.lua
