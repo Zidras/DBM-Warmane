@@ -1,22 +1,33 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241228224813")
+mod:SetRevision("20241228231951")
 mod.noStatistics = true
 
 mod:RegisterEvents(
+	"SPELL_AURA_APPLIED",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
-local warnBossNow		= mod:NewSpellAnnounce(31315, 1)
+local warnBossNow					= mod:NewSpellAnnounce(31315, 1)
 
-local timerCombatStart	= mod:NewCombatTimer(45)
+local specWarnSpellReflectDispel	= mod:NewSpecialWarningDispel(36096, "MagicDispeller", nil, nil, 1, 2)
+
+local timerCombatStart				= mod:NewCombatTimer(45)
 
 mod:RemoveOption("HealthFrame")
 
 mod.vb.roundCounter = 0
+
 -- function mod:OnCombatStart(delay)
 -- end
+
+function mod:SPELL_AURA_APPLIED(args)
+	if args.spellId == 36096 and args:IsDestTypeHostile() then
+		specWarnSpellReflectDispel:Show()
+		specWarnSpellReflectDispel:Play("dispelboss")
+	end
+end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:match(L.RoundStart) then
