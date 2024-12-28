@@ -111,13 +111,13 @@ L:SetMiscLocalization({
 
 -----------------------------
 --  Warmane Annual Events  --
--------------------------------
---  Tower Defense - Round 1  --
--------------------------------
-L = DBM:GetModLocalization("TowerDefense-Round1")
+----------------------------
+--  Tower Defense (2024)  --
+----------------------------
+L = DBM:GetModLocalization("WarmaneTowerDefense")
 
 L:SetGeneralLocalization({
-	name = "Round 1"
+	name = "Tower Defense (2024)"
 })
 
 -- L:SetWarningLocalization({
@@ -130,31 +130,7 @@ L:SetGeneralLocalization({
 -- })
 
 L:SetMiscLocalization({
-	Round1Start			= "Round 1 starts now!",
-	Round1Complete		= "Round 1 complete! Buy your upgrades at the vendor now.",
-	Round1Failed		= "Your defense has failed"
-})
-
--------------------------------
---  Tower Defense - Round 2  --
--------------------------------
-L = DBM:GetModLocalization("TowerDefense-Round2")
-
-L:SetGeneralLocalization({
-	name = "Round 2"
-})
-
--- L:SetWarningLocalization({
--- })
-
--- L:SetTimerLocalization({
--- })
-
--- L:SetOptionLocalization({
--- })
-
-L:SetMiscLocalization({
-	Round2Start			= "Round 2 starts now!",
-	Round2Complete		= "Round 2 complete! Buy your upgrades at the vendor now.",
-	Round2Failed		= "Your defense has failed, you have survived 1 round!"
+	RoundStart			= "Round (%d+) starts now!",
+	RoundComplete		= "Round (%d+) complete! Buy your upgrades at the vendor now.",
+	RoundFailed			= "Your defense has failed" -- , you have survived (%d) round!
 })
