@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241228231951")
+mod:SetRevision("20241229002950")
 mod.noStatistics = true
 
 mod:RegisterEvents(
@@ -13,11 +13,17 @@ local warnBossNow					= mod:NewSpellAnnounce(31315, 1)
 
 local specWarnSpellReflectDispel	= mod:NewSpecialWarningDispel(36096, "MagicDispeller", nil, nil, 1, 2)
 
+local timerToRessurect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
 local timerCombatStart				= mod:NewCombatTimer(45)
 
 mod:RemoveOption("HealthFrame")
 
 mod.vb.roundCounter = 0
+
+local function resurrectionTicker(self)
+	timerToRessurect:Start()
+	self:Schedule(30, resurrectionTicker, self)
+end
 
 -- function mod:OnCombatStart(delay)
 -- end
@@ -34,6 +40,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		self.vb.roundCounter = msg:match(L.RoundStart)
 		-- DBM:StartCombat(self, 0, "MONSTER_MESSAGE")
 		DBM:AddSpecialEventToTranscriptorLog("Started round" .. self.vb.roundCounter or "nil")
+		resurrectionTicker()
 		if (self.vb.roundCounter % 4 == 0) then -- Boss spawns every 4 rounds
 			warnBossNow:Show()
 		end
@@ -41,9 +48,13 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		timerCombatStart:Start()
 		-- DBM:EndCombat(self)
 		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. self.vb.roundCounter or "nil")
+		timerToRessurect:Stop()
+		self:Unschedule(resurrectionTicker)
 	elseif msg:find(L.RoundFailed) then -- wipe
 		-- DBM:EndCombat(self, true)
 		-- self:Stop()
 		DBM:AddSpecialEventToTranscriptorLog("Wiped on round" .. self.vb.roundCounter or "nil")
+		timerToRessurect:Stop()
+		self:Unschedule(resurrectionTicker)
 	end
 end
