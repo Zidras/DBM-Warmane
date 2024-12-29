@@ -1,11 +1,10 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241229002950")
+mod:SetRevision("20241229004751")
 mod.noStatistics = true
 
 mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
@@ -44,17 +43,23 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		if (self.vb.roundCounter % 4 == 0) then -- Boss spawns every 4 rounds
 			warnBossNow:Show()
 		end
+		self:RegisterShortTermEvents(
+			"SPELL_AURA_APPLIED 36096"
+		)
 	elseif msg:match(L.RoundComplete) then -- victory
 		timerCombatStart:Start()
 		-- DBM:EndCombat(self)
+		-- self:Stop()
 		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. self.vb.roundCounter or "nil")
 		timerToRessurect:Stop()
 		self:Unschedule(resurrectionTicker)
+		self:UnregisterShortTermEvents()
 	elseif msg:find(L.RoundFailed) then -- wipe
 		-- DBM:EndCombat(self, true)
 		-- self:Stop()
 		DBM:AddSpecialEventToTranscriptorLog("Wiped on round" .. self.vb.roundCounter or "nil")
 		timerToRessurect:Stop()
 		self:Unschedule(resurrectionTicker)
+		self:UnregisterShortTermEvents()
 	end
 end
