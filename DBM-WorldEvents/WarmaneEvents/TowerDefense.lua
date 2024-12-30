@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241230194607")
+mod:SetRevision("20241230230506")
 mod.noStatistics = true
 
 mod:RegisterEvents(
@@ -11,8 +11,10 @@ mod:RegisterEvents(
 -- General
 local warnBossNow					= mod:NewSpellAnnounce(31315, 1)
 
-local timerToRessurect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
+local timerToResurrect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
 local timerCombatStart				= mod:NewCombatTimer(45)
+
+mod:RemoveOption("HealthFrame")
 
 -- Trash
 local specWarnSpellReflectDispel	= mod:NewSpecialWarningDispel(36096, "MagicDispeller", nil, nil, 1, 2)
@@ -24,6 +26,8 @@ local specWarnCounterspellStopCast	= mod:NewSpecialWarningCast(31999, "SpellCast
 local specWarnIceBlastRun			= mod:NewSpecialWarningRun(73775, "Melee", nil, nil, 4, 2) -- TBC spellId
 local specWarnLivingBombMoveAway	= mod:NewSpecialWarningMoveAway(73061, "Melee", nil, nil, 1, 2) -- TBC spellId
 
+mod:AddRangeFrameOption(15, 73775) -- TBC spellId
+
 -- Azuregos (400052)
 local warnReflection				= mod:NewSpellAnnounce(22067, 2)
 
@@ -33,13 +37,18 @@ local timerTailSweep				= mod:NewVarTimer("v15-20", 15847, nil, nil, nil, 2) -- 
 local timerFrostBreath				= mod:NewVarTimer("v15-20", 21099, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 5s variance [15-20] (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Frost Breath-21099-npc:6836-432 = pull:1148.1, 18.7, 16.1, 18.6, 15.9, 19.5, 16.5, 15.2, 20.0, 15.8"
 local timerNextChill				= mod:NewNextTimer(15, 21098, nil, nil, nil, 2) -- (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Chill-21098-npc:6836-432 = pull:1160.1[+41], 14.7[+10], 0.1[+20], 15.0[+38], 14.9[+26], 15.0[+18], 15.0[+21], 14.9[+21], 15.0[+18], 14.9[+8], 0.1[+18], 14.9, 0.1[+4], 14.9"
 
-mod:AddRangeFrameOption(15, 73775) -- TBC spellId
-mod:RemoveOption("HealthFrame")
+-- Ragnaros (400049)
+
+-- Ysondre
+
+-- Illidan Stormrage
+
+-- Void Reaver
 
 mod.vb.roundCounter = 0
 
 local function resurrectionTicker(self)
-	timerToRessurect:Start()
+	timerToResurrect:Restart()
 	self:Schedule(30, resurrectionTicker, self)
 end
 
@@ -95,7 +104,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		self.vb.roundCounter = msg:match(L.RoundStart)
 		-- DBM:StartCombat(self, 0, "MONSTER_MESSAGE")
 		DBM:AddSpecialEventToTranscriptorLog("Started round" .. self.vb.roundCounter or "nil")
-		resurrectionTicker()
+		resurrectionTicker(self)
 		if (self.vb.roundCounter % 4 == 0) then -- Boss spawns every 4 rounds
 			warnBossNow:Show()
 		end
@@ -104,12 +113,12 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067"
 		)
 	elseif msg:match(L.RoundComplete) then -- victory
-		timerCombatStart:Start()
 		-- DBM:EndCombat(self)
 		self:Stop()
 		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. self.vb.roundCounter or "nil")
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
+		timerCombatStart:Start()
 
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
