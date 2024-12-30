@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20230221160133")
+mod:SetRevision("20241230122035")
 mod:SetCreatureID(34458, 34451, 34459, 34448, 34449, 34445, 34456, 34447, 34441, 34454, 34444, 34455, 34450, 34453, 34461, 34460, 34469, 34467, 34468, 34471, 34465, 34466, 34473, 34472, 34470, 34463, 34474, 34475)
 mod:SetMinSyncRevision(20220907000000)
 
@@ -113,9 +113,9 @@ local warnFrostTrap			= mod:NewSpellAnnounce(65880, 3)				-- 65880
 local warnDisengage			= mod:NewSpellAnnounce(65869, 3)				-- 65869
 
 local specWarnHellfire		= mod:NewSpecialWarningGTFO(65816, nil, nil, nil, 1, 8)
-local specWarnHandofProt	= mod:NewSpecialWarningDispel(66009, "RemoveInvulnerabilities", nil, nil, 1, 2)
-local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, "RemoveInvulnerabilities", nil, nil, 1, 2)
-local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, "RemoveInvulnerabilities", nil, nil, 1, 2)
+local specWarnHandofProt	= mod:NewSpecialWarningDispel(66009, "ImmunityDispeller", nil, nil, 1, 2)
+local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, "ImmunityDispeller", nil, nil, 1, 2)
+local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, "ImmunityDispeller", nil, nil, 1, 2)
 local specWarnHandofFreedom	= mod:NewSpecialWarningDispel(66115, "MagicDispeller", nil, nil, 1, 2)
 local specWarnTranquility	= mod:NewSpecialWarningInterrupt(66086)
 local specWarnEarthShield	= mod:NewSpecialWarningDispel(66063, "MagicDispeller")
