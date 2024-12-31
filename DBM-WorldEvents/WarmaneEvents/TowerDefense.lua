@@ -1,18 +1,26 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241230230506")
-mod.noStatistics = true
+mod:SetRevision("20241231161938")
+mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
+
+mod:RegisterCombat("emote_regex", L.RoundStart)
+mod:SetWipeTime(100) -- random number, just to reach waves/not assume wipe
 
 mod:RegisterEvents(
 	"CHAT_MSG_RAID_BOSS_EMOTE"
+)
+
+mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 31999 73775 15847 21099",
+	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067"
 )
 
 -- General
 local warnBossNow					= mod:NewSpellAnnounce(31315, 1)
 
 local timerToResurrect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
-local timerCombatStart				= mod:NewCombatTimer(45)
+local timerCombatStart				= mod:NewCombatTimer(30)
 
 mod:RemoveOption("HealthFrame")
 
@@ -102,31 +110,26 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:match(L.RoundStart) then
 		self.vb.roundCounter = msg:match(L.RoundStart)
-		-- DBM:StartCombat(self, 0, "MONSTER_MESSAGE")
-		DBM:AddSpecialEventToTranscriptorLog("Started round" .. self.vb.roundCounter or "nil")
+		DBM:AddSpecialEventToTranscriptorLog("Started round" .. (self.vb.roundCounter or "nil"))
 		resurrectionTicker(self)
 		if (self.vb.roundCounter % 4 == 0) then -- Boss spawns every 4 rounds
 			warnBossNow:Show()
 		end
-		self:RegisterShortTermEvents(
-			"SPELL_CAST_START 31999 73775 15847 21099",
-			"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067"
-		)
+	elseif msg == "30" then
+		timerCombatStart:Start()
 	elseif msg:match(L.RoundComplete) then -- victory
-		-- DBM:EndCombat(self)
-		self:Stop()
-		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. self.vb.roundCounter or "nil")
+		DBM:EndCombat(self)
+		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. (self.vb.roundCounter or "nil"))
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
-		timerCombatStart:Start()
+--		timerCombatStart:Start(45) -- Disabled here, since EndCombat schedules timer stops after 3s
 
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
 	elseif msg:find(L.RoundFailed) then -- wipe
-		-- DBM:EndCombat(self, true)
-		self:Stop()
-		DBM:AddSpecialEventToTranscriptorLog("Wiped on round" .. self.vb.roundCounter or "nil")
+		DBM:EndCombat(self, true)
+		DBM:AddSpecialEventToTranscriptorLog("Wiped on round" .. (self.vb.roundCounter or "nil"))
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
 
