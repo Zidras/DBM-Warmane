@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241230230506")
+mod:SetRevision("20241231101506")
+mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true
 
 mod:RegisterEvents(
@@ -81,19 +82,21 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
-	if spellId == 36096 and args:IsDestTypeHostile() then -- Spell Reflection
-		specWarnSpellReflectDispel:Show()
-		specWarnSpellReflectDispel:Play("dispelboss")
-	elseif spellId == 66009 and args:IsDestTypeHostile() then -- Hand of Protection
-		specWarnHandOfProtectionDispel:Show()
-		specWarnHandOfProtectionDispel:Play("dispelboss")
-	elseif spellId == 73061 and args:IsDestTypePlayer() then -- Living Bomb
+	if spellId == 36096 and args:IsDestTypeHostile() and self:AntiSpam(5, 1) then -- Spell Reflection
+		specWarnSpellReflectDispel:Show(args.destName)
+		specWarnSpellReflectDispel:Play("helpdispel")
+	elseif spellId == 66009 and args:IsDestTypeHostile() and self:AntiSpam(5, 2) then -- Hand of Protection
+		specWarnHandOfProtectionDispel:Show(args.destName)
+		specWarnHandOfProtectionDispel:Play("helpdispel")
+	elseif spellId == 73061 and args:IsPlayer() then -- Living Bomb
 		specWarnLivingBombMoveAway:Show()
 		specWarnLivingBombMoveAway:Play("runout")
-	elseif spellId == 21098 and args:IsDestTypePlayer() then -- Chill
+	elseif spellId == 21098 and args:IsDestTypePlayer() and self:AntiSpam(5, 3) then -- Chill
 		timerNextChill:Start()
-		specWarnChillDispel:Show()
-		specWarnChillDispel:Play("dispelnow")
+		if self:CheckDispelFilter("magic") then
+			specWarnChillDispel:Show(args.destName)
+			specWarnChillDispel:Play("helpdispel")
+		end
 	elseif spellId == 22067 then -- Reflection
 		warnReflection:Show()
 	end
