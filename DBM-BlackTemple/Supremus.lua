@@ -32,8 +32,8 @@ local timerFixate		= mod:NewTimer(10, "Fixate", nil, nil, nil, 1) --added timer 
 -- Stage One: Supremus
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
 local specWarnMolten		= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
-local timerMoltenPunch		= mod:NewCDTimer(15, 40126, nil, nil, nil, 1) --AC 15s-20s; first is always 20
-s
+local timerMoltenPunch		= mod:NewCDTimer(15, 40126, nil, nil, nil, 1) --AC 15s-20s; first is always 20s
+
 -- Stage Two: Pursuit
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
 local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
@@ -65,11 +65,8 @@ local function ScanTarget(self)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName)
-    DBM:Debug("UNIT_SPELLCAST_SUCCEEDED fired. Unit: " .. tostring(unit) .. ", Spell: " .. tostring(spellName))
-    
+function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName)    
     if unit == "target" or unit == "targettarget" and spellName == GetSpellInfo(40126) then
-        DBM:Debug("Molten Punch detected from target unit")
         timerMoltenPunch:Start()
     end
 end
