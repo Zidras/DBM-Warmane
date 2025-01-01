@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20241231163959"),
+	Revision = parseCurseDate("20250101184533"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -2303,7 +2303,7 @@ function DBM:GetUnitCreatureId(uId)
 end
 
 function DBM:GetCIDFromGUID(guid)
-	return guid and tonumber(guid:sub(9, 12), 16) or 0
+	return guid and tonumber(guid:sub(8, 12), 16) or 0
 end
 
 function DBM:IsNonPlayableGUID(guid)
