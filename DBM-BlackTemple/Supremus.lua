@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Supremus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230108174447_cafe20241102v4")
+mod:SetRevision("20250101120130")
 mod:SetCreatureID(22898)
 mod:SetModelID(21145)
 mod:SetUsedIcons(8)
@@ -14,7 +14,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 41581",
 	"SPELL_CAST_SUCCESS 40126",
 	"SPELL_AURA_APPLIED 41951",
-	"CHAT_MSG_RAID_BOSS_EMOTE" --corrected to detect yellow emote
+	"CHAT_MSG_RAID_BOSS_EMOTE",
+    "UNIT_SPELLCAST_SUCCEEDED"
 )
 
 --TODO, see if CLEU method is reliable enough to scrap scan method. scan method may still have been faster.
@@ -23,7 +24,7 @@ mod:RegisterEventsInCombat(
 local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
 
 local timerPhase		= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
-local timerNextPhase		= mod:NewTimer(60, "TimerPhase", 2565, nil, nil, 6)
+local timerNextPhase	= mod:NewTimer(60, "TimerPhase", 2565, nil, nil, 6)
 local berserkTimer		= mod:NewBerserkTimer(600)
 
 local timerFixate		= mod:NewTimer(10, "Fixate", nil, nil, nil, 1) --added timer for fixate
@@ -31,8 +32,8 @@ local timerFixate		= mod:NewTimer(10, "Fixate", nil, nil, nil, 1) --added timer 
 -- Stage One: Supremus
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
 local specWarnMolten		= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
-local timerMoltenPunch		= mod:NewCDTimer(15+2.5, 40126, nil, nil, nil, 1) --added timer for molten punch
-
+local timerMoltenPunch		= mod:NewCDTimer(15, 40126, nil, nil, nil, 1) --AC 15s-20s; first is always 20
+s
 -- Stage Two: Pursuit
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
 local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
@@ -64,12 +65,14 @@ local function ScanTarget(self)
 	end
 end
 
---[[
-local function Moltenflame(self)
-	timerMoltenPunch:Start(nil)
-	self:Schedule(15+2.5, Moltenflame, self)
+function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName)
+    DBM:Debug("UNIT_SPELLCAST_SUCCEEDED fired. Unit: " .. tostring(unit) .. ", Spell: " .. tostring(spellName))
+    
+    if unit == "target" or unit == "targettarget" and spellName == GetSpellInfo(40126) then
+        DBM:Debug("Molten Punch detected from target unit")
+        timerMoltenPunch:Start()
+    end
 end
-]]-- removed as unable to track properly, kept for reference
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
@@ -77,7 +80,6 @@ function mod:OnCombatStart(delay)
 	timerPhase:Start(-delay, L.Kite)
 	timerNextPhase:Schedule(60-delay, L.Tank)
 	timerMoltenPunch:Start(20-delay)
---	self:Schedule(20, Moltenflame, self)
 	self.vb.lastTarget = "None"
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
