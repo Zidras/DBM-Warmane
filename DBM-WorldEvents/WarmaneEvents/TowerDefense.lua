@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250102160031")
+mod:SetRevision("20250102181309")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -250,11 +250,11 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:match(L.RoundStart) then
-		self.vb.roundCounter = msg:match(L.RoundStart)
-		DBM:AddSpecialEventToTranscriptorLog("Started round" .. (self.vb.roundCounter or "nil"))
+		self.vb.roundCounter = tonumber(msg:match(L.RoundStart))
+		DBM:AddSpecialEventToTranscriptorLog("Started round" .. tostring(self.vb.roundCounter))
 		activeBoss = nil
 		resurrectionTicker(self)
-		if (self.vb.roundCounter % 4 == 0) then -- Boss spawns every 4 rounds
+		if (self.vb.roundCounter % 4) == 0 then -- Boss spawns every 4 rounds
 			self.vb.isBossRound = true
 		else
 			self.vb.isBossRound = false
@@ -263,18 +263,18 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	-- 	timerCombatStart:Start()
 	elseif msg:match(L.RoundComplete) then -- victory
 		DBM:EndCombat(self)
-		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. (self.vb.roundCounter or "nil"))
+		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. tostring(self.vb.roundCounter))
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
 		-- Custom bar that's bound to core so timer doesn't stop when mod stops its own timers
-		DBT:CreateBar(45, self.localization.timers.TimerRound:format(self.vb.roundCounter + 1, self.vb.roundCounter + 1 % 4 == 0 and DBM_COMMON_L.BOSS or DBM_COMMON_L.ADDS), "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, nil, nil, self.Options.TimerRoundTColor, nil, nil, nil, self.Options.TimerRoundCVoice, 5)
+		DBT:CreateBar(45, self.localization.timers.TimerRound:format(self.vb.roundCounter + 1, (self.vb.roundCounter + 1) % 4 == 0 and DBM_COMMON_L.BOSS or DBM_COMMON_L.ADDS), "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, nil, nil, self.Options.TimerRoundTColor, nil, nil, nil, self.Options.TimerRoundCVoice, 5)
 
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
 	elseif msg:find(L.RoundFailed) then -- wipe
 		DBM:EndCombat(self, true)
-		DBM:AddSpecialEventToTranscriptorLog("Wiped on round" .. (self.vb.roundCounter or "nil"))
+		DBM:AddSpecialEventToTranscriptorLog("Wiped on round" .. tostring(self.vb.roundCounter))
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
 
