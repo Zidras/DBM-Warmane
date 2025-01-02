@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250102125117")
+mod:SetRevision("20250102151707")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -18,12 +18,12 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 28410 34162",
 	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067 28410",
 	"SPELL_AURA_REMOVED 28410",
-	"SPELL_DAMAGE 34190",
-	"SPELL_MISSED 34190"
+	"SPELL_DAMAGE",
+	"SPELL_MISSED"
 )
 
 -- General
-local warnBossNow					= mod:NewSpellAnnounce(31315, 1)
+local warnBossNow					= mod:NewCountAnnounce(31315, 1) -- not really a count, but used for boss name
 
 local timerToResurrect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
 local timerCombatStart				= mod:NewCombatTimer(30)
@@ -72,7 +72,9 @@ local specWarnWarStompRun			= mod:NewSpecialWarningRun(41534, "Melee", nil, nil,
 local specWarnArcaneOrbDodge		= mod:NewSpecialWarningDodge(34190, nil, nil, nil, 1, 2) -- No event for this cast, only damage and aura applied
 
 local mindControlledTargets = {}
+local activeBoss -- don't sync, due to localization
 mod.vb.roundCounter = 0
+mod.vb.isBossRound = false
 mod.vb.mindControlIcon = 1
 
 local playerClass = select(2, UnitClass("player"))
@@ -113,6 +115,16 @@ local function EqW(self)
 	if self:IsEquipmentSetAvailable("pve") then
 		DBM:Debug("trying to equip pve")
 		UseEquipmentSet("pve")
+	end
+end
+
+local function onBossCombatStart(self, npcId)
+	if npcId == 400022 then -- Illidan Stormrage
+		warnBossNow:Play("behindboss")
+		-- To do:
+		-- Check for Curse of Tongues
+		-- Check for Fire Resistance Aura
+		-- Check for Shadow Resistance Aura
 	end
 end
 
@@ -212,10 +224,25 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId, spellName)
+function mod:SPELL_DAMAGE(_, _, _, destGUID, destName, _, spellId, spellName)
 	if spellId == 34190 and self:AntiSpam(7, 4) then -- Arcane Orb (Silence on hit)
 		specWarnArcaneOrbDodge:Show(spellName)
 		specWarnArcaneOrbDodge:Play("silencesoon")
+	end
+	-- Check for which boss is active
+	if self.vb.isBossRound and not activeBoss then
+		local bossCreatureId = DBM:GetCIDFromGUID(destGUID)
+		if bossCreatureId == 400022 -- Illidan Stormrage
+		or bossCreatureId == 400024 -- Shade of Aran
+		or bossCreatureId == 400025 -- Ysondre
+		or bossCreatureId == 400049 -- Ragnaros
+		or bossCreatureId == 400051 -- Void Reaver
+		or bossCreatureId == 400052 -- Azuregos
+		then
+			activeBoss = destName
+			warnBossNow:Show(activeBoss)
+			onBossCombatStart(self, bossCreatureId)
+		end
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -224,9 +251,12 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:match(L.RoundStart) then
 		self.vb.roundCounter = msg:match(L.RoundStart)
 		DBM:AddSpecialEventToTranscriptorLog("Started round" .. (self.vb.roundCounter or "nil"))
+		activeBoss = nil
 		resurrectionTicker(self)
 		if (self.vb.roundCounter % 4 == 0) then -- Boss spawns every 4 rounds
-			warnBossNow:Show()
+			self.vb.isBossRound = true
+		else
+			self.vb.isBossRound = false
 		end
 	elseif msg == "30" then
 		timerCombatStart:Start()
