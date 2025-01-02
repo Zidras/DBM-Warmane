@@ -129,6 +129,14 @@ L:SetGeneralLocalization({
 -- L:SetOptionLocalization({
 -- })
 
+L:SetTimerLocalization({
+	TimerRound			= "Round %d (%s)",
+})
+
+L:SetOptionLocalization({
+	TimerRound			= "Upon round victory, show timer to begin the next round (with round number and whether it is a Boss or Adds round)"
+})
+
 L:SetMiscLocalization({
 	RoundStart			= "Round (%d+) starts now!",
 	RoundComplete		= "Round (%d+) complete! Buy your upgrades at the vendor now.",

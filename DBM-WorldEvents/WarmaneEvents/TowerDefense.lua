@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250102151707")
+mod:SetRevision("20250102160031")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -26,9 +26,10 @@ mod:RegisterEventsInCombat(
 local warnBossNow					= mod:NewCountAnnounce(31315, 1) -- not really a count, but used for boss name
 
 local timerToResurrect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
-local timerCombatStart				= mod:NewCombatTimer(30)
+-- local timerCombatStart				= mod:NewCombatTimer(30)
 
 mod:RemoveOption("HealthFrame")
+mod:AddBoolOption("TimerRound", true, "timer", nil, 1, 1)
 
 -- Trash
 local specWarnSpellReflectDispel	= mod:NewSpecialWarningDispel(36096, "MagicDispeller", nil, nil, 1, 2)
@@ -258,14 +259,15 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		else
 			self.vb.isBossRound = false
 		end
-	elseif msg == "30" then
-		timerCombatStart:Start()
+	-- elseif msg == "30" then
+	-- 	timerCombatStart:Start()
 	elseif msg:match(L.RoundComplete) then -- victory
 		DBM:EndCombat(self)
 		DBM:AddSpecialEventToTranscriptorLog("Completed round" .. (self.vb.roundCounter or "nil"))
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
---		timerCombatStart:Start(45) -- Disabled here, since EndCombat schedules timer stops after 3s
+		-- Custom bar that's bound to core so timer doesn't stop when mod stops its own timers
+		DBT:CreateBar(45, self.localization.timers.TimerRound:format(self.vb.roundCounter + 1, self.vb.roundCounter + 1 % 4 == 0 and DBM_COMMON_L.BOSS or DBM_COMMON_L.ADDS), "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, nil, nil, self.Options.TimerRoundTColor, nil, nil, nil, self.Options.TimerRoundCVoice, 5)
 
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
