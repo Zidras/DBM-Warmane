@@ -132,5 +132,6 @@ L:SetGeneralLocalization({
 L:SetMiscLocalization({
 	RoundStart			= "Round (%d+) starts now!",
 	RoundComplete		= "Round (%d+) complete! Buy your upgrades at the vendor now.",
-	RoundFailed			= "Your defense has failed" -- , you have survived (%d) round!
+	RoundFailed			= "Your defense has failed", -- , you have survived (%d) round!
+	EqUneqWeapons		= "Unequip/equip weapons if $spell:28410 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".",
 })

@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241231161938")
+mod:SetRevision("20250102104903")
+mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
 
@@ -14,7 +15,9 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 31999 73775 15847 21099",
-	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067"
+	"SPELL_CAST_SUCCESS 28410",
+	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067 28410",
+	"SPELL_AURA_REMOVED 28410"
 )
 
 -- General
@@ -46,19 +49,66 @@ local timerTailSweep				= mod:NewVarTimer("v15-20", 15847, nil, nil, nil, 2) -- 
 local timerFrostBreath				= mod:NewVarTimer("v15-20", 21099, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 5s variance [15-20] (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Frost Breath-21099-npc:6836-432 = pull:1148.1, 18.7, 16.1, 18.6, 15.9, 19.5, 16.5, 15.2, 20.0, 15.8"
 local timerNextChill				= mod:NewNextTimer(15, 21098, nil, nil, nil, 2) -- (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Chill-21098-npc:6836-432 = pull:1160.1[+41], 14.7[+10], 0.1[+20], 15.0[+38], 14.9[+26], 15.0[+18], 15.0[+21], 14.9[+21], 15.0[+18], 14.9[+8], 0.1[+18], 14.9, 0.1[+4], 14.9"
 
+-- Ysondre (400025)
+local warnMindControlSoon			= mod:NewSoonAnnounce(28410, 4)
+local warnMindControl				= mod:NewTargetNoFilterAnnounce(28410, 3)
+
+local timerMindControlActive		= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 5)
+local timerNextMindControl			= mod:NewNextTimer(45, 28410, nil, nil, nil, 3) -- (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Chains of Kel'Thuzad-28410-npc:6809-976 = pull:385.1, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0, 0.0, 0.0, 0.0"
+
+mod:AddSetIconOption("SetIconOnMindControl", 28410, true, 0, {1, 2, 3, 4, 5})
+mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, nil, nil, nil, 28410)
+
 -- Ragnaros (400049)
 
--- Ysondre
-
--- Illidan Stormrage
+-- Illidan Stormrage (400022)
 
 -- Void Reaver
 
+
+local mindControlledTargets = {}
 mod.vb.roundCounter = 0
+mod.vb.mindControlIcon = 1
+
+local playerClass = select(2, UnitClass("player"))
+local isHunter = playerClass == "HUNTER"
 
 local function resurrectionTicker(self)
 	timerToResurrect:Restart()
 	self:Schedule(30, resurrectionTicker, self)
+end
+
+local function announceMindControlTargets(self)
+	warnMindControl:Show(table.concat(mindControlledTargets, "<, >"))
+	timerMindControlActive:Start()
+	table.wipe(mindControlledTargets)
+	self.vb.mindControlIcon = 1
+end
+
+local function checkWeaponRemovalSetting(self)
+	if not self.Options.EqUneqWeapons then return false end
+end
+
+local function UnW(self)
+	if self:IsEquipmentSetAvailable("pve") then
+		PickupInventoryItem(16)
+		PutItemInBackpack()
+		PickupInventoryItem(17)
+		PutItemInBackpack()
+		DBM:Debug("MH and OH unequipped", 2)
+		if isHunter then
+			PickupInventoryItem(18)
+			PutItemInBackpack()
+			DBM:Debug("Ranged unequipped", 2)
+		end
+	end
+end
+
+local function EqW(self)
+	if self:IsEquipmentSetAvailable("pve") then
+		DBM:Debug("trying to equip pve")
+		UseEquipmentSet("pve")
+	end
 end
 
 -- function mod:OnCombatStart(delay)
@@ -88,6 +138,23 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
+function mod:SPELL_CAST_SUCCESS(args)
+	local spellId = args.spellId
+	if spellId == 28410 then -- Chains of Kel'Thuzad (Mind Control)
+		warnMindControlSoon:Schedule(20)
+		timerNextMindControl:Start()
+		if (args.destName == UnitName("player") or args:IsPlayer()) and checkWeaponRemovalSetting(self) then
+			DBM:Debug("Unequipping", 2)
+			UnW(self)
+			UnW(self)
+		end
+		if #mindControlledTargets > 0 then -- reset icon and wipe table if it's not already empty, since there's no boss detection for each wave
+			table.wipe(mindControlledTargets)
+			self.vb.mindControlIcon = 1
+		end
+	end
+end
+
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 36096 and args:IsDestTypeHostile() and self:AntiSpam(5, 1) then -- Spell Reflection
@@ -107,6 +174,32 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 22067 then -- Reflection
 		warnReflection:Show()
+	elseif spellId == 28410 then -- Chains of Kel'Thuzad (Mind Control)
+		mindControlledTargets[#mindControlledTargets + 1] = args.destName
+		if self.Options.SetIconOnMindControl then
+			self:SetIcon(args.destName, self.vb.mindControlIcon)
+		end
+		self.vb.mindControlIcon = self.vb.mindControlIcon + 1
+		self:Unschedule(announceMindControlTargets)
+		if #mindControlledTargets >= 5 then
+			announceMindControlTargets(self)
+		else
+			self:Schedule(1, announceMindControlTargets, self)
+		end
+	end
+end
+
+function mod:SPELL_AURA_REMOVED(args)
+	local spellId = args.spellId
+	if spellId == 28410 then -- Chains of Kel'Thuzad (Mind Control)
+		if self.Options.SetIconOnMindControl then
+			self:SetIcon(args.destName, 0)
+		end
+		if (args.destName == UnitName("player") or args:IsPlayer()) and checkWeaponRemovalSetting(self) then
+			DBM:Debug("Equipping scheduled", 2)
+			EqW(self)
+			self:Schedule(0.1, EqW, self)
+		end
 	end
 end
 
