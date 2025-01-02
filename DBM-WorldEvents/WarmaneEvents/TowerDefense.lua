@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250102104903")
+mod:SetRevision("20250102122706")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -17,7 +17,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 31999 73775 15847 21099",
 	"SPELL_CAST_SUCCESS 28410",
 	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067 28410",
-	"SPELL_AURA_REMOVED 28410"
+	"SPELL_AURA_REMOVED 28410",
+	"SPELL_DAMAGE 34190",
+	"SPELL_MISSED 34190"
 )
 
 -- General
@@ -63,8 +65,8 @@ mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, nil, nil, nil, 28410)
 
 -- Illidan Stormrage (400022)
 
--- Void Reaver
-
+-- Void Reaver (400051)
+local specWarnArcaneOrbDodge		= mod:NewSpecialWarningDodge(34190, nil, nil, nil, 1, 2) -- No event for this cast, only damage and aura applied
 
 local mindControlledTargets = {}
 mod.vb.roundCounter = 0
@@ -202,6 +204,14 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	end
 end
+
+function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId, spellName)
+	if spellId == 34190 and self:AntiSpam(7, 4) then -- Arcane Orb (Silence on hit)
+		specWarnArcaneOrbDodge:Show(spellName)
+		specWarnArcaneOrbDodge:Play("silencesoon")
+	end
+end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:match(L.RoundStart) then
