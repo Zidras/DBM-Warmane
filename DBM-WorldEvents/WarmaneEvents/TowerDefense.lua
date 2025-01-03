@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103202530")
+mod:SetRevision("20250103204518")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -16,7 +16,8 @@ mod:RegisterEvents(
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 21099",
 	"SPELL_CAST_SUCCESS 15847 28410 34162",
-	"SPELL_AURA_APPLIED 36096 66009 20475 21098 22067 28410",
+	"SPELL_AURA_APPLIED 36096 66009 20475 21098 22067 28410 41142",
+	"SPELL_AURA_APPLIED_DOSE 41142",
 	"SPELL_AURA_REMOVED 28410",
 	"SPELL_DAMAGE",
 	"SPELL_MISSED",
@@ -39,12 +40,12 @@ local specWarnHandOfProtectionDispel= mod:NewSpecialWarningDispel(66009, "Immuni
 
 -- Bosses
 mod:AddTimerLine(BOSSES)
-mod:AddTimerLine("Dragons")
 -- Dragons
+mod:AddTimerLine("Dragons")
 local timerTailSweep				= mod:NewVarTimer("v15-20", 15847, nil, nil, nil, 2) -- 5s variance [15-20] (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Tail Sweep-15847-npc:6836-432 = pull:1152.8, 18.2, 16.3, 18.7, 16.7, 16.3, 16.3, 17.3, 19.6, 16.4"
 
-mod:AddTimerLine("Azuregos")
 -- Azuregos (400052)
+mod:AddTimerLine("Azuregos")
 local warnReflection				= mod:NewSpellAnnounce(22067, 2)
 
 local specWarnChillDispel			= mod:NewSpecialWarningDispel(21098, "MagicDispeller", nil, nil, 1, 2)
@@ -52,8 +53,8 @@ local specWarnChillDispel			= mod:NewSpecialWarningDispel(21098, "MagicDispeller
 local timerFrostBreath				= mod:NewVarTimer("v15-20", 21099, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 5s variance [15-20] (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Frost Breath-21099-npc:6836-432 = pull:1148.1, 18.7, 16.1, 18.6, 15.9, 19.5, 16.5, 15.2, 20.0, 15.8"
 local timerNextChill				= mod:NewNextTimer(15, 21098, nil, nil, nil, 2) -- (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Chill-21098-npc:6836-432 = pull:1160.1[+41], 14.7[+10], 0.1[+20], 15.0[+38], 14.9[+26], 15.0[+18], 15.0[+21], 14.9[+21], 15.0[+18], 14.9[+8], 0.1[+18], 14.9, 0.1[+4], 14.9"
 
-mod:AddTimerLine("Ysondre")
 -- Ysondre (400025)
+mod:AddTimerLine("Ysondre")
 local warnMindControlSoon			= mod:NewSoonAnnounce(28410, 4)
 local warnMindControl				= mod:NewTargetNoFilterAnnounce(28410, 3)
 
@@ -63,23 +64,25 @@ local timerNextMindControl			= mod:NewNextTimer(45, 28410, nil, nil, nil, 3) -- 
 mod:AddSetIconOption("SetIconOnMindControl", 28410, true, 0, {1, 2, 3, 4, 5})
 mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, nil, nil, nil, 28410)
 
-mod:AddTimerLine("Shade of Aran")
 -- Shade of Aran (400024)
+mod:AddTimerLine("Shade of Aran")
 local specWarnCounterspellStopCast	= mod:NewSpecialWarningCast(29961, "SpellCaster", nil, nil, 1, 2)
 local specWarnIceBurstRun			= mod:NewSpecialWarningRun(69108, "Melee", nil, nil, 4, 2)
-local specWarnLivingBombMoveAway	= mod:NewSpecialWarningMoveAway(20475, "Melee", nil, nil, 1, 2)
+local specWarnLivingBombMoveAway	= mod:NewSpecialWarningMoveAway(20475, "Melee", nil, nil, 1, 2) -- Shared with Ragnaros too
 
 mod:AddRangeFrameOption(15, 69108)
 
-mod:AddTimerLine("Ragnaros")
 -- Ragnaros (400049)
+mod:AddTimerLine("Ragnaros")
 local specWarnWrathOfRagnarosRun	= mod:NewSpecialWarningRun(20566, "Melee", nil, nil, 4, 2)
 
-mod:AddTimerLine("Illidan Stormrage")
 -- Illidan Stormrage (400022)
+mod:AddTimerLine("Illidan Stormrage")
 
-mod:AddTimerLine("Void Reaver")
+local specWarnAuraofDreadDefensive	= mod:NewSpecialWarningStack(41142, nil, 6, nil, 1, 2)
+
 -- Void Reaver (400051)
+mod:AddTimerLine("Void Reaver")
 local warnWarStompSoon				= mod:NewSoonAnnounce(41534, 2)
 
 local specWarnWarStompRun			= mod:NewSpecialWarningRun(41534, "Melee", nil, nil, 4, 2)
@@ -221,8 +224,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self:Schedule(1, announceMindControlTargets, self)
 		end
+	elseif spellId == 41142 then -- Aura of Dread
+		local amount = args.amount or 1
+		if args:IsPlayer() and amount == 6 then -- Only warn once when you reach 6 stacks, to reduce spam (even though option says higher than 6 stacks)
+			specWarnAuraofDreadDefensive:Show(amount)
+			specWarnAuraofDreadDefensive:Play("defensive") -- Defensives or Immunities (if available - Cloak of Shadows, Divine Shield, Anti-Magic Shell)
+		end
 	end
 end
+mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
