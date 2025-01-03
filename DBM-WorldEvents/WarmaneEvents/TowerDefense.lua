@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103204518")
+mod:SetRevision("20250103205728")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -146,14 +146,16 @@ local function onBossCombatStart(self, npcId)
 		-- Check for Fire Resistance Aura
 		-- Check for Shadow Resistance Aura
 --	elseif npcId == 400024 then -- Shade of Aran
---	elseif npcId == 400025 then -- Ysondre
+	elseif npcId == 400025 then -- Ysondre
+		warnBossNow:Play("dragonnow")
 		-- To do:
 		-- Dragon: attack on the sides
 		-- Check for Curse of Tongues
 		-- Check for Nature Resistance
 --	elseif npcId == 400049 then-- Ragnaros
 --	elseif npcId == 400051 then-- Void Reaver
---	elseif npcId == 400052 then-- Azuregos
+	elseif npcId == 400052 then-- Azuregos
+		warnBossNow:Play("dragonnow")
 		-- To do:
 		-- Dragon: attack on the sides
 		-- Check for Curse of Tongues
