@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250102181309")
+mod:SetRevision("20250103104132")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -14,8 +14,8 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 31999 73775 15847 21099",
-	"SPELL_CAST_SUCCESS 28410 34162",
+	"SPELL_CAST_START 31999 73775 21099",
+	"SPELL_CAST_SUCCESS 15847 28410 34162",
 	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067 28410",
 	"SPELL_AURA_REMOVED 28410",
 	"SPELL_DAMAGE",
@@ -126,6 +126,18 @@ local function onBossCombatStart(self, npcId)
 		-- Check for Curse of Tongues
 		-- Check for Fire Resistance Aura
 		-- Check for Shadow Resistance Aura
+--	elseif npcId == 400024 then -- Shade of Aran
+--	elseif npcId == 400025 then -- Ysondre
+		-- To do:
+		-- Dragon: attack on the sides
+		-- Check for Curse of Tongues
+		-- Check for Nature Resistance
+--	elseif npcId == 400049 then-- Ragnaros
+--	elseif npcId == 400051 then-- Void Reaver
+--	elseif npcId == 400052 then-- Azuregos
+		-- To do:
+		-- Dragon: attack on the sides
+		-- Check for Curse of Tongues
 	end
 end
 
@@ -149,8 +161,6 @@ function mod:SPELL_CAST_START(args)
 
 			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(400024)) -- Shade of Aran
 		end
-	elseif spellId == 15847 then -- Tail Sweep
-		timerTailSweep:Start()
 	elseif spellId == 21099 then -- Frost Breath
 		timerFrostBreath:Start()
 	end
@@ -158,7 +168,9 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if spellId == 28410 then -- Chains of Kel'Thuzad (Mind Control)
+	if spellId == 15847 then -- Tail Sweep
+		timerTailSweep:Start()
+	elseif spellId == 28410 then -- Chains of Kel'Thuzad (Mind Control)
 		warnMindControlSoon:Schedule(20)
 		timerNextMindControl:Start()
 		if (args.destName == UnitName("player") or args:IsPlayer()) and checkWeaponRemovalSetting(self) then
