@@ -13,30 +13,25 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 41581",
 	"SPELL_CAST_SUCCESS 40126",
-	"SPELL_AURA_APPLIED 41951",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
     "UNIT_SPELLCAST_SUCCEEDED"
 )
 
---TODO, see if CLEU method is reliable enough to scrap scan method. scan method may still have been faster.
-
 -- General
-local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
+local warnPhase				= mod:NewAnnounce("WarnPhase", 4, 42052)
 
-local timerPhase		= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
-local timerNextPhase	= mod:NewTimer(60, "TimerPhase", 2565, nil, nil, 6)
-local berserkTimer		= mod:NewBerserkTimer(600)
+local timerPhase			= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
+local timerNextPhase		= mod:NewTimer(60, "TimerPhase", 2565, nil, nil, 6)
+local berserkTimer			= mod:NewBerserkTimer(900) --900s on AC
 
-local timerFixate		= mod:NewTimer(10, "Fixate", nil, nil, nil, 1) --added timer for fixate
+local timerFixate			= mod:NewTimer(10, "Fixate", nil, nil, nil, 1) --added timer for fixate
 
--- Stage One: Supremus
+-- Stage One: Tank Phasse
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
 local specWarnMolten		= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
-local timerMoltenPunch		= mod:NewCDTimer(15, 40126, nil, nil, nil, 1) --AC 15s-20s; first is always 20s
-
--- Stage Two: Pursuit
+-- Stage Two: Kite Phase
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
-local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
+local warnFixate			= mod:NewTargetNoFilterAnnounce(41295, 3)
 
 local specWarnVolcano		= mod:NewSpecialWarningMove(42052, nil, nil, nil, 1, 2)
 local specWarnFixate		= mod:NewSpecialWarningRun(41295, nil, nil, nil, 4, 2)
@@ -65,18 +60,11 @@ local function ScanTarget(self)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName)    
-    if unit == "target" or unit == "targettarget" and spellName == GetSpellInfo(40126) then
-        timerMoltenPunch:Start()
-    end
-end
-
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerPhase:Start(-delay, L.Kite)
 	timerNextPhase:Schedule(60-delay, L.Tank)
-	timerMoltenPunch:Start(20-delay)
 	self.vb.lastTarget = "None"
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
@@ -92,7 +80,6 @@ function mod:OnCombatEnd()
 	if self.vb.lastTarget ~= "None" then
 		self:SetIcon(self.vb.lastTarget, 0)
 	end
-	self:Unschedule(Moltenflame)
 end
 
 function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
