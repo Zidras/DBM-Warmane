@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Leotheras", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241222170711")
+mod:SetRevision("20220812200037_5")
 mod:SetCreatureID(21215)
 
 --mod:SetModelID(20514)
@@ -11,10 +11,6 @@ mod:SetMinSyncRevision(20220812000000)
 
 mod:RegisterCombat("yell", L.YellPull) -- avoid using combat for this boss because attacking it on pull causes mod to engage.
 
---Not using RegisterEventsInCombat on purpose because it uses weird combat rules
---[[mod:RegisterEvents(
-	"UNIT_DIED"
-)]]
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 37640 37676 37749",
 	"CHAT_MSG_MONSTER_YELL"
@@ -28,10 +24,10 @@ local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
 local specWarnWhirl				= mod:NewSpecialWarningRun(37640, nil, nil, nil, 4, 2)
 local specWarnDemon				= mod:NewSpecialWarningYou(37676, nil, nil, nil, 1, 2)
 
-local timerWhirlCD				= mod:NewCDTimer(30.25, 37640, nil, nil, nil, 2) -- Azerothcore CD is 30250 MS - 34900 MS
+local timerWhirlCD				= mod:NewCDTimer(30.25, 37640, nil, nil, nil, 2, nil, nil, true) -- AC: 30250ms - 34900ms
 local timerWhirl				= mod:NewBuffActiveTimer(12, 37640, nil, nil, nil, 2)
 local timerPhase				= mod:NewTimer(60, "TimerPhase", 39088, nil, nil, 6)
-local timerInsidiousWhisperCD	= mod:NewCDTimer(24.25, 37676, nil, nil, nil, 6) -- feels very precise
+local timerInsidiousWhisperCD	= mod:NewCDTimer(24.25, 37676, nil, nil, nil, 6)
 local timerInsidiousWhisper		= mod:NewBuffFadesTimer(30, 37676, nil, nil, nil, 6)
 
 local berserkTimer				= mod:NewBerserkTimer(600)
@@ -49,7 +45,7 @@ local function humanWarns(self)
 	self.vb.whirlCount = 0
 	warnPhase:Show(L.Human)
 	self.vb.isHuman = 1
-	timerWhirlCD:Start("v25.05-32") -- 25.05s minimum cd confirmed after PTR-tests; 32 was the longest so far
+	timerWhirlCD:Start(30.25) -- AC: 30250ms - 34900ms
 	timerPhase:Start(nil, L.Demon)
 end
 
@@ -72,7 +68,7 @@ function mod:OnCombatStart()
 	self:SetStage(1)
 	table.wipe(warnMCTargets)
 	table.wipe(warnDemonTargets)
-	timerWhirlCD:Start("25.05-32") -- 25.05s minimum cd confirmed after PTR-tests; 32 was the longest so far
+	timerWhirlCD:Start(25.05) -- AC: 25050ms - 32550ms
 	timerPhase:Start(60, L.Demon)
 	berserkTimer:Start()
 end
@@ -137,9 +133,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerInsidiousWhisperCD:Cancel()
 		warnPhase2:Show()
 		if self.vb.isHuman == 1 then
-			timerWhirlCD:Start(28.05) -- REVIEW!
+			timerWhirlCD:Start(30.25) -- review 
 		else
-			timerWhirlCD:Start(28.05)
+			timerWhirlCD:Start(30.25)
 		end
 	end
 end
