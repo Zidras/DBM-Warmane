@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103104132")
+mod:SetRevision("20250103112749")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -14,12 +14,13 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 31999 73775 21099",
+	"SPELL_CAST_START 21099",
 	"SPELL_CAST_SUCCESS 15847 28410 34162",
-	"SPELL_AURA_APPLIED 36096 66009 73061 21098 22067 28410",
+	"SPELL_AURA_APPLIED 36096 66009 20475 21098 22067 28410",
 	"SPELL_AURA_REMOVED 28410",
 	"SPELL_DAMAGE",
-	"SPELL_MISSED"
+	"SPELL_MISSED",
+	"UNIT_SPELLCAST_START target focus"
 )
 
 -- General
@@ -37,11 +38,11 @@ local specWarnHandOfProtectionDispel= mod:NewSpecialWarningDispel(66009, "Immuni
 
 -- Bosses
 -- Shade of Aran (400024)
-local specWarnCounterspellStopCast	= mod:NewSpecialWarningCast(31999, "SpellCaster", nil, nil, 1, 2) -- TBC spellId
-local specWarnIceBlastRun			= mod:NewSpecialWarningRun(73775, "Melee", nil, nil, 4, 2) -- TBC spellId
-local specWarnLivingBombMoveAway	= mod:NewSpecialWarningMoveAway(73061, "Melee", nil, nil, 1, 2) -- TBC spellId
+local specWarnCounterspellStopCast	= mod:NewSpecialWarningCast(29961, "SpellCaster", nil, nil, 1, 2)
+local specWarnIceBurstRun			= mod:NewSpecialWarningRun(69108, "Melee", nil, nil, 4, 2)
+local specWarnLivingBombMoveAway	= mod:NewSpecialWarningMoveAway(20475, "Melee", nil, nil, 1, 2)
 
-mod:AddRangeFrameOption(15, 73775) -- TBC spellId
+mod:AddRangeFrameOption(15, 69108)
 
 -- Azuregos (400052)
 local warnReflection				= mod:NewSpellAnnounce(22067, 2)
@@ -74,6 +75,8 @@ local specWarnArcaneOrbDodge		= mod:NewSpecialWarningDodge(34190, nil, nil, nil,
 
 local mindControlledTargets = {}
 local activeBoss -- don't sync, due to localization
+local counterspellName = DBM:GetSpellInfo(29961)
+local iceBurstSpellName = DBM:GetSpellInfo(69108)
 mod.vb.roundCounter = 0
 mod.vb.isBossRound = false
 mod.vb.mindControlIcon = 1
@@ -146,22 +149,7 @@ end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
-	if spellId == 31999 then -- Counterspell
-		specWarnCounterspellStopCast:Show()
-		specWarnCounterspellStopCast:Play("stopcast")
-	elseif spellId == 73775 then -- Ice Blast
-		specWarnIceBlastRun:Show()
-		specWarnIceBlastRun:Play("runout")
-
-		if self.Options.RangeFrame then
-			if not DBM.RangeCheck:IsShown() then
-				DBM.RangeCheck:Show(15)
-				DBM.RangeCheck:SetHideTime(3) -- boss casted for 2.86s with Curse of Tongues, 2.20s without
-			end
-
-			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(400024)) -- Shade of Aran
-		end
-	elseif spellId == 21099 then -- Frost Breath
+	if spellId == 21099 then -- Frost Breath
 		timerFrostBreath:Start()
 	end
 end
@@ -197,7 +185,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 66009 and args:IsDestTypeHostile() and self:AntiSpam(5, 2) then -- Hand of Protection
 		specWarnHandOfProtectionDispel:Show(args.destName)
 		specWarnHandOfProtectionDispel:Play("helpdispel")
-	elseif spellId == 73061 and args:IsPlayer() then -- Living Bomb
+	elseif spellId == 20475 and args:IsPlayer() then -- Living Bomb
 		specWarnLivingBombMoveAway:Show()
 		specWarnLivingBombMoveAway:Play("runout")
 	elseif spellId == 21098 and args:IsDestTypePlayer() and self:AntiSpam(5, 3) then -- Chill
@@ -260,6 +248,15 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, destName, _, spellId, spellName)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
+-- sync due to lack of IEEU boss1
+function mod:UNIT_SPELLCAST_START(unit, spellName)
+	if spellName == iceBurstSpellName and self:AntiSpam(1, 5) then -- Ice Burst
+		self:SendSync("TowerDefense-IceBurst")
+	elseif spellName == counterspellName and self:GetUnitCreatureId(unit) == 400024 and self:AntiSpam(1, 6) then -- Counterspell
+		self:SendSync("TowerDefense-Counterspell")
+	end
+end
+
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:match(L.RoundStart) then
 		self.vb.roundCounter = tonumber(msg:match(L.RoundStart))
@@ -293,5 +290,24 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
+	end
+end
+
+function mod:OnSync(msg)
+	if msg == "TowerDefense-IceBurst" then
+		specWarnIceBurstRun:Show()
+		specWarnIceBurstRun:Play("runout")
+
+		if self.Options.RangeFrame then
+			if not DBM.RangeCheck:IsShown() then
+				DBM.RangeCheck:Show(15)
+				DBM.RangeCheck:SetHideTime(3) -- boss casted for 2.86s with Curse of Tongues, 2.20s without
+			end
+
+			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(400024)) -- Shade of Aran
+		end
+	elseif msg == "TowerDefense-Counterspell" then
+		specWarnCounterspellStopCast:Show()
+		specWarnCounterspellStopCast:Play("stopcast")
 	end
 end
