@@ -10,10 +10,6 @@ L:SetGeneralLocalization({
 	name = "Der Prophet Skeram"
 })
 
-L:SetMiscLocalization({
-	YellKillSkeram = "Ihr zögert das Unvermeidliche nur hinaus!"
-})
-
 ----------------
 -- Three Bugs --
 ----------------
