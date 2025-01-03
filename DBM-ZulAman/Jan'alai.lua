@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Janalai", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221101173423")
+mod:SetRevision("20250103134456")
 mod:SetCreatureID(23578)
 
 mod:SetZone()
@@ -22,8 +22,8 @@ local specWarnBomb		= mod:NewSpecialWarningDodge(42630, nil, nil, nil, 2, 2)
 local specWarnBreath	= mod:NewSpecialWarningYou(43140, nil, nil, nil, 1, 2)
 local yellFlamebreath	= mod:NewYell(43140)
 
-local timerBomb			= mod:NewCastTimer(12, 42630, nil, nil, nil, 3)--Cast bar?
-local timerAdds			= mod:NewNextTimer(89.9, 43962, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON) -- ~0.3s variance. (10m Frostmourne 2022/10/28) - 90.3, 90.0
+local timerBomb			= mod:NewCastTimer(11, 42630, nil, nil, nil, 3)  --11s on AC
+local timerAdds			= mod:NewNextTimer(90, 43962, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON) -- 90s on AC
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 

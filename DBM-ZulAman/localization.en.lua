@@ -31,9 +31,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "Get da move on, guards! It be killin' time!",
+	YellPull	= "You be dead soon enough!",
 	YellBear	= "You call on da beast, you gonna get more dan you bargain for!",
-	YellNormal	= "Make way for Nalorakk!"
+	YellNormal	= "Make way for da Nalorakk!"
 })
 
 ---------------
@@ -44,10 +44,17 @@ L = DBM:GetModLocalization("Akilzon")
 L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
+L:SetTimerLocalization({
+    TimerStorm = "Electrical Storm"
+})
+L:SetOptionLocalization({
+	TimerStorm		= "Show timer for Eletrical Storm"
+})
 
 L:SetMiscLocalization({
 	YellPull	= "I be da predator! You da prey...",
 })
+
 
 ---------------
 --  Jan'alai --
@@ -85,7 +92,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellPull	= "Get on ya knees and bow.... to da fang and claw!",
-	YellSpirit	= "I fight wit' untamed spirit....",
+	YellSpirit	= "I fight wit untamed spirit....",
 	YellNormal	= "Spirit, come back to me!"
 })
 
