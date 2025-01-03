@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103210548")
+mod:SetRevision("20250103221835")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -39,7 +39,7 @@ local specWarnSpellReflectDispel	= mod:NewSpecialWarningDispel(36096, "MagicDisp
 local specWarnHandOfProtectionDispel= mod:NewSpecialWarningDispel(66009, "ImmunityDispeller", nil, nil, 1, 2)
 
 -- Bosses
-mod:AddTimerLine(BOSSES)
+mod:AddTimerLine(string.upper(string.format("|cffff7d0a%s|r", BOSSES)))
 -- Dragons
 mod:AddTimerLine("Dragons")
 local timerTailSweep				= mod:NewVarTimer("v15-20", 15847, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 2) -- 5s variance [15-20] (Lordaeron Horde [2024-12-27]@[13:17:37]) - "Tail Sweep-15847-npc:6836-432 = pull:1152.8, 18.2, 16.3, 18.7, 16.7, 16.3, 16.3, 17.3, 19.6, 16.4"
