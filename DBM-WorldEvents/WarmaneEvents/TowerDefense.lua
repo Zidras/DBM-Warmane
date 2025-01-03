@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103112749")
+mod:SetRevision("20250103191635")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -64,6 +64,7 @@ mod:AddSetIconOption("SetIconOnMindControl", 28410, true, 0, {1, 2, 3, 4, 5})
 mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, nil, nil, nil, 28410)
 
 -- Ragnaros (400049)
+local specWarnWrathOfRagnarosRun	= mod:NewSpecialWarningRun(20566, "Melee", nil, nil, 4, 2)
 
 -- Illidan Stormrage (400022)
 
@@ -77,6 +78,7 @@ local mindControlledTargets = {}
 local activeBoss -- don't sync, due to localization
 local counterspellName = DBM:GetSpellInfo(29961)
 local iceBurstSpellName = DBM:GetSpellInfo(69108)
+local wrathOfRagnarosSpellName = DBM:GetSpellInfo(20566)
 mod.vb.roundCounter = 0
 mod.vb.isBossRound = false
 mod.vb.mindControlIcon = 1
@@ -254,6 +256,8 @@ function mod:UNIT_SPELLCAST_START(unit, spellName)
 		self:SendSync("TowerDefense-IceBurst")
 	elseif spellName == counterspellName and self:GetUnitCreatureId(unit) == 400024 and self:AntiSpam(1, 6) then -- Counterspell
 		self:SendSync("TowerDefense-Counterspell")
+	elseif spellName == wrathOfRagnarosSpellName and self:AntiSpam(1, 7) then -- Wrath of Ragnaros
+		self:SendSync("TowerDefense-WrathOfRagnaros")
 	end
 end
 
@@ -309,5 +313,8 @@ function mod:OnSync(msg)
 	elseif msg == "TowerDefense-Counterspell" then
 		specWarnCounterspellStopCast:Show()
 		specWarnCounterspellStopCast:Play("stopcast")
+	elseif msg == "TowerDefense-WrathOfRagnaros" then
+		specWarnWrathOfRagnarosRun:Show()
+		specWarnWrathOfRagnarosRun:Play("runout")
 	end
 end
