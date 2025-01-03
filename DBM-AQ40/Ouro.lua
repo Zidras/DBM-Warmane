@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ouro", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240707231146")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(15517)
 
 mod:SetModelID(15517)
@@ -80,7 +80,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerSubmerge:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start()
-		self:ScheduleMethod(58, "Emerge")
+		self:ScheduleMethod(30, "Emerge")
 	end
 end
 mod.SPELL_SUMMON = mod.SPELL_CAST_SUCCESS
