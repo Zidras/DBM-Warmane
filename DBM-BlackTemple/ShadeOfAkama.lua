@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_Cafe20241023v3")
+mod:SetRevision("20250104110528")
 mod:SetCreatureID(22841, 23191, 23215, 23216, 23523, 23318, 23524, 23319)
 
 mod:SetModelID(21357)
@@ -10,11 +10,11 @@ mod:RegisterCombat("combat")
 mod:SetWipeTime(50)--Adds come about every 50 seconds, so require at least this long to wipe combat if they die instantly
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 40874, 39945",
+--	"SPELL_CAST_START 39945", --not really needed boss is a trash mob on Chromiecraft; 
 	"SPELL_CAST_SUCCESS 34189",
 	"SPELL_AURA_APPLIED ",
 	"SPELL_AURA_REMOVED ",
-	"SPELL_SUMMON 42035, 40476, 40474",
+	"SPELL_SUMMON 42035 40476 40474",
 	"UNIT_DIED"
 )
 
@@ -32,6 +32,8 @@ local timerCombatStart		= mod:NewCombatTimer(12)
 local timerAddsCD		= mod:NewAddsCustomTimer(25+25, 42035)--NewAddsCustomTimer
 local timerDefenderCD		= mod:NewTimer(25+5, "timerAshtongueDefender", 41180, nil, nil, 1)
 local timerSorcCD		= mod:NewTimer(25+5, "timerAshtongueSorcerer", 40520, nil, nil, 1)
+
+
 
 --[[
 mod.vb.AddsWestCount = 0
