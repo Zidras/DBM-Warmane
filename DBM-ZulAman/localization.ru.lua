@@ -45,7 +45,9 @@ L = DBM:GetModLocalization("Akilzon")
 L:SetGeneralLocalization({
 	name = "Акил'зон"
 })
-
+L:SetTimerLocalization({
+    TimerStorm = "электрическая буря"
+})
 L:SetMiscLocalization({
 	YellPull	= "Я – охотник! Вы – добыча!",
 })

@@ -11,13 +11,13 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarnBear		= "Bear Form",
-	WarnBearSoon	= "Bear Form in 5 sec",
+	WarnBearSoon	= "Bear Form CD ready in 5 sec",
 	WarnNormal		= "Normal Form",
 	WarnNormalSoon	= "Normal Form in 5 sec"
 })
 
 L:SetTimerLocalization({
-	TimerBear		= "Bear Form",
+	TimerBear		= "Bear Form CD",
 	TimerNormal		= "Normal Form"
 })
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nalorakk", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103132545")
+mod:SetRevision("20250104100832")
 mod:SetCreatureID(23576)
 
 mod:SetZone()
@@ -19,7 +19,7 @@ local warnNormal		= mod:NewAnnounce("WarnNormal", 4, 39414)
 local warnNormalSoon	= mod:NewAnnounce("WarnNormalSoon", 3, 39414)
 local warnSilence		= mod:NewSpellAnnounce(42398, 3)
 
-local timerBear 		= mod:NewTimer(45, "TimerBear", 31974, nil, nil, 6) -- AC 45-50s; Maybe use NewCDTimer with True? 
+local timerBear 		= mod:NewTimer(45, "TimerBear", 31974, nil, nil, 6) -- AC 45-50s; Labeled timerBear and warnBearSoon as CD in localization.en 
 local timerNormal		= mod:NewTimer(30, "TimerNormal", 39414, nil, nil, 6) -- AC 30s
 
 local berserkTimer		= mod:NewBerserkTimer(600)
