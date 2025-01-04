@@ -26,7 +26,7 @@ local warningBone			= mod:NewSpellAnnounce(37098, 3)
 local specWarnCharred		= mod:NewSpecialWarningGTFO(30129, nil, nil, nil, 1, 6)
 local specWarnSmoke			= mod:NewSpecialWarningTarget(30128, "Healer", nil, nil, 1, 2)
 
-local timerNightbane		= mod:NewCombatTimer(36)
+local timerNightbane		= mod:NewCombatTimer(36) --Review! This timer is not accurate at all more like 90s
 local timerFearCD			= mod:NewCDTimer(31.5, 36922, nil, nil, nil, 2)
 local timerAirPhase			= mod:NewTimer(57, "timerAirPhase", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerBone				= mod:NewBuffActiveTimer(11, 37098, nil, nil, nil, 1)
