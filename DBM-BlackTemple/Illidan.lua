@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Illidan", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241225003331")
+mod:SetRevision("20250104003331")
 mod:SetCreatureID(22917)
 
 mod:SetModelID(21135)
@@ -36,7 +36,7 @@ local specWarnParasite		= mod:NewSpecialWarningYou(41917, nil, nil, nil, 1, 2)
 local yellParasiteFades		= mod:NewShortFadesYell(41917)
 
 local timerDrawSoul			= mod:NewCDTimer(32, 40904, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerFlameCrash		= mod:NewCDTimer(26, 40832, nil, nil ,nil, 3)
+local timerFlameCrash		= mod:NewCDTimer(25, 40832, nil, nil ,nil, 3) --25s timer on AC
 local timerParasite			= mod:NewTargetTimer(10, 41917, nil, false, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON)
 
 mod:AddSetIconOption("ParasiteIcon", 41917)
@@ -53,7 +53,7 @@ local specWarnUncagedWrath	= mod:NewSpecialWarningDefensive(39869, nil, nil, nil
 
 --local timerBarrage			= mod:NewTargetTimer(10, 40585, nil, false, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 --local timerNextBarrage		= mod:NewCDTimer(44, 40585, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! broken?? Fired on P3...
-local timerEyebeam			= mod:NewCDTimer(20, 40018, nil, nil, nil, 2) -- (Timewalking Frostmourne [2023-02-18]@[22:07:38]) - "?-Stare into the eyes of the Betrayer!-npc:Illidan Stormrage = pull:182.7/Stage 2/31.2, 30.3, Stage 3/15.0, Stage 4/283.7", -- [16]
+local timerEyebeam			= mod:NewCDTimer(25, 40018, nil, nil, nil, 2) -- 25s-45s on AC
 -- Flame of Azzinoth
 --local specWarnGTFO			= mod:NewSpecialWarningGTFO(40611, nil, nil, nil, 1, 2) -- Phase 2: Blaze
 
@@ -90,7 +90,7 @@ local timerEnrage			= mod:NewBuffActiveTimer(20, 40683)
 
 -- Maiev Shadowsong
 local warnCaged				= mod:NewSpellAnnounce(40695, 3)
-
+local timerNextCage 		= mod:NewCDTimer(45, 40695, "Next Trap", nil, nil, 3) --first trap 30s into p4 then every 45s
 local timerCaged			= mod:NewBuffActiveTimer(15, 40695, nil, nil, nil, 6)
 
 mod:AddRangeFrameOption("6/8")-- 40932: Spell is 5 yards, but give it 6 or good measure since 5 yard check is probably least precise one since nerfs. / 41917: Parasitic. REVIEW! arbitrary range
@@ -328,6 +328,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.flameBursts = 0
 		self.vb.demonForm = true
 		timerNextDemon:Cancel()
+		timerNextCage:Cancel()
 		warnDemon:Schedule(10)
 		timerNextHuman:Schedule(10)
 		timerNextFlameBurst:Schedule(7)
@@ -336,12 +337,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.warned_preP4 = true
 		timerParasite:Cancel()
 		timerNextFlameBurst:Cancel()
-		
 		timerNextHuman:Cancel()
 		timerNextDemon:Cancel()
 		timerNextHuman:Unschedule()
 		timerNextDemon:Unschedule()
-		
+		timerNextCage:Start(60) --30+30
+		self:Schedule(60, function()
+			timerNextCage:Start(45)
+		end)
 		timerPhase4:Start()
 		warnPhase4:Schedule(30)
 		
@@ -370,10 +373,10 @@ end
 
 function mod:UNIT_HEALTH(uId)
 	local cid = self:GetUnitCreatureId(uId)
-	if not self.vb.warned_preP2 and cid == 22917 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.75 then
+	if not self.vb.warned_preP2 and cid == 22917 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.70 then --phase at 65
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
-	elseif not self.vb.warned_preP4 and cid == 22917 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.35 then
+	elseif not self.vb.warned_preP4 and cid == 22917 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.35 then --phase at 30
 		self.vb.warned_preP4 = true
 		warnPhase4Soon:Show()
 	end
@@ -383,6 +386,7 @@ function mod:OnSync(msg)
 	if msg == "humanForm" and self.vb.demonForm then
 		DBM:Debug("<sync> Illidan switched to Human Form!")
 		humanForms(self)
+		timerNextCage:Start(45)
 	elseif msg == "caged" and not timerCaged:IsStarted() then 
 		warnCaged:Show()
 		timerCaged:Start()
