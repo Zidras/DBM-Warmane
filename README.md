@@ -11,6 +11,7 @@ Needs the dungeon map patch by Trimitor for the rangeradar to work: https://foru
 - Updated the DBM-Core to the current version from Zidras while maintaining balleny's specific changes to Chromiecraft. 
 - Archimonde respawn timer from: https://github.com/UndoUreche/DBM-CC-Solaris
 - Integrated some BossTimer from Cafe (TeaTime)
+- Added Trap Timer for Illidan P4
 - Several fixes for Zul Aman. 
 
 
