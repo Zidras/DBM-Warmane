@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("ZulJin", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031193249")
+mod:SetRevision("20250105182900")
 mod:SetCreatureID(23863)
 
 mod:SetZone()
 
-mod:RegisterCombat("combat_yell", L.YellPull) -- on Trinity Core I think the yell is swapped with intro yell
+mod:RegisterCombat("combat_yell", L.YellPull) -- //on Trinity Core I think the yell is swapped with intro yell
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 43093 43150 43213",
@@ -23,7 +23,7 @@ local warnPhase			= mod:NewPhaseChangeAnnounce(2, nil, nil, nil, nil, nil, 2)
 
 local specWarnParalyze	= mod:NewSpecialWarningDispel(43095, "RemoveMagic", nil, nil, 1, 2)
 
-local timerParalyzeCD	= mod:NewCDTimer(27, 43095, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON) -- (10m Frostmourne 2022/10/28) - 27.0
+local timerParalyzeCD	= mod:NewCDTimer(26, 43095, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON) -- 26s on AC
 
 function mod:OnCombatStart()
 	self:SetStage(1)
@@ -42,7 +42,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 43095 then
-		warnParalyzeSoon:Schedule(22)
+		warnParalyzeSoon:Schedule(21)
 		if self.Options.SpecWarn43095dispel and self:CheckDispelFilter("magic") then
 			specWarnParalyze:Show(DBM_COMMON_L.ALLIES)
 			specWarnParalyze:Play("helpdispel")
@@ -58,6 +58,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnPhase:Show(DBM_CORE_L.AUTO_ANNOUNCE_TEXTS.stage:format(2))
 		warnPhase:Play("ptwo")
 		self:SetStage(2)
+		timerParalyzeCD:Start(8) --AC Boss Script: Creeping Paralysis (43095) cast at 8s into phase, then 26-30s CD
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
 		warnParalyzeSoon:Cancel()
 		timerParalyzeCD:Cancel()

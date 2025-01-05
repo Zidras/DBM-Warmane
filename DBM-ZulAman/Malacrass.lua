@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Malacrass", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221101172357")
+mod:SetRevision("20250105182900")
 mod:SetCreatureID(24239)
 
 mod:SetZone()
@@ -32,7 +32,7 @@ local specWarnHeal4	= mod:NewSpecialWarningDispel(43421, "MagicDispeller", nil, 
 local specWarnTotem	= mod:NewSpecialWarningSwitch(43436, "Dps", nil, nil, 1, 2)
 
 local timerSiphon	= mod:NewTargetTimer(30, 43501, nil, nil, nil, 6)
-local timerBoltCD	= mod:NewCDTimer(41, 43383, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON) -- ~3s variance? (10m Frostmourne 2022/10/28) - 43.0, 42.3, 44.0, 44.1, 44.0
+local timerBoltCD	= mod:NewCDTimer(40, 43383, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON) -- 40seconds on AC
 local timerBolt		= mod:NewCastTimer(10, 43383, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerPatch	= mod:NewCastTimer(20, 43429, nil, nil, nil, 3)
 

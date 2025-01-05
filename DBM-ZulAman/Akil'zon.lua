@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akilzon", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103132545")
+mod:SetRevision("20250105182900")
 mod:SetCreatureID(23574)
 
 mod:SetZone()
@@ -57,6 +57,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if self.Options.StormIcon then
 			self:SetIcon(args.destName, 1, 1)
+		end
+		if args.destName == UnitName("player") then
+            SendChatMessage(" STORM ON " .. args.destName .. " ! GET UNDERNEATH !", "SAY") --added a chat message for effected player 
 		end
 	end
 end
