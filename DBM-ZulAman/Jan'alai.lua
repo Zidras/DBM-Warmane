@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Janalai", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103134456")
+mod:SetRevision("20250105230600")
 mod:SetCreatureID(23578)
 
 mod:SetZone()
@@ -11,7 +11,8 @@ mod:RegisterCombat("combat_yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 43140",
-	"CHAT_MSG_MONSTER_YELL"
+	"CHAT_MSG_MONSTER_YELL",
+	"UNIT_HEALTH"
 )
 
 local warnFlame			= mod:NewTargetNoFilterAnnounce(43140, 3)
@@ -25,9 +26,15 @@ local yellFlamebreath	= mod:NewYell(43140)
 local timerBomb			= mod:NewCastTimer(11, 42630, nil, nil, nil, 3)  --11s on AC
 local timerAdds			= mod:NewNextTimer(90, 43962, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON) -- 90s on AC
 
+--At 35% all remaining eggs will hatch
+local warnHatchSoon     = mod:NewAnnounce("warnHatchSoon", 4, 58542)
+
+
 local berserkTimer		= mod:NewBerserkTimer(600)
 
 mod:AddSetIconOption("FlameIcon", 43140, true, false, {1})
+mod.vb.warned_preHatch = false
+
 
 function mod:FlameTarget(targetname)
 	if not targetname then return end
@@ -44,8 +51,9 @@ function mod:FlameTarget(targetname)
 end
 
 function mod:OnCombatStart(delay)
-	timerAdds:Start(10-delay) -- (10m Frostmourne 2022/10/28 +0.5s delay) - 9.8
+	timerAdds:Start(10-delay) -- 10s on AC
 	berserkTimer:Start(-delay)
+	self.vb.warned_preHatch = false
 end
 
 function mod:SPELL_CAST_START(args)
@@ -63,5 +71,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		specWarnBomb:Show()
 		specWarnBomb:Play("watchstep")
 		timerBomb:Start()
+	end
+end
+
+function mod:UNIT_HEALTH(uId) --warning at 40%. At 35% all remaining eggs will hatch
+	local cid = self:GetUnitCreatureId(uId)
+	if not self.vb.warned_preHatch and cid == 23578 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.40 then
+		self.vb.warned_preHatch = true
+		warnHatchSoon:Show()
 	end
 end

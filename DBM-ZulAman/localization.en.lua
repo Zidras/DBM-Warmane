@@ -64,7 +64,12 @@ L = DBM:GetModLocalization("Janalai")
 L:SetGeneralLocalization({
 	name = "Jan'alai"
 })
-
+L:SetWarningLocalization({
+	warnHatchSoon	= "All remaining eggs will hatch soon",
+})
+L:SetOptionLocalization({
+	warnHatchSoon	= "Show a pre warning before all eggs are hatched",
+})
 L:SetMiscLocalization({
 	YellPull	= "Spirits of da wind be your doom!",
 	YellBomb	= "I burn ya now!",
