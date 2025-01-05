@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20240816163850")
+mod:SetRevision("20250105165845")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetHotfixNoticeRev(20240220000000)
@@ -66,7 +66,7 @@ local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
 local timerCombatStart		= mod:NewCombatTimer(55)
-local berserkTimer			= mod:NewBerserkTimer(900)
+local berserkTimer			= mod:NewBerserkTimer(myRealm == "Lordaeron" and mod:IsNormal() and 720 or 900)
 
 mod:AddBoolOption("RemoveImmunes")
 mod:AddMiscLine(L.FrameGUIDesc)
@@ -271,11 +271,7 @@ local function NextPhase(self, delay)
 	self.vb.valkyrWaveCount = 0
 	self.vb.soulReaperCount = 0
 	if self.vb.phase == 1 then
-		if myRealm == "Lordaeron" and self:IsDifficulty("normal10") then -- only normal10 has shorter timer
-			berserkTimer:Start(720-delay)
-		else
-			berserkTimer:Start(-delay)
-		end
+		berserkTimer:Start(-delay)
 		warnShamblingSoon:Schedule(15-delay)
 		timerShamblingHorror:Start(20-delay)
 		timerDrudgeGhouls:Start(10-delay)
