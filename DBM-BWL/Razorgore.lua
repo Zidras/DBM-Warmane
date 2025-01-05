@@ -32,7 +32,7 @@ local timerConflagCD		= mod:NewCDTimer(30, 23023, nil, false)
 
 mod:AddSpeedClearOption("BWL", true)
 
-mod.vb.eggsLeft = 30
+mod.vb.eggsLeft = 30 --review its not just 30 on CC
 mod.vb.firstEngageTime = nil
 local destroyEggName = DBM:GetSpellInfo(19873)
 
