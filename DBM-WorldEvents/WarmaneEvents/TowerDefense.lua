@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250105155715")
+mod:SetRevision("20250105191457")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -330,12 +330,9 @@ function mod:OnSync(msg)
 		specWarnIceBurstRun:Play("runout")
 
 		if self.Options.RangeFrame then
-			if not DBM.RangeCheck:IsShown() then
-				DBM.RangeCheck:Show(15)
-				DBM.RangeCheck:SetHideTime(3) -- boss casted for 2.86s with Curse of Tongues, 2.20s without
-			end
-
 			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(400024)) -- Shade of Aran
+			self:Schedule(3, DBM.RangeCheck.DisableBossMode, DBM.RangeCheck) -- boss casted for 2.86s with Curse of Tongues, 2.20s without
+			--DBM.RangeCheck:SetHideTime(3) -- Hide is not properly hiding boss radar, but restoring to a previous state that does not exist and defaults to range check.
 		end
 	elseif msg == "TowerDefense-Counterspell" then
 		specWarnCounterspellStopCast:Show()
