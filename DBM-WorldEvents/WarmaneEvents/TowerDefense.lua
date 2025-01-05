@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250103221835")
+mod:SetRevision("20250105155715")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -303,7 +303,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		self:Unschedule(resurrectionTicker)
 		self:UnregisterShortTermEvents()
 		-- Custom bar that's bound to core so timer doesn't stop when mod stops its own timers
-		DBT:CreateBar(45, self.localization.timers.TimerRound:format(self.vb.roundCounter + 1, (self.vb.roundCounter + 1) % 4 == 0 and DBM_COMMON_L.BOSS or DBM_COMMON_L.ADDS), "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, nil, nil, self.Options.TimerRoundTColor, nil, nil, nil, self.Options.TimerRoundCVoice, 5)
+		if self.Options.TimerRound then
+			local nextRound = self.vb.roundCounter + 1
+			local nextRoundIsBoss = (nextRound % 4) == 0
+			DBT:CreateBar(45, self.localization.timers.TimerRound:format(nextRound, nextRoundIsBoss and DBM_COMMON_L.MYTHIC_ICON..DBM_COMMON_L.BOSS or DBM_COMMON_L.ADDS), "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, nil, nil, nil, self.Options.TimerRoundTColor, nextRoundIsBoss and DBM_COMMON_L.MYTHIC_ICON or nil, nil, nil, self.Options.TimerRoundCVoice, 5)
+		end
 
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
