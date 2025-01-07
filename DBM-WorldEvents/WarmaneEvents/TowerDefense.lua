@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WarmaneTowerDefense", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250105191457")
+mod:SetRevision("20250107102914")
 mod:SetUsedIcons(1, 2, 3, 4, 5)
 mod:SetHotfixNoticeRev(20241231000000)
 mod.noStatistics = true -- needed to avoid Start/End chat messages, as well as other interactions not really suited for this event (wave based)
@@ -16,7 +16,7 @@ mod:RegisterEvents(
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 21099",
 	"SPELL_CAST_SUCCESS 15847 28410 34162",
-	"SPELL_AURA_APPLIED 36096 66009 20475 21098 22067 28410 41142",
+	"SPELL_AURA_APPLIED 36096 66009 20475 21098 22067 28410 41142 44535",
 	"SPELL_AURA_APPLIED_DOSE 41142",
 	"SPELL_AURA_REMOVED 28410",
 	"SPELL_DAMAGE",
@@ -27,7 +27,7 @@ mod:RegisterEventsInCombat(
 -- General
 local warnBossNow					= mod:NewCountAnnounce(31315, 1) -- not really a count, but used for boss name
 
-local timerToResurrect				= mod:NewNextTimer(30, 72423, nil, nil, nil, 6)
+local timerToResurrect				= mod:NewNextTimer(30, 44535, nil, nil, nil, 6)
 -- local timerCombatStart				= mod:NewCombatTimer(30)
 
 mod:RemoveOption("HealthFrame")
@@ -101,7 +101,7 @@ local playerClass = select(2, UnitClass("player"))
 local isHunter = playerClass == "HUNTER"
 
 local function resurrectionTicker(self)
-	timerToResurrect:Restart()
+	timerToResurrect:Start() -- removed Restart to catch all early refreshes
 	self:Schedule(30, resurrectionTicker, self)
 end
 
@@ -232,6 +232,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnAuraofDreadDefensive:Show(amount)
 			specWarnAuraofDreadDefensive:Play("defensive") -- Defensives or Immunities (if available - Cloak of Shadows, Divine Shield, Anti-Magic Shell)
 		end
+	elseif spellId == 44535 and self:AntiSpam(5, 8) then -- Spirit Heal (mass resurrection)
+		self:SendSync("TowerDefense-SpiritHeal")
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -289,7 +291,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 		self.vb.roundCounter = tonumber(msg:match(L.RoundStart))
 		DBM:AddSpecialEventToTranscriptorLog("Started round" .. tostring(self.vb.roundCounter))
 		activeBoss = nil
-		resurrectionTicker(self)
 		if (self.vb.roundCounter % 4) == 0 then -- Boss spawns every 4 rounds
 			self.vb.isBossRound = true
 		else
@@ -340,5 +341,8 @@ function mod:OnSync(msg)
 	elseif msg == "TowerDefense-WrathOfRagnaros" then
 		specWarnWrathOfRagnarosRun:Show()
 		specWarnWrathOfRagnarosRun:Play("runout")
+	elseif msg == "TowerDefense-SpiritHeal" then
+		self:Unschedule(resurrectionTicker)
+		resurrectionTicker(self)
 	end
 end
