@@ -3,14 +3,14 @@ local L		= mod:GetLocalizedStrings()
 
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20250106224658")
+mod:SetRevision("20250107151818")
 mod:SetModelID(37007)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod.isTrashMod = true
 
 mod:RegisterEvents(
 	"SPELL_CAST_START 71022 71088 71123 71942",
-	"SPELL_AURA_APPLIED 69483 72865 71127 70451 70432 70645 71785 71298 70475",
+	"SPELL_AURA_APPLIED 69483 72865 71127 70451 70432 70645 71785 71298 70475 71387",
 	"SPELL_AURA_APPLIED_DOSE 71127",
 	"SPELL_AURA_REMOVED 70451 70432 70645 71785 71298",
 	"SPELL_SUMMON 71159",
@@ -71,6 +71,7 @@ local timerChainsofShadow		= mod:NewTargetTimer(10, 70645, nil, false, nil, 3)
 local timerConflag				= mod:NewTargetTimer(10, 71785, nil, false, nil, 3)
 local timerBanish				= mod:NewTargetTimer(6, 71298, nil, false, nil, 3)
 local timerFrostblade			= mod:NewNextTimer(26, 70305, nil, nil, nil, 2)
+local timerRimefangFly			= mod:NewVarTimer("v30-35", 55238, nil, nil, nil, 1, 71376) -- REVIEW! 5s variance [30-35].
 
 mod:RemoveOption("HealthFrame")
 --Lower Spire
@@ -83,6 +84,26 @@ local valkyrHeraldGUID = {}
 local eventProfessorStarted = false
 mod.vb.nerubarAlive = 16 -- 8 each wave
 mod.vb.frostwardenAlive = 6
+mod.vb.rimefangPulled = false
+mod.vb.rimefangFlying = false
+
+local function mobCombatChecker(self, force, guid, cid) -- there should be a Core method to better handle this, since scheduling is not mob specific and can't handle multiple mobs at once
+	local uId = DBM:GetUnitIdFromGUID(guid)
+	if uId then
+		self:Schedule(5, mobCombatChecker, self, nil, guid, cid)
+	else
+		if not force then
+			self:Schedule(5, mobCombatChecker, self, true, guid, cid) -- double check after 5s, and force combat end if still not in combat
+		else -- Combat ended since it did not find uId, so let's assume the mob no longer exists or is no longer relevant to the raid (for example, in case of raid wipe)
+			if cid == 37533 then -- Rimefang
+				DBM:Debug("Rimefang is not in combat, resetting timers and variables")
+				self.vb.rimefangPulled = false
+				self.vb.rimefangFlying = false
+				timerRimefangFly:Cancel()
+			end
+		end
+	end
+end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
@@ -156,6 +177,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 70475 and not eventProfessorStarted then -- Giant Insect Swarm
 		eventProfessorStarted = true
 		timerProfessorEvent:Start()
+	elseif spellId == 71387 and not self.vb.rimefangPulled then -- Frost Aura (Rimefang)
+		self:SendSync("RimefangPulled", args.sourceGUID)
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -218,6 +241,8 @@ function mod:UNIT_DIED(args)
 		if self.vb.frostwardenAlive == 0 then
 			DBM:AddSpecialEventToTranscriptorLog("Sindra Gauntlet 3rd wave")
 		end
+	elseif cid == 37533 and self.vb.rimefangPulled then -- Rimefang
+		self:SendSync("RimefangDied")
 	end
 end
 
@@ -226,39 +251,57 @@ do
 	local valkGUID
 	local uIdTarget
 	local valkHasTarget
+
 	function mod:UNIT_TARGET(uId)
 		uIdTarget = uId.."target"
-		local unitTargetIsValk = self:GetUnitCreatureId(uIdTarget) == 37098
-		local unitIsValk =  self:GetUnitCreatureId(uId) == 37098
-		if not unitIsValk and not unitTargetIsValk then return end -- Stop if unit is not Valk or if raid member did not target a Valk
-
-		if unitTargetIsValk then -- Raid member fired this event
-			valkGUID = UnitGUID(uIdTarget)
-			valkHasTarget = UnitExists(uIdTarget.."target")
-
-			if not valkHasTarget and valkyrHeraldGUID[valkGUID] then
-				valkyrHeraldGUID[valkGUID] = nil -- Valk does not have a target -> hasn't aggroed anything or was reset
-				self:SendSync("ValkyrDeaggro", valkGUID)
-				DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' was reset")
+		local cuId = self:GetUnitCreatureId(uId)
+		if cuId == 37533 then -- Rimefang
+			if UnitExists(uIdTarget) then
+				if not self.vb.rimefangPulled then
+					self:SendSync("RimefangPulled", UnitGUID(uId))
+				else
+					if self.vb.rimefangFlying then
+						self:SendSync("RimefangLanded")
+					end
+				end
+			else
+				if self.vb.rimefangPulled and not self.vb.rimefangFlying then
+					self:SendSync("RimefangFlying")
+				end
 			end
-			if valkHasTarget and not valkyrHeraldGUID[valkGUID] then
-				valkyrHeraldGUID[valkGUID] = true -- Valkyr already had a raid target at the time of this check, meaning it was aggroed before, so prevent it from sending an aggro sync since timer would be innacurate.
-				DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' already had aggro!")
-			end
-			return -- rest of code does not need to run, so return here
-		end
+		else -- Valkyr Herald
+			local unitTargetIsValk = self:GetUnitCreatureId(uIdTarget) == 37098
+			local unitIsValk = cuId == 37098
+			if not unitIsValk and not unitTargetIsValk then return end -- Stop if unit is not Valk or if raid member did not target a Valk
 
-		if unitIsValk then -- Valk fired this event
-			valkGUID = UnitGUID(uId)
-			valkHasTarget = UnitExists(uIdTarget)
-			if not valkHasTarget and valkyrHeraldGUID[valkGUID] then
-				valkyrHeraldGUID[valkGUID] = nil -- Valk does not have a target -> hasn't aggroed anything or was reset
-				self:SendSync("ValkyrDeaggro", valkGUID)
-				DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' was reset")
+			if unitTargetIsValk then -- Raid member fired this event
+				valkGUID = UnitGUID(uIdTarget)
+				valkHasTarget = UnitExists(uIdTarget.."target")
+
+				if not valkHasTarget and valkyrHeraldGUID[valkGUID] then
+					valkyrHeraldGUID[valkGUID] = nil -- Valk does not have a target -> hasn't aggroed anything or was reset
+					self:SendSync("ValkyrDeaggro", valkGUID)
+					DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' was reset")
+				end
+				if valkHasTarget and not valkyrHeraldGUID[valkGUID] then
+					valkyrHeraldGUID[valkGUID] = true -- Valkyr already had a raid target at the time of this check, meaning it was aggroed before, so prevent it from sending an aggro sync since timer would be innacurate.
+					DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' already had aggro!")
+				end
+				return -- rest of code does not need to run, so return here
 			end
-			if valkHasTarget and not valkyrHeraldGUID[valkGUID] then
-				valkyrHeraldGUID[valkGUID] = true -- duplicated from the OnSync handler, to prevent this code from running twice, as well as to workaround antispam measures
-				self:SendSync("ValkyrAggro", valkGUID)
+
+			if unitIsValk then -- Valk fired this event
+				valkGUID = UnitGUID(uId)
+				valkHasTarget = UnitExists(uIdTarget)
+				if not valkHasTarget and valkyrHeraldGUID[valkGUID] then
+					valkyrHeraldGUID[valkGUID] = nil -- Valk does not have a target -> hasn't aggroed anything or was reset
+					self:SendSync("ValkyrDeaggro", valkGUID)
+					DBM:Debug("Valkyr Herald \'" .. valkGUID .. "\' was reset")
+				end
+				if valkHasTarget and not valkyrHeraldGUID[valkGUID] then
+					valkyrHeraldGUID[valkGUID] = true -- duplicated from the OnSync handler, to prevent this code from running twice, as well as to workaround antispam measures
+					self:SendSync("ValkyrAggro", valkGUID)
+				end
 			end
 		end
 	end
@@ -289,5 +332,25 @@ function mod:OnSync(msg, guid)
 	elseif msg == "ValkyrDeaggro" and guid then
 		valkyrHeraldGUID[guid] = nil
 		timerSeveredEssence:Cancel(guid)
+	elseif msg == "RimefangPulled" and not self.vb.rimefangPulled then
+		DBM:AddSpecialEventToTranscriptorLog("Rimefang pulled")
+		self.vb.rimefangPulled = true
+		self.vb.rimefangFlying = false
+		timerRimefangFly:Start()
+		mobCombatChecker(self, nil, guid, 37533)
+	elseif msg == "RimefangFlying" and not self.vb.rimefangFlying then
+		DBM:AddSpecialEventToTranscriptorLog("Rimefang flying")
+		self.vb.rimefangFlying = true
+		-- REVIEW! 60-70s on flying + moveTime to air position? Calc with first Icy Blast?
+	elseif msg == "RimefangLanded" and self.vb.rimefangFlying then
+		DBM:AddSpecialEventToTranscriptorLog("Rimefang landed")
+		self.vb.rimefangFlying = false
+		timerRimefangFly:Start() -- REVIEW based on above comment!
+	elseif msg == "RimefangDied" and self.vb.rimefangPulled then
+		DBM:AddSpecialEventToTranscriptorLog("Rimefang died")
+		self.vb.rimefangPulled = false
+		self.vb.rimefangFlying = false
+		timerRimefangFly:Cancel()
+		self:Unschedule(mobCombatChecker)
 	end
 end
