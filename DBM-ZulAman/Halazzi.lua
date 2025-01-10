@@ -68,7 +68,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellSpirit or msg:find(L.YellSpirit) then
 		warnSpirit:Show()
-		timerTotemCD:Start()
+		timerTotemCD:Start(12) -- AC :first totem is 12s CD 
 	elseif msg == L.YellNormal or msg:find(L.YellNormal) then
 		warnNormal:Show()
 		timerTotemCD:Stop()
