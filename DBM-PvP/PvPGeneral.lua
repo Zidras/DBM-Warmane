@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20241119131458")
+mod:SetRevision("20250107192636")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -262,10 +262,8 @@ local function UpdateFlagDisplay()
 			flagFrame2Text:SetText("")
 			flagButton2:SetAttribute("macrotext", "")
 		end
-		if allyFlag and hordeFlag then
+		if allyFlag and hordeFlag and not vulnerableTimer:IsStarted() then -- WSG specific (no need to check mapID since only this BG has 2 flags)
 			vulnerableTimer:Start()
-		else
-			vulnerableTimer:Cancel()
 		end
 	end
 end
@@ -750,10 +748,13 @@ do
 		elseif msg == L.Start15 or msg == L.Start15TC then
 			startTimer:Update(45, 60)
 			timerShadow:Schedule(15)
-		elseif self.Options.ShowFlagCarrier and (smatch(msg, L.FlagReset) or smatch(msg, L.FlagResetTC)) then
-			allyFlag = nil
-			hordeFlag = nil
-			UpdateFlagDisplay()
+		elseif smatch(msg, L.FlagReset) or smatch(msg, L.FlagResetTC) then
+			vulnerableTimer:Cancel()
+			if self.Options.ShowFlagCarrier then
+				allyFlag = nil
+				hordeFlag = nil
+				UpdateFlagDisplay()
+			end
 		-- Isle of Conquest Gates
 		elseif self.Options.ShowGatesHealth then
 			-- Horde Front Gate
