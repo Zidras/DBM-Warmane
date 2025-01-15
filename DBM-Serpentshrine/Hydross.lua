@@ -11,7 +11,7 @@ mod:RegisterCombat("combat_yell", L.YellPull)
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 38235 38246 37935",
 	"SPELL_AURA_REMOVED 38246 37935",
-	"SPELL_CAST_SUCCESS 38215 38216 38217 38219 38220 38221 38218 38231 40584 38222 38230 40583 25035"
+	"SPELL_CAST_SUCCESS 38215 38216 38217 38219 38220 38221 38218 38231 40584 38222 38230 40583 25035 38235"
 )
 
 --[[
@@ -28,6 +28,7 @@ local specWarnMark	= mod:NewSpecialWarning("SpecWarnMark")
 
 local timerMark		= mod:NewTimer(15, "TimerMark", 38215, nil, nil, 2)
 local timerSludge	= mod:NewTargetTimer(24, 38246, nil, nil, nil, 3)
+local timerTomb		= mod:NewVarTimer("v7-8", 38235, nil, nil, nil, 3)
 
 local berserkTimer	= mod:NewBerserkTimer(600)
 
@@ -46,6 +47,7 @@ local damageNext = {
 
 function mod:OnCombatStart(delay)
 	timerMark:Start(14.5-delay, markOfH, "10%")
+	timerTomb:Start()
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
@@ -76,6 +78,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerSludge:Stop(args.destName)
 	elseif spellId == 37935 and args:GetDestCreatureID() == 21216 then -- Cleansing Field - Poison form -
 		warnPhase:Show(L.Nature)
+		timerTomb:Cancel()
 	end
 end
 
@@ -99,5 +102,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnPhase:Show(L.Nature)
 			timerMark:Start(15.4, markOfC, "10%")
 		end
+	elseif args.spellId == 38235 then
+		timerTomb:Start()
 	end
 end
