@@ -32,6 +32,8 @@ mod.vb.submerged = false
 --mod.vb.guardianKill = 0
 --mod.vb.ambusherKill = 0
 
+local whirlName = GetSpellInfo(37660)
+
 --[[
 local function emerged(self)
 	self.vb.submerged = false
@@ -106,7 +108,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	--[[if spellName == GetSpellInfo(28819) and self:AntiSpam(2, 1) then--Submerge Visual
 		DBM:AddMsg("Submerge Visual unhidden from event log. Notify Zidras on Discord or GitHub")
 		self:SendSync("Submerge")]]
-	if spellName == GetSpellInfo(37660) and self:AntiSpam(2, 2) then
+	if spellName == whirlName and self:AntiSpam(2, 2) then
 		self:SendSync("Whirl")
 	end
 end
