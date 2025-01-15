@@ -32,12 +32,14 @@ mod.vb.submerged = false
 --mod.vb.guardianKill = 0
 --mod.vb.ambusherKill = 0
 
+--[[
 local function emerged(self)
 	self.vb.submerged = false
 	timerEmerge:Cancel()
 	warnEmerge:Show()
 	timerSubmerge:Start()
 end
+]]
 
 local function submerged(self)
 	self:SetStage(2)
