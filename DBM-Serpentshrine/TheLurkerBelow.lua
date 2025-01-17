@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LurkerBelow", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220813110833")
+mod:SetRevision("20250115214650")
 mod:SetCreatureID(21217)
 
 --mod:SetModelID(20216)
@@ -11,7 +11,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 20568",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
-	"UNIT_DIED",
+	--"UNIT_DIED",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
@@ -21,23 +21,27 @@ local warnWhirl			= mod:NewSpellAnnounce(37363, 2)
 
 local specWarnSpout		= mod:NewSpecialWarningSpell(37433, nil, nil, nil, 2, 2)
 
-local timerSubmerge		= mod:NewTimer(105, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6) -- REVIEW! no data to validate, but doesn't match wiki
+local timerSubmerge		= mod:NewTimer(120, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
 local timerEmerge		= mod:NewTimer(60, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
-local timerSpoutCD		= mod:NewCDTimer(118.5, 37433, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance? (25 man FM log 2022/08/11) - 118.5 (happened right after emerge)
+local timerSpoutCD		= mod:NewCDTimer(71, 37433, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON) -- REVIEW! variance? (25 man FM log 2022/08/11) - 118.5 (happened right after emerge)
 local timerSpoutCast	= mod:NewCastTimer(3, 37433, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerSpout		= mod:NewBuffActiveTimer(22, 37433, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerWhirlCD		= mod:NewCDTimer(18, 37363, nil, nil, nil, 2) -- REVIEW! variance? (25 man FM log 2022/08/11) - 18.0, (after emerge) 100.5
+local timerWhirlCD		= mod:NewCDTimer(18, 37363, nil, nil, nil, 2, nil, nil, true) -- REVIEW! variance? (25 man FM log 2022/08/11) - 18.0, (after emerge) 100.5
 
 mod.vb.submerged = false
-mod.vb.guardianKill = 0
-mod.vb.ambusherKill = 0
+--mod.vb.guardianKill = 0
+--mod.vb.ambusherKill = 0
 
+local whirlName = GetSpellInfo(37660)
+
+--[[
 local function emerged(self)
 	self.vb.submerged = false
 	timerEmerge:Cancel()
 	warnEmerge:Show()
 	timerSubmerge:Start()
 end
+]]
 
 local function submerged(self)
 	self:SetStage(2)
@@ -45,7 +49,7 @@ local function submerged(self)
 	self.vb.guardianKill = 0
 	self.vb.ambusherKill = 0
 	timerSubmerge:Cancel()
---	timerSpoutCD:Cancel()
+	timerSpoutCD:Cancel()
 	timerWhirlCD:Cancel()
 	warnSubmerge:Show()
 	timerEmerge:Start()
@@ -54,9 +58,10 @@ end
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	self.vb.submerged = false
-	timerWhirlCD:Start(62.5-delay) -- REVIEW! variance? (25 man FM log 2022/08/11) - 62.5
-	timerSpoutCD:Start(35.5-delay) -- REVIEW! variance? (25 man FM log 2022/08/11) - 35.5
+	timerWhirlCD:Start(-delay)
+	timerSpoutCD:Start(36-delay)
 	timerSubmerge:Start(90-delay)
+	self:Schedule(90-delay, submerged, self)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -65,7 +70,7 @@ function mod:SPELL_CAST_START(args)
 		timerEmerge:Cancel()
 		warnEmerge:Show()
 		timerSubmerge:Start()
-		self:Schedule(60, submerged, self)
+		self:Schedule(120, submerged, self)
 	end
 end
 
@@ -79,6 +84,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, source)
 	end
 end
 
+-- Onyxia PTR as of 15.01.2025 it emerges after static 60s
+--[[
 function mod:UNIT_DIED(args)
 	local cId = self:GetCIDFromGUID(args.destGUID)
 	if cId == 21865 then
@@ -95,12 +102,13 @@ function mod:UNIT_DIED(args)
 		end
 	end
 end
+]]
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(28819) and self:AntiSpam(2, 1) then--Submerge Visual
+	--[[if spellName == GetSpellInfo(28819) and self:AntiSpam(2, 1) then--Submerge Visual
 		DBM:AddMsg("Submerge Visual unhidden from event log. Notify Zidras on Discord or GitHub")
-		self:SendSync("Submerge")
-	elseif spellName == GetSpellInfo(37660) and self:AntiSpam(2, 2) then
+		self:SendSync("Submerge")]]
+	if spellName == whirlName and self:AntiSpam(2, 2) then
 		self:SendSync("Whirl")
 	end
 end

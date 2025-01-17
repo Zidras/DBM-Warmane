@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Tidewalker", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220812215520")
+mod:SetRevision("20250115214650")
 mod:SetCreatureID(21213)
 
 --mod:SetModelID(20739)
@@ -24,7 +24,7 @@ local warnBubble		= mod:NewSpellAnnounce(37854, 4)
 local specWarnMurlocs	= mod:NewSpecialWarning("SpecWarnMurlocs", nil, nil, nil, nil, nil, nil, 24984, 37764)
 
 local timerGraveCD		= mod:NewCDTimer(30, 38049, nil, nil, nil, 3) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 30.1, 30.0, 30.0, 30.0, 30.0 || 32.0, 30.1, 30.1
-local timerMurlocs		= mod:NewTimer(51, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
+local timerMurlocs		= mod:NewTimer(45, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
 local timerBubble		= mod:NewBuffActiveTimer(35, 37854, nil, nil, nil, 1)
 
 mod:AddSetIconOption("GraveIcon", 38049, true, false, {5, 6, 7, 8})
@@ -40,8 +40,8 @@ end
 function mod:OnCombatStart(delay)
 	self.vb.graveIcon = 8
 	table.wipe(warnGraveTargets)
-	timerGraveCD:Start(19.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 19.4 || 19.5
-	timerMurlocs:Start(40.4-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 40.5 || 40.4
+	timerGraveCD:Start(20-delay)
+	timerMurlocs:Start(-delay)
 end
 
 function mod:SPELL_CAST_START(args)
