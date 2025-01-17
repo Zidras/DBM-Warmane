@@ -18,7 +18,13 @@
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Magtheridon's Lair
 ## X-DBM-Mod-LoadZone-zhCN: 玛瑟里顿的巢穴
+## X-DBM-Mod-LoadZone-deDE: Magtheridons Kammer
+## X-DBM-Mod-LoadZone-esES: Guarida de Magtheridon
+## X-DBM-Mod-LoadZone-esMX: Guarida de Magtheridon
+## X-DBM-Mod-LoadZone-frFR: Le repaire de Magtheridon
+## X-DBM-Mod-LoadZone-koKR: 마그테리돈의 둥지
 ## X-DBM-Mod-LoadZone-ruRU: Логово Магтеридона
+## X-DBM-Mod-LoadZone-zhTW: 瑪瑟里頓的巢穴
 
 localization.en.lua
 localization.de.lua
