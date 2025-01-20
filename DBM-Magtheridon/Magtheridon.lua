@@ -109,14 +109,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(30657) then
-		timerQuakeCD:Start()
-		warnQuake:Show()
+--function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+--	if spellName == GetSpellInfo(30657) then
+--		timerQuakeCD:Start()
+--		warnQuake:Show()
 	-- "<99.72 20:36:19> [UNIT_SPELLCAST_SUCCEEDED] Magtheridon(31.4%-0.0%){Target:Player} -Blaze- [[boss1:Blaze::0:]]", -- [1219]
 	-- "<100.03 20:36:19> [CLEU] SPELL_AURA_APPLIED#0x0F000000000A3F3A#Player#0x0F000000000A3F3A#Player#30757#Conflagration#DEBUFF#nil#", -- [1220]
 --	elseif spellName == GetSpellInfo(40637) then
 --		timerConflagration:Start()
 --		warnConflagration:Show()
-	end
-end
+--	end
+--end
