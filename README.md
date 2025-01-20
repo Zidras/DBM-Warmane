@@ -6,14 +6,6 @@ Trying to continue DBM for chromie.
 
 Needs the dungeon map patch by Trimitor for the rangeradar to work: https://forum.warmane.com/showthread.php?t=424250
 
-# Current changelog:
-
-- Updated the DBM-Core to the current version from Zidras while maintaining balleny's specific changes to Chromiecraft. 
-- Archimonde respawn timer from: https://github.com/UndoUreche/DBM-CC-Solaris
-- Integrated some BossTimer from Cafe (TeaTime)
-- Added Trap Timer for Illidan P4
-- ZA Timer working properly
-
 
 <details>
 <div align="center">
