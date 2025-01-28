@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250128191115"),
+	Revision = parseCurseDate("20250128235540"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9983,6 +9983,10 @@ do
 		end
 	end
 
+	local function isNegativeZero(x)
+		return x == 0 and 1/x < 0  -- Only true for -0
+	end
+
 	-- Parse variance from timer string (v30.5-40" or "dv30.5-40"), into minimum and maximum timer, and calculated variance duration
 	---@param timer string
 	---@return number maxTimer, number minTimer, number varianceDuration
@@ -10021,12 +10025,22 @@ do
 			if DBM.Options.DontShowBossTimers and not self.mod.isTrashMod then return end
 			if DBM.Options.DontShowTrashTimers and self.mod.isTrashMod then return end
 		end
-		local hasVariance = type(timer) == "number" and false or not timer and self.hasVariance -- to separate from metadata, to account for metavariant timers with a fixed timer start, like timer:Start(10)
+		local isDelayed = type(timer) == "number" and (isNegativeZero(timer) or timer < 0)
+		local hasVariance = type(timer) == "number" and timer > 0 and false or not timer and self.hasVariance -- account for metavariant timers that were fired with a fixed timer start, like timer:Start(10). Does not account for timer:Start(-delay), which is parsed below after variance started timers
 		local timerStringWithVariance, minTimer
 		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
 			hasVariance = true
 			timerStringWithVariance = timer -- cache timer string
 			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
+		end
+		if isDelayed then -- catch metavariant timers with delay, expressed like timer:Start(-delay)
+			if self.hasVariance then
+				local maxTimer
+				hasVariance = self.hasVariance
+				maxTimer, minTimer = parseVarianceFromTimer(self.timerStringWithVariance) -- use highest possible value as the actual End timer
+				timerStringWithVariance = ("v%s-%s"):format(minTimer + timer, maxTimer + timer) -- rebuild timer string with delay applied
+				timer = maxTimer + timer
+			end
 		end
 		if timer and type(timer) ~= "number" then
 			return self:Start(nil, timer, ...) -- first argument is optional!
