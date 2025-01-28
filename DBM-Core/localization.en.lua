@@ -526,28 +526,28 @@ L.AUTO_TIMER_TEXTS.nextcountnp			= L.AUTO_TIMER_TEXTS.nextcount
 
 
 L.AUTO_TIMER_OPTIONS = {
-	target								= "Show timer for $spell:%s debuff (%ds)",
-	targetcount							= "Show timer (with count) for $spell:%s debuff (%ds)",
-	cast								= "Show timer for $spell:%s cast (%ds)",
-	castcount							= "Show timer (with count) for $spell:%s cast (%ds)",
-	castsource							= "Show timer (with source) for $spell:%s cast (%ds)",
-	active								= "Show timer for $spell:%s duration (%ds)",
-	fades								= "Show timer for when $spell:%s fades from players (%ds)",
-	ai									= "Show AI timer for $spell:%s cooldown (%ds)",
+	target								= "Show timer for $spell:%s debuff (%ss)",
+	targetcount							= "Show timer (with count) for $spell:%s debuff (%ss)",
+	cast								= "Show timer for $spell:%s cast (%ss)",
+	castcount							= "Show timer (with count) for $spell:%s cast (%ss)",
+	castsource							= "Show timer (with source) for $spell:%s cast (%ss)",
+	active								= "Show timer for $spell:%s duration (%ss)",
+	fades								= "Show timer for when $spell:%s fades from players (%ss)",
+	ai									= "Show AI timer for $spell:%s cooldown (%ss)",
 
-	cd									= "Show timer for $spell:%s cooldown (%ds)",
-	cdcount								= "Show timer for $spell:%s cooldown (%ds)",
-	cdnp								= "Show nameplate only timer for $spell:%s cooldown (%ds)",
-	cdnpcount							= "Show nameplate only timer (with count) for $spell:%s cooldown (%ds)",
-	cdsource							= "Show timer (with source) for $spell:%s cooldown (%ds)",--Maybe better wording?
-	cdspecial							= "Show timer for special ability cooldown (%ds)",
+	cd									= "Show timer for $spell:%s cooldown (%ss)",
+	cdcount								= "Show timer for $spell:%s cooldown (%ss)",
+	cdnp								= "Show nameplate only timer for $spell:%s cooldown (%ss)",
+	cdnpcount							= "Show nameplate only timer (with count) for $spell:%s cooldown (%ss)",
+	cdsource							= "Show timer (with source) for $spell:%s cooldown (%ss)",--Maybe better wording?
+	cdspecial							= "Show timer for special ability cooldown (%ss)",
 
-	next								= "Show timer for next $spell:%s (%ds)",
-	nextcount							= "Show timer for next $spell:%s (%ds)",
-	nextnp								= "Show nameplate only timer for next $spell:%s (%ds)",
-	nextnpcount							= "Show nameplate only timer (with count) for next $spell:%s (%ds)",
-	nextsource							= "Show timer (with source) for next $spell:%s (%ds)",--Maybe better wording?
-	nextspecial							= "Show timer for next special ability (%ds)",
+	next								= "Show timer for next $spell:%s (%ss)",
+	nextcount							= "Show timer for next $spell:%s (%ss)",
+	nextnp								= "Show nameplate only timer for next $spell:%s (%ss)",
+	nextnpcount							= "Show nameplate only timer (with count) for next $spell:%s (%ss)",
+	nextsource							= "Show timer (with source) for next $spell:%s (%ss)",--Maybe better wording?
+	nextspecial							= "Show timer for next special ability (%ss)",
 
 	var									= "Show timer (with variance) for $spell:%s cooldown window (%ss)",
 	varcount							= "Show timer (with count and variance) for $spell:%s cooldown window (%ss)",
@@ -557,11 +557,11 @@ L.AUTO_TIMER_OPTIONS = {
 	varspecial							= "Show timer (with variance) for special ability cooldown window (%ss)",
 	varcombo							= "Show timer (with variance) for ability combo cooldown window (%ss)",
 
-	achievement							= "Show timer for %s (%ds)",
-	stage								= "Show timer for next stage (%ds)",
-	adds								= "Show timer for incoming adds (%ds)",
-	addscustom							= "Show timer for incoming adds (%ds)",
-	roleplay							= "Show timer for roleplay duration (%ds)"--This does need localizing though.
+	achievement							= "Show timer for %s (%ss)",
+	stage								= "Show timer for next stage (%ss)",
+	adds								= "Show timer for incoming adds (%ss)",
+	addscustom							= "Show timer for incoming adds (%ss)",
+	roleplay							= "Show timer for roleplay duration (%ss)"--This does need localizing though.
 }
 
 L.AUTO_ICONS_OPTION_TARGETS				= "Set icons on $spell:%s targets"--Usually used for player targets with no specific sorting
