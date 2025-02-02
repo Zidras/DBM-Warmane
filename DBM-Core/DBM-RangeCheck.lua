@@ -1222,6 +1222,7 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	if not radarFrame then
 		createRadarFrame()
 	end
+	mainFrame.previouslyShown = self:IsShown()
 	local restrictionsActive = DBM:HasMapRestrictions()
 	if (DBM.Options.RangeFrameFrames == "text" or DBM.Options.RangeFrameFrames == "both" or restrictionsActive) and not textFrame:IsShown() then
 		DBM:Debug("Range TEXT frame shown", 3)
@@ -1240,7 +1241,6 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	mainFrame.hideTime = hideTime and (GetTime() + hideTime) or 0
 	mainFrame.restrictions = restrictionsActive
 	mainFrame.onlySummary = onlySummary
-	mainFrame.previouslyShown = true
 	mainFrame.bossUnit = bossUnit
 	mainFrame.bossMode = bossUnit ~= nil
 	if not mainFrame.eventRegistered then
@@ -1272,7 +1272,7 @@ function rangeCheck:DisableBossMode()
 		mainFrame.range = mainFrame.previousRange
 		restoreRange = mainFrame.range
 		if not mainFrame.previouslyShown then
-			self:Hide()
+			self:Hide(true)
 		end
 	end
 end
