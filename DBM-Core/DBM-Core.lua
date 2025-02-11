@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250209173401"),
+	Revision = parseCurseDate("20250211194309"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10088,21 +10088,24 @@ do
 		end
 		local isDelayed = type(timer) == "number" and (isNegativeZero(timer) or timer < 0)
 		local hasVariance = type(timer) == "number" and timer > 0 and false or not timer and self.hasVariance -- account for metavariant timers that were fired with a fixed timer start, like timer:Start(10). Does not account for timer:Start(-delay), which is parsed below after variance started timers
-		local timerStringWithVariance, minTimer
+		local timerStringWithVariance, maxTimer, minTimer
 		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
 			hasVariance = true
 			timerStringWithVariance = timer -- cache timer string
-			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
-		end
+			maxTimer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
+			timer = DBT.Options.VarianceEnabled and maxTimer or minTimer
+			end
 		if isDelayed then -- catch metavariant timers with delay, expressed like timer:Start(-delay)
 			if self.hasVariance then
-				local maxTimer
 				hasVariance = self.hasVariance
 				maxTimer, minTimer = parseVarianceFromTimer(self.timerStringWithVariance) -- use highest possible value as the actual End timer
 				timerStringWithVariance = ("v%s-%s"):format(minTimer + timer, maxTimer + timer) -- rebuild timer string with delay applied
-				timer = maxTimer + timer
+				timer = (DBT.Options.VarianceEnabled and maxTimer or minTimer) + timer
 			end
 		end
+--		if DBM.Options.DebugMode and self.mod.id ~= "TestMod" then
+--			self.keep = hasVariance -- keep variance timers for debug purposes
+--		end
 		if timer and type(timer) ~= "number" then
 			return self:Start(nil, timer, ...) -- first argument is optional!
 		end
@@ -10220,9 +10223,9 @@ do
 					if bar then
 						if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 							local remaining = ("%.2f"):format(bar.timer)
+							local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 							local ttext = _G[bar.frame:GetName() .. "BarName"]:GetText() or ""
 							ttext = ttext .. "(" .. self.id .. "-" .. (timer or 0) .. ")"
-							local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 							local phaseText = self.mod.vb.phase and " (" .. L.SCENARIO_STAGE:format(self.mod.vb.phase) .. ")" or ""
 							if bar.hasVariance then
 								if DBM.Options.BadTimerAlert and bar.timer > correctWithVarianceDuration(1, bar) then--If greater than 1 seconds off, report this out of debug mode to all users
