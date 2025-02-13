@@ -36,7 +36,7 @@ local timerInsidiousWhisper		= mod:NewBuffFadesTimer(30, 37676, nil, nil, nil, 6
 
 local berserkTimer				= mod:NewBerserkTimer(600)
 
-mod:AddSetIconOption("DemonIcon", 37676, false, false, {8, 7, 6, 5})
+mod:AddSetIconOption("DemonIcon", 37676, false, false, {5, 6, 7, 8})
 
 local warnDemonTargets = {}
 local warnMCTargets = {}
