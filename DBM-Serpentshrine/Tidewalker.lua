@@ -27,7 +27,7 @@ local timerGraveCD		= mod:NewCDTimer(30, 38049, nil, nil, nil, 3) -- REVIEW! var
 local timerMurlocs		= mod:NewTimer(45, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
 local timerBubble		= mod:NewBuffActiveTimer(35, 37854, nil, nil, nil, 1)
 
-mod:AddSetIconOption("GraveIcon", 38049, true, false, {3, 4, 5, 6})
+mod:AddSetIconOption("GraveIcon", 38049, true, false, {6, 5, 4, 3})
 
 local warnGraveTargets = {}
 mod.vb.graveIcon = 6
