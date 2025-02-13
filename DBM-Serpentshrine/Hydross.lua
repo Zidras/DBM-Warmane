@@ -47,7 +47,7 @@ local damageNext = {
 
 function mod:OnCombatStart(delay)
 	timerMark:Start(14.5-delay, markOfH, "10%")
-	timerTomb:Start()
+	timerTomb:Start(-delay)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
