@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vashj", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250115214650")
+mod:SetRevision("20250213133410")
 mod:SetCreatureID(21212)
 --mod:SetModelID(20748)
 mod:SetUsedIcons(1)
@@ -17,7 +17,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 38316 38509",
 	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_YELL",
-	"CHAT_MSG_LOOT"
+	"CHAT_MSG_LOOT",
+	"PARTY_LOOT_METHOD_CHANGED"
 )
 
 local warnCharge		= mod:NewTargetNoFilterAnnounce(38280, 4)
@@ -48,13 +49,13 @@ local timerNaga			= mod:NewTimer(47.5, "TimerNaga", 2120, nil, nil, 1)
 
 mod:AddRangeFrameOption(10, 38280)
 mod:AddSetIconOption("ChargeIcon", 38280, false, false, {1})
---mod:AddBoolOption("AutoChangeLootToFFA", true)
+mod:AddBoolOption("AutoChangeLootToFFA", true)
 
 mod.vb.shieldLeft = 4
 mod.vb.nagaCount = 0
 mod.vb.striderCount = 0
 mod.vb.elementalCount = 0
---local lootmethod, masterlooterRaidID
+local cachedLootmethod, _, masterlooterRaidID
 local elementals = {}
 
 local function StriderSpawn(self)
@@ -81,9 +82,11 @@ function mod:OnCombatStart(delay)
 	timerEntangleCD:Start(30-delay) -- Appears to be static 30s upon starting combat (As of 15.01.2025 on Onyxia PTR)
 	timerChargeCD:Start()
 	timerShockBlastCD:Start()
---	if DBM:IsInGroup() and DBM:GetRaidRank() == 2 then
---		lootmethod, _, masterlooterRaidID = GetLootMethod()
---	end
+	-- Cache the loot method in case loot gets manually changed to ffa before Phase 2
+	if DBM:GetRaidRank() == 2 then
+		cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
+		if cachedLootmethod == "freeforall" then cachedLootmethod = nil end
+	end
 end
 
 function mod:OnCombatEnd()
@@ -91,13 +94,14 @@ function mod:OnCombatEnd()
 		DBM.RangeCheck:Hide()
 	end
 	self:UnregisterShortTermEvents()
---	if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
---		if masterlooterRaidID then
---			SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
---		else
---			SetLootMethod(lootmethod)
---		end
---	end
+	-- Don't change loot if it was manually changed away from ffa
+	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() == "freeforall" and cachedLootmethod then
+		if masterlooterRaidID then
+			SetLootMethod(cachedLootmethod, "raid"..masterlooterRaidID)
+		else
+			SetLootMethod(cachedLootmethod)
+		end
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -169,8 +173,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:UNIT_DIED(args)
-	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 22009 then
+	local cId = self:GetCIDFromGUID(args.destGUID)
+	if cId == 22009 then
 		timerElemental:Cancel()
 	end
 end
@@ -204,9 +208,10 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:Schedule(63, StriderSpawn, self)
 		warnElemental:Schedule(45, tostring(self.vb.elementalCount + 1))
 		timerElementalCD:Start(nil, tostring(self.vb.elementalCount + 1))
---		if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
---			SetLootMethod("freeforall")
---		end
+		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() ~= "freeforall" then
+			cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
+			SetLootMethod("freeforall")
+		end
 		self:RegisterShortTermEvents(
 			"UNIT_SPELLCAST_FAILED_QUIET_UNFILTERED"
 		)
@@ -225,13 +230,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerEntangleCD:Start(30) -- Appears to be static 30s upon entering P3 (As of 15.01.2025 on Onyxia PTR)
 		timerChargeCD:Start()
 		timerShockBlastCD:Start()
---		if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
---			if masterlooterRaidID then
---				SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
---			else
---				SetLootMethod(lootmethod)
---			end
---		end
+		-- Don't change loot if it was manually changed
+		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() == "freeforall" and cachedLootmethod then
+			if masterlooterRaidID then
+				SetLootMethod(cachedLootmethod, "raid"..masterlooterRaidID)
+			else
+				SetLootMethod(cachedLootmethod)
+			end
+		end
 	end
 end
 
@@ -248,6 +254,14 @@ function mod:CHAT_MSG_LOOT(msg)
 			end
 		end
 		self:SendSync("LootMsg", player)
+	end
+end
+
+-- Case where combat was started with the wrong loot and changed manually, and then put to ffa manually before Phase 2
+-- This will not protect against misclicks before changing manually to ffa (loot will be returned to last misclicked type)
+function mod:PARTY_LOOT_METHOD_CHANGED()
+	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and self:GetStage(1) and GetLootMethod() ~= "freeforall" then
+		cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
 	end
 end
 

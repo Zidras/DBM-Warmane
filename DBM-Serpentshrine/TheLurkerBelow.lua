@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LurkerBelow", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250115214650")
+mod:SetRevision("20250213133410")
 mod:SetCreatureID(21217)
 
 --mod:SetModelID(20216)
@@ -84,7 +84,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, source)
 	end
 end
 
--- Onyxia PTR as of 15.01.2025 it emerges after static 60s
+-- Onyxia PTR as of 13.02.2025 it fires SPELL_CAST_START with spellId 20568 on emerge each time
 --[[
 function mod:UNIT_DIED(args)
 	local cId = self:GetCIDFromGUID(args.destGUID)

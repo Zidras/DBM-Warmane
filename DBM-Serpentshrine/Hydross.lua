@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250115214650")
+mod:SetRevision("20250213133410")
 mod:SetCreatureID(21216)
 
 --mod:SetModelID(20162)
@@ -47,7 +47,7 @@ local damageNext = {
 
 function mod:OnCombatStart(delay)
 	timerMark:Start(14.5-delay, markOfH, "10%")
-	timerTomb:Start()
+	timerTomb:Start(-delay)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
