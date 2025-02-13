@@ -55,7 +55,7 @@ mod.vb.shieldLeft = 4
 mod.vb.nagaCount = 0
 mod.vb.striderCount = 0
 mod.vb.elementalCount = 0
-local cachedLootmethod, masterlooterRaidID
+local cachedLootmethod, _, masterlooterRaidID
 local elementals = {}
 
 local function StriderSpawn(self)
