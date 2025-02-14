@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Tidewalker", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250115214650")
+mod:SetRevision("20250214104945")
 mod:SetCreatureID(21213)
 
 --mod:SetModelID(20739)
@@ -27,14 +27,15 @@ local timerGraveCD		= mod:NewCDTimer(30, 38049, nil, nil, nil, 3) -- REVIEW! var
 local timerMurlocs		= mod:NewTimer(45, "TimerMurlocs", 39088, nil, nil, 1, nil, nil, nil, nil, nil, nil, nil, 37764)
 local timerBubble		= mod:NewBuffActiveTimer(35, 37854, nil, nil, nil, 1)
 
-mod:AddSetIconOption("GraveIcon", 38049, true, false, {5, 6, 7, 8})
+mod:AddSetIconOption("GraveIcon", 38049, true, false, {8, 7, 6, 5})
 
 local warnGraveTargets = {}
 mod.vb.graveIcon = 8
 
-local function showGraveTargets()
+local function showGraveTargets(self)
 	warnGrave:Show(table.concat(warnGraveTargets, "<, >"))
 	table.wipe(warnGraveTargets)
+	self.vb.graveIcon = 8
 end
 
 function mod:OnCombatStart(delay)
@@ -66,9 +67,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		self.vb.graveIcon = self.vb.graveIcon - 1
 		if #warnGraveTargets >= 4 then
-			showGraveTargets()
+			showGraveTargets(self)
 		else
-			self:Schedule(0.3, showGraveTargets)
+			self:Schedule(0.3, showGraveTargets, self)
 		end
 	end
 end
