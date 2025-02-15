@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250211194309"),
+	Revision = parseCurseDate("20250215133919"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10795,6 +10795,8 @@ do
 				timerStringWithVariance = timer
 				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
 				timerStringVarianceGUI = ("%s-%s"):format(minTimer, timer)
+			else
+				error("bad string timer, expected number or string starting with d, v, or dv", 2)
 			end
 		end
 		local spellName, icon
