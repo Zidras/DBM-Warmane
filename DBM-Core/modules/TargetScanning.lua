@@ -1,6 +1,6 @@
 local _, private = ...
 
-local twipe, tinsert = table.wipe, table.insert
+local twipe = table.wipe
 local IsInGroup = private.IsInGroup
 local UnitExists, UnitPlayerOrPetInRaid, UnitGUID =
 	UnitExists, UnitPlayerOrPetInRaid, UnitGUID
