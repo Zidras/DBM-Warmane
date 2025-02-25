@@ -26,7 +26,7 @@ local timerHeathenCD			= mod:NewTimer(21, "timerHeathen", "Interface\\Icons\\Inv
 local timerReaverCD				= mod:NewTimer(21, "timerReaver", "Interface\\Icons\\Inv_Misc_Head_Orc_01", nil, nil, 1)
 local timerSharpShooterCD		= mod:NewTimer(21, "timerSharpShooter", "Interface\\Icons\\Inv_Misc_Head_Orc_01", nil, nil, 1)
 local timerBladeDanceCD			= mod:NewCDTimer(29, 30739, nil, nil, nil, 2, nil, nil, true)
-local timerSweepingStrikesCD	= mod:NewCDTimer(22, 35429, nil, nil, nil, 5, nil, nil, true)
+local timerSweepingStrikesCD	= mod:NewVarTimer("v22-24.5", 35429, nil, nil, nil, 5, nil, nil, true)
 
 mod.vb.addSet = 0
 mod.vb.addType = 0
