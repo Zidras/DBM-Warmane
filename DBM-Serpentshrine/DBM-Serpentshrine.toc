@@ -17,10 +17,21 @@
 ## X-DBM-Mod-MapID: 781
 ## X-DBM-Mod-Sort: 1005
 ## X-DBM-Mod-Name: Serpentshrine Cavern
+## X-DBM-Mod-Name-koKR: 불뱀 제단
+## X-DBM-Mod-Name-deDE: Höhle des Schlangenschreins
+## X-DBM-Mod-Name-esES: Caverna Santuario Serpiente
+## X-DBM-Mod-Name-esMX: Caverna Santuario Serpiente
 ## X-DBM-Mod-Name-zhCN: 毒蛇神殿
+## X-DBM-Mod-Name-zhCN: 毒蛇神殿洞穴
 ## X-DBM-Mod-Name-ruRU: Змеиное святилище
 ## X-DBM-Mod-LoadZone: Serpentshrine Cavern
+## X-DBM-Mod-LoadZone-koKR: 불뱀 제단
+## X-DBM-Mod-LoadZone-deDE: Höhle des Schlangenschreins
+## X-DBM-Mod-LoadZone-esES: Caverna Santuario Serpiente
+## X-DBM-Mod-LoadZone-esMX: Caverna Santuario Serpiente
 ## X-DBM-Mod-LoadZone-zhCN: 毒蛇神殿
+## X-DBM-Mod-LoadZone-zhTW: 毒蛇神殿洞穴
+## X-DBM-Mod-LoadZone-ruRU: меиное святилище
 
 localization.en.lua
 localization.cn.lua
