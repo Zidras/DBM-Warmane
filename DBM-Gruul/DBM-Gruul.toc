@@ -13,7 +13,13 @@
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Gruul
 ## X-DBM-Mod-Name-zhCN: 格鲁尔
+## X-DBM-Mod-Name-deDE: Gruuls Unterschlupf
+## X-DBM-Mod-Name-esES: Gruul
+## X-DBM-Mod-Name-esMX: Gruul
+## X-DBM-Mod-Name-frFR: Gruul
+## X-DBM-Mod-Name-koKR: 그룰의 둥지
 ## X-DBM-Mod-Name-ruRU: Груул
+## X-DBM-Mod-Name-zhTW: 格魯爾的巢穴
 ## X-DBM-Mod-MapID: 777
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Gruul's Lair
