@@ -23,7 +23,12 @@
 ## X-DBM-Mod-Name-ruRU: Крепость Бурь - Око
 ## X-DBM-Mod-MapID: 783
 ## X-DBM-Mod-LoadZone: Tempest Keep
+## X-DBM-Mod-LoadZone-esES: El Castillo de la Tempestad
+## X-DBM-Mod-LoadZone-esMX: El Castillo de la Tempestad
+## X-DBM-Mod-LoadZone-koKR: 폭풍우 요새
+## X-DBM-Mod-LoadZone-deDE: Festung der Stürme
 ## X-DBM-Mod-LoadZone-zhCN: 风暴要塞
+## X-DBM-Mod-LoadZone-zhTW: 風暴要塞
 ## X-DBM-Mod-LoadZone-ruRU: Крепость Бурь
 
 localization.en.lua
