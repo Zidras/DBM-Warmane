@@ -60,7 +60,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 30739 and self:AntiSpam(3, 1) then -- Blade Dance
 		specWarnBladeDance:Show()
-		timerBladeDanceCD:Start()
+		timerBladeDanceCD:Start(31)
 		specWarnBladeDance:Play("aesoon")
 	elseif args.spellId == 35429 then -- Sweeping Strikes
 		specWarnSweepingStrikes:Show()
