@@ -25,7 +25,7 @@ local specWarnSweepingStrikes	= mod:NewSpecialWarningSpell(35429, nil, nil, nil,
 local timerHeathenCD			= mod:NewTimer(21, "timerHeathen", "Interface\\Icons\\Inv_Misc_Head_Orc_01", nil, nil, 1)
 local timerReaverCD				= mod:NewTimer(21, "timerReaver", "Interface\\Icons\\Inv_Misc_Head_Orc_01", nil, nil, 1)
 local timerSharpShooterCD		= mod:NewTimer(21, "timerSharpShooter", "Interface\\Icons\\Inv_Misc_Head_Orc_01", nil, nil, 1)
-local timerBladeDanceCD			= mod:NewCDTimer(29, 30739, nil, nil, nil, 2, nil, nil, true)
+local timerBladeDanceCD			= mod:NewCDTimer(31, 30739, nil, nil, nil, 2, nil, nil, true)
 local timerSweepingStrikesCD	= mod:NewVarTimer("v22-24.5", 35429, nil, nil, nil, 5, nil, nil, true)
 
 mod.vb.addSet = 0
@@ -53,14 +53,14 @@ function mod:OnCombatStart(delay)
 	self.vb.addType = 0
 	timerHeathenCD:Start(27.5-delay)
 	self:Schedule(27.5, Adds, self) -- When reaches stairs, not when enters/spawns way down hallway.
-	timerBladeDanceCD:Start(-delay)
+	timerBladeDanceCD:Start(29-delay)
 	timerSweepingStrikesCD:Start(11-delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 30739 and self:AntiSpam(3, 1) then -- Blade Dance
 		specWarnBladeDance:Show()
-		timerBladeDanceCD:Start(31)
+		timerBladeDanceCD:Start()
 		specWarnBladeDance:Play("aesoon")
 	elseif args.spellId == 35429 then -- Sweeping Strikes
 		specWarnSweepingStrikes:Show()
