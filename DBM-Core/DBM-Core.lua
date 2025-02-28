@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250201101757"),
+	Revision = parseCurseDate("20250223003007"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -9983,6 +9983,67 @@ do
 		end
 	end
 
+	--"break" and "pull" timers have custom classifications that are straight forward and not in this table
+	local timerTypeSimplification = {
+		--All cooldown times, be they approx cd or next exact, or even AI timers, map to "CD"
+		["cdcount"] = "cd",
+		["cdsource"] = "cd",
+		["cdspecial"] = "cd",
+		["nextcount"] = "cd",
+		["nextsource"] = "cd",
+		["nextspecial"] = "cd",
+		["var"] = "cd",
+		["varcount"] = "cd",
+		["varsource"] = "cd",
+		["varspecial"] = "cd",
+		["ai"] = "cd",
+		["adds"] = "cd",
+		["addscustom"] = "cd",
+
+		--All nameplate only timers, be they approx or exact or ai cooldowns, or nameplate only cast timers
+		--CDs all map to cdnp but cast maps to castnp
+		["cdnp"] = "cdnp",
+		["cdpnp"] = "cdnp",
+		["nextnp"] = "cdnp",
+		["nextpnp"] = "cdnp",
+		["castpnp"] = "castnp",
+
+		--RPs all map to "warmup"
+		["roleplay"] = "warmup",
+		["combat"] = "warmup",
+
+		--all stage types will map to "stage"
+		["achievement"] = "stage",
+		["stagecount"] = "stage",
+		["stagecountcycle"] = "stage",
+		["stagecontext"] = "stage",
+		["stagecontextcount"] = "stage",
+		["intermission"] = "stage",
+		["intermissioncount"] = "stage",
+
+		--Target Bars such as buff/debuff on another player, on self, or on the boss, RPs all map to "target"
+		["targetcount"] = "target",
+		["fades"] = "target",--Fades is usually used as a personal target timer. So like debuff on other player is "debuff (targetname)" but on self it's just "debuff fades"
+
+		--All cast bar types map to "cast"
+		["active"] = "cast",--Active bars are usually things like Whirlwind is active on the boss, or a channeled cast is being done. so effectively it's for channeled casts, as upposed to regular casts
+		["castsource"] = "cast",
+		["castcount"] = "cast",
+	}
+
+	--Very similar to above but more specific to key replacement and not type replacement, to match BW behavior for unification of WAs
+	local waKeyOverrides = {
+		["combat"] = "warmup",
+		["roleplay"] = "warmup",
+		["achievement"] = "stages",
+		["stagecount"] = "stages",
+		["stagecountcycle"] = "stages",
+		["stagecontext"] = "stages",
+		["stagecontextcount"] = "stages",
+		["intermission"] = "stages",
+		["intermissioncount"] = "stages",
+	}
+
 	local function isNegativeZero(x)
 		return x == 0 and 1/x < 0  -- Only true for -0
 	end
@@ -10027,26 +10088,46 @@ do
 		end
 		local isDelayed = type(timer) == "number" and (isNegativeZero(timer) or timer < 0)
 		local hasVariance = type(timer) == "number" and timer > 0 and false or not timer and self.hasVariance -- account for metavariant timers that were fired with a fixed timer start, like timer:Start(10). Does not account for timer:Start(-delay), which is parsed below after variance started timers
-		local timerStringWithVariance, minTimer
+		local timerStringWithVariance, maxTimer, minTimer
 		if type(timer) == "string" and timer:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
 			hasVariance = true
 			timerStringWithVariance = timer -- cache timer string
-			timer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
-		end
+			maxTimer, minTimer = parseVarianceFromTimer(timer) -- use highest possible value as the actual End timer
+			timer = DBT.Options.VarianceEnabled and maxTimer or minTimer
+			end
 		if isDelayed then -- catch metavariant timers with delay, expressed like timer:Start(-delay)
 			if self.hasVariance then
-				local maxTimer
 				hasVariance = self.hasVariance
 				maxTimer, minTimer = parseVarianceFromTimer(self.timerStringWithVariance) -- use highest possible value as the actual End timer
 				timerStringWithVariance = ("v%s-%s"):format(minTimer + timer, maxTimer + timer) -- rebuild timer string with delay applied
-				timer = maxTimer + timer
+				timer = (DBT.Options.VarianceEnabled and maxTimer or minTimer) + timer
 			end
 		end
+--		if DBM.Options.DebugMode and self.mod.id ~= "TestMod" then
+--			self.keep = hasVariance -- keep variance timers for debug purposes
+--		end
 		if timer and type(timer) ~= "number" then
 			return self:Start(nil, timer, ...) -- first argument is optional!
 		end
 		if not self.option or self.mod.Options[self.option] then
-			if self.type and (self.type == "cdcount" or self.type == "nextcount") and not self.allowdouble then--remove previous timer.
+			local isCountTimer = false
+			if self.type and (self.type == "cdcount" or self.type == "nextcount" or self.type == "stagecount" or self.type == "stagecontextcount" or self.type == "stagecountcycle" or self.type == "intermissioncount" or self.type == "varcount") then
+				isCountTimer = true
+			end
+			local guid, timerCount
+			if select("#", ...) > 0 then--If timer has args
+				for i = 1, select("#", ...) do
+					local v = select(i, ...)
+					if DBM:IsNonPlayableGUID(v) then--Then scan them for a mob guid
+						guid = v--If found, guid will be passed in DBM_TimerStart callback
+					end
+					--Not most efficient way to do it, but since it's already being done for guid, it's best not to repeat the work
+					if isCountTimer and type(v) == "number" then
+						timerCount = v
+					end
+				end
+			end
+			if isCountTimer and not self.allowdouble then--remove previous timer.
 				for i = #self.startedTimers, 1, -1 do
 --					if DBM.Options.BadTimerAlert or DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
 						local bar = DBT:GetBar(self.startedTimers[i])
@@ -10119,7 +10200,7 @@ do
 						return--Don't start the bogus timer shoved into timer field in the mod
 					end
 				else--AI timer passed with 4 or less is indicating phase change, with timer as phase number
-					if self["phase"..timer.."CastTimer"] and type(self["phase"..timer.."CastTimer"]) == "number" then
+					if self["phase" .. timer .. "CastTimer"] and type(self["phase" .. timer .. "CastTimer"]) == "number" then
 						--Check if timer is shorter than previous learned first timer by scanning remaining time on existing bar
 						local bar = DBT:GetBar(id)
 						if bar then
@@ -10142,9 +10223,9 @@ do
 					if bar then
 						if mabs(bar.timer) > 0.1 then -- Positive and Negative ("keep") timers. Also shortened time window
 							local remaining = ("%.2f"):format(bar.timer)
+							local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 							local ttext = _G[bar.frame:GetName() .. "BarName"]:GetText() or ""
 							ttext = ttext .. "(" .. self.id .. "-" .. (timer or 0) .. ")"
-							local deltaFromVarianceMinTimer = ("%.2f"):format(bar.hasVariance and bar.timer - bar.varianceDuration or bar.timer)
 							local phaseText = self.mod.vb.phase and " (" .. L.SCENARIO_STAGE:format(self.mod.vb.phase) .. ")" or ""
 							if bar.hasVariance then
 								if DBM.Options.BadTimerAlert and bar.timer > correctWithVarianceDuration(1, bar) then--If greater than 1 seconds off, report this out of debug mode to all users
@@ -10172,10 +10253,10 @@ do
 			local colorId
 			if self.option then
 				colorId = self.mod.Options[self.option .. "TColor"]
-			elseif self.colorType and type(self.colorType) == "string" then--No option for specific timer, but another bool option given that tells us where to look for TColor
+			elseif self.colorType and type(self.colorType) == "string" then--No option for specific timer, but another bool option given that tells us where to look for TColor (for mods such as trio boss for valentines day in events mods)
 				colorId = self.mod.Options[self.colorType .. "TColor"]
 			else--No option, or secondary option, set colorId to hardcoded color type
-				colorId = self.colorType
+				colorId = self.colorType or 0
 			end
 			local countVoice, countVoiceMax = 0, self.countdownMax or 4
 			if self.option then
@@ -10187,7 +10268,7 @@ do
 				end
 			end
 			-- timerStringWithVariance checks for timer string sent from Start method, self.timerStringWithVariance is from newTimer constructor. Else, use timer value
-			local bar = DBT:CreateBar(timerStringWithVariance or (hasVariance and self.timerStringWithVariance) or timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax)
+			local bar = DBT:CreateBar(timerStringWithVariance or (hasVariance and self.timerStringWithVariance) or timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade, countVoice, countVoiceMax, self.simpType == "cd" or self.simpType == "cdnp")
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
@@ -10203,35 +10284,30 @@ do
 			end
 			msg = msg:gsub(">.-<", stripServerName)
 			bar:SetText(msg, self.inlineIcon)
-			--ID: Internal DBM timer ID
-			--msg: Timer Text (Do not use msg has an event trigger, it varies language to language or based on user timer options. Use this to DISPLAY only (such as timer replacement UI). use spellId field 99% of time
-			--timer: Raw timer value (number).
-			--Icon: Texture Path for Icon
-			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, stage, ai. Durations: target, active, fades, roleplay. Casting: cast)
-			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers. EJ id will be in format ej%d
-			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Stage, 7-User(custom))
-			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
-			--Keep: true or nil, whether or not to keep bar on screen when it expires (if true, timer should be retained until an actual TimerStop occurs or a new TimerStart with same barId happens (in which case you replace bar with new one)
-			--fade: true or nil, whether or not to fade a bar (set alpha to usersetting/2)
-			--spellName: Sent so users can use a spell name instead of spellId, if they choose. Mostly to be more classic wow friendly, spellID is still preferred method (even for classic)
-			--MobGUID if it could be parsed out of args
+			--ID (string) Internal DBM timer ID
+			--msg (string) Timer Text (Do not use msg has an event trigger, it varies language to language or based on user timer options. Use this to DISPLAY only (such as timer replacement UI). use spellId field 99% of time
+			--timer (number) Raw timer value. Will return lowest number in variance timers (like DBM has always done, earliest an ability comes off CD is expected behavior for weak auras)
+			--Icon (string or number): Texture Path for Icon
+			--simpleType (string): Timer type, which is one of only 7 possible types: "cd" for coolodwns, "target" for target bars such as debuff on a player, "stage" for any kind of stage timer (stage ends, next stage, or even just a warmup timer like "fight begins"), and then "cast" timer which is used for both a regular cast and a channeled cast (ie boss is casting frostbolt, or boss is channeling whirlwind). Lastly, break, pull, and berserk timers are "breaK", "pull", and "berserk" respectively
+			--spellId (string or number): Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers. EJ id will be in format ej%d
+			--colorID (number): Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Stage, 7-User(custom))
+			--Mod ID (string or number): Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
+			--Keep (true or nil), whether or not to keep bar on screen when it expires (if true, timer should be retained until an actual TimerStop occurs or a new TimerStart with same barId happens (in which case you replace bar with new one)
+			--fade (true or nil), whether or not to fade a bar (set alpha to usersetting/2)
+			--spellName (string) Sent so users can use a spell name instead of spellId, if they choose. Mostly to be more classic wow friendly, spellID is still preferred method (even for classic)
+			--MobGUID (string) if it could be parsed out of args
+			--timerCount (number) if current timer is a count timer. Returns number (count value) needed to have weak auras that trigger off a specific timer count without using localized message text
+			--isPriority: If true, this ability has been flagged as extra important. Can be used for weak auras or nameplate addons to add extra emphasis onto specific timer like a glow
+			--fullType (the true type of timer, for those who really want to filter timers by DBM classifications such as "adds" or "interrupt")
 			--hasVariance (true or nil) if timer has variance.
 			--variancePeaktimer (number) if timer has variance, this is the peak timer in the variance window, otherwise nil
-			local guid
-			if select("#", ...) > 0 then--If timer has args
-				for i = 1, select("#", ...) do
-					local v = select(i, ...)
-					if DBM:IsNonPlayableGUID(v) then--Then scan them for a mob guid
-						guid = v--If found, guid will be passed in DBM_TimerStart callback
-					end
-				end
-			end
+
 			--Mods that have specifically flagged that it's safe to assume all timers from that boss mod belong to boss1
 			--This check is performed secondary to args scan so that no adds guids are overwritten
 			if not guid and self.mod.sendMainBossGUID and not DBM.Options.DontSendBossGUIDs and (self.type == "cd" or self.type == "next" or self.type == "cdcount" or self.type == "nextcount" or self.type == "cdspecial" or self.type == "ai") then--Variance excluded for now while NP timers don't support yet
 				guid = UnitGUID("boss1")
 			end
-			fireEvent("DBM_TimerStart", id, msg, minTimer or (hasVariance and self.minTimer) or timer, self.icon, self.type, self.spellId, colorId, self.mod.id, self.keep, self.fade, self.name, guid)
+			fireEvent("DBM_TimerStart", id, msg, minTimer or (hasVariance and self.minTimer) or timer, self.icon, self.simpType, self.waSpecialKey or self.spellId, colorId, self.mod.id, self.keep, self.fade, self.name, guid, timerCount, self.isPriority, self.type, hasVariance, hasVariance and timer)
 			--Basically tops bar from starting if it's being put on a plater nameplate, to give plater users option to have nameplate CDs without actually using the bars
 			--This filter will only apply to trash mods though, boss timers will always be shown due to need to have them exist for Pause, Resume, Update, and GetTime/GetRemaining methods
 			if guid and DBM.Options.DontShowTimersWithNameplates and Plater and Plater.db.profile.bossmod_support_bars_enabled and self.mod.isTrashMod then
@@ -10554,7 +10630,7 @@ do
 	end
 
 	function timerPrototype:Resume(...)
-		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local id = self.id .. pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBT:GetBar(id)
 		if bar then
 			local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
@@ -10626,13 +10702,13 @@ do
 	end
 
 	--If a new countdown default is added to a NewTimer object, change optionName of timer to reset a new default
-	function bossModPrototype:NewTimer(timer, name, texture, optionDefault, optionName, colorType, inlineIcon, keep, countdown, countdownMax, r, g, b, spellId, requiresCombat)
+	function bossModPrototype:NewTimer(timer, name, texture, optionDefault, optionName, colorType, inlineIcon, keep, countdown, countdownMax, r, g, b, spellId, requiresCombat, waCustomName, customType, isPriority)
 		if r and type(r) == "string" then
-			DBM:Debug("|cffff0000r probably has inline icon in it and needs to be fixed for |r"..name..r)
+			DBM:Debug("|cffff0000r probably has inline icon in it and needs to be fixed for |r" .. name .. r)
 			r = nil--Fix it for users
 		end
 		if inlineIcon and type(inlineIcon) == "number" then
-			DBM:Debug("|cffff0000spellID texture path or colorType is in inlineIcon field and needs to be fixed for |r"..name..inlineIcon)
+			DBM:Debug("|cffff0000spellID texture path or colorType is in inlineIcon field and needs to be fixed for |r" .. name .. inlineIcon)
 			inlineIcon = nil--Fix it for users
 		end
 		local hasVariance, timerStringWithVariance, minTimer, varianceDuration
@@ -10644,13 +10720,23 @@ do
 			end
 		end
 		local icon = type(texture) == "number" and ( texture <=8 and (iconFolder .. texture) or select(3, GetSpellInfo(texture))) or texture or "Interface\\Icons\\Spell_Nature_WispSplode"
+		local waSpecialKey, simpType
+		if customType then
+			simpType = timerTypeSimplification[customType] or customType
+			waSpecialKey = waKeyOverrides[customType]
+		end
 		local obj = setmetatable(
 			{
+				objClass = "Timer",
 				text = self.localization.timers[name],
+				type = customType or "cd",--Auto assign
+				simpType = simpType or "cd",
+				waSpecialKey = waSpecialKey,
+				spellId = spellId,--Allows Localized timer text to still have a spellId arg weak auras can latch onto
 				timer = timer,
 				id = name,
 				icon = icon,
-				colorType = colorType,
+				colorType = colorType or 0,
 				inlineIcon = inlineIcon,
 				keep = keep,
 				countdown = countdown,
@@ -10665,10 +10751,12 @@ do
 				varianceDuration = varianceDuration,
 				startedTimers = {},
 				mod = self,
+				startLarge = nil,
+				isPriority = isPriority,
 			},
 			mt
 		)
-		obj:AddOption(optionDefault, optionName, colorType, countdown, spellId)
+		obj:AddOption(optionDefault, optionName, colorType, countdown, spellId, nil, waCustomName)
 		tinsert(self.timers, obj)
 		return obj
 	end
@@ -10676,7 +10764,7 @@ do
 	-- new constructor for the new auto-localized timer types
 	-- note that the function might look unclear because it needs to handle different timer types, especially achievement timers need special treatment
 	-- If a new countdown is added to an existing timer that didn't have one before, use optionName (number) to force timer to reset defaults by assigning it a new variable
-	local function newTimer(self, timerType, timer, spellId, timerText, optionDefault, optionName, colorType, texture, inlineIcon, keep, countdown, countdownMax, r, g, b, requiresCombat)
+	local function newTimer(self, timerType, timer, spellId, timerText, optionDefault, optionName, colorType, texture, inlineIcon, keep, countdown, countdownMax, r, g, b, requiresCombat, isPriority)
 		if type(timer) == "string" and timer:match("OptionVersion") then
 			DBM:Debug("|cffff0000OptionVersion hack depricated, remove it from: |r"..spellId)
 			return
@@ -10707,6 +10795,8 @@ do
 				timerStringWithVariance = timer
 				timer, minTimer, varianceDuration = parseVarianceFromTimer(timer)
 				timerStringVarianceGUI = ("%s-%s"):format(minTimer, timer)
+			else
+				error("bad string timer, expected number or string starting with d, v, or dv", 2)
 			end
 		end
 		local spellName, icon
@@ -10714,9 +10804,9 @@ do
 		if timerType == "achievement" then
 			spellName = select(2, GetAchievementInfo(spellId))
 			icon = type(texture) == "number" and select(10, GetAchievementInfo(texture)) or texture or spellId and select(10, GetAchievementInfo(spellId))
-		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" then
+		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" or timerType == "stagecount" or timerType == "stagecountcycle" or timerType == "stagecontext" or timerType == "stagecontextcount" or timerType == "intermission" or timerType == "intermissioncount" then
 			icon = type(texture) == "number" and select(3, GetSpellInfo(texture)) or texture or (type(spellId) == "number" and select(3, GetSpellInfo(spellId))) or "Interface\\Icons\\Spell_Nature_WispSplode"
-			if timerType == "stage" then
+			if timerType == "stage" or timerType == "stagecount" or timerType == "stagecountcycle" or timerType == "stagecontext" or timerType == "stagecontextcount" or timerType == "intermission" or timerType == "intermissioncount" then
 				colorType = 6
 			end
 		elseif timerType == "roleplay" then
@@ -10744,11 +10834,16 @@ do
 				timerTextValue = self.localization.timers[timerText] or timerText--Check timers table first, otherwise accept it as literal timer text
 			end
 		end
-		local id = "Timer"..(spellId or 0)..timerType..(optionVersion or "")
+		local id = "Timer" .. (spellId or 0) .. timerType .. (optionVersion or "")
+		local simpType = timerTypeSimplification[timerType] or timerType
+		local waSpecialKey = waKeyOverrides[timerType]
 		local obj = setmetatable(
 			{
+				objClass = "Timer",
 				text = timerTextValue,
 				type = timerType,
+				simpType = simpType,
+				waSpecialKey = waSpecialKey,--Not same as simpType, this overrides option key
 				spellId = spellId,
 				name = spellName,--If name gets stored as nil, it'll be corrected later in Timer start, if spell name returns in a later attempt
 				timer = timer,
@@ -10763,6 +10858,7 @@ do
 				g = g,
 				b = b,
 				requiresCombat = requiresCombat,
+				isPriority = isPriority or false,
 				allowdouble = allowdouble,
 				hasVariance = hasVariance,
 				minTimer = minTimer,
@@ -11025,7 +11121,7 @@ do
 		timer = timer or 600
 		local warning1 = self:NewAnnounce(text or L.GENERIC_WARNING_BERSERK, 1, nil, "warning_berserk", false)
 		local warning2 = self:NewAnnounce(text or L.GENERIC_WARNING_BERSERK, 4, nil, "warning_berserk", false)
-		local bar = self:NewTimer(timer, barText or L.GENERIC_TIMER_BERSERK, barIcon or 28131, nil, "timer_berserk")
+		local bar = self:NewTimer(timer, barText or L.GENERIC_TIMER_BERSERK, barIcon or 28131, nil, "timer_berserk", nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, "berserk")
 		local obj = setmetatable(
 			{
 				warning1 = warning1,
@@ -11042,7 +11138,7 @@ do
 	function bossModPrototype:NewCombatTimer(timer, _, barText, barIcon) -- timer, text, barText, barIcon
 		timer = timer or 10
 		--NewTimer(timer, name, texture, optionDefault, optionName, colorType, inlineIcon, keep, countdown, countdownMax, r, g, b)
-		local bar = self:NewTimer(timer, barText or L.GENERIC_TIMER_COMBAT, barIcon or "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, "timer_combat", nil, nil, nil, 1, 5)
+		local bar = self:NewTimer(timer, barText or L.GENERIC_TIMER_COMBAT, barIcon or "Interface\\Icons\\Ability_Warrior_OffensiveStance", nil, "timer_combat", nil, nil, nil, 1, 5, nil, nil, nil, nil, nil, nil, "combat")
 		local obj = setmetatable(
 			{
 				bar = bar,
