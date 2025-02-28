@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250223003007"),
+	Revision = parseCurseDate("20250228223705"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10317,8 +10317,8 @@ do
 			if not tContains(self.startedTimers, id) then--Make sure timer doesn't exist already before adding it
 				tinsert(self.startedTimers, id)
 			end
+			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			if not self.keep then--Don't ever remove startedTimers on a schedule, if it's a keep timer
-				self.mod:Unschedule(removeEntry, self.startedTimers, id)
 				self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
 			end
 			return bar
@@ -10428,6 +10428,7 @@ do
 				fireEvent("DBM_TimerStop", self.startedTimers[i])
 				DBT:CancelBar(self.startedTimers[i])
 				DBM:Unschedule(playCountSound, self.startedTimers[i])--Unschedule countdown by timerId
+				DBM:Unschedule(removeEntry, self.startedTimers, self.startedTimers[i])
 				tremove(self.startedTimers, i)
 			end
 		else
@@ -10444,6 +10445,7 @@ do
 					fireEvent("DBM_TimerStop", id, guid)
 					DBT:CancelBar(id)
 					DBM:Unschedule(playCountSound, id)--Unschedule countdown by timerId
+					DBM:Unschedule(removeEntry, self.startedTimers, self.startedTimers[i])
 					tremove(self.startedTimers, i)
 				end
 			end
@@ -10518,9 +10520,9 @@ do
 		fireEvent("DBM_TimerUpdate", id, elapsed, totalTime)
 		if bar then
 			local newRemaining = totalTime-elapsed
+			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			if not bar.keep and newRemaining > 0 then
 				--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
-				self.mod:Unschedule(removeEntry, self.startedTimers, id)
 				self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
 			end
 			if self.option then
@@ -10550,10 +10552,10 @@ do
 			if bar then
 				local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
 				if elapsed and total then
-					local newRemaining = (total+extendAmount) - elapsed
+					local newRemaining = (total + extendAmount) - elapsed
+					self.mod:Unschedule(removeEntry, self.startedTimers, id)
 					if not bar.keep then
 					--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
-						self.mod:Unschedule(removeEntry, self.startedTimers, id)
 						self.mod:Schedule(newRemaining, removeEntry, self.startedTimers, id)
 					end
 					if self.option then
@@ -10582,9 +10584,7 @@ do
 			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 			local bar = DBT:GetBar(id)
 			if bar then
-				if not bar.keep then
-					self.mod:Unschedule(removeEntry, self.startedTimers, id)--Needs to be unscheduled here, or the entry might just get left in table until original expire time, if new expire time is less than 0
-				end
+				self.mod:Unschedule(removeEntry, self.startedTimers, id)--Needs to be unscheduled here, or the entry might just get left in table until original expire time, if new expire time is less than 0
 				DBM:Unschedule(playCountSound, id)--Needs to be unscheduled here,or countdown might not be canceled if removing time made it cease to have a > 0 value
 				local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
 				if elapsed and total then
@@ -10621,9 +10621,7 @@ do
 		local bar = DBT:GetBar(id)
 		if bar then
 			DBM:Unschedule(playCountSound, id)--Kill countdown on pause
-			if not bar.keep then
-				self.mod:Unschedule(removeEntry, self.startedTimers, id)--Prevent removal from startedTimers table while bar is paused
-			end
+			self.mod:Unschedule(removeEntry, self.startedTimers, id)--Prevent removal from startedTimers table while bar is paused
 			fireEvent("DBM_TimerPause", id)
 			return bar:Pause()
 		end
