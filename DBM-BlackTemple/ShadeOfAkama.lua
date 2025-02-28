@@ -12,7 +12,6 @@ mod:SetWipeTime(50)--Adds come about every 50 seconds, so require at least this 
 mod:RegisterEventsInCombat(
 --	"SPELL_CAST_START 39945", --not really needed boss is a trash mob on Chromiecraft; 
 	"SPELL_CAST_SUCCESS 34189",
-	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED 34189",
 	"SPELL_SUMMON 42035 40476 40474",
 	"UNIT_DIED"
