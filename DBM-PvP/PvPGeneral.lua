@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20250107192636")
+mod:SetRevision("20250305221715")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -540,6 +540,11 @@ do
 			return
 		end
 		local cId = DBM:GetCIDFromGUID(destGUID)
+		if not gatesHP[cId] then
+			DBM:Debug("SPELL_BUILDING_DAMAGE on ID: "..cId.." is not a tracked unit")
+			DBM:AddMsg("DBM-PvP missing gate data, please notify Zidras on Github or Discord - ID: "..cId.." and Name: "..destName)
+			return
+		end
 		if gatesHP[cId][1] == nil then -- first hit
 			if self.Options.ShowGatesHealth then
 				if not DBM.InfoFrame:IsShown() then
