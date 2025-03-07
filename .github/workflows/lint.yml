@@ -15,14 +15,14 @@ jobs:
 
     env:
       LUA_VERSION: 5.1.5
-      LUAROCKS_VERSION: 2.4.2
+      LUAROCKS_VERSION: 3.11.1
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Cache Lua
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       id: luacache
       with:
         path: .lua
@@ -30,7 +30,7 @@ jobs:
         restore-keys: ${{ runner.os }}-lua-${{ env.LUA_VERSION }}
 
     - name: Cache LuaRocks
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       id: luarockscache
       with:
         path: .luarocks
