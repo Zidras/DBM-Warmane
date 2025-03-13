@@ -63,6 +63,7 @@ local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 
 local specWarnScentofBlood	= mod:NewSpecialWarningSpell(72769, nil, nil, nil, nil, nil, 3) -- Heroic Ablility
+local specWarnBeastOnYou	= mod:NewSpecialWarning("SpecWarnBloodBeastSwing", true, nil, nil, nil, 1, 2, nil, 72173, 72173)
 
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 3)
 local timerNextScentofBlood	= mod:NewNextTimer(10, 72769, nil, nil, nil, 2) -- 10 seconds after Beasts spawn, if any of them is alive
@@ -149,6 +150,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	DBM.BossHealth:Clear()
+	self:UnregisterShortTermEvents()
 end
 
 function mod:SPELL_CAST_START(args)
@@ -218,11 +220,21 @@ function mod:SPELL_SUMMON(args)
 			if self:IsHeroic() then
 				timerNextScentofBlood:Start()
 			end
+			self:RegisterShortTermEvents(
+				"SWING_DAMAGE"
+			)
 		end
 		if self.Options.BeastIcons then
 			self:ScanForMobs(args.destGUID, 2, self.vb.beastIcon, 1, nil, 10, "BeastIcons")
 		end
 		self.vb.beastIcon = self.vb.beastIcon - 1
+	end
+end
+
+function mod:SWING_DAMAGE(sourceGUID, _, _, destGUID)
+	if destGUID == UnitGUID("player") and self:GetCIDFromGUID(sourceGUID) == 38508 then -- Blood Beast
+		specWarnBeastOnYou:Show()
+		specWarnBeastOnYou:Play("targetyou")
 	end
 end
 
@@ -232,6 +244,7 @@ function mod:UNIT_DIED(args)
 		self.vb.bloodBeastAlive = self.vb.bloodBeastAlive - 1
 		if self.vb.bloodBeastAlive == 0 then
 			timerNextScentofBlood:Cancel()
+			self:UnregisterShortTermEvents()
 		end
 	end
 end
