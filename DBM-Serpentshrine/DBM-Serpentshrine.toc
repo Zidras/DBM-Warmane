@@ -31,7 +31,7 @@
 ## X-DBM-Mod-LoadZone-esMX: Caverna Santuario Serpiente
 ## X-DBM-Mod-LoadZone-zhCN: 毒蛇神殿
 ## X-DBM-Mod-LoadZone-zhTW: 毒蛇神殿洞穴
-## X-DBM-Mod-LoadZone-ruRU: меиное святилище
+## X-DBM-Mod-LoadZone-ruRU: Змеиное святилище
 
 localization.en.lua
 localization.cn.lua
