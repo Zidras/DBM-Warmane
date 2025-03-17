@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Bloodboil", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230108171130_cafe20241008v3")
+mod:SetRevision("20250317164800")
 mod:SetCreatureID(22948)
 mod:SetModelID(21443)
 mod:SetHotfixNoticeRev(20230108000000)
@@ -11,7 +11,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 40508",
-	"SPELL_CAST_SUCCESS 42005 40491 40486 40597 40508 40595", -- added 40486 40597 for eject, 40508 40595 for breath
+	"SPELL_CAST_SUCCESS 42005 40491",
 	"SPELL_AURA_APPLIED 42005 40481 40491 40604 40594",
 	"SPELL_AURA_APPLIED_DOSE 40481",
 	"SPELL_AURA_REFRESH 40481",
@@ -31,8 +31,6 @@ local specWarnBlood		= mod:NewSpecialWarningStack(42005, nil, 1, nil, nil, 1, 2)
 
 local timerBloodCD		= mod:NewCDCountTimer(10, 42005, nil, nil, nil, 5, nil, DBM_COMMON_L.IMPORTANT_ICON)
 local timerStrikeCD		= mod:NewCDCountTimer(20+10, 40491, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON) --adjusted to 30s as in script
-local timerEject		= mod:NewCDTimer(20, 40486, nil, nil, nil, 2) --new eject timer
-local timerBreath		= mod:NewCDTimer(30, 40508, nil, nil, nil, 2) --new breath timer
 
 -- Stage Two: Fel Rage
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(40594))
@@ -60,8 +58,6 @@ function mod:OnCombatStart(delay)
 	timerBloodCD:Start(9.5+0.5-delay, 1) --adjust to 10s as in script
 	timerStrikeCD:Start(9.4+18.6-delay, 1) --adjust to 28s as in script
 	timerRageCD:Start(59.6+0.4-delay) --adjusted to 60s as in script
-	timerEject:Start(14-delay) --new eject timer
-	timerBreath:Start(38-delay) --new breath timer
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(42005))
 		DBM.InfoFrame:Show(30, "playerdebuffstacks", 42005, 1)
@@ -97,11 +93,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerStrikeCD:Start(nil, self.vb.strikeCount+1)
 		end
-	elseif spellId == 40486 or 40597 then
-		timerEject:Start() --new eject timer
-	elseif spellId == 40508 or 40595 then
-		timerBreath:Start() --new breath timer
-	end
+	end	
 end
 
 function mod:SPELL_AURA_APPLIED(args)

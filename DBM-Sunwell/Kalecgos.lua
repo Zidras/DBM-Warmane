@@ -33,11 +33,6 @@ local timerBuffetCD		= mod:NewCDTimer(8, 45018, nil, nil, nil, 2)
 local timerPorted		= mod:NewBuffActiveTimer(60, 46021, nil, nil, nil, 6)
 local timerExhausted	= mod:NewBuffActiveTimer(60, 44867, nil, nil, nil, 6)
 
-local berserkTimer
-if mod:IsTimewalking() then
-	berserkTimer		= mod:NewBerserkTimer(300) -- Doesn't exist on retail
-end
-
 mod:AddRangeFrameOption("12")
 mod:AddBoolOption("ShowRespawn", true)
 mod:AddBoolOption("ShowFrame", true)
@@ -54,9 +49,6 @@ mod.vb.portCount = 1
 
 function mod:OnCombatStart(delay)
 	self.vb.portCount = 1
-	if self:IsTimewalking() then
-		berserkTimer:Start(-delay)
-	end
 	if self.Options.ShowFrame then
 		Kal:CreateFrame()
 	end
