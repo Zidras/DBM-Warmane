@@ -6,6 +6,8 @@ Trying to continue DBM for chromie.
 
 Needs the dungeon map patch by Trimitor for the rangeradar to work: https://forum.warmane.com/showthread.php?t=424250
 
+Only the english Localization is working properly
+
 
 <details>
 <div align="center">
