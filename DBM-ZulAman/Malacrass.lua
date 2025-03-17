@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Malacrass", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250105182900")
+mod:SetRevision("20250317112900")
 mod:SetCreatureID(24239)
 
 mod:SetZone()
@@ -11,7 +11,7 @@ mod:RegisterCombat("yell", L.YellPull)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 43548 43451 43431",
 	"SPELL_CAST_SUCCESS 43383 43429",
-	"SPELL_AURA_APPLIED 43501 43421",
+	"SPELL_AURA_APPLIED 43501 43421 43429",
 	"SPELL_SUMMON 43436"
 )
 
@@ -22,7 +22,7 @@ local warnHeal1		= mod:NewCastAnnounce(43548, 3)
 local warnHeal2		= mod:NewCastAnnounce(43451, 3)
 local warnHeal3		= mod:NewCastAnnounce(43431, 3)
 local warnHeal4		= mod:NewTargetNoFilterAnnounce(43421, 3)
-local warnPatch		= mod:NewSpellAnnounce(43429, 3)
+local warnPatch		= mod:NewSpecialWarningMove(43429, nil, nil, nil, 1, 2)
 
 local specWarnBolt	= mod:NewSpecialWarningSpell(43383, nil, nil, nil, 2, 2)
 local specWarnHeal1	= mod:NewSpecialWarningInterrupt(43548, "HasInterrupt", nil, nil, 1, 2)
@@ -76,7 +76,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerBolt:Start()
 		timerBoltCD:Start()
 	elseif spellId == 43429 then -- Consescration
-		warnPatch:Show()
 		timerPatch:Start()
 	end
 end
@@ -93,6 +92,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warnHeal4:Show(args.destName)
 		end
+	elseif spellId == 43429 and args:IsPlayer() and self:AntiSpam(3, 3) then
+		warnPatch:Show()
+		warnPatch:Play("runaway")	
 	end
 end
 
