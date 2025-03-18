@@ -362,8 +362,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 
 		if self.vb.phase == 4 then
 			timerNextEnrage:Schedule(69.5)
-			timerNextCage:Cancel()
-			timerCaged:Cancel()
+			timerNextCage:Start()
 		end
 
 -- newly added to remove phase 2 spam
@@ -405,12 +404,12 @@ function mod:UNIT_AURA(uId)
     
     -- Check for cage first, regardless of other conditions
     if DBM:UnitDebuff(uId, 40695) then
-        -- Only trigger if it's been at least 10 seconds since the last warning
+        -- Only trigger if it's been at least 15 seconds since the last warning
         local now = GetTime()
-        if now - self.vb.lastCageWarning > 10 then
+        if now - self.vb.lastCageWarning > 15 then
             self:SendSync("caged")
-            warnCaged:Show()
             timerCaged:Start()
+			warnCaged:Show()
             self.vb.lastCageWarning = now
         end
     end
