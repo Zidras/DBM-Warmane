@@ -153,7 +153,7 @@ local function humanForms(self) -- corrected on the fly using UNIT_AURA, and che
 	elseif self.vb.phase == 4 then
 		timerNextEnrage:Start(40)
 		timerFlameCD:Start(25) --added new timer
-
+		timerNextCage:Start()
 	end
 end
 
@@ -346,6 +346,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.flameBursts = 0
 		self.vb.demonForm = true
 		timerNextDemon:Cancel()
+		timerNextCage:Cancel()
+		timerCaged:Cancel()
 		warnDemon:Show()
 		timerPhaseDemon:Start(9.5) --new transition timer
 		timerNextHuman:Start(60+9.5)
@@ -360,6 +362,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 
 		if self.vb.phase == 4 then
 			timerNextEnrage:Schedule(69.5)
+			timerNextCage:Cancel()
+			timerCaged:Cancel()
 		end
 
 -- newly added to remove phase 2 spam
@@ -397,24 +401,29 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:UNIT_AURA(uId)
+    self.vb.lastCageWarning = self.vb.lastCageWarning or 0
+    
     -- Check for cage first, regardless of other conditions
     if DBM:UnitDebuff(uId, 40695) then
-        self:SendSync("caged")
-        warnCaged:Show()
-        timerCaged:Start()
+        -- Only trigger if it's been at least 10 seconds since the last warning
+        local now = GetTime()
+        if now - self.vb.lastCageWarning > 10 then
+            self:SendSync("caged")
+            warnCaged:Show()
+            timerCaged:Start()
+            self.vb.lastCageWarning = now
+        end
     end
 	if not self.vb.demonForm then return end -- Demon phase
 	if DBM:GetUnitCreatureId(uId) ~= 22917 then return end -- Illidan
 
-	local demonForm = DBM:UnitBuff(uId, 40506)
+	local demonForm = DBM:UnitBuff(uId, 40506) --this sometimes triggers after he yells but before he transforms thus DBM thinking he is in human form despite being in demon
 	if self.vb.demonForm and not demonForm then -- Illidan was in Demon Form but just lost buff and morphed into Human Form
 		-- self.vb.demonForm = false -- redundancy. untested if it is actually needed, but theoretically I want to prevent UNIT_AURA from rerunning during OnSync runtime
 		DBM:Debug("<personal> Illidan switched to Human Form!")
 		self:SendSync("humanForm")
-		if self.vb.phase == 4 then 
-			timerNextCage:Start(45)
-		end
 	end
+
 end
 
 function mod:UNIT_HEALTH(uId)
@@ -429,15 +438,16 @@ function mod:UNIT_HEALTH(uId)
 end
 
 function mod:OnSync(msg)
-	if msg == "humanForm" and self.vb.demonForm then
-		DBM:Debug("<sync> Illidan switched to Human Form!")
-		humanForms(self)
+	if msg == "humanForm" then
+		if self.vb.demonForm then
+			DBM:Debug("<sync> Illidan switched to Human Form!")
+			humanForms(self)
+		end
 	elseif msg == "caged" and not timerCaged:IsStarted() then 
-		warnCaged:Show()
 		timerCaged:Start()
+		warnCaged:Show()
 	end
 end
-
 local last_status = 0
 
 function mod:UNIT_THREAT_SITUATION_UPDATE(args)
