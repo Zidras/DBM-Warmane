@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brutallus", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250318120745")
 mod:SetCreatureID(24882)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -26,12 +26,13 @@ local specWarnMeteor	= mod:NewSpecialWarningStack(45150, nil, 4, nil, nil, 1, 6)
 local specWarnBurn		= mod:NewSpecialWarningYou(46394, nil, nil, nil, 1, 2)
 local yellBurn			= mod:NewYell(46394)
 
-local timerMeteorCD		= mod:NewCDTimer(12, 45150, nil, nil, nil, 3)
-local timerStompCD		= mod:NewCDTimer(31, 45185, nil, nil, nil, 2)
+local timerMeteorCD		= mod:NewCDTimer(11, 45150, nil, nil, nil, 3) --AzerothCore: Initial cast at 11 seconds, then every 10 seconds
+
+local timerStompCD		= mod:NewCDTimer(30, 45185, nil, nil, nil, 2) --AzerothCore: Initial cast at 30 seconds, then every 30 seconds
 local timerBurn			= mod:NewTargetTimer(60, 46394, nil, "false", 2, 3)
 local timerBurnCD		= mod:NewCDTimer(20, 46394, nil, nil, nil, 3)
 
-local berserkTimer		= mod:NewBerserkTimer(mod:IsTimewalking() and 300 or 360)
+local berserkTimer		= mod:NewBerserkTimer(360)
 
 mod:AddSetIconOption("BurnIcon", 46394, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(4, 46394)
