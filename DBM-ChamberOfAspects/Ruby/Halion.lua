@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230823000630")
+mod:SetRevision("20250318212740")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
 mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
@@ -142,7 +142,7 @@ function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff time
 	elseif spellId == 74562 then
 		timerFieryCombustionCD:Start()
 		fieryCombustionCLEU = true
-		if self.vb.phase > 1 and self:LatencyCheck() then -- useless on phase 1 since everyone is in the same realm
+		if self:GetStage(1, 2) and self:LatencyCheck() then -- useless on phase 1 since everyone is in the same realm
 			self:SendSync("FieryCD")
 		end
 	elseif spellId == 74531 then -- Tail Lash
@@ -340,12 +340,12 @@ function mod:OnSync(msg, target)
 			warningFieryBreath:Show()
 			timerFieryBreathCD:Start()
 		end
-	elseif msg == "FieryCD" and self.vb.phase > 1 then -- block old comms that run this for the entirety of the raid, which is useless on phase 1 since everyone is in the same realm
+	elseif msg == "FieryCD" and self:GetStage(1, 2) then -- block old comms that run this for the entirety of the raid, which is useless on phase 1 since everyone is in the same realm
 		if self.Options.AnnounceAlternatePhase and not fieryCombustionCLEU then
 			fieryCombustionCLEU = false -- reset state for next CLEU/sync check
 			timerFieryCombustionCD:Start()
 		end
-	elseif msg == "Phase2" and self.vb.phase < 2 then
+	elseif msg == "Phase2" and self:GetStage(2, 1) then
 		self:SetStage(2)
 		timerFieryBreathCD:Cancel()
 		timerMeteorCD:Cancel()
@@ -360,7 +360,7 @@ function mod:OnSync(msg, target)
 			timerTwilightCutterCD:Start(30) -- (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/09/21) - Stage 2/30.0 || Stage 2/30.0
 		end
 		self:Schedule(20, clearKeepTimers, self)
-	elseif msg == "Phase3" and self.vb.phase < 3 then
+	elseif msg == "Phase3" and self:GetStage(3, 1) then
 		self:SetStage(3)
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
