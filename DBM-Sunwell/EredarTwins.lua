@@ -187,7 +187,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
+	if self:GetCIDFromGUID(args.destGUID) == 25166 then -- Grand Warlock Alythess
 		self:SetStage(2)
 	end
 end
