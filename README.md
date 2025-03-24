@@ -8,7 +8,7 @@ Needs the dungeon map patch by Trimitor for the rangeradar to work: https://foru
 
 Only English localization is fully supported
 
-SWP is shamelessy stolen from Cafe/Proxi from teatime. Credit to them <3
+SWP is shamelessy stolen from Cafe/Proxi from teatime. All Credit to them <3
 
 
 <details>
