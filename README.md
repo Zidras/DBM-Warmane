@@ -1,6 +1,6 @@
 
 
-# DM for Chromiecraft
+# DBM for Chromiecraft
 
 Trying to continue Ballenys DBM for Chromiecraft. Includes latest core updates from Zidras (https://github.com/Zidras/DBM-Warmane) and many adjustments and fixes specific for Azerothcore/Chromiecraft.
 
