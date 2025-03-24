@@ -96,21 +96,21 @@ function mod:SPELL_MISSED(_, _, _, _, _, _, spellId)
 	end
 end
 
-function mod:ShadowNovaTarget(targetname)
+function mod:ShadowNovaTarget(targetname) --this is redundant with emote detection
 	if not targetname then return end
-	if targetname == UnitName("player") then
-		specWarnNova:Show()
-		specWarnNova:Play("targetyou")
-		yellNova:Yell()
-	elseif self:CheckNearby(2, targetname) then
-		specWarnNovaNear:Show(targetname)
-		specWarnNovaNear:Play("runaway")
-	else
-		warnNova:Show(targetname)
-	end
-	if self.Options.NovaIcon then
-		self:SetIcon(targetname, 7, 5)
-	end
+--	if targetname == UnitName("player") then
+--		specWarnNova:Show()
+--		specWarnNova:Play("targetyou")
+--		yellNova:Yell()
+--	elseif self:CheckNearby(2, targetname) then
+--		specWarnNovaNear:Show(targetname)
+--		specWarnNovaNear:Play("runaway")
+--	else
+--		warnNova:Show(targetname)
+--	end
+--	if self.Options.NovaIcon then
+--		self:SetIcon(targetname, 7, 5)
+--	end
 end
 
  function mod:ConflagrationTarget(targetname) 
@@ -139,7 +139,7 @@ function mod:SPELL_CAST_START(args)
 		timerNovaCD:Start()
 		self:BossTargetScanner(25165, "ShadowNovaTarget", 0.05, 6)
 	elseif args.spellId == 45342 then -- Conflagration
---		timerConflag:Start()
+		timerConflag:Start()
 		timerConflagCD:Start()
 		self:BossTargetScanner(self:GetCIDFromGUID(args.sourceGUID), "ConflagrationTarget", 0.05, 6)
 	end
