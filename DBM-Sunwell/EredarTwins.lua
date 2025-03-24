@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925155424")
+mod:SetRevision("20250324181725")
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(7, 8)
 
@@ -37,14 +37,14 @@ local specWarnPyro			= mod:NewSpecialWarningDispel(45230, "MagicDispeller", nil,
 local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, false, 5, nil, 2, 1, 6)
 local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, false, 5, nil, nil, 1, 6)
 
-local timerBladeCD			= mod:NewCDTimer(11.5, 45248, nil, "Melee", 2, 2)
+local timerBladeCD			= mod:NewCDTimer(10, 45248, nil, "Melee", 2, 2)
 local timerBlowCD			= mod:NewCDTimer(20, 45256, nil, nil, nil, 3)
-local timerConflagCD		= mod:NewCDTimer(31, 45333, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration
-local timerNovaCD			= mod:NewCDTimer(31, 45329, nil, nil, nil, 3)
-local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
+local timerConflagCD		= mod:NewCDTimer(30, 45333, nil, nil, nil, 3, nil, nil, true) -- AC 30-35s
+local timerNovaCD			= mod:NewCDTimer(30, 45329, nil, nil, nil, 3) --AC 30-35s
+local timerConflag			= mod:NewCastTimer(3.5, 45342, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
-local berserkTimer			= mod:NewBerserkTimer(mod:IsTimewalking() and 300 or 360)
+local berserkTimer			= mod:NewBerserkTimer(360)
 
 mod:AddRangeFrameOption("12")
 mod:AddSetIconOption("ConflagIcon", 45333, false, false, {7})
@@ -53,7 +53,7 @@ mod:AddSetIconOption("NovaIcon", 45329, false, false, {8})
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
-	timerConflagCD:Start(18) -- variable (18-22?)
+	timerConflagCD:Start(20) -- AC: first conflag is fix at 20s
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
 	end
@@ -113,21 +113,21 @@ function mod:ShadowNovaTarget(targetname)
 	end
 end
 
-function mod:ConflagrationTarget(targetname)
-	if not targetname then return end
-	if targetname == UnitName("player") then
-		specWarnConflag:Show()
-		specWarnConflag:Play("targetyou")
-		yellConflag:Yell()
-	elseif self:CheckNearby(2, targetname) then
-		specWarnConflagNear:Show(targetname)
-		specWarnConflagNear:Play("runaway")
-	else
-		warnConflag:Show(targetname)
-	end
-	if self.Options.ConflagIcon then
-		self:SetIcon(targetname, 8, 5)
-	end
+ function mod:ConflagrationTarget(targetname) 
+		if not targetname then return end
+--	if targetname == UnitName("player") then --this is redundant with emote detection
+--		specWarnConflag:Show()
+--		specWarnConflag:Play("targetyou")
+--		yellConflag:Yell()
+--	elseif self:CheckNearby(2, targetname) then
+--		specWarnConflagNear:Show(targetname)
+--		specWarnConflagNear:Play("runaway")
+--	else
+--		warnConflag:Show(targetname)
+--	end
+--	if self.Options.ConflagIcon then
+--		self:SetIcon(targetname, 8, 5)
+--	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -139,7 +139,7 @@ function mod:SPELL_CAST_START(args)
 		timerNovaCD:Start()
 		self:BossTargetScanner(25165, "ShadowNovaTarget", 0.05, 6)
 	elseif args.spellId == 45342 then -- Conflagration
-		timerConflag:Start()
+--		timerConflag:Start()
 		timerConflagCD:Start()
 		self:BossTargetScanner(self:GetCIDFromGUID(args.sourceGUID), "ConflagrationTarget", 0.05, 6)
 	end
@@ -148,7 +148,7 @@ end
 -- CHAT_MSG_RAID_BOSS_EMOTE bugged on Warmane: https://www.warmane.com/bugtracker/report/106891
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg == L.Nova or msg:find(L.Nova)) and target then
-		DBM:AddMsg("Nova emote is working again. Notify me (Zidras) on discord or open a bug report.")
+--		DBM:AddMsg("Nova emote is working again. Notify me (Zidras) on discord or open a bug report.")
 		target = DBM:GetUnitFullName(target)
 		timerNova:Start()
 		timerNovaCD:Start()
@@ -166,14 +166,14 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			self:SetIcon(target, 7, 5)
 		end
 	elseif (msg == L.Conflag or msg:find(L.Conflag)) and target then
-		DBM:AddMsg("Conflagration emote is working again. Notify me (Zidras) on discord or open a bug report.")
+--		DBM:AddMsg("Conflagration emote is working again. Notify me (Zidras) on discord or open a bug report.")
 		target = DBM:GetUnitFullName(target)
-		timerConflag:Start()
 		timerConflagCD:Start()
 		if target == UnitName("player") then
 			specWarnConflag:Show()
 			specWarnConflag:Play("targetyou")
 			yellConflag:Yell()
+			timerConflag:Start()
 		elseif self:CheckNearby(2, target) then
 			specWarnConflagNear:Show(target)
 			specWarnConflagNear:Play("runaway")
