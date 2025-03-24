@@ -1,8 +1,8 @@
 
 
-# Work in progress 
+# DM for Chromiecraft
 
-Trying to continue DBM for chromie. 
+Trying to continue Ballenys DBM for Chromiecraft. Includes latest core updates from Zidras (https://github.com/Zidras/DBM-Warmane) and many adjustments and fixes specific for Azerothcore/Chromiecraft.
 
 Needs the dungeon map patch by Trimitor for the rangeradar to work: https://forum.warmane.com/showthread.php?t=424250
 
