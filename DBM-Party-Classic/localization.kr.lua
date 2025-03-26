@@ -495,7 +495,7 @@ L:SetGeneralLocalization({
 })
 
 -----------------------------
---  Illyanna Ravensoak  --
+--  Illyanna Ravenoak  --
 -----------------------------
 L = DBM:GetModLocalization(407)
 

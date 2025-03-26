@@ -120,7 +120,7 @@ DireMaul\Hydrospawn.lua
 DireMaul\Lethtendris.lua
 DireMaul\Alzzin.lua
 DireMaul\TendrisWarpwood.lua
-DireMaul\IllyannaRavensoak.lua
+DireMaul\IllyannaRavenoak.lua
 DireMaul\MagisterKelendris.lua
 DireMaul\Immolthar.lua
 DireMaul\PrinceTortheldrin.lua
