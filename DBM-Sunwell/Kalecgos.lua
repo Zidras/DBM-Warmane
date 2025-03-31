@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
 local Kal	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe&yars_20250322v11")
+mod:SetRevision("20220518110528_cafe&yars_20250329v12")
 mod:SetCreatureID(24850)
 
 mod:RegisterCombat("combat")
@@ -162,7 +162,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args.spellId == 45018 and args:IsPlayer() then
 		local amount = args.amount or 1
-		if amount >= 10 and amount % 2 == 0 then
+		if amount >= 6 and amount % 2 == 0 then --lowered to 6 stacks so people can start looking for portal for 2nd time going in
 			specWarnBuffet:Show(amount)
 			specWarnBuffet:Play("stackhigh")
 		end

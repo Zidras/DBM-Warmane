@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe&yars20250321v23")
+mod:SetRevision("20220518110528_cafe&yars20250331v24")
 mod:SetCreatureID(25038)
 mod:SetUsedIcons(8, 7)
 
@@ -30,10 +30,10 @@ local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 local yellVapor				= mod:NewYell(45392) --new yell if target of Vapor
 
 local timerGasCast			= mod:NewCastTimer(1, 45855)
-local timerGasCD			= mod:NewCDTimer(19+1, 45855, nil, nil, nil, 3) -- adjusted to CC 250302
-local timerCorrosionCD		= mod:NewCDTimer(20, 45866, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- adjusted to CC 250302
+local timerGasCD			= mod:NewCDTimer(19+1-2, 45855, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
+local timerCorrosionCD		= mod:NewCDTimer(20+10, 45866, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- adjusted to CC 250302, updated on 250331
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
-local timerEncapsCD			= mod:NewCDTimer(25, 45665, nil, nil, nil, 3) -- adjusted to CC 250302
+local timerEncapsCD			= mod:NewCDTimer(25+1, 45665, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
 local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
@@ -93,7 +93,7 @@ function mod:Groundphase()
 	timerGasCD:Start(17+1) -- adjusted to CC 250302
 	timerPhase:Start(60, L.Air)
 	timerEncapsCD:Start()
-	timerCorrosionCD:Start(12) --new corrosion start timer 250318
+	timerCorrosionCD:Start(12+1) --new corrosion start timer 250318, updated value 250331
 end
 
 function mod:EncapsulateTarget(target)
@@ -122,7 +122,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerCorrosionCD:Start()
 		if not args:IsPlayer() then -- validate
 			specWarnCorrosion:Show(args.destName)
-			specWarnCorrosion:Play("tauntboss")
+			--specWarnCorrosion:Play("tauntboss")
 		end
 	elseif args.spellId == 45402 and args:IsPlayer() then
 		specWarnGasdot:Show(args.destName)
