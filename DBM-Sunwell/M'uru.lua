@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Muru", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250405164830")
 mod:SetCreatureID(25741)--25741 Muru, 25840 Entropius
 
 mod:RegisterCombat("combat")
@@ -32,8 +32,9 @@ local timerDarknessDura		= mod:NewBuffActiveTimer(20, 45996)
 local timerBlackHoleCD		= mod:NewCDTimer(15, 46282)
 local timerPhase			= mod:NewTimer(10, "TimerPhase", 46087, nil, nil, 6)
 local timerSingularity		= mod:NewNextTimer(3.2, 46238)
+local timerFiend			= mod:NewTimer(15, "TimerFiend", 45996, nil, nil, 6)
 
-local berserkTimer			= mod:NewBerserkTimer(mod:IsTimewalking() and 450 or 600)
+local berserkTimer			= mod:NewBerserkTimer(600)
 
 mod.vb.humanCount = 1
 mod.vb.voidCount = 1
@@ -70,12 +71,12 @@ function mod:OnCombatStart(delay)
 	self.vb.humanCount = 1
 	self.vb.voidCount = 1
 	timerHuman:Start(10-delay, 1)
-	timerVoid:Start(36.5-delay, 1)
+	timerVoid:Start(30-delay, 1)
 	specWarnVW:Schedule(31.5)
 	timerNextDarkness:Start(-delay)
 	specWarnDarknessSoon:Schedule(42)
 	self:Schedule(10, HumanSpawn, self)
-	self:Schedule(36.5, VoidSpawn, self)
+	self:Schedule(30, VoidSpawn, self)
 	berserkTimer:Start(-delay)
 end
 
@@ -104,6 +105,9 @@ end
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 46268 then
 		warnFiend:Show()
+		if self:GetStage() == 2 then
+			timerFiend:Start()
+		end
 	elseif args.spellId == 46282 then
 		warnBlackHole:Show()
 		specWarnBH:Show()
