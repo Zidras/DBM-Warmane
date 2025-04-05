@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925155424_cafe20250331v13")
+mod:SetRevision("20250405164830")  --based on 20220925155424_cafe20250331v13
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(3, 4, 6, 8)
 
@@ -199,9 +199,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		else
 			warnNova:Show(target)
 		end
-		--if self.Options.NovaIcon then
+		if self.Options.NovaIcon then
 			self:SetIcon(target, 6, 5) -- changed to square for easier visualization 250331
-		--end
+		end
 	elseif (msg == L.Conflag or msg:find(L.Conflag)) and target then
 		--DBM:AddMsg("Conflagration emote is working again. Notify me (Zidras) on discord or open a bug report.") --obsoleted as boss yell emote works 250326
 		target = DBM:GetUnitFullName(target)
@@ -217,14 +217,14 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		else
 			warnConflag:Show(target)
 		end
-		--if self.Options.ConflagIcon then
+		if self.Options.ConflagIcon then
 			self:SetIcon(target, 8, 5)
-		--end
+		end
 	end
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
+	if self:GetCIDFromGUID(args.destGUID) == 25166 then -- Grand Warlock Alythess
 		self:SetStage(2)
 	end
 end
