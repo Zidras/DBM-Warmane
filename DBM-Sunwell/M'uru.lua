@@ -69,12 +69,12 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	self.vb.humanCount = 1
 	self.vb.voidCount = 1
-	timerHuman:Start(15-delay, 1)
+	timerHuman:Start(10-delay, 1)
 	timerVoid:Start(36.5-delay, 1)
 	specWarnVW:Schedule(31.5)
 	timerNextDarkness:Start(-delay)
 	specWarnDarknessSoon:Schedule(42)
-	self:Schedule(15, HumanSpawn, self)
+	self:Schedule(10, HumanSpawn, self)
 	self:Schedule(36.5, VoidSpawn, self)
 	berserkTimer:Start(-delay)
 end
