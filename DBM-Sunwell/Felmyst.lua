@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe&yars20250331v24")
+mod:SetRevision("20220518110528_cafe&yars20250416v25")
 mod:SetCreatureID(25038)
 mod:SetUsedIcons(8, 7)
 
@@ -112,7 +112,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	self:ScheduleMethod(3, "Groundphase") --Felmyst takes about 3-5 seconds to land
+	self:ScheduleMethod(3-2, "Groundphase") --Felmyst takes about 3-5 seconds to land, changed to 1s 20250416
 end
 
 

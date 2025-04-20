@@ -119,10 +119,11 @@ L:SetWarningLocalization({
 	WarnHuman		= "Humanoids (%d)",
 	WarnVoid		= "Void Sentinel (%d)",
 	WarnFiend		= "Dark Fiend spawned",
-	specWarnVoid		= "Darkness - Scatter skulls!",
+	specWarnVoid	= "Darkness - Scatter skulls!",
 	specWarnBH		= "Black Hole - Scatter skulls!",
 	specWarnVW		= "Void Sentinels in 5",
-	specWarnDarknessSoon	= "Darkness soon"
+	specWarnDarknessSoon	= "Darkness soon",
+	specWarnVB		= "Void Blast! Grounding or Spell Reflect!"
 })
 
 L:SetTimerLocalization({

@@ -1,21 +1,21 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250405164830")  --based on 20220925155424_cafe20250331v13
+mod:SetRevision("20220925155424_cafe20250416v19")
 mod:SetCreatureID(25165, 25166)
-mod:SetUsedIcons(3, 4, 6, 8)
+mod:SetUsedIcons(3, 6, 8)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 45230 45347 45348",
+	"SPELL_AURA_APPLIED 45230 45347 45348 45270", --added shadowfury here (45270) 250403
 	"SPELL_AURA_APPLIED_DOSE 45347 45348",
 	"SPELL_CAST_START 45248 45329 45342",
 	"SPELL_DAMAGE 45256",
 	"SPELL_MISSED 45256",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_DIED",
-	"SPELL_CAST_SUCCESS 45271" --dark strike from shadow image 250331
+	"SPELL_CAST_SUCCESS 45271 45270" --dark strike (45271) & shadowfury (45270) from shadow image 250331
 )
 
 mod:SetBossHealthInfo(
@@ -28,9 +28,9 @@ local warnBlow				= mod:NewTargetAnnounce(45256, 3)
 local warnConflag			= mod:NewTargetAnnounce(45333, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
-local specWarnConflag		= mod:NewSpecialWarningYou(45333, nil, nil, nil, 1, 2)
-local specWarnConflagNear	= mod:NewSpecialWarningClose(45333)
-local yellConflag			= mod:NewYell(45333, nil, false)
+local specWarnConflag		= mod:NewSpecialWarningYou(45342, nil, nil, nil, 1, 2) --using 45342 instead of 45333?
+local specWarnConflagNear	= mod:NewSpecialWarningClose(45342) --using 45342 instead of 45333?
+local yellConflag			= mod:NewYell(45342, nil, false) --using 45342 instead of 45333?
 local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
 local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
 local yellNova				= mod:NewYell(45329)
@@ -42,7 +42,8 @@ local specWarnShadow		= mod:NewSpecialWarningYou(45271, nil, nil, nil, 1, 2) --n
 local timerBladeCD			= mod:NewCDTimer(11.5-1.5, 45248, nil, "Melee", 2, 2) --corrected to CC value of 10s, 20250315
 local timerBlowCD			= mod:NewCDTimer(20, 45256, nil, nil, nil, 3)
 local timerConflagCD		= mod:NewCDTimer(31-1, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
-local timerNovaCD			= mod:NewCDTimer(31-11, 45329, nil, nil, nil, 3) -- adjusted to CC values as of 250326_1749
+local timerNovaCD			= mod:NewCDTimer(31-1, 45329, nil, nil, nil, 3) -- adjusted to CC values as of 250326_1749
+local timerNovaCDP2			= mod:NewCDTimer(31-11, 45329, nil, nil, nil, 3) -- new timer for ShadowNova during P2 20250416
 local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
@@ -95,12 +96,19 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFlameTouch:Show(args.amount)
 			specWarnFlameTouch:Play("stackhigh")
 		end
-]]--
+]]--does not work 250404
+    elseif	args.spellId == 45270 then
+		target = DBM:GetUnitFullName(target)
+		self:SetIcon(target, 3, 8)
+		if args:IsPlayer() and self:AntiSpam(3) then -- changed to mark person of shadowfury since shadow image only choose one ability 20250402, kept old code just in case reversion is needed
+        specWarnShadow:Show()
+		specWarnShadow:Play("runout")
+		end
 	end
 end
 --mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
---stacks were not giving warning, trying with below code
+--stacks were not giving warning, trying with below code, works 250404
 function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args.spellId == 45347 and args:IsPlayer() then
 		if (args.amount or 1) >= 5 and (args.amount % 5 == 0) then
@@ -163,7 +171,7 @@ function mod:ConflagrationTarget(targetname)
 		self:SetIcon(targetname, 8, 5)
 	end
 end
-]]--using emote to detect 20250331
+]]--not using 20250404
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 45248 then
@@ -172,13 +180,17 @@ function mod:SPELL_CAST_START(args)
 --[[
 	elseif args.spellId == 45329 then -- Shadow Nova
 		timerNova:Start()
-		timerNovaCD:Start()
-		self:BossTargetScanner(25165, "ShadowNovaTarget", 0.05, 6) --obsoleted as boss yell emote works 250326, revert to being used 20250327
+		if self:GetStage() == 2 then
+			timerNovaCDP2:Start()
+		else
+			timerNovaCD:Start()
+		end
+		self:BossTargetScanner(25165, "ShadowNovaTarget", 0.05, 6) --obsoleted as boss yell emote works 250326, revert to being used 20250327, using the marking feature only 250404
 	elseif args.spellId == 45342 then -- Conflagration
 		timerConflag:Start()
 		timerConflagCD:Start()
-		self:BossTargetScanner(self:GetCIDFromGUID(args.sourceGUID), "ConflagrationTarget", 0.05, 6) --obsoleted as boss yell emote works 250326, revert to being used 20250327
-]]--using emote to detect 20250331
+		self:BossTargetScanner(self:GetCIDFromGUID(args.sourceGUID), "ConflagrationTarget", 0.05, 6) --obsoleted as boss yell emote works 250326, revert to being used 20250327, using the marking feature only 250404
+]]--not using 20250404
 	end
 end
 
@@ -186,9 +198,13 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg == L.Nova or msg:find(L.Nova)) and target then
 		--DBM:AddMsg("Nova emote is working again. Notify me (Zidras) on discord or open a bug report.") --obsoleted as boss yell emote works 250326
-		target = DBM:GetUnitFullName(target)
 		timerNova:Start()
-		timerNovaCD:Start()
+		if self:GetStage() == 2 then
+			timerNovaCDP2:Start()
+		else
+			timerNovaCD:Start()
+		end
+		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnNova:Show()
 			specWarnNova:Play("targetyou")
@@ -204,9 +220,9 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		end
 	elseif (msg == L.Conflag or msg:find(L.Conflag)) and target then
 		--DBM:AddMsg("Conflagration emote is working again. Notify me (Zidras) on discord or open a bug report.") --obsoleted as boss yell emote works 250326
-		target = DBM:GetUnitFullName(target)
 		timerConflag:Start()
 		timerConflagCD:Start()
+		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnConflag:Show()
 			specWarnConflag:Play("targetyou")
@@ -224,21 +240,18 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 25166 then -- Grand Warlock Alythess
+	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
 		self:SetStage(2)
 	end
 end
 
---testing to warn player with shadow image attacking them to move out 250331
+--testing to warn player with shadow image attacking them but no need to run out 20250406
 function mod:SPELL_CAST_SUCCESS(args)
-    if args.spellId == 45271 and args:IsPlayer() and self:AntiSpam(10) then
-		target = DBM:GetUnitFullName(target)
+    if args.spellId == 45271 and args:IsPlayer() and self:AntiSpam(8) then
         specWarnShadow:Show()
-        specWarnShadow:Play("runaway")
-        self:SetIcon(target, 4, 5) -- set a triangle marker to notify you to move that will disappear in 5s to be used for other target
+        specWarnShadow:Play("dontmove")
     end
 end
-		
 
 --[[
     //Shared spells
