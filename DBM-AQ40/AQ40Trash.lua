@@ -79,22 +79,22 @@ do
 		[15264] = true,--Anubisath Sentinel
 		[15262] = true--Obsidian Eradicator
 	}
-	local function checkFirstPull(self, GUID)
-		local cid = self:GetCIDFromGUID(GUID)
-		if startCreatureIds[cid] then
-			if not self.vb.firstEngageTime then
-				self.vb.firstEngageTime = GetServerTime()
-				if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
-					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
-				end
-				self:SendSync("AQ40Started", self.vb.firstEngageTime)--Also sync engage time
-			end
-			--Unregister high CPU combat log events
-			self:UnregisterShortTermEvents()
-			eventsRegistered = false
-		end
-	end
+--	local function checkFirstPull(self, GUID) --commented out because alot of these functions are not available in 3.3.5a. And speedrun options dont seem overly important on a wrath client
+--		local cid = self:GetCIDFromGUID(GUID)
+--		if startCreatureIds[cid] then
+--			if not self.vb.firstEngageTime then
+--				self.vb.firstEngageTime = GetTime()
+--				if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
+--					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
+--					DBT:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
+--				end
+--				self:SendSync("AQ40Started", self.vb.firstEngageTime)--Also sync engage time
+--	-		end
+--			--Unregister high CPU combat log events
+--			self:UnregisterShortTermEvents()
+--			eventsRegistered = false
+--		end
+--	end
 
 	-- Anubisath Reflect - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
 	local specWarnShadowFrostReflect	= mod:NewSpecialWarningReflect(19595, nil, nil, nil, 1, 2)
@@ -108,9 +108,9 @@ do
 			specWarnShadowStorm:Show(sourceName)
 			specWarnShadowStorm:Play("findshelter")
 		end
-		if eventsRegistered then-- for AQ40 timer
-			checkFirstPull(self, destGUID or 0)
-		end
+--		if eventsRegistered then-- for AQ40 timer
+--			checkFirstPull(self, destGUID or 0)
+--		end
 	end
 	function mod:SPELL_MISSED(sourceGUID, _, _, destGUID, destName, _, _, _, spellSchool, missType)
 		if (missType == "REFLECT" or missType == "DEFLECT") and sourceGUID == playerGUID then
@@ -122,20 +122,20 @@ do
 				specWarnFireArcaneReflect:Play("stopattack")
 			end
 		end
-		if eventsRegistered then-- for AQ40 timer
-			checkFirstPull(self, destGUID or 0)
-		end
+--		if eventsRegistered then-- for AQ40 timer
+--			checkFirstPull(self, destGUID or 0)
+--		end
 	end
 
-	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID)
-		checkFirstPull(self, destGUID or 0)
-	end
-	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+--	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID)
+--		checkFirstPull(self, destGUID or 0)
+--	end
+--	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-	function mod:SWING_DAMAGE(_, _, _, _, destGUID)
-		checkFirstPull(self, destGUID or 0)
-	end
-	mod.SWING_MISSED = mod.SWING_DAMAGE
+--	function mod:SWING_DAMAGE(_, _, _, _, destGUID)
+--		checkFirstPull(self, destGUID or 0)
+--	end
+--	mod.SWING_MISSED = mod.SWING_DAMAGE
 
 --[[	local function updateDefeatedBosses(self, encounterId)
 		if self:AntiSpam(10, encounterId) then
@@ -166,31 +166,31 @@ do
 		end
 	end
  ]]
-	function mod:OnSync(msg, timeOrEncounter, sender)
+--	function mod:OnSync(msg, timeOrEncounter, sender)
 		--Sync recieved with start time and ours is currently not started
 		--The reason this doesn't just check self.vb.firstEngageTime is nil, because it might not be if SendVariableInfo send it first
-		if msg == "AQ40Started" and timeOrEncounter --[[ and not DBT:GetBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT) ]] then
-			if not self.vb.firstEngageTime then
-				self.vb.firstEngageTime = tonumber(timeOrEncounter)
-			end
-			if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
-				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-				local adjustment = time() - self.vb.firstEngageTime
-				DBT:CreateBar(self.Options.FastestClear3 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Nature_TimeStop")
-			end
+--		if msg == "AQ40Started" and timeOrEncounter --[[ and not DBT:GetBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT) ]] then
+--			if not self.vb.firstEngageTime then
+--				self.vb.firstEngageTime = tonumber(timeOrEncounter)
+--			end
+--			if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
+--				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
+--				local adjustment = time() - self.vb.firstEngageTime
+--				DBT:CreateBar(self.Options.FastestClear3 - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Nature_TimeStop")
+--			end
 			--Unregister high CPU combat log events
-			self:UnregisterShortTermEvents()
-		elseif msg == "IsAQ40Started" and self.vb.firstEngageTime then
+--			self:UnregisterShortTermEvents()
+--	elseif msg == "IsAQ40Started" and self.vb.firstEngageTime then
 			--Sadly this has to be done with two syncs, one for variables for bosses that have been killed and one to instruct starting of timer
-			self:SendSync("AQ40Started", self.vb.firstEngageTime)
+--			self:SendSync("AQ40Started", self.vb.firstEngageTime)
 			--Send all variables from the mod.vb table in whisper comm to requester (and not sent to whole raid)
 			--This is sadly still going to generate a LOT of comm traffic on zone in. upwards of 4-117 syncs, per player zone in
 			--Reviewing code, it's hard to do this in less comms, it's either don't support recovering the speed clear timer in all situations (disconnect, reloadui, zoning in late) or cause a burst of syncs :\
-			DBM:SendVariableInfo(self, sender)
+--			DBM:SendVariableInfo(self, sender)
 		--[[ elseif msg == "EncounterEnd" and timeOrEncounter then
 			updateDefeatedBosses(self, timeOrEncounter)--In case player misses event (ie they released or are outside the raid for that particular boss ]]
-		end
-	end
+--		end
+--	end
 
 	--[[function mod:ENCOUNTER_END(encounterId, _, _, _, success)
 		if success == 0 then return end--wipe
