@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240305183404")
+mod:SetRevision("20250423194036")
 mod:SetCreatureID(11502)
 mod:SetModelID(11121)
 mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
@@ -30,7 +30,7 @@ local warnSonsOfFlameLeft	= mod:NewAddsLeftAnnounce(19629, 2, 19774) -- spellId 
 local timerWrathRag			= mod:NewCDTimer(25, 20566, nil, nil, nil, 2, nil, DBM_COMMON_L.IMPORTANT_ICON, true, mod:IsMelee() and 1, 4) -- ~10s variance [20.09-29.66] |||| EDIT 19/12/2023 - https://www.warmane.com/bugtracker/report/120178: 5s variance [25-30]. Added "keep" arg. (40N Lordaeron [2023-09-13]@[19:05:07] || 25N Onyxia [2023-11-25]@[17:36:30] |||| 25N Onyxia [2023-12-19]@[21:24:51] || 25N Onyxia [2023-12-19]@[21:43:01] || 25N Onyxia [2023-12-19]@[22:05:18]) - "Wrath of Ragnaros-20566-npc:11502-303 = pull:29.98, 28.56, 25.76, 22.10, 22.73, 23.72, 69.84, 27.74, 22.44, 29.00, 25.42, 21.28, 67.54, 24.18, 28.92" || pull:29.94, 22.16, 29.66, 28.36, 20.09, 24.10, Submerged/25.63, Emerged/89.99, 30.08/120.06/145.69 |||| pull:30.00, 28.58, 28.30, 25.31 || pull:29.99, 27.22, 29.88, 29.00, 29.52, 25.80, Submerged/9.53, Emerged/90.02, 30.03/120.05/129.58, 25.73, 29.77, Submerged/5.42, Emerged/90.05 || pull:29.99, 25.43, 26.70, 25.08, 27.40, 27.25, Submerged/18.87, Emerged/90.07
 local timerSubmerge			= mod:NewNextTimer(180, 21107, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 1, 5)
 local timerEmerge			= mod:NewNextTimer(90, 20568, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 1, 5)
-local timerCombatStart		= mod:NewCombatTimer(78)
+local timerCombatStart		= mod:NewCombatTimer(75.15)
 
 mod:AddRangeFrameOption("18", nil, "-Melee")
 
