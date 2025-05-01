@@ -1,13 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Blackwing Lair|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Pechschwingenhort|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Guarida de Alanegra|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Guarida de Alanegra|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Repaire de l'Aile noire|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Логово Крыла Тьмы|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0검은날개 둥지|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0黑翼之巢|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0黑翼之巢|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMBWL_AllSavedVars
@@ -19,28 +12,10 @@
 ## X-DBM-Mod-MapID: 756
 ## X-DBM-Mod-Sort: 1105
 ## X-DBM-Mod-Name: Blackwing Lair
-## X-DBM-Mod-Name-zhCN: 黑翼之巢
-## X-DBM-Mod-Name-ruRU: Логово Крыла Тьмы
 ## X-DBM-Mod-LoadZone: Blackwing Lair
-## X-DBM-Mod-LoadZone-esES: Guarida Alanegra
-## X-DBM-Mod-LoadZone-ruRU: Логово Крыла Тьмы
 ## X-DBM-Mod-LoadZone-frFR: Repaire de l'Aile noire
-## X-DBM-Mod-LoadZone-esMX: Guarida Alanegra
-## X-DBM-Mod-LoadZone-zhTW: 黑翼之巢
-## X-DBM-Mod-LoadZone-zhCN: 黑翼之巢
-## X-DBM-Mod-LoadZone-koKR: 검은날개 둥지
-## X-DBM-Mod-LoadZone-deDE: Pechschwingenhort
-
 localization.en.lua
-localization.de.lua
-localization.es.lua
-localization.mx.lua
-localization.ru.lua
-localization.kr.lua
-localization.tw.lua
-localization.cn.lua
 localization.fr.lua
-
 Razorgore.lua
 Vaelastrasz.lua
 Broodlord.lua

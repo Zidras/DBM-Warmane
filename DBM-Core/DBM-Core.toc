@@ -1,13 +1,6 @@
 ## Interface: 30300
 ## X-Min-Interface: 30300
-
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Core|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF 核心|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Ядро|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF 核心|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF 핵심 모듈|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Núcleo|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Núcleo|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Noyau|r
 ## Notes: Deadly Boss Mods
 ## Dependencies: DBM-StatusBarTimers
@@ -19,9 +12,7 @@
 ## Author: Barsoom, Bunny67, Zidras, DBM-Frostmourne contributors, original DBM team
 ## Version: 10.1.13_alpha
 ## X-Website: https://github.com/Zidras/DBM-Warmane/
-
 compat.lua
-
 Libs\Ace3\LibStub\LibStub.lua
 Libs\Ace3\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\Ace3\AceAddon-3.0\AceAddon-3.0.lua
@@ -46,34 +37,17 @@ Libs\LibDeflate\LibDeflate.lua
 Libs\LibSerialize\LibSerialize.lua
 Libs\LibRangeCheck-2.0\LibRangeCheck-2.0.lua
 Libs\SpecializedAbsorbs-1.0\SpecializedAbsorbs-1.0.lua
-
 localization.en.lua
-localization.de.lua
-localization.cn.lua
-localization.ru.lua
 localization.fr.lua
-localization.tw.lua
-localization.kr.lua
-localization.es.lua
-
 commonlocal.en.lua
-commonlocal.tw.lua
-commonlocal.cn.lua
-commonlocal.de.lua
-commonlocal.es.lua
 commonlocal.fr.lua
-commonlocal.kr.lua
-commonlocal.ru.lua
-
 # Pre-core modules
 modules\Modules.lua
-
 modules\SpecRole.lua
 modules\Scheduler.lua
 modules\DevTools.lua
 modules\Icons.lua
 modules\TargetScanning.lua
-
 # Core
 DBM-Core.lua
 DBM-Arrow.lua
@@ -85,7 +59,6 @@ DBM-BossHealth.xml
 DBM-TimerTracker.xml
 DBM-TimerTracker.lua
 DBM-BossBannerToast.lua
-
 # Modules
 modules\Commands.lua
 modules\Hyperlinks.lua
@@ -93,5 +66,4 @@ modules\MinimapButton.lua
 modules\Notes.lua
 modules\Sounds.lua
 modules\UpdateReminder.lua
-
 modules\objects\Localization.lua

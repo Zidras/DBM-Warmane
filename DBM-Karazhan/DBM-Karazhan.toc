@@ -1,9 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Karazhan|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0카라잔|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0卡拉赞|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0卡拉贊|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Каражан|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMKarazhan_AllSavedVars
@@ -15,27 +11,10 @@
 ## X-DBM-Mod-MapID: 800
 ## X-DBM-Mod-Sort: 1007
 ## X-DBM-Mod-Name: Karazhan
-## X-DBM-Mod-Name-zhCN: 卡拉赞
-## X-DBM-Mod-Name-ruRU: Каражан
 ## X-DBM-Mod-LoadZone: Karazhan
-## X-DBM-Mod-LoadZone-zhTW: 卡拉贊
-## X-DBM-Mod-LoadZone-zhCN: 卡拉赞
-## X-DBM-Mod-LoadZone-deDE: Karazhan
-## X-DBM-Mod-LoadZone-esES: Karazhan
-## X-DBM-Mod-LoadZone-esMX: Karazhan
 ## X-DBM-Mod-LoadZone-frFR: Karazhan
-## X-DBM-Mod-LoadZone-koKR: 카라잔
-## X-DBM-Mod-LoadZone-ruRU: Каражан
-
 localization.en.lua
-localization.de.lua
 localization.fr.lua
-localization.kr.lua
-localization.es.lua
-localization.tw.lua
-localization.cn.lua
-localization.ru.lua
-
 Attumen.lua
 Moroes.lua
 MaidenOfVirtue.lua

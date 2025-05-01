@@ -17,7 +17,7 @@ local specWarnCharge	= mod:NewSpecialWarningMoveAway(50834, nil, nil, nil, 1, 2)
 local yellCharge		= mod:NewYell(50834)
 
 local timerCharge		= mod:NewTargetTimer(10, 50834)
-local timerChargeCD		= mod:NewCDTimer(25, 50834, nil, nil, nil, 3)
+local timerChargeCD		= mod:NewCDTimer(20, 50834, nil, nil, nil, 3)
 local timerRingCD		= mod:NewCDTimer(25, 50840, nil, nil, nil, 2)
 
 function mod:SPELL_AURA_APPLIED(args)

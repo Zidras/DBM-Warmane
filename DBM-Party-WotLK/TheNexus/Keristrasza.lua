@@ -20,14 +20,14 @@ local warningEnrage		= mod:NewSpellAnnounce(8599, 3, nil, "Tank|Healer", 2)
 local timerChains		= mod:NewTargetTimer(10, 50997, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.MAGIC_ICON)
 local timerChainsCD		= mod:NewCDTimer(25, 50997, nil, nil, nil, 3)
 local timerNova			= mod:NewBuffActiveTimer(10, 48179)
-local timerNovaCD		= mod:NewCDTimer(25, 48179, nil, nil, nil, 2)
+local timerNovaCD		= mod:NewCDTimer(11, 48179, nil, nil, nil, 2)
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 50997 then
 		warningChains:Show(args.destName)
 		timerChains:Start(args.destName)
 		timerChainsCD:Start()
-	elseif args.spellId == 8599 and args.souceGUID == 26723 then
+	elseif args.spellId == 8599 then --and args.souceGUID == 26723 then
 		warningEnrage:Show()
 	elseif args.spellId == 48179 then
 		warningNova:Show()

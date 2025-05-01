@@ -1,12 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Naxxramas|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Naxxramas|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Наксрамас|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0納克薩瑪斯|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0纳克萨玛斯|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0낙스라마스|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Naxxramas|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Naxxramas|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMNaxx_AllSavedVars
@@ -25,46 +18,24 @@
 ## X-DBM-Mod-SubCategories-esES: El Arrabal Arácnido,El Arrabal de los Ensamblajes,El Arrabal de la Peste,El Arrabal Militar,Guarida Helada
 ## X-DBM-Mod-SubCategories-esMX: El Arrabal Arácnido,El Arrabal de los Ensamblajes,El Arrabal de la Peste,El Arrabal Militar,Guarida Helada
 ## X-DBM-Mod-Name: Naxxramas
-## X-DBM-Mod-Name-deDE: Naxxramas
-## X-DBM-Mod-Name-ruRU: Наксрамас
-## X-DBM-Mod-Name-zhTW: 納克薩瑪斯
-## X-DBM-Mod-Name-zhCN: 纳克萨玛斯
-## X-DBM-Mod-Name-koKR: 낙스라마스
-## X-DBM-Mod-Name-esES: Naxxramas
-## X-DBM-Mod-Name-esMX: Naxxramas
 ## X-DBM-Mod-Sort: 6
 ## X-DBM-Mod-MapID: 536
 ## X-DBM-Mod-BlockRealm: Onyxia, Vanilla Naxxamas PTR
 ## X-DBM-Mod-LoadZone: Naxxramas
-## X-DBM-Mod-LoadZone-zhCN: 纳克萨玛斯
-## X-DBM-Mod-LoadZone-ruRU: Наксрамас
-
 localization.en.lua
-localization.de.lua
 localization.fr.lua
-localization.ru.lua
-localization.tw.lua
-localization.kr.lua
-localization.es.lua
-localization.mx.lua
-localization.cn.lua
-
 ArachnidQuarter\Anub'Rekhan.lua
 ArachnidQuarter\Faerlina.lua
 ArachnidQuarter\Maexxna.lua
-
 ConstructQuarter\Patchwerk.lua
 ConstructQuarter\Grobbulus.lua
 ConstructQuarter\Gluth.lua
 ConstructQuarter\Thaddius.lua
-
 PlagueQuarter\Noth.lua
 PlagueQuarter\Heigan.lua
 PlagueQuarter\Loatheb.lua
-
 MilitaryQuarter\Razuvious.lua
 MilitaryQuarter\Gothik.lua
 MilitaryQuarter\Horsemen.lua
-
 FrostwyrmLair\Sapphiron.lua
 FrostwyrmLair\Kel'Thuzad.lua

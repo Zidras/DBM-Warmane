@@ -10,11 +10,17 @@ mod:SetDetectCombatInVehicle(false)
 
 mod:RegisterKill("yell", L.YellCombatEnd)
 
+mod:RegisterEvents(
+	"CHAT_MSG_MONSTER_YELL"
+)
+
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 68318 67528",
 	"SPELL_CAST_SUCCESS 66045",
 	"SPELL_AURA_APPLIED 66043 68311 67534 67594 68316"
 )
+
+local timerCombatStart		= mod:NewCombatTimer(142)
 
 local warnHealingWave		= mod:NewSpellAnnounce(67528, 2)
 local warnPolymorph			= mod:NewTargetNoFilterAnnounce(66043, 2)
@@ -45,5 +51,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(67594, 68316) and args:IsPlayer() then		-- Standing in Poison Bottle.
 		specWarnPoison:Show()
 		specWarnPoison:Play("watchfeet")
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.Pull or msg:find(L.Pull) then
+		timerCombatStart:Start()
 	end
 end

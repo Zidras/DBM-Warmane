@@ -13,7 +13,7 @@ mod.noStatistics = true
 local warningWaveNow	= mod:NewAnnounce("WarningWaveNow", 3)
 
 local timerWaveIn		= mod:NewTimer(20, "TimerWaveIn", 57687, nil, nil, 1)
-local timerRoleplay		= mod:NewTimer(162, "TimerRoleplay")
+local timerRoleplay		= mod:NewTimer(159, "TimerRoleplay")
 
 local devouring = L.Devouring
 local meathook = L.Meathook
@@ -102,6 +102,6 @@ function mod:CHAT_MSG_MONSTER_SAY(msg)
 	if msg == L.Roleplay or msg:find(L.Roleplay) then
 		timerRoleplay:Start()--Arthas preaches to uther and jaina
 	elseif msg == L.Roleplay2 or msg:find(L.Roleplay2) then
-		timerRoleplay:Start(106)--Arthas prances around blabbing with malganis
+		timerRoleplay:Start(107)--Arthas prances around blabbing with malganis
 	end
 end

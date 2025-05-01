@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20240521122708")
 mod:SetCreatureID(34780)
 --mod:SetMinCombatTime(30)
-mod:SetUsedIcons(7, 8)
+mod:SetUsedIcons(7, 8, 1, 2)
 mod:SetMinSyncRevision(20220907000000)
 
 mod:RegisterCombat("combat")
@@ -15,13 +15,14 @@ mod:RegisterEvents(
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 66532 66963 66964 66965",
-	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66269 67898 67899 67900 66197 68123 68124 68125 67051 67050 67049 66237 66528 67029 67030 67031",
-	"SPELL_AURA_APPLIED 67051 67050 67049 66237 66197 68123 68124 68125 66334 67905 67906 67907 66532 66963 66964 66965",
-	"SPELL_AURA_REMOVED 67051 67050 67049 66237 66197 68123 68124 68125",
+	"SPELL_CAST_SUCCESS 66228 67106 67107 67108 67901 67902 67903 66258 66197 68123 68124 68125 67051 67050 67049 66237 66528 67029 67030 67031",
+	"SPELL_AURA_APPLIED 67051 67050 67049 66237 66197 68123 68124 68125 66334 67905 67906 67907 66532 66963 66964 66965 66209",
+	"SPELL_AURA_REMOVED 67051 67050 67049 66237 66197 68123 68124 68125 66209",
 	"SPELL_DAMAGE 66877 67070 67071 67072 66496 68716 68717 68718",
 	"SPELL_MISSED 66877 67070 67071 67072 66496 68716 68717 68718",
 	"SPELL_HEAL",
-	"SPELL_PERIODIC_HEAL"
+	"SPELL_PERIODIC_HEAL",
+	"SPELL_SUMMON 66269 67898 67899 67900"
 )
 
 --TODO, possibly just use args.amount from combatlog versus debuff scanning for flesh?
@@ -40,20 +41,25 @@ local specWarnFelInferno		= mod:NewSpecialWarningMove(66496, nil, nil, nil, 1, 2
 local SpecWarnFelFireball		= mod:NewSpecialWarningInterrupt(66532, "HasInterrupt", nil, 2, 1, 2)
 local SpecWarnFelFireballDispel	= mod:NewSpecialWarningDispel(66532, "RemoveMagic", nil, 2, 1, 2)
 
-local timerCombatStart			= mod:NewCombatTimer(76)--roleplay for first pull
-local timerFlame				= mod:NewTargetTimer(8, 66197, nil, nil, nil, 3)--There are 8 debuff Ids. Since we detect first to warn, use an 8sec timer to cover duration of trigger spell and damage debuff.
-local timerFlameCD				= mod:NewNextTimer(30, 66197, nil, nil, nil, 3) -- (25H Lordaeron 2022/09/03) - 30.0, 30.0, 30.1, 30.0, 30.1, 30.0
-local timerNetherPowerCD		= mod:NewNextTimer(45, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON) -- (25H Lordaeron 2022/09/03) - 45.1, 45.0, 45.0, 45.0
+local warnToucherJaraxxus 		= mod:NewTargetAnnounce(66209, 3)
+local specWarnToucherJaraxxus   = mod:NewSpecialWarningYou(66209, nil, nil, nil, 3, 2)
+local timerToucherJaraxxus		= mod:NewTargetTimer(12, 66209, nil, nil, nil, 5)
+
+local timerCombatStart			= mod:NewCombatTimer(85)
+local timerFlame				= mod:NewTargetTimer(8, 66197, nil, nil, nil, 3)
+local timerFlameCD				= mod:NewNextTimer(30, 66197, nil, nil, nil, 3)
+local timerNetherPowerCD		= mod:NewNextTimer(45, 67009, nil, "MagicDispeller", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerFlesh				= mod:NewTargetTimer(12, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerFleshCD				= mod:NewNextTimer(30, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON) -- (25H Lordaeron 2022/09/03) - 30.0, 30.0, 30.0, 30.1, 30.0, 30.0
-local timerPortalCD				= mod:NewCDTimer(120, 66269, nil, nil, nil, 1, nil, nil, true) -- REVIEW! 7s variance? Added "keep" arg (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 127.0
-local timerVolcanoCD			= mod:NewCDTimer(120, 66258, nil, nil, nil, 1) -- REVIEW! ~1s variance? (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 120.0 || 120.8
-local timerFelLightning			= mod:NewCDTimer(10, 67031, nil, nil, nil, 3, nil, nil, true) -- 7s variance [10-17]. Added "keep" arg (25H Lordaeron 2022/09/24 || 10N Lordaeron 2022/10/02) - 15.0, 12.8, 16.3, 12.1, 17.0, 14.8, 11.4, 11.1, 13.7, 14.0, 12.9, 14.2, 10.1, 10.5, 11.7 || 11.5, 12.4, 14.6, 13.4, 13.1
+local timerFleshCD				= mod:NewNextTimer(30, 66237, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerPortalCD				= mod:NewCDTimer(120, 66269, nil, nil, nil, 1, nil, nil, true)
+local timerVolcanoCD			= mod:NewCDTimer(120, 66258, nil, nil, nil, 1)
+local timerFelLightning			= mod:NewCDTimer(10, 67031, nil, nil, nil, 3, nil, nil, true)
 
 local enrageTimer				= mod:NewBerserkTimer(600)
 
 mod:AddSetIconOption("LegionFlameIcon", 66197, true, 0, {7})
 mod:AddSetIconOption("IncinerateFleshIcon", 66237, true, 0, {8})
+mod:AddSetIconOption("ToucherJaraxxusIcon", 66209, true, 0, {1, 2})
 mod:AddInfoFrameOption(66237, true)
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("IncinerateShieldFrame", false, "misc")
@@ -67,14 +73,15 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
 	self.vb.fleshCount = 0
-	timerPortalCD:Start(22-delay) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 22.0 || 22.0
-	warnPortalSoon:Schedule(17-delay)
-	timerVolcanoCD:Start(82-delay) -- (25H Lordaeron 2022/09/03 || 25H Lordaeron 2022/09/24) - 82.0 || 89.0
-	warnVolcanoSoon:Schedule(77-delay)
-	timerNetherPowerCD:Start(15-delay) -- (25H Lordaeron 2022/09/03) - 15.0
-	timerFleshCD:Start(13-delay) -- (25H Lordaeron 2022/09/03) - 13.0
-	timerFlameCD:Start(20-delay) -- (25H Lordaeron 2022/09/03) - 20.0
-	timerFelLightning:Start(-delay) -- (25H Lordaeron 2022/09/24 || 10N Lordaeron 2022/10/02) - 10.0 || 10.1
+	self.vb.toucherIcon = 1 
+	timerPortalCD:Start(20-delay)
+	warnPortalSoon:Schedule(15-delay)
+	timerVolcanoCD:Start(80-delay)
+	warnVolcanoSoon:Schedule(75-delay)
+	timerNetherPowerCD:Start(15-delay)
+	timerFleshCD:Start(13-delay)
+	timerFlameCD:Start(20-delay)
+	timerFelLightning:Start(-delay)
 	enrageTimer:Start(-delay)
 end
 
@@ -134,6 +141,8 @@ do
 		return lines, sortedLines
 	end
 end
+ 
+
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(66532, 66963, 66964, 66965) and self:CheckInterruptFilter(args.sourceGUID, false, true) then	-- Fel Fireball (track cast for interupt, only when targeted)
@@ -150,9 +159,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(67901, 67902, 67903, 66258) then		-- Infernal Eruption
 		timerVolcanoCD:Start()
 		warnVolcanoSoon:Schedule(110)
-	elseif args:IsSpellID(66269, 67898, 67899, 67900) then		-- Nether Portal
-		timerPortalCD:Start()
-		warnPortalSoon:Schedule(110)
+	--elseif args:IsSpellID(66269, 67898, 67899, 67900) then		-- Nether Portal
+	--	timerPortalCD:Start()
+	--	warnPortalSoon:Schedule(110)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame
 		timerFlameCD:Start()
 		warnFlame:Show(args.destName) -- I prefer to keep this here, rather than a player elseif on aura applied. Faster and unfiltered.
@@ -161,6 +170,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args:IsSpellID(66528, 67029, 67030, 67031) then		-- Fel Lightning
 		timerFelLightning:Start()
 		warnFelLightning:Show()
+	end
+end
+
+function mod:SPELL_SUMMON(args)
+	if args:IsSpellID(66269, 67898, 67899, 67900) then
+		timerPortalCD:Start()
+		warnPortalSoon:Schedule(110)
 	end
 end
 
@@ -183,7 +199,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			DBM.InfoFrame:Show(6, "function", updateInfoFrame, false, true)
 		end
 		setIncinerateTarget(self, args.destGUID, args.destName)
-	elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
+	 elseif args:IsSpellID(66197, 68123, 68124, 68125) then		-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
 		timerFlame:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnFlame:Show()
@@ -193,12 +209,28 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.LegionFlameIcon then
 			self:SetIcon(args.destName, 7)
 		end
-	elseif args:IsSpellID(66334, 67905, 67906, 67907) and args:IsPlayer() then
+	 elseif args:IsSpellID(66334, 67905, 67906, 67907) and args:IsPlayer() then
 		specWarnKiss:Show()
 		specWarnKiss:Play("stopcast")
-	elseif args:IsSpellID(66532, 66963, 66964, 66965) then		-- Fel Fireball (announce if tank gets debuff for dispel)
+	 elseif args:IsSpellID(66532, 66963, 66964, 66965) then		-- Fel Fireball (announce if tank gets debuff for dispel)
 		SpecWarnFelFireballDispel:Show(args.destName)
 		SpecWarnFelFireballDispel:Play("helpdispel")
+	elseif args.spellId == 66209 then  -- Toucher de Jaraxxus
+		timerToucherJaraxxus:Start(args.destName)
+        if args:IsPlayer() then
+            specWarnToucherJaraxxus:Show()
+            specWarnToucherJaraxxus:Play("targetyou")
+        else
+            warnToucherJaraxxus:Show(args.destName)
+        end
+        if self.Options.ToucherJaraxxusIcon then
+            self:SetIcon(args.destName, self.vb.toucherIcon, 12)
+            self.vb.toucherIcon = self.vb.toucherIcon + 1
+            if self.vb.toucherIcon > 2 then
+                self.vb.toucherIcon = 1
+            end
+        end
+	
 	end
 end
 
@@ -218,6 +250,10 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.LegionFlameIcon then
 			self:RemoveIcon(args.destName)
 		end
+	elseif args.spellId == 66209 then  -- Toucher de Jaraxxus
+        if self.Options.ToucherJaraxxusIcon then
+            self:RemoveIcon(args.destName)
+        end
 	end
 end
 

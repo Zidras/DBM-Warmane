@@ -38,9 +38,9 @@ local specWarnShadowStrike	= mod:NewSpecialWarningSpell(66134, "Tank", nil, 2, 1
 local specWarnPCold			= mod:NewSpecialWarningYou(66013, false, nil, nil, 1, 2)
 
 local timerEmerge			= mod:NewNextTimer(65, 65982, nil, nil, nil, 6, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", DBM_COMMON_L.IMPORTANT_ICON, nil, 1) -- Time to Emerge, related to Phase 2, but it's here for better Grouping
-local timerAdds				= mod:NewNextTimer(45, 66332, nil, nil, nil, 1, 45419, DBM_COMMON_L.TANK_ICON) -- (25H Lordaeron 2022/09/03) - Stage 1/45.1, Stage 2/24.9, Stage 1/65.0, 10.0/75.0/99.9, 45.0, Stage 3/1.9, 43.1/45.0, 45.0
+local timerAdds				= mod:NewNextTimer(45, 66332, nil, nil, nil, 1, 45419, DBM_COMMON_L.TANK_ICON)
 local timerShadowStrike		= mod:NewNextTimer(30, 66134, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, nil, 3)
-local timerFreezingSlash	= mod:NewNextTimer(20, 66012, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- (25H Lordaeron 2022/09/03) - Stage 1/20.0, 20.0, 20.0, Stage 2/4.9, Stage 1/65.0, 15.1/80.1/85.0, 20.0, 20.1, Stage 3/1.8, 18.2/20.0, 20.0, 20.0, 20.0
+local timerFreezingSlash	= mod:NewNextTimer(20, 66012, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerPCold			= mod:NewBuffActiveTimer(15, 66013, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 
 mod:AddSetIconOption("SetIconsOnPCold", 66013, true, 7, {1, 2, 3, 4, 5})
@@ -126,13 +126,13 @@ end
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	self.vb.Burrowed = false
-	timerAdds:Start(10-delay) -- (25H Lordaeron 2022/09/03) - pull:10.0
+	timerAdds:Start(10-delay)
 --	warnAdds:Schedule(10-delay)
 --	self:Schedule(10-delay, Adds, self)
 	warnSubmergeSoon:Schedule(70-delay)
-	timerSubmerge:Start(-delay) -- EMOTE 2s earlier than Submerge Anub'arak unit cast. (25H Lordaeron 2022/09/03) - pull:79.9
+	timerSubmerge:Start(-delay)
 	enrageTimer:Start(-delay)
-	timerFreezingSlash:Start(15-delay) -- (25H Lordaeron 2022/09/03) - pull:15.0
+	timerFreezingSlash:Start(15-delay)
 	if self:IsHeroic() then
 		timerShadowStrike:Start()
 		preWarnShadowStrike:Schedule(25.5-delay)

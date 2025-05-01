@@ -23,8 +23,8 @@ local warningWhirlwind	= mod:NewSpellAnnounce(38619, 3)
 
 local specWarnWW		= mod:NewSpecialWarningRun(38619, "MeleeDps", nil, nil, 4, 2)
 
-local timerFearCD		= mod:NewCDTimer(20, 19134, nil, nil, nil, 2)--Correct?
-local timerWhirlwindCD	= mod:NewCDTimer(15, 38619, nil, nil, nil, 2)--Correct?
+local timerFearCD		= mod:NewCDTimer(50, 19134, nil, nil, nil, 2)--Correct?
+local timerWhirlwindCD	= mod:NewCDTimer(20.4, 38619, nil, nil, nil, 2)--Correct?
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 19134 then

@@ -162,7 +162,7 @@ L.PIZZA_ERROR_USAGE				= "Utilisation: /dbm [broadcast] timer <durée> <texte>"
 
 L.MINIMAP_TOOLTIP_FOOTER		= "MAJ+clic ou clic-droit pour déplacer\nAlt+MAJ+clic pour une saisie libre"
 
-L.RANGECHECK_HEADER			= "Vérif. de portée (%d m)"
+L.RANGECHECK_HEADER			= "Vérif de portée (%d m)"
 L.RANGECHECK_SETRANGE		= "Définir la portée"
 L.RANGECHECK_SETTHRESHOLD	= "Régler le seuil du joueur."
 L.RANGECHECK_SOUNDS			= "Sons"
@@ -176,8 +176,8 @@ L.RANGECHECK_OPTION_FRAMES	= "Cadres"
 L.RANGECHECK_OPTION_RADAR	= "Afficher le cadre du radar"
 L.RANGECHECK_OPTION_TEXT		= "Afficher le cadre textuel"
 L.RANGECHECK_OPTION_BOTH		= "Afficher les deux cadres"
-L.RANGERADAR_HEADER			= "Radar de portée (%d m)"
-L.RANGERADAR_BOSS_HEADER		= "Portée du boss (%d m)"
+L.RANGERADAR_HEADER			= "Radar portée (%d m)"
+L.RANGERADAR_BOSS_HEADER		= "Portée boss (%d m)"
 L.RANGERADAR_IN_RANGE_TEXT	= "%d joueurs à portée"
 L.RANGERADAR_IN_RANGE_TEXTONE= "%s (%0.1fm)"--One target
 
@@ -296,6 +296,7 @@ L.AUTO_SPEC_WARN_TEXTS.count			= "%s! (%%s)"
 L.AUTO_SPEC_WARN_TEXTS.stack			= "%s (%%d)"
 L.AUTO_SPEC_WARN_TEXTS.switch			= "%s - Changer de cible"
 L.AUTO_SPEC_WARN_TEXTS.switchcount		= "%s - Changer de cible (%%s)"
+L.AUTO_SPEC_WARN_TEXTS.gtfo				= "%%s damage - Bougez !"
 
 -- Auto-generated Special Warning Localizations
 L.AUTO_SPEC_WARN_OPTIONS.spell			= "Afficher une alerte spéciale pour $spell:%s"
@@ -323,6 +324,8 @@ L.AUTO_SPEC_WARN_OPTIONS.count			= "Afficher une alerte spéciale pour $spell:%s
 L.AUTO_SPEC_WARN_OPTIONS.stack			= "Afficher une alerte spéciale lorsque vous cumulez >=%d stacks de $spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.switch			= "Afficher une alerte spéciale de changement de cible pour\n $spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.switchcount	= "Afficher une alerte spéciale (avec compte) de changer de cible pour $spell:%s"
+L.AUTO_SPEC_WARN_OPTIONS.gtfo			= "Afficher une alerte spéciale lorsque vous devez sortir d'une zone de dégat"
+
 
 -- Auto-generated Timer Localizations
 L.AUTO_TIMER_TEXTS.target		= "%s: >%%s<"

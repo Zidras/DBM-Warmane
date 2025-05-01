@@ -7,14 +7,16 @@ mod:SetCreatureID(36502)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 68982 70322 68820 68939 68899 70324",
+	"SPELL_CAST_START 68982 70322 68939",
 	"SPELL_AURA_APPLIED 69051 68939",
+	"SPELL_CAST_SUCCESS 68899 70324 68873 68820",
 	"SPELL_AURA_REMOVED 69051"
 )
 
 local warnUnleashedSouls		= mod:NewSpellAnnounce(68939, 3)
 local warnWellofSouls			= mod:NewSpellAnnounce(68820, 3)
 local warnMirroredSoul			= mod:NewTargetAnnounce(69051, 4)
+local warnWailingSouls			= mod:NewSpellAnnounce(68899, 3)
 
 local specwarnMirroredSoul		= mod:NewSpecialWarningReflect(69051, nil, nil, nil, 1, 2)
 local specwarnWailingSouls		= mod:NewSpecialWarningSpell(68899, nil, nil, nil, 2, 2)
@@ -25,17 +27,27 @@ local timerUnleashedSouls		= mod:NewBuffActiveTimer(5, 68939, nil, nil, nil, 2)
 
 mod:AddSetIconOption("SetIconOnMirroredTarget", 69051, false, false, {8})
 
+function mod:SPELL_CAST_SUCCESS(args)
+    if args:IsSpellID(68899, 70324, 68873) and self:AntiSpam(15,1) then					-- Wailing Souls
+		warnWailingSouls:Show()
+		specwarnWailingSouls:Show()
+		specwarnWailingSouls:Play("aesoon")
+	elseif args.spellId == 68820 then					-- Well of Souls
+		warnWellofSouls:Show()
+	end
+end
+
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(68982, 70322) and self:CheckInterruptFilter(args.sourceGUID, false, true) then	-- Phantom Blast
 		specwarnPhantomBlast:Show(args.sourceName)
 		specwarnPhantomBlast:Play("kickcast")
-	elseif args.spellId == 68820 then					-- Well of Souls
-		warnWellofSouls:Show()
+	--elseif args.spellId == 68820 then					-- Well of Souls
+	--	warnWellofSouls:Show()
 	elseif args.spellId == 68939 then					-- Unleashed Souls
 		warnUnleashedSouls:Show()
-	elseif args:IsSpellID(68899, 70324) then					-- Wailing Souls
-		specwarnWailingSouls:Show()
-		specwarnWailingSouls:Play("aesoon")
+	--elseif args:IsSpellID(68899, 70324) then					-- Wailing Souls
+	--	specwarnWailingSouls:Show()
+	--	specwarnWailingSouls:Play("aesoon")
 	end
 end
 

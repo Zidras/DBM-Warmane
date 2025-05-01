@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lanathel", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250414231849")
+mod:SetRevision("20230613234949")
 mod:SetCreatureID(37955)
 mod:SetModelID("creature/bloodqueen/bloodqueen.m2")
 mod:SetUsedIcons(1, 2, 3, 4, 7)
@@ -12,7 +12,7 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 71340 71510 70838 70877 71474 70867 70879 71473 71525 71530 71531 71532 71533 70923 71772",
 	"SPELL_AURA_REMOVED 71340 71510 70838 70877 71474",
-	"SPELL_CAST_SUCCESS 73070 71818 71819 71820 71821",
+	"SPELL_CAST_SUCCESS 73070",
 	"SPELL_DAMAGE 71726 71727 71728 71729 71277 72638 72639 72640 72637",
 	"SPELL_MISSED 71726 71727 71728 71729 71277 72638 72639 72640 72637",
 	-- "SPELL_PERIODIC_DAMAGE",
@@ -49,11 +49,10 @@ local timerNextPactDarkfallen		= mod:NewNextTimer(30, 71340, nil, nil, nil, 3)
 local timerNextSwarmingShadows		= mod:NewNextTimer(30.5, 71266, nil, nil, nil, 3)
 local timerInciteTerror				= mod:NewBuffActiveTimer(4, 73070)
 local timerBloodBolt				= mod:NewBuffActiveTimer(6, 71772, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON)
-local timerBloodBoltCD				= mod:NewVarTimer("v10-15", 71818, nil, false, nil, 2)
 local timerBloodThirst				= mod:NewBuffFadesTimer(10, 70877, nil, nil, nil, 5)
 local timerEssenceoftheBloodQueen	= mod:NewBuffFadesTimer(60, 70867, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
 
-local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 300 or 330)
+local berserkTimer					= mod:NewBerserkTimer(330)
 
 mod:AddRangeFrameOption(8, 71446)
 mod:AddInfoFrameOption(70867, true)
@@ -206,8 +205,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnInciteTerrorSoon:Schedule(95)
 			warnInciteTerrorSoon:ScheduleVoice(95, "fearsoon")
 		end
-	elseif args:IsSpellID(71818, 71819, 71820, 71821) and self:AntiSpam(5, 2) then -- Twilight Bloodbolt
-		timerBloodBoltCD:Start()
 	end
 end
 

@@ -1,12 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Options GUI|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF GUI für Einstellungen|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF 设置界面|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Параметры GUI|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF 使用者介面|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF 설정 GUI|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Interfaz gráfica|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF Interfaz gráfica|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF IUG des options|r
 ## Notes: GUI for Deadly Boss Mods
 ## Notes-deDE: Grafische Benutzeroberfläche für Deadly Boss Mods
@@ -22,42 +15,29 @@
 ## DefaultState: enabled
 ## Author: MysticalOS, QartemisT
 ## Version: 10.1.13_alpha
-
 localization.en.lua
-localization.de.lua
-localization.cn.lua
-localization.ru.lua
 localization.fr.lua
-localization.tw.lua
-localization.kr.lua
-localization.es.lua
-
 DBM-GUI.lua
 DBM-GUI_DropDown.lua
-
 # Modules
 modules\MainFramePrototype.lua
 modules\MainFrame.lua
 modules\ListFrameButtonsPrototype.lua
 modules\PanelPrototype.lua
-
 modules\options\general\General.lua
 modules\options\general\Core_GUI.lua
 modules\options\general\ExtraFeatures.lua
 modules\options\general\Profile.lua
-
 modules\options\alerts\Alerts.lua
 modules\options\alerts\Announcements.lua
 modules\options\alerts\SpecialAnnouncements.lua
 modules\options\alerts\ChatframeMessages.lua
 modules\options\alerts\SpokenAlerts.lua
 modules\options\alerts\EventSounds.lua
-
 modules\options\timers\Timers.lua
 modules\options\timers\Appearance.lua
 modules\options\timers\ColorbyType.lua
 modules\options\timers\Behavior.lua
-
 modules\options\filters\Filters.lua
 modules\options\filters\GlobalDisables.lua
 modules\options\filters\Reduction.lua
@@ -65,7 +45,6 @@ modules\options\filters\Handholding.lua
 modules\options\filters\HideBlizzard.lua
 modules\options\filters\RaidLeaderDisable.lua
 modules\options\filters\Privacy.lua
-
 modules\options\frames\Frames.lua
 modules\options\frames\InfoFrame.lua
 modules\options\frames\Range.lua

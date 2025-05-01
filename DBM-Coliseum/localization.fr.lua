@@ -26,9 +26,10 @@ L:SetOptionLocalization({
 	WarningSnobold				= "Montre une alerte quand les Vassal arrivent",
 	PingCharge					= "Ping sur la minimap quand Glace-hurlante va vous charger",
 	ClearIconsOnIceHowl			= "Enlève toutes les icônes avant la prochaine charge",
---	TimerNextBoss				= "Montre le timer pour l'arrivée du prochain boss",
+	TimerNextBoss				= "Montre le timer pour l'arrivée du prochain boss",
 --	TimerEmerge					= "Montre le timer avant que les vers rentre dans le sol",
-	TimerSubmerge				= "Montre le timer avant que les vers sortent du sol"
+	TimerSubmerge				= "Montre le timer avant que les vers sortent du sol",
+	IcehowlArrow				= "Montre une flèche DBM quand Glace-hurlante charge près de vous" 
 })
 
 L:SetMiscLocalization({

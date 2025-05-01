@@ -1,7 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Magtheridon|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0玛瑟里顿|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Магтеридон|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMMagtheridon_AllSavedVars
@@ -12,26 +10,9 @@
 ## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Magtheridon
-## X-DBM-Mod-Name-zhCN: 玛瑟里顿
-## X-DBM-Mod-Name-ruRU: Магтеридон
 ## X-DBM-Mod-MapID: 780
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Magtheridon's Lair
-## X-DBM-Mod-LoadZone-zhCN: 玛瑟里顿的巢穴
-## X-DBM-Mod-LoadZone-deDE: Magtheridons Kammer
-## X-DBM-Mod-LoadZone-esES: Guarida de Magtheridon
-## X-DBM-Mod-LoadZone-esMX: Guarida de Magtheridon
 ## X-DBM-Mod-LoadZone-frFR: Le repaire de Magtheridon
-## X-DBM-Mod-LoadZone-koKR: 마그테리돈의 둥지
-## X-DBM-Mod-LoadZone-ruRU: Логово Магтеридона
-## X-DBM-Mod-LoadZone-zhTW: 瑪瑟里頓的巢穴
-
 localization.en.lua
-localization.de.lua
-localization.es.lua
-localization.tw.lua
-localization.cn.lua
-localization.ru.lua
-localization.kr.lua
-
 Magtheridon.lua

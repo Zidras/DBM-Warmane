@@ -400,7 +400,7 @@ L:SetMiscLocalization({
 	Phase1	= "Faille de sécurité détectée. Analyse des archives historiques transférée en attente de basse priorité. Contre-mesures déclenchées.",
 	Phase2	= "Seuil d'indice de menace dépassé. Archivation céleste annulée. Niveau de sécurité augmenté.",
 	Phase3	= "Indice de menace critique. Analyse du Vide détournée. Lancement des protocoles d'épuration.",
-	Kill	= "Alerte : systèmes de protection désactivés. Purge de la mémoire en cours…"
+	Kill	= "Requête ? Tu crois que j'suis venu prendre le thé, ou quoi ? Mets-toi tout d'suite à table !"
 })
 
 ---------------
@@ -737,7 +737,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Pull				= "Bien joué. Aujourd'hui, vous avez fait la preuv-",
 	AchievementFailed	= ">> Haut fait ÉCHEC: %s a été frappé par Explosion de goule <<",
-	YellCombatEnd		= "Non ! Pas encore... un échec..."
+	YellCombatEnd		= "Non ! Pas encore… un échec…"
 })
 
 -------------------
@@ -750,7 +750,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Joli combat ! Votre prochain défi vient directement des rangs de la Croisade. L'épreuve sera de vous mesurer à l'incroyable vituosité de ses cavaliers."
+	YellCombatEnd	= "Joli combat ! Votre prochain défi vient directement des rangs de la Croisade. L'épreuve sera de vous mesurer à l'incroyable virtuosité de ses cavaliers.",
+	Pull 			= "Les Saccage-soleil sont fiers d'annoncer leurs représentants pour ce jugement par l'épée."
 })
 
 -------------------
@@ -763,7 +764,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Bon travail !"
+	YellCombatEnd	= "C'est du beau travail !"
 })
 
 -------------------
@@ -819,9 +820,9 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	CombatStart		= "Hélas, mes très, très braves aventuriers, votre intrusion touche à sa fin. Entendez-vous le claquement de l'acier sur les os qui monte du tunnel, derrière vous ? C'est le son de votre mort imminente.",
+	CombatStart		= "Hélas, mes très, très braves aventuriers, votre intrusion touche à sa fin. Entendez-vous le claquement de l'acier sur les os qui monte du tunnel, derrière vous ? C'est le son de votre mort imminente.",
 	HoarfrostTarget	= "^%%s fixe (%S+) du regard et prépare une attaque de glace !",
-	YellCombatEnd	= "Impossible.... Frigecroc.... avertis...."
+	YellCombatEnd	= "Impossible… Frigecroc… avertis…"
 })
 
 ---------------------

@@ -396,7 +396,7 @@ L:SetMiscLocalization({
 	Phase1	= "Security breach in progress. Analysis of historical archives transferred to lower-priority queue. Countermeasures engaged.",
 	Phase2	= "Threat index threshold exceeded.  Celestial archive aborted. Security level heightened.",
 	Phase3	= "Critical threat index. Void analysis diverted. Initiating sanitization protocol.",
-	Kill	= "Alert: security fail-safes deactivated. Beginning memory purge and... "
+	Kill	= "Query? What do you think I'm here for, tea and biscuits? Spill the beans already!"
 })
 
 -----------------
@@ -746,7 +746,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Well fought! Your next challenge comes from the Crusade's own ranks. You will be tested against their considerable prowess."
+	YellCombatEnd	= "Well fought! Your next challenge comes from the Crusade's own ranks. You will be tested against their considerable prowess.",
+	Pull 			= "The Sunreavers are proud to present their representatives in this trial by combat."
 })
 
 ----------------------------------

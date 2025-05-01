@@ -7,15 +7,19 @@ mod:SetCreatureID(27977)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_SUCCESS 50833"
+	"SPELL_CAST_START 61546"
 )
 
-local warningShatter	= mod:NewSpellAnnounce(50810, 3)
+local warningShatter	= mod:NewSpellAnnounce(61546, 3)
 
-local timerShatterCD	= mod:NewCDTimer(25, 50810, nil, nil, nil, 2)
+local timerShatterCD	= mod:NewCDTimer(16, 61546, nil, nil, nil, 2)
 
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 50833 then
+function mod:OnCombatStart(delay)
+		timerShatterCD:Start(40)
+end
+
+function mod:SPELL_CAST_START(args)
+	if args.spellId == 61546 then
 		warningShatter:Show()	-- Shatter warning when Ground Slam is cast
 		timerShatterCD:Start()
 	end

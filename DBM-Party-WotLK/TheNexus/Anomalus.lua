@@ -9,12 +9,12 @@ mod:SetCreatureID(26763)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_SUMMON 47743",
+	"SPELL_AURA_APPLIED 47748",
 	"UNIT_HEALTH"
 )
 
-local warningRiftSoon	= mod:NewSoonAnnounce(47743, 2)
-local warningRiftNow	= mod:NewSpellAnnounce(47743, 3)
+local warningRiftSoon	= mod:NewSoonAnnounce(47748, 2)
+local warningRiftNow	= mod:NewSpellAnnounce(47748, 3)
 
 local warnedRift		= false
 
@@ -22,8 +22,8 @@ function mod:OnCombatStart()
 	warnedRift = false
 end
 
-function mod:SPELL_SUMMON(args)
-	if args.spellId == 47743 then
+function mod:SPELL_AURA_APPLIED(args)
+	if args.spellId == 47748 then
 		warningRiftNow:Show()
 	end
 end

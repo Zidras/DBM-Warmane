@@ -1,11 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Black Temple|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0검은 사원|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Der Schwarze Tempel|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Templo Oscuro|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0黑暗神殿|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0黑暗神廟|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Черный храм|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMBlackTemple_AllSavedVars
@@ -17,23 +11,9 @@
 ## X-DBM-Mod-MapID: 797
 ## X-DBM-Mod-Sort: 1002
 ## X-DBM-Mod-Name: Black Temple
-## X-DBM-Mod-Name-zhCN: 黑暗神殿
-## X-DBM-Mod-Name-ruRU: Черный храм
 ## X-DBM-Mod-LoadZone: Black Temple
-## X-DBM-Mod-LoadZone-deDE: Der Schwarze Tempel
-## X-DBM-Mod-LoadZone-zhCN: 黑暗神殿
-## X-DBM-Mod-LoadZone-zhTW: 黑暗神廟
-## X-DBM-Mod-LoadZone-ruRU: Черный храм
-
 localization.en.lua
-localization.cn.lua
-localization.de.lua
-localization.es.lua
 localization.fr.lua
-localization.kr.lua
-localization.ru.lua
-localization.tw.lua
-
 Najentus.lua
 Supremus.lua
 ShadeOfAkama.lua

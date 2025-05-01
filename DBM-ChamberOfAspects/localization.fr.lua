@@ -178,21 +178,21 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	TwilightCutterCast	= "Casting Twilight Cutter: 5 sec"
+	TwilightCutterCast	= "Casting Twilight Cutter dans : 5 sec"
 })
 
 L:SetOptionLocalization({
 	TwilightCutterCast		= "Show warning when $spell:77844 is being cast",
-	AnnounceAlternatePhase	= "Show warnings/timers for phase you aren't in as well",
-	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets"--So we can use single functions for both versions of spell.
+	AnnounceAlternatePhase	= "Montre une alerte/timer pour la phase dans laquelle vous n'êtes pas", 
+	SetIconOnConsumption	= "Placer des icones sur les cibles de $spell:74562 ou $spell:74792"
 })
 
 L:SetMiscLocalization({
 	Halion					= "Halion",
 	PhysicalRealm			= "Royaume matériel",
 	MeteorCast				= "Les cieux s'embrasent !",
-	Phase2					= "Vous ne trouverez que souffrance au royaume du crépuscule ! Entrez si vous l'osez !",
-	Phase3					= "Je suis la lumière et l'ombre ! Tremblez, mortels, devant le héraut d'Aile-de-mort !",
-	twilightcutter			= "Méfiez-vous de l'ombre !", --"Les sphères volantes rayonnent d'énergie noire !", -- Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
-	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!"--needs translation
+	Phase2					= "Vous ne trouverez que souffrance au royaume du Crépuscule ! Entrez si vous l'osez !",
+	Phase3					= "Je suis la lumière et l'ombre ! Tremblez, mortels, devant le héraut d'Aile de mort !",
+	twilightcutter			= "Méfiez-vous de l'ombre !",
+	Kill					= "Savourez bien cette victoire, mortels, car ce sera votre dernière. Ce monde brûlera au retour du maître !"
 })

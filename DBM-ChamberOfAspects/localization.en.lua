@@ -176,7 +176,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	TwilightCutterCast	= "Casting Twilight Cutter: 5 sec"
+	TwilightCutterCast	= "Casting Twilight Cutter in : 5 sec"
 })
 
 L:SetTimerLocalization({
@@ -186,7 +186,7 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	TwilightCutterCast		= "Show warning when $spell:74769 is being cast",
 	AnnounceAlternatePhase	= "Show warnings/timers for phase you aren't in as well",
-	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets",--So we can use single functions for both versions of spell.
+	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets",
 	TimerCutterSpawn		= "Show timer until next $spell:74769 is beamed (disables Next and Cast timers)"
 })
 
@@ -196,6 +196,6 @@ L:SetMiscLocalization({
 	MeteorCast				= "The heavens burn!",
 	Phase2					= "You will find only suffering within the realm of twilight! Enter if you dare!",
 	Phase3					= "I am the light and the darkness! Cower, mortals, before the herald of Deathwing!",
-	twilightcutter			= "Beware the shadow!", --"The orbiting spheres pulse with dark energy!". Can't use this since on Warmane it triggers twice, 5s prior and on cutter.
+	twilightcutter			= "Beware the shadow!",
 	Kill					= "Relish this victory, mortals, for it will be your last. This world will burn with the master's return!"
 })

@@ -15,11 +15,11 @@ mod:RegisterEvents(
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 73058 72378", -- 72293",
 	"SPELL_CAST_SUCCESS 72410 72769 72385 72441 72442 72443",
-	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737", -- 19753",
+	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737 72410", -- 19753",
 	"SPELL_AURA_REMOVED 72385 72441 72442 72443",
 	"SPELL_SUMMON 72172 72173 72356 72357 72358",
 	"UNIT_DIED",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH"
 )
 
 --local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
@@ -27,8 +27,8 @@ mod:RegisterEventsInCombat(
 local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
-local timerCombatStart		= mod:NewCombatTimer(47.10)
-local enrageTimer			= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 480)
+local timerCombatStart		= mod:NewCombatTimer(43.3)
+local enrageTimer			= mod:NewBerserkTimer(480)
 
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
@@ -43,13 +43,13 @@ local warnMark				= mod:NewTargetCountAnnounce(72293, 4, 72293, nil, 28836, nil,
 local warnBoilingBlood		= mod:NewTargetNoFilterAnnounce(72385, 2, nil, "Healer")
 local warnRuneofBlood		= mod:NewTargetNoFilterAnnounce(72410, 3, nil, "Tank|Healer")
 
-local specwarnMark			= mod:NewSpecialWarningYou(72444, nil, 28836, nil, 1, 2)
+local specwarnMark			= mod:NewSpecialWarningYou(72293, nil, 28836, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
-local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! HC -> wipe -> N different script? First two timers stopped being fixed? (25N Lordaeron 2023/02/10) - pull:20.8, 19.3, 20.0, 20.0, 20.0, 20.1, 20.0, 20.0, 20.0, 20.0
-local timerBoilingBlood		= mod:NewCDTimer(15, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) -- REVIEW! ~5s variance [15-20.42]; there was one 11.7! Same as above?? Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04 || 25N Lordaeron 2023/02/10 || 25H Lordaeron [2023-08-23]@[20:27:43]) - 19.2, 15.5, 15.7, 17.7, 18.1, 15.7, 16.9, 19.5, 15.3, 19.5, 18.5, 15.2, 19.9 || 15.1, 19.4, 19.0, 15.4, 15.0, 16.8, 19.1, 15.9, 17.1 || 11.7, 16.4, 16.5, 17.4, 19.6, 19.0, 16.5, 16.9, 15.5, 16.4, 17.5 || pull:15.5, 18.5, 17.3, 19.4, 19.7, 20.4, 17.0, 17.0, 15.0
-local timerBloodNova		= mod:NewCDTimer(20, 72378, nil, nil, nil, 2, nil, nil, true) -- 5s variance [20-25]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/04) - 21.7, 21.7, 20.9, 22.6, 20.2, 24.8, 24.6, 20.7, 22.2, 22.4 || 24.9, 21.8, 21.0, 22.8, 23.2, 24.3, 22.2
+local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) 
+local timerBoilingBlood		= mod:NewCDTimer(15, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) 
+local timerBloodNova		= mod:NewCDTimer(20, 72378, nil, nil, nil, 2, nil, nil, true) -- "Blood Nova-73058-npc:37813-46 = pull:1.02, 25.02, 20.75, 20.12, 22.46, 20.85" || besoin de + de data
 
 --local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
@@ -100,17 +100,6 @@ do	-- add the additional Rune Power Bar
 	end
 end
 
---[[function mod:FallenMarkTarget(targetname)
-	if not targetname then return end
-	if targetname == UnitName("player") then
-		if canShadowmeld then
-			soundSpecWarnMark:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Shadowmeld.ogg")
-		elseif canVanish then
-			soundSpecWarnMark:Play("Interface\\AddOns\\DBM-Core\\sounds\\PlayerAbilities\\Vanish.ogg")
-		end
-	end
-end]]
-
 function mod:OnCombatStart(delay)
 	if self.Options.RunePowerFrame then
 		DBM.BossHealth:Show(L.name)
@@ -122,11 +111,11 @@ function mod:OnCombatStart(delay)
 	else
 		enrageTimer:Start(360-delay)
 	end
-	timerCallBloodBeast:Start(-delay)
-	warnAddsSoon:Schedule(30-delay)
-	timerBloodNova:Start(17-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 17.1 || 17.0 || 17.0 || 17.0 || 17.0 || 20.3
-	timerRuneofBlood:Start(-delay) -- (25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 20.0 || 20.0 || 20.8
-	timerBoilingBlood:Start(15.5-delay) -- (10N Icecrown 2022/08/25 || 10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron 2023/02/10 18:54:04 || 25H Lordaeron 2023/02/10 19:02:29 || 25N Lordaeron 2023/02/10 19:10:14) - 15.5 || 15.5|| 15.5 || 15.6 || 15.5 || 19.4
+	timerCallBloodBeast:Start(30-delay)
+	warnAddsSoon:Schedule(20-delay)
+	timerBloodNova:Start(-delay)
+	timerRuneofBlood:Start(19.5-delay)
+	timerBoilingBlood:Start(19-delay)
 	self.vb.warned_preFrenzy = false
 	self.vb.boilingBloodIcon = 1
 	self.vb.beastIcon = 8
@@ -152,7 +141,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(73058, 72378) then	-- Blood Nova (only 2 cast IDs, 4 spell damage IDs, and one dummy)
+	if args:IsSpellID(73058, 72378) then
 		warnBloodNova:Show()
 		timerBloodNova:Start()
 --	elseif args.spellId == 72293 then
@@ -163,13 +152,13 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 72410 then
-		warnRuneofBlood:Show(args.destName)
+		--[[warnRuneofBlood:Show(args.destName)
 		if not args:IsPlayer() then
 			specwarnRuneofBlood:Show(args.destName)
 			specwarnRuneofBlood:Play("tauntboss")
 		else
 			specwarnRuneofBloodYou:Show()
-		end
+		end]]
 		timerRuneofBlood:Start()
 	elseif spellId == 72769 then
 		specWarnScentofBlood:Show()
@@ -196,8 +185,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnBoilingBlood:CombinedShow(0.5, args.destName)
 	elseif spellId == 72737 then						-- Frenzy
 		warnFrenzy:Show()
---	elseif spellId == 19753 and self:IsInCombat() and self.Options.RemoveDI then	-- Remove Divine Intervention
---		CancelUnitBuff("player", GetSpellInfo(19753))
+	elseif spellId == 72410 then
+		warnRuneofBlood:Show(args.destName)
+		if not args:IsPlayer() then
+			specwarnRuneofBlood:Show(args.destName)
+			specwarnRuneofBlood:Play("tauntboss")
+		else
+			specwarnRuneofBloodYou:Show()
+		end
 	end
 end
 
@@ -250,7 +245,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			DBM.RangeCheck:Show(12)
 		end
 	elseif msg:find(L.PullHorde, 1, true) then
-		timerCombatStart:Start(98.72)
+		timerCombatStart:Start(80)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(12)
 		end

@@ -8,8 +8,8 @@ mod:SetUsedIcons(8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 68987 68989 70434 69012",
-	"SPELL_AURA_APPLIED 69029 70850",
+	"SPELL_CAST_START 68987 68989 70434",
+	"SPELL_AURA_APPLIED 69029 70850 69263 69012",
 	"SPELL_AURA_REMOVED 69029 70850",
 	"SPELL_PERIODIC_DAMAGE 69024 70436",
 	"SPELL_PERIODIC_MISSED 69024 70436",
@@ -24,7 +24,8 @@ local specWarnMines				= mod:NewSpecialWarningSpell(69015, nil, nil, nil, 2, 2)
 local specWarnPursuit			= mod:NewSpecialWarningRun(68987, nil, nil, 2, 4, 2)
 local specWarnPoisonNova		= mod:NewSpecialWarningRun(68989, "Melee", nil, 2, 4, 2)
 
-local timerSpecialCD			= mod:NewCDSpecialTimer(20)--Every 20-22 seconds. In rare cases he skips a special though and goes 40 seconds. unsure of cause
+local timerMinesCast			= mod:NewCastTimer(18, 69015, nil, nil, nil, 2)
+local timerSpecialCD			= mod:NewCDSpecialTimer(25)
 local timerPursuitCast			= mod:NewCastTimer(5, 68987, nil, nil, nil, 3)
 local timerPursuitConfusion		= mod:NewBuffActiveTimer(12, 69029, nil, nil, nil, 5)
 local timerPoisonNova			= mod:NewCastTimer(5, 68989, nil, "Melee", 2, 2)
@@ -50,16 +51,21 @@ function mod:SPELL_CAST_START(args)
 		specWarnPoisonNova:Show()
 		specWarnPoisonNova:Play("runout")
 		timerSpecialCD:Start()
-	elseif args.spellId == 69012 then				--Explosive Barrage
-		specWarnMines:Show()
-		specWarnMines:Play("watchstep")
-		timerSpecialCD:Start(22) --Will be 2 seconds longer because of how long barrage lasts
+	--elseif args.IsSpellID(69012, 70433) then				--Explosive Barrage
+	--	specWarnMines:Show()
+	--	specWarnMines:Play("watchstep")
+	--	timerSpecialCD:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(69029, 70850) then							-- Pursuit Confusion
 		timerPursuitConfusion:Start(args.destName)
+	elseif args:IsSpellID(69263, 69012) and self:AntiSpam(2,5) then
+		timerMinesCast:Start()				-- Explosive Barrage
+		specWarnMines:Show()
+		specWarnMines:Play("watchstep")
+		timerSpecialCD:Start()
 	end
 end
 

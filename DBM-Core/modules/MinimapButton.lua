@@ -12,7 +12,7 @@ end
 local dataBroker = LibStub("LibDataBroker-1.1"):NewDataObject("DBM", {
 	type	= "launcher",
 	label	= "DBM",
-	icon	= "Interface\\AddOns\\DBM-Core\\textures\\dbm_airhorn" -- old icon: "Interface\\Icons\\INV_Helmet_87"
+	icon	= "Interface\\AddOns\\DBM-Core\\textures\\woe" -- old icon: "Interface\\Icons\\INV_Helmet_87"
 })
 private.dataBroker = dataBroker
 

@@ -4,14 +4,14 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20250318212740")
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetUsedIcons(7, 3)
-mod:SetMinSyncRevision(4358) -- try to preserve this as much as possible to receive old DBM comms
+mod:SetMinSyncRevision(20250318212740)
 
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.Kill)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 74806 75954 75955 75956 74525 74526 74527 74528",
-	"SPELL_CAST_SUCCESS 74792 74562",
+	"SPELL_CAST_SUCCESS 74792 74562 74531",
 	"SPELL_AURA_APPLIED 74792 74562",
 	"SPELL_AURA_REMOVED 74792 74562",
 	"SPELL_DAMAGE",
@@ -19,13 +19,13 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UPDATE_WORLD_STATES",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH boss1 boss2"
 )
 
 -- General
 local berserkTimer					= mod:NewBerserkTimer(480)
 
-mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
+mod:AddBoolOption("AnnounceAlternatePhase", false, "announce")
 
 -- Stage One - Physical Realm (100%)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.PhysicalRealm)
@@ -38,11 +38,11 @@ local specWarnFieryCombustion		= mod:NewSpecialWarningRun(74562, nil, nil, nil, 
 local yellFieryCombustion			= mod:NewYellMe(74562)
 local specWarnMeteorStrike			= mod:NewSpecialWarningMove(74648, nil, nil, nil, 1, 2)
 
-local timerFieryCombustionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3) -- (25H Lordaeron 2022/10/09) - Stage 1/16.4, 25.6, 25.1, 25.1, Stage 2/0.2, Stage 3/104.2, 18.5/122.7/122.9, 25.1, 25.0, 26.0, 25.0, 25.0, 25.1, 25.0, 25.0", -- [2]
-local timerMeteorCD					= mod:NewNextTimer(40, 74648, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--Target or aoe? tough call. It's a targeted aoe! Even though on pull has variance, can't implement "keep" due to OnSync phasing, unless I sync schedule and end timer flag but that's a bit overkill
-local timerMeteorCast				= mod:NewCastTimer(7, 74648)--7-8 seconds from boss yell the meteor impacts.
-local timerFieryBreathCD			= mod:NewCDTimer(13, 74525, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~4s variance [13.1-16.9]. Added "keep" arg (25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/23) - 16.1, 13.1, 13.8, 14.9, 14.6, 16.3, Stage 2/2.0, Stage 3/109.9, 17.4/127.3/129.3, 16.4 || 15.7, 15.7, 16.9, 16.7, 15.1, Stage 2/9.3, Stage 3/93.0, 13.0/106.0/115.4, 14.2, 14.5, 13.5, 13.8, 15.7, 15.0, 15.9, 16.0, 13.4, 15.0, 16.2, 16.8, 16.2
-local timerTailLashCD				= mod:NewCDTimer(10, 74531, nil, nil, nil, 2) -- Almost a fixed timer, with very occasional delay, on both Physical and Shadow realms. (25H Lordaeron 2022/09/23) - pull:10.1/Stage 1/10.1, 10.0, 10.0, 10.0, 10.1, 10.5, 10.0, 10.1, 11.7, Stage 2/13.5, 10.1, 10.0, 10.0, 10.1, 10.0, 10.0, 10.0, Stage 3/10.0, 10.0, 11.2, 10.0, 10.0, 10.0, 10.1, 10.1, 10.0, 10.0, 10.0, 10.0, 10.0, 10.1, 10.0, 10.0, 10.0, 11.0, 10.0
+local timerFieryCombustionCD		= mod:NewNextTimer(25, 74562, nil, nil, nil, 3)
+local timerMeteorCD					= mod:NewNextTimer(38, 74648, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerMeteorCast				= mod:NewCastTimer(7, 74648)
+local timerFieryBreathCD			= mod:NewCDTimer(18, 74525, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true)
+local timerTailLashCD				= mod:NewCDTimer(12, 74531, nil, nil, nil, 2)
 
 mod:AddSetIconOption("SetIconOnFireConsumption", 74562, true, false, {7})--Red x for Fire
 
@@ -59,12 +59,11 @@ local specWarnSoulConsumption		= mod:NewSpecialWarningRun(74792, nil, nil, nil, 
 local yellSoulConsumption			= mod:NewYellMe(74792)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(74769, nil, nil, nil, 3, 2)
 
-local timerSoulConsumptionCD		= mod:NewNextTimer(20, 74792, nil, nil, nil, 3) -- (25N Lordaeron 2022/09/20) - Stage 2/22.9, 20.0, 20.0, Stage 3/10.4, 9.6/20.0, 20.0, 60.0, 20.0
-local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 74769, nil, nil, nil, 6)
+local timerSoulConsumptionCD		= mod:NewNextTimer(25.5, 74792, nil, nil, nil, 3) 
+--local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerTwilightCutter			= mod:NewBuffActiveTimer(9, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
-local timerTwilightCutterSpawn		= mod:NewTimer(20, "TimerCutterSpawn", 74769, false, nil, 6, nil, nil, nil, nil, nil, nil, nil, 74769) -- Combines CD + Cast, and disables them too
-local timerShadowBreathCD			= mod:NewCDTimer(13, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true) -- REVIEW! ~4s variance [13.0-16.9]. Added "keep" arg (25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/23) -- 14.0, 15.9, 13.8, 14.9, 14.3, 13.0 || 15.8, 13.7, 16.9, 15.3
+local timerShadowBreathCD			= mod:NewCDTimer(16, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true)
 
 mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Purple diamond for shadow
 
@@ -101,9 +100,9 @@ function mod:OnCombatStart(delay)
 	shadowBreathCLEU = false
 	previousCorporeality = 0
 	berserkTimer:Start(-delay)
-	timerMeteorCD:Start(20-delay) -- REVIEW! ~5s variance (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/10/09) - 20.7 || 24.5
-	timerFieryCombustionCD:Start(15-delay) -- (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/10/09) - 17.6 || 16.4
-	timerFieryBreathCD:Start(10-delay) -- (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 10.5 || 11.3 || 12.4 || 10.3
+	timerMeteorCD:Start(18-delay) 
+	timerFieryCombustionCD:Start(15-delay) 
+	timerFieryBreathCD:Start(10-delay) 
 	timerTailLashCD:Start(-delay)
 end
 
@@ -133,19 +132,19 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff timers in case it gets resisted by a player we still get CD timer for next one
 	local spellId = args.spellId
-	if spellId == 74792 then
+	--[[if spellId == 74792 then
 		timerSoulConsumptionCD:Start()
 		soulConsumptionCLEU = true
 		if self:LatencyCheck() then
-			self:SendSync("ShadowCD")
+			self:SendSync("ShadowCD") -- WAY OF ELENDIL = SPELL_CAST_SUCCESS doesn't trigger for those spells
 		end
 	elseif spellId == 74562 then
 		timerFieryCombustionCD:Start()
 		fieryCombustionCLEU = true
 		if self:GetStage(1, 2) and self:LatencyCheck() then -- useless on phase 1 since everyone is in the same realm
 			self:SendSync("FieryCD")
-		end
-	elseif spellId == 74531 then -- Tail Lash
+		end]]
+	if spellId == 74531 then -- Tail Lash
 		timerTailLashCD:Start()
 	end
 end
@@ -153,6 +152,11 @@ end
 function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actual debuff on >player< warnings since it has a chance to be resisted.
 	local spellId = args.spellId
 	if spellId == 74792 then
+		timerSoulConsumptionCD:Start()
+		soulConsumptionCLEU = true
+		if self:LatencyCheck() then
+			self:SendSync("ShadowCD")
+		end
 		if self:LatencyCheck() then
 			self:SendSync("ShadowTarget", args.destName)
 		end
@@ -168,6 +172,11 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 			self:SetIcon(args.destName, 3)
 		end
 	elseif spellId == 74562 then
+		timerFieryCombustionCD:Start()
+		fieryCombustionCLEU = true
+		if self:GetStage(1, 2) and self:LatencyCheck() then -- useless on phase 1 since everyone is in the same realm
+			self:SendSync("FieryCD")
+		end
 		if self:LatencyCheck() then
 			self:SendSync("FieryTarget", args.destName)
 		end
@@ -276,19 +285,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		if self:LatencyCheck() then
 			self:SendSync("Meteor")
 		end
-	elseif msg == L.twilightcutter or msg:find(L.twilightcutter) then -- 2022/10/14: No longer required since this has been fixed serverside! Nevertheless, there is no loss in functionality by doing this in Yell instead of Emote; it's even the first event fired from the pair! (~~Edited (specific for Warmane since CHAT_MSG_RAID_BOSS_EMOTE fires twice: at 5s and at cutter)~~)
-			specWarnTwilightCutter:Schedule(5)
-			specWarnTwilightCutter:ScheduleVoice(5, "farfromline")
+	elseif msg == L.twilightcutter or msg:find(L.twilightcutter) then
+			specWarnTwilightCutter:Schedule(0)
+			specWarnTwilightCutter:ScheduleVoice(0, "farfromline")
 		if not self.Options.AnnounceAlternatePhase then
 			timerTwilightCutterCD:Cancel()
-			warningTwilightCutter:Show()
-			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
-			if self.Options.TimerCutterSpawn then
-				timerTwilightCutterSpawn:Schedule(15)
-			else
-				timerTwilightCutterCast:Start()
-				timerTwilightCutterCD:Schedule(15)
-			end
+			warningTwilightCutter:Schedule(25)
+			timerTwilightCutter:Schedule(0) --Delay it since it happens 5 seconds after the emote // WOE = Pas de délai sur l'emote
+			timerTwilightCutterCD:Schedule(15)
 		end
 		if self:LatencyCheck() then
 			self:SendSync("TwilightCutter")
@@ -298,16 +302,11 @@ end
 
 function mod:OnSync(msg, target)
 	if msg == "TwilightCutter" then
-		if self.Options.AnnounceAlternatePhase then -- 2022/10/14: Removed antispam workaround since this has been fixed serverside! (~~Edited to circumvent Warmane double cutter boss emote~~)
+		if self.Options.AnnounceAlternatePhase then 
 			timerTwilightCutterCD:Cancel()
-			warningTwilightCutter:Show()
-			timerTwilightCutter:Schedule(5)--Delay it since it happens 5 seconds after the emote
-			if self.Options.TimerCutterSpawn then
-				timerTwilightCutterSpawn:Schedule(15)
-			else
-				timerTwilightCutterCast:Start()
-				timerTwilightCutterCD:Schedule(15)
-			end
+			warningTwilightCutter:Schedule(25)
+			timerTwilightCutter:Schedule(0)--Delay it since it happens 5 seconds after the emote // WOE = Pas de délai sur l'emote
+			timerTwilightCutterCD:Schedule(15)
 		end
 	elseif msg == "Meteor" then
 		if self.Options.AnnounceAlternatePhase then
@@ -352,20 +351,18 @@ function mod:OnSync(msg, target)
 		timerFieryCombustionCD:Cancel()
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerShadowBreathCD:Start() -- ~5s variance [13.7-18.4] (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 15.9 || 13.7 || 18.1 || 18.4
-		timerSoulConsumptionCD:Start(22.8)--Edited. not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this. (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25H Lordaeron 2022/10/30) - 23.8 || 23.4 || 22.8
-		if self.Options.TimerCutterSpawn then
-			timerTwilightCutterSpawn:Start(35)
-		else
-			timerTwilightCutterCD:Start(30) -- (25N Lordaeron 2022/09/20 || 25H Lordaeron 2022/09/21) - Stage 2/30.0 || Stage 2/30.0
-		end
+		timerShadowBreathCD:Start() 
+		timerSoulConsumptionCD:Start(22.8)
+		timerTwilightCutterCD:Start(40)
+		warningTwilightCutter:Schedule(35)
+
 		self:Schedule(20, clearKeepTimers, self)
 	elseif msg == "Phase3" and self:GetStage(3, 1) then
 		self:SetStage(3)
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
-		timerMeteorCD:Start(23.2) --These i'm not sure if they start regardless of drake aggro, or if it varies as well. (25H Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/30) - Stage 3/25.8 || 23.2
-		timerFieryCombustionCD:Start(17.8) -- REVIEW! source of variance? (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25N Lordaeron [2023-06-27]@[19:37:57]) - 18.5 || 19.4 || 17.8
+		timerMeteorCD:Start(23.2) 
+		timerFieryCombustionCD:Start(17.8) 
 		self:Schedule(20, clearKeepTimers, self)
 	elseif msg == "Phase3soon" and not self.vb.warned_preP3 then
 		self.vb.warned_preP3 = true

@@ -17,24 +17,6 @@
 --    * zhCN: Mini Dragon				projecteurs@gmail.com
 --
 --
--- Special thanks to:
---    * Arta
---    * Tennberg (a lot of fixes in the enGB/enUS localization)
---    * nBlueWiz (a lot of previous fixes in the koKR localization as well as boss mod work) Contact: everfinale@gmail.com
---
---
--- The code of this addon is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. (see license.txt)
--- All included textures and sounds are copyrighted by their respective owners, license information for these media files can be found in the modules that make use of them.
---
---
---  You are free:
---    * to Share - to copy, distribute, display, and perform the work
---    * to Remix - to make derivative works
---  Under the following conditions:
---    * Attribution. You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). (A link to http://www.deadlybossmods.com is sufficient)
---    * Noncommercial. You may not use this work for commercial purposes.
---    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
---
 local _, private = ...
 
 local wowVersionString, wowBuild, _, wowTOC = GetBuildInfo()
@@ -91,8 +73,6 @@ local fakeBWVersion = 7558
 local bwVersionResponseString = "%d"
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
--- support for github downloads, which doesn't support curse keyword expansion
--- just use the latest release revision
 if not DBM.Revision then
 	DBM.Revision = DBM.ReleaseRevision
 end
@@ -5724,80 +5704,38 @@ end
 -- 186	40 Player			raid		classic (custom?)
 -- 193	10 Player (Heroic)	raid		classic
 -- 194	25 Player (Heroic)	raid		classic
-function DBM:GetCurrentInstanceDifficulty()
-	local instanceName, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
-	if instanceType == "none" then
-		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
-	elseif instanceType == "raid" then
-		if isDynamicInstance then -- Dynamic raids (ICC, RS)
-			if difficulty == 1 then -- 10 players
-				if dynamicDifficulty == 0 then
-					return "normal10", difficultyName.." - ", 175, maxPlayers
-				elseif dynamicDifficulty == 1 then
-					return "heroic10" , difficultyName.." - ", 193, maxPlayers
-				else
-					return "unknown" , difficultyName.." - ", difficulty, maxPlayers
-				end
-			elseif difficulty == 2 then -- 25 players
-				if dynamicDifficulty == 0 then
-					return "normal25", difficultyName.." - ", 176, maxPlayers
-				elseif dynamicDifficulty == 1 then
-					return "heroic25", difficultyName.." - ", 194, maxPlayers
-				else
-					return "unknown", difficultyName.." - ", difficulty, maxPlayers
-				end
-			-- On Warmane, it was confirmed by Midna that difficulty returning only 1 or 2 is their intended behaviour: https://www.warmane.com/bugtracker/report/91065
-			-- code below (difficulty 3 and 4 in dynamic instances) prevents GetCurrentInstanceDifficulty() from breaking on servers that correctly assign difficulty 1-4 in dynamic instances.
-			elseif difficulty == 3 then -- 10 heroic, dynamic
-				return "heroic10", difficultyName.." - ", 193, maxPlayers
-			elseif difficulty == 4 then -- 25 heroic, dynamic
-				return "heroic25", difficultyName.." - ", 194, maxPlayers
-			end
-		else -- Non-dynamic raids
-			if difficulty == 1 then
-				-- check for Timewalking instance (workaround using GetRaidDifficulty since on Warmane all the usual APIs fail and return "normal" difficulty)
-				local raidDifficulty = GetRaidDifficulty()
-				if raidDifficulty ~= difficulty and (raidDifficulty == 2 or raidDifficulty == 4) then -- extra checks due to lack of tests and no access to a timewalking server
-					return "timewalker", difficultyName.." - ", 33, maxPlayers
-				else
-					if maxPlayers == 40 then
-						return "normal40", difficultyName.." - ", 186, maxPlayers
-					elseif maxPlayers == 25 then
-						return "normal25", difficultyName.." - ", 176, maxPlayers
-					elseif maxPlayers == 20 then -- ZG, AQ20
-						return "normal20", difficultyName.." - ", 148, maxPlayers
-					elseif maxPlayers == 10 then
-						return "normal10", difficultyName.." - ", 175, maxPlayers
-					elseif maxPlayers == 0 and instanceName == "Azshara Crater" then -- Warmane 2024 Tower Defense, with completely borked API
-						return "event25", "Event - ", 18, 25
-					elseif maxPlayers then
-						DBM:AddMsg("Instance difficulty not registered. Please report this bug! -> ".. maxPlayers)
-						return maxPlayers and "normal"..maxPlayers, difficultyName.." - ", difficulty, maxPlayers
-					else
-						return "unknown", difficultyName.." - ", difficulty, maxPlayers
-					end
-				end
-			elseif difficulty == 2 then
-				return "normal25", difficultyName.." - ", 176, maxPlayers
-			elseif difficulty == 3 then
-				return "heroic10", difficultyName.." - ", 193, maxPlayers
-			elseif difficulty == 4 then
-				return "heroic25", difficultyName.." - ", 194, maxPlayers
-			end
-		end
-	elseif instanceType == "party" then -- 5 man Dungeons
-		if difficulty == 1 then
-			return "normal5", difficultyName.." - ", 173, maxPlayers
-		elseif difficulty == 2 then
-			-- check for Mythic instance (workaround using GetDungeonDifficulty since on Warmane all the usual APIs fail and return "heroic" difficulty)
-			local dungeonDifficulty = GetDungeonDifficulty()
-			if dungeonDifficulty == 3 then
-				return "mythic", difficultyName.." - ", 23, maxPlayers
-			else
-				return "heroic5", difficultyName.." - ", 174, maxPlayers
-			end
-		end
-	end
+function DBM:GetCurrentInstanceDifficulty() -- WayOfElendil does return 1,2,3,4 for 10n,25n,10h,25h and 1,2 for 5n,5h
+    local instanceName, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
+    if instanceType == "none" then
+        -- Retain world boss check if needed, assuming difficulty 1 might indicate this outside of instances
+        return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
+    elseif instanceType == "raid" then
+        if difficulty == 1 then
+            return "normal10", difficultyName.." - ", 175, maxPlayers -- Difficulty 1 = 10normal
+        elseif difficulty == 2 then
+            return "normal25", difficultyName.." - ", 176, maxPlayers -- Difficulty 2 = 25normal
+        elseif difficulty == 3 then
+            return "heroic10", difficultyName.." - ", 193, maxPlayers -- Difficulty 3 = 10heroic
+        elseif difficulty == 4 then
+            return "heroic25", difficultyName.." - ", 194, maxPlayers -- Difficulty 4 = 25heroic
+        end
+        -- Fallback for any unhandled raid difficulty values
+        DBM:AddMsg("Unknown raid difficulty: "..tostring(difficulty).." reported by GetInstanceInfo(). Please report this bug!")
+        return "unknown", difficultyName.." - ", difficulty, maxPlayers
+    elseif instanceType == "party" then -- 5 man Dungeons
+        if difficulty == 1 then
+            return "normal5", difficultyName.." - ", 173, maxPlayers -- Difficulty 1 = 5normal
+        elseif difficulty == 2 then
+            return "heroic5", difficultyName.." - ", 174, maxPlayers -- Difficulty 2 = 5heroic
+        end
+         -- Fallback for any unhandled dungeon difficulty values
+        DBM:AddMsg("Unknown party difficulty: "..tostring(difficulty).." reported by GetInstanceInfo(). Please report this bug!")
+        return "unknown", difficultyName.." - ", difficulty, maxPlayers
+    end
+
+    -- Fallback for any unhandled instance types
+    DBM:AddMsg("Unknown instance type: "..tostring(instanceType).." reported by GetInstanceInfo(). Please report this bug!")
+    return "unknown", difficultyName.." - ", difficulty, maxPlayers
 end
 
 function DBM:GetCurrentArea()

@@ -1,11 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0태양샘 고원|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Der Sonnenbrunnen|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Meseta de La Fuente del Sol|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太阳井|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太陽之井|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Плато Солнечного Колодца|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMSunwell_AllSavedVars
@@ -15,28 +9,9 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-StatTypes: normal25, timewalker
 ## X-DBM-Mod-Name: Sunwell Plateau
-## X-DBM-Mod-Name-koKR: 태양샘 고원
-## X-DBM-Mod-Name-deDE: Der Sonnenbrunnen
-## X-DBM-Mod-Name-esES: Meseta de La Fuente del Sol
-## X-DBM-Mod-Name-zhCN: 太阳之井高地
-## X-DBM-Mod-Name-zhTW: 太陽之井
-## X-DBM-Mod-Name-ruRU: Плато Солнечного Колодца
 ## X-DBM-Mod-MapID: 790
 ## X-DBM-Mod-LoadZone: Sunwell Plateau
-## X-DBM-Mod-LoadZone-ruRU: Плато Солнечного Колодца
-## X-DBM-Mod-LoadZone-zhCN: 太阳之井高地
-## X-DBM-Mod-LoadZone-zhTW: 太陽之井高地
-## X-DBM-Mod-LoadZone-deDE: Sonnenbrunnenplateau
-## X-DBM-Mod-LoadZone-esES: Meseta de La Fuente del Sol
-
 localization.en.lua
-localization.cn.lua
-localization.de.lua
-localization.es.lua
-localization.kr.lua
-localization.ru.lua
-localization.tw.lua
-
 Kalecgos.lua
 KalecgosFrame.lua
 KalecgosFrame.xml

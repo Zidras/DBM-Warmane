@@ -24,7 +24,7 @@ local warnMarked			= mod:NewTargetNoFilterAnnounce(67823, 3)
 local specWarnDesecration	= mod:NewSpecialWarningMove(67781, nil, nil, nil, 1, 8)
 local specWarnExplode		= mod:NewSpecialWarningRun(67751, "Melee", nil, 2, 4, 2)
 
-local timerCombatStart		= mod:NewCombatTimer(38.5)
+local timerCombatStart		= mod:NewCombatTimer(45)
 local timerMarked			= mod:NewTargetTimer(10, 67823, nil, nil, nil, 3)
 local timerExplode			= mod:NewCastTimer(4, 67729, nil, nil, nil, 2)
 

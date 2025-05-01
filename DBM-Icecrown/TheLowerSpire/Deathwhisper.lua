@@ -16,12 +16,13 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 71289 71204 72905 72906 72907 72908",
 	"SPELL_AURA_APPLIED 71289 71001 72108 72109 72110 71237 70674 71204",
 	"SPELL_AURA_APPLIED_DOSE 71204",
+	"SPELL_AURA_REFRESH 71204",
 	"SPELL_AURA_REMOVED 70842 71289",
 	"SPELL_INTERRUPT",
---	"SPELL_SUMMON 71426",
+	"SPELL_SUMMON 71426",
 	"SWING_DAMAGE",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
@@ -31,7 +32,7 @@ local myRealm = select(3, DBM:GetMyPlayerInfo())
 -- General
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
 
-local berserkTimer					= mod:NewBerserkTimer((myRealm == "Lordaeron" or myRealm == "Frostmourne") and 420 or 600)
+local berserkTimer					= mod:NewBerserkTimer(600)
 
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("ShieldHealthFrame", false, "misc")
@@ -80,11 +81,11 @@ local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", t
 local specWarnVengefulShadeOnYou	= mod:NewSpecialWarningRun(71426, nil, nil, nil, 4, 2)
 --local yellVengefulShadeOnMe			= mod:NewYellMe(71426)
 
-local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true) -- SUMMON cleu event is fired much later than UNIT_SPELLCAST_SUCCEEDED (11.0-13.8), and with higher variance too. Initially using CLEU, but switched to UNIT event. ~5s variance for CLEU [9.4-14.1]. Added "keep" arg (10H Lordaeron 2022/10/02) - 9.9, 12.1, 11.7, 14.1, 10.1, 11.1, 11.7, 11.7, 13.1, 12.1, 9.4 ||| Stage 2/11.4, 11.3, 11.6, 11.3, 11.1, 11.1, 11.2, 11.5, 12.0, 11.3, 11.5, 11.7, 11.1, 11.7, 11.9, 11.4, 11.2, 11.7, 11.8, 11.1, 13.8
+local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true)
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
 local timerFrostboltVolleyCD		= mod:NewCDTimer(14, 72905, nil, nil, nil, 2)
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
-local timerTouchInsignificanceCD	= mod:NewCDTimer(9, 71204, nil, "Tank|Healer", nil, 5, nil, nil, true) -- ~6s variance [9.0-14.7]. Added "keep" arg (25H Lordaeron [2022-09-04]@[19:35:18] || 25H Lordaeron [2022-09-14]@[19:18:07] || 25H Lordaeron [2022-11-16]@[21:20:38]) - "Touch of Insignificance-71204-npc:36855-224 = pull:143.2/Stage 2/8.2, 11.3, 9.6, 14.7, 9.8, 9.9, 10.9, 11.8, 10.7, 10.2, 9.8, 11.3, 11.9, 10.9, 12.7, 11.6, 12.1, 11.5, 11.5, 10.4, 10.7, 10.4" || pull:132.1/Stage 2/6.0, 12.7, 12.2, 9.9, 13.0, 10.9, 9.1, 10.8, 12.1, 10.0, 11.6, 11.2, 10.0, 10.3, 9.2, 11.0, 12.3, 9.3, 12.6, 11.8, 12.9" || pull:136.6/Stage 2/6.5, 12.5, 9.4, 11.0, 13.7, 10.4, 13.5, 11.2, 10.7, 9.5, 9.0, 12.1, 12.2
+local timerTouchInsignificanceCD	= mod:NewCDTimer(7, 71204, nil, "Tank|Healer", nil, 5, nil, nil, true)
 
 local soundWarnSpirit				= mod:NewSound(71426)
 
@@ -313,6 +314,8 @@ local function unregisterShortTermEvents(self) -- only used for the scheduling b
 	self:UnregisterShortTermEvents()
 end
 
+
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	if self.Options.ShieldHealthFrame then
@@ -325,7 +328,7 @@ function mod:OnCombatStart(delay)
 	warnAddsSoon:Schedule(2.5-delay)			-- 3sec pre-warning on start
 	self:Schedule(5.5-delay, addsTimer, self)
 	if not self:IsDifficulty("normal10") then
-		timerDominateMindCD:Start(27-delay)	-- REVIEW! 2s variance? (10H Lordaeron 2022/09/02 || 25H Lordaeron 2022/09/04 || 25H Lordaeron [2023-07-05]@[19:41:47]) - 28.7 || 27.0 || 27.0
+		timerDominateMindCD:Start(27-delay)
 		specWarnWeapons:Show(checkWeaponRemovalSetting(self) and ENABLE or ADDON_DISABLED, (self.Options.EqUneqWeapons and self.Options.EqUneqTimer and (SLASH_STOPWATCH2):sub(2)) or (self.Options.EqUneqWeapons and COMBAT_LOG) or NONE, self.Options.EqUneqFilter)
 		if checkWeaponRemovalSetting(self) and self.Options.EqUneqTimer then
 			self:Schedule(26.5-delay, UnW, self)
@@ -428,17 +431,27 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnVampricMight:Show(args.destName)
 		specWarnVampricMight:Play("helpdispel")
 	elseif spellId == 71204 then
+		timerTouchInsignificanceCD:Start()
 		timerTouchInsignificance:Start(args.destName)
 		local amount = args.amount or 1
 		if args:IsPlayer() and amount >= 3 then
 			specWarnTouchInsignificance:Show(amount)
 			specWarnTouchInsignificance:Play("stackhigh")
 		else
-			warnTouchInsignificance:Show(args.destName, amount)
+			warnTouchInsignificance:Show(args.destName, amount)	
 		end
 	end
 end
+
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
+
+function mod:SPELL_AURA_REFRESH(args) -- to see the timer when first tank have 5 stacks and refresh it
+	local spellId = args.spellId
+	if spellId == 71204 then
+		timerTouchInsignificanceCD:Start()
+		timerTouchInsignificance:Start(args.destName)
+	end
+end
 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
@@ -446,9 +459,11 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerDominateMindCD:Restart(30)
-		timerSummonSpiritCD:Start() -- (25H Lordaeron 2022/10/21) - Stage 2/11.0
-		timerTouchInsignificanceCD:Start(6) -- 3.4s variance [6.0-9.4] (25H Lordaeron [2022-09-23]@[20:40:18] || 25H Lordaeron [2022-10-05]@[20:21:27]) - Stage 2/6.0 || Stage 2/9.4
+		if not self:IsDifficulty("normal10") then
+			timerDominateMindCD:Restart(30)
+		end
+		timerSummonSpiritCD:Start()
+		timerTouchInsignificanceCD:Start(7)
 		timerAdds:Cancel()
 		timerFrostboltVolleyCD:Start(20)
 		warnAddsSoon:Cancel()
@@ -481,14 +496,14 @@ function mod:SPELL_INTERRUPT(args)
 	end
 end
 
---[[very inconsistent timer due to spirit travel distance until spawn. Moved to UNIT_SPELLCAST_SUCCEEDED
+
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 71426 and self:AntiSpam(5, 1) then -- Summon Vengeful Shade
 		warnSummonSpirit:Show()
 		timerSummonSpiritCD:Start()
 		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\spirits.mp3")
 	end
-end]]
+end
 
 function mod:SWING_DAMAGE(sourceGUID, _, _, destGUID)
 	if destGUID == UnitGUID("player") and self:GetCIDFromGUID(sourceGUID) == 38222 then
@@ -503,14 +518,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
--- "<235.53 ...> [UNIT_SPELLCAST_SUCCEEDED] Lady Deathwhisper(54.8%-0.0%){Target:...} -Summon Spirit- [[boss1:Summon Spirit::0:]]", -- [20525]
--- "<235.53 ...> [DBM_Announce] Summon Spirit:Interface\\Icons\\Spell_Holy_SenseUndead:spell:71426:Deathwhisper:false:", -- [20526]
--- "<235.53 ...> [DBM_Debug] PlaySoundFile playing with media Sound\\Doodad\\BellTollNightElf.wav:3:", -- [20527]
--- "<235.53 ...> [DBM_Debug] Timer Summon Spirit CD(Timer71426cd) (Stage 2) refreshed after zero. Remaining time is : -0.92:2:", -- [20528]
--- "<235.53 ...> [DBM_TimerStart] Timer71426cd:Summon Spirit CD:11:Interface\\Icons\\Spell_Holy_SenseUndead:cd:71426:3:Deathwhisper:true:nil:Summon Spirit:nil:", -- [20529]
--- "<235.53 ...> [UNIT_SPELLCAST_SUCCEEDED] Lady Deathwhisper(54.8%-0.0%){Target:...} -Summon Spirit- [[boss1:Summon Spirit::0:]]", -- [20530]
--- "<235.53 ...> [PLAYER_TARGET_CHANGED] -1 Hostile (elite Undead) - Lady Deathwhisper # 0xF130008FF7000026", -- [20531]
--- "<235.53 ...> [UNIT_SPELLCAST_SUCCEEDED] Lady Deathwhisper(54.8%-0.0%){Target:...} -Summon Spirit- [[boss1:Summon Spirit::0:]]", -- [20532]
 function mod:PLAYER_TARGET_CHANGED()
 	if not playerHadTarget and self:GetCIDFromGUID(UnitGUID("target")) == 36855 then
 		specWarnVengefulShadeOnYou:Show()
@@ -522,7 +529,7 @@ function mod:PLAYER_TARGET_CHANGED()
 	self:UnregisterShortTermEvents() -- outside the if check, since I only care about the first event, whether or not it targeted boss
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+--[[function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == summonSpiritName and self:AntiSpam(5, 1) then -- Summon Spirit
 		playerHadTarget = UnitGUID("target") and true
 		warnSummonSpirit:Show()
@@ -535,4 +542,5 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 			self:Schedule(0.1, unregisterShortTermEvents, self)
 		end
 	end
-end
+end]]
+

@@ -1,12 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JcJ|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JcJ|r
 ## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JxJ|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Author: Nitram/Tandanu/Arta
@@ -18,38 +11,15 @@
 ## X-DBM-Mod-Category: OTHER
 ## X-DBM-Mod-No-Statistics: 1
 ## X-DBM-Mod-Name: PvP
-## X-DBM-Mod-Name-deDE: PvP
 ## X-DBM-Mod-Name-frFR: PvP
-## X-DBM-Mod-Name-ruRU: PvP
-## X-DBM-Mod-Name-zhTW: PvP
-## X-DBM-Mod-Name-zhCN: PvP
-## X-DBM-Mod-Name-koKR: PvP
-## X-DBM-Mod-Name-esES: JcJ
-## X-DBM-Mod-Name-esMX: JcJ
 ## X-DBM-Mod-Sort: 1500
 ## X-DBM-Mod-MapID: 462,444,402,541,483,513
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-LoadZone: Blade's Edge Arena,Dalaran Arena,Nagrand Arena,Ruins of Lordaeron,The Ring of Valor
-## X-DBM-Mod-LoadZone-deDE:Arena des Schergrats,Arena von Dalaran,Arena von Nagrand,Ruinen von Lordaeron,Der Ring der Ehre
-## X-DBM-Mod-LoadZone-esES: Arena Filospada,Arena de Dalaran,Arena de Nagrand,Ruinas de Lordaeron,El Círculo del Valor
-## X-DBM-Mod-LoadZone-esMX: Arena Filospada,Arena de Dalaran,Arena de Nagrand,Ruinas de Lordaeron,El Círculo del Valor
 ## X-DBM-Mod-LoadZone-frFR:Arène des Tranchantes,Arène de Dalaran,Arène de Nagrand,Ruines de Lordaeron,L’arène des Valeureux
-## X-DBM-Mod-LoadZone-koKR:칼날 투기장,달라란 투기장,나그란드 투기장,로데론의 폐허,용맹의 투기장
-## X-DBM-Mod-LoadZone-ruRU:Арена Острогорья,Арена Даларана,Арена Награнда,Руины Лордерона,Арена Доблести
-## X-DBM-Mod-LoadZone-zhCN:刀锋山竞技场,达拉然竞技场,纳格兰竞技场,洛丹伦废墟,勇气竞技场
-## X-DBM-Mod-LoadZone-zhTW:劍刃競技場,達拉然競技場,納葛蘭競技場,羅德隆廢墟,勇武競技場
-
 localization.en.lua
-localization.cn.lua
-localization.de.lua
-localization.es.lua
 localization.fr.lua
-localization.kr.lua
-localization.ru.lua
-localization.tw.lua
-
 PvPGeneral.lua
-
 Battlegrounds\Alterac.lua
 Battlegrounds\Arathi.lua
 Battlegrounds\EyeOfTheStorm.lua

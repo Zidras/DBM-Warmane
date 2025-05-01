@@ -83,7 +83,7 @@ L:SetTimerLocalization({
 
 L:SetMiscLocalization({
 	PullAlliance	= "Faites chauffer les moteurs ! On a rencart avec le destin, les gars !",
-	PullHorde		= "Levez-vous, fils et filles de la Horde ! Aujourd’hui, nous affrontons le plus haï de nos ennemis ! LOK’TAR OGAR !",
+	PullHorde		= "Kor’krons, appareillez !",
 	AddsAlliance	= "Saccageurs, sergents, à l'attaque !",
 	AddsHorde		= "Soldats, sergents, à l'attaque !",
 	MageAlliance	= "La coque est endommagée, qu'un mage de bataille aille faire taire leurs canons !",
@@ -153,8 +153,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellSlimePipes1				= "réparé le distributeur de poison",	-- Professor Putricide
-	YellSlimePipes2				= "Great news, everyone! The slime is flowing again!"	-- Professor Putricide
+	YellSlimePipes1				= "Grande nouvelle, mes amis ! J'ai réparé le distributeur de poison !",	-- Professor Putricide
+	YellSlimePipes2				= "Merveilleuse nouvelle, mes amis ! La gelée coule à flots !"	-- Professor Putricide
 })
 
 ---------------------------
@@ -181,7 +181,8 @@ L:SetTimerLocalization({
 
 L:SetMiscLocalization({
 	YellTransform1			= "Mmm, je ne sens plus rien. Woah ?! Mais ça vient d'où, tout ça ?",
-	YellTransform2			= "Au bon goût de… Cerise ! Oups ! Pardon !"
+	YellTransform2			= "Au bon goût de… Cerise ! Oups ! Pardon !",
+	YellTransi              = "Un limon ça va, deux limons, bonjour les dégâts !"
 })
 
 ----------------------------
@@ -319,7 +320,7 @@ L:SetWarningLocalization({
 	ValkyrWarning			= "%s >%s< %s est saisi !",
 	SpecWarnYouAreValkd		= "Vous avez été saisi",
 	WarnNecroticPlagueJump	= "La Peste nécrotique a sauter sur >%s<",
-	SpecWarnValkyrLow		= "Valkyr sous les 55%"
+	SpecWarnValkyrLow		= "Valkyr sous les 53%"
 })
 
 L:SetTimerLocalization({
@@ -350,6 +351,7 @@ L:SetMiscLocalization({
 	LKRoleplay				= "Est-ce vraiment la justice qui vous anime ? Je me demande…",
 	ValkGrabbedIcon			= "Gardes de l'ombre val'kyr {rt%d} a pris %s",
 	ValkGrabbed				= "Gardes de l'ombre val'kyr a pris %s",
+	ValkSumm				= "Val'kyrs, votre maître vous appelle !",
 	PlagueStackWarning		= "Alerte : %s a %d stacks de Peste nécrotique",
 	AchievementCompleted	= ">> HAUT-FAIT ÉCHOUÉ : %s a %d stacks de Peste nécrotique <<",
 	FrameTitle				= "Cibles Valkyr",

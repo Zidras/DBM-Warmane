@@ -86,7 +86,7 @@ L:SetTimerLocalization({
 
 L:SetMiscLocalization({
 	PullAlliance	= "Fire up the engines! We got a meetin' with destiny, lads!",
-	PullHorde		= "Rise up, sons and daughters of the Horde! Today we battle a hated enemy of the Horde! LOK'TAR OGAR!",
+	PullHorde		= "Kor'kron, take us out!",
 	--CombatAlliance	= "Cowardly dogs! Ye blindsided us!",
 	--CombatHorde		= "You answer to Saurfang now!",
 	AddsAlliance	= "Reavers, Sergeants, attack",
@@ -185,7 +185,8 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellTransform1			= "Hrm, I don't feel a thing. Wha?! Where'd those come from?",
-	YellTransform2			= "Tastes like... Cherry! OH! Excuse me!"
+	YellTransform2			= "Tastes like... Cherry! OH! Excuse me!",
+	YellTransi              = "Two oozes, one room. So many delightful possibilities!"
 })
 
 ----------------------------
@@ -323,7 +324,7 @@ L:SetWarningLocalization({
 	ValkyrWarning			= "%s >%s< %s has been grabbed!",
 	SpecWarnYouAreValkd		= "You have been grabbed",
 	WarnNecroticPlagueJump	= "Necrotic Plague jumped to >%s<",
-	SpecWarnValkyrLow		= "Valkyr below 55%"
+	SpecWarnValkyrLow		= "Valkyr below 53%"
 })
 
 L:SetTimerLocalization({
@@ -354,6 +355,7 @@ L:SetMiscLocalization({
 	LKRoleplay				= "Is it truly righteousness that drives you? I wonder...",
 	ValkGrabbedIcon			= "Valkyr Shadowguard {rt%d} grabbed %s",
 	ValkGrabbed				= "Valkyr Shadowguard grabbed %s",
+	ValkSumm				= "Val'kyr, your master calls!",
 	PlagueStackWarning		= "Warning: %s has %d stacks of Necrotic Plague",
 	AchievementCompleted	= ">> ACHIEVEMENT COMPLETE: %s has %d stacks of Necrotic Plague <<",
 	FrameTitle				= "Valkyr targets",

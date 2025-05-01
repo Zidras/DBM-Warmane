@@ -12,7 +12,7 @@ L.WebsiteButton				= "Site web"
 
 L.OTabBosses	= "Bosses"--Deprecated and will be deleted once tabs no longer use this
 L.OTabRaids		= "Raid"--Raids & PVP
-L.OTabDungeons	= "Groupe/Solo"--1-5 person content (Dungeons, MoP Scenarios, World Events, Brawlers, Proving Grounds, Visions, Torghast, etc)
+L.OTabDungeons	= "Groupe/Solo"--1-5 person content
 L.OTabPlugins	= "Core Plugins"
 L.OTabAbout		= "À propos"
 
@@ -151,9 +151,9 @@ L.ImportExportInfo			= "Attention ! Importer un profil écrasera votre profil ac
 L.ButtonImportProfile		= "Importer profil"
 L.ButtonExportProfile		= "Exporter profil"
 L.ProfileExportTitle		= "Voici votre profil actuel au format texte."
-L.ProfileExportSubtitle	= "Ctrl-C pour copier la config. dans votre presse-papier."
+L.ProfileExportSubtitle	    = "Ctrl-C pour copier la config. dans votre presse-papier."
 L.ProfileImportTitle		= "Collez ici un profil au format texte."
-L.ProfileImportSubtitle	= "Ctrl-V pour coller un texte de config de DBM."
+L.ProfileImportSubtitle	    = "Ctrl-V pour coller un texte de config de DBM."
 
 L.ImportErrorOn				= "Son personnalisé manquant pour : %s"
 L.ImportVoiceMissing		= "Pack de voix manquant : %s"
@@ -173,9 +173,9 @@ L.RaidWarnColor_3			= "Couleur 3"
 L.RaidWarnColor_4			= "Couleur 4"
 L.InfoRaidWarning			= [[Vous pouvez préciser la position et les couleurs de la fenêtre des alertes raid.
 Cette fenêtre est utilisée pour les messages de type "Joueur X est affecté par Y".]]
-L.ColorResetted			= "Les paramètres de couleur de ce champ ont été réinitialisés"
+L.ColorResetted			    = "Les paramètres de couleur de ce champ ont été réinitialisés"
 L.ShowWarningsInChat		= "Afficher les alertes dans la fenêtre de discussion"
-L.ShowFakedRaidWarnings = "위험 알림을 공격대 경보 메세지처럼 보여줍니다."
+L.ShowFakedRaidWarnings     = "Show warnings as faked raid warning messages"
 L.WarningIconLeft			= "Afficher l'icône du côté gauche"
 L.WarningIconRight			= "Afficher l'icône du côté droit"
 L.WarningIconChat			= "Afficher les icônes dans la fenêtre de discussion"
@@ -356,13 +356,19 @@ L.BarSpark					= "Barre clignotante"
 L.BarFlash					= "Faire clignoter les barres qui vont expirer"
 L.BarSort					= "Trier par temps restant"
 L.BarColorByType			= "Couleur par type"
+L.Highest					= "Plus long en haut"
+L.Lowest					= "Plus bas en haut"
 L.NoBarFade					= "Utiliser les couleurs initiales/finales comme couleurs petites barres/grandes barres au lieu du changement de couleur progressif"
 L.BarInlineIcons			= "Icônes intégrées"
 L.ShortTimerText			= "Texte de temps abrégé (si possible)"
+L.StripTimerText			= "Désactiver les timers négatifs (non recommandé pour debug)"
+L.DisableRightClickBar		= "Désactiver le clic droit pour annuler les barres timer"
 L.KeepBar					= "Maintenir les barres actives jusqu'à l'utilisation de la capacité"
 L.KeepBar2					= "(quand supporté par le module)"
 L.FadeBar					= "Disparition des barres pour les capacités hors de portée"
 L.BarSkin					= "Apparence des barres"
+
+
 
 -- Tab: HealthFrame
 L.Panel_HPFrame				= "Barre de vie"
@@ -446,6 +452,11 @@ L.Area_TimerTracker			= "Options de TimerTracker"
 L.PlayTT					= "Activer le TimerTracker"
 L.PlayTTCountdown			= "Jouer le son du compte à rebours TimerTracker"
 L.PlayTTCountdownFinished	= "Jouer le son du compte à rebours TimerTracker terminé"
+
+L.Area_BossBanner					= "Options de la bannière de boss"
+L.EnableBB							= "Activer la bannière de boss"
+L.PlayBBLoot						= "Jouer l'animation de la bannière de boss"
+L.PlayBBSound						= "Jouer le son de la bannière de boss"
 
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "Désactivation Blizzard"

@@ -1,13 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple of Ahn'Qiraj|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Tempel von Ahn'Qiraj|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Templo de Ahn'Qiraj|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Templo de Ahn'Qiraj|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple d'Ahn'Qiraj|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Храм Ан'Киража|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0안퀴라즈 사원|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉神殿|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉神廟|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMAQ40_AllSavedVars
@@ -19,28 +12,10 @@
 ## X-DBM-Mod-MapID: 767
 ## X-DBM-Mod-Sort: 1102
 ## X-DBM-Mod-Name: The Temple of Ahn'Qiraj
-## X-DBM-Mod-Name-zhCN: 安其拉神殿
-## X-DBM-Mod-Name-ruRU: Храм Ан'Киража
 ## X-DBM-Mod-LoadZone: Ahn'Qiraj
-## X-DBM-Mod-LoadZone-esES: Ahn'Qiraj
-## X-DBM-Mod-LoadZone-ruRU: Ан'Кираж
 ## X-DBM-Mod-LoadZone-frFR: Ahn'Qiraj
-## X-DBM-Mod-LoadZone-esMX: Ahn'Qiraj
-## X-DBM-Mod-LoadZone-zhTW: 安其拉
-## X-DBM-Mod-LoadZone-zhCN: 安其拉
-## X-DBM-Mod-LoadZone-koKR: 안퀴라즈
-## X-DBM-Mod-LoadZone-deDE: Ahn'Qiraj
-
 localization.en.lua
-localization.de.lua
 localization.fr.lua
-localization.es.lua
-localization.mx.lua
-localization.ru.lua
-localization.kr.lua
-localization.tw.lua
-localization.cn.lua
-
 AQ40Trash.lua
 Skeram.lua
 ThreeBugs.lua
