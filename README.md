@@ -28,3 +28,10 @@ Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wo
 
 ![image](https://github.com/user-attachments/assets/83b3333a-d2cb-4c85-bd9e-69a3e83f94af)
 ![image](https://github.com/user-attachments/assets/6a626670-4795-4fd2-832e-81a72c6638fc)
+
+**Veillez à bien vous balader dans les configurations dans le jeu pour activer/désactiver ce qui vous intéresse selon les raids**
+
+# To do
+
+- Quelques timers ICC off (besoin de logs)
+- Vérifier que les mécaniques des donjons/raids BC/Vanilla trigger correctement et probablement des timers off.
