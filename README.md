@@ -4,6 +4,9 @@
 
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle).
 
+
+
+[TELECHARGEMENT DBM](https://github.com/Wardool/DBM-Way-Of-Elendil/archive/refs/heads/main.zip)
 </div>
 
 
