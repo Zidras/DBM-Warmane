@@ -5,6 +5,7 @@ mod:SetRevision("20231121214155")
 mod:SetCreatureID(36789)
 mod:SetUsedIcons(8)
 mod.onlyHighest = true--Instructs DBM health tracking to literally only store highest value seen during fight, even if it drops below that
+mod:SetMinSyncRevision(20241203000000)
 
 mod:RegisterCombat("combat")
 

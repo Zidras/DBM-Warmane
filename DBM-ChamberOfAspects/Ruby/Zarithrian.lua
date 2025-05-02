@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20220518110528")
 mod:SetCreatureID(39746)
-mod:SetMinSyncRevision(20250318212740)
+mod:SetMinSyncRevision(20250318212740) -- prevent old DBM sending false pull on Halion
 
 mod:RegisterCombat("combat")
 

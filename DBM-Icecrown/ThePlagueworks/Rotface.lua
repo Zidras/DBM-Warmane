@@ -5,6 +5,7 @@ mod:SetRevision("20231203191447")
 mod:SetCreatureID(36627)
 mod:SetUsedIcons(1, 2)
 mod:RegisterCombat("combat")
+mod:SetMinSyncRevision(20241203000000)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 69508 69774 69839",
