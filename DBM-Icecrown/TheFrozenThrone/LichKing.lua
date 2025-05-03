@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20250414222937")
+mod:SetRevision("20250503130949")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetHotfixNoticeRev(20250414000000)
@@ -22,7 +22,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 70337 73912 73913 73914 69409 73797 73798 73799 69200 68980 74325 74326 74327 73654 74295 74296 74297", -- Split into CLEU relevant and UNIT_SPELLCAST_SUCCEEDED. Most were kept since they rely on CLEU payload
 --	"SPELL_CAST_SUCCESS 70337 73912 73913 73914 69409 73797 73798 73799 69200 68980 74325 74326 74327", -- CLEU relevant
 	"SPELL_DISPEL",
-	"SPELL_AURA_APPLIED 28747 72754 73708 73709 73710 73650",
+	"SPELL_AURA_APPLIED 28747 72754 73708 73709 73710", -- 73650 commented out, no longer needed
 	"SPELL_AURA_APPLIED_DOSE 70338 73785 73786 73787",
 --	"SPELL_AURA_REMOVED 73655", -- 68980 74325 is 10N and 25N, not needed for FM
 	"SPELL_SUMMON 69037 70372",
@@ -590,10 +590,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnGTFO:Show(args.spellName)
 		specWarnGTFO:Play("watchfeet")
 		soundDefileOnYou:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\defileOnYou.mp3")
+--[[ -- no longer needed since we use SPELL_CAST_START scheduling for leftFrostmourne. Unsure as to when this
 	elseif spellId == 73650 and self:AntiSpam(3, 2) then		-- Restore Soul (Heroic)
-		DBM:AddMsg("Restore Soul SPELL_AURA_APPLIED unhidden from combat log. Notify Zidras on Discord or GitHub")
-		timerHarvestSoulCD:Start(60)
+		-- DBM:AddMsg("Restore Soul SPELL_AURA_APPLIED unhidden from combat log. Notify Zidras on Discord or GitHub") -- no longer valid, at least from 18/04/2025 on Warmane.
+		timerHarvestSoulCD:Start(60) -- this is slighly innacurate
 		timerVileSpirit:Start(10)--May be wrong too but we'll see, didn't have enough log for this one.
+]]
 	end
 end
 
