@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220925155424_cafe20250416v19")
+mod:SetRevision("20250503174820") --based on cafe20250416v19
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(3, 6, 8)
 
@@ -194,49 +194,96 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
--- CHAT_MSG_RAID_BOSS_EMOTE bugged on Warmane: https://www.warmane.com/bugtracker/report/106891
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
-	if (msg == L.Nova or msg:find(L.Nova)) and target then
-		--DBM:AddMsg("Nova emote is working again. Notify me (Zidras) on discord or open a bug report.") --obsoleted as boss yell emote works 250326
-		timerNova:Start()
-		if self:GetStage() == 2 then
-			timerNovaCDP2:Start()
-		else
-			timerNovaCD:Start()
-		end
-		target = DBM:GetUnitFullName(target)
-		if target == UnitName("player") then
-			specWarnNova:Show()
-			specWarnNova:Play("targetyou")
-			yellNova:Yell()
-		elseif self:CheckNearby(2, target) then
-			specWarnNovaNear:Show(target)
-			specWarnNovaNear:Play("runaway")
-		else
-			warnNova:Show(target)
-		end
-		if self.Options.NovaIcon then
-			self:SetIcon(target, 6, 5) -- changed to square for easier visualization 250331
-		end
-	elseif (msg == L.Conflag or msg:find(L.Conflag)) and target then
-		--DBM:AddMsg("Conflagration emote is working again. Notify me (Zidras) on discord or open a bug report.") --obsoleted as boss yell emote works 250326
-		timerConflag:Start()
-		timerConflagCD:Start()
-		target = DBM:GetUnitFullName(target)
-		if target == UnitName("player") then
-			specWarnConflag:Show()
-			specWarnConflag:Play("targetyou")
-			yellConflag:Yell()
-		elseif self:CheckNearby(2, target) then
-			specWarnConflagNear:Show(target)
-			specWarnConflagNear:Play("runaway")
-		else
-			warnConflag:Show(target)
-		end
-		if self.Options.ConflagIcon then
-			self:SetIcon(target, 8, 5)
-		end
-	end
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target) --added some fail checks here cause the name processing failed today 03.05.25
+    if (msg == L.Nova or msg:find(L.Nova)) then
+        timerNova:Start()
+        if self:GetStage() == 2 then
+            timerNovaCDP2:Start()
+        else
+            timerNovaCD:Start()
+        end
+        
+        -- First try using GetUnitFullName to get the properly formatted target name
+        local fullTarget = nil
+        if target then
+            fullTarget = DBM:GetUnitFullName(target)
+        end
+        
+        -- Extract target from the message if GetUnitFullName failed or target was nil
+        if not fullTarget and msg:find(L.Nova) then
+            -- Try to extract the target name from the message using string patterns
+            local targetFromMsg = msg:match(L.Nova)
+            if targetFromMsg then
+                -- Use this extracted name directly
+                fullTarget = targetFromMsg
+            end
+        end
+        
+        -- If we still don't have a target, just show a general warning
+        if not fullTarget then
+            -- Fall back
+            warnNova:Show("UNKNOWN")
+            DBM:Debug("Failed to get Nova target from emote", 2)
+        else
+            --If target name, proceed with normal processing
+            if fullTarget == UnitName("player") then
+                specWarnNova:Show()
+                specWarnNova:Play("targetyou")
+                yellNova:Yell()
+            elseif self:CheckNearby(2, fullTarget) then
+                specWarnNovaNear:Show(fullTarget)
+                specWarnNovaNear:Play("runaway")
+            else
+                warnNova:Show(fullTarget)
+            end
+            
+            if self.Options.NovaIcon then
+                self:SetIcon(fullTarget, 6, 5)
+            end
+        end
+    elseif (msg == L.Conflag or msg:find(L.Conflag)) then
+        timerConflag:Start()
+        timerConflagCD:Start()
+        
+        -- First try using GetUnitFullName to get the properly formatted target name
+        local fullTarget = nil
+        if target then
+            fullTarget = DBM:GetUnitFullName(target)
+        end
+        
+        -- Extract target from the message if GetUnitFullName failed or target was nil
+        if not fullTarget and msg:find(L.Conflag) then
+            -- Try to extract the target name from the message using string patterns
+            local targetFromMsg = msg:match(L.Conflag)
+            if targetFromMsg then
+        
+                fullTarget = targetFromMsg
+            end
+        end
+        
+        
+        if not fullTarget then
+            -- Fall back to a general warning without target specifics
+            warnConflag:Show("UNKNOWN")
+            DBM:Debug("Failed to get Conflag target from emote", 2)
+        else
+            
+            if fullTarget == UnitName("player") then
+                specWarnConflag:Show()
+                specWarnConflag:Play("targetyou")
+                yellConflag:Yell()
+            elseif self:CheckNearby(2, fullTarget) then
+                specWarnConflagNear:Show(fullTarget)
+                specWarnConflagNear:Play("runaway")
+            else
+                warnConflag:Show(fullTarget)
+            end
+            
+            if self.Options.ConflagIcon then
+                self:SetIcon(fullTarget, 8, 5)
+            end
+        end
+    end
 end
 
 function mod:UNIT_DIED(args)
