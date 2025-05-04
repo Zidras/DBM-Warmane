@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Plateau du Puits de soleil|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMSunwell_AllSavedVars
@@ -9,8 +10,10 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-StatTypes: normal25, timewalker
 ## X-DBM-Mod-Name: Sunwell Plateau
+## X-DBM-Mod-Name-frFR: Plateau du Puits de soleil
 ## X-DBM-Mod-MapID: 790
 ## X-DBM-Mod-LoadZone: Sunwell Plateau
+## X-DBM-Mod-LoadZone-frFR: Plateau du Puits de soleil
 localization.en.lua
 Kalecgos.lua
 KalecgosFrame.lua

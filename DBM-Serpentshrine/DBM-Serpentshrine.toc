@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Serpentshrine Cavern|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Caverne du sanctuaire du Serpent|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMSerpentshrine_AllSavedVars
@@ -11,7 +12,9 @@
 ## X-DBM-Mod-MapID: 781
 ## X-DBM-Mod-Sort: 1005
 ## X-DBM-Mod-Name: Serpentshrine Cavern
+## X-DBM-Mod-Name-frFR: Caverne du sanctuaire du Serpent
 ## X-DBM-Mod-LoadZone: Serpentshrine Cavern
+## X-DBM-Mod-LoadZone-frFR: Caverne du sanctuaire du Serpent
 localization.en.lua
 localization.fr.lua
 Hydross.lua

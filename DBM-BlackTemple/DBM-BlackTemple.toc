@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Black Temple|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple noir|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMBlackTemple_AllSavedVars
@@ -11,7 +12,9 @@
 ## X-DBM-Mod-MapID: 797
 ## X-DBM-Mod-Sort: 1002
 ## X-DBM-Mod-Name: Black Temple
+## X-DBM-Mod-Name-frFR: Temple noir
 ## X-DBM-Mod-LoadZone: Black Temple
+## X-DBM-Mod-LoadZone-frFR: Temple noir
 localization.en.lua
 localization.fr.lua
 Najentus.lua

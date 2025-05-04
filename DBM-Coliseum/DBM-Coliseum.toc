@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Crusaders' Coliseum|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0L'épreuve du croisé|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMColiseum_AllSavedVars
@@ -8,7 +9,7 @@
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-StatTypes: normal,normal25,heroic,heroic25
 ## X-DBM-Mod-Name: Crusader's Coliseum
-## X-DBM-Mod-Name-frFR: L'Appel de la Croisade
+## X-DBM-Mod-Name-frFR: L'épreuve du croisé
 ## X-DBM-Mod-Sort: 2
 ## X-DBM-Mod-MapID: 544
 ## X-DBM-Mod-LoadZone: Trial of the Crusader

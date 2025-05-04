@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0The Eye|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0L'Œil|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMTheEye_AllSavedVars
@@ -9,8 +10,10 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-StatTypes: normal25
 ## X-DBM-Mod-Name: Tempest Keep - The Eye
+## X-DBM-Mod-Name-frFR: Donjon de la tempête - L'Œil
 ## X-DBM-Mod-MapID: 783
 ## X-DBM-Mod-LoadZone: Tempest Keep
+## X-DBM-Mod-LoadZone-frFR: Donjon de la tempête
 localization.en.lua
 Alar.lua
 VoidReaver.lua

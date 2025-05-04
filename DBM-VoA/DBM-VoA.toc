@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Vault of Archavon|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Caveau d'Archavon|r
 ## Author: Nitram/Tandanu
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -14,6 +15,7 @@
 ## X-DBM-Mod-Sort: 7
 ## X-DBM-Mod-MapID: 533
 ## X-DBM-Mod-LoadZone: Vault of Archavon
+## X-DBM-Mod-LoadZone-frFR: Caveau d'Archavon
 localization.en.lua
 localization.fr.lua
 Archavon.lua

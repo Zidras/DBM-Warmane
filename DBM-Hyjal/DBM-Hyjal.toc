@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Battle for Mount Hyjal|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Bataille du mont Hyjal|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMHyjal_AllSavedVars
@@ -9,8 +10,10 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-StatTypes: normal25
 ## X-DBM-Mod-Name: The Battle for Mount Hyjal
+## X-DBM-Mod-Name-frFR: La bataille du mont Hyjal
 ## X-DBM-Mod-MapID: 776
 ## X-DBM-Mod-LoadZone: Hyjal Summit
+## X-DBM-Mod-LoadZone-frFR: Sommet d'Hyjal
 localization.en.lua
 RageWinterchill.lua
 Anetheron.lua
