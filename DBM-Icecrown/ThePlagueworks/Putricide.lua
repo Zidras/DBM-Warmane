@@ -19,6 +19,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
 	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
 	"CHAT_MSG_MONSTER_YELL",
+	"UNIT_SPELLCAST_SUCCEEDED target focus",
 	"UNIT_HEALTH"
 )
 
@@ -64,29 +65,22 @@ local warnPhase2					= mod:NewPhaseAnnounce(2, 2, nil, nil, nil, nil, nil, 2)
 local warnChokingGasBombSoon		= mod:NewPreWarnAnnounce(71255, 5, 3, nil, "Melee")
 local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Phase 2 ability
 
---local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
---local yellMalleableGoo				= mod:NewYellMe(72295)
---local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
 local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 
 local timerChokingGasBombCD			= mod:NewCDTimer(35.2, 71255, nil, nil, nil, 3, nil, nil, true) 
 local timerChokingGasBombExplosion	= mod:NewCastTimer(11.5, 71279, nil, nil, nil, 2)
-local timerMalleableGooCD			= mod:NewNextTimer(20, 72295, nil, nil, nil, 3) 
+local timerMalleableGooCD			= mod:NewNextTimer(25.5, 72295, nil, nil, nil, 3) 
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
 local soundMalleableGooSoon			= mod:NewSoundSoon(72295, nil, "Ranged")
 local soundSpecWarnChokingGasBomb	= mod:NewSound(71255, nil, "Melee")
 local soundChokingGasSoon			= mod:NewSoundSoon(71255, nil, "Melee")
 
---mod:AddSetIconOption("MalleableGooIcon", 72295, true, 0, {1})
---mod:AddArrowOption("GooArrow", 72295)
-
 -- Stage Three
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": 35% – 0%")
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
-
 local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- 10 to 11
 
 -- Intermission
@@ -102,16 +96,14 @@ local specWarnGasVariable			= mod:NewSpecialWarningYou(70353, nil, nil, nil, nil
 
 local timerNextPhase				= mod:NewPhaseTimer(30)
 local timerReengage					= mod:NewTimer(20, "TimerReengage", 1180, nil, nil, 6)
---local timerTearGas					= mod:NewBuffFadesTimer(16, 71617, nil, nil, nil, 6)
---local timerPotions					= mod:NewBuffActiveTimer(30, 71621, nil, nil, nil, 6)
 
 mod:GroupSpells(71255, 71279) -- Choking Gas Bomb, Choking Gas Explosion
 
 local redOozeGUIDsCasts = {}
-local firstIntermisisonUnboundElapsed = 0
+--local firstIntermisisonUnboundElapsed = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-mod.vb.unboundCount = 0
+--mod.vb.unboundCount = 0
 
 local function NextPhase(self)
 	self:SetStage(self.vb.phase + 0.5)
@@ -144,18 +136,18 @@ function mod:OnCombatStart(delay)
 	timerUnstableExperimentCD:Start(30-delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
 	table.wipe(redOozeGUIDsCasts)
-	firstIntermisisonUnboundElapsed = 0
+	--firstIntermisisonUnboundElapsed = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
-	self.vb.unboundCount = 0
+	--self.vb.unboundCount = 0
 	if self:IsHeroic() then
 		timerUnboundPlagueCD:Start(20-delay)
 	end
 end
 
---[[function mod:OnCombatEnd()
+function mod:OnCombatEnd()
 	self:UnregisterShortTermEvents()
-end]]
+end
 
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
@@ -207,11 +199,11 @@ function mod:SPELL_CAST_START(args)
 			warnChokingGasBombSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-5)
 		end]]
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
-		local castTime = self:IsHeroic() and 30 or 4 -- Normal and Heroic have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
+		local castTime = self:IsHeroic() and 30 or 4
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		timerNextPhase:Start(castTime) -- Script phasing happens right after UNIT_SPELLCAST_SUCCEEDED. Boss re-engage is timed to account for the remaining time (check YELL)
-		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Create Concoction does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
+		timerNextPhase:Start(castTime)
+		self:Schedule(castTime, NextPhase, self)
 		if self:IsHeroic() then
 				self:RegisterShortTermEvents(
 					"UNIT_TARGET"
@@ -230,10 +222,10 @@ function mod:SPELL_CAST_START(args)
 			specWarnGaseousBloatCast:Play("targetchange")
 		end
 	elseif args:IsSpellID(73121, 73122, 73120, 71893) then		--Guzzle Potions (phase3 change)
-		local castTime = self:IsDifficulty("heroic25") and 20 or self:IsDifficulty("heroic10") and 30 or 4 -- Normal, Heroic10 and Heroic25 have different cast times, so hardcode the cast time in seconds. DO NOT USE GetSpellInfo API here, as it is affected by player Haste.
+		local castTime = self:IsDifficulty("heroic25") and 20 or self:IsDifficulty("heroic10") and 30 or 4
 		timerUnstableExperimentCD:Cancel()
-		timerNextPhase:Start(castTime) -- Script phasing happens right after UNIT_SPELLCAST_SUCCEEDED. Boss re-engage is timed to account for the remaining time (check YELL)
-		self:Schedule(castTime, NextPhase, self) -- prefer scheduling over UNIT_SPELLCAST_SUCCEEDED because on Normal difficulty Guzzle Potions does not fire UNIT_SPELLCAST_SUCCEEDED, only _STOP. This has the benefit of also being cross-server
+		timerNextPhase:Start(castTime)
+		self:Schedule(castTime, NextPhase, self)
 		if self:IsHeroic() then
 			self:RegisterShortTermEvents(
 				"UNIT_TARGET"
@@ -244,11 +236,11 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if spellId == 70341 and self:AntiSpam(5, 1) then
+	if spellId == 70341 and self:AntiSpam(5, 1) then -- Flaque de gelée
 		warnSlimePuddle:Show()
 		soundSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
 		timerSlimePuddleCD:Start()
-	elseif spellId == 71255 then -- Choking Gas
+	elseif spellId == 71255 then -- Bombe de Gaz asphyxiant
 		warnChokingGasBomb:Show()
 		specWarnChokingGasBomb:Show()
 		soundSpecWarnChokingGasBomb:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking.mp3")
@@ -257,15 +249,26 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerChokingGasBombCD:Start()
 		timerChokingGasBombExplosion:Start()
 		warnChokingGasBombSoon:Schedule(30.5)
-	elseif args:IsSpellID(72855, 72856, 70911) then
-		self.vb.unboundCount = self.vb.unboundCount + 1
+	elseif args:IsSpellID(72855, 72856, 70911) then -- Peste déliée
+		--self.vb.unboundCount = self.vb.unboundCount + 1
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then -- Malleable Goo
+		DBM:AddMsg("Malleable Goo SPELL_CAST_SUCCESS detected, report needed for Way Of Elendil")
+		--specWarnMalleableGooCast:Show()
+		--timerMalleableGooCD:Start()
+		--soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		--soundMalleableGooSoon:Cancel()
+		--soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+	end
+end
+
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if spellName == GetSpellInfo(72615) and self:AntiSpam(1,5) then -- Anti Spam in case player has /focus the boss
 		specWarnMalleableGooCast:Show()
 		timerMalleableGooCD:Start()
 		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 		soundMalleableGooSoon:Cancel()
-		soundMalleableGooSoon:Schedule(20-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 	end
 end
 
