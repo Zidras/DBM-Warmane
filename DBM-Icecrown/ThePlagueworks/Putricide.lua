@@ -359,7 +359,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
---values subject to tuning depending on dps and his health pool
 function mod:UNIT_HEALTH(uId)
 
 	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
