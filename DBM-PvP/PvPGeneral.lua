@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local AceTimer = LibStub("AceTimer-3.0")
 
-mod:SetRevision("20250107192636")
+mod:SetRevision("20250328212421")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -540,6 +540,11 @@ do
 			return
 		end
 		local cId = DBM:GetCIDFromGUID(destGUID)
+		if not gatesHP[cId] then
+			DBM:Debug("SPELL_BUILDING_DAMAGE on ID: "..cId.." is not a tracked unit")
+			DBM:AddMsg("DBM-PvP missing gate data, please notify Zidras on Github or Discord - ID: "..cId.." and Name: "..destName)
+			return
+		end
 		if gatesHP[cId][1] == nil then -- first hit
 			if self.Options.ShowGatesHealth then
 				if not DBM.InfoFrame:IsShown() then
@@ -564,46 +569,46 @@ do
 		if not DBM.InfoFrame:IsShown() then return end
 		-- Gate of the Green Emerald
 		if msg == L.GreenEmeraldAttacked then
-			trackedUnits[59650] = L.GreenEmeraldAttackedTex
+			trackedUnits[190722] = L.GreenEmeraldAttackedTex
 		elseif msg == L.GreenEmeraldDestroyed then
-			trackedUnits[59650] = L.GreenEmeraldDestroyedTex
-			syncTrackedUnits[59650] = 0
-			gatesHP[59650][1] = 0
+			trackedUnits[190722] = L.GreenEmeraldDestroyedTex
+			syncTrackedUnits[190722] = 0
+			gatesHP[190722][1] = 0
 		-- Gate of the Blue Sapphire
 		elseif msg == L.BlueSapphireAttacked then
-			trackedUnits[59652] = L.BlueSapphireAttackedTex
+			trackedUnits[190724] = L.BlueSapphireAttackedTex
 		elseif msg == L.BlueSapphireDestroyed then
-			trackedUnits[59652] = L.BlueSapphireDestroyedTex
-			syncTrackedUnits[59652] = 0
-			gatesHP[59652][1] = 0
+			trackedUnits[190724] = L.BlueSapphireDestroyedTex
+			syncTrackedUnits[190724] = 0
+			gatesHP[190724][1] = 0
 		-- Gate of the Purple Amethyst
 		elseif msg == L.PurpleAmethystAttacked then
-			trackedUnits[59651] = L.PurpleAmethystAttackedTex
+			trackedUnits[190723] = L.PurpleAmethystAttackedTex
 		elseif msg == L.PurpleAmethystDestroyed then
-			trackedUnits[59651] = L.PurpleAmethystDestroyedTex
-			syncTrackedUnits[59651] = 0
-			gatesHP[59651][1] = 0
+			trackedUnits[190723] = L.PurpleAmethystDestroyedTex
+			syncTrackedUnits[190723] = 0
+			gatesHP[190723][1] = 0
 		-- Gate of the Red Sun
 		elseif msg == L.RedSunAttacked then
-			trackedUnits[59654] = L.RedSunAttackedTex
+			trackedUnits[190726] = L.RedSunAttackedTex
 		elseif msg == L.RedSunDestroyed then
-			trackedUnits[59654] = L.RedSunDestroyedTex
-			syncTrackedUnits[59654] = 0
-			gatesHP[59654][1] = 0
+			trackedUnits[190726] = L.RedSunDestroyedTex
+			syncTrackedUnits[190726] = 0
+			gatesHP[190726][1] = 0
 		-- Gate of the Yellow Moon
 		elseif msg == L.YellowMoonAttacked then
-			trackedUnits[59655] = L.YellowMoonAttackedTex
+			trackedUnits[190727] = L.YellowMoonAttackedTex
 		elseif msg == L.YellowMoonDestroyed then
-			trackedUnits[59655] = L.YellowMoonDestroyedTex
-			syncTrackedUnits[59655] = 0
-			gatesHP[59655][1] = 0
+			trackedUnits[190727] = L.YellowMoonDestroyedTex
+			syncTrackedUnits[190727] = 0
+			gatesHP[190727][1] = 0
 		-- Chamber of Ancient Relics
 		elseif msg == L.ChamberAncientRelicsAttacked then
-			trackedUnits[61477] = L.ChamberAncientRelicsAttackedTex
+			trackedUnits[192549] = L.ChamberAncientRelicsAttackedTex
 		elseif msg == L.ChamberAncientRelicsDestroyed then
-			trackedUnits[61477] = L.ChamberAncientRelicsDestroyedTex
-			syncTrackedUnits[61477] = 0
-			gatesHP[61477][1] = 0
+			trackedUnits[192549] = L.ChamberAncientRelicsDestroyedTex
+			syncTrackedUnits[192549] = 0
+			gatesHP[192549][1] = 0
 		end
 	end
 

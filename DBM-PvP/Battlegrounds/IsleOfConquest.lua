@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local GetCurrentMapAreaID = GetCurrentMapAreaID
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250305220503")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -32,12 +32,12 @@ do
 			generalMod:SubscribeAssault(zoneID, 5)
 			generalMod:TrackHealth(34922, "HordeBoss")
 			generalMod:TrackHealth(34924, "AllianceBoss")
-			generalMod:TrackHealth(64422, "HordeGateFront", 600000)		-- Horde Front Gate
-			generalMod:TrackHealth(64423, "HordeGateWest", 600000)		-- Horde West Gate
-			generalMod:TrackHealth(64424, "HordeGateEast", 600000)		-- Horde East Gate
-			generalMod:TrackHealth(64626, "AllianceGateEast", 600000)	-- Alliance East Gate
-			generalMod:TrackHealth(64627, "AllianceGateWest", 600000)	-- Alliance West Gate
-			generalMod:TrackHealth(64628, "AllianceGateFront", 600000)	-- Alliance Front Gate
+			generalMod:TrackHealth(195494, "HordeGateFront", 600000)	-- Horde Front Gate
+			generalMod:TrackHealth(195495, "HordeGateWest", 600000)		-- Horde West Gate
+			generalMod:TrackHealth(195496, "HordeGateEast", 600000)		-- Horde East Gate
+			generalMod:TrackHealth(195698, "AllianceGateEast", 600000)	-- Alliance East Gate
+			generalMod:TrackHealth(195699, "AllianceGateWest", 600000)	-- Alliance West Gate
+			generalMod:TrackHealth(195700, "AllianceGateFront", 600000)	-- Alliance Front Gate
 		elseif bgzone and zoneID ~= 541 then
 			bgzone = false
 			self:UnregisterShortTermEvents()
