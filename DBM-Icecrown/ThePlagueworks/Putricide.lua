@@ -384,9 +384,9 @@ function mod:UNIT_TARGET(uId)
 	-- Attempt to catch when boss phases by checking for Putricide's target being a raid member
 	if UnitExists(uId.."target") then
 		if self.vb.phase == 2 then -- new script phases before boss reengage
-			self:SendSync("ProfessorPhase2") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
+			self:SendSync("ProfessorPhase2") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus
 		elseif self.vb.phase == 3 then -- new script phases before boss reengage
-			self:SendSync("ProfessorPhase3") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
+			self:SendSync("ProfessorPhase3") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus
 		else
 			self:UnregisterShortTermEvents()
 			DBM:Debug("UNIT_TARGET phasing did not work since phase was wrongly set: " .. self.vb.phase)
