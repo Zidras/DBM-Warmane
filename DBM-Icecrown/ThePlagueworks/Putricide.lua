@@ -19,7 +19,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
 	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED target focus",
+	"UNIT_SPELLCAST_SUCCEEDED",
 	"UNIT_HEALTH"
 )
 
@@ -157,7 +157,7 @@ function mod:SPELL_CAST_START(args)
 		timerUnstableExperimentCD:Start()
 		warnUnstableExperimentSoon:Schedule(30)
 	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase) (Normal intermission)
-		-- self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE -- WAY OF ELENDIl : REMOVED FOR HP UNIT ATM
+		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE --
 		warnTearGas:Show()
 		local puddleElapsed = timerSlimePuddleCD:GetTime()
 		timerSlimePuddleCD:Update(puddleElapsed, 49) -- the next Normal Slime Puddle will always be [59.03:25N/59.03:10N]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
@@ -170,34 +170,6 @@ function mod:SPELL_CAST_START(args)
 			soundChokingGasSoon:Schedule(49-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(49-chokingElapsed-5)
 		end
-	--[[elseif args:IsSpellID(72842, 72843) then		--Volatile Experiment (Heroic intermission) -- DOESN'T TRIGGER ON WAY OF ELENDIL , A LA RECHERCHE D'UN PROC POUR LES 2 PHASES. (Add +0.5 set stage on hp unit atm)
-		--self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE
-		warnVolatileExperiment:Show()
-		warnUnstableExperimentSoon:Cancel()
-		timerUnstableExperimentCD:Cancel()
-		local puddleElapsed = timerSlimePuddleCD:GetTime()
-		local puddleMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- the next Heroic Slime Puddle will always be [75.05:25H/84.99:10H]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
-		timerSlimePuddleCD:Update(puddleElapsed, puddleMaxTimePerDifficulty)
-		local unboundElapsed = timerUnboundPlagueCD:GetTime()
-		if self.vb.phase == 1.5 then
-			firstIntermisisonUnboundElapsed = unboundElapsed -- cache for second intermission if necessary
-			timerUnboundPlagueCD:Update(unboundElapsed, 130)
-		elseif self.vb.phase == 2.5 then
-			if self.vb.unboundCount == 1 then -- only 1 Unbound Plague cast during whole raid (rushed phase 2)
-				timerUnboundPlagueCD:Update(firstIntermisisonUnboundElapsed, 170) -- 170s between Unbound Plague from Phase 1 and Phase 3
-			else
-				timerUnboundPlagueCD:Update(unboundElapsed, 130)
-			end
-			local gooElapsed = timerMalleableGooCD:GetTime() -- On second Heroic intermission, the next Malleable Goo will always be [60:25H/70:10H]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
-			local gooMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 60 or self:IsDifficulty("heroic10") and 70 or 44 -- REVIEW! 25H confirmed, 10H need more data, 25N only one log, 10N only one log
-			timerMalleableGooCD:Update(gooElapsed, gooMaxTimePerDifficulty)
-			soundMalleableGooSoon:Schedule(gooMaxTimePerDifficulty-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second Heroic intermission, the next Choking Gas Bomb will always be [75-80:25H/89.39:10H]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
-			local chokingMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- REVIEW! 25H confirmed, 10H only one log, 25N only two log, 10N only one log
-			timerChokingGasBombCD:Update(chokingElapsed, chokingMaxTimePerDifficulty)
-			soundChokingGasSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-5)
-		end]]
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
 		local castTime = self:IsHeroic() and 30 or 4
 		warnUnstableExperimentSoon:Cancel()
@@ -236,7 +208,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if spellId == 70341 and self:AntiSpam(5, 1) then -- Flaque de gelée
+	if spellId == 70341 and self:AntiSpam(1, 1) then -- Flaque de gelée
 		warnSlimePuddle:Show()
 		soundSlimePuddle:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\puddle_cast.mp3")
 		timerSlimePuddleCD:Start()
@@ -263,7 +235,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(72615) and self:AntiSpam(1,5) then -- Anti Spam in case player has /focus the boss
+	if spellName == GetSpellInfo(72615) and self:AntiSpam(1, 2) then -- Anti Spam in case player has /focus the boss
 		specWarnMalleableGooCast:Show()
 		timerMalleableGooCD:Start()
 		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
@@ -382,33 +354,8 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.YellTransform2 or msg:find(L.YellTransform2) then
 		warnReengage:Schedule(8.5, L.name)
 		timerReengage:Start(8.5)
-	--[[elseif msg == L.YellTransi or msg:find(L.YellTransi) then -- WAY OF ELENDIL , testing atm need more fights logs.
-		warnVolatileExperiment:Show()
-		warnUnstableExperimentSoon:Cancel()
-		timerUnstableExperimentCD:Cancel()
-		local puddleElapsed = timerSlimePuddleCD:GetTime()
-		local puddleMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59 -- the next Heroic Slime Puddle will always be [75.05:25H/84.99:10H]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
-		timerSlimePuddleCD:Update(puddleElapsed, puddleMaxTimePerDifficulty)
-		local unboundElapsed = timerUnboundPlagueCD:GetTime()
-		if self.vb.phase == 1.5 then
-			firstIntermisisonUnboundElapsed = unboundElapsed -- cache for second intermission if necessary
-			timerUnboundPlagueCD:Update(unboundElapsed, 130)
-		elseif self.vb.phase == 2.5 then
-			if self.vb.unboundCount == 1 then -- only 1 Unbound Plague cast during whole raid (rushed phase 2)
-				timerUnboundPlagueCD:Update(firstIntermisisonUnboundElapsed, 170) -- 170s between Unbound Plague from Phase 1 and Phase 3
-			else
-				timerUnboundPlagueCD:Update(unboundElapsed, 130)
-			end
-			local gooElapsed = timerMalleableGooCD:GetTime()
-			local gooMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 60 or self:IsDifficulty("heroic10") and 70 or 44 
-			timerMalleableGooCD:Update(gooElapsed, gooMaxTimePerDifficulty)
-			soundMalleableGooSoon:Schedule(gooMaxTimePerDifficulty-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-			local chokingElapsed = timerChokingGasBombCD:GetTime()
-			local chokingMaxTimePerDifficulty = self:IsDifficulty("heroic25") and 75 or self:IsDifficulty("heroic10") and 85 or 59
-			timerChokingGasBombCD:Update(chokingElapsed, chokingMaxTimePerDifficulty)
-			soundChokingGasSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-			warnChokingGasBombSoon:Schedule(chokingMaxTimePerDifficulty-chokingElapsed-5)
-		end]]
+	elseif msg == L.YellTransi or msg:find(L.YellTransi) then -- WAY OF ELENDIL , testing atm need more fights logs.
+		self:SetStage(self.vb.phase + 0.5)
 	end
 end
 
@@ -419,12 +366,10 @@ function mod:UNIT_HEALTH(uId)
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
 		warnPhase2Soon:Play("nextphasesoon")
-		self:SetStage(self.vb.phase + 0.5)
 	elseif self.vb.phase == 2 and not self.vb.warned_preP3 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 then
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
 		warnPhase3Soon:Play("nextphasesoon")
-		self:SetStage(self.vb.phase + 0.5)
 	elseif self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) == 0.35 then
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
@@ -439,9 +384,9 @@ function mod:UNIT_TARGET(uId)
 	if self:GetUnitCreatureId(uId) ~= 36678 then return end
 	-- Attempt to catch when boss phases by checking for Putricide's target being a raid member
 	if UnitExists(uId.."target") then
-		if self.vb.phase == --[[1.5]]2 then -- new script phases before boss reengage
+		if self.vb.phase == 2 then -- new script phases before boss reengage
 			self:SendSync("ProfessorPhase2") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
-		elseif self.vb.phase == --[[2.5]]3 then -- new script phases before boss reengage
+		elseif self.vb.phase == 3 then -- new script phases before boss reengage
 			self:SendSync("ProfessorPhase3") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus, which not all members do
 		else
 			self:UnregisterShortTermEvents()
@@ -452,14 +397,10 @@ end
 
 function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
-	if msg == "ProfessorPhase2" and self.vb.phase == --[[1.5]]2 then
-		--self:Unschedule(NextPhase)
-		--NextPhase(self)
+	if msg == "ProfessorPhase2" and self.vb.phase == 2 then
 		self:UnregisterShortTermEvents()
 		DBM:Debug("Putricide (phase 2) re-engaged via UNIT_TARGET sync")
-	elseif msg == "ProfessorPhase3" and self.vb.phase == --[[2.5]]3 then
-		--self:Unschedule(NextPhase)
-		--NextPhase(self)
+	elseif msg == "ProfessorPhase3" and self.vb.phase == 3 then
 		self:UnregisterShortTermEvents()
 		DBM:Debug("Putricide (phase 3) re-engaged via UNIT_TARGET sync")
 	end
