@@ -152,7 +152,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 72410 then
-		--[[warnRuneofBlood:Show(args.destName)
+		--[[warnRuneofBlood:Show(args.destName)  -- WAY OF ELENDIL => Moved to SPELL_AURA_APPLIED
 		if not args:IsPlayer() then
 			specwarnRuneofBlood:Show(args.destName)
 			specwarnRuneofBlood:Play("tauntboss")
