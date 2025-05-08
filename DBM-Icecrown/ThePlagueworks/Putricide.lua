@@ -5,7 +5,7 @@ local select = select
 
 mod:SetRevision("20241116144454")
 mod:SetCreatureID(36678)
-mod:SetUsedIcons(1, 2, 3, 4)
+mod:SetUsedIcons(1, 2, 3, 4 , 7 , 8)
 mod:SetHotfixNoticeRev(20240611000000)
 mod:SetMinSyncRevision(20220908000000)
 
@@ -19,7 +19,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
 	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_SPELLCAST_SUCCEEDED target",
 	"UNIT_HEALTH"
 )
 
@@ -55,9 +55,14 @@ local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)
 
 local soundSlimePuddle				= mod:NewSound(70341)
 
+local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
+local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
+local yellMalleableGoo				= mod:NewYellMe(72295)
+
 mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, 0, {4})--green icon for green ooze
 mod:AddSetIconOption("GaseousBloatIcon", 70672, true, 0, {2})--Orange Icon for orange/red ooze
 mod:AddSetIconOption("UnboundPlagueIcon", 70911, true, 0, {3})
+mod:AddSetIconOption("MalleableGooIcon", 72295, true, 0, {7, 8})
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": 80% – 35%")
@@ -103,6 +108,7 @@ local redOozeGUIDsCasts = {}
 --local firstIntermisisonUnboundElapsed = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
+mod.vb.GooIcon = 7
 --mod.vb.unboundCount = 0
 
 local function NextPhase(self)
@@ -112,20 +118,44 @@ local function NextPhase(self)
 		warnPhase2:Play("ptwo")
 		timerUnstableExperimentCD:Start(30+7)
 		warnUnstableExperimentSoon:Schedule(25+7)
-		-- EVENT_PHASE_TRANSITION - scheduled for Create Concoction cast + 100 ms (will fire [CHAT_MSG_MONSTER_YELL] Hrm, I don't feel a thing. Wha?! Where'd those come from?)
-		timerMalleableGooCD:Start(15) -- Fixed timer after phase 2: 15s
+		timerMalleableGooCD:Start(15)
 		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		timerChokingGasBombCD:Start(25) -- timer after phasing: 5s variance [25-30s]
+		timerChokingGasBombCD:Start(25)
 		soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule(25-5)
-	--	self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
 		warnUnstableExperimentSoon:Cancel()
 		timerUnstableExperimentCD:Cancel()
-		-- EVENT_PHASE_TRANSITION - scheduled for Guzzle Potions cast + 100 ms (will fire [CHAT_MSG_MONSTER_YELL] Tastes like... Cherry! OH! Excuse me!)
-	--	self:UnregisterShortTermEvents() -- UnregisterShortTermEvents moved here to ensure UNIT_TARGET is unregistered (previously was running on sync, which is not always used)
+	end
+end
+
+function mod:MalleableGooTarget(targetname, uId)
+    if not targetname then return end
+    if self.Options.MalleableGooIcon then
+        self:SetIcon(targetname, self.vb.GooIcon, 10)
+		if self.vb.GooIcon == 7 then
+            self.vb.GooIcon = 8
+        else
+        	self.vb.GooIcon = 7
+        end
+    end
+	if targetname == UnitName("player") then
+		specWarnMalleableGoo:Show()
+		specWarnMalleableGoo:Play("targetyou")
+		yellMalleableGoo:Yell()
+		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+	else
+		if self:CheckNearby(11, targetname) then
+			specWarnMalleableGooNear:Show(targetname)
+			specWarnMalleableGooNear:Play("watchstep")
+			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		else
+			specWarnMalleableGooCast:Show()
+			specWarnMalleableGooCast:Play("watchstep")
+			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		end
 	end
 end
 
@@ -139,6 +169,7 @@ function mod:OnCombatStart(delay)
 	--firstIntermisisonUnboundElapsed = 0
 	self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
+	self.vb.GooIcon = 7
 	--self.vb.unboundCount = 0
 	if self:IsHeroic() then
 		timerUnboundPlagueCD:Start(20-delay)
@@ -235,10 +266,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(72615) and self:AntiSpam(1, 2) then -- Anti Spam in case player has /focus the boss
-		specWarnMalleableGooCast:Show()
+	if spellName == GetSpellInfo(72615) --[[and self:AntiSpam(1, 2)]] then
+		self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
+		--specWarnMalleableGooCast:Show()
 		timerMalleableGooCD:Start()
-		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		--soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
 		soundMalleableGooSoon:Cancel()
 		soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 	end
