@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Muru", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe20250418v24_public")
+mod:SetRevision("20250510134800") --based on 20220518110528_cafe20250418v24_public
 mod:SetCreatureID(25741, 25840)--25741 Muru, 25840 Entropius
 
 mod:RegisterCombat("combat")
@@ -43,7 +43,7 @@ local yellP2Darkness		= mod:NewYell(46264)
 
 --local specWarnBH			= mod:NewSpecialWarning("specWarnBH")
 
-local timerBlackHoleCD		= mod:NewNextTimer(15, 46282)
+local timerBlackHoleCD		= mod:NewNextTimer("v14-29", 46282) --added variance timer; AC Muru script: ScheduleTimedEvent(14s, 29s) 
 local timerPhase			= mod:NewTimer(10, "TimerPhase", 46087, nil, nil, 6)
 --local timerSingularity		= mod:NewNextTimer(3.2, 46238) --feel this is obsolete 20250403
 local timerP2Darkness		= mod:NewNextTimer(15, 46268, nil, nil, nil, 2) --new P2 darkness timer 20250402
@@ -72,7 +72,7 @@ end
 local function phase2(self)
 	self:SetStage(2)
 	warnPhase2:Show()
-	timerBlackHoleCD:Start(17-2) --corrected to CC values 20250315
+	timerBlackHoleCD:Start() --corrected to CC values 20250315
 	timerP2Darkness:Start(10) --new P2 darkness timer 20250402
 	timerHuman:Cancel() --cancel timer when enter p2 20250402
 	timerVoid:Cancel() --cancel timer when enter p2 20250402
