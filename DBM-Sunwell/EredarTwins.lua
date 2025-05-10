@@ -193,8 +193,7 @@ function mod:SPELL_CAST_START(args)
 ]]--not using 20250404
 	end
 end
-
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target) --added some fail checks here cause the name processing failed today 03.05.25
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
     if (msg == L.Nova or msg:find(L.Nova)) then
         timerNova:Start()
         if self:GetStage() == 2 then
@@ -211,8 +210,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target) --added some fail ch
         
         -- Extract target from the message if GetUnitFullName failed or target was nil
         if not fullTarget and msg:find(L.Nova) then
-            -- Try to extract the target name from the message using string patterns
-            local targetFromMsg = msg:match(L.Nova)
+            -- Use string.match with the captured group to extract just the target name
+            local targetFromMsg = select(1, msg:match(L.Nova))
             if targetFromMsg then
                 -- Use this extracted name directly
                 fullTarget = targetFromMsg
@@ -253,21 +252,18 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target) --added some fail ch
         
         -- Extract target from the message if GetUnitFullName failed or target was nil
         if not fullTarget and msg:find(L.Conflag) then
-            -- Try to extract the target name from the message using string patterns
-            local targetFromMsg = msg:match(L.Conflag)
+            -- Use string.match with the captured group to extract just the target name
+            local targetFromMsg = select(1, msg:match(L.Conflag))
             if targetFromMsg then
-        
                 fullTarget = targetFromMsg
             end
         end
-        
         
         if not fullTarget then
             -- Fall back to a general warning without target specifics
             warnConflag:Show("UNKNOWN")
             DBM:Debug("Failed to get Conflag target from emote", 2)
         else
-            
             if fullTarget == UnitName("player") then
                 specWarnConflag:Show()
                 specWarnConflag:Play("targetyou")
