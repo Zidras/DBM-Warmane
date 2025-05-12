@@ -26,15 +26,15 @@ local warnDarkOrb		= mod:NewAnnounce("WarnDarkOrb", 4, 51512) --51512 for soulst
 local warnDart			= mod:NewSpellAnnounce(45737, 3)
 local warnShield		= mod:NewSpellAnnounce(45848, 1)
 local warnBlueOrb		= mod:NewAnnounce("WarnBlueOrb", 1, 45109) --45109 for green orb icon
-local warnSpikeTarget	= mod:NewTargetAnnounce(46589, 3) --all spike related things except timerSpike dont work and are not supposed to. Its blizzlike to watch out yourself 
+local warnSpikeTarget	= mod:NewTargetAnnounce(46589, 3) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to 
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
 local specWarnArmaYou	= mod:NewSpecialWarningYou(45915, nil, nil, nil, 3, 2)
 local yellArmageddon	= mod:NewYellMe(45915)
-local specWarnSpike		= mod:NewSpecialWarningMove(46589) --all spike related things except timerSpike dont work and are not supposed to. 
-local yellSpike			= mod:NewYellMe(46589)			--all spike related things except timerSpike dont work and are not supposed to. 
+local specWarnSpike		= mod:NewSpecialWarningMove(46589) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
+local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 local specWarnBloom		= mod:NewSpecialWarningYou(45641, nil, nil, nil, 1, 2)
 local yellBloom			= mod:NewYellMe(45641)
 local specWarnBomb		= mod:NewSpecialWarningMoveTo(46605, nil, nil, nil, 3, 2)--findshield
@@ -45,7 +45,7 @@ local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", false)
 local timerBloomCD		= mod:NewCDTimer(40, 45641, nil, nil, nil, 2) --AC: In P1-P3: 40 seconds. In P4: 20 seconds. 
 local timerDartCD		= mod:NewCDTimer(20, 45737, nil, nil, nil, 2)--Currently (12.05.25): 10s on AC, but should be fixed soon. 20s is the correct blizzard value. 
 local timerBomb			= mod:NewCastTimer(9, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) --AC: first cast after 50s, every subsequent every 45s; P4: first after 30s, every subsequent every 25s
+local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) --AC: 45s regular; P4: 25s
 local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
 local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC: 38s
 
@@ -114,9 +114,9 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not sure this should also be changed to a CLEU
+function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --Maybe this should be changed to CLEU, but so far it works
 --  print("Spell cast by " .. unitId .. ": " .. spellName .. " (Rank: " .. tostring(rank or "N/A") .. ")")
-    if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID in 3.3.5: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
+    if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID before CATA: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
         local targetName = UnitName(unitId .. "target")
         if targetName then
             self:ArmageddonTarget(targetName)
@@ -126,7 +126,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not sure this s
     end
 end
 
-function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because SPELL_DAMAGE wouldnt parse SPELL ID 45680 correctly. Dont know if thats a DBM CORE or a server issue. 
+function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because SPELL_DAMAGE wouldnt parse SPELL ID 45680. Old API limitations? I couldnt find when spellID was added to SPELL_DAMGE 
 	if not self:IsInCombat() then
 		return
 	end
@@ -187,7 +187,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBloomCD:Start()
 			timerBlueOrb:Start()
 			timerDartCD:Start(59) --12.05.25: currently only 3s, but should be fixed soon
-			timerBombCD:Start(72) --happens 72s after DBM P2; 45seconds + 28 seconds of soul spike after reaching 85% HP
+			timerBombCD:Start(72) --happens 72s after DBM P2; 45seconds + 28 seconds of soul spike after reaching 85% HP. Slightly too short should be 77s. 
 		elseif self.vb.phase == 3 then
 			warnPhase3:Show()
 			timerBloomCD:Cancel()
@@ -197,7 +197,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBloomCD:Start()
 			timerBlueOrb:Start()
 			timerDartCD:Start(48.7) 
-			timerBombCD:Start(55)
+			timerBombCD:Start(55) --12.05.2025: last test on Chromie PTR 55s; too short. Should be the same as the for P2
 		elseif self.vb.phase == 4 then
 			warnPhase4:Show()
 			timerBlueOrb:Cancel()
@@ -206,10 +206,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBloomCD:Cancel()
 			timerBlueOrb:Start(48) --AC: 48s
 			timerBloomCD:Start(20) 
-			timerBombCD:Start(74) --last try it was 74s 12.05.2025 feels too long
+			timerBombCD:Start(74) --12.05.2025: last test on Chromie PTR 74s ; too long. Should be 57-58s
 			timerDartCD:Start(72.3)
 		end
-	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. 
+	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. Classic TBC does not have this feature. Dunno if its supposed to work
 		if args.destName == UnitName("player") then
 			specWarnSpike:Show()
 			yellSpike:Yell()
