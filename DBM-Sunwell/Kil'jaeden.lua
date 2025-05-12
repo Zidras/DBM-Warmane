@@ -15,10 +15,13 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_DAMAGE", 
 	"SPELL_MISSED",  
+	"UNIT_SPELLCAST_SUCCEEDED",
 	"COMBAT_LOG_EVENT_UNFILTERED"
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
+local warnArmageddon	= mod:NewTargetAnnounce(45915, 2)
+
 local warnDarkOrb		= mod:NewAnnounce("WarnDarkOrb", 4, 51512) --51512 for soulstone icon otherwise it may be confused with warnBlueOrb
 local warnDart			= mod:NewSpellAnnounce(45737, 3)
 local warnShield		= mod:NewSpellAnnounce(45848, 1)
@@ -28,6 +31,8 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
+local specWarnArmaYou	= mod:NewSpecialWarningYou(45915, nil, nil, nil, 3, 2)
+local yellArmageddon	= mod:NewYellMe(45915)
 local specWarnSpike		= mod:NewSpecialWarningMove(46589)
 local yellSpike			= mod:NewYellMe(46589)
 local specWarnBloom		= mod:NewSpecialWarningYou(45641, nil, nil, nil, 1, 2)
@@ -44,7 +49,7 @@ local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON
 local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
 local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC: 38s
 
-mod:AddRangeFrameOption("10")
+mod:AddRangeFrameOption("10") --only 10 yards are needed 
 mod:AddSetIconOption("BloomIcon", 45641, true, false, {4, 5, 6, 7, 8})
 
 local warnBloomTargets = {}
@@ -109,6 +114,18 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
+function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not sure this should also be changed to a CLEU
+--  print("Spell cast by " .. unitId .. ": " .. spellName .. " (Rank: " .. tostring(rank or "N/A") .. ")")
+    if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID in 3.3.5: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
+        local targetName = UnitName(unitId .. "target")
+        if targetName then
+            self:ArmageddonTarget(targetName)
+        else
+            print("Armageddon target name not found for caster: " .. unitId)
+        end
+    end
+end
+
 function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because SPELL_DAMAGE wouldnt parse SPELL ID 45680 correctly. Dont know if thats a DBM CORE or a server issue. 
 	if not self:IsInCombat() then
 		return
@@ -133,7 +150,6 @@ function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because 
     local isRelevantEvent = (eventType == "SPELL_DAMAGE" or eventType == "SPELL_MISSED")
     if isRelevantEvent and (spellIdMatch or shieldOrbMatch) then
         if self:AntiSpam(10, "WarnDarkOrb") then --10s should be enough to kill one orb
-            print("DBM Debug Kil CLEU (Your Parse + AntiSpam): AntiSpam PASSED! Firing Dark Orb warnings.")
             warnDarkOrb:Show() 
             specWarnDarkOrb:Show()
         end
@@ -167,27 +183,33 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self:SetStage(0)
 		if self.vb.phase == 2 then
 			warnPhase2:Show()
+			timerBloomCD:Cancel()
+			timerBloomCD:Start()
 			timerBlueOrb:Start()
-			timerDartCD:Start(59) --12.05.25: currently super short CD of 10s, but should be fixed soon
+			timerDartCD:Start(59) --12.05.25: currently only 3s, but should be fixed soon
 			timerBombCD:Start(72) --happens 72s after DBM P2; 45seconds + 28 seconds of soul spike after reaching 85% HP
 		elseif self.vb.phase == 3 then
 			warnPhase3:Show()
+			timerBloomCD:Cancel()
 			timerBlueOrb:Cancel()
 			timerDartCD:Cancel()
 			timerBombCD:Cancel()
+			timerBloomCD:Start()
 			timerBlueOrb:Start()
 			timerDartCD:Start(48.7) 
-			timerBombCD:Start(50)
+			timerBombCD:Start(55)
 		elseif self.vb.phase == 4 then
 			warnPhase4:Show()
 			timerBlueOrb:Cancel()
 			timerDartCD:Cancel()
 			timerBombCD:Cancel()
+			timerBloomCD:Cancel()
 			timerBlueOrb:Start(48) --AC: 48s
-			timerBloomCD:start(20) 
-			timerBombCD:Start(25)
+			timerBloomCD:Start(20) 
+			timerBombCD:Start(74) --last try it was 74s 12.05.2025 feels too long
+			timerDartCD:Start(72.3)
 		end
-	elseif args.spellId == 46589 and args.destName ~= nil then
+	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. 
 		if args.destName == UnitName("player") then
 			specWarnSpike:Show()
 			yellSpike:Yell()
@@ -201,5 +223,18 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.OrbYell1 or msg:find(L.OrbYell1) or msg == L.OrbYell2 or msg:find(L.OrbYell2) or msg == L.OrbYell3 or msg:find(L.OrbYell3) or msg == L.OrbYell4 or msg:find(L.OrbYell4) then
 		warnBlueOrb:Show()
 		specWarnBlueOrb:Show()
+	end
+end
+
+
+function mod:ArmageddonTarget(targetName)
+	if not targetName then return end
+	local myName = UnitName("player")
+	if targetName == myName then
+		specWarnArmaYou:Show()
+		specWarnArmaYou:Play("targetyou")
+		yellArmageddon:Yell()
+	else
+		warnArmageddon:Show(targetName)
 	end
 end

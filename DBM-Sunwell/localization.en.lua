@@ -159,7 +159,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnDarkOrb		= "Dark Orbs Spawned",
+	WarnDarkOrb		= "Dark Orbs",
 	WarnBlueOrb		= "Dragon Orb activated",
 	SpecWarnDarkOrb		= "Dark Orbs Spawned!",
 	SpecWarnBlueOrb		= "Dragon Orbs Activated!"
