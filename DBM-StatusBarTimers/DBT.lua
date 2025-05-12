@@ -883,14 +883,24 @@ function barPrototype:SetVariance()
 end
 
 local colorVariables = {
+	[0] = "",--Generic
 	[1] = "A",--Add
 	[2] = "AE",--AoE
 	[3] = "D",--Debuff/Targeted attack
 	[4] = "I",--Interrupt
 	[5] = "R",--Role
 	[6] = "P",--Phase
-	[7] = "UI",--User
+	[7] = "UI",--Important 1
+--	[8] = "I2",--Important 2 (NYI)
 }
+
+function DBT:GetColorForType(colorType)
+	if not colorVariables[colorType] then
+		return nil
+	end
+	local colorVar = colorVariables[colorType]
+	return DBT.Options["StartColor"..colorVar.."R"], DBT.Options["StartColor"..colorVar.."G"], DBT.Options["StartColor"..colorVar.."B"]
+end
 
 local function stringFromTimer(t)
 	if t <= DBT.Options.TDecimal then
