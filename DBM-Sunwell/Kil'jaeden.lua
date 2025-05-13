@@ -42,7 +42,7 @@ local specWarnShield	= mod:NewSpecialWarningSpell(45848)
 local specWarnDarkOrb	= mod:NewSpecialWarning("SpecWarnDarkOrb", false)
 local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", false)
 
-local timerBloomCD		= mod:NewCDTimer(40, 45641, nil, nil, nil, 2) --AC: In P1-P3: 40 seconds. In P4: 20 seconds. 
+local timerBloomCD		= mod:NewCDTimer(40, 45641, nil, nil, nil, 2) --AC: In P1-P3: 40 seconds. In P4: 20 seconds. //should be 20s through the whole fight 
 local timerDartCD		= mod:NewCDTimer(20, 45737, nil, nil, nil, 2)--Currently (12.05.25): 10s on AC, but should be fixed soon. 20s is the correct blizzard value. 
 local timerBomb			= mod:NewCastTimer(9, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) --AC: 45s regular; P4: 25s
@@ -149,7 +149,7 @@ function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because 
     local eventType = argsStrings[2]
     local isRelevantEvent = (eventType == "SPELL_DAMAGE" or eventType == "SPELL_MISSED")
     if isRelevantEvent and (spellIdMatch or shieldOrbMatch) then
-        if self:AntiSpam(10, "WarnDarkOrb") then --10s should be enough to kill one orb
+        if self:AntiSpam(10, "WarnDarkOrb") then --orbGUIDs are not correct on AC, every orb has the same GUID. Only rely on Antispam. But 10s should be enough to not be spammy
             warnDarkOrb:Show() 
             specWarnDarkOrb:Show()
         end
@@ -209,7 +209,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBombCD:Start(74) --12.05.2025: last test on Chromie PTR 74s ; too long. Should be 57-58s
 			timerDartCD:Start(72.3)
 		end
-	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. Classic TBC does not have this feature. Dunno if its supposed to work
+	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike target warning doesnt work. There are no target indications currently (12.05.25) for shadow spike. Dunno if its supposed to work on blizzlike servers
 		if args.destName == UnitName("player") then
 			specWarnSpike:Show()
 			yellSpike:Yell()
