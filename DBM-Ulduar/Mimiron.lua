@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221011214859")
+mod:SetRevision("20250224153430")
 mod:SetCreatureID(33432)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetHotfixNoticeRev(20220823000000)
@@ -23,7 +23,8 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_CHANNEL_STOP boss1 boss2 boss3",
 	"UNIT_SPELLCAST_START boss1",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3",
-	"CHAT_MSG_LOOT"
+	"CHAT_MSG_LOOT",
+	"PARTY_LOOT_METHOD_CHANGED"
 )
 
 --General
@@ -105,7 +106,7 @@ local specWarnDeafeningSiren		= mod:NewSpecialWarningMove(64616, nil, nil, nil, 
 mod:GroupSpells(63274, 63293) -- Spinning Up and P3Wx2 Laser Barrage
 mod:GroupSpells(64623, 65333) -- Frost Bomb, Frost Bomb Explosion
 
-local lootmethod, _, masterlooterRaidID
+local cachedLootmethod, _, masterlooterRaidID
 mod.vb.hardmode = false
 mod.vb.napalmShellIcon = 7
 local spinningUp = DBM:GetSpellInfo(63414)
@@ -165,7 +166,8 @@ local function NextPhase(self)
 			timerNextFrostBomb:Start(44.3) -- (25H Lordaeron 2022/10/09) - 44.3
 		end
 	elseif self.vb.phase == 3 then
-		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
+		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() ~= "freeforall" then
+			cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
 			SetLootMethod("freeforall")
 		end
 		timerP3Wx2LaserBarrageCast:Cancel()
@@ -178,11 +180,12 @@ local function NextPhase(self)
 			DBM.BossHealth:AddBoss(33670, L.MobPhase3)
 		end
 	elseif self.vb.phase == 4 then
-		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
+		-- Don't change loot if it was manually changed
+		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() == "freeforall" and cachedLootmethod then
 			if masterlooterRaidID then
-				SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
+				SetLootMethod(cachedLootmethod, "raid"..masterlooterRaidID)
 			else
-				SetLootMethod(lootmethod)
+				SetLootMethod(cachedLootmethod)
 			end
 		end
 		timerBombBotSpawn:Cancel()
@@ -207,8 +210,10 @@ function mod:OnCombatStart()
 	self.vb.napalmShellIcon = 7
 	table.wipe(napalmShellTargets)
 	NextPhase(self)
+	-- Cache the loot method in case loot gets manually changed to ffa before Phase 3
 	if DBM:GetRaidRank() == 2 then
-		lootmethod, _, masterlooterRaidID = GetLootMethod()
+		cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
+		if cachedLootmethod == "freeforall" then cachedLootmethod = nil end
 	end
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(6)
@@ -223,11 +228,12 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
+	-- Don't change loot if it was manually changed away from ffa
+	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() == "freeforall" and cachedLootmethod then
 		if masterlooterRaidID then
-			SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
+			SetLootMethod(cachedLootmethod, "raid"..masterlooterRaidID)
 		else
-			SetLootMethod(lootmethod)
+			SetLootMethod(cachedLootmethod)
 		end
 	end
 end
@@ -410,6 +416,14 @@ function mod:CHAT_MSG_LOOT(msg)
 	if player and itemID and tonumber(itemID) == 46029 and self:IsInCombat() then
 		player = DBM:GetUnitFullName(player) or UnitName("player") -- prevents nil string if the player is the one looting it: "You" receive loot...
 		self:SendSync("LootMsg", player)
+	end
+end
+
+-- Case where combat was started with the wrong loot and changed manually, and then put to ffa manually before Phase 3
+-- This will not protect against misclicks before changing manually to ffa (loot will be returned to last misclicked type)
+function mod:PARTY_LOOT_METHOD_CHANGED()
+	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and self:GetStage(3, 1) and GetLootMethod() ~= "freeforall" then
+		cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
 	end
 end
 
