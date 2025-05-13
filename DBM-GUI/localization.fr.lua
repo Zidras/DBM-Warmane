@@ -450,7 +450,7 @@ L.PlayTTCountdownFinished	= "Jouer le son du compte à rebours TimerTracker term
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "Désactivation Blizzard"
 L.Area_HideBlizzard			= "Options de désactivation Blizzard"
-L.HideBossEmoteFrame		= "Désactiver le cadre des vies des boss pendant les combats de boss"
+L.HideBossEmoteFrame		= "Désactiver les emotes des boss pendant les combats de boss"
 L.HideWatchFrame			= "Désactiver le cadre de suivi des objectifs pendant les combats de boss"
 L.SpamBlockRaidWarning		= "Filtrer les annonces venant d'autres boss mods"
 L.SpamBlockBossWhispers		= "Filtrer les alertes DBM chuchotement pendant les combats"

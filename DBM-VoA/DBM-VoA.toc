@@ -7,6 +7,7 @@
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0아카본 석실|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0La Cámara de Archavon|r
 ## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0La Cámara de Archavon|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Caveau d'Archavon|r
 ## Author: Nitram/Tandanu
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -24,11 +25,13 @@
 ## X-DBM-Mod-Name-koKR: 아카본 석실
 ## X-DBM-Mod-Name-esES: La Cámara de Archavon
 ## X-DBM-Mod-Name-esMX: La Cámara de Archavon
+## X-DBM-Mod-Name-frFR: Caveau d'Archavon
 ## X-DBM-Mod-Sort: 7
 ## X-DBM-Mod-MapID: 533
 ## X-DBM-Mod-LoadZone: Vault of Archavon
 ## X-DBM-Mod-LoadZone-zhCN: 阿尔卡冯的宝库
 ## X-DBM-Mod-LoadZone-ruRU: Склеп Аркавона
+## X-DBM-Mod-LoadZone-frFR: Caveau d'Archavon
 
 localization.en.lua
 localization.de.lua
