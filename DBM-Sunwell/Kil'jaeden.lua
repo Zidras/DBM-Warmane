@@ -31,7 +31,7 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
-local specWarnArmaYou	= mod:NewSpecialWarningYou(45915, nil, nil, nil, 3, 2)
+local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 3, 2)
 local yellArmageddon	= mod:NewYellMe(45915)
 local specWarnSpike		= mod:NewSpecialWarningMove(46589) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
@@ -231,7 +231,7 @@ function mod:ArmageddonTarget(targetName)
 	local myName = UnitName("player")
 	if targetName == myName then
 		specWarnArmaYou:Show()
-		specWarnArmaYou:Play("targetyou")
+		specWarnArmaYou:Play()
 		yellArmageddon:Yell()
 	else
 		warnArmageddon:Show(targetName)
