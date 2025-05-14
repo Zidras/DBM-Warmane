@@ -21,10 +21,10 @@ local warnFearSoon				= mod:NewSoonAnnounce(74384, 2, nil, nil, nil, nil, nil, 2
 local specWarnFear				= mod:NewSpecialWarningSpell(74384, nil, nil, nil, 2, 2)
 local specWarnCleaveArmor		= mod:NewSpecialWarningStack(74367, nil, 2, nil, nil, 1, 6)
 
-local timerAddsCD				= mod:NewTimer(40, "TimerAdds", 74398, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
-local timerAddsTravel			= mod:NewTimer(8, "AddsArrive") -- Timer to indicate when the summoned adds arive
+local timerAddsCD				= mod:NewTimer(45, "TimerAdds", 74398, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerAddsTravel			= mod:NewTimer(9, "AddsArrive") -- Timer to indicate when the summoned adds arive
 local timerCleaveArmor			= mod:NewTargetTimer(30, 74367, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerFearCD				= mod:NewCDTimer(30, 74384, nil, nil, nil, 2)
+local timerFearCD				= mod:NewCDTimer(35, 74384, nil, nil, nil, 2)
 
 mod:AddBoolOption("CancelBuff")
 local CleaveArmorTargets = {}
@@ -32,7 +32,7 @@ local CleaveArmorTargets = {}
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(14-delay)
 	warnFearSoon:ScheduleVoice(11, "fearsoon") -- 3 secs prewarning
-	timerAddsCD:Start(18-delay)
+	timerAddsCD:Start(15.4-delay)
 end
 
 function mod:OnCombatEnd()
@@ -42,7 +42,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 74384 then
 		specWarnFear:Show()
-		warnFearSoon:ScheduleVoice(27, "fearsoon") -- 3 secs prewarning
+		warnFearSoon:ScheduleVoice(32, "fearsoon") -- 3 secs prewarning
 		timerFearCD:Start()
 	end
 end
