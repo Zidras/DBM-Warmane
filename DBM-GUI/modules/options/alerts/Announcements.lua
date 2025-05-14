@@ -38,7 +38,7 @@ local FontDropDown = raidwarnoptions:CreateDropdown(L.FontType, Fonts, "DBM", "W
 	DBM:UpdateWarningOptions()
 	DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 end)
-FontDropDown:SetPoint("TOPLEFT", check6, "BOTTOMLEFT", 0, -10)
+FontDropDown:SetPoint("TOPLEFT", check6, "BOTTOMLEFT", 0, -15)
 
 -- RaidWarn Font Style
 local FontStyles = {

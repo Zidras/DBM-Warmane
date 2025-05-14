@@ -91,7 +91,7 @@ local FontDropDown = spamBBArea:CreateDropdown(L.FontType, Fonts, "DBM", "BBFont
 	DBM.Options.BBFont = value
 	BossBanner:UpdateStyle()
 end)
-FontDropDown:SetPoint("TOPLEFT", overrideBBFont, "BOTTOMLEFT", 0, -10)
+FontDropDown:SetPoint("TOPLEFT", overrideBBFont, "BOTTOMLEFT", 0, -20)
 
 -- BossBanner Font Style
 local FontStyles = {
@@ -164,4 +164,4 @@ end)
 -- BossBanner Keybinds
 local keybindsString = "|cffffffff"..string.upper(KEY_BINDINGS).."|r\n"..KEY_BUTTON2..": "..HIDE
 local keybindsInfotext = spamBBArea:CreateText(keybindsString, nil, false, GameFontNormal, "LEFT", 0)
-keybindsInfotext:SetPoint("BOTTOMLEFT", spamBBArea.frame, "BOTTOMLEFT", 10, 10)
+keybindsInfotext:SetPoint("BOTTOMLEFT", spamBBArea.frame, "BOTTOMLEFT", 10, 0)
