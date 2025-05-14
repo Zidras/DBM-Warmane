@@ -190,10 +190,8 @@ L.SLASHCMD_HELP				= {
 	"----------------",
 	"/dbm unlock : affiche une barre de délai déplaçable (alias : move).",
 	"/range <number> or /distance <number>: Affiche le cadre de portée. /rrange or /rdistance pour inverser les couleurs.",
-	"/hudar <number>: Affiche le radar de portée HUD.",
 	"/dbm timer: Lance un timer DBM perso, voir '/dbm timer' pour plus de détails.",
 	"/dbm arrow : affiche la flèche DBM, voir /dbm arrow help pour les détails.",
-	"/dbm hud: Affiche le HUD de DBM, voir '/dbm hud' pour plus de détails.",
 	"/dbm help2: Affiche les commandes slash de gestion de raid."
 }
 L.SLASHCMD_HELP2				= {
@@ -203,7 +201,9 @@ L.SLASHCMD_HELP2				= {
 	"/dbm break <min>: Envoire un timer de pause de <min> minutes au raid (requiert leader/assistant).",
 	"/dbm version: Effectue une vérification de version de "..L.DBM.." (alias: ver).",
 	"/dbm version2: Effectue une vérification de version de "..L.DBM.." qui chuchote aux membres pas à jour (alias: ver2).",
-	"/dbm lag: Effectue une vérification de latence du raid."
+	"/dbm lockout: Demande aux membres du raid de partager leurs lockouts de raid (alias: lockouts, ids) (requiert leader/assistant).",
+	"/dbm lag: Effectue une vérification de latence du raid.",
+	"/dbm durability: Effectue une vérification de la durabilité du raid."
 }
 L.TIMER_USAGE	= {
 	"Commandes "..L.DBM.." des timers:",
@@ -215,6 +215,9 @@ L.TIMER_USAGE	= {
 }
 
 L.ERROR_NO_PERMISSION				= "Vous n'avez pas la permission requise pour faire cela."
+L.TIME_TOO_SHORT					= "Le délai de pull doit être supérieur à 3 secondes."
+
+L.BOSSHEALTH_HIDE_FRAME			= "Fermer la fenêtre de vie du Boss"
 
 L.BREAK_USAGE				= "Les timers de pause ne peuvent pas durer plus de 60 minutes. Assurez vous de mettre le temps en minutes et pas secondes."
 L.BREAK_START				= "La pause commence maintenant -- vous avez %s minute(s)!"
@@ -227,6 +230,8 @@ L.TIMER_PULL				= "Pull dans"
 L.ANNOUNCE_PULL_MODE		= "Pull mode: %s"
 L.ANNOUNCE_PULL				= "Pull dans %d sec. (Envoyé par %s)"
 L.ANNOUNCE_PULL_NOW			= "Pull maintenant !"
+L.ANNOUNCE_PULL_TARGET		= "Pull de %s dans %d sec. (Envoyé par %s)"
+L.ANNOUNCE_PULL_NOW_TARGET	= "Pull de %s maintenant !"
 L.GEAR_WARNING				= "Attention: Vérification d'équipement. Votre ilvl équippé est de %d plus bas que celui dans vos sacs"
 L.GEAR_WARNING_WEAPON		= "Attention: Vérification que votre arme est correctement équipée."
 L.GEAR_FISHING_POLE			= "Canne à pêche"

@@ -453,10 +453,11 @@ L.PlayTT					= "Activer le TimerTracker"
 L.PlayTTCountdown			= "Jouer le son du compte à rebours TimerTracker"
 L.PlayTTCountdownFinished	= "Jouer le son du compte à rebours TimerTracker terminé"
 
-L.Area_BossBanner					= "Options de la bannière de boss"
-L.EnableBB							= "Activer la bannière de boss"
-L.PlayBBLoot						= "Jouer l'animation de la bannière de boss"
-L.PlayBBSound						= "Jouer le son de la bannière de boss"
+L.Area_BossBanner           = "Options de la bannière de boss"
+L.EnableBB                  = "Activer la bannière de boss"
+L.PlayBBLoot                = "Jouer l'animation de la bannière de loot"
+L.PlayBBSound               = "Jouer le son de la bannière de boss"
+L.OverrideBBFont            = "Changer la police de la Bannière de boss (doit être activé pour changer la police de la bannière)"
 
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "Désactivation Blizzard"
