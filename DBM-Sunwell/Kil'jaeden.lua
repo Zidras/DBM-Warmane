@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250512125330")
+mod:SetRevision("20250514145330")
 mod:SetCreatureID(25315)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
 
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
-local warnArmageddon	= mod:NewTargetAnnounce(45915, 2)
+local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --maybe should set that to false since is somewhat spammy
 
 local warnDarkOrb		= mod:NewAnnounce("WarnDarkOrb", 4, 51512) --51512 for soulstone icon otherwise it may be confused with warnBlueOrb
 local warnDart			= mod:NewSpellAnnounce(45737, 3)
@@ -42,7 +42,7 @@ local specWarnShield	= mod:NewSpecialWarningSpell(45848)
 local specWarnDarkOrb	= mod:NewSpecialWarning("SpecWarnDarkOrb", false)
 local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", false)
 
-local timerBloomCD		= mod:NewCDTimer(40, 45641, nil, nil, nil, 2) --AC: In P1-P3: 40 seconds. In P4: 20 seconds. //should be 20s through the whole fight 
+local timerBloomCD		= mod:NewCDTimer(40, 45641, nil, nil, nil, 2) --AC: In P1-P3: 40 seconds. In P4: 20 seconds. 
 local timerDartCD		= mod:NewCDTimer(20, 45737, nil, nil, nil, 2)--Currently (12.05.25): 10s on AC, but should be fixed soon. 20s is the correct blizzard value. 
 local timerBomb			= mod:NewCastTimer(9, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) --AC: 45s regular; P4: 25s
@@ -69,14 +69,13 @@ end
 
 function mod:OnCombatStart(delay)
 	table.wipe(warnBloomTargets)
-	table.wipe(orbGUIDs) --not needed anymore it think? 
+	table.wipe(orbGUIDs) --not needed atm 
 	self.vb.bloomIcon = 8
 	self:SetStage(1)
 	timerBloomCD:Start(9)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
 	end
-	print("DBM Debug: Kil Mod OnCombatStart FIRED.")  
 end
 
 function mod:OnCombatEnd()
@@ -121,7 +120,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --Maybe this shou
         if targetName then
             self:ArmageddonTarget(targetName)
         else
-            print("Armageddon target name not found for caster: " .. unitId)
+            DBM:AddMsg("Armageddon target name not found for caster: " .. unitId)
         end
     end
 end
@@ -149,7 +148,7 @@ function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because 
     local eventType = argsStrings[2]
     local isRelevantEvent = (eventType == "SPELL_DAMAGE" or eventType == "SPELL_MISSED")
     if isRelevantEvent and (spellIdMatch or shieldOrbMatch) then
-        if self:AntiSpam(10, "WarnDarkOrb") then --orbGUIDs are not correct on AC, every orb has the same GUID. Only rely on Antispam. But 10s should be enough to not be spammy
+        if self:AntiSpam(10, "WarnDarkOrb") then --10s should be enough to kill one orb
             warnDarkOrb:Show() 
             specWarnDarkOrb:Show()
         end
@@ -186,8 +185,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBloomCD:Cancel()
 			timerBloomCD:Start()
 			timerBlueOrb:Start()
-			timerDartCD:Start(59) --12.05.25: currently only 3s, but should be fixed soon
-			timerBombCD:Start(72) --happens 72s after DBM P2; 45seconds + 28 seconds of soul spike after reaching 85% HP. Slightly too short should be 77s. 
+			timerDartCD:Start(52) --14.05.25 Chromie PTR: 52.37s 
+			timerBombCD:Start(72) --14.05.25 Chromie PTR: 72s after P2 starts; 45seconds + 28 seconds of soul spike after reaching 85% HP. Slightly too short should be 77s. 
 		elseif self.vb.phase == 3 then
 			warnPhase3:Show()
 			timerBloomCD:Cancel()
@@ -196,8 +195,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBombCD:Cancel()
 			timerBloomCD:Start()
 			timerBlueOrb:Start()
-			timerDartCD:Start(48.7) 
-			timerBombCD:Start(55) --12.05.2025: last test on Chromie PTR 55s; too short. Should be the same as the for P2
+			timerDartCD:Start(49) --14.05.25 Chromie PTR: 49.55s 
+			timerBombCD:Start(78) --14.05.25 Chromie PTR 78s; 
 		elseif self.vb.phase == 4 then
 			warnPhase4:Show()
 			timerBlueOrb:Cancel()
@@ -206,10 +205,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBloomCD:Cancel()
 			timerBlueOrb:Start(48) --AC: 48s
 			timerBloomCD:Start(20) 
-			timerBombCD:Start(74) --12.05.2025: last test on Chromie PTR 74s ; too long. Should be 57-58s
-			timerDartCD:Start(72.3)
+			timerBombCD:Start(59) --14.05.2025 Chromie PTR 74s 
+			timerDartCD:Start(67) --14.04.25 Chromie PTR: 67.85s
 		end
-	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike target warning doesnt work. There are no target indications currently (12.05.25) for shadow spike. Dunno if its supposed to work on blizzlike servers
+	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. Classic TBC does not have this feature. Dunno if its supposed to work
 		if args.destName == UnitName("player") then
 			specWarnSpike:Show()
 			yellSpike:Yell()
