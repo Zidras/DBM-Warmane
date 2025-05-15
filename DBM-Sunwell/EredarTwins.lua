@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250503174820") --based on cafe20250416v19
+mod:SetRevision("20251505231320") --based on cafe20250416v19
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(3, 6, 8)
 
@@ -49,7 +49,7 @@ local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
 local berserkTimer			= mod:NewBerserkTimer(360) --no timewalking on CC, 250326 "(mod:IsTimewalking() and 300 or 360)"
 
-mod:AddInfoFrameOption(45347) --testing information 250331
+mod:AddInfoFrameOption(45347, false) --testing information 250331
 
 mod:AddRangeFrameOption("11")
 mod:AddSetIconOption("ConflagIcon", 45333, false, false, {8}) --fixed icon reference to correct actual usage 250326
@@ -78,6 +78,7 @@ end
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+		DBM.InfoFrame:Hide()
 	end
 end
 
