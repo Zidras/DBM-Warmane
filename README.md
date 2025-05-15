@@ -1,15 +1,25 @@
 
 
-# DBM for Chromiecraft/Azerothcore
+## DBM for Chromiecraft/Azerothcore
 
-Trying to continue Ballenys DBM for Chromiecraft/Azerothcore. Includes latest core updates from Zidras (https://github.com/Zidras/DBM-Warmane) and many adjustments and fixes specific for Azerothcore/Chromiecraft.
+This project continues Balleny's DBM for Chromiecraft/AzerothCore and integrates the most recent core updates provided by Zidras: (https://github.com/Zidras/DBM-Warmane) and many adjustments and fixes specific for Azerothcore/Chromiecraft.
 
-Needs the dungeon map patch by Trimitor for the rangeradar to work: https://forum.warmane.com/showthread.php?t=424250
 
-Only English localization is fully supported
+## ❗Important❗
 
-SWP is shamelessly stolen from Cafe/Proxi from teatime. All Credit to them <3
+- The Rangeradar requires the Dungeon Map patch by Trimitor to work: https://forum.warmane.com/showthread.php?t=424250
 
+![1132537](https://github.com/user-attachments/assets/7a3e4731-864c-4613-bbf4-77306362fe02)
+
+
+- Currently, only the English localization is fully supported.
+
+
+## 🌟 Credit to:
+
+- [Zidras](https://github.com/Zidras/DBM-Warmane) 
+- [Bellany/Lys](https://github.com/balleny/DBM)
+- Cafe/Proxi from TeaTime
 
 <details>
 <div align="center">
