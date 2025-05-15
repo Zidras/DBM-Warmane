@@ -15,8 +15,7 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_DAMAGE", 
 	"SPELL_MISSED",  
-	"UNIT_SPELLCAST_SUCCEEDED",
-	"COMBAT_LOG_EVENT_UNFILTERED"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
@@ -113,8 +112,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --Maybe this should be changed to CLEU, but so far it works
---  print("Spell cast by " .. unitId .. ": " .. spellName .. " (Rank: " .. tostring(rank or "N/A") .. ")")
+function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank)
     if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID before CATA: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
         local targetName = UnitName(unitId .. "target")
         if targetName then
@@ -125,36 +123,18 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --Maybe this shou
     end
 end
 
-function mod:COMBAT_LOG_EVENT_UNFILTERED(...) --overly complex solution because SPELL_DAMAGE wouldnt parse SPELL ID 45680. Old API limitations? I couldnt find when spellID was added to SPELL_DAMGE 
-	if not self:IsInCombat() then
-		return
+function mod:SPELL_DAMAGE(sourceGUID, sourceName, _, _, _, _, spellId)
+	if sourceName == "Shield Orb" and spellId == 45680 and self:AntiSpam(10) then
+		warnDarkOrb:Show()
+		specWarnDarkOrb:Show()
 	end
-    local argsStrings = {} -- Renamed from 'args' to avoid confusion with DBM's typical 'args' table parameter
-    for i = 1, select("#", ...) do
-        argsStrings[i] = tostring(select(i, ...))
-    end
-    local function findInArgs(tbl, pattern) 
-        for i, arg_str in ipairs(tbl) do
-            if arg_str:match(pattern) then
-                return arg_str, i 
-            end
-        end
-        return nil, nil
-    end
-
-	local spellIdMatch, spellIdIndex = findInArgs(argsStrings, "^45680$") 
-    local shieldOrbMatch, shieldOrbIndex = findInArgs(argsStrings, "Shield Orb")
-
-    local eventType = argsStrings[2]
-    local isRelevantEvent = (eventType == "SPELL_DAMAGE" or eventType == "SPELL_MISSED")
-    if isRelevantEvent and (spellIdMatch or shieldOrbMatch) then
-        if self:AntiSpam(10, "WarnDarkOrb") then --10s should be enough to kill one orb
-            warnDarkOrb:Show() 
-            specWarnDarkOrb:Show()
-        end
-    end
 end
-
+function mod:SPELL_MISSED(sourceGUID, sourceName, _, _, _, _, spellId) --so warnDarkOrb also triggers when a Shadowbolt from orbs is missed/resisted
+	if sourceName == "Shield Orb" and spellId == 45680 and self:AntiSpam(10) then
+		warnDarkOrb:Show()
+		specWarnDarkOrb:Show()
+	end
+end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 46605 then
@@ -183,7 +163,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self.vb.phase == 2 then
 			warnPhase2:Show()
 			timerBloomCD:Cancel()
-			timerBloomCD:Start()
+			timerBloomCD:Start(36) 
 			timerBlueOrb:Start()
 			timerDartCD:Start(52) --14.05.25 Chromie PTR: 52.37s 
 			timerBombCD:Start(72) --14.05.25 Chromie PTR: 72s after P2 starts; 45seconds + 28 seconds of soul spike after reaching 85% HP. Slightly too short should be 77s. 
@@ -193,7 +173,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBlueOrb:Cancel()
 			timerDartCD:Cancel()
 			timerBombCD:Cancel()
-			timerBloomCD:Start()
+			timerBloomCD:Start(36) --9s + 28s spike -1s phase delay 
 			timerBlueOrb:Start()
 			timerDartCD:Start(49) --14.05.25 Chromie PTR: 49.55s 
 			timerBombCD:Start(78) --14.05.25 Chromie PTR 78s; 
@@ -231,7 +211,7 @@ function mod:ArmageddonTarget(targetName)
 	local myName = UnitName("player")
 	if targetName == myName then
 		specWarnArmaYou:Show()
-		specWarnArmaYou:Play()
+		specWarnArmaYou:Play("move")
 		yellArmageddon:Yell()
 	else
 		warnArmageddon:Show(targetName)
