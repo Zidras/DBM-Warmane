@@ -2,7 +2,7 @@
 
 ## DBM for Chromiecraft/Azerothcore
 
-This project continues Balleny's DBM for Chromiecraft/AzerothCore and integrates the most recent core updates provided by Zidras: (https://github.com/Zidras/DBM-Warmane) and many adjustments and fixes specific for Azerothcore/Chromiecraft.
+This project continues Balleny's DBM for Chromiecraft/AzerothCore and integrates the most recent core updates provided by the Warmane DBM: (https://github.com/Zidras/DBM-Warmane) and many adjustments and fixes specific for Azerothcore/Chromiecraft.
 
 
 ## ❗Important❗
