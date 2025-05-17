@@ -14,26 +14,26 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 45848 45892 46589", 
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_DAMAGE", 
-	"SPELL_MISSED",  
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"SPELL_MISSED"  
+--	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
-local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --maybe should set that to false since is somewhat spammy
+--local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --maybe should set that to false since is somewhat spammy
 
 local warnDarkOrb		= mod:NewAnnounce("WarnDarkOrb", 4, 51512) --51512 for soulstone icon otherwise it may be confused with warnBlueOrb
 local warnDart			= mod:NewSpellAnnounce(45737, 3)
 local warnShield		= mod:NewSpellAnnounce(45848, 1)
 local warnBlueOrb		= mod:NewAnnounce("WarnBlueOrb", 1, 45109) --45109 for green orb icon
-local warnSpikeTarget	= mod:NewTargetAnnounce(46589, 3) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to 
+--local warnSpikeTarget	= mod:NewTargetAnnounce(46589, 3) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to 
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
-local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 3, 2)
-local yellArmageddon	= mod:NewYellMe(45915)
-local specWarnSpike		= mod:NewSpecialWarningMove(46589) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
-local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
+--local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 3, 2)
+--local yellArmageddon	= mod:NewYellMe(45915)
+--local specWarnSpike		= mod:NewSpecialWarningMove(46589) --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
+--local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 local specWarnBloom		= mod:NewSpecialWarningYou(45641, nil, nil, nil, 1, 2)
 local yellBloom			= mod:NewYellMe(45641)
 local specWarnBomb		= mod:NewSpecialWarningMoveTo(46605, nil, nil, nil, 3, 2)--findshield
@@ -50,69 +50,96 @@ local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC:
 
 mod:AddRangeFrameOption("10") --only 10 yards are needed 
 mod:AddSetIconOption("BloomIcon", 45641, true, false, {4, 5, 6, 7, 8})
+mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
+mod:AddDropdownOption("RangeFrameActivation", {"AlwaysOn", "OnDebuff"}, "OnDebuff", "misc")
 
 local warnBloomTargets = {}
 local orbGUIDs = {}
 mod.vb.bloomIcon = 8
 
 local function showBloomTargets(self)
-	warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
-	table.wipe(warnBloomTargets)
-	self.vb.bloomIcon = 8
+    warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
+    table.wipe(warnBloomTargets)
+    self.vb.bloomIcon = 8
     if self.vb.phase == 4 then
         timerBloomCD:Start(20) 
     else
         timerBloomCD:Start()
-	end
+    end
+end
+
+local debuffName = DBM:GetSpellInfo(45641)
+local DebuffFilter
+do
+    DebuffFilter = function(uId)
+        return DBM:UnitDebuff(uId, debuffName)
+    end
 end
 
 function mod:OnCombatStart(delay)
-	table.wipe(warnBloomTargets)
-	table.wipe(orbGUIDs) --not needed atm 
-	self.vb.bloomIcon = 8
-	self:SetStage(1)
-	timerBloomCD:Start(9)
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show()
-	end
+    table.wipe(warnBloomTargets)
+    table.wipe(orbGUIDs) --not needed atm 
+    self.vb.bloomIcon = 8
+    self:SetStage(1)
+    timerBloomCD:Start(9)
+    if self.Options.RangeFrame then
+        if self.Options.RangeFrameActivation == "AlwaysOn" then
+            DBM.RangeCheck:Show(10)
+        else -- OnDebuff
+            DBM.RangeCheck:Show(10, DebuffFilter)
+        end
+    end
 end
 
 function mod:OnCombatEnd()
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Hide()
-	end
+    if self.Options.RangeFrame then
+        DBM.RangeCheck:Hide()
+    end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 45641 then
-		warnBloomTargets[#warnBloomTargets + 1] = args.destName
-		self:Unschedule(showBloomTargets)
-		if self.Options.BloomIcon then
-			self:SetIcon(args.destName, self.vb.bloomIcon)
-		end
-		self.vb.bloomIcon = self.vb.bloomIcon - 1
-		if args:IsPlayer() then
-			specWarnBloom:Show()
-			specWarnBloom:Play("targetyou")
-			yellBloom:Yell()
-		end
-		if #warnBloomTargets >= 5 then
-			showBloomTargets(self)
-		else
-			self:Schedule(0.3, showBloomTargets, self)
-		end
-	end
+    if args.spellId == 45641 then -- Bloom
+        warnBloomTargets[#warnBloomTargets + 1] = args.destName
+        if self.Options.BloomIcon then
+            self:SetIcon(args.destName, self.vb.bloomIcon)
+            self.vb.bloomIcon = self.vb.bloomIcon - 1
+        end
+        if #warnBloomTargets >= 5 then
+            showBloomTargets(self)
+        else
+            self:Unschedule(showBloomTargets)
+            self:Schedule(0.3, showBloomTargets, self)
+        end
+
+        -- Check if the debuff is applied to the player
+        if args:IsPlayer() then
+            -- These will always trigger if the player gets Bloom
+            yellBloom:Yell()
+            specWarnBloom:show() -- Corrected from :how() to :show()
+
+            -- Additionally, show range frame if options are set
+            if self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
+                DBM.RangeCheck:Show(10, nil)
+            end
+        end
+    end
 end
 
+-- Add the SPELL_AURA_REMOVED event to handle Bloom removal
 function mod:SPELL_AURA_REMOVED(args)
-	if args.spellId == 45641 then
-		if self.Options.BloomIcon then
-			self:SetIcon(args.destName, 0)
-		end
-	end
+    if args.spellId == 45641 then -- Bloom
+        if self.Options.BloomIcon then
+            self:SetIcon(args.destName, 0)
+        end
+        
+        -- Update range frame if player loses debuff and option is set to OnDebuff
+        if args:IsPlayer() and self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
+            DBM.RangeCheck:Show(10, DebuffFilter) -- Only show others with debuff
+        end
+    end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank)
+--[[function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not reliable enough. Only the one player shows in the Combatlog, but three are targeted. 
     if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID before CATA: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
         local targetName = UnitName(unitId .. "target")
         if targetName then
@@ -121,7 +148,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank)
             DBM:AddMsg("Armageddon target name not found for caster: " .. unitId)
         end
     end
-end
+end]]
 
 function mod:SPELL_DAMAGE(sourceGUID, sourceName, _, _, _, _, spellId)
 	if sourceName == "Shield Orb" and spellId == 45680 and self:AntiSpam(10) then
@@ -188,13 +215,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBombCD:Start(59) --14.05.2025 Chromie PTR 74s 
 			timerDartCD:Start(67) --14.04.25 Chromie PTR: 67.85s
 		end
-	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. Classic TBC does not have this feature. Dunno if its supposed to work
+--[[	elseif args.spellId == 46589 and args.destName ~= nil then --This Spike trigger doesnt work. There are no target indications currently (12.05.25) for shadow spike. Classic TBC does not have this feature. Dunno if its supposed to work
 		if args.destName == UnitName("player") then
 			specWarnSpike:Show()
 			yellSpike:Yell()
 		else
 			warnSpikeTarget:Show(args.destName)
 		end
+	end]]
 	end
 end
 
@@ -206,7 +234,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 
-function mod:ArmageddonTarget(targetName)
+--[[function mod:ArmageddonTarget(targetName) --only warns the first player targetted. 
 	if not targetName then return end
 	local myName = UnitName("player")
 	if targetName == myName then
@@ -216,4 +244,4 @@ function mod:ArmageddonTarget(targetName)
 	else
 		warnArmageddon:Show(targetName)
 	end
-end
+end]]
