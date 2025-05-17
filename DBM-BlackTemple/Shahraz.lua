@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Shahraz", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250518110528")
 mod:SetCreatureID(22947)
 
 mod:SetModelID(21252)
@@ -33,6 +33,7 @@ mod:AddSetIconOption("FAIcons", 41001, true)
 
 mod.vb.prewarn_enrage = false
 mod.vb.enrage = false
+mod.vb.FATargets = 0
 
 local GetSpellInfo = GetSpellInfo
 local aura = {
@@ -47,6 +48,7 @@ local aura = {
 function mod:OnCombatStart(delay)
 	self.vb.prewarn_enrage = false
 	self.vb.enrage = false
+	self.vb.FATargets = 0
 	timerShriekCD:Start(15.8-delay)
 	timerFACD:Start(24.4-delay)
 	if not self:IsTrivial() then
@@ -68,7 +70,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFA:Play("scatter")
 		end
 		if self.Options.FAIcons then
-			self:SetIcon(args.destName, 1)
+			self:SetIcon(args.destName, self.vb.FATargets + 1)
+			self.vb.FATargets = self.vb.FATargets + 1
 		end
 	end
 end
@@ -76,6 +79,7 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 41001 and self.Options.FAIcons then
 		self:SetIcon(args.destName, 0)
+		self.vb.FATargets = self.vb.FATargets - 1
 	end
 end
 
