@@ -201,7 +201,6 @@ L.SLASHCMD_HELP2				= {
 	"/dbm break <min>: Envoire un timer de pause de <min> minutes au raid (requiert leader/assistant).",
 	"/dbm version: Effectue une vérification de version de "..L.DBM.." (alias: ver).",
 	"/dbm version2: Effectue une vérification de version de "..L.DBM.." qui chuchote aux membres pas à jour (alias: ver2).",
-	"/dbm lockout: Demande aux membres du raid de partager leurs lockouts de raid (alias: lockouts, ids) (requiert leader/assistant).",
 	"/dbm lag: Effectue une vérification de latence du raid.",
 	"/dbm durability: Effectue une vérification de la durabilité du raid."
 }
@@ -259,6 +258,7 @@ L.AUTO_ANNOUNCE_TEXTS.stack		= "%s sur >%%s< (%%d)"
 local prewarnOption = "Alerte préventive concernant $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.target		= "Alerte indiquant le(s) cible(s) de $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.target		= "Alerte indiquant le(s) cible(s) de $spell:%s (avec distance)"
+L.AUTO_ANNOUNCE_OPTIONS.targetNF	= "Alerte indiquant le(s) cible(s) de $spell:%s (ignore le filtre de cibles global)"
 L.AUTO_ANNOUNCE_OPTIONS.targetcount	= "Alerte indiquant le(s) cible(s) de $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.targetcountdistance	= "Alerte indiquant le(s) cible(s) de $spell:%s (avec comptage et distance)"
 L.AUTO_ANNOUNCE_OPTIONS.spell		= "Alerte concernant $spell:%s"

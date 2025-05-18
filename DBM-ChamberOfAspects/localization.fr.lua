@@ -121,11 +121,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningSplitSoon	= "Split soon"
+	WarningSplitSoon	= "Séparation bientôt!"
 })
 
 L:SetOptionLocalization({
-	WarningSplitSoon	= "Show pre-warning for Split"
+	WarningSplitSoon	= "Montre une pré-alerte pour la séparation",
 })
 
 -------------------------
@@ -147,20 +147,20 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	WarnAdds	= "New adds",
-	warnCleaveArmor	= "%s on >%s< (%s)"		-- Cleave Armor on >args.destName< (args.amount)
+	WarnAdds	= "Nouveaux adds",
+	warnCleaveArmor	= "%s sur >%s< (%s)"		-- Cleave Armor on >args.destName< (args.amount)
 })
 
 L:SetTimerLocalization({
-	TimerAdds	= "New adds",
-	AddsArrive	= "Adds arrivent dans"
+	TimerAdds	= "Nouveaux adds",
+	AddsArrive	= "Les adds arrivent dans"
 })
 
 L:SetOptionLocalization({
-	WarnAdds		= "Announce new adds",
-	TimerAdds		= "Show timer for new adds",
+	WarnAdds		= "Annonce les nouveaux adds",
+	TimerAdds		= "Afficher le timer pour les nouveaux adds",
 	CancelBuff		= "Supprimer $spell:10278 et $spell:642 s'il est utilisé pour supprimer $spell:74367",
-	AddsArrive		= "Show timer for adds arrival", --Needs Translating
+	AddsArrive		= "Afficher le timer pour l'arrivée des adds (8s)",
 	warnCleaveArmor	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(74367, GetSpellInfo(74367) or "unknown")
 })
 
@@ -178,11 +178,11 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	TwilightCutterCast	= "Casting Twilight Cutter dans : 5 sec"
+	TwilightCutterCast	= "Tranchant crépusculaire dans : 5 sec"
 })
 
 L:SetOptionLocalization({
-	TwilightCutterCast		= "Show warning when $spell:77844 is being cast",
+	TwilightCutterCast		= "Afficher une alerte lorsque $spell:77844 est en cours",
 	AnnounceAlternatePhase	= "Montre une alerte/timer pour la phase dans laquelle vous n'êtes pas", 
 	SetIconOnConsumption	= "Placer des icones sur les cibles de $spell:74562 ou $spell:74792"
 })
