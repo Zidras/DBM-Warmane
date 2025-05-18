@@ -63,7 +63,7 @@ local timerSoulConsumptionCD		= mod:NewNextTimer(25.5, 74792, nil, nil, nil, 3)
 --local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerTwilightCutter			= mod:NewBuffActiveTimer(9, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
-local timerShadowBreathCD			= mod:NewCDTimer(16, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true)
+local timerShadowBreathCD			= mod:NewCDTimer(14.5, 74806, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true)
 
 mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Purple diamond for shadow
 
