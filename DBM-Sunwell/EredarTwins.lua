@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251505231320") --based on cafe20250416v19
+mod:SetRevision("20250519103545") --based on cafe20250416v19
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(3, 6, 8)
 
@@ -37,10 +37,13 @@ local yellNova				= mod:NewYell(45329)
 local specWarnPyro			= mod:NewSpecialWarningDispel(45230, "MagicDispeller", nil, 2, 1, 2)
 local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, nil, 5, nil, 2, 1, 6)
 local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, nil, 5, nil, nil, 1, 6)
-local specWarnShadow		= mod:NewSpecialWarningYou(45271, nil, nil, nil, 1, 2) --new warning for being target of shadow image 250331
+
+local specWarnShadow 		= mod:NewSpecialWarningYou(45271, false) --turned off by default
 
 local timerBladeCD			= mod:NewCDTimer(11.5-1.5, 45248, nil, "Melee", 2, 2) --corrected to CC value of 10s, 20250315
-local timerBlowCD			= mod:NewCDTimer(20, 45256, nil, nil, nil, 3)
+
+local timerBlowCD = mod:NewCDTimer(20, 45256, nil, false, nil, 3) --turned off by default. 
+
 local timerConflagCD		= mod:NewCDTimer(31-1, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
 local timerNovaCD			= mod:NewCDTimer(31-1, 45329, nil, nil, nil, 3) -- adjusted to CC values as of 250326_1749
 local timerNovaCDP2			= mod:NewCDTimer(31-11, 45329, nil, nil, nil, 3) -- new timer for ShadowNova during P2 20250416
