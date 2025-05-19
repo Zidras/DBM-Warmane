@@ -44,9 +44,9 @@ local timerBladeCD			= mod:NewCDTimer(11.5-1.5, 45248, nil, "Melee", 2, 2) --cor
 
 local timerBlowCD = mod:NewCDTimer(20, 45256, nil, false, nil, 3) --turned off by default. 
 
-local timerConflagCD		= mod:NewCDTimer(31-1, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
-local timerNovaCD			= mod:NewCDTimer(31-1, 45329, nil, nil, nil, 3) -- adjusted to CC values as of 250326_1749
-local timerNovaCDP2			= mod:NewCDTimer(31-11, 45329, nil, nil, nil, 3) -- new timer for ShadowNova during P2 20250416
+local timerConflagCD		= mod:NewCDTimer(30, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
+local timerNovaCD			= mod:NewCDTimer(30, 45329, nil, nil, "Phase 1 Shadow Nova (30s)", 3) 
+local timerNovaCDP2			= mod:NewCDTimer(20, 45329, nil, nil, "Phase 2 Shadow Nova (20s)", 3) 
 local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
@@ -274,8 +274,10 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
+	if self:GetCIDFromGUID(args.destGUID) == 25166 then -- Grand Warlock Alythess
 		self:SetStage(2)
+		timerConflagCD:Cancel()
+		timerConflagCD:Start(20) --20s according to script
 	end
 end
 

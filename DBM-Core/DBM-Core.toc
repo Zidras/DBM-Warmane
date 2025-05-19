@@ -18,7 +18,7 @@
 ## DefaultState: enabled
 ## Author: Barsoom, Bunny67, Zidras, DBM-Frostmourne contributors, original DBM team
 ## Version: 10.1.13_alpha
-## X-Website: https://github.com/Zidras/DBM-Warmane/
+## X-Website: https://github.com/5Buttons/DBM-CC
 
 compat.lua
 
