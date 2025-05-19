@@ -9,8 +9,13 @@ L:SetGeneralLocalization({
 	name = "High Warlord Naj'entus"
 })
 
+L:SetWarningLocalization({
+	WarnLoot	= ">%s< looted Naj'entus' Spine",
+})
+
 L:SetMiscLocalization({
-	HealthInfo	= "Health Info"
+	HealthInfo	= "Health Info",
+	LootMsg		= "([^%s]+) creates Naj'entus Spine"
 })
 
 ----------------
