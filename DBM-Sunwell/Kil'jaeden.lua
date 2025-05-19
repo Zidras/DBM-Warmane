@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250514145330")
+mod:SetRevision("20250519103545")
 mod:SetCreatureID(25315)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
 
@@ -19,7 +19,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
---local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --maybe should set that to false since is somewhat spammy
+--local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --doesnt work
 
 local warnDarkOrb		= mod:NewAnnounce("WarnDarkOrb", 4, 51512) --51512 for soulstone icon otherwise it may be confused with warnBlueOrb
 local warnDart			= mod:NewSpellAnnounce(45737, 3)
@@ -48,7 +48,7 @@ local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON
 local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
 local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC: 38s
 
-mod:AddRangeFrameOption("10") --only 10 yards are needed 
+mod:AddRangeFrameOption("11") --10 yards was sometimes not enough
 mod:AddSetIconOption("BloomIcon", 45641, true, false, {4, 5, 6, 7, 8})
 mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
 mod:AddDropdownOption("RangeFrameActivation", {"AlwaysOn", "OnDebuff"}, "OnDebuff", "misc")
@@ -62,8 +62,10 @@ local function showBloomTargets(self)
     table.wipe(warnBloomTargets)
     self.vb.bloomIcon = 8
     if self.vb.phase == 4 then
-        timerBloomCD:Start(20) 
-    else
+        timerBloomCD:Start(18.7) 
+    elseif self.vb.phase == 2 or self.vb.phase == 3 then
+        timerBloomCD:Start(31.6) --<DBM> Timer Fire Bloom CD(Timer45641cd-40) (Stage 2) refreshed before expired. Remaining time is : 8.38. Please report this bug
+	else					--<DBM> Timer Fire Bloom CD(Timer45641cd-40) (Stage 3) refreshed before expired. Remaining time is : 8.37. Please report this bug
         timerBloomCD:Start()
     end
 end
@@ -78,15 +80,15 @@ end
 
 function mod:OnCombatStart(delay)
     table.wipe(warnBloomTargets)
-    table.wipe(orbGUIDs) --not needed atm 
+    table.wipe(orbGUIDs) 
     self.vb.bloomIcon = 8
     self:SetStage(1)
     timerBloomCD:Start(9)
     if self.Options.RangeFrame then
         if self.Options.RangeFrameActivation == "AlwaysOn" then
-            DBM.RangeCheck:Show(10)
+            DBM.RangeCheck:Show(11)
         else -- OnDebuff
-            DBM.RangeCheck:Show(10, DebuffFilter)
+            DBM.RangeCheck:Show(11, DebuffFilter)
         end
     end
 end
@@ -187,6 +189,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnShield:Show()
 	elseif args.spellId == 45892 then --sinister reflection
 		self:SetStage(0)
+--Phase 3, 85% Health | Darkness
 		if self.vb.phase == 2 then
 			warnPhase2:Show()
 			timerBloomCD:Cancel()
@@ -194,6 +197,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBlueOrb:Start()
 			timerDartCD:Start(52) --14.05.25 Chromie PTR: 52.37s 
 			timerBombCD:Start(72) --14.05.25 Chromie PTR: 72s after P2 starts; 45seconds + 28 seconds of soul spike after reaching 85% HP. Slightly too short should be 77s. 
+--Phase 4, 55% Health | Armageddon	
 		elseif self.vb.phase == 3 then
 			warnPhase3:Show()
 			timerBloomCD:Cancel()
@@ -204,6 +208,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerBlueOrb:Start()
 			timerDartCD:Start(49) --14.05.25 Chromie PTR: 49.55s 
 			timerBombCD:Start(78) --14.05.25 Chromie PTR 78s; 
+
+--Phase 5, 25% health | Sacrifice
 		elseif self.vb.phase == 4 then
 			warnPhase4:Show()
 			timerBlueOrb:Cancel()
