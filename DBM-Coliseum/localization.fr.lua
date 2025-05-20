@@ -103,8 +103,8 @@ L:SetMiscLocalization({
 	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Shocuul",						-- 34475
 
 	AllianceVictory			= "GLOIRE À L'ALLIANCE !",
-	HordeVictory			= "Et ce n'était qu'un avant-goût de ce que l'avenir vous réserve. POUR LA HORDE !"
-	--YellKill				= "Une victoire tragique et dépourvue de sens. La perte subie aujourd'hui nous affaiblira tous, car qui d'autre que le roi-liche pourrait bénéficier d'une telle folie ? De grands guerriers ont perdu la vie. Et pour quoi ? La vraie menace plane à l'horizon : le roi-liche nous attend, tous, dans la mort."
+	HordeVictory			= "Et ce n'était qu'un avant-goût de ce que l'avenir vous réserve. POUR LA HORDE !",
+	YellKill				= "Une victoire tragique et dépourvue de sens. La perte subie aujourd'hui nous affaiblira tous, car qui d'autre que le roi-liche pourrait bénéficier d'une telle folie ? De grands guerriers ont perdu la vie. Et pour quoi ? La vraie menace plane à l'horizon : le roi-liche nous attend, tous, dans la mort."
 })
 
 ------------------

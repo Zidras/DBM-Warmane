@@ -108,8 +108,8 @@ L:SetMiscLocalization({
 	Shocuul				= "|TInterface\\WorldStateFrame\\Icons-Classes.blp:24:24:0:0:128:128:0:32:0:32|t Shocuul",						-- 34475
 
 	AllianceVictory		= "GLORY TO THE ALLIANCE!",
-	HordeVictory		= "That was just a taste of what the future brings. FOR THE HORDE!"
-	--YellKill			= "A shallow and tragic victory. We are weaker as a whole from the losses suffered today. Who but the Lich King could benefit from such foolishness? Great warriors have lost their lives. And for what? The true threat looms ahead - the Lich King awaits us all in death."
+	HordeVictory		= "That was just a taste of what the future brings. FOR THE HORDE!",
+	YellKill			= "A shallow and tragic victory. We are weaker as a whole from the losses suffered today. Who but the Lich King could benefit from such foolishness? Great warriors have lost their lives. And for what? The true threat looms ahead - the Lich King awaits us all in death."
 })
 
 ---------------------
