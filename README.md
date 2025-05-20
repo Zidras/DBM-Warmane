@@ -2,7 +2,7 @@
 
 ## DBM for Chromiecraft/Azerothcore
 
-This project continues Balleny's DBM for Chromiecraft/AzerothCore based on the Warmane DBM by Zidras: (https://github.com/Zidras/DBM-Warmane).
+This project continues Balleny's DBM for Chromiecraft/AzerothCore based on the Warmane DBM by [Zidras](https://github.com/Zidras/DBM-Warmane).
 
 
 ## ❗Important❗
