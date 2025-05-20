@@ -10,16 +10,17 @@ mod:RegisterCombat("combat")
 mod:SetWipeTime(50)--Adds come about every 50 seconds, so require at least this long to wipe combat if they die instantly
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 40874, 39945",
+	"SPELL_CAST_START 40874 39945",
 	"SPELL_CAST_SUCCESS 34189",
-	"SPELL_AURA_APPLIED ",
-	"SPELL_AURA_REMOVED ",
-	"SPELL_SUMMON 42035, 40476, 40474",
+	"SPELL_AURA_APPLIED",
+	"SPELL_AURA_REMOVED",
+	"SPELL_SUMMON 42035 40476 40474",
 	"UNIT_DIED"
 )
 
 mod:RegisterEvents(
-	"SPELL_AURA_REMOVED 34189"
+	"SPELL_AURA_REMOVED 34189",
+	"SPELL_CAST_START 40874 39945"   -- added because sometimes you drop combat 
 )
 
 local warnPhase2		= mod:NewPhaseAnnounce(2)
