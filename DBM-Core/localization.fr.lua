@@ -386,7 +386,10 @@ L.AUTO_TIMER_OPTIONS.achievement= "Délai pour réussir %s (%ss)"
 L.AUTO_TIMER_OPTIONS.stage		= "Afficher le timer de la phase suivante (%ss)"
 L.AUTO_TIMER_OPTIONS.roleplay	= "Afficher le timer de la durée du roleplay (%ss)"--This does need localizing though.
 
-L.AUTO_ICONS_OPTION_TARGETS		= "Placer des icônes sur les cibles de $spell:%s"
+L.AUTO_ICONS_OPTION_TARGETS				= "Placer des icônes sur les cibles de $spell:%s"
+L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "Placer des icônes sur les cibles de $spell:%s avec priorité mêlée et alphabétique"
+L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "Placer des icônes sur les cibles de $spell:%s avec priorité distant et alphabétique"
+L.AUTO_ICONS_OPTION_TARGETS_ALPHA		= "Placer des icônes sur les cibles de $spell:%s avec priorité alphabétique"
 L.AUTO_ICONS_OPTION_NPCS		= "Placer des icônes sur $spell:%s"
 L.AUTO_ICONS_OPTION_CONFLICT	= " (Peut entrer en conflit avec d'autres options)"
 L.AUTO_ARROW_OPTION_TEXT		= "Afficher la flèche "..L.DBM.." en direction de la cible affectée par $spell:%s"
