@@ -7,7 +7,7 @@ local bossID
 mod:RegisterCombat("combat")
 if UnitFactionGroup("player") == "Alliance" then
 	--mod:RegisterCombat("yell", L.CombatAlliance)
-	mod:RegisterKill("yell", L.KillAlliance)
+	mod:RegisterKill("yell", L.KillAlliance, L.KillAlliance2)
 	mod:SetCreatureID(36939, 37215)	-- High Overlord Saurfang, Orgrim's Hammer
 	addsIcon = 23334
 	bossID = 36939
@@ -63,6 +63,7 @@ local function Adds(self) -- no longer on a timed loop, since YELL event is avai
 end
 
 function mod:OnCombatStart(delay)
+	self:SetWipeTime(75) -- 75 second wipe time for localization FR (RegisterKill doesn't take special caracter from Yell, so we register kill at Yell from Deathbringer pull)
 	DBM.BossHealth:Clear()
 	timerAdds:Start(12-delay)
 	warnAddsSoon:Schedule(7-delay)

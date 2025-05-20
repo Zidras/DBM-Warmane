@@ -89,6 +89,7 @@ L:SetMiscLocalization({
 	MageAlliance	= "La coque est endommagée, qu'un mage de bataille aille faire taire leurs canons !",
 	MageHorde		= "La coque déguste sévère, qu'un sorcier aille me faire taire ces canons !",
 	KillAlliance	= "Vous direz pas que j'vous avais pas prévenus, canailles ! Mes frères et sœurs, en avant !",
+	KillAlliance2	= "Bon allez, on se bouge ! En route -",
 	KillHorde		= "L'Alliance baisse pavillon. Sus au roi-liche !"
 })
 
