@@ -274,10 +274,15 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 25166 then -- Grand Warlock Alythess
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cid == 25166 then -- Grand Warlock Alythess
 		self:SetStage(2)
 		timerConflagCD:Cancel()
 		timerConflagCD:Start(20) --20s according to script
+	elseif cid == 25165 then -- Lady Sacrolash
+		self:SetStage(2)
+		timerConflagCD:Cancel()
+		timerNovaCDP2:Start()
 	end
 end
 
