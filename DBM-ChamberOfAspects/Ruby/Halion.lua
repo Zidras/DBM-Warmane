@@ -71,7 +71,7 @@ mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Pur
 local twilightDivisionName = DBM:GetSpellInfo(75063)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..twilightDivisionName)
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
-
+local warningStopDPS				= mod:NewAnnounce("StopDPS", 4)
 local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 1, 2)
 
 mod.vb.warned_preP2 = false
@@ -250,6 +250,7 @@ function mod:UPDATE_WORLD_STATES()
 				end
 				if corporeality < 40 then
 					if self:IsDps() then
+						warningStopDPS:Show() -- Added a warning, most players don't use vocal alerts
 						specWarnCorporeality:Play("dpsstop")
 					end
 				elseif corporeality == 40 then
