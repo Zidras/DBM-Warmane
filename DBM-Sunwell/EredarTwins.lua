@@ -23,7 +23,7 @@ mod:SetBossHealthInfo(
 	25166, L.Alythess
 )
 
-local warnBlade				= mod:NewSpellAnnounce(45248, 3)
+local warnBlade				= mod:NewSpellAnnounce(45248, 3, nil, false)
 local warnBlow				= mod:NewTargetAnnounce(45256, 3)
 local warnConflag			= mod:NewTargetAnnounce(45333, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
@@ -40,9 +40,9 @@ local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, nil, 5, nil, nil, 1
 
 local specWarnShadow 		= mod:NewSpecialWarningYou(45271, false) --turned off by default
 
-local timerBladeCD			= mod:NewCDTimer(11.5-1.5, 45248, nil, "Melee", 2, 2) --corrected to CC value of 10s, 20250315
+local timerBladeCD			= mod:NewCDTimer(10, 45248, nil, false, 2, 2) --corrected to CC value of 10s, 20250315
 
-local timerBlowCD = mod:NewCDTimer(20, 45256, nil, false, nil, 3) --turned off by default. 
+local timerBlowCD 			= mod:NewCDTimer(20, 45256, nil, false, nil, 3) --turned off by default. 
 
 local timerConflagCD		= mod:NewCDTimer(30, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
 local timerNovaCD			= mod:NewCDTimer(30, 45329, nil, nil, "Phase 1 Shadow Nova (30s)", 3) 
