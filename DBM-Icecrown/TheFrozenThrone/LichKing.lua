@@ -169,7 +169,7 @@ mod.vb.valkyrWaveCount = 0
 mod.vb.valkIcon = 2
 
 local shamblingHorrorsGUIDs = {}
-local iceSpheresGUIDs = {}
+-- local iceSpheresGUIDs = {}
 local warnedValkyrGUIDs = {}
 local valkyrTargets = {}
 local plagueHop = DBM:GetSpellInfo(70338)
