@@ -11,21 +11,24 @@ mod:SetModelOffset(-0.4, 0.1, -0.4)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"UNIT_SPELLCAST_START"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
---134170 Some Random Orc Icon. Could not find red fel orc icon. Only green orcs or brown orcs. Brown closer to red than green is.
-local warnHeathenGuard			= mod:NewAnnounce("warnHeathen", 2, 134170)
-local warnReaverGuard			= mod:NewAnnounce("warnReaver", 2, 134170)
-local warnSharpShooterGuard		= mod:NewAnnounce("warnSharpShooter", 2, 134170)
+local orcHeadIcon = "Interface\\Icons\\inv_misc_head_orc_01"
+
+--Some Random Orc Icon. Could not find red fel orc icon. Only green orcs or brown orcs. Brown closer to red than green is.
+local warnHeathenGuard			= mod:NewAnnounce("warnHeathen", 2, orcHeadIcon)
+local warnReaverGuard			= mod:NewAnnounce("warnReaver", 2, orcHeadIcon)
+local warnSharpShooterGuard		= mod:NewAnnounce("warnSharpShooter", 2, orcHeadIcon)
 
 local specWarnBladeDance		= mod:NewSpecialWarningSpell(30739, nil, nil, nil, 2, 2)
 
-local timerHeathenCD			= mod:NewTimer(21, "timerHeathen", 134170, nil, nil, 1)
-local timerReaverCD				= mod:NewTimer(21, "timerReaver", 134170, nil, nil, 1)
-local timerSharpShooterCD		= mod:NewTimer(21, "timerSharpShooter", 134170, nil, nil, 1)
-local timerBladeDanceCD			= mod:NewCDTimer(35, 30739, nil, nil, nil, 2)
+local timerHeathenCD			= mod:NewTimer(20.6, "timerHeathen", orcHeadIcon, nil, nil, 1)
+local timerReaverCD				= mod:NewTimer(20.6, "timerReaver", orcHeadIcon, nil, nil, 1)
+local timerSharpShooterCD		= mod:NewTimer(20.6, "timerSharpShooter", orcHeadIcon, nil, nil, 1)
+local timerBladeDanceCD			= mod:NewCDTimer(32.85, 30739, nil, nil, nil, 2) --32.85s - 41.35s
 
+mod:AddRangeFrameOption("15") 
 mod.vb.addSet = 0
 mod.vb.addType = 0
 
@@ -43,7 +46,7 @@ local function Adds(self)
 		timerHeathenCD:Start()
 		self.vb.addType = 0
 	end
-	self:Schedule(21, Adds, self)
+	self:Schedule(20.6, Adds, self)
 end
 
 function mod:OnCombatStart(delay)
@@ -51,11 +54,14 @@ function mod:OnCombatStart(delay)
 	self.vb.addType = 0
 	timerHeathenCD:Start(27.5-delay)
 	self:Schedule(27.5, Adds, self)--When reaches stairs, not when enters/spawns way down hallway.
-	timerBladeDanceCD:Start(72-delay)
+	timerBladeDanceCD:Start(30) --AC: first after 30s
+	 if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(11)
+	 end
 end
 
 --Change to no sync if blizz adds IEEU(boss1)
-function mod:UNIT_SPELLCAST_START(_, spellName)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
    if spellName == GetSpellInfo(30738) then -- Blade Dance Targeting
 		self:SendSync("BladeDance")
 	end
@@ -67,4 +73,10 @@ function mod:OnSync(msg)
 		timerBladeDanceCD:Start()
 		specWarnBladeDance:Play("aesoon")
 	end
+end
+
+function mod:OnCombatEnd()
+    if self.Options.RangeFrame then
+        DBM.RangeCheck:Hide()
+    end
 end
