@@ -117,7 +117,7 @@ function mod:SPELL_AURA_APPLIED(args)
         if args:IsPlayer() then
             -- These will always trigger if the player gets Bloom
             yellBloom:Yell()
-            specWarnBloom:show() -- Corrected from :how() to :show()
+            specWarnBloom:Show() 
 
             -- Additionally, show range frame if options are set
             if self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
