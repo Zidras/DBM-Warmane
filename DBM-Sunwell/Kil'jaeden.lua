@@ -14,12 +14,12 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 45848 45892 46589", 
 	"CHAT_MSG_MONSTER_YELL",
 	"SPELL_DAMAGE", 
-	"SPELL_MISSED"  
---	"UNIT_SPELLCAST_SUCCEEDED"
+	"SPELL_MISSED",  
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
---local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --doesnt work
+--local warnArmageddon	= mod:NewTargetAnnounce(45915, 2) --only warning for one player not three; not reliable
 
 local warnDarkOrb		= mod:NewAnnounce("WarnDarkOrb", 4, 51512) --51512 for soulstone icon otherwise it may be confused with warnBlueOrb
 local warnDart			= mod:NewSpellAnnounce(45737, 3)
@@ -30,8 +30,8 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
---local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 3, 2)
---local yellArmageddon	= mod:NewYellMe(45915)
+local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 1, 2)
+local yellArmageddon	= mod:NewYellMe(45915)
  --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 --local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 local specWarnBloom		= mod:NewSpecialWarningYou(45641, nil, nil, nil, 1, 2)
@@ -51,12 +51,16 @@ local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC:
 
 mod:AddRangeFrameOption("11") --10 yards was sometimes not enough
 mod:AddSetIconOption("BloomIcon", 45641, true, false, {4, 5, 6, 7, 8})
+mod:AddInfoFrameOption(45641, false) -- Add InfoFrame option for Fire Bloom - disabled by default
 mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
 mod:AddDropdownOption("RangeFrameActivation", {"AlwaysOn", "OnDebuff"}, "OnDebuff", "misc")
 
 local warnBloomTargets = {}
 local orbGUIDs = {}
 mod.vb.bloomIcon = 8
+
+-- Table to track players with Fire Bloom debuff (no duration)
+local bloomDebuffs = {}
 
 local function showBloomTargets(self)
     warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
@@ -71,6 +75,18 @@ local function showBloomTargets(self)
     end
 end
 
+-- Update InfoFrame with current Fire Bloom debuffs (show only player names)
+local function updateBloomInfoFrame(self)
+	if self.Options.InfoFrame then
+		local lines = {}
+		for player, _ in pairs(bloomDebuffs) do
+			lines[player] = "" -- Empty string to show only player name
+		end
+		DBM.InfoFrame:SetHeader("Fire Bloom Debuffs")
+		DBM.InfoFrame:Show(5, "table", lines, 1) -- No duration column
+	end
+end
+
 local debuffName = DBM:GetSpellInfo(45641)
 local DebuffFilter
 do
@@ -82,6 +98,7 @@ end
 function mod:OnCombatStart(delay)
     table.wipe(warnBloomTargets)
     table.wipe(orbGUIDs) 
+    table.wipe(bloomDebuffs)
     self.vb.bloomIcon = 8
     self:SetStage(1)
     timerBloomCD:Start(9)
@@ -92,11 +109,18 @@ function mod:OnCombatStart(delay)
             DBM.RangeCheck:Show(11, DebuffFilter)
         end
     end
+    if self.Options.InfoFrame then
+        DBM.InfoFrame:SetHeader("Fire Bloom Debuffs")
+        DBM.InfoFrame:Show(5, "table", {}, 1)
+    end
 end
 
 function mod:OnCombatEnd()
     if self.Options.RangeFrame then
         DBM.RangeCheck:Hide()
+    end
+    if self.Options.InfoFrame then
+        DBM.InfoFrame:Hide()
     end
 end
 
@@ -107,6 +131,11 @@ function mod:SPELL_AURA_APPLIED(args)
             self:SetIcon(args.destName, self.vb.bloomIcon)
             self.vb.bloomIcon = self.vb.bloomIcon - 1
         end
+        
+        -- Add player to bloomDebuffs without duration
+        bloomDebuffs[args.destName] = true
+        updateBloomInfoFrame(self)
+        
         if #warnBloomTargets >= 5 then
             showBloomTargets(self)
         else
@@ -135,6 +164,10 @@ function mod:SPELL_AURA_REMOVED(args)
             self:SetIcon(args.destName, 0)
         end
         
+        -- Remove player from bloomDebuffs
+        bloomDebuffs[args.destName] = nil
+        updateBloomInfoFrame(self)
+        
         -- Update range frame if player loses debuff and option is set to OnDebuff
         if args:IsPlayer() and self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
             DBM.RangeCheck:Show(10, DebuffFilter) -- Only show others with debuff
@@ -142,7 +175,7 @@ function mod:SPELL_AURA_REMOVED(args)
     end
 end
 
---[[function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not reliable enough. Only the one player shows in the Combatlog, but three are targeted. 
+function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not very reliable. Only the one player shows in the Combatlog, but three are targeted. 
     if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID before CATA: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
         local targetName = UnitName(unitId .. "target")
         if targetName then
@@ -151,7 +184,7 @@ end
             DBM:AddMsg("Armageddon target name not found for caster: " .. unitId)
         end
     end
-end]]
+end
 
 function mod:SPELL_DAMAGE(sourceGUID, sourceName, _, _, _, _, spellId)
 	if sourceName == "Shield Orb" and spellId == 45680 and self:AntiSpam(10) then
@@ -242,14 +275,14 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 
---[[function mod:ArmageddonTarget(targetName) --only warns the first player targetted. 
+function mod:ArmageddonTarget(targetName) --only warns the first player targetted. 
 	if not targetName then return end
 	local myName = UnitName("player")
 	if targetName == myName then
 		specWarnArmaYou:Show()
 		specWarnArmaYou:Play("move")
 		yellArmageddon:Yell()
-	else
-		warnArmageddon:Show(targetName)
+--	else
+--		warnArmageddon:Show(targetName)
 	end
-end]]
+end
