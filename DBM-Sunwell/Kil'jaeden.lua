@@ -182,7 +182,6 @@ function mod:SPELL_CAST_START(args)
 	elseif args.spellId == 46680 then
 		timerSpike:Start()
 		specWarnSpike:Show()
-		specWarnSpike:Play()
 	end
 end
 
