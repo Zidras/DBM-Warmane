@@ -28,7 +28,7 @@ local timerReaverCD				= mod:NewTimer(20.6, "timerReaver", orcHeadIcon, nil, nil
 local timerSharpShooterCD		= mod:NewTimer(20.6, "timerSharpShooter", orcHeadIcon, nil, nil, 1)
 local timerBladeDanceCD			= mod:NewCDTimer(32.85, 30739, nil, nil, nil, 2) --32.85s - 41.35s
 
-mod:AddRangeFrameOption("15") 
+mod:AddRangeFrameOption(15) 
 mod.vb.addSet = 0
 mod.vb.addType = 0
 
