@@ -1,12 +1,15 @@
 local mod	= DBM:NewMod(539, "DBM-Party-BC", 11, 251)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250518110528")
 mod:SetCreatureID(17862)
 
 mod:SetModelID(17387)
 mod:RegisterCombat("combat")
 
+mod:registerEvents(
+	"CHAT_MSG_MONSTER_YELL"
+)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 29427",
 	"SPELL_AURA_APPLIED 13005",
@@ -21,6 +24,13 @@ local specWarnHeal				= mod:NewSpecialWarningInterrupt(29427, "HasInterrupt", ni
 local specWarnConsecration		= mod:NewSpecialWarningMove(38385, nil, nil, nil, 1, 2)
 
 local timerHammer				= mod:NewTargetTimer(6, 13005, nil, nil, nil, 3)
+local timerCombatStart			= mod:NewCombatTimer(8)
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg:find("Thrall! You didn't really think you would escape") then --To-do: Localization 
+		timerCombatStart:Start()
+	end
+end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 29427 and self:CheckInterruptFilter(args.sourceGUID, false, true) then
