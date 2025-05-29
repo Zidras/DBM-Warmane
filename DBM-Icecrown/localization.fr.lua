@@ -90,7 +90,8 @@ L:SetMiscLocalization({
 	MageHorde		= "La coque déguste sévère, qu'un sorcier aille me faire taire ces canons !",
 	KillAlliance	= "Vous direz pas que j'vous avais pas prévenus, canailles ! Mes frères et sœurs, en avant !",
 	KillAlliance2	= "Bon allez, on se bouge ! En route -",
-	KillHorde		= "L'Alliance baisse pavillon. Sus au roi-liche !"
+	KillHorde		= "L'Alliance baisse pavillon. Sus au roi-liche !",
+	KillHorde2		= "Kor'krons, en route ! Champions, surveillez bien vos arrières. Le Fléau a été -"
 })
 
 -----------------------------
@@ -124,7 +125,8 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	AnnounceSporeIcons	= "Annonce les icônes pour les cibles de $spell:69279 au chat de raid<br/>(nécessite le raid lead)",
-	AchievementCheck	= "Annonce l'échec du haut-fait 'Pénurie de vaccins' au raid<br/>(nécessite un statut promu)"
+	AchievementCheck	= "Annonce l'échec du haut-fait 'Pénurie de vaccins' au raid<br/>(nécessite un statut promu)",
+	RemoveDI			= "Supprimez $spell:19753 s'il est utilisé pour supprimer les stacks de $spell:72219."
 })
 
 L:SetWarningLocalization({
@@ -175,10 +177,10 @@ L:SetTimerLocalization({
 	TimerReengage			= "Ré-engagement"
 })
 
---[[L:SetOptionLocalization({
-	WarnReengage			= "Show warning for Boss re-engage", -- needs localization
-	TimerReengage			= "Show timer for Boss re-engage" -- needs localization
-})]]
+L:SetOptionLocalization({
+	WarnReengage			= "Affiche une alerte pour le ré-engagement du boss",
+	TimerReengage			= "Montre un timer pour le ré-engagement du boss"
+})
 
 L:SetMiscLocalization({
 	YellTransform1			= "Mmm, je ne sens plus rien. Woah ?! Mais ça vient d'où, tout ça ?",
@@ -217,7 +219,7 @@ L:SetMiscLocalization({
 	Taldaram			= "Prince Taldaram",
 	Valanar				= "Prince Valanar",
 	FirstPull			= "Naïfs mortels. Vous pensiez nous avoir vaincus si facilement ? Les San'layn sont les soldats immortels du roi-liche ! Maintenant, vous allez subir leurs puissances réunies !",
-	EmpoweredFlames		= "L'Embrasement surpuissant (%S+)!"
+	EmpoweredFlames		= "L'Embrasement surpuissant fonce vers (%S+)!"
 })
 
 -----------------------------
@@ -230,7 +232,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	SwarmingShadows			= "Shadows amass and swarm around (%S+)!",
+	SwarmingShadows			= "Les ombres s'amassent et grouillent autour |2 (%S+)!",
 	YellFrenzy				= "J'ai faim!"
 })
 
@@ -249,9 +251,9 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerPortalsOpen			= "Arrivée des portails",
-	TimerPortalsClose			= "Portals close",
-	TimerBlazingSkeleton		= "Next Blazing Skeleton",
-	TimerAbom					= "Next Abomination (%s)"
+	TimerPortalsClose			= "Fermeture des portails",
+	TimerBlazingSkeleton		= "Prochain squelette flamboyant",
+	TimerAbom					= "Prochaine abomination (%s)"
 })
 
 L:SetOptionLocalization({

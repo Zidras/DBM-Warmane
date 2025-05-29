@@ -15,16 +15,12 @@ mod:RegisterEvents(
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 73058 72378", -- 72293",
 	"SPELL_CAST_SUCCESS 72410 72769 72385 72441 72442 72443",
-	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737 72410", -- 19753",
+	"SPELL_AURA_APPLIED 72293 72385 72441 72442 72443 72737 72410",
 	"SPELL_AURA_REMOVED 72385 72441 72442 72443",
 	"SPELL_SUMMON 72172 72173 72356 72357 72358",
 	"UNIT_DIED",
 	"UNIT_HEALTH"
 )
-
---local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
---local canVanish = select(2, UnitClass("player")) == "ROGUE"
-local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
 local timerCombatStart		= mod:NewCombatTimer(43.3)
@@ -32,7 +28,7 @@ local enrageTimer			= mod:NewBerserkTimer(480)
 
 mod:RemoveOption("HealthFrame")
 mod:AddBoolOption("RunePowerFrame", false, "misc")
---mod:AddBoolOption("RemoveDI")
+
 
 -- Deathbringer Saurfang
 mod:AddTimerLine(BOSS)
@@ -50,8 +46,6 @@ local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) 
 local timerBoilingBlood		= mod:NewCDTimer(15, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) 
 local timerBloodNova		= mod:NewCDTimer(20, 72378, nil, nil, nil, 2, nil, nil, true) -- "Blood Nova-73058-npc:37813-46 = pull:1.02, 25.02, 20.75, 20.12, 22.46, 20.85" || besoin de + de data
-
---local soundSpecWarnMark		= mod:NewSound(72293, nil, canShadowmeld or canVanish)
 
 mod:AddRangeFrameOption(12, 72378, "Ranged")
 mod:AddInfoFrameOption(72370, false)--Off by default, since you can literally just watch the bosses power bar
@@ -144,21 +138,12 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(73058, 72378) then
 		warnBloodNova:Show()
 		timerBloodNova:Start()
---	elseif args.spellId == 72293 then
---		self:BossTargetScanner(37813, "FallenMarkTarget", 0.01, 10)
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 72410 then
-		--[[warnRuneofBlood:Show(args.destName)  -- WAY OF ELENDIL => Moved to SPELL_AURA_APPLIED
-		if not args:IsPlayer() then
-			specwarnRuneofBlood:Show(args.destName)
-			specwarnRuneofBlood:Play("tauntboss")
-		else
-			specwarnRuneofBloodYou:Show()
-		end]]
 		timerRuneofBlood:Start()
 	elseif spellId == 72769 then
 		specWarnScentofBlood:Show()

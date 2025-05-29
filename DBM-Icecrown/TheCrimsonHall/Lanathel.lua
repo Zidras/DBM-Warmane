@@ -20,8 +20,6 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
-local myRealm = select(3, DBM:GetMyPlayerInfo())
-
 local warnPactDarkfallen			= mod:NewTargetAnnounce(71340, 4)
 local warnPactDarkfallenSoon		= mod:NewSoonAnnounce(71340, 4, nil, nil, nil, nil, nil, 2)
 local warnBloodMirror				= mod:NewTargetNoFilterAnnounce(71510, 3, nil, "Tank|Healer")

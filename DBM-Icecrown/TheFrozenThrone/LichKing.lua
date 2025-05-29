@@ -4,10 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20250414222937")
+mod:SetRevision("20250523112110")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(2, 3, 4, 5, 6, 7, 8)
-mod:SetHotfixNoticeRev(20250414000000)
+mod:SetHotfixNoticeRev(20250523112110)
 mod:SetMinSyncRevision(20220921000000)
 
 mod:RegisterCombat("combat")

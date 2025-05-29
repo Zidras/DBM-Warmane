@@ -20,7 +20,6 @@ mod:RegisterEventsInCombat(
 )
 
 local strupper = strupper
-local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
 local berserkTimer				= mod:NewBerserkTimer(600)

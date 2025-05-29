@@ -60,7 +60,7 @@ local timerDeathPlague			= mod:NewTargetTimer(15, 72865, nil, nil, nil, 3)
 local timerSeveredEssence		= mod:NewNextTimer(35.5, 71942, nil, nil, nil, 1--[[, nil, nil, true]])
 local timerZombies				= mod:NewNextTimer(20, 71159, nil, nil, nil, 1)
 local timerMortalWound			= mod:NewTargetTimer(15, 71127, nil, nil, nil, 5)
-local timerDecimate				= mod:NewNextTimer(33, 71123, nil, nil, nil, 2)
+local timerDecimate				= mod:NewNextTimer(23.6, 71123, nil, nil, nil, 2)
 local timerBlightBomb			= mod:NewCastTimer(5, 71088, nil, nil, nil, 3)
 local timerProfessorEvent		= mod:NewRPTimer(50, 70475, nil, nil, nil, 2)
 --Crimson Hall
@@ -96,7 +96,7 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 71123 then
 		specWarnDecimate:Show()
 		warnDecimateSoon:Cancel()	-- in case the first 1 is inaccurate, you wont have an invalid soon warning
-		warnDecimateSoon:Schedule(28)
+		warnDecimateSoon:Schedule(20)
 		timerDecimate:Start()
 	elseif spellId == 71942 then
 		local sourceGUID = args.sourceGUID

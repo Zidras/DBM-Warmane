@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20250112192808")
+mod:SetRevision("20250527114857")
 mod:SetCreatureID(36855)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
@@ -12,22 +12,20 @@ mod:SetMinSyncRevision(20220905000000)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 71420 72007 72501 72502 70900 70901 72499 72500 72497 72496",
+	"SPELL_CAST_START 71420 72007 72501 72502 72499 72500 72497 72496",
 	"SPELL_CAST_SUCCESS 71289 71204 72905 72906 72907 72908",
-	"SPELL_AURA_APPLIED 71289 71001 72108 72109 72110 71237 70674 71204",
+	"SPELL_AURA_APPLIED 71289 71001 72108 72109 72110 71237 70674 71204 70900 70901",
 	"SPELL_AURA_APPLIED_DOSE 71204",
 	"SPELL_AURA_REFRESH 71204",
 	"SPELL_AURA_REMOVED 70842 71289",
 	"SPELL_INTERRUPT",
 	"SPELL_SUMMON 71426",
 	"SWING_DAMAGE",
-	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"CHAT_MSG_MONSTER_YELL"
 )
 
 local canShadowmeld = select(2, UnitRace("player")) == "NightElf"
 local canVanish = select(2, UnitClass("player")) == "ROGUE"
-local myRealm = select(3, DBM:GetMyPlayerInfo())
 
 -- General
 local specWarnWeapons				= mod:NewSpecialWarning("WeaponsStatus", false)
@@ -79,7 +77,6 @@ local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, ni
 local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, "HasInterrupt", nil, 2, 1, 2)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true, nil, nil, nil, 1, 2, nil, 71426, 71426)
 local specWarnVengefulShadeOnYou	= mod:NewSpecialWarningRun(71426, nil, nil, nil, 4, 2)
---local yellVengefulShadeOnMe			= mod:NewYellMe(71426)
 
 local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true)
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
@@ -93,7 +90,6 @@ local dominateMindTargets = {}
 mod.vb.dominateMindIcon = 1
 local shieldName = DBM:GetSpellInfo(70842)
 local summonSpiritName = DBM:GetSpellInfo(71426)
-local playerHadTarget = false
 
 local playerClass = select(2, UnitClass("player"))
 local isHunter = playerClass == "HUNTER"
@@ -336,7 +332,6 @@ function mod:OnCombatStart(delay)
 	end
 	table.wipe(dominateMindTargets)
 	self.vb.dominateMindIcon = 6
-	playerHadTarget = false
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(shieldName)
 		DBM.InfoFrame:Show(1, "enemypower", 2)
@@ -359,16 +354,6 @@ function mod:SPELL_CAST_START(args)
 		specWarnFrostbolt:Show(args.sourceName)
 		specWarnFrostbolt:Play("kickcast")
 		timerFrostboltCast:Start()
-	elseif spellId == 70900 then
-		warnDarkTransformation:Show()
-		if self.Options.SetIconOnDeformedFanatic then
-			self:ScanForMobs(args.sourceGUID, 2, 8, 1, nil, 12, "SetIconOnDeformedFanatic")
-		end
-	elseif spellId == 70901 then
-		warnDarkEmpowerment:Show()
-		if self.Options.SetIconOnEmpoweredAdherent then
-			self:ScanForMobs(args.sourceGUID, 2, 7, 1, nil, 12, "SetIconOnEmpoweredAdherent")
-		end
 	elseif args:IsSpellID(72499, 72500, 72497, 72496) then
 		specWarnDarkMartyrdom:Show()
 		specWarnDarkMartyrdom:Play("justrun")
@@ -439,6 +424,16 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnTouchInsignificance:Play("stackhigh")
 		else
 			warnTouchInsignificance:Show(args.destName, amount)	
+		end
+		elseif spellId == 70900 then
+		warnDarkTransformation:Show()
+		if self.Options.SetIconOnDeformedFanatic then
+			self:ScanForMobs(args.sourceGUID, 2, 8, 1, nil, 12, "SetIconOnDeformedFanatic")
+		end
+	elseif spellId == 70901 then
+		warnDarkEmpowerment:Show()
+		if self.Options.SetIconOnEmpoweredAdherent then
+			self:ScanForMobs(args.sourceGUID, 2, 7, 1, nil, 12, "SetIconOnEmpoweredAdherent")
 		end
 	end
 end
@@ -517,30 +512,4 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnReanimating:Show()
 	end
 end
-
-function mod:PLAYER_TARGET_CHANGED()
-	if not playerHadTarget and self:GetCIDFromGUID(UnitGUID("target")) == 36855 then
-		specWarnVengefulShadeOnYou:Show()
-		specWarnVengefulShadeOnYou:Play("runaway")
---		yellVengefulShadeOnMe:Yell() -- disabled since live run proved to be ineffective to catch target without false positives
-		DBM:AddMsg("Experimental feature with spirit targeting. If you received a Special Announcement saying Summon Spirit - run away, but were NOT the real player targeted by the spirits, please share VOD/Transcriptor log with Zidras on Github or Discord.")
-	end
-	self:Unschedule(unregisterShortTermEvents)
-	self:UnregisterShortTermEvents() -- outside the if check, since I only care about the first event, whether or not it targeted boss
-end
-
---[[function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == summonSpiritName and self:AntiSpam(5, 1) then -- Summon Spirit
-		playerHadTarget = UnitGUID("target") and true
-		warnSummonSpirit:Show()
-		timerSummonSpiritCD:Start()
-		soundWarnSpirit:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\spirits.mp3")
-		if not playerHadTarget then
-			self:RegisterShortTermEvents(
-				"PLAYER_TARGET_CHANGED"
-			)
-			self:Schedule(0.1, unregisterShortTermEvents, self)
-		end
-	end
-end]]
 

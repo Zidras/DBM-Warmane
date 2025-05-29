@@ -13,7 +13,7 @@ if UnitFactionGroup("player") == "Alliance" then
 	bossID = 36939
 else
 	--mod:RegisterCombat("yell", L.CombatHorde)
-	mod:RegisterKill("yell", L.KillHorde)
+	mod:RegisterKill("yell", L.KillHorde, L.KillHorde2)
 	mod:SetCreatureID(36948, 37540)	-- Muradin Bronzebeard, The Skybreaker
 	addsIcon = 23336
 	bossID = 36948

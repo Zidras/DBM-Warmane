@@ -11,7 +11,7 @@ mod:SetMinSyncRevision(20230627000000)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 69195 71219 73031 73032",
 	"SPELL_CAST_SUCCESS 69278 71221",
-	"SPELL_AURA_APPLIED 69279 69166 71912 72219 72551 72552 72553 69240 71218 73019 73020 69291 72101 72102 72103",
+	"SPELL_AURA_APPLIED 69279 69166 71912 72219 72551 72552 72553 69240 71218 73019 73020 69291 72101 72102 72103 19753",
 	"SPELL_AURA_APPLIED_DOSE 69166 71912 72219 72551 72552 72553 69291 72101 72102 72103",
 	"SPELL_AURA_REMOVED 69279"
 )
@@ -39,6 +39,7 @@ local timerGastricBloatCD	= mod:NewCDTimer(12, 72219, nil, "Tank|Healer", nil, 5
 
 local berserkTimer			= mod:NewBerserkTimer(300)
 
+mod:AddBoolOption("RemoveDI","Tank")
 mod:AddRangeFrameOption(10, 69240, "Ranged")
 mod:AddSetIconOption("SetIconOnGasSpore", 69279, true, 7, {1, 2, 3})
 mod:AddBoolOption("AnnounceSporeIcons", false, nil, nil, nil, nil, 69279)
@@ -48,6 +49,12 @@ local gasSporeTargets = {}
 local vileGasTargets = {}
 mod.vb.gasSporeCast = 0
 mod.vb.warnedfailed = false
+
+local function RemoveDI(self)
+	if self.Options.RemoveDI then
+		CancelUnitBuff("player", (GetSpellInfo(19753)))
+	end
+end
 
 function mod:AnnounceSporeIcons(uId, icon)
 	if self.Options.AnnounceSporeIcons and DBM:IsInGroup() and DBM:GetRaidRank() > 1 then
@@ -144,6 +151,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnGastricBloat:Show(amount)
 			specWarnGastricBloat:Play("stackhigh")
 		end
+	elseif args.spellId == 19753 then
+		self:Schedule(0.02, RemoveDI, self)
 	elseif args:IsSpellID(69240, 71218, 73019, 73020) and args:IsDestTypePlayer() then	-- Vile Gas
 		vileGasTargets[#vileGasTargets + 1] = args.destName
 		if args:IsPlayer() then

@@ -128,7 +128,8 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat<br/>(requires raid leader)",
-	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)"
+	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)",
+	RemoveDI			= "Remove $spell:19753 to remove stacks of $spell:72219."
 })
 
 L:SetMiscLocalization({

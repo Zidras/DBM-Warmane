@@ -116,7 +116,7 @@ function mod:OnCombatStart(delay)
 	timerKineticBombCD:Start(19.8-delay, 1)
 	timerDarkNucleusCD:Start(12-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(12)
+		DBM.RangeCheck:Show(13)
 	end
 end
 
@@ -199,7 +199,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 			timerShockVortex:Cancel()
 			if self.Options.RangeFrame then
-				DBM.RangeCheck:Show(12)
+				DBM.RangeCheck:Show(13)
 			end
 		end
 		if self.Options.ActivePrinceIcon then

@@ -16,8 +16,6 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 69062 72669 72670"
 )
 
-local myRealm = select(3, DBM:GetMyPlayerInfo())
-
 local preWarnWhirlwind		= mod:NewSoonAnnounce(69076, 3)
 local warnBoneSpike			= mod:NewCastAnnounce(69057, 2)
 local warnImpale			= mod:NewTargetNoFilterAnnounce(72669, 3)

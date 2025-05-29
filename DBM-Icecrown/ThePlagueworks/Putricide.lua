@@ -3,11 +3,11 @@ local L		= mod:GetLocalizedStrings()
 
 local select = select
 
-mod:SetRevision("20241116144454")
+mod:SetRevision("20250529104450")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4 , 7 , 8)
-mod:SetHotfixNoticeRev(20240611000000)
-mod:SetMinSyncRevision(20220908000000)
+mod:SetHotfixNoticeRev(20250529104450)
+mod:SetMinSyncRevision(20250529104450)
 
 mod:RegisterCombat("combat")
 
@@ -20,6 +20,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_SPELLCAST_SUCCEEDED target focus",
+	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_HEALTH"
 )
 
@@ -119,9 +120,9 @@ local function NextPhase(self)
 		timerUnstableExperimentCD:Start(30+7)
 		warnUnstableExperimentSoon:Schedule(25+7)
 		timerMalleableGooCD:Start(15)
-		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		--soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 		timerChokingGasBombCD:Start(25)
-		soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+		--soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 		warnChokingGasBombSoon:Schedule(25-5)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
@@ -142,20 +143,7 @@ function mod:MalleableGooTarget(targetname, uId)
         end
     end
 	if targetname == UnitName("player") then
-		specWarnMalleableGoo:Show()
-		specWarnMalleableGoo:Play("targetyou")
 		yellMalleableGoo:Yell()
-		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-	else
-		if self:CheckNearby(11, targetname) then
-			specWarnMalleableGooNear:Show(targetname)
-			specWarnMalleableGooNear:Play("watchstep")
-			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-		else
-			specWarnMalleableGooCast:Show()
-			specWarnMalleableGooCast:Play("watchstep")
-			soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-		end
 	end
 end
 
@@ -195,10 +183,8 @@ function mod:SPELL_CAST_START(args)
 		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
 			local gooElapsed = timerMalleableGooCD:GetTime() -- On second Normal intermission, the next Malleable Goo will always be [44:25N/44:10N]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
 			timerMalleableGooCD:Update(gooElapsed, 44)
-			soundMalleableGooSoon:Schedule(44-gooElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second Normal intermission, the next Choking Gas Bomb will always be [59.28-61.10:25N/60.17:10N]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
 			timerChokingGasBombCD:Update(chokingElapsed, 49)
-			soundChokingGasSoon:Schedule(49-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
 			warnChokingGasBombSoon:Schedule(49-chokingElapsed-5)
 		end
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
@@ -207,12 +193,6 @@ function mod:SPELL_CAST_START(args)
 		timerUnstableExperimentCD:Cancel()
 		timerNextPhase:Start(castTime)
 		self:Schedule(castTime, NextPhase, self)
-		if self:IsHeroic() then
-				self:RegisterShortTermEvents(
-					"UNIT_TARGET"
-				)
---			end
-		end
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
 		timerGaseousBloatCast:Start(args.sourceGUID) -- account for multiple red oozes
 		if not redOozeGUIDsCasts[args.sourceGUID] then
@@ -229,11 +209,6 @@ function mod:SPELL_CAST_START(args)
 		timerUnstableExperimentCD:Cancel()
 		timerNextPhase:Start(castTime)
 		self:Schedule(castTime, NextPhase, self)
-		if self:IsHeroic() then
-			self:RegisterShortTermEvents(
-				"UNIT_TARGET"
-			)
-		end
 	end
 end
 
@@ -266,13 +241,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
-	if spellName == GetSpellInfo(72615) --[[and self:AntiSpam(1, 2)]] then
+	if spellName == GetSpellInfo(72615) then
 		self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
 		--specWarnMalleableGooCast:Show()
-		timerMalleableGooCD:Start()
+		--timerMalleableGooCD:Start()
 		--soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-		soundMalleableGooSoon:Cancel()
-		soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
+		--soundMalleableGooSoon:Cancel()
+		--soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 	end
 end
 
@@ -409,29 +384,12 @@ function mod:UNIT_HEALTH(uId)
 	end
 end
 
--- UNIT_TARGET only fires if boss is targeted or focused (sync'ed below)
-function mod:UNIT_TARGET(uId)
-	if self:GetUnitCreatureId(uId) ~= 36678 then return end
-	-- Attempt to catch when boss phases by checking for Putricide's target being a raid member
-	if UnitExists(uId.."target") then
-		if self.vb.phase == 2 then -- new script phases before boss reengage
-			self:SendSync("ProfessorPhase2") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus
-		elseif self.vb.phase == 3 then -- new script phases before boss reengage
-			self:SendSync("ProfessorPhase3") -- Sync phasing with raid since UNIT_TARGET event requires boss to be target/focus
-		else
-			self:UnregisterShortTermEvents()
-			DBM:Debug("UNIT_TARGET phasing did not work since phase was wrongly set: " .. self.vb.phase)
-		end
-	end
-end
-
-function mod:OnSync(msg)
-	if not self:IsInCombat() then return end
-	if msg == "ProfessorPhase2" and self.vb.phase == 2 then
-		self:UnregisterShortTermEvents()
-		DBM:Debug("Putricide (phase 2) re-engaged via UNIT_TARGET sync")
-	elseif msg == "ProfessorPhase3" and self.vb.phase == 3 then
-		self:UnregisterShortTermEvents()
-		DBM:Debug("Putricide (phase 3) re-engaged via UNIT_TARGET sync")
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg) -- added warning/timer CD on emote in case players doesn't target/focus the boss (healers)
+	if msg:find(L.Goo) or msg == L.Goo then
+		timerMalleableGooCD:Start()
+		specWarnMalleableGooCast:Show()
+		soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
+		soundMalleableGooSoon:Cancel()
+		soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 	end
 end
