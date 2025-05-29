@@ -382,14 +382,15 @@ L.AUTO_TIMER_OPTIONS.varsource			= "Afficher un chronomètre (avec source et var
 L.AUTO_TIMER_OPTIONS.varspecial			= "Afficher un chronomètre (avec variation) pour le recharge de capacité spéciale (%ss)"
 L.AUTO_TIMER_OPTIONS.varcombo			= "Afficher un chronomètre (avec variation) pour le recharge de combo de capacités (%ss)"
 
-L.AUTO_TIMER_OPTIONS.achievement= "Délai pour réussir %s (%ss)"
-L.AUTO_TIMER_OPTIONS.stage		= "Afficher le timer de la phase suivante (%ss)"
-L.AUTO_TIMER_OPTIONS.roleplay	= "Afficher le timer de la durée du roleplay (%ss)"--This does need localizing though.
+L.AUTO_TIMER_OPTIONS.achievement	= "Délai pour réussir %s (%ss)"
+L.AUTO_TIMER_OPTIONS.stage			= "Afficher le timer de la phase suivante (%ss)"
+L.AUTO_TIMER_OPTIONS.roleplay		= "Afficher le timer de la durée du roleplay (%ss)"--This does need localizing though.
 
 L.AUTO_ICONS_OPTION_TARGETS				= "Placer des icônes sur les cibles de $spell:%s"
 L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "Placer des icônes sur les cibles de $spell:%s avec priorité mêlée et alphabétique"
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "Placer des icônes sur les cibles de $spell:%s avec priorité distant et alphabétique"
 L.AUTO_ICONS_OPTION_TARGETS_ALPHA		= "Placer des icônes sur les cibles de $spell:%s avec priorité alphabétique"
+L.AUTO_ICONS_OPTION_TARGETS_ROSTER		= "Placer des icônes sur les cibles de $spell:%s avec une priorité raid"
 L.AUTO_ICONS_OPTION_NPCS		= "Placer des icônes sur $spell:%s"
 L.AUTO_ICONS_OPTION_CONFLICT	= " (Peut entrer en conflit avec d'autres options)"
 L.AUTO_ARROW_OPTION_TEXT		= "Afficher la flèche "..L.DBM.." en direction de la cible affectée par $spell:%s"
@@ -397,11 +398,13 @@ L.AUTO_ARROW_OPTION_TEXT2		= "Afficher la flèche "..L.DBM.." pour s'éloigner d
 L.AUTO_ARROW_OPTION_TEXT3		= "Show "..L.DBM.." Arrow to move toward specific location for $spell:%s"
 
 L.AUTO_YELL_OPTION_TEXT.yell		= "Crie quand vous êtes affecté par $spell:%s"
-L.AUTO_YELL_OPTION_TEXT.count	= "Crie (avec compte) quand vous êtes affecté par $spell:%s"
+L.AUTO_YELL_OPTION_TEXT.yellme		= "Crie quand vous êtes affecté par $spell:%s"
+L.AUTO_YELL_OPTION_TEXT.count		= "Crie (avec compte) quand vous êtes affecté par $spell:%s"
 L.AUTO_YELL_OPTION_TEXT.fade		= "Crie (avec compte à rebours) lorsque $spell:%s se dissipe"
 L.AUTO_YELL_OPTION_TEXT.position	= "Crie (avec position) quand vous êtes affecté par $spell:%s"
 
 L.AUTO_YELL_ANNOUNCE_TEXT.yell		= "%s sur " .. UnitName("player") .. "!"
+L.AUTO_YELL_ANNOUNCE_TEXT.yellme	= "%s sur moi !"
 L.AUTO_YELL_ANNOUNCE_TEXT.count		= "%s sur " .. UnitName("player") .. "! (%%d)"
 L.AUTO_YELL_ANNOUNCE_TEXT.fade		= "%s disparaît dans %%d"
 L.AUTO_YELL_ANNOUNCE_TEXT.position	= "%s %%s sur {rt%%d}"..UnitName("player").."{rt%%d}"

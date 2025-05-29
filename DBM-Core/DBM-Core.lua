@@ -64,8 +64,8 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250312232316"),
-	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
+	Revision = parseCurseDate("20250529104600"),
+	DisplayVersion = "10.1.13 - WoE Edition", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 
@@ -5732,10 +5732,6 @@ function DBM:GetCurrentInstanceDifficulty() -- WayOfElendil does return 1,2,3,4 
         DBM:AddMsg("Unknown party difficulty: "..tostring(difficulty).." reported by GetInstanceInfo(). Please report this bug!")
         return "unknown", difficultyName.." - ", difficulty, maxPlayers
     end
-
-    -- Fallback for any unhandled instance types
-    DBM:AddMsg("Unknown instance type: "..tostring(instanceType).." reported by GetInstanceInfo(). Please report this bug!")
-    return "unknown", difficultyName.." - ", difficulty, maxPlayers
 end
 
 function DBM:GetCurrentArea()
