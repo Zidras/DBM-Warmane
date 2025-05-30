@@ -185,7 +185,8 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellTransform1			= "Mmm, je ne sens plus rien. Woah ?! Mais ça vient d'où, tout ça ?",
 	YellTransform2			= "Au bon goût de… Cerise ! Oups ! Pardon !",
-	YellTransi              = "Un limon ça va, deux limons, bonjour les dégâts !"
+	YellTransi              = "Un limon ça va, deux limons, bonjour les dégâts !",
+	Goo 					= "|TInterface\\Icons\\inv_misc_herb_evergreenmoss.blp:16|t%s lance une |cFF00FF00Gelée malléable !|r"
 })
 
 ----------------------------
