@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
 local Kal	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe&yars_20250329v12")
+mod:SetRevision("20250531110528") --based on cafe&yars_20250329v12
 mod:SetCreatureID(24850)
 
 mod:RegisterCombat("combat")
@@ -88,9 +88,9 @@ function mod:OnCombatStart(delay)
 	self.vb.portCount = 1
 	self.vb.KalecgosHealth = 100
 	self.vb.SathrovarrHealth = 100
-	if self:IsTimewalking() then
-		berserkTimer:Start(-delay)
-	end
+--	if self:IsTimewalking() then
+--		berserkTimer:Start(-delay)
+--	end
 	if self.Options.ShowFrame then
 		Kal:CreateFrame()
 	end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250519103545") --based on cafe20250416v19
+mod:SetRevision("20250531103545") --based on cafe20250416v19
 mod:SetCreatureID(25165, 25166)
 mod:SetUsedIcons(3, 6, 8)
 
@@ -25,11 +25,11 @@ mod:SetBossHealthInfo(
 
 local warnBlade				= mod:NewSpellAnnounce(45248, 3, nil, false)
 local warnBlow				= mod:NewTargetAnnounce(45256, 3)
-local warnConflag			= mod:NewTargetAnnounce(45333, 3)
+local warnConflag			= mod:NewTargetAnnounce(45342, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
-local specWarnConflag		= mod:NewSpecialWarningYou(45342, nil, nil, nil, 1, 2) --using 45342 instead of 45333?
-local specWarnConflagNear	= mod:NewSpecialWarningClose(45342) --using 45342 instead of 45333?
+local specWarnConflag 		= mod:NewSpecialWarningYou(45342, true, "Special Warning Conflagration on You", 1, 2, 2)
+local specWarnConflagNear 	= mod:NewSpecialWarningClose(45342, true, "Special Warning Conflagration near You", 1, 1, 2)
 local yellConflag			= mod:NewYell(45342, nil, false) --using 45342 instead of 45333?
 local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
 local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
@@ -203,7 +203,7 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg == L.Nova or msg:find(L.Nova)) then
-		timerNova:Start()
+		timerNova:Start(3.5)
 		if self:GetStage() == 2 then
 			timerNovaCDP2:Start()
 		else
