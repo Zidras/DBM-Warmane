@@ -28,8 +28,8 @@ local warnBlow				= mod:NewTargetAnnounce(45256, 3)
 local warnConflag			= mod:NewTargetAnnounce(45342, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
-local specWarnConflag 		= mod:NewSpecialWarningYou(45342, true, "Special Warning Conflagration on You", 1, 2, 2)
-local specWarnConflagNear 	= mod:NewSpecialWarningClose(45342, true, "Special Warning Conflagration near You", 1, 1, 2)
+local specWarnConflag 		= mod:NewSpecialWarningYou(45342,true,"Special Warning Conflag on You", 1, 2, 2)
+local specWarnConflagNear 	= mod:NewSpecialWarningClose(45342,true,"Special Warning Conflag near You",1,1,2)
 local yellConflag			= mod:NewYell(45342, nil, false) --using 45342 instead of 45333?
 local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
 local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
@@ -47,15 +47,15 @@ local timerBlowCD 			= mod:NewCDTimer(20, 45256, nil, false, nil, 3) --turned of
 local timerConflagCD		= mod:NewCDTimer(30, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
 local timerNovaCD			= mod:NewCDTimer(30, 45329, nil, nil, "Phase 1 Shadow Nova (30s)", 3) 
 local timerNovaCDP2			= mod:NewCDTimer(20, 45329, nil, nil, "Phase 2 Shadow Nova (20s)", 3) 
-local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
+local timerConflag			= mod:NewCastTimer(3.5, 45342, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
 local berserkTimer			= mod:NewBerserkTimer(360) --no timewalking on CC, 250326 "(mod:IsTimewalking() and 300 or 360)"
 
 mod:AddInfoFrameOption(45347, false) --testing information 250331
 
-mod:AddRangeFrameOption("11")
-mod:AddSetIconOption("ConflagIcon", 45333, false, false, {8}) --fixed icon reference to correct actual usage 250326
+mod:AddRangeFrameOption(11, 45342)
+mod:AddSetIconOption("ConflagIcon", 45342, false, false, {8}) --fixed icon reference to correct actual usage 250326
 mod:AddSetIconOption("NovaIcon", 45329, false, false, {6}) --fixed icon reference to correct actual usage 250326, changed to square for easier visualization 250331
 
 function mod:OnCombatStart(delay)
@@ -66,9 +66,9 @@ function mod:OnCombatStart(delay)
 	timerBladeCD:Start(10-delay) -- new start timer for SPELL_SHADOW_BLADES at 10s, 20250316
 
 	timerNovaCD:Start(36) -- new start timer for SHADOW_NOVA at 36s CC times, 20250315
---	if self.Options.RangeFrame then
+	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(11) --added range for shadow nova of 10y
---	end
+	end
 
 --test code to see if shadow stacks can be shown 250331
 	if self.Options.InfoFrame then
@@ -104,11 +104,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 ]]--does not work 250404
     elseif	args.spellId == 45270 then
-		target = DBM:GetUnitFullName(target)
-		self:SetIcon(target, 3, 8)
+		-- FIX: Get target from args, not undefined variable
+		local target = args.destName
+		if target then
+			target = DBM:GetUnitFullName(target)
+			self:SetIcon(target, 3, 8)
+		end
 		if args:IsPlayer() and self:AntiSpam(3) then -- changed to mark person of shadowfury since shadow image only choose one ability 20250402, kept old code just in case reversion is needed
-        specWarnShadow:Show()
-		specWarnShadow:Play("runout")
+			specWarnShadow:Show()
+			specWarnShadow:Play("runout")
 		end
 	end
 end
@@ -203,7 +207,7 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if (msg == L.Nova or msg:find(L.Nova)) then
-		timerNova:Start(3.5)
+		timerNova:Start()
 		if self:GetStage() == 2 then
 			timerNovaCDP2:Start()
 		else
