@@ -44,7 +44,7 @@ local timerBladeCD			= mod:NewCDTimer(10, 45248, nil, false, 2, 2) --corrected t
 
 local timerBlowCD 			= mod:NewCDTimer(20, 45256, nil, false, nil, 3) --turned off by default. 
 
-local timerConflagCD		= mod:NewCDTimer(30, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
+local timerConflagCD			= mod:NewCDTimer(30, 45342, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration | using 45342 instead of 45333?
 local timerNovaCD			= mod:NewCDTimer(30, 45329, nil, nil, "Phase 1 Shadow Nova (30s)", 3) 
 local timerNovaCDP2			= mod:NewCDTimer(20, 45329, nil, nil, "Phase 2 Shadow Nova (20s)", 3) 
 local timerConflag			= mod:NewCastTimer(3.5, 45342, nil, false, 2)
