@@ -173,7 +173,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:Unschedule(ScanEncapsulateTarget, self)
 		timerEncapsCD:Cancel() --new cancel for air phase 250318
 		timerCorrosionCD:Cancel() --new cancel for air phase 250318
-		timerBreath:Start(42, 1)
+		timerBreath:Start(40, 1)
 		timerPhase:Start(99, L.Ground) --air phase lasts about 99s on CC based on changes on 20250319
 		--self:ScheduleMethod(99, "Groundphase") --air phase lasts about 99s on CC based on changes on 20250319
 	end

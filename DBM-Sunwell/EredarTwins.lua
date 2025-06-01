@@ -28,8 +28,8 @@ local warnBlow				= mod:NewTargetAnnounce(45256, 3)
 local warnConflag			= mod:NewTargetAnnounce(45342, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
-local specWarnConflag 		= mod:NewSpecialWarningYou(45342,true,"Special Warning Conflag on You", 1, 2, 2)
-local specWarnConflagNear 	= mod:NewSpecialWarningClose(45342,true,"Special Warning Conflag near You",1,1,2)
+local specWarnConflag = mod:NewSpecialWarningYou(45342, true, nil, "1", 1, 2)
+local specWarnConflagNear = mod:NewSpecialWarningClose(45342, true, nil, "1", 1, 2)
 local yellConflag			= mod:NewYell(45342, nil, false) --using 45342 instead of 45333?
 local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
 local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
