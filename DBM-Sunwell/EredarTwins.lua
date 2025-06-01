@@ -28,17 +28,17 @@ local warnBlow				= mod:NewTargetAnnounce(45256, 3)
 local warnConflag			= mod:NewTargetAnnounce(45342, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
-local specWarnConflag = mod:NewSpecialWarningYou(45342, true, nil, "1", 1, 2)
-local specWarnConflagNear = mod:NewSpecialWarningClose(45342, true, nil, "1", 1, 2)
+local specWarnConflag 			= mod:NewSpecialWarningYou(45342, true, nil, 1, 1, 2)
+local specWarnConflagNear		= mod:NewSpecialWarningClose(45342, true, nil, 1, 1, 2)
 local yellConflag			= mod:NewYell(45342, nil, false) --using 45342 instead of 45333?
 local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
-local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
+local specWarnNovaNear			= mod:NewSpecialWarningClose(45329)
 local yellNova				= mod:NewYell(45329)
 local specWarnPyro			= mod:NewSpecialWarningDispel(45230, "MagicDispeller", nil, 2, 1, 2)
-local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, nil, 5, nil, 2, 1, 6)
-local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, nil, 5, nil, nil, 1, 6)
+local specWarnDarkTouch			= mod:NewSpecialWarningStack(45347, nil, 5, nil, 2, 1, 6)
+local specWarnFlameTouch		= mod:NewSpecialWarningStack(45348, nil, 5, nil, nil, 1, 6)
 
-local specWarnShadow 		= mod:NewSpecialWarningYou(45271, false) --turned off by default
+local specWarnShadow 			= mod:NewSpecialWarningYou(45271, false) --turned off by default
 
 local timerBladeCD			= mod:NewCDTimer(10, 45248, nil, false, 2, 2) --corrected to CC value of 10s, 20250315
 
