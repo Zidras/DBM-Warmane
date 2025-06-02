@@ -4,11 +4,11 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20250523112110")
+mod:SetRevision("20250530223932")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(2, 3, 4, 5, 6, 7, 8)
 mod:SetHotfixNoticeRev(20250523112110)
-mod:SetMinSyncRevision(20220921000000)
+mod:SetMinSyncRevision(20250530223932)
 
 mod:RegisterCombat("combat")
 
@@ -79,7 +79,7 @@ local timerTrapCD					= mod:NewNextTimer(15.5, 73539, nil, nil, nil, 3, nil, DBM
 local soundInfestSoon				= mod:NewSoundSoon(70541, nil, "Healer|RaidCooldown")
 local soundNecroticOnYou			= mod:NewSoundYou(70337)
 
-mod:AddSetIconOption("NecroticPlagueIcon", 70337, true, 0, {1})
+mod:AddSetIconOption("NecroticPlagueIcon", 70337, true, 0, {5})
 mod:AddSetIconOption("TrapIcon", 73539, true, 0, {8})
 mod:AddArrowOption("TrapArrow", 73539, true)
 mod:AddBoolOption("AnnouncePlagueStack", false, nil, nil, nil, nil, 70337)
