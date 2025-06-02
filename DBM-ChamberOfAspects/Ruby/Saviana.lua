@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Saviana", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206213742")
+mod:SetRevision("20250530223932")
 mod:SetCreatureID(39747)
 mod:SetUsedIcons(8, 7, 6, 5, 4)
-mod:SetMinSyncRevision(20250318212740)
+mod:SetMinSyncRevision(20250530223932)
 
 mod:RegisterCombat("combat")
 

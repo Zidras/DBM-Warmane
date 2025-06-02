@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Baltharus", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240105184622")
+mod:SetRevision("20250530223932")
 mod:SetCreatureID(39751)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
-mod:SetMinSyncRevision(20250318212740)
+mod:SetMinSyncRevision(20250530223932)
 
 mod:RegisterCombat("combat")
 
