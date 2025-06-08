@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe&yars20250416v25")
+mod:SetRevision("20250518110528") --based on cafe&yars20250416v25
+mod:SetMinSyncRevision(20250101000000)
 mod:SetCreatureID(25038)
 mod:SetUsedIcons(8, 7)
 
@@ -30,16 +31,16 @@ local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 local yellVapor				= mod:NewYell(45392) --new yell if target of Vapor
 
 local timerGasCast			= mod:NewCastTimer(1, 45855)
-local timerGasCD			= mod:NewCDTimer(19+1-2, 45855, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
-local timerCorrosionCD		= mod:NewCDTimer(20+10, 45866, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- adjusted to CC 250302, updated on 250331
+local timerGasCD			= mod:NewCDTimer(18, 45855, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
+local timerCorrosionCD		= mod:NewCDTimer(30, 45866, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- adjusted to CC 250302, updated on 250331
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
-local timerEncapsCD			= mod:NewCDTimer(25+1, 45665, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
-local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerEncapsCD			= mod:NewCDTimer(26, 45665, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
+local timerBreath			= mod:NewCDCountTimer(18, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
 local berserkTimer			= mod:NewBerserkTimer(600) --10 minutes on chromiecraft
 
-mod:AddSetIconOption("EncapsIcon", 45665, true, false, {8})
+mod:AddSetIconOption("EncapsIcon", 45665, true, true, {7})
 mod:AddSetIconOption("VaporIcon", 45402, true, true, {8})
 
 mod.vb.breathCounter = 0
@@ -69,7 +70,6 @@ local function ScanEncapsulateTarget(self)
 	elseif target and self.vb.scanCounter <= 100 then --scan for target changes
 		if self.vb.encapsLastTarget ~= target then --target changed
 			EncapsulateAnnounce(self, target)
-			self:SetIcon(target, 8, 7)
 			self.vb.scanCounter = 0
 			self.vb.encapsLastTarget = nil
 			self.vb.encapsAnnounced = true
@@ -90,7 +90,7 @@ function mod:Groundphase()
 	self.vb.breathCounter = 0
 	self.vb.corrosionCounter = 0
 	warnPhase:Show(L.Ground)
-	timerGasCD:Start(17+1) -- adjusted to CC 250302
+	timerGasCD:Start(18) -- adjusted to CC 250302
 	timerPhase:Start(60, L.Air)
 	timerEncapsCD:Start()
 	timerCorrosionCD:Start(12+1) --new corrosion start timer 250318, updated value 250331
@@ -101,9 +101,9 @@ function mod:EncapsulateTarget(target)
 	if not self.vb.encapsAnnounced then --this Encaps wasn't announced early
 		EncapsulateAnnounce(self, target)
 	end
-	--if self.Options.EncapsIcon then
-		self:SetIcon(target, 8, 6)
-	--end
+	if self.Options.EncapsIcon then
+		self:SetIcon(target, 7, 7)
+	end
 	self.vb.encapsAnnounced = false
 	timerEncaps:Start(target)
 	timerEncapsCD:Start(24)
@@ -112,7 +112,7 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	self:ScheduleMethod(3-2, "Groundphase") --Felmyst takes about 3-5 seconds to land, changed to 1s 20250416
+	self:ScheduleMethod(3, "Groundphase") --Felmyst takes about 3-5 seconds to land, changed to 1s 20250416
 end
 
 
@@ -135,17 +135,16 @@ end
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 45392 then
 		warnVapor:Show(args.sourceName)
---		if self.Options.VaporIcon then
+		if self.Options.VaporIcon then
 			self:SetIcon(args.sourceName, 8, 10)
---		end
+		end
 		if args.sourceName == UnitName("player") then
 			specWarnVapor:Show()
 			specWarnVapor:Play("targetyou")
 			yellVapor:Yell() --yell if target of Vapor, need testing 20250319
-		else
-			warnVapor:Show(args.sourceName)
+--		else
+--			warnVapor:Show(args.sourceName)
 		end
-
 	end
 end
 
@@ -156,8 +155,8 @@ function mod:SPELL_CAST_START(args)
 		specWarnGas:Show()
 		specWarnGas:Play("helpdispel")
 	elseif args.spellId == 45866 and self.vb.corrosionCounter < 1 then --timer correction adjuster using first corrosion during ground phase
-		timerPhase:Restart(48, L.Air)
-		timerGasCD:Restart(6)
+		timerPhase:Restart(47, L.Air)
+		timerGasCD:Restart(5)
 		timerEncapsCD:Restart(13)
 		self:Schedule(12, ScanEncapsulateTarget, self)
 		self.vb.corrosionCounter = self.vb.corrosionCounter + 1
@@ -173,7 +172,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self:Unschedule(ScanEncapsulateTarget, self)
 		timerEncapsCD:Cancel() --new cancel for air phase 250318
 		timerCorrosionCD:Cancel() --new cancel for air phase 250318
-		timerBreath:Start(40, 1)
+		timerBreath:Start(39, 1)
 		timerPhase:Start(99, L.Ground) --air phase lasts about 99s on CC based on changes on 20250319
 		--self:ScheduleMethod(99, "Groundphase") --air phase lasts about 99s on CC based on changes on 20250319
 	end
