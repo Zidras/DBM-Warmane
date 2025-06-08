@@ -1,8 +1,7 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250518110528") --based on cafe&yars20250416v25
-mod:SetMinSyncRevision(20250101000000)
+mod:SetRevision("20250608110528") --based on cafe&yars20250416v25
 mod:SetCreatureID(25038)
 mod:SetUsedIcons(8, 7)
 
@@ -30,9 +29,8 @@ local specWarnVapor			= mod:NewSpecialWarningYou(45402, nil, nil, nil, 1, 2)
 local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 local yellVapor				= mod:NewYell(45392) --new yell if target of Vapor
 
-local timerGasCast			= mod:NewCastTimer(1, 45855)
 local timerGasCD			= mod:NewCDTimer(18, 45855, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
-local timerCorrosionCD		= mod:NewCDTimer(30, 45866, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- adjusted to CC 250302, updated on 250331
+local timerCorrosion		= mod:NewTargetTimer(10, 45866, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
 local timerEncapsCD			= mod:NewCDTimer(26, 45665, nil, nil, nil, 3) -- adjusted to CC 250302, updated on 250331
 local timerBreath			= mod:NewCDCountTimer(18, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
@@ -40,14 +38,21 @@ local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
 local berserkTimer			= mod:NewBerserkTimer(600) --10 minutes on chromiecraft
 
-mod:AddSetIconOption("EncapsIcon", 45665, true, true, {7})
-mod:AddSetIconOption("VaporIcon", 45402, true, true, {8})
+mod:AddSetIconOption("EncapsIcon", 45665, true, 0, {7})
+mod:AddSetIconOption("VaporIcon", 45402, true, 0, {8})
 
 mod.vb.breathCounter = 0
-mod.vb.corrosionCounter = 0 --used for timer adjust during ground phase (corrosion spellid 45866)
 mod.vb.scanCounter = 0
 mod.vb.encapsLastTarget = nil
 mod.vb.encapsAnnounced = false
+
+function mod:Groundphase()
+	self.vb.breathCounter = 0
+	warnPhase:Show(L.Ground)
+	timerGasCD:Start(18) -- adjusted to CC 250302
+	timerPhase:Start(60, L.Air)
+	timerEncapsCD:Start()
+end
 
 local function EncapsulateAnnounce(self, target)
 	if target == UnitName("player") then
@@ -86,16 +91,6 @@ local function ScanEncapsulateTarget(self)
 	end
 end
 
-function mod:Groundphase()
-	self.vb.breathCounter = 0
-	self.vb.corrosionCounter = 0
-	warnPhase:Show(L.Ground)
-	timerGasCD:Start(18) -- adjusted to CC 250302
-	timerPhase:Start(60, L.Air)
-	timerEncapsCD:Start()
-	timerCorrosionCD:Start(12+1) --new corrosion start timer 250318, updated value 250331
-end
-
 function mod:EncapsulateTarget(target)
 	if not target then return end
 	if not self.vb.encapsAnnounced then --this Encaps wasn't announced early
@@ -110,16 +105,18 @@ function mod:EncapsulateTarget(target)
 	self:Schedule(22, ScanEncapsulateTarget, self)
 end
 
-function mod:OnCombatStart(delay)
-	berserkTimer:Start(-delay)
-	self:ScheduleMethod(3, "Groundphase") --Felmyst takes about 3-5 seconds to land, changed to 1s 20250416
+function mod:OnCombatStart()
+	self.vb.breathCounter = 0
+	timerGasCD:Start(20)
+	timerPhase:Start(62, L.Air)
+	berserkTimer:Start(602)
+	timerEncapsCD:Start(28)
 end
 
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 45866 then
-		--timerCorrosion:Start(args.destName)
-		timerCorrosionCD:Start()
+		timerCorrosion:Start(args.destName)
 		if not args:IsPlayer() then -- validate
 			specWarnCorrosion:Show(args.destName)
 			--specWarnCorrosion:Play("tauntboss")
@@ -131,7 +128,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	
 end
 
-
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 45392 then
 		warnVapor:Show(args.sourceName)
@@ -142,24 +138,16 @@ function mod:SPELL_SUMMON(args)
 			specWarnVapor:Show()
 			specWarnVapor:Play("targetyou")
 			yellVapor:Yell() --yell if target of Vapor, need testing 20250319
---		else
---			warnVapor:Show(args.sourceName)
 		end
 	end
 end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 45855 then
-		timerGasCast:Start()
 		timerGasCD:Start()
 		specWarnGas:Show()
 		specWarnGas:Play("helpdispel")
-	elseif args.spellId == 45866 and self.vb.corrosionCounter < 1 then --timer correction adjuster using first corrosion during ground phase
-		timerPhase:Restart(47, L.Air)
-		timerGasCD:Restart(5)
-		timerEncapsCD:Restart(13)
-		self:Schedule(12, ScanEncapsulateTarget, self)
-		self.vb.corrosionCounter = self.vb.corrosionCounter + 1
+
 	end
 end
 
@@ -168,11 +156,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.breathCounter = 0
 		warnPhase:Show(L.Air)
 		timerGasCD:Cancel()
-
 		self:Unschedule(ScanEncapsulateTarget, self)
 		timerEncapsCD:Cancel() --new cancel for air phase 250318
-		timerCorrosionCD:Cancel() --new cancel for air phase 250318
-		timerBreath:Start(39, 1)
+		timerBreath:Start(38.6, 1)
 		timerPhase:Start(99, L.Ground) --air phase lasts about 99s on CC based on changes on 20250319
 		--self:ScheduleMethod(99, "Groundphase") --air phase lasts about 99s on CC based on changes on 20250319
 	end
@@ -197,27 +183,3 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 		self:BossTargetScanner(25038, "EncapsulateTarget", 0.05, 10)
 	end
 end
-
---[[
-    //Aura
-    SPELL_NOXIOUS_FUMES                         = 47002,
-
-    //Land phase
-    SPELL_BERSERK                               = 45078,
-    SPELL_CLEAVE                                = 19983,
-    SPELL_CORROSION                             = 45866,
-    SPELL_GAS_NOVA                              = 45855,
-    SPELL_ENCAPSULATE_CHANNEL                   = 45661,
-
-    //Flight phase
-    SPELL_SUMMON_DEMONIC_VAPOR                  = 45391,
-    SPELL_DEMONIC_VAPOR_SPAWN_TRIGGER           = 45388, // Triggers visual beam
-    SPELL_DEMONIC_VAPOR_PERIODIC                = 45411, // Spawns cloud and deals damage
-    SPELL_DEMONIC_VAPOR_TRAIL_PERIODIC          = 45399, // periodic of cloud
-    SPELL_DEMONIC_VAPOR                         = 45402, // cloud dot
-    SPELL_SUMMON_BLAZING_DEAD                   = 45400, // spawns skeletons
-    SPELL_FELMYST_SPEED_BURST                   = 45495, // speed burst and breath animation
-    SPELL_FOG_OF_CORRUPTION                     = 45582, // trigger cast
-    SPELL_FOG_OF_CORRUPTION_CHARM               = 45717, // charm 1
-    SPELL_FOG_OF_CORRUPTION_CHARM2              = 45726, // charm 2
-]]-- spellid reference
