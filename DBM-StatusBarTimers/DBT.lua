@@ -357,7 +357,6 @@ function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, 
 		newBar.minTimer = varianceMinTimer or nil
 		newBar.varianceDuration = varianceDuration or 0
 		newBar.hasVariance = varianceMinTimer and true or false
-		
 		-- FIX: Reset totalTime BEFORE SetTimer to ensure proper variance handling
 		newBar.totalTime = timer
 		newBar:SetTimer(timer) -- This can kill the timer and the timer methods don't like dead timers
@@ -365,7 +364,6 @@ function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, 
 		if newBar.dead then
 			return
 		end
-		
 		-- FIX: Ensure elapsed time is properly reset for variance timers
 		-- Reset elapsed before setting it to 0 to prevent percentage calculation issues
 		newBar.elapsed = 0
