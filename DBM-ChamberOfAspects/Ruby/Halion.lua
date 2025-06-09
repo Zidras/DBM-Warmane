@@ -70,7 +70,7 @@ mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Pur
 local twilightDivisionName = DBM:GetSpellInfo(75063)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..twilightDivisionName)
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
-local warningStopDPS				= mod:NewAnnounce("StopDPS", 4)
+local warningStopDPS				= mod:NewSpecialWarning("StopDPS")
 local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 1, 2)
 
 mod.vb.warned_preP2 = false
