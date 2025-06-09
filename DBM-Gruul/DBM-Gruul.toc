@@ -10,11 +10,14 @@
 ## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Gruul
-## X-DBM-Mod-Name-frFR: Gruul
+## X-DBM-Mod-Name-frFR: Repaire de Gruul
 ## X-DBM-Mod-MapID: 777
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Gruul's Lair
 ## X-DBM-Mod-LoadZone-frFR: Repaire de Gruul
+
 localization.en.lua
+localization.fr.lua
+
 Maulgar.lua
 Gruul.lua

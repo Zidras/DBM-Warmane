@@ -10,9 +10,13 @@
 ## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Magtheridon
+## X-DBM-Mod-Name-frFR: Repaire de Magtheridon
 ## X-DBM-Mod-MapID: 780
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Magtheridon's Lair
 ## X-DBM-Mod-LoadZone-frFR: Le repaire de Magtheridon
+
 localization.en.lua
+localization.fr.lua
+
 Magtheridon.lua

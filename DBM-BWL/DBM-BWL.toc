@@ -12,10 +12,13 @@
 ## X-DBM-Mod-MapID: 756
 ## X-DBM-Mod-Sort: 1105
 ## X-DBM-Mod-Name: Blackwing Lair
+## X-DBM-Mod-Name-frFR: Repaire de l'Aile noire
 ## X-DBM-Mod-LoadZone: Blackwing Lair
 ## X-DBM-Mod-LoadZone-frFR: Repaire de l'Aile noire
+
 localization.en.lua
 localization.fr.lua
+
 Razorgore.lua
 Vaelastrasz.lua
 Broodlord.lua

@@ -12,10 +12,13 @@
 ## X-DBM-Mod-MapID: 697
 ## X-DBM-Mod-Sort: 1107
 ## X-DBM-Mod-Name: Molten Core
+## X-DBM-Mod-Name-frFR: Cœur du Magma
 ## X-DBM-Mod-LoadZone: Molten Core
 ## X-DBM-Mod-LoadZone-frFR: Cœur du Magma
+
 localization.en.lua
 localization.fr.lua
+
 MCTrash.lua
 Lucifron.lua
 Magmadar.lua

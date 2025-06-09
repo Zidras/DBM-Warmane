@@ -12,10 +12,13 @@
 ## X-DBM-Mod-MapID: 767
 ## X-DBM-Mod-Sort: 1102
 ## X-DBM-Mod-Name: The Temple of Ahn'Qiraj
+## X-DBM-Mod-Name-frFR: Le Temple d'Ahn'Qiraj
 ## X-DBM-Mod-LoadZone: Ahn'Qiraj
 ## X-DBM-Mod-LoadZone-frFR: Ahn'Qiraj
+
 localization.en.lua
 localization.fr.lua
+
 AQ40Trash.lua
 Skeram.lua
 ThreeBugs.lua

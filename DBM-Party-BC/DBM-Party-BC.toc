@@ -1,5 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Dungeons (BC)|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Donjons (BC)|r
 ## Author: Arta/MysticalOS
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -10,17 +11,16 @@
 ## X-DBM-Mod-Category: BC
 ## X-DBM-StatTypes: normal,heroic
 ## X-DBM-Mod-SubCategories: Hellfire Ramparts,The Blood Furnace,The Shattered Halls,The Slave Pens,The Underbog,The Steamvault,Auchenai Crypts,Mana-Tombs,Sethekk Halls,Shadow Labyrinth,Old Hillsbrad Foothills,The Black Morass,The Mechanar,The Botanica,The Arcatraz,Magisters' Terrace
-## X-DBM-Mod-SubCategories-deDE: Höllenfeuerbollwerk,Der Blutkessel,Die zerschmetterten Hallen,Die Sklavenunterkünfte,Der Tiefensumpf,Die Dampfkammer,Auchenaikrypta,Managruft,Sethekkhallen,Schattenlabyrinth,Die Flucht von Durnholde,Öffnung des Dunklen Portals,Die Mechanar,Die Botanika,Die Arkatraz,Terrasse der Magister
-## X-DBM-Mod-SubCategories-ruRU: Бастионы Адского Пламени,Кузня Крови,Разрушенные залы,Узилище,Нижетопь,Паровое подземелье,Аукенайские гробницы,Гробницы Маны,Сетеккские залы,Темный лабиринт,Старые предгорья Хилсбрада,Черные топи,Механар,Ботаника,Аркатрац,Терраса Магистров
-## X-DBM-Mod-SubCategories-esES: Murallas del Fuego Infernal,El Horno de Sangre,Las Salas Arrasadas,Recinto de los Esclavos,La Sotiénaga,La Cámara de Vapor,Criptas Auchenai,Tumbas de Maná,Salas Sethekk,Laberinto de las Sombras,Antiguas Laderas de Trabalomas,La Ciénaga Negra,El Mechanar,El Invernáculo,El Arcatraz,Bancal del Magister
-## X-DBM-Mod-SubCategories-koKR: 지옥불 성루,피의 용광로,으스러진 손의 전당,강제 노역소,지하수렁,증기 저장고,아키나이 납골당,마나 무덤,세데크 전당,어둠의 미궁,옛 힐스브래드 구릉지,검은늪,메카나르,신록의 정원,알카트라즈,마법학자의 정원
-## X-DBM-Mod-SubCategories-zhTW: 地獄火壁壘,血熔爐,破碎大廳,奴隸監獄,深幽泥沼,蒸汽洞窟,奧奇奈地穴,法力墓地,塞司克大廳,暗影迷宮,逃離敦霍爾德,開啟黑暗之門,麥克納爾,波塔尼卡,亞克崔茲,博學者殿堂
-## X-DBM-Mod-SubCategories-zhCN: 地狱火堡垒,鲜血熔炉,破碎大厅,奴隶围栏,幽暗沼泽,蒸汽地窖,奥金尼地穴,法力陵墓,赛泰克大厅,暗影迷宮,逃离敦霍尔德,开启黑暗之门,能源舰,生态船,禁魔监狱,博学者殿堂
+## X-DBM-Mod-SubCategories-frFR: Remparts des Flammes infernales,La Fournaise du sang,Les Salles brisées,Les enclos aux esclaves,Le Bourbier,Le Caveau de la vapeur,Les Cryptes Auchenaï,Tombe-mana,Les Salles des Sethekk,Labyrinthe des ombres,Contreforts de Hautebrande d’antan,Le Noir Marécage,Le Méchanar,La Botanica,L’Arcatraz,La Terrasse des Magistères
 ## X-DBM-Mod-Name: Dungeons (BC)
+## X-DBM-Mod-Name-frFR: Donjons (BC)
 ## X-DBM-Mod-Sort: 1015
 ## X-DBM-Mod-MapID: 723,798,733,726,727,728,711,724,729,732,725,730,731,735,799,734
 ## X-DBM-Mod-LoadZone: Auchenai Crypts, Hellfire Ramparts, Mana-Tombs, The Blood Furnace, The Underbog, The Steamvault, The Shattered Halls, Sethekk Halls, The Slave Pens, The Arcatraz, Shadow Labyrinth, The Botanica, The Mechanar, Old Hillsbrad Foothills, Magisters' Terrace, The Black Morass
+
 localization.en.lua
+localization.fr.lua
+
 Hellfire_Ramp\Gargolmar.lua
 Hellfire_Ramp\Omor.lua
 Hellfire_Ramp\Vazruden.lua

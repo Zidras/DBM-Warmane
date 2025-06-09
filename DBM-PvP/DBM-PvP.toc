@@ -1,6 +1,5 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JxJ|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Author: Nitram/Tandanu/Arta
 ## LoadOnDemand: 1
@@ -17,8 +16,10 @@
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-LoadZone: Blade's Edge Arena,Dalaran Arena,Nagrand Arena,Ruins of Lordaeron,The Ring of Valor
 ## X-DBM-Mod-LoadZone-frFR:Arène des Tranchantes,Arène de Dalaran,Arène de Nagrand,Ruines de Lordaeron,L’arène des Valeureux
+
 localization.en.lua
 localization.fr.lua
+
 PvPGeneral.lua
 Battlegrounds\Alterac.lua
 Battlegrounds\Arathi.lua

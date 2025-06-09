@@ -385,6 +385,8 @@ L.AUTO_TIMER_OPTIONS.varcombo			= "Afficher un chronomètre (avec variation) pou
 L.AUTO_TIMER_OPTIONS.achievement	= "Délai pour réussir %s (%ss)"
 L.AUTO_TIMER_OPTIONS.stage			= "Afficher le timer de la phase suivante (%ss)"
 L.AUTO_TIMER_OPTIONS.roleplay		= "Afficher le timer de la durée du roleplay (%ss)"--This does need localizing though.
+L.AUTO_TIMER_OPTIONS.adds			= "Montre le timer pour les adds à venir (%ss)"
+L.AUTO_TIMER_OPTIONS.addscustom			= "Montre le timer pour les adds à venir (%ss)"
 
 L.AUTO_ICONS_OPTION_TARGETS				= "Placer des icônes sur les cibles de $spell:%s"
 L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "Placer des icônes sur les cibles de $spell:%s avec priorité mêlée et alphabétique"

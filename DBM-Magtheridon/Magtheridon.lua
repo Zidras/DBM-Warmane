@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 30528 30616",
 	"SPELL_CAST_SUCCESS 30511",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 --Get custom voice pack sound for cubes
@@ -27,9 +27,9 @@ local specWarnHeal			= mod:NewSpecialWarningInterrupt(30528, "HasInterrupt", nil
 
 local timerHeal				= mod:NewCastTimer(2, 30528, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 local timerPhase2			= mod:NewTimer(120, "timerP2", "Interface\\Icons\\INV_Weapon_Halberd16", nil, nil, 6)
-local timerConflagration	= mod:NewCDTimer(30, 30757, nil, nil, nil, 2, nil, nil, true)
-local timerQuake			= mod:NewCDTimer(50, 30657, nil, nil, nil, 2, "Interface\\Icons\\Spell_Nature_Earthquake", nil, true)
-local timerBlastNovaCD		= mod:NewCDCountTimer(60, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerConflagration	= mod:NewCDTimer(20, 30757, nil, nil, nil, 2, nil, nil, true)
+local timerQuake			= mod:NewCDTimer(60, 30657, nil, nil, nil, 2, "Interface\\Icons\\Spell_Nature_Earthquake", nil, true)
+local timerBlastNovaCD		= mod:NewCDCountTimer(55, 30616, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerDebris			= mod:NewNextTimer(15, 36449, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON..DBM_COMMON_L.TANK_ICON)--Only happens once per fight, after the phase 3 yell.
 
 mod.vb.blastNovaCounter = 0

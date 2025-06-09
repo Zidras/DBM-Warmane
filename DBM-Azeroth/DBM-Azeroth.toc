@@ -12,12 +12,13 @@
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: Azeroth (Classic)
 ## X-DBM-Mod-Name-frFR: Azeroth (Classique)
-## X-DBM-Mod-Name-ptBR: Azeroth (Clássico)
 ## X-DBM-Mod-Sort: 1106
 ## X-DBM-Mod-MapID: 182,35,44,27,122
 ## X-DBM-Mod-LoadCID: 14889,14888,14887,14890,6109
+
 localization.en.lua
 localization.fr.lua
+
 Azuregos.lua
 Taerar.lua
 Ysondre.lua

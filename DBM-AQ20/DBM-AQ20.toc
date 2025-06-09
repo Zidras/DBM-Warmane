@@ -10,12 +10,15 @@
 ## X-DBM-Mod-Category: Classic
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Name: The Ruins of Ahn'Qiraj
+## X-DBM-Mod-Name-frFR: Les Ruines d'Ahn'Qiraj
 ## X-DBM-Mod-MapID: 718
 ## X-DBM-Mod-Sort: 1103
 ## X-DBM-Mod-LoadZone: Ruins of Ahn'Qiraj
 ## X-DBM-Mod-LoadZone-frFR: Ruines d'Ahn'Qiraj
+
 localization.en.lua
 localization.fr.lua
+
 AQ20Trash.lua
 Kurinnaxx.lua
 Rajaxx.lua
