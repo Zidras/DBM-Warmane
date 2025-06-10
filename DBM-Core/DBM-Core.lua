@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250512215641"),
+	Revision = parseCurseDate("20250512000000"), --to match Solaris-DBM https://github.com/UndoUreche/DBM-CC-Solaris/commit/5a0dac75acd86e6a3b1d5eaa56ccef5d83f513de
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
