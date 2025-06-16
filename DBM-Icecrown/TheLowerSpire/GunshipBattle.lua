@@ -67,13 +67,9 @@ function mod:OnCombatStart(delay)
 	DBM.BossHealth:Clear()
 	timerAdds:Start(12-delay)
 	warnAddsSoon:Schedule(7-delay)
---	self:Schedule(12-delay, Adds, self)
 	self.vb.firstMage = false
-	if UnitFactionGroup("player") == "Alliance" then
-		timerBelowZeroCD:Start(39-delay) --Approximate, since it depends on cannon damage. Corrected on yell later
-	else
-		timerBelowZeroCD:Start(37-delay) --Approximate, since it depends on cannon damage. Corrected on yell later
-	end
+	timerBelowZeroCD:Start(39-delay) --Approximate, since it depends on cannon damage. Corrected on yell later
+
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -139,7 +135,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 	elseif (msg:find(L.MageHorde) or msg == L.MageHorde) and self:IsInCombat() then
 		if not self.vb.firstMage then
-			timerBelowZeroCD:Update(34.5, 37)
+			timerBelowZeroCD:Update(34.5, 39)
 			self.vb.firstMage = true
 		else
 			timerBelowZeroCD:Update(32.5, 35)--Update the below zero timer to correct it with yells since it tends to be off depending on how bad your cannon operators are.

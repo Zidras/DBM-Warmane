@@ -431,10 +431,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.soulReaperCount = self.vb.soulReaperCount + 1
 		timerSoulreaperCD:Cancel()
 		warnSoulreaper:Show(self.vb.soulReaperCount, args.destName)
-		specwarnSoulreaper:Show(args.destName)
 		timerSoulreaper:Start(args.destName)
 		timerSoulreaperCD:Start(nil, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(30.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
+		if not args:IsPlayer() then -- If not player, to avoid spam on tank if option is enabled
+			specwarnSoulreaper:Show(args.destName)
+		end
 		if args:IsPlayer() then
 			specWarnSoulreaper:Show()
 			specWarnSoulreaper:Play("defensive")

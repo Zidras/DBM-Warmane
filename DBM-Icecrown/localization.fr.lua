@@ -295,10 +295,10 @@ L:SetOptionLocalization({
 	TimerNextAirphase			= "Montre un timer pour la prochaine phase dans les airs",
 	TimerNextGroundphase		= "Montre un timer pour la prochaine phase au sol",
 	AnnounceFrostBeaconIcons	= "Annonce les icônes pour les cibles de $spell:70126 dans le chat de raid (requires announce to be enabled and leader/promoted status)",
-	ClearIconsOnAirphase		= "Retire toutes les icones avant la phase d'envol",
+	ClearIconsOnAirphase		= "Retire toutes les icônes avant la phase d'envol",
 	AssignWarnDirectionsCount	= "Attribuez des directions aux cibles $spell:70126 et comptez sur la phase 2",
 	AchievementCheck			= "Annonce les alertes du haut-fait 'Tout ce que vous pouvez rafler' au raid<br/>(nécessite un statut promu)",
-	RangeFrame					= "Montre la fenêtre de portée (10 normal, 20 heroic) (Montre uniquement les icônes marquer sur les joueurs)"
+	RangeFrame					= "Montre une fenêtre de distance dynamique (10m/20m) basée sur la dernière capacité de boss utilisée et les debuffs du joueur (Le radar pour $spell:69762 ne s'affiche que sur l'instance héroïque)",
 })
 
 L:SetMiscLocalization({

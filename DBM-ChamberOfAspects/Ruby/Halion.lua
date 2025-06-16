@@ -70,7 +70,7 @@ mod:AddSetIconOption("SetIconOnShadowConsumption", 74792, true, false, {3})--Pur
 local twilightDivisionName = DBM:GetSpellInfo(75063)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": "..twilightDivisionName)
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
-local warningStopDPS				= mod:NewSpecialWarning("StopDPS")
+local warningStopDPS				= mod:NewSpecialWarning("StopDPS", nil, nil, nil, nil, nil, nil, nil, 74826)
 local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 1, 2)
 
 mod.vb.warned_preP2 = false
@@ -207,7 +207,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(sourceGUID, _, _, destGUID, _, _, spellId)
-	if (spellId == 75952 or spellId == 75951 or spellId == 75950 or spellId == 75949 or spellId == 75948 or spellId ==  75947) and destGUID == UnitGUID("player") and self:AntiSpam() then
+	if (spellId == 75952 or spellId == 75951 or spellId == 75950 or spellId == 75949 or spellId == 75948 or spellId ==  75947) and destGUID == UnitGUID("player") then
 		specWarnMeteorStrike:Show()
 		specWarnMeteorStrike:Play("runaway")
 	-- Physical/Shadow Realm detection:

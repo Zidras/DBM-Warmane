@@ -406,7 +406,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(71001, 72108, 72109, 72110) then
 		if args:IsPlayer() then
-			specWarnDeathDecay:Show()
+			specWarnDeathDecay:Show(args.spellName)
 			specWarnDeathDecay:Play("watchfeet")
 		end
 	elseif spellId == 71237 and args:IsPlayer() then

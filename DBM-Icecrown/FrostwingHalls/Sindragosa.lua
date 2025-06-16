@@ -242,7 +242,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerNextBlisteringCold:Start()
 
 		if self.Options.RangeFrame then
-			DBM.RangeCheck:SetBossRange(25, self:GetBossUnitByCreatureId(36853))
+			DBM.RangeCheck:SetBossRange(10, self:GetBossUnitByCreatureId(36853)) -- 10 yd is enough on Way Of Elendil, Sindragosa body area is bigger than warmane.
 			self:Schedule(5.5, ResetRange, self)
 		end
 	elseif spellId == 69762 then	-- Unchained Magic
