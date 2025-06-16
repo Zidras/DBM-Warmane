@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0World Events|r
-## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Évènements Mondiaux|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Événements Mondiaux|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMWorldEvents_AllSavedVars
@@ -12,7 +12,7 @@
 ## X-DBM-Mod-World-Boss: 1
 ## X-DBM-Mod-SubCategories: Holidays
 ## X-DBM-Mod-Name: World Events
-## X-DBM-Mod-Name-frFR: Évènements Mondiaux
+## X-DBM-Mod-Name-frFR: Événements Mondiaux
 ## X-DBM-Mod-Sort: 150
 ## X-DBM-Mod-MapID: 705,763,765,729
 ## X-DBM-Mod-LoadZone: Blackrock Depths,Scarlet Monastery,Shadowfang Keep,The Slave Pens,Azshara Crater

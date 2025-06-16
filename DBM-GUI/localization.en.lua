@@ -520,6 +520,8 @@ L.PerCharacterSettings				= "Use per-character profiles instead of global namesp
 L.OnlyFight							= "Only during fight, after each movie has played once"
 L.AfterFirst						= "In instance, after each movie has played once"
 L.CombatOnly						= "Disable in combat (any)"
+L.DisableWoE					    = "Never skip"
+L.SkipWoE							= "Always skip"
 L.RaidCombat						= "Disable in combat (bosses only)"
 
 -- Panel: Raid Leader Controls
