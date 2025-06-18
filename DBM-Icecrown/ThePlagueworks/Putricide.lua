@@ -3,11 +3,11 @@ local L		= mod:GetLocalizedStrings()
 
 local select = select
 
-mod:SetRevision("20250529104450")
+mod:SetRevision("20250618173905")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4 , 7 , 8)
-mod:SetHotfixNoticeRev(20250529104450)
-mod:SetMinSyncRevision(20250529104450)
+mod:SetHotfixNoticeRev(20250618173905)
+mod:SetMinSyncRevision(20250618173905)
 
 mod:RegisterCombat("combat")
 
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 70447 72836 72837 72838 70672 72455 72832 72833 72451 72463 72671 72672 70542 70539 72457 72875 72876 70352 74118 70353 74119 72855 72856 70911",
 	"SPELL_AURA_APPLIED_DOSE 72451 72463 72671 72672 70542",
 	"SPELL_AURA_REFRESH 70539 72457 72875 72876 70542",
-	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 71615 70539 72457 72875 72876 70542",
+	"SPELL_AURA_REMOVED 70447 72836 72837 72838 70672 72455 72832 72833 72855 72856 70911 70539 72457 72875 72876 70542",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_SPELLCAST_SUCCEEDED target focus",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
@@ -57,7 +57,6 @@ local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)
 local soundSlimePuddle				= mod:NewSound(70341)
 
 local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
---local specWarnMalleableGooNear		= mod:NewSpecialWarningClose(72295, nil, nil, nil, 1, 2)
 local yellMalleableGoo				= mod:NewYellMe(72295)
 
 mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, 0, {4})--green icon for green ooze
@@ -87,7 +86,7 @@ local soundChokingGasSoon			= mod:NewSoundSoon(71255, nil, "Melee")
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(3)..": 35% – 0%")
 local warnPhase3					= mod:NewPhaseAnnounce(3, 2, nil, nil, nil, nil, nil, 2)
 local warnMutatedPlague				= mod:NewStackAnnounce(72451, 3, nil, "Tank|Healer|RemoveEnrage") -- Phase 3 ability
-local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.TANK_ICON)				-- 10 to 11
+local timerMutatedPlagueCD			= mod:NewCDTimer(10, 72451, nil, "Tank|Healer|RemoveEnrage", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 10 to 11
 
 -- Intermission
 mod:AddTimerLine(DBM_COMMON_L.INTERMISSION)
@@ -106,24 +105,30 @@ local timerReengage					= mod:NewTimer(20, "TimerReengage", 1180, nil, nil, 6)
 mod:GroupSpells(71255, 71279) -- Choking Gas Bomb, Choking Gas Explosion
 
 local redOozeGUIDsCasts = {}
---local firstIntermisisonUnboundElapsed = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
 mod.vb.GooIcon = 7
---mod.vb.unboundCount = 0
 
 local function NextPhase(self)
 	self:SetStage(self.vb.phase + 0.5)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerUnstableExperimentCD:Start(30+7)
-		warnUnstableExperimentSoon:Schedule(25+7)
-		timerMalleableGooCD:Start(15)
-		--soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
-		timerChokingGasBombCD:Start(25)
-		--soundChokingGasSoon:Schedule(25-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
-		warnChokingGasBombSoon:Schedule(25-5)
+			if self:IsNormal() then
+			timerMalleableGooCD:Start(15)
+			timerUnstableExperimentCD:Start(30)
+			warnUnstableExperimentSoon:Schedule(25)
+			timerChokingGasBombCD:Start(29)
+			soundChokingGasSoon:Schedule(29-5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(29-5)
+			end
+				if self:IsHeroic() then
+				timerUnstableExperimentCD:Start(7) -- Seems to spawn every time after heroic transition
+				warnUnstableExperimentSoon:Schedule(7-5)
+				timerChokingGasBombCD:Start(7.5)
+				soundChokingGasSoon:Schedule(7.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+				warnChokingGasBombSoon:Schedule(7.5-5)
+				end
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
@@ -153,15 +158,13 @@ function mod:OnCombatStart(delay)
 	timerSlimePuddleCD:Start(10-delay)
 	timerUnstableExperimentCD:Start(30-delay)
 	warnUnstableExperimentSoon:Schedule(25-delay)
-	table.wipe(redOozeGUIDsCasts)
-	--firstIntermisisonUnboundElapsed = 0
-	self.vb.warned_preP2 = false
-	self.vb.warned_preP3 = false
-	self.vb.GooIcon = 7
-	--self.vb.unboundCount = 0
 	if self:IsHeroic() then
 		timerUnboundPlagueCD:Start(20-delay)
 	end
+	table.wipe(redOozeGUIDsCasts)
+	self.vb.warned_preP2 = false
+	self.vb.warned_preP3 = false
+	self.vb.GooIcon = 7
 end
 
 function mod:OnCombatEnd()
@@ -178,14 +181,18 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 71617 then				--Tear Gas (stun all on Normal phase) (Normal intermission)
 		self:SetStage(self.vb.phase + 0.5) -- ACTION_CHANGE_PHASE --
 		warnTearGas:Show()
-		local puddleElapsed = timerSlimePuddleCD:GetTime()
-		timerSlimePuddleCD:Update(puddleElapsed, 49) -- the next Normal Slime Puddle will always be [59.03:25N/59.03:10N]s after the previous Slime Puddle cast, so calculate elapsed time and update timer
-		if self.vb.phase == 2.5 then -- Usual timer delta is not reliable for Malleable Goo, it's a different logic, commented below
-			local gooElapsed = timerMalleableGooCD:GetTime() -- On second Normal intermission, the next Malleable Goo will always be [44:25N/44:10N]s after the previous Malleable Goo cast, so calculate elapsed time and update timer
-			timerMalleableGooCD:Update(gooElapsed, 44)
-			local chokingElapsed = timerChokingGasBombCD:GetTime() -- On second Normal intermission, the next Choking Gas Bomb will always be [59.28-61.10:25N/60.17:10N]s after the previous Choking Gas Bomb cast, so calculate elapsed time and update timer
-			timerChokingGasBombCD:Update(chokingElapsed, 49)
-			warnChokingGasBombSoon:Schedule(49-chokingElapsed-5)
+		warnUnstableExperimentSoon:Cancel()
+		warnChokingGasBombSoon:Cancel()
+		soundMalleableGooSoon:Cancel()
+		soundChokingGasSoon:Cancel()
+		if self.vb.phase == 2.5 then
+			local chokingElapsed = timerChokingGasBombCD:GetTime()
+			timerChokingGasBombCD:Update(chokingElapsed, 68)
+			soundChokingGasSoon:Schedule(68-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(68-chokingElapsed-5)
+			-- Update Malleable Goo timer
+			local gooElapsed = timerMalleableGooCD:GetTime()
+			timerMalleableGooCD:Update(gooElapsed, 56)
 		end
 	elseif args:IsSpellID(72851, 72852, 71621, 72850) then		--Create Concoction (phase2 change)
 		local castTime = self:IsHeroic() and 30 or 4
@@ -193,6 +200,8 @@ function mod:SPELL_CAST_START(args)
 		timerUnstableExperimentCD:Cancel()
 		timerNextPhase:Start(castTime)
 		self:Schedule(castTime, NextPhase, self)
+			local puddleElapsed = timerSlimePuddleCD:GetTime()
+			timerSlimePuddleCD:Update(puddleElapsed, 62)
 	elseif args:IsSpellID(70672, 72455, 72832, 72833) then	--Red Slime
 		timerGaseousBloatCast:Start(args.sourceGUID) -- account for multiple red oozes
 		if not redOozeGUIDsCasts[args.sourceGUID] then
@@ -209,6 +218,8 @@ function mod:SPELL_CAST_START(args)
 		timerUnstableExperimentCD:Cancel()
 		timerNextPhase:Start(castTime)
 		self:Schedule(castTime, NextPhase, self)
+			local puddleElapsed = timerSlimePuddleCD:GetTime()
+			timerSlimePuddleCD:Update(puddleElapsed, 65)
 	end
 end
 
@@ -228,7 +239,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerChokingGasBombExplosion:Start()
 		warnChokingGasBombSoon:Schedule(30.5)
 	elseif args:IsSpellID(72855, 72856, 70911) then -- Peste déliée
-		--self.vb.unboundCount = self.vb.unboundCount + 1
 		timerUnboundPlagueCD:Start()
 	elseif args:IsSpellID(72615, 72295, 74280, 74281) then -- Malleable Goo
 		DBM:AddMsg("Malleable Goo SPELL_CAST_SUCCESS detected, report needed for Way Of Elendil")
@@ -243,11 +253,6 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(72615) then
 		self:BossTargetScanner(36678, "MalleableGooTarget", 0.05, 6)
-		--specWarnMalleableGooCast:Show()
-		--timerMalleableGooCD:Start()
-		--soundSpecWarnMalleableGoo:Play("Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable.mp3")
-		--soundMalleableGooSoon:Cancel()
-		--soundMalleableGooSoon:Schedule(25.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")
 	end
 end
 
@@ -335,21 +340,15 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.GaseousBloatIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif args:IsSpellID(72855, 72856, 70911) then						-- Unbound Plague
+	elseif args:IsSpellID(72855, 72856, 70911) then		-- Unbound Plague
 		timerUnboundPlague:Stop(args.destName)
 		if self.Options.UnboundPlagueIcon then
 			self:SetIcon(args.destName, 0)
 		end
-	elseif spellId == 71615 and (self.vb.phase == 1.5 or self.vb.phase == 2.5) then	-- Tear Gas Removal. 
-		DBM:Debug("Re-engaged")
-		--	NextPhase(self)
 	elseif args:IsSpellID(70539, 72457, 72875, 72876) then
 		timerRegurgitatedOoze:Cancel(args.destName)
 	elseif spellId == 70542 then
 		timerMutatedSlash:Cancel(args.destName)
-	elseif (args:IsSpellID(70352, 74118) or args:IsSpellID(70353, 74119)) and (self.vb.phase == 1.5 or self.vb.phase == 2.5) then	-- Ooze Variable / Gas Variable Heroic 25
-		DBM:Debug("Variable phasing time marker")
---		NextPhase(self)
 	end
 end
 
@@ -361,13 +360,28 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.YellTransform2 or msg:find(L.YellTransform2) then
 		warnReengage:Schedule(8.5, L.name)
 		timerReengage:Start(8.5)
-	elseif msg == L.YellTransi or msg:find(L.YellTransi) then -- WAY OF ELENDIL , testing atm need more fights logs.
+	elseif msg == L.YellTransi or msg:find(L.YellTransi) then -- HEROIC TRANSITION ONLY
 		self:SetStage(self.vb.phase + 0.5)
+		warnUnstableExperimentSoon:Cancel()
+		warnChokingGasBombSoon:Cancel()
+		soundMalleableGooSoon:Cancel()
+		soundChokingGasSoon:Cancel()
+		if self.vb.phase == 1.5 then
+			timerMalleableGooCD:Start(32)
+		end
+		if self.vb.phase == 2.5 then
+			local chokingElapsed = timerChokingGasBombCD:GetTime()
+			timerChokingGasBombCD:Update(chokingElapsed, 68)
+			soundChokingGasSoon:Schedule(68-chokingElapsed-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\choking_soon.mp3")
+			warnChokingGasBombSoon:Schedule(68-chokingElapsed-5)
+			-- Update Malleable Goo timer
+			local gooElapsed = timerMalleableGooCD:GetTime()
+			timerMalleableGooCD:Update(gooElapsed, 56)
+		end
 	end
 end
 
 function mod:UNIT_HEALTH(uId)
-
 	if self.vb.phase == 1 and not self.vb.warned_preP2 and self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.83 then
 		self.vb.warned_preP2 = true
 		warnPhase2Soon:Show()
@@ -376,11 +390,6 @@ function mod:UNIT_HEALTH(uId)
 		self.vb.warned_preP3 = true
 		warnPhase3Soon:Show()
 		warnPhase3Soon:Play("nextphasesoon")
-	elseif self:GetUnitCreatureId(uId) == 36678 and UnitHealth(uId) / UnitHealthMax(uId) == 0.35 then
-		warnUnstableExperimentSoon:Cancel()
-		warnChokingGasBombSoon:Cancel()
-		soundMalleableGooSoon:Cancel()
-		soundChokingGasSoon:Cancel()
 	end
 end
 
