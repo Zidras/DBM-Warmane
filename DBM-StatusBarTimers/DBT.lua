@@ -334,115 +334,111 @@ do
 
 		return -- Invalid input
 	end
-function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, inlineIcon, keep, fade, countdown, countdownMax)
-	local varianceMaxTimer, varianceMinTimer, varianceDuration
-	varianceMaxTimer, varianceMinTimer, varianceDuration = parseTimer(timer) -- either normal number or with variance
-	if self.Options.VarianceEnabled then
-		timer = varianceMaxTimer
-	else
-		timer = varianceMinTimer or varianceMaxTimer -- varianceMaxTimer here could be just normal number timer, so check for varianceMinTimer, which only exists if it's a variant timer
-	end
-	if not timer or (self.numBars >= 15 and not isDummy) then
-		return
-	end
-	-- Most efficient place to block it, nil colorType instead of checking option every update
-	if not self.Options.ColorByType then
-		colorType = nil
-	end
-	local newBar = self:GetBar(id)
-	if newBar then -- Update an existing bar
-		newBar.lastUpdate = GetTime()
-		newBar.huge = huge or nil
-		newBar.paused = nil
-		newBar.minTimer = varianceMinTimer or nil
-		newBar.varianceDuration = varianceDuration or 0
-		newBar.hasVariance = varianceMinTimer and true or false
-		-- FIX: Reset totalTime BEFORE SetTimer to ensure proper variance handling
-		newBar.totalTime = timer
-		newBar:SetTimer(timer) -- This can kill the timer and the timer methods don't like dead timers
-		newBar.keep = keep -- keep this after SetTimer, not before, otherwise the bar will turn dead if Debug mode enabled and switching from var to non-var, since Update(0) will Cancel the timer
-		if newBar.dead then
+
+	function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, inlineIcon, keep, fade, countdown, countdownMax)
+		local varianceMaxTimer, varianceMinTimer, varianceDuration
+		varianceMaxTimer, varianceMinTimer, varianceDuration = parseTimer(timer) -- either normal number or with variance
+		if self.Options.VarianceEnabled then
+			timer = varianceMaxTimer
+		else
+			timer = varianceMinTimer or varianceMaxTimer -- varianceMaxTimer here could be just normal number timer, so check for varianceMinTimer, which only exists if it's a variant timer
+		end
+		if not timer or (self.numBars >= 15 and not isDummy) then
 			return
 		end
-		-- FIX: Ensure elapsed time is properly reset for variance timers
-		-- Reset elapsed before setting it to 0 to prevent percentage calculation issues
-		newBar.elapsed = 0
-		newBar:SetElapsed(0)
-		if newBar.dead then
-			return
+		-- Most efficient place to block it, nil colorType instead of checking option every update
+		if not self.Options.ColorByType then
+			colorType = nil
 		end
-		newBar:ApplyStyle()
-		newBar:SetText(id)
-		newBar:SetIcon(icon)
-	else -- Create a new bar
-		newBar = next(unusedBarObjects)
-		if newBar then
+		local newBar = self:GetBar(id)
+		if newBar then -- Update an existing bar
 			newBar.lastUpdate = GetTime()
-			unusedBarObjects[newBar] = nil
-			newBar.dead = nil -- Resurrected it :)
-			newBar.id = id
-			newBar.timer = timer
-			newBar.totalTime = timer
-			newBar.moving = nil
-			newBar.enlarged = nil
-			newBar.fadingIn = 0
-			newBar.small = small
-			newBar.color = color
-			newBar.colorType = colorType
-			newBar.flashing = nil
-			newBar.inlineIcon = inlineIcon
-			newBar.keep = keep
-			newBar.fade = fade
-			newBar.countdown = countdown
-			newBar.countdownMax = countdownMax
+			newBar.huge = huge or nil
+			newBar.paused = nil
 			newBar.minTimer = varianceMinTimer or nil
 			newBar.varianceDuration = varianceDuration or 0
 			newBar.hasVariance = varianceMinTimer and true or false
-		else -- Duplicate code ;(
-			local newFrame = createBarFrame(self)
-			newBar = setmetatable({
-				frame = newFrame,
-				id = id,
-				timer = timer,
-				totalTime = timer,
-				owner = self,
-				moving = nil,
-				enlarged = nil,
-				fadingIn = 0,
-				small = small,
-				color = color,
-				flashing = nil,
-				colorType = colorType,
-				inlineIcon = inlineIcon,
-				keep = keep,
-				fade = fade,
-				countdown = countdown,
-				countdownMax = countdownMax,
-				minTimer = varianceMinTimer or nil,
-				varianceDuration = varianceDuration or 0,
-				hasVariance = varianceMinTimer and true or false,
-				lastUpdate = GetTime()
-			}, mt)
-			newFrame.obj = newBar
+			newBar:SetTimer(timer) -- This can kill the timer and the timer methods don't like dead timers
+			newBar.keep = keep -- keep this after SetTimer, not before, otherwise the bar will turn dead if Debug mode enabled and switching from var to non-var, since Update(0) will Cancel the timer
+			if newBar.dead then
+				return
+			end
+			newBar:SetElapsed(0)
+			if newBar.dead then
+				return
+			end
+			newBar:ApplyStyle()
+			newBar:SetText(id)
+			newBar:SetIcon(icon)
+		else -- Create a new bar
+			newBar = next(unusedBarObjects)
+			if newBar then
+				newBar.lastUpdate = GetTime()
+				unusedBarObjects[newBar] = nil
+				newBar.dead = nil -- Resurrected it :)
+				newBar.id = id
+				newBar.timer = timer
+				newBar.totalTime = timer
+				newBar.moving = nil
+				newBar.enlarged = nil
+				newBar.fadingIn = 0
+				newBar.small = small
+				newBar.color = color
+				newBar.colorType = colorType
+				newBar.flashing = nil
+				newBar.inlineIcon = inlineIcon
+				newBar.keep = keep
+				newBar.fade = fade
+				newBar.countdown = countdown
+				newBar.countdownMax = countdownMax
+				newBar.minTimer = varianceMinTimer or nil
+				newBar.varianceDuration = varianceDuration or 0
+				newBar.hasVariance = varianceMinTimer and true or false
+			else -- Duplicate code ;(
+				local newFrame = createBarFrame(self)
+				newBar = setmetatable({
+					frame = newFrame,
+					id = id,
+					timer = timer,
+					totalTime = timer,
+					owner = self,
+					moving = nil,
+					enlarged = nil,
+					fadingIn = 0,
+					small = small,
+					color = color,
+					flashing = nil,
+					colorType = colorType,
+					inlineIcon = inlineIcon,
+					keep = keep,
+					fade = fade,
+					countdown = countdown,
+					countdownMax = countdownMax,
+					minTimer = varianceMinTimer or nil,
+					varianceDuration = varianceDuration or 0,
+					hasVariance = varianceMinTimer and true or false,
+					lastUpdate = GetTime()
+				}, mt)
+				newFrame.obj = newBar
+			end
+			self.numBars = self.numBars + 1
+			if ((colorType and colorType == 7 and self.Options.Bar7ForceLarge) or ((varianceMinTimer or timer) <= (self.Options.EnlargeBarTime or 11) or huge)) and self.Options.HugeBarsEnabled then -- Start enlarged
+				newBar.enlarged = true
+				newBar.huge = true
+				tinsert(largeBars, newBar)
+			else
+				newBar.huge = nil
+				tinsert(smallBars, newBar)
+			end
+			newBar:SetText(id)
+			newBar:SetIcon(icon)
+			self.bars[newBar] = true
+			self:UpdateBars(true)
+			newBar:ApplyStyle()
+			newBar:Update(0)
 		end
-		self.numBars = self.numBars + 1
-		if ((colorType and colorType == 7 and self.Options.Bar7ForceLarge) or ((varianceMinTimer or timer) <= (self.Options.EnlargeBarTime or 11) or huge)) and self.Options.HugeBarsEnabled then -- Start enlarged
-			newBar.enlarged = true
-			newBar.huge = true
-			tinsert(largeBars, newBar)
-		else
-			newBar.huge = nil
-			tinsert(smallBars, newBar)
-		end
-		newBar:SetText(id)
-		newBar:SetIcon(icon)
-		self.bars[newBar] = true
-		self:UpdateBars(true)
-		newBar:ApplyStyle()
-		newBar:Update(0)
+		return newBar
 	end
-	return newBar
-end
 end
 
 do
@@ -833,6 +829,7 @@ function barPrototype:SetIcon(icon)
 end
 
 function barPrototype:SetColor(color)
+	-- Fix to allow colors not require the table keys
 	if color[1] and not color.r then
 		color = {
 			r = color[1],
@@ -853,10 +850,8 @@ function barPrototype:SetVariance()
 	if DBT.Options.VarianceEnabled and self.hasVariance then
 		local varianceWidth
 		local isEnlarged = self.enlarged and not self.paused
-		local barOptions = DBT.Options
-
-		if isEnlarged and barOptions.BarStyle == "NoAnim" then
-			local enlargeTime = barOptions.EnlargeBarTime or 11
+		if isEnlarged and DBT.Options.BarStyle == "NoAnim" then
+			local enlargeTime = DBT.Options.EnlargeBarTime or 11
 			varianceWidth = self.frame:GetWidth() * (self.varianceDuration / enlargeTime)
 		else
 			varianceWidth = self.frame:GetWidth() * (self.varianceDuration / self.totalTime)
@@ -867,6 +862,8 @@ function barPrototype:SetVariance()
 		end
 
 		varianceTex:SetWidth(varianceWidth)
+
+		-- change SetPoints based on fillUpBars
 		local bar = _G[frame_name.."Bar"]
 		varianceTex:ClearAllPoints()
 		varianceTexBorder:ClearAllPoints()
@@ -988,20 +985,22 @@ function barPrototype:Update(elapsed)
 	if timerValue <= 0 and not (barOptions.KeepBars and self.keep) and not (varianceBehaviorNeg and self.varianceDuration and (timerValue < -self.varianceDuration)) then
 		return self:Cancel()
 	else
-if fillUpBars then
-    if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack then
-        bar:SetValue(1 - timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
-    else
-        bar:SetValue(1 - timerValue/totaltimeValue)
-    end
-else
-    if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack then
-        bar:SetValue(timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
-    else
-        bar:SetValue(timerValue/totaltimeValue)
-    end
-end
-timer:SetText(stringFromTimer(timerCorrectedNegative))
+		if fillUpBars then
+   			if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack then
+				-- Simple/NoAnim Bar mimics BW in creating a new bar on large bar anchor instead of just moving the small bar
+        		bar:SetValue(1 - timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
+    		else
+        		bar:SetValue(1 - timerValue/totaltimeValue)
+    		end
+		else
+   			if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack then
+			-- Simple/NoAnim Bar mimics BW in creating a new bar on large bar anchor instead of just moving the small bar
+        		bar:SetValue(timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
+    		else
+        		bar:SetValue(timerValue/totaltimeValue)
+    		end
+		end
+		timer:SetText(stringFromTimer(timerCorrectedNegative))
 	end
 	if isFadingIn and isFadingIn < 0.5 and currentStyle ~= "NoAnim" then
 		self.fadingIn = isFadingIn + elapsed
