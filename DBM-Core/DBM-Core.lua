@@ -3198,7 +3198,7 @@ do
 		end
 	end
 	-- Hook World Map close event
-	local function WorldMapFrameHook()
+	local function WorldMapFrameCloseHook()
 		if eventFired == "ZONE_CHANGED_NEW_AREA" then
 			DBM:ZONE_CHANGED_NEW_AREA()
 		elseif eventFired == "ZONE_CHANGED_INDOORS" then
@@ -3206,7 +3206,7 @@ do
 		end
 		eventFired = ""
 	end
-	WorldMapFrame:HookScript("OnHide", WorldMapFrameHook)
+	WorldMapFrame:HookScript("OnHide", WorldMapFrameCloseHook)
 
 	function DBM:ZONE_CHANGED_NEW_AREA()
 		if SetMapToCurrentZoneCheck("ZONE_CHANGED_NEW_AREA") == false then return end
