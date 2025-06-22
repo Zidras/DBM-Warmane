@@ -3223,7 +3223,7 @@ do
 			self:Debug("Scheduled FixCLEU from ZONE_CHANGED_NEW_AREA")
 		end
 	end
-	
+
 	function DBM:ZONE_CHANGED_INDOORS()
 		if SetMapToCurrentZoneCheck("ZONE_CHANGED_INDOORS") == false then return end
 		SetMapToCurrentZone()
