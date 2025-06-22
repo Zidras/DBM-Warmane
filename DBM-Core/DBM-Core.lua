@@ -3186,7 +3186,30 @@ do
 		end
 	end
 
+	-- Check so that when viewing the world map, the zone doesn't "yank" to the current one
+	local eventFired = ""
+	local function SetMapToCurrentZoneCheck(event)
+		if IsOutdoors() and WorldMapFrame:IsShown() then
+			-- Prioritise ZONE_CHANGED_NEW_AREA if both events got fired over the course of the world map being open
+			if eventFired ~= "ZONE_CHANGED_NEW_AREA" then
+				eventFired = event
+			end
+			return false
+		end
+	end
+	-- Hook World Map close event
+	local function WorldMapFrameHook()
+		if eventFired == "ZONE_CHANGED_NEW_AREA" then
+			DBM:ZONE_CHANGED_NEW_AREA()
+		elseif eventFired == "ZONE_CHANGED_INDOORS" then
+			DBM:ZONE_CHANGED_INDOORS()
+		end
+		eventFired = ""
+	end
+	WorldMapFrame:HookScript("OnHide", WorldMapFrameHook)
+
 	function DBM:ZONE_CHANGED_NEW_AREA()
+		if SetMapToCurrentZoneCheck("ZONE_CHANGED_NEW_AREA") == false then return end
 		SetMapToCurrentZone()
 		timerRequestInProgress = false
 		self:Debug("ZONE_CHANGED_NEW_AREA fired on zoneID: " .. GetCurrentMapAreaID())
@@ -3200,8 +3223,9 @@ do
 			self:Debug("Scheduled FixCLEU from ZONE_CHANGED_NEW_AREA")
 		end
 	end
-
+	
 	function DBM:ZONE_CHANGED_INDOORS()
+		if SetMapToCurrentZoneCheck("ZONE_CHANGED_INDOORS") == false then return end
 		SetMapToCurrentZone()
 		self:Debug("Indoor/SubZone changed on zoneID: " .. GetCurrentMapAreaID() .. " and subZone: " .. GetSubZoneText())
 	end
