@@ -3190,7 +3190,7 @@ do
 	local eventFired = ""
 	local function SetMapToCurrentZoneCheck(event)
 		if IsOutdoors() and WorldMapFrame:IsShown() then
-			-- Prioritise ZONE_CHANGED_NEW_AREA if both events got fired over the course of the world map being open
+			-- Prioritize ZONE_CHANGED_NEW_AREA if both events got fired over the course of the world map being open
 			if eventFired ~= "ZONE_CHANGED_NEW_AREA" then
 				eventFired = event
 			end
