@@ -185,7 +185,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	StopDPS					= "Show warning to stop DPS during phase 3 for corporeality",
+	StopDPS					= "Show warning to stop DPS during phase 3 for corporeality (Warning only shows if you are dps)",
 	TwilightCutterCast		= "Show warning when $spell:74769 is being cast",
 	AnnounceAlternatePhase	= "Show warnings/timers for phase you aren't in as well",
 	SetIconOnConsumption	= "Set icons on $spell:74562 or $spell:74792 targets",

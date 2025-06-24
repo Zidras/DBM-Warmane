@@ -183,7 +183,7 @@ L:SetWarningLocalization({
 })
 
 L:SetOptionLocalization({
-	StopDPS					= "Afficher une alerte pour arrêter le DPS sur Halion pendant la phase 3 pour la corporéité",
+	StopDPS					= "Afficher une alerte pour arrêter le DPS sur Halion pendant la phase 3 pour la corporéité (L'alerte ne s'affiche que pour les dps)",
 	TwilightCutterCast		= "Afficher une alerte lorsque $spell:77844 est en cours",
 	AnnounceAlternatePhase	= "Montre une alerte/timer pour la phase dans laquelle vous n'êtes pas", 
 	SetIconOnConsumption	= "Placer des icones sur les cibles de $spell:74562 ou $spell:74792"

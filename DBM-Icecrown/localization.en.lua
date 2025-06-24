@@ -94,7 +94,8 @@ L:SetMiscLocalization({
 	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
 	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!",
 	KillAlliance	= "Don't say I didn't warn ya, scoundrels! Onward, brothers and sisters!",
-	KillHorde		= "The Alliance falter. Onward to the Lich King!"
+	KillHorde		= "The Alliance falter. Onward to the Lich King!",
+	KillHorde2		= "Kor'kron, move out! Champions, watch your backs. The Scourge have been..."
 })
 
 -----------------------------
@@ -126,10 +127,15 @@ L:SetGeneralLocalization({
 	name = "Festergut"
 })
 
+L:SetWarningLocalization({
+	Stack3			= "%s %s on %s ! - Use defensive spell !"
+})
+
 L:SetOptionLocalization({
 	AnnounceSporeIcons	= "Announce icons for $spell:69279 targets to raid chat<br/>(requires raid leader)",
 	AchievementCheck	= "Announce 'Flu Shot Shortage' achievement failure to raid<br/>(requires promoted status)",
-	RemoveDI			= "Remove $spell:19753 to remove stacks of $spell:72219."
+	RemoveDI			= "Remove $spell:19753 to remove stacks of $spell:72219.",
+	Stack3				= "Show special warning when the boss have 3 stacks of $spell:69166 (Tank)"
 })
 
 L:SetMiscLocalization({

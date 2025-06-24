@@ -27,7 +27,7 @@ local yellGasSpore			= mod:NewYellMe(69279)
 local specWarnVileGas		= mod:NewSpecialWarningYou(69240, nil, nil, nil, 1, 2)
 local yellVileGas			= mod:NewYellMe(69240)
 local specWarnGastricBloat	= mod:NewSpecialWarningStack(72219, nil, 9, nil, nil, 1, 6)
-local specWarnInhaled3		= mod:NewSpecialWarningStack(69166, "Tank", 3, nil, nil, 1, 2)
+local specWarnInhaled3		= mod:NewSpecialWarning("Stack3", "Tank", nil, nil, nil, nil, nil, nil, 69166)
 
 local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279, nil, nil, nil, 3)
 local timerVileGas			= mod:NewBuffFadesTimer(6, 69240, nil, "Ranged", nil, 3)
@@ -135,7 +135,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		local amount = args.amount or 1
 		warnInhaledBlight:Show(args.destName, amount)
 		if amount >= 3 then
-			specWarnInhaled3:Show(amount)
+			specWarnInhaled3:Show(amount, args.spellName, args.sourceName)
 			specWarnInhaled3:Play("defensive")
 			timerPungentBlight:Start()
 			timerInhaledBlight:Cancel() -- added due to the "keep" arg

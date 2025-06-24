@@ -42,16 +42,16 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	Submerged		= "Afficher l'alerte lorsque Ahune est immergé",
-	Emerged			= "Afficher l'alerter lorsque Ahune a émergé",
-	specWarnAttack	= "Afficher une alerter spécial lorsque Ahune devient vulnérable",
+	Submerged		= "Afficher une alerte lorsque Ahune est immergé",
+	Emerged			= "Afficher une alerte lorsque Ahune a émergé",
+	specWarnAttack	= "Afficher une alerte spécial lorsque Ahune devient vulnérable",
 	SubmergeTimer	= "Afficher le timer pour l'immersion",
 	EmergeTimer		= "Afficher le timer pour l'émersion",
 	TimerCombat		= "Afficher le timer du début du combat"
 })
 
 L:SetMiscLocalization({
-	Pull			= "Le glaçon a fondu!"
+	Pull			= "La pierre de glace a fondu !"
 })
 
 -------------------
