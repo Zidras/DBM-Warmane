@@ -21,7 +21,7 @@ local specWarnNova			= mod:NewSpecialWarningRun(65279, nil, nil, nil, 4, 2)
 local timerNova				= mod:NewCastTimer(65279, nil, nil, nil, 2)
 local timerNovaCD			= mod:NewCDTimer(40, 65279, nil, nil, nil, 2)--Varies, 45-60seconds in between nova's. FM reported possible 5s less
 local timerOvercharge		= mod:NewNextTimer(45, 64218, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
-local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 64218)
+local timerMobOvercharge	= mod:NewTimer(19, "timerMobOvercharge", 64217, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 64218)
 
 local timerEmalonEnrage		= mod:NewBerserkTimer(360, nil, "EmalonEnrage")
 
@@ -36,7 +36,7 @@ end
 
 function mod:OnCombatStart(delay)
 	timerOvercharge:Start(-delay)
-	timerNovaCD:Start(20-delay)
+	timerNovaCD:Start(-delay)
 	timerEmalonEnrage:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
@@ -57,7 +57,7 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.RangeFrame then
 			-- On 10m you receive no damage outside 20 yards,
 			-- on 25m you receive damage either way but 20 yards from hitbox should be safe
-			DBM.RangeCheck:SetBossRange(20, self:GetBossUnitByCreatureId(33993))
+			DBM.RangeCheck:SetBossRange(15, self:GetBossUnitByCreatureId(33993))
 			-- 5s cast
 			self:Schedule(5.5, ResetRange, self)
 		end

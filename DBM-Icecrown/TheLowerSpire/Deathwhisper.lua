@@ -80,7 +80,7 @@ local specWarnVengefulShadeOnYou	= mod:NewSpecialWarningRun(71426, nil, nil, nil
 
 local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true)
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
-local timerFrostboltVolleyCD		= mod:NewCDTimer(14, 72905, nil, nil, nil, 2)
+local timerFrostboltVolleyCD		= mod:NewCDTimer(20, 72905, nil, nil, nil, 2)
 local timerTouchInsignificance		= mod:NewTargetTimer(30, 71204, nil, "Tank|Healer", nil, 5)
 local timerTouchInsignificanceCD	= mod:NewCDTimer(7, 71204, nil, "Tank|Healer", nil, 5, nil, nil, true)
 
@@ -454,9 +454,6 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		if not self:IsDifficulty("normal10") then
-			timerDominateMindCD:Restart(30)
-		end
 		timerSummonSpiritCD:Start()
 		timerTouchInsignificanceCD:Start(7)
 		timerAdds:Cancel()
@@ -512,4 +509,3 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnReanimating:Show()
 	end
 end
-

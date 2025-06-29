@@ -103,8 +103,8 @@ local specWarnSoulreaperOtr			= mod:NewSpecialWarningTaunt(69409, false, nil, ni
 local specWarnValkyrLow				= mod:NewSpecialWarning("SpecWarnValkyrLow", nil, nil, nil, 1, 2, nil, 71844, 69037)
 
 local timerSoulreaper				= mod:NewTargetTimer(5.1, 69409, nil, "Tank|Healer|TargetedCooldown")
-local timerSoulreaperCD				= mod:NewCDCountTimer(30.5, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerDefileCD					= mod:NewCDCountTimer(32, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true, 1, 4)
+local timerSoulreaperCD				= mod:NewCDCountTimer(33.1, 69409, nil, "Tank|Healer|TargetedCooldown", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerDefileCD					= mod:NewCDCountTimer(32.5, 72762, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true, 1, 4)
 local timerSummonValkyr				= mod:NewCDCountTimer(45.2, 69037, nil, nil, nil, 1, 71844, DBM_COMMON_L.DAMAGE_ICON, true, 2, 3)
 
 local soundDefileOnYou				= mod:NewSoundYou(72762)
@@ -214,8 +214,8 @@ local function NextPhase(self, delay)
 		timerSoulreaperCD:Start(40, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(40-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(37.5, self.vb.defileCount+1)
-		timerInfestCD:Start(12.2, self.vb.infestCount+1)
-		soundInfestSoon:Schedule(12.2-2, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
+		timerInfestCD:Start(13.9, self.vb.infestCount+1)
+		soundInfestSoon:Schedule(13.9-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\infestSoon.mp3")
 		warnDefileSoon:Schedule(33, self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(33, "scatter")
 		self:RegisterShortTermEvents(
@@ -225,26 +225,26 @@ local function NextPhase(self, delay)
 	elseif self.vb.phase == 3 then
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
-		timerVileSpirit:Start(17)
+		timerVileSpirit:Start(20)
 		timerSoulreaperCD:Start(37.5, self.vb.soulReaperCount+1)
 		soundSoulReaperSoon:Schedule(37.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
 		timerDefileCD:Start(32+5, self.vb.defileCount+1) -- TESTING RE CALIBRATING FOR STARTING P3
 		warnDefileSoon:Schedule(32--[[-5]], self.vb.defileCount+1)
 		warnDefileSoon:ScheduleVoice(32--[[-5]], "scatter")
-		timerHarvestSoulCD:Start(13.6)
+		timerHarvestSoulCD:Start(11.1)
 	end
 end
 
 local function leftFrostmourne(self)
 	DBM:Debug("Left Frostmourne")
 	DBM:AddSpecialEventToTranscriptorLog("Left Frostmourne")
-	timerHarvestSoulCD:Start(58.72)
+	timerHarvestSoulCD:Start(58)
 	timerDefileCD:Start(1.5, self.vb.defileCount+1) -- As soon as the group leaves FM
 	warnDefileSoon:Show(self.vb.defileCount+1)
 	warnDefileSoon:Play("scatter")
-	timerSoulreaperCD:Start(3.5, self.vb.soulReaperCount+1)
-	soundSoulReaperSoon:Schedule(3.5-2.5, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
-	timerVileSpirit:Start(7.81)
+	timerSoulreaperCD:Start(9.5, self.vb.soulReaperCount+1)
+	soundSoulReaperSoon:Schedule(9.5-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\soulreaperSoon.mp3")
+	timerVileSpirit:Start(15.5)
 end
 
 local function RestoreWipeTime(self)
@@ -445,6 +445,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnSoulreaperOtr:Play("tauntboss")
 		end
 	elseif spellId == 69200 then -- Raging Spirit
+		--timerRagingSpiritCD:Start(nil, self.vb.ragingSpiritCount)
 		self.vb.ragingSpiritCount = self.vb.ragingSpiritCount + 1
 		timerSoulShriekCD:Start(17, args.destName)
 		if args:IsPlayer() then
@@ -453,13 +454,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			warnRagingSpirit:Show(args.destName)
 		end
-		if self.vb.phase == 1.5 then
-			timerRagingSpiritCD:Start(nil, self.vb.ragingSpiritCount) 
-		else
-			timerRagingSpiritCD:Start(17.0, self.vb.ragingSpiritCount) 
-		end
 		if self.Options.RagingSpiritIcon then
 			self:SetIcon(args.destName, 7, 5)
+		end
+		if not ((self.vb.phase == 1.5 and self.vb.ragingSpiritCount >= 4) or (self.vb.phase == 2.5 and self.vb.ragingSpiritCount >= 5)) then
+			timerRagingSpiritCD:Start(nil, self.vb.ragingSpiritCount)
 		end
 	elseif args:IsSpellID(68980, 74325, 74326, 74327) then -- Harvest Soul
 		timerHarvestSoul:Start(args.destName)

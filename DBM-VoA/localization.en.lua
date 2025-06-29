@@ -64,7 +64,3 @@ L = DBM:GetModLocalization("Toravon")
 L:SetGeneralLocalization({
 	name = "Toravon the Ice Watcher"
 })
-
-L:SetTimerLocalization({
-	ToravonEnrage	= "Toravon berserk"
-})

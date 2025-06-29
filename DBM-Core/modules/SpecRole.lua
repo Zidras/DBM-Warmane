@@ -171,7 +171,7 @@ function DBMExtraGlobal:rebuildSpecTable()
 			["SpellCaster"] = true,
 		},
 		[250] = {	--Blood DK
-			["Tank"] = true,
+			["Tank"] = IsSpellKnown(48982),
 			["Melee"] = true,
 			["Physical"] = true,
 			["HasInterrupt"] = true,
@@ -184,6 +184,16 @@ function DBMExtraGlobal:rebuildSpecTable()
 			["Physical"] = true,
 			["HasInterrupt"] = true,
 			["WeaponDependent"] = true,
+			["Tank"] = IsSpellKnown(50385),
+		},
+		[252] = {	--Unholy DK
+			["Dps"] = true,
+			["Melee"] = true,
+			["MeleeDps"] = true,
+			["Physical"] = true,
+			["HasInterrupt"] = true,
+			["WeaponDependent"] = true,
+			["Tank"] = IsSpellKnown(51052),
 		},
 		[1455] = {	--Initial DK (used in exiles reach tutorial mode). Treated as hybrid. Utility disabled because that'd require checking tutorial progress
 			["Tank"] = true,
@@ -356,7 +366,7 @@ function DBMExtraGlobal:rebuildSpecTable()
 	specRoleTable[63] = specRoleTable[62]--Frost Mage same as arcane
 	specRoleTable[64] = specRoleTable[62]--Fire Mage same as arcane
 	specRoleTable[72] = specRoleTable[71]--Fury Warrior same as Arms
-	specRoleTable[252] = specRoleTable[251]--Unholy DK same as frost
+--	specRoleTable[252] = specRoleTable[251]--Unholy DK same as frost
 	specRoleTable[257] = specRoleTable[256]--Holy Priest same as disc
 	specRoleTable[260] = specRoleTable[259]--Combat Rogue same as Assassination
 	specRoleTable[261] = specRoleTable[259]--Subtlety Rogue same as Assassination

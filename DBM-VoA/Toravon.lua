@@ -22,15 +22,12 @@ local warnFrostbite			= mod:NewStackAnnounce(72004, 2, nil, "Tank|Healer")
 local timerFrostbiteCD		= mod:NewCDTimer(4, 72004, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON, true)
 local timerFrostbite		= mod:NewTargetTimer(20, 72004, nil, "Tank|Healer", nil, 5)
 local timerWhiteout			= mod:NewNextTimer(38, 72034, nil, nil, nil, 2)
-local timerNextOrb			= mod:NewNextTimer(38, 72091, nil, nil, nil, 1)
-
---local timerToravonEnrage	= mod:NewTimer(300, "ToravonEnrage", 26662)
+local timerNextOrb			= mod:NewNextTimer(32, 72091, nil, nil, nil, 1)
 
 function mod:OnCombatStart(delay)
-	timerNextOrb:Start(10.8-delay)
-	timerWhiteout:Start(12.8-delay)
+	timerNextOrb:Start(11.5-delay)
+	timerWhiteout:Start(24.5-delay)
 	timerFrostbiteCD:Start(0.4-delay)
---	timerToravonEnrage:Start(-delay)
 end
 
 function mod:SPELL_CAST_START(args)

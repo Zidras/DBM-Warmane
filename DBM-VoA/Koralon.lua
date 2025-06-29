@@ -19,7 +19,7 @@ local warnBurningFury		= mod:NewStackAnnounce(66721, 2, nil, "Tank|Healer")
 
 local specWarnCinder		= mod:NewSpecialWarningMove(66684, nil, nil, nil, 1, 2)
 
-local timerNextMeteor		= mod:NewNextTimer(47, 66725, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerNextMeteor		= mod:NewNextTimer(45, 66725, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextBurningFury	= mod:NewNextTimer(20, 66721, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON)
 local timerBreath			= mod:NewBuffActiveTimer(4.5, 66665, nil, nil, nil, 2)
 local timerBreathCD			= mod:NewCDTimer(45, 66665, nil, nil, nil, 2)
@@ -28,10 +28,10 @@ local timerKoralonEnrage	= mod:NewBerserkTimer(300, nil, "KoralonEnrage")
 
 function mod:OnCombatStart(delay)
 	timerKoralonEnrage:Start(-delay)
-	timerNextMeteor:Start(44.9-delay)
-	warnMeteorSoon:Schedule(44.9-5-delay)
-	timerBreathCD:Start(12.4-delay)
-	timerNextBurningFury:Start()
+	timerNextMeteor:Start(75-delay)
+	warnMeteorSoon:Schedule(75-5-delay)
+	timerBreathCD:Start(14.9-delay)
+	timerNextBurningFury:Start(-delay)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -42,7 +42,7 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(66725, 68161) then
 		warnMeteor:Show()
 		timerNextMeteor:Start()
-		warnMeteorSoon:Schedule(42)
+		warnMeteorSoon:Schedule(40)
 	end
 end
 

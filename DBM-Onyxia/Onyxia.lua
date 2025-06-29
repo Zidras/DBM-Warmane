@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_DAMAGE 68867 69286",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_DIED",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH"
 )
 
 -- General
