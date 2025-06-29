@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 72272 72273",
 	"SPELL_AURA_REMOVED 69674 71224 73022 73023",
 	"CHAT_MSG_MONSTER_YELL"
-) 
+)
 
 local warnSlimeSpray			= mod:NewSpellAnnounce(69508, 2)
 local warnMutatedInfection		= mod:NewTargetNoFilterAnnounce(69674, 4)
@@ -53,7 +53,7 @@ mod.vb.InfectionIcon = 1
 		timerWallSlime:Start()
 		self:Schedule(25, WallSlime, self)
 	end
-end 
+end
 
 function mod:OnCombatStart(delay)
 	timerWallSlime:Start(4.5-delay) -- Adjust from 25 to 9 to have a correct timer from the start
@@ -151,7 +151,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:SPELL_AURA_REMOVED(args) 
+function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(69674, 71224, 73022, 73023) then
 		timerMutatedInfection:Cancel(args.destName)
 		warnOozeSpawn:Show()

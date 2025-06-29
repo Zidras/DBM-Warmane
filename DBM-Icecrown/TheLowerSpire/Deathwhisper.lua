@@ -76,7 +76,6 @@ local specWarnCurseTorpor			= mod:NewSpecialWarningYou(71237, nil, nil, nil, 1, 
 local specWarnTouchInsignificance	= mod:NewSpecialWarningStack(71204, nil, 3, nil, nil, 1, 6)
 local specWarnFrostbolt				= mod:NewSpecialWarningInterrupt(72007, "HasInterrupt", nil, 2, 1, 2)
 local specWarnVengefulShade			= mod:NewSpecialWarning("SpecWarnVengefulShade", true, nil, nil, nil, 1, 2, nil, 71426, 71426)
-local specWarnVengefulShadeOnYou	= mod:NewSpecialWarningRun(71426, nil, nil, nil, 4, 2)
 
 local timerSummonSpiritCD			= mod:NewCDTimer(11, 71426, nil, true, nil, 3, nil, nil, true)
 local timerFrostboltCast			= mod:NewCastTimer(2, 72007, nil, "HasInterrupt")
@@ -89,7 +88,6 @@ local soundWarnSpirit				= mod:NewSound(71426)
 local dominateMindTargets = {}
 mod.vb.dominateMindIcon = 1
 local shieldName = DBM:GetSpellInfo(70842)
-local summonSpiritName = DBM:GetSpellInfo(71426)
 
 local playerClass = select(2, UnitClass("player"))
 local isHunter = playerClass == "HUNTER"
@@ -306,12 +304,6 @@ do	-- add the additional Shield Bar
 	end
 end
 
-local function unregisterShortTermEvents(self) -- only used for the scheduling below
-	self:UnregisterShortTermEvents()
-end
-
-
-
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	if self.Options.ShieldHealthFrame then
@@ -345,11 +337,9 @@ function mod:OnCombatEnd()
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
-	self:UnregisterShortTermEvents()
 end
 
 function mod:SPELL_CAST_START(args)
-	local spellId = args.spellId
 	if args:IsSpellID(71420, 72007, 72501, 72502) and self:CheckInterruptFilter(args.sourceGUID) then
 		specWarnFrostbolt:Show(args.sourceName)
 		specWarnFrostbolt:Play("kickcast")
@@ -423,7 +413,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnTouchInsignificance:Show(amount)
 			specWarnTouchInsignificance:Play("stackhigh")
 		else
-			warnTouchInsignificance:Show(args.destName, amount)	
+			warnTouchInsignificance:Show(args.destName, amount)
 		end
 		elseif spellId == 70900 then
 		warnDarkTransformation:Show()

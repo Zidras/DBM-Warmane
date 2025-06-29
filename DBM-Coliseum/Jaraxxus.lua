@@ -73,7 +73,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
 	self.vb.fleshCount = 0
-	self.vb.toucherIcon = 1 
+	self.vb.toucherIcon = 1
 	timerPortalCD:Start(20-delay)
 	warnPortalSoon:Schedule(15-delay)
 	timerVolcanoCD:Start(80-delay)
@@ -141,7 +141,7 @@ do
 		return lines, sortedLines
 	end
 end
- 
+
 
 
 function mod:SPELL_CAST_START(args)
@@ -230,7 +230,7 @@ function mod:SPELL_AURA_APPLIED(args)
                 self.vb.toucherIcon = 1
             end
         end
-	
+
 	end
 end
 

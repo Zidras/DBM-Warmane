@@ -58,7 +58,7 @@ local specWarnSoulConsumption		= mod:NewSpecialWarningRun(74792, nil, nil, nil, 
 local yellSoulConsumption			= mod:NewYellMe(74792)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(74769, nil, nil, nil, 3, 2)
 
-local timerSoulConsumptionCD		= mod:NewNextTimer(25.5, 74792, nil, nil, nil, 3) 
+local timerSoulConsumptionCD		= mod:NewNextTimer(25.5, 74792, nil, nil, nil, 3)
 --local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerTwilightCutter			= mod:NewBuffActiveTimer(9, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
@@ -99,9 +99,9 @@ function mod:OnCombatStart(delay)
 	shadowBreathCLEU = false
 	previousCorporeality = 0
 	berserkTimer:Start(-delay)
-	timerMeteorCD:Start(18-delay) 
-	timerFieryCombustionCD:Start(15-delay) 
-	timerFieryBreathCD:Start(10-delay) 
+	timerMeteorCD:Start(18-delay)
+	timerFieryCombustionCD:Start(15-delay)
+	timerFieryBreathCD:Start(10-delay)
 	timerTailLashCD:Start(-delay)
 end
 
@@ -302,7 +302,7 @@ end
 
 function mod:OnSync(msg, target)
 	if msg == "TwilightCutter" then
-		if self.Options.AnnounceAlternatePhase then 
+		if self.Options.AnnounceAlternatePhase then
 			timerTwilightCutterCD:Cancel()
 			warningTwilightCutter:Schedule(25)
 			timerTwilightCutter:Schedule(0)--Delay it since it happens 5 seconds after the emote // WOE = Pas de délai sur l'emote
@@ -351,7 +351,7 @@ function mod:OnSync(msg, target)
 		timerFieryCombustionCD:Cancel()
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerShadowBreathCD:Start() 
+		timerShadowBreathCD:Start()
 		timerSoulConsumptionCD:Start(22.8)
 		timerTwilightCutterCD:Start(40)
 		warningTwilightCutter:Schedule(35)
@@ -361,8 +361,8 @@ function mod:OnSync(msg, target)
 		self:SetStage(3)
 		warnPhase3:Show()
 		warnPhase3:Play("pthree")
-		timerMeteorCD:Start(23.2) 
-		timerFieryCombustionCD:Start(17.8) 
+		timerMeteorCD:Start(23.2)
+		timerFieryCombustionCD:Start(17.8)
 		self:Schedule(20, clearKeepTimers, self)
 	elseif msg == "Phase3soon" and not self.vb.warned_preP3 then
 		self.vb.warned_preP3 = true

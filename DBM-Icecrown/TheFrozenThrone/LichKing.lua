@@ -310,7 +310,7 @@ function mod:TrapTarget(targetname, uId)
 		specWarnTrapNear:Show(targetname)
 		specWarnTrapNear:Play("watchstep")
 	end
-	warnTrapCast:Show(targetname, DBM.RangeCheck:GetDistance(uId)) -- Always show announcement, regardless of distance 
+	warnTrapCast:Show(targetname, DBM.RangeCheck:GetDistance(uId)) -- Always show announcement, regardless of distance
 	if self.Options.TrapArrow then
 		local x, y = GetPlayerMapPosition(uId)
 			if x == 0 and y == 0 then
@@ -679,7 +679,7 @@ function mod:UNIT_TARGET_UNFILTERED(uId)
 	end
 end]]
 
-function mod:OnSync(msg, target)
+function mod:OnSync(msg)
 	if msg == "CombatStart" then
 		timerCombatStart:Start()
 	--elseif msg == "SphereTarget" then

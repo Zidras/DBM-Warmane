@@ -35,7 +35,7 @@ local warnTargetSwitch			= mod:NewAnnounce("WarnTargetSwitch", 3, 70952)
 local warnTargetSwitchSoon		= mod:NewAnnounce("WarnTargetSwitchSoon", 2, 70952)
 
 local timerCombatStart			= mod:NewRPTimer(14) -- Roleplay for first pull
-local timerTargetSwitch			= mod:NewTimer(46.5, "TimerTargetSwitch", 70952) 
+local timerTargetSwitch			= mod:NewTimer(46.5, "TimerTargetSwitch", 70952)
 local berserkTimer				= mod:NewBerserkTimer(600)
 
 mod:AddSetIconOption("ActivePrinceIcon", nil, false, 5, {8})

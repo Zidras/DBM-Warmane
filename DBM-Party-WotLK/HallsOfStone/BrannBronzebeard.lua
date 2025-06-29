@@ -43,4 +43,3 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId, spellName)
 end
 
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
-  

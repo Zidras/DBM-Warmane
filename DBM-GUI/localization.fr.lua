@@ -503,7 +503,7 @@ L.SpamSpecRoleSwitch				= "Filtrer les alertes 'changement de cible' &amp; 'adds
 L.SpamSpecRoleGTFO					= "Filtrer les alertes 'sauvez-vous' (Pas de texte ni de son)"
 
 -- Panel: Blizzard Features
-L.Panel_HideBlizzard				= "Fonctionnalités Blizzard" 
+L.Panel_HideBlizzard				= "Fonctionnalités Blizzard"
 L.Area_HideBlizzard					= "Options de désactivation et de masquage Blizzard"
 L.HideBossEmoteFrame				= "Masquer les emotes des boss pendant les combats de boss"
 L.SpamBlockRaidWarning				= "Filtrer les annonces venant d'autres boss mods"

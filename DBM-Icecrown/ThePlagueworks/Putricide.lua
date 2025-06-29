@@ -1,8 +1,6 @@
 local mod	= DBM:NewMod("Putricide", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-local select = select
-
 mod:SetRevision("20250618173905")
 mod:SetCreatureID(36678)
 mod:SetUsedIcons(1, 2, 3, 4 , 7 , 8)
@@ -50,13 +48,13 @@ local yellUnboundPlague				= mod:NewYellMe(70911, false)	-- Heroic Ability, disa
 local timerGaseousBloat				= mod:NewTargetTimer(20, 70672, nil, nil, nil, 3)			-- Duration of debuff
 local timerGaseousBloatCast			= mod:NewCastTimer(3, 70672, nil, nil, nil, 3)				-- Cast duration
 local timerSlimePuddleCD			= mod:NewCDTimer(35, 70341, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)		-- Approx
-local timerUnstableExperimentCD		= mod:NewCDTimer(37.5, 70351, nil, nil, nil, 1, nil, DBM_COMMON_L.DEADLY_ICON, true) 
+local timerUnstableExperimentCD		= mod:NewCDTimer(37.5, 70351, nil, nil, nil, 1, nil, DBM_COMMON_L.DEADLY_ICON, true)
 local timerUnboundPlagueCD			= mod:NewNextTimer(90, 70911, nil, nil, nil, 3, nil, DBM_COMMON_L.HEROIC_ICON)
 local timerUnboundPlague			= mod:NewBuffActiveTimer(12, 70911, nil, nil, nil, 3)		-- Heroic Ability: we can't keep the debuff 60 seconds, so we have to switch at 12-15 seconds. Otherwise the debuff does to much damage!
 
 local soundSlimePuddle				= mod:NewSound(70341)
 
-local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
+--local specWarnMalleableGoo			= mod:NewSpecialWarningYou(72295, nil, nil, nil, 1, 2)
 local yellMalleableGoo				= mod:NewYellMe(72295)
 
 mod:AddSetIconOption("OozeAdhesiveIcon", 70447, true, 0, {4})--green icon for green ooze
@@ -73,9 +71,9 @@ local warnChokingGasBomb			= mod:NewSpellAnnounce(71255, 3, nil, "Melee")		-- Ph
 local specWarnChokingGasBomb		= mod:NewSpecialWarningMove(71255, "Melee", nil, nil, 1, 2)
 local specWarnMalleableGooCast		= mod:NewSpecialWarningSpell(72295, "Ranged", nil, nil, 2, 2)
 
-local timerChokingGasBombCD			= mod:NewCDTimer(35.2, 71255, nil, nil, nil, 3, nil, nil, true) 
+local timerChokingGasBombCD			= mod:NewCDTimer(35.2, 71255, nil, nil, nil, 3, nil, nil, true)
 local timerChokingGasBombExplosion	= mod:NewCastTimer(11.5, 71279, nil, nil, nil, 2)
-local timerMalleableGooCD			= mod:NewNextTimer(25.5, 72295, nil, nil, nil, 3) 
+local timerMalleableGooCD			= mod:NewNextTimer(25.5, 72295, nil, nil, nil, 3)
 
 local soundSpecWarnMalleableGoo		= mod:NewSound(72295, nil, "Ranged")
 local soundMalleableGooSoon			= mod:NewSoundSoon(72295, nil, "Ranged")
@@ -137,7 +135,7 @@ local function NextPhase(self)
 	end
 end
 
-function mod:MalleableGooTarget(targetname, uId)
+function mod:MalleableGooTarget(targetname)
     if not targetname then return end
     if self.Options.MalleableGooIcon then
         self:SetIcon(targetname, self.vb.GooIcon, 10)
@@ -362,6 +360,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerReengage:Start(8.5)
 	elseif msg == L.YellTransi or msg:find(L.YellTransi) then -- HEROIC TRANSITION ONLY
 		self:SetStage(self.vb.phase + 0.5)
+		warnVolatileExperiment:Show()
 		warnUnstableExperimentSoon:Cancel()
 		warnChokingGasBombSoon:Cancel()
 		soundMalleableGooSoon:Cancel()

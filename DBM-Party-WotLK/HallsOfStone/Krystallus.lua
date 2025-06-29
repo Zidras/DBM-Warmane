@@ -14,7 +14,7 @@ local warningShatter	= mod:NewSpellAnnounce(61546, 3)
 
 local timerShatterCD	= mod:NewCDTimer(16, 61546, nil, nil, nil, 2)
 
-function mod:OnCombatStart(delay)
+function mod:OnCombatStart()
 		timerShatterCD:Start(40)
 end
 

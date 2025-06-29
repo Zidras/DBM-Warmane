@@ -547,7 +547,7 @@ L.AUTO_TIMER_OPTIONS = {
 
 L.AUTO_ICONS_OPTION_TARGETS				= "Placer des icônes sur les cibles de $spell:%s"
 L.AUTO_ICONS_OPTION_TARGETS_TANK_A		= "Placer des icônes sur les cibles de $spell:%s avec priorité tank > mêlée > distant et repli alphabétique"
-L.AUTO_ICONS_OPTION_TARGETS_TANK_R		= "Placer des icônes sur les cibles de $spell:%s avec priorité tank > mêlée > distant et repli sur la liste de raid" 
+L.AUTO_ICONS_OPTION_TARGETS_TANK_R		= "Placer des icônes sur les cibles de $spell:%s avec priorité tank > mêlée > distant et repli sur la liste de raid"
 L.AUTO_ICONS_OPTION_TARGETS_MELEE_A		= "Placer des icônes sur les cibles de $spell:%s avec priorité mêlée et alphabétique"
 L.AUTO_ICONS_OPTION_TARGETS_MELEE_R		= "Placer des icônes sur les cibles de $spell:%s avec priorité mêlée et liste de raid"
 L.AUTO_ICONS_OPTION_TARGETS_RANGED_A	= "Placer des icônes sur les cibles de $spell:%s avec priorité distant et alphabétique"
@@ -566,7 +566,7 @@ L.AUTO_YELL_OPTION_TEXT = {
 	count								= "Crier (avec décompte) quand vous êtes affecté par $spell:%s",
 	fade								= "Crier (avec décompte et nom du sort) quand $spell:%s se dissipe",
 	shortfade							= "Crier (avec décompte) quand $spell:%s se dissipe",
-	iconfade							= "Crier (avec décompte et icône) quand $spell:%s se dissipe", 
+	iconfade							= "Crier (avec décompte et icône) quand $spell:%s se dissipe",
 	position							= "Crier (avec position et nom du joueur) quand vous êtes affecté par $spell:%s",
 	shortposition						= "Crier (avec position) quand vous êtes affecté par $spell:%s",
 	combo								= "Crier (avec texte personnalisé) quand vous êtes affecté par $spell:%s et d'autres sorts en même temps",

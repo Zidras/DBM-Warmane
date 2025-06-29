@@ -43,8 +43,8 @@ local specwarnMark			= mod:NewSpecialWarningYou(72293, nil, 28836, nil, 1, 2)
 local specwarnRuneofBlood	= mod:NewSpecialWarningTaunt(72410, nil, nil, nil, 1, 2)
 local specwarnRuneofBloodYou= mod:NewSpecialWarningYou(72410, "Tank")
 
-local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) 
-local timerBoilingBlood		= mod:NewCDTimer(15, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true) 
+local timerRuneofBlood		= mod:NewNextTimer(20, 72410, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerBoilingBlood		= mod:NewCDTimer(15, 72385, nil, "Healer", nil, 5, nil, DBM_COMMON_L.HEALER_ICON, true)
 local timerBloodNova		= mod:NewCDTimer(20, 72378, nil, nil, nil, 2, nil, nil, true) -- "Blood Nova-73058-npc:37813-46 = pull:1.02, 25.02, 20.75, 20.12, 22.46, 20.85" || besoin de + de data
 
 mod:AddRangeFrameOption(12, 72378, "Ranged")

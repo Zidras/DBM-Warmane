@@ -5710,7 +5710,7 @@ end
 -- 193	10 Player (Heroic)	raid		classic
 -- 194	25 Player (Heroic)	raid		classic
 function DBM:GetCurrentInstanceDifficulty() -- WayOfElendil does return 1,2,3,4 for 10n,25n,10h,25h and 1,2 for 5n,5h
-    local instanceName, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
+    local _, instanceType, difficulty, difficultyName, maxPlayers, _, _ = GetInstanceInfo()
     if instanceType == "none" then
         -- Retain world boss check if needed, assuming difficulty 1 might indicate this outside of instances
         return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
