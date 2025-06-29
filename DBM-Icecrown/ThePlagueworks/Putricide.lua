@@ -136,15 +136,15 @@ local function NextPhase(self)
 end
 
 function mod:MalleableGooTarget(targetname)
-    if not targetname then return end
-    if self.Options.MalleableGooIcon then
-        self:SetIcon(targetname, self.vb.GooIcon, 10)
+	if not targetname then return end
+	if self.Options.MalleableGooIcon then
+		self:SetIcon(targetname, self.vb.GooIcon, 10)
 		if self.vb.GooIcon == 7 then
-            self.vb.GooIcon = 8
-        else
-        	self.vb.GooIcon = 7
-        end
-    end
+			self.vb.GooIcon = 8
+		else
+			self.vb.GooIcon = 7
+		end
+	end
 	if targetname == UnitName("player") then
 		yellMalleableGoo:Yell()
 	end

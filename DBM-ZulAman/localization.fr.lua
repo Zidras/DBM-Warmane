@@ -74,14 +74,14 @@ L:SetGeneralLocalization({
 	name = "Halazzi"
 })
 
- L:SetWarningLocalization({
- 	WarnSpirit	= "Phase spirituelle",
- 	WarnNormal	= "Phase normale"
+L:SetWarningLocalization({
+	WarnSpirit	= "Phase spirituelle",
+	WarnNormal	= "Phase normale"
  })
 
 L:SetOptionLocalization({
- 	WarnSpirit	= "Afficher une alerte pour la phase spirituelle",
- 	WarnNormal	= "Afficher une alerte pour la phase normale"
+	WarnSpirit	= "Afficher une alerte pour la phase spirituelle",
+	WarnNormal	= "Afficher une alerte pour la phase normale"
  })
 
 L:SetMiscLocalization({
