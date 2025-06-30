@@ -5,8 +5,8 @@ mod:SetRevision("20250629000000")
 mod:SetCreatureID(22898)
 mod:SetModelID(21145)
 mod:SetUsedIcons(8)
-mod:SetHotfixNoticeRev(20250629000000)
-mod:SetMinSyncRevision(20250629000000)
+mod:SetHotfixNoticeRev(20230108000000)
+mod:SetMinSyncRevision(20230108000000)
 
 mod:RegisterCombat("combat")
 
