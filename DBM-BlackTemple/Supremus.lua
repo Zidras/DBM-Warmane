@@ -58,11 +58,11 @@ local function ScanTarget(self)
 	end
 end
 
-local function warnMoltenSpawn()
+local function warnMoltenSpawn(self)
 	specWarnMolten:Show()
 	specWarnMolten:Play("watchstep")
 	timerMoltenCD:Start(20)
-	mod:Schedule(20, warnMoltenSpawn)
+	self:Schedule(20, warnMoltenSpawn, self)
 end
 
 function mod:OnCombatStart(delay)
@@ -70,7 +70,7 @@ function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
 	timerPhase:Start(-delay, L.Kite)
 	timerMoltenCD:Start(10-delay)
-	self:Schedule(10-delay, warnMoltenSpawn)
+	self:Schedule(10-delay, warnMoltenSpawn, self)
 	self.vb.lastTarget = "None"
 	if not self:IsTrivial() then--Only warning that uses these events is remorseless winter and that warning is completely useless spam for level 90s.
 		self:RegisterShortTermEvents(
