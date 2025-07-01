@@ -13,7 +13,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 69076",
 	"SPELL_AURA_REMOVED 69065 69076",
 	"SPELL_CAST_START 69057 70826 72088 72089 73144 73145 69076",
-	"SPELL_SUMMON 69062 72669 72670"
+	"SPELL_SUMMON 69062 72669 72670",
+	"SPELL_PERIODIC_DAMAGE 69146 70823 70824 70825",
+	"SPELL_PERIODIC_MISSED 69146 70823 70824 70825"
 )
 
 local preWarnWhirlwind		= mod:NewSoonAnnounce(69076, 3)
@@ -39,13 +41,15 @@ mod:AddSetIconOption("SetIconOnImpale", 72669, true, 0, {8, 7, 6, 5, 4, 3, 2, 1}
 
 mod.vb.impaleIcon = 8
 
-function mod:CheckBoneStormBuff()
-	local _, _, _, _, _, _, expirationTime, _, _, _, spellId = DBM:UnitBuff("target", 69076)
-	if spellId == 69076 and expirationTime then
-		local remaining = expirationTime - GetTime()
-		if remaining > 0 then
-			self:SendSync("syncBoneStorm", tostring(expirationTime))
-			timerWhirlwind:Start(remaining)
+function mod:GetBoneStormRemaining()
+	local unitIds = { "target", "focus", "mouseover" }
+	for _, unit in ipairs(unitIds) do
+		local _, _, _, _, _, _, expirationTime, _, _, _, spellId = DBM:UnitBuff(unit, 69076)
+		if spellId == 69076 and expirationTime then
+			local remaining = expirationTime - GetTime()
+			if remaining > 0 and remaining < 40 then
+				return remaining
+			end
 		end
 	end
 end
@@ -55,25 +59,23 @@ function mod:OnCombatStart(delay)
 	timerWhirlwindCD:Start(45-delay)
 	timerBoneSpike:Start(15-delay)
 	berserkTimer:Start(-delay)
-	self:RegisterShortTermEvents(
-		"SPELL_PERIODIC_DAMAGE 69146 70823 70824 70825",
-		"SPELL_PERIODIC_MISSED 69146 70823 70824 70825"
-	)
-end
-
-function mod:OnCombatEnd()
-	self:UnregisterShortTermEvents()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69076 then						-- Bone Storm (Whirlwind)
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
-		if self:IsHeroic() then
-			self:ScheduleMethod(9, "CheckBoneStormBuff") -- 9s delay if boss cast spike at the same time it seems to not update buff timer on boss
-		else
-			self:ScheduleMethod(4, "CheckBoneStormBuff") -- 4s delay on normal difficulty
-			timerBoneSpike:Cancel() -- doesn't cast spike during whirlwind on normal
+
+		local delay = self:IsHeroic() and 9 or 4
+		self:Schedule(delay, function()
+			local remaining = mod:GetBoneStormRemaining()
+			if remaining then
+				timerWhirlwind:Start(remaining)
+			end
+		end)
+
+		if self:IsNormal() then
+			timerBoneSpike:Cancel()
 		end
 	end
 end
@@ -125,17 +127,5 @@ function mod:SPELL_SUMMON(args)
 			self.vb.impaleIcon = 8
 		end
 		self.vb.impaleIcon = self.vb.impaleIcon - 1
-	end
-end
-
-function mod:OnSync(msg, arg)
-	if msg == "syncBoneStorm" and arg then
-		local expirationTime = tonumber(arg)
-		if expirationTime then
-			local remaining = expirationTime - GetTime()
-			if remaining > 0 then
-				timerWhirlwind:Start(remaining)
-			end
-		end
 	end
 end

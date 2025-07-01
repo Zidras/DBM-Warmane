@@ -777,7 +777,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	YellCombatEnd	= "Grâce ! Je me rends. Excellent travail. Puis-je me débiner, maintenant ?"
+	YellCombatEnd	= "Grâce ! Je me rends. Excellent travail. Puis-je me débiner, maintenant ?"
 })
 
 ---------------------
