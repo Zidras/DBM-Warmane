@@ -38,7 +38,7 @@ local specWarnIcyBlast			= mod:NewSpecialWarningMove(69238, nil, nil, nil, 1, 2)
 local specWarnOverlordsBrand	= mod:NewSpecialWarningReflect(69172, nil, nil, nil, 3, 2)
 local specWarnUnholyPower		= mod:NewSpecialWarningSpell(69167, "Tank", nil, nil, 1, 2)
 
-local timerCombatStart			= mod:NewCombatTimer(45)
+local timerCombatStart			= mod:NewCombatTimer(36)
 local timerOverlordsBrandCD		= mod:NewCDTimer(11, 69172, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerOverlordsBrand		= mod:NewTargetTimer(8, 69172, nil, nil, nil, 5)
 local timerUnholyPower			= mod:NewBuffActiveTimer(10, 69167, nil, "Tank|Healer", 2, 5)

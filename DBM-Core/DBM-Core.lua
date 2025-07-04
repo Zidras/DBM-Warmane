@@ -3454,7 +3454,11 @@ do
 		end
 		local name = DBM:GetFullPlayerNameByGUID(iconSetPerson[optionName]) or CL.UNKNOWN
 		DBM:Debug(name.." was elected icon setter for "..optionName, 2)
-		DBM:AddMsg(name.." was elected icon setter for "..optionName)
+		if (GetLocale() == "frFR") then
+			DBM:AddMsg(name.." a été élu pour la gestion des icônes")
+		else
+			DBM:AddMsg(name.." was elected icon setter")
+		end
 	end
 
 	syncHandlers["DBMv4-Kill"] = function(_, cId)

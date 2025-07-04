@@ -365,8 +365,10 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		warnChokingGasBombSoon:Cancel()
 		soundMalleableGooSoon:Cancel()
 		soundChokingGasSoon:Cancel()
+		local unboundElapsed = timerUnboundPlagueCD:GetTime()
 		if self.vb.phase == 1.5 then
 			timerMalleableGooCD:Start(32)
+			timerUnboundPlagueCD:Update(unboundElapsed, 118)
 		end
 		if self.vb.phase == 2.5 then
 			local chokingElapsed = timerChokingGasBombCD:GetTime()
