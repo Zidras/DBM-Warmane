@@ -5,6 +5,17 @@ mod:SetRevision("20230627225738")
 local addsIcon
 local bossID
 mod:RegisterCombat("combat")
+if UnitFactionGroup("player") == "Alliance" then
+	mod:RegisterKill("yell", L.KillAlliance, L.KillHorde)
+	mod:SetCreatureID(36939, 37215)	-- High Overlord Saurfang, Orgrim's Hammer
+	addsIcon = 23334
+	bossID = 36939
+else
+	mod:RegisterKill("yell", L.KillHorde, L.KillAlliance)
+	mod:SetCreatureID(36948, 37540)	-- Muradin Bronzebeard, The Skybreaker
+	addsIcon = 23336
+	bossID = 36948
+end
 mod:SetHotfixNoticeRev(20220921000000)
 mod:SetMinSyncRevision(20220921000000) -- prevent old DBM from syncing combatStart on yell Pull
 
@@ -50,7 +61,6 @@ local function Adds(self) -- no longer on a timed loop, since YELL event is avai
 end
 
 function mod:OnCombatStart(delay)
-	self:SetWipeTime(75) -- 75 second wipe time for localization FR (RegisterKill doesn't take special caracter from Yell, so we register kill at Yell from Deathbringer pull)
 	DBM.BossHealth:Clear()
 	timerAdds:Start(12-delay)
 	warnAddsSoon:Schedule(7-delay)
@@ -108,16 +118,8 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg:find(L.PullAlliance) then
 		timerCombatStart:Start()
-		self:SetCreatureID(36948, 37540)	-- Muradin Bronzebeard, The Skybreaker
-        self:RegisterKill("yell", L.KillAlliance, L.KillAlliance2)
-        addsIcon = 23334
-        bossID = 36948
 	elseif msg:find(L.PullHorde) then
 		timerCombatStart:Start(43-9.1)
-		self:SetCreatureID(36939, 37215)	-- High Overlord Saurfang, Orgrim's Hammer
-        self:RegisterKill("yell", L.KillHorde, L.KillHorde2)
-        addsIcon = 23336
-        bossID = 36939
 	elseif (msg:find(L.AddsAlliance) or msg:find(L.AddsHorde)) and self:IsInCombat() then
 --		self:Unschedule(Adds)
 		Adds(self)
