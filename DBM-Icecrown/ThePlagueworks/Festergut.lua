@@ -31,9 +31,9 @@ local specWarnInhaled3		= mod:NewSpecialWarning("Stack3", "Tank", nil, nil, nil,
 
 local timerGasSpore			= mod:NewBuffFadesTimer(12, 69279, nil, nil, nil, 3)
 local timerVileGas			= mod:NewBuffFadesTimer(6, 69240, nil, "Ranged", nil, 3)
-local timerGasSporeCD		= mod:NewCDTimer(40, 69279, nil, nil, nil, 3, nil, nil, true)	-- REVIEW CD =>
-local timerPungentBlight	= mod:NewCDTimer(33.5, 69195, nil, nil, nil, 2)		-- REVIEW CD =>
-local timerInhaledBlight	= mod:NewCDTimer(33.5, 69166, nil, nil, nil, 6, nil, nil, true)	-- REVIEW CD =>
+local timerGasSporeCD		= mod:NewCDTimer(40, 69279, nil, nil, nil, 3, nil, nil, true)
+local timerPungentBlight	= mod:NewCDTimer(33.5, 69195, nil, nil, nil, 2)
+local timerInhaledBlight	= mod:NewCDTimer(33.5, 69166, nil, nil, nil, 6, nil, nil, true)
 local timerGastricBloat		= mod:NewTargetTimer(100, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON)	-- 100 Seconds until expired
 local timerGastricBloatCD	= mod:NewCDTimer(12, 72219, nil, "Tank|Healer", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW CD => pull:12.51, 12.33, 12.08, 10.56, 11.86, 11.47, 10.66, 11.31, 11.21, 10.92, 11.42, 10.99, 11.12, 10.22, 12.22 || pull:13.81, 10.92, 12.02, 11.99, 12.41, 11.64, 11.41, 11.92, 11.71, 12.20, 14.07, 11.29
 
@@ -76,15 +76,15 @@ end
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	timerInhaledBlight:Start(28.9-delay) -- REVIEW CD =>
-	timerGasSporeCD:Start(20-delay) -- REVIEW CD =>
+	timerInhaledBlight:Start(28.9-delay)
+	timerGasSporeCD:Start(20-delay)
 	timerGastricBloatCD:Start(-delay)
 	table.wipe(gasSporeTargets)
 	table.wipe(vileGasTargets)
 	self.vb.gasSporeCast = 0
 	self.vb.warnedfailed = false
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10) -- REVIEW CD =>
+		DBM.RangeCheck:Show(10)
 	end
 end
 
@@ -98,15 +98,16 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(69195, 71219, 73031, 73032) then	-- Pungent Blight
 		specWarnPungentBlight:Show()
 		specWarnPungentBlight:Play("aesoon")
+		timerInhaledBlight:Start(38)
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(69278, 71221) then	-- Gas Spore (10 man, 25 man)
 		self.vb.gasSporeCast = self.vb.gasSporeCast + 1
-		if self.vb.gasSporeCast == 6 then
-			timerGasSporeCD:Start(50) -- From all the 2023 logs I have, there was only one 50s instance, and it was on the 6->7th cast
-		--	self.vb.gasSporeCast = 0
+		if self.vb.gasSporeCast == 3 then
+			timerGasSporeCD:Start(46.5)
+			self.vb.gasSporeCast = 0
 		else
 			timerGasSporeCD:Start()
 		end
@@ -136,7 +137,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnInhaledBlight:Show(args.destName, amount)
 		if amount >= 3 then
 			specWarnInhaled3:Show(amount, args.spellName, args.sourceName)
-			specWarnInhaled3:Play("defensive")
+			--specWarnInhaled3:Play("defensive")
 			timerPungentBlight:Start()
 			timerInhaledBlight:Cancel() -- added due to the "keep" arg
 		else	--Prevent timer from starting after 3rd stack since he won't cast it a 4th time, he does Pungent instead.
@@ -181,5 +182,3 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	end
 end
-
-

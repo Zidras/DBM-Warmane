@@ -41,8 +41,8 @@ L:SetOptionLocalization({
 	SoundWarnCountingMC			= "Jouer un son à 5 secondes du Contrôle mental",
 --	RemoveDruidBuff				= "Retire $spell:48469 / $spell:48470 24 secondes après le début du combat",
 	RemoveBuffsOnMC				= "Retirez les buffs lorsque $spell:71289 est lancé sur vous. Chaque option est cumulative.",
-	Gift						= "Supprimer $spell:48469 / $spell:48470. Approche minimale pour éviter $spell:33786 résistances.",
-	CCFree						= "+ Supprimer $spell:48169 / $spell:48170. Tient compte des résistances des sorts de l'école de l'ombre.",
+	Gift						= "+ Supprimer $spell:48469 / $spell:48470. Approche minimale pour éviter $spell:33786 résistances.",
+	CCFree						= "Supprimer $spell:48169 / $spell:48170. Tient compte des résistances des sorts de l'école de l'ombre.",
 	ShortOffensiveProcs			= "+ Supprimer les procs offensifs qui ont une faible durée. Recommandé pour la sécurité du raid sans compromettre les dégâts du raid.",
 	MostOffensiveBuffs			= "+ Supprimer la plupart des buffs offensifs (principalement pour les Casters et les |cFFFF7C0AFarouche Druide|r). Sécurité maximale pour les raids avec une perte de dégâts et la nécessité de s'auto-rebuffer/shapeshift!",
 	EqUneqWeapons				= "Retire/équipe les armes si le $spell:71289 est lancé sur vous. Pour que cela fonctionne, créez un set appellé \"pve\".",
@@ -89,9 +89,7 @@ L:SetMiscLocalization({
 	MageAlliance	= "La coque est endommagée, qu'un mage de bataille aille faire taire leurs canons !",
 	MageHorde		= "La coque déguste sévère, qu'un sorcier aille me faire taire ces canons !",
 	KillAlliance	= "Vous direz pas que j'vous avais pas prévenus, canailles ! Mes frères et s\197\147urs, en avant !",
-	KillAlliance2	= "Bon allez, on se bouge ! En route -",
-	KillHorde		= "L'Alliance baisse pavillon. Sus au roi-liche !",
-	KillHorde2		= "Kor'krons, en route ! Champions, surveillez bien vos arrières. Le Fléau a été -"
+	KillHorde		= "L'Alliance baisse pavillon. Sus au roi-liche !"
 })
 
 -----------------------------

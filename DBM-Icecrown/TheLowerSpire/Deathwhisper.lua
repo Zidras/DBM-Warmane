@@ -64,7 +64,7 @@ mod:AddInfoFrameOption(70842, false)
 mod:AddSetIconOption("SetIconOnDeformedFanatic", 70900, true, 5, {8})
 mod:AddSetIconOption("SetIconOnEmpoweredAdherent", 70901, true, 5, {7})
 mod:AddSetIconOption("SetIconOnDominateMind", 71289, true, 0, {1, 2, 3})
-mod:AddDropdownOption("RemoveBuffsOnMC", {"Never", "Gift", "CCFree", "ShortOffensiveProcs", "MostOffensiveBuffs"}, "Never", "misc", nil, 71289)
+mod:AddDropdownOption("RemoveBuffsOnMC", {"Never", "CCFree", "Gift", "ShortOffensiveProcs", "MostOffensiveBuffs"}, "CCFree", "misc", nil, 71289)
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
@@ -161,13 +161,13 @@ local function EqW(self)
 end
 
 local aurastoRemove = { -- ordered by aggressiveness {degree, classFilter}
-	-- 1 (Gift)
-	[48469] = {1, nil}, -- Mark of the Wild
-	[48470] = {1, nil}, -- Gift of the Wild
-	[69381] = {1, nil}, -- Drums of the Wild
-	-- 2 (CCFree)
-	[48169] = {2, nil}, -- Shadow Protection
-	[48170] = {2, nil}, -- Prayer of Shadow Protection
+	-- 1 (CCFree)
+	[48169] = {1, nil}, -- Shadow Protection
+	[48170] = {1, nil}, -- Prayer of Shadow Protection
+	-- 2 (Gift)
+	[48469] = {2, nil}, -- Mark of the Wild
+	[48470] = {2, nil}, -- Gift of the Wild
+	[69381] = {2, nil}, -- Drums of the Wild
 	-- 3 (ShortOffensiveProcs)
 	[13877] = {3, "ROGUE"}, -- Blade Flurry (Combat Rogue)
 	[70721] = {3, "DRUID"}, -- Omen of Doom (Balance Druid)
@@ -215,8 +215,8 @@ local aurastoRemove = { -- ordered by aggressiveness {degree, classFilter}
 	[71636] = {4, nil}, -- Siphoned Power (Phylactery of the Nameless Lich)
 }
 local optionToDegree = {
-	["Gift"] = 1, -- Cyclones resists
-	["CCFree"] = 2, -- CC Shadow resists, life Fear from Psychic Scream
+	["CCFree"] = 1, -- CC Shadow resists, life Fear from Psychic Scream
+	["Gift"] = 2, -- Cyclones resists
 	["ShortOffensiveProcs"] = 3, -- Short-term procs that would expire during Mind Control anyway
 	["MostOffensiveBuffs"] = 4, -- Most offensive buffs that are easily renewable but would expire after Mind Control ends
 }

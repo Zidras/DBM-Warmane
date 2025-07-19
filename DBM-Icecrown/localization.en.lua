@@ -40,8 +40,8 @@ L:SetOptionLocalization({
 --	RemoveDruidBuff				= "Remove $spell:48469 / $spell:48470 24 seconds into the fight",
 	RemoveBuffsOnMC				= "Remove buffs when $spell:71289 is cast on you. Each option is cumulative.",
 	Never						= NEVER, -- don't translate
-	Gift						= "Remove $spell:48469 / $spell:48470. Minimal approach to prevent $spell:33786 resists.",
-	CCFree						= "+ Remove $spell:48169 / $spell:48170. Account for resists of spells in the Shadow school.",
+	Gift						= "+ Remove $spell:48469 / $spell:48470. Minimal approach to prevent $spell:33786 resists.",
+	CCFree						= "Remove $spell:48169 / $spell:48170. Account for resists of spells in the Shadow school.",
 	ShortOffensiveProcs			= "+ Remove offensive procs that have a low duration. Recommended for raid safety without compromising raid damage output.",
 	MostOffensiveBuffs			= "+ Remove most offensive buffs (mainly for Casters and |cFFFF7C0AFeral Druids|r). Maximum raid safety with loss of damage output and need to self-rebuff/shapeshift!",
 	EqUneqWeapons				= "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".",
@@ -87,15 +87,12 @@ L:SetTimerLocalization({
 L:SetMiscLocalization({
 	PullAlliance	= "Fire up the engines! We got a meetin' with destiny, lads!",
 	PullHorde		= "Kor'kron, take us out!",
-	--CombatAlliance	= "Cowardly dogs! Ye blindsided us!",
-	--CombatHorde		= "You answer to Saurfang now!",
 	AddsAlliance	= "Reavers, Sergeants, attack",
 	AddsHorde		= "Marines, Sergeants, attack",
 	MageAlliance	= "We're taking hull damage, get a battle-mage out here to shut down those cannons!",
 	MageHorde		= "We're taking hull damage, get a sorcerer out here to shut down those cannons!",
 	KillAlliance	= "Don't say I didn't warn ya, scoundrels! Onward, brothers and sisters!",
-	KillHorde		= "The Alliance falter. Onward to the Lich King!",
-	KillHorde2		= "Kor'kron, move out! Champions, watch your backs. The Scourge have been..."
+	KillHorde		= "The Alliance falter. Onward to the Lich King!"
 })
 
 -----------------------------

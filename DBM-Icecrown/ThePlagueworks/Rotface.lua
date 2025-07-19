@@ -91,7 +91,9 @@ function mod:SPELL_CAST_START(args)
 		warnSlimeSpray:Show()
 	elseif spellId == 69774 then
 		timerStickyOoze:Start(args.sourceGUID)
+		if self:AntiSpam(2, 4) then
 		warnStickyOoze:Show()
+		end
 	elseif spellId == 69839 then --Unstable Ooze Explosion (Big Ooze)
 		if GetTime() - spamOoze < 4 then --This will prevent spam but breaks if there are 2 oozes. GUID work is required
 			specWarnOozeExplosion:Cancel()
