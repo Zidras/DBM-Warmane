@@ -12,7 +12,7 @@ This project continues Balleny's DBM for Chromiecraft/AzerothCore based on the W
 ![1132537](https://github.com/user-attachments/assets/7a3e4731-864c-4613-bbf4-77306362fe02)
 
 
-- Currently, only the English localization is fully supported.
+- Only the English localization is fully supported.
 
 - If you encounter any issues or miss features on bosses/dungeons please report them here on Github.
 
