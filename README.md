@@ -36,5 +36,4 @@ Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wo
 
 # To do
 
-- Quelques timers ICC off (besoin de logs)
 - Vérifier que les mécaniques des donjons/raids BC/Vanilla trigger correctement et probablement des timers off.
