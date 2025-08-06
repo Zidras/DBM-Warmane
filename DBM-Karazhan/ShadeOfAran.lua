@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Aran", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230128131707")
+mod:SetRevision("20250806215207")
 mod:SetCreatureID(16524)
 
 mod:SetModelID(16621)
@@ -26,7 +26,7 @@ local specWarnFlameWreath	= mod:NewSpecialWarning("DBM_ARAN_DO_NOT_MOVE", nil, n
 local specWarnArcane		= mod:NewSpecialWarningRun(29973, nil, nil, nil, 4, 7)
 local specWarnBlizzard		= mod:NewSpecialWarningGTFO(29951, nil, nil, nil, 1, 6)
 
-local timerSpecial			= mod:NewTimer(28.9, "timerSpecial", "132866", nil, nil, 2)
+local timerSpecial			= mod:NewTimer(28.9, "timerSpecial", 23452, nil, nil, 2)
 local timerFlameCast		= mod:NewCastTimer(5, 30004, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerArcaneExplosion	= mod:NewCastTimer(10, 29973, nil, nil, nil, 2)
 local timerFlame			= mod:NewBuffActiveTimer(20.2, 29946, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Oz", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250806215207")
 mod:SetCreatureID(18168)
 --
 mod:SetModelID(17550)
@@ -26,10 +26,10 @@ local warnBrainBash	= mod:NewTargetNoFilterAnnounce(31046, 2)
 local warnChain		= mod:NewSpellAnnounce(32337, 3)
 
 local timerFearCD	= mod:NewCDTimer(19, 31013, nil, nil, nil, 2)
-local timerRoar		= mod:NewTimer(12, "DBM_OZ_WARN_ROAR", "132117", nil, false, 1)
-local timerStrawman	= mod:NewTimer(21, "DBM_OZ_WARN_STRAWMAN", "133136", nil, false, 1)
-local timerTinhead	= mod:NewTimer(29, "DBM_OZ_WARN_TINHEAD", "133070", nil, false, 1)
---local timerTito		= mod:NewTimer(47.5, "DBM_OZ_WARN_TITO", "I132266", nil, false, 1)
+local timerRoar		= mod:NewTimer(12, "DBM_OZ_WARN_ROAR", 5209, nil, false, 1)
+local timerStrawman	= mod:NewTimer(21, "DBM_OZ_WARN_STRAWMAN", "Interface\\Icons\\Inv_helmet_34", nil, false, 1)
+local timerTinhead	= mod:NewTimer(29, "DBM_OZ_WARN_TINHEAD", "Interface\\Icons\\Inv_helmet_02", nil, false, 1)
+--local timerTito		= mod:NewTimer(47.5, "DBM_OZ_WARN_TITO", 459, nil, false, 1)
 
 mod:AddRangeFrameOption(10, 32337, true)
 mod:AddBoolOption("AnnounceBosses", true, "announce")
