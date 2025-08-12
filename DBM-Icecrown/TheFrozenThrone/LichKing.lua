@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20250729203153")
+mod:SetRevision("20250812223135")
 mod:SetCreatureID(36597)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
 mod:SetHotfixNoticeRev(20250414000000)
@@ -198,6 +198,7 @@ mod.vb.valkyrWaveCount = 0
 mod.vb.valkIcon = 2
 local shamblingHorrorsGUIDs = {}
 local iceSpheresGUIDs = {}
+local ragingSpiritsGUIDs = {}
 local warnedValkyrGUIDs = {}
 local valkyrTargets = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
@@ -343,6 +344,7 @@ function mod:OnCombatStart(delay)
 	NextPhase(self, delay)
 	table.wipe(shamblingHorrorsGUIDs)
 	table.wipe(iceSpheresGUIDs)
+	table.wipe(ragingSpiritsGUIDs)
 	table.wipe(warnedValkyrGUIDs)
 	table.wipe(plagueExpires)
 end
@@ -526,7 +528,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif spellId == 69200 then -- Raging Spirit
 		self.vb.ragingSpiritCount = self.vb.ragingSpiritCount + 1
-		timerSoulShriekCD:Start(20)
+		tinsert(ragingSpiritsGUIDs, "unknownSpiritGUID")
+		timerSoulShriekCD:Start(20, "unknownSpiritGUID") -- spirit GUID is unknown, and it would be expensive to both retrieve it later and to manipulate the timer, so we just use a dummy GUID to cancel later
 		if args:IsPlayer() then
 			specWarnRagingSpirit:Show()
 			specWarnRagingSpirit:Play("targetyou")
@@ -869,6 +872,18 @@ function mod:UPDATE_MOUSEOVER_UNIT()
 			local sphereString = ("%s\t%s"):format(sphereTarget, sphereGUID)
 			self:SendSync("SphereTarget", sphereString)
 		end
+	elseif DBM:GetUnitCreatureId("mouseover") == 36701 then -- Raging Spirit
+		local spiritGUID = UnitGUID("mouseover")
+		if spiritGUID and not tContains(ragingSpiritsGUIDs, spiritGUID) then
+			local spiritIndex = DBM:tIndexOf(ragingSpiritsGUIDs, "unknownSpiritGUID")
+			if spiritIndex then
+				ragingSpiritsGUIDs[spiritIndex] = spiritGUID -- replace the dummy GUID with the real one
+				local totalTime = timerSoulShriekCD:Time("unknownSpiritGUID")
+				local elapsedTime = timerSoulShriekCD:GetTime("unknownSpiritGUID")
+				timerSoulShriekCD:Cancel("unknownSpiritGUID") -- cancel the dummy timer
+				timerSoulShriekCD:Update(elapsedTime, totalTime, spiritGUID) -- restart the timer with the real GUID
+			end
+		end
 	end
 end
 
@@ -882,6 +897,18 @@ function mod:UNIT_TARGET_UNFILTERED(uId)
 			if sphereTarget == UnitName("player") then
 				specWarnIceSpheresYou:Show()
 				specWarnIceSpheresYou:Play("iceorbmove")
+			end
+		end
+	elseif DBM:GetUnitCreatureId(uId.."target") == 36701 then -- Raging Spirit
+		local spiritGUID = UnitGUID(uId.."target")
+		if spiritGUID and not tContains(ragingSpiritsGUIDs, spiritGUID) then
+			local spiritIndex = DBM:tIndexOf(ragingSpiritsGUIDs, "unknownSpiritGUID")
+			if spiritIndex then
+				ragingSpiritsGUIDs[spiritIndex] = spiritGUID -- replace the dummy GUID with the real one
+				local totalTime = timerSoulShriekCD:Time("unknownSpiritGUID")
+				local elapsedTime = timerSoulShriekCD:GetTime("unknownSpiritGUID")
+				timerSoulShriekCD:Cancel("unknownSpiritGUID") -- cancel the dummy timer
+				timerSoulShriekCD:Update(elapsedTime, totalTime, spiritGUID) -- restart the timer with the real GUID
 			end
 		end
 	end
