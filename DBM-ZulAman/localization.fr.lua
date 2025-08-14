@@ -75,13 +75,13 @@ L:SetGeneralLocalization({
 })
 
  L:SetWarningLocalization({
- 	WarnSpirit	= "Phase spirituelle",
- 	WarnNormal	= "Phase normale"
+	WarnSpirit	= "Phase spirituelle",
+	WarnNormal	= "Phase normale"
  })
 
 L:SetOptionLocalization({
- 	WarnSpirit	= "Afficher une alerte pour la phase spirituelle",
- 	WarnNormal	= "Afficher une alerte pour la phase normale"
+	WarnSpirit	= "Afficher une alerte pour la phase spirituelle",
+	WarnNormal	= "Afficher une alerte pour la phase normale"
  })
 
 L:SetMiscLocalization({
