@@ -6,6 +6,10 @@ local L
 ------------------------------
 L = DBM:GetModLocalization("ApothecaryTrio")
 
+L:SetGeneralLocalization({
+	name = "Trio d'apothicaires"
+})
+
 L:SetTimerLocalization({
 	HummelActive		= "Hummel becomes active",
 	BaxterActive		= "Baxter becomes active",
@@ -55,6 +59,10 @@ L:SetMiscLocalization({
 -------------------
 L = DBM:GetModLocalization("CorenDirebrew")
 
+L:SetGeneralLocalization({
+	name = "Coren Navrebière"
+})
+
 L:SetWarningLocalization({
 	specWarnBrew		= "Débarrassez-vous de la bière avant qu'elle ne vous en lance une autre !",
 	specWarnBrewStun	= "Vous avez reçu un coup sur la tête. La prochaine fois, videz votre verre !"
@@ -73,6 +81,10 @@ L:SetMiscLocalization({
 -- Headless Horseman --
 -------------------
 L = DBM:GetModLocalization("HeadlessHorseman")
+
+L:SetGeneralLocalization({
+	name = "Cavalier sans tête"
+})
 
 L:SetWarningLocalization({
 	WarnPhase				= "Phase %d",

@@ -14,6 +14,7 @@
 ## X-DBM-Mod-Name: Magtheridon
 ## X-DBM-Mod-Name-zhCN: 玛瑟里顿
 ## X-DBM-Mod-Name-ruRU: Магтеридон
+## X-DBM-Mod-Name-frFR: Repaire de Magtheridon
 ## X-DBM-Mod-MapID: 780
 ## X-DBM-Mod-Sort: 307
 ## X-DBM-Mod-LoadZone: Magtheridon's Lair
@@ -33,5 +34,6 @@ localization.tw.lua
 localization.cn.lua
 localization.ru.lua
 localization.kr.lua
+localization.fr.lua
 
 Magtheridon.lua

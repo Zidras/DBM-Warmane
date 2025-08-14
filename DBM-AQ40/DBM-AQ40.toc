@@ -21,6 +21,7 @@
 ## X-DBM-Mod-Name: The Temple of Ahn'Qiraj
 ## X-DBM-Mod-Name-zhCN: 安其拉神殿
 ## X-DBM-Mod-Name-ruRU: Храм Ан'Киража
+## X-DBM-Mod-Name-frFR: Le Temple d'Ahn'Qiraj
 ## X-DBM-Mod-LoadZone: Ahn'Qiraj
 ## X-DBM-Mod-LoadZone-esES: Ahn'Qiraj
 ## X-DBM-Mod-LoadZone-ruRU: Ан'Кираж

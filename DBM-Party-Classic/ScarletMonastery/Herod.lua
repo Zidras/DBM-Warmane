@@ -21,7 +21,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 8269 and args:IsDestTypeHostile() then
+	if args.spellId == 8989 and args:IsDestTypeHostile() then
 		specWarnWhirlwind:Show()
 		specWarnWhirlwind:Play("justrun")
 		timerWhirlwindCD:Start()
