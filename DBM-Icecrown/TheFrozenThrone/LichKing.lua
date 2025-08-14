@@ -445,9 +445,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnSoulreaperOtr:Play("tauntboss")
 		end
 	elseif spellId == 69200 then -- Raging Spirit
-		--timerRagingSpiritCD:Start(nil, self.vb.ragingSpiritCount)
 		self.vb.ragingSpiritCount = self.vb.ragingSpiritCount + 1
-		timerSoulShriekCD:Start(17, args.destName)
+		timerSoulShriekCD:Start(17)
 		if args:IsPlayer() then
 			specWarnRagingSpirit:Show()
 			specWarnRagingSpirit:Play("targetyou")
