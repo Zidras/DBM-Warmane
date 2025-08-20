@@ -3187,24 +3187,24 @@ do
 	end
 
 	-- Check so that when viewing the world map, the zone doesn't "yank" to the current one
-	local eventFired = ""
+	local cachedZoneChangedEvent = ""
 	local function IsWorldMapFrameOpen(event)
 		if IsOutdoors() and WorldMapFrame:IsShown() then
 			-- Prioritize ZONE_CHANGED_NEW_AREA if both events got fired over the course of the world map being open
-			if eventFired ~= "ZONE_CHANGED_NEW_AREA" then
-				eventFired = event
+			if cachedZoneChangedEvent ~= "ZONE_CHANGED_NEW_AREA" then
+				cachedZoneChangedEvent = event
 			end
 			return true
 		end
 	end
 	-- Hook World Map close event
 	local function WorldMapFrameCloseHook()
-		if eventFired == "ZONE_CHANGED_NEW_AREA" then
+		if cachedZoneChangedEvent == "ZONE_CHANGED_NEW_AREA" then
 			DBM:ZONE_CHANGED_NEW_AREA()
-		elseif eventFired == "ZONE_CHANGED_INDOORS" then
+		elseif cachedZoneChangedEvent == "ZONE_CHANGED_INDOORS" then
 			DBM:ZONE_CHANGED_INDOORS()
 		end
-		eventFired = ""
+		cachedZoneChangedEvent = ""
 	end
 	WorldMapFrame:HookScript("OnHide", WorldMapFrameCloseHook)
 
