@@ -112,6 +112,7 @@ function mod:OnCombatStart(delay)
     table.wipe(orbGUIDs) 
     table.wipe(bloomDebuffs)
     self.vb.bloomIcon = 8
+    self.vb.handsKilled = 0
     if self.Options.RangeFrame then
         if self.Options.RangeFrameActivation == "AlwaysOn" then
             DBM.RangeCheck:Show(11)
