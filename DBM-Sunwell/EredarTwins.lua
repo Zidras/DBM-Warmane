@@ -3,6 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250608142317") --based on cafe20250416v19
 mod:SetCreatureID(25165, 25166)
+mod.statTypes = "normal25, mythic"
 mod:SetUsedIcons(6, 8)
 
 mod:RegisterCombat("combat")

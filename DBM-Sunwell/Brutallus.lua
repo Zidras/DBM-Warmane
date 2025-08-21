@@ -3,6 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250324123456 ")
 mod:SetCreatureID(24882)
+mod.statTypes = "normal25, mythic"
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("yell", L.Pull)

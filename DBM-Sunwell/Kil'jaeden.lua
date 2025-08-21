@@ -2,20 +2,22 @@ local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250522103545")
-mod:SetCreatureID(25315)
+mod:SetCreatureID(25315, 25588)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
-
-mod:RegisterCombat("yell", L.YellPull)
+mod.statTypes = "normal25, mythic"
+mod:RegisterCombat("combat")
+mod:SetWipeTime(15)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 45641",
 	"SPELL_AURA_REMOVED 45641",
 	"SPELL_CAST_START 46605 45737 46680",
-	"SPELL_CAST_SUCCESS 45848 45892 46589", 
+	"SPELL_CAST_SUCCESS 45848 45892 46589",
 	"CHAT_MSG_MONSTER_YELL",
-	"SPELL_DAMAGE", 
-	"SPELL_MISSED",  
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"SPELL_DAMAGE",
+	"SPELL_MISSED",
+	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_DIED"
 )
 
 local warnBloom			= mod:NewTargetAnnounce(45641, 2)
@@ -30,10 +32,16 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
 
+-- New warnings for Hand of the Deceiver phase
+local warnHandDied		= mod:NewAnnounce("WarnHandDied", 1)
+local warnAllHandsDead	= mod:NewAnnounce("WarnAllHandsDead", 2)
+
 local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 1, 2)
 local yellArmageddon	= mod:NewYellMe(45915)
- --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
+
+--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 --local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
+
 local specWarnBloom		= mod:NewSpecialWarningYou(45641, nil, nil, nil, 1, 2)
 local yellBloom			= mod:NewYellMe(45641)
 local specWarnBomb		= mod:NewSpecialWarningMoveTo(46605, nil, nil, nil, 3, 2)--findshield
@@ -49,6 +57,9 @@ local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON
 local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
 local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC: 38s
 
+
+local timerKilCombatStart = mod:NewCombatTimer(11)
+
 mod:AddRangeFrameOption("11") --10 yards was sometimes not enough
 mod:AddSetIconOption("BloomIcon", 45641, true, false, {4, 5, 6, 7, 8})
 mod:AddInfoFrameOption(45641, false) -- Add InfoFrame option for Fire Bloom - disabled by default
@@ -58,6 +69,7 @@ mod:AddDropdownOption("RangeFrameActivation", {"AlwaysOn", "OnDebuff"}, "OnDebuf
 local warnBloomTargets = {}
 local orbGUIDs = {}
 mod.vb.bloomIcon = 8
+mod.vb.handsKilled = 0 
 
 -- Table to track players with Fire Bloom debuff (no duration)
 local bloomDebuffs = {}
@@ -100,8 +112,6 @@ function mod:OnCombatStart(delay)
     table.wipe(orbGUIDs) 
     table.wipe(bloomDebuffs)
     self.vb.bloomIcon = 8
-    self:SetStage(1)
-    timerBloomCD:Start(9)
     if self.Options.RangeFrame then
         if self.Options.RangeFrameActivation == "AlwaysOn" then
             DBM.RangeCheck:Show(11)
@@ -124,6 +134,19 @@ function mod:OnCombatEnd()
     end
 end
 
+function mod:UNIT_DIED(args)
+    local cid = self:GetCIDFromGUID(args.destGUID)
+    if cid == 25588 then -- Hand of the Deceiver
+        self.vb.handsKilled = self.vb.handsKilled + 1
+        if self.vb.handsKilled < 3 then
+            warnHandDied:Show(self.vb.handsKilled)
+        else
+            warnAllHandsDead:Show()
+            timerKilCombatStart:Start()
+        end
+    end
+end
+
 function mod:SPELL_AURA_APPLIED(args)
     if args.spellId == 45641 then -- Bloom
         warnBloomTargets[#warnBloomTargets + 1] = args.destName
@@ -131,11 +154,9 @@ function mod:SPELL_AURA_APPLIED(args)
             self:SetIcon(args.destName, self.vb.bloomIcon)
             self.vb.bloomIcon = self.vb.bloomIcon - 1
         end
-        
         -- Add player to bloomDebuffs without duration
         bloomDebuffs[args.destName] = true
         updateBloomInfoFrame(self)
-        
         if #warnBloomTargets >= 5 then
             showBloomTargets(self)
         else
@@ -151,7 +172,7 @@ function mod:SPELL_AURA_APPLIED(args)
 
             -- Additionally, show range frame if options are set
             if self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
-                DBM.RangeCheck:Show(10, nil)
+                DBM.RangeCheck:Show(11, nil)
             end
         end
     end
@@ -163,11 +184,9 @@ function mod:SPELL_AURA_REMOVED(args)
         if self.Options.BloomIcon then
             self:SetIcon(args.destName, 0)
         end
-        
         -- Remove player from bloomDebuffs
         bloomDebuffs[args.destName] = nil
         updateBloomInfoFrame(self)
-        
         -- Update range frame if player loses debuff and option is set to OnDebuff
         if args:IsPlayer() and self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
             DBM.RangeCheck:Show(10, DebuffFilter) -- Only show others with debuff
@@ -268,12 +287,15 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.YellPull then
+		self:SetStage(1)
+    timerBloomCD:Start(9)
+	end
 	if msg == L.OrbYell1 or msg:find(L.OrbYell1) or msg == L.OrbYell2 or msg:find(L.OrbYell2) or msg == L.OrbYell3 or msg:find(L.OrbYell3) or msg == L.OrbYell4 or msg:find(L.OrbYell4) then
 		warnBlueOrb:Show()
 		specWarnBlueOrb:Show()
 	end
 end
-
 
 function mod:ArmageddonTarget(targetName) --only warns the first player targetted. 
 	if not targetName then return end

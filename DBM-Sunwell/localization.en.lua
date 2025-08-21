@@ -158,11 +158,14 @@ L:SetGeneralLocalization({
 	name = "Kil'jaeden"
 })
 
+
 L:SetWarningLocalization({
-	WarnDarkOrb		= "Orb alive - Shooting people!",
-	WarnBlueOrb		= "Dragon Orb activated",
+	WarnDarkOrb			= "Orb alive - Shooting people!",
+	WarnBlueOrb			= "Dragon Orb activated",
 	SpecWarnDarkOrb		= "Dark Orbs Spawned!",
-	SpecWarnBlueOrb		= "Dragon Orbs Activated!"
+	SpecWarnBlueOrb		= "Dragon Orbs Activated!",
+	WarnHandDied 		= "Hand of the Deceiver died (%s/3)",
+	WarnAllHandsDead	= "All hands dead! Kil'jaeden incoming!"
 })
 
 L:SetTimerLocalization({
@@ -174,7 +177,9 @@ L:SetOptionLocalization({
 	WarnBlueOrb		= "Show warning for Dragon Orbs",
 	SpecWarnDarkOrb		= "Show special warning for Dark Orbs",
 	SpecWarnBlueOrb		= "Show special warning for Dragon Orbs",
-	TimerBlueOrb		= "Show timer form Dragon Orbs activate"
+	TimerBlueOrb		= "Show timer form Dragon Orbs activate",
+	WarnHandDied		= "Show a warning for number of Hands killed",
+	WarnAllHandsDead	= "Show a warning when all Hands are dead"
 })
 
 L:SetMiscLocalization({
