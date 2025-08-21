@@ -5731,6 +5731,9 @@ end
 -- 194	25 Player (Heroic)	raid		classic
 function DBM:GetCurrentInstanceDifficulty()
 	local instanceName, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
+	if self:IsMythicByHP() then
+        return "mythic", "Mythic - ", 23, maxPlayers
+    end
 	if instanceType == "none" then
 		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
 	elseif instanceType == "raid" then
@@ -5803,6 +5806,51 @@ function DBM:GetCurrentInstanceDifficulty()
 			end
 		end
 	end
+end
+
+function DBM:CheckCCBossForMythic(unit)
+    local guid = UnitGUID(unit)
+    if not guid then return false end
+    
+    local creatureEntry = nil
+    if guid:match("^0x") then
+        local hexID = guid:sub(7, 12)
+        creatureEntry = tonumber(hexID, 16)
+    else
+        creatureEntry = tonumber(string.match(guid, "Creature%-0%-.-%-.-%-.-%-(.-)%-"))
+    end
+    
+    if not creatureEntry then return false end
+    
+    local bossData = self.SunwellBossData[creatureEntry]
+    if not bossData then return false end
+    
+    local currentHP = UnitHealthMax(unit)
+    local mythicDiff = math.abs(currentHP - bossData.mythicHP)
+    return mythicDiff <= 10
+end
+
+function DBM:IsMythicByHP()
+    for i = 1, 4 do
+        local boss = "boss" .. i
+        if UnitExists(boss) and self:CheckCCBossForMythic(boss) then
+            return true
+        end
+    end
+        if UnitExists("target") then
+        local guid = UnitGUID("target")
+        if guid and guid:match("^0x") then
+            local hexID = guid:sub(7, 12)
+            local creatureEntry = tonumber(hexID, 16)
+            
+            -- Check mythic for known non-boss creatures
+            if creatureEntry == 25588 or creatureEntry == 25315 or (UnitClassification("target") == "worldboss" or UnitLevel("target") == -1) then
+                return self:CheckCCBossForMythic("target")
+            end
+        end
+    end
+    
+    return false
 end
 
 function DBM:GetCurrentArea()
@@ -5968,7 +6016,6 @@ do
 		playSound(self, path, ignoreSFX)
 	end
 end
-
 --Handle new spell name requesting with wrapper, to make api changes easier to handle
 function DBM:GetSpellInfo(spellId)
 	local name, rank, icon, cost, isFunnel, powerType, castingTime, minRange, maxRange = GetSpellInfo(spellId)
@@ -6964,8 +7011,12 @@ end
 
 --Pretty much ANYTHING that has mythic mode
 function bossModPrototype:IsMythic()
-	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-	return diff == "mythic"
+    local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+    if diff == "mythic" then
+        return true
+    end
+    -- Check for Chromiecraft mythic mode via HP detection
+    return DBM:IsMythicByHP()
 end
 
 -- Timewalking
