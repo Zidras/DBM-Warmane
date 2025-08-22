@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Curator", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250806215207")
 mod:SetCreatureID(15691)
 
 mod:SetModelID(16958)
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 --EDIT, it seems there is a max evo timer of 115, but if you kill sparks early he spawns new ones early and if you keep doing this you caan shorten timer considerably
 --As such, this mod would need to recheck boss energy every time adds spawn and live update timer off UNIT_POWER maybe?
 --ability.id = 30254 and type = "cast"
-local warnAdd			= mod:NewAnnounce("warnAdd", 3, "136116")
+local warnAdd			= mod:NewAnnounce("warnAdd", 3, "568")
 local warnEvo			= mod:NewSpellAnnounce(30254, 2)
 local warnArcaneInfusion= mod:NewSpellAnnounce(30403, 4)
 
