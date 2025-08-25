@@ -351,7 +351,6 @@ function lib:PLAYER_LOGIN()
 			validateTrees = nil
 		end
 	end
-
 	self.PLAYER_LOGIN = nil
 end
 
