@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250513110117"),
+	Revision = parseCurseDate("20250824231250"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -508,7 +508,7 @@ local bband = bit.band
 local mabs, floor, mhuge, mmin, mmax, mrandom = math.abs, math.floor, math.huge, math.min, math.max, math.random
 local GetNumGroupMembers, GetNumSubgroupMembers, GetNumPartyMembers, GetNumRaidMembers, GetRaidRosterInfo = private.GetNumGroupMembers, private.GetNumSubgroupMembers, GetNumPartyMembers, GetNumRaidMembers, GetRaidRosterInfo -- with compat.lua
 local UnitName, GetUnitName = UnitName, GetUnitName
-local IsInRaid, IsInGroup, IsInInstance = private.IsInRaid, private.IsInGroup, IsInInstance -- with compat.lua
+local IsInRaid, IsInGroup, IsInInstance, IsOutdoors = private.IsInRaid, private.IsInGroup, IsInInstance, IsOutdoors -- with compat.lua
 local UnitAffectingCombat, InCombatLockdown, IsFalling, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty = UnitAffectingCombat, InCombatLockdown, IsFalling, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty
 local UnitGUID, UnitHealth, UnitHealthMax, UnitBuff, UnitDebuff, UnitAura = UnitGUID, UnitHealth, UnitHealthMax, UnitBuff, UnitDebuff, UnitAura
 local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit = UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit
@@ -3186,7 +3186,30 @@ do
 		end
 	end
 
+	-- Check so that when viewing the world map, the zone doesn't "yank" to the current one
+	local cachedZoneChangedEvent = ""
+	local function IsWorldMapFrameOpen(event)
+		if IsOutdoors() and WorldMapFrame:IsShown() then
+			-- Prioritize ZONE_CHANGED_NEW_AREA if both events got fired over the course of the world map being open
+			if cachedZoneChangedEvent ~= "ZONE_CHANGED_NEW_AREA" then
+				cachedZoneChangedEvent = event
+			end
+			return true
+		end
+	end
+	-- Hook World Map close event
+	local function WorldMapFrameCloseHook()
+		if cachedZoneChangedEvent == "ZONE_CHANGED_NEW_AREA" then
+			DBM:ZONE_CHANGED_NEW_AREA()
+		elseif cachedZoneChangedEvent == "ZONE_CHANGED_INDOORS" then
+			DBM:ZONE_CHANGED_INDOORS()
+		end
+		cachedZoneChangedEvent = ""
+	end
+	WorldMapFrame:HookScript("OnHide", WorldMapFrameCloseHook)
+
 	function DBM:ZONE_CHANGED_NEW_AREA()
+		if IsWorldMapFrameOpen("ZONE_CHANGED_NEW_AREA") then return end
 		SetMapToCurrentZone()
 		timerRequestInProgress = false
 		self:Debug("ZONE_CHANGED_NEW_AREA fired on zoneID: " .. GetCurrentMapAreaID())
@@ -3202,6 +3225,7 @@ do
 	end
 
 	function DBM:ZONE_CHANGED_INDOORS()
+		if IsWorldMapFrameOpen("ZONE_CHANGED_INDOORS") then return end
 		SetMapToCurrentZone()
 		self:Debug("Indoor/SubZone changed on zoneID: " .. GetCurrentMapAreaID() .. " and subZone: " .. GetSubZoneText())
 	end
