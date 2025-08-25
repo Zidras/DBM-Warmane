@@ -16,10 +16,6 @@ L:SetGeneralLocalization({
 	name = "Gruul le Tue-dragon"
 })
 
-L:SetWarningLocalization({
-	WarnGrowth	= "%s (%d)"
-})
-
 L:SetOptionLocalization({
 	WarnGrowth		= "Montre une alerte pour $spell:36300",
 	RangeDistance	= "Montre la fenêtre de portée pour $spell:33654",

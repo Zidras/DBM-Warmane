@@ -274,7 +274,7 @@ L.SLASHCMD_HELP2						= {
 	"/dbm break <min>: Sends a break timer for <min> minutes to the raid (requires promoted. alias: break).",
 	"/dbm version: Performs a boss mod version check (alias: ver).",
 	"/dbm version2: Performs a boss mod version check that also whispers out of date users (alias: ver2).",
-	--"/dbm lockout: Asks raid members for their current raid instance lockouts (aliases: lockouts, ids) (requires promoted).",
+	"/dbm lockout: Asks raid members for their current raid instance lockouts (aliases: lockouts, ids) (requires promoted).",
 	"/dbm lag: Performs a raid-wide latency check.",
 	"/dbm durability: Performs a raid-wide durability check."
 }

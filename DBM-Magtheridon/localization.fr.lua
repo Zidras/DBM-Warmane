@@ -7,10 +7,6 @@ L:SetGeneralLocalization({
 	name = "Magtheridon"
 })
 
-L:SetTimerLocalization({
-	timerP2	= "Phase 2"
-})
-
 L:SetOptionLocalization({
 	timerP2	= "Montre le timer pour le début de la phase 2"
 })

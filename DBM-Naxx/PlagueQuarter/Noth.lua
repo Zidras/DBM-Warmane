@@ -188,6 +188,8 @@ function mod:OnSync(msg)
 			elseif self.vb.teleCount == 1 then--3 waves 34 then 47 seconds apart
 				if self.vb.addsCount == 1 then
 					timerAddsCD:Start(33.9)
+				elseif self.vb.addsCount == 1 then
+					timerAddsCD:Start(47.3)
 				end
 			elseif self.vb.teleCount == 2 then--30, 32, 32, 30
 				if self.vb.addsCount == 1 or self.vb.addsCount == 4 then

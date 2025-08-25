@@ -153,6 +153,8 @@ function lib:Query(unit)
 			error(("Bad argument #2 to 'Query'. Expected %q, received %q (%s)"):format("string", type(unit), tostring(unit)), 2)
 		elseif not UnitExists(unit) or not UnitIsPlayer(unit) then
 			error(("Bad argument #2 to 'Query'. %q is not a valid player unit"):format(tostring(unit)), 2)
+		elseif not UnitExists(unit) or not UnitIsPlayer(unit) then
+			error(("Bad argument #2 to 'Query'. %q does not require a server query before reading talents"):format("player"), 2)
 		else
 			local name = UnitFullName(unit)
 			if (not inspectQueue[name]) then
@@ -349,7 +351,7 @@ function lib:PLAYER_LOGIN()
 			validateTrees = nil
 		end
 	end
-	
+
 	self.PLAYER_LOGIN = nil
 end
 
