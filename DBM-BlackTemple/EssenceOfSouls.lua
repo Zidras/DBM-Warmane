@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Souls", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528_cafe20241008v4")
+mod:SetRevision("20250902110528")
 mod:SetCreatureID(23418, 23419, 23420)
 
 mod:SetModelID(21483)
@@ -9,6 +9,7 @@ mod:SetUsedIcons(4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
 mod:RegisterCombat("yell", L.Phase1Start1, L.Phase1Start2, L.Phase1End1, L.Phase1End2, L.Phase2Start, L.Phase2End, L.Phase3Start1, L.Phase3Start2) --added to detect yell
+mod:RegisterKill("kill", 23420)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 41305 41431 41376 41303 41294 41410 41292 41350 41337",
