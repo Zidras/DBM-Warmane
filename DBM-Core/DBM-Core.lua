@@ -82,9 +82,9 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20250617000000"), --to match Solaris-DBM https://github.com/UndoUreche/DBM-CC-Solaris/commit/5a0dac75acd86e6a3b1d5eaa56ccef5d83f513de
+	Revision = parseCurseDate("20250902000000"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2025, 06, 17) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	ReleaseRevision = releaseDate(2025, 09, 02) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 
 local fakeBWVersion = 7558
@@ -508,7 +508,7 @@ local bband = bit.band
 local mabs, floor, mhuge, mmin, mmax, mrandom = math.abs, math.floor, math.huge, math.min, math.max, math.random
 local GetNumGroupMembers, GetNumSubgroupMembers, GetNumPartyMembers, GetNumRaidMembers, GetRaidRosterInfo = private.GetNumGroupMembers, private.GetNumSubgroupMembers, GetNumPartyMembers, GetNumRaidMembers, GetRaidRosterInfo -- with compat.lua
 local UnitName, GetUnitName = UnitName, GetUnitName
-local IsInRaid, IsInGroup, IsInInstance = private.IsInRaid, private.IsInGroup, IsInInstance -- with compat.lua
+local IsInRaid, IsInGroup, IsInInstance, IsOutdoors = private.IsInRaid, private.IsInGroup, IsInInstance, IsOutdoors -- with compat.lua
 local UnitAffectingCombat, InCombatLockdown, IsFalling, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty = UnitAffectingCombat, InCombatLockdown, IsFalling, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty
 local UnitGUID, UnitHealth, UnitHealthMax, UnitBuff, UnitDebuff, UnitAura = UnitGUID, UnitHealth, UnitHealthMax, UnitBuff, UnitDebuff, UnitAura
 local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit = UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit
@@ -3186,7 +3186,30 @@ do
 		end
 	end
 
+	-- Check so that when viewing the world map, the zone doesn't "yank" to the current one
+	local cachedZoneChangedEvent = ""
+	local function IsWorldMapFrameOpen(event)
+		if IsOutdoors() and WorldMapFrame:IsShown() then
+			-- Prioritize ZONE_CHANGED_NEW_AREA if both events got fired over the course of the world map being open
+			if cachedZoneChangedEvent ~= "ZONE_CHANGED_NEW_AREA" then
+				cachedZoneChangedEvent = event
+			end
+			return true
+		end
+	end
+	-- Hook World Map close event
+	local function WorldMapFrameCloseHook()
+		if cachedZoneChangedEvent == "ZONE_CHANGED_NEW_AREA" then
+			DBM:ZONE_CHANGED_NEW_AREA()
+		elseif cachedZoneChangedEvent == "ZONE_CHANGED_INDOORS" then
+			DBM:ZONE_CHANGED_INDOORS()
+		end
+		cachedZoneChangedEvent = ""
+	end
+	WorldMapFrame:HookScript("OnHide", WorldMapFrameCloseHook)
+
 	function DBM:ZONE_CHANGED_NEW_AREA()
+		if IsWorldMapFrameOpen("ZONE_CHANGED_NEW_AREA") then return end
 		SetMapToCurrentZone()
 		timerRequestInProgress = false
 		self:Debug("ZONE_CHANGED_NEW_AREA fired on zoneID: " .. GetCurrentMapAreaID())
@@ -3202,6 +3225,7 @@ do
 	end
 
 	function DBM:ZONE_CHANGED_INDOORS()
+		if IsWorldMapFrameOpen("ZONE_CHANGED_INDOORS") then return end
 		SetMapToCurrentZone()
 		self:Debug("Indoor/SubZone changed on zoneID: " .. GetCurrentMapAreaID() .. " and subZone: " .. GetSubZoneText())
 	end
@@ -5731,9 +5755,6 @@ end
 -- 194	25 Player (Heroic)	raid		classic
 function DBM:GetCurrentInstanceDifficulty()
 	local instanceName, instanceType, difficulty, difficultyName, maxPlayers, dynamicDifficulty, isDynamicInstance = GetInstanceInfo()
-	if self:IsMythicByHP() then
-        return "mythic", "Mythic - ", 23, maxPlayers
-    end
 	if instanceType == "none" then
 		return difficulty == 1 and "worldboss", L.RAID_INFO_WORLD_BOSS.." - ", 0, maxPlayers
 	elseif instanceType == "raid" then
@@ -5806,51 +5827,6 @@ function DBM:GetCurrentInstanceDifficulty()
 			end
 		end
 	end
-end
-
-function DBM:CheckCCBossForMythic(unit)
-    local guid = UnitGUID(unit)
-    if not guid then return false end
-    
-    local creatureEntry = nil
-    if guid:match("^0x") then
-        local hexID = guid:sub(7, 12)
-        creatureEntry = tonumber(hexID, 16)
-    else
-        creatureEntry = tonumber(string.match(guid, "Creature%-0%-.-%-.-%-.-%-(.-)%-"))
-    end
-    
-    if not creatureEntry then return false end
-    
-    local bossData = self.SunwellBossData[creatureEntry]
-    if not bossData then return false end
-    
-    local currentHP = UnitHealthMax(unit)
-    local mythicDiff = math.abs(currentHP - bossData.mythicHP)
-    return mythicDiff <= 10
-end
-
-function DBM:IsMythicByHP()
-    for i = 1, 4 do
-        local boss = "boss" .. i
-        if UnitExists(boss) and self:CheckCCBossForMythic(boss) then
-            return true
-        end
-    end
-        if UnitExists("target") then
-        local guid = UnitGUID("target")
-        if guid and guid:match("^0x") then
-            local hexID = guid:sub(7, 12)
-            local creatureEntry = tonumber(hexID, 16)
-            
-            -- Check mythic for known non-boss creatures
-            if creatureEntry == 25588 or creatureEntry == 25315 or (UnitClassification("target") == "worldboss" or UnitLevel("target") == -1) then
-                return self:CheckCCBossForMythic("target")
-            end
-        end
-    end
-    
-    return false
 end
 
 function DBM:GetCurrentArea()
@@ -6016,6 +5992,7 @@ do
 		playSound(self, path, ignoreSFX)
 	end
 end
+
 --Handle new spell name requesting with wrapper, to make api changes easier to handle
 function DBM:GetSpellInfo(spellId)
 	local name, rank, icon, cost, isFunnel, powerType, castingTime, minRange, maxRange = GetSpellInfo(spellId)
@@ -7011,12 +6988,8 @@ end
 
 --Pretty much ANYTHING that has mythic mode
 function bossModPrototype:IsMythic()
-    local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
-    if diff == "mythic" then
-        return true
-    end
-    -- Check for Chromiecraft mythic mode via HP detection
-    return DBM:IsMythicByHP()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
+	return diff == "mythic"
 end
 
 -- Timewalking

@@ -76,7 +76,6 @@ modules\TargetScanning.lua
 
 # Core
 DBM-Core.lua
-BossHPdata.lua
 DBM-Arrow.lua
 DBM-Flash.lua
 DBM-RangeCheck.lua
