@@ -94,9 +94,9 @@ function mod:OnCombatStart(delay)
 	if self.Options.ShowFrame then
 		Kal:CreateFrame()
 	end
---	if self.Options.RangeFrame then
+	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(11)
---	end
+	end
 --[[
 	if self.Options.HealthFrame then
 		DBM.BossHealth:Clear()

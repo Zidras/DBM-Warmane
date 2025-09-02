@@ -97,7 +97,9 @@ function mod:OnCombatStart(delay)
 	self:Schedule(15-5, HumanSpawn, self) --seems like first cast is after 10s? 20250402
 	self:Schedule(36.5-6.5, VoidSpawn, self) -- seems like 30s into combat? 20250402
 	berserkTimer:Start(-delay)
-	DBM.RangeCheck:Show(15)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(15)
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
