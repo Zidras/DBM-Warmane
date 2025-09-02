@@ -290,7 +290,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellPull then
 		self:SetStage(1)
-    timerBloomCD:Start(9)
+    timerBloomCD:Start(10)
 	end
 	if msg == L.OrbYell1 or msg:find(L.OrbYell1) or msg == L.OrbYell2 or msg:find(L.OrbYell2) or msg == L.OrbYell3 or msg:find(L.OrbYell3) or msg == L.OrbYell4 or msg:find(L.OrbYell4) then
 		warnBlueOrb:Show()
