@@ -9,7 +9,8 @@ This project continues Balleny's DBM for Chromiecraft/AzerothCore based on the W
 
 - The Rangeradar requires the Dungeon Map patch by Trimitor to work: https://forum.warmane.com/showthread.php?t=424250
 
-![1132537](https://github.com/user-attachments/assets/7a3e4731-864c-4613-bbf4-77306362fe02)
+<img width="186" height="213" alt="image" src="https://github.com/user-attachments/assets/686932c7-1093-4af2-95c9-ac02ab11fe7c" />
+
 
 
 - Only the English localization is fully supported.
