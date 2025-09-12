@@ -4,7 +4,7 @@ if not DBM_GUI_L then DBM_GUI_L = {} end
 local L = DBM_GUI_L
 local CL = DBM_CORE_L
 
-L.MainFrame 						= CL.DEADLY_BOSS_MODS -- NO TRANSLATE
+--L.MainFrame 						= "Deadly Boss Mods"
 
 L.DBMWarmane						= CL.DBM .. "-Warmane par Zidras"
 L.TranslationByPrefix				= "Retail rétroportage par "
