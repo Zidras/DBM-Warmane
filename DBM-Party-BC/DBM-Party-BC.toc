@@ -6,6 +6,7 @@
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0던전 (불성)|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-燃燒的遠征|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0队伍首领-燃烧的远征|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Donjons (BC)|r
 ## Author: Arta/MysticalOS
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -22,7 +23,9 @@
 ## X-DBM-Mod-SubCategories-koKR: 지옥불 성루,피의 용광로,으스러진 손의 전당,강제 노역소,지하수렁,증기 저장고,아키나이 납골당,마나 무덤,세데크 전당,어둠의 미궁,옛 힐스브래드 구릉지,검은늪,메카나르,신록의 정원,알카트라즈,마법학자의 정원
 ## X-DBM-Mod-SubCategories-zhTW: 地獄火壁壘,血熔爐,破碎大廳,奴隸監獄,深幽泥沼,蒸汽洞窟,奧奇奈地穴,法力墓地,塞司克大廳,暗影迷宮,逃離敦霍爾德,開啟黑暗之門,麥克納爾,波塔尼卡,亞克崔茲,博學者殿堂
 ## X-DBM-Mod-SubCategories-zhCN: 地狱火堡垒,鲜血熔炉,破碎大厅,奴隶围栏,幽暗沼泽,蒸汽地窖,奥金尼地穴,法力陵墓,赛泰克大厅,暗影迷宮,逃离敦霍尔德,开启黑暗之门,能源舰,生态船,禁魔监狱,博学者殿堂
+## X-DBM-Mod-SubCategories-frFR: Remparts des Flammes infernales,La Fournaise du sang,Les Salles brisées,Les enclos aux esclaves,Le Bourbier,Le Caveau de la vapeur,Les Cryptes Auchenaï,Tombe-mana,Les Salles des Sethekk,Labyrinthe des ombres,Contreforts de Hautebrande d’antan,Le Noir Marécage,Le Méchanar,La Botanica,L’Arcatraz,La Terrasse des Magistères
 ## X-DBM-Mod-Name: Dungeons (BC)
+## X-DBM-Mod-Name-frFR: Donjons (BC)
 ## X-DBM-Mod-Name-deDE: Gruppe (BC)
 ## X-DBM-Mod-Name-ruRU: Групповые подземелья-BC
 ## X-DBM-Mod-Name-esES: Mazmorras (TBC)
@@ -46,6 +49,7 @@ localization.kr.lua
 localization.ru.lua
 localization.es.lua
 localization.tw.lua
+localization.fr.lua
 
 Hellfire_Ramp\Gargolmar.lua
 Hellfire_Ramp\Omor.lua

@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Dungeons (WotLK)|r
-## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Groupe-WotLK|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Donjons (WotLK)|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruppe-WotLK|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mazmorras (WotLK)|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-巫妖王之怒|r
@@ -25,7 +25,7 @@
 ## X-DBM-Mod-SubCategories-esES: Ahn'kahlet,Azjol-Nerub,La Matanza de Stratholme,Fortaleza de Drak'Tharon,Gundrak,Cámaras de Relámpagos,Camaras de Piedra,El Nexo,El Oculus,Fortaleza de Utgarde,Pinaculo de Utgarde,El Bastión Violeta,Prueba del Campeón,La Forja de Almas,Foso de Saron,Cámaras de Reflexión
 ## X-DBM-Mod-SubCategories-esMX: Ahn'kahlet,Azjol-Nerub,La Matanza de Stratholme,Fortaleza de Drak'Tharon,Gundrak,Cámaras de Relámpagos,Camaras de Piedra,El Nexo,El Oculus,Fortaleza de Utgarde,Pinaculo de Utgarde,El Bastión Violeta,Prueba del Campeón,La Forja de Almas,Foso de Saron,Cámaras de Reflexión
 ## X-DBM-Mod-Name: Dungeons (WotLK)
-## X-DBM-Mod-Name-frFR: Groupe-WotLK
+## X-DBM-Mod-Name-frFR: Donjons (WotLK)
 ## X-DBM-Mod-Name-deDE: Gruppe (WotLK)
 ## X-DBM-Mod-Name-ruRU: Подземелья (Король-лич)
 ## X-DBM-Mod-Name-zhTW: 隊伍首領 (巫妖王之怒)

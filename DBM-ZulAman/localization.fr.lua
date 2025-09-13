@@ -10,26 +10,26 @@ L:SetGeneralLocalization({
 	name = "Nalorakk"
 })
 
--- L:SetWarningLocalization({
--- 	WarnBear		= "Bear Form",
--- 	WarnBearSoon	= "Bear Form in 5 sec",
--- 	WarnNormal		= "Normal Form",
--- 	WarnNormalSoon	= "Normal Form in 5 sec"
--- })
+L:SetWarningLocalization({
+	WarnBear		= "Forme d'ours",
+	WarnBearSoon	= "Forme d'ours dans 5 sec",
+	WarnNormal		= "Forme normale",
+	WarnNormalSoon	= "Forme normale dans 5 sec"
+})
 
--- L:SetTimerLocalization({
--- 	TimerBear		= "Bear Form",
--- 	TimerNormal		= "Normal Form"
--- })
+L:SetTimerLocalization({
+	TimerBear		= "Forme d'ours",
+	TimerNormal		= "Forme normale"
+})
 
--- L:SetOptionLocalization({
--- 	WarnBear		= "Show warning for Bear form",
--- 	WarnBearSoon	= "Show pre-warning for Bear form",
--- 	WarnNormal		= "Show warning for Normal form",
--- 	WarnNormalSoon	= "Show pre-warning for Normal form",
--- 	TimerBear		= "Show timer for Bear form",
--- 	TimerNormal		= "Show timer for Normal form"
--- })
+L:SetOptionLocalization({
+	WarnBear		= "Afficher une alerte pour la forme d'ours",
+	WarnBearSoon	= "Afficher une pré-alerte pour la forme d'ours",
+	WarnNormal		= "Afficher une alerte pour la forme normale",
+	WarnNormalSoon	= "Afficher une pré-alerte pour la forme normale",
+	TimerBear		= "Afficher un timer pour la forme d'ours",
+	TimerNormal		= "Afficher un timer pour la forme normale"
+})
 
 L:SetMiscLocalization({
 	YellPull	= "Gardes, bougez-vous ! C'est l'heure du massacre !",
@@ -45,9 +45,7 @@ L = DBM:GetModLocalization("Akilzon")
 L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
-L:SetTimerLocalization({
-    TimerStorm = "tempête électrique"
-})
+
 L:SetMiscLocalization({
 	YellPull	= "Moi, chuis le prédateur ! Vous, z'êtes la proie…",
 })
@@ -76,15 +74,15 @@ L:SetGeneralLocalization({
 	name = "Halazzi"
 })
 
--- L:SetWarningLocalization({
--- 	WarnSpirit	= "Spirit Phase",
--- 	WarnNormal	= "Normal Phase"
--- })
+ L:SetWarningLocalization({
+	WarnSpirit	= "Phase spirituelle",
+	WarnNormal	= "Phase normale"
+ })
 
--- L:SetOptionLocalization({
--- 	WarnSpirit	= "Show warning for Spirit phase",
--- 	WarnNormal	= "Show warning for Normal phase"
--- })
+L:SetOptionLocalization({
+	WarnSpirit	= "Afficher une alerte pour la phase spirituelle",
+	WarnNormal	= "Afficher une alerte pour la phase normale"
+ })
 
 L:SetMiscLocalization({
 	YellPull	= "À genoux, les idiots… devant la griffe et le croc !",

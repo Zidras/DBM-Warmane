@@ -6,7 +6,7 @@
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Игровые события|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Weltereignisse|r
-## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Évènements Mondiaux|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Événements Mondiaux|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -17,6 +17,7 @@
 ## X-DBM-Mod-Category: WOTLK
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-World-Boss: 1
+## X-DBM-Mod-SubCategories: Holidays, Warmane
 ## X-DBM-Mod-Name: World Events
 ## X-DBM-Mod-Name-esES: Eventos del Mundo
 ## X-DBM-Mod-Name-ruRU: Игровые события
@@ -24,10 +25,10 @@
 ## X-DBM-Mod-Name-zhCN: 世界事件
 ## X-DBM-Mod-Name-koKR: 이벤트
 ## X-DBM-Mod-Name-deDE: Weltereignisse
-## X-DBM-Mod-Name-frFR: Évènements Mondiaux
+## X-DBM-Mod-Name-frFR: Événements Mondiaux
 ## X-DBM-Mod-Sort: 150
 ## X-DBM-Mod-MapID: 705,763,765,729
-## X-DBM-Mod-LoadZone: Blackrock Depths,Scarlet Monastery,Shadowfang Keep,The Slave Pens
+## X-DBM-Mod-LoadZone: Blackrock Depths,Scarlet Monastery,Shadowfang Keep,The Slave Pens,Azshara Crater
 ## X-DBM-Mod-LoadZone-zhCN: 黑石深渊,血色修道院,影牙城堡,奴隶围栏
 ## X-DBM-Mod-LoadZone-ruRU: Глубины Черной горы,Монастырь Алого ордена,Крепость Темного Клыка,Узилище
 
@@ -45,3 +46,5 @@ Holidays\ApothecaryTrio.lua
 Holidays\Ahune.lua
 Holidays\CorenDirebrew.lua
 Holidays\HeadlessHorseman.lua
+
+WarmaneEvents\TowerDefense.lua
