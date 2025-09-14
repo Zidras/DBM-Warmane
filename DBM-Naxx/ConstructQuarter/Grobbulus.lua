@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221016191326")
+mod:SetRevision("20250914210600")
 mod:SetCreatureID(15931)
 mod:SetUsedIcons(1, 2, 3, 4)
 
@@ -23,7 +23,7 @@ local yellInjection			= mod:NewYellMe(28169, nil, false)
 
 local timerInjection		= mod:NewTargetTimer(10, 28169, nil, nil, nil, 3)
 local timerCloud			= mod:NewNextTimer(15, 28240, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerSlimeSprayCD		= mod:NewCDTimer(32, 54364, nil, nil, nil, 2) -- Transcriptor snippet below
+local timerSlimeSprayCD		= mod:NewCDTimer(20, 54364, nil, nil, nil, 2) -- Transcriptor snippet below
 local enrageTimer			= mod:NewBerserkTimer(720)
 
 mod:AddSetIconOption("SetIconOnInjectionTarget", 28169, false, false, {1, 2, 3, 4})
@@ -96,11 +96,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.slimeSprays = self.vb.slimeSprays + 1
 		 -- REVIEW! variance? (25man Lordaeron 2022/10/16) - pull:31.0, 27.7, 61.1, 25.5
 		if self.vb.slimeSprays % 2 == 0 then -- every 2/4/6... spray short cd
-			warnSlimeSpraySoon:Schedule(20.5)
-			timerSlimeSprayCD:Start(25.5)
-		else -- every 3/5/7... spray long cd
-			warnSlimeSpraySoon:Schedule(54)
-			timerSlimeSprayCD:Start(59)
+			warnSlimeSpraySoon:Schedule(17.5)
+			timerSlimeSprayCD:Start(20)
+--		else -- every 3/5/7... spray long cd
+--			warnSlimeSpraySoon:Schedule(54)
+--			timerSlimeSprayCD:Start(59)
 		end
 	end
 end
