@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
 local Kal	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250531110528") --based on cafe&yars_20250329v12
+mod:SetRevision("20250915182700") --based on cafe&yars_20250329v12
 mod:SetCreatureID(24850)
 mod.statTypes = "normal25, mythic"
 mod:RegisterCombat("combat")
@@ -21,7 +21,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 45032 45034"
 )
 
-local warnPortal		= mod:NewAnnounce("WarnPortal", 4, 46021)
+local warnPortal		= mod:NewAnnounce("WarnPortal", 4, 11419)
 local warnBuffet		= mod:NewSpellAnnounce(45018, 3, nil, false, 2)
 local warnBreath		= mod:NewSpellAnnounce(44799, 3, nil, false)
 local warnCorrupt		= mod:NewTargetAnnounce(45029, 3)
@@ -30,19 +30,12 @@ local warnPhase2Soon	= mod:NewPrePhaseAnnounce(2, 3) -- warn at 15% health 20250
 local specWarnBuffet	= mod:NewSpecialWarningStack(45018, nil, 10, nil, nil, 1, 6)
 local specWarnWildMagic	= mod:NewSpecialWarning("SpecWarnWildMagic")
 
-local timerNextPortal	= mod:NewNextCountTimer(20, 46021, nil, nil, nil, 5) --CC set at 20-30s 2025.03.15
+local timerNextPortal = mod:NewNextCountTimer("v20-30", 46021, "Next Portal (%s)", nil, nil, 5, 11419) --CC set at 20-30s 2025.03.15
 local timerBreathCD		= mod:NewCDTimer(15, 44799, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON)--Tanks?
 local timerBuffetCD		= mod:NewCDTimer(8, 45018, nil, nil, nil, 2)
 local timerPorted		= mod:NewBuffActiveTimer(60, 46021, nil, nil, nil, 6)
 local timerExhausted	= mod:NewBuffActiveTimer(60, 44867, nil, nil, nil, 6)
 local timerCurse		= mod:NewTargetTimer(30, 45032, nil, nil, nil, 3) --new curse timer to keep track of curses 20250321
-
---[[
-local berserkTimer
-if mod:IsTimewalking() then
-	berserkTimer		= mod:NewBerserkTimer(300) -- Doesn't exist on retail
-end
-]]-- does not exist on chromiecraft 20250319
 
 mod:AddRangeFrameOption("11")
 mod:AddBoolOption("ShowRespawn", true)
@@ -110,10 +103,13 @@ function mod:OnCombatStart(delay)
 		DBM.InfoFrame:SetColumns(1)
 	end
 	timerBreathCD:Start(-delay)
-	timerNextPortal:Start(13-delay) -- 20250313 new timer for first portal
+	timerNextPortal:Start(13 - delay, 1)
 end
 
-function mod:OnCombatEnd()
+function mod:OnCombatEnd(wipe, isSecondRun)
+	if wipe and not isSecondRun and self.Options.ShowRespawn then
+		DBT:CreateBar(14, DBM_CORE_L.TIMER_RESPAWN:format(L.name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
+	end
 	Kal:DestroyFrame()
 	DBM.RangeCheck:Hide()
 	DBM.InfoFrame:Hide()
@@ -140,6 +136,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerExhausted:Schedule(60)
 		end
 		if self:AntiSpam(19, 2) then
+			if not DBM:GetRaidUnitId(args.destName) then return end
 			local grp, class
 			if GetNumRaidMembers() > 0 then
 				for i = 1, GetNumRaidMembers() do
@@ -151,14 +148,13 @@ function mod:SPELL_AURA_APPLIED(args)
 					end
 				end
 			else
-				-- solo raid
 				grp = 0
 				class = select(2, UnitClass("player"))
 			end
 			Kal:AddEntry(("%s (%d)"):format(args.destName, grp or 0), class)
 			warnPortal:Show(self.vb.portCount, args.destName, grp or 0)
+			timerNextPortal:Start(nil, self.vb.portCount + 1)
 			self.vb.portCount = self.vb.portCount + 1
-			timerNextPortal:Start(20, self.vb.portCount)
 		end
 	elseif args.spellId == 45018 and args:IsPlayer() then
 		local amount = args.amount or 1
@@ -221,13 +217,6 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
-	if self:IsInCombat() and not UnitExists("boss1") and self.Options.ShowRespawn then
-		DBT:CreateBar(30, DBM_CORE_L.TIMER_RESPAWN:format(L.name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
-	end
-end
-
-
 -- DBM.InfoFrame to replicate a BossHealth frame, using DBM's sync functionality.
 function mod:OnSync(msg, bossHealth, sender)
 	if self.Options.InfoFrame and not(sender == UnitName("player")) then
@@ -264,32 +253,3 @@ function mod:UNIT_HEALTH(uID)
 		self.vb.phase = 2
 	end
 end
-
---[[
-    SPELL_SPECTRAL_EXHAUSTION           = 44867,
-    SPELL_SPECTRAL_BLAST                = 44869,
-    SPELL_SPECTRAL_BLAST_PORTAL         = 44866,
-    SPELL_SPECTRAL_BLAST_AA             = 46648,
-    SPELL_TELEPORT_SPECTRAL             = 46019,
-
-    SPELL_TELEPORT_NORMAL_REALM         = 46020,
-    SPELL_SPECTRAL_REALM                = 46021,
-    SPELL_SPECTRAL_INVISIBILITY         = 44801,
-    SPELL_DEMONIC_VISUAL                = 44800,
-
-    SPELL_ARCANE_BUFFET                 = 45018,
-    SPELL_FROST_BREATH                  = 44799,
-    SPELL_TAIL_LASH                     = 45122,
-
-    SPELL_BANISH                        = 44836,
-    SPELL_TRANSFORM_KALEC               = 44670,
-    SPELL_CRAZED_RAGE                   = 44807,
-
-    SPELL_CORRUPTION_STRIKE             = 45029,
-    SPELL_CURSE_OF_BOUNDLESS_AGONY      = 45032,
-    SPELL_CURSE_OF_BOUNDLESS_AGONY_PLR  = 45034,
-    SPELL_SHADOW_BOLT                   = 45031,
-
-    SPELL_HEROIC_STRIKE                 = 45026,
-    SPELL_REVITALIZE                    = 45027
-]]-- Spell IDs

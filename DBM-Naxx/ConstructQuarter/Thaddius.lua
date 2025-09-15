@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221008164846")
+mod:SetRevision("20250914210600")
 mod:SetCreatureID(15928)
 
 mod:RegisterCombat("combat_yell", L.Yell)
@@ -22,10 +22,10 @@ local warnChargeChanged		= mod:NewSpecialWarning("WarningChargeChanged", nil, ni
 local warnChargeNotChanged	= mod:NewSpecialWarning("WarningChargeNotChanged", false, nil, nil, 1, 12, nil, nil, 28089)
 local yellShift				= mod:NewShortPosYell(28089, DBM_CORE_L.AUTO_YELL_CUSTOM_POSITION)
 
-local enrageTimer			= mod:NewBerserkTimer(365)
+local enrageTimer			= mod:NewBerserkTimer(360)
 local timerNextShift		= mod:NewNextTimer(30, 28089, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerShiftCast		= mod:NewCastTimer(3, 28089, nil, nil, nil, 2)
-local timerThrow			= mod:NewNextTimer(20.6, 28338, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerThrow			= mod:NewNextTimer(20, 28338, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 if not DBM.Options.GroupOptionsBySpell then
 	mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
@@ -124,6 +124,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 			warnThrowSoon:Cancel()
 			DBM.BossHealth:Hide()
 			enrageTimer:Start()
+			timerNextShift:Start(30)  -- First polarity shift in 30s
+            warnShiftSoon:Schedule(25)  -- Warn at 25s (5s before)
 		end
 	end
 end
