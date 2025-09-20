@@ -30,7 +30,7 @@ local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
 local specWarnConflag 		= mod:NewSpecialWarningYou(45342, nil, nil, nil, 1, 2)
 local yellConflag			= mod:NewYell(45342) --using 45342 instead of 45333?
-local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
+local specWarnNova			= mod:NewSpecialWarningYou(45329, false, nil, nil, 1, 2) --turned off by default no that important
 local yellNova				= mod:NewYell(45329)
 local specWarnPyro			= mod:NewSpecialWarningDispel(45230, "MagicDispeller", nil, 2, 1, 2)
 local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, nil, 8, nil, 2, 1, 6)
