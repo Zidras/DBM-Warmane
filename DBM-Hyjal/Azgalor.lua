@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("Azgalor", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250920081544")
 mod:SetCreatureID(17842)
 mod:SetUsedIcons(8)
+mod:SetHotfixNoticeRev(20250920000000)
 
 mod:RegisterCombat("combat")
 
