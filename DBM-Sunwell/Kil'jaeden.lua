@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250522103545")
+mod:SetRevision("20250921103545")
 mod:SetCreatureID(25315, 25588)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
 mod.statTypes = "normal25, mythic"
@@ -36,8 +36,9 @@ local warnPhase4		= mod:NewPhaseAnnounce(4)
 local warnHandDied		= mod:NewAnnounce("WarnHandDied", 1)
 local warnAllHandsDead	= mod:NewAnnounce("WarnAllHandsDead", 2)
 
-local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, nil, nil, nil, 1, 2)
+local specWarnArmaYou	= mod:NewSpecialWarningMove(45915, false, nil, nil, 1, 2)
 local yellArmageddon	= mod:NewYellMe(45915)
+local warnArmageddon 	= mod:NewSpellAnnounce(45915, 2)
 
 --warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
 --local yellSpike			= mod:NewYellMe(46589)			--warnSpikeTarget,yellSpike,specWarnSpike dont work and I am not sure if they are supposed to  
@@ -48,7 +49,7 @@ local specWarnBomb		= mod:NewSpecialWarningMoveTo(46605, nil, nil, nil, 3, 2)--f
 local specWarnShield	= mod:NewSpecialWarningSpell(45848)
 local specWarnDarkOrb	= mod:NewSpecialWarning("SpecWarnDarkOrb", false)
 local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", false)
-local specWarnSpike = mod:NewSpecialWarningSpell(46680, false, nil, nil, 2, nil, nil, nil, 2)
+local specWarnSpike 	= mod:NewSpecialWarningSpell(46680, false, nil, nil, 2, nil, nil, nil, 2)
 
 local timerBloomCD		= mod:NewCDTimer(40, 45641, nil, nil, nil, 2) --AC: In P1-P3: 40 seconds. In P4: 20 seconds. 
 local timerDartCD		= mod:NewCDTimer(20, 45737, nil, nil, nil, 2)--Currently (12.05.25): 10s on AC, but should be fixed soon. 20s is the correct blizzard value. 
@@ -56,7 +57,6 @@ local timerBomb			= mod:NewCastTimer(9, 46605, nil, nil, nil, 2, nil, DBM_COMMON
 local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON) --AC: 45s regular; P4: 25s
 local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
 local timerBlueOrb		= mod:NewTimer(38, "TimerBlueOrb", 45109, nil, nil, 5) --AC: 38s
-
 
 local timerKilCombatStart = mod:NewCombatTimer(11)
 
@@ -196,7 +196,8 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(unitId, spellName, rank) --not very reliable. Only the one player shows in the Combatlog, but three are targeted. 
-    if spellName == "Armageddon" then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID before CATA: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
+    if spellName == "Armageddon" and self:AntiSpam(5, 1) then -- Check by NAME, not ID; UNIT_SPELLCAST_SUCCEEDED did not support SpellID before CATA: https://warcraft.wiki.gg/wiki/UNIT_SPELLCAST_SUCCEEDED
+		warnArmageddon:Show()
         local targetName = UnitName(unitId .. "target")
         if targetName then
             self:ArmageddonTarget(targetName)
