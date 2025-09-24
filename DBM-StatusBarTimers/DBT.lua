@@ -1143,7 +1143,12 @@ function barPrototype:ApplyStyle()
 	end
 	local barTextColorRed, barTextColorGreen, barTextColorBlue = barOptions.TextColorR, barOptions.TextColorG, barOptions.TextColorB
 	local barHeight, barHugeHeight, barWidth, barHugeWidth = barOptions.Height, barOptions.HugeHeight, barOptions.Width, barOptions.HugeWidth
-	local frameAlpha = frame:GetAlpha()
+	local frameAlpha = enlarged and barOptions.HugeAlpha or barOptions.Alpha
+	if barOptions.FadeBars and self.fade then
+    	frameAlpha = frameAlpha / 2
+	end
+	name:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
+	timer:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
 	name:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
 	timer:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
 	if barOptions.IconLeft then icon1:Show() else icon1:Hide() end
