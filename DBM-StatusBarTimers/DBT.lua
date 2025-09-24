@@ -1149,8 +1149,6 @@ function barPrototype:ApplyStyle()
 	end
 	name:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
 	timer:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
-	name:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
-	timer:SetTextColor(barTextColorRed, barTextColorGreen, barTextColorBlue, frameAlpha)
 	if barOptions.IconLeft then icon1:Show() else icon1:Hide() end
 	if barOptions.IconRight then icon2:Show() else icon2:Hide() end
 	if enlarged then
