@@ -45,9 +45,7 @@ L = DBM:GetModLocalization("Akilzon")
 L:SetGeneralLocalization({
 	name = "아킬존"
 })
-L:SetTimerLocalization({
-    TimerStorm = "전기 폭풍"
-})
+
 L:SetMiscLocalization({
 	YellPull	= "나는 사냥꾼이다! 너흰 먹잇감이고...",
 })

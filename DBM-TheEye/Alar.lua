@@ -9,9 +9,6 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 34229 35383 35410",
 	"SPELL_AURA_REMOVED 35410",
-	"SPELL_CAST_START 34342 35369",
-	"SPELL_DAMAGE 34341",
-	"SPELL_MISSED 34341",
 	"SPELL_HEAL 34342"
 )
 
@@ -26,12 +23,10 @@ local specWarnArmor		= mod:NewSpecialWarningTaunt(35410, nil, nil, nil, 1, 2)
 local timerQuill		= mod:NewCastTimer(10, 34229, nil, nil, nil, 3)
 local timerMeteor		= mod:NewCDTimer(52, 35181, nil, nil, nil, 2)
 local timerArmor		= mod:NewTargetTimer(60, 35410, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
-local timerNextPlatform	= mod:NewTimer(34-4, "NextPlatform", 40192, nil, nil, 6)--This has no spell trigger, the target scanning bosses target is still required if loop isn't accurate enough.
+local timerNextPlatform	= mod:NewTimer(34, "NextPlatform", 40192, nil, nil, 6)--This has no spell trigger, the target scanning bosses target is still required if loop isn't accurate enough.
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 
-local timerPhase2		= mod:NewPhaseTimer(12)
---[[
 local buffetName = DBM:GetSpellInfo(34121)
 local UnitName = UnitName
 mod.vb.phase2Start = 0
@@ -93,31 +88,12 @@ function mod:OnCombatStart(delay)
 		end
 	end, 0.25)
 end
-]]--
-
-local function NextPlatform(self)
-	if timerQuill:IsStarted() then
-		timerNextPlatform:Start(34-4+10+1)
-		self:Schedule(34-4+10+1, NextPlatform, self)
-	else
-		timerNextPlatform:Start()
-		self:Schedule(34-4, NextPlatform, self)
-	end
-end
-
-function mod:OnCombatStart(delay)
-	self:SetStage(1)
-	NextPlatform(self)
-end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 34229 then
 		specWarnQuill:Show()
 		specWarnQuill:Play("findshelter")
 		timerQuill:Start()
-		timerNextPlatform:Cancel()
-		self:Unschedule(NextPlatform)
-		NextPlatform(self)
 	elseif args.spellId == 35383 and args:IsPlayer() and self:AntiSpam(3, 1) then
 		specWarnFire:Show()
 		specWarnFire:Play("runaway")
@@ -136,7 +112,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerArmor:Cancel(args.destName)
 	end
 end
---[[
+
 --Target scanning is more accurate for finding phase 2 well before the heal, HOWEVER, fails if soloing alar and you aren't targeting him.
 function mod:SPELL_HEAL(_, _, _, _, _, _, spellId)
 	if spellId == 34342 then
@@ -148,7 +124,7 @@ function mod:SPELL_HEAL(_, _, _, _, _, _, spellId)
 		timerNextPlatform:Cancel()
 	end
 end
---]]
+
 --[[
 function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
 	if (spellId == 35181 or spellId == 45680) and self:AntiSpam(30, 2) then
@@ -156,24 +132,3 @@ function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 --]]
-
-
-function mod:SPELL_CAST_START(args)
-	if args.spellId == 34342 then
-		self:SetStage(2)
-		warnPhase2:Show()
-		berserkTimer:Start()
-		timerMeteor:Start(50-16)--This seems to vary slightly depending on where in room he shoots it.
-	elseif args.spellId == 35369 then
-		timerMeteor:Start(50-5-6-4+7)
-	end
-end
-
-function mod:SPELL_DAMAGE(_, _, _, _, _, _, spellId)
-	if spellId == 34341 and self:AntiSpam(3, 2) then
-		timerNextPlatform:Cancel()
-		self:Unschedule(NextPlatform)
-		timerPhase2:Start()
-	end
-end
-mod.SPELL_MISSED = mod.SPELL_DAMAGE

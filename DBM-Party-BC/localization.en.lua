@@ -617,8 +617,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Split		= "We span the universe, as countless as the stars!",
-	Lastcell	= "One final cell remains. Yes, O great one, right away!"
+	Split	= "We span the universe, as countless as the stars!"
 })
 
 --------------------------

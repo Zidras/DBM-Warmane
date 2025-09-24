@@ -20,6 +20,11 @@
 ## X-DBM-Mod-LoadZone: Karazhan
 ## X-DBM-Mod-LoadZone-zhTW: 卡拉贊
 ## X-DBM-Mod-LoadZone-zhCN: 卡拉赞
+## X-DBM-Mod-LoadZone-deDE: Karazhan
+## X-DBM-Mod-LoadZone-esES: Karazhan
+## X-DBM-Mod-LoadZone-esMX: Karazhan
+## X-DBM-Mod-LoadZone-frFR: Karazhan
+## X-DBM-Mod-LoadZone-koKR: 카라잔
 ## X-DBM-Mod-LoadZone-ruRU: Каражан
 
 localization.en.lua

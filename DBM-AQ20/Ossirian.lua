@@ -9,20 +9,15 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 25176 25189 25177 25178 25180 25181 25183",
-	"SPELL_AURA_REMOVED 25189",
-	"SPELL_CAST_SUCCESS 25188"
+	"SPELL_AURA_REMOVED 25189"
 )
 
 local warnSupreme		= mod:NewSpellAnnounce(25176, 3)
 local warnCyclone		= mod:NewTargetNoFilterAnnounce(25189, 4)
 local warnVulnerable	= mod:NewAnnounce("WarnVulnerable", 3, "Interface\\Icons\\INV_Enchant_EssenceMagicLarge")
-local warnWarStomp		= mod:NewSpellAnnounce(25188, 2, nil, false)
 
 local timerCyclone		= mod:NewTargetTimer(10, 25189, nil, nil, nil, 3)
 local timerVulnerable	= mod:NewTimer(45, "TimerVulnerable", "Interface\\Icons\\INV_Enchant_EssenceMagicLarge", nil, nil, 6)
-
-local timerCycloneCD	= mod:NewCDTimer(20, 25189, nil, false)
-local timerWarStompCD	= mod:NewCDTimer(30, 25188, nil, false)
 
 -- local firstBossMod = DBM:GetModByName("Kurinnaxx")
 
@@ -71,11 +66,5 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 25189 then
 		timerCyclone:Stop(args.destName)
-	end
-end
-
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 25188 then
-		timerWarStompCD:Start()
 	end
 end

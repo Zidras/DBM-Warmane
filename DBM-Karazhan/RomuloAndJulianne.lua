@@ -30,9 +30,7 @@ local warningPoison		= mod:NewStackAnnounce(30830, 2, nil, "Tank|Healer")
 local timerHeal			= mod:NewCastTimer(2.5, 30878)
 local timerDaring		= mod:NewTargetTimer(8, 30841, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
 local timerDevotion		= mod:NewTargetTimer(10, 30887, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
-local timerCombatStart	= mod:NewCombatTimer(55+7)
-
-local timerSimulKill	= mod:NewTimer(10, "TimerSimulKill", 24173)
+local timerCombatStart	= mod:NewCombatTimer(55)
 
 mod.vb.JulianneDied = 0
 mod.vb.RomuloDied = 0
@@ -72,7 +70,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if (msg == L.DBM_RJ_PHASE2_YELL or msg:find(L.DBM_RJ_PHASE2_YELL)) and self.vb.phase < 3 then
+	if msg == L.DBM_RJ_PHASE2_YELL or msg:find(L.DBM_RJ_PHASE2_YELL) then
 		warnPhase3:Show()
 		self:SetStage(3)
 	elseif msg == L.Event or msg:find(L.Event) then
@@ -85,25 +83,20 @@ function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 17534 and self:IsInCombat() then
 		if self.vb.phase == 3 then--kill only in phase 3.
-			timerSimulKill:Start()
 			self.vb.JulianneDied = GetTime()
 			if (GetTime() - self.vb.RomuloDied) < 10 then
 				DBM:EndCombat(self)
 			end
-		elseif self.vb.phase == 1 then
+		else
 			warnPhase2:Show()
 			self:SetStage(2)
 		end
 	elseif cid == 17533 and self:IsInCombat() then
 		if self.vb.phase == 3 then--kill only in phase 3.
-			timerSimulKill:Start()
 			self.vb.RomuloDied = GetTime()
 			if (GetTime() - self.vb.JulianneDied) < 10 then
 				DBM:EndCombat(self)
 			end
-		elseif self.vb.phase == 2 then
-			warnPhase3:Show()
-			self:SetStage(3)
 		end
 	end
 end

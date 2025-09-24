@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razuvious", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250914210600")
+mod:SetRevision("20221016184543")
 mod:SetCreatureID(16061)
 
 mod:RegisterCombat("combat_yell", L.Yell1, L.Yell2, L.Yell3, L.Yell4)
@@ -22,7 +22,7 @@ local timerShieldWall	= mod:NewCDTimer(20, 29061, nil, nil, nil, 5, nil, DBM_COM
 local timerMindControl	= mod:NewBuffActiveTimer(60, 605, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)
-	timerShout:Start(15 - delay)
+	timerShout:Start(16 - delay)
 	warnShoutSoon:Schedule(11 - delay)
 end
 

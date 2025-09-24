@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Brutallus", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250324123456 ")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(24882)
-mod.statTypes = "normal25, mythic"
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("yell", L.Pull)
@@ -27,21 +26,21 @@ local specWarnMeteor	= mod:NewSpecialWarningStack(45150, nil, 4, nil, nil, 1, 6)
 local specWarnBurn		= mod:NewSpecialWarningYou(46394, nil, nil, nil, 1, 2)
 local yellBurn			= mod:NewYell(46394)
 
-local timerMeteorCD		= mod:NewCDTimer(12, 45150, nil, nil, nil, 3) --AC: 12s 
-local timerStompCD		= mod:NewCDTimer(30, 45185, nil, nil, nil, 2) --AC 30s 
+local timerMeteorCD		= mod:NewCDTimer(12, 45150, nil, nil, nil, 3)
+local timerStompCD		= mod:NewCDTimer(31, 45185, nil, nil, nil, 2)
 local timerBurn			= mod:NewTargetTimer(60, 46394, nil, "false", 2, 3)
 local timerBurnCD		= mod:NewCDTimer(20, 46394, nil, nil, nil, 3)
 
-local berserkTimer		= mod:NewBerserkTimer(360)
+local berserkTimer		= mod:NewBerserkTimer(mod:IsTimewalking() and 300 or 360)
 
 mod:AddSetIconOption("BurnIcon", 46394, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
-mod:AddRangeFrameOption(6, 46394) --change rangeframe to 6y instead of 4y as spell range is around 4-5y, 20250319
+mod:AddRangeFrameOption(4, 46394)
 mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
 mod:AddDropdownOption("RangeFrameActivation", {"AlwaysOn", "OnDebuff"}, "OnDebuff", "misc")
 
 mod.vb.burnIcon = 8
-
 local debuffName = DBM:GetSpellInfo(46394)
+
 local DebuffFilter
 do
 	DebuffFilter = function(uId)
@@ -54,10 +53,9 @@ function mod:OnCombatStart(delay)
 	timerBurnCD:Start(-delay)
 	timerStompCD:Start(-delay)
 	berserkTimer:Start(-delay)
-	timerMeteorCD:Start(11-delay) -- new CC start timer
---	if self.Options.RangeFrame and self.Options.RangeFrameActivation == "AlwaysOn" then
-		DBM.RangeCheck:Show(6) --change rangeframe to 6y instead of 4y 20250319
---	end
+	if self.Options.RangeFrame and self.Options.RangeFrameActivation == "AlwaysOn" then
+		DBM.RangeCheck:Show(4)
+	end
 end
 
 function mod:OnCombatEnd()
@@ -70,7 +68,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 46394 then
 		warnBurn:Show(args.destName)
 		timerBurn:Start(args.destName)
-		if self:AntiSpam(18, 1) then --lower the antispam a bit (default=19s) 20250319
+		if self:AntiSpam(19, 1) then
 			timerBurnCD:Start()
 		end
 		if self.Options.BurnIcon then
@@ -86,16 +84,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnBurn:Play("targetyou")
 			yellBurn:Yell()
 		end
---[[		
 		if self.Options.RangeFrame and self.Options.RangeFrameActivation == "OnDebuff" then
-			if DBM:UnitDebuff("player", debuffName) then--You have debuff, show everyone || the args.spellName did not have proper reference?
-				DBM.RangeCheck:Show(6, nil) --change rangeframe to 6y instead of 4y 20250319
-			else --You do not have debuff, only show players who do
-				DBM.RangeCheck:Show(6, DebuffFilter) --change rangeframe to 6y instead of 4y 20250319
+			if DBM:UnitDebuff("player", args.spellName) then--You have debuff, show everyone
+				DBM.RangeCheck:Show(4, nil)
+			else--You do not have debuff, only show players who do
+				DBM.RangeCheck:Show(4, DebuffFilter)
 			end
 		end
-]]-- this may be redundant as you want the range frame to be available at all times, also the person with burn is already marked with raidicon
-	elseif args.spellId == 45185 then --Stomp
+	elseif args.spellId == 45185 then
 		if args:IsPlayer() then
 			specwarnStompYou:Show()
 		else
@@ -132,19 +128,8 @@ end
 function mod:SPELL_MISSED(_, _, _, _, _, _, spellId)
 	if spellId == 46394 then
 		warnBurn:Show("MISSED")
-		if self:AntiSpam(18, 1) then --reduce to 18s antispam although spell cd is 20s 20250319
+		if self:AntiSpam(19, 1) then
 			timerBurnCD:Start()
 		end
 	end
 end
-
-
---[[
-    SPELL_METEOR_SLASH                  = 45150,
-    SPELL_BURN_DAMAGE                   = 46394,
-    SPELL_BURN                          = 45141,
-    SPELL_STOMP                         = 45185,
-    SPELL_BERSERK                       = 26662,
-    SPELL_DUAL_WIELD                    = 42459,
-    SPELL_SUMMON_BRUTALLUS_DEATH_CLOUD  = 45884
-]]-- spell ID for reference

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sartura", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716174010")
 mod:SetCreatureID(15516)
 
 mod:SetModelID(15516)
@@ -9,9 +9,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 26083 8269",
-	"UNIT_HEALTH mouseover focus target",
-	"SPELL_AURA_APPLIED 26083",
-	"SPELL_AURA_REMOVED 26083"
+	"UNIT_HEALTH mouseover focus target"
 )
 
 --Add sundering cleave?
@@ -21,13 +19,13 @@ local warnWhirlwind		= mod:NewSpellAnnounce(26083, 3)
 
 local specWarnWhirlwind	= mod:NewSpecialWarningRun(26083, false, nil, nil, 4, 2)
 
-local WhirlwindCD		= mod:NewCDTimer(20, 26083, nil, nil, nil, 2)
+local timerBerserk		= mod:NewBerserkTimer(600)
 
 mod.vb.prewarn_enrage = false
 
-function mod:OnCombatStart()
+function mod:OnCombatStart(delay)
 	self.vb.prewarn_enrage = false
-	WhirlwindCD:Start(12)
+	timerBerserk:Start(-delay)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
@@ -42,10 +40,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnEnrage:Show()
 	end
 end
-mod.SPELL_AURA_APPLIED = mod.SPELL_CAST_SUCCESS
 
 function mod:UNIT_HEALTH(uId)
-	if self:GetUnitCreatureId(uId) == 15516 and not self.vb.prewarn_enrage and UnitHealthMax(uId) and UnitHealthMax(uId) > 0 and (UnitHealth(uId) / UnitHealthMax(uId)) <= 0.35 then
+	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.35 and self:GetUnitCreatureId(uId) == 15516 and not self.vb.prewarn_enrage then
 		warnEnrageSoon:Show()
 		self.vb.prewarn_enrage = true
 	end

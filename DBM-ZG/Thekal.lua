@@ -1,19 +1,19 @@
 local mod = DBM:NewMod("Thekal", "DBM-ZG", 1)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20241022104932")
 mod:SetCreatureID(14509, 11348, 11347)
 
 mod:SetBossHPInfoToHighest()
+mod:DisableBossDeathKill() -- Instructs mod to ignore boss deaths, since Thekal dies twice
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 24208",
-	"SPELL_AURA_APPLIED 21060 12540 8269",
+	"SPELL_AURA_APPLIED 21060 12540",
 	"SPELL_AURA_REMOVED 21060 12540",
 	"SPELL_SUMMON 24813",
-	"SPELL_CAST_SUCCESS 24813",
 	"CHAT_MSG_MONSTER_EMOTE",
 	"CHAT_MSG_MONSTER_YELL"
 )
@@ -23,11 +23,10 @@ local warnBlind			= mod:NewTargetAnnounce(21060, 2)
 local warnGouge			= mod:NewTargetAnnounce(12540, 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnAdds			= mod:NewSpellAnnounce(24183, 3)
-local warnEnrage		= mod:NewSpellAnnounce(8269, 3)
 
 local specWarnHeal		= mod:NewSpecialWarningInterrupt(24208, "HasInterrupt", nil, nil, 1, 2)
 
-local timerSimulKill	= mod:NewTimer(15-5, "TimerSimulKill", 24173)
+local timerSimulKill	= mod:NewTimer(15, "TimerSimulKill", 24173)
 local timerBlind		= mod:NewTargetTimer(10, 21060, nil, nil, nil, 3)
 local timerGouge		= mod:NewTargetTimer(4, 12540, nil, nil, nil, 3)
 
@@ -52,8 +51,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 12540 and args:IsDestTypePlayer() then
 		warnGouge:Show(args.destName)
 		timerGouge:Start(args.destName)
-	elseif args.spellId == 8269 and args:IsDestTypeHostile() then
-		warnEnrage:Show()
 	end
 end
 
@@ -70,7 +67,6 @@ function mod:SPELL_SUMMON(args)
 		warnAdds:Show()
 	end
 end
-mod.SPELL_CAST_SUCCESS = mod.SPELL_SUMMON
 
 function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	if msg == L.PriestDied then -- Starts timer before ressurection of adds.
@@ -84,7 +80,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg, arg)
+function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "PriestDied" then
 		if self:AntiSpam(20, 1) then

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("NightbaneRaid", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250104110528")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(17225)
 
 mod:SetModelID(18062)
@@ -26,7 +26,7 @@ local warningBone			= mod:NewSpellAnnounce(37098, 3)
 local specWarnCharred		= mod:NewSpecialWarningGTFO(30129, nil, nil, nil, 1, 6)
 local specWarnSmoke			= mod:NewSpecialWarningTarget(30128, "Healer", nil, nil, 1, 2)
 
-local timerNightbane		= mod:NewCombatTimer(62) --Exactly 61.66s 
+local timerNightbane		= mod:NewCombatTimer(36)
 local timerFearCD			= mod:NewCDTimer(31.5, 36922, nil, nil, nil, 2)
 local timerAirPhase			= mod:NewTimer(57, "timerAirPhase", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerBone				= mod:NewBuffActiveTimer(11, 37098, nil, nil, nil, 1)

@@ -42,7 +42,6 @@ localization.tw.lua
 localization.cn.lua
 localization.fr.lua
 
-BWLTrash.lua
 Razorgore.lua
 Vaelastrasz.lua
 Broodlord.lua
@@ -51,3 +50,4 @@ Ebonroc.lua
 Flamegor.lua
 Chromaggus.lua
 Nefarian.lua
+TalonGuards.lua

@@ -16,7 +16,6 @@ mod:RegisterEventsInCombat(
 local warnPhase2	= mod:NewPhaseAnnounce(2)
 local warnParalyze	= mod:NewTargetNoFilterAnnounce(25725, 3)
 local warnEnrage	= mod:NewTargetNoFilterAnnounce(8269, 3)
-local warnLarve		= mod:NewAnnounce("Larve spawned", 2, "Interface\\Icons\\Ability_Warrior_OffensiveStance")
 
 local timerParalyze	= mod:NewTargetTimer(10, 25725, nil, nil, nil, 3)
 
@@ -28,7 +27,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 25725 then
 		warnParalyze:Show(args.destName)
 		timerParalyze:Start(args.destName)
-		warnLarve:Show()
 	elseif args.spellId == 8269 and args:IsDestTypeHostile() then
 		warnEnrage:Show(args.destName)
 	end

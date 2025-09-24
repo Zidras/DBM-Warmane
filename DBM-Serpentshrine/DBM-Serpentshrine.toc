@@ -3,6 +3,7 @@
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0불뱀 제단|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Höhle des Schlangenschreins|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Caverna Santuario Serpiente|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Caverne du sanctuaire du Serpent|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0毒蛇神殿|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0毒蛇神殿洞穴|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Змеиное святилище|r
@@ -17,10 +18,23 @@
 ## X-DBM-Mod-MapID: 781
 ## X-DBM-Mod-Sort: 1005
 ## X-DBM-Mod-Name: Serpentshrine Cavern
+## X-DBM-Mod-Name-koKR: 불뱀 제단
+## X-DBM-Mod-Name-deDE: Höhle des Schlangenschreins
+## X-DBM-Mod-Name-esES: Caverna Santuario Serpiente
+## X-DBM-Mod-Name-esMX: Caverna Santuario Serpiente
+## X-DBM-Mod-Name-frFR: Caverne du sanctuaire du Serpent
 ## X-DBM-Mod-Name-zhCN: 毒蛇神殿
+## X-DBM-Mod-Name-zhCN: 毒蛇神殿洞穴
 ## X-DBM-Mod-Name-ruRU: Змеиное святилище
 ## X-DBM-Mod-LoadZone: Serpentshrine Cavern
+## X-DBM-Mod-LoadZone-koKR: 불뱀 제단
+## X-DBM-Mod-LoadZone-deDE: Höhle des Schlangenschreins
+## X-DBM-Mod-LoadZone-esES: Caverna Santuario Serpiente
+## X-DBM-Mod-LoadZone-esMX: Caverna Santuario Serpiente
+## X-DBM-Mod-LoadZone-frFR: Caverne du sanctuaire du Serpent
 ## X-DBM-Mod-LoadZone-zhCN: 毒蛇神殿
+## X-DBM-Mod-LoadZone-zhTW: 毒蛇神殿洞穴
+## X-DBM-Mod-LoadZone-ruRU: Змеиное святилище
 
 localization.en.lua
 localization.cn.lua

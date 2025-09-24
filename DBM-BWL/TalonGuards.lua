@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TalonGuards", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206211052")
+mod:SetRevision("20240708001905")
 mod:SetCreatureID(12460, 12461, 99999)--99999 to prevent mod from ending combat after one of each talon guard type die. Mod will effectively ALWAYS wipe, but it has disabled stats/reporting so irrelevant
 mod:SetModelID(12460)
 mod:RegisterCombat("combat")
@@ -94,7 +94,7 @@ local function check_target_vulns(self)
 		return
 	end
 
-	local spellId = select(10, DBM:UnitBuff("target", 22277, 22280, 22278, 22279, 22281)) or 0
+	local spellId = select(11, DBM:UnitBuff("target", 22277, 22280, 22278, 22279, 22281)) or 0
 	local vulnSchool = vulnSpells[spellId]
 	if vulnSchool then
 		return check_spell_damage(self, target, 10000, vulnSchool)

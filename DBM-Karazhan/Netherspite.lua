@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Netherspite", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250116122738")
 mod:SetCreatureID(15689)
 
 mod:SetModelID(15363)
@@ -13,51 +13,31 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
-local warningPortal			= mod:NewAnnounce("warningPortal", 1, "135743")
-local warningBanish			= mod:NewAnnounce("warningBanish", 1, "136135")
+local warningPortal			= mod:NewAnnounce("warningPortal", 1, "Interface\\Icons\\Spell_Arcane_PortalIronforge")
+local warningBanish			= mod:NewAnnounce("warningBanish", 1, "Interface\\Icons\\Spell_Shadow_Cripple")
 local warningBreathCast		= mod:NewCastAnnounce(38523, 2)
 local warningVoid			= mod:NewSpellAnnounce(37063, 4)
 
 local specWarnVoid			= mod:NewSpecialWarningGTFO(30533, nil, nil, nil, 1, 6)
 
-local timerPortalPhase		= mod:NewTimer(61.5-1.5, "timerPortalPhase", "135743", nil, nil, 6)
-local timerBanishPhase		= mod:NewTimer(30, "timerBanishPhase", "136135", nil, nil, 6)
+local timerPortalPhase		= mod:NewTimer(61.5, "timerPortalPhase", "Interface\\Icons\\Spell_Arcane_PortalIronforge", nil, nil, 6)
+local timerBanishPhase		= mod:NewTimer(30, "timerBanishPhase", "Interface\\Icons\\Spell_Shadow_Cripple", nil, nil, 6)
 local timerBreathCast		= mod:NewCastTimer(2.5, 38523, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(540)
 
-local function PortalPhase(self)
-	warningPortal:Show()
-	timerPortalPhase:Start()
-end
-
-local function BanishPhase(self)
-	warningBanish:Show()
-	timerBanishPhase:Start()
-end
-
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	timerPortalPhase:Start(63.5-3.5-delay)
+	timerPortalPhase:Start(63.5-delay)
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_PERIODIC_DAMAGE 30533",
 			"SPELL_PERIODIC_MISSED 30533"
 		)
 	end
-	self:Schedule(63.5-3.5-delay, BanishPhase, self)
-	self:Schedule(63.5-3.5-delay+30, PortalPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60, BanishPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60+30, PortalPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60+30+60, BanishPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60+30+60+30, PortalPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60+30+60+30+60, BanishPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60+30+60+30+60+30, PortalPhase, self)
-	self:Schedule(63.5-3.5-delay+30+60+30+60+30+60+30+60, BanishPhase, self)
 end
 
 function mod:OnCombatEnd()
-
 	self:UnregisterShortTermEvents()
 end
 
@@ -84,12 +64,10 @@ mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.DBM_NS_EMOTE_PHASE_2 then
-		self:Unschedule(BanishPhase)
 		timerPortalPhase:Cancel()
 		warningBanish:Show()
 		timerBanishPhase:Start()
 	elseif msg == L.DBM_NS_EMOTE_PHASE_1 then
-		self:Unschedule(PortalPhase)
 		timerBanishPhase:Cancel()
 		warningPortal:Show()
 		timerPortalPhase:Start()

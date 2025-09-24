@@ -28,23 +28,21 @@ local warnSilence		= mod:NewSpellAnnounce(36297, 4)
 local specWarnCaveIn	= mod:NewSpecialWarningGTFO(36240, nil, nil, nil, 1, 6)
 local specWarnShatter	= mod:NewSpecialWarningMoveAway(33654, nil, nil, nil, 1, 6)
 
-local timerGrowthCD		= mod:NewNextTimer(30+0.3, 36300, nil, nil, nil, 6)
-local timerGroundSlamCD	= mod:NewCDTimer(74-14, 33525, nil, nil, nil, 2)--74-80 second variation,and this is just from 2 pulls.
-local timerShatterCD	= mod:NewNextTimer(10-0.3, 33654, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)--10 seconds after ground slam
-local timerSilenceCD	= mod:NewCDTimer(32+7.9, 36297, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)--Also showing a HUGE variation of 32-130 seconds.
+local timerGrowthCD		= mod:NewNextTimer(30, 36300, nil, nil, nil, 6)
+local timerGroundSlamCD	= mod:NewCDTimer(74, 33525, nil, nil, nil, 2)--74-80 second variation,and this is just from 2 pulls.
+local timerShatterCD	= mod:NewNextTimer(10, 33654, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON, nil, 1, 4)--10 seconds after ground slam
+--local timerSilenceCD	= mod:NewCDTimer(32, 36297, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)--Also showing a HUGE variation of 32-130 seconds.
 
-
-mod:AddRangeFrameOption(mod.Options.RangeDistance == "Smaller" and 11+3 or 18+2, 33654)
+mod:AddRangeFrameOption(mod.Options.RangeDistance == "Smaller" and 11 or 18, 33654)
 mod:AddDropdownOption("RangeDistance", {"Smaller", "Safe"}, "Safe", "misc")
 
 function mod:OnCombatStart(delay)
 	timerGrowthCD:Start(-delay)
-	timerGroundSlamCD:Start(40-5-delay)
-	timerSilenceCD:Start(-delay)
+	timerGroundSlamCD:Start(40-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(self.Options.RangeDistance == "Smaller" and 11+3 or 18+2)
+		DBM.RangeCheck:Show(self.Options.RangeDistance == "Smaller" and 11 or 18)
 	end
---	DBM:AddMsg("Ground Slam timer is not broken. This is an ability that has a 74 second minimum cooldown window, but after coming off CD can be delayed up to 21 seconds on when it's cast. Basically it's a 74-95sec window. DBM shows timer for the start of that window, but cannot control whether or not the boss casts it at 74, 85, or 95. Use this knowledge to inform you of when the ability can NOT be cast, not when it will be.")
+	DBM:AddMsg("Ground Slam timer is not broken. This is an ability that has a 74 second minimum cooldown window, but after coming off CD can be delayed up to 21 seconds on when it's cast. Basically it's a 74-95sec window. DBM shows timer for the start of that window, but cannot control whether or not the boss casts it at 74, 85, or 95. Use this knowledge to inform you of when the ability can NOT be cast, not when it will be.")
 end
 
 function mod:OnCombatEnd()
@@ -57,11 +55,9 @@ function mod:SPELL_CAST_START(args)
 	if args.spellId == 33525 then--Ground Slam
 		warnGroundSlam:Show()
 		timerShatterCD:Start()
-		timerGroundSlamCD:Start(74-14)
+		timerGroundSlamCD:Start()
 		specWarnShatter:Schedule(3)
 		specWarnShatter:ScheduleVoice(3, "scatter")
-		timerGrowthCD:AddTime(9.7)
-		timerSilenceCD:AddTime(9.7)
 	elseif args.spellId == 33654 then--Shatter
 		warnShatter:Show()
 	end
@@ -70,7 +66,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 36297 then--Reverberation (Silence)
 		warnSilence:Show()
-		timerSilenceCD:Start()
+--		timerSilenceCD:Start()
 	end
 end
 

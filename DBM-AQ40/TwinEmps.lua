@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TwinEmpsAQ", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240707193045")
 mod:SetCreatureID(15276, 15275)
 
 --mod:SetModelID(15778)--Renders too close
@@ -20,11 +20,12 @@ local warnMutateBug			= mod:NewSpellAnnounce(802, 2, nil, false)
 
 local specWarnStrike		= mod:NewSpecialWarningDefensive(26613, nil, nil, nil, 1, 2)
 --local specWarnExplodeBug	= mod:NewSpecialWarningMove(804, nil, nil, nil, 1, 2)
-local specWarnGTFO			= mod:NewSpecialWarningGTFO(26607, nil, nil, nil, 1, 2)
+local specWarnGTFO			= mod:NewSpecialWarningGTFO(26607, nil, nil, nil, 8, 2)
 
-local timerTeleport			= mod:NewCDTimer(29.2+0.8, 800, nil, nil, nil, 6, nil, nil, true)--29.2-40.2
-local timerExplodeBugCD		= mod:NewCDTimer(4.9-0.4, 804, nil, false, nil, 1)--4.9-9
-local timerMutateBugCD		= mod:NewCDTimer(11-1, 802, nil, false, nil, 1)--11-16
+local timerTeleport			= mod:NewCDTimer(30, 800, nil, nil, nil, 6, nil, nil, true, 1, 4)	-- SAA. No variance on Lordaeron. ~10s variance on Onyxia [30.17-40.23]. Added "keep" arg (Lordaeron: Timewalking [2024-05-11]@[22:35:41 ||| Onyxia: 25N [2024-07-05]@[18:51:40] || [2024-07-05]@[19:26:33])- "Twin Teleport-800-npc:15275-22 = pull:30.38, 30.13, 30.34, 30.20, 30.02, 30.43, 30.33, 30.32, 30.23, 30.28, 30.30, 30.25" ||| "Twin Teleport-800-npc:15275-22 = pull:30.17, 30.38, 30.75, 32.40, 40.16, 40.23, 32.55, 32.80" || "Twin Teleport-800-npc:15275-22 = pull:30.19, 30.76, 38.16, 39.69, 35.78, 37.14, 34.98"
+																								-- There is also SPELL_CAST_SUCCESS, which I assume is used internally for event scheduling, but I will keep parity with old code in this case																- "Twin Teleport-800-npc:15276-23 = pull:30.38, 30.13, 30.34, 30.20, 30.02, 30.44, 30.33, 30.32, 30.23, 30.28, 30.30, 30.29" ||| "Twin Teleport-800-npc:15276-23 = pull:30.17, 30.38, 30.75, 32.40, 40.16, 40.23, 32.55, 32.80" || "Twin Teleport-800-npc:15276-23 = pull:30.19, 30.76, 38.16, 39.69, 35.78, 37.14, 34.98"
+local timerExplodeBugCD		= mod:NewCDTimer(4.9, 804, nil, false, nil, 1)--4.9-9
+local timerMutateBugCD		= mod:NewCDTimer(11, 802, nil, false, nil, 1)--11-16
 --local timerStrikeCD		= mod:NewCDTimer(9.7, 26613, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON)--9.7-42.6
 
 local berserkTimer			= mod:NewBerserkTimer(900)
@@ -38,11 +39,9 @@ function mod:OnCombatStart(delay)
 	if self.Options.NPAuraOnMutateBug then
 		DBM:FireEvent("BossMod_EnableHostileNameplates")
 	end
-	timerMutateBugCD:Start(16-delay)
 end
 
 function mod:OnCombatEnd()
-	timerTeleport:Stop()
 --	if self.Options.NPAuraOnMutateBug then
 --		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)
 --	end

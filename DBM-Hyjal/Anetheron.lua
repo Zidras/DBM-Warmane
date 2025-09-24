@@ -15,21 +15,16 @@ mod:RegisterEventsInCombat(
 )
 
 local warnSwarm			= mod:NewSpellAnnounce(31306, 3)
-local warnSleep			= mod:NewTargetNoFilterAnnounce(31298, 2)
+--local warnSleep			= mod:NewTargetNoFilterAnnounce(31298, 2)
 local warnInferno		= mod:NewTargetNoFilterAnnounce(31299, 4)
 
-local specWarnInferno		= mod:NewSpecialWarningYou(31299, nil, nil, nil, 1, 2)
+local specWarnInferno	= mod:NewSpecialWarningYou(31299, nil, nil, nil, 1, 2)
 local yellInferno		= mod:NewYell(31299)
 
 local timerSwarm		= mod:NewBuffFadesTimer(20, 31306, nil, nil, nil, 3)
 local timerSleep		= mod:NewBuffFadesTimer(10, 31298, nil, nil, nil, 3)
-local timerSleepCD		= mod:NewCDTimer(35, 31298, nil, nil, nil, 3) --updated value Cafe2024.05.31
-local timerInferno		= mod:NewCDTimer(50, 31299, nil, nil, nil, 3) --updated value Cafe2024.05.31
-
-function mod:OnCombatStart(delay)  --added start timer Cafe2024.05.31
-	timerSleepCD:Start(25-delay)
-	timerInferno:Start(30-delay)
-end
+local timerSleepCD		= mod:NewCDTimer(19, 31298, nil, nil, nil, 3)
+local timerInferno		= mod:NewCDTimer(51, 31299, nil, nil, nil, 3)
 
 function mod:InfernoTarget(targetname)
 	if not targetname then return end
@@ -71,6 +66,5 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnSwarm:Show()
 	elseif args.spellId == 31298 then
 		timerSleepCD:Start()
-		warnSleep:Show()
 	end
 end

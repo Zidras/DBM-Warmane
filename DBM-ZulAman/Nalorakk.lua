@@ -1,8 +1,7 @@
 local mod	= DBM:NewMod("Nalorakk", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250104100832")
-mod:SetMinSyncRevision(20250104100832)
+mod:SetRevision("20221031191110")
 mod:SetCreatureID(23576)
 
 mod:SetZone()
@@ -14,21 +13,19 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warnBear			= mod:NewAnnounce("WarnBear", 4, 31974)
-local warnBearSoon		= mod:NewAnnounce("WarnBearSoon", 3, 31974)
+local warnBear			= mod:NewAnnounce("WarnBear", 4, 39414)
+local warnBearSoon		= mod:NewAnnounce("WarnBearSoon", 3, 39414)
 local warnNormal		= mod:NewAnnounce("WarnNormal", 4, 39414)
 local warnNormalSoon	= mod:NewAnnounce("WarnNormalSoon", 3, 39414)
 local warnSilence		= mod:NewSpellAnnounce(42398, 3)
 
-local timerBear 		= mod:NewTimer(45, "TimerBear", 31974, nil, nil, 6) -- AC 45-50s; Labeled timerBear and warnBearSoon as CD in localization.en 
-local timerNormal		= mod:NewTimer(30, "TimerNormal", 39414, nil, nil, 6) -- AC 30s
+local timerBear			= mod:NewTimer(45, "TimerBear", 39414, nil, nil, 6) -- Shape of the Bear. REVIEW! (10m Frostmourne 2022/10/28) - 75.0
+local timerNormal		= mod:NewTimer(30, "TimerNormal", 39414, nil, nil, 6) -- (10m Frostmourne 2022/10/28) - pull:74.5, 75.0
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 
-
-
 function mod:OnCombatStart(delay)
-	timerBear:Start() 
+	timerBear:Start() -- (10m Frostmourne 2022/10/28) - 45.0
 	warnBearSoon:Schedule(40)
 	berserkTimer:Start(-delay)
 end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Supremus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250101120130")
+mod:SetRevision("20250629000000")
 mod:SetCreatureID(22898)
 mod:SetModelID(21145)
 mod:SetUsedIcons(8)
@@ -11,30 +11,28 @@ mod:SetMinSyncRevision(20230108000000)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 41581",
-	"SPELL_CAST_SUCCESS 40126",
-	"CHAT_MSG_RAID_BOSS_EMOTE",
-    "UNIT_SPELLCAST_SUCCEEDED"
+	"CHAT_MSG_RAID_BOSS_WHISPER"
 )
 
+--TODO, see if CLEU method is reliable enough to scrap scan method. scan method may still have been faster.
+
 -- General
-local warnPhase				= mod:NewAnnounce("WarnPhase", 4, 42052)
+local warnPhase			= mod:NewAnnounce("WarnPhase", 4, 42052)
 
-local timerPhase			= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
-local timerNextPhase		= mod:NewTimer(60, "TimerPhase", 2565, nil, nil, 6)
-local berserkTimer			= mod:NewBerserkTimer(900) --900s on AC
+local timerPhase		= mod:NewTimer(60, "TimerPhase", 42052, nil, nil, 6)
+local berserkTimer		= mod:NewBerserkTimer(600)
 
-local timerFixate			= mod:NewTimer(10, "Fixate", nil, nil, nil, 1) --added timer for fixate
-
--- Stage One: Tank Phasse
+-- Stage One: Supremus
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
-local specWarnMolten		= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
--- Stage Two: Kite Phase
-mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
-local warnFixate			= mod:NewTargetNoFilterAnnounce(41295, 3)
+local specWarnMolten	= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
+local timerMoltenCD		= mod:NewCDTimer(20, 40265, nil, nil, nil, 3)
 
-local specWarnVolcano		= mod:NewSpecialWarningMove(42052, nil, nil, nil, 1, 2)
-local specWarnFixate		= mod:NewSpecialWarningRun(41295, nil, nil, nil, 4, 2)
+-- Stage Two: Pursuit
+mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
+local warnFixate		= mod:NewTargetNoFilterAnnounce(41295, 3)
+
+local specWarnVolcano	= mod:NewSpecialWarningMove(42052, nil, nil, nil, 1, 2)
+local specWarnFixate	= mod:NewSpecialWarningRun(41295, nil, nil, nil, 4, 2)
 
 mod:AddBoolOption("KiteIcon", true)
 
@@ -60,22 +58,30 @@ local function ScanTarget(self)
 	end
 end
 
+local function warnMoltenSpawn(self)
+	specWarnMolten:Show()
+	specWarnMolten:Play("watchstep")
+	timerMoltenCD:Start(20)
+	self:Schedule(20, warnMoltenSpawn, self)
+end
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerPhase:Start(-delay, L.Kite)
-	timerNextPhase:Schedule(60-delay, L.Tank)
+	timerMoltenCD:Start(10-delay)
+	self:Schedule(10-delay, warnMoltenSpawn, self)
 	self.vb.lastTarget = "None"
-	if not self:IsTrivial() then
+	if not self:IsTrivial() then--Only warning that uses these events is remorseless winter and that warning is completely useless spam for level 90s.
 		self:RegisterShortTermEvents(
 			"SPELL_DAMAGE 40265 42052",
 			"SPELL_MISSED 40265 42052"
 		)
 	end
-
 end
 
 function mod:OnCombatEnd()
+	self:Unschedule(warnMoltenSpawn)
 	self:UnregisterShortTermEvents()
 	if self.vb.lastTarget ~= "None" then
 		self:SetIcon(self.vb.lastTarget, 0)
@@ -93,17 +99,19 @@ function mod:SPELL_DAMAGE(_, _, _, destGUID, _, _, spellId)
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg) --fixed to be emote instead of whisper
+function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg)
 	if msg == L.PhaseKite or msg:find(L.PhaseKite) then
 		self:SetStage(2)
---		warnPhase:Show(L.Kite)
---		timerPhase:Start(L.Tank)
+		warnPhase:Show(L.Kite)
+		timerPhase:Start(L.Tank)
 		self:Unschedule(ScanTarget)
 		self:Schedule(4, ScanTarget, self)
 		if self.vb.lastTarget ~= "None" then
 			self:SetIcon(self.vb.lastTarget, 0)
 		end
 		if self:IsMelee() and not self:IsTrivial() then
+			--Melee Dps Not technically fixated but melee should run out at start of kite phase in case chosen.
+			--Tank should run out because boss actually fixates tank for couple seconds before choosing new target.
 			specWarnFixate:Show()
 			specWarnFixate:Play("justrun")
 		end
@@ -111,13 +119,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg) --fixed to be emote instead of whispe
 		self:SetStage(1)
 		warnPhase:Show(L.Tank)
 		timerPhase:Start(L.Kite)
-		timerNextPhase:Schedule(60, L.Tank)
 		self:Unschedule(ScanTarget)
 		if self.vb.lastTarget ~= "None" then
 			self:SetIcon(self.vb.lastTarget, 0)
 		end
 	elseif msg == L.ChangeTarget or msg:find(L.ChangeTarget) then
-		timerFixate:Start()
 		self:Unschedule(ScanTarget)
 		self:Schedule(0.5, ScanTarget, self)
 	end

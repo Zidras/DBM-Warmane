@@ -1,14 +1,16 @@
 local mod	= DBM:NewMod("Skeram", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716170300")
 mod:SetCreatureID(15263)
 
 mod:SetModelID(15263)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
-mod.noBossDeathKill = true
+mod:DisableBossDeathKill()
+mod:SetHotfixNoticeRev(20240716000000)
 
 mod:RegisterCombat("combat")
+mod:RegisterKill("yell", L.YellKillSkeram)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 785",
@@ -26,8 +28,6 @@ local warnSummonSoon	= mod:NewSoonAnnounce(747, 2)
 
 local timerMindControl	= mod:NewBuffActiveTimer(20, 785, nil, nil, nil, 3)
 
-local timerMindControlCD	= mod:NewCDTimer(20, 785, nil, false)
-
 mod:AddSetIconOption("SetIconOnMC", 785, true, false, {4, 5, 6, 7, 8})
 
 local MCTargets = {}
@@ -38,7 +38,6 @@ function mod:OnCombatStart()
 	self.vb.splitCount = 0
 	table.wipe(MCTargets)
 	self.vb.MCIcon = 8
-	timerMindControlCD:Start(15)
 end
 
 local function warnMCTargets(self)
@@ -83,7 +82,7 @@ function mod:SPELL_SUMMON(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if self:GetUnitCreatureId(uId) == 15263 and UnitHealthMax(uId) and UnitHealthMax(uId) > 0 then
+	if self:GetUnitCreatureId(uId) == 15263 then
 		local percent = UnitHealth(uId) / UnitHealthMax(uId) * 100
 		if percent <= 81 and percent >= 77 and self.vb.splitCount < 1 then
 			warnSummonSoon:Show()

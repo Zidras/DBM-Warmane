@@ -11,13 +11,13 @@ L:SetGeneralLocalization({
 
 L:SetWarningLocalization({
 	WarnBear		= "Bear Form",
-	WarnBearSoon	= "Bear Form CD ready in 5 sec",
+	WarnBearSoon	= "Bear Form in 5 sec",
 	WarnNormal		= "Normal Form",
 	WarnNormalSoon	= "Normal Form in 5 sec"
 })
 
 L:SetTimerLocalization({
-	TimerBear		= "Bear Form CD",
+	TimerBear		= "Bear Form",
 	TimerNormal		= "Normal Form"
 })
 
@@ -31,9 +31,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	YellPull	= "You be dead soon enough!",
+	YellPull	= "Get da move on, guards! It be killin' time!",
 	YellBear	= "You call on da beast, you gonna get more dan you bargain for!",
-	YellNormal	= "Make way for da Nalorakk!"
+	YellNormal	= "Make way for Nalorakk!"
 })
 
 ---------------
@@ -44,17 +44,10 @@ L = DBM:GetModLocalization("Akilzon")
 L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
-L:SetTimerLocalization({
-    TimerStorm = "Electrical Storm"
-})
-L:SetOptionLocalization({
-	TimerStorm		= "Show timer for Eletrical Storm"
-})
 
 L:SetMiscLocalization({
 	YellPull	= "I be da predator! You da prey...",
 })
-
 
 ---------------
 --  Jan'alai --
@@ -64,12 +57,7 @@ L = DBM:GetModLocalization("Janalai")
 L:SetGeneralLocalization({
 	name = "Jan'alai"
 })
-L:SetWarningLocalization({
-	warnHatchSoon	= "All remaining eggs will hatch soon",
-})
-L:SetOptionLocalization({
-	warnHatchSoon	= "Show a pre warning before all eggs are hatched",
-})
+
 L:SetMiscLocalization({
 	YellPull	= "Spirits of da wind be your doom!",
 	YellBomb	= "I burn ya now!",
@@ -97,7 +85,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	YellPull	= "Get on ya knees and bow.... to da fang and claw!",
-	YellSpirit	= "I fight wit untamed spirit....",
+	YellSpirit	= "I fight wit' untamed spirit....",
 	YellNormal	= "Spirit, come back to me!"
 })
 

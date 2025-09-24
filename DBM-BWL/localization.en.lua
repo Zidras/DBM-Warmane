@@ -32,7 +32,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	Event				= "Too late, friends! Nefarius' corruption has taken hold...I cannot...control myself."
+	Event				= "Too late, friends! Nefarius' corruption has taken hold...I cannot...control myself.\n"
 })
 
 -----------------
@@ -172,8 +172,6 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	YellP1		= "Let the games begin!",
 	YellP2		= "Well done, my minions. The mortals' courage begins to wane! Now, let's see how they contend with the true Lord of Blackrock Spire!!!",
-	YellP2CC1	= "Enough! Now you vermin shall feel the force of my birthright, the fury of the earth itself",
-	YellP2CC2	= "BURN! You wretches! BURN!",
 	YellP3		= "Impossible! Rise my minions!  Serve your master once more!",
 	YellShaman	= "Shamans, show me what your totems can do!",
 	YellPaladin	= "Paladins... I've heard you have many lives. Show me.",
@@ -185,13 +183,4 @@ L:SetMiscLocalization({
 	YellHunter	= "Hunters and your annoying pea-shooters!",
 	YellMage	= "Mages too? You should be more careful when you play with magic...",
 	YellDK		= "Death Knights... get over here!"
-})
-
------------------
--- BWL: Trash  --
------------------
-L = DBM:GetModLocalization("BWLTrash")
-
-L:SetGeneralLocalization({
-	name = "BWL: Trash"
 })

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Bloodboil", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250317164800")
+mod:SetRevision("20230108171130")
 mod:SetCreatureID(22948)
 mod:SetModelID(21443)
 mod:SetHotfixNoticeRev(20230108000000)
@@ -18,6 +18,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 40604 40594"
 )
 
+--[[
+ability.id = 40508 and type = "begincast"
+ or (ability.id = 40491 or ability.id = 42005) and type = "cast"
+ or ability.id = 40604 and type = "applydebuff"
+ or ability.id = 40594
+--]]
+
+--Most timers on fight are bad. there is a reason there is no strike or breath timer. blood and rage only ones that are kinda consistent
 -- General
 local berserkTimer		= mod:NewBerserkTimer(600)
 
@@ -29,8 +37,8 @@ local warnStrike		= mod:NewTargetNoFilterAnnounce(40491, 3, nil, "Tank", 2)
 
 local specWarnBlood		= mod:NewSpecialWarningStack(42005, nil, 1, nil, nil, 1, 2)
 
-local timerBloodCD		= mod:NewCDCountTimer(10, 42005, nil, nil, nil, 5, nil, DBM_COMMON_L.IMPORTANT_ICON)
-local timerStrikeCD		= mod:NewCDCountTimer(20+10, 40491, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON) --adjusted to 30s as in script
+local timerBloodCD		= mod:NewCDCountTimer(10, 42005, nil, nil, nil, 5, nil, DBM_COMMON_L.IMPORTANT_ICON) -- (Timewalking Frostmourne 2023-01-07) "Bloodboil-42005-npc:22948-406 = pull:9.5, 10.0, 10.0, 10.0, 10.0, 40.0, 10.0, 10.0, 10.0, 10.0, 10.0, 40.0, 10.0, 10.0, 10.0, 10.0, 10.0, 40.0, 10.0, 10.0, 10.0, 10.0, 10.0, 40.0"
+local timerStrikeCD		= mod:NewCDCountTimer(20, 40491, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON) -- (Timewalking Frostmourne 2023-01-07) "Bewildering Strike-40491-npc:22948-406 = pull:9.4, 20.0, 20.0, 50.0, 20.0, 20.0, 50.0, 20.0, 20.0, 50.0, 20.0, 20.0
 
 -- Stage Two: Fel Rage
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(40594))
@@ -42,8 +50,9 @@ local warnBreath		= mod:NewSpellAnnounce(40508, 2)
 local specWarnRage		= mod:NewSpecialWarningYou(40604, nil, nil, nil, 1, 2)
 local yellRage			= mod:NewYell(40604)
 
-local timerRageCD		= mod:NewCDTimer(90, 40604, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON)
-local timerRageEnd		= mod:NewBuffActiveTimer(30, 40604, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerRageCD		= mod:NewCDTimer(90, 40604, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON) -- (Timewalking Frostmourne 2023-01-07) "Fel Rage-40594-npc:22948-406 = pull:59.6, 89.9, 90.0, 90.0"
+local timerRageEnd		= mod:NewBuffActiveTimer(30, 40604, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON) -- (Timewalking Frostmourne 2023-01-07) - 40604 (player debuff) is 30s ; 40594 (boss debuff) is 28s
+
 mod:AddInfoFrameOption(42005)
 
 mod.vb.bloodCount = 0
@@ -54,10 +63,10 @@ function mod:OnCombatStart(delay)
 	self.vb.bloodCount = 0
 	self.vb.strikeCount = 0
 	berserkTimer:Start(-delay)
-	warnRageSoon:Schedule(54.6-4.6-delay) --adjusted to 10s before change phase
-	timerBloodCD:Start(9.5+0.5-delay, 1) --adjust to 10s as in script
-	timerStrikeCD:Start(9.4+18.6-delay, 1) --adjust to 28s as in script
-	timerRageCD:Start(59.6+0.4-delay) --adjusted to 60s as in script
+	warnRageSoon:Schedule(54.6-delay)
+	timerBloodCD:Start(9.5-delay, 1) -- REVIEW! (Timewalking Frostmourne 2023-01-07) - 9.5
+	timerStrikeCD:Start(9.4-delay, 1) -- REVIEW! (Timewalking Frostmourne 2023-01-07) - 9.4
+	timerRageCD:Start(59.6-delay) -- REVIEW! (Timewalking Frostmourne 2023-01-07) - 59.6
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(42005))
 		DBM.InfoFrame:Show(30, "playerdebuffstacks", 42005, 1)
@@ -93,7 +102,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerStrikeCD:Start(nil, self.vb.strikeCount+1)
 		end
-	end	
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -112,14 +121,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 40491 then
 		warnStrike:Show(args.destName)
 	elseif spellId == 40594 then -- Fel Rage (boss)
-		timerRageEnd:Start(28+2, args.destName) --adjusted to 30s
+		timerRageEnd:Start(28, args.destName)
 		warnRageSoon:Schedule(85)
 		timerRageCD:Start()
-		timerStrikeCD:AddTime(30) --added delay timer for phase 2
 	elseif spellId == 40604 then -- Fel Rage (player)
 		self:SetStage(2)
 --		timerBloodCD:Stop()
---		timerRageEnd:Start(args.destName) --removed as it seem redundant? track buff on boss only
+		timerRageEnd:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnRage:Show()
 			specWarnRage:Play("targetyou")

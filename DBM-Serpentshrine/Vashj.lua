@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vashj", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220813164045")
+mod:SetRevision("20250213133410")
 mod:SetCreatureID(21212)
 --mod:SetModelID(20748)
 mod:SetUsedIcons(1)
@@ -17,7 +17,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 38316 38509",
 	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_YELL",
-	"CHAT_MSG_LOOT"
+	"CHAT_MSG_LOOT",
+	"PARTY_LOOT_METHOD_CHANGED"
 )
 
 local warnCharge		= mod:NewTargetNoFilterAnnounce(38280, 4)
@@ -33,57 +34,59 @@ local warnPhase3		= mod:NewPhaseAnnounce(3)
 --local specWarnCore		= mod:NewSpecialWarning("SpecWarnCore", nil, nil, nil, 1, 8)
 local specWarnCharge	= mod:NewSpecialWarningMoveAway(38280, nil, nil, nil, 1, 2)
 local yellCharge		= mod:NewYell(38280)
-local specWarnElemental	= mod:NewSpecialWarning("SpecWarnElemental")--Changed from soon to a now warning. the soon warning not accurate because of 11 second variation so not useful special warning.
+local specWarnElemental	= mod:NewSpecialWarning("SpecWarnElemental")
 local specWarnToxic		= mod:NewSpecialWarningMove(38575, nil, nil, nil, 1, 2)
 
-local timerEntangleCD	= mod:NewCDTimer(20.9-2.7, 38316, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. 10s variance (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - Stage 1/25.9, Stage 3/30.0, 22.9, 24.2, 27.8 || Stage 1/24.8, Stage 3/30.0, 21.4, 20.9, 29.0, 28.6
+local timerEntangleCD	= mod:NewVarTimer("v20-30", 38316, nil, nil, nil, 3) -- Appears to have 10s variance still as of 15.01.2025 on Onyxia PTR -- pull:29.99/[Stage 1/0.00] 29.99, Stage 2/22.77, Stage 3/270.67, 30.01/300.67/323.44, 25.93, 20.98, 20.12, 24.52"
 local timerCharge		= mod:NewTargetTimer(20, 38280, nil, nil, nil, 3)
-local timerChargeCD		= mod:NewCDTimer(10.2-2.95, 38280, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. 10s variance (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - Stage 1/20.0, 19.0, 17.8, Stage 3/15.5, 14.2, 18.7, 18.8, 19.1, 10.5, 17.5 || Stage 1/10.2, 15.9, 11.3, Stage 3/17.5, 12.7, 19.2, 19.9, 15.8, 12.0, 19.9
-local timerShockBlastCD	= mod:NewCDTimer(10.1+0.75, 38509, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. 10s variance (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - Stage 1/16.3, 17.8, 11.7, Stage 3/27.8, 11.0, 19.0, 11.3, 17.7, 17.2, 17.4 || Stage 1/16.2, 10.1, Stage 3/24.3, 19.8, 14.1, 10.7, 10.6, 19.3, 12.0, 14.7
-local timerElemental	= mod:NewTimer(22-7, "TimerElementalActive", 39088, nil, nil, 1)--Blizz says they are active 20 seconds per patch notes, but my logs don't match those results. 22 second up time.
-local timerElementalCD	= mod:NewTimer(45+5, "TimerElemental", 39088, nil, nil, 1)--46-57 variation. because of high variation the pre warning special warning not useful, fortunately we can detect spawns with precise timing.
-local timerStrider		= mod:NewTimer(63-3, "TimerStrider", 475, nil, nil, 1)
-local timerNaga			= mod:NewTimer(47.5-2.5, "TimerNaga", 2120, nil, nil, 1)
+local timerChargeCD		= mod:NewVarTimer("v10-20", 38280, nil, nil, nil, 3) -- At least 10s variance as of 15.01.2025 on Onyxia PTR -- pull:15.65/[Stage 1/0.00] 15.65, 16.30, 16.68, Stage 2/4.14, Stage 3/270.67, 11.79/282.45/286.59, 11.26, 15.86, 12.87, 12.57, 14.43, 16.71, 11.34, 11.73"
+local timerShockBlastCD	= mod:NewVarTimer("v10-20", 38509, nil, nil, nil, 3) -- At least 10s variance as of 15.01.2025 on Onyxia PTR -- pull:18.32/[Stage 1/0.00] 18.32, 11.71, 12.37, Stage 2/10.37, Stage 3/270.67, 19.40/290.07/300.44, 14.63, 10.72, 13.05, 16.88, 10.91, 13.39
+local timerElemental	= mod:NewTimer(15, "TimerElementalActive", 39088, nil, nil, 1)
+local timerElementalCD	= mod:NewTimer(50, "TimerElemental", 39088, nil, nil, 1) -- Seems to be 50s flat as of 15.01.2025 on Onyxia PTR
+local timerStrider		= mod:NewTimer(63, "TimerStrider", 475, nil, nil, 1)
+local timerNaga			= mod:NewTimer(47.5, "TimerNaga", 2120, nil, nil, 1)
 --local timerMC			= mod:NewCDTimer(21, 38511, nil, nil, nil, 3) -- removed in patch 2.1.
 
 mod:AddRangeFrameOption(10, 38280)
 mod:AddSetIconOption("ChargeIcon", 38280, false, false, {1})
---mod:AddBoolOption("AutoChangeLootToFFA", true)
+mod:AddBoolOption("AutoChangeLootToFFA", true)
 
 mod.vb.shieldLeft = 4
-mod.vb.nagaCount = 1
-mod.vb.striderCount = 1
-mod.vb.elementalCount = 1
---local lootmethod, masterlooterRaidID
+mod.vb.nagaCount = 0
+mod.vb.striderCount = 0
+mod.vb.elementalCount = 0
+local cachedLootmethod, _, masterlooterRaidID
 local elementals = {}
 
 local function StriderSpawn(self)
 	self.vb.striderCount = self.vb.striderCount + 1
-	warnStrider:Schedule(57-2, tostring(self.vb.striderCount))
-	timerStrider:Start(nil, tostring(self.vb.striderCount))
-	self:Schedule(63-3, StriderSpawn, self)
+	warnStrider:Schedule(57, tostring(self.vb.striderCount + 1))
+	timerStrider:Start(nil, tostring(self.vb.striderCount + 1))
+	self:Schedule(63, StriderSpawn, self)
 end
 
 local function NagaSpawn(self)
-	warnNaga:Schedule(42.5-2.5, tostring(self.vb.nagaCount))
 	self.vb.nagaCount = self.vb.nagaCount + 1
-	timerNaga:Start(nil, tostring(self.vb.nagaCount))
-	self:Schedule(47.5-2.5, NagaSpawn, self)
+	warnNaga:Schedule(42.5, tostring(self.vb.nagaCount + 1))
+	timerNaga:Start(nil, tostring(self.vb.nagaCount + 1))
+	self:Schedule(47.5, NagaSpawn, self)
 end
 
 function mod:OnCombatStart(delay)
 	table.wipe(elementals)
 	self:SetStage(1)
 	self.vb.shieldLeft = 4
-	self.vb.nagaCount = 1
-	self.vb.striderCount = 1
-	self.vb.elementalCount = 1
-	timerEntangleCD:Start(29.5-4.05-delay) -- REVIEW! variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 29.5 || 29.5
-	timerChargeCD:Start(11.6+6.55-delay) -- REVIEW! 10s variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 11.6 || 16.3
-	timerShockBlastCD:Start(15.2-0.65-delay) -- REVIEW! 10s variance? (25 man FM log 2022/07/27 || 25 man FM log 2022/08/11) - 25.2 || 15.2
---	if DBM:IsInGroup() and DBM:GetRaidRank() == 2 then
---		lootmethod, _, masterlooterRaidID = GetLootMethod()
---	end
+	self.vb.nagaCount = 0
+	self.vb.striderCount = 0
+	self.vb.elementalCount = 0
+	timerEntangleCD:Start(30-delay) -- Appears to be static 30s upon starting combat (As of 15.01.2025 on Onyxia PTR)
+	timerChargeCD:Start()
+	timerShockBlastCD:Start()
+	-- Cache the loot method in case loot gets manually changed to ffa before Phase 2
+	if DBM:GetRaidRank() == 2 then
+		cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
+		if cachedLootmethod == "freeforall" then cachedLootmethod = nil end
+	end
 end
 
 function mod:OnCombatEnd()
@@ -91,13 +94,14 @@ function mod:OnCombatEnd()
 		DBM.RangeCheck:Hide()
 	end
 	self:UnregisterShortTermEvents()
---	if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
---		if masterlooterRaidID then
---			SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
---		else
---			SetLootMethod(lootmethod)
---		end
---	end
+	-- Don't change loot if it was manually changed away from ffa
+	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() == "freeforall" and cachedLootmethod then
+		if masterlooterRaidID then
+			SetLootMethod(cachedLootmethod, "raid"..masterlooterRaidID)
+		else
+			SetLootMethod(cachedLootmethod)
+		end
+	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -141,7 +145,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 38112 then--and not self:IsTrivial()
---		DBM:AddMsg("Magic Barrier unhidden from combat log. Notify Zidras on Discord or GitHub")
+		DBM:AddMsg("Magic Barrier unhidden from combat log. Notify Zidras on Discord or GitHub")
 		self.vb.shieldLeft = self.vb.shieldLeft - 1
 		warnShield:Show(self.vb.shieldLeft)
 	end
@@ -149,9 +153,12 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 38253 and not elementals[args.sourceGUID] then
+		elementals[args.sourceGUID] = true
+		self.vb.elementalCount = self.vb.elementalCount + 1
 		specWarnElemental:Show()
 		timerElemental:Start()
-		elementals[args.sourceGUID] = true
+		warnElemental:Schedule(45, tostring(self.vb.elementalCount + 1))
+		timerElementalCD:Start(nil, tostring(self.vb.elementalCount + 1))
 	end
 end
 
@@ -165,20 +172,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
---function mod:UNIT_DIED(args)
---	local cid = self:GetCIDFromGUID(args.destGUID)
---	if cid == 22009 then
---		self.vb.elementalCount = self.vb.elementalCount + 1
---		timerElementalCD:Start(nil, tostring(self.vb.elementalCount))
---		warnElemental:Schedule(45, tostring(self.vb.elementalCount))
---	end
---end
-
-local function ElementalSpawn(self)
-	self.vb.elementalCount = self.vb.elementalCount + 1
-	warnElemental:Schedule(45, tostring(self.vb.elementalCount))
-	timerElementalCD:Start(nil, tostring(self.vb.elementalCount))
-	self:Schedule(45+5, ElementalSpawn, self)
+function mod:UNIT_DIED(args)
+	local cId = self:GetCIDFromGUID(args.destGUID)
+	if cId == 22009 then
+		timerElemental:Cancel()
+	end
 end
 
 function mod:UNIT_SPELLCAST_FAILED_QUIET_UNFILTERED(uId, spellName)
@@ -192,56 +190,54 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.DBM_VASHJ_YELL_PHASE2 or msg:find(L.DBM_VASHJ_YELL_PHASE2) then
 		self:SetStage(2)
-		self.vb.nagaCount = 1
-		self.vb.striderCount = 1
-		self.vb.elementalCount = 1
+		self.vb.nagaCount = 0
+		self.vb.striderCount = 0
+		self.vb.elementalCount = 0
 		self.vb.shieldLeft = 4
 		warnPhase2:Show()
-		timerChargeCD:Cancel()
+		-- Cancel P1 timers
 		timerEntangleCD:Cancel()
+		timerChargeCD:Cancel()
 		timerShockBlastCD:Cancel()
-
-		timerNaga:Start(nil, tostring(self.vb.nagaCount))
-		warnNaga:Schedule(42.5-2.5, tostring(self.vb.nagaCount))
-		self:Schedule(47.5-2.5, NagaSpawn, self)
-
-		timerElementalCD:Start(nil, tostring(self.vb.elementalCount))
-		warnElemental:Schedule(45, tostring(self.vb.elementalCount))
-		self:Schedule(45+5, ElementalSpawn, self)
-
-		timerStrider:Start(nil, tostring(self.vb.striderCount))
-		warnStrider:Schedule(57-2, tostring(self.vb.striderCount))
-		self:Schedule(63-3, StriderSpawn, self)
-
---		if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
---			SetLootMethod("freeforall")
---		end
+		-- Start P2 timers
+		warnNaga:Schedule(42.5, tostring(self.vb.nagaCount + 1))
+		timerNaga:Start(nil, tostring(self.vb.nagaCount + 1))
+		self:Schedule(47.5, NagaSpawn, self)
+		warnStrider:Schedule(57, tostring(self.vb.striderCount + 1))
+		timerStrider:Start(nil, tostring(self.vb.striderCount + 1))
+		self:Schedule(63, StriderSpawn, self)
+		warnElemental:Schedule(45, tostring(self.vb.elementalCount + 1))
+		timerElementalCD:Start(nil, tostring(self.vb.elementalCount + 1))
+		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() ~= "freeforall" then
+			cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
+			SetLootMethod("freeforall")
+		end
 		self:RegisterShortTermEvents(
 			"UNIT_SPELLCAST_FAILED_QUIET_UNFILTERED"
 		)
 	elseif msg == L.DBM_VASHJ_YELL_PHASE3 or msg:find(L.DBM_VASHJ_YELL_PHASE3) then
 		self:SetStage(3)
 		warnPhase3:Show()
-		timerNaga:Cancel()
 		warnNaga:Cancel()
-		timerElementalCD:Cancel()
-		warnElemental:Cancel()
-		timerStrider:Cancel()
-		warnStrider:Cancel()
+		timerNaga:Cancel()
 		self:Unschedule(NagaSpawn)
+		warnStrider:Cancel()
+		timerStrider:Cancel()
 		self:Unschedule(StriderSpawn)
-		self:Unschedule(ElementalSpawn)
+		warnElemental:Cancel()
+		timerElementalCD:Cancel()
 		self:UnregisterShortTermEvents()
-		timerChargeCD:Start(11.6+6.55)
-		timerEntangleCD:Start(29.5-4.05)
-		timerShockBlastCD:Start(15.2-0.65)
---		if DBM:IsInGroup() and self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 then
---			if masterlooterRaidID then
---				SetLootMethod(lootmethod, "raid"..masterlooterRaidID)
---			else
---				SetLootMethod(lootmethod)
---			end
---		end
+		timerEntangleCD:Start(30) -- Appears to be static 30s upon entering P3 (As of 15.01.2025 on Onyxia PTR)
+		timerChargeCD:Start()
+		timerShockBlastCD:Start()
+		-- Don't change loot if it was manually changed
+		if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and GetLootMethod() == "freeforall" and cachedLootmethod then
+			if masterlooterRaidID then
+				SetLootMethod(cachedLootmethod, "raid"..masterlooterRaidID)
+			else
+				SetLootMethod(cachedLootmethod)
+			end
+		end
 	end
 end
 
@@ -258,6 +254,14 @@ function mod:CHAT_MSG_LOOT(msg)
 			end
 		end
 		self:SendSync("LootMsg", player)
+	end
+end
+
+-- Case where combat was started with the wrong loot and changed manually, and then put to ffa manually before Phase 2
+-- This will not protect against misclicks before changing manually to ffa (loot will be returned to last misclicked type)
+function mod:PARTY_LOOT_METHOD_CHANGED()
+	if self.Options.AutoChangeLootToFFA and DBM:GetRaidRank() == 2 and self:GetStage(1) and GetLootMethod() ~= "freeforall" then
+		cachedLootmethod, _, masterlooterRaidID = GetLootMethod()
 	end
 end
 

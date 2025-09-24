@@ -108,3 +108,38 @@ L:SetMiscLocalization({
 	HorsemanSoldiers	= "Soldiers arise, stand and fight! Bring victory at last to this fallen knight!", -- 23861
 	SayCombatEnd		= "This end have I reached before.  What new adventure lies in store?" -- 23455
 })
+
+-----------------------------
+--  Warmane Annual Events  --
+----------------------------
+--  Tower Defense (2024)  --
+----------------------------
+L = DBM:GetModLocalization("WarmaneTowerDefense")
+
+L:SetGeneralLocalization({
+	name = "Tower Defense (2024)"
+})
+
+-- L:SetWarningLocalization({
+-- })
+
+-- L:SetTimerLocalization({
+-- })
+
+-- L:SetOptionLocalization({
+-- })
+
+L:SetTimerLocalization({
+	TimerRound			= "Round %d (%s)",
+})
+
+L:SetOptionLocalization({
+	TimerRound			= "Upon round victory, show timer to begin the next round (with round number and whether it is a Boss or Adds round)"
+})
+
+L:SetMiscLocalization({
+	RoundStart			= "Round (%d+) starts now!",
+	RoundComplete		= "Round (%d+) complete! Buy your upgrades at the vendor now.",
+	RoundFailed			= "Your defense has failed", -- , you have survived (%d) round!
+	EqUneqWeapons		= "Unequip/equip weapons if $spell:28410 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".",
+})

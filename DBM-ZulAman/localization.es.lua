@@ -46,9 +46,7 @@ L = DBM:GetModLocalization("Akilzon")
 L:SetGeneralLocalization({
 	name = "Akil'zon"
 })
-L:SetTimerLocalization({
-    TimerStorm = "Tormenta eléctrica"
-})
+
 L:SetMiscLocalization({
 	YellPull	= "¡Yo soy el depredador! Vosotros la presa...", -- esES
 --	YellPull	= "¡Yo soy el depredador! Ustedes la presa...", -- esMX

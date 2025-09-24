@@ -84,7 +84,7 @@ end
 DBM = {
 	Revision = parseCurseDate("20250912221302"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2025, 09, 02) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 
 local fakeBWVersion = 7558

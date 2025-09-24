@@ -15,10 +15,10 @@ mod:RegisterEventsInCombat(
 
 local specWarnChannel		= mod:NewSpecialWarning("warningFelCrystal", "-Healer", nil, nil, 1, 2)
 
-local timerChannelCD		= mod:NewTimer(30, "timerFelCrystal", 44320, nil, nil, 1)
+local timerChannelCD		= mod:NewTimer(47, "timerFelCrystal", 44320, nil, nil, 1)
 
 function mod:OnCombatStart(delay)
-	timerChannelCD:Start(14-delay)
+	timerChannelCD:Start(15-delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)

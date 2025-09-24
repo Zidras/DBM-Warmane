@@ -13,13 +13,10 @@ mod:RegisterEvents(
 )
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 22539 22686 22665",
-	"SPELL_CAST_SUCCESS 22667",
-	"SPELL_AURA_APPLIED 22687",
---	"UNIT_DIED",
-	"PARTY_KILL",
+	"SPELL_CAST_START 22539 22686",
+	"SPELL_AURA_APPLIED 22687 22667",
+	"UNIT_DIED",
 	"UNIT_HEALTH boss1 mouseover target"
-
 )
 
 local WarnAddsLeft			= mod:NewAnnounce("WarnAddsLeft", 2, "136116")
@@ -28,19 +25,14 @@ local warnPhase				= mod:NewPhaseChangeAnnounce()
 local warnPhase3Soon		= mod:NewPrePhaseAnnounce(3)
 local warnShadowFlame		= mod:NewCastAnnounce(22539, 2)
 local warnFear				= mod:NewCastAnnounce(22686, 2)
-local warnSBVolley			= mod:NewCastAnnounce(22665, 2)
 
 local specwarnShadowCommand	= mod:NewSpecialWarningTarget(22667, nil, nil, 2, 1, 2)
 local specwarnVeilShadow	= mod:NewSpecialWarningDispel(22687, "RemoveCurse", nil, nil, 1, 2)
 local specwarnClassCall		= mod:NewSpecialWarning("specwarnClassCall", nil, nil, nil, 1, 2)
 
 local timerPhase			= mod:NewPhaseTimer(15)
-local timerShadowFlameCD	= mod:NewCDTimer(12, 22539, nil, nil)
 local timerClassCall		= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
-local timerFearNext			= mod:NewCDTimer(26.7-1.7, 22686, nil, nil, 3, 2)--26-42.5
-local timerAddsSpawn		= mod:NewTimer(10, "TimerAddsSpawn", 19879, nil, nil, 1)
-local timerMindControlCD	= mod:NewCDTimer(24, 22667, nil, nil, nil, 6, nil, nil, true)
-local timerSBVolleyCD		= mod:NewCDTimer(19, 22665, nil, nil)
+local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, nil, nil, 2)--26-42.5
 
 mod.vb.addLeft = 42
 local addsGuidCheck = {}
@@ -50,15 +42,9 @@ function mod:OnCombatStart()
 	table.wipe(addsGuidCheck)
 	self.vb.addLeft = 42
 	self:SetStage(1)
-	timerAddsSpawn:Start(15)
-	timerMindControlCD:Start(30)
-	timerSBVolleyCD:Start(13)
 end
 
 function mod:OnCombatEnd(wipe)
-	timerSBVolleyCD:Stop()
-	timerMindControlCD:Stop()
-	timerClassCall:Stop()
 	if not wipe then
 		DBT:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 		if firstBossMod.vb.firstEngageTime then
@@ -89,9 +75,6 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 22686 then
 		warnFear:Show()
 		timerFearNext:Start()
-	elseif spellId == 22665 then
-		warnSBVolley:Show()
-		timerSBVolleyCD:Start(19)
 	end
 end
 
@@ -102,47 +85,22 @@ function mod:SPELL_AURA_APPLIED(args)
 			specwarnVeilShadow:Show(args.destName)
 			specwarnVeilShadow:Play("dispelnow")
 		end
---	elseif spellId == 22667 then
---		specwarnShadowCommand:Show(args.destName)
---		specwarnShadowCommand:Play("findmc")
---		timerMindControlCD:Start(24)
-	end
-end
-
-function mod:SPELL_CAST_SUCCESS(args)
-	local spellId = args.spellId
-	if spellId == 22667 then
+	elseif spellId == 22667 then
 		specwarnShadowCommand:Show(args.destName)
 		specwarnShadowCommand:Play("findmc")
-		timerMindControlCD:Start(24)
 	end
 end
 
---function mod:UNIT_DIED(args)
---	local guid = args.destGUID
---	local cid = self:GetCIDFromGUID(guid)
---	if cid == 14264 or cid == 14263 or cid == 14261 or cid == 14265 or cid == 14262 or cid == 14302 then--Red, Bronze, Blue, Black, Green, Chromatic
---		if not addsGuidCheck[guid] then
---			addsGuidCheck[guid] = true
---			self.vb.addLeft = self.vb.addLeft - 1
---			--40, 35, 30, 25, 20, 15, 12, 9, 6, 3
---			if self.vb.addLeft >= 15 and (self.vb.addLeft % 5 == 0) or self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) then
---				WarnAddsLeft:Show(self.vb.addLeft)
---			end
---		end
---	end
---end
-
-function mod:PARTY_KILL(args)
+function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	local cid = self:GetCIDFromGUID(guid)
 	if cid == 14264 or cid == 14263 or cid == 14261 or cid == 14265 or cid == 14262 or cid == 14302 then--Red, Bronze, Blue, Black, Green, Chromatic
 		if not addsGuidCheck[guid] then
 			addsGuidCheck[guid] = true
 			self.vb.addLeft = self.vb.addLeft - 1
-			--40, 35, 30, 25, 20, 15, 12, 9, 6, 3, 2, 1
-			if (self.vb.addLeft >= 15 and (self.vb.addLeft % 5 == 0)) or (self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) and self.vb.addLeft < 15) or (self.vb.addLeft == 2) or (self.vb.addLeft == 1) then
-					WarnAddsLeft:Show(self.vb.addLeft)
+			--40, 35, 30, 25, 20, 15, 12, 9, 6, 3
+			if self.vb.addLeft >= 15 and (self.vb.addLeft % 5 == 0) or self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) then
+				WarnAddsLeft:Show(self.vb.addLeft)
 			end
 		end
 	end
@@ -177,10 +135,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.YellWarrior or msg:find(L.YellWarrior) then
 		self:SendSync("ClassCall", "WARRIOR")
 	elseif msg == L.YellP2 or msg:find(L.YellP2) then
-		self:SendSync("Phase", 2)
-	elseif msg == L.YellP2CC1 or msg:find(L.YellP2CC1) then
-		self:SendSync("Phase", 2)
-	elseif msg == L.YellP2CC2 or msg:find(L.YellP2CC2) then
 		self:SendSync("Phase", 2)
 	elseif msg == L.YellP3 or msg:find(L.YellP3) then
 		self:SendSync("Phase", 3)

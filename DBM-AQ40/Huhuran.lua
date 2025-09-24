@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Huhuran", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20240716231909")
 mod:SetCreatureID(15509)
 
 mod:SetModelID(15509)
@@ -28,12 +28,13 @@ local specWarnFrenzy	= mod:NewSpecialWarningDispel(26051, "RemoveEnrage", nil, n
 
 local timerSting		= mod:NewBuffFadesTimer(12, 26180, nil, nil, nil, 5, nil, DBM_COMMON_L.POISON_ICON..DBM_COMMON_L.DEADLY_ICON)
 local timerStingCD		= mod:NewCDTimer(25, 26180, nil, nil, nil, 3, nil, DBM_COMMON_L.POISON_ICON..DBM_COMMON_L.DEADLY_ICON)
-local timerPoisonCD		= mod:NewCDTimer(11-1, 26053, nil, nil, nil, 3)
+local timerPoisonCD		= mod:NewCDTimer(11, 26053, nil, nil, nil, 3)
 local timerPoison		= mod:NewBuffFadesTimer(8, 26053)
-local timerFrenzyCD		= mod:NewCDTimer(11.8+0.2, 26051, nil, false, 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON)--Off by default do to ridiculous variation
+local timerFrenzyCD		= mod:NewCDTimer(11.8, 26051, nil, false, 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON)--Off by default do to ridiculous variation
 local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 3, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerBerserk		= mod:NewBerserkTimer(300)
 
-mod:AddRangeFrameOption("20", nil, "-Melee") -- Blizz 18, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
+mod:AddRangeFrameOption("18", nil, "-Melee")
 
 mod.vb.prewarn_berserk = false
 local StingTargets = {}
@@ -41,11 +42,12 @@ local StingTargets = {}
 function mod:OnCombatStart(delay)
 	self.vb.prewarn_berserk = false
 	table.wipe(StingTargets)
-	timerFrenzyCD:Start(9.6+2.4-delay)
-	timerPoisonCD:Start(11-1-delay)
-	timerStingCD:Start(20+5-delay)
+	timerFrenzyCD:Start(9.6-delay)
+	timerPoisonCD:Start(11-delay)
+	timerStingCD:Start(20-delay)
+	timerBerserk:Start(-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(18+2) -- Blizz 18, AzerothCore +2 for regular chars, or 4 for male tauren/draenei
+		DBM.RangeCheck:Show(18)
 	end
 end
 
@@ -91,6 +93,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerStingCD:Stop()
 		timerFrenzyCD:Stop()
 		timerPoisonCD:Stop()
+		timerBerserk:Stop()
 	--elseif args.spellId == 26050 and not self:IsTrivial(80) then
 	elseif args.spellId == 26050 and args:IsPlayer() then
 		local amount = args.amount or 1
@@ -123,7 +126,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if UnitHealthMax(uId) and UnitHealthMax(uId) > 0 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 and self:GetUnitCreatureId(uId) == 15509 and not self.vb.prewarn_berserk then
+	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 and self:GetUnitCreatureId(uId) == 15509 and not self.vb.prewarn_berserk then
 		warnBerserkSoon:Show()
 		self.vb.prewarn_berserk = true
 	end

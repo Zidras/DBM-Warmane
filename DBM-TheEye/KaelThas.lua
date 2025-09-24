@@ -1,17 +1,16 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240818000000")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(19622)
 
-mod:RegisterCombat("yell", L.YellPull1, L.YellPull2)
---mod:RegisterCombat("combat")
+--mod:RegisterCombat("yell", L.YellPull1, L.YellPull2)
+mod:RegisterCombat("combat")
 mod:SetUsedIcons(1, 6, 7, 8)
 
 mod:RegisterEvents(
 	"SPELL_CAST_START 44863 36819 35941",
 	"SPELL_AURA_APPLIED 37018 36797 37027 36815 35859",
-	"SPELL_AURA_REFRESH 37027",
 	"SPELL_AURA_APPLIED_DOSE 35859",
 	"SPELL_AURA_REMOVED 36815 36797 37027",
 	"SPELL_CAST_SUCCESS 36723 36834 34341",
@@ -29,41 +28,38 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnMobDead		= mod:NewAnnounce("WarnMobDead", 3, nil, false)
 local warnPhase3		= mod:NewPhaseAnnounce(3)
 local warnPhase4		= mod:NewPhaseAnnounce(4)
-local warnDisruption		= mod:NewSpellAnnounce(36834, 3)
+local warnDisruption	= mod:NewSpellAnnounce(36834, 3)
 local warnMC			= mod:NewTargetNoFilterAnnounce(36797, 4)
 local warnPhoenix		= mod:NewSpellAnnounce(36723, 2)
-local warnFlamestrike		= mod:NewSpellAnnounce(36735, 4)
+local warnFlamestrike	= mod:NewSpellAnnounce(36735, 4)
 local warnEgg			= mod:NewAnnounce("WarnEgg", 4, 36723)
 local warnPyro			= mod:NewCastAnnounce(36819, 4)
 local warnPhase5		= mod:NewPhaseAnnounce(5)
-local warnGravity		= mod:NewSpellAnnounce(35941, 3)
+local warnGravity		= mod:NewSpellAnnounce(35966, 3)
 
 local specWarnGaze		= mod:NewSpecialWarning("SpecWarnGaze", nil, nil, nil, 4, 2)
 local specWarnToy		= mod:NewSpecialWarningYou(37027, nil, nil, nil, 1, 2)
 local specWarnEgg		= mod:NewSpecialWarning("SpecWarnEgg", nil, nil, nil, 1, 2)
-local specWarnShield		= mod:NewSpecialWarningSpell(36815)--No decent voice for this
+local specWarnShield	= mod:NewSpecialWarningSpell(36815)--No decent voice for this
 local specWarnPyro		= mod:NewSpecialWarningInterrupt(36819, "HasInterrupt", nil, nil, 1, 2)
 local specWarnVapor		= mod:NewSpecialWarningStack(35859, nil, 2, nil, nil, 1, 6)
 
 local timerPhase		= mod:NewTimer(105, "TimerPhase", 28131, nil, nil, 6, nil, nil, 1, 4)
-local timerPhase1mob		= mod:NewTimer(30, "TimerPhase1mob", 28131, nil, nil, 1, nil, nil, 1, 4)
-local timerNextGaze		= mod:NewTimer(8.5+1.5, "TimerNextGaze", 39414, nil, nil, 3)
-local timerFearCD		= mod:NewCDTimer(31-1, 44863, nil, nil, nil, 2)
+local timerPhase1mob	= mod:NewTimer(30, "TimerPhase1mob", 28131, nil, nil, 1, nil, nil, 1, 4)
+local timerNextGaze		= mod:NewTimer(8.5, "TimerNextGaze", 39414, nil, nil, 3)
+local timerFearCD		= mod:NewCDTimer(31, 39427, nil, nil, nil, 2)
 local timerToy			= mod:NewTargetTimer(60, 37027, nil, false, nil, 3)
-local timerPhoenixCD		= mod:NewCDTimer(45-9.55, 36723, nil, nil, nil, 1)
+local timerPhoenixCD	= mod:NewCDTimer(45, 36723, nil, nil, nil, 1)
 local timerRebirth		= mod:NewTimer(15, "TimerRebirth", 36723, nil, nil, 1)
-local timerShieldCD		= mod:NewCDTimer(60-10, 36815, nil, nil, nil, 4)
-local timerGravityCD		= mod:NewNextTimer(92-2, 35941, nil, nil, nil, 6)
+local timerShieldCD		= mod:NewCDTimer(60, 36815, nil, nil, nil, 4)
+local timerGravityCD	= mod:NewNextTimer(92, 35941, nil, nil, nil, 6)
 local timerGravity		= mod:NewBuffActiveTimer(32, 35941, nil, nil, nil, 6)
-local timerMCCD			= mod:NewCDTimer(60-10-27, 36797)
-
-local timerFlameStrikeCD	= mod:NewCDTimer(30.25, 36735)
-local timerConflagCD		= mod:NewCDTimer(18.5, 37018)
+local timerMCCD			= mod:NewCDTimer(60, 36797)
 
 mod:AddSetIconOption("MCIcon", 36797, true, false, {8, 7, 6})
 mod:AddBoolOption("GazeIcon", false)
 --mod:AddSetIconOption("GazeIcon", 38280, false, false, {1})--Problem with no auto localized spellID to use
-mod:AddRangeFrameOption(10+2, 37018)
+mod:AddRangeFrameOption(10, 37018)
 
 mod.vb.mcIcon = 8
 local warnConflagTargets = {}
@@ -72,15 +68,12 @@ local warnMCTargets = {}
 local function showConflag()
 	warnConflag:Show(table.concat(warnConflagTargets, "<, >"))
 	table.wipe(warnConflagTargets)
-	timerConflagCD:Start()
 end
 
---[[
 local function MCFailsafe(self)
 	timerMCCD:Start(70)
 	self:Schedule(70, MCFailsafe, self)
 end
-]]--
 
 local function showMC(self)
 	warnMC:Show(table.concat(warnMCTargets, "<, >"))
@@ -91,7 +84,7 @@ end
 
 local showShieldHealthBar, hideShieldHealthBar
 do
-	local frame = CreateFrame("Frame")
+	local frame = CreateFrame("Frame") -- using a separate frame avoids the overhead of the DBM event handlers which are not meant to be used with frequently occuring events like all damage events...
 	local shieldedMob
 	local absorbRemaining = 0
 	local maxAbsorb = 0
@@ -132,7 +125,7 @@ function mod:OnCombatStart()
 	table.wipe(warnMCTargets)
 	self.vb.mcIcon = 8
 	self:SetStage(1)
-	timerPhase1mob:Start(32-2, L.Thaladred)
+	timerPhase1mob:Start(32, L.Thaladred)
 	if self.Options.HealthFrame then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:Show(L.name)
@@ -175,26 +168,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		showShieldHealthBar(self, args.destGUID, args.spellName, 80000)
 		specWarnShield:Show()
 		timerShieldCD:Start()
-		timerPhoenixCD:AddTime(10)
-		timerMCCD:AddTime(10)
-		timerFlameStrikeCD:AddTime(10)
 	elseif args.spellId == 35859 and args:IsPlayer() and self:IsInCombat() and (args.amount or 1) >= 2 then
 		specWarnVapor:Show(args.amount)
 		specWarnVapor:Play("stackhigh")
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
-
-function mod:SPELL_AURA_REFRESH(args)
-	if args.spellID == 37027 then
-		timerToy:Restart(args.destName)
-		if args.IsPlayer() then
-			specWarnToy:Show()
-		else
-			warnToy:Show(args.destName)
-		end
-	end
-end
 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
@@ -222,8 +201,6 @@ function mod:SPELL_CAST_START(args)
 		warnGravity:Show()
 		timerGravity:Start()
 		timerGravityCD:Start()
-		timerFlameStrikeCD:AddTime(30)
-		timerPhoenixCD:AddTime(30)
 	end
 end
 
@@ -231,7 +208,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 36723 then
 		warnPhoenix:Show()
 		if self.vb.phase == 5 then
-			timerPhoenixCD:Start(90-28.55)
+			timerPhoenixCD:Start(90)
 		else
 			timerPhoenixCD:Start()
 		end
@@ -262,7 +239,6 @@ function mod:UNIT_DIED(args)
 			DBM.RangeCheck:Hide()
 		end
 		DBM.BossHealth:RemoveBoss(20062)
-		timerConflagCD:Cancel()
 	elseif cid == 20063 then
 		DBM.BossHealth:RemoveBoss(20063)
 	elseif cid == 21268 then
@@ -316,17 +292,16 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerPhase1mob:Start(7, L.Capernian)
 		DBM.BossHealth:AddBoss(20062, L.Capernian)
 		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(10+2)
+			DBM.RangeCheck:Show(10)
 		end
-		timerConflagCD:Start(7+7)
 	elseif msg == L.YellTelo or msg:find(L.YellTelo) then
 		timerPhase1mob:Start(8.4, L.Telonicus)
 		DBM.BossHealth:AddBoss(20063, L.Telonicus)
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
 		self:SetStage(2)
-		timerPhase:Start(120+6-30) --new adjustment for CC 2024.07.10
+		timerPhase:Start(105)--105
 		warnPhase2:Show()
-		warnPhase3:Schedule(120+6)
+		warnPhase3:Schedule(105)--210
 		DBM.BossHealth:AddBoss(21268, L.Bow)
 		DBM.BossHealth:AddBoss(21269, L.Axe)
 		DBM.BossHealth:AddBoss(21270, L.Mace)
@@ -336,19 +311,16 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		DBM.BossHealth:AddBoss(21274, L.Staff)
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
 		self:SetStage(3)
-		warnPhase3:Cancel()
 		warnPhase3:Show()
-		timerPhase:Restart(10)
 		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(10+2)
+			DBM.RangeCheck:Show(10)
 		end
 		self:Schedule(10, function()
 			DBM.BossHealth:AddBoss(20064, L.Thaladred)
 			DBM.BossHealth:AddBoss(20060, L.Sanguinar)
 			DBM.BossHealth:AddBoss(20062, L.Capernian)
 			DBM.BossHealth:AddBoss(20063, L.Telonicus)
-			timerPhase:Start(180+12)
-			timerConflagCD:Start(7)
+			timerPhase:Start(73)--83 pre nerf, 183 post nerf
 		end)
 	elseif msg == L.YellPhase4 or msg:find(L.YellPhase4) then
 		self:SetStage(4)
@@ -357,20 +329,16 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerPhase:Cancel()
 		timerPhoenixCD:Start(50)
 		timerShieldCD:Start(60)
-		timerMCCD:Start(40-20)
-		timerFlameStrikeCD:Start(15)
---		self:Schedule(40, MCFailsafe, self)
+		timerMCCD:Start(40)
+		self:Schedule(40, MCFailsafe, self)
 	elseif msg == L.YellPhase5 or msg:find(L.YellPhase5) then
 		self:SetStage(5)
 		timerPhoenixCD:Cancel()
 		timerShieldCD:Cancel()
-		timerFlameStrikeCD:Cancel()
-		timerMCCD:Cancel()
-		timerPhase:Start(45-9)
-		warnPhase5:Schedule(45-9)
-		timerFlameStrikeCD:Start(36+10) --2024.07.06 adjustment to 10,000ms
-		timerGravityCD:Start(36+5)
-		timerPhoenixCD:Start(36+50) -- Lys: transition event is 36s, 2024.07.06 adjusted to 50s after RP (36s)
+		timerPhase:Start(45)
+		warnPhase5:Schedule(45)
+		timerGravityCD:Start(60)
+		timerPhoenixCD:Start(137)
 	end
 end
 
@@ -382,8 +350,7 @@ end
 
 function mod:OnSync(event)
 	if not self:IsInCombat() then return end
-	if event == "Flamestrike" and self.vb.phase > 3 then --too many wrong triggers from bad addons in p1-3
+	if event == "Flamestrike" then
 		warnFlamestrike:Show()
-		timerFlameStrikeCD:Start()
 	end
 end
