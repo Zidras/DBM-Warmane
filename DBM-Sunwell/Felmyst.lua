@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250922000000")
 mod:SetCreatureID(25038)
 mod:SetUsedIcons(8, 7)
 
@@ -9,7 +9,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 45866",
-	"SPELL_CAST_START 45855",
+	"SPELL_CAST_START 45855 45866",
 	"SPELL_SUMMON 45392",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_YELL",
@@ -22,6 +22,7 @@ local warnPhase				= mod:NewAnnounce("WarnPhase", 1, 31550)
 
 local specWarnGas			= mod:NewSpecialWarningSpell(45855, "Healer", nil, nil, 1, 2)
 local specWarnCorrosion		= mod:NewSpecialWarningTaunt(45866, nil, nil, nil, 1, 2)
+local specWarnCorrosionHeal	= mod:NewSpecialWarningSpell(45866, "Healer", nil, nil, 1, 2)
 local specWarnEncaps		= mod:NewSpecialWarningYou(45665, nil, nil, nil, 1, 2)
 local yellEncaps			= mod:NewYell(45665)
 local specWarnEncapsNear	= mod:NewSpecialWarningClose(45665, nil, nil, nil, 1, 2)
@@ -29,10 +30,11 @@ local specWarnVapor			= mod:NewSpecialWarningYou(45402, nil, nil, nil, 1, 2)
 local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 
 local timerGasCast			= mod:NewCastTimer(1, 45855)
-local timerGasCD			= mod:NewCDTimer(19, 45855, nil, nil, nil, 3)
+local timerGasCD			= mod:NewCDTimer(20, 45855, nil, nil, nil, 3)
+local timerCorrosionCast	= mod:NewCastTimer(30, 45866, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerCorrosion		= mod:NewTargetTimer(10, 45866, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
-local timerEncapsCD			= mod:NewCDTimer(50, 45665, nil, nil, nil, 3)
+local timerEncapsCD			= mod:NewCDTimer(30, 45665, nil, nil, nil, 3)
 local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
@@ -46,7 +48,7 @@ mod.vb.breathCounter = 0
 function mod:Groundphase()
 	self.vb.breathCounter = 0
 	warnPhase:Show(L.Ground)
-	timerGasCD:Start(17)
+	timerGasCD:Start(22)
 	timerPhase:Start(60, L.Air)
 	timerEncapsCD:Start()
 end
@@ -72,16 +74,17 @@ end
 
 function mod:OnCombatStart(delay)
 	self.vb.breathCounter = 0
-	timerGasCD:Start(17-delay)
+	timerGasCD:Start(-delay)
 	timerPhase:Start(-delay, L.Air)
 	berserkTimer:Start(-delay)
-	timerEncapsCD:Start()
+	timerEncapsCD:Start(35-delay)
 end
 
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 45866 then
 		timerCorrosion:Start(args.destName)
+		timerCorrosionCast:Start()
 		if not args:IsPlayer() then -- validate
 			specWarnCorrosion:Show(args.destName)
 			specWarnCorrosion:Play("tauntboss")
@@ -110,6 +113,9 @@ function mod:SPELL_CAST_START(args)
 		timerGasCD:Start()
 		specWarnGas:Show()
 		specWarnGas:Play("helpdispel")
+	end
+	if args.spellId == 45866 then
+		specWarnCorrosionHeal:Play("tankheal")
 	end
 end
 
