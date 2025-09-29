@@ -13,6 +13,7 @@ max_comment_line_length = false
 exclude_files = {
 	"./.git",
 	"./.github",
+	"./.vscode",
 	"./.lua",
 	"./.luarocks",
 	"**/Libs/**/*.lua",

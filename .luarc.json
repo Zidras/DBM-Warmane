@@ -1,0 +1,35 @@
+{
+	"runtime": {
+		"version": "Lua 5.1"
+	},
+	"workspace": {
+		"ignoreDir": [
+			".github",
+			".vscode",
+			"**/Libs"
+		],
+		"ignorePattern": [
+			".luacheckrc"
+		],
+		"library": [
+			"./wow-api.lua"
+		]
+	},
+	"diagnostics.disable": [
+		"empty-block",
+		"invisible",
+		"deprecated",
+		"duplicate-doc-field"
+	],
+	"diagnostics.neededFileStatus": {
+		"global-element": "Any"
+	},
+	"diagnostics.globalsRegex": [
+		"SLASH_DEADLYBOSSMODS.*",
+		"SLASH_DBM.*",
+		"DBM_.*",
+		"DBT_.*",
+		"GameFont.*",
+		"ChatFont.*"
+	]
+}
