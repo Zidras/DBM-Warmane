@@ -31,7 +31,7 @@ local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 
 local timerGasCast			= mod:NewCastTimer(1, 45855)
 local timerGasCD			= mod:NewCDTimer(20, 45855, nil, nil, nil, 3)
-local timerCorrosionCast	= mod:NewCastTimer(30, 45866, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerCorrosionCast	= mod:NewCDTimer(30, 45866, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerCorrosion		= mod:NewTargetTimer(10, 45866, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
 local timerEncapsCD			= mod:NewCDTimer(30, 45665, nil, nil, nil, 3)
