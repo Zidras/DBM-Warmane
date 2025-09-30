@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Koralon", "DBM-VoA")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220924185538")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(35013)
+mod:SetEncounterID(--[[not mod:IsPostCata() and ]]776--[[ or 1128]])
 
 mod:RegisterCombat("combat")
 

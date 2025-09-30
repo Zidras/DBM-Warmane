@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929215255")
+mod:SetRevision("20250929220131")
 local addsIcon
 local bossID
-mod:SetEncounterID(847)
+mod:SetEncounterID(--[[not mod:IsPostCata() and ]]847--[[ or 1099]])--No ES fires this combat
 mod:RegisterCombat("combat")
 if UnitFactionGroup("player") == "Alliance" then
 	--mod:RegisterCombat("yell", L.CombatAlliance)

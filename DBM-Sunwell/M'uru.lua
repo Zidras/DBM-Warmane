@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Muru", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(25741)--25741 Muru, 25840 Entropius
+mod:SetEncounterID(728, 2492)
 
 mod:RegisterCombat("combat")
 

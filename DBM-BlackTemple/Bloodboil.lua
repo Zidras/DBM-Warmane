@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Bloodboil", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230108171130")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(22948)
+mod:SetEncounterID(605, 2477)
 mod:SetModelID(21443)
 mod:SetHotfixNoticeRev(20230108000000)
 mod:SetMinSyncRevision(20230108000000)

@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Ossirian", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15339)
+mod:SetEncounterID(723)
 
 mod:SetModelID(15339)
 mod:RegisterCombat("combat")
