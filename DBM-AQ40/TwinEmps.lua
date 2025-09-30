@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("TwinEmpsAQ", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240707193045")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15276, 15275)
+mod:SetEncounterID(715)
 
 --mod:SetModelID(15778)--Renders too close
 mod:RegisterCombat("combat")

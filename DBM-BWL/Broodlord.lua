@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Broodlord", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240206183735")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(12017)
+mod:SetEncounterID(612)
 mod:SetModelID(14308)
 mod:RegisterCombat("combat_yell", L.Pull)--L.Pull is backup for classic, since classic probably won't have ENCOUNTER_START to rely on and player regen never works for this boss
 

@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Razuvious", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250924081528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(16061)
+mod:SetEncounterID(1113)
 
 mod:RegisterCombat("combat_yell", L.Yell1, L.Yell2, L.Yell3, L.Yell4)
 

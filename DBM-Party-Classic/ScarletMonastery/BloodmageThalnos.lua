@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("BloodmageThalnos", "DBM-Party-Classic", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(4543)
+mod:SetEncounterID(--[[ mod:IsClassic() and 2779 or mod:IsRetail() and 2818 or  ]]445)--445 in TBC and Wrath
 
 mod:RegisterCombat("combat")
 
