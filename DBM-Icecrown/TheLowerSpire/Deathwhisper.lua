@@ -4,9 +4,9 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20250929215255")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(36855)
-mod:SetEncounterID(846)
+mod:SetEncounterID(--[[not mod:IsPostCata() and ]]846--[[ or 1100]])
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
 

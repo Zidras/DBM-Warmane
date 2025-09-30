@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250916195544")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15989)
 mod:SetHotfixNoticeRev(20250916000000)
 mod:SetMinSyncRevision(20220904000000)

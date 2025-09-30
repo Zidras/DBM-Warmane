@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Arlokk", "DBM-ZG", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(14515)
+mod:SetEncounterID(791)
 
 mod:RegisterCombat("combat")
 

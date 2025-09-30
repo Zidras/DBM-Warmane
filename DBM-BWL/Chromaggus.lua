@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240708001751")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(14020)
+mod:SetEncounterID(616)
 mod:SetModelID(14367)
 mod:RegisterCombat("combat")
 

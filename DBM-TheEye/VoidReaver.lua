@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("VoidReaver", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(19516)
+mod:SetEncounterID(731, 2465)
 
 mod:RegisterCombat("combat")
 

@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Magtheridon", "DBM-Magtheridon")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20241008150020")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(17257)
+mod:SetEncounterID(651, 2457)
 
 mod:SetModelID(18527)
 mod:RegisterCombat("emote", L.DBM_MAG_EMOTE_PULL)
