@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(16151, 16152)--15550
-mod:SetEncounterID(652, 2444)
+mod:SetEncounterID(652)
 
 mod:SetModelID(16416)
 mod:SetBossHPInfoToHighest()
