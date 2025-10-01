@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(17534, 17533, 99999)--99999 bogus creature id to keep mod from pre mature combat end.
-mod:SetEncounterID(655, 2447)--used by all 3 of them, so not usuable
+mod:SetEncounterID(655) -- Opera Hall
 --
 mod:SetModelID(17068)
 mod:RegisterCombat("yell", L.RJ_Pull)
