@@ -5,7 +5,7 @@ mod.statTypes = "normal,normal25"
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(30452)
-mod:SetEncounterID(1092)
+mod:SetEncounterID(736)
 mod:SetHotfixNoticeRev(20221012000000)
 mod:SetMinSyncRevision(20221012000000)
 mod:DisableMultiBossPulls()

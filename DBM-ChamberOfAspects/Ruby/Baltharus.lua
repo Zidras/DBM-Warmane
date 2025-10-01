@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(39751)
-mod:SetEncounterID(--[[not mod:IsPostCata() and ]]890--[[ or 1147]])
+mod:SetEncounterID(890)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
