@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(37955)
-mod:SetEncounterID(--[[not mod:IsPostCata() and ]]853--[[ or 1103]])
+mod:SetEncounterID(853)
 mod:SetModelID("creature/bloodqueen/bloodqueen.m2")
 mod:SetUsedIcons(1, 2, 3, 4, 7)
 mod:SetMinSyncRevision(20220630221430)
