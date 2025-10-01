@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
-mod:SetEncounterID(610)--BOSS_KILL is valid, but ENCOUNTER_END is not
+mod:SetEncounterID(610)
 --mod:DisableEEKillDetection()--So disable only EE
 mod:SetModelID(12435)
 
