@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(23418) -- 23418: Essence of Suffering ; 23419: Essence of Desire ; 23420: Essence of Anger
-mod:SetEncounterID(606, 2478)
+mod:SetEncounterID(606)
 mod:SetHotfixNoticeRev(20250717000000)
 
 mod:SetModelID(21483)
