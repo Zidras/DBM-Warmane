@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20250929220131")
 
 mod:SetCreatureID(33113)
-mod:SetEncounterID(744, 1132)
+mod:SetEncounterID(744)
 
 mod:RegisterCombat("yell", L.YellPull)
 

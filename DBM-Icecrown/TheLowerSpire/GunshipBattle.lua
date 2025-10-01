@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision("20250929220131")
 local addsIcon
 local bossID
-mod:SetEncounterID(--[[not mod:IsPostCata() and ]]847--[[ or 1099]])--No ES fires this combat
+mod:SetEncounterID(847)--No ES fires this combat
 mod:RegisterCombat("combat")
 if UnitFactionGroup("player") == "Alliance" then
 	--mod:RegisterCombat("yell", L.CombatAlliance)

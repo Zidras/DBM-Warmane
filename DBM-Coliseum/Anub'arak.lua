@@ -6,7 +6,7 @@ local GetSpellInfo = GetSpellInfo
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(34564)
-mod:SetEncounterID(--[[not mod:IsPostCata() and ]]645--[[ or 1085]])
+mod:SetEncounterID(645)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 8)
 mod:SetMinSyncRevision(20220909000000)
 
