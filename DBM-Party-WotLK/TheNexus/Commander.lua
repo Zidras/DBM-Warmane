@@ -10,7 +10,7 @@ if UnitFactionGroup("player") == "Alliance" then
 else
 	mod:SetCreatureID(26796)
 end
-mod:SetEncounterID(519)--FIXME in 7.1
+mod:SetEncounterID(519)
 
 mod:RegisterCombat("combat")
 
