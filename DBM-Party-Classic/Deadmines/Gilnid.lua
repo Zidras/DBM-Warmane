@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(1763)
-mod:SetEncounterID(2969)--Retail Encounter ID
+mod:SetEncounterID(163)
 mod:SetModelID(622) -- temporary model, to prevent HD client crash on model preview
 
 mod:RegisterCombat("combat")

@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod(385, "DBM-Party-Classic", 2, 228)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(9035, 9039, 9040, 9037, 9034, 9038, 9036)--9035 Anger'rel, 9039/doomrel, 9040/doperel, 9037/gloomrel, 9034/haterel, 9038/seethrel, 9036/vilerel
-
+mod:SetEncounterID(243)
 
 mod:RegisterCombat("combat")
 
