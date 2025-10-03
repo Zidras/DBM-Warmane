@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Hadronox", "DBM-Party-WotLK", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(28921)
+mod:SetEncounterID(217)
 
 mod:RegisterCombat("combat")
 
