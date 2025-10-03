@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(4543)
-mod:SetEncounterID(--[[ mod:IsClassic() and 2779 or mod:IsRetail() and 2818 or  ]]445)--445 in TBC and Wrath
+mod:SetEncounterID(445)
 
 mod:RegisterCombat("combat")
 
