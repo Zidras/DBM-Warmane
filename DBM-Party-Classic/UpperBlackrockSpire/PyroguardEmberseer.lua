@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("PyroguardEmberseer", "DBM-Party-Classic", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230824104734")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(9816)
+mod:SetEncounterID(276)
 
 mod:RegisterCombat("combat")
 

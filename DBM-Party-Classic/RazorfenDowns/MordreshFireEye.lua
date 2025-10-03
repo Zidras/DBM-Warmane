@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(7357)
-mod:SetEncounterID(585)
+mod:SetEncounterID(435)
 
 mod:RegisterCombat("combat")
 
