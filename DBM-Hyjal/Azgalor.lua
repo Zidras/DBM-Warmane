@@ -1,9 +1,11 @@
 local mod	= DBM:NewMod("Azgalor", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(17842)
+mod:SetEncounterID(621)
 mod:SetUsedIcons(8)
+mod:SetHotfixNoticeRev(20250920000000)
 
 mod:RegisterCombat("combat")
 
@@ -16,8 +18,8 @@ mod:RegisterEventsInCombat(
 local warnSilence		= mod:NewSpellAnnounce(31344, 3)
 local warnDoom			= mod:NewTargetNoFilterAnnounce(31347, 4)
 
-local specWarnFire		= mod:NewSpecialWarningMove(31340)
-local specWarnDoom		= mod:NewSpecialWarningYou(31347)
+local specWarnFire		= mod:NewSpecialWarningMove(31340, nil, nil, nil, 1, 2)
+local specWarnDoom		= mod:NewSpecialWarningYou(31347, nil, nil, nil, 1, 2)
 local yellDoom			= mod:NewShortFadesYell(31347)
 
 local timerDoom			= mod:NewTargetTimer(20, 31347, nil, nil, nil, 3)

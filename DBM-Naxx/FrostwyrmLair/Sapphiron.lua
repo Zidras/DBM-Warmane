@@ -1,8 +1,10 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221016192235")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15989)
+mod:SetEncounterID(1119)
+mod:SetHotfixNoticeRev(20250916000000)
 mod:SetMinSyncRevision(20220904000000)
 
 mod:RegisterCombat("combat")
@@ -165,7 +167,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.EmoteBreath or msg:find(L.EmoteBreath) then
 --		self:SendSync("DeepBreath") -- this does not need syncing and spam comms
 		timerIceBlast:Start()
-		timerLanding:Update(13.5) -- 8s until breath + 3.5s until emote + ~2s until UNIT_TARGET
+		timerLanding:Update(13.5, 24.2) -- 8s until breath + 3.5s until emote + ~2s until UNIT_TARGET
 		specWarnDeepBreath:Show()
 		specWarnDeepBreath:Play("findshelter")
 	elseif msg == L.AirPhase or msg:find(L.AirPhase) then

@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Supremus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20230108174447")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(22898)
+mod:SetEncounterID(602)
 mod:SetModelID(21145)
 mod:SetUsedIcons(8)
 mod:SetHotfixNoticeRev(20230108000000)
@@ -25,6 +26,7 @@ local berserkTimer		= mod:NewBerserkTimer(600)
 -- Stage One: Supremus
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1)..": "..L.name)
 local specWarnMolten	= mod:NewSpecialWarningMove(40265, nil, nil, nil, 1, 2)
+local timerMoltenCD		= mod:NewCDTimer(20, 40265, nil, nil, nil, 3)
 
 -- Stage Two: Pursuit
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2)..": "..DBM:GetSpellInfo(68987))
@@ -57,10 +59,19 @@ local function ScanTarget(self)
 	end
 end
 
+local function warnMoltenSpawn(self)
+	specWarnMolten:Show()
+	specWarnMolten:Play("watchstep")
+	timerMoltenCD:Start(20)
+	self:Schedule(20, warnMoltenSpawn, self)
+end
+
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	timerPhase:Start(-delay, L.Kite)
+	timerMoltenCD:Start(10-delay)
+	self:Schedule(10-delay, warnMoltenSpawn, self)
 	self.vb.lastTarget = "None"
 	if not self:IsTrivial() then--Only warning that uses these events is remorseless winter and that warning is completely useless spam for level 90s.
 		self:RegisterShortTermEvents(
@@ -71,6 +82,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
+	self:Unschedule(warnMoltenSpawn)
 	self:UnregisterShortTermEvents()
 	if self.vb.lastTarget ~= "None" then
 		self:SetIcon(self.vb.lastTarget, 0)

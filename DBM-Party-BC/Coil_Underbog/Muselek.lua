@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod(578, "DBM-Party-BC", 5, 262)
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(17826)
+mod:SetEncounterID(1947)
 
 mod:SetModelID(18570)
 mod:SetModelOffset(-0.4, 0, 0.3)

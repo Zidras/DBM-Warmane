@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Krystallus", "DBM-Party-WotLK", 7)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(27977)
+mod:SetEncounterID(563)
 
 mod:RegisterCombat("combat")
 

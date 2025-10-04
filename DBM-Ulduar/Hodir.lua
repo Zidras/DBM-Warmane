@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Hodir", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220711215623")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(32845,32926)
+mod:SetEncounterID(751)
 mod:SetUsedIcons(7, 8)
 
 mod:RegisterCombat("combat_yell", L.Pull)

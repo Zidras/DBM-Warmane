@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("BrannBronzebeard", "DBM-Party-WotLK", 7)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220809182722")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(28070)
+mod:SetEncounterID(567)
 mod:SetMinSyncRevision(2861)
 
 mod:RegisterCombat("yell", L.Pull)

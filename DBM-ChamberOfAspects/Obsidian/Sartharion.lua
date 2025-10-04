@@ -3,8 +3,9 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20221012211527")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(28860)
+mod:SetEncounterID(742)
 
 mod:RegisterCombat("yell", L.YellSarthPull)
 

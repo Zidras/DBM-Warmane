@@ -3,13 +3,14 @@ local L = mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220716213948")
+mod:SetRevision("20250929220131")
 
 if UnitFactionGroup("player") == "Alliance" then
 	mod:SetCreatureID(26798)
 else
 	mod:SetCreatureID(26796)
 end
+mod:SetEncounterID(519)
 
 mod:RegisterCombat("combat")
 

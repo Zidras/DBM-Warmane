@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221031105808")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(32930)
+mod:SetEncounterID(749)
 mod:SetUsedIcons(5, 6, 7, 8)
 
 mod:RegisterCombat("combat")

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragglesnout", "DBM-Party-Classic", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(7354)
 
 mod:RegisterCombat("combat")

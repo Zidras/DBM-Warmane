@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240225225625")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(11981)
+mod:SetEncounterID(615)
 mod:SetModelID(6377)
 mod:RegisterCombat("combat")
 

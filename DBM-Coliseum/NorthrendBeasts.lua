@@ -5,8 +5,9 @@ local UnitExists, UnitGUID, UnitName = UnitExists, UnitGUID, UnitName
 local GetSpellInfo = GetSpellInfo
 local GetPlayerMapPosition, SetMapToCurrentZone = GetPlayerMapPosition, SetMapToCurrentZone
 
-mod:SetRevision("20240720124842")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(34796, 35144, 34799, 34797)
+mod:SetEncounterID(629)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 mod:SetMinSyncRevision(20220925000000)
 mod:SetMinCombatTime(30)

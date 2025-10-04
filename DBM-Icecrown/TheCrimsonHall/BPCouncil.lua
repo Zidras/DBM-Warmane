@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("BPCouncil", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20231203191448")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(37970, 37972, 37973)
+mod:SetEncounterID(852)
 mod:SetUsedIcons(1, 5, 6, 7, 8)
 mod:SetBossHPInfoToHighest()
 mod:SetMinSyncRevision(20220908000000)
