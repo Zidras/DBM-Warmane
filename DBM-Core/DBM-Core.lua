@@ -4013,7 +4013,7 @@ do
 				savedSender = sender
 			end
 			inspopuptext:SetText(L.REQ_INSTANCE_ID_PERMISSION:format(sender, sender))
-			buttonaccept:SetScript("OnClick", function(f) savedSender = nil DBM:Unschedule(autoDecline) accessList[sender] = true syncHandlers["IR"](sender) f:GetParent():Hide() end)
+			buttonaccept:SetScript("OnClick", function(f) savedSender = nil DBM:Unschedule(autoDecline) accessList[sender] = true syncHandlers["DBMv4-IR"](sender) f:GetParent():Hide() end)
 			buttondecline:SetScript("OnClick", function() autoDecline(sender, 1) end)
 			DBM:PlaySound(850)
 			inspopup:Show()
@@ -4161,6 +4161,7 @@ do
 		end
 
 		function showResults()
+			if not results then return end
 			local resultCount = 0
 			-- you could catch some localized instances by observing IDs if there are multiple players with the same instance ID but a different name ;) (not that useful if you are trying to get a fresh instance)
 			DBM:AddMsg(L.INSTANCE_INFO_RESULTS, false)
@@ -4221,6 +4222,7 @@ do
 		end
 
 		local function getResponseStats()
+			if not results then return 0, 0, 0, 0 end
 			local numResponses = 0
 			local sent = 0
 			local denied = 0
@@ -4249,6 +4251,7 @@ do
 		end
 
 		function updateInstanceInfo(timeRemaining, dontAddShowResultNowButton)
+			if not results then return end
 			local numResponses, sent, denied = getResponseStats()
 			local dbmUsers = getNumDBMUsers()
 			DBM:AddMsg(L.INSTANCE_INFO_STATUS_UPDATE:format(numResponses, dbmUsers, sent, denied, timeRemaining), false)
