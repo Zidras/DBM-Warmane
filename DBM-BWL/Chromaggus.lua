@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251010001538")
+mod:SetRevision("20251010003914")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 )
 
 --(ability.id = 23309 or ability.id = 23313 or ability.id = 23189 or ability.id = 23315 or ability.id = 23312 or ability.id = 23314) and type = "begincast"
-local warnBreath		= mod:NewAnnounce("WarnBreath", 2, 23316)
+local warnBreath		= mod:NewAnnounce("WarnBreath", 2, 23316, nil, nil, nil, 17087)
 local warnRed			= mod:NewSpellAnnounce(23155, 2, nil, false)
 local warnGreen			= mod:NewSpellAnnounce(23169, 2, nil, false)
 local warnBlue			= mod:NewSpellAnnounce(23153, 2, nil, false)
@@ -26,19 +26,21 @@ local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank|RemoveEnrage|Heale
 local warnPhase2Soon	= mod:NewPrePhaseAnnounce(2, 1)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnMutation		= mod:NewCountAnnounce(23174, 4)
-local warnVuln			= mod:NewAnnounce("WarnVulnerable", 1, false)
+local warnVuln			= mod:NewAnnounce("WarnVulnerable", 1, false, nil, nil, nil, 22277)
 
 local specWarnBronze		= mod:NewSpecialWarningYou(23170, nil, nil, nil, 1, 8)
 local specWarnFrenzy		= mod:NewSpecialWarningDispel(23128, "RemoveEnrage", nil, nil, 1, 6)
 local specWarnBreathSoon	= mod:NewSpecialWarningSoon(17087)
 
-local timerBreath		= mod:NewTimer(2, "TimerBreath", 23316, nil, nil, 3)
-local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
+local timerBreath		= mod:NewTimer(2, "TimerBreath", 23316, nil, nil, 3, nil, nil, nil, nil, nil, nil, nil, 17087)
+local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3, nil, nil, nil, nil, nil, nil, nil, 17087)
 local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 3, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.ENRAGE_ICON)
-local timerVuln			= mod:NewTimer(17, "TimerVulnCD") -- 2024/02/08 Warmane Changelog: 17-25
+local timerVuln			= mod:NewTimer("v17-25", "TimerVulnCD", nil, nil, nil, nil, nil, true, nil, nil, nil, nil, nil, 22277) -- 2024/02/08 Warmane Changelog: 17-25
 
 --mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
 mod:AddInfoFrameOption(22277, true)
+
+mod:GroupSpells(22277, 22278, 22279, 22280, 22281) -- Elemental Shield (Vulnerabilities to Fire, Frost, Shadow, Nature, Arcane)
 
 local mydebuffs = 0
 
