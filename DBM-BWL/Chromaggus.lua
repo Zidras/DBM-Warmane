@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251010001538")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -28,8 +28,9 @@ local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnMutation		= mod:NewCountAnnounce(23174, 4)
 local warnVuln			= mod:NewAnnounce("WarnVulnerable", 1, false)
 
-local specWarnBronze	= mod:NewSpecialWarningYou(23170, nil, nil, nil, 1, 8)
-local specWarnFrenzy	= mod:NewSpecialWarningDispel(23128, "RemoveEnrage", nil, nil, 1, 6)
+local specWarnBronze		= mod:NewSpecialWarningYou(23170, nil, nil, nil, 1, 8)
+local specWarnFrenzy		= mod:NewSpecialWarningDispel(23128, "RemoveEnrage", nil, nil, 1, 6)
+local specWarnBreathSoon	= mod:NewSpecialWarningSoon(17087)
 
 local timerBreath		= mod:NewTimer(2, "TimerBreath", 23316, nil, nil, 3)
 local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
@@ -158,6 +159,8 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerBreathCD:Start(30-delay, L.Breath1)
 	timerBreathCD:Start(60-delay, L.Breath2)--60
+	specWarnBreathSoon:Schedule(27-delay) -- +2 sec casting time == you got 5 seconds to run
+	specWarnBreathSoon:Schedule(57-delay)
 	mydebuffs = 0
 	table.wipe(vulnerabilities)
 	if self.Options.WarnVulnerable then--Don't register high cpu combat log events if option isn't enabled
@@ -194,7 +197,8 @@ function mod:SPELL_CAST_START(args)
 		timerBreath:UpdateIcon(args.spellId)
 		timerBreathCD:Start(60, args.spellName)
 		timerBreathCD:UpdateIcon(args.spellId)
-	end
+		specWarnBreathSoon:Schedule(57)
+end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
