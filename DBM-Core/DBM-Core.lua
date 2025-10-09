@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20251009180849"),
+	Revision = parseCurseDate("20251009193917"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3578,9 +3578,24 @@ do
 			-- check BossBanner encounterLootCache for the looted item
 			local isNPC = lootSourceGUID ~= "nil"
 			local lootSourceID = isNPC and lootSourceGUID or lootSourceName
-			if not isNPC and locale ~= GetLocale() then
-				DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..").", 3)
-				return
+			if locale ~= GetLocale() then
+				-- try to recover lootSourceName with correct locale from NPC
+				if isNPC then
+					local senderUnit = DBM:GetRaidUnitId(sender)
+					if not senderUnit then
+						DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..") because sender not found in raid or party.", 3)
+						return
+					end
+					lootSourceName = UnitName(senderUnit.."target")
+					if not lootSourceName or lootSourceName == "" then
+						DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..") because sender target has no name.", 3)
+						return
+					end
+					DBM:Debug("BossBanner: recovered lootSourceName ("..lootSourceName..") with different locale ("..locale..").", 3)
+				else
+					DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..").", 3)
+					return
+				end
 			end
 			lootDispatcher(sender, encounterId, lootSourceID, lootSourceName, lootSourceGUID, itemID, itemLink, tonumber(quantity), tonumber(slot), texture, (finalItem == "true" and true or false))
 		end
