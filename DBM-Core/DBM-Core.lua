@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20251009193917"),
+	Revision = parseCurseDate("20251009234057"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -5445,6 +5445,18 @@ do
 end
 
 function DBM:OnMobKill(cId, synced)
+	if cId ~= 0 and bossIds[cId] then
+		local combat = combatInfo[LastInstanceMapID] or combatInfo[LastInstanceZoneName]
+		if dbmIsEnabled and combat then
+			for _, v in ipairs(combat) do
+				if v.mod.Options.Enabled and v.type:find("combat") and (v.multiMobPullDetection and checkEntry(v.multiMobPullDetection, cId) or v.mob == cId) and not (#inCombat > 0 and v.noMultiBoss) then
+					local uId = DBM:GetUnitIdFromCID(cId) or "target"
+					if v.mod.noFriendlyEngagement and UnitIsFriend("player", uId) then return end
+					self:StartCombat(v.mod, 0, "UNIT_DIED") -- StartCombat on instant kills, for proper Encounter Start/End detection
+				end
+			end
+		end
+	end
 	for i = #inCombat, 1, -1 do
 		local v = inCombat[i]
 		if not v.combatInfo then
