@@ -106,9 +106,14 @@ L:SetGeneralLocalization({
 	name = "Deathbringer Saurfang"
 })
 
+L:SetWarningLocalization({
+	SpecWarnBloodBeastSwing	= "Blood Beast attacking you - Run Away", -- CreatureID 38508
+})
+
 L:SetOptionLocalization({
-	RunePowerFrame		= "Show Boss Health + $spell:72371 bar",
---	RemoveDI			= "Remove $spell:19752 if used to prevent $spell:72293 cast"
+	RunePowerFrame			= "Show Boss Health + $spell:72371 bar",
+--	RemoveDI				= "Remove $spell:19752 if used to prevent $spell:72293 cast"
+	SpecWarnBloodBeastSwing	= "Show special warning when you are attacked by Blood Beast", -- CreatureID 38508
 })
 
 L:SetMiscLocalization({
