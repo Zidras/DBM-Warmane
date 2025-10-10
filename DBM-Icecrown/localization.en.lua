@@ -113,7 +113,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	RunePowerFrame			= "Show Boss Health + $spell:72371 bar",
 --	RemoveDI				= "Remove $spell:19752 if used to prevent $spell:72293 cast"
-	SpecWarnVengefulShade	= "Show special warning when you are attacked by Blood Beast", -- CreatureID 38508
+	SpecWarnBloodBeastSwing	= "Show special warning when you are attacked by Blood Beast", -- CreatureID 38508
 })
 
 L:SetMiscLocalization({
