@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Deathbringer", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251010110810")
 mod:SetCreatureID(37813)
 mod:SetEncounterID(848)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -64,7 +64,7 @@ local warnAddsSoon			= mod:NewPreWarnAnnounce(72173, 10, 3)
 local warnAdds				= mod:NewSpellAnnounce(72173, 4)
 
 local specWarnScentofBlood	= mod:NewSpecialWarningSpell(72769, nil, nil, nil, nil, nil, 3) -- Heroic Ablility
-local specWarnBeastOnYou	= mod:NewSpecialWarning("SpecWarnBloodBeastSwing", true, nil, nil, nil, 1, 2, nil, 72173, 72173)
+local specWarnBeastOnYou	= mod:NewSpecialWarning("SpecWarnBloodBeastSwing", false, nil, nil, nil, 1, 2, nil, 72173, 72173)
 
 local timerCallBloodBeast	= mod:NewNextTimer(40, 72173, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, nil, 3)
 local timerNextScentofBlood	= mod:NewNextTimer(10, 72769, nil, nil, nil, 2) -- 10 seconds after Beasts spawn, if any of them is alive
