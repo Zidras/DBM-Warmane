@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Shahraz", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(22947)
+mod:SetEncounterID(607)
 
 mod:SetModelID(21252)
 mod:SetUsedIcons(1, 2, 3)

@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Firemaw", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20240209130416")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(11983)
+mod:SetEncounterID(613)
 mod:SetModelID(6377)
 mod:RegisterCombat("combat")
 
