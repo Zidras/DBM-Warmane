@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251011142622")
+mod:SetRevision("20251011144212")
 mod:SetCreatureID(25165, 25166)
 mod:SetEncounterID(727)
 mod:SetUsedIcons(7, 8)
+mod:SetHotfixNoticeRev(202501011000000)
 
 mod:RegisterCombat("combat")
 
@@ -189,7 +190,7 @@ end
 
 function mod:UNIT_DIED(args)
 	local destCID = self:GetCIDFromGUID(args.destGUID)
-	if destCID == 21566 -- Grand Warlock Alythess
+	if destCID == 25166 -- Grand Warlock Alythess
 	or destCID == 25165 -- Lady Sacrolash
 	then
 		timerConflagCD:Cancel()
