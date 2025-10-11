@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Ionar", "DBM-Party-WotLK", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220823234921")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(28546)
+mod:SetEncounterID(559)
 mod:SetUsedIcons(8)
 
 mod:RegisterCombat("combat")

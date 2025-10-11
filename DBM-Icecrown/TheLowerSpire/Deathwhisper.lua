@@ -4,8 +4,9 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff, GetSpellInfo = CancelUnitBuff, GetSpellInfo
 local UnitGUID = UnitGUID
 
-mod:SetRevision("20250112192808")
+mod:SetRevision("20251008172959")
 mod:SetCreatureID(36855)
+mod:SetEncounterID(846)
 mod:SetUsedIcons(1, 2, 3, 7, 8)
 mod:SetMinSyncRevision(20220905000000)
 
@@ -447,6 +448,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		timerDominateMindCD:Restart(30)
+		self:Unschedule(UnW)
 		timerSummonSpiritCD:Start() -- (25H Lordaeron 2022/10/21) - Stage 2/11.0
 		timerTouchInsignificanceCD:Start(6) -- 3.4s variance [6.0-9.4] (25H Lordaeron [2022-09-23]@[20:40:18] || 25H Lordaeron [2022-10-05]@[20:21:27]) - Stage 2/6.0 || Stage 2/9.4
 		timerAdds:Cancel()

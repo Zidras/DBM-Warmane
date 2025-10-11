@@ -3,8 +3,9 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20221012211527")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(28860)
+mod:SetEncounterID(742)
 
 --mod:RegisterCombat("combat") -- Don't use IEEU, because on Warmane 3 Drakes, Sartharion NOT is engaged first, but Tenebron > Shadron > Vesperon > Sartharion (Sartharion will end up on boss1).
 -- "<15.29 22:46:09> [CHAT_MSG_MONSTER_YELL] It is my charge to watch over these eggs. I will see you burn before any harm comes to them!:Sartharion:::::0:0::0:6450::0:", -- [120]

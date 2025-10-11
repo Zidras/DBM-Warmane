@@ -2,8 +2,9 @@ local mod = DBM:NewMod(531, "DBM-Party-BC", 16, 249)
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(24744)
+mod:SetEncounterID(1898)
 
 mod:RegisterCombat("combat")
 mod:SetModelID(22731)

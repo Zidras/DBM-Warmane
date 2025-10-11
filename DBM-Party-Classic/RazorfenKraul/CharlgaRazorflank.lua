@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("CharlgaRazorflank", "DBM-Party-Classic", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(4421)
+mod:SetEncounterID(443)
 
 mod:RegisterCombat("combat")
 

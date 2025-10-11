@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Sulfuron", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220518110528")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(12098)--, 11662
+mod:SetEncounterID(669)
 
 mod:SetModelID(13030)
 mod:RegisterCombat("combat")

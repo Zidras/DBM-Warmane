@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Faerlina", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221016190115")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15953)
+mod:SetEncounterID(1110)
 
 mod:RegisterCombat("combat_yell", L.Pull)
 

@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("ScourgelordTyrannus", "DBM-Party-WotLK", 15)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220809190725")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(36658, 36661)
+mod:SetEncounterID(837)
 mod:SetUsedIcons(8)
 mod:SetHotfixNoticeRev(20220809000000)
 mod:SetMinSyncRevision(20220809000000)
