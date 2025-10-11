@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brutallus", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251011164610")
 mod:SetCreatureID(24882)
 mod:SetEncounterID(725)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -11,6 +11,7 @@ mod.disableHealthCombat = true
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 45150",
+	"SPELL_CAST_SUCCESS 46394 45185",
 	"SPELL_AURA_APPLIED 46394 45185 45150",
 	"SPELL_AURA_APPLIED_DOSE 45150",
 	"SPELL_AURA_REMOVED 46394",
@@ -27,10 +28,10 @@ local specWarnMeteor	= mod:NewSpecialWarningStack(45150, nil, 4, nil, nil, 1, 6)
 local specWarnBurn		= mod:NewSpecialWarningYou(46394, nil, nil, nil, 1, 2)
 local yellBurn			= mod:NewYell(46394)
 
-local timerMeteorCD		= mod:NewCDTimer(12, 45150, nil, nil, nil, 3)
-local timerStompCD		= mod:NewCDTimer(31, 45185, nil, nil, nil, 2)
+local timerMeteorCD		= mod:NewNextTimer(12, 45150, nil, nil, nil, 3) -- SPELL_CAST_START: (Onyxia: 25 wipe [2025-10-09]@[20:42:14]) - "Meteor Slash-45150-npc:24882-17 = pull:11.01, 12.03, 12.00, 12.02, 12.02"
+local timerStompCD		= mod:NewCDTimer(30, 45185, nil, nil, nil, 2) -- REVIEW! variance? SPELL_CAST_SUCCESS: (Onyxia: 25 wipe [2025-10-09]@[20:42:14]) - "Stomp-45185-npc:24882-17 = pull:30.00"
 local timerBurn			= mod:NewTargetTimer(60, 46394, nil, "false", 2, 3)
-local timerBurnCD		= mod:NewCDTimer(20, 46394, nil, nil, nil, 3)
+local timerBurnCD		= mod:NewNextTimer(20, 46394, nil, nil, nil, 3) -- SPELL_CAST_SUCCESS: (Onyxia: 25 wipe [2025-10-09]@[20:42:14]) - "Burn-45141-npc:24882-17 = pull:19.99, 20.01"
 
 local berserkTimer		= mod:NewBerserkTimer(mod:IsTimewalking() and 300 or 360)
 
@@ -53,6 +54,7 @@ function mod:OnCombatStart(delay)
 	self.vb.burnIcon = 8
 	timerBurnCD:Start(-delay)
 	timerStompCD:Start(-delay)
+	timerMeteorCD:Start(11-delay)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame and self.Options.RangeFrameActivation == "AlwaysOn" then
 		DBM.RangeCheck:Show(4)
@@ -69,9 +71,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 46394 then
 		warnBurn:Show(args.destName)
 		timerBurn:Start(args.destName)
-		if self:AntiSpam(19, 1) then
-			timerBurnCD:Start()
-		end
 		if self.Options.BurnIcon then
 			self:SetIcon(args.destName, self.vb.burnIcon)
 		end
@@ -99,7 +98,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			specwarnStomp:Show(args.destName)
 			warnStomp:Show(args.destName)
 		end
-		timerStompCD:Start()
 	elseif args.spellId == 45150 and args:IsPlayer() then
 		local amount = args.amount or 1
 		if (amount >= 4) or (amount >= 2 and self:IsTimewalking()) then
@@ -120,17 +118,23 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 45150 then
+	local spellId = args.spellId
+	if spellId == 45150 then
 		warnMeteor:Show()
 		timerMeteorCD:Start()
+	elseif spellId == 45185 then
+		timerStompCD:Start()
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 46394 then
+		timerBurnCD:Start()
 	end
 end
 
 function mod:SPELL_MISSED(_, _, _, _, _, _, spellId)
 	if spellId == 46394 then
 		warnBurn:Show("MISSED")
-		if self:AntiSpam(19, 1) then
-			timerBurnCD:Start()
-		end
 	end
 end
