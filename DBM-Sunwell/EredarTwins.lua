@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251011142622")
 mod:SetCreatureID(25165, 25166)
 mod:SetEncounterID(727)
 mod:SetUsedIcons(7, 8)
@@ -188,7 +188,13 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:UNIT_DIED(args)
-	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
-		self:SetStage(2)
+	local destCID = self:GetCIDFromGUID(args.destGUID)
+	if destCID == 21566 -- Grand Warlock Alythess
+	or destCID == 25165 -- Lady Sacrolash
+	then
+		timerConflagCD:Cancel()
+		if self:GetStage(1) then
+			self:SetStage(2)
+		end
 	end
 end
