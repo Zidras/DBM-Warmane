@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
 local Kal	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251011165412")
 mod:SetCreatureID(24850)
 mod:SetEncounterID(724)
 
@@ -29,8 +29,8 @@ local specWarnBuffet	= mod:NewSpecialWarningStack(45018, nil, 10, nil, nil, 1, 6
 local specWarnWildMagic	= mod:NewSpecialWarning("SpecWarnWildMagic")
 
 local timerNextPortal	= mod:NewNextCountTimer(25, 46021, nil, nil, nil, 5)
-local timerBreathCD		= mod:NewCDTimer(15, 44799, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON)--Tanks?
-local timerBuffetCD		= mod:NewCDTimer(8, 45018, nil, nil, nil, 2)
+local timerBreathCD		= mod:NewCDTimer(15, 44799, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! variance? SPELL_CAST_START: (Onyxia: [2025-10-09]@[20:35:05]) - "Frost Breath-44799-npc:24850-61 = pull:18.65, 12.40, 17.36, 10.12, 14.79, 15.51, 15.82, 16.33"
+local timerBuffetCD		= mod:NewNextTimer(8, 45018, nil, nil, nil, 2) -- SPELL_CAST_SUCCESS: (Onyxia: [2025-10-09]@[20:35:05]) - "Arcane Buffet-45018-npc:24850-61 = pull:8.02, 8.02, 8.01, 8.01, 8.00, 8.02, 8.05, 7.99, 8.00, 8.01, 8.03, 8.01, 8.02, 8.01, 8.00, 8.01"
 local timerPorted		= mod:NewBuffActiveTimer(60, 46021, nil, nil, nil, 6)
 local timerExhausted	= mod:NewBuffActiveTimer(60, 44867, nil, nil, nil, 6)
 
