@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Muru", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251013225401")
 mod:SetCreatureID(25741)--25741 Muru, 25840 Entropius
 mod:SetEncounterID(728)
 
@@ -30,7 +30,7 @@ local timerHuman			= mod:NewTimer(60, "TimerHuman", 27778, nil, nil, 6)
 local timerVoid				= mod:NewTimer(30, "TimerVoid", 46087, nil, nil, 6)
 local timerNextDarkness		= mod:NewNextTimer(45, 45996, nil, nil, nil, 2)
 local timerDarknessDura		= mod:NewBuffActiveTimer(20, 45996)
-local timerBlackHoleCD		= mod:NewCDTimer(15, 46282)
+local timerBlackHoleCD		= mod:NewNextTimer(15, 46282) -- Fixed timer. SPELL_SUMMON: (Onyxia: 25m [2025-10-12]@[20:54:01] || [2025-10-12]@[21:01:39]) - "Black Hole-46282-npc:25840-946 = pull:103.65/[Stage 1/0.00, Stage 2/91.58] 12.06/103.65, 15.03, 15.02" || "Black Hole-46282-npc:25840-1095 = pull:113.25/[Stage 1/0.00, Stage 2/101.24] 12.01/113.25, 15.04, 14.99, 15.00"
 local timerPhase			= mod:NewTimer(10, "TimerPhase", 46087, nil, nil, 6)
 local timerSingularity		= mod:NewNextTimer(3.2, 46238)
 
@@ -59,7 +59,7 @@ local function phase2(self)
 	warnPhase2:Show()
 	self:Unschedule(HumanSpawn)
 	self:Unschedule(VoidSpawn)
-	timerBlackHoleCD:Start(17)
+	timerBlackHoleCD:Start(12)
 	if self.Options.HealthFrame then
 		DBM.BossHealth:Clear()
 		DBM.BossHealth:AddBoss(25840, L.Entropius)
@@ -72,11 +72,11 @@ function mod:OnCombatStart(delay)
 	self.vb.voidCount = 1
 	timerHuman:Start(15-delay, 1)
 	timerVoid:Start(36.5-delay, 1)
-	specWarnVW:Schedule(31.5)
-	timerNextDarkness:Start(-delay)
-	specWarnDarknessSoon:Schedule(42)
-	self:Schedule(15, HumanSpawn, self)
-	self:Schedule(36.5, VoidSpawn, self)
+	specWarnVW:Schedule(31.5-delay)
+	timerNextDarkness:Start(48-delay)
+	specWarnDarknessSoon:Schedule(45-delay)
+	self:Schedule(15-delay, HumanSpawn, self)
+	self:Schedule(36.5-delay, VoidSpawn, self)
 	berserkTimer:Start(-delay)
 end
 
