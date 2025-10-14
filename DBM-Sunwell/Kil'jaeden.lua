@@ -1,7 +1,9 @@
 local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+local sformat = string.format
+
+mod:SetRevision("20251014000907")
 mod:SetCreatureID(25315)
 mod:SetEncounterID(729)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
@@ -11,7 +13,7 @@ mod:RegisterCombat("yell", L.YellPull)
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 45641",
 	"SPELL_AURA_REMOVED 45641",
-	"SPELL_CAST_START 46605 45737 46680",
+	"SPELL_CAST_START 46605 45737 46680 45641",
 	"SPELL_CAST_SUCCESS 45680 45848 45892 46589",
 	"CHAT_MSG_MONSTER_YELL"
 )
@@ -35,12 +37,12 @@ local specWarnShield	= mod:NewSpecialWarningSpell(45848)
 local specWarnDarkOrb	= mod:NewSpecialWarning("SpecWarnDarkOrb", false)
 local specWarnBlueOrb	= mod:NewSpecialWarning("SpecWarnBlueOrb", false)
 
-local timerBloomCD		= mod:NewCDTimer(20, 45641, nil, nil, nil, 2)
+local timerBloomCD		= mod:NewCDTimer(20, 45641, nil, nil, nil, 2) -- SPELL_CAST_START: (Onyxia: 25m [2025-10-12]@[22:27:20]) - "Fire Bloom-45641-npc:25315-2148 = pull:18.13/[Stage 1/0.00] 18.13, 22.65, Stage 2/7.59, 42.43/50.02, 20.01"
 local timerDartCD		= mod:NewCDTimer(20, 45740, nil, nil, nil, 2)--Targeted or aoe?
 local timerBomb			= mod:NewCastTimer(9, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerBombCD		= mod:NewCDTimer(45, 46605, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
-local timerSpike		= mod:NewCastTimer(28, 46680, nil, nil, nil, 3)
-local timerBlueOrb		= mod:NewTimer(37, "TimerBlueOrb", 45109, nil, nil, 5)
+local timerSpike		= mod:NewCastTimer(28.75, 46680, nil, nil, nil, 3)
+local timerBlueOrb		= mod:NewTimer(32.5, "TimerBlueOrb", 45109, nil, nil, 5) -- phase 2: 32.48 || 32.5 || 32.48 || 32.51
 
 local berserkTimer		= mod:NewBerserkTimer(mod:IsTimewalking() and 600 or 900)
 
@@ -55,7 +57,6 @@ local function showBloomTargets(self)
 	warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
 	table.wipe(warnBloomTargets)
 	self.vb.bloomIcon = 8
-	timerBloomCD:Start()
 end
 
 function mod:OnCombatStart(delay)
@@ -63,6 +64,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(orbGUIDs)
 	self.vb.bloomIcon = 8
 	self:SetStage(1)
+	timerBloomCD:Start(sformat("v%s-%s", 12.16-delay, 18.13-delay))
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
@@ -119,6 +121,8 @@ function mod:SPELL_CAST_START(args)
 		timerDartCD:Start()
 	elseif args.spellId == 46680 then
 		timerSpike:Start()
+	elseif args.spellId == 45641 then -- Fire Bloom
+		timerBloomCD:Start()
 	end
 end
 
@@ -137,8 +141,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self.vb.phase == 2 then
 			warnPhase2:Show()
 			timerBlueOrb:Start()
-			timerDartCD:Start(59)
-			timerBombCD:Start(77)
+			timerDartCD:Start("v47.16-54.57") -- 47.16-54.57
+			timerBombCD:Start("v71.46-71.59") -- 71.46-71.59
 		elseif self.vb.phase == 3 then
 			warnPhase3:Show()
 			timerBlueOrb:Cancel()
