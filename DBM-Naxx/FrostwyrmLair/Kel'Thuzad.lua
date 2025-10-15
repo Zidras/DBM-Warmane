@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251016000004")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 mod:SetModelID("creature/lich/lich.m2")
@@ -44,12 +44,12 @@ local yellFissure			= mod:NewYellMe(27810)
 local specWarnAddsGuardians	= mod:NewSpecialWarningAdds(29897, "-Healer", nil, nil, 1, 2) -- "Guardians of Icecrown. There's no spellID for this, so used something close: Guardians of Icecrown Passive"
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
-local timerFrostBlast		= mod:NewCDTimer(30, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (retail 40.1)
+local timerManaBomb			= mod:NewVarTimer("v25-31.26", 27819, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~6s variance [25.20-31.26]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Detonate Mana-27819-npc:15990-3 = pull:293.74/[Stage 1/0.00, Stage 2/227.95] 65.79/293.74, Stage 3/24.38, 6.88/31.26, 30.34, 25.20"
+local timerFrostBlast		= mod:NewVarTimer("v35.5-42.67", 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true) -- REVIEW! ~7s variance [35.5-42.67]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Frost Blast-27808-npc:15990-3 = pull:308.71/[Stage 1/0.00, Stage 2/227.95] 80.76/308.71, Stage 3/9.41, 33.25/42.67, 35.25"
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
-local timerFissureCD 		= mod:NewCDTimer(11.5, 27810, nil, nil, nil, 3, nil, nil, true) -- Huge variance! Added "keep" arg (25m Lordaeron 2022/10/16) - Stage 2/*, 22.8, 41.2, 77.5, 11.5
+local timerFissureCD 		= mod:NewVarTimer("v16.78-29.41", 27810, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~13s variance [16.78-29.41]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Shadow Fissure-27810-npc:15990-3 = pull:250.56/[Stage 1/0.00, Stage 2/227.95] 22.60/250.56, 16.78, 29.41, Stage 3/21.38, 0.02/21.39, 27.82, 17.65"
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
-local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
+local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3) -- Almost no variance. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Chains of Kel'Thuzad-28410-npc:15990-3 = pull:258.01/[Stage 1/0.00, Stage 2/227.95] 30.06/258.01, 0.00, 0.00, Stage 3/60.11, 29.93/90.04, 0.00"
 local timerPhase2			= mod:NewTimer(228, "TimerPhase2", nil, nil, nil, 6) -- P2 script starts on Yell or Emote, and IEEU fires 0.55s after. (25m Lordaeron 2022/10/16) - 228.0
 
 mod:AddRangeFrameOption(12, 27819)
@@ -300,7 +300,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnFissure:Show(args.destName)
 			warnFissure:Play("watchstep")
 		end
-	elseif args.spellId == 28410 then
+	elseif spellId == 28410 then
 		DBM:Debug("MC on "..args.destName, 2)
 		if args.destName == UnitName("player") then
 			if self.Options.RemoveBuffsOnMC ~= "Never" then
@@ -314,6 +314,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 		if self:AntiSpam(2, 2) then
 			timerMCCD:Start()
+			warnMindControlSoon:Schedule(85)
 			if self.Options.EqUneqWeaponsKT and checkWeaponRemovalSetting(self) then
 				self:Schedule(89.95, UnWKT, self)
 				self:Schedule(90, UnWKT, self)
@@ -350,8 +351,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		chainsTargets[#chainsTargets + 1] = args.destName
 		if self:AntiSpam() then
 			timerMC:Start()
-			timerMCCD:Start()
-			warnMindControlSoon:Schedule(60)
 		end
 		if self.Options.SetIconOnMC then
 			self:SetIcon(args.destName, self.vb.MCIcon)
