@@ -294,7 +294,9 @@ L:SetMiscLocalization({
 	WarningWave3	= "%d %s, %d %s, %d %s",
 	Trainee			= "|4수련생:수련생;",
 	Knight			= "|4죽음의 기사:죽음의 기사;",
-	Rider			= "|4죽음의 기병:죽음의 기병;"
+	Rider			= "|4죽음의 기병:죽음의 기병;",
+	GothikDoorEmote	= "중앙 관문이 열립니다!",
+	GothikPhase2Yell= "오랫동안 기다렸다. 이제 영혼 착취자를 만날 차례다."
 })
 
 --------------------

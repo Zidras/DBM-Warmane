@@ -290,7 +290,9 @@ L:SetMiscLocalization({
 	WarningWave3		= "%d %s, %d %s 和 %d %s",
 	Trainee				= "学徒",
 	Knight				= "死亡骑士",
-	Rider				= "骑兵"
+	Rider				= "骑兵",
+	GothikDoorEmote		= "中央大门打开了！",
+	GothikPhase2Yell	= "我已经等待很久了。现在你们将面对灵魂的收割者。"
 })
 
 ---------------------
