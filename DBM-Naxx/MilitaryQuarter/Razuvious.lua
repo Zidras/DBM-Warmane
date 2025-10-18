@@ -19,7 +19,7 @@ local warnShieldWall	= mod:NewAnnounce("WarningShieldWallSoon", 3, 29061, nil, n
 
 local timerShout		= mod:NewVarTimer("v14.92-15.07", 29107, nil, nil, nil, 2, "Interface\\Icons\\Ability_Warrior_Rampage") -- SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:47:27]) - "Disrupting Shout-29107-npc:16061-586 = pull:14.92, 15.07, 15.07, 15.06, 14.99"
 local timerTaunt		= mod:NewCDTimer(20, 29060, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- UNIT_SPELLCAST_SUCCEEDED: (Lordaeron: 25m [2025-10-03]@[20:47:27]) - "Taunt-npc:16803-590 = pull:13.62, 23.36, 20.47, 20.51"
-local timerShieldWall	= mod:NewCDTimer(30, 29061, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- This is 20s of buff active duration, but the ability CD is 30s. UNIT_SPELLCAST_SUCCEEDED: (Lordaeron: 25m [2025-10-03]@[20:47:27]) - "Bone Barrier-npc:16803-590 = pull:17.66, 31.99, 31.40"
+local timerShieldWall	= mod:NewBuffActiveTimer(20, 29061, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- This is 20s of buff active duration, but the ability CD is 30s. UNIT_SPELLCAST_SUCCEEDED: (Lordaeron: 25m [2025-10-03]@[20:47:27]) - "Bone Barrier-npc:16803-590 = pull:17.66, 31.99, 31.40"
 local timerMindControl	= mod:NewBuffActiveTimer(60, 605, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)
