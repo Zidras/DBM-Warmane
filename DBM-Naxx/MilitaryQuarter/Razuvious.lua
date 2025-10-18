@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razuvious", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251018085532")
+mod:SetRevision("20251018121532")
 mod:SetCreatureID(16061)
 mod:SetEncounterID(1113)
 
