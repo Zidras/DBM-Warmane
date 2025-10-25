@@ -1,13 +1,15 @@
 local mod	= DBM:NewMod("Gothik", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251016221912")
 mod:SetCreatureID(16060)
 mod:SetEncounterID(1109)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
+	"CHAT_MSG_MONSTER_YELL",
+	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_DIED"
 )
 
@@ -17,11 +19,12 @@ local warnWaveNow		= mod:NewAnnounce("WarningWaveSpawned", 3, nil, false)
 local warnWaveSoon		= mod:NewAnnounce("WarningWaveSoon", 2)
 local warnRiderDown		= mod:NewAnnounce("WarningRiderDown", 4)
 local warnKnightDown	= mod:NewAnnounce("WarningKnightDown", 2)
+local warnGateOpen		= mod:NewSpellAnnounce(3366, 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2, 3)
 
 local timerPhase2		= mod:NewTimer(277, "TimerPhase2", 27082, nil, nil, 6)
 local timerWave			= mod:NewTimer(20, "TimerWave", 5502, nil, nil, 1)
-local timerGate			= mod:NewTimer(155, "Gate Opens", 9484)
+local timerGate			= mod:NewTimer(155, "Gate Opens", 9484) -- 235s if raid on 1 side (Lordaeron: 25m [2025-10-03]@[20:52:00]) - "?-The central gate opens!-npc:Gothik the Harvester = pull:234.95/[Stage 1/0.00] 234.95, Stage 2/42.07"
 
 mod.vb.wave = 0
 local wavesNormal = {
@@ -71,6 +74,7 @@ local waves = wavesNormal
 
 local function StartPhase2(self)
 	self:SetStage(2)
+	warnPhase2:Show()
 end
 
 local function getWaveString(wave)
@@ -105,11 +109,10 @@ function mod:OnCombatStart()
 	self.vb.wave = 0
 	timerGate:Start()
 	timerPhase2:Start()
-	warnPhase2:Schedule(277)
 	timerWave:Start(25, self.vb.wave + 1)
 	warnWaveSoon:Schedule(22, self.vb.wave + 1, getWaveString(self.vb.wave + 1))
 	self:Schedule(25, NextWave, self)
-	self:Schedule(277, StartPhase2, self)
+--	self:Schedule(277, StartPhase2, self)
 end
 
 function mod:OnTimerRecovery()
@@ -117,6 +120,19 @@ function mod:OnTimerRecovery()
 		waves = wavesHeroic
 	else
 		waves = wavesNormal
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.GothikPhase2Yell or msg:find(L.GothikPhase2Yell) then
+		StartPhase2(self)
+	end
+end
+
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
+	if msg == L.GothikDoorEmote or msg:find(L.GothikDoorEmote) then
+		DBM:AddSpecialEventToTranscriptorLog("Gothik Door Opened")
+		warnGateOpen:Show()
 	end
 end
 
@@ -130,3 +146,9 @@ function mod:UNIT_DIED(args)
 		end
 	end
 end
+
+--[[function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+	if (spellName == GetSpellInfo(28025) or spellName == GetSpellInfo(28026)) and self:GetStage(1) then -- Boss casts this teleportation spell, together with Yell: I have waited long enough. Now you face the harvester of souls.
+		self:SetStage(2)
+	end
+end]]

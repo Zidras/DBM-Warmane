@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorscale", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251020234840")
 mod:SetCreatureID(33186)
 mod:SetEncounterID(746)
 
@@ -32,10 +32,10 @@ local specWarnDevouringFlameYou		= mod:NewSpecialWarningYou(64733, false, nil, n
 local specWarnDevouringFlameNear	= mod:NewSpecialWarningClose(64733, false, nil, nil, 1, 2)
 local yellDevouringFlame			= mod:NewYell(64733)
 
-local timerTurret1					= mod:NewTimer(54, "timerTurret1", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
-local timerTurret2					= mod:NewTimer(76, "timerTurret2", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
-local timerTurret3					= mod:NewTimer(97, "timerTurret3", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
-local timerTurret4					= mod:NewTimer(118, "timerTurret4", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- 25 man log review (2022/07/10)
+local timerTurret1					= mod:NewTimer(54, "timerTurret1", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON) -- Fixed timer: 54s. Then +21 on every subsequent turret. (Lordaeron: 25m review2022/07/10 || 10m [2025-09-06]@[20:43:48] || 25m [2025-10-20]@[19:41:45]) - "?-Harpoon Turret is ready for use!-npc:Razorscale Controller = pull:54.05/[Stage 1/0.00] 54.05, 21.05, 102.27, 21.08, Stage 2/34.38" || "?-Harpoon Turret is ready for use!-npc:Razorscale Controller = pull:54.08/[Stage 1/0.00] 54.08, 21.02, 21.07, 21.05, Stage 2/49.28"
+local timerTurret2					= mod:NewTimer(75, "timerTurret2", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+local timerTurret3					= mod:NewTimer(96, "timerTurret3", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
+local timerTurret4					= mod:NewTimer(117, "timerTurret4", 48642, nil, nil, 5, DBM_COMMON_L.IMPORTANT_ICON)
 
 -- Stage Two
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
@@ -73,18 +73,18 @@ function mod:OnCombatStart(delay)
 	isGrounded = false
 	enrageTimer:Start(-delay)
 	combattime = GetTime()
-	if self:IsDifficulty("normal10") then -- REVIEW. No log yet to validate this.
-		warnTurretsReadySoon:Schedule(53-delay)
-		warnTurretsReady:Schedule(73-delay)
+	if self:IsDifficulty("normal10") then
+		warnTurretsReadySoon:Schedule(54-delay)
+		warnTurretsReady:Schedule(75-delay)
 		timerTurret1:Start(-delay)
 		timerTurret2:Start(-delay)
 	else
-		warnTurretsReadySoon:Schedule(97-delay)
-		warnTurretsReady:Schedule(118-delay)
-		timerTurret1:Start(-delay) -- 53sec
-		timerTurret2:Start(-delay) -- +20
-		timerTurret3:Start(-delay) -- +20
-		timerTurret4:Start(-delay) -- +20
+		warnTurretsReadySoon:Schedule(96-delay)
+		warnTurretsReady:Schedule(117-delay)
+		timerTurret1:Start(-delay) -- 54sec
+		timerTurret2:Start(-delay) -- +21
+		timerTurret3:Start(-delay) -- +21
+		timerTurret4:Start(-delay) -- +21
 	end
 end
 
@@ -148,21 +148,23 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if isGrounded and (msg == L.YellAir or msg == L.YellAir2) and GetTime() - combattime > 30 then
+		DBM:AddSpecialEventToTranscriptorLog("Air Phase")
 		isGrounded = false -- warmane resets the timers idk why
 		if self:IsDifficulty("normal10") then -- not sure?
-			warnTurretsReadySoon:Schedule(23)
-			warnTurretsReady:Schedule(43)
-			timerTurret1:Start(23)
-			timerTurret2:Start(43)
+			warnTurretsReadySoon:Schedule(40)
+			warnTurretsReady:Schedule(61)
+			timerTurret1:Start(40)
+			timerTurret2:Start(61) -- +21
 		else
 			warnTurretsReadySoon:Schedule(123)
 			warnTurretsReady:Schedule(133)
-			timerTurret1:Start(70)
+			timerTurret1:Start(70) -- Lordaeron 25m 20250112: "?-Harpoon Turret is ready for use!-npc:Razorscale Controller = pull:54.09/[Stage 1/0.00] 54.09, 21.09, 21.05, 21.09, 130.14, 21.06, 21.05, 21.04, Stage 2/8.36"
 			timerTurret2:Start(91)
 			timerTurret3:Start(112)
 			timerTurret4:Start(133)
 		end
 	elseif msg == L.YellGround then
+		DBM:AddSpecialEventToTranscriptorLog("Ground Phase")
 		timerGrounded:Start()
 		isGrounded = true
 	end

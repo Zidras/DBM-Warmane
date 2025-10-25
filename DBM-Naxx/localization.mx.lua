@@ -293,7 +293,9 @@ L:SetMiscLocalization({
 	WarningWave3	= "%d %s, %d %s y %d %s",
 	Trainee			= "practicantes",
 	Knight			= "caballeros",
-	Rider			= "jinetes"
+	Rider			= "jinetes",
+	GothikDoorEmote	= "¡La puerta central se abre!",
+	GothikPhase2Yell= "Ya he esperado suficiente. Ahora se enfrentaran al Recolector de almas."
 })
 
 ------------------------

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251020230558")
 mod:SetCreatureID(15989)
 mod:SetEncounterID(1119)
 mod:SetHotfixNoticeRev(20250916000000)
@@ -35,10 +35,10 @@ local warnBlizzard		= mod:NewSpellAnnounce(28560, 4)
 
 local specWarnBlizzard	= mod:NewSpecialWarningGTFO(28547, nil, nil, nil, 1, 8)
 
-local timerDrainLife	= mod:NewCDTimer(24, 28542, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON) -- (25man Lordaeron 2022/09/02) - 24.0
-local timerAirPhase		= mod:NewTimer(60, "TimerAir", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
+local timerDrainLife	= mod:NewCDTimer(24, 28542, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON) -- (Lordaeron: 25man 2022/09/02 || 25m [2025-10-03]@[20:34:05]) - 24.0 || "Life Drain-55665-npc:15989-1261 = pull:11.92/[Stage 1/0.00] 11.92, 23.98, Stage 2/12.66, Stage 1/23.72, 12.05/35.76/48.42"
+local timerAirPhase		= mod:NewTimer(60, "TimerAir", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6) -- REVIEW! (Lordaeron: 25m [2025-10-03]@[20:34:05]) - "?-Sapphiron lifts off into the air!-npc:Sapphiron = pull:48.57/[Stage 1/0.00, Stage 2/48.56] 0.01/48.57, Stage 1/23.71"
 local timerBlizzard		= mod:NewNextTimer(7, 28560, nil, nil, nil, 3)
-local timerTailSweep	= mod:NewNextTimer(9, 55696, nil, nil, nil, 2)
+local timerTailSweep	= mod:NewNextTimer(9, 55696, nil, nil, nil, 2) -- (Lordaeron: 25m [2025-10-03]@[20:34:05]) - "Tail Sweep-npc:15989-1261 = pull:8.96/[Stage 1/0.00] 8.96, 9.08, 8.97, 9.03, 9.00, Stage 2/3.53, Stage 1/23.72, 9.05/32.77/36.29, 9.01, 8.99"
 
 -- Stage Two (Air Phase)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
@@ -65,8 +65,8 @@ end]]
 local function Landing(self)
 	self:SetStage(1)
 	warnLanded:Show()
-	warnDrainLifeSoon:Schedule(5)
-	timerDrainLife:Start(10.5)
+	warnDrainLifeSoon:Schedule(7)
+	timerDrainLife:Start(12)
 	warnAirPhaseSoon:Schedule(50)
 	timerAirPhase:Start()
 	if self.Options.RangeFrame then
@@ -81,11 +81,11 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	self.vb.isFlying = false
 	warnDrainLifeSoon:Schedule(6.5-delay)
-	timerDrainLife:Start(12-delay) -- (25man Lordaeron 2022/09/02) - 12.0
+	timerDrainLife:Start(11.92-delay) -- (Lordaeron: 25man 2022/09/02 || 25m [2025-10-03]@[20:34:05]) - 12.0 || 11.92
 	timerBlizzard:Start(6.1-delay) -- REVIEW! ~3s variance? (25man Lordaeron 2022/09/02 || 25man Lordaeron 2022/10/16) - 8.8 || 6.1
 	timerTailSweep:Start(-delay)
 	warnAirPhaseSoon:Schedule(38.4-delay)
-	timerAirPhase:Start(48.4-delay) -- REVIEW! ~0.1s variance? (25man Lordaeron 2022/09/02) - 48.4
+	timerAirPhase:Start(48.4-delay) -- REVIEW! ~0.1s variance? (25man Lordaeron 2022/09/02 || 25man Lordaeron 2022/10/16) - 48.4 || 48.57
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		self:Schedule(46-delay, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
@@ -156,6 +156,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnDrainLifeSoon:Schedule(18.5)
 		timerDrainLife:Start()
 	elseif spellId == 28560 then
+		DBM:AddMsg("Sapphiron Blizzard SPELL_CAST_SUCCESS implemented on Warmane server script. Notify Zidras on Discord or GitHub")
 		warnBlizzard:Show()
 		timerBlizzard:Start()
 	elseif spellId == 55696 then
