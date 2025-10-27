@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Souls", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251027151520")
 mod:SetCreatureID(23418) -- 23418: Essence of Suffering ; 23419: Essence of Desire ; 23420: Essence of Anger
 mod:SetEncounterID(606)
 mod:SetHotfixNoticeRev(20250717000000)
@@ -47,9 +47,9 @@ local timerFrenzy		= mod:NewBuffActiveTimer(8, 41305, nil, "Tank|Healer", 2, 5, 
 local timerNextFrenzy	= mod:NewNextTimer(40, 41305, nil, "Tank|Healer", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 --Phase 2
 local timerDeaden		= mod:NewTargetTimer(10, 41410, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON, nil, mod:IsTank() and select(2, UnitClass("player")) == "WARRIOR" and 2, 4)
-local timerNextDeaden	= mod:NewCDTimer(31, 41410, nil, nil, nil, 5)--Roll timer because I don't want to assign it interrupt one when many groups will use prot warrior
+local timerNextDeaden	= mod:NewNextTimer(30, 41410, nil, nil, nil, 5)--Roll timer because I don't want to assign it interrupt one when many groups will use prot warrior. SPELL_CAST_START: (Onyxia: 25m [2025-10-17]@[21:31:34]) - "Deaden-41410-npc:23419-2404 = pull:152.22, 30.00, 30.01"
 local timerMana			= mod:NewTimer(160, "TimerMana", 41350)
-local timerNextShock	= mod:NewCDTimer(12, 41426, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)--Blizz lied, this is a 12-15 second cd. you can NOT solo interrupt these with most classes
+local timerNextShock	= mod:NewCDTimer("v5-12", 41426, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON) -- Blizz lied, you can NOT solo interrupt these with most classes. SPELL_CAST_START: (Onyxia: 25m [2025-10-17]@[21:31:34]) - "Spirit Shock-41426-npc:23419-2404 = pull:134.25, 11.14, 5.71, 11.44, 6.55, 5.37, 6.72, 6.40, 10.76, 11.95, 5.54, 6.67, 5.28, 6.36, 6.35"
 --Phase 3
 local timerNextShield	= mod:NewCDTimer(15, 41431, nil, "MagicDispeller", 2, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerNextSoul		= mod:NewCDTimer(10, 41545, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
@@ -121,7 +121,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnMana:Schedule(130)
 		timerMana:Start()
 		timerNextShield:Start(13)
-		timerNextDeaden:Start(28)
+		timerNextDeaden:Start(25) -- REVIEW! ~1s variance?
 	elseif args.spellId == 41337 then --Aura of Anger
 		warnPhase3:Show()
 		timerNextSoul:Start()
