@@ -1,7 +1,9 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251011114446")
+local sformat = string.format
+
+mod:SetRevision("20251101093025")
 mod:SetCreatureID(25038)
 mod:SetEncounterID(726)
 mod:SetUsedIcons(8, 7)
@@ -32,11 +34,11 @@ local specWarnVapor			= mod:NewSpecialWarningYou(45402, nil, nil, nil, 1, 2)
 local specWarnBreath		= mod:NewSpecialWarningCount(45717, nil, nil, nil, 3, 2)
 
 local timerGasCast			= mod:NewCastTimer(1, 45855)
-local timerGasCD			= mod:NewCDTimer(32.97, 45855, nil, nil, nil, 3, nil, nil, true) -- REVIEW! Check proper variance with Phase Transcriptor events. Added "keep" arg. (Onyxia: [2025-10-09]@[20:58:45]) - "Gas Nova-45855-npc:25038-1001 = pull:20.92, 32.97, 129.37"
+local timerGasCD			= mod:NewCDTimer(32.97, 45855, nil, nil, nil, 3, nil, nil, true) -- REVIEW! Check proper variance with Phase Transcriptor events. Added "keep" arg. SPELL_CAST_START: (Onyxia: [2025-10-09]@[20:58:45]) - "Gas Nova-45855-npc:25038-1001 = pull:20.92, 32.97, 129.37" || "Gas Nova-45855-npc:25038-1148 = pull:23.44, Air Phase/37.57, Ground Phase/105.51, 13.44/118.96/156.52"
 local timerCorrosionCD		= mod:NewCDTimer(27.08, 45866, nil, "Healer", 2, 5, nil, DBM_COMMON_L.HEALER_ICON, true) -- REVIEW! Check proper variance with Phase Transcriptor events. Added "keep" arg. (Onyxia: [2025-10-09]@[20:58:45]) - "Corrosion-45866-npc:25038-1001 = pull:15.24, 27.08, 141.97"
 local timerCorrosion		= mod:NewTargetTimer(10, 45866, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerEncaps			= mod:NewTargetTimer(7, 45665, nil, nil, nil, 3)
-local timerEncapsCD			= mod:NewCDTimer(30, 45665, nil, nil, nil, 3) -- REVIEW! (Onyxia: [2025-10-09]@[20:58:45]) - "Encapsulate-npc:25038-1001 = pull:32.55"
+local timerEncapsCD			= mod:NewCDTimer(30, 45665, nil, nil, nil, 3) -- REVIEW! 2025/10/(20?) - Warmane Onyxia changed script again. (Onyxia: [2025-10-09]@[20:58:45] || [2025-10-30]@[20:46:11]) - "Encapsulate-npc:25038-1001 = pull:32.55" || "Encapsulate-npc:25038-1148 = pull:45.99, Air Phase/15.02, Ground Phase/105.51"
 local timerBreath			= mod:NewCDCountTimer(17, 45717, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerPhase			= mod:NewTimer(61, "TimerPhase", 31550, nil, nil, 6) -- (Onyxia: [2025-10-09]@[20:58:45]) - "?-I am stronger than ever before!-npc:Felmyst = pull:61.00"
 
@@ -52,7 +54,7 @@ function mod:Groundphase()
 	DBM:AddSpecialEventToTranscriptorLog("Ground Phase")
 	self.vb.breathCounter = 0
 	warnPhase:Show(L.Ground)
-	timerGasCD:Start(22)
+	timerGasCD:Start(13)
 	timerPhase:Start(nil, L.Air)
 	timerEncapsCD:Start()
 end
@@ -78,11 +80,11 @@ end
 
 function mod:OnCombatStart(delay)
 	self.vb.breathCounter = 0
-	timerGasCD:Start(20.92-delay)
+	timerGasCD:Start(sformat("v%s-%s", 20.92-delay, 23.44-delay))
 	timerCorrosionCD:Start(15.2-delay)
 	timerPhase:Start(-delay, L.Air)
 	berserkTimer:Start(-delay)
-	timerEncapsCD:Start(32.55-delay)
+	timerEncapsCD:Start(46-delay)
 end
 
 
