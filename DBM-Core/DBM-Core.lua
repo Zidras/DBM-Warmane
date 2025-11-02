@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20251009234057"),
+	Revision = parseCurseDate("20251102143218"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -10108,7 +10108,7 @@ do
 		return x == 0 and 1/x < 0  -- Only true for -0
 	end
 
-	-- Parse variance from timer string (v30.5-40" or "dv30.5-40"), into minimum and maximum timer, and calculated variance duration
+	-- Parse variance from timer string ("v30.5-40" or "dv30.5-40"), into minimum and maximum timer, and calculated variance duration
 	---@param timer string
 	---@return number maxTimer, number minTimer, number varianceDuration
 	local function parseVarianceFromTimer(timer)
@@ -10608,9 +10608,16 @@ do
 		end
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBT:GetBar(id)
-		fireEvent("DBM_TimerUpdate", id, elapsed, totalTime)
+		-- parse variance from totalTime if necessary
+		local maxTimer, minTimer, correctedTimer
+		if type(totalTime) == "string" and totalTime:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
+			maxTimer, minTimer = parseVarianceFromTimer(totalTime)
+			correctedTimer = DBT.Options.VarianceEnabled and maxTimer or minTimer
+		end
+		fireEvent("DBM_TimerUpdate", id, elapsed, (correctedTimer or totalTime))
 		if bar then
-			local newRemaining = totalTime-elapsed
+			local newRemaining = (correctedTimer or totalTime)-elapsed
+			local newMinRemaining = (minTimer or totalTime)-elapsed
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			if not bar.keep and newRemaining > 0 then
 				--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
@@ -10621,8 +10628,8 @@ do
 				if (type(countVoice) == "string" or countVoice > 0) then
 					DBM:Unschedule(playCountSound, id)
 					if not bar.fade then--Don't start countdown voice if it's faded bar
-						if newRemaining > 2 then
-							playCountdown(id, newRemaining, countVoice, bar.countdownMax, bar.requiresCombat)--timerId, timer, voice, count
+						if newMinRemaining > 2 then
+							playCountdown(id, newMinRemaining, countVoice, bar.countdownMax, bar.requiresCombat)--timerId, timer, voice, count
 							DBM:Debug("Updating a countdown after a timer Update call for timer ID:"..id)
 						end
 					end
