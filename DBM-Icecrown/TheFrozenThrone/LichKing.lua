@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20251101200605")
+mod:SetRevision("20251102144322")
 mod:SetCreatureID(36597)
 mod:SetEncounterID(856)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
@@ -879,7 +879,7 @@ function mod:UPDATE_MOUSEOVER_UNIT()
 			local spiritIndex = DBM:tIndexOf(ragingSpiritsGUIDs, "unknownSpiritGUID")
 			if spiritIndex then
 				ragingSpiritsGUIDs[spiritIndex] = spiritGUID -- replace the dummy GUID with the real one
-				local totalTime = timerSoulShriekCD:Time("unknownSpiritGUID")
+				local totalTime = "v18-20" -- timerSoulShriekCD:Time("unknownSpiritGUID") -- 02/11/2025: Core method does not return variance, only total time. Since total time in this mod is fixed, we can just hardcode it.
 				local elapsedTime = timerSoulShriekCD:GetTime("unknownSpiritGUID")
 				timerSoulShriekCD:Cancel("unknownSpiritGUID") -- cancel the dummy timer
 				timerSoulShriekCD:Update(elapsedTime, totalTime, spiritGUID) -- restart the timer with the real GUID
@@ -906,7 +906,7 @@ function mod:UNIT_TARGET_UNFILTERED(uId)
 			local spiritIndex = DBM:tIndexOf(ragingSpiritsGUIDs, "unknownSpiritGUID")
 			if spiritIndex then
 				ragingSpiritsGUIDs[spiritIndex] = spiritGUID -- replace the dummy GUID with the real one
-				local totalTime = timerSoulShriekCD:Time("unknownSpiritGUID")
+				local totalTime = "v18-20" -- timerSoulShriekCD:Time("unknownSpiritGUID") -- 02/11/2025: Core method does not return variance, only total time. Since total time in this mod is fixed, we can just hardcode it.
 				local elapsedTime = timerSoulShriekCD:GetTime("unknownSpiritGUID")
 				timerSoulShriekCD:Cancel("unknownSpiritGUID") -- cancel the dummy timer
 				timerSoulShriekCD:Update(elapsedTime, totalTime, spiritGUID) -- restart the timer with the real GUID
