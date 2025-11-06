@@ -11,7 +11,7 @@ mod.disableHealthCombat = true
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 45150",
-	"SPELL_CAST_SUCCESS 45185",
+	"SPELL_CAST_SUCCESS 45141 45185",
 	"SPELL_AURA_APPLIED 46394 45185 45150",
 	"SPELL_AURA_APPLIED_DOSE 45150",
 	"SPELL_AURA_REMOVED 46394",
@@ -71,7 +71,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 46394 then
 		warnBurn:Show(args.destName)
 		timerBurn:Start(args.destName)
-		timerBurnCD:Start()
 		if self.Options.BurnIcon then
 			self:SetIcon(args.destName, self.vb.burnIcon)
 		end
@@ -129,6 +128,8 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 45185 then
 		timerStompCD:Start()
+	elseif args.SpellID = 45141 then
+		timerBurnCD:Start()
 	end
 end
 
