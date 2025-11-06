@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brutallus", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251011164610")
+mod:SetRevision("20251106104433")
 mod:SetCreatureID(24882)
 mod:SetEncounterID(725)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
