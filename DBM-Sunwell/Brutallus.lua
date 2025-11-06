@@ -128,7 +128,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 45185 then
 		timerStompCD:Start()
-	elseif args.SpellID == 45141 then
+	elseif args.spellId == 45141 then
 		timerBurnCD:Start()
 	end
 end
