@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brutallus", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251011164610")
+mod:SetRevision("20251106104433")
 mod:SetCreatureID(24882)
 mod:SetEncounterID(725)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -11,7 +11,7 @@ mod.disableHealthCombat = true
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 45150",
-	"SPELL_CAST_SUCCESS 46394 45185",
+	"SPELL_CAST_SUCCESS 45141 45185",
 	"SPELL_AURA_APPLIED 46394 45185 45150",
 	"SPELL_AURA_APPLIED_DOSE 45150",
 	"SPELL_AURA_REMOVED 46394",
@@ -122,13 +122,13 @@ function mod:SPELL_CAST_START(args)
 	if spellId == 45150 then
 		warnMeteor:Show()
 		timerMeteorCD:Start()
-	elseif spellId == 45185 then
-		timerStompCD:Start()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 46394 then
+	if args.spellId == 45185 then
+		timerStompCD:Start()
+	elseif args.spellId == 45141 then
 		timerBurnCD:Start()
 	end
 end
