@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Najentus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251027142500")
 mod:SetCreatureID(22887)
 mod:SetEncounterID(601)
 
@@ -22,7 +22,7 @@ local warnSpine			= mod:NewTargetNoFilterAnnounce(39837, 3)
 local specWarnSpineTank	= mod:NewSpecialWarningTaunt(39837, nil, nil, nil, 1, 2)
 local yellSpine			= mod:NewYell(39837)
 
-local timerShield		= mod:NewCDTimer(56, 39872, nil, nil, nil, 5)
+local timerShield		= mod:NewNextTimer(60, 39872, nil, nil, nil, 5) -- (Onyxia: 25m [2025-10-17]@[20:25:19]) - "Tidal Shield-39872-npc:22887-247 = pull:60.02, 60.05"
 
 local berserkTimer		= mod:NewBerserkTimer(300)
 
@@ -32,7 +32,7 @@ mod:AddRangeFrameOption("8")
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
-	timerShield:Start(55.5-delay)
+	timerShield:Start(-delay)
 	warnShieldSoon:Schedule(50-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(8)

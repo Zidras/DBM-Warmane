@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sindragosa", "DBM-Icecrown", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251101201015")
 mod:SetCreatureID(36853)
 mod:SetEncounterID(855)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
@@ -191,8 +191,7 @@ local function landingPhaseWorkaround(self, timeOffset)
 end
 
 local function cycleMysticBuffet(self)
---	timerNextMysticBuffet:Stop() -- disabled for debugging
-	timerNextMysticBuffet:Start()
+	timerNextMysticBuffet:Restart()
 	self:Schedule(6, cycleMysticBuffet, self)
 end
 
@@ -431,7 +430,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerNextGroundphase:Cancel()
 		warnGroundphaseSoon:Cancel()
 		timerNextBlisteringCold:Restart(35) -- Fixed timer: 35s (25H Lordaeron 2024/11/28) - 35.03
-		timerNextMysticBuffet:Start(6)
+		timerNextMysticBuffet:Start()
 		self:Schedule(6, cycleMysticBuffet, self)
 		self:Unschedule(landingPhaseWorkaround)
 		self:UnregisterShortTermEvents() -- REVIEW! not sure it's needed, but doesn't hurt. Would need validation on event order when boss is intermissioned with health right above phase 2 threshold, to check which of the events come first (TARGET or YELL)

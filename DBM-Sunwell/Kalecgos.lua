@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("Kal", "DBM-Sunwell")
 local Kal	= DBM:GetModByName("Kal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20251011165412")
+mod:SetRevision("20251101110340")
 mod:SetCreatureID(24850)
 mod:SetEncounterID(724)
 
@@ -28,8 +28,8 @@ local warnCorrupt		= mod:NewTargetAnnounce(45029, 3)
 local specWarnBuffet	= mod:NewSpecialWarningStack(45018, nil, 10, nil, nil, 1, 6)
 local specWarnWildMagic	= mod:NewSpecialWarning("SpecWarnWildMagic")
 
-local timerNextPortal	= mod:NewNextCountTimer(25, 46021, nil, nil, nil, 5)
-local timerBreathCD		= mod:NewCDTimer(15, 44799, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- REVIEW! variance? SPELL_CAST_START: (Onyxia: [2025-10-09]@[20:35:05]) - "Frost Breath-44799-npc:24850-61 = pull:18.65, 12.40, 17.36, 10.12, 14.79, 15.51, 15.82, 16.33"
+local timerNextPortal	= mod:NewVarCountTimer("v20-30", 46021, nil, nil, nil, 5) -- 10s variance [20.78-29.62]. Although mod uses SPELL_AURA_APPLIED on Spectral Realm, I am using UNIT_SPELLCAST_SUCCEEDED Spectral Blast for timers (since difference is minimal and captured by timers parsing): (Onyxia: [2025-10-30]@[20:26:56]) - "Spectral Blast-npc:24850-61 = pull:14.99, 22.93, 29.62, 23.70, 27.51"
+local timerBreathCD		= mod:NewVarTimer("v10-20", 44799, nil, false, nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 10s variance [10.12-19.86] SPELL_CAST_START: (Onyxia: [2025-10-09]@[20:35:05] || [2025-10-30]@[20:26:56]) - "Frost Breath-44799-npc:24850-61 = pull:18.65, 12.40, 17.36, 10.12, 14.79, 15.51, 15.82, 16.33" || "Frost Breath-44799-npc:24850-61 = pull:16.66, 18.05, 19.86, 11.30, 18.61, 13.71, 18.76"
 local timerBuffetCD		= mod:NewNextTimer(8, 45018, nil, nil, nil, 2) -- SPELL_CAST_SUCCESS: (Onyxia: [2025-10-09]@[20:35:05]) - "Arcane Buffet-45018-npc:24850-61 = pull:8.02, 8.02, 8.01, 8.01, 8.00, 8.02, 8.05, 7.99, 8.00, 8.01, 8.03, 8.01, 8.02, 8.01, 8.00, 8.01"
 local timerPorted		= mod:NewBuffActiveTimer(60, 46021, nil, nil, nil, 6)
 local timerExhausted	= mod:NewBuffActiveTimer(60, 44867, nil, nil, nil, 6)
@@ -55,6 +55,7 @@ mod.vb.portCount = 1
 
 function mod:OnCombatStart(delay)
 	self.vb.portCount = 1
+	timerNextPortal:Start(15, self.vb.portCount) -- Fixed timer: 15s.
 	if self:IsTimewalking() then
 		berserkTimer:Start(-delay)
 	end

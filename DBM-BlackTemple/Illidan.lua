@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Illidan", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251027154359")
 mod:SetCreatureID(22917)
 mod:SetEncounterID(609)
 
@@ -26,7 +26,7 @@ mod:RegisterEventsInCombat(
 --TODO, phase 4 log where I don't overkill boss too fast.
 
 -- General
-local timerCombatStart		= mod:NewCombatTimer(36)
+local timerCombatStart		= mod:NewCombatTimer(42.35)
 local berserkTimer			= mod:NewBerserkTimer(1500)
 
 -- Stage One: You Are Not Prepared
@@ -292,7 +292,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.Pull or msg:find(L.Pull) then
+	if msg == L.Pull or msg:find(L.Pull) or msg == L.PullWarmane or msg:find(L.PullWarmane)then -- Warmane bad string: https://www.warmane.com/bugtracker/report/131679
 		timerCombatStart:Start()
 	elseif msg == L.Eyebeam or msg:find(L.Eyebeam) then
 		warnEyebeam:Show()

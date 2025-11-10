@@ -198,6 +198,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull			= "Akama. Your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.",
+	PullWarmane		= "Akama... your duplicity is hardly surprising. I should have slaughtered you and your malformed brethren long ago.",
 	Eyebeam			= "Stare into the eyes of the Betrayer!",
 	Demon			= "Behold the power... of the demon within!",
 	Phase4			= "Is this it, mortals? Is this all the fury you can muster?",

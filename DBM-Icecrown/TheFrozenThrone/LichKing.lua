@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251102144322")
 mod:SetCreatureID(36597)
 mod:SetEncounterID(856)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
@@ -181,7 +181,7 @@ local specWarnGTFO					= mod:NewSpecialWarningGTFO(68983, nil, nil, nil, 1, 8)
 
 local timerPhaseTransition			= mod:NewTimer(62.5, "PhaseTransition", 72262, nil, nil, 6)
 local timerRagingSpiritCD			= mod:NewNextCountTimer(20, 69200, nil, nil, nil, 1)
-local timerSoulShriekCD				= mod:NewCDTimer(12, 69242, nil, nil, nil, 1)
+local timerSoulShriekCD				= mod:NewVarTimer("v12-15", 69242, nil, nil, nil, 1) -- ~3s variance [12.4-15]. SPELL_CAST_START: (25H Lordaeron [2025-10-30]@[22:24:13]) - "Soul Shriek-73802-npc:36701-3660 = pull:439.27/[Stage 1/0.00, Stage 1.5/115.59, Stage 2/62.50, Stage 2.5/190.16, Stage 3/62.50] 8.53/71.03/261.19/323.69/439.27, Left Frostmourne/54.01, 9.04/63.04, 12.15, 13.16, 14.80, Left Frostmourne/57.22, 5.04/62.26, 14.29, 12.70, 12.13"
 
 mod:AddRangeFrameOption(8, 72133)
 mod:AddSetIconOption("RagingSpiritIcon", 69200, false, 0, {6})
@@ -530,7 +530,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 69200 then -- Raging Spirit
 		self.vb.ragingSpiritCount = self.vb.ragingSpiritCount + 1
 		tinsert(ragingSpiritsGUIDs, "unknownSpiritGUID")
-		timerSoulShriekCD:Start(20, "unknownSpiritGUID") -- spirit GUID is unknown, and it would be expensive to both retrieve it later and to manipulate the timer, so we just use a dummy GUID to cancel later
+		timerSoulShriekCD:Start("v18-20", "unknownSpiritGUID") -- spirit GUID is unknown, and it would be expensive to both retrieve it later and to manipulate the timer, so we just use a dummy GUID to cancel later
 		if args:IsPlayer() then
 			specWarnRagingSpirit:Show()
 			specWarnRagingSpirit:Play("targetyou")
@@ -879,7 +879,7 @@ function mod:UPDATE_MOUSEOVER_UNIT()
 			local spiritIndex = DBM:tIndexOf(ragingSpiritsGUIDs, "unknownSpiritGUID")
 			if spiritIndex then
 				ragingSpiritsGUIDs[spiritIndex] = spiritGUID -- replace the dummy GUID with the real one
-				local totalTime = timerSoulShriekCD:Time("unknownSpiritGUID")
+				local totalTime = "v18-20" -- timerSoulShriekCD:Time("unknownSpiritGUID") -- 02/11/2025: Core method does not return variance, only total time. Since total time in this mod is fixed, we can just hardcode it.
 				local elapsedTime = timerSoulShriekCD:GetTime("unknownSpiritGUID")
 				timerSoulShriekCD:Cancel("unknownSpiritGUID") -- cancel the dummy timer
 				timerSoulShriekCD:Update(elapsedTime, totalTime, spiritGUID) -- restart the timer with the real GUID
@@ -906,7 +906,7 @@ function mod:UNIT_TARGET_UNFILTERED(uId)
 			local spiritIndex = DBM:tIndexOf(ragingSpiritsGUIDs, "unknownSpiritGUID")
 			if spiritIndex then
 				ragingSpiritsGUIDs[spiritIndex] = spiritGUID -- replace the dummy GUID with the real one
-				local totalTime = timerSoulShriekCD:Time("unknownSpiritGUID")
+				local totalTime = "v18-20" -- timerSoulShriekCD:Time("unknownSpiritGUID") -- 02/11/2025: Core method does not return variance, only total time. Since total time in this mod is fixed, we can just hardcode it.
 				local elapsedTime = timerSoulShriekCD:GetTime("unknownSpiritGUID")
 				timerSoulShriekCD:Cancel("unknownSpiritGUID") -- cancel the dummy timer
 				timerSoulShriekCD:Update(elapsedTime, totalTime, spiritGUID) -- restart the timer with the real GUID
