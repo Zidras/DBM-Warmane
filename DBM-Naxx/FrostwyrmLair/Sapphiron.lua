@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260207153606")
+mod:SetRevision("20260207154352")
 mod:SetCreatureID(15989)
 mod:SetEncounterID(1119)
 mod:SetHotfixNoticeRev(20250916000000)
@@ -38,7 +38,7 @@ local specWarnBlizzard	= mod:NewSpecialWarningGTFO(28547, nil, nil, nil, 1, 8)
 local timerDrainLife	= mod:NewCDTimer(24, 28542, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON) -- 12s on phasing, then 24s. (Lordaeron: 25man 2022/09/02 || 25m [2025-10-03]@[20:34:05]) - 24.0 || "Life Drain-55665-npc:15989-1261 = pull:11.92/[Stage 1/0.00] 11.92, 23.98, Stage 2/12.66, Stage 1/23.72, 12.05/35.76/48.42"
 local timerAirPhase		= mod:NewTimer(60, "TimerAir", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6) -- REVIEW! (Lordaeron: 25m [2025-10-03]@[20:34:05]) - "?-Sapphiron lifts off into the air!-npc:Sapphiron = pull:48.57/[Stage 1/0.00, Stage 2/48.56] 0.01/48.57, Stage 1/23.71"
 local timerBlizzard		= mod:NewNextTimer(7, 28560, nil, nil, nil, 3)
-local timerTailSweep	= mod:NewNextTimer(9, 55696, nil, nil, nil, 2) -- (Lordaeron: 25m [2025-10-03]@[20:34:05]) - "Tail Sweep-npc:15989-1261 = pull:8.96/[Stage 1/0.00] 8.96, 9.08, 8.97, 9.03, 9.00, Stage 2/3.53, Stage 1/23.72, 9.05/32.77/36.29, 9.01, 8.99"
+local timerTailSweep	= mod:NewVarTimer("v8.74-9.38", 55696, nil, nil, nil, 2) -- ~0.5s variance. (Lordaeron: 25m [2025-10-03]@[20:34:05] || Onyxia [2026-02-04]@[22:12:15]) - "Tail Sweep-npc:15989-1261 = pull:8.96/[Stage 1/0.00] 8.96, 9.08, 8.97, 9.03, 9.00, Stage 2/3.53, Stage 1/23.72, 9.05/32.77/36.29, 9.01, 8.99" || "Tail Sweep-npc:15989-4059 = pull:9.38/[Stage 1/0.00] 9.38, 8.74, 9.00, 9.07, 9.28, Stage 2/3.02, Stage 1/34.09, 9.09/43.19/46.21, 9.04, 9.03, 9.07, 9.01"
 
 -- Stage Two (Air Phase)
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
