@@ -862,14 +862,25 @@ function barPrototype:SetVariance()
 	local varianceTex = _G[frame_name.."BarVariance"]
 	local varianceTexBorder = _G[frame_name.."BarVarianceBorder"]
 	if DBT.Options.VarianceEnabled and self.hasVariance then
-		local varianceWidth = self.frame:GetWidth() * (self.varianceDuration / self.totalTime)
+		local varianceWidth
+		local isEnlarged = self.enlarged and not self.paused
+		if isEnlarged and DBT.Options.BarStyle == "NoAnim" then
+			local enlargeTime = DBT.Options.EnlargeBarTime or 11
+			varianceWidth = self.frame:GetWidth() * (self.varianceDuration / enlargeTime)
+		else
+			varianceWidth = self.frame:GetWidth() * (self.varianceDuration / self.totalTime)
+		end
+
+		if varianceWidth > self.frame:GetWidth() then
+			varianceWidth = self.frame:GetWidth()
+		end
+
 		varianceTex:SetWidth(varianceWidth)
 
 		-- change SetPoints based on fillUpBars
 		local bar = _G[frame_name.."Bar"]
 		varianceTex:ClearAllPoints()
 		varianceTexBorder:ClearAllPoints()
-		local isEnlarged = self.enlarged and not self.paused
 		local fillUpBars = isEnlarged and DBT.Options.FillUpLargeBars or not isEnlarged and DBT.Options.FillUpBars
 
 		if fillUpBars then
@@ -989,14 +1000,14 @@ function barPrototype:Update(elapsed)
 		return self:Cancel()
 	else
 		if fillUpBars then
-			if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack and not self.varianceDuration then
+			if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack then
 				-- Simple/NoAnim Bar mimics BW in creating a new bar on large bar anchor instead of just moving the small bar
 				bar:SetValue(1 - timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
 			else
 				bar:SetValue(1 - timerValue/totaltimeValue)
 			end
-		else
-			if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack and not self.varianceDuration then
+			else
+			if currentStyle == "NoAnim" and timerValue <= enlargeTime and not enlargeHack then
 				-- Simple/NoAnim Bar mimics BW in creating a new bar on large bar anchor instead of just moving the small bar
 				bar:SetValue(timerValue/(totaltimeValue < enlargeTime and totaltimeValue or enlargeTime))
 			else
@@ -1087,7 +1098,7 @@ function barPrototype:Update(elapsed)
 		self:ApplyStyle()
 		DBT:UpdateBars(true)
 	end
-	if not paused and ((barOptions.VarianceEnabled and timerLowestValueFromVariance or timerValue) <= enlargeTime) and not self.small and not isEnlarged and isMoving ~= "enlarge" and enlargeEnabled then
+	if not paused and timerValue <= enlargeTime and not self.small and not isEnlarged and isMoving ~= "enlarge" and enlargeEnabled then
 		self:RemoveFromList()
 		self:Enlarge()
 	end
