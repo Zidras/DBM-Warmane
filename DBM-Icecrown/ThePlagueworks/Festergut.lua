@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local sformat = string.format
 
-mod:SetRevision("20260307132017")
+mod:SetRevision("20260308121616")
 mod:SetCreatureID(36626)
 mod:SetEncounterID(849)
 mod:RegisterCombat("combat")
@@ -114,7 +114,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerGasSporeCD:Start()
 		end
 		timerVileGasCD:Restart()
-	elseif args:IsSpellID(69240, 71218, 73019, 73020) then	-- Vile Gas
+	elseif args:IsSpellID(69240, 71218, 73019, 73020) and self:AntiSpam(1, 2) then	-- Vile Gas
 		timerVileGasCD:Start()
 	end
 end
