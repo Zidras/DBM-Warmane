@@ -18,7 +18,7 @@
 ## X-DBM-StatTypes: normal,normal25
 ## X-DBM-Mod-Sort: 3
 ## X-DBM-Mod-MapID: 719
-## X-DBM-Mod-BlockRealm: Onyxia
+## X-DBM-Mod-BlockRealm: Onyxia_old
 ## X-DBM-Mod-Name: Onyxia's Lair
 ## X-DBM-Mod-Name-frFR: Repaire d'Onyxia
 ## X-DBM-Mod-Name-ruRU: Логово Ониксии

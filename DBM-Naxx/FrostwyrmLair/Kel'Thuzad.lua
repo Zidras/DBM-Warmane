@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20251016000004")
+mod:SetRevision("20260205235940")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 mod:SetModelID("creature/lich/lich.m2")
@@ -44,10 +44,10 @@ local yellFissure			= mod:NewYellMe(27810)
 local specWarnAddsGuardians	= mod:NewSpecialWarningAdds(29897, "-Healer", nil, nil, 1, 2) -- "Guardians of Icecrown. There's no spellID for this, so used something close: Guardians of Icecrown Passive"
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
-local timerManaBomb			= mod:NewVarTimer("v25-31.26", 27819, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~6s variance [25.20-31.26]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Detonate Mana-27819-npc:15990-3 = pull:293.74/[Stage 1/0.00, Stage 2/227.95] 65.79/293.74, Stage 3/24.38, 6.88/31.26, 30.34, 25.20"
-local timerFrostBlast		= mod:NewVarTimer("v35.5-42.67", 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true) -- REVIEW! ~7s variance [35.5-42.67]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Frost Blast-27808-npc:15990-3 = pull:308.71/[Stage 1/0.00, Stage 2/227.95] 80.76/308.71, Stage 3/9.41, 33.25/42.67, 35.25"
+local timerManaBomb			= mod:NewVarTimer("v25-54.87", 27819, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~30s variance! [25.20-54.87]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12] || Onyxia: 25m [2026-02-04]@[22:18:26]) - "Detonate Mana-27819-npc:15990-3 = pull:293.74/[Stage 1/0.00, Stage 2/227.95] 65.79/293.74, Stage 3/24.38, 6.88/31.26, 30.34, 25.20" || "Detonate Mana-27819-npc:15990-3 = pull:261.18/[Stage 1/0.00, Stage 2/227.99] 33.20/261.18, 54.87, Stage 3/5.24, 24.93/30.17, 27.27"
+local timerFrostBlast		= mod:NewVarTimer("v34.75-42.67", 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON, true) -- REVIEW! ~8s variance [34.75-42.67]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12] || Onyxia: 25m [2026-02-04]@[22:18:26]) - "Frost Blast-27808-npc:15990-3 = pull:308.71/[Stage 1/0.00, Stage 2/227.95] 80.76/308.71, Stage 3/9.41, 33.25/42.67, 35.25" || "Frost Blast-27808-npc:15990-3 = pull:268.87/[Stage 1/0.00, Stage 2/227.99] 40.89/268.87, 34.75, Stage 3/17.67, 17.85/35.52, 41.90",
 local timerFissure			= mod:NewTargetTimer(5, 27810, nil, nil, 2, 3)
-local timerFissureCD 		= mod:NewVarTimer("v16.78-29.41", 27810, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~13s variance [16.78-29.41]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Shadow Fissure-27810-npc:15990-3 = pull:250.56/[Stage 1/0.00, Stage 2/227.95] 22.60/250.56, 16.78, 29.41, Stage 3/21.38, 0.02/21.39, 27.82, 17.65"
+local timerFissureCD 		= mod:NewVarTimer("v16.78-34.57", 27810, nil, nil, nil, 3, nil, nil, true) -- REVIEW! ~17s variance [16.78-34.57]. Added "keep" arg. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12] || Onyxia: 25m [2026-02-04]@[22:18:26]) - "Shadow Fissure-27810-npc:15990-3 = pull:250.56/[Stage 1/0.00, Stage 2/227.95] 22.60/250.56, 16.78, 29.41, Stage 3/21.38, 0.02/21.39, 27.82, 17.65" || "Shadow Fissure-27810-npc:15990-3 = pull:250.88/[Stage 1/0.00, Stage 2/227.99] 22.90/250.88, 34.56, 34.57, Stage 3/1.28, 25.01/26.29, 29.42"
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 local timerMCCD				= mod:NewCDTimer(90, 28410, nil, nil, nil, 3) -- Almost no variance. SPELL_CAST_SUCCESS: (Lordaeron: 25m [2025-10-03]@[20:37:12]) - "Chains of Kel'Thuzad-28410-npc:15990-3 = pull:258.01/[Stage 1/0.00, Stage 2/227.95] 30.06/258.01, 0.00, 0.00, Stage 3/60.11, 29.93/90.04, 0.00"
 local timerPhase2			= mod:NewTimer(228, "TimerPhase2", nil, nil, nil, 6) -- P2 script starts on Yell or Emote, and IEEU fires 0.55s after. (25m Lordaeron 2022/10/16) - 228.0
@@ -249,6 +249,9 @@ local function StartPhase2(self)
 		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
+		timerManaBomb:Start("v33.2-35.02") -- REVIEW!
+		timerFrostBlast:Start("v40.89-44.52") -- REVIEW!
+		timerFissureCD:Start("v22.6-22.9") -- REVIEW!
 		if self:IsDifficulty("normal25") then
 			timerMCCD:Start(30)
 			warnMindControlSoon:Schedule(25)

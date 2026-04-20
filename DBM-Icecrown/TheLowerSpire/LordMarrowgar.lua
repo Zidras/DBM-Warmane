@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("LordMarrowgar", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260103220859")
 mod:SetCreatureID(36612)
 mod:SetEncounterID(845)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -26,7 +26,7 @@ local warnImpale			= mod:NewTargetNoFilterAnnounce(72669, 3)
 local specWarnColdflame		= mod:NewSpecialWarningGTFO(69146, nil, nil, nil, 1, 8)
 local specWarnWhirlwind		= mod:NewSpecialWarningRun(69076, nil, nil, nil, 4, 2)
 
-local timerBoneSpike		= mod:NewCDTimer(15, 69057, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, true) -- Has two sets of spellIDs, one before bone storm and one during bone storm (both sets are separated below). Will use UNIT_SPELLCAST_START for calculations since it uses spellName and thus already groups them in the log. 5s variance [15-20]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/14 || 25H Lordaeron 2022/11/17) - pull:15.0, 19.0, 15.2, 49.5 || pull:15.0, 17.3, 16.5, 18.7, 16.0, 19.6, 18.9, 18.7, 16.4, 19.3, 16.0 || pull:15.0, 19.7, 19.2, 19.6, 15.6, 18.9, 18.5, 16.4, 17.9, 18.4
+local timerBoneSpike		= mod:NewVarTimer("v15-20", 69057, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON, true) -- Has two sets of spellIDs, one before bone storm and one during bone storm (both sets are separated below). Will use UNIT_SPELLCAST_START for calculations since it uses spellName and thus already groups them in the log. 5s variance [15-20]. Added "keep" arg (10N Icecrown 2022/08/25 || 25H Lordaeron 2022/09/14 || 25H Lordaeron 2022/11/17 || 25H Icecrown [2026-01-03]@[16:17:37]) - pull:15.0, 19.0, 15.2, 49.5 || pull:15.0, 17.3, 16.5, 18.7, 16.0, 19.6, 18.9, 18.7, 16.4, 19.3, 16.0 || pull:15.0, 19.7, 19.2, 19.6, 15.6, 18.9, 18.5, 16.4, 17.9, 18.4 || "Bone Spike Graveyard-npc:36612-61 = pull:14.99, 15.68, Bone Storm applied/17.40, 0.08/17.48, 16.36, Bone Storm removed/13.64, 4.63/18.27"
 local timerWhirlwindCD		= mod:NewCDTimer(90, 69076, nil, nil, nil, 2, nil, DBM_COMMON_L.MYTHIC_ICON) -- As of 16/11/2022, Warmane fixed this timer. (25H Lordaeron 2022/11/16 || 25H Lordaeron 2022/11/17 || 25N Lordaeron 2023-02-10 || 25N Lordaeron [2023-02-14]@[20:08:16]) - Bone Storm-69076-npc:36612 = pull:45.0, 90.1 || pull:45.0, 90.0 || pull:45.0, 90.0 || pull:45.0, 90.1
 local timerWhirlwind		= mod:NewBuffActiveTimer(20, 69076, nil, nil, nil, 6)
 local timerBoned			= mod:NewAchievementTimer(8, 4610)
@@ -79,7 +79,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif spellId == 69076 then
 		timerWhirlwind:Cancel()
 		if self:IsNormal() then
-			timerBoneSpike:Start(15)					-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal
+			timerBoneSpike:Start(15)				-- He will do Bone Spike Graveyard 15 seconds after whirlwind ends on normal. Confirmed on 2025/11/01 - 10n Lordaeron log - "Bone Spike Graveyard-npc:36612-61 = pull:14.99, 18.68, Bone Storm applied/14.33, Bone Storm removed/20.04, 15.08/35.12/49.45, 18.55, 18.05, Bone Storm applied/18.33, Bone Storm removed/20.07, 14.98/35.04/53.37, 17.61, 19.41"
 		end
 	end
 end
