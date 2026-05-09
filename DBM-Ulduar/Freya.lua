@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260509141936")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
@@ -69,9 +69,9 @@ local yellIronRoots				= mod:NewYell(62438)
 local specWarnGroundTremor		= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode Elder Stonebark Alive
 local specWarnUnstableBeam		= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
 
-local timerGroundTremorCD		= mod:NewCDTimer(25.5, 62859, nil, nil, nil, 2) -- ~10s variance (25 man HM log 2022/07/17) - 27.4, 25.8, 25.5, 26.5; 26.8, 26.1, 26.2, 25.7, 27.2
-local timerIronRootsCD			= mod:NewCDTimer(12.1, 62438, nil, nil, nil, 3) -- ~7s variance (could be 10s) (2022/07/05 log review || 25 man HM log 2022/07/17) - 12, 16 || 15.9, 16.5, 14.8, 18.7, 13.8, 12.8, 13.4, 19.1; 13.2, 17.9, 12.1, 15.7, 15.0, 15.9, 12.3, 15.4
-local timerUnstableBeamCD		= mod:NewCDTimer(15.6, 62865, nil, nil, nil, 2, nil, nil, true) -- Hard mode Sun Beam. ~5s variance [15-20]. Added "keep" arg (2022/07/05 log review || 25 man HM log 2022/07/17 || 25H Lordaeron 2022/10/30) - 18.7, 16.6 || 15.8, 20.0, 17.3, 18.9, 16.1, 16.6, 15.6 ; 20.4, 17.4, 16.5, 18.3, 16.9, 16.1, 16.3 || 17.6
+local timerGroundTremorCD		= mod:NewCDTimer(30, 62859, nil, nil, nil, 2) -- Variable initial timer (below), then fixed timer 30s, with one outlier (25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 27.4, 25.8, 25.5, 26.5; 26.8, 26.1, 26.2, 25.7, 27.2 || "Ground Tremor-62437-npc:32906 = pull:13.4/Stage 1/13.4, 30.0, 30.0, 30.0, 30.0, 31.2, 30.0, 30.0, 30.0, 30.0, 30.0, Stage 2/25.2, 4.8/30.0"
+local timerIronRootsCD			= mod:NewCDTimer(60, 62438, nil, nil, nil, 3) -- Variable initial timer (below), then fixed timer 60s, with one outlier (2022/07/05 log review || 25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 12, 16 || 15.9, 16.5, 14.8, 18.7, 13.8, 12.8, 13.4, 19.1; 13.2, 17.9, 12.1, 15.7, 15.0, 15.9, 12.3, 15.4 || "Iron Roots-npc:32906 = pull:11.8/Stage 1/11.8, 60.0, 60.0, 60.7, 60.0, 60.0, Stage 2/27.4"
+local timerUnstableBeamCD		= mod:NewCDTimer(30, 62865, nil, nil, nil, 2) -- Hard mode Sun Beam. Variable initial timer (below), then fixed timer 30s, with one outlier (2022/07/05 log review || 25 man HM log 2022/07/17 || 25H Lordaeron 2022/10/30) - 18.7, 16.6 || 15.8, 20.0, 17.3, 18.9, 16.1, 16.6, 15.6 ; 20.4, 17.4, 16.5, 18.3, 16.9, 16.1, 16.3 || 17.6 || "Unstable Energy-62451-npc:33170 = pull:17.6/Stage 1/17.6, 30.0, 31.1, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0, Stage 2/21.0, 9.0/30.0"
 
 mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
 
@@ -234,9 +234,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.isHardMode = false
 	elseif msg == L.YellPullHard then
 		self.vb.isHardMode = true
-		timerGroundTremorCD:Start(11) -- 6s variance (could be more, insufficient data). (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log) - 16 || 11, 13, 17 || 17.5, 11.3
-		timerIronRootsCD:Start(8.5) -- ~6s variance (could be more, insufficient data). (25 man FM log) - 8.5, 14.9
-		timerUnstableBeamCD:Start(10.7) -- REVIEW! ~7s variance [10.7-17.5] (25 man FM log || 25H Lordaeron 2022/10/30_1 elder up) - 17.5, 15.5 || 10.7
+		timerGroundTremorCD:Start("v11.30-19.06") -- ~8s variance [11.30-19.06]. (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 16 || 11, 13, 17 || 17.5, 11.3 || 13.4
+		timerIronRootsCD:Start("v10.36-16.63") -- ~6s variance [10.36-16.63]. (25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 8.5, 14.9 || 11.8
+		timerUnstableBeamCD:Start("v10.7-17.6") -- REVIEW! ~7s variance [10.7-17.6]. (25 man FM log || 25H Lordaeron 2022/10/30_1 elder up || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 17.5, 15.5 || 10.7 || 17.6
 		warnUnstableBeamSoon:Schedule(7.7)
 	elseif msg == L.SpawnYell then
 		timerAlliesOfNature:Start()
