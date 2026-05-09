@@ -1,7 +1,9 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260509141936")
+local sformat = string.format
+
+mod:SetRevision("20260509144457")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
@@ -43,10 +45,10 @@ local specWarnLifebinder		= mod:NewSpecialWarningSwitch(62869, "Dps", nil, nil, 
 local specWarnNatureFury		= mod:NewSpecialWarningMoveAway(63571, nil, nil, nil, 1, 2)
 local yellNatureFury			= mod:NewYell(63571)
 
-local timerAlliesOfNature		= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON) -- REVIEW! From retail: No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set; 60s log reviewed (25 man HM log 2022/07/17)
+local timerAlliesOfNature		= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON) -- REVIEW! From retail: No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set; 60s log reviewed (25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - "?-Allies of Nature have appeared!-npc:Freya = pull:10.0/Stage 1/10.0, 60.0, 60.0, 60.0, 60.0, 60.6, Stage 2/29.2"
 local timerSimulKill			= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 62678)
-local timerNatureFury			= mod:NewTargetTimer(7.9, 63571, nil, nil, nil, 3) -- ~5s variance (25 man HM log 2022/07/17) - 13.6, 7.9, 8.8, 11.7, 11.7, 12.9, 11.4
-local timerLifebinderCD			= mod:NewCDTimer(40, 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- 10s variance (S2 VOD review || 25 man HM log 2022/07/17) - 40 || 42.7, 42.0; 46.8, 47.2
+local timerNatureFury			= mod:NewTargetTimer(10, 63571, nil, nil, nil, 3) -- Debuff timer. For CD, it's too variable (only applies when tree spawns?): "Nature's Fury-62589-npc:33203 = pull:135.0/Stage 1/135.0, 9.8, 50.2, 11.1, Stage 2/133.8"
+local timerLifebinderCD			= mod:NewCDTimer("v45.0-49.3", 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- ~5s variance [45.0-49.3]. (S2 VOD review || 25 man HM log 2022/07/17) - 40 || 42.7, 42.0; 46.8, 47.2 || "?-A |cFF00FFFFLifebinder's Gift|r begins to grow!-npc:Freya = pull:26.1/Stage 1/26.1, 49.3, 45.2, 46.0, 45.0, 45.1, 46.9, Stage 2/36.3, 7.5/43.8"
 
 mod:AddRangeFrameOption(8, 63571)
 mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
@@ -90,8 +92,8 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerEnrage:Start(-delay)
 	table.wipe(adds)
-	timerAlliesOfNature:Start(10-delay) -- 9.9
-	timerLifebinderCD:Start(25-delay) -- ~15s variance (could be more, insufficient data). (25 man HM log 2022/07/17) - 26.1, 39.7
+	timerAlliesOfNature:Start(10-delay)
+	timerLifebinderCD:Start(sformat("v%s-%s", 24.95-delay, 26.1-delay)) -- ~1s variance [24.95-26.1]. (25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 26.1, 39.7 || 26.1
 end
 
 function mod:OnCombatEnd(wipe)
