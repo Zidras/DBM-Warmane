@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260509145937")
+mod:SetRevision("20260509150235")
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetEncounterID(748)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -57,7 +57,7 @@ local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490, nil, nil, nil, 1, 
 local specWarnRuneofShields		= mod:NewSpecialWarningDispel(62274, "MagicDispeller", nil, nil, 1, 2)
 
 local timerRuneofShields		= mod:NewBuffActiveTimer(15, 62274, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
-local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
+local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3) -- (10m HM Onyxia [2026-05-08]@[20:27:43]) - "Rune of Death-62269-npc:32927 = pull:90.6, 30.0"
 local timerRuneofPowerCast		= mod:NewCastTimer(1.5, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
 local timerRuneofPowerCD		= mod:NewCDTimer("v34.2-43.4", 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- ~9s variance [34.2-43.4]. (2022/07/05 || 10m HM Onyxia [2026-05-08]@[20:27:43]) - 60.0 || "Rune of Power-61973-npc:32927 = pull:20.0, 34.2, 40.4, 43.4"
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
