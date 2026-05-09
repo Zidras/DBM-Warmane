@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260509145937")
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetEncounterID(748)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -13,8 +13,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 63490 62269 61869 63481",
 	"SPELL_AURA_APPLIED 61903 63493 62269 63490 62277 63967 64637 61888 63486 61887 61912 63494 63483 61915",
 	"SPELL_AURA_REMOVED 64637 61888 63483 61915 61912 63494",
-	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED boss2"
+	"UNIT_DIED"
+--	"UNIT_SPELLCAST_SUCCEEDED boss2"
 )
 
 mod:SetBossHealthInfo(
@@ -59,7 +59,7 @@ local specWarnRuneofShields		= mod:NewSpecialWarningDispel(62274, "MagicDispelle
 local timerRuneofShields		= mod:NewBuffActiveTimer(15, 62274, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
 local timerRuneofPowerCast		= mod:NewCastTimer(1.5, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
-local timerRuneofPowerCD		= mod:NewCDTimer(60, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
+local timerRuneofPowerCD		= mod:NewCDTimer("v34.2-43.4", 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- ~9s variance [34.2-43.4]. (2022/07/05 || 10m HM Onyxia [2026-05-08]@[20:27:43]) - 60.0 || "Rune of Power-61973-npc:32927 = pull:20.0, 34.2, 40.4, 43.4"
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 
 -- Steelbreaker
@@ -95,7 +95,7 @@ end
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
-	timerRuneofPowerCD:Start(20-delay) -- One log review (2022/07/05)
+	timerRuneofPowerCD:Start(20-delay) -- (2022/07/05 || 10m HM Onyxia [2026-05-08]@[20:27:43]) - 20.0
 	timerOverloadCD:Start(68) -- REVIEW! Insufficent data to validate if it's correct
 	table.wipe(disruptTargets)
 	self.vb.disruptIcon = 7
@@ -138,6 +138,7 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 61973 then	-- Rune of Power (cast success not fired on Warmane, and not correct to check target after cast either)
 		self:BossTargetScanner(32927, "RuneTarget", 0.1, 16, true, true)--Scan only boss unitIDs, scan only hostile targets
 		timerRuneofPowerCast:Start()
+		timerRuneofPowerCD:Start()
 	end
 end
 
@@ -262,8 +263,8 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
+--[[function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(61973) then	-- Rune of Power
 		timerRuneofPowerCD:Start()
 	end
-end
+end]]
