@@ -3,13 +3,14 @@ local L		= mod:GetLocalizedStrings()
 
 local sformat = string.format
 
-mod:SetRevision("20260509144457")
+mod:SetRevision("20260509150808")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
+mod:SetHotfixNoticeRev(20260509000000)
 
 mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"

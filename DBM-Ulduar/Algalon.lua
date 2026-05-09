@@ -1,12 +1,13 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260509125329")
+mod:SetRevision("20260509150808")
 mod:SetCreatureID(32871)
 mod:SetEncounterID(757)
 mod:RegisterCombat("combat")
 --mod:RegisterKill("yell", L.YellKill) -- fires 24 seconds after fight ends, not accurate enough. Workaround it by using Self Stun UNIT_SPELLCAST_SUCCEEDED, which is fired when he turns friendly and fight is won.
 mod:SetWipeTime(20)
+mod:SetHotfixNoticeRev(20260509000000)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 64584 64443",
