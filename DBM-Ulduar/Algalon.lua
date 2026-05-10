@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Algalon", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260509150808")
+mod:SetRevision("20260509154524")
 mod:SetCreatureID(32871)
 mod:SetEncounterID(757)
 mod:RegisterCombat("combat")
@@ -42,6 +42,7 @@ local timerCastCosmicSmash		= mod:NewCastTimer(4.5, 64596)
 local timerPhasePunch			= mod:NewTargetTimer(45, 64412, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerNextPhasePunch		= mod:NewNextTimer(15.5, 64412, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 local enrageTimer				= mod:NewBerserkTimer(360)
+local timerBossEngage			= mod:NewTimer(10, L.name) -- IEEU fires and mod starts, but boss is still inactive.
 
 local warned_star = {}
 local stars = {}
@@ -58,6 +59,7 @@ function mod:OnCombatStart(delay)
 	star_num = 1
 	self.vb.warned_preP2 = false
 	self.vb.collapsingStartCount = 0
+	timerBossEngage:Start(-delay)
 	timerNextCollapsingStar:Start(25-delay) -- Fixed timer
 	timerCDCosmicSmash:Start(35-delay) -- Log reviewed (2022/07/05 || 10 man FM log 2022/08/01 || 25 man Lord log 2022/08/02 || 25 man FM log 2022/08/07) - 35 || 35.0, 35.0 || 35.0 || 35.0, 35.0, 34.9, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0
 	announcePreBigBang:Schedule(100-delay)
