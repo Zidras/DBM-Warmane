@@ -1,13 +1,16 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+local sformat = string.format
+
+mod:SetRevision("20260510194413")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
+mod:SetHotfixNoticeRev(20260510000000)
 
 mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
@@ -43,10 +46,10 @@ local specWarnLifebinder		= mod:NewSpecialWarningSwitch(62869, "Dps", nil, nil, 
 local specWarnNatureFury		= mod:NewSpecialWarningMoveAway(63571, nil, nil, nil, 1, 2)
 local yellNatureFury			= mod:NewYell(63571)
 
-local timerAlliesOfNature		= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON) -- REVIEW! From retail: No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set; 60s log reviewed (25 man HM log 2022/07/17)
+local timerAlliesOfNature		= mod:NewNextTimer(60, 62678, nil, nil, nil, 1, 62947, DBM_COMMON_L.IMPORTANT_ICON..DBM_COMMON_L.DAMAGE_ICON) -- REVIEW! From retail: No longer has CD, they spawn instant last set is dead, and not a second sooner, except first set; 60s log reviewed (25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - "?-Allies of Nature have appeared!-npc:Freya = pull:10.0/Stage 1/10.0, 60.0, 60.0, 60.0, 60.0, 60.6, Stage 2/29.2"
 local timerSimulKill			= mod:NewTimer(12, "TimerSimulKill", nil, nil, nil, 5, DBM_COMMON_L.DAMAGE_ICON, nil, nil, nil, nil, nil, nil, 62678)
-local timerNatureFury			= mod:NewTargetTimer(7.9, 63571, nil, nil, nil, 3) -- ~5s variance (25 man HM log 2022/07/17) - 13.6, 7.9, 8.8, 11.7, 11.7, 12.9, 11.4
-local timerLifebinderCD			= mod:NewCDTimer(40, 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- 10s variance (S2 VOD review || 25 man HM log 2022/07/17) - 40 || 42.7, 42.0; 46.8, 47.2
+local timerNatureFury			= mod:NewTargetTimer(10, 63571, nil, nil, nil, 3) -- Debuff timer. For CD, it's too variable (only applies when tree spawns?): "Nature's Fury-62589-npc:33203 = pull:135.0/Stage 1/135.0, 9.8, 50.2, 11.1, Stage 2/133.8"
+local timerLifebinderCD			= mod:NewVarTimer("v40-50", 62584, nil, nil, nil, 1, nil, DBM_COMMON_L.IMPORTANT_ICON) -- ~10s variance [40.14-49.74]. (S2 VOD review || 25 man HM log 2022/07/17 || 25HM Onyxia [2026-05-10]@[19:16:27]) - 40 || 42.7, 42.0; 46.8, 47.2 || "?-A |cFF00FFFFLifebinder's Gift|r begins to grow!-npc:Freya = pull:26.1/Stage 1/26.1, 49.3, 45.2, 46.0, 45.0, 45.1, 46.9, Stage 2/36.3, 7.5/43.8" || "?-A |cFF00FFFFLifebinder's Gift|r begins to grow!-npc:Freya = pull:25.00/[Stage 1/0.00] 25.00, 44.70, 41.43, 42.79, 43.44, 49.74, 45.73, 40.14, Stage 2/41.30, 3.69/44.99, 41.84, 42.10"
 
 mod:AddRangeFrameOption(8, 63571)
 mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
@@ -57,7 +60,7 @@ local warnPhase2				= mod:NewPhaseAnnounce(2, 3, nil, nil, nil, nil, nil, 2)
 
 local specWarnNatureBombSummon	= mod:NewSpecialWarningMove(64604) -- Nature Bomb (Summon) - Move away from area of effect when Nature Bomb is summoned
 
-local timerNextNatureBombSummon	= mod:NewNextTimer(2, 64604, nil, nil, nil, 2) -- Nature Bomb (Summon), estimated from first explosion. REVIEW! Has variance (2s?)
+local timerNextNatureBombSummon	= mod:NewVarTimer("v7.65-20.15", 64604, nil, nil, nil, 2) -- REVIEW! Nature Bomb (Summon), estimated from first explosion. ~13s variance [7.65-20.15]. (25HM Onyxia [2026-05-10]@[19:16:27]) - "log is not parsed to aggregate different castIDs"
 local timerNatureBombExplosion	= mod:NewCastTimer(10, 64587, 34539, nil, nil, 2) -- On explosion, not on summon. Applied a Explosion text. REVIEW! 2s variance from first explosion from the set to the first explosion from the next set (S3 HM log 2022/07/22) - 11, 10.3, 11.9, 11.2, 10.4, 11.3, 10.5
 
 -- Hard Mode
@@ -69,9 +72,9 @@ local yellIronRoots				= mod:NewYell(62438)
 local specWarnGroundTremor		= mod:NewSpecialWarningCast(62859, "SpellCaster", nil, 2, 1, 2)	-- Hard mode Elder Stonebark Alive
 local specWarnUnstableBeam		= mod:NewSpecialWarningMove(62865, nil, nil, nil, 1, 2)	-- Hard mode Elder Brightleaf Alive
 
-local timerGroundTremorCD		= mod:NewCDTimer(25.5, 62859, nil, nil, nil, 2) -- ~10s variance (25 man HM log 2022/07/17) - 27.4, 25.8, 25.5, 26.5; 26.8, 26.1, 26.2, 25.7, 27.2
-local timerIronRootsCD			= mod:NewCDTimer(12.1, 62438, nil, nil, nil, 3) -- ~7s variance (could be 10s) (2022/07/05 log review || 25 man HM log 2022/07/17) - 12, 16 || 15.9, 16.5, 14.8, 18.7, 13.8, 12.8, 13.4, 19.1; 13.2, 17.9, 12.1, 15.7, 15.0, 15.9, 12.3, 15.4
-local timerUnstableBeamCD		= mod:NewCDTimer(15.6, 62865, nil, nil, nil, 2, nil, nil, true) -- Hard mode Sun Beam. ~5s variance [15-20]. Added "keep" arg (2022/07/05 log review || 25 man HM log 2022/07/17 || 25H Lordaeron 2022/10/30) - 18.7, 16.6 || 15.8, 20.0, 17.3, 18.9, 16.1, 16.6, 15.6 ; 20.4, 17.4, 16.5, 18.3, 16.9, 16.1, 16.3 || 17.6
+local timerGroundTremorCD		= mod:NewCDTimer(30, 62859, nil, nil, nil, 2) -- Variable initial timer (below), then fixed timer 30s, with one outlier (25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 27.4, 25.8, 25.5, 26.5; 26.8, 26.1, 26.2, 25.7, 27.2 || "Ground Tremor-62437-npc:32906 = pull:13.4/Stage 1/13.4, 30.0, 30.0, 30.0, 30.0, 31.2, 30.0, 30.0, 30.0, 30.0, 30.0, Stage 2/25.2, 4.8/30.0" || "Ground Tremor-62859-npc:32906-2631 = pull:10.24/[Stage 1/0.00] 10.24, 30.03, 30.00, 30.02, 30.01, 30.92, 30.03, 30.02, 30.05, 30.00, 29.99, 30.90, 30.00, Stage 2/2.06, 27.98/30.04, 29.99, 30.04, 30.00"
+local timerIronRootsCD			= mod:NewCDTimer(60, 62438, nil, nil, nil, 3) -- Variable initial timer (below), then fixed timer 60s (10m) / 30s (25m), with one outlier (2022/07/05 log review || 25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 12, 16 || 15.9, 16.5, 14.8, 18.7, 13.8, 12.8, 13.4, 19.1; 13.2, 17.9, 12.1, 15.7, 15.0, 15.9, 12.3, 15.4 || "Iron Roots-npc:32906 = pull:11.8/Stage 1/11.8, 60.0, 60.0, 60.7, 60.0, 60.0, Stage 2/27.4" || "Iron Roots-npc:32906-2631 = pull:17.05/[Stage 1/0.00] 17.05, 30.01, 30.02, 31.10, 30.02, 30.01, 30.03, 30.99, 30.04, 29.99, 30.00, 30.01, Stage 2/24.99, 5.06/30.04, 29.97, 30.05, 29.99"
+local timerUnstableBeamCD		= mod:NewCDTimer(30, 62865, nil, nil, nil, 2) -- Hard mode Sun Beam. Variable initial timer (below), then fixed timer 30s, with one outlier (2022/07/05 log review || 25 man HM log 2022/07/17 || 25H Lordaeron 2022/10/30 || 10 man HM Onyxia [2026-05-08]@[21:06:31]) - 18.7, 16.6 || 15.8, 20.0, 17.3, 18.9, 16.1, 16.6, 15.6 ; 20.4, 17.4, 16.5, 18.3, 16.9, 16.1, 16.3 || 17.6 || "Unstable Energy-62451-npc:33170 = pull:17.6/Stage 1/17.6, 30.0, 31.1, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0, 30.0, Stage 2/21.0, 9.0/30.0"
 
 mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
 
@@ -90,8 +93,8 @@ function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	timerEnrage:Start(-delay)
 	table.wipe(adds)
-	timerAlliesOfNature:Start(10-delay) -- 9.9
-	timerLifebinderCD:Start(25-delay) -- ~15s variance (could be more, insufficient data). (25 man HM log 2022/07/17) - 26.1, 39.7
+	timerAlliesOfNature:Start(10-delay)
+	timerLifebinderCD:Start(sformat("v%s-%s", 24.95-delay, 26.1-delay)) -- ~1s variance [24.95-26.1]. (25 man HM log 2022/07/17 || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 26.1, 39.7 || 26.1 || 25.0
 end
 
 function mod:OnCombatEnd(wipe)
@@ -155,7 +158,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 63601 then -- Strengthened Iron Roots
 		DBM:AddMsg("Strengthened Iron Roots unhidden from combat log. Notify Zidras on Discord or GitHub") -- REVIEW! Strengthened Iron Roots never fired on Warmane. Instead there is only an emote event.
 		--if self.vb.phase == 2 then
-			timerIronRootsCD:Start()
+			-- timerIronRootsCD:Start()
 		--end
 	elseif args:IsSpellID(62451, 62865) and self:AntiSpam(5, 2) then -- Unstable Energy (Sun Beam)
 		timerUnstableBeamCD:Start()
@@ -184,7 +187,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		self:SetStage(2)
-		timerNextNatureBombSummon:Start(6) --  Confirmed bug (2022/08/01) that Freya uses this ability before phase 2 begins! No log to identify a trigger for it. REVIEW! variance [?] (VODs) - ~8; ~6
+		timerNextNatureBombSummon:Start(4.56) -- REVIEW! Confirmed bug (2022/08/01) that Freya uses this ability before phase 2 begins! Unknown variance [?] (VOD || VOD || 25HM Onyxia [2026-05-10]@[19:16:27]) - ~8; ~6 ||
 		specWarnNatureBombSummon:Schedule(8) -- delayed to the maximum timer possible
 		timerNatureBombExplosion:Start(13.4) -- REVIEW! variance [?] (S3 HM log 2022/07/22) - 13.4
 	elseif args:IsSpellID(62861, 62438) then
@@ -225,7 +228,11 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 	if spellName == GetSpellInfo(62438) then
-		timerIronRootsCD:Start()
+		if self:IsDifficulty("normal25") then
+			timerIronRootsCD:Start(30)
+		else
+			timerIronRootsCD:Start()
+		end
 	end
 end
 
@@ -234,9 +241,9 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		self.vb.isHardMode = false
 	elseif msg == L.YellPullHard then
 		self.vb.isHardMode = true
-		timerGroundTremorCD:Start(11) -- 6s variance (could be more, insufficient data). (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log) - 16 || 11, 13, 17 || 17.5, 11.3
-		timerIronRootsCD:Start(8.5) -- ~6s variance (could be more, insufficient data). (25 man FM log) - 8.5, 14.9
-		timerUnstableBeamCD:Start(10.7) -- REVIEW! ~7s variance [10.7-17.5] (25 man FM log || 25H Lordaeron 2022/10/30_1 elder up) - 17.5, 15.5 || 10.7
+		timerGroundTremorCD:Start("v10.24-19.06") -- ~9s variance [10.24-19.06]. (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 16 || 11, 13, 17 || 17.5, 11.3 || 13.4 || 10.24
+		timerIronRootsCD:Start("v10.36-17.05") -- ~6s variance [10.36-17.05]. (25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 8.5, 14.9 || 11.8 || 17.05
+		timerUnstableBeamCD:Start("v10.23-17.6") -- REVIEW! ~7s variance [10.23-17.6]. (25 man FM log || 25H Lordaeron 2022/10/30_1 elder up || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 17.5, 15.5 || 10.7 || 17.6 || 10.23
 		warnUnstableBeamSoon:Schedule(7.7)
 	elseif msg == L.SpawnYell then
 		timerAlliesOfNature:Start()
