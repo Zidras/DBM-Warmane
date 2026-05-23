@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local sformat = string.format
 
-mod:SetRevision("20260523231235")
+mod:SetRevision("20260523233359")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
@@ -162,7 +162,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		--end
 	elseif args:IsSpellID(62451, 62865) and self:AntiSpam(5, 2) then -- Unstable Energy (Sun Beam)
 		timerUnstableBeamCD:Start()
-		warnUnstableBeamSoon:Schedule(12)
+		warnUnstableBeamSoon:Schedule(27)
 	end
 end
 
@@ -244,7 +244,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerGroundTremorCD:Start("v10.24-19.06") -- ~9s variance [10.24-19.06]. (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 16 || 11, 13, 17 || 17.5, 11.3 || 13.4 || 10.24
 		timerIronRootsCD:Start("v10.36-17.05") -- ~6s variance [10.36-17.05]. (25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 8.5, 14.9 || 11.8 || 17.05
 		timerUnstableBeamCD:Start("v10.23-17.6") -- REVIEW! ~7s variance [10.23-17.6]. (25 man FM log || 25H Lordaeron 2022/10/30_1 elder up || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 17.5, 15.5 || 10.7 || 17.6 || 10.23
-		warnUnstableBeamSoon:Schedule(7.7)
+		warnUnstableBeamSoon:Schedule(7)
 	elseif msg == L.SpawnYell then
 		timerAlliesOfNature:Start()
 		if self.Options.HealthFrame then
