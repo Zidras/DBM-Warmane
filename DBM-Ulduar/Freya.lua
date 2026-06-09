@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local sformat = string.format
 
-mod:SetRevision("20260523233359")
+mod:SetRevision("20260609160425")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
@@ -153,6 +153,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnNatureBombSummon:Cancel()
 			specWarnNatureBombSummon:Schedule(7) -- delay to max possible time to avoid warning before bombs are thrown
 			timerNextNatureBombSummon:Start()
+			timerNatureBombExplosion:Cancel()
 			timerNatureBombExplosion:Schedule(5) -- best case scenario: 5s after first explosion (hopefully it will summon, but if delayed, we have an increased maximum variance timer of +5s)
 		end
 	elseif spellId == 63601 then -- Strengthened Iron Roots
