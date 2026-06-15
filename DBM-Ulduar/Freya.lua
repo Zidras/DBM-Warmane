@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 local sformat = string.format
 
-mod:SetRevision("20260510194413")
+mod:SetRevision("20260609160425")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
@@ -60,8 +60,8 @@ local warnPhase2				= mod:NewPhaseAnnounce(2, 3, nil, nil, nil, nil, nil, 2)
 
 local specWarnNatureBombSummon	= mod:NewSpecialWarningMove(64604) -- Nature Bomb (Summon) - Move away from area of effect when Nature Bomb is summoned
 
-local timerNextNatureBombSummon	= mod:NewVarTimer("v7.65-20.15", 64604, nil, nil, nil, 2) -- REVIEW! Nature Bomb (Summon), estimated from first explosion. ~13s variance [7.65-20.15]. (25HM Onyxia [2026-05-10]@[19:16:27]) - "log is not parsed to aggregate different castIDs"
-local timerNatureBombExplosion	= mod:NewCastTimer(10, 64587, 34539, nil, nil, 2) -- On explosion, not on summon. Applied a Explosion text. REVIEW! 2s variance from first explosion from the set to the first explosion from the next set (S3 HM log 2022/07/22) - 11, 10.3, 11.9, 11.2, 10.4, 11.3, 10.5
+local timerNextNatureBombSummon	= mod:NewVarTimer("v5-10", 64604, nil, nil, nil, 2) -- REVIEW! Nature Bomb (Summon), which should be every 15s, but it can be delayed by other casts. Since there is no event for this, it is estimated based on first explosion from each bomb set. Can only be checked by VOD review. Happens ~5 seconds after explosion
+local timerNatureBombExplosion	= mod:NewCastTimer("v8-15", 64587, 34539, nil, nil, 2) -- On explosion, not on summon. Applied a Explosion text. REVIEW! There seems to be a 2s variance [8-10] from summon to explosion (based on VOD review), but added +5 to the maximum timer to account for summon variance.  (S3 HM log 2022/07/22) - 11, 10.3, 11.9, 11.2, 10.4, 11.3, 10.5
 
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
@@ -148,12 +148,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnNatureFury:Show(args.destName)
 		end
 		timerNatureFury:Start(args.destName)
-	elseif args:IsSpellID(64587, 64650) then -- Nature Bomb
+	elseif args:IsSpellID(64587, 64650) then -- Nature Bomb (Explosion! There is no event for cast)
 		if self:AntiSpam(5, 64650) and self:IsInCombat() then
 			specWarnNatureBombSummon:Cancel()
-			specWarnNatureBombSummon:Schedule(4) -- delay to max possible time to avoid warning before bombs are thrown
+			specWarnNatureBombSummon:Schedule(7) -- delay to max possible time to avoid warning before bombs are thrown
 			timerNextNatureBombSummon:Start()
-			timerNatureBombExplosion:Start()
+			timerNatureBombExplosion:Cancel()
+			timerNatureBombExplosion:Schedule(5) -- best case scenario: 5s after first explosion (hopefully it will summon, but if delayed, we have an increased maximum variance timer of +5s)
 		end
 	elseif spellId == 63601 then -- Strengthened Iron Roots
 		DBM:AddMsg("Strengthened Iron Roots unhidden from combat log. Notify Zidras on Discord or GitHub") -- REVIEW! Strengthened Iron Roots never fired on Warmane. Instead there is only an emote event.
@@ -162,7 +163,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		--end
 	elseif args:IsSpellID(62451, 62865) and self:AntiSpam(5, 2) then -- Unstable Energy (Sun Beam)
 		timerUnstableBeamCD:Start()
-		warnUnstableBeamSoon:Schedule(12)
+		warnUnstableBeamSoon:Schedule(27)
 	end
 end
 
@@ -189,7 +190,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		self:SetStage(2)
 		timerNextNatureBombSummon:Start(4.56) -- REVIEW! Confirmed bug (2022/08/01) that Freya uses this ability before phase 2 begins! Unknown variance [?] (VOD || VOD || 25HM Onyxia [2026-05-10]@[19:16:27]) - ~8; ~6 ||
 		specWarnNatureBombSummon:Schedule(8) -- delayed to the maximum timer possible
-		timerNatureBombExplosion:Start(13.4) -- REVIEW! variance [?] (S3 HM log 2022/07/22) - 13.4
+		timerNatureBombExplosion:Schedule(4.56) -- REVIEW! variance [?] (S3 HM log 2022/07/22) - 13.4
 	elseif args:IsSpellID(62861, 62438) then
 		if self.Options.SetIconOnRoots then
 			self:RemoveIcon(args.destName)
@@ -244,7 +245,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerGroundTremorCD:Start("v10.24-19.06") -- ~9s variance [10.24-19.06]. (2022/07/05 10m Lord transcriptor log || 2021 S2 cleu + VOD review || 25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 16 || 11, 13, 17 || 17.5, 11.3 || 13.4 || 10.24
 		timerIronRootsCD:Start("v10.36-17.05") -- ~6s variance [10.36-17.05]. (25 man FM log || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 8.5, 14.9 || 11.8 || 17.05
 		timerUnstableBeamCD:Start("v10.23-17.6") -- REVIEW! ~7s variance [10.23-17.6]. (25 man FM log || 25H Lordaeron 2022/10/30_1 elder up || 10 man HM Onyxia [2026-05-08]@[21:06:31] || 25HM Onyxia [2026-05-10]@[19:16:27]) - 17.5, 15.5 || 10.7 || 17.6 || 10.23
-		warnUnstableBeamSoon:Schedule(7.7)
+		warnUnstableBeamSoon:Schedule(7)
 	elseif msg == L.SpawnYell then
 		timerAlliesOfNature:Start()
 		if self.Options.HealthFrame then
