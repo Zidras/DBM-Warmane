@@ -280,9 +280,7 @@ L:SetMiscLocalization({
 	WarningWave3	= "%d %s, %d %s и %d %s",
 	Trainee			= "Ученика",
 	Knight			= "Рыцаря",
-	Rider			= "Всадника",
-	GothikDoorEmote	= "Центральные ворота открываются!",
-	GothikPhase2Yell= "Я ждал слишком долго. Сейчас вы предстанете пред ликом Жнеца душ."
+	Rider			= "Всадника"
 })
 
 ---------------------
