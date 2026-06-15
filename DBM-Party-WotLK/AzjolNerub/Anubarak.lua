@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Anubarak", "DBM-Party-WotLK", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(29120)
-mod:SetEncounterID(218)
 
 mod:RegisterCombat("combat")
 

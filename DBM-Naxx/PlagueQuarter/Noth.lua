@@ -3,9 +3,8 @@ local L		= mod:GetLocalizedStrings()
 
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20240715212942")
 mod:SetCreatureID(15954)
-mod:SetEncounterID(1117)
 
 mod:RegisterCombat("combat_yell", L.Pull)
 

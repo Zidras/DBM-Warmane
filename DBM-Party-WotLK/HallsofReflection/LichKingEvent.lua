@@ -1,8 +1,7 @@
 local mod = DBM:NewMod("LichKingEvent", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
-mod:SetEncounterID(843)
+mod:SetRevision("20241130163642")
 
 mod:RegisterCombat("combat")
 mod:SetWipeTime(17) -- 16s from gossip to PRD=wave1

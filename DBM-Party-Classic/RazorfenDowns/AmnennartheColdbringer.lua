@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("AmnennartheColdbringer", "DBM-Party-Classic", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(7358)
-mod:SetEncounterID(437)
 
 mod:RegisterCombat("combat")
 

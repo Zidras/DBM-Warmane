@@ -130,7 +130,6 @@ do
 				tinsert(iconUnitTable[scanId], uId)
 			end
 			mod:Unschedule(SetIconByTable)
-			mod:Unschedule(clearIconTable, scanId)
 			if maxIcon and iconSet[scanId] == maxIcon then
 				SetIconByTable(mod, startIcon, descendingIcon, returnFunc, scanId)
 			elseif mod:LatencyCheck() then--lag can fail the icons so we check it before allowing.
@@ -249,7 +248,6 @@ do
 				tinsert(iconUnitTable[scanId], uId)
 			end
 			mod:Unschedule(SetIconBySortedTable)
-			mod:Unschedule(clearIconTable, scanId)
 			if maxIcon and iconSet[scanId] == maxIcon then
 				SetIconBySortedTable(mod, sortType, startIcon, descendingIcon, returnFunc, scanId)
 			elseif mod:LatencyCheck() then--lag can fail the icons so we check it before allowing.

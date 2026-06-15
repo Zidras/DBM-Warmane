@@ -3,9 +3,8 @@ local L = mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(24560)--24560 is main boss.
-mod:SetEncounterID(1895)
 
 mod:SetModelID(22596)
 mod:RegisterCombat("combat")

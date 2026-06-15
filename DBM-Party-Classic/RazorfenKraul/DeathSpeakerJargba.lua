@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("DeathSpeakerJargba", "DBM-Party-Classic", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(4428)
-mod:SetEncounterID(440)
 
 mod:RegisterCombat("combat")
 

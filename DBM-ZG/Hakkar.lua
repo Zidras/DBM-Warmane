@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Hakkar", "DBM-ZG", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220909005309")
 mod:SetCreatureID(14834)
-mod:SetEncounterID(793)
 
 mod:RegisterCombat("combat")
 

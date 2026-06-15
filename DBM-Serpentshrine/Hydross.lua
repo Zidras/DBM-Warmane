@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20250213133410")
 mod:SetCreatureID(21216)
-mod:SetEncounterID(623)
 
 --mod:SetModelID(20162)
 

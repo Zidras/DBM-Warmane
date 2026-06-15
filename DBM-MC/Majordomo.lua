@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Majordomo", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(12018, 11663, 11664)
-mod:SetEncounterID(671)
 
 mod:SetModelID(12029)
 

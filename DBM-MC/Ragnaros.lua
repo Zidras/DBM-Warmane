@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20250423194036")
 mod:SetCreatureID(11502)
-mod:SetEncounterID(672)
 mod:SetModelID(11121)
 mod:SetHotfixNoticeRev(20231219000000)--2023, 12, 19
 
