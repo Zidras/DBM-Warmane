@@ -49,7 +49,7 @@ local specWarnDeepBreath= mod:NewSpecialWarningSpell(28524, nil, nil, nil, 1, 2)
 local yellIceBlock		= mod:NewYell(28522)
 
 local timerLanding		= mod:NewTimer(24.2, "TimerLanding", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
-local timerIceBlast		= mod:NewCastTimer(8, 28524, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerIceBlast		= mod:NewCastTimer(8, 28524, nil, nil, nil, 2, DBM_COMMON_L.DEADLY_ICON)
 
 mod:AddRangeFrameOption("12")
 
