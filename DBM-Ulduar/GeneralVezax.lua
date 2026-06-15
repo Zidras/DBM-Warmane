@@ -1,11 +1,10 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260509152753")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(33271)
 mod:SetEncounterID(755)
 mod:SetUsedIcons(7, 8)
-mod:SetHotfixNoticeRev(20260509000000)
 
 mod:RegisterCombat("combat")
 
@@ -51,7 +50,7 @@ mod:AddArrowOption("CrashArrow", 62660, true)
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
 local specWarnAnimus			= mod:NewSpecialWarningSwitch(63145, nil, nil, nil, 1, 2)
 
-local timerHardmode				= mod:NewTimer(193.2, "hardmodeSpawn", nil, nil, nil, 1) -- "Saronite Barrier-63364-npc:33271 = pull:193.2"
+local timerHardmode				= mod:NewTimer(212, "hardmodeSpawn", nil, nil, nil, 1) -- S3 VOD review 2022/07/15
 
 mod.vb.interruptCount = 0
 mod.vb.vaporsCount = 0

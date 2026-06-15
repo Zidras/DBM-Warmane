@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260516123936")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(32865)
 mod:SetEncounterID(752)
 mod:SetUsedIcons(7)
-mod:SetHotfixNoticeRev(20260516000000)
+mod:SetHotfixNoticeRev(20230927000000)
 
 mod:RegisterCombat("yell", L.YellPhase1) -- [2023-09-24]@[21:34:20]: do not use combat_yell, for some reason on Warmane, PRD triggered combat start on arena adds engage
 mod:RegisterKill("yell", L.YellKill)
@@ -22,7 +22,7 @@ mod:RegisterEventsInCombat(
 -- General
 local enrageTimerStage1				= mod:NewBerserkTimer(300, nil, DBM_CORE_L.GENERIC_TIMER_BERSERK..": "..DBM_CORE_L.SCENARIO_STAGE:format(1)) -- REVIEW! Need log to validate, only used Wowhead as reference
 local enrageTimerStage2				= mod:NewBerserkTimer(300, nil, DBM_CORE_L.GENERIC_TIMER_BERSERK..": "..DBM_CORE_L.SCENARIO_STAGE:format(2)) -- REVIEW! Need log to validate, only used Wowhead as reference
-mod:AddRangeFrameOption("8")
+mod:AddRangeFrameOption("10")
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
@@ -75,7 +75,7 @@ function mod:OnCombatStart()
 	enrageTimerStage1:Start()
 	timerStormhammerCD:Start(40) -- ~8s variance [40.0-48.1]. SCS: 25m Lordaeron [2022-07-31]@[19:31:40] || 25 Lordaeron [2022-09-07]@[20:23:07]) - pull:40.0 || pull:48.1
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(8)
+		DBM.RangeCheck:Show(10)
 	end
 	table.wipe(lastcharge)
 end
