@@ -1,18 +1,14 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-local sformat = string.format
-
-mod:SetRevision("20260524111200")
+mod:SetRevision("20221031105808")
 mod:SetCreatureID(32930)
-mod:SetEncounterID(749)
 mod:SetUsedIcons(5, 6, 7, 8)
-mod:SetHotfixNoticeRev(20260524000000)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_SUCCESS 63356 64003 62166 63981",
+	"SPELL_CAST_SUCCESS 64003 62166 63981",
 	"SPELL_AURA_APPLIED 64290 64292 64002 63355",
 	"SPELL_AURA_APPLIED_DOSE 64002 63355",
 	"SPELL_AURA_REMOVED 64290 64292",
@@ -45,8 +41,8 @@ local specWarnEyebeamNear		= mod:NewSpecialWarningClose(63346, nil, nil, nil, 1,
 local yellBeam					= mod:NewYell(63346)
 
 local timerCrunch10				= mod:NewTargetTimer(6, 63355)
-local timerNextSmash			= mod:NewVarTimer("v14.32-16.82", 64003, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 3s variance (2022/07/05 log review || ... || 10m Onyxia [2026-05-22]@[22:53:09]) - 16.7, 14.4, 14.4, 16.8, 14.4, 14.4 || 13.7, 16.8, 14.4, 14.4, 14.4 || 16.0, 14.3, 16.8, 14.4 || 16.8, 14.4, 14.4, 14.4, 16.8 || 14.1, 14.4, 16.8, 14.4 || "Overhead Smash-63356-npc:32930-2243 = pull:7.42, 14.40, 14.39, 14.32, 16.83"
-local timerNextEyebeam			= mod:NewVarTimer("v15-35", 63346, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON, true) -- almost 20s variance! Added "keep" arg (2022/07/05 log review || ... ||| 25m Lordaeron 2022/10/09 || 25m Lordaeron 2022/10/30 || 10m Onyxia [2026-05-22]@[22:53:09]) - 28, 31, 27 || 21, 19, 17, 33 || 25 || 33, 23 || 30, 16 ||| 23.0, 15.9, 23.3, 25.2 || 21.2, 22.9, 17.5, 30.1, 22.9 || "Focused Eyebeam Summon Trigger-npc:32930-2243 = pull:21.00, 16.68, 28.87"
+local timerNextSmash			= mod:NewCDTimer(14.4, 64003, nil, "Tank", nil, 5, nil, DBM_COMMON_L.TANK_ICON) -- 3s variance (2022/07/05 log review) - 16.7, 14.4, 14.4, 16.8, 14.4, 14.4 || 13.7, 16.8, 14.4, 14.4, 14.4 || 16.0, 14.3, 16.8, 14.4 || 16.8, 14.4, 14.4, 14.4, 16.8 || 14.1, 14.4, 16.8, 14.4
+local timerNextEyebeam			= mod:NewCDTimer(15.9, 63346, nil, nil, nil, 3, nil, DBM_COMMON_L.IMPORTANT_ICON, true) -- almost 20s variance! Added "keep" arg (2022/07/05 log review || ... ||| 25m Lordaeron 2022/10/09 || 25m Lordaeron 2022/10/30) - 28, 31, 27 || 21, 19, 17, 33 || 25 || 33, 23 || 30, 16 ||| 23.0, 15.9, 23.3, 25.2 || 21.2, 22.9, 17.5, 30.1, 22.9
 
 mod:AddSetIconOption("SetIconOnEyebeamTarget", 63346, true, false, {8})
 
@@ -83,16 +79,16 @@ end
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
-	timerNextSmash:Start(sformat("v%s-%s", 5-delay, 7.5-delay)) -- ~2.5s variance [4.96-7.42]
-	timerNextEyebeam:Start(21-delay) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 21 || 20.2
+	timerNextSmash:Start(5-delay) -- 2s variance (2022/07/05 log review) - [5-7]
+	timerNextEyebeam:Start(20.2-delay) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 21 || 20.2
 	timerNextShockwave:Start(18.2-delay) -- (2022/07/05 log review || 25m Lordaeron 2022/10/30) - 19 || 18.2
 	timerNextGrip:Start(24.2-delay) --  (25m Lordaeron 2022/10/30) - 24.2
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(63356, 64003) then -- Overhead Smash
+	if args.spellId == 64003 then
 		timerNextSmash:Start()
-	elseif args:IsSpellID(62166, 63981) then -- Stone Grip
+	elseif args.IsSpellID(62166, 63981) then -- Stone Grip
 		timerNextGrip:Start()
 	end
 end

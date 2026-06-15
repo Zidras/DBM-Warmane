@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(19622)
-mod:SetEncounterID(733)
 
 --mod:RegisterCombat("yell", L.YellPull1, L.YellPull2)
 mod:RegisterCombat("combat")

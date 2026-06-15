@@ -1,9 +1,8 @@
 local mod = DBM:NewMod("Bloodlord", "DBM-ZG", 1)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(11382, 14988)
-mod:SetEncounterID(787)
 
 
 

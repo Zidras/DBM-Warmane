@@ -3,9 +3,8 @@ local L		= mod:GetLocalizedStrings()
 
 local select = select
 
-mod:SetRevision("20251101211532")
+mod:SetRevision("20241116144454")
 mod:SetCreatureID(36678)
-mod:SetEncounterID(851)
 mod:SetUsedIcons(1, 2, 3, 4)
 mod:SetHotfixNoticeRev(20240611000000)
 mod:SetMinSyncRevision(20220908000000)
@@ -122,8 +121,8 @@ local function NextPhase(self)
 	if self.vb.phase == 2 then
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
-		timerUnstableExperimentCD:Start(30) -- 19/04/2024: (Heroic) Unstable Experiement scheduled 30 seconds after Create Concoction finishes. https://www.warmane.com/bugtracker/report/121798#comment-114099
-		warnUnstableExperimentSoon:Schedule(25)
+		timerUnstableExperimentCD:Start(30+7) -- 19/04/2024: (Heroic) Unstable Experiement scheduled 30 seconds after Create Concoction finishes. https://www.warmane.com/bugtracker/report/121798#comment-114099
+		warnUnstableExperimentSoon:Schedule(25+7)
 		-- EVENT_PHASE_TRANSITION - scheduled for Create Concoction cast + 100 ms (will fire [CHAT_MSG_MONSTER_YELL] Hrm, I don't feel a thing. Wha?! Where'd those come from?)
 		timerMalleableGooCD:Start(15) -- Fixed timer after phase 2: 15s
 		soundMalleableGooSoon:Schedule(15-3, "Interface\\AddOns\\DBM-Core\\sounds\\RaidAbilities\\malleable_soon.mp3")

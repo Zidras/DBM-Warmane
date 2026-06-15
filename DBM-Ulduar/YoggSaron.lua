@@ -1,12 +1,10 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260510215452")
+mod:SetRevision("20230221142915")
 mod:SetCreatureID(33288)
-mod:SetEncounterID(756)
 mod:RegisterCombat("combat_yell", L.YellPull)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
-mod:SetHotfixNoticeRev(20260510000000)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 64059 64189 63138 63830 63802",
@@ -134,7 +132,7 @@ local warnDeafeningRoarSoon			= mod:NewPreWarnAnnounce(64189, 5, 3)
 local specWarnDeafeningRoar			= mod:NewSpecialWarningSpell(64189, nil, nil, nil, 1, 2)
 
 local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189, nil, nil, nil, 2)
-local timerNextDeafeningRoar		= mod:NewNextTimer(30, 64189, nil, nil, nil, 2) -- 2026 script: Now only fires on 25m. (S2 VOD || S3 VOD 2022/07/15 || S3 HM log 2022/07/21 || 25HM VOD Onyxia 2026/05/10) - 58 || 58, 58, 58, 58, 60, 60, 60 || 60.1, 60.1, 60.1 || 30
+local timerNextDeafeningRoar		= mod:NewNextTimer(58, 64189, nil, nil, nil, 2) -- (S2 VOD || S3 VOD 2022/07/15 || S3 HM log 2022/07/21) - 58 || 58, 58, 58, 58, 60, 60, 60 || 60.1, 60.1, 60.1
 
 local targetWarningsShown = {}
 local brainLinkTargets = {}
@@ -194,9 +192,9 @@ function mod:SPELL_CAST_START(args)
 		warnBrainPortalSoon:Schedule(70)
 		specWarnBrainPortalSoon:Schedule(77)
 		specWarnMadnessOutNow:Schedule(55) -- TO DO: implement brain room check?
-	elseif spellId == 64189 and self:IsDifficulty("normal25") then		--Deafening Roar
+	elseif spellId == 64189 then		--Deafening Roar
 		timerNextDeafeningRoar:Start()
-		warnDeafeningRoarSoon:Schedule(25)
+		warnDeafeningRoarSoon:Schedule(53)
 		timerCastDeafeningRoar:Start()
 		specWarnDeafeningRoar:Show()
 		specWarnDeafeningRoar:Play("silencesoon")
@@ -382,10 +380,8 @@ function mod:OnSync(msg)
 		warnP3:Show()
 		warnP3:Play("pthree")
 		warnEmpowerSoon:Schedule(40)
-		if self:IsDifficulty("normal25") then
-			timerNextDeafeningRoar:Start() -- Fixed timer: 30s. (S2 VOD || S3 VOD 2022/07/15 || S3 HM log 2022/07/21) - 21 || 22, 21.5, 20.6, 22.1, 20.0, 28, 28 || 28.1, 22.6
-			warnDeafeningRoarSoon:Schedule(25)
-		end
+		timerNextDeafeningRoar:Start(20) -- Has variance (S2 VOD || S3 VOD 2022/07/15 || S3 HM log 2022/07/21) - 21 || 22, 21.5, 20.6, 22.1, 20.0, 28, 28 || 28.1, 22.6
+		warnDeafeningRoarSoon:Schedule(15)
 		timerNextLunaticGaze:Start(12) -- S3 VOD review
 	end
 end

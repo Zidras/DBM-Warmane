@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(22841)
-mod:SetEncounterID(603)
 
 mod:SetModelID(21357)
 

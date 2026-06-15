@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("AggemThorncurse", "DBM-Party-Classic", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(4424)
-mod:SetEncounterID(439)
 
 mod:RegisterCombat("combat")
 

@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20240708001514")
 mod:SetCreatureID(15589, 15727)
-mod:SetEncounterID(717)
 
 mod:SetUsedIcons(1)
 

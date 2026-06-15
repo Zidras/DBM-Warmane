@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20251102143218"),
+	Revision = parseCurseDate("20250912221302"),
 	DisplayVersion = "10.1.13 alpha", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2024, 07, 20) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -3578,24 +3578,9 @@ do
 			-- check BossBanner encounterLootCache for the looted item
 			local isNPC = lootSourceGUID ~= "nil"
 			local lootSourceID = isNPC and lootSourceGUID or lootSourceName
-			if locale ~= GetLocale() then
-				-- try to recover lootSourceName with correct locale from NPC
-				if isNPC then
-					local senderUnit = DBM:GetRaidUnitId(sender)
-					if not senderUnit then
-						DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..") because sender not found in raid or party.", 3)
-						return
-					end
-					lootSourceName = UnitName(senderUnit.."target")
-					if not lootSourceName or lootSourceName == "" then
-						DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..") because sender target has no name.", 3)
-						return
-					end
-					DBM:Debug("BossBanner: recovered lootSourceName ("..lootSourceName..") with different locale ("..locale..").", 3)
-				else
-					DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..").", 3)
-					return
-				end
+			if not isNPC and locale ~= GetLocale() then
+				DBM:Debug("BossBanner: ignored loot from ("..lootSourceID..") with different locale ("..locale..").", 3)
+				return
 			end
 			lootDispatcher(sender, encounterId, lootSourceID, lootSourceName, lootSourceGUID, itemID, itemLink, tonumber(quantity), tonumber(slot), texture, (finalItem == "true" and true or false))
 		end
@@ -4028,7 +4013,7 @@ do
 				savedSender = sender
 			end
 			inspopuptext:SetText(L.REQ_INSTANCE_ID_PERMISSION:format(sender, sender))
-			buttonaccept:SetScript("OnClick", function(f) savedSender = nil DBM:Unschedule(autoDecline) accessList[sender] = true syncHandlers["DBMv4-IR"](sender) f:GetParent():Hide() end)
+			buttonaccept:SetScript("OnClick", function(f) savedSender = nil DBM:Unschedule(autoDecline) accessList[sender] = true syncHandlers["IR"](sender) f:GetParent():Hide() end)
 			buttondecline:SetScript("OnClick", function() autoDecline(sender, 1) end)
 			DBM:PlaySound(850)
 			inspopup:Show()
@@ -4176,7 +4161,6 @@ do
 		end
 
 		function showResults()
-			if not results then return end
 			local resultCount = 0
 			-- you could catch some localized instances by observing IDs if there are multiple players with the same instance ID but a different name ;) (not that useful if you are trying to get a fresh instance)
 			DBM:AddMsg(L.INSTANCE_INFO_RESULTS, false)
@@ -4237,7 +4221,6 @@ do
 		end
 
 		local function getResponseStats()
-			if not results then return 0, 0, 0, 0 end
 			local numResponses = 0
 			local sent = 0
 			local denied = 0
@@ -4266,7 +4249,6 @@ do
 		end
 
 		function updateInstanceInfo(timeRemaining, dontAddShowResultNowButton)
-			if not results then return end
 			local numResponses, sent, denied = getResponseStats()
 			local dbmUsers = getNumDBMUsers()
 			DBM:AddMsg(L.INSTANCE_INFO_STATUS_UPDATE:format(numResponses, dbmUsers, sent, denied, timeRemaining), false)
@@ -5445,18 +5427,6 @@ do
 end
 
 function DBM:OnMobKill(cId, synced)
-	if cId ~= 0 and bossIds[cId] then
-		local combat = combatInfo[LastInstanceMapID] or combatInfo[LastInstanceZoneName]
-		if dbmIsEnabled and combat then
-			for _, v in ipairs(combat) do
-				if v.mod.Options.Enabled and v.type:find("combat") and (v.multiMobPullDetection and checkEntry(v.multiMobPullDetection, cId) or v.mob == cId) and not (#inCombat > 0 and v.noMultiBoss) then
-					local uId = DBM:GetUnitIdFromCID(cId) or "target"
-					if v.mod.noFriendlyEngagement and UnitIsFriend("player", uId) then return end
-					self:StartCombat(v.mod, 0, "UNIT_DIED") -- StartCombat on instant kills, for proper Encounter Start/End detection
-				end
-			end
-		end
-	end
 	for i = #inCombat, 1, -1 do
 		local v = inCombat[i]
 		if not v.combatInfo then
@@ -10108,7 +10078,7 @@ do
 		return x == 0 and 1/x < 0  -- Only true for -0
 	end
 
-	-- Parse variance from timer string ("v30.5-40" or "dv30.5-40"), into minimum and maximum timer, and calculated variance duration
+	-- Parse variance from timer string (v30.5-40" or "dv30.5-40"), into minimum and maximum timer, and calculated variance duration
 	---@param timer string
 	---@return number maxTimer, number minTimer, number varianceDuration
 	local function parseVarianceFromTimer(timer)
@@ -10608,16 +10578,9 @@ do
 		end
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBT:GetBar(id)
-		-- parse variance from totalTime if necessary
-		local maxTimer, minTimer, correctedTimer
-		if type(totalTime) == "string" and totalTime:match("^v%d+%.?%d*-%d+%.?%d*$") then -- catch "timer variance" pattern, expressed like v10.5-20.5
-			maxTimer, minTimer = parseVarianceFromTimer(totalTime)
-			correctedTimer = DBT.Options.VarianceEnabled and maxTimer or minTimer
-		end
-		fireEvent("DBM_TimerUpdate", id, elapsed, (correctedTimer or totalTime))
+		fireEvent("DBM_TimerUpdate", id, elapsed, totalTime)
 		if bar then
-			local newRemaining = (correctedTimer or totalTime)-elapsed
-			local newMinRemaining = (minTimer or totalTime)-elapsed
+			local newRemaining = totalTime-elapsed
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			if not bar.keep and newRemaining > 0 then
 				--Correct table for tracked timer objects for adjusted time, or else timers may get stuck if stop is called on them
@@ -10628,8 +10591,8 @@ do
 				if (type(countVoice) == "string" or countVoice > 0) then
 					DBM:Unschedule(playCountSound, id)
 					if not bar.fade then--Don't start countdown voice if it's faded bar
-						if newMinRemaining > 2 then
-							playCountdown(id, newMinRemaining, countVoice, bar.countdownMax, bar.requiresCombat)--timerId, timer, voice, count
+						if newRemaining > 2 then
+							playCountdown(id, newRemaining, countVoice, bar.countdownMax, bar.requiresCombat)--timerId, timer, voice, count
 							DBM:Debug("Updating a countdown after a timer Update call for timer ID:"..id)
 						end
 					end
@@ -11802,21 +11765,6 @@ function bossModPrototype:SetCreatureID(...)
 		local cId = ...
 		bossIds[cId] = true
 		self.numBoss = 1
-		if self.combatInfo then
-			--Called mid combat, update combatinfo mob for boss health and win detection
-			self.combatInfo.mob = self.creatureId
-		end
-	end
-end
-
----Used to set Encounter IDs this mod will pass to ENCOUNTER_START/ENCOUNTER_END/BOSS_KILL
-function bossModPrototype:SetEncounterID(...)
-	self.encounterId = ...
-	if select("#", ...) > 1 then
-		self.multiEncounterPullDetection = {...}
-		if self.combatInfo then
-			self.combatInfo.multiEncounterPullDetection = self.multiEncounterPullDetection
-		end
 	end
 end
 

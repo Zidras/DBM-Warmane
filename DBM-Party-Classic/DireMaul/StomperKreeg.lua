@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod(412, "DBM-Party-Classic", 6, 230)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(14322)
-mod:SetEncounterID(363)
 
 mod:RegisterCombat("combat")
 --mod:DisableFriendlyDetection()

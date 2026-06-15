@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Moroes", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(15687)--Moroes
-mod:SetEncounterID(653)
 
 mod:SetModelID(16540)
 mod:RegisterCombat("combat")

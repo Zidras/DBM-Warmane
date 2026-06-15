@@ -1,9 +1,8 @@
 local mod	= DBM:NewMod("Gilnid", "DBM-Party-Classic", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20220518110528")
 mod:SetCreatureID(1763)
-mod:SetEncounterID(163)
 mod:SetModelID(622) -- temporary model, to prevent HD client crash on model preview
 
 mod:RegisterCombat("combat")

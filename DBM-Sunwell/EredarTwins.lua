@@ -1,13 +1,9 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-local sformat = string.format
-
-mod:SetRevision("20251101130127")
+mod:SetRevision("20220925155424")
 mod:SetCreatureID(25165, 25166)
-mod:SetEncounterID(727)
 mod:SetUsedIcons(7, 8)
-mod:SetHotfixNoticeRev(20251101000000)
 
 mod:RegisterCombat("combat")
 
@@ -32,19 +28,19 @@ local warnConflag			= mod:NewTargetAnnounce(45333, 3)
 local warnNova				= mod:NewTargetAnnounce(45329, 3)
 
 local specWarnConflag		= mod:NewSpecialWarningYou(45333, nil, nil, nil, 1, 2)
-local specWarnConflagNear	= mod:NewSpecialWarningClose(45333, nil, nil, nil, 1, 2)
+local specWarnConflagNear	= mod:NewSpecialWarningClose(45333)
 local yellConflag			= mod:NewYell(45333, nil, false)
 local specWarnNova			= mod:NewSpecialWarningYou(45329, nil, nil, nil, 1, 2)
-local specWarnNovaNear		= mod:NewSpecialWarningClose(45329, nil, nil, nil, 1, 2)
+local specWarnNovaNear		= mod:NewSpecialWarningClose(45329)
 local yellNova				= mod:NewYell(45329)
 local specWarnPyro			= mod:NewSpecialWarningDispel(45230, "MagicDispeller", nil, 2, 1, 2)
 local specWarnDarkTouch		= mod:NewSpecialWarningStack(45347, false, 5, nil, 2, 1, 6)
 local specWarnFlameTouch	= mod:NewSpecialWarningStack(45348, false, 5, nil, nil, 1, 6)
 
-local timerBladeCD			= mod:NewNextTimer(10, 45248, nil, "Melee", 2, 2) -- Fixed timer. SPELL_CAST_START: (Onyxia: 25 wipe [2025-10-09]@[21:23:50]) - "Shadow Blades-45248-npc:25165-63 = pull:10.01/[Stage 1/0.00] 10.01, 10.01, 10.00, 10.02, 10.31, 10.00"
-local timerBlowCD			= mod:NewVarTimer("v23.5-26.5", 45256, nil, nil, nil, 3) -- ~3s varation [23.91-26.43]. SPELL_CAST_SUCCESS: (Onyxia: 25 wipe [2025-10-09]@[21:23:50] || 25 wipe [2025-10-09]@[21:44:08]) - "Confounding Blow-45256-npc:25165-63 = pull:26.37/[Stage 1/0.00] 26.37, 23.91" || "Confounding Blow-45256-npc:25165-63 = pull:25.68/[Stage 1/0.00] 25.68, 26.43"
-local timerConflagCD		= mod:NewVarTimer("v22.91-29", 45333, nil, nil, nil, 3, nil, nil, true) -- 2025/10/(20?) - Warmane Onyxia changed script again. 5s variation [22.91-28.94]. Added "keep" arg. SPELL_CAST_START: (Onyxia: 25 wipe [2025-10-09]@[21:23:50] || wipe [2025-10-09]@[21:31:02] || kill [2025-10-30]@[21:33:53]) - "Conflagration-45342-npc:25166-64 = pull:17.87/[Stage 1/0.00] 17.87, 30.88" || "Conflagration-45342-npc:25166-64 = pull:21.66/[Stage 1/0.00] 21.66, 26.73" || "Conflagration-45342-npc:25166-64 = pull:17.86/[Stage 1/0.00] 17.86, 22.91, Stage 2/12.34"
-local timerNovaCD			= mod:NewVarTimer("v20-24", 45329, nil, nil, nil, 3)-- ~4s varation [20.00-23.84]. SPELL_CAST_START: (Onyxia: 25 wipe [2025-10-09]@[21:44:08] || 25 wipe [2025-10-09]@[21:23:50] || wipe [2025-10-30]@[21:18:15]) - "Shadow Nova-45329-npc:25165-63 = pull:22.10/[Stage 1/0.00] 22.10, 21.96" || "Shadow Nova-45329-npc:25165-63 = pull:22.84/[Stage 1/0.00] 22.84, 23.84" || "Shadow Nova-45329-npc:25165-63 = pull:23.32/[Stage 1/0.00] 23.32, 20.00, Stage 2/0.58"
+local timerBladeCD			= mod:NewCDTimer(11.5, 45248, nil, "Melee", 2, 2)
+local timerBlowCD			= mod:NewCDTimer(20, 45256, nil, nil, nil, 3)
+local timerConflagCD		= mod:NewCDTimer(31, 45333, nil, nil, nil, 3, nil, nil, true) -- Added "keep" arg. Considerable variation, and 31s default might an overexageration
+local timerNovaCD			= mod:NewCDTimer(31, 45329, nil, nil, nil, 3)
 local timerConflag			= mod:NewCastTimer(3.5, 45333, nil, false, 2)
 local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
@@ -57,8 +53,7 @@ mod:AddSetIconOption("NovaIcon", 45329, false, false, {8})
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	berserkTimer:Start(-delay)
-	timerConflagCD:Start(sformat("v%s-%s", 17.86-delay, 18.15-delay)) -- 2025/10/(20?) - Warmane Onyxia changed script again. Almost no variance (17.86-18.15)
-	timerBladeCD:Start(-delay)
+	timerConflagCD:Start(18) -- variable (18-22?)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
 	end
@@ -140,12 +135,8 @@ function mod:SPELL_CAST_START(args)
 		warnBlade:Show()
 		timerBladeCD:Start()
 	elseif args.spellId == 45329 then -- Shadow Nova
-		timerNova:Start(args.sourceGUID)
-		if self:GetCIDFromGUID(args.sourceGUID) == 25166 then -- Grand Warlock Alythess
-			timerNovaCD:Start("v25.06-25.19", args.sourceGUID) -- (Onyxia: [2025-10-23]@[21:38:36]) - "Shadow Nova-45329-npc:25166-64 = pull:48.39/[Stage 1/0.00, Stage 2/47.04] 1.35/48.39, 25.18, 25.19"
-		else
-			timerNovaCD:Start(args.sourceGUID)
-		end
+		timerNova:Start()
+		timerNovaCD:Start()
 		self:BossTargetScanner(25165, "ShadowNovaTarget", 0.05, 6)
 	elseif args.spellId == 45342 then -- Conflagration
 		timerConflag:Start()
@@ -196,15 +187,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 end
 
 function mod:UNIT_DIED(args)
-	local destCID = self:GetCIDFromGUID(args.destGUID)
-	if destCID == 25166 -- Grand Warlock Alythess
-	or destCID == 25165 -- Lady Sacrolash
-	then
-		timerConflagCD:Cancel()
-		timerNova:Cancel(args.destGUID)
-		timerNovaCD:Cancel(args.destGUID)
-		if self:GetStage(1) then
-			self:SetStage(2)
-		end
+	if self:GetCIDFromGUID(args.destGUID) == 21566 then -- Grand Warlock Alythess
+		self:SetStage(2)
 	end
 end
