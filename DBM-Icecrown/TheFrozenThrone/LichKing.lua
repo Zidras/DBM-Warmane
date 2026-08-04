@@ -4,11 +4,11 @@ local L		= mod:GetLocalizedStrings()
 local UnitGUID, UnitName, GetSpellInfo = UnitGUID, UnitName, GetSpellInfo
 local UnitInRange, UnitIsUnit, UnitInVehicle, IsInRaid = UnitInRange, UnitIsUnit, UnitInVehicle, DBM.IsInRaid
 
-mod:SetRevision("20251102144322")
+mod:SetRevision("20260804214627")
 mod:SetCreatureID(36597)
 mod:SetEncounterID(856)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7)
-mod:SetHotfixNoticeRev(20250414000000)
+mod:SetHotfixNoticeRev(20260804000000)
 mod:SetMinSyncRevision(20220921000000)
 
 mod:RegisterCombat("combat")
@@ -204,6 +204,8 @@ local warnedValkyrGUIDs = {}
 local valkyrTargets = {}
 local plagueHop = DBM:GetSpellInfo(70338)--Hop spellID only, not cast one.
 -- local soulshriek = GetSpellInfo(69242)
+local spellnameSummonValkyr = DBM:GetSpellInfo(74361) -- Summon Val'kyr (10N)
+local spellnameSummonValkyrPeriodic = DBM:GetSpellInfo(74361) -- Summon Val'kyr Periodic (10H, 25N, 25H)
 local plagueExpires = {}
 local grabIcon = 2
 --	local lastValk = 0
@@ -627,6 +629,7 @@ end
 function mod:SPELL_SUMMON(args)
 	local spellId = args.spellId
 	if spellId == 69037 then -- Summon Val'kyr
+		DBM:AddMsg("Summon Val'kyr SPELL_SUMMON unhidden from combat log. Notify Zidras on Discord or GitHub")
 		if self.Options.ShowFrame then
 			self:CreateFrame()
 		end
@@ -840,13 +843,19 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, spellName)
 --	if spellName == soulshriek and mod:LatencyCheck() then
 --		self:SendSync("SoulShriek", UnitGUID(uId))
-	if (spellName == GetSpellInfo(74361) or spellName == GetSpellInfo(69037)) and self:AntiSpam(5, 4) then -- Summon Val'kyr Periodic (10H, 25N, 25H) | Summon Val'kyr (10N)
+	if (spellName == spellnameSummonValkyrPeriodic or spellName == spellnameSummonValkyr) and self:AntiSpam(5, 4) then -- Summon Val'kyr Periodic (10H, 25N, 25H) | Summon Val'kyr (10N)
 		table.wipe(valkyrTargets)	-- reset valkyr cache for next round
 		grabIcon = 2
 		self.vb.valkIcon = 2
 		self.vb.valkyrWaveCount = self.vb.valkyrWaveCount + 1
 		warnSummonValkyr:Show(self.vb.valkyrWaveCount)
 		timerSummonValkyr:Start(nil, self.vb.valkyrWaveCount+1)
+		if self.Options.ShowFrame then
+			self:CreateFrame()
+		end
+		if self.Options.ValkyrIcon then
+			self:ScanForMobs(36609, 1, self.vb.valkIcon, 3, nil, 12, "ValkyrIcon") -- 36609 is CID for Val'kyr Shadowguard
+		end
 	--[[
 	elseif spellName == GetSpellInfo(73654) then -- Harvest Souls (Heroic)
 		specWarnHarvestSouls:Show()
