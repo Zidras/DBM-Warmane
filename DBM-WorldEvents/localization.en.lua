@@ -134,7 +134,12 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerRound			= "Upon round victory, show timer to begin the next round (with round number and whether it is a Boss or Adds round)"
+	TimerRound			= "Upon round victory, show timer to begin the next round (with round number and whether it is a Boss or Adds round)",
+	EqUneqAuto			= "Automatic mode for weapon unequip/equip: right before removal save the equipped weapons into a weapons-only equipment set \"DBMWeapons\" and re-equip it afterwards, no \"pve\" equipment set needed.",
+	EqUneqFilter		= FILTER, -- don't translate
+	OnlyDPS				= DBM_COMMON_L.DAMAGE_ICON, -- don't translate
+	DPSTank				= DBM_COMMON_L.DAMAGE_ICON..DBM_COMMON_L.TANK_ICON, -- don't translate
+	NoFilter			= DBM_COMMON_L.DAMAGE_ICON..DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.HEALER_ICON -- don't translate
 })
 
 L:SetMiscLocalization({

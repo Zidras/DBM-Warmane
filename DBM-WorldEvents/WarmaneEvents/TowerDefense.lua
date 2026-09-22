@@ -63,6 +63,8 @@ local timerNextMindControl			= mod:NewNextTimer(45, 28410, nil, nil, nil, 3) -- 
 
 mod:AddSetIconOption("SetIconOnMindControl", 28410, true, 0, {1, 2, 3, 4, 5})
 mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, nil, nil, nil, 28410)
+mod:AddBoolOption("EqUneqAuto", true, nil, nil, nil, nil, 28410)
+mod:AddDropdownOption("EqUneqFilter", {"OnlyDPS", "DPSTank", "NoFilter"}, "OnlyDPS", "misc", nil, 28410)
 
 -- Shade of Aran (400024)
 mod:AddTimerLine("Shade of Aran")
@@ -97,9 +99,6 @@ mod.vb.roundCounter = 0
 mod.vb.isBossRound = false
 mod.vb.mindControlIcon = 1
 
-local playerClass = select(2, UnitClass("player"))
-local isHunter = playerClass == "HUNTER"
-
 local function resurrectionTicker(self)
 	timerToResurrect:Start() -- removed Restart to catch all early refreshes
 	self:Schedule(30, resurrectionTicker, self)
@@ -113,29 +112,15 @@ local function announceMindControlTargets(self)
 end
 
 local function checkWeaponRemovalSetting(self)
-	if not self.Options.EqUneqWeapons then return false end
+	return self.Options.EqUneqWeapons and self:CheckWeaponRemovalFilter()
 end
 
 local function UnW(self)
-	if self:IsEquipmentSetAvailable("pve") then
-		PickupInventoryItem(16)
-		PutItemInBackpack()
-		PickupInventoryItem(17)
-		PutItemInBackpack()
-		DBM:Debug("MH and OH unequipped", 2)
-		if isHunter then
-			PickupInventoryItem(18)
-			PutItemInBackpack()
-			DBM:Debug("Ranged unequipped", 2)
-		end
-	end
+	self:UnequipWeapons()
 end
 
 local function EqW(self)
-	if self:IsEquipmentSetAvailable("pve") then
-		DBM:Debug("trying to equip pve")
-		UseEquipmentSet("pve")
-	end
+	self:EquipWeapons()
 end
 
 local function onBossCombatStart(self, npcId)
