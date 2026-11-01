@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akumai", "DBM-Party-Classic", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20261101120000")
 mod:SetCreatureID(4829)
 mod:SetEncounterID(226)
 
@@ -23,7 +23,7 @@ function mod:OnCombatStart(delay)
 	timerFrenziedRageCD:Start(1-delay)
 end
 
-function mod:SPELL_CAST_SUCCESS(args)
+function mod:SPELL_CAST_START(args)
 	if args.spellId == 3815 then
 		warningPoisonCloud:Show()
 		timerPoisonCloudCD:Start()
