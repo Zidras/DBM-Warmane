@@ -60,7 +60,7 @@ local specWarnSoulConsumption		= mod:NewSpecialWarningRun(74792, nil, nil, nil, 
 local yellSoulConsumption			= mod:NewYellMe(74792)
 local specWarnTwilightCutter		= mod:NewSpecialWarningSpell(74769, nil, nil, nil, 3, 2)
 
-local timerSoulConsumptionCD		= mod:NewNextTimer(20, 74792, nil, nil, nil, 3) -- (25N Lordaeron 2022/09/20) - Stage 2/22.9, 20.0, 20.0, Stage 3/10.4, 9.6/20.0, 20.0, 60.0, 20.0
+local timerSoulConsumptionCD		= mod:NewNextCountTimer(20, 74792, nil, nil, nil, 3) -- (25N Lordaeron 2022/09/20) - Stage 2/22.9, 20.0, 20.0, Stage 3/10.4, 9.6/20.0, 20.0, 60.0, 20.0
 local timerTwilightCutterCast		= mod:NewCastTimer(5, 74769, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerTwilightCutter			= mod:NewBuffActiveTimer(10, 74769, nil, nil, nil, 6)
 local timerTwilightCutterCD			= mod:NewNextTimer(15, 74769, nil, nil, nil, 6)
@@ -78,6 +78,7 @@ local specWarnCorporeality			= mod:NewSpecialWarningCount(74826, nil, nil, nil, 
 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
+mod.vb.soulConsumptionCount = 2
 local playerInShadowRealm = false
 local fieryCombustionCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
 local fieryBreathCLEU = false -- Assigning a bool for CLEU check to prevent double timer starts from CLEU & Sync
@@ -89,6 +90,11 @@ local function clearKeepTimers(self) -- Attempt to clear "keep" negative timers 
 --	if not self.AnnounceAlternatePhase then return end
 	if timerShadowBreathCD:GetRemaining() < 0 then timerShadowBreathCD:Stop() end
 	if timerFieryBreathCD:GetRemaining() < 0 then timerFieryBreathCD:Stop() end
+end
+
+local function startNextSoulConsumption(self, delay)
+	self.vb.soulConsumptionCount = self.vb.soulConsumptionCount == 1 and 2 or 1
+	timerSoulConsumptionCD:Start(delay, self.vb.soulConsumptionCount)
 end
 
 function mod:OnCombatStart(delay)
@@ -135,7 +141,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)--We use spell cast success for debuff timers in case it gets resisted by a player we still get CD timer for next one
 	local spellId = args.spellId
 	if spellId == 74792 then
-		timerSoulConsumptionCD:Start()
+		startNextSoulConsumption(self)
 		soulConsumptionCLEU = true
 		if self:LatencyCheck() then
 			self:SendSync("ShadowCD")
@@ -327,7 +333,7 @@ function mod:OnSync(msg, target)
 	elseif msg == "ShadowCD" then
 		if self.Options.AnnounceAlternatePhase and not soulConsumptionCLEU then
 			soulConsumptionCLEU = false -- reset state for next CLEU/sync check
-			timerSoulConsumptionCD:Start()
+			startNextSoulConsumption(self)
 		end
 	elseif msg == "ShadowBreathCD" then
 		if self.Options.AnnounceAlternatePhase and not shadowBreathCLEU then
@@ -354,7 +360,8 @@ function mod:OnSync(msg, target)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		timerShadowBreathCD:Start() -- ~5s variance [13.7-18.4] (25H Lordaeron 2022/09/21 wipe1 || 25H Lordaeron 2022/09/21 wipe2 || 25H Lordaeron 2022/09/21 wipe3 || 25H Lordaeron 2022/09/23) - 15.9 || 13.7 || 18.1 || 18.4
-		timerSoulConsumptionCD:Start(22.8)--Edited. not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this. (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25H Lordaeron 2022/10/30) - 23.8 || 23.4 || 22.8
+		self.vb.soulConsumptionCount = 2
+		startNextSoulConsumption(self, 22.8) --Edited. not exact, 15 seconds from tank aggro, but easier to add 5 seconds to it as a estimate timer than trying to detect this. (25N Lordaeron 2022/10/09 || 25H Lordaeron 2022/10/15 || 25H Lordaeron 2022/10/30) - 23.8 || 23.4 || 22.8
 		if self.Options.TimerCutterSpawn then
 			timerTwilightCutterSpawn:Start(35)
 		else
