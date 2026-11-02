@@ -17,12 +17,14 @@ mod:RegisterEventsInCombat(
 
 local warningDecayFleshSoon		= mod:NewSoonAnnounce(49356, 2)
 local warningCloud				= mod:NewSpellAnnounce(49548, 3)
-local warningFleshSoon			= mod:NewSoonAnnounce(49356, 3)
 local warningFlesh				= mod:NewSpellAnnounce(49356, 3)
+
+local DecayFleshCD				= mod:NewCDTimer(60, 49356, nil, nil, nil, 3)
 
 mod.vb.warnedDecay = false
 
 function mod:OnCombatStart()
+	DecayFleshCD:Start(20)
 	self.vb.warnedDecay = false
 end
 
@@ -34,8 +36,8 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 49356 and self:AntiSpam(1) then
-		warningFleshSoon:Show()
 		warningFlesh:Schedule(5)
+		DecayFleshCD:Start()
 	end
 end
 
