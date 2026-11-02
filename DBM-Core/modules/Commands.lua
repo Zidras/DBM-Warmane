@@ -40,6 +40,7 @@ local function Pull(timer)
 	if IsInGroup() then
 		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
 		DBM:Unschedule(SendChatMessage)
+		if timer <= 0 then return end
 		-- Pull announcer
 		local savedDifficulty = DBM:GetCurrentInstanceDifficulty()
 		if savedDifficulty:find("heroic") then
@@ -73,6 +74,7 @@ local function Break(timer)
 	if IsInGroup() then
 		local channel = ((GetNumRaidMembers() == 0) and "PARTY") or "RAID_WARNING"
 		DBM:Unschedule(SendChatMessage)
+		if timer <= 0 then return end
 
 		local hour, minute = GetGameTime()
 		minute = minute+(timer/60)
