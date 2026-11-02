@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,heroic,mythic"
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20261101120000")
 mod:SetCreatureID(26723)
 mod:SetEncounterID(526)
 
@@ -28,7 +28,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warningChains:Show(args.destName)
 		timerChains:Start(args.destName)
 		timerChainsCD:Start()
-	elseif args.spellId == 8599 and args.souceGUID == 26723 then
+	elseif args.spellId == 8599 and args:GetSrcCreatureID() == 26723 then
 		warningEnrage:Show()
 	elseif args.spellId == 48179 then
 		warningNova:Show()

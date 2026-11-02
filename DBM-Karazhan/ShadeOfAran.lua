@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Aran", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20261101120000")
 mod:SetCreatureID(16524)
 mod:SetEncounterID(658)
 
@@ -107,7 +107,7 @@ end
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 29991 then
 		timerChains:Cancel(args.destName)
-	elseif args.spellId == 29946 and self.Options.WreathIcon then
+	elseif args.spellId == 29946 and self.Options.WreathIcons then
 		self:SetIcon(args.destName, 0)
 	end
 end
