@@ -44,9 +44,7 @@ localization.fr.lua
 localization.ru.lua
 localization.tw.lua
 localization.kr.lua
-localization.tw.lua
 localization.es.lua
 localization.cn.lua
-localization.ru.lua
 
 Onyxia.lua
