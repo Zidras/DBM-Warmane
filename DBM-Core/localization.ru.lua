@@ -287,11 +287,13 @@ L.BREAK_MIN							= "Перерыв заканчивается через %s м�
 L.BREAK_SEC							= "Перерыв заканчивается через %s сек.!"
 L.TIMER_BREAK						= "Перерыв!"
 L.ANNOUNCE_BREAK_OVER				= "Перерыв закончился в %s"
+L.ANNOUNCE_BREAK_CANCEL				= "Перерыв отменён игроком %s"
 
 L.TIMER_PULL						= "Атака"
 L.ANNOUNCE_PULL_MODE				= "Атака режим: %s"
 L.ANNOUNCE_PULL						= "Атака через %d сек. (отправил %s)"
 L.ANNOUNCE_PULL_NOW					= "Атака!"
+L.ANNOUNCE_PULL_CANCEL				= "Отсчёт до атаки отменён игроком %s"
 L.ANNOUNCE_PULL_TARGET				= "Атакуем %s через %d сек. (отправил %s)"
 L.ANNOUNCE_PULL_NOW_TARGET			= "Атакуем %s!"
 L.GEAR_WARNING						= "Внимание: Проверка экипировки. Уровень надетых предметов на %d ниже, чем максимальный"
