@@ -153,6 +153,14 @@ local function resize(frame, first)
 								dropdownText:SetText(child2.text)
 								UIDropDownMenu_SetWidth(child2, mmin(width - 55, ddWidth))
 							end
+							-- Dropdowns are anchored to the previous checkbutton frame on creation, before its multi-line
+							-- text height is known, so an option above would overlap them
+							if lastObject and lastObject.myheight then
+								child2:ClearAllPoints()
+								child2:SetPoint("TOPLEFT", lastObject, "TOPLEFT", 0, -lastObject.myheight - 14) -- leave room for the dropdown title
+							end
+							child2.myheight = child2:GetHeight() + 14
+							lastObject = child2
 						end
 						neededHeight = neededHeight + (child2.myheight or child2:GetHeight())
 					end

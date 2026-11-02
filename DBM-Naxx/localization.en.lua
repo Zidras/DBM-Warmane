@@ -376,6 +376,7 @@ L:SetOptionLocalization({
 	WeaponsStatus		= "Show special warning at combat start if unequip/equip function is enabled",
 	EqUneqWeaponsKT		= "Automatically unequip and equip weapons on a timer, before and after $spell:28410. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
 	EqUneqWeaponsKT2	= "Automatically unequip and equip weapons when $spell:28410 is cast on YOU. Requires a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\"",
+	EqUneqAuto			= "Automatic mode: right before removal save the equipped weapons into a weapons-only equipment set \"DBMWeapons\" and re-equip it afterwards, no \"pve\" equipment set needed. One of the options above must be enabled.",
 	RemoveBuffsOnMC		= "Remove buffs when $spell:28410 is cast on you. Each option is cumulative.",
 	Never				= NEVER, -- don't translate,
 	Gift				= "Remove $spell:48469 / $spell:48470. Minimal approach to prevent $spell:33786 resists.",
@@ -398,5 +399,6 @@ L:SetMiscLocalization({
 	YellPhase3	= "Master, I require aid!", -- 12998
 	YellGuardians	= "Very well. Warriors of the frozen wastes, rise up! I command you to fight, kill and die for your master! Let none survive!", -- 12994
 	setMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve",
+	setSlotMissing	= "ATTENTION! DBM automatic weapon unequipping/equipping needs a free equipment set slot (max 10) for the service set DBMWeapons. Delete one of your equipment sets.",
 	EqUneqLineDescription	= "Automatic Equip/Unequip"
 })

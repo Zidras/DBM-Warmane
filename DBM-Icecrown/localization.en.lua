@@ -46,6 +46,7 @@ L:SetOptionLocalization({
 	MostOffensiveBuffs			= "+ Remove most offensive buffs (mainly for Casters and |cFFFF7C0AFeral Druids|r). Maximum raid safety with loss of damage output and need to self-rebuff/shapeshift!",
 	EqUneqWeapons				= "Unequip/equip weapons if $spell:71289 is cast on you. For equipping to work, create a COMPLETE (with the weapons of choice that will be equipped) equipment set named \"pve\".",
 	EqUneqTimer					= "Remove weapons by timer ALWAYS, not on cast (if ping is high). The option above must be enabled.",
+	EqUneqAuto					= "Automatic mode: right before removal save the equipped weapons into a weapons-only equipment set \"DBMWeapons\" and re-equip it afterwards, no \"pve\" equipment set needed. The first option must be enabled.",
 	EqUneqFilter				= FILTER, -- don't translate
 	OnlyDPS						= DBM_COMMON_L.DAMAGE_ICON, -- don't translate
 	DPSTank						= DBM_COMMON_L.DAMAGE_ICON..DBM_COMMON_L.TANK_ICON, -- don't translate
@@ -59,6 +60,7 @@ L:SetMiscLocalization({
 --	Fanatic2				= "Deformed Fanatic",
 --	Fanatic3				= "Reanimated Fanatic",
 	setMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping will not work until you create a equipment set named pve",
+	setSlotMissing				= "ATTENTION! DBM automatic weapon unequipping/equipping needs a free equipment set slot (max 10) for the service set DBMWeapons. Delete one of your equipment sets.",
 	EqUneqLineDescription	= "Automatic Equip/Unequip"
 })
 

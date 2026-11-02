@@ -97,73 +97,65 @@ local summonSpiritName = DBM:GetSpellInfo(71426)
 local playerHadTarget = false
 
 local playerClass = select(2, UnitClass("player"))
-local isHunter = playerClass == "HUNTER"
 
 local RaidWarningFrame = RaidWarningFrame
 local GetFramesRegisteredForEvent, RaidNotice_AddMessage = GetFramesRegisteredForEvent, RaidNotice_AddMessage
+
+local function getMissingSetMessage(self)
+	if not self.Options.EqUneqWeapons or not self:IsHeroic() then return end
+	if self.Options.EqUneqAuto then
+		if not self:IsWeaponSetSlotAvailable() then
+			return L.setSlotMissing
+		end
+	elseif not self:IsEquipmentSetAvailable("pve") then
+		return L.setMissing
+	end
+end
+
 local function selfWarnMissingSet()
-	if mod.Options.EqUneqWeapons and mod:IsHeroic() and not mod:IsEquipmentSetAvailable("pve") then
+	local msg = getMissingSetMessage(mod)
+	if msg then
 		for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 			local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 			if frame.AddMessage then
-				frame.AddMessage(frame, L.setMissing)
+				frame.AddMessage(frame, msg)
 			end
 		end
-		RaidNotice_AddMessage(RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
+		RaidNotice_AddMessage(RaidWarningFrame, msg, ChatTypeInfo["RAID_WARNING"])
 	end
 end
 
 mod:AddMiscLine(L.EqUneqLineDescription)
 mod:AddBoolOption("EqUneqWeapons", mod:IsDps(), nil, selfWarnMissingSet)
 mod:AddBoolOption("EqUneqTimer", false)
+mod:AddBoolOption("EqUneqAuto", true, nil, selfWarnMissingSet)
 mod:AddDropdownOption("EqUneqFilter", {"OnlyDPS", "DPSTank", "NoFilter"}, "OnlyDPS", "misc")
 
 local function selfSchedWarnMissingSet(self)
-	if self.Options.EqUneqWeapons and self:IsHeroic() and not self:IsEquipmentSetAvailable("pve") then
+	local msg = getMissingSetMessage(self)
+	if msg then
 		for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 			local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 			if frame.AddMessage then
-				self:Schedule(10, frame.AddMessage, frame, L.setMissing)
+				self:Schedule(10, frame.AddMessage, frame, msg)
 			end
 		end
-		self:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, L.setMissing, ChatTypeInfo["RAID_WARNING"])
+		self:Schedule(10, RaidNotice_AddMessage, RaidWarningFrame, msg, ChatTypeInfo["RAID_WARNING"])
 	end
 end
 mod:Schedule(0.5, selfSchedWarnMissingSet, mod) -- mod options default values were being read before SV ones, so delay this
 
 local function checkWeaponRemovalSetting(self)
-	if not self.Options.EqUneqWeapons then return false end
-
-	local removalOption = self.Options.EqUneqFilter
-	if removalOption == "OnlyDPS" and self:IsDps() then return true
-	elseif removalOption == "DPSTank" and not self:IsHealer() then return true
-	elseif removalOption == "NoFilter" then return true
-	end
-	return false
+	return self.Options.EqUneqWeapons and self:CheckWeaponRemovalFilter()
 end
 
 local function UnW(self)
-	if self:IsEquipmentSetAvailable("pve") then
-		PickupInventoryItem(16)
-		PutItemInBackpack()
-		PickupInventoryItem(17)
-		PutItemInBackpack()
-		DBM:Debug("MH and OH unequipped", 2)
-		if isHunter then
-			PickupInventoryItem(18)
-			PutItemInBackpack()
-			DBM:Debug("Ranged unequipped", 2)
-		end
-	end
+	self:UnequipWeapons()
 end
 
 local function EqW(self)
-	if self:IsEquipmentSetAvailable("pve") then
-		DBM:Debug("trying to equip pve")
-		UseEquipmentSet("pve")
-		if not self:IsTank() then
-			CancelUnitBuff("player", (GetSpellInfo(25780))) -- Righteous Fury
-		end
+	if self:EquipWeapons() and not self:IsTank() then
+		CancelUnitBuff("player", (GetSpellInfo(25780))) -- Righteous Fury
 	end
 end
 
