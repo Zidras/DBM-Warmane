@@ -282,7 +282,7 @@ L.BREAK_MIN								= "La pause se termine dans %s minute(s) !"
 L.BREAK_SEC								= "La pause se termine dans %s secondes !"
 L.TIMER_BREAK							= "C'est la pause !"
 L.ANNOUNCE_BREAK_OVER					= "La pause est terminée à %s"
-L.ANNOUNCE_BREAK_CANCEL				= "Pause annulée par %s"
+L.ANNOUNCE_BREAK_CANCEL					= "Pause annulée par %s"
 
 L.TIMER_PULL							= "Pull dans"
 L.ANNOUNCE_PULL_MODE					= "Mode de pull : %s"

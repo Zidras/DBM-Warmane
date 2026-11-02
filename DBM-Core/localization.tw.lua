@@ -280,7 +280,7 @@ L.BREAK_MIN						= "%s分鐘後休息時間結束!"
 L.BREAK_SEC						= "%s秒後休息時間結束!"
 L.TIMER_BREAK					= "休息時間!"
 L.ANNOUNCE_BREAK_OVER			= "休息結束於%s"
-L.ANNOUNCE_BREAK_CANCEL		= "休息倒數已被%s取消"
+L.ANNOUNCE_BREAK_CANCEL			= "休息倒數已被%s取消"
 
 L.TIMER_PULL					= "戰鬥準備"
 L.ANNOUNCE_PULL_MODE			= "難度：%s"
